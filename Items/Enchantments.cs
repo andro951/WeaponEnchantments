@@ -139,6 +139,13 @@ namespace WeaponEnchantments.Items
 					// /\Old/\
 					*/
 
+
+					//I think this tracks all NPCIDs use to set all npcs to drop essence
+					//int num = NPCID.FromNetId(id);
+
+
+
+
 					// \/New\/
 					Recipe recipe = CreateRecipe(1);
 					recipe.ReplaceResult(freeItems[i]);
