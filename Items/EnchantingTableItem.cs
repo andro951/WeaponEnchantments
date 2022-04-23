@@ -5,15 +5,16 @@ using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items
 {
-	public class EnchantingTable : ModItem
+	public class EnchantingTableItem : ModItem
 	{
 		public int enchantingTableTier = -1;
-
+		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
+		public static int[] IDs = new int[enchantingTableNames.Length];
 		public override void SetStaticDefaults()
 		{
 			if (enchantingTableTier > -1)
 			{
-				DisplayName.SetDefault(Utility.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+				DisplayName.SetDefault(EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 			}
 		}
 		public override void SetDefaults()
@@ -57,7 +58,7 @@ namespace WeaponEnchantments.Items
 				if (enchantingTableTier > 0)
 				{
 					recipe.AddTile(TileID.WorkBenches);
-					recipe.AddIngredient(Mod, Utility.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+					recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
 				}
 				switch (enchantingTableTier)
 				{
@@ -80,26 +81,28 @@ namespace WeaponEnchantments.Items
 						break;
 				}
 				recipe.Register();
+				ModItemID.Add(this.Name, this.Type);
+				IDs[enchantingTableTier] = this.Type;
 			}
 		}
 
-		public class WoodEnchantingTable : EnchantingTable
+		public class WoodEnchantingTable : EnchantingTableItem
 		{
 			WoodEnchantingTable() { enchantingTableTier = 0; }
 		}
-		public class DustyEnchantingTable : EnchantingTable
+		public class DustyEnchantingTable : EnchantingTableItem
 		{
 			DustyEnchantingTable() { enchantingTableTier = 1; }
 		}
-		public class HellishEnchantingTable : EnchantingTable
+		public class HellishEnchantingTable : EnchantingTableItem
 		{
 			HellishEnchantingTable() { enchantingTableTier = 2; }
 		}
-		public class SoulEnchantingTable : EnchantingTable
+		public class SoulEnchantingTable : EnchantingTableItem
 		{
 			SoulEnchantingTable() { enchantingTableTier = 3; }
 		}
-		public class UltimateEnchantingTable : EnchantingTable
+		public class UltimateEnchantingTable : EnchantingTableItem
 		{
 			UltimateEnchantingTable() { enchantingTableTier = 4; }
 		}

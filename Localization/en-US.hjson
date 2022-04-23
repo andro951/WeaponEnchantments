@@ -1,0 +1,9 @@
+﻿Mods: {
+	WeaponEnchantments: {
+		Buttons: {
+			Enchant: Enchant
+			Disenchant: Disenchant
+			Offer: Offer
+		}
+	}
+}

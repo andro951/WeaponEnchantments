@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader.UI;
+using WeaponEnchantments.Common;
+using log4net;
 
 namespace WeaponEnchantments.Common
 {
@@ -11,9 +17,9 @@ namespace WeaponEnchantments.Common
 		//Main.NewText("Test"); //Prints message in game.
 		//Mod.Logger.Debug("Tpye: " + Type.ToString() + " enchantingTableTier: " + enchantingTableTier.ToString());
 
-		//public readonly Mod Mod;
-		public static string[] rarity = new string[5] { "Common", "Uncommon", "Rare", "SuperRare", "UltraRare" };
-		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
+		//ModContent.GetInstance<WeaponEnchantments>();
+        //Mod.Logger.Debug("WEPlayers.cs Initialize()");
+		
 		/*
 		public ModItem GetItem(Mod mod, string itemName)
 		{

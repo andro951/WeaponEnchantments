@@ -4,13 +4,19 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.UI;
 using WeaponEnchantments.Common;
+using log4net;
+using System.Collections.Generic;
 
 namespace WeaponEnchantments.Items
 {
 	public class Enchantments : ModItem
 	{
-		protected int enchantmentSize;
+		protected int enchantmentSize  = -1;
 		protected float enchantmentStrength;
+		public static string[] rarity = new string[5] { "Common", "Uncommon", "Rare", "SuperRare", "UltraRare" };
+		public static int[] ID = new int[rarity.Length];
+		public static List<int[]> IDs = new List<int[]>();
+		public static string[] enchantmentTypeNames = new string[1] { "Damage" };
 		//public override string Texture => "WeaponEnchantments/Items/DamageEnchantmentCommon";
 		public override void SetDefaults()
 		{
@@ -63,10 +69,19 @@ namespace WeaponEnchantments.Items
 		}
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
-			//recipe.AddIngredient(ItemID.DirtBlock, 10);
-			//recipe.AddTile(TileID.WorkBenches);
-			recipe.Register();
+			if (enchantmentSize > -1)
+			{
+				Recipe recipe = CreateRecipe();
+				//recipe.AddIngredient(ItemID.DirtBlock, 10);
+				//recipe.AddTile(TileID.WorkBenches);
+				recipe.Register();
+				ModItemID.Add(this.Name, this.Type);
+				ID[enchantmentSize] = this.Type;
+				if(enchantmentSize == rarity.Length - 1)
+                {
+					IDs.Add(ID);
+                }
+			}
 		}
 
 		public class OmniEnchantment : Enchantments
@@ -89,7 +104,8 @@ namespace WeaponEnchantments.Items
 						player.GetCritChance(DamageClass.Melee) += 3;
 						player.GetCritChance(DamageClass.Magic) += 3;
 						player.maxMinions++;
-						player.statManaMax2 += 40;
+						player.statManaMax += 500;
+						player.statManaMax2 += 500;
 						player.armorPenetration += 5;
 						player.meleeSpeed += 1f;
 						player.moveSpeed += 0.5f;
@@ -115,7 +131,7 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[10] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735};
+			private int[] freeItems = new int[14] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076};
 			public override void AddRecipes()
 			{
 
@@ -145,13 +161,16 @@ namespace WeaponEnchantments.Items
 
 
 
+					//Recipe recipe = CreateRecipe();
+					//recipe.ReplaceResult(freeItems[i]);
+					//recipe.AddIngredient(ItemID.Wood, 1);
+					//recipe.AddTile(TileID.WorkBenches);
+					//recipe.Register();
+					//ModItemID.Add(this.Name, this.Type);
+
 
 					// \/New\/
-					Recipe recipe = CreateRecipe(1);
-					recipe.ReplaceResult(freeItems[i]);
-					recipe.AddIngredient(ItemID.Wood, 1);
-					recipe.AddTile(TileID.WorkBenches);
-					recipe.Register();
+					Mod.CreateRecipe(freeItems[i], 1).AddIngredient(ItemID.Wood, 1).AddTile(TileID.WorkBenches).Register();
 					// /\New/\
 				}
 			}

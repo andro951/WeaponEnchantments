@@ -8,11 +8,14 @@ namespace WeaponEnchantments.Items
 	public class EnchantmentEssence : ModItem
 	{
 		protected int essenceRarity = -1;
+		public static string[] rarity = new string[5] { "Common", "Uncommon", "Rare", "SuperRare", "UltraRare" };
+		public static int[] IDs = new int[rarity.Length];
+		public const int maxStack = 100000;
 		public override void SetDefaults()
 		{
 			Item.value = (int)(100 * Math.Pow(8, essenceRarity));
 			Tooltip.SetDefault("Item value: " + Item.value.ToString());
-			Item.maxStack = 100000;
+			Item.maxStack = maxStack;
 			//DisplayName.SetDefaults("");
 			//Tooltip.SetDefault("");
 			switch (essenceRarity)
@@ -41,7 +44,7 @@ namespace WeaponEnchantments.Items
 		}
 		public override void AddRecipes()
 		{
-			for (int i = 0; i <= 4; i++)
+			for (int i = 0; i < rarity.Length; i++)
 			{
 				if (essenceRarity > -1)
 				{
@@ -49,21 +52,29 @@ namespace WeaponEnchantments.Items
 					Recipe recipe = CreateRecipe();
 					if (essenceRarity > 0)
 					{
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + Utility.rarity[essenceRarity - 1], 8 - i);
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + rarity[essenceRarity - 1], 8 - i);
 					}
-					recipe.AddTile(Mod, Utility.enchantingTableNames[i] + "EnchantingTable"); //Put this inside if(essenceRarity >0) when not testing
+					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable"); //Put this inside if(essenceRarity >0) when not testing
 					recipe.Register(); //Put this inside if(essenceRarity >0) when not testing
-				}
-				if (essenceRarity < 4 && essenceRarity > -1)
-				{
-					Recipe recipe = CreateRecipe();
-					recipe.AddIngredient(Mod, "EnchantmentEssence" + Utility.rarity[essenceRarity + 1], 1);
-					recipe.createItem.stack = 2 + i / 2;
-					recipe.AddTile(Mod, Utility.enchantingTableNames[i] + "EnchantingTable");
-					recipe.Register();
+
+					if (essenceRarity < rarity.Length - 1)
+					{
+						recipe = CreateRecipe();
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + rarity[essenceRarity + 1], 1);
+						recipe.createItem.stack = 2 + i / 2;
+						recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
+						recipe.Register();
+					}
+					ModItemID.Add(this.Name, this.Type);
+					IDs[essenceRarity] = this.Type;
 				}
 			}
 		}
+
+		public static int GetEssenceTier(Item I)
+        {
+			return I.type - IDs[0];//Cheating instead of doing a for loop
+        }
 		public class EnchantmentEssenceCommon : EnchantmentEssence
 		{
 			EnchantmentEssenceCommon() { essenceRarity = 0; }

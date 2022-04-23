@@ -1,10 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.UI;
+using WeaponEnchantments;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Items;
+using WeaponEnchantments.UI.WeaponEnchantmentUI;
 
 namespace WeaponEnchantments.Tiles.Furniture
 {
@@ -33,6 +40,7 @@ namespace WeaponEnchantments.Tiles.Furniture
 				TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 				TileObjectData.newTile.CoordinateHeights = new[] { 34 };
 				TileObjectData.newTile.DrawYOffset = -16;
+				TileObjectData.newTile.LavaDeath = false;
 				TileObjectData.addTile(Type);
 
 				AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
@@ -40,7 +48,7 @@ namespace WeaponEnchantments.Tiles.Furniture
 
 				// Etc
 				ModTranslation name = CreateMapEntryName();
-				name.SetDefault(Utility.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+				name.SetDefault(EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 				AddMapEntry(new Color(200, 200, 200), name);
 			}
 		}
@@ -61,26 +69,77 @@ namespace WeaponEnchantments.Tiles.Furniture
                 switch (enchantingTableTier)
                 {
 					case 0:
-						tableType = ModContent.ItemType<Items.EnchantingTable.WoodEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTableItem.WoodEnchantingTable>();
 						break;
 					case 1:
-						tableType = ModContent.ItemType<Items.EnchantingTable.DustyEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTableItem.DustyEnchantingTable>();
 						break;
 					case 2:
-						tableType = ModContent.ItemType<Items.EnchantingTable.HellishEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTableItem.HellishEnchantingTable>();
 						break;
 					case 3:
-						tableType = ModContent.ItemType<Items.EnchantingTable.SoulEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTableItem.SoulEnchantingTable>();
 						break;
 					case 4:
-						tableType = ModContent.ItemType<Items.EnchantingTable.UltimateEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTableItem.UltimateEnchantingTable>();
 						break;
 				}
 				//Mod.Logger.Debug("enchantingTableTier: " + enchantingTableTier.ToString());
 				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
+				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+				wePlayer.enchantingTableUI.OnDeactivate();
 			}
 		}
-		public class WoodEnchantingTable : EnchantingTableTile
+		public override bool RightClick(int x, int y)
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			wePlayer.enchantingTableTier = enchantingTableTier;
+			Tile tile = Main.tile[x, y];
+			Main.mouseRightRelease = false;
+			int left = x;
+			int top = y;
+			if(tile.TileFrameX % 36 != 0)//Not sure why this is here
+            {
+				left--;
+            }
+			if(tile.TileFrameY != 0)//Not sure why this is here
+			{
+				top--;
+            }
+			WEModSystem.ToggleWeaponEnchantmentUI();
+			Recipe.FindRecipes();
+			return true;
+		}
+        public override void MouseOver(int x, int y)
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			Tile tile = Main.tile[x, y];
+			int left = x;
+			int top = y;
+			if (tile.TileFrameX % 36 != 0)//Dont know what theese are for
+			{
+				left--;
+			}
+			if (tile.TileFrameY != 0)//Dont know what theese are for
+			{
+				top--;
+			}
+			//wePlayer.Player.cursorItemIconText = EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table";
+			wePlayer.Player.cursorItemIconID = EnchantingTableItem.IDs[enchantingTableTier];
+			wePlayer.Player.noThrow = 2;
+			wePlayer.Player.cursorItemIconEnabled = true;
+		}
+        public override void MouseOverFar(int x, int y)
+        {
+            MouseOver(x, y);
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if(wePlayer.Player.cursorItemIconText == "")
+            {
+				wePlayer.Player.cursorItemIconEnabled = false;
+				wePlayer.Player.cursorItemIconID = 0;
+            }
+		}
+        public class WoodEnchantingTable : EnchantingTableTile
         {
             WoodEnchantingTable() { enchantingTableTier = 0; }
 		}
