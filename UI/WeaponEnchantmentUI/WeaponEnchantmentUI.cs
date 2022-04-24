@@ -16,6 +16,7 @@ using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using WeaponEnchantments;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Common.GlobalItems;
 
 namespace WeaponEnchantments.UI.WeaponEnchantmentUI
 {
@@ -35,6 +36,9 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
             public const int Enchantment = 1;
             public const int Essence = 2;
         }
+
+        public const bool PR = true;
+
 		public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer" };
         public const float buttonScaleMinimum = 0.75f;
         public const float buttonScaleMaximum = 1f;
@@ -44,9 +48,9 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
         private UIText titleText;
         private UIPanel[] button = new UIPanel[ButtonID.Count];
         private List<UIPanel> panels;
-        private WEUIItemSlot[] itemSlotUI = new WEUIItemSlot[EnchantingTable.maxItems];
-        private WEUIItemSlot[] enchantmentSlotUI = new WEUIItemSlot[EnchantingTable.maxEnchantments];
-        private WEUIItemSlot[] essenceSlotUI = new WEUIItemSlot[EnchantingTable.maxEssenceItems];
+        public WEUIItemSlot[] itemSlotUI = new WEUIItemSlot[EnchantingTable.maxItems];
+        public WEUIItemSlot[] enchantmentSlotUI = new WEUIItemSlot[EnchantingTable.maxEnchantments];
+        public WEUIItemSlot[] essenceSlotUI = new WEUIItemSlot[EnchantingTable.maxEssenceItems];
 
         private readonly static Color bgColor = new Color(73, 94, 171);
         private readonly static Color hoverColor = new Color(100, 118, 184);
@@ -64,65 +68,115 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
 
         public override void OnInitialize()//*
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Width.Pixels = width;
-            Height.Pixels = height;
-            Top.Pixels = int.MaxValue / 2;
-            Left.Pixels = int.MaxValue / 2;
-
-            panels = new List<UIPanel>();
-
-            float nextElementY = -PaddingTop / 2;
-
-            titleText = new UIText("Item           Enchantments      Utility  ")
+            if (PR)
             {
-                Top = { Pixels = nextElementY },
-                Left = { Pixels = 0 },
-                HAlign = 0.5f
-            };
-            Append(titleText);
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                Width.Pixels = width;
+                Height.Pixels = height;
+                Top.Pixels = int.MaxValue / 2;
+                Left.Pixels = int.MaxValue / 2;
 
-            nextElementY += 20;
-            //Edit sprite size and change constructor to have color or png name argument.
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
-            {
-                //wePlayer.enchantingTableUI.itemSlotUI = new UIItemSlot(wePlayer.enchantingTable.item, wePlayer.enchantingTable.item.Length, ItemSlotContext.Item)
-                wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.ChestItem)//Vanilla Main.CreativeMenuc.ProvideItemSlotElement(0)    Only ever calls ItemIndex 0, not sure what to do?
+                panels = new List<UIPanel>();
+
+                float nextElementY = -PaddingTop / 2;
+
+                titleText = new UIText("Item           Enchantments      Utility  ")
                 {
-                    Left = { Pixels = -145f },
                     Top = { Pixels = nextElementY },
+                    Left = { Pixels = 0 },
                     HAlign = 0.5f
                 };
-                wePlayer.enchantingTableUI.itemSlotUI[i].OnEmptyMouseover += (timer) =>
+                Append(titleText);
+
+                nextElementY += 20;
+                //Edit sprite size and change constructor to have color or png name argument.
+                for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
-                    Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
-                    if (timer > 60)
+                    //wePlayer.enchantingTableUI.itemSlotUI = new UIItemSlot(wePlayer.enchantingTable.item, wePlayer.enchantingTable.item.Length, ItemSlotContext.Item)
+                    wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.ChestItem)//Vanilla Main.CreativeMenuc.ProvideItemSlotElement(0)    Only ever calls ItemIndex 0, not sure what to do?
                     {
-                        Main.hoverItemName =
-                        "       Place a weapon, piece of armor or accessory here.       "
-                    + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                    + "\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          ";
+                        Left = { Pixels = -145f },
+                        Top = { Pixels = nextElementY },
+                        HAlign = 0.5f,
+                        ValidItemFunc = item => item.IsAir || WEMod.IsEnchantable(item)
+                    };
+                    wePlayer.enchantingTableUI.itemSlotUI[i].OnEmptyMouseover += (timer) =>
+                    {
+                        Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
+                        if (timer > 60)
+                        {
+                            Main.hoverItemName =
+                            "       Place a weapon, piece of armor or accessory here.       "
+                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
+                        + "\n       Using weapon Enchantments on armor or accessories       " +
+                            "\n          provides diminished bonuses and vice versa.          ";
+                        }
+                    };
+                    //wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
+                    //wePlayer.enchantingTable.item[i].stack = 0;
+                    Append(wePlayer.enchantingTableUI.itemSlotUI[i]);
+                }
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    if (i < EnchantingTable.maxEnchantments - 1)
+                    {
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem)
+                        {
+                            Left = { Pixels = -67f + 47.52f * i },
+                            Top = { Pixels = nextElementY },
+                            HAlign = 0.5f,
+                            ValidItemFunc = item => item.IsAir || WEMod.IsEnchantmentItem(item, false)
+                        };
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnEmptyMouseover += (timer) =>
+                        {
+                            Main.hoverItemName = "                   Place Enchantments here.                    "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
+                        if (timer > 60)
+                            {
+                                Main.hoverItemName =
+                            "                   Place Enchantments here.                    "
+                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
+                        + "\n       Using weapon Enchantments on armor or accessories       " +
+                            "\n          provides diminished bonuses and vice versa.          ";
+                            }
+                        };
                     }
-                };
-                //wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
-                //wePlayer.enchantingTable.item[i].stack = 0;
-                Append(wePlayer.enchantingTableUI.itemSlotUI[i]);
-            }
-            for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-            wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem)
+                    else
+                    {
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem)
+                        {
+                            Left = { Pixels = -67f + 47.52f * i },
+                            Top = { Pixels = nextElementY },
+                            HAlign = 0.5f,
+                            ValidItemFunc = item => item.IsAir || WEMod.IsEnchantmentItem(item, true)
+                        };
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnEmptyMouseover += (timer) =>
+                        {
+                            Main.hoverItemName = "            Only utility Enchantments can go here.             "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
+                        if (timer > 60)
+                            {
+                                Main.hoverItemName =
+                            "            Only utility Enchantments can go here.             "
+                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
+                        + "\n       Using weapon Enchantments on armor or accessories       " +
+                            "\n          provides diminished bonuses and vice versa.          ";
+                            }
+                        };
+                    }
+                    Append(wePlayer.enchantingTableUI.enchantmentSlotUI[i]);
+                }
+                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
-                    Left = { Pixels = -67f + 47.52f * i},
-                    Top = { Pixels = nextElementY },
-                    HAlign = 0.5f,
-                };
-                if (i < EnchantingTable.maxEnchantments - 1)
-                {
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnEmptyMouseover += (timer) =>
+                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.InventoryCoin)//Copy to be same as code above
+                    {
+                        Left = { Pixels = -67f + 47.52f * i },
+                        Top = { Pixels = nextElementY + 60 },
+                        HAlign = 0.5f,
+                        ValidItemFunc = item => item.IsAir || WEMod.IsEssenceItem(item)
+                    };
+                    wePlayer.enchantingTableUI.essenceSlotUI[i].OnEmptyMouseover += (timer) =>
                     {
                         Main.hoverItemName = "                   Place Enchantments here.                    "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                        if (timer > 60)
+                    if (timer > 60)
                         {
                             Main.hoverItemName =
                         "                   Place Enchantments here.                    "
@@ -131,93 +185,55 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
                         "\n          provides diminished bonuses and vice versa.          ";
                         }
                     };
+                    Append(wePlayer.enchantingTableUI.essenceSlotUI[i]);
                 }
-                else
+
+                nextElementY += 50;
+
+                float ratioFromCenter = 0.22f;
+
+                button[ButtonID.Enchant] = new UIPanel()
                 {
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnEmptyMouseover += (timer) =>
-                    {
-                        Main.hoverItemName = "            Only utility Enchantments can go here.             "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                        if (timer > 60)
-                        {
-                            Main.hoverItemName =
-                        "            Only utility Enchantments can go here.             "
-                    + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                    + "\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          ";
-                        }
-                    };
-                }
-                Append(wePlayer.enchantingTableUI.enchantmentSlotUI[i]);
-            }
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-            {
-                wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.InventoryCoin)//Copy to be same as code above
-                {
-                    Left = { Pixels = -67f + 47.52f * i},
-                    Top = { Pixels = nextElementY + 60},
-                    HAlign = 0.5f,
+                    Top = { Pixels = nextElementY },
+                    Left = { Pixels = -66 },
+                    Width = { Pixels = 100f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f - ratioFromCenter,
+                    BackgroundColor = bgColor
                 };
-                wePlayer.enchantingTableUI.essenceSlotUI[i].OnEmptyMouseover += (timer) =>
+                button[ButtonID.Enchant].OnClick += (evt, element) => { Enchant(); };
+
+                UIText enchantButonText = new UIText("Enchant")
                 {
-                    Main.hoverItemName = "                   Place Enchantments here.                    "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                    if (timer > 60)
-                    {
-                        Main.hoverItemName =
-                    "                   Place Enchantments here.                    "
-                + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                + "\n       Using weapon Enchantments on armor or accessories       " +
-                    "\n          provides diminished bonuses and vice versa.          ";
-                    }
+                    Top = { Pixels = -4f },
+                    Left = { Pixels = 5f }
                 };
-                Append(wePlayer.enchantingTableUI.essenceSlotUI[i]);
+                button[ButtonID.Enchant].Append(enchantButonText);
+                Append(button[ButtonID.Enchant]);
+                panels.Add(button[ButtonID.Enchant]);
+
+                nextElementY += 35;
+
+                button[ButtonID.Disenchant] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY },
+                    Left = { Pixels = -66 },
+                    Width = { Pixels = 100f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f - ratioFromCenter,
+                    BackgroundColor = bgColor
+                };
+                button[ButtonID.Disenchant].OnClick += (evt, element) => { Disenchant(); }; //Change this  Not origionally in code but I'll need it.
+
+                UIText disenchantButtonText = new UIText("Disenchant")
+                {
+                    Top = { Pixels = -4f },
+                    Left = { Pixels = -6f }
+                };
+                button[ButtonID.Disenchant].Append(disenchantButtonText);
+                Append(button[ButtonID.Disenchant]);
+                panels.Add(button[ButtonID.Disenchant]);
             }
-
-            nextElementY += 50;
-            
-            float ratioFromCenter = 0.22f;
-
-            button[ButtonID.Enchant] = new UIPanel()
-            {
-                Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 },
-                Width = { Pixels = 100f },
-                Height = { Pixels = 30f },
-                HAlign = 0.5f - ratioFromCenter,
-                BackgroundColor = bgColor
-            };
-            button[ButtonID.Enchant].OnClick += (evt, element) => { Enchant(); };
-
-            UIText enchantButonText = new UIText("Enchant")
-            {
-                Top = { Pixels = -4f },
-                Left = { Pixels = 5f }
-            };
-            button[ButtonID.Enchant].Append(enchantButonText);
-            Append(button[ButtonID.Enchant]);
-            panels.Add(button[ButtonID.Enchant]);
-
-            nextElementY += 35;
-
-            button[ButtonID.Disenchant] = new UIPanel()
-            {
-                Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 },
-                Width = { Pixels = 100f },
-                Height = { Pixels = 30f },
-                HAlign = 0.5f - ratioFromCenter,
-                BackgroundColor = bgColor
-            };
-            button[ButtonID.Disenchant].OnClick += (evt, element) => { Disenchant(); }; //Change this  Not origionally in code but I'll need it.
-
-            UIText disenchantButtonText = new UIText("Disenchant")
-            {
-                Top = { Pixels = -4f },
-                Left = { Pixels = -6f }
-            };
-            button[ButtonID.Disenchant].Append(disenchantButtonText);
-            Append(button[ButtonID.Disenchant]);
-            panels.Add(button[ButtonID.Disenchant]);
-
         }
         public override void OnActivate()//*
         {
@@ -273,6 +289,7 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
         protected override void DrawSelf(SpriteBatch spriteBatch)//*
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            /* PR version works fine without this
             if (firstDraw)
             {
                 firstDraw = false;
@@ -284,25 +301,29 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
                 wePlayer.Player.cursorItemIconEnabled = false;
                 Main.ItemIconCacheUpdate(0);
             }
+            */
+
+
             //From vaninna loook at again
-            /*
-            if (wePlayer.usingEnchantingTable && !Main.recBigList)
+            if (!PR)
             {
-                Main.inventoryScale = 0.755f;
-                if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, 73f, Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
-                    Main.player[Main.myPlayer].mouseInterface = true;
-                DrawButtons(spriteBatch);
-                DrawSlots(spriteBatch);
-            }
-            else
-            {
-                for (int i = 0; i < ButtonID.Count; i++)
+                if (wePlayer.usingEnchantingTable && !Main.recBigList)
                 {
-                    ButtonScale[i] = 0.75f;
-                    ButtonHovered[i] = false;
+                    Main.inventoryScale = 0.755f;
+                    if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, 73f, Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
+                        Main.player[Main.myPlayer].mouseInterface = true;
+                    DrawButtons(spriteBatch);
+                    DrawSlots(spriteBatch);
+                }
+                else
+                {
+                    for (int i = 0; i < ButtonID.Count; i++)
+                    {
+                        ButtonScale[i] = 0.75f;
+                        ButtonHovered[i] = false;
+                    }
                 }
             }
-            */
             base.DrawSelf(spriteBatch);
         }
 
@@ -427,16 +448,38 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
         private static void Enchant()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            SoundEngine.PlaySound(SoundID.MenuTick);
-            wePlayer.enchantingTableUI.itemSlotUI[0].Item.type++;
+            if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            {
+                SoundEngine.PlaySound(SoundID.MaxMana);
+                //wePlayer.enchantingTableUI.itemSlotUI[0].Item.damage *= 2;
+                //wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>(wePlayer.enchantingTableUI.enchantmentSlotUI);
+                EnchantedItem enchantedItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>();
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    {
+                        enchantedItem.enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                        //wePlayer.enchantingTableUI.itemSlotUI[0].Item.damage = (int)(1.1f * wePlayer.enchantingTableUI.itemSlotUI[0].Item.damage);
+                    }
+                }
+                //wePlayer.enchantingTableUI.itemSlotUI[0].Item.type++;
+            }
+            else
+            {
+                SoundEngine.PlaySound(SoundID.MenuTick);
+            }
         }
         private static void Disenchant()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            SoundEngine.PlaySound(SoundID.MenuTick);
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
-                wePlayer.enchantingTableUI.itemSlotUI[0].Item.type--;
+                SoundEngine.PlaySound(SoundID.MaxMana);
+                wePlayer.enchantingTableUI.itemSlotUI[0].Item.damage = ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].damage;
+            }
+            else
+            {
+                SoundEngine.PlaySound(SoundID.MenuTick);
             }
             //Dont forget to check if created essence + essence in table > maxStack and spawn diff
         }

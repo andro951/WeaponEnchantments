@@ -44,6 +44,7 @@ namespace WeaponEnchantments.UI.WeaponEnchantmentUI
 		internal bool Valid(Item item)
 		{
 			return ValidItemFunc(item);
+			
 		}
 
 		internal void HandleMouseItem()

@@ -5,27 +5,69 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments
 {
     internal class WEMod : Mod
     {
 		internal static ModKeybind WeaponEnchantmentUIHotkey;
+		internal static bool IsEnchantable(Item item)
+        {
+			if(IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
+            {
+				return true;
+			}
+            else
+            {
+				return false;
+            }
+        }
 		internal static bool IsWeaponItem(Item item)
 		{
-			//return item.type > ItemID.None && item.shoot > ProjectileID.None && //Change
-			//item.buffType > 0 && item.buffType < Main.vanityPet.Length && //Change
-			//(Main.vanityPet[item.buffType] || Main.lightPet[item.buffType]); //Change
-			return true; //Temporary
+			return item.damage > 0;
 		}
 		internal static bool IsArmorItem(Item item)
 		{
-			return true;//Temportary
+			return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
 		}
 		internal static bool IsAccessoryItem(Item item)
 		{
-			return true;//Temporary
+			return item.accessory == true;
 		}
+		internal static bool IsEnchantmentItem(Item item, bool utility)
+        {
+			for (int i = 0; i < Enchantments.IDs.Count; i++)
+            {
+				for(int j = 0; j < Enchantments.rarity.Length; j++)
+                {
+					if(Enchantments.IDs[i][j] == item.type)
+                    {
+						return true;
+                    }
+                }
+            }
+			return false;
+            /*try
+            {
+				if(((Enchantments)item.ModItem) != null)
+                {
+					return true;
+				}
+                else
+                {
+					return false;
+                }			
+			}
+            catch (InvalidCastException)
+            {
+				return false;
+			}*/
+        }
+		internal static bool IsEssenceItem(Item item)
+        {
+			return true;
+        }
 		public override void Load()
 		{
 			WeaponEnchantmentUIHotkey = KeybindLoader.RegisterKeybind(this, "Enchant Weapon", "P");//Temporary

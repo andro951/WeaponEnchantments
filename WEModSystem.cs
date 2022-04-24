@@ -31,6 +31,7 @@ namespace WeaponEnchantments
                 mouseoverUI.Activate();
                 mouseoverUIInterface = new UserInterface();
                 mouseoverUIInterface.SetState(mouseoverUI);
+                
             }
         }
         public override void Unload()//*
@@ -53,16 +54,25 @@ namespace WeaponEnchantments
                 SoundEngine.PlaySound(SoundID.MenuClose);
                 wePlayer.enchantingTable.Close();//move here if still needed
                 wePlayer.enchantingTableUI.OnDeactivate();//move here if still needed
-                weModSystemUI.SetState(null);
+
+                if (WeaponEnchantmentUI.PR)
+                {
+                    weModSystemUI.SetState(null);
+                }
             }
             else
             {
                 wePlayer.enchantingTableUI = new WeaponEnchantmentUI();//Defined in player instead
                 wePlayer.usingEnchantingTable = true;
                 SoundEngine.PlaySound(SoundID.MenuOpen);
-                UIState state = new UIState();
-                state.Append(wePlayer.enchantingTableUI);
-                weModSystemUI.SetState(state);
+
+                if (WeaponEnchantmentUI.PR)
+                {
+                    UIState state = new UIState();
+                    state.Append(wePlayer.enchantingTableUI);
+                    weModSystemUI.SetState(state);
+                }
+
                 wePlayer.enchantingTable.Open();
                 wePlayer.enchantingTableUI.OnActivate();
             }
