@@ -7,10 +7,11 @@ namespace WeaponEnchantments.Items
 {
 	public class EnchantmentEssence : ModItem
 	{
-		protected int essenceRarity = -1;
-		public static string[] rarity = new string[5] { "Common", "Uncommon", "Rare", "SuperRare", "UltraRare" };
+		public int essenceRarity = -1;
+		public static string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static int[] IDs = new int[rarity.Length];
 		public const int maxStack = 100000;
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults()
 		{
 			Item.value = (int)(100 * Math.Pow(8, essenceRarity));
@@ -48,7 +49,7 @@ namespace WeaponEnchantments.Items
 			{
 				if (essenceRarity > -1)
 				{
-					//Dont sell common/uncommon/rare with NPC!!!
+					//Dont sell basic/common/rare with NPC!!!
 					Recipe recipe = CreateRecipe();
 					if (essenceRarity > 0)
 					{
@@ -65,7 +66,6 @@ namespace WeaponEnchantments.Items
 						recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 						recipe.Register();
 					}
-					ModItemID.Add(this.Name, this.Type);
 					IDs[essenceRarity] = this.Type;
 				}
 			}
@@ -75,13 +75,13 @@ namespace WeaponEnchantments.Items
         {
 			return I.type - IDs[0];//Cheating instead of doing a for loop
         }
+		public class EnchantmentEssenceBasic : EnchantmentEssence
+		{
+			EnchantmentEssenceBasic() { essenceRarity = 0; }
+		}
 		public class EnchantmentEssenceCommon : EnchantmentEssence
 		{
-			EnchantmentEssenceCommon() { essenceRarity = 0; }
-		}
-		public class EnchantmentEssenceUncommon : EnchantmentEssence
-		{
-			EnchantmentEssenceUncommon() { essenceRarity = 1; }
+			EnchantmentEssenceCommon() { essenceRarity = 1; }
 		}
 		public class EnchantmentEssenceRare : EnchantmentEssence
 		{

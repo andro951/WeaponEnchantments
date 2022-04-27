@@ -10,9 +10,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI.Chat;
-using WeaponEnchantments.UI.WeaponEnchantmentUI;
 using WeaponEnchantments.Common;
- 
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments
 { 
@@ -20,6 +19,9 @@ namespace WeaponEnchantments
     {
         public bool usingEnchantingTable;
         public int enchantingTableTier;
+        public bool itemInEnchantingTable;
+        public bool[] enchantmentInEnchantingTable = new bool[EnchantingTable.maxEnchantments];
+        public Item itemBeingEnchanted;
         public EnchantingTable enchantingTable = new EnchantingTable();
         public WeaponEnchantmentUI enchantingTableUI = new WeaponEnchantmentUI();
 
@@ -46,12 +48,18 @@ namespace WeaponEnchantments
                     tag["enchantingTableItem" + i.ToString()] = wePlayer.enchantingTable.item[i];
                 }
             }
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if (wePlayer?.enchantingTableUI?.itemSlotUI[0]?.Item != null)
             {
-                if (!wePlayer.enchantingTable.enchantmentItem[i].IsAir)
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
-                    tag["enchantingTableEnchantmentItem" + i.ToString()] = wePlayer.enchantingTable.enchantmentItem[i];
-                }
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (!wePlayer.enchantingTable.enchantmentItem[i].IsAir)
+                        {
+                            tag["enchantingTableEnchantmentItem" + i.ToString()] = wePlayer.enchantingTable.enchantmentItem[i];
+                        }
+                    }
+                }//enchantments in the enchantmentSlots are saved by global items.  This is just in case enchantment items are left in after Offering items.
             }
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
@@ -71,20 +79,22 @@ namespace WeaponEnchantments
                     wePlayer.enchantingTable.item[i] = new Item();
                 }
                 else
-                { 
+                {
                     wePlayer.enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
                 }
-                //wePlayer.enchantingTableUI.itemSlotUI[i].Item.stack = 0;
             }
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)//enchantments in the enchantmentSlots are loaded by global items.  This is just in case enchantment items are left in after Offering items.
             {
-                if (tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString()).IsAir)
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    wePlayer.enchantingTable.enchantmentItem[i] = new Item();
-                }
-                else
-                {
-                    wePlayer.enchantingTable.enchantmentItem[i] = tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString());
+                    if (tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString()).IsAir)
+                    {
+                        wePlayer.enchantingTable.enchantmentItem[i] = new Item();
+                    }
+                    else
+                    {
+                        wePlayer.enchantingTable.enchantmentItem[i] = tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString());
+                    }
                 }
             }
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)

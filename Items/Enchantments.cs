@@ -12,93 +12,109 @@ namespace WeaponEnchantments.Items
 {
 	public class Enchantments : ModItem
 	{
+		public class EnchantmentTypeIDs
+        {
+			internal static readonly int Damage = 0;
+			internal static readonly int Critical = 1;
+			internal static readonly int Size = 2;
+        }
+
 		public int enchantmentSize = -1;
 		public float enchantmentStrength;
-		public static string[] rarity = new string[5] { "Common", "Uncommon", "Rare", "SuperRare", "UltraRare" };
+		public static string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[2] { "Damage", "Critical" };
-		public static int shortestEnchantmentTypeName = 6;//DONT FORGET TO UPDATE THIS!!!!
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size"};
+		public static string[] utilityEnchantmentIDs = new string[1] { "Size" };
+		public bool utility;
+		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
 		public int enchantmentType = -1;
-		//public override string Texture => "WeaponEnchantments/Items/DamageEnchantmentCommon";
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetDefaults()
 		{
 			if (enchantmentSize > -1)
 			{
 				Item.value = (int)(100 * Math.Pow(20, enchantmentSize));
-				Tooltip.SetDefault("Item value: " + Item.value.ToString());
-				//DisplayName.SetDefaults("");
-				//Tooltip.SetDefault("");
-				switch (enchantmentSize)
-				{
-					case 0:
-						Item.width = 4;
-						Item.height = 4;
-						enchantmentStrength = 0.03f;
-						break;
-					case 1:
-						Item.width = 8;
-						Item.height = 8;
-						enchantmentStrength = 0.08f;
-						break;
-					case 2:
-						Item.width = 12;
-						Item.height = 12;
-						enchantmentStrength = 0.15f;
-						break;
-					case 3:
-						Item.width = 16;
-						Item.height = 16;
-						enchantmentStrength = 0.25f;
-						break;
-					case 4:
-						Item.width = 20;
-						Item.height = 20;
-						enchantmentStrength = 0.40f;
-						break;
-				}
-				/*
-				for (int i = rarity[enchantmentSize].Length + shortestEnchantmentTypeName; i < Name.Length; i++)
-				{
-					if (Name[i] == ' ')
-					{
-						enchantmentTypeName = Name.Substring(rarity[enchantmentSize].Length + shortestEnchantmentTypeName, i - (rarity[enchantmentSize].Length + shortestEnchantmentTypeName) + 1);
-						break;
-					}
-				}
+
 				for (int i = 0; i < enchantmentTypeNames.Length; i++)
 				{
-					if (enchantmentTypeNames[i] == enchantmentTypeName)
+					if (enchantmentTypeNames[i] == Name.Substring(0, enchantmentTypeNames[i].Length))
 					{
+						enchantmentTypeName = enchantmentTypeNames[i];
 						enchantmentType = i;
 					}
 				}
-				*/
-				for(int i = 0; i < enchantmentTypeNames.Length; i++)
-                {
-					if(enchantmentTypeNames[i] == Name.Substring(0, enchantmentTypeNames[i].Length))
-                    {
-						enchantmentTypeName = enchantmentTypeNames[i];
-						enchantmentType = i;
-                    }
-                }
-			}
-		}
-		public override void UpdateInventory(Player player)
-		{
-			for (int i = 16; i < 20; i++)
-			{
-				if (player.inventory[i] == this.Item)
+				for (int i = 0; i < utilityEnchantmentIDs.Length; i++)
 				{
-					UpdateStats();
+					if (enchantmentTypeNames[enchantmentType] == utilityEnchantmentIDs[i])
+					{
+						utility = true;
+					}
 				}
-			};
-		}
-		public virtual void UpdateStats()
-		{
-			;
+				if (enchantmentSize < 2)
+                {
+					Item.width = 10 + 4 * (enchantmentSize);
+					Item.height = 10 + 4 * (enchantmentSize);
+				}
+                else
+				{
+					Item.width = 40;
+					Item.height = 40;
+				}
+                switch (enchantmentTypeName)
+                {
+					case "Size":
+						switch (enchantmentSize)
+						{
+							case 0:
+								enchantmentStrength = 0.1f;
+								break;
+							case 1:
+								enchantmentStrength = 0.2f;
+								break;
+							case 2:
+								enchantmentStrength = 0.50f;
+								break;
+							case 3:
+								enchantmentStrength = 0.8f;
+								break;
+							case 4:
+								enchantmentStrength = 1f;
+								break;
+						}
+						break;
+					default:
+						switch (enchantmentSize)
+						{
+							case 0:
+								enchantmentStrength = 0.03f;
+								break;
+							case 1:
+								enchantmentStrength = 0.08f;
+								break;
+							case 2:
+								enchantmentStrength = 0.15f;
+								break;
+							case 3:
+								enchantmentStrength = 0.25f;
+								break;
+							case 4:
+								enchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+                }
+				if(enchantmentType == EnchantmentTypeIDs.Size)
+                {
+					Tooltip.SetDefault("+" + ((int)(enchantmentStrength * 50)).ToString() + "% " + enchantmentTypeName + "\n+" + ((int)(enchantmentStrength * 100)).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
+				}
+                else
+                {
+					Tooltip.SetDefault("+" + ((int)(enchantmentStrength * 100)).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+				}
+			}
 		}
 		public override void AddRecipes()
 		{
@@ -108,7 +124,6 @@ namespace WeaponEnchantments.Items
 				//recipe.AddIngredient(ItemID.DirtBlock, 10);
 				//recipe.AddTile(TileID.WorkBenches);
 				recipe.Register();
-				ModItemID.Add(this.Name, this.Type);
 				ID[enchantmentSize] = this.Type;
 				if(enchantmentSize == rarity.Length - 1)
                 {
@@ -116,10 +131,14 @@ namespace WeaponEnchantments.Items
                 }
 			}
 		}
+		public int GetLevelCost()
+        {
+			return utility ? (enchantmentSize - 1) / 2 : enchantmentSize;
+        }
 
 		public class OmniEnchantment : Enchantments
 		{
-			OmniEnchantment() { enchantmentSize = 4; }
+			OmniEnchantment() { enchantmentSize = -1; }
 			
 			public override void UpdateInventory(Player player)
 			{
@@ -194,7 +213,7 @@ namespace WeaponEnchantments.Items
 
 
 
-					//Recipe recipe = CreateRecipe();
+					Recipe recipe = CreateRecipe();
 					//recipe.ReplaceResult(freeItems[i]);
 					//recipe.AddIngredient(ItemID.Wood, 1);
 					//recipe.AddTile(TileID.WorkBenches);
@@ -210,13 +229,13 @@ namespace WeaponEnchantments.Items
 
 		}
 
+		public class DamageEnchantmentBasic : Enchantments
+		{
+			DamageEnchantmentBasic() { enchantmentSize = 0; }
+		}
 		public class DamageEnchantmentCommon : Enchantments
 		{
-			DamageEnchantmentCommon() { enchantmentSize = 0; }
-		}
-		public class DamageEnchantmentUncommon : Enchantments
-		{
-			DamageEnchantmentUncommon() { enchantmentSize = 1; }
+			DamageEnchantmentCommon() { enchantmentSize = 1; }
 		}
 		public class DamageEnchantmentRare : Enchantments
 		{
@@ -231,13 +250,13 @@ namespace WeaponEnchantments.Items
 			DamageEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 
+		public class CriticalEnchantmentBasic : Enchantments
+		{
+			CriticalEnchantmentBasic() { enchantmentSize = 0; }
+		}
 		public class CriticalEnchantmentCommon : Enchantments
 		{
-			CriticalEnchantmentCommon() { enchantmentSize = 0; }
-		}
-		public class CriticalEnchantmentUncommon : Enchantments
-		{
-			CriticalEnchantmentUncommon() { enchantmentSize = 1; }
+			CriticalEnchantmentCommon() { enchantmentSize = 1; }
 		}
 		public class CriticalEnchantmentRare : Enchantments
 		{
@@ -250,6 +269,27 @@ namespace WeaponEnchantments.Items
 		public class CriticalEnchantmentUltraRare : Enchantments
 		{
 			CriticalEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class SizeEnchantmentBasic : Enchantments
+		{
+			SizeEnchantmentBasic() { enchantmentSize = 0; }
+		}
+		public class SizeEnchantmentCommon : Enchantments
+		{
+			SizeEnchantmentCommon() { enchantmentSize = 1; }
+		}
+		public class SizeEnchantmentRare : Enchantments
+		{
+			SizeEnchantmentRare() { enchantmentSize = 2; }
+		}
+		public class SizeEnchantmentSuperRare : Enchantments
+		{
+			SizeEnchantmentSuperRare() { enchantmentSize = 3; }
+		}
+		public class SizeEnchantmentUltraRare : Enchantments
+		{
+			SizeEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

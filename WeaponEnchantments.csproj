@@ -10,4 +10,12 @@
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Configs\" />
+    <Folder Include="Content\" />
+    <Folder Include="GameContent\" />
+    <Folder Include="Images\" />
+    <Folder Include="Items\Placeable\" />
+    <Folder Include="UI\WeaponEnchantmentUI\" />
+  </ItemGroup>
 </Project>

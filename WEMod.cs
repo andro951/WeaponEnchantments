@@ -11,7 +11,6 @@ namespace WeaponEnchantments
 {
     internal class WEMod : Mod
     {
-		internal static ModKeybind WeaponEnchantmentUIHotkey;
 		internal static bool IsEnchantable(Item item)
         {
 			if(IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
@@ -37,52 +36,51 @@ namespace WeaponEnchantments
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {
-			for (int i = 0; i < Enchantments.IDs.Count; i++)
+			if(item.ModItem is Enchantments)
             {
-				for(int j = 0; j < Enchantments.rarity.Length; j++)
+                if (utility)
                 {
-					if(Enchantments.IDs[i][j] == item.type)
+                    if (((Enchantments)item.ModItem).utility)
                     {
 						return true;
                     }
+                    else
+                    {
+						return false;
+                    }
                 }
-            }
-			return false;
-            /*try
-            {
-				if(((Enchantments)item.ModItem) != null)
+                else
                 {
 					return true;
 				}
-                else
-                {
-					return false;
-                }			
 			}
-            catch (InvalidCastException)
+            else
             {
 				return false;
-			}*/
+            }
         }
 		internal static bool IsEssenceItem(Item item)
         {
-			return true;
+			if (item.ModItem is EnchantmentEssence)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
         }
 		public override void Load()
 		{
-			WeaponEnchantmentUIHotkey = KeybindLoader.RegisterKeybind(this, "Enchant Weapon", "P");//Temporary
+			
 		}
 		public override void Unload()
 		{
-			WeaponEnchantmentUIHotkey = null; //Why?
+			
 		}
 		public override void PostSetupContent()
 		{
-			List<int> tempList = new List<int>();
-			//for (int i = Main.maxProjectileTypes; i < ProjectileLoader.ProjectileCount; i++)  //Change me
-			{
-
-			}
+			
 		}
     }
 }

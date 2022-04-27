@@ -10,6 +10,7 @@ namespace WeaponEnchantments.Items
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetStaticDefaults()
 		{
 			if (enchantingTableTier > -1)
@@ -24,19 +25,19 @@ namespace WeaponEnchantments.Items
 				switch (enchantingTableTier)
 				{
 					case 0:
-						Item.createTile = ModContent.TileType<Tiles.Furniture.EnchantingTableTile.WoodEnchantingTable>();
+						Item.createTile = ModContent.TileType<Tiles.EnchantingTableTile.WoodEnchantingTable>();
 						break;
 					case 1:
-						Item.createTile = ModContent.TileType<Tiles.Furniture.EnchantingTableTile.DustyEnchantingTable>();
+						Item.createTile = ModContent.TileType<Tiles.EnchantingTableTile.DustyEnchantingTable>();
 						break;
 					case 2:
-						Item.createTile = ModContent.TileType<Tiles.Furniture.EnchantingTableTile.HellishEnchantingTable>();
+						Item.createTile = ModContent.TileType<Tiles.EnchantingTableTile.HellishEnchantingTable>();
 						break;
 					case 3:
-						Item.createTile = ModContent.TileType<Tiles.Furniture.EnchantingTableTile.SoulEnchantingTable>();
+						Item.createTile = ModContent.TileType<Tiles.EnchantingTableTile.SoulEnchantingTable>();
 						break;
 					case 4:
-						Item.createTile = ModContent.TileType<Tiles.Furniture.EnchantingTableTile.UltimateEnchantingTable>();
+						Item.createTile = ModContent.TileType<Tiles.EnchantingTableTile.UltimateEnchantingTable>();
 						break;
 				}
 			}
@@ -63,25 +64,24 @@ namespace WeaponEnchantments.Items
 				switch (enchantingTableTier)
 				{
 					case 0:
-						recipe.AddIngredient(36, 1); //Workbench
-						recipe.AddIngredient(8, 4); //Torches
+						recipe.AddIngredient(ItemID.WorkBench, 1); //Workbench
+						recipe.AddIngredient(ItemID.Torch, 4); //Torches
 						break;
 					case 1:
-						recipe.AddIngredient(3374, 1); //Fossil Helm
+						recipe.AddIngredient(ItemID.FossilHelm, 1); //Fossil Helm
 						break;
 					case 2:
-						recipe.AddIngredient(193, 1); //Obsidian Skull
+						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
 						break;
 					case 3:
-						recipe.AddIngredient(520, 1); //Soul of Light
-						recipe.AddIngredient(521, 1); //Soul of Night
+						recipe.AddIngredient(ItemID.SoulofLight, 1); //Soul of Light
+						recipe.AddIngredient(ItemID.SoulofNight, 1); //Soul of Night
 						break;
 					case 4:
-						recipe.AddIngredient(1225, 2); //Hallowed Bars
+						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
 						break;
 				}
 				recipe.Register();
-				ModItemID.Add(this.Name, this.Type);
 				IDs[enchantingTableTier] = this.Type;
 			}
 		}

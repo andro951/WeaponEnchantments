@@ -11,18 +11,17 @@ namespace WeaponEnchantments
 {
     public class EnchantingTable : Chest
     {
-        new public const int maxItems = 1;
-        public const int maxEnchantments = 5;
-        public const int maxEssenceItems = 5;
-        public const int maxTier = 4;
-        public int tier = 0;
-        public bool summonDemon;
-        public int availableEnchantmentSlots;
-        public bool[] canUseEnchantmentSlot = new bool[maxEnchantments];
+        new public const int maxItems = 1;//Number of itemSlots in enchantingTable
+        public const int maxEnchantments = 5;//Number of enchantmentSlots in enchantingTable
+        public const int maxEssenceItems = 5;//Number of essenceSlots in enchantingTable
+        public const int maxTier = 4;//Number of enchantingTable tiers
+        public int tier = 0;//Tier of the current enchantingTable being used by the player
+        public bool summonDemon;//Used to determine if the demon shopkeeper NPC should be summoned in the enchanting table (tier = maxTier enchanting table)
+        public int availableEnchantmentSlots;//Number of enchantmentSlots the player can use based on enchatning table tier
         //public static int[] essenceType = new int[maxEssenceItems];
-        new public Item[] item;
-        public Item[] enchantmentItem;
-        public Item[] essenceItem;
+        new public Item[] item;//Stores item(s) when enchanting table UI is closed
+        public Item[] enchantmentItem;//Stores enchantments when enchanting table UI is closed
+        public Item[] essenceItem;//Stores essence when enchanting table UI is closed
         //public Texture[] textures = new Texture[maxTier];
         //private Texture texture;
         public EnchantingTable(int Tier = 0)
@@ -31,34 +30,19 @@ namespace WeaponEnchantments
             for(int i = 0; i < maxItems; i++)
             {
                 item[i] = new Item();
-            }
+            }//setup items
             enchantmentItem = new Item[maxEnchantments];
             for(int i = 0; i < maxEnchantments; i++)
             {
                 enchantmentItem[i] = new Item();
-            }
+            }//setup enchantments
             essenceItem = new Item[maxEssenceItems];
             for(int i = 0; i < maxEssenceItems; i++)
             {
                 essenceItem[i] = new Item();
-            }
+            }//setup essence
             tier = Tier;
-            availableEnchantmentSlots = maxEnchantments - tier;
-            for(int i = 0; i < availableEnchantmentSlots; i++)
-            {
-                canUseEnchantmentSlot[i] = true;
-            }
-            //texture = textures[Tier];
-            if (tier == maxTier)
-            {
-                summonDemon = true;
-            }
-        }
-
-        new public static void Initialize()
-        {
-            
-        }
+        }//Constructor
         public void Update()
         {
             //needs the 
@@ -67,63 +51,15 @@ namespace WeaponEnchantments
         public void Open()
         {
             availableEnchantmentSlots = maxEnchantments - tier;
-            for (int i = 0; i < maxEnchantments; i++)
-            {
-                if (i < availableEnchantmentSlots)
-                {
-                    canUseEnchantmentSlot[i] = true;
-                }
-                else
-                {
-                    canUseEnchantmentSlot[i] = false;
-                }
-            }
             //texture = textures[Tier];//Should go in WeaponEnchantmentsUI not here
             if (tier == maxTier)
             {
                 summonDemon = true;
             }
-
-
-            /* Move to WeaponEnchantmentUI OnActivate(), replaced by TryPlacingInEnchantingTable
-            Player player = Main.player[Main.myPlayer];
-            autoCraftEssence();
-            foreach(Item item in player.inventory) //Check how autostack is done in Player.cs
-            {
-                for (int i = 0; i <= maxEssenceItems; i++)
-                {
-                    if (item.type == EnchantmentEssence.IDs[i])
-                    {
-                        int maxTakeAmmount = EnchantmentEssence.maxStack - essenceItem[i].stack;
-                        if (maxTakeAmmount < item.stack)
-                        {
-                            essenceItem[i].stack += item.stack;
-                            item.TurnToAir();
-                            //PlayStackSound
-                        }
-                    }
-                }
-            }
-            autoCraftEssence();
-            */
         }
         public void Close()
         {
             summonDemon = false;
-        }
-        private void autoCraftEssence()//Move to WeaponEnchantmentUI TryPlacingInEnchantingTable
-        {
-            if (tier == maxTier)
-            {
-                for (int i = 0; i < maxEssenceItems - 1; i++)
-                {
-                    while (essenceItem[i].stack > 4 && (essenceItem[i + 1].stack > essenceItem[i + 1].maxStack))
-                    {
-                        //calculate and set new numbers
-                        //Play craft sound
-                    }
-                }
-            }
         }
     }
 }
