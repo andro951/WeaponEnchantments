@@ -18,11 +18,10 @@ namespace WeaponEnchantments.Common.Globals
         public int baseDamage;
         public float origionalScale;
         public int origionalValue;
+        public int levelBeforeBooster;
         public int level;
-        public bool powerBoosterInstalled;
-        public const int maxLevel = 22;
-        //public bool trackingProjectileThroughCloning;
-        //public Projectile trackedProjectile;
+        public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
+        public const int maxLevel = 40;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -35,15 +34,11 @@ namespace WeaponEnchantments.Common.Globals
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
-            /*clone.enchantments = (Item[])enchantments.Clone();
+            clone.enchantments = (Item[])enchantments.Clone();
             for (int i = 0; i < enchantments.Length; i++)
             {
                clone.enchantments[i] = enchantments[i].Clone();
-            }*/
-            /*if(trackingProjectileThroughCloning)
-            {
-                trackedProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem = itemClone;
-            }*/
+            }//fixes enchantments being applied to all of an item instead of just the instance
             return clone;
         }
         public void UpdateLevel()//Optimize this into get next level?
@@ -65,7 +60,16 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 }
             }
-            level = powerBoosterInstalled ? l + 10 : l;
+            if(l >= maxLevel)
+            {
+                levelBeforeBooster = maxLevel;
+                level = powerBoosterInstalled ? maxLevel + 10 : maxLevel;
+            }
+            else
+            {
+                levelBeforeBooster = l;
+                level = powerBoosterInstalled ? l + 10 : l;
+            }
         }
         public int GetLevelsAvailable()
         {
@@ -178,7 +182,14 @@ namespace WeaponEnchantments.Common.Globals
             if (experience > 0)
             {
                 UpdateLevel();
-                tooltips.Add(new TooltipLine(Mod, "level", "Level: " + level.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
+                if (powerBoosterInstalled)
+                {
+                    tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString() + " (Booster Installed)") { OverrideColor = Color.LightGreen });
+                }
+                else
+                {
+                    tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
+                }
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -233,19 +244,25 @@ namespace WeaponEnchantments.Common.Globals
                     xp = 0.2f * (target.lifeMax - target.value) + target.value;
                 }
                 xpInt = (int)xp;
-                Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                GainXP(item, xpInt);
+                if(levelBeforeBooster < maxLevel)
+                {
+                    Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                    GainXP(item, xpInt);
+                }
             }
         }
         public void GainXP(Item item, int xpInt)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            int currentLevel = level;
+            int currentLevel = levelBeforeBooster;
             experience += xpInt;
-            UpdateLevel();
-            if (level > currentLevel)
+            if (levelBeforeBooster < maxLevel)
             {
-                Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + level.ToString() + ".");
+                UpdateLevel();
+                if (levelBeforeBooster > currentLevel)
+                {
+                    Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + ".");
+                }
             }
         }
     }
