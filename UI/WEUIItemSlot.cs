@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.UI.WeaponEnchantmentUI;
+using Terraria.ID;
 
 namespace WeaponEnchantments.UI
 {
@@ -53,6 +55,7 @@ namespace WeaponEnchantments.UI
 				switch (_itemContext)
 				{
 					case ItemSlotContext.Item:
+						
 						if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
 						{
 							for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -109,14 +112,15 @@ namespace WeaponEnchantments.UI
 		internal void HandleMouseItem()
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			if (Valid(Main.mouseItem))
+			if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
 			{
-				if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
-				{
-					Main.mouseItem = new Item();
-					wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
-				}//If using a PowerBooster, destroy the booster and update the global item.
-				else
+				SoundEngine.PlaySound(SoundID.MenuTick);
+				Main.mouseItem = new Item();
+				wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+			}//If using a PowerBooster, destroy the booster and update the global item.
+			else
+			{
+				if (Valid(Main.mouseItem))
 				{
 					ItemSlot.Handle(ref Item, _context);//Handles all the click and hover actions based on the context
 				}

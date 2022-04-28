@@ -21,6 +21,8 @@ namespace WeaponEnchantments.Common.Globals
         public int level;
         public bool powerBoosterInstalled;
         public const int maxLevel = 22;
+        //public bool trackingProjectileThroughCloning;
+        //public Projectile trackedProjectile;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -33,11 +35,15 @@ namespace WeaponEnchantments.Common.Globals
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
-            clone.enchantments = (Item[])enchantments.Clone();
+            /*clone.enchantments = (Item[])enchantments.Clone();
             for (int i = 0; i < enchantments.Length; i++)
             {
-                clone.enchantments[i] = enchantments[i].Clone();
-            }
+               clone.enchantments[i] = enchantments[i].Clone();
+            }*/
+            /*if(trackingProjectileThroughCloning)
+            {
+                trackedProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem = itemClone;
+            }*/
             return clone;
         }
         public void UpdateLevel()//Optimize this into get next level?
@@ -112,7 +118,7 @@ namespace WeaponEnchantments.Common.Globals
             tag["experience"] = experience;//Save experience tag
             tag["powerBooster"] = powerBoosterInstalled;//save status of powerBoosterInstalled
         }
-        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage, ref float flat)
+        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             if (baseDamage == 0)
             {
@@ -128,14 +134,14 @@ namespace WeaponEnchantments.Common.Globals
             }
             if (modifier > 0 && baseDamage * (1 + modifier) * damage.Multiplicative - baseDamage < 1)
             {
-                flat += 1;
+                damage += 1/baseDamage/damage.Multiplicative;
             }
             else
             {
                 damage += modifier * damage.Multiplicative;
             }
         }
-        public override void ModifyWeaponCrit(Item item, Player player, ref int crit)
+        public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -145,7 +151,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback, ref float flat)
+        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
             if (origionalScale == 0)
             {
@@ -166,14 +172,13 @@ namespace WeaponEnchantments.Common.Globals
             item.scale = origionalScale * (1 + scale);//Update item size
             item.value = origionalValue + value;//Update items value based on enchantments installed
         }
-
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             bool enchantmentsToolTipAdded = false;
             if (experience > 0)
             {
                 UpdateLevel();
-                tooltips.Add(new TooltipLine(Mod, "level", "Level: " + level.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { overrideColor = Color.LightGreen });
+                tooltips.Add(new TooltipLine(Mod, "level", "Level: " + level.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -181,25 +186,25 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (!enchantmentsToolTipAdded)
                     {
-                        tooltips.Add(new TooltipLine(Mod, "enchantmentsToolTip", "Enchantments:") { overrideColor = Color.Violet});
+                        tooltips.Add(new TooltipLine(Mod, "enchantmentsToolTip", "Enchantments:") { OverrideColor = Color.Violet});
                         enchantmentsToolTipAdded = true;
                     }//Enchantmenst: tooltip
                     if (((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
                     {
                         tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                         {
-                            overrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                         });
                         tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Knockback")
                         {
-                            overrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                         });
                     }//Special tooltip if size enchantment installed
                     else
                     {
                         tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                         {
-                            overrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                         });
                     }//Default tooltip
                 }
@@ -207,31 +212,40 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (target.life <= 0) 
             {
-                if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
+                KillNPC(item, target);
+            }
+        }
+        public void KillNPC(Item item, NPC target)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
+            {
+                float xp;
+                int xpInt;
+                if (target.value > target.lifeMax)
                 {
-                    float xp;
-                    int xpInt;
-                    if (target.value > target.lifeMax)
-                    {
-                        xp = 0.2f * (target.value - target.lifeMax) + target.lifeMax;
-                    }
-                    else
-                    {
-                        xp = 0.2f * (target.lifeMax - target.value) + target.value;
-                    }
-                    xpInt = (int)xp;
-                    int currentLevel = level;
-                    experience += xpInt;
-                    Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                    UpdateLevel();
-                    if (level > currentLevel)
-                    {
-                        Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + level.ToString() + ".");
-                    }
+                    xp = 0.2f * (target.value - target.lifeMax) + target.lifeMax;
                 }
+                else
+                {
+                    xp = 0.2f * (target.lifeMax - target.value) + target.value;
+                }
+                xpInt = (int)xp;
+                Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                GainXP(item, xpInt);
+            }
+        }
+        public void GainXP(Item item, int xpInt)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            int currentLevel = level;
+            experience += xpInt;
+            UpdateLevel();
+            if (level > currentLevel)
+            {
+                Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + level.ToString() + ".");
             }
         }
     }

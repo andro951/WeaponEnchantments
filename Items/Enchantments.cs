@@ -158,8 +158,6 @@ namespace WeaponEnchantments.Items
 						player.maxMinions++;
 						player.statManaMax += 500;
 						player.statManaMax2 += 500;
-						player.armorPenetration += 5;
-						player.meleeSpeed += 1f;
 						player.moveSpeed += 0.5f;
 						player.manaCost -= 0.5f;
 						player.extraAccessorySlots = 3;
@@ -183,7 +181,7 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[14] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076};
+			private int[] freeItems = new int[15] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514};
 			public override void AddRecipes()
 			{
 

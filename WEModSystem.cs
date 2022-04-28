@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -20,6 +21,10 @@ namespace WeaponEnchantments
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         private GameTime _lastUpdateUiGameTime;
+        private static Item[] itemSlots = new Item[EnchantingTable.maxItems];
+        private static Item[] enchantmentSlots = new Item[EnchantingTable.maxEnchantments];
+        private static Item[] essenceSlots = new Item[EnchantingTable.maxEssenceItems];
+        private bool slotsLinked = false;
         public override void OnModLoad()
         {
             if (!Main.dedServ)
@@ -99,6 +104,21 @@ namespace WeaponEnchantments
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
+                if (!slotsLinked)
+                {
+                    for(int i = 0; i < EnchantingTable.maxItems; i++)
+                    {
+                        itemSlots[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item;
+                    }
+                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        enchantmentSlots[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                    }
+                    for(int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                    {
+                        essenceSlots[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                    }
+                }
 
             }//If enchanting table is open, check item(s) and enchantments in it every tick
         }//If enchanting table is open, check item(s) and enchantments in it every tick 
