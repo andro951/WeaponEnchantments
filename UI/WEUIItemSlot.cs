@@ -24,7 +24,7 @@ namespace WeaponEnchantments.UI
 		private readonly int _context;
 		private readonly float _scale;
 		private readonly bool _utilitySlot;
-		private readonly int _slotTier;
+		public readonly int _slotTier;
 
 		internal event Action<int> OnMouseover;
 		internal event Action<int> OnItemMouseover;//Trying to Add this so OnItemMouseover apears when item is in hand
@@ -43,7 +43,7 @@ namespace WeaponEnchantments.UI
 			Width.Set(49 * scale, 0f);
 			Height.Set(49 * scale, 0f);
 		}//Constructor
-		internal bool Valid(Item item)
+		public bool Valid(Item item)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			if (item.IsAir)
@@ -112,12 +112,15 @@ namespace WeaponEnchantments.UI
 		internal void HandleMouseItem()
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
-			{
-				SoundEngine.PlaySound(SoundID.MenuTick);
-				Main.mouseItem = new Item();
-				wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
-			}//If using a PowerBooster, destroy the booster and update the global item.
+			if(_context == ItemSlotContext.Item)
+            {
+				if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
+				{
+					SoundEngine.PlaySound(SoundID.Grab);
+					Main.mouseItem = new Item();
+					wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+				}//If using a PowerBooster, destroy the booster and update the global item.
+			}
 			else
 			{
 				if (Valid(Main.mouseItem))

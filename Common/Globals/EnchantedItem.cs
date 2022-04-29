@@ -21,6 +21,7 @@ namespace WeaponEnchantments.Common.Globals
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
+        public bool inEnchantingTable;
         public const int maxLevel = 40;
         public EnchantedItem()
         {
@@ -179,9 +180,18 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             bool enchantmentsToolTipAdded = false;
-            if (experience > 0)
+            bool enchantemntInstalled = false;
+            UpdateLevel();
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                UpdateLevel();
+                if (!enchantments[i].IsAir)
+                {
+                    enchantemntInstalled = true;
+                    break;
+                }
+            }
+            if (experience > 0 || powerBoosterInstalled || inEnchantingTable || enchantemntInstalled)
+            {
                 if (powerBoosterInstalled)
                 {
                     tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString() + " (Booster Installed)") { OverrideColor = Color.LightGreen });

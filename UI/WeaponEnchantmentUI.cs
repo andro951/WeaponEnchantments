@@ -42,6 +42,7 @@ namespace WeaponEnchantments.UI
         public const float buttonScaleMaximum = 1f;//my UI
         public static float[] ButtonScale = new float[ButtonID.Count];//my UI
         public static bool[] ButtonHovered = new bool[ButtonID.Count];//my UI
+        public static bool needToQuickStack;
 
         private UIText titleText;//PR
         private UIPanel[] button = new UIPanel[ButtonID.Count];//PR
@@ -161,7 +162,7 @@ namespace WeaponEnchantments.UI
                 }//EnchantmentSlots
                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
-                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.InventoryCoin, ItemSlotContext.Essence, i)
+                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem, ItemSlotContext.Essence, i)
                     {
                         Left = { Pixels = -67f + 47.52f * i },
                         Top = { Pixels = nextElementY + 60 },

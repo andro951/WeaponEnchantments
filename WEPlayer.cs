@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,8 @@ using Terraria.ModLoader.IO;
 using Terraria.UI.Chat;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.UI;
+using WeaponEnchantments.Items;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments
 { 
@@ -109,6 +112,115 @@ namespace WeaponEnchantments
                 }
             }
         }
+        public override bool ShiftClickSlot(Item[] inventory, int context, int slot)
+        {
+            if (usingEnchantingTable)
+            {
+                if(inventory == Player.inventory)
+                {
+                    if (Main.mouseItem.IsAir)
+                    {
+                        bool valid = false;
+                        if (inventory[slot].type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                        {
+                            inventory[slot] = new Item();
+                            enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+                            SoundEngine.PlaySound(SoundID.Grab);
+                            valid = true;
+                        }//If using a PowerBooster, destroy the booster and update the global item.
+                        else
+                        {
+                            for (int i = 0; i < EnchantingTable.maxItems; i++)
+                            {
+                                if (enchantingTableUI.itemSlotUI[i].Valid(inventory[slot]))
+                                {
+                                    if (!inventory[slot].IsAir)
+                                    {
+                                        enchantingTableUI.itemSlotUI[i].Item = inventory[slot].Clone();
+                                        inventory[slot] = new Item();
+                                        SoundEngine.PlaySound(SoundID.Grab);
+                                        valid = true;
+                                    }
+                                }
+                            }
+                            if (!valid)
+                            {
+                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                                {
+                                    if (enchantingTableUI.enchantmentSlotUI[i].Valid(inventory[slot]))
+                                    {
+                                        if (!inventory[slot].IsAir && enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                                        {
+                                            if (((Enchantments)inventory[slot].ModItem).utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
+                                            {
+                                                enchantingTableUI.enchantmentSlotUI[4].Item = inventory[slot].Clone();
+                                                inventory[slot] = new Item();
+                                            }
+                                            else
+                                            {
+                                                enchantingTableUI.enchantmentSlotUI[i].Item = inventory[slot].Clone();
+                                                inventory[slot] = new Item();
+                                            }
+                                            SoundEngine.PlaySound(SoundID.Grab);
+                                            valid = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (!valid)
+                            {
+                                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                                {
+                                    if (enchantingTableUI.essenceSlotUI[i].Valid(inventory[slot]))
+                                    {
+                                        if (!inventory[slot].IsAir)
+                                        {
+                                            bool transfered = false;
+                                            if (enchantingTableUI.essenceSlotUI[i].Item.IsAir)
+                                            {
+                                                enchantingTableUI.essenceSlotUI[i].Item = inventory[slot].Clone();
+                                                inventory[slot] = new Item();
+                                                transfered = true;
+                                            }
+                                            else
+                                            {
+                                                if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                                                {
+                                                    int ammountToTransfer;
+                                                    if (inventory[slot].stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack)
+                                                    {
+                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                        inventory[slot].stack -= ammountToTransfer;
+                                                    }
+                                                    else
+                                                    {
+                                                        ammountToTransfer = inventory[slot].stack;
+                                                    }
+                                                    enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
+                                                    transfered = true;
+                                                }
+                                            }
+                                            if (transfered)
+                                            {
+                                                SoundEngine.PlaySound(SoundID.Grab);
+                                                valid = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (!valid)
+                        {
+                            Main.mouseItem = inventory[slot].Clone();
+                            inventory[slot] = new Item();
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
         private void RefreshItemArray(Item[] array)
         {
             for (int i = 0; i < array.Length; i++)
@@ -116,6 +228,6 @@ namespace WeaponEnchantments
                 if(!array[i].IsAir)
                     array[i].Refresh();//Find what this does
             }
-        }
+        }//My UI
     }
 }

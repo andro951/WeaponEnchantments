@@ -133,7 +133,7 @@ namespace WeaponEnchantments.Items
 		}
 		public int GetLevelCost()
         {
-			return utility ? (enchantmentSize - 1) / 2 : enchantmentSize;
+			return utility ? enchantmentSize / 2 : enchantmentSize;
         }
 
 		public class OmniEnchantment : Enchantments

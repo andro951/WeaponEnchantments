@@ -114,6 +114,7 @@ namespace WeaponEnchantments.Tiles
 			}
 			else
 			{
+				wePlayer.enchantingTableTier = enchantingTableTier;
 				//wePlayer.usingEnchantingTable = true;
 				wePlayer.Player.chest = -1;
 				//for each itemslot, i   ItemSlot.SetGlow(i, -1f, chest: true);?
@@ -130,8 +131,6 @@ namespace WeaponEnchantments.Tiles
 				WEModSystem.OpenWeaponEnchantmentUI();//Move to on tick check
 				Recipe.FindRecipes();
 			}
-
-			wePlayer.enchantingTableTier = enchantingTableTier;
 			Main.mouseRightRelease = false;
 			/*
 			Tile tile = Main.tile[x, y];
