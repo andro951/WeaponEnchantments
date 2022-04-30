@@ -34,6 +34,10 @@ namespace WeaponEnchantments
         private static bool firstDraw = true;
         private static bool secondDraw = true;
         private static bool transfered = false;
+        public static bool playerInventoryUpdated = false;
+        public static bool enchantingTableInventoryUpdated = false;
+        public static int previousChest = -1;
+
         public override void OnModLoad()
         {
             if (!Main.dedServ)
@@ -214,7 +218,91 @@ namespace WeaponEnchantments
                     }
                 }
             }
-            
+
+            if (Main.playerInventory)
+            {
+                if (!playerInventoryUpdated)
+                {
+                    for (int i = 0; i < 50; i++)
+                    {
+                        if (wePlayer.Player.inventory?[i] != null)
+                        {
+                            if (!wePlayer.Player.inventory[i].IsAir)
+                            {
+                                wePlayer.inventoryItemRecord[i] = wePlayer.Player.inventory[i].Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[i] = new Item();
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[i] = new Item();
+                        }
+                    }
+                    playerInventoryUpdated = true;
+                }
+                if(wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
+                {
+                    Item[] inventory = Main.chest[wePlayer.Player.chest].item;
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (inventory?[i] != null)
+                        {
+                            if (!inventory[i].IsAir)
+                            {
+                                wePlayer.inventoryItemRecord[i + 50] = inventory[i].Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[i + 50] = new Item();
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[i + 50] = new Item();
+                        }
+                    }
+                    previousChest = wePlayer.Player.chest;
+                    enchantingTableInventoryUpdated = false;
+                    playerInventoryUpdated = false;
+                }
+                if (wePlayer.usingEnchantingTable)
+                {
+                    if (!enchantingTableInventoryUpdated)
+                    {
+                        if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
+                        {
+                            if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                            {
+                                wePlayer.inventoryItemRecord[90] = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[90] = new Item();
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[90] = new Item();
+                        }
+                        enchantingTableInventoryUpdated = true;
+                        playerInventoryUpdated = false;
+                    }
+                }
+                else
+                {
+                    enchantingTableInventoryUpdated = false;
+                    playerInventoryUpdated = false;
+                }
+            }
+            else
+            {
+                playerInventoryUpdated = false;
+                enchantingTableInventoryUpdated = false;
+                previousChest = -1;
+            }
         }
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or !wePlayer.Player.chest == -1
         {

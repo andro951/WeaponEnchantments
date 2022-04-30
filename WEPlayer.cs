@@ -27,6 +27,7 @@ namespace WeaponEnchantments
         public Item itemBeingEnchanted;
         public EnchantingTable enchantingTable = new EnchantingTable();
         public WeaponEnchantmentUI enchantingTableUI = new WeaponEnchantmentUI();
+        public Item[] inventoryItemRecord = new Item[251];
 
         /*
         public void RefreshModItems()
@@ -195,6 +196,7 @@ namespace WeaponEnchantments
                                                     else
                                                     {
                                                         ammountToTransfer = inventory[slot].stack;
+                                                        inventory[slot].stack = 0;
                                                     }
                                                     enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
                                                     transfered = true;
@@ -220,6 +222,161 @@ namespace WeaponEnchantments
                 }
             }
             return false;
+        }
+        public void CustomFindRecipeis()
+        {
+            Recipe.FindRecipes();
+            /*
+            int num = Main.availableRecipe[Main.focusRecipe];
+            float num2 = Main.availableRecipeY[Main.focusRecipe];
+            for (int i = 0; i < Recipe.maxRecipes; i++)
+            {
+                Main.availableRecipe[i] = 0;
+            }
+
+            Main.numAvailableRecipes = 0;
+            if (Main.guideItem.type > 0 && Main.guideItem.stack > 0 && Main.guideItem.Name != "")
+            {
+                for (int j = 0; j < Recipe.maxRecipes && Main.recipe[j].createItem.type != 0; j++)
+                {
+                    for (int k = 0; k < Main.recipe[j].requiredItem.Count; k++)
+                    {
+                        if (Main.guideItem.IsTheSameAs(Main.recipe[j].requiredItem[k]) || Main.recipe[j].useWood(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useSand(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useIronBar(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useFragment(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].AcceptedByItemGroups(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].usePressurePlate(Main.guideItem.type, Main.recipe[j].requiredItem[k].type))
+                        {
+                            Main.availableRecipe[Main.numAvailableRecipes] = j;
+                            Main.numAvailableRecipes++;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Dictionary<int, int> dictionary = new Dictionary<int, int>();
+                Item[] array = null;
+                Item item = null;
+                array = Main.player[Main.myPlayer].inventory;
+                for (int l = 0; l < 58; l++)
+                {
+                    item = array[l];
+                    if (item.stack > 0)
+                    {
+                        if (dictionary.ContainsKey(item.netID))
+                            dictionary[item.netID] += item.stack;
+                        else
+                            dictionary[item.netID] = item.stack;
+                    }
+                }
+
+                if (Main.player[Main.myPlayer].chest != -1)
+                {
+                    if (Main.player[Main.myPlayer].chest > -1)
+                        array = Main.chest[Main.player[Main.myPlayer].chest].item;
+                    else if (Main.player[Main.myPlayer].chest == -2)
+                        array = Main.player[Main.myPlayer].bank.item;
+                    else if (Main.player[Main.myPlayer].chest == -3)
+                        array = Main.player[Main.myPlayer].bank2.item;
+                    else if (Main.player[Main.myPlayer].chest == -4)
+                        array = Main.player[Main.myPlayer].bank3.item;
+                    else if (Main.player[Main.myPlayer].chest == -5)
+                        array = Main.player[Main.myPlayer].bank4.item;
+
+                    for (int m = 0; m < 40; m++)
+                    {
+                        item = array[m];
+                        if (item != null && item.stack > 0)
+                        {
+                            if (dictionary.ContainsKey(item.netID))
+                                dictionary[item.netID] += item.stack;
+                            else
+                                dictionary[item.netID] = item.stack;
+                        }
+                    }
+                }
+
+                for (int n = 0; n < Recipe.maxRecipes && Main.recipe[n].createItem.type != 0; n++)
+                {
+                    bool flag = true;
+                    if (flag)
+                    {
+                        for (int num3 = 0; num3 < Main.recipe[n].requiredTile.Count && Main.recipe[n].requiredTile[num3] != -1; num3++)
+                        {
+                            if (!Main.player[Main.myPlayer].adjTile[Main.recipe[n].requiredTile[num3]])
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (flag)
+                    {
+                        for (int num4 = 0; num4 < Main.recipe[n].requiredItem.Count; num4++)
+                        {
+                            item = Main.recipe[n].requiredItem[num4];
+
+                            int num5 = item.stack;
+                            bool flag2 = false;
+                            foreach (int key in dictionary.Keys)
+                            {
+                                if (Main.recipe[n].useWood(key, item.type) || Main.recipe[n].useSand(key, item.type) || Main.recipe[n].useIronBar(key, item.type) || Main.recipe[n].useFragment(key, item.type) || Main.recipe[n].AcceptedByItemGroups(key, item.type) || Main.recipe[n].usePressurePlate(key, item.type))
+                                {
+                                    num5 -= dictionary[key];
+                                    flag2 = true;
+                                }
+                            }
+
+                            if (!flag2 && dictionary.ContainsKey(item.netID))
+                                num5 -= dictionary[item.netID];
+
+                            if (num5 > 0)
+                            {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (flag)
+                    {
+                        bool num6 = !Main.recipe[n].needWater || Main.player[Main.myPlayer].adjWater;
+                        bool flag3 = !Main.recipe[n].needHoney || Main.recipe[n].needHoney == Main.player[Main.myPlayer].adjHoney;
+                        bool flag4 = !Main.recipe[n].needLava || Main.recipe[n].needLava == Main.player[Main.myPlayer].adjLava;
+                        bool flag5 = !Main.recipe[n].needSnowBiome || Main.player[Main.myPlayer].ZoneSnow;
+                        bool flag6 = !Main.recipe[n].needGraveyardBiome || Main.player[Main.myPlayer].ZoneGraveyard;
+                        if (!(num6 && flag3 && flag4 && flag5 && flag6))
+                            flag = false;
+                    }
+
+                    if (flag && RecipeLoader.RecipeAvailable(Main.recipe[n]))
+                    {
+                        Main.availableRecipe[Main.numAvailableRecipes] = n;
+                        Main.numAvailableRecipes++;
+                    }
+                }
+            }
+
+            for (int num7 = 0; num7 < Main.numAvailableRecipes; num7++)
+            {
+                if (num == Main.availableRecipe[num7])
+                {
+                    Main.focusRecipe = num7;
+                    break;
+                }
+            }
+
+            if (Main.focusRecipe >= Main.numAvailableRecipes)
+                Main.focusRecipe = Main.numAvailableRecipes - 1;
+
+            if (Main.focusRecipe < 0)
+                Main.focusRecipe = 0;
+
+            float num8 = Main.availableRecipeY[Main.focusRecipe] - num2;
+            for (int num9 = 0; num9 < Recipe.maxRecipes; num9++)
+            {
+                Main.availableRecipeY[num9] -= num8;
+            }
+            */
         }
         private void RefreshItemArray(Item[] array)
         {

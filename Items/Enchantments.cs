@@ -12,11 +12,13 @@ namespace WeaponEnchantments.Items
 {
 	public class Enchantments : ModItem
 	{
+		public static bool cheating = false;
 		public class EnchantmentTypeIDs
         {
 			internal static readonly int Damage = 0;
 			internal static readonly int Critical = 1;
 			internal static readonly int Size = 2;
+			internal static readonly int Speed = 3;
         }
 
 		public int enchantmentSize = -1;
@@ -25,7 +27,7 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size"};
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed"};
 		public static string[] utilityEnchantmentIDs = new string[1] { "Size" };
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
@@ -36,7 +38,7 @@ namespace WeaponEnchantments.Items
 		{
 			if (enchantmentSize > -1)
 			{
-				Item.value = (int)(100 * Math.Pow(20, enchantmentSize));
+				Item.value = (int)(1000 * Math.Pow(8, enchantmentSize));
 
 				for (int i = 0; i < enchantmentTypeNames.Length; i++)
 				{
@@ -120,10 +122,13 @@ namespace WeaponEnchantments.Items
 		{
 			if (enchantmentSize > -1)
 			{
-				Recipe recipe = CreateRecipe();
-				//recipe.AddIngredient(ItemID.DirtBlock, 10);
-				//recipe.AddTile(TileID.WorkBenches);
-				recipe.Register();
+				for(int i = enchantmentSize; i >= 0; i--)
+                {
+					Recipe recipe = CreateRecipe();
+					recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[enchantmentSize], 10);
+					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
+					recipe.Register();
+				}
 				ID[enchantmentSize] = this.Type;
 				if(enchantmentSize == rarity.Length - 1)
                 {
@@ -185,43 +190,46 @@ namespace WeaponEnchantments.Items
 			public override void AddRecipes()
 			{
 
-				//Creates new recipe for Vanilla item
-				
-				for (int i = 0; i < freeItems.Length; i++){
-					/*
-					// \/Old\/
-					if (Recipe.numRecipes<Recipe.maxRecipes)
+                //Creates new recipe for Vanilla item
+                if (cheating)
+                {
+					for (int i = 0; i < freeItems.Length; i++)
 					{
-						//Main.recipe[Recipe.numRecipes].createItem.SetDefaults(freeItems[i]);
+						/*
+						// \/Old\/
+						if (Recipe.numRecipes<Recipe.maxRecipes)
+						{
+							//Main.recipe[Recipe.numRecipes].createItem.SetDefaults(freeItems[i]);
 
-						Main.recipe[Recipe.numRecipes].createItem.stack = 1;
-						//Main.recipe[Recipe.numRecipes].requiredItem[0] = new Item();
-						Main.recipe[Recipe.numRecipes].requiredItem[0].type = ItemID.Wood;
-						Main.recipe[Recipe.numRecipes].requiredItem[0].stack = 1;
-						Main.recipe[Recipe.numRecipes].AddTile(TileID.WorkBenches);
-						//Main.recipe[Recipe.numRecipes].requiredTile[0] = TileID.WorkBenches; //Doesn't work
-						Recipe.numRecipes++;
+							Main.recipe[Recipe.numRecipes].createItem.stack = 1;
+							//Main.recipe[Recipe.numRecipes].requiredItem[0] = new Item();
+							Main.recipe[Recipe.numRecipes].requiredItem[0].type = ItemID.Wood;
+							Main.recipe[Recipe.numRecipes].requiredItem[0].stack = 1;
+							Main.recipe[Recipe.numRecipes].AddTile(TileID.WorkBenches);
+							//Main.recipe[Recipe.numRecipes].requiredTile[0] = TileID.WorkBenches; //Doesn't work
+							Recipe.numRecipes++;
+						}
+						// /\Old/\
+						*/
+
+
+						//I think this tracks all NPCIDs use to set all npcs to drop essence
+						//int num = NPCID.FromNetId(id);
+
+
+
+						Recipe recipe = CreateRecipe();
+						//recipe.ReplaceResult(freeItems[i]);
+						//recipe.AddIngredient(ItemID.Wood, 1);
+						//recipe.AddTile(TileID.WorkBenches);
+						//recipe.Register();
+						//ModItemID.Add(this.Name, this.Type);
+
+
+						// \/New\/
+						Mod.CreateRecipe(freeItems[i], 1).AddIngredient(ItemID.Wood, 1).AddTile(TileID.WorkBenches).Register();
+						// /\New/\
 					}
-					// /\Old/\
-					*/
-
-
-					//I think this tracks all NPCIDs use to set all npcs to drop essence
-					//int num = NPCID.FromNetId(id);
-
-
-
-					Recipe recipe = CreateRecipe();
-					//recipe.ReplaceResult(freeItems[i]);
-					//recipe.AddIngredient(ItemID.Wood, 1);
-					//recipe.AddTile(TileID.WorkBenches);
-					//recipe.Register();
-					//ModItemID.Add(this.Name, this.Type);
-
-
-					// \/New\/
-					Mod.CreateRecipe(freeItems[i], 1).AddIngredient(ItemID.Wood, 1).AddTile(TileID.WorkBenches).Register();
-					// /\New/\
 				}
 			}
 
@@ -288,6 +296,27 @@ namespace WeaponEnchantments.Items
 		public class SizeEnchantmentUltraRare : Enchantments
 		{
 			SizeEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class SpeedEnchantmentBasic : Enchantments
+		{
+			SpeedEnchantmentBasic() { enchantmentSize = 0; }
+		}
+		public class SpeedEnchantmentCommon : Enchantments
+		{
+			SpeedEnchantmentCommon() { enchantmentSize = 1; }
+		}
+		public class SpeedEnchantmentRare : Enchantments
+		{
+			SpeedEnchantmentRare() { enchantmentSize = 2; }
+		}
+		public class SpeedEnchantmentSuperRare : Enchantments
+		{
+			SpeedEnchantmentSuperRare() { enchantmentSize = 3; }
+		}
+		public class SpeedEnchantmentUltraRare : Enchantments
+		{
+			SpeedEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

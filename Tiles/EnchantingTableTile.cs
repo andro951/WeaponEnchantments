@@ -111,6 +111,7 @@ namespace WeaponEnchantments.Tiles
 				//wePlayer.usingEnchantingTable = false;
 				//SoundEngine.PlaySound(SoundID.MenuClose);
 				WEModSystem.CloseWeaponEnchantmentUI();//Move to on tick check
+				Recipe.FindRecipes();
 			}
 			else
 			{
@@ -129,7 +130,7 @@ namespace WeaponEnchantments.Tiles
 				wePlayer.Player.chestY = y;
 				SoundEngine.PlaySound(SoundID.MenuTick);
 				WEModSystem.OpenWeaponEnchantmentUI();//Move to on tick check
-				Recipe.FindRecipes();
+				wePlayer.CustomFindRecipeis();
 			}
 			Main.mouseRightRelease = false;
 			/*
@@ -163,7 +164,7 @@ namespace WeaponEnchantments.Tiles
 			{
 				top--;
 			}
-			//wePlayer.Player.cursorItemIconText = EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table";
+			wePlayer.Player.cursorItemIconText = "";
 			wePlayer.Player.cursorItemIconID = EnchantingTableItem.IDs[enchantingTableTier];
 			wePlayer.Player.noThrow = 2;
 			wePlayer.Player.cursorItemIconEnabled = true;

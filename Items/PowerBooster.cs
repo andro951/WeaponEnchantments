@@ -21,9 +21,12 @@ namespace WeaponEnchantments.Items
         }
         public override void AddRecipes()
         {
-            Recipe recipie = CreateRecipe();
-            recipie.Register();
-            ID = Item.type;
+            if (Enchantments.cheating)
+            {
+                Recipe recipie = CreateRecipe();
+                recipie.Register();
+                ID = Item.type;
+            }
         }
     }
 }

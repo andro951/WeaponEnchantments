@@ -15,7 +15,10 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         
         public int experience;//current experience of a weapon/armor/accessory item
-        public int baseDamage;
+        public float baseDamage;
+        public float baseFireRate;
+        public float baseSpeed;
+        public float baseAnimation;
         public float origionalScale;
         public int origionalValue;
         public int levelBeforeBooster;
@@ -103,7 +106,6 @@ namespace WeaponEnchantments.Common.Globals
             }//Load enchantment item tags
             experience = tag.Get<int>("experience");//Load experience tag
             powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
-
         }
         public override void SaveData(Item item, TagCompound tag)
         {
@@ -125,16 +127,24 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (baseDamage == 0)
+            if (baseDamage == 0f)
             {
-                baseDamage = ContentSamples.ItemsByType[item.type].damage;
+                baseDamage = damage.Base;
+                baseFireRate = ContentSamples.ItemsByType[item.type].shootSpeed;
+                baseSpeed = ContentSamples.ItemsByType[item.type].useTime;
+                baseAnimation = ContentSamples.ItemsByType[item.type].useAnimation;
             }
             float modifier = 0f;
+            float speedModifier = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 if (!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Damage)
                 {
                     modifier += ((Enchantments)enchantments[i].ModItem).enchantmentStrength * damage.Multiplicative;
+                }
+                else if(!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Speed)
+                {
+                    speedModifier += ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
                 }
             }
             if (modifier > 0 && baseDamage * (1 + modifier) * damage.Multiplicative - baseDamage < 1)
@@ -145,6 +155,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 damage += modifier * damage.Multiplicative;
             }
+            item.useTime = (int)(baseSpeed * 1 / (1 + speedModifier));
+            item.useAnimation = (int)(baseSpeed * 1 / (1 + speedModifier));
+            item.shootSpeed = baseFireRate * (1 + speedModifier);
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
@@ -272,6 +285,37 @@ namespace WeaponEnchantments.Common.Globals
                 if (levelBeforeBooster > currentLevel)
                 {
                     Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + ".");
+                }
+            }
+        }
+        public override void OnCreate(Item item, ItemCreationContext context)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            for (int j = 0; j < Main.recipe.Length; j++)
+            {
+                if(Main.recipe[j].createItem.type == item.type)
+                {
+                    foreach(Item requiredItem in Main.recipe[j].requiredItem)
+                    {
+                        if(requiredItem.damage > 0)
+                        {
+                            for(int i = 0; i < 91; i++)
+                            {
+                                if(wePlayer.inventoryItemRecord[i].type == requiredItem.type)
+                                {
+                                    experience += wePlayer.inventoryItemRecord[i].GetGlobalItem<EnchantedItem>().experience;
+                                    if (wePlayer.inventoryItemRecord[i].GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                                    {
+                                        powerBoosterInstalled = true;
+                                    }
+                                    WEModSystem.playerInventoryUpdated = false;
+                                    WEModSystem.enchantingTableInventoryUpdated = false;
+                                    WEModSystem.previousChest = -1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

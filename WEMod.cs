@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
+using static Terraria.Recipe;
 
 namespace WeaponEnchantments
 {
@@ -75,10 +76,6 @@ namespace WeaponEnchantments
 			
 		}
 		public override void Unload()
-		{
-			
-		}
-		public override void PostSetupContent()
 		{
 			
 		}
