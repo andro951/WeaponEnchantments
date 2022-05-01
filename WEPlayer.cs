@@ -27,7 +27,9 @@ namespace WeaponEnchantments
         public Item itemBeingEnchanted;
         public EnchantingTable enchantingTable = new EnchantingTable();
         public WeaponEnchantmentUI enchantingTableUI = new WeaponEnchantmentUI();
-        public Item[] inventoryItemRecord = new Item[251];
+        public Item[] inventoryItemRecord = new Item[102];
+        public int lastFocusRecipe = -1;
+        public int lastFocusRecipeType = -1;
 
         /*
         public void RefreshModItems()
@@ -44,60 +46,58 @@ namespace WeaponEnchantments
         }
         public override void SaveData(TagCompound tag)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
-                if (!wePlayer.enchantingTable.item[i].IsAir)
+                if (!enchantingTable.item[i].IsAir)
                 {
-                    tag["enchantingTableItem" + i.ToString()] = wePlayer.enchantingTable.item[i];
+                    tag["enchantingTableItem" + i.ToString()] = enchantingTable.item[i];
                 }
             }
-            if (wePlayer?.enchantingTableUI?.itemSlotUI[0]?.Item != null)
+            if (enchantingTableUI?.itemSlotUI[0]?.Item != null)
             {
-                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                if (enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (!wePlayer.enchantingTable.enchantmentItem[i].IsAir)
+                        if (!enchantingTable.enchantmentItem[i].IsAir)
                         {
-                            tag["enchantingTableEnchantmentItem" + i.ToString()] = wePlayer.enchantingTable.enchantmentItem[i];
+                            tag["enchantingTableEnchantmentItem" + i.ToString()] = enchantingTable.enchantmentItem[i];
                         }
                     }
                 }//enchantments in the enchantmentSlots are saved by global items.  This is just in case enchantment items are left in after Offering items.
             }
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
-                if (!wePlayer.enchantingTable.essenceItem[i].IsAir)
+                if (!enchantingTable.essenceItem[i].IsAir)
                 {
-                    tag["enchantingTableEssenceItem" + i.ToString()] = wePlayer.enchantingTable.essenceItem[i];
+                    tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
                 }
             }
         }
         public override void LoadData(TagCompound tag)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
                 if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir)
                 {
-                    wePlayer.enchantingTable.item[i] = new Item();
+                    enchantingTable.item[i] = new Item();
                 }
                 else
                 {
-                    wePlayer.enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
+                    enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
                 }
             }
-            if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)//enchantments in the enchantmentSlots are loaded by global items.  This is just in case enchantment items are left in after Offering items.
+            if (enchantingTable.item[0].IsAir)//enchantments in the enchantmentSlots are loaded by global items.  This is just in case enchantment items are left in after Offering items.
             {
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     if (tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString()).IsAir)
                     {
-                        wePlayer.enchantingTable.enchantmentItem[i] = new Item();
+                        enchantingTable.enchantmentItem[i] = new Item();
                     }
                     else
                     {
-                        wePlayer.enchantingTable.enchantmentItem[i] = tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString());
+                        enchantingTable.enchantmentItem[i] = tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString());
                     }
                 }
             }
@@ -105,11 +105,11 @@ namespace WeaponEnchantments
             {
                 if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir)
                 {
-                    wePlayer.enchantingTable.essenceItem[i] = new Item();
+                    enchantingTable.essenceItem[i] = new Item();
                 }
                 else
                 {
-                    wePlayer.enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
+                    enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
                 }
             }
         }
@@ -225,17 +225,27 @@ namespace WeaponEnchantments
         }
         public void CustomFindRecipeis()
         {
-            Recipe.FindRecipes();
-            /*
-            int num = Main.availableRecipe[Main.focusRecipe];
-            float num2 = Main.availableRecipeY[Main.focusRecipe];
-            for (int i = 0; i < Recipe.maxRecipes; i++)
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            int availableRecipe;
+            float availableRecipeY;
+            if (lastFocusRecipeType > -1 && lastFocusRecipe > Main.focusRecipe && Main.focusRecipe == Main.numAvailableRecipes - 1)
             {
-                Main.availableRecipe[i] = 0;
+                availableRecipe = lastFocusRecipeType;
+                //availableRecipeY = lastFocusRecipeY;
             }
+            else
+            {
+                availableRecipe = Main.availableRecipe[Main.focusRecipe];
+                //availableRecipeY = Main.availableRecipeY[Main.focusRecipe];
+            }
+            availableRecipeY = Main.availableRecipeY[Main.focusRecipe];
+            //for (int i = 0; i < Recipe.maxRecipes; i++)
+            //{
+            //    Main.availableRecipe[i] = 0;
+            //}
 
-            Main.numAvailableRecipes = 0;
-            if (Main.guideItem.type > 0 && Main.guideItem.stack > 0 && Main.guideItem.Name != "")
+            //Main.numAvailableRecipes = 0;
+            /*if (Main.guideItem.type > 0 && Main.guideItem.stack > 0 && Main.guideItem.Name != "")
             {
                 for (int j = 0; j < Recipe.maxRecipes && Main.recipe[j].createItem.type != 0; j++)
                 {
@@ -249,17 +259,40 @@ namespace WeaponEnchantments
                         }
                     }
                 }
-            }
-            else
+            }*/
+            //else
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
+            Item item;
+            Item[] inventory = Main.player[Main.myPlayer].inventory;
+            for (int i = 0; i < 58; i++)
             {
-                Dictionary<int, int> dictionary = new Dictionary<int, int>();
-                Item[] array = null;
-                Item item = null;
-                array = Main.player[Main.myPlayer].inventory;
-                for (int l = 0; l < 58; l++)
+                item = inventory[i];
+                if (item.stack > 0)
                 {
-                    item = array[l];
-                    if (item.stack > 0)
+                    if (dictionary.ContainsKey(item.netID))
+                        dictionary[item.netID] += item.stack;
+                    else
+                        dictionary[item.netID] = item.stack;
+                }
+            }
+
+            if (Main.player[Main.myPlayer].chest != -1)
+            {
+                if (Main.player[Main.myPlayer].chest > -1)
+                    inventory = Main.chest[Main.player[Main.myPlayer].chest].item;
+                else if (Main.player[Main.myPlayer].chest == -2)
+                    inventory = Main.player[Main.myPlayer].bank.item;
+                else if (Main.player[Main.myPlayer].chest == -3)
+                    inventory = Main.player[Main.myPlayer].bank2.item;
+                else if (Main.player[Main.myPlayer].chest == -4)
+                    inventory = Main.player[Main.myPlayer].bank3.item;
+                else if (Main.player[Main.myPlayer].chest == -5)
+                    inventory = Main.player[Main.myPlayer].bank4.item;
+
+                for (int i = 0; i < 40; i++)
+                {
+                    item = inventory[i];
+                    if (item != null && item.stack > 0)
                     {
                         if (dictionary.ContainsKey(item.netID))
                             dictionary[item.netID] += item.stack;
@@ -267,23 +300,14 @@ namespace WeaponEnchantments
                             dictionary[item.netID] = item.stack;
                     }
                 }
-
-                if (Main.player[Main.myPlayer].chest != -1)
+            }
+            if (wePlayer.usingEnchantingTable)
+            {
+                if(wePlayer.enchantingTableUI?.essenceSlotUI != null)
                 {
-                    if (Main.player[Main.myPlayer].chest > -1)
-                        array = Main.chest[Main.player[Main.myPlayer].chest].item;
-                    else if (Main.player[Main.myPlayer].chest == -2)
-                        array = Main.player[Main.myPlayer].bank.item;
-                    else if (Main.player[Main.myPlayer].chest == -3)
-                        array = Main.player[Main.myPlayer].bank2.item;
-                    else if (Main.player[Main.myPlayer].chest == -4)
-                        array = Main.player[Main.myPlayer].bank3.item;
-                    else if (Main.player[Main.myPlayer].chest == -5)
-                        array = Main.player[Main.myPlayer].bank4.item;
-
-                    for (int m = 0; m < 40; m++)
+                    for (int i = 0; i < EnchantmentEssence.rarity.Length; i++)
                     {
-                        item = array[m];
+                        item = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
                         if (item != null && item.stack > 0)
                         {
                             if (dictionary.ContainsKey(item.netID))
@@ -293,62 +317,70 @@ namespace WeaponEnchantments
                         }
                     }
                 }
+            }
 
-                for (int n = 0; n < Recipe.maxRecipes && Main.recipe[n].createItem.type != 0; n++)
+            for (int n = 0; n < Recipe.maxRecipes && Main.recipe[n].createItem.type != ItemID.None; n++)
+            {
+                bool ableToCraft = true;
+                for (int i = 0; i < Main.recipe[n].requiredTile.Count && Main.recipe[n].requiredTile[i] != -1; i++)
                 {
-                    bool flag = true;
-                    if (flag)
+                    if (!wePlayer.Player.adjTile[Main.recipe[n].requiredTile[i]])
                     {
-                        for (int num3 = 0; num3 < Main.recipe[n].requiredTile.Count && Main.recipe[n].requiredTile[num3] != -1; num3++)
+                        ableToCraft = false;
+                        break;
+                    }
+                }
+
+                if (ableToCraft)
+                {
+                    for (int i = 0; i < Main.recipe[n].requiredItem.Count; i++)
+                    {
+                        item = Main.recipe[n].requiredItem[i];
+
+                        int stack = item.stack;
+                        /*bool flag2 = false;
+                        foreach (int key in dictionary.Keys)
                         {
-                            if (!Main.player[Main.myPlayer].adjTile[Main.recipe[n].requiredTile[num3]])
+                            if (Main.recipe[n].useWood(key, item.type) || Main.recipe[n].useSand(key, item.type) || Main.recipe[n].useIronBar(key, item.type) || Main.recipe[n].useFragment(key, item.type) || Main.recipe[n].AcceptedByItemGroups(key, item.type) || Main.recipe[n].usePressurePlate(key, item.type))
                             {
-                                flag = false;
-                                break;
+                                stack -= dictionary[key];
+                                flag2 = true;
                             }
+                        }*/
+                        //if (!flag2 && dictionary.ContainsKey(item.netID))
+                        if (dictionary.ContainsKey(item.netID))
+                            stack -= dictionary[item.netID];
+
+                        if (stack > 0)
+                        {
+                            ableToCraft = false;
+                            break;
                         }
                     }
+                }
+                /*
+                if (ableToCraft)
+                {
+                    bool num6 = !Main.recipe[n].needWater || Main.player[Main.myPlayer].adjWater;
+                    bool flag3 = !Main.recipe[n].needHoney || Main.recipe[n].needHoney == Main.player[Main.myPlayer].adjHoney;
+                    bool flag4 = !Main.recipe[n].needLava || Main.recipe[n].needLava == Main.player[Main.myPlayer].adjLava;
+                    bool flag5 = !Main.recipe[n].needSnowBiome || Main.player[Main.myPlayer].ZoneSnow;
+                    bool flag6 = !Main.recipe[n].needGraveyardBiome || Main.player[Main.myPlayer].ZoneGraveyard;
+                    if (!(num6 && flag3 && flag4 && flag5 && flag6))
+                        ableToCraft = false;
+                }*/
 
-                    if (flag)
+                if (ableToCraft && RecipeLoader.RecipeAvailable(Main.recipe[n]))
+                {
+                    bool stillNeeded = true;
+                    foreach(int r in Main.availableRecipe)
                     {
-                        for (int num4 = 0; num4 < Main.recipe[n].requiredItem.Count; num4++)
+                        if(r == n)
                         {
-                            item = Main.recipe[n].requiredItem[num4];
-
-                            int num5 = item.stack;
-                            bool flag2 = false;
-                            foreach (int key in dictionary.Keys)
-                            {
-                                if (Main.recipe[n].useWood(key, item.type) || Main.recipe[n].useSand(key, item.type) || Main.recipe[n].useIronBar(key, item.type) || Main.recipe[n].useFragment(key, item.type) || Main.recipe[n].AcceptedByItemGroups(key, item.type) || Main.recipe[n].usePressurePlate(key, item.type))
-                                {
-                                    num5 -= dictionary[key];
-                                    flag2 = true;
-                                }
-                            }
-
-                            if (!flag2 && dictionary.ContainsKey(item.netID))
-                                num5 -= dictionary[item.netID];
-
-                            if (num5 > 0)
-                            {
-                                flag = false;
-                                break;
-                            }
+                            stillNeeded = false;
                         }
                     }
-
-                    if (flag)
-                    {
-                        bool num6 = !Main.recipe[n].needWater || Main.player[Main.myPlayer].adjWater;
-                        bool flag3 = !Main.recipe[n].needHoney || Main.recipe[n].needHoney == Main.player[Main.myPlayer].adjHoney;
-                        bool flag4 = !Main.recipe[n].needLava || Main.recipe[n].needLava == Main.player[Main.myPlayer].adjLava;
-                        bool flag5 = !Main.recipe[n].needSnowBiome || Main.player[Main.myPlayer].ZoneSnow;
-                        bool flag6 = !Main.recipe[n].needGraveyardBiome || Main.player[Main.myPlayer].ZoneGraveyard;
-                        if (!(num6 && flag3 && flag4 && flag5 && flag6))
-                            flag = false;
-                    }
-
-                    if (flag && RecipeLoader.RecipeAvailable(Main.recipe[n]))
+                    if (stillNeeded)
                     {
                         Main.availableRecipe[Main.numAvailableRecipes] = n;
                         Main.numAvailableRecipes++;
@@ -356,27 +388,30 @@ namespace WeaponEnchantments
                 }
             }
 
-            for (int num7 = 0; num7 < Main.numAvailableRecipes; num7++)
+            for (int i = 0; i < Main.numAvailableRecipes; i++)
             {
-                if (num == Main.availableRecipe[num7])
+                if (availableRecipe == Main.availableRecipe[i])
                 {
-                    Main.focusRecipe = num7;
+                    Main.focusRecipe = i;
+                    //lastFocusRecipe = i;
+                    lastFocusRecipeType = Main.availableRecipe[i];
                     break;
                 }
             }
 
-            if (Main.focusRecipe >= Main.numAvailableRecipes)
+            //if (Main.focusRecipe >= Main.numAvailableRecipes)
+            if (lastFocusRecipe >= Main.numAvailableRecipes)
                 Main.focusRecipe = Main.numAvailableRecipes - 1;
 
             if (Main.focusRecipe < 0)
                 Main.focusRecipe = 0;
+            lastFocusRecipe = Main.focusRecipe;
 
-            float num8 = Main.availableRecipeY[Main.focusRecipe] - num2;
+            float num8 = Main.availableRecipeY[Main.focusRecipe] - availableRecipeY;
             for (int num9 = 0; num9 < Recipe.maxRecipes; num9++)
             {
                 Main.availableRecipeY[num9] -= num8;
             }
-            */
         }
         private void RefreshItemArray(Item[] array)
         {

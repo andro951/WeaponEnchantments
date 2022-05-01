@@ -16,6 +16,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Tiles;
 using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments
@@ -37,6 +38,7 @@ namespace WeaponEnchantments
         public static bool playerInventoryUpdated = false;
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
+        //private static bool firstCheck = true;
 
         public override void OnModLoad()
         {
@@ -57,6 +59,7 @@ namespace WeaponEnchantments
         public override void PostUpdatePlayers()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+
             if (wePlayer.usingEnchantingTable)
             {
                 if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
@@ -119,25 +122,168 @@ namespace WeaponEnchantments
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
-                /*
-                if (!slotsLinked)
+                //wePlayer.CustomFindRecipeis();
+                if(Main.mouseItem.type == Main.recipe[wePlayer.lastFocusRecipeType].createItem.type)
                 {
-                    for(int i = 0; i < EnchantingTable.maxItems; i++)
+                    if ((wePlayer.inventoryItemRecord[91].type == 0 && wePlayer.inventoryItemRecord[91].type != Main.mouseItem.type) || wePlayer.inventoryItemRecord[91].type == Main.mouseItem.type && wePlayer.inventoryItemRecord[91].stack != Main.mouseItem.stack)
+                    {bool pickedUp = false;
+                        for(int i = 0; i < 50; i++)
+                        {
+                            if(wePlayer.inventoryItemRecord[i].type == wePlayer.lastFocusRecipeType)
+                            {
+                                if (wePlayer.Player.inventory[i].stack < wePlayer.inventoryItemRecord[i].stack)
+                                {
+                                    pickedUp = true;
+                                }
+                            }
+                        }
+                        for(int i = 92; i < 92 + EnchantingTable.maxEnchantments + EnchantingTable.maxEssenceItems; i++)
+                        {
+                            if(i < 92 + EnchantingTable.maxEnchantments)
+                            {
+                                if (wePlayer.enchantingTableUI.enchantmentSlotUI[i - 92].Item.stack < wePlayer.inventoryItemRecord[i].stack)
+                                {
+                                    pickedUp = true;
+                                }
+                            }
+                            else
+                            {
+                                if (wePlayer.enchantingTableUI.essenceSlotUI[i - EnchantingTable.maxEnchantments - 92].Item.stack < wePlayer.inventoryItemRecord[i].stack)
+                                {
+                                    pickedUp = true;
+                                }
+                            }
+                        }
+                        if (!pickedUp)
+                        {
+                            foreach(Item requiredItem in Main.recipe[wePlayer.lastFocusRecipeType].requiredItem)
+                            {
+                                if(requiredItem.ModItem is EnchantmentEssence)
+                                {
+                                    int ammountConsumedFromInventory = 0;
+                                    for (int j = 0; j < 50; j++)
+                                    {
+                                        if (wePlayer.inventoryItemRecord[j].type == requiredItem.type)
+                                        {
+                                            ammountConsumedFromInventory += wePlayer.inventoryItemRecord[j].stack;
+                                        }
+                                    }
+                                    wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssence.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
+                                }
+                            }
+                        }
+                    }
+                }
+                wePlayer.CustomFindRecipeis();
+            }//If enchanting table is open, check item(s) and enchantments in it every tick
+            if (Main.playerInventory)
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    if (wePlayer.Player.inventory?[i] != null)//try get rid of
                     {
-                        itemSlots[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item;
+                        if (!wePlayer.Player.inventory[i].IsAir)//try get rid of
+                        {
+                            wePlayer.inventoryItemRecord[i] = wePlayer.Player.inventory[i].Clone();
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[i] = new Item();//try get rid of
+                        }
+                    }
+                    else//try get rid of
+                    {
+                        wePlayer.inventoryItemRecord[i] = new Item();//try get rid of
+                    }
+                }
+                //if (wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
+                if (wePlayer.Player.chest != -1)
+                {
+                    Item[] inventory = Main.chest[wePlayer.Player.chest].item;
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (inventory?[i] != null)//try get rid of
+                        {
+                            if (!inventory[i].IsAir)//try get rid of
+                            {
+                                wePlayer.inventoryItemRecord[i + 50] = inventory[i].Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[i + 50] = new Item();//try get rid of
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[i + 50] = new Item();//try get rid of
+                        }
+                    }
+                }
+                if (wePlayer.usingEnchantingTable)
+                {
+                    if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//Try get rid of this
+                    {
+                        if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)//Try get rid of this
+                        {
+                            wePlayer.inventoryItemRecord[90] = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[90] = new Item();//Try get rid of this
+                        }
+                    }
+                    else
+                    {
+                        wePlayer.inventoryItemRecord[90] = new Item();//Try get rid of this
                     }
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        enchantmentSlots[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        if (wePlayer.enchantingTableUI?.enchantmentSlotUI?[i]?.Item != null)//Try get rid of this
+                        {
+                            if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)//Try get rid of this
+                            {
+                                wePlayer.inventoryItemRecord[92 + i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[92 + i] = new Item();//Try get rid of this
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[92 + i] = new Item();//Try get rid of this
+                        }
                     }
-                    for(int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                    for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                     {
-                        essenceSlots[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        if (wePlayer.enchantingTableUI?.essenceSlotUI?[i]?.Item != null)//Try get rid of this
+                        {
+                            if (!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.IsAir)//Try get rid of this
+                            {
+                                wePlayer.inventoryItemRecord[97 + i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                            }
+                            else
+                            {
+                                wePlayer.inventoryItemRecord[97 + i] = new Item();//Try get rid of this
+                            }
+                        }
+                        else
+                        {
+                            wePlayer.inventoryItemRecord[97 + i] = new Item();//Try get rid of this
+                        }
                     }
                 }
-                */
-            }//If enchanting table is open, check item(s) and enchantments in it every tick
-        }//If enchanting table is open, check item(s) and enchantments in it every tick 
+                else
+                {
+                    wePlayer.inventoryItemRecord[90] = new Item();
+                    for (int i = 0; i < EnchantingTable.maxEnchantments + EnchantingTable.maxEssenceItems; i++)
+                    {
+                        wePlayer.inventoryItemRecord[92 + i] = new Item();
+                    }
+                }
+                wePlayer.inventoryItemRecord[91] = Main.mouseItem.Clone();
+            }
+        }//If enchanting table is open, check item(s) and enchantments in it every tick
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -218,8 +364,7 @@ namespace WeaponEnchantments
                     }
                 }
             }
-
-            if (Main.playerInventory)
+            /*if (Main.playerInventory)
             {
                 if (!playerInventoryUpdated)
                 {
@@ -243,7 +388,7 @@ namespace WeaponEnchantments
                     }
                     playerInventoryUpdated = true;
                 }
-                if(wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
+                if (wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
                 {
                     Item[] inventory = Main.chest[wePlayer.Player.chest].item;
                     for (int i = 0; i < 40; i++)
@@ -267,6 +412,14 @@ namespace WeaponEnchantments
                     previousChest = wePlayer.Player.chest;
                     enchantingTableInventoryUpdated = false;
                     playerInventoryUpdated = false;
+                }
+                else if (previousChest == -6)
+                {
+                    for (int i = 0; i < 40; i++)
+                    {
+                        wePlayer.inventoryItemRecord[i + 50] = new Item();
+                    }
+                    previousChest = -1;
                 }
                 if (wePlayer.usingEnchantingTable)
                 {
@@ -301,10 +454,10 @@ namespace WeaponEnchantments
             {
                 playerInventoryUpdated = false;
                 enchantingTableInventoryUpdated = false;
-                previousChest = -1;
-            }
+                previousChest = -6;
+            }*/
         }
-        internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or !wePlayer.Player.chest == -1
+        internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
@@ -314,12 +467,10 @@ namespace WeaponEnchantments
             }
             wePlayer.enchantingTable.Close();
             wePlayer.enchantingTableUI.OnDeactivate();//Store items left in enchanting table to player
-
             if (WeaponEnchantmentUI.PR)
             {
                 weModSystemUI.SetState(null);
             }//PR
-            Recipe.FindRecipes();
         }
         internal static void OpenWeaponEnchantmentUI()
         {

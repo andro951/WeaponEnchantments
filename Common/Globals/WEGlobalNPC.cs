@@ -17,95 +17,99 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) / (npc.boss ? 2f : 1f);
-            float hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f)/40f;
-            float value = (float)npc.value;
-            float neg = Math.Abs(value - hp) * 0.8f;
-            float total = (hp + value - neg) * multiplier;
-            float[] essenceValues = new float[] { 100f, 800f, 6400f, 51200f, 409600f };
-            float[] dropRate = new float[essenceValues.Length];
-            int baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
-
-            int rarity = 0;
-
-            if (npc.boss)
+            if(!npc.friendly && !npc.townNPC && !npc.SpawnedFromStatue)
             {
-                for(int i = 0; i < essenceValues.Length; ++i)
+                float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) / (npc.boss ? 2f : 1f); //* (npc.boss ? 1f : 2f);
+                float hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
+                float value = (float)npc.value;
+                float neg = Math.Abs(value - hp) * 0.8f;
+                float total = (hp + value - neg) * multiplier;
+                float[] essenceValues = new float[] { 100f, 800f, 6400f, 51200f, 409600f };
+                float[] dropRate = new float[essenceValues.Length];
+                int baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
+
+                int rarity = 0;
+
+                if (npc.boss)
                 {
-                    if(total / essenceValues[i] > 1)
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        rarity = i;
-                    }
-                    else
-                    {
-                        break;
+                        if (total / essenceValues[i] > 1)
+                        {
+                            rarity = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
+                else
+                {
+                    for (int i = 0; i < essenceValues.Length; ++i)
+                    {
+                        if (total / essenceValues[i] < 0.05)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            rarity = i;
+                        }
+                    }
+                }
+                total *= 2;
+                if (rarity == 0)
+                {
+                    dropRate[rarity] = 1.25f * total / essenceValues[rarity];
+                }
+                else
+                {
+                    dropRate[rarity] = total / essenceValues[rarity];
+                    dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
+                }
+                if (rarity < 4)
+                {
+                    dropRate[rarity + 1] = 0.125f * total / essenceValues[rarity];
+                }
                 for (int i = 0; i < essenceValues.Length; ++i)
                 {
-                    if (total / essenceValues[i] < 0.05)
+                    if (dropRate[i] > 0)
                     {
-                        break;
-                    }
-                    else
-                    {
-                        rarity = i;
-                    }
-                }
-            }
-            if (rarity == 0)
-            {
-                dropRate[rarity] = 2.5f * total / essenceValues[rarity];
-            }
-            else
-            {
-                dropRate[rarity] = 2f * total / essenceValues[rarity];
-                dropRate[rarity - 1] = total / essenceValues[rarity];
-            }
-            if(rarity < 4)
-            {
-                dropRate[rarity + 1] = 0.25f * total / essenceValues[rarity];
-            }
-            for (int i = 0; i < essenceValues.Length; ++i)
-            {
-                if(dropRate[i] > 0)
-                {
-                    if (npc.boss)
-                    {
-                        npcLoot.Add(ItemDropRule.Common(baseID + i, 1, (int)dropRate[i], (int)(dropRate[i] + 1)));
-                    }
-                    else
-                    {
-                        int denominator = (int)(1 / dropRate[i]);
-                        npcLoot.Add(ItemDropRule.Common(baseID + i, denominator, 1, 1));
+                        if (npc.boss)
+                        {
+                            npcLoot.Add(ItemDropRule.Common(baseID + i, 1, (int)dropRate[i], (int)(dropRate[i] + 1)));
+                        }
+                        else
+                        {
+                            int denominator = (int)(1 / dropRate[i]);
+                            npcLoot.Add(ItemDropRule.Common(baseID + i, denominator, 1, 1));
+                        }
                     }
                 }
+                /*
+                npc.boss;
+                npc.buffImmune;
+                npc.lifeMax;
+                npc.defDamage;
+                npc.defDefense;
+                    npc.friendly;
+                npc.knockBackResist;
+                npc.lavaImmune;
+                npc.noGravity;
+                npc.noTileCollide;
+                npc.reflectsProjectiles;
+                    npc.SpawnedFromStatue;
+                npc.statsAreScaledForThisManyPlayers;
+                npc.stepSpeed;
+                npc.strengthMultiplier;
+                    npc.townNPC;
+                npc.trapImmune;
+                npc.value;
+                npc.width;
+                npc.height;
+                */
             }
-            /*
-            npc.boss;
-            npc.buffImmune;
-            npc.lifeMax;
-            npc.defDamage;
-            npc.defDefense;
-                npc.friendly;
-            npc.knockBackResist;
-            npc.lavaImmune;
-            npc.noGravity;
-            npc.noTileCollide;
-            npc.reflectsProjectiles;
-                npc.SpawnedFromStatue;
-            npc.statsAreScaledForThisManyPlayers;
-            npc.stepSpeed;
-            npc.strengthMultiplier;
-                npc.townNPC;
-            npc.trapImmune;
-            npc.value;
-            npc.width;
-            npc.height;
-            */
         }
     }
 }

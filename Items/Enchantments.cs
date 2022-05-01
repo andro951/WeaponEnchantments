@@ -122,7 +122,7 @@ namespace WeaponEnchantments.Items
 		{
 			if (enchantmentSize > -1)
 			{
-				for(int i = enchantmentSize; i >= 0; i--)
+				for(int i = enchantmentSize; i < rarity.Length; i++)
                 {
 					Recipe recipe = CreateRecipe();
 					recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[enchantmentSize], 10);

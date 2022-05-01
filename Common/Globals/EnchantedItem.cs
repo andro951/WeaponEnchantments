@@ -256,16 +256,10 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
             {
-                float xp;
                 int xpInt;
-                if (target.value > target.lifeMax)
-                {
-                    xp = 0.2f * (target.value - target.lifeMax) + target.lifeMax;
-                }
-                else
-                {
-                    xp = 0.2f * (target.lifeMax - target.value) + target.value;
-                }
+                float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
+                float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
+                float xp = (float)target.lifeMax * multiplier * effDamage/(effDamage - (float)target.defDefense / 2);
                 xpInt = (int)xp;
                 if(levelBeforeBooster < maxLevel)
                 {

@@ -256,9 +256,10 @@ namespace WeaponEnchantments.UI
             }
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
+                //if(wePlayer.enchantingTableUI.itemSlotUI[i].Item != null)
                 wePlayer.enchantingTable.item[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item.Clone();
             }//Store item(s) left in enchanting table to player
-            for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 wePlayer.enchantingTable.enchantmentItem[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
             }//Store enchantments left in enchanting table to player
@@ -608,7 +609,7 @@ namespace WeaponEnchantments.UI
                             I.SetDefaults();
                             break;
                         }
-                        if (slotItems[essenceTier].type == 0)
+                        if (slotItems[essenceTier].type == ItemID.None)
                         {
                             slotItems[essenceTier] = I.Clone();
                             I.SetDefaults();

@@ -15,8 +15,6 @@ namespace WeaponEnchantments.Common.Globals
         public Item sourceItem;
         private bool sourceSet;
         private int lastInventoryLocation = -1;
-        private int chest;
-        private int lastKnownChest;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {

@@ -89,7 +89,7 @@ namespace WeaponEnchantments.Tiles
 				//Mod.Logger.Debug("enchantingTableTier: " + enchantingTableTier.ToString());
 				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				wePlayer.enchantingTableUI.OnDeactivate();
+				WEModSystem.CloseWeaponEnchantmentUI();
 			}
 		}
 		public override bool RightClick(int x, int y)
@@ -117,7 +117,7 @@ namespace WeaponEnchantments.Tiles
 			{
 				wePlayer.enchantingTableTier = enchantingTableTier;
 				//wePlayer.usingEnchantingTable = true;
-				wePlayer.Player.chest = -1;
+				//wePlayer.Player.chest = -1;
 				//for each itemslot, i   ItemSlot.SetGlow(i, -1f, chest: true);?
 				Main.playerInventory = true;
 				UILinkPointNavigator.ForceMovementCooldown(120);
@@ -126,10 +126,32 @@ namespace WeaponEnchantments.Tiles
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 				}
 				Main.recBigList = false;
-				wePlayer.Player.chestX = x;
-				wePlayer.Player.chestY = y;
 				SoundEngine.PlaySound(SoundID.MenuTick);
 				WEModSystem.OpenWeaponEnchantmentUI();//Move to on tick check
+				/*
+				int i;
+				for (i = 0; i < 8000 && Main.chest[i] != null; i++) { }
+				wePlayer.Player.chest = i;
+				wePlayer.chest = i;
+				Main.chest[wePlayer.chest] = new Chest();
+				//Main.chest[wePlayer.chest].item = new Item[40];
+				for (int j = 0; j < 40; j++)
+				{
+					if (i < EnchantmentEssence.rarity.Length)
+					{
+						Main.chest[wePlayer.chest].item[j] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+					}
+					else
+					{
+						Main.chest[wePlayer.chest].item[j] = new Item();
+					}
+				}
+				Main.chest[wePlayer.chest].x = x;
+				Main.chest[wePlayer.chest].y = y;
+				*/
+				wePlayer.Player.chestX = x;
+				wePlayer.Player.chestY = y;
+				Recipe.FindRecipes();
 				wePlayer.CustomFindRecipeis();
 			}
 			Main.mouseRightRelease = false;
@@ -147,7 +169,6 @@ namespace WeaponEnchantments.Tiles
             }
 			*/
 			//WEModSystem.ToggleWeaponEnchantmentUI();
-			Recipe.FindRecipes();
 			return true;
 		}
         public override void MouseOver(int x, int y)
