@@ -456,9 +456,17 @@ namespace WeaponEnchantments.UI
         private static void Offer()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            //If offer item is upgrade item
-            wePlayer.enchantingTable.tier++;
-            wePlayer.enchantingTable.Update();
+            bool stop = false;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                {
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                }
+                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+            }//Take all enchantments first
+
         }//Consume item to upgrade table or get resources
         
         private static void DrawSlots(SpriteBatch spriteBatch)//Not used if Draw is disabled

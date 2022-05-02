@@ -168,7 +168,10 @@ namespace WeaponEnchantments
                                             ammountConsumedFromInventory += wePlayer.inventoryItemRecord[j].stack;
                                         }
                                     }
-                                    wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssence.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
+                                    if(ammountConsumedFromInventory < requiredItem.stack)
+                                    {
+                                        wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssence.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
+                                    }
                                 }
                             }
                         }

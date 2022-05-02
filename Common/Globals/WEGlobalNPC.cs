@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if(!npc.friendly && !npc.townNPC && !npc.SpawnedFromStatue)
             {
-                float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) / (npc.boss ? 2f : 1f); //* (npc.boss ? 1f : 2f);
+                float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) * (npc.boss ? 1f : 2f);
                 float hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
                 float value = (float)npc.value;
                 float neg = Math.Abs(value - hp) * 0.8f;
@@ -28,6 +28,10 @@ namespace WeaponEnchantments.Common.Globals
                 float[] essenceValues = new float[] { 100f, 800f, 6400f, 51200f, 409600f };
                 float[] dropRate = new float[essenceValues.Length];
                 int baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
+                if(npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
+                {
+                    float temp = total;
+                }
 
                 int rarity = 0;
                 if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
@@ -58,7 +62,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-                total *= 2;
+                //total *= 2;
                 if (rarity == 0)
                 {
                     dropRate[rarity] = 1.25f * total / essenceValues[rarity];
@@ -70,7 +74,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 if (rarity < 4)
                 {
-                    dropRate[rarity + 1] = 0.125f * total / essenceValues[rarity];
+                    dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
                 }
                 for (int i = 0; i < essenceValues.Length; ++i)
                 {
@@ -78,11 +82,11 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                         {
-                            npcLoot.Add(ItemDropRule.Common(baseID + i, 1, (int)dropRate[i], (int)(dropRate[i] + 1)));
+                            npcLoot.Add(ItemDropRule.Common(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)));
                         }
                         else
                         {
-                            int denominator = (int)(1 / dropRate[i]);
+                            int denominator = (int)Math.Round(1f / dropRate[i]);
                             npcLoot.Add(ItemDropRule.Common(baseID + i, denominator, 1, 1));
                         }
                     }

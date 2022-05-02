@@ -21,13 +21,16 @@ namespace WeaponEnchantments.Items
             if(size == 0)
             {
                 Tooltip.SetDefault("Used to create Superior Enchantment Containments");
+                Item.value = 375;
             }
             else
             {
                 Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
+                Item.value = 3000;
             }
             Item.width = 8;
             Item.height = 8;
+            Item.maxStack = 1000;
         }
         public override void AddRecipes()
         {
@@ -64,6 +67,8 @@ namespace WeaponEnchantments.Items
             Tooltip.SetDefault("Used to create Enchantment Containments");
             Item.width = 10;
             Item.height = 10;
+            Item.maxStack = 1000;
+            Item.value = 3000;
         }
         public override void AddRecipes()
         {
@@ -87,7 +92,9 @@ namespace WeaponEnchantments.Items
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetDefaults()
         {
-            Item.value = 100000;
+            Item.maxStack = 1000;
+            Item.value = fragments[size] * 3000;
+            
             if (size < 2)
             {
                 Item.width = 10 + 4 * (size);
@@ -95,6 +102,7 @@ namespace WeaponEnchantments.Items
             }
             else
             {
+                Item.value += 4 * 375;
                 Item.width = 40;
                 Item.height = 40;
             }
@@ -106,18 +114,18 @@ namespace WeaponEnchantments.Items
             recipie.AddTile(TileID.WorkBenches);
             if (size > 0)
             {
-                recipie.AddIngredient(Mod, sizes[size - 1] + "Containment", 1);
+                //recipie.AddIngredient(Mod, sizes[size - 1] + "Containment", 1);
             }
             if(size == 2)
             {
-                recipie.AddIngredient(Stabilizer.IDs[0], 4);
+                recipie.AddIngredient(ModContent.ItemType<Stabilizer>(), 4);
             }
             else
             {
                 recipie.AddIngredient(ItemID.Glass, glass[size]);
             }
-            recipie.AddIngredient(ContainmentFragment.ID, fragments[size]);
-            recipie.AddIngredient(ContainmentFragment.ID, fragments[size]);
+            recipie.AddIngredient(ModContent.ItemType<ContainmentFragment>(), fragments[size]);
+            //recipie.AddIngredient(ContainmentFragment.ID, fragments[size]);
             recipie.Register();
             IDs[size] = Item.type;
         }

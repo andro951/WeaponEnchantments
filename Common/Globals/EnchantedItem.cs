@@ -261,8 +261,16 @@ namespace WeaponEnchantments.Common.Globals
                 int xpInt;
                 float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
                 float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
-                float xp = (float)target.lifeMax * multiplier * effDamage/(effDamage - (float)target.defDefense / 2);
-                xpInt = (int)xp;
+                float xp;
+                if (effDamage - (float)target.defDefense / 2 > 1)
+                {
+                    xp = (float)target.lifeMax * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
+                }
+                else
+                {
+                    xp = (float)target.lifeMax * multiplier * effDamage;
+                }
+                xpInt = (int)Math.Round(xp / 2);
                 if(levelBeforeBooster < maxLevel)
                 {
                     Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");

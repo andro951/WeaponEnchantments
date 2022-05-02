@@ -152,18 +152,18 @@ namespace WeaponEnchantments.Items
         {
 			return utility ? enchantmentSize / 2 : enchantmentSize;
         }
-		public override void OnCreate(ItemCreationContext context)
+		public override void OnCreate(ItemCreationContext context) 
 		{
-			/*
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			if (0 < enchantmentSize && enchantmentSize < 3)
 			{
 				Item itemToSpawn = new Item();
 				itemToSpawn.type = Containment.IDs[enchantmentSize - 1];
 				itemToSpawn.stack = 1;
-				wePlayer.Player.GetItem(Main.myPlayer, itemToSpawn, GetItemSettings.LootAllSettings);
+                if (!itemToSpawn.IsAir)
+                {
+					Main.LocalPlayer.GetItem(Main.myPlayer, itemToSpawn, GetItemSettings.LootAllSettings);
+				}
 			}
-			*/
 		}
 
 		public class OmniEnchantment : Enchantments

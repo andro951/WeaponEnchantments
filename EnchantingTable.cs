@@ -43,11 +43,6 @@ namespace WeaponEnchantments
             }//setup essence
             tier = Tier;
         }//Constructor
-        public void Update()
-        {
-            //needs the 
-            
-        }
         public void Open()
         {
             availableEnchantmentSlots = maxEnchantments - tier;
