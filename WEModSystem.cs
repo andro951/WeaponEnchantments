@@ -129,7 +129,7 @@ namespace WeaponEnchantments
                     {bool pickedUp = false;
                         for(int i = 0; i < 50; i++)
                         {
-                            if(wePlayer.inventoryItemRecord[i].type == wePlayer.lastFocusRecipeType)
+                            if(wePlayer.inventoryItemRecord[i].type == Main.recipe[wePlayer.lastFocusRecipeType].createItem.type)
                             {
                                 if (wePlayer.Player.inventory[i].stack < wePlayer.inventoryItemRecord[i].stack)
                                 {
@@ -615,7 +615,10 @@ namespace WeaponEnchantments
                 else if(secondDraw) 
                 { 
                     secondDraw = false;
-                    needsToQuickStack = true;
+                    if (wePlayer.enchantingTableTier > 0)
+                    {
+                        needsToQuickStack = true;
+                    }
                 }
                 else if (tryNextTick && !secondDraw)
                 {
@@ -629,9 +632,8 @@ namespace WeaponEnchantments
                             {
                                 SoundEngine.PlaySound(SoundID.Grab);
                             }
-                            tryNextTick = false;
                         }
-                        
+                        tryNextTick = false;
                     }
                 }
                 else if (needsToQuickStack)

@@ -106,6 +106,7 @@ namespace WeaponEnchantments.Common.Globals
             }//Load enchantment item tags
             experience = tag.Get<int>("experience");//Load experience tag
             powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
+            UpdateLevel();
         }
         public override void SaveData(Item item, TagCompound tag)
         {
@@ -129,7 +130,8 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (baseDamage == 0f)
             {
-                baseDamage = damage.Base;
+                //baseDamage = damage.Base;
+                baseDamage = ContentSamples.ItemsByType[item.type].damage;
                 baseFireRate = ContentSamples.ItemsByType[item.type].shootSpeed;
                 baseSpeed = ContentSamples.ItemsByType[item.type].useTime;
                 baseAnimation = ContentSamples.ItemsByType[item.type].useAnimation;
@@ -155,9 +157,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 damage += modifier * damage.Multiplicative;
             }
-            item.useTime = (int)(baseSpeed * 1 / (1 + speedModifier));
-            item.useAnimation = (int)(baseSpeed * 1 / (1 + speedModifier));
-            item.shootSpeed = baseFireRate * (1 + speedModifier);
+            //item.useTime = (int)(baseSpeed * 1 / (1 + speedModifier));
+            //item.useAnimation = (int)(baseSpeed * 1 / (1 + speedModifier));
+            //item.shootSpeed = baseFireRate * (1 + speedModifier);
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {

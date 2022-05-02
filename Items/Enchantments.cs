@@ -126,6 +126,18 @@ namespace WeaponEnchantments.Items
                 {
 					Recipe recipe = CreateRecipe();
 					recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[enchantmentSize], 10);
+					if(enchantmentSize > 0)
+                    {
+						recipe.AddIngredient(Mod, enchantmentTypeName + "Enchantment" + rarity[enchantmentSize - 1], 1);
+					}
+					if(enchantmentSize < 3)
+                    {
+						recipe.AddIngredient(Mod, Containment.sizes[enchantmentSize] + "Containment", 1);
+                    }
+					else if(enchantmentSize == 4)
+					{
+						recipe.AddIngredient(Stabilizer.IDs[1], 4);
+                    }
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 					recipe.Register();
 				}
@@ -140,6 +152,19 @@ namespace WeaponEnchantments.Items
         {
 			return utility ? enchantmentSize / 2 : enchantmentSize;
         }
+		public override void OnCreate(ItemCreationContext context)
+		{
+			/*
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (0 < enchantmentSize && enchantmentSize < 3)
+			{
+				Item itemToSpawn = new Item();
+				itemToSpawn.type = Containment.IDs[enchantmentSize - 1];
+				itemToSpawn.stack = 1;
+				wePlayer.Player.GetItem(Main.myPlayer, itemToSpawn, GetItemSettings.LootAllSettings);
+			}
+			*/
+		}
 
 		public class OmniEnchantment : Enchantments
 		{

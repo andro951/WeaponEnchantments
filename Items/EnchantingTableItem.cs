@@ -58,7 +58,7 @@ namespace WeaponEnchantments.Items
 			{
 				if (enchantingTableTier > 0)
 				{
-					recipe.AddTile(TileID.WorkBenches);
+					//recipe.AddTile(TileID.WorkBenches);
 					recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
 				}
 				switch (enchantingTableTier)
@@ -68,7 +68,13 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.Torch, 4); //Torches
 						break;
 					case 1:
-						recipe.AddIngredient(ItemID.FossilHelm, 1); //Fossil Helm
+						recipe.AddIngredient(ItemID.DesertFossil, 10); //Fossil Helm
+						recipe.Register();
+						recipe = CreateRecipe();
+						recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+						recipe.AddIngredient(ItemID.FossilOre, 1);
+						//recipe.requiredItem[1].type = ItemID.FossilOre;
+						//recipe.requiredItem[1].stack = 1;
 						break;
 					case 2:
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull

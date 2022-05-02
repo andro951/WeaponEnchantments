@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
+using static WeaponEnchantments.Items.Containment;
 using static WeaponEnchantments.Items.EnchantmentEssence;
 
 namespace WeaponEnchantments.Common.Globals
@@ -29,8 +30,7 @@ namespace WeaponEnchantments.Common.Globals
                 int baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
 
                 int rarity = 0;
-
-                if (npc.boss)
+                if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                 {
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
@@ -76,7 +76,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (dropRate[i] > 0)
                     {
-                        if (npc.boss)
+                        if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                         {
                             npcLoot.Add(ItemDropRule.Common(baseID + i, 1, (int)dropRate[i], (int)(dropRate[i] + 1)));
                         }
@@ -86,6 +86,19 @@ namespace WeaponEnchantments.Common.Globals
                             npcLoot.Add(ItemDropRule.Common(baseID + i, denominator, 1, 1));
                         }
                     }
+                }
+                if (npc.boss || (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail))
+                {
+                    if(npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
+                    {
+                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1));
+                    }
+                    else
+                    {
+                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)));
+                    }
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1));
                 }
                 /*
                 npc.boss;

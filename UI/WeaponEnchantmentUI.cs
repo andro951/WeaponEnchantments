@@ -254,19 +254,21 @@ namespace WeaponEnchantments.UI
             {
                 //SoundEngine.PlaySound(SoundID.MenuClose);
             }
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
+            if(wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)//If it hasn't been opened yet, it will be null
             {
-                //if(wePlayer.enchantingTableUI.itemSlotUI[i].Item != null)
-                wePlayer.enchantingTable.item[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item.Clone();
-            }//Store item(s) left in enchanting table to player
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                wePlayer.enchantingTable.enchantmentItem[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
-            }//Store enchantments left in enchanting table to player
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-            {
-                wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
-            }//Store essence left in enchanting table to player
+                for (int i = 0; i < EnchantingTable.maxItems; i++)
+                {
+                    wePlayer.enchantingTable.item[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item.Clone();
+                }//Store item(s) left in enchanting table to player
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    wePlayer.enchantingTable.enchantmentItem[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                }//Store enchantments left in enchanting table to player
+                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                {
+                    wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                }//Store essence left in enchanting table to player
+            }
         }//Store items left in enchanting table to player
 
         public override void Update(GameTime gameTime)
