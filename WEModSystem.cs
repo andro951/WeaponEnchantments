@@ -127,13 +127,13 @@ namespace WeaponEnchantments
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
                 //wePlayer.CustomFindRecipeis();
-                if(Main.mouseItem.type == Main.recipe[wePlayer.lastFocusRecipeType].createItem.type)
+                if(Main.mouseItem.type == Main.recipe[wePlayer.lastFocusRecipe].createItem.type)
                 {
                     if ((wePlayer.inventoryItemRecord[91].type == 0 && wePlayer.inventoryItemRecord[91].type != Main.mouseItem.type) || wePlayer.inventoryItemRecord[91].type == Main.mouseItem.type && wePlayer.inventoryItemRecord[91].stack != Main.mouseItem.stack)
                     {bool pickedUp = false;
                         for(int i = 0; i < 50; i++)
                         {
-                            if(wePlayer.inventoryItemRecord[i].type == Main.recipe[wePlayer.lastFocusRecipeType].createItem.type)
+                            if(wePlayer.inventoryItemRecord[i].type == Main.recipe[wePlayer.lastFocusRecipe].createItem.type)
                             {
                                 if (wePlayer.Player.inventory[i].stack < wePlayer.inventoryItemRecord[i].stack)
                                 {
@@ -160,7 +160,7 @@ namespace WeaponEnchantments
                         }
                         if (!pickedUp)
                         {
-                            foreach(Item requiredItem in Main.recipe[wePlayer.lastFocusRecipeType].requiredItem)
+                            foreach(Item requiredItem in Main.recipe[wePlayer.lastFocusRecipe].requiredItem)
                             {
                                 if(requiredItem.ModItem is EnchantmentEssence)
                                 {
@@ -206,7 +206,25 @@ namespace WeaponEnchantments
                 //if (wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
                 if (wePlayer.Player.chest != -1)
                 {
-                    Item[] inventory = Main.chest[wePlayer.Player.chest].item;
+                    Item[] inventory;
+                    switch (wePlayer.Player.chest)
+                    {
+                        case -1:
+                            inventory = wePlayer.Player.bank.item;
+                            break;
+                        case -2:
+                            inventory = wePlayer.Player.bank2.item;
+                            break;
+                        case -3:
+                            inventory = wePlayer.Player.bank3.item;
+                            break;
+                        case -4:
+                            inventory = wePlayer.Player.bank4.item;
+                            break;
+                        default:
+                            inventory = Main.chest[wePlayer.Player.chest].item;
+                            break;
+                    }
                     for (int i = 0; i < 40; i++)
                     {
                         if (inventory?[i] != null)//try get rid of

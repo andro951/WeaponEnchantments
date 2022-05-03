@@ -29,8 +29,8 @@ namespace WeaponEnchantments
         public WeaponEnchantmentUI enchantingTableUI = new WeaponEnchantmentUI();
         public ConfirmationUI confirmationUI = new ConfirmationUI();
         public Item[] inventoryItemRecord = new Item[102];
+        public int lastFocusRecipeListNum = -1;
         public int lastFocusRecipe = -1;
-        public int lastFocusRecipeType = -1;
 
         /*
         public void RefreshModItems()
@@ -229,9 +229,9 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             int availableRecipe;
             float availableRecipeY;
-            if (lastFocusRecipeType > -1 && lastFocusRecipe > Main.focusRecipe && Main.focusRecipe == Main.numAvailableRecipes - 1)
+            if (lastFocusRecipe > -1 && lastFocusRecipeListNum > Main.focusRecipe && Main.focusRecipe == Main.numAvailableRecipes - 1)
             {
-                availableRecipe = lastFocusRecipeType;
+                availableRecipe = lastFocusRecipe;
                 //availableRecipeY = lastFocusRecipeY;
             }
             else
@@ -395,18 +395,18 @@ namespace WeaponEnchantments
                 {
                     Main.focusRecipe = i;
                     //lastFocusRecipe = i;
-                    lastFocusRecipeType = Main.availableRecipe[i];
+                    lastFocusRecipe = Main.availableRecipe[i];
                     break;
                 }
             }
 
             //if (Main.focusRecipe >= Main.numAvailableRecipes)
-            if (lastFocusRecipe >= Main.numAvailableRecipes)
+            if (lastFocusRecipeListNum >= Main.numAvailableRecipes)
                 Main.focusRecipe = Main.numAvailableRecipes - 1;
 
             if (Main.focusRecipe < 0)
                 Main.focusRecipe = 0;
-            lastFocusRecipe = Main.focusRecipe;
+            lastFocusRecipeListNum = Main.focusRecipe;
 
             float num8 = Main.availableRecipeY[Main.focusRecipe] - availableRecipeY;
             for (int num9 = 0; num9 < Recipe.maxRecipes; num9++)

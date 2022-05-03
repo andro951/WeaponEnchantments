@@ -141,6 +141,29 @@ namespace WeaponEnchantments.Items
                     }
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 					recipe.Register();
+					
+					if(enchantmentSize > 0)
+                    {
+						recipe = CreateRecipe();
+						for (int j = enchantmentSize; j >= 0; j--)
+						{
+							recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[j], 10);
+						}
+						if (i < 3)
+						{
+							recipe.AddIngredient(Mod, Containment.sizes[enchantmentSize] + "Containment", 1);
+						}
+						else
+						{
+							recipe.AddIngredient(Mod, Containment.sizes[2] + "Containment", 1);
+						}
+						if (enchantmentSize == 4)
+						{
+							recipe.AddIngredient(Stabilizer.IDs[1], 4);
+						}
+						recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
+						recipe.Register();
+					}
 				}
 				ID[enchantmentSize] = this.Type;
 				if(enchantmentSize == rarity.Length - 1)
@@ -159,7 +182,15 @@ namespace WeaponEnchantments.Items
 			{
                 if (Containment.IDs[enchantmentSize - 1] > ItemID.None)
                 {
-					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - 1], 1);
+					WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+					foreach (Item reqiredItem in Main.recipe[wePlayer.lastFocusRecipe].requiredItem)
+					{
+						if (Item.type - 1 == reqiredItem.type)
+                        {
+							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - 1], 1);
+						}
+					}
+					
 				}
 			}
 		}
