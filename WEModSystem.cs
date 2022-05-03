@@ -25,6 +25,7 @@ namespace WeaponEnchantments
     {
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
+        internal static UserInterface promptInterface;
         private GameTime _lastUpdateUiGameTime;
         private static Item[] itemSlots = new Item[EnchantingTable.maxItems];
         private static Item[] enchantmentSlots = new Item[EnchantingTable.maxEnchantments];
@@ -45,6 +46,7 @@ namespace WeaponEnchantments
             if (!Main.dedServ)
             {
                 weModSystemUI = new UserInterface();
+                promptInterface = new UserInterface();
                 mouseoverUIInterface = new UserInterface();
             }
         }//PR
@@ -54,6 +56,7 @@ namespace WeaponEnchantments
             {
                 weModSystemUI = null;
                 mouseoverUIInterface = null;
+                promptInterface = null;
             }
         }//PR
         public override void PostUpdatePlayers()
@@ -72,9 +75,10 @@ namespace WeaponEnchantments
                             {
                                 wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
                             }
-                            wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                             wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
+                            wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                         }
+                        ConfirmationUI.offered = false;
                         wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
                         wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
                     }//Transfer items to global item and break the link between the global item and enchanting table itemSlots/enchantmentSlots
@@ -473,6 +477,7 @@ namespace WeaponEnchantments
             if (WeaponEnchantmentUI.PR)
             {
                 weModSystemUI.SetState(null);
+                promptInterface.SetState(null);
             }//PR
         }
         internal static void OpenWeaponEnchantmentUI()
@@ -602,6 +607,7 @@ namespace WeaponEnchantments
         public override void PreSaveAndQuit()//*
         {
             weModSystemUI.SetState(null);
+            promptInterface.SetState(null);
         }
         public override void UpdateUI(GameTime gameTime)//*
         {
@@ -648,6 +654,10 @@ namespace WeaponEnchantments
                 //wePlayer.enchantingTableUI.DrawSelf(Main.spriteBatch);
             }
             //mouseoverUI.Update(gameTime);
+            if(promptInterface?.CurrentState != null)
+            {
+                promptInterface.Update(gameTime);
+            }
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)//*
         {
@@ -664,7 +674,7 @@ namespace WeaponEnchantments
                         { 
                             if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) 
                             { 
-                                mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime); 
+                                mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
                             } return true; 
                         }, 
                         InterfaceScaleType.UI
@@ -675,12 +685,28 @@ namespace WeaponEnchantments
             if (index != -1)//++
             {
                 layers.Insert(index, new LegacyGameInterfaceLayer(//++
-                    "WeaponEnchantments: ",//++
+                    "WeaponEnchantments: WeaponEnchantmentsUI",//++
                     delegate//++
                     {
                         if (_lastUpdateUiGameTime != null && weModSystemUI?.CurrentState != null)//++
                         {
                             weModSystemUI.Draw(Main.spriteBatch, _lastUpdateUiGameTime);//++
+                        }
+                        return true;//++
+                    },
+                    InterfaceScaleType.UI)//++
+                );
+            }
+            index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));//++
+            if (index != -1)//++
+            {
+                layers.Insert(index, new LegacyGameInterfaceLayer(//++
+                    "WeaponEnchantments: PromptUI",//++
+                    delegate//++
+                    {
+                        if (_lastUpdateUiGameTime != null && promptInterface?.CurrentState != null)//++
+                        {
+                            promptInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
                         }
                         return true;//++
                     },

@@ -17,12 +17,186 @@ using Terraria.UI.Gamepad;
 using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
+using System;
 
 namespace WeaponEnchantments.UI
 {
+    public class ConfirmationUI : UIPanel
+    {
+        public class ConfirmationButtonID
+        {
+            public const int Yes = 0;
+            public const int No = 1;
+            public const int Count = 2;
+        }//LootAll = 0, Offer = 1
+        public static string[] ConfirmationButtonNames = new string[] { "Yes", "No" };
+        private UIText promptText;
+        private UIPanel[] confirmationButton = new UIPanel[ConfirmationButtonID.Count];
+        private List<UIPanel> confirmationPanels;//PR
+        public static bool offered = false;
+        private readonly static Color red = new Color(171, 76, 73);
+        private readonly static Color hoverRed = new Color(184, 103, 100);
+        private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
+        private readonly static Color hoverColor = new Color(100, 118, 184);//Button hover color
+
+        internal const int width = 680;
+        internal const int height = 155;
+
+        internal int RelativeLeft => Main.screenWidth / 2 - width / 2;
+        internal int RelativeTop => Main.screenHeight / 2 + 42; //Half the player height on 200% zoom
+        public override void OnInitialize()
+        {
+            if (WeaponEnchantmentUI.PR)
+            {
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                Width.Pixels = width;
+                Height.Pixels = height;
+                Top.Pixels = int.MaxValue / 2;
+                Left.Pixels = int.MaxValue / 2 + 100;
+                BackgroundColor = red;
+
+                confirmationPanels = new List<UIPanel>();
+
+                float nextElementY = -PaddingTop / 2;
+                promptText = new UIText("Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value and experience.  Mods will be returned.)")
+                {
+                    Top = { Pixels = nextElementY + 15 },
+                    Left = { Pixels = 70 },
+                    HAlign = 0.5f
+                };//Confirmation label
+                Append(promptText);
+                nextElementY += 20;
+
+                nextElementY += 50;
+                float ratioFromCenter = 0.22f;
+
+                //Yes Button
+                confirmationButton[ConfirmationButtonID.Yes] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY },
+                    Left = { Pixels = -66 - 56 },
+                    Width = { Pixels = 100f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f - ratioFromCenter,
+                    BackgroundColor = red
+                };
+                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
+                UIText yesButtonText = new UIText("Yes")
+                {
+                    Top = { Pixels = -4f },
+                    Left = { Pixels = -6f }
+                };
+                confirmationButton[ConfirmationButtonID.Yes].Append(yesButtonText);
+                Append(confirmationButton[ConfirmationButtonID.Yes]);
+                confirmationPanels.Add(confirmationButton[ConfirmationButtonID.Yes]);
+
+                nextElementY += 35;
+
+                //No Button
+                confirmationButton[ConfirmationButtonID.No] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY },
+                    Left = { Pixels = -66 - 56 },
+                    Width = { Pixels = 100f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f - ratioFromCenter,
+                    BackgroundColor = bgColor
+                };
+                confirmationButton[ConfirmationButtonID.No].OnClick += (evt, element) => { DeclineOffer(); };
+                UIText noButtonText = new UIText("No")
+                {
+                    Top = { Pixels = -4f },
+                    Left = { Pixels = -6f }
+                };
+                confirmationButton[ConfirmationButtonID.No].Append(noButtonText);
+                Append(confirmationButton[ConfirmationButtonID.No]);
+                confirmationPanels.Add(confirmationButton[ConfirmationButtonID.No]);
+            }//PetRenaimer based UI
+        }//Set up PR UI
+        private static void DeclineOffer()
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEModSystem.promptInterface.SetState(null);
+            UIState state = new UIState();
+            state.Append(wePlayer.enchantingTableUI);
+            WEModSystem.weModSystemUI.SetState(state);
+        }
+        private static void ConfirmOffer()
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEModSystem.promptInterface.SetState(null);
+            UIState state = new UIState();
+            state.Append(wePlayer.enchantingTableUI);
+            WEModSystem.weModSystemUI.SetState(state);
+            bool stop = false;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                {
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                }
+                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+            }//Take all enchantments first
+            if (!stop)
+            {
+                int[] xpTiers = {100, 400, 1600, 6400, 25600 };
+                int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
+                int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
+                int numberEssenceRecieved;
+                int xpCounter = (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.enchantingTableTier));
+                for(int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
+                {
+                    numberEssenceRecieved = xpCounter / xpTiers[tier];
+                    xpCounter %= xpTiers[tier];
+                    if(xpCounter < 100 && xpCounter > 0 && tier == 0)
+                    {
+                        xpCounter = 0;
+                        numberEssenceRecieved += 1;
+                    }
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
+                    {
+                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.type = EnchantmentEssence.IDs[tier];
+                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
+                    }
+                    else
+                    {
+                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
+                    }
+                }
+                int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);
+                if (stack == 0)
+                {
+                    stack = 1;
+                }
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<ContainmentFragment>(), stack);
+                wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                offered = true;
+                SoundEngine.PlaySound(SoundID.Grab);
+            }
+        }//Consume item to upgrade table or get resources
+        public override void Update(GameTime gameTime)
+        {
+            Left.Pixels = RelativeLeft + 100;//PR
+            Top.Pixels = RelativeTop;//PR
+
+            foreach (var panel in confirmationPanels)
+            {
+                if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
+                {
+                    panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+                }
+                else if (panel.BackgroundColor == red || panel.BackgroundColor == hoverRed)
+                {
+                    panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
+                }
+            }//Change button color if hovering
+        }//PR
+    }
+
     public class WeaponEnchantmentUI : UIPanel
     {
-		public class ButtonID
+        public class ButtonID
         {
             public const int LootAll = 0;
             public const int Offer = 1;
@@ -51,6 +225,8 @@ namespace WeaponEnchantments.UI
         public WEUIItemSlot[] enchantmentSlotUI = new WEUIItemSlot[EnchantingTable.maxEnchantments];//PR
         public WEUIItemSlot[] essenceSlotUI = new WEUIItemSlot[EnchantingTable.maxEssenceItems];//PR
 
+        private readonly static Color red = new Color(171, 76, 73);
+        private readonly static Color hoverRed = new Color(184, 103, 100);
         private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
         private readonly static Color hoverColor = new Color(100, 118, 184);//Button hover color
 
@@ -83,7 +259,6 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f
                 };//UI slot labels
                 Append(titleText);
-
                 nextElementY += 20;
 
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
@@ -217,7 +392,7 @@ namespace WeaponEnchantments.UI
                     Width = { Pixels = 100f },
                     Height = { Pixels = 30f },
                     HAlign = 0.5f - ratioFromCenter,
-                    BackgroundColor = bgColor
+                    BackgroundColor = red
                 };
                 button[ButtonID.Offer].OnClick += (evt, element) => { Offer(); };
                 UIText disenchantButtonText = new UIText("Offer")
@@ -254,7 +429,7 @@ namespace WeaponEnchantments.UI
             {
                 //SoundEngine.PlaySound(SoundID.MenuClose);
             }
-            if(wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)//If it hasn't been opened yet, it will be null
+            if(wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//If it hasn't been opened yet, it will be null
             {
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
@@ -278,7 +453,14 @@ namespace WeaponEnchantments.UI
 
             foreach (var panel in panels)
             {
-                panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+                if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
+                {
+                    panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+                }
+                else if (panel.BackgroundColor == red || panel.BackgroundColor == hoverRed)
+                {
+                    panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
+                }
             }//Change button color if hovering
         }//PR
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -434,40 +616,42 @@ namespace WeaponEnchantments.UI
         
         private static void LootAll()
         {
-            GetItemSettings lootAllSettings = GetItemSettings.LootAllSettings;
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if (WEModSystem.promptInterface.CurrentState == null)
             {
-                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                GetItemSettings lootAllSettings = GetItemSettings.LootAllSettings;
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, lootAllSettings);
-                }
-            }//Take all enchantments first
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
-            {
-                if (!wePlayer.enchantingTableUI.itemSlotUI[i].Item.IsAir)
+                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    {
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, lootAllSettings);
+                    }
+                }//Take all enchantments first
+                for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
-                    wePlayer.enchantingTableUI.itemSlotUI[i].Item.position = wePlayer.Player.Center;
-                    wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, lootAllSettings);
-                }
-            }//Take item(s)
+                    if (!wePlayer.enchantingTableUI.itemSlotUI[i].Item.IsAir)
+                    {
+                        wePlayer.enchantingTableUI.itemSlotUI[i].Item.position = wePlayer.Player.Center;
+                        wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, lootAllSettings);
+                    }
+                }//Take item(s)
+            }
         }//Loot all item(s) and enchantments from enchantment table (Not Essence)
         private static void Offer()
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            bool stop = false;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if(WEModSystem.promptInterface.CurrentState == null)
             {
-                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                    WEModSystem.weModSystemUI.SetState(null);
+                    UIState state = new UIState();
+                    state.Append(wePlayer.confirmationUI);
+                    WEModSystem.promptInterface.SetState(state);
                 }
-                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
-            }//Take all enchantments first
-
-        }//Consume item to upgrade table or get resources
+            }
+        }
         
         private static void DrawSlots(SpriteBatch spriteBatch)//Not used if Draw is disabled
         {

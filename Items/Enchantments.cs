@@ -7,6 +7,7 @@ using WeaponEnchantments.Common;
 using log4net;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace WeaponEnchantments.Items
 {
@@ -156,12 +157,9 @@ namespace WeaponEnchantments.Items
 		{
 			if (0 < enchantmentSize && enchantmentSize < 3)
 			{
-				Item itemToSpawn = new Item();
-				itemToSpawn.type = Containment.IDs[enchantmentSize - 1];
-				itemToSpawn.stack = 1;
-                if (!itemToSpawn.IsAir)
+                if (Containment.IDs[enchantmentSize - 1] > ItemID.None)
                 {
-					Main.LocalPlayer.GetItem(Main.myPlayer, itemToSpawn, GetItemSettings.LootAllSettings);
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - 1], 1);
 				}
 			}
 		}

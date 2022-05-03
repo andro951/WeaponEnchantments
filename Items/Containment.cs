@@ -68,7 +68,7 @@ namespace WeaponEnchantments.Items
             Item.width = 10;
             Item.height = 10;
             Item.maxStack = 1000;
-            Item.value = 3000;
+            Item.value = 10000;
         }
         public override void AddRecipes()
         {
@@ -93,7 +93,7 @@ namespace WeaponEnchantments.Items
         public override void SetDefaults()
         {
             Item.maxStack = 1000;
-            Item.value = fragments[size] * 3000;
+            Item.value = fragments[size] * ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value;
             
             if (size < 2)
             {
@@ -102,7 +102,7 @@ namespace WeaponEnchantments.Items
             }
             else
             {
-                Item.value += 4 * 375;
+                Item.value += 4 * ModContent.GetModItem(ModContent.ItemType<Stabilizer>()).Item.value;
                 Item.width = 40;
                 Item.height = 40;
             }

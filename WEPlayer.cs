@@ -27,6 +27,7 @@ namespace WeaponEnchantments
         public Item itemBeingEnchanted;
         public EnchantingTable enchantingTable = new EnchantingTable();
         public WeaponEnchantmentUI enchantingTableUI = new WeaponEnchantmentUI();
+        public ConfirmationUI confirmationUI = new ConfirmationUI();
         public Item[] inventoryItemRecord = new Item[102];
         public int lastFocusRecipe = -1;
         public int lastFocusRecipeType = -1;
