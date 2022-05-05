@@ -16,10 +16,13 @@ namespace WeaponEnchantments.Items
 		public static bool cheating = false;
 		public class EnchantmentTypeIDs
         {
-			internal static readonly int Damage = 0;
-			internal static readonly int Critical = 1;
-			internal static readonly int Size = 2;
-			internal static readonly int Speed = 3;
+			internal const int Damage = 0;
+			internal const int Critical = 1;
+			internal const int Size = 2;
+			internal const int Speed = 3;
+			internal const int Defence = 4;
+			internal const int ManaCost = 5;
+			internal const int AmmoCost = 6;
         }
 
 		public int enchantmentSize = -1;
@@ -28,8 +31,8 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed"};
-		public static string[] utilityEnchantmentIDs = new string[1] { "Size" };
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost"};
+		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost"};
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
@@ -88,6 +91,26 @@ namespace WeaponEnchantments.Items
 								break;
 						}
 						break;
+					case "Defence":
+						switch (enchantmentSize)
+						{
+							case 0:
+								enchantmentStrength = 1;
+								break;
+							case 1:
+								enchantmentStrength = 2f;
+								break;
+							case 2:
+								enchantmentStrength = 3f;
+								break;
+							case 3:
+								enchantmentStrength = 5f;
+								break;
+							case 4:
+								enchantmentStrength = 10f;
+								break;
+						}
+						break;
 					default:
 						switch (enchantmentSize)
 						{
@@ -113,7 +136,19 @@ namespace WeaponEnchantments.Items
                 {
 					Tooltip.SetDefault("+" + ((int)(enchantmentStrength * 50)).ToString() + "% " + enchantmentTypeName + "\n+" + ((int)(enchantmentStrength * 100)).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
 				}
-                else
+				else if(enchantmentType == EnchantmentTypeIDs.Defence)
+                {
+					Tooltip.SetDefault("+" + ((int)(enchantmentStrength)).ToString() + " " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+				}
+				else if (enchantmentType == EnchantmentTypeIDs.ManaCost)
+				{
+					Tooltip.SetDefault("-" + ((int)(enchantmentStrength * 100)).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
+				}
+				else if (enchantmentType == EnchantmentTypeIDs.AmmoCost)
+				{
+					Tooltip.SetDefault("-" + ((int)(enchantmentStrength * 100)).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
+				}
+				else
                 {
 					Tooltip.SetDefault("+" + ((int)(enchantmentStrength * 100)).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 				}
@@ -174,9 +209,9 @@ namespace WeaponEnchantments.Items
 		}
 		public int GetLevelCost()
         {
-			return utility ? enchantmentSize / 2 : enchantmentSize;
+			return utility ? 1 + enchantmentSize : (1 + enchantmentSize) * 2;
         }
-		public override void OnCreate(ItemCreationContext context) 
+		public override void OnCreate(ItemCreationContext context)
 		{
 			if (0 < enchantmentSize && enchantmentSize < 3)
 			{
@@ -371,6 +406,69 @@ namespace WeaponEnchantments.Items
 		public class SpeedEnchantmentUltraRare : Enchantments
 		{
 			SpeedEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class DefenceEnchantmentBasic : Enchantments
+		{
+			DefenceEnchantmentBasic() { enchantmentSize = 0; }
+		}
+		public class DefenceEnchantmentCommon : Enchantments
+		{
+			DefenceEnchantmentCommon() { enchantmentSize = 1; }
+		}
+		public class DefenceEnchantmentRare : Enchantments
+		{
+			DefenceEnchantmentRare() { enchantmentSize = 2; }
+		}
+		public class DefenceEnchantmentSuperRare : Enchantments
+		{
+			DefenceEnchantmentSuperRare() { enchantmentSize = 3; }
+		}
+		public class DefenceEnchantmentUltraRare : Enchantments
+		{
+			DefenceEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class ManaCostEnchantmentBasic : Enchantments
+		{
+			ManaCostEnchantmentBasic() { enchantmentSize = 0; }
+		}
+		public class ManaCostEnchantmentCommon : Enchantments
+		{
+			ManaCostEnchantmentCommon() { enchantmentSize = 1; }
+		}
+		public class ManaCostEnchantmentRare : Enchantments
+		{
+			ManaCostEnchantmentRare() { enchantmentSize = 2; }
+		}
+		public class ManaCostEnchantmentSuperRare : Enchantments
+		{
+			ManaCostEnchantmentSuperRare() { enchantmentSize = 3; }
+		}
+		public class ManaCostEnchantmentUltraRare : Enchantments
+		{
+			ManaCostEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class AmmoCostEnchantmentBasic : Enchantments
+		{
+			AmmoCostEnchantmentBasic() { enchantmentSize = 0; }
+		}
+		public class AmmoCostEnchantmentCommon : Enchantments
+		{
+			AmmoCostEnchantmentCommon() { enchantmentSize = 1; }
+		}
+		public class AmmoCostEnchantmentRare : Enchantments
+		{
+			AmmoCostEnchantmentRare() { enchantmentSize = 2; }
+		}
+		public class AmmoCostEnchantmentSuperRare : Enchantments
+		{
+			AmmoCostEnchantmentSuperRare() { enchantmentSize = 3; }
+		}
+		public class AmmoCostEnchantmentUltraRare : Enchantments
+		{
+			AmmoCostEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

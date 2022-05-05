@@ -25,7 +25,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsWeaponItem(Item item)
 		{
-			return item.damage > 0;
+			return item.damage > 0 && item.ammo == 0;
 		}
 		internal static bool IsArmorItem(Item item)
 		{

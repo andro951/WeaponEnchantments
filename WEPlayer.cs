@@ -31,7 +31,9 @@ namespace WeaponEnchantments
         public Item[] inventoryItemRecord = new Item[102];
         public int lastFocusRecipeListNum = -1;
         public int lastFocusRecipe = -1;
-
+        public float itemScaleBonus = 0f;
+        public float manaCostBonus = 0f;
+        public float ammoCostBonus = 0f;
         /*
         public void RefreshModItems()
         {
@@ -45,6 +47,40 @@ namespace WeaponEnchantments
         {
 
         }
+        /*public override void PostUpdate()
+        {
+            if (Player.HeldItem == null)
+            {
+                if (heldItem != null)
+                {
+                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
+                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
+                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
+                }
+                heldItem = null;
+            }
+            else if (Player.HeldItem.IsAir)
+            {
+                if (heldItem != null)
+                {
+                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
+                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
+                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
+                }
+                heldItem = null;
+            }
+            else if (!Player.HeldItem.GetGlobalItem<EnchantedItem>().heldItem)
+            {
+                if (heldItem != null)
+                {
+                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
+                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
+                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
+                }
+                Player.HeldItem.GetGlobalItem<EnchantedItem>().heldItem = true;
+                heldItem = Player.HeldItem;
+            }
+        }*/
         public override void SaveData(TagCompound tag)
         {
             for (int i = 0; i < EnchantingTable.maxItems; i++)

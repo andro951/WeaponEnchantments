@@ -58,7 +58,7 @@ namespace WeaponEnchantments.UI
                 confirmationPanels = new List<UIPanel>();
 
                 float nextElementY = -PaddingTop / 2;
-                promptText = new UIText("Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value and experience.  Mods will be returned.)")
+                promptText = new UIText("Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
                 {
                     Top = { Pixels = nextElementY + 15 },
                     Left = { Pixels = 70 },

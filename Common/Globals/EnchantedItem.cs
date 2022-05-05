@@ -15,12 +15,19 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         
         public int experience;//current experience of a weapon/armor/accessory item
-        public float baseDamage;
-        public float baseFireRate;
-        public float baseSpeed;
-        public float baseAnimation;
-        public float origionalScale;
-        public int origionalValue;
+        public float lastSpeedBonus;
+        public int lastUseTimeBonusInt;
+        public int lastUseAnimationBonusInt;
+        public float lastSizeBonus;
+        public int lastValueBonus;
+        public int lastDefenceBonus;
+        public int lastManaCostBonus;
+        public float lastEquipManaCostBonus;
+        public float lastAmmoCostBonus;
+        public float lastEquipAmmoCostBonus;
+        public float lastScaleBonus;
+        public float lastGenericScaleBonus;
+        public bool heldItem = false;
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
@@ -45,7 +52,61 @@ namespace WeaponEnchantments.Common.Globals
             }//fixes enchantments being applied to all of an item instead of just the instance
             return clone;
         }
-        public void UpdateLevel()//Optimize this into get next level?
+        public override void UpdateEquip(Item item, Player player)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            float damageModifier = 0f;
+            float speedModifier = 0f;
+            int defenceBonus = 0;
+            float criticalBonus = 0f;
+            float knockbackBonus = 0f;
+            float manaCostBonus = 0f;
+            float ammoCostBonus = 0f;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                if (!enchantments[i].IsAir)
+                {
+                    float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
+                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    {
+                        case EnchantmentTypeIDs.Damage:
+                            damageModifier += str;
+                            break;
+                        case EnchantmentTypeIDs.Speed:
+                            speedModifier += str;
+                            break;
+                        case EnchantmentTypeIDs.Defence:
+                            defenceBonus += (int)Math.Round(str);
+                            break;
+                        case EnchantmentTypeIDs.Critical:
+                            criticalBonus += str;
+                            break;
+                        case EnchantmentTypeIDs.Size:
+                            knockbackBonus += str;
+                            break;
+                        case EnchantmentTypeIDs.ManaCost:
+                            manaCostBonus += str;
+                            break;
+                        case EnchantmentTypeIDs.AmmoCost:
+                            ammoCostBonus += str;
+                            break;
+                    }
+                }
+            }
+            player.GetDamage(DamageClass.Generic) += damageModifier / 4;
+            player.GetAttackSpeed(DamageClass.Generic) += speedModifier * 25;
+            player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
+            player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2;
+            wePlayer.itemScaleBonus += knockbackBonus / 4 - lastScaleBonus;
+            lastScaleBonus = knockbackBonus / 4;
+            item.defense += defenceBonus - lastDefenceBonus;
+            lastDefenceBonus = defenceBonus;
+            wePlayer.manaCostBonus += manaCostBonus / 4 - lastManaCostBonus;
+            lastEquipManaCostBonus = manaCostBonus / 4;
+            wePlayer.ammoCostBonus += ammoCostBonus / 4 - lastManaCostBonus;
+            lastEquipManaCostBonus = ammoCostBonus / 4;
+        }
+        public void UpdateLevel()
         {
             int previous1 = 1;
             int previous2 = 0;
@@ -128,38 +189,55 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (baseDamage == 0f)
-            {
-                //baseDamage = damage.Base;
-                baseDamage = ContentSamples.ItemsByType[item.type].damage;
-                baseFireRate = ContentSamples.ItemsByType[item.type].shootSpeed;
-                baseSpeed = ContentSamples.ItemsByType[item.type].useTime;
-                baseAnimation = ContentSamples.ItemsByType[item.type].useAnimation;
-            }
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float modifier = 0f;
             float speedModifier = 0f;
+            int defenceBonus = 0;
+            float manaCostBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                if (!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Damage)
+                if (!enchantments[i].IsAir)
                 {
-                    modifier += ((Enchantments)enchantments[i].ModItem).enchantmentStrength * damage.Multiplicative;
-                }
-                else if(!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Speed)
-                {
-                    speedModifier += ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
+                    float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
+                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    {
+                        case EnchantmentTypeIDs.Damage:
+                            modifier += str * damage.Multiplicative;
+                            break;
+                        case EnchantmentTypeIDs.Speed:
+                            speedModifier += str;
+                            break;
+                        case EnchantmentTypeIDs.Defence:
+                            defenceBonus += (int)Math.Round(str);
+                            break;
+                        case EnchantmentTypeIDs.ManaCost:
+                            manaCostBonus += str;
+                            break;
+                    }
                 }
             }
-            if (modifier > 0 && baseDamage * (1 + modifier) * damage.Multiplicative - baseDamage < 1)
+            if (modifier > 0 && ContentSamples.ItemsByType[item.type].damage * (1 + modifier) * damage.Multiplicative - ContentSamples.ItemsByType[item.type].damage < 1)
             {
-                damage += 1/baseDamage/damage.Multiplicative;
+                damage += 1/ ContentSamples.ItemsByType[item.type].damage / damage.Multiplicative;
             }
             else
             {
                 damage += modifier * damage.Multiplicative;
             }
-            //item.useTime = (int)(baseSpeed * 1 / (1 + speedModifier));
-            //item.useAnimation = (int)(baseSpeed * 1 / (1 + speedModifier));
-            //item.shootSpeed = baseFireRate * (1 + speedModifier);
+            if(player.HeldItem == item)
+            {
+                player.statDefense += (int)Math.Round((float)defenceBonus / 2);
+            }
+            item.useTime += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) - 1f)) - lastUseTimeBonusInt;
+            lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) - 1f));
+            item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) - 1f)) - lastUseAnimationBonusInt;
+            lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) - 1f));
+            item.shootSpeed *= (1 + speedModifier)/(1 + lastSpeedBonus);
+            lastSpeedBonus = speedModifier;
+            item.scale += wePlayer.itemScaleBonus - lastGenericScaleBonus;
+            lastGenericScaleBonus = wePlayer.itemScaleBonus;
+            item.mana -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCostBonus)) - lastManaCostBonus;
+            lastManaCostBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCostBonus));
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
@@ -173,11 +251,6 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
-            if (origionalScale == 0)
-            {
-                origionalScale = item.scale;
-                origionalValue = item.value;
-            }
             float scale = 0f;
             int value = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -189,8 +262,10 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 value += enchantments[i].value;
             }
-            item.scale = origionalScale * (1 + scale);//Update item size
-            item.value = origionalValue + value;//Update items value based on enchantments installed
+            item.scale += scale - lastSizeBonus;//Update item size
+            lastSizeBonus = scale;
+            item.value += value - lastValueBonus;//Update items value based on enchantments installed
+            lastValueBonus = value;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
@@ -225,37 +300,101 @@ namespace WeaponEnchantments.Common.Globals
                         tooltips.Add(new TooltipLine(Mod, "enchantmentsToolTip", "Enchantments:") { OverrideColor = Color.Violet});
                         enchantmentsToolTipAdded = true;
                     }//Enchantmenst: tooltip
-                    if (((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
+                    if(item.damage > 0)
                     {
-                        tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                        switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
-                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
-                        });
-                        tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Knockback")
-                        {
-                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
-                        });
-                    }//Special tooltip if size enchantment installed
+                            case EnchantmentTypeIDs.Size:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Knockback")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Defence:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength / 2)).ToString() + " " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.ManaCost:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Mana Cost")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.AmmoCost:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Chance to consume ammo")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            default:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                        }
+                    }
                     else
                     {
-                        tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                        switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
-                            OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
-                        });
-                    }//Default tooltip
+                            case EnchantmentTypeIDs.Size:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50 / 2)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 2)).ToString() + "% Knockback")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Defence:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength)).ToString() + " " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.ManaCost:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% Mana Cost")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.AmmoCost:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% Chance to consume ammo")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            default:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                        }
+                    }
                 }
             }//Edit Tooltips
         }
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        /*public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (target.life <= 0) 
             {
                 KillNPC(item, target);
             }
-        }
+        }*/
         public void KillNPC(Item item, NPC target)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
             {
                 int xpInt;
@@ -270,11 +409,32 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     xp = (float)target.lifeMax * multiplier * effDamage;
                 }
-                xpInt = (int)Math.Round(xp / 2);
+                if (item.accessory)
+                {
+                    xp /= 2;
+                }
+                xpInt = (int)Math.Round(xp);
                 if(levelBeforeBooster < maxLevel)
                 {
                     Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
                     GainXP(item, xpInt);
+                }
+                foreach (Item armor in wePlayer.Player.armor)
+                {
+                    if (!armor.vanity && !armor.IsAir)
+                    {
+                        if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
+                        {
+                            if (armor.accessory)
+                            {
+                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
+                            }
+                            else
+                            {
+                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -286,7 +446,7 @@ namespace WeaponEnchantments.Common.Globals
             if (levelBeforeBooster < maxLevel)
             {
                 UpdateLevel();
-                if (levelBeforeBooster > currentLevel)
+                if (levelBeforeBooster > currentLevel && item.damage > 0)
                 {
                     Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + ".");
                 }
@@ -322,6 +482,24 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
+        }
+        public override bool CanConsumeAmmo(Item weapon, Player player)
+        {
+            float ammoCostBonus = 0f;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                if (!enchantments[i].IsAir)
+                {
+                    float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
+                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    {
+                        case EnchantmentTypeIDs.AmmoCost:
+                            ammoCostBonus += str;
+                            break;
+                    }
+                }
+            }
+            return Main.rand.NextFloat() >= ammoCostBonus;
         }
     }
 }

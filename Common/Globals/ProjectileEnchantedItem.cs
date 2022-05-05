@@ -7,6 +7,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Items;
+using static WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -14,25 +16,40 @@ namespace WeaponEnchantments.Common.Globals
     {
         public Item sourceItem;
         private bool sourceSet;
-        private int lastInventoryLocation = -1;
+        public int lastInventoryLocation = -1;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (!sourceSet)
+             if (!sourceSet)
             {
                 if (source is EntitySource_ItemUse)
                 {
                         sourceItem = ((EntitySource_ItemUse)source).Item;
-                        //sourceItem.GetGlobalItem<EnchantedItem>().trackedProjectile = projectile;
-                        //sourceItem.GetGlobalItem<EnchantedItem>().trackingProjectileThroughCloning = true;
                         sourceSet = true;
                 }
                 else if(source is EntitySource_ItemUse_WithAmmo)
                 {
                     sourceItem = ((EntitySource_ItemUse_WithAmmo)source).Item;
-                    //sourceItem.GetGlobalItem<EnchantedItem>().trackedProjectile = projectile;
-                    //sourceItem.GetGlobalItem<EnchantedItem>().trackingProjectileThroughCloning = true;
                     sourceSet = true;
+                }
+                else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile)
+                {
+                    sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                    sourceSet = true;
+                }
+                if (sourceSet)
+                {
+                    float scale = 0f;
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir && ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
+                        {
+                            //projectile.knockBack += (int)(((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength * 100);
+                            scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
+                        }
+                    }
+                    scale += sourceItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
+                    projectile.scale += scale;//Update item size
                 }
             }
         }
@@ -173,7 +190,7 @@ namespace WeaponEnchantments.Common.Globals
                         }//Look through the players inventory and banks for the item
                         if (found)//If found the item
                         {
-                            sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, target);//Have item gain xp
+                            //sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, target);//Have item gain xp
                         }
                         else
                         {
@@ -182,7 +199,7 @@ namespace WeaponEnchantments.Common.Globals
                     }//If summoner weapon, verify it's location or search for it
                     else
                     {
-                        sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, target);//Have item gain xp
+                        //sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, target);//Have item gain xp
                     }//If any other item, 
                 }
             }
