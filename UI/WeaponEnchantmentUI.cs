@@ -200,7 +200,8 @@ namespace WeaponEnchantments.UI
         {
             public const int LootAll = 0;
             public const int Offer = 1;
-            public const int Count = 2;
+            //2-6 are xp buttons
+            public const int Count = 7;
 		}//LootAll = 0, Offer = 1
         public class ItemSlotContext
         {
@@ -357,6 +358,26 @@ namespace WeaponEnchantments.UI
                         }
                     };
                     Append(wePlayer.enchantingTableUI.essenceSlotUI[i]);
+
+                    //XP+ buttons
+                    button[2 + i] = new UIPanel()
+                    {
+                        Top = { Pixels = nextElementY + 106 },
+                        Left = { Pixels = -66f + 47.52f * i },
+                        Width = { Pixels = 40f },
+                        Height = { Pixels = 20f },
+                        HAlign = 0.5f,
+                        BackgroundColor = bgColor
+                    };
+                    button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(i); };
+                    UIText xpButonText = new UIText("+")
+                    {
+                        Top = { Pixels = -12f },
+                        Left = { Pixels = 2f }
+                    };
+                    button[2 + i].Append(xpButonText);
+                    Append(button[2 + i]);
+                    panels.Add(button[2 + i]);
                 }//EssenceSlots
 
                 nextElementY += 50;
@@ -373,12 +394,12 @@ namespace WeaponEnchantments.UI
                     BackgroundColor = bgColor
                 };
                 button[ButtonID.LootAll].OnClick += (evt, element) => { LootAll(); };
-                UIText enchantButonText = new UIText("Loot All")
+                UIText lootAllButonText = new UIText("Loot All")
                 {
                     Top = { Pixels = -4f },
                     Left = { Pixels = 5f }
                 };
-                button[ButtonID.LootAll].Append(enchantButonText);
+                button[ButtonID.LootAll].Append(lootAllButonText);
                 Append(button[ButtonID.LootAll]);
                 panels.Add(button[ButtonID.LootAll]);
 
@@ -395,12 +416,12 @@ namespace WeaponEnchantments.UI
                     BackgroundColor = red
                 };
                 button[ButtonID.Offer].OnClick += (evt, element) => { Offer(); };
-                UIText disenchantButtonText = new UIText("Offer")
+                UIText offerButtonText = new UIText("Offer")
                 {
                     Top = { Pixels = -4f },
                     Left = { Pixels = -6f }
                 };
-                button[ButtonID.Offer].Append(disenchantButtonText);
+                button[ButtonID.Offer].Append(offerButtonText);
                 Append(button[ButtonID.Offer]);
                 panels.Add(button[ButtonID.Offer]);
             }//PetRenaimer based UI
@@ -613,7 +634,10 @@ namespace WeaponEnchantments.UI
 				Recipe.FindRecipes();
 			}
 		}//My UI
-        
+        private static void ConvertEssenceToXP(int tier)
+        {
+
+        }
         private static void LootAll()
         {
             if (WEModSystem.promptInterface.CurrentState == null)
