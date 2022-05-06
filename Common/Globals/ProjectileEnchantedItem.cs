@@ -24,18 +24,27 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (source is EntitySource_ItemUse)
                 {
+                    if(((EntitySource_ItemUse)source).Item != null)
+                    {
                         sourceItem = ((EntitySource_ItemUse)source).Item;
                         sourceSet = true;
+                    }
                 }
                 else if(source is EntitySource_ItemUse_WithAmmo)
                 {
-                    sourceItem = ((EntitySource_ItemUse_WithAmmo)source).Item;
-                    sourceSet = true;
+                    if (((EntitySource_ItemUse_WithAmmo)source).Item != null)
+                    {
+                        sourceItem = ((EntitySource_ItemUse_WithAmmo)source).Item;
+                        sourceSet = true;
+                    }
                 }
                 else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile)
                 {
-                    sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-                    sourceSet = true;
+                    if (parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
+                    {
+                        sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                        sourceSet = true;
+                    }
                 }
                 if (sourceSet)
                 {

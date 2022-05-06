@@ -14,6 +14,10 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.UI.WeaponEnchantmentUI;
 using Terraria.ID;
+using Terraria.GameContent;
+using Terraria.UI.Chat;
+using Terraria.UI.Gamepad;
+using static Terraria.UI.ItemSlot;
 
 namespace WeaponEnchantments.UI
 {
@@ -30,7 +34,6 @@ namespace WeaponEnchantments.UI
 		internal event Action<int> OnItemMouseover;//Trying to Add this so OnItemMouseover apears when item is in hand
 
 		private int timer = 0;
-		
 		internal WEUIItemSlot(int context, int itemContext, int slotTier = 0, bool utilitySlot = false, float scale = 0.86f)
 		{
 			_context = context;//ItemSlot.context.ChestItem or BankItem or InventoryCoin
@@ -112,7 +115,7 @@ namespace WeaponEnchantments.UI
 		internal void HandleMouseItem()
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			if(_context == ItemSlotContext.Item)
+			if(_itemContext == ItemSlotContext.Item)
             {
 				if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
 				{
@@ -120,12 +123,16 @@ namespace WeaponEnchantments.UI
 					Main.mouseItem = new Item();
 					wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
 				}//If using a PowerBooster, destroy the booster and update the global item.
+                else if (Valid(Main.mouseItem))
+				{
+					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
+				}
 			}
 			else
 			{
 				if (Valid(Main.mouseItem))
 				{
-					ItemSlot.Handle(ref Item, _context);//Handles all the click and hover actions based on the context
+					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
 				}
 			}
 		}
@@ -144,7 +151,8 @@ namespace WeaponEnchantments.UI
 				wePlayer.Player.mouseInterface = true;
 				HandleMouseItem();
 			}
-			ItemSlot.Draw(spriteBatch, ref Item, _context, rectangle.TopLeft());
+			//ItemSlot.Draw(spriteBatch, ref Item, _context, rectangle.TopLeft());
+			Draw(spriteBatch, Item, _context, _slotTier, rectangle.TopLeft());
 			if (contains)
 			{
 				timer++;
@@ -156,7 +164,248 @@ namespace WeaponEnchantments.UI
 			}
 			Main.inventoryScale = oldScale;
 		}//PR
+		public static void Draw(SpriteBatch spriteBatch, Item item, int context, int slot, Vector2 position)
+		{
+			Player player = Main.player[Main.myPlayer];
+			float inventoryScale = Main.inventoryScale;
+			Color color = Color.White;
+			bool flag = false;
+			int num = 0;
+			Item[] inv = new Item[] { item };
+			int gamepadPointForSlot = GetGamepadPointForSlot(inv, ItemSlot.Context.BankItem, slot);
+			if (PlayerInput.UsingGamepadUI)
+			{
+				flag = (UILinkPointNavigator.CurrentPoint == gamepadPointForSlot);
+				if (PlayerInput.SettingsForUI.PreventHighlightsForGamepad)
+					flag = false;
+			}
 
+			Texture2D value = TextureAssets.InventoryBack.Value;
+			//Color color2 = Main.inventoryBack;
+			Color color2 = Color.White;
+			switch (context)
+			{
+				case 2: 
+					value = TextureAssets.InventoryBack2.Value;
+					break;
+				case 3:
+					value = TextureAssets.InventoryBack3.Value;
+					break;
+				case 4:
+					value = TextureAssets.InventoryBack4.Value;
+					break;
+				case 5:
+					value = TextureAssets.InventoryBack5.Value;
+					break;
+				case 6:
+					value = TextureAssets.InventoryBack6.Value;
+					break;
+				case 7:
+					value = TextureAssets.InventoryBack7.Value;
+					break;
+				case 8:
+					value = TextureAssets.InventoryBack8.Value;
+					break;
+				case 9:
+					value = TextureAssets.InventoryBack9.Value;
+					break;
+				case 10:
+					value = TextureAssets.InventoryBack10.Value;
+					break;
+				case 11:
+					value = TextureAssets.InventoryBack11.Value;
+					break;
+				case 12:
+					value = TextureAssets.InventoryBack12.Value;
+					break;
+				case 13:
+					value = TextureAssets.InventoryBack13.Value;
+					break;
+				case 14:
+					value = TextureAssets.InventoryBack14.Value;
+					break;
+				case 15:
+					value = TextureAssets.InventoryBack15.Value;
+					break;
+				case 16:
+					value = TextureAssets.InventoryBack16.Value;
+					break;
+				case 17:
+					value = TextureAssets.InventoryBack17.Value;
+					break;
+				case 18:
+					value = TextureAssets.InventoryBack18.Value;
+					break;
+				default:
+					value = TextureAssets.InventoryBack.Value;
+					break;
+			}
+
+			spriteBatch.Draw(value, position, null, color2, 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
+
+			Vector2 vector = value.Size() * inventoryScale;
+			if (item.type > 0 && item.stack > 0)
+			{
+				Main.instance.LoadItem(item.type);
+				Texture2D value7 = TextureAssets.Item[item.type].Value;
+				Rectangle rectangle2 = (Main.itemAnimations[item.type] == null) ? value7.Frame() : Main.itemAnimations[item.type].GetFrame(value7);
+				Color currentColor = Color.White;
+				float scale3 = 1f;
+				GetItemLight(ref currentColor, ref scale3, item);
+				float num8 = 1f;
+				if (rectangle2.Width > 32 || rectangle2.Height > 32)
+					num8 = ((rectangle2.Width <= rectangle2.Height) ? (32f / (float)rectangle2.Height) : (32f / (float)rectangle2.Width));
+
+				num8 *= inventoryScale;
+				Vector2 position2 = position + vector / 2f - rectangle2.Size() * num8 / 2f;
+				Vector2 origin = rectangle2.Size() * (scale3 / 2f - 0.5f);
+
+				if (!ItemLoader.PreDrawInInventory(item, spriteBatch, position2, rectangle2, item.GetAlpha(currentColor), item.GetColor(color), origin, num8 * scale3))
+					goto SkipVanillaItemDraw;
+
+				spriteBatch.Draw(value7, position2, rectangle2, item.GetAlpha(currentColor), 0f, origin, num8 * scale3, SpriteEffects.None, 0f);
+				if (item.color != Color.Transparent)
+				{
+					Color newColor = color;
+
+					// Extra context.
+
+					spriteBatch.Draw(value7, position2, rectangle2, item.GetColor(newColor), 0f, origin, num8 * scale3, SpriteEffects.None, 0f);
+				}
+
+			SkipVanillaItemDraw:
+				ItemLoader.PostDrawInInventory(item, spriteBatch, position2, rectangle2, item.GetAlpha(currentColor), item.GetColor(color), origin, num8 * scale3);
+
+				if (ItemID.Sets.TrapSigned[item.type])
+					spriteBatch.Draw(TextureAssets.Wire.Value, position + new Vector2(40f, 40f) * inventoryScale, new Rectangle(4, 58, 8, 8), color, 0f, new Vector2(4f), 1f, SpriteEffects.None, 0f);
+
+				if (item.stack > 1)
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), position + new Vector2(10f, 26f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
+			}
+
+			if (gamepadPointForSlot != -1)
+				UILinkPointNavigator.SetPosition(gamepadPointForSlot, position + vector * 0.75f);
+		}
+		private static int GetGamepadPointForSlot(Item[] inv, int context, int slot)
+		{
+			Player localPlayer = Main.LocalPlayer;
+			int result = -1;
+			switch (context)
+			{
+				case 0:
+				case 1:
+				case 2:
+					result = slot;
+					break;
+				case 8:
+				case 9:
+				case 10:
+				case 11:
+					{
+						int num = slot;
+						if (num % 10 == 9 && !localPlayer.CanDemonHeartAccessoryBeShown())
+							num--;
+
+						result = 100 + num;
+						break;
+					}
+				case 12:
+					if (inv == localPlayer.dye)
+					{
+						int num2 = slot;
+						if (num2 % 10 == 9 && !localPlayer.CanDemonHeartAccessoryBeShown())
+							num2--;
+
+						result = 120 + num2;
+					}
+					if (inv == localPlayer.miscDyes)
+						result = 185 + slot;
+					break;
+				//TML Context: GamePad number magic aligned to match DemonHeart Accessory.
+				//TML Note: There is no Master Mode Accessory slot code here for Gamepads.
+				//TML-added [[
+				/*TODO: Fix later because gamepads are trashing all
+				case -10:
+				case -11:
+					int num3M = slot;
+					if (!LoaderManager.Get<AccessorySlotLoader>().ModdedIsAValidEquipmentSlotForIteration(slot, localPlayer))
+						num3M--;
+
+					result = 100 + num3M;
+					break;
+				case -12:
+					int num4M = slot;
+					if (!LoaderManager.Get<AccessorySlotLoader>().ModdedIsAValidEquipmentSlotForIteration(slot, localPlayer))
+						num4M--;
+
+					result = 120 + num4M;
+					break;
+				// ]]
+				*/
+				case 19:
+					result = 180;
+					break;
+				case 20:
+					result = 181;
+					break;
+				case 18:
+					result = 182;
+					break;
+				case 17:
+					result = 183;
+					break;
+				case 16:
+					result = 184;
+					break;
+				case 3:
+				case 4:
+					result = 400 + slot;
+					break;
+				case 15:
+					result = 2700 + slot;
+					break;
+				case 6:
+					result = 300;
+					break;
+				case 22:
+					if (UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeBig != -1)
+						result = 700 + UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeBig;
+					if (UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeSmall != -1)
+						result = 1500 + UILinkPointNavigator.Shortcuts.CRAFT_CurrentRecipeSmall + 1;
+					break;
+				case 7:
+					result = 1500;
+					break;
+				case 5:
+					result = 303;
+					break;
+				case 23:
+					result = 5100 + slot;
+					break;
+				case 24:
+					result = 5100 + slot;
+					break;
+				case 25:
+					result = 5108 + slot;
+					break;
+				case 26:
+					result = 5000 + slot;
+					break;
+				case 27:
+					result = 5002 + slot;
+					break;
+				case 29:
+					result = 3000 + slot;
+					if (UILinkPointNavigator.Shortcuts.CREATIVE_ItemSlotShouldHighlightAsSelected)
+						result = UILinkPointNavigator.CurrentPoint;
+					break;
+				case 30:
+					result = 15000 + slot;
+					break;
+			}
+
+			return result;
+		}
 
 
 		//Based on Vanilla

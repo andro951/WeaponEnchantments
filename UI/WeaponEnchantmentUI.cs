@@ -38,6 +38,7 @@ namespace WeaponEnchantments.UI
         private readonly static Color hoverRed = new Color(184, 103, 100);
         private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
         private readonly static Color hoverColor = new Color(100, 118, 184);//Button hover color
+        public static int[] xpTiers = { 100, 400, 1600, 6400, 25600 };
 
         internal const int width = 680;
         internal const int height = 155;
@@ -140,7 +141,6 @@ namespace WeaponEnchantments.UI
             }//Take all enchantments first
             if (!stop)
             {
-                int[] xpTiers = {100, 400, 1600, 6400, 25600 };
                 int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
                 int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
                 int numberEssenceRecieved;
@@ -200,8 +200,13 @@ namespace WeaponEnchantments.UI
         {
             public const int LootAll = 0;
             public const int Offer = 1;
-            //2-6 are xp buttons
+            public const int xp0 = 0;
+            public const int xp1 = 1;
+            public const int xp2 = 2;
+            public const int xp3 = 3;
+            public const int xp4 = 4;
             public const int Count = 7;
+            public static int[]xps = new int[] {xp0, xp1, xp2, xp3, xp4};
 		}//LootAll = 0, Offer = 1
         public class ItemSlotContext
         {
@@ -264,7 +269,7 @@ namespace WeaponEnchantments.UI
 
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
-                    wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.ChestItem, ItemSlotContext.Item)
+                    wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(17, ItemSlotContext.Item)
                     {
                         Left = { Pixels = -145f },
                         Top = { Pixels = nextElementY },
@@ -288,7 +293,7 @@ namespace WeaponEnchantments.UI
                 {
                     if (i < EnchantingTable.maxEnchantments - 1)
                     {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem, ItemSlotContext.Enchantment, i)
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(0, ItemSlotContext.Enchantment, i)
                         {
                             Left = { Pixels = -67f + 47.52f * i },
                             Top = { Pixels = nextElementY },
@@ -315,7 +320,7 @@ namespace WeaponEnchantments.UI
                     }//enchantmentSlot 0-3
                     else
                     {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem, ItemSlotContext.Enchantment, i, true)
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(10, ItemSlotContext.Enchantment, i, true)
                         {
                             Left = { Pixels = -67f + 47.52f * i },
                             Top = { Pixels = nextElementY },
@@ -338,10 +343,10 @@ namespace WeaponEnchantments.UI
                 }//EnchantmentSlots
                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
-                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(ItemSlot.Context.BankItem, ItemSlotContext.Essence, i)
+                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(4, ItemSlotContext.Essence, i)
                     {
                         Left = { Pixels = -67f + 47.52f * i },
-                        Top = { Pixels = nextElementY + 60 },
+                        Top = { Pixels = nextElementY + 50 },
                         HAlign = 0.5f
                     };
                     string type = EnchantmentEssence.rarity[i];
@@ -362,18 +367,37 @@ namespace WeaponEnchantments.UI
                     //XP+ buttons
                     button[2 + i] = new UIPanel()
                     {
-                        Top = { Pixels = nextElementY + 106 },
+                        Top = { Pixels = nextElementY + 96 },
                         Left = { Pixels = -66f + 47.52f * i },
                         Width = { Pixels = 40f },
-                        Height = { Pixels = 20f },
+                        Height = { Pixels = 30f },
                         HAlign = 0.5f,
                         BackgroundColor = bgColor
                     };
-                    button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(i); };
-                    UIText xpButonText = new UIText("+")
+
+                    switch (i)
                     {
-                        Top = { Pixels = -12f },
-                        Left = { Pixels = 2f }
+                        case 0:
+                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(0); };
+                            break;
+                        case 1:
+                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(1); };
+                            break;
+                        case 2:
+                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(2); };
+                            break;
+                        case 3:
+                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(3); };
+                            break;
+                        case 4:
+                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(4); };
+                            break;
+                    }
+                    
+                    UIText xpButonText = new UIText("xp")
+                    {
+                        Top = { Pixels = -8f },
+                        Left = { Pixels = 0f }
                     };
                     button[2 + i].Append(xpButonText);
                     Append(button[2 + i]);
@@ -636,7 +660,16 @@ namespace WeaponEnchantments.UI
 		}//My UI
         private static void ConvertEssenceToXP(int tier)
         {
-
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item essence = wePlayer.enchantingTableUI.essenceSlotUI[tier].Item;
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (!essence.IsAir && !item.IsAir)
+            {
+                essence.stack--;
+                Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                item.GetGlobalItem<EnchantedItem>().GainXP(item, ConfirmationUI.xpTiers[tier]);
+                SoundEngine.PlaySound(SoundID.MenuTick);
+            }
         }
         private static void LootAll()
         {

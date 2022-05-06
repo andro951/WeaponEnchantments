@@ -40,8 +40,8 @@ namespace WeaponEnchantments.Items
             {
                 Recipe recipie = CreateRecipe();
                 recipie.Register();
-                ID = Item.type;
             }
+            ID = Item.type;
         }
     }
 }
