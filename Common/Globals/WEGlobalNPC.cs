@@ -227,8 +227,11 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
-                        IItemDropRule dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
+                        if(itemTypes.Count > 0)
+                        {
+                            IItemDropRule dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
+                            npcLoot.Add(dropRule);
+                        }
                     }
                 }
                 else
@@ -496,7 +499,11 @@ namespace WeaponEnchantments.Common.Globals
                     wePlayer.lifeStealRollover = healTotal - heal;
                     Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
                 }
-            }
+                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                {
+                    ActivateOneForAll(npc, item, damage);
+                }
+            } 
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -516,9 +523,28 @@ namespace WeaponEnchantments.Common.Globals
                     wePlayer.lifeStealRollover = healTotal - heal;
                     Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
                 }
+                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                {
+                    ActivateOneForAll(npc, sourceItem, damage);
+                }
             }
         }
-
+        private void ActivateOneForAll(NPC npc, Item item, int damage)
+        {
+            foreach (NPC target in Main.npc)
+            {
+                if (!target.friendly && !target.townNPC)
+                {
+                    Vector2 vector2 = target.Center - npc.Center;
+                    if (vector2.Length() <= 160f * item.scale)
+                    {
+                        target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
+                        target.life -= damage;
+                        target.VanillaHitEffect(0, damage);
+                    }
+                }
+            }
+        }
         public override void OnKill(NPC npc)
         {
             if(!xpCalculated && sourceItem != null)
