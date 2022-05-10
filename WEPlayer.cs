@@ -34,6 +34,9 @@ namespace WeaponEnchantments
         public float itemScaleBonus = 0f;
         public float manaCostBonus = 0f;
         public float ammoCostBonus = 0f;
+        public float lifeSteal = 0f;
+        public float lifeStealRollover = 0f;
+        public int allForOneTimer = 0;
         /*
         public void RefreshModItems()
         {
@@ -448,6 +451,17 @@ namespace WeaponEnchantments
             for (int num9 = 0; num9 < Recipe.maxRecipes; num9++)
             {
                 Main.availableRecipeY[num9] -= num8;
+            }
+        }
+        public override void PostUpdate()
+        {
+            if(allForOneTimer > 0)
+            {
+                allForOneTimer--;
+                if(allForOneTimer == 0)
+                {
+                    SoundEngine.PlaySound(SoundID.MaxMana);
+                }
             }
         }
         private void RefreshItemArray(Item[] array)

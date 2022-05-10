@@ -147,21 +147,31 @@ namespace WeaponEnchantments.UI
                 int xpCounter = (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.enchantingTableTier));
                 for(int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
                 {
-                    numberEssenceRecieved = xpCounter / xpTiers[tier];
-                    xpCounter %= xpTiers[tier];
-                    if(xpCounter < 100 && xpCounter > 0 && tier == 0)
+                    if(wePlayer.enchantingTableTier >= tier)
                     {
-                        xpCounter = 0;
-                        numberEssenceRecieved += 1;
-                    }
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
-                    {
-                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.type = EnchantmentEssence.IDs[tier];
-                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
-                    }
-                    else
-                    {
-                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
+                        if(wePlayer.enchantingTableTier == EnchantingTable.maxTier)
+                        {
+                            numberEssenceRecieved = xpCounter / xpTiers[tier];
+                            xpCounter %= xpTiers[tier];
+                        }
+                        else
+                        {
+                            numberEssenceRecieved = xpCounter / xpTiers[tier] * 4 / 5;
+                            xpCounter -= xpTiers[tier] * numberEssenceRecieved;
+                        }
+                        if (xpCounter < 100 && xpCounter > 0 && tier == 0)
+                        {
+                            xpCounter = 0;
+                            numberEssenceRecieved += 1;
+                        }
+                        if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
+                        {
+                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item = new Item(EnchantmentEssence.IDs[tier], numberEssenceRecieved);
+                        }
+                        else
+                        {
+                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
+                        }
                     }
                 }
                 int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);

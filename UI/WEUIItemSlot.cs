@@ -18,6 +18,7 @@ using Terraria.GameContent;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
+using static WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments.UI
 {
@@ -34,7 +35,7 @@ namespace WeaponEnchantments.UI
 		internal event Action<int> OnItemMouseover;//Trying to Add this so OnItemMouseover apears when item is in hand
 
 		private int timer = 0;
-		internal WEUIItemSlot(int context, int itemContext, int slotTier = 0, bool utilitySlot = false, float scale = 0.86f)
+		internal WEUIItemSlot(int context, int itemContext, int slotTier = 4, bool utilitySlot = false, float scale = 0.86f)
 		{
 			_context = context;//ItemSlot.context.ChestItem or BankItem or InventoryCoin
 			_itemContext = itemContext;//0 = itemSlot, 1 = enchantmentSlot, 2 = essenceSlot
@@ -81,7 +82,26 @@ namespace WeaponEnchantments.UI
 							{
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{
-									return wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)item.ModItem).GetLevelCost();
+									bool continueCheck = true;
+                                    switch (((Enchantments)item.ModItem).enchantmentType)
+                                    {
+										case EnchantmentTypeIDs.AllForOne:
+										case EnchantmentTypeIDs.OneForAll:
+											for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                                            {
+                                                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                                                {
+													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.AllForOne ? false : continueCheck;
+													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.OneForAll ? false : continueCheck;
+												}
+                                            }
+											continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;
+											break;
+										default:
+											continueCheck = true;
+											break;
+									}
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)item.ModItem).GetLevelCost() : false;
 								}
                                 else
                                 {
@@ -152,7 +172,7 @@ namespace WeaponEnchantments.UI
 				HandleMouseItem();
 			}
 			//ItemSlot.Draw(spriteBatch, ref Item, _context, rectangle.TopLeft());
-			Draw(spriteBatch, Item, _context, _slotTier, rectangle.TopLeft());
+			Draw(spriteBatch, Item, _context, _slotTier, rectangle.TopLeft(), _slotTier);
 			if (contains)
 			{
 				timer++;
@@ -164,8 +184,9 @@ namespace WeaponEnchantments.UI
 			}
 			Main.inventoryScale = oldScale;
 		}//PR
-		public static void Draw(SpriteBatch spriteBatch, Item item, int context, int slot, Vector2 position)
+		public static void Draw(SpriteBatch spriteBatch, Item item, int context, int slot, Vector2 position, int slotTier)
 		{
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Player player = Main.player[Main.myPlayer];
 			float inventoryScale = Main.inventoryScale;
 			Color color = Color.White;
@@ -183,6 +204,13 @@ namespace WeaponEnchantments.UI
 			Texture2D value = TextureAssets.InventoryBack.Value;
 			//Color color2 = Main.inventoryBack;
 			Color color2 = Color.White;
+			if(wePlayer.enchantingTableTier < 4 && context == 0)
+            {
+				if(wePlayer.enchantingTableTier - slotTier < 0)
+                {
+					context = 9;
+				}
+            }
 			switch (context)
 			{
 				case 2: 

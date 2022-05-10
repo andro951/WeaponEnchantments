@@ -55,9 +55,7 @@ namespace WeaponEnchantments.Tiles
 				AddMapEntry(new Color(200, 200, 200), name);
 			}
 		}
-
-		//public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;  //Causes error
-
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 		public override void NumDust(int x, int y, bool fail, ref int num)
 		{
 			num = fail ? 1 : 3;
