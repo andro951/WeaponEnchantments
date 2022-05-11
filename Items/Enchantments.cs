@@ -173,13 +173,13 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault(enchantmentStrength.ToString() + " Armor Penetration\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.ManaCost:
-						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("-" + Math.Round(enchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.AmmoCost:
-						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("-" + Math.Round(enchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.LifeSteal:
-						Tooltip.SetDefault((enchantmentStrength * 100).ToString() + "% Life Steal\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault((enchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.AllForOne:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% Damage, item CD equal to 8x use speed\nLevel cost: " + GetLevelCost().ToString());
@@ -188,7 +188,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					default:
-						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("+" + Math.Round(enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
 				}
 				

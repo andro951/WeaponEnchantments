@@ -126,24 +126,16 @@ namespace WeaponEnchantments.Common.Globals
         }
         public void UpdateLevel()
         {
-            int previous1 = 1;
-            int previous2 = 0;
-            int current;
-            int total = 0;
             int l;
-            for(l = 0; l <= maxLevel; l++)
+            for(l = 0; l < maxLevel; l++)
             {
-                current = previous1 + previous2;
-                total += current;
-                previous2 = previous1;
-                previous1 = current;
-                if(experience < total)
+                if(experience < WEModSystem.levelXps[l])
                 {
-                    level = l;
+                    level = l + 1;
                     break;
                 }
             }
-            if(l >= maxLevel)
+            if (l == maxLevel)
             {
                 levelBeforeBooster = maxLevel;
                 level = powerBoosterInstalled ? maxLevel + 10 : maxLevel;
@@ -535,11 +527,11 @@ namespace WeaponEnchantments.Common.Globals
                     if(levelBeforeBooster == 40)
                     {
                         SoundEngine.PlaySound(SoundID.Unlock);
-                        Main.NewText("Congradulations!  " + wePlayer.Player.name + "'s " + item.Name + " reached the maximum level, " + levelBeforeBooster.ToString() + ".");
+                        Main.NewText("Congradulations!  " + wePlayer.Player.name + "'s " + item.Name + " reached the maximum level, " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                     }
                     else
                     {
-                        Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + ".");
+                        Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                     }
                 }
             }

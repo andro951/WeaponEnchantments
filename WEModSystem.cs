@@ -39,8 +39,8 @@ namespace WeaponEnchantments
         public static bool playerInventoryUpdated = false;
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
+        public static int[] levelXps = new int[EnchantedItem.maxLevel];
         //private static bool firstCheck = true;
-
         public override void OnModLoad()
         {
             if (!Main.dedServ)
@@ -48,6 +48,15 @@ namespace WeaponEnchantments
                 weModSystemUI = new UserInterface();
                 promptInterface = new UserInterface();
                 mouseoverUIInterface = new UserInterface();
+            }
+            double previous = 0;
+            double current;
+            int l;
+            for (l = 0; l < EnchantedItem.maxLevel; l++)
+            {
+                current = previous * 1.1 + (l + 1) * 223.7879;
+                previous = current;
+                levelXps[l] = (int)current;
             }
         }//PR
         public override void Unload()

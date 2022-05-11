@@ -495,12 +495,22 @@ namespace WeaponEnchantments.Common.Globals
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
                 {
-                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lastLifeStealBonus + wePlayer.lifeSteal;
+                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
                     Vector2 speed = new Vector2(0, 0);
                     float healTotal = damage * lifeSteal + wePlayer.lifeStealRollover;
                     int heal = (int)healTotal;
-                    wePlayer.lifeStealRollover = healTotal - heal;
-                    Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                    if (wePlayer.Player.statLife < wePlayer.Player.statLifeMax2)
+                    {
+                        if (heal > 0)
+                        {
+                            Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                        }
+                        wePlayer.lifeStealRollover = healTotal - heal;
+                    }
+                    else
+                    {
+                        wePlayer.lifeStealRollover = 0f;
+                    }
                 }
                 else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
                 {
@@ -519,12 +529,22 @@ namespace WeaponEnchantments.Common.Globals
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
                 {
-                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lastLifeStealBonus + wePlayer.lifeSteal;
+                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
                     Vector2 speed = new Vector2(0, 0);
                     float healTotal = damage * lifeSteal + wePlayer.lifeStealRollover;
                     int heal = (int)healTotal;
-                    wePlayer.lifeStealRollover = healTotal - heal;
-                    Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
+                    if (wePlayer.Player.statLife < wePlayer.Player.statLifeMax2)
+                    {
+                        if(heal > 0)
+                        {
+                            Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
+                        }
+                        wePlayer.lifeStealRollover = healTotal - heal;
+                    }
+                    else
+                    {
+                         wePlayer.lifeStealRollover = 0f;
+                    }
                 }
                 else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
                 {
