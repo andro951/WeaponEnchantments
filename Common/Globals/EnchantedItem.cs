@@ -269,8 +269,6 @@ namespace WeaponEnchantments.Common.Globals
             lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) / oneForAllBonus - 1f));
             item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllBonus - 1f)) - lastUseAnimationBonusInt;
             lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllBonus - 1f));
-            //item.shootSpeed *= (1 + speedModifier)/(1 + lastSpeedBonus);
-            //lastSpeedBonus = speedModifier;
             item.scale += wePlayer.itemScaleBonus - lastGenericScaleBonus;
             lastGenericScaleBonus = wePlayer.itemScaleBonus;
             item.mana -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCostBonus)) - lastManaCostBonus;
@@ -292,7 +290,7 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
             float scale = 0f;
-            int value = 0;
+            //int value = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 if (!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
@@ -300,12 +298,22 @@ namespace WeaponEnchantments.Common.Globals
                     knockback += (int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100);
                     scale += ((Enchantments)enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                 }
-                value += enchantments[i].value;
+                //value += enchantments[i].value;
             }
             item.scale += scale - lastSizeBonus;//Update item size
             lastSizeBonus = scale;
-            item.value += value - lastValueBonus;//Update items value based on enchantments installed
-            lastValueBonus = value;
+            //item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
+            //lastValueBonus = value + 16 * experience;
+        }
+        public override void UpdateInventory(Item item, Player player)
+        {
+            int value = 0;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                value += enchantments[i].value;
+            }
+            item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
+            lastValueBonus = value + 16 * experience;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

@@ -106,17 +106,13 @@ namespace WeaponEnchantments.Tiles
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable)
 			{
-				//wePlayer.usingEnchantingTable = false;
-				//SoundEngine.PlaySound(SoundID.MenuClose);
 				WEModSystem.CloseWeaponEnchantmentUI();//Move to on tick check
 				Recipe.FindRecipes();
 			}
 			else
 			{
 				wePlayer.enchantingTableTier = enchantingTableTier;
-				//wePlayer.usingEnchantingTable = true;
-				//wePlayer.Player.chest = -1;
-				//for each itemslot, i   ItemSlot.SetGlow(i, -1f, chest: true);?
+				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;
 				UILinkPointNavigator.ForceMovementCooldown(120);
 				if (PlayerInput.GrappleAndInteractAreShared)

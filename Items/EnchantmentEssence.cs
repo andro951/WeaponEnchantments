@@ -82,6 +82,11 @@ namespace WeaponEnchantments.Items
 					IDs[essenceRarity] = this.Type;
 				}
 			}
+			if (Enchantments.cheating && essenceRarity > - 1)
+			{
+				Recipe recipe = CreateRecipe();
+				recipe.Register();
+			}
 		}
 
 		public static int GetEssenceTier(Item I)

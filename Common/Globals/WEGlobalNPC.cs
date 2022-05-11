@@ -20,6 +20,7 @@ namespace WeaponEnchantments.Common.Globals
     {
         public Item sourceItem;
         public bool xpCalculated = false;
+        private bool allForOneOrigin = true;
         public override bool InstancePerEntity => true;
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
@@ -178,6 +179,9 @@ namespace WeaponEnchantments.Common.Globals
             bool chooseOne;
             switch (arg)
             {
+                case NPCID.WallofFlesh:
+                    chooseOne = true;
+                    break;
                 default:
                     chooseOne = false;
                     break;
@@ -480,7 +484,6 @@ namespace WeaponEnchantments.Common.Globals
                 dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
             }
         }
-
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             if(item.GetGlobalItem<EnchantedItem>() != null)
@@ -501,7 +504,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
                 {
-                    ActivateOneForAll(npc, item, damage);
+                    ActivateOneForAll(npc, item, damage, (int)Math.Round(knockback), player.direction);
                 }
             } 
         }
@@ -523,24 +526,27 @@ namespace WeaponEnchantments.Common.Globals
                     wePlayer.lifeStealRollover = healTotal - heal;
                     Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
                 }
-                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
                 {
-                    ActivateOneForAll(npc, sourceItem, damage);
+                    ActivateOneForAll(npc, sourceItem, damage, (int)Math.Round(knockback), projectile.direction);
                 }
             }
         }
-        private void ActivateOneForAll(NPC npc, Item item, int damage)
+        private void ActivateOneForAll(NPC npc, Item item, int damage, int knockBack, int direction)
         {
             foreach (NPC target in Main.npc)
             {
-                if (!target.friendly && !target.townNPC)
+                if(target.whoAmI != npc.whoAmI)
                 {
-                    Vector2 vector2 = target.Center - npc.Center;
-                    if (vector2.Length() <= 160f * item.scale)
+                    if (!target.friendly && !target.townNPC)
                     {
-                        target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                        target.life -= damage;
-                        target.VanillaHitEffect(0, damage);
+                        Vector2 vector2 = target.Center - npc.Center;
+                        if (vector2.Length() <= 160f * item.scale)
+                        {
+                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = false;
+                            target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
+                            target.StrikeNPC(damage, knockBack, direction);
+                        }
                     }
                 }
             }

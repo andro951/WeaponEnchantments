@@ -52,6 +52,11 @@ namespace WeaponEnchantments.Items
                 recipie.Register();
             }
             IDs[size] = Item.type;
+            if (Enchantments.cheating)
+            {
+                Recipe recipie = CreateRecipe();
+                recipie.Register();
+            }
         }
         public class SuperiorStabilizer : Stabilizer
         {
@@ -80,6 +85,11 @@ namespace WeaponEnchantments.Items
                 recipie.Register();
             }
             ID = Item.type;
+            if (Enchantments.cheating)
+            {
+                Recipe recipie = CreateRecipe();
+                recipie.Register();
+            }
         }
     }
     public class Containment : ModItem
@@ -128,6 +138,11 @@ namespace WeaponEnchantments.Items
             //recipie.AddIngredient(ContainmentFragment.ID, fragments[size]);
             recipie.Register();
             IDs[size] = Item.type;
+            if (Enchantments.cheating)
+            {
+                recipie = CreateRecipe();
+                recipie.Register();
+            }
         }
         public class MediumContainment : Containment
         {

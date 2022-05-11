@@ -78,7 +78,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Enchantment:
 						if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
 						{
-							if (_slotTier <= wePlayer.enchantingTableTier)
+							if (_slotTier <= wePlayer.enchantingTableTier || _utilitySlot)
 							{
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{

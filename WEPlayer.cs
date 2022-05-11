@@ -31,6 +31,7 @@ namespace WeaponEnchantments
         public Item[] inventoryItemRecord = new Item[102];
         public int lastFocusRecipeListNum = -1;
         public int lastFocusRecipe = -1;
+        public int lastFocusRecipeNotInTable = Main.availableRecipe[Main.focusRecipe];
         public float itemScaleBonus = 0f;
         public float manaCostBonus = 0f;
         public float ammoCostBonus = 0f;
@@ -88,68 +89,65 @@ namespace WeaponEnchantments
         {
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
-                if (!enchantingTable.item[i].IsAir)
+                //if (!enchantingTable.item[i].IsAir)
                 {
-                    tag["enchantingTableItem" + i.ToString()] = enchantingTable.item[i];
+                    tag[Player.name + "enchantingTableItem" + i.ToString()] = enchantingTable.item[i];
                 }
             }
-            if (enchantingTableUI?.itemSlotUI[0]?.Item != null)
+            /*if (enchantingTableUI?.itemSlotUI[0]?.Item != null)
             {
-                if (enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                //if (enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (!enchantingTable.enchantmentItem[i].IsAir)
                         {
-                            tag["enchantingTableEnchantmentItem" + i.ToString()] = enchantingTable.enchantmentItem[i];
+                            tag[Player.name + "enchantingTableEnchantmentItem" + i.ToString()] = enchantingTable.enchantmentItem[i];
                         }
                     }
                 }//enchantments in the enchantmentSlots are saved by global items.  This is just in case enchantment items are left in after Offering items.
-            }
+            }*///Not used
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
-                if (!enchantingTable.essenceItem[i].IsAir)
-                {
-                    tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
-                }
+                tag[Player.name + "enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
             }
         }
         public override void LoadData(TagCompound tag)
         {
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
-                if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir)
+                if (tag.Get<Item>(Player.name + "enchantingTableItem" + i.ToString()).IsAir)
                 {
                     enchantingTable.item[i] = new Item();
                 }
                 else
                 {
-                    enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
+                    enchantingTable.item[i] = tag.Get<Item>(Player.name + "enchantingTableItem" + i.ToString());
                 }
             }
             if (enchantingTable.item[0].IsAir)//enchantments in the enchantmentSlots are loaded by global items.  This is just in case enchantment items are left in after Offering items.
             {
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    if (tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString()).IsAir)
+                    if (tag.Get<Item>(Player.name + "enchantingTableEnchantmentItem" + i.ToString()).IsAir)
                     {
                         enchantingTable.enchantmentItem[i] = new Item();
                     }
                     else
                     {
-                        enchantingTable.enchantmentItem[i] = tag.Get<Item>("enchantingTableEnchantmentItem" + i.ToString());
+                        enchantingTable.enchantmentItem[i] = tag.Get<Item>(Player.name + "enchantingTableEnchantmentItem" + i.ToString());
                     }
                 }
             }
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
-                if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir)
+                if (tag.Get<Item>(Player.name + "enchantingTableEssenceItem" + i.ToString()).IsAir)
                 {
                     enchantingTable.essenceItem[i] = new Item();
                 }
                 else
                 {
-                    enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
+                    enchantingTable.essenceItem[i] = tag.Get<Item>(Player.name + "enchantingTableEssenceItem" + i.ToString());
                 }
             }
         }
@@ -463,6 +461,7 @@ namespace WeaponEnchantments
                     SoundEngine.PlaySound(SoundID.MaxMana);
                 }
             }
+            lastFocusRecipeNotInTable = Main.availableRecipe[Main.focusRecipe];
         }
         private void RefreshItemArray(Item[] array)
         {

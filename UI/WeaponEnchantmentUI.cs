@@ -500,7 +500,6 @@ namespace WeaponEnchantments.UI
                 }//Store essence left in enchanting table to player
             }
         }//Store items left in enchanting table to player
-
         public override void Update(GameTime gameTime)
         {
             Left.Pixels = RelativeLeft;//PR
@@ -559,7 +558,6 @@ namespace WeaponEnchantments.UI
             }
             base.DrawSelf(spriteBatch);
         }//My UI
-
         public static void UpdateHover(int ID, bool hovering)
         {
             if (hovering)
@@ -609,7 +607,6 @@ namespace WeaponEnchantments.UI
             //base.DrawSelf(spriteBatch);
         }//My UI
         */
-
         private static void DrawButtons(SpriteBatch spritebatch)//Not used if Draw is disabled
         {
             for (int i = 0; i < ButtonID.Count; i++)
@@ -719,7 +716,6 @@ namespace WeaponEnchantments.UI
                 }
             }
         }
-        
         private static void DrawSlots(SpriteBatch spriteBatch)//Not used if Draw is disabled
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -776,7 +772,6 @@ namespace WeaponEnchantments.UI
                 ItemSlot.Draw(spriteBatch, essenceItem, 4, slot, new Vector2(x, y));
             }
         }//My UI
-
         public static bool TryPlacingInEnchantingTable(Item I, bool justCheck, int itemSlotContext)//No references to this
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();//sync is always false
@@ -884,7 +879,6 @@ namespace WeaponEnchantments.UI
             //Check against tier for slots above not < available
             //Only let the specific item go in each slot
         }//My UI
-
         public static bool IsBlockedFromTransferIntoEnchantingTable(Item I, Item[] slotItems, int itemSlotContext)//Look at this again compair to vanilla
         {
             switch (itemSlotContext)
