@@ -15,6 +15,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
+using static WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments
 { 
@@ -32,12 +33,13 @@ namespace WeaponEnchantments
         public int lastFocusRecipeListNum = -1;
         public int lastFocusRecipe = -1;
         public int lastFocusRecipeNotInTable = Main.availableRecipe[Main.focusRecipe];
-        public float itemScaleBonus = 0f;
-        public float manaCostBonus = 0f;
-        public float ammoCostBonus = 0f;
+        public float itemScale = 0f;
+        public float manaCost = 0f;
+        public float ammoCost = 0f;
         public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
+        public Item[] equiptArmor;
         /*
         public void RefreshModItems()
         {
@@ -49,7 +51,11 @@ namespace WeaponEnchantments
 
         public override void Initialize()
         {
-
+            equiptArmor = new Item[Player.armor.Length];
+            for(int i = 0; i < equiptArmor.Length; i++)
+            {
+                equiptArmor[i] = new Item();
+            }
         }
         /*public override void PostUpdate()
         {
@@ -453,7 +459,77 @@ namespace WeaponEnchantments
         }
         public override void PostUpdate()
         {
-            if(allForOneTimer > 0)
+            bool check = false;
+            int i = 0;
+            foreach (Item armor in Player.armor)
+            {
+                if (!armor.vanity && !armor.IsAir)
+                {
+                    if (equiptArmor[i].IsAir)
+                    {
+                        check = true;
+                        break;
+                    }
+                    else if (!armor.GetGlobalItem<EnchantedItem>().equip || equiptArmor[i] != armor)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+                else if(armor.IsAir && !equiptArmor[i].IsAir)
+                {
+                    check = true;
+                    break;
+                }
+                i++;
+            }
+            if (check)
+            {
+                itemScale = 0f;
+                manaCost = 0f;
+                ammoCost = 0f;
+                lifeSteal = 0f;
+                float itemScaleBonus = 0f;
+                float manaCostBonus = 0f;
+                float ammoCostBonus = 0f;
+                float lifeStealBonus = 0f;
+                foreach (Item armor in Player.armor)
+                {
+                    if (!armor.vanity && !armor.IsAir)
+                    {
+                        for (i = 0; i < EnchantingTable.maxEnchantments; i++)
+                        {
+                            if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                            {
+                                float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength;
+                                switch (((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                                {
+                                    case EnchantmentTypeIDs.Size:
+                                        itemScaleBonus += str;
+                                        break;
+                                    case EnchantmentTypeIDs.ManaCost:
+                                        manaCostBonus += str;
+                                        break;
+                                    case EnchantmentTypeIDs.AmmoCost:
+                                        ammoCostBonus += str;
+                                        break;
+                                    case EnchantmentTypeIDs.LifeSteal:
+                                        lifeStealBonus += str;
+                                        break;
+                                }
+                            }
+                        }
+                        if (!equiptArmor[i].IsAir) { equiptArmor[i].GetGlobalItem<EnchantedItem>().equip = false; }
+                        armor.GetGlobalItem<EnchantedItem>().equip = true;
+                        equiptArmor[i] = armor;
+                    }
+                }
+                itemScale += itemScaleBonus / 4;
+                manaCost += manaCostBonus / 4;
+                ammoCost += ammoCostBonus / 4;
+                lifeSteal += lifeStealBonus / 4;
+            }
+            if (allForOneTimer > 0)
             {
                 allForOneTimer--;
                 if(allForOneTimer == 0)

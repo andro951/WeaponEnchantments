@@ -34,6 +34,7 @@ namespace WeaponEnchantments.Common.Globals
         public int lastArmorPenetrationBonus;
         public bool allForOne;
         public bool oneForAll;
+        public bool equip;
         public bool heldItem = false;
         public int levelBeforeBooster;
         public int level;
@@ -67,9 +68,6 @@ namespace WeaponEnchantments.Common.Globals
             int defenceBonus = 0;
             float criticalBonus = 0f;
             float knockbackBonus = 0f;
-            float manaCostBonus = 0f;
-            float ammoCostBonus = 0f;
-            float lifeStealBonus = 0f;
             float armorPenetrationBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -93,15 +91,6 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeIDs.Size:
                             knockbackBonus += str;
                             break;
-                        case EnchantmentTypeIDs.ManaCost:
-                            manaCostBonus += str;
-                            break;
-                        case EnchantmentTypeIDs.AmmoCost:
-                            ammoCostBonus += str;
-                            break;
-                        case EnchantmentTypeIDs.LifeSteal:
-                            lifeStealBonus += str;
-                            break;
                         case EnchantmentTypeIDs.ArmorPenetration:
                             armorPenetrationBonus += str;
                             break;
@@ -113,16 +102,18 @@ namespace WeaponEnchantments.Common.Globals
             player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
             player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2;
             player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
-            wePlayer.itemScaleBonus += knockbackBonus / 4 - lastScaleBonus;
-            lastScaleBonus = knockbackBonus / 4;
             item.defense += defenceBonus - lastDefenceBonus;
             lastDefenceBonus = defenceBonus;
-            wePlayer.manaCostBonus += manaCostBonus / 4 - lastManaCostBonus;
-            lastEquipManaCostBonus = manaCostBonus / 4;
-            wePlayer.ammoCostBonus += ammoCostBonus / 4 - lastManaCostBonus;
-            lastEquipManaCostBonus = ammoCostBonus / 4;
-            wePlayer.lifeSteal += lifeStealBonus / 4 - lastLifeStealBonus;
-            lastLifeStealBonus = lifeStealBonus / 4;
+        }
+        public override void UpdateInventory(Item item, Player player)
+        {
+            int value = 0;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            {
+                value += enchantments[i].value;
+            }
+            item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
+            lastValueBonus = value + 16 * experience;
         }
         public void UpdateLevel()
         {
@@ -261,10 +252,10 @@ namespace WeaponEnchantments.Common.Globals
             lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) / oneForAllBonus - 1f));
             item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllBonus - 1f)) - lastUseAnimationBonusInt;
             lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllBonus - 1f));
-            item.scale += wePlayer.itemScaleBonus - lastGenericScaleBonus;
-            lastGenericScaleBonus = wePlayer.itemScaleBonus;
-            item.mana -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCostBonus)) - lastManaCostBonus;
-            lastManaCostBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCostBonus));
+            item.scale += wePlayer.itemScale - lastGenericScaleBonus;
+            lastGenericScaleBonus = wePlayer.itemScale;
+            item.mana -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost)) - lastManaCostBonus;
+            lastManaCostBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost));
             lifeSteal = lifeStealBonus;
             item.ArmorPenetration += (int)armorPenetrationBonus - lastArmorPenetrationBonus;
             lastArmorPenetrationBonus = (int)armorPenetrationBonus;
@@ -296,16 +287,6 @@ namespace WeaponEnchantments.Common.Globals
             lastSizeBonus = scale;
             //item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
             //lastValueBonus = value + 16 * experience;
-        }
-        public override void UpdateInventory(Item item, Player player)
-        {
-            int value = 0;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                value += enchantments[i].value;
-            }
-            item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
-            lastValueBonus = value + 16 * experience;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
