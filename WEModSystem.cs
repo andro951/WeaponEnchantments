@@ -98,6 +98,8 @@ namespace WeaponEnchantments
                 {
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = true;
+                    wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus;
+                    wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus = 0;
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,
@@ -582,7 +584,6 @@ namespace WeaponEnchantments
             }
             return transfered;
         }
-        
         public static bool AutoCraftEssence()
         {
             bool crafted = false;
@@ -631,7 +632,6 @@ namespace WeaponEnchantments
             }
             return crafted;
         }
-
         public override void PreSaveAndQuit()//*
         {
             weModSystemUI.SetState(null);

@@ -326,11 +326,11 @@ namespace WeaponEnchantments.Common.Globals
                         switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
                             case EnchantmentTypeIDs.Size:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Knockback")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Knockback")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -348,13 +348,13 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.ManaCost:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Mana Cost")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
                                 break;
                             case EnchantmentTypeIDs.AmmoCost:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Chance to consume ammo")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Chance to consume ammo")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -366,7 +366,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.AllForOne:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Damage, item CD equal to 8x use speed")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Damage, item CD equal to 8x use speed")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -378,7 +378,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             default:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -390,11 +390,11 @@ namespace WeaponEnchantments.Common.Globals
                         switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
                             case EnchantmentTypeIDs.Size:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50 / 2)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50 / 2)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 2)).ToString() + "% Knockback")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString() + "-2", "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 2)).ToString() + "% Knockback")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -412,13 +412,13 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.ManaCost:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% Mana Cost")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
                                 break;
                             case EnchantmentTypeIDs.AmmoCost:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + ((int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% Chance to consume ammo")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4).ToString() + "% Chance to consume ammo")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -430,7 +430,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             default:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((int)Math.Round(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });

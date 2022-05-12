@@ -73,15 +73,21 @@ namespace WeaponEnchantments.Items
 						recipe = CreateRecipe();
 						recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
 						recipe.AddIngredient(ItemID.FossilOre, 1);
-						//recipe.requiredItem[1].type = ItemID.FossilOre;
-						//recipe.requiredItem[1].stack = 1;
 						break;
 					case 2:
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
 						break;
 					case 3:
-						recipe.AddIngredient(ItemID.SoulofLight, 1); //Soul of Light
+						recipe.AddIngredient(ItemID.SoulofLight, 2); //Soul of Light
+						recipe.Register();
+						recipe = CreateRecipe();
+						recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+						recipe.AddIngredient(ItemID.SoulofNight, 2); //Soul of Night
+						recipe.Register();
+						recipe = CreateRecipe();
+						recipe.AddIngredient(Mod, EnchantingTableItem.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
 						recipe.AddIngredient(ItemID.SoulofNight, 1); //Soul of Night
+						recipe.AddIngredient(ItemID.SoulofLight, 1); //Soul of Light
 						break;
 					case 4:
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars

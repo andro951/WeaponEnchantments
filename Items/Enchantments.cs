@@ -47,8 +47,6 @@ namespace WeaponEnchantments.Items
 		{
 			if (enchantmentSize > -1)
 			{
-				Item.value = (int)(1000 * Math.Pow(8, enchantmentSize));
-
 				for (int i = 0; i < enchantmentTypeNames.Length; i++)
 				{
 					if (enchantmentTypeNames[i] == Name.Substring(0, enchantmentTypeNames[i].Length))
@@ -74,7 +72,17 @@ namespace WeaponEnchantments.Items
 					Item.width = 40;
 					Item.height = 40;
 				}
-                switch (enchantmentTypeName)
+				switch (enchantmentType)
+				{
+					case EnchantmentTypeIDs.AllForOne:
+					case EnchantmentTypeIDs.OneForAll:
+						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize - 2));
+						break;
+					default:
+						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize));
+						break;
+				}
+				switch (enchantmentTypeName)
                 {
 					case "Size":
 						switch (enchantmentSize)
@@ -150,7 +158,7 @@ namespace WeaponEnchantments.Items
 								enchantmentStrength = 0.08f;
 								break;
 							case 2:
-								enchantmentStrength = 0.15f;
+								enchantmentStrength = 0.16f;
 								break;
 							case 3:
 								enchantmentStrength = 0.25f;
@@ -173,10 +181,10 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault(enchantmentStrength.ToString() + " Armor Penetration\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.ManaCost:
-						Tooltip.SetDefault("-" + Math.Round(enchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.AmmoCost:
-						Tooltip.SetDefault("-" + Math.Round(enchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.LifeSteal:
 						Tooltip.SetDefault((enchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
@@ -188,7 +196,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					default:
-						Tooltip.SetDefault("+" + Math.Round(enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
 				}
 				
@@ -223,7 +231,7 @@ namespace WeaponEnchantments.Items
 					}
 					if(enchantmentSize > skipIfLessOrEqualToSize)
                     {
-						for (int j = enchantmentSize; j >= 0; j--)
+						for (int j = enchantmentSize; j >= skipIfLessOrEqualToSize + 1; j--)
 						{
 							recipe = CreateRecipe();
 							for (int k = enchantmentSize; k >= j; k--)
