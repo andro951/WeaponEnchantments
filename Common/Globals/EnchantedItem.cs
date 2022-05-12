@@ -98,7 +98,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
             player.GetDamage(DamageClass.Generic) += damageModifier / 4;
-            player.GetAttackSpeed(DamageClass.Generic) += speedModifier * 25;
+            player.GetAttackSpeed(DamageClass.Generic) += speedModifier / 4;
             player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
             player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2;
             player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
@@ -612,9 +612,10 @@ namespace WeaponEnchantments.Common.Globals
                     float randFloat = Main.rand.NextFloat();
                     for (int i = 0; i < itemTypes.Count; i++)
                     {
-                        if(randFloat >= i/ itemTypes.Count * chance && randFloat < (i + 1) / itemTypes.Count * chance)
+                        if (randFloat >= (float)i / (float)itemTypes.Count * chance && randFloat < ((float)i + 1f) / (float)itemTypes.Count * chance)
                         {
                             player.QuickSpawnItem(src, itemTypes[i]);
+                            break;
                         }
                     }
                 }

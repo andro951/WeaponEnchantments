@@ -18,6 +18,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Tiles;
 using WeaponEnchantments.UI;
+using static WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments
 {
@@ -739,6 +740,165 @@ namespace WeaponEnchantments
                     },
                     InterfaceScaleType.UI)//++
                 );
+            }
+        }
+        public override void PostWorldGen()
+        {
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+            {
+                Chest chest = Main.chest[chestIndex];
+                if(chest != null)
+                {
+                    float chance = 0.5f;
+                    int itemsPlaced = 0;
+                    List<int> itemTypes = new List<int>();
+                    switch (Main.tile[chest.x, chest.y].TileType)
+                    {
+                        case 21:
+                        case 441:
+                            switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
+                            {
+                                case 0://Chest
+                                    chance = 0.35f;
+                                    itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    break;
+                                case 1://Gold Chest
+                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    break;
+                                case 2://Gold Chest (Locked)
+                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentUltraRare>());
+                                    break;
+                                case 3://Shadow Chest
+                                case 4://Shadow Chest (Locked)
+                                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                                    break;
+                                case 8://Rich Mahogany Chest (Jungle)
+                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    break;
+                                case 10://Ivy Chest (Jungle)
+                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    break;
+                                case 11://Frozen Chest
+                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    break;
+                                case 12://Living Wood Chest
+                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    break;
+                                case 13://Skyware Chest
+                                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    break;
+                                case 15://Web Covered Chest
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    break;
+                                case 16://Lihzahrd Chest
+                                    chance = 1f;
+                                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentUltraRare>());
+                                    break;
+                                case 17://Water Chest
+                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    break;
+                                case 23://Jungle Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                                case 24://Corruption Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                                case 25://Crimson Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                                case 26://Hallowed Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                                case 27://Ice Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                                case 32://Mushroom Chest
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    break;
+                                case 40://Granite Chest
+                                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    break;
+                                case 41://Marble Chest
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    break;
+                            }
+                            break;
+                        case 467:
+                        case 468:
+                            switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
+                            {
+                                case 4:
+                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    break;
+                                case 10://SandStone Chest
+                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    break;
+                                case 13://Desert Chest
+                                        chance = 1f;
+                                        //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                                    break;
+                            }
+                            break;
+                        default:
+                            chance = 0f;
+                            break;
+                    }
+                    // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding. 
+                    if (chest != null)
+                    {
+                        for (int j = 0; j < 40 & itemsPlaced < chance; j++)
+                        {
+                            if (chest.item[j].type == ItemID.None)
+                            {
+                                if (itemTypes.Count > 1)
+                                {
+                                    float randFloat = Main.rand.NextFloat();
+                                    for (int i = 0; i < itemTypes.Count; i++)
+                                    {
+                                        if (randFloat >= (float)i / (float)itemTypes.Count * chance && randFloat < ((float)i + 1f) / (float)itemTypes.Count * chance)
+                                        {
+                                            chest.item[j].SetDefaults(itemTypes[i]);
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if(itemTypes.Count == 1)
+                                {
+                                    if (Main.rand.NextFloat() < chance)
+                                    {
+                                        chest.item[j].SetDefaults(itemTypes[0]);
+                                    }
+                                    
+                                }
+                                itemsPlaced++;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
