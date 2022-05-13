@@ -16,11 +16,22 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
         {
 			Tile tileTarget = Main.tile[i, j];
-			if (tileTarget.TileType != 504 && tileType == -1)
+			if (tileTarget.TileType != 504)
 			{
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 				int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
-				int damageAmount = GetPickaxeDamage(i, j, wePlayer.Player.inventory[wePlayer.Player.selectedItem].pick, hitBufferIndex, tileTarget);
+				int damageAmount = 0;
+				if (Main.tileAxe[tileTarget.TileType])
+                {
+					if (tileTarget.TileType == 80)
+						damageAmount += (int)(wePlayer.Player.HeldItem.axe * 3 * 1.2f);
+					else
+						TileLoader.MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
+				}
+                else
+                {
+					damageAmount = GetPickaxeDamage(i, j, wePlayer.Player.inventory[wePlayer.Player.selectedItem].pick, hitBufferIndex, tileTarget);
+				}
 				int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
 				if (damage >= 100)
 				{
@@ -48,11 +59,21 @@ namespace WeaponEnchantments.Common.Globals
                 {
 					if(tileType >= 0)
                     {
-						if (dropItem.type != ItemID.None)
-						{
-							xp += dropItem.value;
-						}
 						xp += GetTileStrengthXP(tileType);
+						if (Main.tileAxe[tileType])
+                        {
+							int k;
+							for (k = j; Main.tile[i, k] != null && (!Main.tile[i, k].HasTile || !Main.tileSolid[Main.tile[i, k].TileType] || Main.tileSolidTop[Main.tile[i, k].TileType]); k++){}
+							xp = tileType >= 583 && tileType <= 589 ? k * 3 : k / 16 * 10 ;
+							Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
+						}
+                        else
+                        {
+							if (dropItem.type != ItemID.None)
+							{
+								xp += dropItem.value / 10;
+							}
+						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
 						wePlayer.Player.HeldItem.GetGlobalItem<EnchantedItem>().GainXP(wePlayer.Player.HeldItem, xp);
 						tileType = -1;
@@ -161,33 +182,7 @@ namespace WeaponEnchantments.Common.Globals
 					else
 						dropItem = 502;
 					break;
-				case 178:
-					switch (tileCache.TileFrameX / 18)
-					{
-						case 0:
-							dropItem = 181;
-							break;
-						case 1:
-							dropItem = 180;
-							break;
-						case 2:
-							dropItem = 177;
-							break;
-						case 3:
-							dropItem = 179;
-							break;
-						case 4:
-							dropItem = 178;
-							break;
-						case 5:
-							dropItem = 182;
-							break;
-						case 6:
-							dropItem = 999;
-							break;
-					}
-					break;
-
+				
 				case 589:
 					dropItem = 999;
 					break;
