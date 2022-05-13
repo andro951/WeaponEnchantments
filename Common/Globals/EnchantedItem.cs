@@ -9,6 +9,7 @@ using Terraria.ID;
 using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using static WeaponEnchantments.Items.Containment;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -112,8 +113,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 value += enchantments[i].value;
             }
-            item.value += value + 16 * experience - lastValueBonus;//Update items value based on enchantments installed
-            lastValueBonus = value + 16 * experience;
+            int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
+            item.value += value + 16 * experience + powerBoosterValue - lastValueBonus;//Update items value based on enchantments installed
+            lastValueBonus = value + 16 * experience + powerBoosterValue;
         }
         public void UpdateLevel()
         {
@@ -440,14 +442,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }//Edit Tooltips
         }
-        /*public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (target.life <= 0) 
-            {
-                KillNPC(item, target);
-            }
-        }*/
         public void KillNPC(Item item, NPC target)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -458,37 +452,40 @@ namespace WeaponEnchantments.Common.Globals
                 float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
                 float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
                 float xp;
-                if (effDamage - (float)target.defDefense / 2 > 1)
+                if(target.value > 0)
                 {
-                    xp = (float)target.lifeMax * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
-                }
-                else
-                {
-                    xp = (float)target.lifeMax * multiplier * effDamage;
-                }
-                if (item.accessory)
-                {
-                    xp /= 2;
-                }
-                xpInt = (int)Math.Round(xp);
-                if (!item.consumable)
-                {
-                    Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                    GainXP(item, xpInt);
-                }
-                foreach (Item armor in wePlayer.Player.armor)
-                {
-                    if (!armor.vanity && !armor.IsAir)
+                    if (effDamage - (float)target.defDefense / 2 > 1)
                     {
-                        if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
+                        xp = (float)target.lifeMax * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
+                    }
+                    else
+                    {
+                        xp = (float)target.lifeMax * multiplier * effDamage;
+                    }
+                    if (item.accessory)
+                    {
+                        xp /= 2;
+                    }
+                    xpInt = (int)Math.Round(xp);
+                    if (!item.consumable)
+                    {
+                        Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                        GainXP(item, xpInt);
+                    }
+                    foreach (Item armor in wePlayer.Player.armor)
+                    {
+                        if (!armor.vanity && !armor.IsAir)
                         {
-                            if (armor.accessory)
+                            if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
                             {
-                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
-                            }
-                            else
-                            {
-                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                if (armor.accessory)
+                                {
+                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
+                                }
+                                else
+                                {
+                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                }
                             }
                         }
                     }
@@ -594,7 +591,7 @@ namespace WeaponEnchantments.Common.Globals
                         switch (npc.type)
                         {
                             case NPCID.EaterofWorldsHead:
-
+                                dropRate[i] *= 50f;
                                 break;
                             default:
 
@@ -604,10 +601,28 @@ namespace WeaponEnchantments.Common.Globals
                         player.QuickSpawnItem(src, baseID + i, stack);
                     }
                 }
+                float value = npc.value;
+                switch (npc.type)
+                {
+                    case NPCID.EaterofWorldsHead:
+                        value *= 50f;
+                        break;
+                    default:
+
+                        break;
+                }
+                player.QuickSpawnItem(src, ModContent.ItemType<ContainmentFragment>(), (int)((1f + Main.rand.NextFloat()) * value / 10000f));
+                if (Main.rand.NextFloat() <  value / 500000f)
+                {
+                    player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
+                }
+                if (Main.rand.NextFloat() < value / 1000000f)
+                {
+                    player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
+                }
                 float chance = WEGlobalNPC.GedDropChance(arg);
                 List<int> itemTypes = WEGlobalNPC.GetDropItems(arg, true);
-                bool chooseOne = WEGlobalNPC.GetChooseOne(arg);
-                if (chooseOne)
+                if (itemTypes.Count > 1)
                 {
                     float randFloat = Main.rand.NextFloat();
                     for (int i = 0; i < itemTypes.Count; i++)
@@ -619,7 +634,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-                else
+                else if(itemTypes.Count > 0)
                 {
                     if (Main.rand.NextFloat() < chance)
                     {
@@ -649,7 +664,7 @@ namespace WeaponEnchantments.Common.Globals
                     npcID = NPCID.QueenBee;
                     break;
                 case ItemID.SkeletronBossBag:
-                    npcID = NPCID.Skeleton;
+                    npcID = NPCID.SkeletronHead;
                     break;
                 case ItemID.DeerclopsBossBag:
                     npcID = NPCID.Deerclops;
@@ -679,13 +694,13 @@ namespace WeaponEnchantments.Common.Globals
                     npcID = NPCID.DukeFishron;
                     break;
                 case ItemID.FairyQueenBossBag:
-                    npcID = NPCID.EmpressButterfly;
+                    npcID = NPCID.HallowBoss;
                     break;
                 case ItemID.CultistBossBag:
                     npcID = NPCID.CultistBoss;
                     break;
                 case ItemID.MoonLordBossBag:
-                    npcID = NPCID.MoonLordHead;
+                    npcID = NPCID.MoonLordCore;
                     break;
                 case ItemID.BossBagDarkMage:
                     npcID = NPCID.DD2DarkMageT1;

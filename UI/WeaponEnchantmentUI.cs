@@ -180,6 +180,10 @@ namespace WeaponEnchantments.UI
                     stack = 1;
                 }
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<ContainmentFragment>(), stack);
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                {
+                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
+                }
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
                 offered = true;
                 SoundEngine.PlaySound(SoundID.Grab);

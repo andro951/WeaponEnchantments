@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.QueenBeeBossBag when bossBag:
                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                     break;
-                case NPCID.Skeleton when !bossBag:
+                case NPCID.SkeletronHead when !bossBag:
                 case ItemID.SkeletronBossBag when bossBag:
                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
                     break;
@@ -91,7 +91,7 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.FishronBossBag when bossBag:
 
                     break;
-                case NPCID.EmpressButterfly when !bossBag:
+                case NPCID.HallowBoss when !bossBag:
                 case ItemID.FairyQueenBossBag when bossBag:
 
                     break;
@@ -99,7 +99,7 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.CultistBossBag when bossBag:
 
                     break;
-                case NPCID.MoonLordHead when !bossBag:
+                case NPCID.MoonLordCore when !bossBag:
                 case ItemID.MoonLordBossBag when bossBag:
 
                     break;
@@ -174,38 +174,26 @@ namespace WeaponEnchantments.Common.Globals
             }
             return chance;
         }
-        public static bool GetChooseOne(int arg)
-        {
-            bool chooseOne;
-            switch (arg)
-            {
-                case NPCID.WallofFlesh:
-                    chooseOne = true;
-                    break;
-                default:
-                    chooseOne = false;
-                    break;
-            }
-            return chooseOne;
-        }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             if(!npc.friendly && !npc.townNPC && !npc.SpawnedFromStatue)
             {
                 GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
+                IItemDropRule dropRule;
                 for (int i = 0; i < essenceValues.Length; ++i)
                 {
                     if (dropRate[i] > 0)
                     {
                         if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                         {
-                            IItemDropRule dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                         else
                         {
                             int denominator = (int)Math.Round(1f / dropRate[i]);
-                            npcLoot.Add(ItemDropRule.Common(baseID + i, denominator, 1, 1));
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, denominator, 1, 1), ItemDropRule.DropNothing());
+                            npcLoot.Add(dropRule);
                         }
                     }
                 }
@@ -213,29 +201,29 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if(npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
                     {
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1));
-                    }
-                    else
-                    {
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)));
-                    }
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1));
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1));
-                    float chance = WEGlobalNPC.GedDropChance(npc.type);
-                    List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
-                    bool chooseOne = WEGlobalNPC.GetChooseOne(npc.type);
-                    if (chooseOne)
-                    {
-                        IItemDropRule dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
                     }
                     else
                     {
-                        if(itemTypes.Count > 0)
-                        {
-                            IItemDropRule dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
-                            npcLoot.Add(dropRule);
-                        }
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)), ItemDropRule.DropNothing());
+                        npcLoot.Add(dropRule);
+                    }
+                    dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
+                    npcLoot.Add(dropRule);
+                    dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
+                    npcLoot.Add(dropRule);
+                    float chance = WEGlobalNPC.GedDropChance(npc.type);
+                    List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
+                    if (itemTypes.Count > 1)
+                    {
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
+                        npcLoot.Add(dropRule);
+                    }
+                    else if(itemTypes.Count > 0)
+                    {
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
+                        npcLoot.Add(dropRule);
                     }
                 }
                 else
@@ -435,7 +423,7 @@ namespace WeaponEnchantments.Common.Globals
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
             float neg = Math.Abs(value - hp) * 0.8f;
-            total = (hp + value - neg) * multiplier;
+            total = value > 0 ? (hp + value - neg) * multiplier : 0f;
             essenceValues = new float[] { 100f, 800f, 6400f, 51200f, 409600f };
             dropRate = new float[essenceValues.Length];
             baseID = ModContent.ItemType<EnchantmentEssenceBasic>();

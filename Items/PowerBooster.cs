@@ -27,7 +27,7 @@ namespace WeaponEnchantments.Items
             Item.value = 500000;
             Item.width = 18;
             Item.height = 18;
-            Tooltip.SetDefault("Use this on an item in an Enchantment Table to raise its base level by 10.\nThis item will be consumed and can not be returned.");
+            Tooltip.SetDefault("Use this on an item in an Enchantment Table to raise its base level by 10.\nThis item will be returned if the boosted item is offered.");
             Item.rare = ItemRarityID.Orange;
         }
         public override void PostUpdate()
@@ -38,8 +38,7 @@ namespace WeaponEnchantments.Items
         {
             if (Enchantments.cheating)
             {
-                Recipe recipie = CreateRecipe();
-                recipie.Register();
+                Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
             }
             ID = Item.type;
         }

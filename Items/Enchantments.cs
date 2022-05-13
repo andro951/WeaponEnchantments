@@ -67,7 +67,7 @@ namespace WeaponEnchantments.Items
 					Item.width = 10 + 4 * (enchantmentSize);
 					Item.height = 10 + 4 * (enchantmentSize);
 				}
-                else
+                else 
 				{
 					Item.width = 40;
 					Item.height = 40;
@@ -266,8 +266,7 @@ namespace WeaponEnchantments.Items
                 }
                 if (cheating)
                 {
-					Recipe recipe = CreateRecipe();
-					recipe.Register();
+					Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
 				}
 			}
 		}
@@ -355,7 +354,8 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[15] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514};
+			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514};
+			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
 			{
 
@@ -387,7 +387,7 @@ namespace WeaponEnchantments.Items
 
 
 
-						Recipe recipe = CreateRecipe();
+						//Recipe recipe = CreateRecipe();
 						//recipe.ReplaceResult(freeItems[i]);
 						//recipe.AddIngredient(ItemID.Wood, 1);
 						//recipe.AddTile(TileID.WorkBenches);
@@ -396,8 +396,16 @@ namespace WeaponEnchantments.Items
 
 
 						// \/New\/
-						Mod.CreateRecipe(freeItems[i], 1).AddIngredient(ItemID.Wood, 1).AddTile(TileID.WorkBenches).Register();
+						Mod.CreateRecipe(freeItems[i], 1).AddTile(TileID.WoodBlock).Register();
 						// /\New/\
+					}
+					for(int i = ItemID.KingSlimeBossBag; i <= ItemID.MoonLordBossBag; i++)
+                    {
+						Mod.CreateRecipe(i, 1).AddTile(TileID.WoodBlock).Register();
+					}
+					for (int i = 0; i < bossBags.Length; i++)
+					{
+						Mod.CreateRecipe(bossBags[i], 1).AddTile(TileID.WoodBlock).Register();
 					}
 				}
 			}
