@@ -20,7 +20,9 @@ namespace WeaponEnchantments.Common.Globals
     {
         public Item sourceItem;
         public bool xpCalculated = false;
-        private bool allForOneOrigin = true;
+        private bool oneForAllOrigin = true;
+        public bool immuneToAllForOne = false;
+        public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
@@ -480,7 +482,7 @@ namespace WeaponEnchantments.Common.Globals
                         wePlayer.lifeStealRollover = 0f;
                     }
                 }
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
+                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
                 {
                     ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
                 }
@@ -494,6 +496,12 @@ namespace WeaponEnchantments.Common.Globals
             }
             if (sourceItem != null)
             {
+                if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
+                {
+                    immuneToAllForOne = true;
+                    timeHitByAllForOne[projectile.owner] = Main.GameUpdateCount;
+                }
+                damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().minionDamageMultiplier);
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
                 {
@@ -503,7 +511,7 @@ namespace WeaponEnchantments.Common.Globals
                     int heal = (int)healTotal;
                     if (wePlayer.Player.statLife < wePlayer.Player.statLifeMax2)
                     {
-                        if(heal > 0)
+                        if (heal > 0)
                         {
                             Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
                         }
@@ -511,14 +519,56 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
-                         wePlayer.lifeStealRollover = 0f;
+                        wePlayer.lifeStealRollover = 0f;
                     }
                 }
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
+                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
                 {
                     ActivateOneForAllProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection, sourceItem);
+                    projectile.Kill();
                 }
             }
+        }
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if(!npc.townNPC && !npc.friendly)
+            {
+                if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
+                {
+                    sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                }
+                if (sourceItem != null)
+                {
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
+                    {
+                        if (npc.GetGlobalNPC<WEGlobalNPC>().immuneToAllForOne)
+                        {
+                            if (timeHitByAllForOne[projectile.owner] + 80 > Main.GameUpdateCount)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                timeHitByAllForOne[projectile.owner] = 0;
+                                bool noPlayersLeft = true;
+                                for (int j = 0; j < timeHitByAllForOne.Length; j++)
+                                {
+                                    if (timeHitByAllForOne[j] > 0)
+                                    {
+                                        noPlayersLeft = false;
+                                        break;
+                                    }
+                                }
+                                if (noPlayersLeft)
+                                {
+                                    immuneToAllForOne = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
         private void ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
         {
@@ -531,11 +581,11 @@ namespace WeaponEnchantments.Common.Globals
                         Vector2 vector2 = target.Center - npc.Center;
                         if (vector2.Length() <= 192f * item.scale)
                         {
-                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = false;
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
                             target.StrikeNPC(damage, knockback, direction);
                             target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByItem(target, player, item, ref damage, ref knockback, ref crit);
-                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = true;
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
                         }
                     }
                 }
@@ -552,11 +602,11 @@ namespace WeaponEnchantments.Common.Globals
                         Vector2 vector2 = target.Center - npc.Center;
                         if (vector2.Length() <= 192f * item.scale)
                         {
-                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = false;
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
                             target.StrikeNPC(damage, knockback, hitDirection);
                             target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
-                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = true;
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
                         }
                     }
                 }

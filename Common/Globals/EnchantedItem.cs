@@ -230,7 +230,6 @@ namespace WeaponEnchantments.Common.Globals
                             armorPenetrationBonus += str;
                             break;
                         case EnchantmentTypeIDs.AllForOne:
-                            modifier += str * damage.Multiplicative;
                             allForOne = true;
                             break;
                         case EnchantmentTypeIDs.OneForAll:
@@ -251,7 +250,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 damage += modifier * damage.Multiplicative;
             }
-            if(player.HeldItem == item)
+            if (allForOne) { damage.Base = (damage.Base + ContentSamples.ItemsByType[item.type].damage) * 10; }
+            //damage = allForOne ? damage * 10 : damage;
+            if (player.HeldItem == item)
             {
                 player.statDefense += (int)Math.Round((float)defenceBonus / 2);
             }
@@ -373,7 +374,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.AllForOne:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% Damage, item CD equal to 8x use speed")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "10x Damage, item CD equal to 8x use speed")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -585,6 +586,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (allForOne)
             {
+                wePlayer.allForOneCooldown = true;
                 wePlayer.allForOneTimer = item.useTime * 8;
             }
             return null;

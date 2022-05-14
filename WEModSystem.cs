@@ -1,22 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.GameContent.Tile_Entities;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
-using WeaponEnchantments.Tiles;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Items.Enchantments;
 
@@ -28,10 +19,6 @@ namespace WeaponEnchantments
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
         private GameTime _lastUpdateUiGameTime;
-        private static Item[] itemSlots = new Item[EnchantingTable.maxItems];
-        private static Item[] enchantmentSlots = new Item[EnchantingTable.maxEnchantments];
-        private static Item[] essenceSlots = new Item[EnchantingTable.maxEssenceItems];
-        //private bool slotsLinked = false;
         private static bool needsToQuickStack = false;
         private static bool tryNextTick = false;
         private static bool firstDraw = true;
@@ -41,7 +28,6 @@ namespace WeaponEnchantments
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
-        //private static bool firstCheck = true;
         public override void OnModLoad()
         {
             if (!Main.dedServ)

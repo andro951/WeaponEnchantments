@@ -192,7 +192,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault((enchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.AllForOne:
-						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% Damage, item CD equal to 8x use speed\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("10x Damage, item CD equal to 8x use speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.OneForAll:
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed\nLevel cost: " + GetLevelCost().ToString());
@@ -360,7 +360,7 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561};
+			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561, 4281, 5114, 1309};
 			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
 			{

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Items.Enchantments;
@@ -17,10 +12,12 @@ namespace WeaponEnchantments.Common.Globals
         public Item sourceItem;
         private bool sourceSet;
         public int lastInventoryLocation = -1;
+        private bool updated = false;
+        public float minionDamageMultiplier = 1f;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-             if (!sourceSet)
+            if (!sourceSet)
             {
                 if (source is EntitySource_ItemUse)
                 {
@@ -46,21 +43,61 @@ namespace WeaponEnchantments.Common.Globals
                         sourceSet = true;
                     }
                 }
-                if (sourceSet)
+                /*if (sourceSet)
                 {
                     float scale = 0f;
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir && ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
                         {
-                            //projectile.knockBack += (int)(((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength * 100);
                             scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                         }
                     }
                     scale += sourceItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
                     projectile.scale += scale;//Update item size
+                }*/
+            }
+        }
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+            if (!updated)
+            {
+                if (sourceSet)
+                {
+                    float scale = 0f;
+                    minionDamageMultiplier = 1f;
+                    bool allForOne = false;
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                        {
+                            switch (((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                            {
+                                case EnchantmentTypeIDs.Size:
+                                    scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
+                                    break;
+                                case EnchantmentTypeIDs.AllForOne:
+                                    if(sourceItem.DamageType == DamageClass.Summon)
+                                    {
+                                        allForOne = true;
+                                    }
+                                    break;
+                                case EnchantmentTypeIDs.Damage:
+                                    if (sourceItem.DamageType == DamageClass.Summon)
+                                    {
+                                        minionDamageMultiplier += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    minionDamageMultiplier = allForOne ? minionDamageMultiplier * 10 : minionDamageMultiplier;
+                    updated = true;
+                    scale += sourceItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
+                    projectile.scale += scale;//Update item size
                 }
             }
+            return true;
         }
         /*public override void Kill(Projectile projectile, int timeLeft)
         {

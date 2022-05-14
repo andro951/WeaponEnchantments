@@ -1,17 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.UI.Chat;
-using WeaponEnchantments.Common;
 using WeaponEnchantments.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
@@ -38,6 +30,7 @@ namespace WeaponEnchantments
         public float ammoCost = 0f;
         public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
+        public bool allForOneCooldown = false;
         public int allForOneTimer = 0;
         public Item[] equiptArmor;
         public bool spelunker = false;
@@ -297,31 +290,6 @@ namespace WeaponEnchantments
                 }
             }
 
-            /*if (Main.player[Main.myPlayer].chest != -1)
-            {
-                if (Main.player[Main.myPlayer].chest > -1)
-                    inventory = Main.chest[Main.player[Main.myPlayer].chest].item;
-                else if (Main.player[Main.myPlayer].chest == -2)
-                    inventory = Main.player[Main.myPlayer].bank.item;
-                else if (Main.player[Main.myPlayer].chest == -3)
-                    inventory = Main.player[Main.myPlayer].bank2.item;
-                else if (Main.player[Main.myPlayer].chest == -4)
-                    inventory = Main.player[Main.myPlayer].bank3.item;
-                else if (Main.player[Main.myPlayer].chest == -5)
-                    inventory = Main.player[Main.myPlayer].bank4.item;
-
-                for (int i = 0; i < 40; i++)
-                {
-                    item = inventory[i];
-                    if (item != null && item.stack > 0)
-                    {
-                        if (dictionary.ContainsKey(item.netID))
-                            dictionary[item.netID] += item.stack;
-                        else
-                            dictionary[item.netID] = item.stack;
-                    }
-                }
-            }*/
             if (wePlayer.usingEnchantingTable)
             {
                 if(wePlayer.enchantingTableUI?.essenceSlotUI != null)
@@ -505,7 +473,7 @@ namespace WeaponEnchantments
             if (allForOneTimer > 0)
             {
                 allForOneTimer--;
-                if(allForOneTimer == 0)
+                if (allForOneTimer == 0)
                 {
                     SoundEngine.PlaySound(SoundID.MaxMana);
                 }
