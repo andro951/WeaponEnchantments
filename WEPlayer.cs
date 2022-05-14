@@ -40,6 +40,7 @@ namespace WeaponEnchantments
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
         public Item[] equiptArmor;
+        public bool spelunker = false;
         /*
         public void RefreshModItems()
         {
@@ -161,7 +162,44 @@ namespace WeaponEnchantments
         {
             if (usingEnchantingTable)
             {
-                if(inventory == Player.inventory)
+                bool stop = false;
+                for (int j = 0; j < EnchantingTable.maxItems; j++)
+                {
+                    if (enchantingTableUI.itemSlotUI[j].contains)
+                    {
+                        stop = true;
+                    }
+                }
+                for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++)
+                {
+                    if (enchantingTableUI.enchantmentSlotUI[j].contains)
+                    {
+                        stop = true;
+                    }
+                }
+                for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++)
+                {
+                    if (enchantingTableUI.essenceSlotUI[j].contains)
+                    {
+                        stop = true;
+                    }
+                }
+                if (stop)
+                {
+                    bool itemWillBeTrashed = true;
+                    for(int i = 49; i >= 0 && itemWillBeTrashed; i--)
+                    {
+                        if (Player.inventory[i].IsAir)
+                        {
+                            itemWillBeTrashed = false;
+                        }
+                    }
+                    if (itemWillBeTrashed)
+                    {
+                        return true;
+                    }
+                }//TODO: Edit this if you ever make ammo bags enchantable
+                if (!stop)
                 {
                     if (Main.mouseItem.IsAir)
                     {
@@ -460,28 +498,45 @@ namespace WeaponEnchantments
         public override void PostUpdate()
         {
             bool check = false;
+            bool skipSpelunkerCheck = false;
+            spelunker = false;
             int i = 0;
-            foreach (Item armor in Player.armor)
+            if(Player.HeldItem.type != ItemID.None)
             {
-                if (!armor.vanity && !armor.IsAir)
+                if (Player.HeldItem.GetGlobalItem<EnchantedItem>().spelunker)
                 {
-                    if (equiptArmor[i].IsAir)
+                    spelunker = true;
+                    skipSpelunkerCheck = true;
+                }
+            }
+            if (!skipSpelunkerCheck && spelunker)
+            {
+                check = true;
+            }
+            if (!check)
+            {
+                foreach (Item armor in Player.armor)
+                {
+                    if (!armor.vanity && !armor.IsAir)
+                    {
+                        if (equiptArmor[i].IsAir)
+                        {
+                            check = true;
+                            break;
+                        }
+                        else if (!armor.GetGlobalItem<EnchantedItem>().equip || equiptArmor[i] != armor)
+                        {
+                            check = true;
+                            break;
+                        }
+                    }
+                    else if (armor.IsAir && !equiptArmor[i].IsAir)
                     {
                         check = true;
                         break;
                     }
-                    else if (!armor.GetGlobalItem<EnchantedItem>().equip || equiptArmor[i] != armor)
-                    {
-                        check = true;
-                        break;
-                    }
+                    i++;
                 }
-                else if(armor.IsAir && !equiptArmor[i].IsAir)
-                {
-                    check = true;
-                    break;
-                }
-                i++;
             }
             if (check)
             {
@@ -516,6 +571,9 @@ namespace WeaponEnchantments
                                     case EnchantmentTypeIDs.LifeSteal:
                                         lifeStealBonus += str;
                                         break;
+                                    case EnchantmentTypeIDs.Spelunker:
+                                        spelunker = true;
+                                        break;
                                 }
                             }
                         }
@@ -529,6 +587,7 @@ namespace WeaponEnchantments
                 ammoCost += ammoCostBonus / 4;
                 lifeSteal += lifeStealBonus / 4;
             }
+            if (spelunker) { Player.AddBuff(9, 1); }
             if (allForOneTimer > 0)
             {
                 allForOneTimer--;

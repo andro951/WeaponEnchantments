@@ -179,242 +179,223 @@ namespace WeaponEnchantments.Common.Globals
             if(!npc.friendly && !npc.townNPC && !npc.SpawnedFromStatue)
             {
                 GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
-                IItemDropRule dropRule;
-                for (int i = 0; i < essenceValues.Length; ++i)
+                if(total > 0f)
                 {
-                    if (dropRate[i] > 0)
+                    IItemDropRule dropRule;
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
+                        if (dropRate[i] > 0)
                         {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
+                            if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
+                            {
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
+                                npcLoot.Add(dropRule);
+                            }
+                            else
+                            {
+                                int denominator = (int)Math.Round(1f / dropRate[i]);
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, denominator, 1, 1), ItemDropRule.DropNothing());
+                                npcLoot.Add(dropRule);
+                            }
+                        }
+                    }
+                    if (npc.boss || (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail))
+                    {
+                        if (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
+                        {
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                         else
                         {
-                            int denominator = (int)Math.Round(1f / dropRate[i]);
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, denominator, 1, 1), ItemDropRule.DropNothing());
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)), ItemDropRule.DropNothing());
+                            npcLoot.Add(dropRule);
+                        }
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
+                        npcLoot.Add(dropRule);
+                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
+                        npcLoot.Add(dropRule);
+                        float chance = WEGlobalNPC.GedDropChance(npc.type);
+                        List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
+                        if (itemTypes.Count > 1)
+                        {
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
+                            npcLoot.Add(dropRule);
+                        }
+                        else if (itemTypes.Count > 0)
+                        {
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                     }
-                }
-                if (npc.boss || (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail))
-                {
-                    if(npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
-                    {
-                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
-                    }
                     else
                     {
-                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
-                    }
-                    dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                    npcLoot.Add(dropRule);
-                    dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                    npcLoot.Add(dropRule);
-                    float chance = WEGlobalNPC.GedDropChance(npc.type);
-                    List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
-                    if (itemTypes.Count > 1)
-                    {
-                        dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
-                    }
-                    else if(itemTypes.Count > 0)
-                    {
-                        dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
-                    }
-                }
-                else
-                {
-                    switch (npc.aiStyle)
-                    {
-                        case 1://Slime
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp /(total * 1)), 1, 1));
-                            break;
-                        case 2://Demon Eye
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 3://Fighter
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DefenceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 5://Flying
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 6://Worm
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 8://Caster
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 10://Cursed Skull
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 13://Plant
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 14://Bat
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 16://Swimming
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 17://Vulture
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 18://Jellyfish
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 19://Antlion
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                            break;
-                        case 22://Hovering
+                        switch (npc.aiStyle)
+                        {
+                            case 1://Slime
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 2://Demon Eye
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 3://Fighter
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DefenceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 5://Flying
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 6://Worm
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 8://Caster
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 10://Cursed Skull
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 13://Plant
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 14://Bat
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 16://Swimming
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 17://Vulture
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 18://Jellyfish
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 19://Antlion
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case 22://Hovering
 
-                            break;
-                        case 23://Flying Weapon
+                                break;
+                            case 23://Flying Weapon
 
-                            break;
-                        case 25://Mimic
-                            //100%
-                            int[] options = new int[] { ModContent.ItemType<LifeStealEnchantmentBasic>(), ModContent.ItemType<ArmorPenetrationEnchantmentBasic>() };
-                            npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
-                            break;
-                        case 26://Unicorn
+                                break;
+                            case 25://Mimic
+                                    //100%
+                                int[] options = new int[] { ModContent.ItemType<SpelunkerEnchantmentUltraRare>() };
+                                npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
+                                break;
+                            case 26://Unicorn
 
-                            break;
-                        case 29://The Hungry - Wall of flesh plant minions
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
-                            break;
-                        case 38://Snowman
+                                break;
+                            case 29://The Hungry - Wall of flesh plant minions
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
+                                break;
+                            case 38://Snowman
 
-                            break;
-                        case 39://Tortoise
+                                break;
+                            case 39://Tortoise
 
-                            break;
-                        case 40://Spider
+                                break;
+                            case 40://Spider
 
-                            break;
-                        case 41://Derpling - Blue jungle bug
+                                break;
+                            case 41://Derpling - Blue jungle bug
 
-                            break;
-                        case 44://Flying Fish
+                                break;
+                            case 44://Flying Fish
 
-                            break;
-                        case 49://Angry Nimbus
+                                break;
+                            case 49://Angry Nimbus
 
-                            break;
-                        case 55://Creeper Brain of Cthulhu minions
-                            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
-                            break;
-                        case 56://Dungeon Spirit - 1 hit kill dungion skulls
+                                break;
+                            case 55://Creeper Brain of Cthulhu minions
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
+                                break;
+                            case 56://Dungeon Spirit - 1 hit kill dungion skulls
 
-                            break;
-                        case 62://Elf Copter
+                                break;
+                            case 62://Elf Copter
 
-                            break;
-                        case 63://Flocko
+                                break;
+                            case 63://Flocko
 
-                            break;
-                        case 71://Sharkron - Duke Fishron minions
+                                break;
+                            case 71://Sharkron - Duke Fishron minions
 
-                            break;
-                        case 73://Tesla Turret
+                                break;
+                            case 73://Tesla Turret
 
-                            break;
-                        case 74://Corite/Martian Drone
+                                break;
+                            case 74://Corite/Martian Drone
 
-                            break;
-                        case 75://Rider
+                                break;
+                            case 75://Rider
 
-                            break;
-                        case 80://Martian Probe - Spawns martian invasion
-                            //100% dropchance
-                            break;
-                        case 82://Moon Leach Clot - Moon lord minion
+                                break;
+                            case 80://Martian Probe - Spawns martian invasion
+                                    //100% dropchance
+                                break;
+                            case 82://Moon Leach Clot - Moon lord minion
 
-                            break;
-                        case 83://Lunatic Devote - Spawn Lunatic Cultist
+                                break;
+                            case 83://Lunatic Devote - Spawn Lunatic Cultist
 
-                            break;
-                        case 85://Star Cell/Brain Sucker
+                                break;
+                            case 85://Star Cell/Brain Sucker
 
-                            break;
-                        case 87://Biome Mimic - Big Mimics
-                            //100%
-                            break;
-                        case 88://Mothron - Solar Eclipse
+                                break;
+                            case 87://Biome Mimic - Big Mimics
+                                    //100%
+                                break;
+                            case 88://Mothron - Solar Eclipse
 
-                            break;
-                        case 91://Granite Elemental
+                                break;
+                            case 91://Granite Elemental
 
-                            break;
-                        case 94://Celestial Pillar
-                            //High chance unique based on type
-                            break;
-                        case 95://Small Star Cell
+                                break;
+                            case 94://Celestial Pillar
+                                    //High chance unique based on type
+                                break;
+                            case 95://Small Star Cell
 
-                            break;
-                        case 96://Flow Invader
+                                break;
+                            case 96://Flow Invader
 
-                            break;
-                        case 97://Nebula Floater
+                                break;
+                            case 97://Nebula Floater
 
-                            break;
-                        case 98://Unknown? If the player is far, rolls quickly towards it, else approaches slowly before shooting Solar Flares.
+                                break;
+                            case 98://Unknown? If the player is far, rolls quickly towards it, else approaches slowly before shooting Solar Flares.
 
-                            break;
-                        case 102://Sand Elemental
-                            //High
-                            break;
-                        case 103://Sand Shark
+                                break;
+                            case 102://Sand Elemental
+                                     //High
+                                break;
+                            case 103://Sand Shark
 
-                            break;
-                        case 107://Attacker - Eternia Crystal event
+                                break;
+                            case 107://Attacker - Eternia Crystal event
 
-                            break;
-                        case 108://Flying Attacker
+                                break;
+                            case 108://Flying Attacker
 
-                            break;
-                        case 109://Dark Mage
+                                break;
+                            case 109://Dark Mage
 
-                            break;
-                        case 111://Etherian Lightning Bug
+                                break;
+                            case 111://Etherian Lightning Bug
 
-                            break;
-                        case 119://Angry Dandelion
+                                break;
+                            case 119://Angry Dandelion
 
-                            break;
-                        case 120://Pirate's Curse
+                                break;
+                            case 120://Pirate's Curse
 
-                            break;
-                        default:
+                                break;
+                            default:
 
-                            break;
+                                break;
+                        }
                     }
                 }
-                /*
-                npc.boss;
-                npc.buffImmune;
-                npc.lifeMax;
-                npc.defDamage;
-                npc.defDefense;
-                    npc.friendly;
-                npc.knockBackResist;
-                npc.lavaImmune;
-                npc.noGravity;
-                npc.noTileCollide;
-                npc.reflectsProjectiles;
-                    npc.SpawnedFromStatue;
-                npc.statsAreScaledForThisManyPlayers;
-                npc.stepSpeed;
-                npc.strengthMultiplier;
-                    npc.townNPC;
-                npc.trapImmune;
-                npc.value;
-                npc.width;
-                npc.height;
-                */
             }
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
@@ -457,7 +438,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            //total *= 2;
             if (rarity == 0)
             {
                 dropRate[rarity] = 1.25f * total / essenceValues[rarity];
@@ -500,9 +480,9 @@ namespace WeaponEnchantments.Common.Globals
                         wePlayer.lifeStealRollover = 0f;
                     }
                 }
-                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
                 {
-                    ActivateOneForAll(npc, item, damage, (int)Math.Round(knockback), player.direction);
+                    ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
                 }
             } 
         }
@@ -534,13 +514,34 @@ namespace WeaponEnchantments.Common.Globals
                          wePlayer.lifeStealRollover = 0f;
                     }
                 }
-                else if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
+                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && allForOneOrigin)
                 {
-                    ActivateOneForAll(npc, sourceItem, damage, (int)Math.Round(knockback), projectile.direction);
+                    ActivateOneForAllProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection, sourceItem);
                 }
             }
         }
-        private void ActivateOneForAll(NPC npc, Item item, int damage, int knockBack, int direction)
+        private void ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
+        {
+            foreach (NPC target in Main.npc)
+            {
+                if (target.whoAmI != npc.whoAmI)
+                {
+                    if (!target.friendly && !target.townNPC)
+                    {
+                        Vector2 vector2 = target.Center - npc.Center;
+                        if (vector2.Length() <= 192f * item.scale)
+                        {
+                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = false;
+                            target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
+                            target.StrikeNPC(damage, knockback, direction);
+                            target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByItem(target, player, item, ref damage, ref knockback, ref crit);
+                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = true;
+                        }
+                    }
+                }
+            }
+        }
+        private void ActivateOneForAllProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Item item)
         {
             foreach (NPC target in Main.npc)
             {
@@ -549,14 +550,20 @@ namespace WeaponEnchantments.Common.Globals
                     if (!target.friendly && !target.townNPC)
                     {
                         Vector2 vector2 = target.Center - npc.Center;
-                        if (vector2.Length() <= 160f * item.scale)
+                        if (vector2.Length() <= 192f * item.scale)
                         {
                             target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            target.StrikeNPC(damage, knockBack, direction);
+                            target.StrikeNPC(damage, knockback, hitDirection);
+                            target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+                            target.GetGlobalNPC<WEGlobalNPC>().allForOneOrigin = true;
                         }
                     }
                 }
+            }
+            if (item.DamageType != DamageClass.Melee)
+            {
+                projectile.Kill();
             }
         }
         public override void OnKill(NPC npc)

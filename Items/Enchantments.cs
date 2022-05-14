@@ -28,6 +28,7 @@ namespace WeaponEnchantments.Items
 			internal const int ArmorPenetration = 8;
 			internal const int AllForOne = 9;
 			internal const int OneForAll = 10;
+			internal const int Spelunker = 11;
         }
 
 		public int enchantmentSize = -1;
@@ -36,8 +37,8 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll"};
-		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal"};
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker"};
+		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker" };
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
@@ -76,6 +77,7 @@ namespace WeaponEnchantments.Items
 				{
 					case EnchantmentTypeIDs.AllForOne:
 					case EnchantmentTypeIDs.OneForAll:
+					case EnchantmentTypeIDs.Spelunker:
 						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize - 2));
 						break;
 					default:
@@ -195,6 +197,9 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeIDs.OneForAll:
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
+					case EnchantmentTypeIDs.Spelunker:
+						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString());
+						break;
 					default:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
@@ -214,6 +219,7 @@ namespace WeaponEnchantments.Items
                     {
 						case EnchantmentTypeIDs.AllForOne:
 						case EnchantmentTypeIDs.OneForAll:
+						case EnchantmentTypeIDs.Spelunker:
 							skipIfLessOrEqualToSize = 4;
 							break;
 						case EnchantmentTypeIDs.LifeSteal:
@@ -354,11 +360,10 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514};
+			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561};
 			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
 			{
-
                 //Creates new recipe for Vanilla item
                 if (cheating)
                 {
@@ -609,6 +614,11 @@ namespace WeaponEnchantments.Items
 		public class OneForAllEnchantmentUltraRare : Enchantments
 		{
 			OneForAllEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class SpelunkerEnchantmentUltraRare : Enchantments
+		{
+			SpelunkerEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

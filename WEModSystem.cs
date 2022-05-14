@@ -323,176 +323,69 @@ namespace WeaponEnchantments
         }//If enchanting table is open, check item(s) and enchantments in it every tick
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
+            bool stop = false;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.usingEnchantingTable)
             {
                 if (ItemSlot.ShiftInUse)
                 {
-                    if (Main.mouseItem.IsAir)
+                    if (Main.mouseItem.IsAir && !Main.HoverItem.IsAir)
                     {
-                        for (int x = 0; x < 10; x++)
+                        for (int j = 0; j < EnchantingTable.maxItems && Main.cursorOverride != 9; j++)
                         {
-                            for (int y = 0; y < 5; y++)
+                            if (wePlayer.enchantingTableUI.itemSlotUI[j].contains)
                             {
-                                int xTotal = (int)(17f + (x * 47.6f));
-                                int yTotal = (int)(17f + (y * 47.6f));
-                                int i = x + y * 10;
-                                if (Main.mouseX >= xTotal && Main.mouseX <= xTotal + 44.2f && Main.mouseY >= yTotal && Main.mouseY <= yTotal + 44.2f && !PlayerInput.IgnoreMouseInterface)
+                                stop = true;
+                            }
+                            else
+                            {
+                                if (wePlayer.enchantingTableUI.itemSlotUI[j].Valid(Main.HoverItem))
                                 {
-                                    if (!wePlayer.Player.inventory[i].IsAir)
+                                    Main.cursorOverride = 9;
+                                }
+                            }
+                        }
+                        for (int j = 0; j < EnchantingTable.maxEnchantments && Main.cursorOverride != 9 && !stop; j++)
+                        {
+                            if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].contains)
+                            {
+                                stop = true;
+                            }
+                            else
+                            {
+                                if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].Valid(Main.HoverItem))
+                                {
+                                    Main.cursorOverride = 9;
+                                }
+                            }
+                        }
+                        for (int j = 0; j < EnchantingTable.maxEssenceItems && Main.cursorOverride != 9 && !stop; j++)
+                        {
+                            if (wePlayer.enchantingTableUI.essenceSlotUI[j].contains)
+                            {
+                                stop = true;
+                            }
+                            else
+                            {
+                                if (wePlayer.enchantingTableUI.essenceSlotUI[j].Valid(Main.HoverItem))
+                                {
+                                    if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.IsAir)
                                     {
-                                        if (wePlayer.Player.inventory[i].type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                                        Main.cursorOverride = 9;
+                                    }
+                                    else
+                                    {
+                                        if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack < EnchantmentEssence.maxStack)
                                         {
                                             Main.cursorOverride = 9;
-                                        }
-                                        else
-                                        {
-                                            for (int j = 0; j < EnchantingTable.maxItems; j++)
-                                            {
-                                                if (wePlayer.enchantingTableUI.itemSlotUI[j].Valid(wePlayer.Player.inventory[i]))
-                                                {
-                                                    Main.cursorOverride = 9;
-                                                    break;
-                                                }
-                                            }
-                                            if (Main.cursorOverride != 9)
-                                            {
-                                                for (int j = 0; j < EnchantingTable.maxEnchantments; j++)
-                                                {
-                                                    if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].Valid(wePlayer.Player.inventory[i]))
-                                                    {
-                                                        Main.cursorOverride = 9;
-                                                    }
-                                                }
-                                            }
-                                            if (Main.cursorOverride != 9)
-                                            {
-                                                for (int j = 0; j < EnchantingTable.maxEssenceItems; j++)
-                                                {
-                                                    if (wePlayer.enchantingTableUI.essenceSlotUI[j].Valid(wePlayer.Player.inventory[i]))
-                                                    {
-                                                        if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.IsAir)
-                                                        {
-                                                            Main.cursorOverride = 9;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack < EnchantmentEssence.maxStack)
-                                                            {
-                                                                Main.cursorOverride = 9;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (Main.cursorOverride != 9)
-                                        {
-                                            Main.cursorOverride = -1;
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    if(Main.cursorOverride == 6)
-                    {
-                        Main.cursorOverride = -1;
-                    }
                 }
             }
-            /*if (Main.playerInventory)
-            {
-                if (!playerInventoryUpdated)
-                {
-                    for (int i = 0; i < 50; i++)
-                    {
-                        if (wePlayer.Player.inventory?[i] != null)
-                        {
-                            if (!wePlayer.Player.inventory[i].IsAir)
-                            {
-                                wePlayer.inventoryItemRecord[i] = wePlayer.Player.inventory[i].Clone();
-                            }
-                            else
-                            {
-                                wePlayer.inventoryItemRecord[i] = new Item();
-                            }
-                        }
-                        else
-                        {
-                            wePlayer.inventoryItemRecord[i] = new Item();
-                        }
-                    }
-                    playerInventoryUpdated = true;
-                }
-                if (wePlayer.Player.chest != previousChest && wePlayer.Player.chest != -1)
-                {
-                    Item[] inventory = Main.chest[wePlayer.Player.chest].item;
-                    for (int i = 0; i < 40; i++)
-                    {
-                        if (inventory?[i] != null)
-                        {
-                            if (!inventory[i].IsAir)
-                            {
-                                wePlayer.inventoryItemRecord[i + 50] = inventory[i].Clone();
-                            }
-                            else
-                            {
-                                wePlayer.inventoryItemRecord[i + 50] = new Item();
-                            }
-                        }
-                        else
-                        {
-                            wePlayer.inventoryItemRecord[i + 50] = new Item();
-                        }
-                    }
-                    previousChest = wePlayer.Player.chest;
-                    enchantingTableInventoryUpdated = false;
-                    playerInventoryUpdated = false;
-                }
-                else if (previousChest == -6)
-                {
-                    for (int i = 0; i < 40; i++)
-                    {
-                        wePlayer.inventoryItemRecord[i + 50] = new Item();
-                    }
-                    previousChest = -1;
-                }
-                if (wePlayer.usingEnchantingTable)
-                {
-                    if (!enchantingTableInventoryUpdated)
-                    {
-                        if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
-                        {
-                            if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
-                            {
-                                wePlayer.inventoryItemRecord[90] = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
-                            }
-                            else
-                            {
-                                wePlayer.inventoryItemRecord[90] = new Item();
-                            }
-                        }
-                        else
-                        {
-                            wePlayer.inventoryItemRecord[90] = new Item();
-                        }
-                        enchantingTableInventoryUpdated = true;
-                        playerInventoryUpdated = false;
-                    }
-                }
-                else
-                {
-                    enchantingTableInventoryUpdated = false;
-                    playerInventoryUpdated = false;
-                }
-            }
-            else
-            {
-                playerInventoryUpdated = false;
-                enchantingTableInventoryUpdated = false;
-                previousChest = -6;
-            }*/
         }
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
@@ -664,7 +557,7 @@ namespace WeaponEnchantments
                         bool crafted;
                         if (wePlayer.enchantingTableTier == EnchantingTable.maxTier)
                         {
-                            crafted = AutoCraftEssence();
+                            crafted = false;//AutoCraftEssence();
                             if (!transfered && crafted)
                             {
                                 SoundEngine.PlaySound(SoundID.Grab);
@@ -770,9 +663,7 @@ namespace WeaponEnchantments
                                     break;
                                 case 1://Gold Chest
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 2://Gold Chest (Locked)
@@ -847,11 +738,9 @@ namespace WeaponEnchantments
                         case 468:
                             switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
                             {
-                                case 4:
+                                case 4://Gold Dead man's chest
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 10://SandStone Chest

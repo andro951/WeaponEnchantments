@@ -30,6 +30,7 @@ namespace WeaponEnchantments.UI
 		private readonly float _scale;
 		private readonly bool _utilitySlot;
 		public readonly int _slotTier;
+		public bool contains { get; private set; }
 
 		internal event Action<int> OnMouseover;
 		internal event Action<int> OnItemMouseover;//Trying to Add this so OnItemMouseover apears when item is in hand
@@ -164,7 +165,7 @@ namespace WeaponEnchantments.UI
 			Main.inventoryScale = _scale;
 			Rectangle rectangle = GetDimensions().ToRectangle();
 
-			bool contains = ContainsPoint(Main.MouseScreen);
+			contains = ContainsPoint(Main.MouseScreen);
 
 			if (contains && !PlayerInput.IgnoreMouseInterface)
 			{
@@ -272,7 +273,7 @@ namespace WeaponEnchantments.UI
 			spriteBatch.Draw(value, position, null, color2, 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
 
 			Vector2 vector = value.Size() * inventoryScale;
-			if (item.type > 0 && item.stack > 0)
+			if (item.type > ItemID.None && item.stack > 0)
 			{
 				Main.instance.LoadItem(item.type);
 				Texture2D value7 = TextureAssets.Item[item.type].Value;

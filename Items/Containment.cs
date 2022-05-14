@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Items
             else
             {
                 Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
-                Item.value = 3000;
+                Item.value = 750;
             }
             Item.width = 8;
             Item.height = 8;
@@ -36,20 +36,26 @@ namespace WeaponEnchantments.Items
         {
             for (int i = 0; i < ingredientTypes.Length / 2; i++)
             {
-                Recipe recipie = CreateRecipe();
-                if(size == 0)
+                if (ingredientTypes[size, i] != -1)
                 {
-                    recipie.AddTile(TileID.Hellforge);
-                }
-                else
-                {
-                    recipie.AddTile(TileID.AdamantiteForge);
-                }
-                if(ingredientTypes[size, i] != -1)
-                {
+                    Recipe recipie;
+                    if (size == 0)
+                    {
+                        recipie = CreateRecipe();
+                        recipie.AddTile(TileID.Hellforge);
+                        recipie.AddIngredient(ingredientTypes[size, i], 1);
+                        recipie.Register();
+                        recipie = CreateRecipe();
+                        recipie.AddTile(TileID.AdamantiteForge);
+                    }
+                    else
+                    {
+                        recipie = CreateRecipe(4);
+                        recipie.AddTile(TileID.AdamantiteForge);
+                    }
                     recipie.AddIngredient(ingredientTypes[size, i], 1);
+                    recipie.Register();
                 }
-                recipie.Register();
             }
             IDs[size] = Item.type;
             if (Enchantments.cheating)

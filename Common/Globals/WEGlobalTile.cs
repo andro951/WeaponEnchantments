@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
 							if (dropItem.type != ItemID.None)
 							{
-								xp += dropItem.value / 10;
+								xp += dropItem.value / 50;
 							}
 						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");

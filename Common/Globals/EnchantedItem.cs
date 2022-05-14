@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
         public int lastArmorPenetrationBonus;
         public bool allForOne;
         public bool oneForAll;
+        public bool spelunker = false;
         public bool equip;
         public bool heldItem = false;
         public int levelBeforeBooster;
@@ -201,6 +202,7 @@ namespace WeaponEnchantments.Common.Globals
             float armorPenetrationBonus = 0f;
             allForOne = false;
             oneForAll = false;
+            spelunker = false;
             float oneForAllBonus = 1f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -234,6 +236,9 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeIDs.OneForAll:
                             oneForAllBonus = 0.7f;
                             oneForAll = true;
+                            break;
+                        case EnchantmentTypeIDs.Spelunker:
+                            spelunker = true;
                             break;
                     }
                 }
@@ -379,6 +384,12 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
                                 break;
+                            case EnchantmentTypeIDs.Spelunker:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Spelunker buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
                             default:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
@@ -427,6 +438,12 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case EnchantmentTypeIDs.LifeSteal:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100 / 4).ToString() + "% Life Steal")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Spelunker:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Spelunker buff")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });

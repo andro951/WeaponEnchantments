@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 
@@ -84,8 +85,7 @@ namespace WeaponEnchantments.Items
 			}
 			if (Enchantments.cheating && essenceRarity > - 1)
 			{
-				Recipe recipe = CreateRecipe();
-				recipe.Register();
+				Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
 			}
 		}
 
