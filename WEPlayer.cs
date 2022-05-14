@@ -41,14 +41,6 @@ namespace WeaponEnchantments
         public int allForOneTimer = 0;
         public Item[] equiptArmor;
         public bool spelunker = false;
-        /*
-        public void RefreshModItems()
-        {
-            RefreshItemArray(enchantingTable.item);
-            RefreshItemArray(enchantingTable.enchantmentItem);
-            RefreshItemArray(enchantingTable.essenceItem);
-        }
-        */
 
         public override void Initialize()
         {
@@ -58,40 +50,6 @@ namespace WeaponEnchantments
                 equiptArmor[i] = new Item();
             }
         }
-        /*public override void PostUpdate()
-        {
-            if (Player.HeldItem == null)
-            {
-                if (heldItem != null)
-                {
-                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
-                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
-                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
-                }
-                heldItem = null;
-            }
-            else if (Player.HeldItem.IsAir)
-            {
-                if (heldItem != null)
-                {
-                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
-                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
-                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
-                }
-                heldItem = null;
-            }
-            else if (!Player.HeldItem.GetGlobalItem<EnchantedItem>().heldItem)
-            {
-                if (heldItem != null)
-                {
-                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
-                    heldItem.scale -= heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
-                    heldItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus = 0;
-                }
-                Player.HeldItem.GetGlobalItem<EnchantedItem>().heldItem = true;
-                heldItem = Player.HeldItem;
-            }
-        }*/
         public override void SaveData(TagCompound tag)
         {
             for (int i = 0; i < EnchantingTable.maxItems; i++)
@@ -313,36 +271,17 @@ namespace WeaponEnchantments
             if (lastFocusRecipe > -1 && lastFocusRecipeListNum > Main.focusRecipe && Main.focusRecipe == Main.numAvailableRecipes - 1)
             {
                 availableRecipe = lastFocusRecipe;
-                //availableRecipeY = lastFocusRecipeY;
             }
             else
             {
                 availableRecipe = Main.availableRecipe[Main.focusRecipe];
-                //availableRecipeY = Main.availableRecipeY[Main.focusRecipe];
             }
             availableRecipeY = Main.availableRecipeY[Main.focusRecipe];
-            //for (int i = 0; i < Recipe.maxRecipes; i++)
-            //{
-            //    Main.availableRecipe[i] = 0;
-            //}
-
-            //Main.numAvailableRecipes = 0;
-            /*if (Main.guideItem.type > 0 && Main.guideItem.stack > 0 && Main.guideItem.Name != "")
+            for (int i = 0; i < Recipe.maxRecipes; i++)
             {
-                for (int j = 0; j < Recipe.maxRecipes && Main.recipe[j].createItem.type != 0; j++)
-                {
-                    for (int k = 0; k < Main.recipe[j].requiredItem.Count; k++)
-                    {
-                        if (Main.guideItem.IsTheSameAs(Main.recipe[j].requiredItem[k]) || Main.recipe[j].useWood(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useSand(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useIronBar(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].useFragment(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].AcceptedByItemGroups(Main.guideItem.type, Main.recipe[j].requiredItem[k].type) || Main.recipe[j].usePressurePlate(Main.guideItem.type, Main.recipe[j].requiredItem[k].type))
-                        {
-                            Main.availableRecipe[Main.numAvailableRecipes] = j;
-                            Main.numAvailableRecipes++;
-                            break;
-                        }
-                    }
-                }
-            }*/
-            //else
+                Main.availableRecipe[i] = 0;
+            }
+            Main.numAvailableRecipes = 0;
             Dictionary<int, int> dictionary = new Dictionary<int, int>();
             Item item;
             Item[] inventory = Main.player[Main.myPlayer].inventory;
@@ -358,7 +297,7 @@ namespace WeaponEnchantments
                 }
             }
 
-            if (Main.player[Main.myPlayer].chest != -1)
+            /*if (Main.player[Main.myPlayer].chest != -1)
             {
                 if (Main.player[Main.myPlayer].chest > -1)
                     inventory = Main.chest[Main.player[Main.myPlayer].chest].item;
@@ -382,7 +321,7 @@ namespace WeaponEnchantments
                             dictionary[item.netID] = item.stack;
                     }
                 }
-            }
+            }*/
             if (wePlayer.usingEnchantingTable)
             {
                 if(wePlayer.enchantingTableUI?.essenceSlotUI != null)
@@ -420,16 +359,6 @@ namespace WeaponEnchantments
                         item = Main.recipe[n].requiredItem[i];
 
                         int stack = item.stack;
-                        /*bool flag2 = false;
-                        foreach (int key in dictionary.Keys)
-                        {
-                            if (Main.recipe[n].useWood(key, item.type) || Main.recipe[n].useSand(key, item.type) || Main.recipe[n].useIronBar(key, item.type) || Main.recipe[n].useFragment(key, item.type) || Main.recipe[n].AcceptedByItemGroups(key, item.type) || Main.recipe[n].usePressurePlate(key, item.type))
-                            {
-                                stack -= dictionary[key];
-                                flag2 = true;
-                            }
-                        }*/
-                        //if (!flag2 && dictionary.ContainsKey(item.netID))
                         if (dictionary.ContainsKey(item.netID))
                             stack -= dictionary[item.netID];
 
@@ -440,29 +369,8 @@ namespace WeaponEnchantments
                         }
                     }
                 }
-                /*
-                if (ableToCraft)
-                {
-                    bool num6 = !Main.recipe[n].needWater || Main.player[Main.myPlayer].adjWater;
-                    bool flag3 = !Main.recipe[n].needHoney || Main.recipe[n].needHoney == Main.player[Main.myPlayer].adjHoney;
-                    bool flag4 = !Main.recipe[n].needLava || Main.recipe[n].needLava == Main.player[Main.myPlayer].adjLava;
-                    bool flag5 = !Main.recipe[n].needSnowBiome || Main.player[Main.myPlayer].ZoneSnow;
-                    bool flag6 = !Main.recipe[n].needGraveyardBiome || Main.player[Main.myPlayer].ZoneGraveyard;
-                    if (!(num6 && flag3 && flag4 && flag5 && flag6))
-                        ableToCraft = false;
-                }*/
-
                 if (ableToCraft && RecipeLoader.RecipeAvailable(Main.recipe[n]))
                 {
-                    bool stillNeeded = true;
-                    foreach(int r in Main.availableRecipe)
-                    {
-                        if(r == n)
-                        {
-                            stillNeeded = false;
-                        }
-                    }
-                    if (stillNeeded)
                     {
                         Main.availableRecipe[Main.numAvailableRecipes] = n;
                         Main.numAvailableRecipes++;
@@ -475,15 +383,21 @@ namespace WeaponEnchantments
                 if (availableRecipe == Main.availableRecipe[i])
                 {
                     Main.focusRecipe = i;
-                    //lastFocusRecipe = i;
                     lastFocusRecipe = Main.availableRecipe[i];
                     break;
                 }
             }
-
-            //if (Main.focusRecipe >= Main.numAvailableRecipes)
-            if (lastFocusRecipeListNum >= Main.numAvailableRecipes)
-                Main.focusRecipe = Main.numAvailableRecipes - 1;
+            if(availableRecipe != Main.availableRecipe[Main.focusRecipe])
+            {
+                if (lastFocusRecipeListNum < Main.numAvailableRecipes)
+                {
+                    Main.focusRecipe = lastFocusRecipeListNum;
+                }
+                else
+                {
+                    Main.focusRecipe = Main.numAvailableRecipes - 1;
+                }
+            }
 
             if (Main.focusRecipe < 0)
                 Main.focusRecipe = 0;

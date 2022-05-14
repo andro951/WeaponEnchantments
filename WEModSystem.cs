@@ -383,6 +383,10 @@ namespace WeaponEnchantments
                                 }
                             }
                         }
+                        if (Main.cursorOverride == 6)
+                        {
+                            Main.cursorOverride = -1;
+                        }
                     }
                 }
             }

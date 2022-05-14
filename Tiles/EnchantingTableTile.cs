@@ -121,48 +121,13 @@ namespace WeaponEnchantments.Tiles
 				}
 				Main.recBigList = false;
 				SoundEngine.PlaySound(SoundID.MenuTick);
-				WEModSystem.OpenWeaponEnchantmentUI();//Move to on tick check
-				/*
-				int i;
-				for (i = 0; i < 8000 && Main.chest[i] != null; i++) { }
-				wePlayer.Player.chest = i;
-				wePlayer.chest = i;
-				Main.chest[wePlayer.chest] = new Chest();
-				//Main.chest[wePlayer.chest].item = new Item[40];
-				for (int j = 0; j < 40; j++)
-				{
-					if (i < EnchantmentEssence.rarity.Length)
-					{
-						Main.chest[wePlayer.chest].item[j] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-					}
-					else
-					{
-						Main.chest[wePlayer.chest].item[j] = new Item();
-					}
-				}
-				Main.chest[wePlayer.chest].x = x;
-				Main.chest[wePlayer.chest].y = y;
-				*/
+				WEModSystem.OpenWeaponEnchantmentUI();
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();
 				wePlayer.CustomFindRecipeis();
 			}
 			Main.mouseRightRelease = false;
-			/*
-			Tile tile = Main.tile[x, y];
-			int left = x;
-			int top = y;
-			if(tile.TileFrameX % 36 != 0)//Not sure why this is here
-            {
-				left--;
-            }
-			if(tile.TileFrameY != 0)//Not sure why this is here
-			{
-				top--;
-            }
-			*/
-			//WEModSystem.ToggleWeaponEnchantmentUI();
 			return true;
 		}
         public override void MouseOver(int x, int y)
@@ -171,11 +136,11 @@ namespace WeaponEnchantments.Tiles
 			Tile tile = Main.tile[x, y];
 			int left = x;
 			int top = y;
-			if (tile.TileFrameX % 36 != 0)//Dont know what theese are for
+			if (tile.TileFrameX % 36 != 0)
 			{
 				left--;
 			}
-			if (tile.TileFrameY != 0)//Dont know what theese are for
+			if (tile.TileFrameY != 0)
 			{
 				top--;
 			}
