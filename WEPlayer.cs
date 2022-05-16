@@ -157,8 +157,15 @@ namespace WeaponEnchantments
                         bool valid = false;
                         if (inventory[slot].type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
                         {
-                            inventory[slot] = new Item();
                             enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+                            if (inventory[slot].stack > 1)
+                            {
+                                inventory[slot].stack--;
+                            }
+                            else
+                            {
+                                inventory[slot] = new Item();
+                            }
                             SoundEngine.PlaySound(SoundID.Grab);
                             valid = true;
                         }//If using a PowerBooster, destroy the booster and update the global item.
@@ -174,6 +181,7 @@ namespace WeaponEnchantments
                                         inventory[slot] = new Item();
                                         SoundEngine.PlaySound(SoundID.Grab);
                                         valid = true;
+                                        break;
                                     }
                                 }
                             }
@@ -185,18 +193,24 @@ namespace WeaponEnchantments
                                     {
                                         if (!inventory[slot].IsAir && enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                                         {
+                                            int s = i;
                                             if (((Enchantments)inventory[slot].ModItem).utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
                                             {
-                                                enchantingTableUI.enchantmentSlotUI[4].Item = inventory[slot].Clone();
-                                                inventory[slot] = new Item();
+                                                s = 4;
+                                            }
+                                            enchantingTableUI.enchantmentSlotUI[s].Item = inventory[slot].Clone();
+                                            enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
+                                            if (inventory[slot].stack > 1)
+                                            {
+                                                inventory[slot].stack--;
                                             }
                                             else
                                             {
-                                                enchantingTableUI.enchantmentSlotUI[i].Item = inventory[slot].Clone();
                                                 inventory[slot] = new Item();
                                             }
                                             SoundEngine.PlaySound(SoundID.Grab);
                                             valid = true;
+                                            break;
                                         }
                                     }
                                 }
@@ -239,6 +253,7 @@ namespace WeaponEnchantments
                                             {
                                                 SoundEngine.PlaySound(SoundID.Grab);
                                                 valid = true;
+                                                break;
                                             }
                                         }
                                     }
@@ -258,6 +273,8 @@ namespace WeaponEnchantments
         }
         public void CustomFindRecipeis()
         {
+            lastFocusRecipe = Main.availableRecipe[Main.focusRecipe];
+            /*
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             int availableRecipe;
             float availableRecipeY;
@@ -376,6 +393,7 @@ namespace WeaponEnchantments
             {
                 Main.availableRecipeY[num9] -= num8;
             }
+            */
         }
         public override void PostUpdate()
         {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +8,11 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
-using static Terraria.Recipe;
+
 
 namespace WeaponEnchantments
 {
-    internal class WEMod : Mod
+    public class WEMod : Mod
     {
 		internal static bool IsEnchantable(Item item)
         {
@@ -71,13 +73,10 @@ namespace WeaponEnchantments
 				return false;
 			}
         }
-		public override void Load()
+
+        public override void Unload()
 		{
 			
 		}
-		public override void Unload()
-		{
-			
-		}
-    }
+	}
 }

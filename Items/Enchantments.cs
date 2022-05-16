@@ -48,6 +48,7 @@ namespace WeaponEnchantments.Items
 		{
 			if (enchantmentSize > -1)
 			{
+				Item.maxStack = 99;
 				for (int i = 0; i < enchantmentTypeNames.Length; i++)
 				{
 					if (enchantmentTypeNames[i] == Name.Substring(0, enchantmentTypeNames[i].Length))
@@ -195,7 +196,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault("10x Damage, item CD equal to 8x use speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.OneForAll:
-						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed \n(WARNING - DESTROYS PROJECTILES ON HIT)\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.Spelunker:
 						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString());
@@ -204,7 +205,6 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
 				}
-				
 			}
 		}
 		public override void AddRecipes()

@@ -124,7 +124,6 @@ namespace WeaponEnchantments
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
-                //wePlayer.CustomFindRecipeis();
                 if(Main.mouseItem.type == Main.recipe[wePlayer.lastFocusRecipe].createItem.type)
                 {
                     if ((wePlayer.inventoryItemRecord[91].type == 0 && wePlayer.inventoryItemRecord[91].type != Main.mouseItem.type) || wePlayer.inventoryItemRecord[91].type == Main.mouseItem.type && wePlayer.inventoryItemRecord[91].stack != Main.mouseItem.stack)
@@ -307,6 +306,25 @@ namespace WeaponEnchantments
                 wePlayer.inventoryItemRecord[91] = Main.mouseItem.Clone();
             }
         }//If enchanting table is open, check item(s) and enchantments in it every tick
+        public override void PreUpdateItems()
+        {
+            /*
+            if (!Main.HoverItem.IsAir)
+            {
+                if(Main.mouseRight && Main.mouseRightRelease)
+                {
+                    if(Main.HoverItem.GetGlobalItem<EnchantedItem>().experience > 0 || Main.HoverItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    {
+                        if (Main.HoverItem.stack > 1)
+                        {
+                            Main.mouseItem = Main.HoverItem.Clone();
+                            Main.HoverItem = new Item();
+                        }
+                    }
+                }
+            }
+            */
+        }
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
             bool stop = false;
@@ -339,9 +357,15 @@ namespace WeaponEnchantments
                             }
                             else
                             {
-                                if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].Valid(Main.HoverItem))
+                                if(Main.HoverItem.ModItem is Enchantments)
                                 {
-                                    Main.cursorOverride = 9;
+                                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)Main.HoverItem.ModItem).GetLevelCost())
+                                    {
+                                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].Valid(Main.HoverItem))
+                                        {
+                                            Main.cursorOverride = 9;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -369,10 +393,10 @@ namespace WeaponEnchantments
                                 }
                             }
                         }
-                        if (Main.cursorOverride == 6)
-                        {
-                            Main.cursorOverride = -1;
-                        }
+                    }
+                    if (Main.cursorOverride != 9 && !stop || Main.cursorOverride == 6)
+                    {
+                        Main.cursorOverride = -1;
                     }
                 }
             }

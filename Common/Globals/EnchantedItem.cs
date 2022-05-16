@@ -380,7 +380,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.OneForAll:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Hiting an enemy will damage all nearby enemies, 0.7x attack speed")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Hiting an enemy will damage all nearby enemies, 0.7x attack speed\n(WARNING - DESTROYS PROJECTILES ON HIT)")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -740,6 +740,33 @@ namespace WeaponEnchantments.Common.Globals
                 return tempNpc;
             }
             return null;
+        }
+        public override bool CanRightClick(Item item)
+        {
+            if (item.stack > 1)
+            {
+                if (experience > 0 || powerBoosterInstalled)
+                {
+                    if (Main.mouseItem.IsAir)
+                    {
+                        return true;
+                    }
+                }
+            }//Prevent splitting stack of enchantable items with maxstack > 1
+            return false;
+        }
+        public override void RightClick(Item item, Player player)
+        {
+            if (item.stack > 1)
+            {
+                if (experience > 0 || powerBoosterInstalled)
+                {
+                    if (Main.mouseItem.IsAir)
+                    {
+                        item.stack++;
+                    }
+                }
+            }//Prevent splitting stack of enchantable items with maxstack > 1
         }
     }
 }

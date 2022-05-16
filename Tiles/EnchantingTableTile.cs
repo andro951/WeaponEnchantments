@@ -119,7 +119,6 @@ namespace WeaponEnchantments.Tiles
 				{
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 				}
-				Main.recBigList = false;
 				SoundEngine.PlaySound(SoundID.MenuTick);
 				WEModSystem.OpenWeaponEnchantmentUI();
 				wePlayer.Player.chestX = x;

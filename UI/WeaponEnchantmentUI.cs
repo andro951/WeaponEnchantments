@@ -330,7 +330,6 @@ namespace WeaponEnchantments.UI
                             "\n          provides diminished bonuses and vice versa.          " + extraStr;
                             }
                         };
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnItemMouseover += (timer) => { Main.hoverItemName = extraStr; };
                     }//enchantmentSlot 0-3
                     else
                     {
@@ -686,14 +685,13 @@ namespace WeaponEnchantments.UI
         {
             if (WEModSystem.promptInterface.CurrentState == null)
             {
-                GetItemSettings lootAllSettings = GetItemSettings.LootAllSettings;
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, lootAllSettings);
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
                     }
                 }//Take all enchantments first
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
@@ -701,7 +699,7 @@ namespace WeaponEnchantments.UI
                     if (!wePlayer.enchantingTableUI.itemSlotUI[i].Item.IsAir)
                     {
                         wePlayer.enchantingTableUI.itemSlotUI[i].Item.position = wePlayer.Player.Center;
-                        wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, lootAllSettings);
+                        wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, GetItemSettings.LootAllSettings);
                     }
                 }//Take item(s)
             }

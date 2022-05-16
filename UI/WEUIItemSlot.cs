@@ -33,7 +33,6 @@ namespace WeaponEnchantments.UI
 		public bool contains { get; private set; }
 
 		internal event Action<int> OnMouseover;
-		internal event Action<int> OnItemMouseover;//Trying to Add this so OnItemMouseover apears when item is in hand
 
 		private int timer = 0;
 		internal WEUIItemSlot(int context, int itemContext, int slotTier = 4, bool utilitySlot = false, float scale = 0.86f)
@@ -90,7 +89,7 @@ namespace WeaponEnchantments.UI
 										case EnchantmentTypeIDs.OneForAll:
 											for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                                             {
-                                                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                                                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
                                                 {
 													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.AllForOne ? false : continueCheck;
 													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.OneForAll ? false : continueCheck;
@@ -102,7 +101,9 @@ namespace WeaponEnchantments.UI
 											continueCheck = true;
 											break;
 									}
-									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)item.ModItem).GetLevelCost() : false;
+									int currentEnchantmentLevelCost = 0;
+                                    if (!Item.IsAir) { currentEnchantmentLevelCost = ((Enchantments)Item.ModItem).GetLevelCost(); }
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)item.ModItem).GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
                                 {
@@ -132,10 +133,54 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}//Check if Item going into a slot is valid for that slot
-
 		internal void HandleMouseItem()
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (Valid(Main.mouseItem))
+			{
+				if(Main.mouseItem.type == PowerBooster.ID)
+                {
+					if(_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
+                    {
+						if (Main.mouseItem.stack > 1)
+						{
+							Main.mouseItem.stack--;
+						}
+                        else
+                        {
+							Main.mouseItem = new Item();
+						}
+						SoundEngine.PlaySound(SoundID.Grab);
+						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+					}
+
+				}
+                else
+                {
+					if(Main.mouseItem.type != Item.type)
+                    {
+						if (Main.mouseItem.stack > 1)
+						{
+							if (Main.mouseLeft && Main.mouseLeftRelease)
+							{
+								Item = wePlayer.Player.GetItem(Main.myPlayer, Item, GetItemSettings.LootAllSettings);
+								if (Item.IsAir)
+								{
+									Main.mouseItem.stack--;
+									Item = Main.mouseItem.Clone();
+									Item.stack = 1;
+									SoundEngine.PlaySound(SoundID.Grab);
+								}
+							}
+						}
+						else
+						{
+							ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
+						}
+					}
+				}
+			}
+			/*
 			if(_itemContext == ItemSlotContext.Item)
             {
 				if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
@@ -155,9 +200,8 @@ namespace WeaponEnchantments.UI
 				{
 					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
 				}
-			}
+			}*/
 		}
-
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
