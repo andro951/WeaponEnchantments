@@ -362,7 +362,7 @@ namespace WeaponEnchantments
                             }
                             else
                             {
-                                if(Main.HoverItem.ModItem is Enchantments)
+                                if(Main.HoverItem.ModItem is Enchantments && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                                 {
                                     if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)Main.HoverItem.ModItem).GetLevelCost())
                                     {
