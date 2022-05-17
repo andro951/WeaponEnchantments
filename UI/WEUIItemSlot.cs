@@ -157,26 +157,23 @@ namespace WeaponEnchantments.UI
 				}
                 else
                 {
-					if(Main.mouseItem.type != Item.type)
-                    {
-						if (Main.mouseItem.stack > 1)
+					if (Main.mouseItem.stack > 1 && Main.mouseItem.ModItem is Enchantments)
+					{
+						if (Main.mouseLeft && Main.mouseLeftRelease)
 						{
-							if (Main.mouseLeft && Main.mouseLeftRelease)
+							Item = wePlayer.Player.GetItem(Main.myPlayer, Item, GetItemSettings.LootAllSettings);
+							if (Item.IsAir)
 							{
-								Item = wePlayer.Player.GetItem(Main.myPlayer, Item, GetItemSettings.LootAllSettings);
-								if (Item.IsAir)
-								{
-									Main.mouseItem.stack--;
-									Item = Main.mouseItem.Clone();
-									Item.stack = 1;
-									SoundEngine.PlaySound(SoundID.Grab);
-								}
+								Main.mouseItem.stack--;
+								Item = Main.mouseItem.Clone();
+								Item.stack = 1;
+								SoundEngine.PlaySound(SoundID.Grab);
 							}
 						}
-						else
-						{
-							ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
-						}
+					}
+					else if (!(Main.mouseItem.ModItem is Enchantments) || Main.mouseItem.type != Item.type)
+					{
+						ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
 					}
 				}
 			}

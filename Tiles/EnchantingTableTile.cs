@@ -124,7 +124,7 @@ namespace WeaponEnchantments.Tiles
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();
-				wePlayer.CustomFindRecipeis();
+				wePlayer.StoreLastFocusRecipe();
 			}
 			Main.mouseRightRelease = false;
 			return true;

@@ -287,29 +287,24 @@ namespace WeaponEnchantments.Items
 					return utility ? 1 + enchantmentSize : (1 + enchantmentSize) * 2;
 			}
         }
-		public override void OnCreate(ItemCreationContext context)
-		{
-			if (0 < enchantmentSize && enchantmentSize < 3)
+        public override void OnCraft(Recipe recipe)
+        {
+			if (enchantmentSize > 0)
 			{
-                if (Containment.IDs[enchantmentSize - 1] > ItemID.None)
+				if (recipe.requiredItem.Count > 0)
                 {
-					WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-					int focusRecipe = wePlayer.lastFocusRecipe > -1 && wePlayer.usingEnchantingTable ? wePlayer.lastFocusRecipe : wePlayer.lastFocusRecipeNotInTable;
-					if (Main.recipe[focusRecipe]?.requiredItem?[0] != null)
-                    {
-						foreach (Item reqiredItem in Main.recipe[focusRecipe].requiredItem)
-						{
-							for(int i = enchantmentSize; i >= 1; i--)
+					foreach (Item reqiredItem in recipe.requiredItem)
+					{
+						for(int i = enchantmentSize; i >= 1; i--)
+                        {
+							if(enchantmentSize - i < 2)
                             {
-								if(enchantmentSize - i < 2)
-                                {
-									if (Item.type - i == reqiredItem.type)
-									{
-										Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - i], 1);
-									}
+								if (Item.type - i == reqiredItem.type)
+								{
+									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - i], 1);
 								}
-                            }
-						}
+							}
+                        }
 					}
 				}
 			}
@@ -360,7 +355,7 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[] {437 , 3374, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561, 4281, 5114, 1309};
+			private int[] freeItems = new int[] {437 , 3380, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561, 4281, 5114, 1309};
 			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
 			{

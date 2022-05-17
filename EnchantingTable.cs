@@ -9,9 +9,9 @@ using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments
 {
-    public class EnchantingTable : Chest
+    public class EnchantingTable
     {
-        new public const int maxItems = 1;//Number of itemSlots in enchantingTable
+        public const int maxItems = 1;//Number of itemSlots in enchantingTable
         public const int maxEnchantments = 5;//Number of enchantmentSlots in enchantingTable
         public const int maxEssenceItems = 5;//Number of essenceSlots in enchantingTable
         public const int maxTier = 4;//Number of enchantingTable tiers
@@ -19,24 +19,24 @@ namespace WeaponEnchantments
         public bool summonDemon;//Used to determine if the demon shopkeeper NPC should be summoned in the enchanting table (tier = maxTier enchanting table)
         public int availableEnchantmentSlots;//Number of enchantmentSlots the player can use based on enchatning table tier
         //public static int[] essenceType = new int[maxEssenceItems];
-        new public Item[] item;//Stores item(s) when enchanting table UI is closed
-        public Item[] enchantmentItem;//Stores enchantments when enchanting table UI is closed
-        public Item[] essenceItem;//Stores essence when enchanting table UI is closed
+        public List<Item> item;//Stores item(s) when enchanting table UI is closed
+        public List<Item> enchantmentItem;//Stores enchantments when enchanting table UI is closed
+        public List<Item> essenceItem;//Stores essence when enchanting table UI is closed
         //public Texture[] textures = new Texture[maxTier];
         //private Texture texture;
         public EnchantingTable(int Tier = 0)
         {
-            item = new Item[maxItems];
+            item = new List<Item>(new Item[maxItems]);
             for(int i = 0; i < maxItems; i++)
             {
                 item[i] = new Item();
             }//setup items
-            enchantmentItem = new Item[maxEnchantments];
+            enchantmentItem = new List<Item>(new Item[maxEnchantments]);
             for(int i = 0; i < maxEnchantments; i++)
             {
                 enchantmentItem[i] = new Item();
             }//setup enchantments
-            essenceItem = new Item[maxEssenceItems];
+            essenceItem = new List<Item>(new Item[maxEssenceItems]);
             for(int i = 0; i < maxEssenceItems; i++)
             {
                 essenceItem[i] = new Item();

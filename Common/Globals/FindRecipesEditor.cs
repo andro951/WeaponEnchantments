@@ -18,9 +18,6 @@ namespace WeaponEnchantments.Common.Globals
 			//So your delegate runs before the recursive craft one
 		}
 		public static int counter = 0;
-		public static float floatCounter = 0f;
-		private const bool showAll = true;
-		private const bool origional = true;
 		private const bool debugging = false;
 
 		private static void HookFindRecipes(ILContext il)

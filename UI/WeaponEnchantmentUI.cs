@@ -220,8 +220,8 @@ namespace WeaponEnchantments.UI
             public const int xp3 = 3;
             public const int xp4 = 4;
             public const int Count = 7;
-            public static int[]xps = new int[] {xp0, xp1, xp2, xp3, xp4};
-		}//LootAll = 0, Offer = 1
+            public static int[] xps = new int[] { xp0, xp1, xp2, xp3, xp4 };
+        }//LootAll = 0, Offer = 1
         public class ItemSlotContext
         {
             public const int Item = 0;
@@ -231,7 +231,7 @@ namespace WeaponEnchantments.UI
 
         public const bool PR = true;//Used to toggle between my UI in progress and the UI based on PetRenaimer mod
 
-		public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer" };
+        public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer" };
         public const float buttonScaleMinimum = 0.75f;//my UI
         public const float buttonScaleMaximum = 1f;//my UI
         public static float[] ButtonScale = new float[ButtonID.Count];//my UI
@@ -342,7 +342,7 @@ namespace WeaponEnchantments.UI
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) =>
                         {
                             Main.hoverItemName = "            Only utility Enchantments can go here.             "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                        if (timer > 60)
+                            if (timer > 60)
                             {
                                 Main.hoverItemName =
                             "            Only utility Enchantments can go here.             "
@@ -365,8 +365,8 @@ namespace WeaponEnchantments.UI
                     string type = EnchantmentEssence.rarity[i];
                     wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) =>
                     {
-                        Main.hoverItemName = "                      Place " + type + " Essence here.                "; 
-                    if (timer > 60)
+                        Main.hoverItemName = "                      Place " + type + " Essence here.                ";
+                        if (timer > 60)
                         {
                             Main.hoverItemName =
                         "                      Place " + type + " Essence here.                "
@@ -406,7 +406,7 @@ namespace WeaponEnchantments.UI
                             button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(4); };
                             break;
                     }
-                    
+
                     UIText xpButonText = new UIText("xp")
                     {
                         Top = { Pixels = -8f },
@@ -468,7 +468,7 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
-                 wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
+                wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
             }//Get item(s) left in enchanting table
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -487,7 +487,7 @@ namespace WeaponEnchantments.UI
             {
                 //SoundEngine.PlaySound(SoundID.MenuClose);
             }
-            if(wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//If it hasn't been opened yet, it will be null
+            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//If it hasn't been opened yet, it will be null
             {
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
@@ -536,7 +536,7 @@ namespace WeaponEnchantments.UI
                 wePlayer.Player.cursorItemIconEnabled = false;
                 Main.ItemIconCacheUpdate(0);
             }*/
-            
+
 
 
             //From vaninna loook at again
@@ -570,7 +570,7 @@ namespace WeaponEnchantments.UI
                     SoundEngine.PlaySound(SoundID.MenuTick);
                     ButtonHovered[ID] = true;
                     ButtonScale[ID] += 0.05f;
-                    if(ButtonScale[ID] > 1f)
+                    if (ButtonScale[ID] > 1f)
                     {
                         ButtonScale[ID] = 1f;
                     }
@@ -617,57 +617,57 @@ namespace WeaponEnchantments.UI
                 DrawButton(spritebatch, i, 506, Main.instance.invBottom + 40);//Change this to be the correct spot
             }
         }//My UI
-		private static void DrawButton(SpriteBatch spriteBatch, int ID, int X, int Y)//Not used if Draw is disabled
+        private static void DrawButton(SpriteBatch spriteBatch, int ID, int X, int Y)//Not used if Draw is disabled
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			int num = ID;
-			//if (ID == 7)
-			//	num = 5;
+            int num = ID;
+            //if (ID == 7)
+            //	num = 5;
 
-			Y += num * 26;
-			float num2 = ButtonScale[ID];
-			string text = Language.GetTextValue("Mods.WeaponEnchantments.Buttons." + ButtonNames[ID]);//Need to set up names in other languages for this to work
+            Y += num * 26;
+            float num2 = ButtonScale[ID];
+            string text = Language.GetTextValue("Mods.WeaponEnchantments.Buttons." + ButtonNames[ID]);//Need to set up names in other languages for this to work
 
-			Vector2 value = FontAssets.MouseText.Value.MeasureString(text);
-			Color color = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor) * num2;
-			color = Color.White * 0.97f * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
-			color.A = byte.MaxValue;
-			X += (int)(value.X * num2 / 2f);
-			bool flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f, Y - 12, value.X, 24f);
-			if (ButtonHovered[ID])
-				flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f - 10f, Y - 12, value.X + 16f, 24f);
+            Vector2 value = FontAssets.MouseText.Value.MeasureString(text);
+            Color color = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor) * num2;
+            color = Color.White * 0.97f * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
+            color.A = byte.MaxValue;
+            X += (int)(value.X * num2 / 2f);
+            bool flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f, Y - 12, value.X, 24f);
+            if (ButtonHovered[ID])
+                flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f - 10f, Y - 12, value.X + 16f, 24f);
 
-			if (flag)
-				color = Main.OurFavoriteColor;
+            if (flag)
+                color = Main.OurFavoriteColor;
 
-			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(X, Y), color, 0f, value / 2f, new Vector2(num2), -1f, 1.5f);
-			value *= num2;
-			UILinkPointNavigator.SetPosition(UILinkPointNavigator.Points.Count + 1, new Vector2((float)X - value.X * num2 / 2f * 0.8f, Y));
-			
-			if (!flag)
-			{
-				UpdateHover(ID, hovering: false);
-				return;
-			}
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(X, Y), color, 0f, value / 2f, new Vector2(num2), -1f, 1.5f);
+            value *= num2;
+            UILinkPointNavigator.SetPosition(UILinkPointNavigator.Points.Count + 1, new Vector2((float)X - value.X * num2 / 2f * 0.8f, Y));
 
-			UpdateHover(ID, hovering: true);
-			if (PlayerInput.IgnoreMouseInterface)
-				return;
-			wePlayer.Player.mouseInterface = true;
-			if (Main.mouseLeft && Main.mouseLeftRelease)
-			{
-				switch (ID)
-				{
+            if (!flag)
+            {
+                UpdateHover(ID, hovering: false);
+                return;
+            }
+
+            UpdateHover(ID, hovering: true);
+            if (PlayerInput.IgnoreMouseInterface)
+                return;
+            wePlayer.Player.mouseInterface = true;
+            if (Main.mouseLeft && Main.mouseLeftRelease)
+            {
+                switch (ID)
+                {
                     case 1:
                         LootAll();
                         break;
-					case 2:
-						Offer();
-						break;
-				}
-				Recipe.FindRecipes();
-			}
-		}//My UI
+                    case 2:
+                        Offer();
+                        break;
+                }
+                Recipe.FindRecipes();
+            }
+        }//My UI
         private static void ConvertEssenceToXP(int tier)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -706,7 +706,7 @@ namespace WeaponEnchantments.UI
         }//Loot all item(s) and enchantments from enchantment table (Not Essence)
         private static void Offer()
         {
-            if(WEModSystem.promptInterface.CurrentState == null)
+            if (WEModSystem.promptInterface.CurrentState == null)
             {
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
@@ -720,6 +720,7 @@ namespace WeaponEnchantments.UI
         }
         private static void DrawSlots(SpriteBatch spriteBatch)//Not used if Draw is disabled
         {
+            /*
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item[] item = wePlayer.enchantingTable.item;
             Item[] enchantmentItem = wePlayer.enchantingTable.enchantmentItem;//might need to be for int i < maxEnchantments...or Clone()
@@ -773,148 +774,8 @@ namespace WeaponEnchantments.UI
                 }
                 ItemSlot.Draw(spriteBatch, essenceItem, 4, slot, new Vector2(x, y));
             }
+            */
         }//My UI
-        public static bool TryPlacingInEnchantingTable(Item I, bool justCheck, int itemSlotContext)//No references to this
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();//sync is always false
-            Item[] slotItems;
 
-            switch (itemSlotContext)
-            {
-                case ItemSlotContext.Item:
-                    slotItems = wePlayer.enchantingTable.item;
-                    break;
-                case ItemSlotContext.Enchantment:
-                    slotItems = wePlayer.enchantingTable.enchantmentItem;
-                    break;
-                case ItemSlotContext.Essence:
-                    slotItems = wePlayer.enchantingTable.essenceItem;
-                    break;
-                default:
-                    slotItems = null;
-                    break;
-            }
-            if(!IsBlockedFromTransferIntoEnchantingTable(I, slotItems, itemSlotContext))
-            {
-                return false;
-            }
-            bool flag = false;
-            switch (itemSlotContext)
-            {
-                case ItemSlotContext.Item:
-                    if (I.stack > 0)
-                    {
-                        for (int i = 0; i < EnchantingTable.maxItems; i++)
-                        {
-                            if (slotItems[i].stack != 0)
-                                continue;
-                            if (justCheck)
-                            {
-                                flag = true;
-                                break;
-                            }
-                            SoundEngine.PlaySound(SoundID.Grab);
-                            slotItems[i] = I.Clone();
-                            I.SetDefaults();
-                            ItemSlot.AnnounceTransfer(new ItemSlot.ItemTransferInfo(slotItems[i], 0, 3));
-                            break;
-                        }
-                    }
-                    return flag;
-                case ItemSlotContext.Enchantment:
-                    if(I.stack > 0)
-                    {
-                        for (int i = 0; i < wePlayer.enchantingTable.availableEnchantmentSlots; i++)
-                        {
-                            if (slotItems[i].stack != 0)
-                                continue;
-                            if (justCheck)
-                            {
-                                flag = true;
-                                break;
-                            }
-                            SoundEngine.PlaySound(SoundID.Grab);
-                            slotItems[i] = I.Clone();
-                            I.SetDefaults();
-                            ItemSlot.AnnounceTransfer(new ItemSlot.ItemTransferInfo(slotItems[i], 0, 3));
-                            break;
-                        }
-                    }
-                    return flag;
-                case ItemSlotContext.Essence:
-                    int essenceTier = EnchantmentEssence.GetEssenceTier(I);//Need new function to check essenceTier, GetEssenceTier(I)
-                    if (slotItems[essenceTier].stack < I.maxStack)
-                    {
-                        if(!ItemLoader.CanStack(slotItems[essenceTier], I))
-                        {
-                            return false;
-                        }
-                        int stack = I.stack;
-                        if (I.stack + slotItems[essenceTier].stack > I.maxStack)
-                        {
-                            stack = I.maxStack - slotItems[essenceTier].stack;
-                        }
-                        if (justCheck)
-                        {
-                            flag = (flag || stack > 0);
-                            break;
-                        }
-                        I.stack -= stack;
-                        slotItems[essenceTier].stack += stack;
-                        SoundEngine.PlaySound(SoundID.Grab);
-                        if(I.stack <= 0)
-                        {
-                            I.SetDefaults();
-                            break;
-                        }
-                        if (slotItems[essenceTier].type == ItemID.None)
-                        {
-                            slotItems[essenceTier] = I.Clone();
-                            I.SetDefaults();
-                        }
-                    }
-                    return flag;
-                default:
-                    return false;
-            }
-            return false;
-            //Check against tier for slots above not < available
-            //Only let the specific item go in each slot
-        }//My UI
-        public static bool IsBlockedFromTransferIntoEnchantingTable(Item I, Item[] slotItems, int itemSlotContext)//Look at this again compair to vanilla
-        {
-            switch (itemSlotContext)
-            {
-                case ItemSlotContext.Item:
-                    if (true)//If I is a weapon or armor or accessory
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                case ItemSlotContext.Enchantment:
-                    if (true)//If I is an enchantment
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                case ItemSlotContext.Essence:
-                    if (true)//If I is an essence
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                default:
-                    return false;
-            }
-        }//My UI
     }
 }

@@ -28,6 +28,11 @@ namespace WeaponEnchantments
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
+
+        public override void OnWorldLoad()
+        {
+            
+        }
         public override void OnModLoad()
         {
             if (!Main.dedServ)
@@ -178,8 +183,8 @@ namespace WeaponEnchantments
                         }
                     }
                 }
-                wePlayer.CustomFindRecipeis();
             }//If enchanting table is open, check item(s) and enchantments in it every tick
+            wePlayer.StoreLastFocusRecipe();
             if (Main.playerInventory)
             {
                 for (int i = 0; i < 50; i++)
@@ -410,7 +415,7 @@ namespace WeaponEnchantments
                 SoundEngine.PlaySound(SoundID.MenuClose);
             }
             wePlayer.enchantingTable.Close();
-            wePlayer.enchantingTableUI.OnDeactivate();//Store items left in enchanting table to player
+            //wePlayer.enchantingTableUI.OnDeactivate();//Store items left in enchanting table to player
             if (WeaponEnchantmentUI.PR)
             {
                 weModSystemUI.SetState(null);
@@ -431,7 +436,7 @@ namespace WeaponEnchantments
             }
 
             wePlayer.enchantingTable.Open();
-            wePlayer.enchantingTableUI.OnActivate();
+            //wePlayer.enchantingTableUI.OnActivate();
             if(wePlayer.enchantingTableTier > 0)
             {
                 needsToQuickStack = true;
@@ -541,8 +546,13 @@ namespace WeaponEnchantments
         }
         public override void PreSaveAndQuit()//*
         {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             weModSystemUI.SetState(null);
             promptInterface.SetState(null);
+            if (wePlayer.usingEnchantingTable)
+            {
+                CloseWeaponEnchantmentUI();
+            }
         }
         public override void UpdateUI(GameTime gameTime)//*
         {
