@@ -314,7 +314,6 @@ namespace WeaponEnchantments.Items
 			}
         }
 
-
         public class OmniEnchantment : Enchantments
 		{
 			OmniEnchantment() { enchantmentSize = -1; }
@@ -360,7 +359,34 @@ namespace WeaponEnchantments.Items
 					}
 				};
 			}
-			private int[] freeItems = new int[] {437 , 3380, 193, 1225, 520, 521, 2786, 3531, 4365, 4735, 346, 87, 3813, 4076, 514, 561, 4281, 5114, 1309};
+			private int[] freeItems = new int[] {
+				437, 
+				3380, 
+				193, 
+				1225, 
+				520, 
+				521, 
+				2786, 
+				3531, 
+				4365, 
+				4735, 
+				346, 
+				87, 
+				3813, 
+				4076, 
+				514, 
+				561, 
+				4281, 
+				5114, 
+				1309, 
+				ItemID.WoodenBoomerang, 
+				ItemID.FallenStar, 
+				ItemID.TerraBlade, 
+				ItemID.TrueNightsEdge, 
+				ItemID.TrueExcalibur, 
+				ItemID.BrokenHeroSword, 
+				ItemID.MythrilAnvil
+			};
 			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
 			{

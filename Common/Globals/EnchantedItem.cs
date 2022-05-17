@@ -109,14 +109,19 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void UpdateInventory(Item item, Player player)
         {
-            int value = 0;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if(experience > 0 || powerBoosterInstalled)
             {
-                value += enchantments[i].value;
+                int value = 0;
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    value += enchantments[i].value;
+                }
+                int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
+                int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
+                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + 16 * experience + powerBoosterValue : 0;
+                item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
+                lastValueBonus = valueToAdd;
             }
-            int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
-            item.value += value + 16 * experience + powerBoosterValue - lastValueBonus;//Update items value based on enchantments installed
-            lastValueBonus = value + 16 * experience + powerBoosterValue;
         }
         public void UpdateLevel()
         {
@@ -534,35 +539,154 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnCreate(Item item, ItemCreationContext context)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            for (int j = 0; j < Main.recipe.Length; j++)
+            if(context is RecipeCreationContext)
             {
-                if(Main.recipe[j].createItem.type == item.type)
+                Recipe recipe = ((RecipeCreationContext)context).recipe;
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                int j = 0;
+                foreach (Item requiredItem in recipe.requiredItem)
                 {
-                    foreach(Item requiredItem in Main.recipe[j].requiredItem)
+                    //EnchantedItem reqGlobal = requiredItem.GetGlobalItem<EnchantedItem>();
+                    if (WEMod.IsEnchantable(requiredItem))
                     {
-                        if(requiredItem.damage > 0)
+                        for (int i = 0; i < 90; i++)
                         {
-                            for(int i = 0; i < 91; i++)
+                            Item checkItem;
+                            switch (i)
                             {
-                                if(wePlayer.inventoryItemRecord[i].type == requiredItem.type)
+                                case < 50:
+                                    checkItem = wePlayer.Player.inventory[i].Clone();
+                                    break;
+                                case < 90 when wePlayer.Player.chest != -1:
+                                    Item[] inventory;
+                                    switch (wePlayer.Player.chest)
+                                    {
+                                        case -1:
+                                            inventory = wePlayer.Player.bank.item;
+                                            break;
+                                        case -2:
+                                            inventory = wePlayer.Player.bank2.item;
+                                            break;
+                                        case -3:
+                                            inventory = wePlayer.Player.bank3.item;
+                                            break;
+                                        case -4:
+                                            inventory = wePlayer.Player.bank4.item;
+                                            break;
+                                        default:
+                                            inventory = Main.chest[wePlayer.Player.chest].item;
+                                            break;
+                                    }
+                                    checkItem = inventory[i - 50].Clone();
+                                    break;
+                                default:
+                                    checkItem = new Item();
+                                    break;
+                            }
+                            if (checkItem.IsAir && wePlayer.inventoryItemRecord[i].type == requiredItem.type)
+                            {
+                                EnchantedItem recGlobal = wePlayer.inventoryItemRecord[i].GetGlobalItem<EnchantedItem>();
+                                experience += recGlobal.experience;
+                                if (recGlobal.powerBoosterInstalled)
                                 {
-                                    experience += wePlayer.inventoryItemRecord[i].GetGlobalItem<EnchantedItem>().experience;
-                                    if (wePlayer.inventoryItemRecord[i].GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                                    if (!powerBoosterInstalled)
                                     {
                                         powerBoosterInstalled = true;
                                     }
-                                    WEModSystem.playerInventoryUpdated = false;
-                                    WEModSystem.enchantingTableInventoryUpdated = false;
-                                    WEModSystem.previousChest = -1;
-                                    break;
+                                    else
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                                    }
                                 }
+                                recGlobal.UpdateLevel();
+                                for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+                                {
+                                    if (!recGlobal.enchantments[k].IsAir)
+                                    {
+                                        bool cantFit = false;
+                                        if (((Enchantments)recGlobal.enchantments[k].ModItem).GetLevelCost() < GetLevelsAvailable())
+                                        {
+                                            if (((Enchantments)recGlobal.enchantments[k].ModItem).utility && enchantments[4].IsAir)
+                                            {
+                                                enchantments[4] = recGlobal.enchantments[k].Clone();
+                                            }
+                                            else if (j < 4)
+                                            {
+                                                enchantments[j] = recGlobal.enchantments[k].Clone();
+                                                j++;
+                                            }
+                                            else
+                                            {
+                                                cantFit = true;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            cantFit = true;
+                                        }
+                                        if (cantFit)
+                                        {
+                                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), recGlobal.enchantments[k].type, 1);
+                                        }
+                                    }
+                                }
+                                WEModSystem.playerInventoryUpdated = false;
+                                WEModSystem.enchantingTableInventoryUpdated = false;
+                                WEModSystem.previousChest = -1;
+                                break;
                             }
                         }
                     }
                 }
             }
         }
+        /*public override bool ConsumeItem(Item item, Player player)
+        {
+            if (() && !Main.mouseItem.IsAir && !item.consumable && item.notAmmo & item.maxStack < 6)
+            {
+                EnchantedItem mIGlobal = Main.mouseItem.GetGlobalItem<EnchantedItem>();
+                //EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                mIGlobal.experience = experience;
+                if (powerBoosterInstalled)
+                {
+                    mIGlobal.powerBoosterInstalled = true;
+                }
+                mIGlobal.UpdateLevel();
+                int j = 0;
+                for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    if (!enchantments[i].IsAir)
+                    {
+                        bool cantFit = false;
+                        if(((Enchantments)enchantments[i].ModItem).GetLevelCost() < mIGlobal.GetLevelsAvailable())
+                        {
+                            if(((Enchantments)enchantments[i].ModItem).utility && mIGlobal.enchantments[4].IsAir)
+                            {
+                                mIGlobal.enchantments[4] = enchantments[i].Clone();
+                            }
+                            else if(j < 4)
+                            {
+                                mIGlobal.enchantments[j] = enchantments[i].Clone();
+                                j++;
+                            }
+                            else
+                            {
+                                cantFit = true;
+                            }
+                        }
+                        else
+                        {
+                            cantFit = true;
+                        }
+                        if (cantFit)
+                        {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), enchantments[i].type, 1);
+                        }
+                    }
+                }
+            }
+            return true;
+        }*/
         public override bool CanConsumeAmmo(Item weapon, Player player)
         {
             float ammoCostBonus = 0f;
