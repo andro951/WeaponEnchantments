@@ -287,30 +287,35 @@ namespace WeaponEnchantments.Items
 					return utility ? 1 + enchantmentSize : (1 + enchantmentSize) * 2;
 			}
         }
-        public override void OnCraft(Recipe recipe)
+        public override void OnCreate(ItemCreationContext context)
         {
-			if (enchantmentSize > 0)
-			{
-				if (recipe.requiredItem.Count > 0)
-                {
-					foreach (Item reqiredItem in recipe.requiredItem)
+            if (context is RecipeCreationContext)
+            {
+				if (enchantmentSize > 0)
+				{
+					Recipe recipe = ((RecipeCreationContext)context).recipe;
+					if (recipe.requiredItem.Count > 0)
 					{
-						for(int i = enchantmentSize; i >= 1; i--)
-                        {
-							if(enchantmentSize - i < 2)
-                            {
-								if (Item.type - i == reqiredItem.type)
+						foreach (Item reqiredItem in recipe.requiredItem)
+						{
+							for (int i = enchantmentSize; i >= 1; i--)
+							{
+								if (enchantmentSize - i < 2)
 								{
-									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - i], 1);
+									if (Item.type - i == reqiredItem.type)
+									{
+										Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[enchantmentSize - i], 1);
+									}
 								}
 							}
-                        }
+						}
 					}
 				}
 			}
-		}
+        }
 
-		public class OmniEnchantment : Enchantments
+
+        public class OmniEnchantment : Enchantments
 		{
 			OmniEnchantment() { enchantmentSize = -1; }
 			
