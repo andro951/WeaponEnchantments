@@ -66,26 +66,42 @@ namespace WeaponEnchantments
 
             if (wePlayer.usingEnchantingTable)
             {
+                bool removedItem = false;
+                bool addedItem = false;
+                bool swappedItem = false;
                 if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
                     if (wePlayer.itemInEnchantingTable)//If item WAS in the itemSlot but it is empty now,
                     {
-                        for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                        {
-                            if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
-                            {
-                                wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
-                            }
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
-                            wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
-                        }
-                        ConfirmationUI.offered = false;
-                        wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
-                        wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+                        removedItem = true;
                     }//Transfer items to global item and break the link between the global item and enchanting table itemSlots/enchantmentSlots
                     wePlayer.itemInEnchantingTable = false;//The itemSlot's PREVIOUS state is now empty(false)
                 }//Check if the itemSlot is empty because the item was just taken out and transfer the mods to the global item if so
                 else if(!wePlayer.itemInEnchantingTable)//If itemSlot WAS empty but now has an item in it
+                {
+                    addedItem = true;
+                    wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
+                }//Check if itemSlot has item that was just placed there, copy the enchantments to the slots and link the slots to the global item
+                else if(wePlayer.itemBeingEnchanted != wePlayer.enchantingTableUI.itemSlotUI[0].Item)
+                {
+                    swappedItem = true;
+                }
+                if(removedItem || swappedItem)
+                {
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
+                        {
+                            wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
+                        }
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
+                        wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
+                    }
+                    ConfirmationUI.offered = false;
+                    wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
+                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+                }
+                if(addedItem || swappedItem)
                 {
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = true;
@@ -102,8 +118,7 @@ namespace WeaponEnchantments
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
                         }
                     }
-                    wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
-                }//Check if itemSlot has item that was just placed there, copy the enchantments to the slots and link the slots to the global item
+                }
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)

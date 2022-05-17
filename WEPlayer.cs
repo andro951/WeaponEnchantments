@@ -215,7 +215,7 @@ namespace WeaponEnchantments
                                     if (!inventory[slot].IsAir)
                                     {
                                         enchantingTableUI.itemSlotUI[i].Item = inventory[slot].Clone();
-                                        inventory[slot] = new Item();
+                                        inventory[slot] = itemInEnchantingTable ? itemBeingEnchanted : new Item();
                                         SoundEngine.PlaySound(SoundID.Grab);
                                         valid = true;
                                         break;

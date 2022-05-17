@@ -59,22 +59,7 @@ namespace WeaponEnchantments.UI
 				switch (_itemContext)
 				{
 					case ItemSlotContext.Item:
-						
-						if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
-						{
-							for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                            {
-								if (!wePlayer.enchantingTableUI.enchantmentSlotUI[0].Item.IsAir)
-                                {
-									return false;
-                                }
-                            }
-							return WEMod.IsEnchantable(item);
-						}//check item is valid
-						else
-						{
-							return false;
-						}
+						return WEMod.IsEnchantable(item);
 					case ItemSlotContext.Enchantment:
 						if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
 						{
