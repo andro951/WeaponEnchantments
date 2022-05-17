@@ -574,7 +574,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            return true;
+            return null;
         }
         private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
         {
