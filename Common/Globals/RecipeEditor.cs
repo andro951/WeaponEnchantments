@@ -136,7 +136,6 @@ namespace WeaponEnchantments.Common.Globals
 			}
 			return arrItem;
 		}
-
 		private static void HookCreate(ILContext il)
 		{
 			counter = 0;

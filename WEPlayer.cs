@@ -32,14 +32,18 @@ namespace WeaponEnchantments
         public bool allForOneCooldown = false;
         public int allForOneTimer = 0;
         public Item[] equiptArmor;
+        public Item heldItem;
         public bool spelunker = false;
+        public bool dangerSense = false;
+        public bool hunter = false;
 
-        
+
         public override void Initialize()
         {
             enchantingTable = new EnchantingTable();
             enchantingTableUI = new WeaponEnchantmentUI();
             equiptArmor = new Item[Player.armor.Length];
+            heldItem = new Item();
             confirmationUI = new ConfirmationUI();
             inventoryItemRecord = new Item[102];
             for (int i = 0; i < equiptArmor.Length; i++)
@@ -315,20 +319,26 @@ namespace WeaponEnchantments
         public override void PostUpdate()
         {
             bool check = false;
-            bool skipSpelunkerCheck = false;
-            spelunker = false;
             int i = 0;
-            if(Player.HeldItem.type != ItemID.None)
+            if(Player.HeldItem != heldItem)
             {
-                if (Player.HeldItem.GetGlobalItem<EnchantedItem>().spelunker)
+                if (Player.HeldItem.type != ItemID.None)
                 {
-                    spelunker = true;
-                    skipSpelunkerCheck = true;
+                    EnchantedItem hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
+                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
+                        check = true;
+                    spelunker = hiGlobal.spelunker;
+                    dangerSense = hiGlobal.dangerSense;
+                    hunter = hiGlobal.hunter;
                 }
-            }
-            if (!skipSpelunkerCheck && spelunker)
-            {
-                check = true;
+                else
+                {
+                    check = true;
+                    spelunker = false;
+                    dangerSense = false;
+                    hunter = false;
+                }
+                heldItem = Player.HeldItem;
             }
             if (!check)
             {
@@ -405,6 +415,8 @@ namespace WeaponEnchantments
                 lifeSteal += lifeStealBonus / 4;
             }
             if (spelunker) { Player.AddBuff(9, 1); }
+            if(dangerSense) { Player.AddBuff(111, 1); }
+            if (hunter) { Player.AddBuff(17, 1); }
             if (allForOneTimer > 0)
             {
                 allForOneTimer--;

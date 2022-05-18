@@ -29,7 +29,9 @@ namespace WeaponEnchantments.Items
 			internal const int AllForOne = 9;
 			internal const int OneForAll = 10;
 			internal const int Spelunker = 11;
-        }
+			internal const int DangerSense = 12;
+			internal const int Hunter = 13;
+		}
 
 		public int enchantmentSize = -1;
 		public float enchantmentStrength;
@@ -37,8 +39,8 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker"};
-		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker" };
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker", "DangerSense", "Hunter" };
+		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker", "DangerSense", "Hunter" };
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
@@ -79,6 +81,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeIDs.AllForOne:
 					case EnchantmentTypeIDs.OneForAll:
 					case EnchantmentTypeIDs.Spelunker:
+					case EnchantmentTypeIDs.DangerSense:
+					case EnchantmentTypeIDs.Hunter:
 						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize - 2));
 						break;
 					default:
@@ -201,6 +205,12 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeIDs.Spelunker:
 						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
+					case EnchantmentTypeIDs.DangerSense:
+						Tooltip.SetDefault("Grants the Danger Sense buff\nLevel cost: " + GetLevelCost().ToString());
+						break;
+					case EnchantmentTypeIDs.Hunter:
+						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString());
+						break;
 					default:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
@@ -220,6 +230,8 @@ namespace WeaponEnchantments.Items
 						case EnchantmentTypeIDs.AllForOne:
 						case EnchantmentTypeIDs.OneForAll:
 						case EnchantmentTypeIDs.Spelunker:
+						case EnchantmentTypeIDs.DangerSense:
+						case EnchantmentTypeIDs.Hunter:
 							skipIfLessOrEqualToSize = 4;
 							break;
 						case EnchantmentTypeIDs.LifeSteal:
@@ -618,6 +630,16 @@ namespace WeaponEnchantments.Items
 		public class SpelunkerEnchantmentUltraRare : Enchantments
 		{
 			SpelunkerEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class DangerSenseEnchantmentUltraRare : Enchantments
+		{
+			DangerSenseEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class HunterEnchantmentUltraRare : Enchantments
+		{
+			HunterEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

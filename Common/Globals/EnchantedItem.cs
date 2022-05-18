@@ -36,6 +36,8 @@ namespace WeaponEnchantments.Common.Globals
         public bool allForOne;
         public bool oneForAll;
         public bool spelunker = false;
+        public bool dangerSense = false;
+        public bool hunter = false;
         public bool equip;
         public bool heldItem = false;
         public int levelBeforeBooster;
@@ -208,7 +210,9 @@ namespace WeaponEnchantments.Common.Globals
             allForOne = false;
             oneForAll = false;
             spelunker = false;
-            float oneForAllBonus = 1f;
+            dangerSense = false;
+            hunter = false;
+        float oneForAllBonus = 1f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 if (!enchantments[i].IsAir)
@@ -243,6 +247,12 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                         case EnchantmentTypeIDs.Spelunker:
                             spelunker = true;
+                            break;
+                        case EnchantmentTypeIDs.DangerSense:
+                            dangerSense = true;
+                            break;
+                        case EnchantmentTypeIDs.Hunter:
+                            hunter = true;
                             break;
                     }
                 }
@@ -396,6 +406,18 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
                                 break;
+                            case EnchantmentTypeIDs.DangerSense:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Danger Sense buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Hunter:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Hunter buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
                             default:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
                                 {
@@ -450,6 +472,18 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case EnchantmentTypeIDs.Spelunker:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Spelunker buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.DangerSense:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Danger Sense buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Hunter:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Hunter buff")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
