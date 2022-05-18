@@ -31,6 +31,8 @@ namespace WeaponEnchantments.Items
 			internal const int Spelunker = 11;
 			internal const int DangerSense = 12;
 			internal const int Hunter = 13;
+			internal const int War = 14;
+			internal const int Peace = 15;
 		}
 
 		public int enchantmentSize = -1;
@@ -39,8 +41,8 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker", "DangerSense", "Hunter" };
-		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker", "DangerSense", "Hunter" };
+		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker", "DangerSense", "Hunter" , "War", "Peace"};
+		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker", "DangerSense", "Hunter", "War", "Peace" };
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
@@ -83,6 +85,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeIDs.Spelunker:
 					case EnchantmentTypeIDs.DangerSense:
 					case EnchantmentTypeIDs.Hunter:
+					case EnchantmentTypeIDs.War:
+					case EnchantmentTypeIDs.Peace:
 						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize - 2));
 						break;
 					default:
@@ -92,6 +96,8 @@ namespace WeaponEnchantments.Items
 				switch (enchantmentTypeName)
                 {
 					case "Size":
+					case "War":
+					case "Peace":
 						switch (enchantmentSize)
 						{
 							case 0:
@@ -211,6 +217,12 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeIDs.Hunter:
 						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
+					case EnchantmentTypeIDs.War:
+						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
+						break;
+					case EnchantmentTypeIDs.Peace:
+						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
+						break;
 					default:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
@@ -232,6 +244,8 @@ namespace WeaponEnchantments.Items
 						case EnchantmentTypeIDs.Spelunker:
 						case EnchantmentTypeIDs.DangerSense:
 						case EnchantmentTypeIDs.Hunter:
+						case EnchantmentTypeIDs.War:
+						case EnchantmentTypeIDs.Peace:
 							skipIfLessOrEqualToSize = 4;
 							break;
 						case EnchantmentTypeIDs.LifeSteal:
@@ -640,6 +654,16 @@ namespace WeaponEnchantments.Items
 		public class HunterEnchantmentUltraRare : Enchantments
 		{
 			HunterEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class WarEnchantmentUltraRare : Enchantments
+		{
+			WarEnchantmentUltraRare() { enchantmentSize = 4; }
+		}
+
+		public class PeaceEnchantmentUltraRare : Enchantments
+		{
+			PeaceEnchantmentUltraRare() { enchantmentSize = 4; }
 		}
 	}
 }

@@ -29,10 +29,6 @@ namespace WeaponEnchantments
         public static int previousChest = -1;
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
 
-        public override void OnWorldLoad()
-        {
-            
-        }
         public override void OnModLoad()
         {
             if (!Main.dedServ)
@@ -699,10 +695,13 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<PeaceEnchantmentUltraRare>());
                                     break;
                                 case 1://Gold Chest
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 2://Gold Chest (Locked)
@@ -711,8 +710,10 @@ namespace WeaponEnchantments
                                     break;
                                 case 3://Shadow Chest
                                 case 4://Shadow Chest (Locked)
+                                    chance = 1f;
                                     itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<WarEnchantmentUltraRare>());
                                     break;
                                 case 8://Rich Mahogany Chest (Jungle)
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
@@ -780,6 +781,8 @@ namespace WeaponEnchantments
                                 case 4://Gold Dead man's chest
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 10://SandStone Chest

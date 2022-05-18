@@ -280,8 +280,12 @@ namespace WeaponEnchantments.Common.Globals
 
                                 break;
                             case 25://Mimic
-                                    //100%
-                                int[] options = new int[] { ModContent.ItemType<SpelunkerEnchantmentUltraRare>() };
+                                int[] options = new int[] 
+                                { 
+                                    ModContent.ItemType<SpelunkerEnchantmentUltraRare>(),
+                                    ModContent.ItemType<DangerSenseEnchantmentUltraRare>(),
+                                    ModContent.ItemType<HunterEnchantmentUltraRare>()
+                                };
                                 npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
                                 break;
                             case 26://Unicorn
