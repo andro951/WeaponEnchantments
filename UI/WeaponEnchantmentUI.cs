@@ -149,17 +149,17 @@ namespace WeaponEnchantments.UI
                 {
                     if(wePlayer.enchantingTableTier >= tier)
                     {
-                        if(wePlayer.enchantingTableTier == EnchantingTable.maxTier)
+                        /*if(wePlayer.enchantingTableTier == EnchantingTable.maxTier)
                         {
                             numberEssenceRecieved = xpCounter / xpTiers[tier];
                             xpCounter %= xpTiers[tier];
                         }
                         else
-                        {
+                        {*/
                             numberEssenceRecieved = xpCounter / xpTiers[tier] * 4 / 5;
                             xpCounter -= xpTiers[tier] * numberEssenceRecieved;
-                        }
-                        if (xpCounter < 100 && xpCounter > 0 && tier == 0)
+                        //}
+                        if (xpCounter < xpTiers[0] && xpCounter > 0 && tier == 0)
                         {
                             xpCounter = 0;
                             numberEssenceRecieved += 1;

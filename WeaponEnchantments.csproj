@@ -8,14 +8,26 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+    <Compile Remove="Common\Configs\**" />
+    <Compile Remove="Content\**" />
+    <Compile Remove="GameContent\**" />
+    <Compile Remove="Images\**" />
+    <Compile Remove="Items\Placeable\**" />
+    <Compile Remove="UI\WeaponEnchantmentUI\**" />
+    <EmbeddedResource Remove="Common\Configs\**" />
+    <EmbeddedResource Remove="Content\**" />
+    <EmbeddedResource Remove="GameContent\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <EmbeddedResource Remove="Items\Placeable\**" />
+    <EmbeddedResource Remove="UI\WeaponEnchantmentUI\**" />
+    <None Remove="Common\Configs\**" />
+    <None Remove="Content\**" />
+    <None Remove="GameContent\**" />
+    <None Remove="Images\**" />
+    <None Remove="Items\Placeable\**" />
+    <None Remove="UI\WeaponEnchantmentUI\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Configs\" />
-    <Folder Include="Content\" />
-    <Folder Include="GameContent\" />
-    <Folder Include="Images\" />
-    <Folder Include="Items\Placeable\" />
-    <Folder Include="UI\WeaponEnchantmentUI\" />
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>
