@@ -389,7 +389,7 @@ namespace WeaponEnchantments
                             if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                             {
                                 float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength;
-                                switch (((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                                switch ((EnchantmentTypeIDs)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
                                 {
                                     case EnchantmentTypeIDs.Size:
                                         itemScaleBonus += str;

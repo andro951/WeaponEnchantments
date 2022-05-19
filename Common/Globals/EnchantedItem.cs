@@ -79,7 +79,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (!enchantments[i].IsAir)
                 {
                     float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
-                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    switch ((EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType)
                     {
                         case EnchantmentTypeIDs.Damage:
                             damageModifier += str;
@@ -220,7 +220,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (!enchantments[i].IsAir)
                 {
                     float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
-                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    switch ((EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType)
                     {
                         case EnchantmentTypeIDs.Damage:
                             modifier += str * damage.Multiplicative;
@@ -296,7 +296,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                if (!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Critical)
+                if (!enchantments[i].IsAir && (EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Critical)
                 {
                     crit += (int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100);
                 }
@@ -308,7 +308,7 @@ namespace WeaponEnchantments.Common.Globals
             //int value = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                if (!enchantments[i].IsAir && ((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
+                if (!enchantments[i].IsAir && (EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
                 {
                     knockback += (int)(((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100);
                     scale += ((Enchantments)enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
@@ -355,7 +355,7 @@ namespace WeaponEnchantments.Common.Globals
                     }//Enchantmenst: tooltip
                     if(WEMod.IsWeaponItem(item))
                     {
-                        switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                        switch ((EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
                             case EnchantmentTypeIDs.Size:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
@@ -449,7 +449,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
-                        switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                        switch ((EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType)
                         {
                             case EnchantmentTypeIDs.Size:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((((Enchantments)enchantments[i].ModItem).enchantmentStrength * 50 / 2)).ToString() + "% " + ((Enchantments)enchantments[i].ModItem).enchantmentTypeName)
@@ -612,7 +612,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (!enchantments[i].IsAir)
                 {
                     float str = ((Enchantments)enchantments[i].ModItem).enchantmentStrength;
-                    switch (((Enchantments)enchantments[i].ModItem).enchantmentType)
+                    switch ((EnchantmentTypeIDs)((Enchantments)enchantments[i].ModItem).enchantmentType)
                     {
                         case EnchantmentTypeIDs.AmmoCost:
                             ammoCostBonus += str;

@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                         {
-                            switch (((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                            switch ((EnchantmentTypeIDs)((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
                             {
                                 case EnchantmentTypeIDs.Size:
                                     scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size

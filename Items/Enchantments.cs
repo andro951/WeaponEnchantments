@@ -15,25 +15,41 @@ namespace WeaponEnchantments.Items
 	public class Enchantments : ModItem
 	{
 		public static readonly bool cheating = true;
-		public class EnchantmentTypeIDs
+		public enum EnchantmentTypeIDs : int
         {
-			internal const int Damage = 0;
-			internal const int Critical = 1;
-			internal const int Size = 2;
-			internal const int Speed = 3;
-			internal const int Defence = 4;
-			internal const int ManaCost = 5;
-			internal const int AmmoCost = 6;
-			internal const int LifeSteal = 7;
-			internal const int ArmorPenetration = 8;
-			internal const int AllForOne = 9;
-			internal const int OneForAll = 10;
-			internal const int Spelunker = 11;
-			internal const int DangerSense = 12;
-			internal const int Hunter = 13;
-			internal const int War = 14;
-			internal const int Peace = 15;
+			Damage,
+			Critical,
+			Size,
+			Speed,
+			Defence,
+			ManaCost,
+			AmmoCost,
+			LifeSteal,
+			ArmorPenetration,
+			AllForOne,
+			OneForAll,
+			Spelunker,
+			DangerSense,
+			Hunter,
+			War,
+			Peace
 		}
+		public enum UtilityEnchantmentNames
+		{
+			Size, 
+			ManaCost, 
+			AmmoCost, 
+			LifeSteal, 
+			Spelunker, 
+			DangerSense, 
+			Hunter, 
+			War, 
+			Peace
+        }
+		public enum UniqueEnchantmentIdentifiers
+        {
+			sword = 0
+        }
 
 		public int enchantmentSize = -1;
 		public float enchantmentStrength;
@@ -41,8 +57,6 @@ namespace WeaponEnchantments.Items
 		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
 		public static int[] ID = new int[rarity.Length];
 		public static List<int[]> IDs = new List<int[]>();
-		public static string[] enchantmentTypeNames = new string[] { "Damage", "Critical" ,"Size", "Speed", "Defence", "ManaCost", "AmmoCost", "LifeSteal", "ArmorPenetration" , "AllForOne", "OneForAll", "Spelunker", "DangerSense", "Hunter" , "War", "Peace"};
-		public static string[] utilityEnchantmentIDs = new string[] { "Size" , "ManaCost", "AmmoCost", "LifeSteal", "Spelunker", "DangerSense", "Hunter", "War", "Peace" };
 		public bool utility;
 		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
 		public string enchantmentTypeName;
@@ -53,17 +67,18 @@ namespace WeaponEnchantments.Items
 			if (enchantmentSize > -1)
 			{
 				Item.maxStack = 99;
-				for (int i = 0; i < enchantmentTypeNames.Length; i++)
+				enchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+				for (int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeIDs)).Length; i++)
 				{
-					if (enchantmentTypeNames[i] == Name.Substring(0, enchantmentTypeNames[i].Length))
+					if (enchantmentTypeName == ((EnchantmentTypeIDs)i).ToString())
 					{
-						enchantmentTypeName = enchantmentTypeNames[i];
 						enchantmentType = i;
+						break;
 					}
 				}
-				for (int i = 0; i < utilityEnchantmentIDs.Length; i++)
+				for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++)
 				{
-					if (enchantmentTypeNames[enchantmentType] == utilityEnchantmentIDs[i])
+					if (enchantmentTypeName == ((UtilityEnchantmentNames)i).ToString())
 					{
 						utility = true;
 					}
@@ -78,7 +93,7 @@ namespace WeaponEnchantments.Items
 					Item.width = 40;
 					Item.height = 40;
 				}
-				switch (enchantmentType)
+				switch ((EnchantmentTypeIDs)enchantmentType)
 				{
 					case EnchantmentTypeIDs.AllForOne:
 					case EnchantmentTypeIDs.OneForAll:
@@ -182,7 +197,7 @@ namespace WeaponEnchantments.Items
 						}
 						break;
                 }
-                switch (enchantmentType)
+                switch ((EnchantmentTypeIDs)enchantmentType)
                 {
 					case EnchantmentTypeIDs.Size:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 50).ToString() + "% " + enchantmentTypeName + "\n+" + (enchantmentStrength * 100).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
@@ -237,7 +252,7 @@ namespace WeaponEnchantments.Items
                 {
 					Recipe recipe;
 					int skipIfLessOrEqualToSize;
-					switch (enchantmentType)
+					switch ((EnchantmentTypeIDs)enchantmentType)
                     {
 						case EnchantmentTypeIDs.AllForOne:
 						case EnchantmentTypeIDs.OneForAll:

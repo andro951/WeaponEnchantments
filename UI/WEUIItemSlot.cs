@@ -68,7 +68,7 @@ namespace WeaponEnchantments.UI
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{
 									bool continueCheck = true;
-                                    switch (((Enchantments)item.ModItem).enchantmentType)
+                                    switch ((EnchantmentTypeIDs)((Enchantments)item.ModItem).enchantmentType)
                                     {
 										case EnchantmentTypeIDs.AllForOne:
 										case EnchantmentTypeIDs.OneForAll:
@@ -76,8 +76,8 @@ namespace WeaponEnchantments.UI
                                             {
                                                 if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
                                                 {
-													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.AllForOne ? false : continueCheck;
-													continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.OneForAll ? false : continueCheck;
+													continueCheck = (EnchantmentTypeIDs)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.AllForOne ? false : continueCheck;
+													continueCheck = (EnchantmentTypeIDs)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).enchantmentType == EnchantmentTypeIDs.OneForAll ? false : continueCheck;
 												}
                                             }
 											continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;
