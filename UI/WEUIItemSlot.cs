@@ -68,44 +68,51 @@ namespace WeaponEnchantments.UI
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{
 									bool continueCheck = true;
-									int damageType;
-                                    switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
+									int damageType = 0;
+									if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
-										case DamageTypeSpecificID.Melee:
-										case DamageTypeSpecificID.SummonMeleeSpeed:
-											damageType = (int)DamageTypeSpecificID.Melee;
-											break;
-										case DamageTypeSpecificID.Ranged:
-											damageType = (int)DamageTypeSpecificID.Ranged;
-											break;
-										case DamageTypeSpecificID.Magic:
-											damageType = (int)DamageTypeSpecificID.Magic;
-											break;
-										case DamageTypeSpecificID.Summon:
-										case DamageTypeSpecificID.MagicSummonHybrid:
-											damageType = (int)DamageTypeSpecificID.Summon;
-											break;
-										case DamageTypeSpecificID.Throwing:
-											damageType = (int)DamageTypeSpecificID.Throwing;
-											break;
-										default:
-											damageType = 0;
-											break;
-                                    }
+										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
+										{
+											case DamageTypeSpecificID.Melee:
+											case DamageTypeSpecificID.SummonMeleeSpeed:
+												damageType = (int)DamageTypeSpecificID.Melee;
+												break;
+											case DamageTypeSpecificID.Ranged:
+												damageType = (int)DamageTypeSpecificID.Ranged;
+												break;
+											case DamageTypeSpecificID.Magic:
+												damageType = (int)DamageTypeSpecificID.Magic;
+												break;
+											case DamageTypeSpecificID.Summon:
+											case DamageTypeSpecificID.MagicSummonHybrid:
+												damageType = (int)DamageTypeSpecificID.Summon;
+												break;
+											case DamageTypeSpecificID.Throwing:
+												damageType = (int)DamageTypeSpecificID.Throwing;
+												break;
+										}
+									}
 									if(((Enchantments)item.ModItem).DamageTypeSpecific != 0 && damageType != ((Enchantments)item.ModItem).DamageTypeSpecific)
                                     {
 										continueCheck = false;
                                     }
+                                    if (((Enchantments)item.ModItem).Unique && ((Enchantments)item.ModItem).EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name)
+                                    {
+										continueCheck = false;
+									}
                                     switch ((EnchantmentTypeID)((Enchantments)item.ModItem).EnchantmentType)
                                     {
 										case EnchantmentTypeID.AllForOne:
 										case EnchantmentTypeID.OneForAll:
-											for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+											for(int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
                                             {
                                                 if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
                                                 {
 													continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
-													continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
+													if (continueCheck)
+														continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
+													if(continueCheck)
+														continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).Unique && ((Enchantments)item.ModItem).Unique ? false : continueCheck;
 												}
                                             }
 											continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;

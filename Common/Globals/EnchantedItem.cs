@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool dangerSense = false;
         public bool hunter = false;
         public float enemySpawnBonus = 0f;
+        public float godSlayerBonus = 0f;
         public bool equip;
         public bool heldItem = false;
         public int levelBeforeBooster;
@@ -209,6 +210,7 @@ namespace WeaponEnchantments.Common.Globals
             float lifeStealBonus = 0f;
             float armorPenetrationBonus = 0f;
             float enemySpawnBonusLocal = 1f;
+            godSlayerBonus = 0f;
             allForOne = false;
             oneForAll = false;
             spelunker = false;
@@ -261,6 +263,9 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                         case EnchantmentTypeID.Peace:
                             enemySpawnBonusLocal /= 1f + str;
+                            break;
+                        case EnchantmentTypeID.GodSlayer:
+                            godSlayerBonus += str;
                             break;
                     }
                 }

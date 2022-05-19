@@ -37,6 +37,7 @@ namespace WeaponEnchantments
         public bool dangerSense = false;
         public bool hunter = false;
         public float enemySpawnBonus = 1f;
+        public bool godSlayer = false;
 
         public override void Initialize()
         {
@@ -326,19 +327,13 @@ namespace WeaponEnchantments
                 if (Player.HeldItem.type != ItemID.None)
                 {
                     hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
-                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
+                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter || godSlayer != hiGlobal.godSlayer)
                         check = true;
-                    spelunker = hiGlobal.spelunker;
-                    dangerSense = hiGlobal.dangerSense;
-                    hunter = hiGlobal.hunter;
                     enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                 }
                 else
                 {
                     check = true;
-                    spelunker = false;
-                    dangerSense = false;
-                    hunter = false;
                 }
                 if(!heldItem.IsAir)
                     enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
@@ -371,6 +366,19 @@ namespace WeaponEnchantments
             }
             if (check)
             {
+                if (Player.HeldItem.type != ItemID.None)
+                {
+                    EnchantedItem hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
+                    spelunker = hiGlobal.spelunker;
+                    dangerSense = hiGlobal.dangerSense;
+                    hunter = hiGlobal.hunter;
+                }
+                else
+                {
+                    spelunker = false;
+                    dangerSense = false;
+                    hunter = false;
+                }
                 itemScale = 0f;
                 manaCost = 0f;
                 ammoCost = 0f;
