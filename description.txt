@@ -1,1 +1,103 @@
-Weapon Enchantments is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Weapon Enchantments adds
+     -Item customization
+     -Progression system
+
+Terraria has you frequently swapping old gear for new.
+The enchanting system allows you to keep your progress as you upgrade gear.
+
+Basics:
+    Experience:
+        -All weapons/armor/accessories gain experience when used to kill enemies. (Items have xp, not players)
+        -Items have a level based on their xp. (Not visible if xp is 0)
+    Enchantments:
+        -Found in chests or dropped by enemies.
+        -Added to items in an Enchanting Table.
+        -Enchantments have a level cost
+            Ex. A level 4 weapon can apply 2 Basic Damage Enchantments (cost 2 points each).
+        -Require a larger Containment to upgrade an Enchantment.
+    Essence:
+        -Resource for upgrading Enchantments or consumed to add xp to items in an Enchanting Table.
+    Enchanting Table:
+        -Used to apply Enchantments to items.
+        -Used to consume Essence to add xp to items.
+        -Can PERMENANTLY consume items in exchange for Essence and Containment Fragments(used to create Containments).
+
+First 5 minutes:
+     -Make a Wood Enchanting Table. (workbench and 4 torches)
+     -Fill your armor/accessory slots ASAP. (All equipped armor/accessories gains xp while equipped, so slap on your shackle and wood armor)
+
+Tips:
+    -DONT SELL weapons/armor/accessories. Offer them instead.  
+        The value from Containment Fragments is slightly higher than an item's value and you get Essence equivalent to the item's xp. 
+        Offering items returns all Enchantments/Power Booster applied to the consumed item.
+    -Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
+    -Make a gem tree farm (especially for diamond/amber).  They are in crafting high tier Containments.
+
+Extra information:
+    Where do I get the good Enchantments?
+        Unique Enchantments are obtained from chests/bosses.
+        Pre-Hardmode bosses drop general Enchantments usable on all items.
+        Post-Hardmode bosses drop more specialized Enchantments.
+    Creating/Upgrading Enchantments
+        Containments:
+            Containments are used to hold Enchantments.  Higher power Enchantments require larger Containments.
+            Containment Fragments are obtained from bosses or offering items in the Enchanting Table.
+
+            Containment(smallest one):
+                Used to create tier 0 Enchantments (only Damage or Armor)
+                Ingredients - 4 Containment Fragments, 1 Glass
+            Medium Containment:
+                Used to upgrade an Enchantment from tier 0 to tier 1.
+                Ingredients - 8 Containment Fragments, 4 Glass
+            Superior Containment:
+                Used to upgrade an Enchantment to tier 2, 3 or 4.
+                Ingredients - 16 Containment Fragments, 4 Stabilizers
+                    Stabilizers are crafted from any gem, except diamond/amber, in a hellforge. (1 per gem)
+
+        Enchantment Crafting Ingredients:
+            tier 0 (Basic): 
+                Only Basic Damage and Armor Enchantments can be directly crafted.  
+                Ingredients - 10 Basic Essence, Containment(the smallest one)
+            tier 1 (Medium):
+                Ingredients - 10 Medium Essence, Medium Containment, tier 0 Enchantment
+            tier 2 (Rare):
+                Ingredients - 10 Rare Essence, Superior Containment, tier 1 Enchantment
+            tier 3 (Super Rare):
+                Ingredients - 10 Super Rare Essence, tier 2 Enchantment
+            tier 4 (Ultra Rare):
+                Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 4 Superior Stabilizers
+                Superior Stabilizers are crafted from diamonds/amber with an adamant/titanium forge. (4 per gem)
+
+            (Tiers can be skipped if you have all of the items required to reach the final product)
+                (Ex. Make tier 2 Life Steal Enchantment from tier 0 Life Steal Enchantment, 10 Medium Essence, 10 Rare Essence, Superior Containment)
+                
+            Note - Some Enchantments only have tier 4 versions
+
+    Essence:
+        WARNING - crafting Essence into a different tier is more efficient the higher tier Enchanting Table you use. (100% at tier 4)
+
+    Enchanting Tables:
+        WARNING - Offering items in an Enchanting Table is more efficient the higher tier Enchanting Table you use. (100% at tier 4)
+            (The same number of Containment Fragments will be received regardless of Enchanting Table tier.)
+
+        tier 0 (Wood):
+            Ingredients - workbench, 4 torches
+            60% of item experience converted to Essence when offering items.
+        tier 1 (Dusty):
+            Ingredients - tier 0 Enchanting Table, 10 desert fossil or 1 sturdy fossil. (Used to be Fossil Helmet until I realized that's way too expensive early game)
+                (TIP - Found in the desert, look for amber while you're there)
+            70% of item experience converted to Essence when offering items.
+        tier 2 (Hellish):
+            Ingredients - tier 1 Enchanting Table, obsidian skull
+            80% of item experience converted to Essence when offering items.
+        tier 3 (Soul):
+            Ingredients - tier 2 Enchanting Table, 2 souls of light/night
+            90% of item experience converted to Essence when offering items.
+        tier 4 (Ultimate):
+            Ingredients - tier 3 Enchanting Table, 2 hallowed bars
+            100% of item experience converted to Essence when offering items.
+
+
+Please give me your feedback!!!!!!
+https://discord.gg/mPywEhyV9b
+https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/

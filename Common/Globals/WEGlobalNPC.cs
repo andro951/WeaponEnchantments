@@ -633,5 +633,14 @@ namespace WeaponEnchantments.Common.Globals
                 sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, npc);
             }
         }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            float enemySpawnBonus = wePlayer.enemySpawnBonus;
+            int rate = (int)(spawnRate / enemySpawnBonus);
+            spawnRate = rate < 1 ? 1 : rate;
+            int spawns = (int)Math.Round(maxSpawns * enemySpawnBonus);
+            maxSpawns = spawns >= 0 ? spawns : 0;
+        }
     }
 }

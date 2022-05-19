@@ -36,7 +36,7 @@ namespace WeaponEnchantments
         public bool spelunker = false;
         public bool dangerSense = false;
         public bool hunter = false;
-        public float enemySpawnBonus = 0f;
+        public float enemySpawnBonus = 1f;
 
         public override void Initialize()
         {
@@ -322,14 +322,16 @@ namespace WeaponEnchantments
             int i = 0;
             if(Player.HeldItem != heldItem)
             {
-                EnchantedItem hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
+                EnchantedItem hiGlobal;
                 if (Player.HeldItem.type != ItemID.None)
                 {
+                    hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
                     if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
                         check = true;
                     spelunker = hiGlobal.spelunker;
                     dangerSense = hiGlobal.dangerSense;
                     hunter = hiGlobal.hunter;
+                    enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                 }
                 else
                 {
@@ -338,8 +340,8 @@ namespace WeaponEnchantments
                     dangerSense = false;
                     hunter = false;
                 }
-                enemySpawnBonus += hiGlobal.enemySpawnBonus;
-                enemySpawnBonus -= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+                if(!heldItem.IsAir)
+                    enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                 heldItem = Player.HeldItem;
             }
             if (!check)
@@ -373,11 +375,11 @@ namespace WeaponEnchantments
                 manaCost = 0f;
                 ammoCost = 0f;
                 lifeSteal = 0f;
+                enemySpawnBonus = 1f;
                 float itemScaleBonus = 0f;
                 float manaCostBonus = 0f;
                 float ammoCostBonus = 0f;
                 float lifeStealBonus = 0f;
-                float enemyArmorSpawnBonus = 0f;
                 foreach (Item armor in Player.armor)
                 {
                     if (!armor.vanity && !armor.IsAir)
@@ -411,10 +413,10 @@ namespace WeaponEnchantments
                                         hunter = true;
                                         break;
                                     case EnchantmentTypeIDs.War:
-                                        enemyArmorSpawnBonus += str;
+                                        enemySpawnBonus *= str;
                                         break;
                                     case EnchantmentTypeIDs.Peace:
-                                        enemyArmorSpawnBonus -= str;
+                                        enemySpawnBonus /= str;
                                         break;
                                 }
                             }
@@ -428,12 +430,12 @@ namespace WeaponEnchantments
                 manaCost += manaCostBonus / 4;
                 ammoCost += ammoCostBonus / 4;
                 lifeSteal += lifeStealBonus / 4;
-                enemySpawnBonus = enemyArmorSpawnBonus + Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+                float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 0f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+                this.enemySpawnBonus = enemySpawnBonus + heldItemEnemySpawnBonus;
             }
             if (spelunker) { Player.AddBuff(9, 1); }
             if(dangerSense) { Player.AddBuff(111, 1); }
             if (hunter) { Player.AddBuff(17, 1); }
-            Do stuff with enemyspawnbonus
             if (allForOneTimer > 0)
             {
                 allForOneTimer--;

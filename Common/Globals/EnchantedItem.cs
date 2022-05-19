@@ -208,8 +208,7 @@ namespace WeaponEnchantments.Common.Globals
             float manaCostBonus = 0f;
             float lifeStealBonus = 0f;
             float armorPenetrationBonus = 0f;
-            float warBonus = 0f;
-            float peaceBonus = 0f;
+            float enemySpawnBonusLocal = 1f;
             allForOne = false;
             oneForAll = false;
             spelunker = false;
@@ -258,10 +257,10 @@ namespace WeaponEnchantments.Common.Globals
                             hunter = true;
                             break;
                         case EnchantmentTypeIDs.War:
-                            warBonus += str;
+                            enemySpawnBonusLocal *= 1f + str;
                             break;
                         case EnchantmentTypeIDs.Peace:
-                            peaceBonus += str;
+                            enemySpawnBonusLocal /= 1f + str;
                             break;
                     }
                 }
@@ -291,7 +290,7 @@ namespace WeaponEnchantments.Common.Globals
             lifeSteal = lifeStealBonus;
             item.ArmorPenetration += (int)armorPenetrationBonus - lastArmorPenetrationBonus;
             lastArmorPenetrationBonus = (int)armorPenetrationBonus;
-            enemySpawnBonus = warBonus - peaceBonus;
+            enemySpawnBonus = enemySpawnBonusLocal;
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
@@ -429,13 +428,13 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeIDs.War:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "x2 enemy spawn rate and max enemies")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
                                 break;
                             case EnchantmentTypeIDs.Peace:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (((Enchantments)enchantments[i].ModItem).enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "x1/2 enemy spawn rate and max enemies")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });
@@ -506,6 +505,18 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case EnchantmentTypeIDs.Hunter:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Hunter buff")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.War:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "x2 enemy spawn rate and max enemies")
+                                {
+                                    OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeIDs.Peace:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "x1/2 enemy spawn rate and max enemies")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).enchantmentSize]
                                 });

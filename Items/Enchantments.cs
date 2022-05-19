@@ -218,10 +218,10 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.War:
-						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("x2 enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					case EnchantmentTypeIDs.Peace:
-						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("x1/2 enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					default:
 						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
