@@ -235,7 +235,7 @@ namespace WeaponEnchantments
                                         if (!inventory[slot].IsAir && enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                                         {
                                             int s = i;
-                                            if (((Enchantments)inventory[slot].ModItem).utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
+                                            if (((Enchantments)inventory[slot].ModItem).Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
                                             {
                                                 s = 4;
                                             }
@@ -388,34 +388,34 @@ namespace WeaponEnchantments
                         {
                             if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                             {
-                                float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength;
-                                switch ((EnchantmentTypeIDs)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                                float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
+                                switch ((EnchantmentTypeID)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
                                 {
-                                    case EnchantmentTypeIDs.Size:
+                                    case EnchantmentTypeID.Size:
                                         itemScaleBonus += str;
                                         break;
-                                    case EnchantmentTypeIDs.ManaCost:
+                                    case EnchantmentTypeID.ManaCost:
                                         manaCostBonus += str;
                                         break;
-                                    case EnchantmentTypeIDs.AmmoCost:
+                                    case EnchantmentTypeID.AmmoCost:
                                         ammoCostBonus += str;
                                         break;
-                                    case EnchantmentTypeIDs.LifeSteal:
+                                    case EnchantmentTypeID.LifeSteal:
                                         lifeStealBonus += str;
                                         break;
-                                    case EnchantmentTypeIDs.Spelunker:
+                                    case EnchantmentTypeID.Spelunker:
                                         spelunker = true;
                                         break;
-                                    case EnchantmentTypeIDs.DangerSense:
+                                    case EnchantmentTypeID.DangerSense:
                                         dangerSense = true;
                                         break;
-                                    case EnchantmentTypeIDs.Hunter:
+                                    case EnchantmentTypeID.Hunter:
                                         hunter = true;
                                         break;
-                                    case EnchantmentTypeIDs.War:
+                                    case EnchantmentTypeID.War:
                                         enemySpawnBonus *= str;
                                         break;
-                                    case EnchantmentTypeIDs.Peace:
+                                    case EnchantmentTypeID.Peace:
                                         enemySpawnBonus /= str;
                                         break;
                                 }

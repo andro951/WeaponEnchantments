@@ -61,7 +61,7 @@ namespace WeaponEnchantments.Common.Globals
 								bool cantFit = false;
 								if (((Enchantments)i2Global.enchantments[k].ModItem).GetLevelCost() < miGlobal.GetLevelsAvailable())
 								{
-									if (((Enchantments)i2Global.enchantments[k].ModItem).utility && miGlobal.enchantments[4].IsAir)
+									if (((Enchantments)i2Global.enchantments[k].ModItem).Utility && miGlobal.enchantments[4].IsAir)
 									{
 										miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
 									}
@@ -119,7 +119,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
 					if(arrItem.ModItem is Enchantments)
                     {
-						int size = ((Enchantments)arrItem.ModItem).enchantmentSize;
+						int size = ((Enchantments)arrItem.ModItem).EnchantmentSize;
 						if (size < 3)
                         {
 							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);

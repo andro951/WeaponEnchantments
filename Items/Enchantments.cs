@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items
 	public class Enchantments : ModItem
 	{
 		public static readonly bool cheating = true;
-		public enum EnchantmentTypeIDs : int
+		public enum EnchantmentTypeID : int
         {
 			Damage,
 			Critical,
@@ -32,7 +32,11 @@ namespace WeaponEnchantments.Items
 			DangerSense,
 			Hunter,
 			War,
-			Peace
+			Peace,
+			Melee,//change
+			Ranged,//change
+			Magic,//change
+			Summon//change
 		}
 		public enum UtilityEnchantmentNames
 		{
@@ -46,258 +50,368 @@ namespace WeaponEnchantments.Items
 			War, 
 			Peace
         }
-		public enum UniqueEnchantmentIdentifiers
-        {
-			sword = 0
-        }
-
-		public int enchantmentSize = -1;
-		public float enchantmentStrength;
-		public static string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
-		public static Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange};
-		public static int[] ID = new int[rarity.Length];
-		public static List<int[]> IDs = new List<int[]>();
-		public bool utility;
-		public static int shortestEnchantmentTypeName = 4;//DONT FORGET TO UPDATE THIS!!!!
-		public string enchantmentTypeName;
-		public int enchantmentType = -1;
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-		public override void SetDefaults()
+		public enum DamageTypeSpecificID
 		{
-			if (enchantmentSize > -1)
+			Melee = 2,
+			Ranged = 3,
+			Magic = 4,
+			Summon = 5,
+			SummonMeleeSpeed = 6,
+			MagicSummonHybrid = 7,
+			Throwing = 8
+        }
+		public static List<int[]> IDs { private set; get; } = new List<int[]>();
+		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
+		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
+		public int EnchantmentSize { private set; get; } = -1;
+		public int EnchantmentType { private set; get; } = -1;
+		public string EnchantmentTypeName { private set; get; }
+		public float EnchantmentStrength { private set; get; }
+		public bool Utility { private set; get; }
+		public int DamageTypeSpecific { private set; get; }
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public override void SetStaticDefaults()
+        {
+			int[] arr = new int[rarity.Length];
+            for(int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeID)).Length; i++)
+            {
+				IDs.Add(arr);
+            }
+        }
+        public override void SetDefaults()
+		{
+			if (EnchantmentSize > -1)
 			{
 				Item.maxStack = 99;
-				enchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
-				for (int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeIDs)).Length; i++)
+				EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+				for (int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeID)).Length; i++)
 				{
-					if (enchantmentTypeName == ((EnchantmentTypeIDs)i).ToString())
+					if (EnchantmentTypeName == ((EnchantmentTypeID)i).ToString())
 					{
-						enchantmentType = i;
+						EnchantmentType = i;
 						break;
 					}
 				}
 				for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++)
 				{
-					if (enchantmentTypeName == ((UtilityEnchantmentNames)i).ToString())
+					if (EnchantmentTypeName == ((UtilityEnchantmentNames)i).ToString())
 					{
-						utility = true;
+						Utility = true;
 					}
 				}
-				if (enchantmentSize < 2)
+				if (EnchantmentSize < 2)
                 {
-					Item.width = 10 + 4 * (enchantmentSize);
-					Item.height = 10 + 4 * (enchantmentSize);
-				}
+					Item.width = 10 + 4 * (EnchantmentSize);
+					Item.height = 10 + 4 * (EnchantmentSize);
+				}//Width/Height
                 else 
 				{
 					Item.width = 40;
 					Item.height = 40;
-				}
-				switch ((EnchantmentTypeIDs)enchantmentType)
+				}//Width/Height
+				switch ((EnchantmentTypeID)EnchantmentType)
 				{
-					case EnchantmentTypeIDs.AllForOne:
-					case EnchantmentTypeIDs.OneForAll:
-					case EnchantmentTypeIDs.Spelunker:
-					case EnchantmentTypeIDs.DangerSense:
-					case EnchantmentTypeIDs.Hunter:
-					case EnchantmentTypeIDs.War:
-					case EnchantmentTypeIDs.Peace:
-						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize - 2));
+					case EnchantmentTypeID.AllForOne:
+					case EnchantmentTypeID.OneForAll:
+					case EnchantmentTypeID.Spelunker:
+					case EnchantmentTypeID.DangerSense:
+					case EnchantmentTypeID.Hunter:
+					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.Peace:
+						Item.value = (int)(1000 * Math.Pow(8, EnchantmentSize - 2));
 						break;
 					default:
-						Item.value = (int)(1000 * Math.Pow(8, enchantmentSize));
+						Item.value = (int)(1000 * Math.Pow(8, EnchantmentSize));
 						break;
-				}
-				switch (enchantmentTypeName)
+				}//Value
+				switch ((EnchantmentTypeID)EnchantmentType)
                 {
-					case "Size":
-					case "War":
-					case "Peace":
-						switch (enchantmentSize)
-						{
-							case 0:
-								enchantmentStrength = 0.1f;
-								break;
-							case 1:
-								enchantmentStrength = 0.2f;
-								break;
-							case 2:
-								enchantmentStrength = 0.50f;
-								break;
-							case 3:
-								enchantmentStrength = 0.8f;
-								break;
-							case 4:
-								enchantmentStrength = 1f;
-								break;
-						}
+					case EnchantmentTypeID.Melee:
+						DamageTypeSpecific = 2;
 						break;
-					case "Defence":
-					case "ArmorPenetration":
-						switch (enchantmentSize)
-						{
-							case 0:
-								enchantmentStrength = 1f;
-								break;
-							case 1:
-								enchantmentStrength = 2f;
-								break;
-							case 2:
-								enchantmentStrength = 3f;
-								break;
-							case 3:
-								enchantmentStrength = 5f;
-								break;
-							case 4:
-								enchantmentStrength = 10f;
-								break;
-						}
+					case EnchantmentTypeID.Ranged:
+						DamageTypeSpecific = 3;
 						break;
-					case "LifeSteal":
-						switch (enchantmentSize)
-						{
-							case 0:
-								enchantmentStrength = 0.005f;
-								break;
-							case 1:
-								enchantmentStrength = 0.01f;
-								break;
-							case 2:
-								enchantmentStrength = 0.02f;
-								break;
-							case 3:
-								enchantmentStrength = 0.03f;
-								break;
-							case 4:
-								enchantmentStrength = 0.04f;
-								break;
-						}
+					case EnchantmentTypeID.Magic:
+						DamageTypeSpecific = 4;
 						break;
-					case "AllForOne":
-						enchantmentStrength = 10f;
+					case EnchantmentTypeID.Summon:
+						DamageTypeSpecific = 5;
 						break;
 					default:
-						switch (enchantmentSize)
+						DamageTypeSpecific = 0;
+						break;
+				}//DamageTypeSpecific
+				switch ((EnchantmentTypeID)EnchantmentType)
+                {
+					case EnchantmentTypeID.Size:
+					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.Peace:
+						switch (EnchantmentSize)
 						{
 							case 0:
-								enchantmentStrength = 0.03f;
+								EnchantmentStrength = 0.1f;
 								break;
 							case 1:
-								enchantmentStrength = 0.08f;
+								EnchantmentStrength = 0.2f;
 								break;
 							case 2:
-								enchantmentStrength = 0.16f;
+								EnchantmentStrength = 0.50f;
 								break;
 							case 3:
-								enchantmentStrength = 0.25f;
+								EnchantmentStrength = 0.8f;
 								break;
 							case 4:
-								enchantmentStrength = 0.40f;
+								EnchantmentStrength = 1f;
 								break;
 						}
 						break;
-                }
-                switch ((EnchantmentTypeIDs)enchantmentType)
+					case EnchantmentTypeID.Defence:
+					case EnchantmentTypeID.ArmorPenetration:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 1f;
+								break;
+							case 1:
+								EnchantmentStrength = 2f;
+								break;
+							case 2:
+								EnchantmentStrength = 3f;
+								break;
+							case 3:
+								EnchantmentStrength = 5f;
+								break;
+							case 4:
+								EnchantmentStrength = 10f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.LifeSteal:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.005f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.01f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.02f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.04f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.AllForOne:
+						EnchantmentStrength = 10f;
+						break;
+					case EnchantmentTypeID.Melee:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.08f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.16f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.25f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.Ranged:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.08f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.16f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.25f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.Magic:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.08f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.16f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.25f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.Summon:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.08f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.16f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.25f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+					default:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 0.03f;
+								break;
+							case 1:
+								EnchantmentStrength = 0.08f;
+								break;
+							case 2:
+								EnchantmentStrength = 0.16f;
+								break;
+							case 3:
+								EnchantmentStrength = 0.25f;
+								break;
+							case 4:
+								EnchantmentStrength = 0.40f;
+								break;
+						}
+						break;
+                }//EnchantmentStrength
+                switch ((EnchantmentTypeID)EnchantmentType)
                 {
-					case EnchantmentTypeIDs.Size:
-						Tooltip.SetDefault("+" + (enchantmentStrength * 50).ToString() + "% " + enchantmentTypeName + "\n+" + (enchantmentStrength * 100).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.Size:
+						Tooltip.SetDefault("+" + (EnchantmentStrength * 50).ToString() + "% " + EnchantmentTypeName + "\n+" + (EnchantmentStrength * 100).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.Defence:
-						Tooltip.SetDefault("+" + enchantmentStrength.ToString() + " " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.Defence:
+						Tooltip.SetDefault("+" + EnchantmentStrength.ToString() + " " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.ArmorPenetration:
-						Tooltip.SetDefault(enchantmentStrength.ToString() + " Armor Penetration\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.ArmorPenetration:
+						Tooltip.SetDefault(EnchantmentStrength.ToString() + " Armor Penetration\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.ManaCost:
-						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.ManaCost:
+						Tooltip.SetDefault("-" + (EnchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.AmmoCost:
-						Tooltip.SetDefault("-" + (enchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.AmmoCost:
+						Tooltip.SetDefault("-" + (EnchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.LifeSteal:
-						Tooltip.SetDefault((enchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
+					case EnchantmentTypeID.LifeSteal:
+						Tooltip.SetDefault((EnchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.AllForOne:
+					case EnchantmentTypeID.AllForOne:
 						Tooltip.SetDefault("10x Damage, item CD equal to 8x use speed\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.OneForAll:
+					case EnchantmentTypeID.OneForAll:
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies, 0.7x attack speed \n(WARNING - DESTROYS PROJECTILES ON HIT)\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.Spelunker:
+					case EnchantmentTypeID.Spelunker:
 						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.DangerSense:
+					case EnchantmentTypeID.DangerSense:
 						Tooltip.SetDefault("Grants the Danger Sense buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.Hunter:
+					case EnchantmentTypeID.Hunter:
 						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.War:
+					case EnchantmentTypeID.War:
 						Tooltip.SetDefault("x2 enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
 						break;
-					case EnchantmentTypeIDs.Peace:
+					case EnchantmentTypeID.Peace:
 						Tooltip.SetDefault("x1/2 enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString());
 						break;
 					default:
-						Tooltip.SetDefault("+" + (enchantmentStrength * 100).ToString() + "% " + enchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
+						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 						break;
-				}
+				}//ToolTip
 			}
 		}
 		public override void AddRecipes()
 		{
-			if (enchantmentSize > -1)
+			if (EnchantmentSize > -1)
 			{
-				for(int i = enchantmentSize; i < rarity.Length; i++)
+				for(int i = EnchantmentSize; i < rarity.Length; i++)
                 {
 					Recipe recipe;
 					int skipIfLessOrEqualToSize;
-					switch ((EnchantmentTypeIDs)enchantmentType)
+					switch ((EnchantmentTypeID)EnchantmentType)
                     {
-						case EnchantmentTypeIDs.AllForOne:
-						case EnchantmentTypeIDs.OneForAll:
-						case EnchantmentTypeIDs.Spelunker:
-						case EnchantmentTypeIDs.DangerSense:
-						case EnchantmentTypeIDs.Hunter:
-						case EnchantmentTypeIDs.War:
-						case EnchantmentTypeIDs.Peace:
+						case EnchantmentTypeID.AllForOne:
+						case EnchantmentTypeID.OneForAll:
+						case EnchantmentTypeID.Spelunker:
+						case EnchantmentTypeID.DangerSense:
+						case EnchantmentTypeID.Hunter:
+						case EnchantmentTypeID.War:
+						case EnchantmentTypeID.Peace:
 							skipIfLessOrEqualToSize = 4;
 							break;
-						case EnchantmentTypeIDs.LifeSteal:
-						case EnchantmentTypeIDs.ArmorPenetration:
-						case EnchantmentTypeIDs.AmmoCost:
-						case EnchantmentTypeIDs.ManaCost:
-						case EnchantmentTypeIDs.Size:
-						case EnchantmentTypeIDs.Critical:
-						case EnchantmentTypeIDs.Speed:
+						case EnchantmentTypeID.LifeSteal:
+						case EnchantmentTypeID.ArmorPenetration:
+						case EnchantmentTypeID.AmmoCost:
+						case EnchantmentTypeID.ManaCost:
+						case EnchantmentTypeID.Size:
+						case EnchantmentTypeID.Critical:
+						case EnchantmentTypeID.Speed:
 							skipIfLessOrEqualToSize = 0;
 							break;
 						default:
 							skipIfLessOrEqualToSize = -1;
 							break;
 					}
-					if(enchantmentSize > skipIfLessOrEqualToSize)
+					if(EnchantmentSize > skipIfLessOrEqualToSize)
                     {
-						for (int j = enchantmentSize; j >= skipIfLessOrEqualToSize + 1; j--)
+						for (int j = EnchantmentSize; j >= skipIfLessOrEqualToSize + 1; j--)
 						{
 							recipe = CreateRecipe();
-							for (int k = enchantmentSize; k >= j; k--)
+							for (int k = EnchantmentSize; k >= j; k--)
 							{
 								recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[k], 10);
 							}
 							if (j > 0)
 							{
-								recipe.AddIngredient(Mod, enchantmentTypeName + "Enchantment" + rarity[j - 1], 1);
+								recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + rarity[j - 1], 1);
 							}
-							if (enchantmentSize < 3)
+							if (EnchantmentSize < 3)
 							{
-								recipe.AddIngredient(Mod, Containment.sizes[enchantmentSize] + "Containment", 1);
+								recipe.AddIngredient(Mod, Containment.sizes[EnchantmentSize] + "Containment", 1);
 							}
 							else if (j < 3)
 							{
 								recipe.AddIngredient(Mod, Containment.sizes[2] + "Containment", 1);
 							}
-							if (enchantmentSize == 4)
+							if (EnchantmentSize == 4)
 							{
 								recipe.AddIngredient(ModContent.ItemType<SuperiorStabilizer>(), 4);
 							}
@@ -306,11 +420,7 @@ namespace WeaponEnchantments.Items
 						}
 					}
 				}
-				ID[enchantmentSize] = this.Type;
-				if(enchantmentSize == rarity.Length - 1)
-                {
-					IDs.Add(ID);
-                }
+				IDs[EnchantmentType][EnchantmentSize] = Type;
                 if (cheating)
                 {
 					Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
@@ -319,18 +429,18 @@ namespace WeaponEnchantments.Items
 		}
 		public int GetLevelCost()
         {
-            switch (enchantmentTypeName)
+            switch (EnchantmentTypeName)
             {
 				case "AllForOne":
 				case "OneForAll":
 					return 15;
 				default:
-					return utility ? 1 + enchantmentSize : (1 + enchantmentSize) * 2;
+					return Utility ? 1 + EnchantmentSize : (1 + EnchantmentSize) * 2;
 			}
         }
         public class OmniEnchantment : Enchantments
 		{
-			OmniEnchantment() { enchantmentSize = -1; }
+			OmniEnchantment() { EnchantmentSize = -1; }
 			
 			public override void UpdateInventory(Player player)
 			{
@@ -459,226 +569,226 @@ namespace WeaponEnchantments.Items
 
 		public class DamageEnchantmentBasic : Enchantments
 		{
-			DamageEnchantmentBasic() { enchantmentSize = 0; }
+			DamageEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class DamageEnchantmentCommon : Enchantments
 		{
-			DamageEnchantmentCommon() { enchantmentSize = 1; }
+			DamageEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class DamageEnchantmentRare : Enchantments
 		{
-			DamageEnchantmentRare() { enchantmentSize = 2; }
+			DamageEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class DamageEnchantmentSuperRare : Enchantments
 		{
-			DamageEnchantmentSuperRare() { enchantmentSize = 3; }
+			DamageEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class DamageEnchantmentUltraRare : Enchantments
 		{
-			DamageEnchantmentUltraRare() { enchantmentSize = 4; }
+			DamageEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class CriticalEnchantmentBasic : Enchantments
 		{
-			CriticalEnchantmentBasic() { enchantmentSize = 0; }
+			CriticalEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class CriticalEnchantmentCommon : Enchantments
 		{
-			CriticalEnchantmentCommon() { enchantmentSize = 1; }
+			CriticalEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class CriticalEnchantmentRare : Enchantments
 		{
-			CriticalEnchantmentRare() { enchantmentSize = 2; }
+			CriticalEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class CriticalEnchantmentSuperRare : Enchantments
 		{
-			CriticalEnchantmentSuperRare() { enchantmentSize = 3; }
+			CriticalEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class CriticalEnchantmentUltraRare : Enchantments
 		{
-			CriticalEnchantmentUltraRare() { enchantmentSize = 4; }
+			CriticalEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SizeEnchantmentBasic : Enchantments
 		{
-			SizeEnchantmentBasic() { enchantmentSize = 0; }
+			SizeEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class SizeEnchantmentCommon : Enchantments
 		{
-			SizeEnchantmentCommon() { enchantmentSize = 1; }
+			SizeEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class SizeEnchantmentRare : Enchantments
 		{
-			SizeEnchantmentRare() { enchantmentSize = 2; }
+			SizeEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class SizeEnchantmentSuperRare : Enchantments
 		{
-			SizeEnchantmentSuperRare() { enchantmentSize = 3; }
+			SizeEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class SizeEnchantmentUltraRare : Enchantments
 		{
-			SizeEnchantmentUltraRare() { enchantmentSize = 4; }
+			SizeEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SpeedEnchantmentBasic : Enchantments
 		{
-			SpeedEnchantmentBasic() { enchantmentSize = 0; }
+			SpeedEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class SpeedEnchantmentCommon : Enchantments
 		{
-			SpeedEnchantmentCommon() { enchantmentSize = 1; }
+			SpeedEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class SpeedEnchantmentRare : Enchantments
 		{
-			SpeedEnchantmentRare() { enchantmentSize = 2; }
+			SpeedEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class SpeedEnchantmentSuperRare : Enchantments
 		{
-			SpeedEnchantmentSuperRare() { enchantmentSize = 3; }
+			SpeedEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class SpeedEnchantmentUltraRare : Enchantments
 		{
-			SpeedEnchantmentUltraRare() { enchantmentSize = 4; }
+			SpeedEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class DefenceEnchantmentBasic : Enchantments
 		{
-			DefenceEnchantmentBasic() { enchantmentSize = 0; }
+			DefenceEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class DefenceEnchantmentCommon : Enchantments
 		{
-			DefenceEnchantmentCommon() { enchantmentSize = 1; }
+			DefenceEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class DefenceEnchantmentRare : Enchantments
 		{
-			DefenceEnchantmentRare() { enchantmentSize = 2; }
+			DefenceEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class DefenceEnchantmentSuperRare : Enchantments
 		{
-			DefenceEnchantmentSuperRare() { enchantmentSize = 3; }
+			DefenceEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class DefenceEnchantmentUltraRare : Enchantments
 		{
-			DefenceEnchantmentUltraRare() { enchantmentSize = 4; }
+			DefenceEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class ManaCostEnchantmentBasic : Enchantments
 		{
-			ManaCostEnchantmentBasic() { enchantmentSize = 0; }
+			ManaCostEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class ManaCostEnchantmentCommon : Enchantments
 		{
-			ManaCostEnchantmentCommon() { enchantmentSize = 1; }
+			ManaCostEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class ManaCostEnchantmentRare : Enchantments
 		{
-			ManaCostEnchantmentRare() { enchantmentSize = 2; }
+			ManaCostEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class ManaCostEnchantmentSuperRare : Enchantments
 		{
-			ManaCostEnchantmentSuperRare() { enchantmentSize = 3; }
+			ManaCostEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class ManaCostEnchantmentUltraRare : Enchantments
 		{
-			ManaCostEnchantmentUltraRare() { enchantmentSize = 4; }
+			ManaCostEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class AmmoCostEnchantmentBasic : Enchantments
 		{
-			AmmoCostEnchantmentBasic() { enchantmentSize = 0; }
+			AmmoCostEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class AmmoCostEnchantmentCommon : Enchantments
 		{
-			AmmoCostEnchantmentCommon() { enchantmentSize = 1; }
+			AmmoCostEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class AmmoCostEnchantmentRare : Enchantments
 		{
-			AmmoCostEnchantmentRare() { enchantmentSize = 2; }
+			AmmoCostEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class AmmoCostEnchantmentSuperRare : Enchantments
 		{
-			AmmoCostEnchantmentSuperRare() { enchantmentSize = 3; }
+			AmmoCostEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class AmmoCostEnchantmentUltraRare : Enchantments
 		{
-			AmmoCostEnchantmentUltraRare() { enchantmentSize = 4; }
+			AmmoCostEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class LifeStealEnchantmentBasic : Enchantments
 		{
-			LifeStealEnchantmentBasic() { enchantmentSize = 0; }
+			LifeStealEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class LifeStealEnchantmentCommon : Enchantments
 		{
-			LifeStealEnchantmentCommon() { enchantmentSize = 1; }
+			LifeStealEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class LifeStealEnchantmentRare : Enchantments
 		{
-			LifeStealEnchantmentRare() { enchantmentSize = 2; }
+			LifeStealEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class LifeStealEnchantmentSuperRare : Enchantments
 		{
-			LifeStealEnchantmentSuperRare() { enchantmentSize = 3; }
+			LifeStealEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class LifeStealEnchantmentUltraRare : Enchantments
 		{
-			LifeStealEnchantmentUltraRare() { enchantmentSize = 4; }
+			LifeStealEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class ArmorPenetrationEnchantmentBasic : Enchantments
 		{
-			ArmorPenetrationEnchantmentBasic() { enchantmentSize = 0; }
+			ArmorPenetrationEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class ArmorPenetrationEnchantmentCommon : Enchantments
 		{
-			ArmorPenetrationEnchantmentCommon() { enchantmentSize = 1; }
+			ArmorPenetrationEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class ArmorPenetrationEnchantmentRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentRare() { enchantmentSize = 2; }
+			ArmorPenetrationEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class ArmorPenetrationEnchantmentSuperRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentSuperRare() { enchantmentSize = 3; }
+			ArmorPenetrationEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class ArmorPenetrationEnchantmentUltraRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentUltraRare() { enchantmentSize = 4; }
+			ArmorPenetrationEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class AllForOneEnchantmentUltraRare : Enchantments
 		{
-			AllForOneEnchantmentUltraRare() { enchantmentSize = 4; }
+			AllForOneEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class OneForAllEnchantmentUltraRare : Enchantments
 		{
-			OneForAllEnchantmentUltraRare() { enchantmentSize = 4; }
+			OneForAllEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SpelunkerEnchantmentUltraRare : Enchantments
 		{
-			SpelunkerEnchantmentUltraRare() { enchantmentSize = 4; }
+			SpelunkerEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class DangerSenseEnchantmentUltraRare : Enchantments
 		{
-			DangerSenseEnchantmentUltraRare() { enchantmentSize = 4; }
+			DangerSenseEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class HunterEnchantmentUltraRare : Enchantments
 		{
-			HunterEnchantmentUltraRare() { enchantmentSize = 4; }
+			HunterEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class WarEnchantmentUltraRare : Enchantments
 		{
-			WarEnchantmentUltraRare() { enchantmentSize = 4; }
+			WarEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class PeaceEnchantmentUltraRare : Enchantments
 		{
-			PeaceEnchantmentUltraRare() { enchantmentSize = 4; }
+			PeaceEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 	}
 }

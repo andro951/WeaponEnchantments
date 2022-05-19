@@ -71,21 +71,21 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                         {
-                            switch ((EnchantmentTypeIDs)((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType)
+                            switch ((EnchantmentTypeID)((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
                             {
-                                case EnchantmentTypeIDs.Size:
-                                    scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
+                                case EnchantmentTypeID.Size:
+                                    scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                                     break;
-                                case EnchantmentTypeIDs.AllForOne:
+                                case EnchantmentTypeID.AllForOne:
                                     if(sourceItem.DamageType == DamageClass.Summon)
                                     {
                                         allForOne = true;
                                     }
                                     break;
-                                case EnchantmentTypeIDs.Damage:
+                                case EnchantmentTypeID.Damage:
                                     if (sourceItem.DamageType == DamageClass.Summon)
                                     {
-                                        minionDamageMultiplier += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength;
+                                        minionDamageMultiplier += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
                                     }
                                     break;
                             }

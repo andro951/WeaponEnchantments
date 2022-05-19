@@ -43,7 +43,7 @@ namespace WeaponEnchantments
             {
                 if (utility)
                 {
-                    if (((Enchantments)item.ModItem).utility)
+                    if (((Enchantments)item.ModItem).Utility)
                     {
 						return true;
                     }
