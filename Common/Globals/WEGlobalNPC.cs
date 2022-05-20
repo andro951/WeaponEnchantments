@@ -460,17 +460,24 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            if(item.GetGlobalItem<EnchantedItem>() != null)
+            HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
+        }
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().minionDamageMultiplier);
+            HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+        }
+        private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null)
+        {
+            if (item?.GetGlobalItem<EnchantedItem>() != null)
             {
                 sourceItem = item;
-            }
-            if(sourceItem != null)
-            {
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 int total = 0;
                 if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
                 {
-                    total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
+                    total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                 }
                 if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
                 {
@@ -478,7 +485,7 @@ namespace WeaponEnchantments.Common.Globals
                     Vector2 speed = new Vector2(0, 0);
                     float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
                     int heal = (int)healTotal;
-                    if (wePlayer.Player.statLife < wePlayer.Player.statLifeMax2)
+                    if (player.statLife < player.statLifeMax2)
                     {
                         if (heal > 0)
                         {
@@ -491,11 +498,16 @@ namespace WeaponEnchantments.Common.Globals
                         wePlayer.lifeStealRollover = 0f;
                     }
                 }
-            } 
-        }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
+                if(sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                {
+                    ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+                }
+                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                {
+                    projectile.Kill();
+                }
+            }
+            /*if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
             {
                 sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
             }
@@ -537,7 +549,7 @@ namespace WeaponEnchantments.Common.Globals
                     //ActivateOneForAllProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection, sourceItem);
                     projectile.Kill();
                 }
-            }
+            }*/
         }
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
@@ -580,7 +592,46 @@ namespace WeaponEnchantments.Common.Globals
             }
             return null;
         }
-        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
+        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
+        {
+            int total = 0;
+            foreach (NPC target in Main.npc)
+            {
+                if (target.whoAmI != npc.whoAmI)
+                {
+                    if (!target.friendly && !target.townNPC)
+                    {
+                        Vector2 vector2 = target.Center - npc.Center;
+                        if (vector2.Length() <= 192f * item.scale)
+                        {
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
+                            target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
+                            total += (int)target.StrikeNPC(damage, knockback, direction);
+                            /*if(projectile != null)
+                            {
+                                target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+                            }
+                            else
+                            {
+                                target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByItem(target, player, item, ref damage, ref knockback, ref crit);
+                            }*/
+                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
+                        }
+                    }
+                }
+            }
+            return total;
+        }
+        private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
+        {
+            if (!npc.friendly && !npc.townNPC)
+            {
+                float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
+                npc.StrikeNPC(godSlayerDamage, knockback, direction);
+            }
+        }
+        private int ActivateOneForAllOld(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
         {
             int total = 0;
             foreach (NPC target in Main.npc)

@@ -327,7 +327,7 @@ namespace WeaponEnchantments
                 if (Player.HeldItem.type != ItemID.None)
                 {
                     hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
-                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter || godSlayer != hiGlobal.godSlayer)
+                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
                         check = true;
                     enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                 }

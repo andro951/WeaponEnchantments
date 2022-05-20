@@ -100,26 +100,31 @@ namespace WeaponEnchantments.UI
                                     {
 										continueCheck = false;
 									}
-                                    switch ((EnchantmentTypeID)((Enchantments)item.ModItem).EnchantmentType)
+                                    if (continueCheck)
                                     {
-										case EnchantmentTypeID.AllForOne:
-										case EnchantmentTypeID.OneForAll:
-											for(int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
-                                            {
-                                                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
-                                                {
-													continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
-													if (continueCheck)
-														continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
-													if(continueCheck)
-														continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).Unique && ((Enchantments)item.ModItem).Unique ? false : continueCheck;
+										switch ((EnchantmentTypeID)((Enchantments)item.ModItem).EnchantmentType)
+										{
+											case EnchantmentTypeID.AllForOne:
+											case EnchantmentTypeID.OneForAll:
+												for (int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
+												{
+													if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
+													{
+														continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
+														if (continueCheck)
+															continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
+														if (continueCheck)
+															continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).Unique && ((Enchantments)item.ModItem).Unique ? false : continueCheck;
+														if (continueCheck)
+															continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).DamageTypeSpecific == ((Enchantments)item.ModItem).DamageTypeSpecific ? false : continueCheck;
+													}
 												}
-                                            }
-											continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;
-											break;
-										default:
-											continueCheck = true;
-											break;
+												continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;
+												break;
+											default:
+												continueCheck = true;
+												break;
+										}
 									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = ((Enchantments)Item.ModItem).GetLevelCost(); }

@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Items
 {
 	public class Enchantments : ModItem
 	{
-		public static readonly bool cheating = true;
+		public static bool cheating = false;
 		public enum EnchantmentTypeID : int
         {
 			Damage,
@@ -158,7 +158,6 @@ namespace WeaponEnchantments.Items
 						}
 						break;
 					case EnchantmentTypeID.Defence:
-					case EnchantmentTypeID.ArmorPenetration:
 						switch (EnchantmentSize)
 						{
 							case 0:
@@ -175,6 +174,26 @@ namespace WeaponEnchantments.Items
 								break;
 							case 4:
 								EnchantmentStrength = 10f;
+								break;
+						}
+						break;
+					case EnchantmentTypeID.ArmorPenetration:
+						switch (EnchantmentSize)
+						{
+							case 0:
+								EnchantmentStrength = 2f;
+								break;
+							case 1:
+								EnchantmentStrength = 4f;
+								break;
+							case 2:
+								EnchantmentStrength = 8f;
+								break;
+							case 3:
+								EnchantmentStrength = 10f;
+								break;
+							case 4:
+								EnchantmentStrength = 20f;
 								break;
 						}
 						break;
@@ -302,29 +321,42 @@ namespace WeaponEnchantments.Items
 						}
 						break;
                 }//EnchantmentStrength
-				if(DamageTypeSpecific > 0 || Unique)
+				switch ((EnchantmentTypeID)EnchantmentType)
+				{
+					case EnchantmentTypeID.GodSlayer:
+						DamageTypeSpecific = (int)DamageTypeSpecificID.Melee;
+						break;
+					case EnchantmentTypeID.Ranged:
+						DamageTypeSpecific = (int)DamageTypeSpecificID.Ranged;
+						break;
+					case EnchantmentTypeID.Magic:
+						DamageTypeSpecific = (int)DamageTypeSpecificID.Magic;
+						break;
+					case EnchantmentTypeID.Summon:
+						DamageTypeSpecific = (int)DamageTypeSpecificID.Summon;
+						break;
+					default:
+						DamageTypeSpecific = 0;
+						break;
+				}//DamageTypeSpecific
+				if (DamageTypeSpecific > 0 || Unique)
                 {
 					string limmitationToolTip;
 					switch ((EnchantmentTypeID)EnchantmentType)
 					{
 						case EnchantmentTypeID.GodSlayer:
-							DamageTypeSpecific = (int)DamageTypeSpecificID.Melee;
 							limmitationToolTip = "\n   *Melee Only*";
 							break;
 						case EnchantmentTypeID.Ranged:
-							DamageTypeSpecific = (int)DamageTypeSpecificID.Ranged;
 							limmitationToolTip = "\n   *Ranged Only*";
 							break;
 						case EnchantmentTypeID.Magic:
-							DamageTypeSpecific = (int)DamageTypeSpecificID.Magic;
 							limmitationToolTip = "\n   *Magic Only*";
 							break;
 						case EnchantmentTypeID.Summon:
-							DamageTypeSpecific = (int)DamageTypeSpecificID.Summon;
 							limmitationToolTip = "\n   *Summon Only*";
 							break;
 						default:
-							DamageTypeSpecific = 0;
 							limmitationToolTip = "\n   *" + Item.ModItem.DisplayName + " Only*";
 							break;
 					}//DamageTypeSpecific
@@ -543,7 +575,8 @@ namespace WeaponEnchantments.Items
 				ItemID.TrueNightsEdge, 
 				ItemID.TrueExcalibur, 
 				ItemID.BrokenHeroSword, 
-				ItemID.MythrilAnvil
+				ItemID.MythrilAnvil,
+				ItemID.SuspiciousLookingEye
 			};
 			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
 			public override void AddRecipes()
