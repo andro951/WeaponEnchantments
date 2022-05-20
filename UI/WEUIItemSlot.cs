@@ -68,67 +68,75 @@ namespace WeaponEnchantments.UI
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{
 									bool continueCheck = true;
-									int damageType = 0;
-									if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
+									int damageClassSpecific = 0;
+									Enchantments newEnchantment = ((Enchantments)item.ModItem);
+									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
 										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
 										{
 											case DamageTypeSpecificID.Melee:
 											case DamageTypeSpecificID.SummonMeleeSpeed:
-												damageType = (int)DamageTypeSpecificID.Melee;
+												damageClassSpecific = (int)DamageTypeSpecificID.Melee;
 												break;
 											case DamageTypeSpecificID.Ranged:
-												damageType = (int)DamageTypeSpecificID.Ranged;
+												damageClassSpecific = (int)DamageTypeSpecificID.Ranged;
 												break;
 											case DamageTypeSpecificID.Magic:
-												damageType = (int)DamageTypeSpecificID.Magic;
+												damageClassSpecific = (int)DamageTypeSpecificID.Magic;
 												break;
 											case DamageTypeSpecificID.Summon:
 											case DamageTypeSpecificID.MagicSummonHybrid:
-												damageType = (int)DamageTypeSpecificID.Summon;
+												damageClassSpecific = (int)DamageTypeSpecificID.Summon;
 												break;
 											case DamageTypeSpecificID.Throwing:
-												damageType = (int)DamageTypeSpecificID.Throwing;
+												damageClassSpecific = (int)DamageTypeSpecificID.Throwing;
 												break;
 										}
 									}
-									if(((Enchantments)item.ModItem).DamageTypeSpecific != 0 && damageType != ((Enchantments)item.ModItem).DamageTypeSpecific)
-                                    {
+									if(newEnchantment.damageClassSpecific != 0 && damageClassSpecific != newEnchantment.damageClassSpecific)
 										continueCheck = false;
-                                    }
-                                    if (((Enchantments)item.ModItem).Unique && ((Enchantments)item.ModItem).EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name)
-                                    {
+                                    if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
 										continueCheck = false;
-									}
                                     if (continueCheck)
                                     {
-										switch ((EnchantmentTypeID)((Enchantments)item.ModItem).EnchantmentType)
+										for (int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
 										{
+											Enchantments appliedEnchantment = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem);
+											if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i <= _slotTier)
+											{
+												switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
+												{
+													case EnchantmentTypeID.AllForOne:
+													case EnchantmentTypeID.OneForAll:
+														continueCheck = (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
+														continueCheck = continueCheck && (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
+														continueCheck = continueCheck && appliedEnchantment.Unique && newEnchantment.Unique ? false : continueCheck;
+														break;
+													case EnchantmentTypeID.GodSlayer:
+													case EnchantmentTypeID.Ranged:
+													case EnchantmentTypeID.Magic:
+													case EnchantmentTypeID.Summon:
+														if (continueCheck && appliedEnchantment.damageClassSpecific > 0)
+															continueCheck = false;
+														break;
+												}
+											}
+										}
+                                        switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
+                                        {
 											case EnchantmentTypeID.AllForOne:
 											case EnchantmentTypeID.OneForAll:
-												for (int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
-												{
-													if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i != _slotTier)
-													{
-														continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
-														if (continueCheck)
-															continueCheck = (EnchantmentTypeID)((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
-														if (continueCheck)
-															continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).Unique && ((Enchantments)item.ModItem).Unique ? false : continueCheck;
-														if (continueCheck)
-															continueCheck = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).DamageTypeSpecific == ((Enchantments)item.ModItem).DamageTypeSpecific ? false : continueCheck;
-													}
-												}
-												continueCheck = continueCheck ? WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) : false;
-												break;
-											default:
-												continueCheck = true;
+											case EnchantmentTypeID.GodSlayer:
+											case EnchantmentTypeID.Ranged:
+											case EnchantmentTypeID.Magic:
+											case EnchantmentTypeID.Summon:
+												continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
 												break;
 										}
 									}
 									int currentEnchantmentLevelCost = 0;
-                                    if (!Item.IsAir) { currentEnchantmentLevelCost = ((Enchantments)Item.ModItem).GetLevelCost(); }
-									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)item.ModItem).GetLevelCost() - currentEnchantmentLevelCost : false;
+                                    if (!Item.IsAir) { currentEnchantmentLevelCost = newEnchantment.GetLevelCost(); }
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
                                 {

@@ -52,6 +52,7 @@ namespace WeaponEnchantments.Items
         }
 		public enum DamageTypeSpecificID
 		{
+			Generic = 1,
 			Melee = 2,
 			Ranged = 3,
 			Magic = 4,
@@ -69,7 +70,7 @@ namespace WeaponEnchantments.Items
 		public float EnchantmentStrength { private set; get; }
 		public bool Utility { private set; get; }
 		public bool Unique { private set; get; }
-		public int DamageTypeSpecific { private set; get; }
+		public int damageClassSpecific { private set; get; }
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
@@ -324,22 +325,22 @@ namespace WeaponEnchantments.Items
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.GodSlayer:
-						DamageTypeSpecific = (int)DamageTypeSpecificID.Melee;
+						damageClassSpecific = (int)DamageTypeSpecificID.Melee;
 						break;
 					case EnchantmentTypeID.Ranged:
-						DamageTypeSpecific = (int)DamageTypeSpecificID.Ranged;
+						damageClassSpecific = (int)DamageTypeSpecificID.Ranged;
 						break;
 					case EnchantmentTypeID.Magic:
-						DamageTypeSpecific = (int)DamageTypeSpecificID.Magic;
+						damageClassSpecific = (int)DamageTypeSpecificID.Magic;
 						break;
 					case EnchantmentTypeID.Summon:
-						DamageTypeSpecific = (int)DamageTypeSpecificID.Summon;
+						damageClassSpecific = (int)DamageTypeSpecificID.Summon;
 						break;
 					default:
-						DamageTypeSpecific = 0;
+						damageClassSpecific = 0;
 						break;
 				}//DamageTypeSpecific
-				if (DamageTypeSpecific > 0 || Unique)
+				if (damageClassSpecific > 0 || Unique)
                 {
 					string limmitationToolTip;
 					switch ((EnchantmentTypeID)EnchantmentType)
