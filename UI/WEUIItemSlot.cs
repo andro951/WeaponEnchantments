@@ -266,7 +266,7 @@ namespace WeaponEnchantments.UI
 			float inventoryScale = Main.inventoryScale;
 			Color color = Color.White;
 			bool flag = false;
-			int num = 0;
+			//int num = 0;
 			Item[] inv = new Item[] { item };
 			int gamepadPointForSlot = GetGamepadPointForSlot(inv, ItemSlot.Context.BankItem, slot);
 			if (PlayerInput.UsingGamepadUI)

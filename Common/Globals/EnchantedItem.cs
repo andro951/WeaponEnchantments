@@ -18,9 +18,11 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         
         public int experience;//current experience of a weapon/armor/accessory item
-        //public float lastSpeedBonus;
+        public float totalSpeedBonus;
         public int lastUseTimeBonusInt;
         public int lastUseAnimationBonusInt;
+        public int lastShootSpeedBonusInt;
+        public int lastReuseDelayBonus;
         public float lastSizeBonus;
         public int lastValueBonus;
         public int lastDefenceBonus;
@@ -34,6 +36,7 @@ namespace WeaponEnchantments.Common.Globals
         public float lastLifeStealBonus;
         public int lastArmorPenetrationBonus;
         public bool allForOne;
+        public float allForOneBonus = 1f;
         public bool oneForAll;
         public float oneForAllBonus = 0f;
         public bool spelunker = false;
@@ -210,8 +213,10 @@ namespace WeaponEnchantments.Common.Globals
             float manaCostBonus = 0f;
             float lifeStealBonus = 0f;
             float armorPenetrationBonus = 0f;
-            float allForOneBonus = 1f;
+            float allForOneSpeedMultiplier = 1f;
+            float oneForAllSpeedMultiplier = 1f;
             float enemySpawnBonusLocal = 1f;
+            allForOneBonus = 1f;
             oneForAllBonus = 0f;
             godSlayerBonus = 0f;
             allForOne = false;
@@ -246,10 +251,12 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                         case EnchantmentTypeID.AllForOne:
                             allForOneBonus = str;
+                            allForOneSpeedMultiplier = str * 0.2f;
                             allForOne = true;
                             break;
                         case EnchantmentTypeID.OneForAll:
                             oneForAllBonus = str;
+                            oneForAllSpeedMultiplier = 1f - 0.3f * str;
                             oneForAll = true;
                             break;
                         case EnchantmentTypeID.Spelunker:
@@ -279,22 +286,38 @@ namespace WeaponEnchantments.Common.Globals
             }
             else
             {
-                damage += modifier * damage.Multiplicative;
+                damage += modifier;
             }
             if (allForOne) { damage.Base = (damage.Base + ContentSamples.ItemsByType[item.type].damage) * allForOneBonus; }
             if (player.HeldItem == item)
             {
                 player.statDefense += (int)Math.Round((float)defenceBonus / 2);
             }
-            float oneForAllSpeedMultiplier = 1f - 0.3f * oneForAllBonus;
-            item.useTime += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) / oneForAllSpeedMultiplier - 1f)) - lastUseTimeBonusInt;
-            lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * (1f / (1f + speedModifier) / oneForAllSpeedMultiplier - 1f));
-            item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllSpeedMultiplier - 1f)) - lastUseAnimationBonusInt;
-            lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * (1f / (1f + speedModifier) / oneForAllSpeedMultiplier - 1f));
+            if (!item.channel)
+            {
+                totalSpeedBonus = (allForOneSpeedMultiplier / ((1f + speedModifier) * oneForAllSpeedMultiplier) - 1f);
+                item.useTime += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * totalSpeedBonus) - lastUseTimeBonusInt;
+                lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * totalSpeedBonus);
+                item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus) - lastUseAnimationBonusInt;
+                lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus);
+                /*if(!item.noMelee && item.DamageType == DamageClass.Melee)
+                {
+                    item.shootSpeed += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus) - lastShootSpeedBonusInt;
+                    lastShootSpeedBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus);
+                }
+                else
+                {
+                    item.shootSpeed -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus) - lastShootSpeedBonusInt;
+                    lastShootSpeedBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus);
+                }*/
+            }
+            //item.reuseDelay += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].reuseDelay * totalSpeedBonus) - lastReuseDelayBonus;
+            //lastReuseDelayBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].reuseDelay * totalSpeedBonus);
             item.scale += wePlayer.itemScale - lastGenericScaleBonus;
             lastGenericScaleBonus = wePlayer.itemScale;
-            item.mana -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost)) - lastManaCostBonus;
-            lastManaCostBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost));
+            int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneBonus * 0.4f)));
+            item.mana -= mana - lastManaCostBonus;
+            lastManaCostBonus = mana;
             lifeSteal = lifeStealBonus;
             item.ArmorPenetration += (int)armorPenetrationBonus - lastArmorPenetrationBonus;
             lastArmorPenetrationBonus = (int)armorPenetrationBonus;
@@ -347,6 +370,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
                 }
+                tooltips.Add(new TooltipLine(Mod, "experience", "Exeperience: " + experience.ToString()) { OverrideColor = Color.White });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -402,7 +426,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeID.OneForAll:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (((Enchantments)enchantments[i].ModItem).EnchantmentStrength * 100).ToString() + " % damage to nearby enemies, -" + (0.3f * ((Enchantments)enchantments[i].ModItem).EnchantmentStrength).ToString() + "% base attack speed")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (((Enchantments)enchantments[i].ModItem).EnchantmentStrength * 100).ToString() + " % damage to nearby enemies, -" + (30f * ((Enchantments)enchantments[i].ModItem).EnchantmentStrength).ToString() + "% base attack speed")
                                 {
                                     OverrideColor = Enchantments.rarityColors[((Enchantments)enchantments[i].ModItem).EnchantmentSize]
                                 });
@@ -563,7 +587,8 @@ namespace WeaponEnchantments.Common.Globals
                     xpInt = (int)Math.Round(xp);
                     if (!item.consumable)
                     {
-                        Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                        ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                        //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
                         GainXP(item, xpInt);
                     }
                     foreach (Item armor in wePlayer.Player.armor)
@@ -594,15 +619,17 @@ namespace WeaponEnchantments.Common.Globals
             if (levelBeforeBooster < maxLevel)
             {
                 UpdateLevel();
-                if (levelBeforeBooster > currentLevel && item.damage > 0)
+                if (levelBeforeBooster > currentLevel && wePlayer.usingEnchantingTable)
                 {
                     if(levelBeforeBooster == 40)
                     {
                         SoundEngine.PlaySound(SoundID.Unlock);
+                        ModContent.GetInstance<WEMod>().Logger.Info("Congradulations!  " + wePlayer.Player.name + "'s " + item.Name + " reached the maximum level, " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                         Main.NewText("Congradulations!  " + wePlayer.Player.name + "'s " + item.Name + " reached the maximum level, " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                     }
                     else
                     {
+                        ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                         Main.NewText(wePlayer.Player.name + "'s " + item.Name + " reached level " + levelBeforeBooster.ToString() + " (" + WEModSystem.levelXps[levelBeforeBooster - 1] + " xp).");
                     }
                 }
@@ -632,7 +659,7 @@ namespace WeaponEnchantments.Common.Globals
             if (allForOne)
             {
                 wePlayer.allForOneCooldown = true;
-                wePlayer.allForOneTimer = item.useTime * 8;
+                wePlayer.allForOneTimer = (int)((float)item.useTime * allForOneBonus * 0.4f);
             }
             return null;
         }

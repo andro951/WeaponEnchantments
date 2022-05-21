@@ -370,7 +370,7 @@ namespace WeaponEnchantments
                 if(!heldItem.IsAir)
                     enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                 heldItem = Player.HeldItem;
-            }
+            }//Check HeldItem
             if (!check)
             {
                 foreach (Item armor in Player.armor)
@@ -395,7 +395,7 @@ namespace WeaponEnchantments
                     }
                     i++;
                 }
-            }
+            }//Check Armor
             if (check)
             {
                 if (Player.HeldItem.type != ItemID.None)
@@ -453,10 +453,10 @@ namespace WeaponEnchantments
                                         hunter = true;
                                         break;
                                     case EnchantmentTypeID.War:
-                                        enemySpawnBonus *= str;
+                                        enemySpawnBonus *= 1 + str;
                                         break;
                                     case EnchantmentTypeID.Peace:
-                                        enemySpawnBonus /= str;
+                                        enemySpawnBonus /= 1 + str;
                                         break;
                                 }
                             }
@@ -472,7 +472,7 @@ namespace WeaponEnchantments
                 lifeSteal += lifeStealBonus / 4;
                 float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 0f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                 this.enemySpawnBonus = enemySpawnBonus + heldItemEnemySpawnBonus;
-            }
+            }//Update bonuses
             if (spelunker) { Player.AddBuff(9, 1); }
             if(dangerSense) { Player.AddBuff(111, 1); }
             if (hunter) { Player.AddBuff(17, 1); }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 
@@ -27,7 +28,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsWeaponItem(Item item)
 		{
-			return item.damage > 0 && item.ammo == 0;
+			return item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun;
 		}
 		internal static bool IsArmorItem(Item item)
 		{

@@ -676,7 +676,8 @@ namespace WeaponEnchantments.UI
             if (!essence.IsAir && !item.IsAir)
             {
                 essence.stack--;
-                Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                 item.GetGlobalItem<EnchantedItem>().GainXP(item, ConfirmationUI.xpTiers[tier]);
                 SoundEngine.PlaySound(SoundID.MenuTick);
             }

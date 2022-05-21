@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Items.Enchantments;
@@ -10,7 +11,9 @@ namespace WeaponEnchantments.Common.Globals
     internal class ProjectileEnchantedItem : GlobalProjectile
     {
         public Item sourceItem;
+        public Player playerSource;
         private bool sourceSet;
+        private bool playerSourceSet;
         public int lastInventoryLocation = -1;
         private bool updated = false;
         public float minionDamageMultiplier = 1f;
@@ -19,19 +22,24 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!sourceSet)
             {
-                if (source is EntitySource_ItemUse)
+                if (source is EntitySource_ItemUse uSource)
                 {
-                    if(((EntitySource_ItemUse)source).Item != null)
+                    if(uSource.Item != null)
                     {
-                        sourceItem = ((EntitySource_ItemUse)source).Item;
+                        sourceItem = uSource.Item;
+                        if(sourceItem.DamageType == DamageClass.Melee)
+                        {
+                            float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
+                            projectile.velocity /= (1f + speedBonus);
+                        }
                         sourceSet = true;
                     }
                 }
-                else if(source is EntitySource_ItemUse_WithAmmo)
+                else if(source is EntitySource_ItemUse_WithAmmo wSource)
                 {
-                    if (((EntitySource_ItemUse_WithAmmo)source).Item != null)
+                    if (wSource.Item != null)
                     {
-                        sourceItem = ((EntitySource_ItemUse_WithAmmo)source).Item;
+                        sourceItem = wSource.Item;
                         sourceSet = true;
                     }
                 }
@@ -43,22 +51,83 @@ namespace WeaponEnchantments.Common.Globals
                         sourceSet = true;
                     }
                 }
-                /*if (sourceSet)
+                /*else if(source is EntitySource_Misc { Context: "StormTigerTierSwap"})
                 {
-                    float scale = 0f;
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    switch (projectile.type)//833, 834, 835
                     {
-                        if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir && ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentType == EnchantmentTypeIDs.Size)
-                        {
-                            scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).enchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
-                        }
-                    }
-                    scale += sourceItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
-                    projectile.scale += scale;//Update item size
+                        case ProjectileID.StormTigerTier1:
+                        case ProjectileID.StormTigerTier2:
+                        case ProjectileID.StormTigerTier3:
+                        case ProjectileID.WhiteTigerPounce:
+                        case ProjectileID.StormTigerGem:
+                        case ProjectileID.StormTigerAttack:
+                            foreach (Projectile proj in Main.projectile)
+                            {
+                                switch (proj.type)//831
+                                {
+                                    case ProjectileID.StormTigerGem:
+                                    case ProjectileID.WhiteTigerPounce:
+                                    case ProjectileID.StormTigerAttack:
+                                    case ProjectileID.StormTigerTier1:
+                                    case ProjectileID.StormTigerTier2:
+                                    case ProjectileID.StormTigerTier3:
+                                        if (proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceSet)
+                                        {
+                                            sourceItem = proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                                            sourceSet = true;
+                                        }
+                                        break;
+                                }
+                                if (sourceSet)
+                                    break;
+                            }
+                        break;
+                    }//Find StormTiger sourceItem
+                }
+                else if (source is EntitySource_Misc { Context: "AbigailTierSwap" })
+                {
+                    switch (projectile.type)
+                    {
+                        case ProjectileID.AbigailMinion:
+                        case ProjectileID.AbigailCounter:
+                            foreach (Projectile proj in Main.projectile)
+                            {
+                                switch (proj.type)
+                                {
+                                    case ProjectileID.AbigailMinion:
+                                    case ProjectileID.AbigailCounter:
+                                        if (proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceSet)
+                                        {
+                                            sourceItem = proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                                            sourceSet = true;
+                                        }
+                                        break;
+                                }
+                                if (sourceSet)
+                                    break;
+                            }
+                            break;
+                    }//Find StormTiger sourceItem
                 }*/
+                else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
+                {
+                    string temp = eSource.Context;
+
+                }
+                else if(source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
+                {
+                    playerSource = player;
+                    playerSourceSet = true;
+                }
+                projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             }
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            return true;
+        }
+        public void UpdateProjectile(Projectile projectile)
         {
             if (!updated)
             {
@@ -66,7 +135,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     float scale = 0f;
                     minionDamageMultiplier = 1f;
-                    bool allForOne = false;
+                    float allForOneMultiplier = 1f;
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (!sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
@@ -77,9 +146,9 @@ namespace WeaponEnchantments.Common.Globals
                                     scale += ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                                     break;
                                 case EnchantmentTypeID.AllForOne:
-                                    if(sourceItem.DamageType == DamageClass.Summon)
+                                    if (sourceItem.DamageType == DamageClass.Summon)
                                     {
-                                        allForOne = true;
+                                        allForOneMultiplier *= ((Enchantments)sourceItem.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
                                     }
                                     break;
                                 case EnchantmentTypeID.Damage:
@@ -91,27 +160,16 @@ namespace WeaponEnchantments.Common.Globals
                             }
                         }
                     }
-                    minionDamageMultiplier = allForOne ? minionDamageMultiplier * 10 : minionDamageMultiplier;
+                    minionDamageMultiplier = minionDamageMultiplier * allForOneMultiplier;
                     updated = true;
                     scale += sourceItem.GetGlobalItem<EnchantedItem>().lastGenericScaleBonus;
                     projectile.scale += scale;//Update item size
                 }
             }
-            return true;
         }
-        /*public override void Kill(Projectile projectile, int timeLeft)
-        {
-            base.Kill(projectile, timeLeft);
-            if (sourceItem != null)
-            {
-                sourceItem.GetGlobalItem<EnchantedItem>().trackedProjectile = null;
-                sourceItem.GetGlobalItem<EnchantedItem>().trackingProjectileThroughCloning = false;
-                sourceItem = null;
-                sourceSet = false;
-            }
-        }*/
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
+            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             if (target.life <= 0)//If NPC died
             {
                 if(sourceItem != null)
@@ -212,7 +270,7 @@ namespace WeaponEnchantments.Common.Globals
                                             break;
                                     }//Determine which player inventory to look in
                                 }
-                                if (inventory[inventoryLocation] != null)
+                                if (inventory?[inventoryLocation] != null)
                                 {
                                     if (!inventory[inventoryLocation].IsAir)
                                     {

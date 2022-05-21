@@ -473,38 +473,48 @@ namespace WeaponEnchantments.Common.Globals
             if (item?.GetGlobalItem<EnchantedItem>() != null)
             {
                 sourceItem = item;
-                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                int total = 0;
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                if (sourceItem.IsAir)
+                    sourceItem = null;
+                if(sourceItem != null)
                 {
-                    total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-                }
-                if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
-                {
-                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
-                    Vector2 speed = new Vector2(0, 0);
-                    float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
-                    int heal = (int)healTotal;
-                    if (player.statLife < player.statLifeMax2)
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
                     {
-                        if (heal > 0)
+                        immuneToAllForOne = true;
+                        timeHitByAllForOne[player.whoAmI] = Main.GameUpdateCount;
+                    }
+                    WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                    int total = 0;
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    {
+                        total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+                    }
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    {
+                        float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
+                        Vector2 speed = new Vector2(0, 0);
+                        float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
+                        int heal = (int)healTotal;
+                        if (player.statLife < player.statLifeMax2)
                         {
-                            Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                            if (heal > 0)
+                            {
+                                Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                            }
+                            wePlayer.lifeStealRollover = healTotal - heal;
                         }
-                        wePlayer.lifeStealRollover = healTotal - heal;
+                        else
+                        {
+                            wePlayer.lifeStealRollover = 0f;
+                        }
                     }
-                    else
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
                     {
-                        wePlayer.lifeStealRollover = 0f;
+                        ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
-                }
-                if(sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
-                {
-                    ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-                }
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
-                {
-                    projectile.Kill();
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    {
+                        projectile.Kill();
+                    }
                 }
             }
             /*if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
@@ -559,12 +569,15 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
                 }
+                if(sourceItem != null && sourceItem.IsAir)
+                    sourceItem = null;
                 if (sourceItem != null)
                 {
                     if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
                     {
                         if (npc.GetGlobalNPC<WEGlobalNPC>().immuneToAllForOne)
                         {
+                            //if (timeHitByAllForOne[projectile.owner] + 16f * sourceItem.GetGlobalItem<EnchantedItem>().oneForAllBonus > Main.GameUpdateCount)
                             if (timeHitByAllForOne[projectile.owner] + 80 > Main.GameUpdateCount)
                             {
                                 return false;
