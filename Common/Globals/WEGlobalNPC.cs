@@ -606,7 +606,8 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            total += (int)target.StrikeNPC(damage, knockback, direction);
+                            int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                            total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
                             /*if(projectile != null)
                             {
                                 target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
@@ -630,52 +631,6 @@ namespace WeaponEnchantments.Common.Globals
                 int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
                 npc.StrikeNPC(godSlayerDamage, knockback, direction);
             }
-        }
-        private int ActivateOneForAllOld(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction)
-        {
-            int total = 0;
-            foreach (NPC target in Main.npc)
-            {
-                if (target.whoAmI != npc.whoAmI)
-                {
-                    if (!target.friendly && !target.townNPC)
-                    {
-                        Vector2 vector2 = target.Center - npc.Center;
-                        if (vector2.Length() <= 192f * item.scale)
-                        {
-                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                            target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            total += (int)target.StrikeNPC(damage, knockback, direction);
-                            //target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByItem(target, player, item, ref damage, ref knockback, ref crit);
-                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
-                        }
-                    }
-                }
-            }
-            return total;
-        }
-        private int ActivateOneForAllProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Item item)
-        {
-            int total = 0;
-            foreach (NPC target in Main.npc)
-            {
-                if(target.whoAmI != npc.whoAmI)
-                {
-                    if (!target.friendly && !target.townNPC)
-                    {
-                        Vector2 vector2 = target.Center - npc.Center;
-                        if (vector2.Length() <= 192f * item.scale)
-                        {
-                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                            target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            total += (int)target.StrikeNPC(damage, knockback, hitDirection);
-                            //target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
-                            target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
-                        }
-                    }
-                }
-            }
-            return total;
         }
         public override void OnKill(NPC npc)
         {

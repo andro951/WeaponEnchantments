@@ -14,20 +14,27 @@ namespace WeaponEnchantments.Items
         public static string[] sizes = new string[] { "", "Superior" };
         public static int[,] ingredientTypes = {{177, 178, 179, 180, 181}, {182, 999, -1, -1, -1}}; 
         public int size = 0;
-        public static int[] IDs = new int[sizes.Length];//Make drop from bosses and ofering
+        public static int[] IDs = new int[sizes.Length];
+        public static int[] Values = new int[sizes.Length];
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public override void SetStaticDefaults()
+        {
+            for(int i = 0; i < sizes.Length; i++)
+            {
+                Values[i] = (1 + i) * 375;
+            }
+        }
         public override void SetDefaults()
         {
             if(size == 0)
             {
                 Tooltip.SetDefault("Used to create Superior Enchantment Containments");
-                Item.value = 375;
             }
             else
             {
                 Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
-                Item.value = 750;
             }
+            Item.value = Values[size];
             Item.width = 8;
             Item.height = 8;
             Item.maxStack = 1000;
@@ -71,6 +78,7 @@ namespace WeaponEnchantments.Items
     public class ContainmentFragment : ModItem
     {
         public static int ID;//Make drop from bosses and ofering
+        public static int value = 10000;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetDefaults()
         {
@@ -78,7 +86,7 @@ namespace WeaponEnchantments.Items
             Item.width = 10;
             Item.height = 10;
             Item.maxStack = 1000;
-            Item.value = 10000;
+            Item.value = value;
         }
         public override void AddRecipes()
         {
@@ -102,13 +110,26 @@ namespace WeaponEnchantments.Items
         public static int[] glass = new int[] { 1, 4, 0};
         public static int[] fragments = new int[] { 4, 8, 16 };
         public static int[] IDs = new int[sizes.Length];
+        public static int[] Values = new int[sizes.Length];
         public int size = 0;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public override void SetStaticDefaults()
+        {
+            for(int i = 0; i < sizes.Length; i++)
+            {
+                Values[i] = fragments[size] * ContainmentFragment.value;
+                if (i == 2)
+                {
+                    Values[i] += Stabilizer.Values[0];
+                }
+            }
+        }
         public override void SetDefaults()
         {
             Item.maxStack = 1000;
-            Item.value = fragments[size] * ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value;
-            
+            Item.value = fragments[size] * ContainmentFragment.value;
+            //Item.value = fragments[size] * ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value;
+
             if (size < 2)
             {
                 Item.width = 10 + 4 * (size);

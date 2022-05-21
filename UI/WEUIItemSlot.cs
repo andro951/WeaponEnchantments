@@ -97,42 +97,16 @@ namespace WeaponEnchantments.UI
 										continueCheck = false;
                                     if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
 										continueCheck = false;
-                                    if (continueCheck)
+                                    switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
                                     {
-										for (int i = 0; i < EnchantingTable.maxEnchantments && continueCheck; i++)
-										{
-											Enchantments appliedEnchantment = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem);
-											if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i <= _slotTier)
-											{
-												switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
-												{
-													case EnchantmentTypeID.AllForOne:
-													case EnchantmentTypeID.OneForAll:
-														continueCheck = (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.AllForOne ? false : continueCheck;
-														continueCheck = continueCheck && (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.OneForAll ? false : continueCheck;
-														continueCheck = continueCheck && appliedEnchantment.Unique && newEnchantment.Unique ? false : continueCheck;
-														break;
-													case EnchantmentTypeID.GodSlayer:
-													case EnchantmentTypeID.Ranged:
-													case EnchantmentTypeID.Magic:
-													case EnchantmentTypeID.Summon:
-														if (continueCheck && appliedEnchantment.damageClassSpecific > 0)
-															continueCheck = false;
-														break;
-												}
-											}
-										}
-                                        switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
-                                        {
-											case EnchantmentTypeID.AllForOne:
-											case EnchantmentTypeID.OneForAll:
-											case EnchantmentTypeID.GodSlayer:
-											case EnchantmentTypeID.Ranged:
-											case EnchantmentTypeID.Magic:
-											case EnchantmentTypeID.Summon:
-												continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
-												break;
-										}
+										case EnchantmentTypeID.AllForOne:
+										case EnchantmentTypeID.OneForAll:
+										case EnchantmentTypeID.GodSlayer:
+										case EnchantmentTypeID.Ranged:
+										case EnchantmentTypeID.Magic:
+										case EnchantmentTypeID.Summon:
+											continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
+											break;
 									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = newEnchantment.GetLevelCost(); }
@@ -171,67 +145,93 @@ namespace WeaponEnchantments.UI
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			if (Valid(Main.mouseItem))
 			{
-				if(Main.mouseItem.type == PowerBooster.ID)
-                {
-					if(_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
-                    {
+				if (Main.mouseItem.type == PowerBooster.ID)
+				{
+					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
+					{
 						if (Main.mouseItem.stack > 1)
 						{
 							Main.mouseItem.stack--;
 						}
-                        else
-                        {
+						else
+						{
 							Main.mouseItem = new Item();
 						}
 						SoundEngine.PlaySound(SoundID.Grab);
 						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
 					}
-
 				}
-                else
-                {
-					if (Main.mouseItem.stack > 1 && Main.mouseItem.ModItem is Enchantments)
-					{
-						if (Main.mouseLeft && Main.mouseLeftRelease)
-						{
-							Item = wePlayer.Player.GetItem(Main.myPlayer, Item, GetItemSettings.LootAllSettings);
-							if (Item.IsAir)
+				else if (Main.mouseItem.ModItem is Enchantments enchantment)
+				{
+                    if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment)))
+                    {
+						if (Main.mouseItem.type != Item.type)
+                        {
+							if (Main.mouseItem.stack > 1)
 							{
-								Main.mouseItem.stack--;
-								Item = Main.mouseItem.Clone();
-								Item.stack = 1;
-								SoundEngine.PlaySound(SoundID.Grab);
+								if (Main.mouseLeft && Main.mouseLeftRelease)
+								{
+									Item = wePlayer.Player.GetItem(Main.myPlayer, Item, GetItemSettings.LootAllSettings);
+									if (Item.IsAir)
+									{
+										Main.mouseItem.stack--;
+										Item = Main.mouseItem.Clone();
+										Item.stack = 1;
+										SoundEngine.PlaySound(SoundID.Grab);
+									}
+								}
+							}
+							else
+							{
+								ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
 							}
 						}
 					}
-					else if (!(Main.mouseItem.ModItem is Enchantments) || Main.mouseItem.type != Item.type)
-					{
-						ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
-					}
 				}
-			}
-			/*
-			if(_itemContext == ItemSlotContext.Item)
-            {
-				if (Main.mouseItem.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
-				{
-					SoundEngine.PlaySound(SoundID.Grab);
-					Main.mouseItem = new Item();
-					wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
-				}//If using a PowerBooster, destroy the booster and update the global item.
-                else if (Valid(Main.mouseItem))
+				else
 				{
 					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
 				}
 			}
-			else
-			{
-				if (Valid(Main.mouseItem))
-				{
-					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);//Handles all the click and hover actions based on the context
-				}
-			}*/
 		}
+		public bool CheckUniqueSlot(Enchantments enchantment, int swapEnchantmentSlot)
+        {
+			return (!enchantment.Unique & enchantment.damageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+		}
+		public static int FindSwapEnchantmentSlot(Enchantments enchantement)
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			bool notFound = true;
+			for (int i = 0; i < EnchantingTable.maxEnchantments && notFound; i++)
+			{
+				Enchantments appliedEnchantment = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem);
+				if(appliedEnchantment != null && ((enchantement.Unique || enchantement.damageClassSpecific > 0) && (appliedEnchantment.damageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+                {
+					return i;
+                }
+				/*if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i <= _slotTier)
+				{
+					switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
+					{
+						case EnchantmentTypeID.AllForOne:
+						case EnchantmentTypeID.OneForAll:
+
+							notFound = (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.AllForOne ? false : notFound;
+							notFound = notFound && (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.OneForAll ? false : notFound;
+							break;
+						case EnchantmentTypeID.GodSlayer:
+						case EnchantmentTypeID.Ranged:
+						case EnchantmentTypeID.Magic:
+						case EnchantmentTypeID.Summon:
+							if (notFound && appliedEnchantment.damageClassSpecific > 0)
+								notFound = false;
+							break;
+					}
+					notFound = notFound && appliedEnchantment.Unique && newEnchantment.Unique ? false : notFound;
+				}*/
+			}
+			return -1;
+        }
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

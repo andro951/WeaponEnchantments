@@ -28,7 +28,7 @@ namespace WeaponEnchantments.Items
             Item.width = 18;
             Item.height = 18;
             Item.maxStack = 99;
-            Tooltip.SetDefault("Use this on an item in an Enchantment Table to raise its base level by 10.\nThis item will be returned if the boosted item is offered.");
+            Tooltip.SetDefault("Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n(Shift left click from your inventory or left click on item in the table with this on your cursor.)\nThis item will be returned if the boosted item is offered.");
             Item.rare = ItemRarityID.Orange;
         }
         public override void PostUpdate()

@@ -359,7 +359,7 @@ namespace WeaponEnchantments
                             }
                             else
                             {
-                                if (wePlayer.enchantingTableUI.itemSlotUI[j].Valid(Main.HoverItem))
+                                if (wePlayer.enchantingTableUI.itemSlotUI[j].Valid(Main.HoverItem) || (Main.HoverItem.type == ModContent.ItemType<PowerBooster>() && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled))
                                 {
                                     Main.cursorOverride = 9;
                                 }

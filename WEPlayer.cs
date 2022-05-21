@@ -162,21 +162,21 @@ namespace WeaponEnchantments
                     {
                         stop = true;
                     }
-                }
+                }//Check itemSlot(s)
                 for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++)
                 {
                     if (enchantingTableUI.enchantmentSlotUI[j].contains)
                     {
                         stop = true;
                     }
-                }
+                }//Check enchantmentSlots
                 for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++)
                 {
                     if (enchantingTableUI.essenceSlotUI[j].contains)
                     {
                         stop = true;
                     }
-                }
+                }//Check essenceSlots
                 if (stop)
                 {
                     bool itemWillBeTrashed = true;
@@ -191,7 +191,7 @@ namespace WeaponEnchantments
                     {
                         return true;
                     }
-                }//TODO: Edit this if you ever make ammo bags enchantable
+                }//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
                 if (!stop)
                 {
                     if (Main.mouseItem.IsAir)
@@ -226,37 +226,69 @@ namespace WeaponEnchantments
                                         break;
                                     }
                                 }
-                            }
+                            }//Move item
                             if (!valid)
                             {
-                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                                if(inventory[slot].ModItem is Enchantments enchantment)
                                 {
-                                    if (enchantingTableUI.enchantmentSlotUI[i].Valid(inventory[slot]))
+                                    int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment);
+                                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                                     {
-                                        if (!inventory[slot].IsAir && enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                                        if (enchantingTableUI.enchantmentSlotUI[i].Valid(inventory[slot]))
                                         {
-                                            int s = i;
-                                            if (((Enchantments)inventory[slot].ModItem).Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
+                                            if (!inventory[slot].IsAir)
                                             {
-                                                s = 4;
+                                                if (enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && uniqueItemSlot == -1)
+                                                {
+                                                    int s = i;
+                                                    if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
+                                                    {
+                                                        s = 4;
+                                                    }
+                                                    enchantingTableUI.enchantmentSlotUI[s].Item = inventory[slot].Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
+                                                    if (inventory[slot].stack > 1)
+                                                    {
+                                                        inventory[slot].stack--;
+                                                    }
+                                                    else
+                                                    {
+                                                        inventory[slot] = new Item();
+                                                    }
+                                                    SoundEngine.PlaySound(SoundID.Grab);
+                                                    valid = true;
+                                                    break;
+                                                }
+                                                else if (uniqueItemSlot != -1 && enchantingTableUI.enchantmentSlotUI[i].CheckUniqueSlot(enchantment, uniqueItemSlot) && inventory[slot].type != enchantingTableUI.enchantmentSlotUI[i].Item.type)
+                                                {
+                                                    Item returnItem = enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[i].Item = inventory[slot].Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[i].Item.stack = 1;
+                                                    if (!returnItem.IsAir)
+                                                    {
+                                                        if (inventory[slot].stack > 1)
+                                                        {
+                                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), returnItem);
+                                                            inventory[slot].stack--;
+                                                        }
+                                                        else
+                                                        {
+                                                            inventory[slot] = returnItem;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        inventory[slot] = new Item();
+                                                    }
+                                                    SoundEngine.PlaySound(SoundID.Grab);
+                                                    valid = true;
+                                                    break;
+                                                }
                                             }
-                                            enchantingTableUI.enchantmentSlotUI[s].Item = inventory[slot].Clone();
-                                            enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
-                                            if (inventory[slot].stack > 1)
-                                            {
-                                                inventory[slot].stack--;
-                                            }
-                                            else
-                                            {
-                                                inventory[slot] = new Item();
-                                            }
-                                            SoundEngine.PlaySound(SoundID.Grab);
-                                            valid = true;
-                                            break;
                                         }
                                     }
                                 }
-                            }
+                            }//Move Enchantment
                             if (!valid)
                             {
                                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
@@ -300,7 +332,7 @@ namespace WeaponEnchantments
                                         }
                                     }
                                 }
-                            }
+                            }//Move Essence
                         }
                         if (!valid)
                         {
@@ -309,7 +341,7 @@ namespace WeaponEnchantments
                         }
                     }
                     return true;
-                }
+                }//Move Item
             }
             return false;
         }
