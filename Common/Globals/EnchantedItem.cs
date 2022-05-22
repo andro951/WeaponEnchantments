@@ -618,25 +618,29 @@ namespace WeaponEnchantments.Common.Globals
             if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
             {
                 int xpInt;
-                float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
-                float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
+
+                float multiplier;
+                float effDamage;
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
+                effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
                 float xp;
-                damage = damage < target.life ? damage : target.life;
+                damage = target.life < 0 ? damage + target.life : damage;
                 if (target.value > 0)
                 {
                     if (effDamage - (float)target.defDefense / 2 > 1)
                     {
-                        xp = (float)(damage/target.lifeMax) * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
+                        xp = (float)damage * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
                     }
                     else
                     {
-                        xp = (float)(damage / target.lifeMax) * multiplier * effDamage;
+                        xp = (float)damage * multiplier * effDamage;
                     }
                     if (item.accessory)
                     {
                         xp /= 2;
                     }
                     xpInt = (int)Math.Round(xp);
+                    xpInt = xpInt > 1 ? xpInt : 1;
                     if (!item.consumable)
                     {
                         ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from hitting " + target.FullName + ".");
