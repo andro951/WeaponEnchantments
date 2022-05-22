@@ -37,10 +37,6 @@ namespace WeaponEnchantments.Items
         }
         public override void AddRecipes()
         {
-            if (Enchantments.cheating)
-            {
-                Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
-            }
             ID = Item.type;
         }
     }

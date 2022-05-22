@@ -226,7 +226,6 @@ namespace WeaponEnchantments.Common.Globals
 			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
 
 			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
-
 			c.EmitDelegate((Item arrItem) => OnUseItemAsIngredient(arrItem));
 		}
 		private static void HookFindRecipes(ILContext il)

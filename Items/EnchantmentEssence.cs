@@ -83,10 +83,6 @@ namespace WeaponEnchantments.Items
 					IDs[essenceRarity] = this.Type;
 				}
 			}
-			if (Enchantments.cheating && essenceRarity > - 1)
-			{
-				Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
-			}
 		}
 
 		public static int GetEssenceTier(Item I)

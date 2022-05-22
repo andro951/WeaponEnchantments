@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,29 @@ namespace WeaponEnchantments.Common.Globals
         public bool immuneToAllForOne = false;
         public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
+        public override void Load()
+        {
+            IL.Terraria.Projectile.Damage += HookDamage;
+        }
+        private static bool debuggingHookDamage = false;
+        private static void HookDamage(ILContext il)
+        {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchLdloc(36),
+                i => i.MatchBrfalse(out _),
+                i => i.MatchLdarg(0),
+                i => i.MatchCall(out _),
+                i => i.MatchCallvirt(out _)
+            )) { throw new Exception("Failed to find instructions HookDamage"); }
+
+            if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
+
+            if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " Instruction: " + c.Prev.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " exception: " + e.ToString()); }
+            c.Emit(OpCodes.Pop);
+            c.Emit(OpCodes.Ldc_I4_0);
+        }
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
             List<int> itemTypes = new List<int>(); 
@@ -465,7 +490,7 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().minionDamageMultiplier);
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
             HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null)
@@ -477,10 +502,21 @@ namespace WeaponEnchantments.Common.Globals
                     sourceItem = null;
                 if(sourceItem != null)
                 {
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
+                    int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
+                    int critLevel = 0;
+                    crit = false;
+                    while(critChance > 100)
                     {
-                        immuneToAllForOne = true;
-                        timeHitByAllForOne[player.whoAmI] = Main.GameUpdateCount;
+                        critLevel++;
+                        critChance -= 100;
+                    }
+                    if (Main.rand.Next(0, 100) < critChance)
+                        critLevel++;
+                    if(critLevel > 0)
+                    {
+                        crit = true;
+                        critLevel--;
+                        damage *= (int)Math.Pow(2, critLevel);
                     }
                     WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                     int total = 0;
@@ -563,7 +599,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
         {
-            if(!npc.townNPC && !npc.friendly)
+            /*if(!npc.townNPC && !npc.friendly)
             {
                 if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
                 {
@@ -602,8 +638,29 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-            }
+            }*/
             return null;
+        }
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+            OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
+        }
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
+            OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
+        }
+        private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null)
+        {
+            if(sourceItem != null)
+            {
+                if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
+                {
+                    int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
+                    npc.immune[player.whoAmI] = newImmune < 1 ? 1 : newImmune;
+                }
+            }
         }
         private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {

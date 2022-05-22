@@ -15,7 +15,6 @@ namespace WeaponEnchantments.Items
 {
 	public class Enchantments : ModItem
 	{
-		public static bool cheating = false;
 		public enum EnchantmentTypeID : int
         {
 			Damage,
@@ -406,13 +405,16 @@ namespace WeaponEnchantments.Items
 							Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString() + limmitationToolTip);
 							break;
 					}//Unique ToolTips
-				}
+				}//DamageTypeSpecific and Unique ToolTips
                 else
                 {
 					switch ((EnchantmentTypeID)EnchantmentType)
 					{
 						case EnchantmentTypeID.Size:
 							Tooltip.SetDefault("+" + (EnchantmentStrength * 50).ToString() + "% " + EnchantmentTypeName + "\n+" + (EnchantmentStrength * 100).ToString() + "% Knockback" + "\nLevel cost: " + GetLevelCost().ToString());
+							break;
+						case EnchantmentTypeID.Speed:
+							Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + EnchantmentTypeName + "\n(Lowers NPC immunity time to raise dps for minions/channeled weapons)\nLevel cost: " + GetLevelCost().ToString());
 							break;
 						case EnchantmentTypeID.Defence:
 							Tooltip.SetDefault("+" + EnchantmentStrength.ToString() + " " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
@@ -430,7 +432,7 @@ namespace WeaponEnchantments.Items
 							Tooltip.SetDefault((EnchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString());
 							break;
 						case EnchantmentTypeID.AllForOne:
-							Tooltip.SetDefault(EnchantmentStrength + "x Damage, item CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString());
+							Tooltip.SetDefault(EnchantmentStrength + "x Damage, item CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n(Raises NPC immunity time to lower dps for minions/channeled weapons)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString());
 							break;
 						case EnchantmentTypeID.OneForAll:
 							Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies by " + (EnchantmentStrength * 100).ToString() + "% of damage dealt, " + (30f * EnchantmentStrength).ToString() + "% reduced base attack speed\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString());
@@ -457,7 +459,7 @@ namespace WeaponEnchantments.Items
 							Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 							break;
 					}//Normal ToolTips
-				}
+				}//Normal ToolTips
 			}
 		}
 		public override void AddRecipes()
@@ -515,10 +517,6 @@ namespace WeaponEnchantments.Items
 					}
 				}
 				IDs[EnchantmentType][EnchantmentSize] = Type;
-                if (cheating)
-                {
-					Mod.CreateRecipe(Type, 1).AddTile(TileID.WoodBlock).Register();
-				}
 			}
 		}
 		public int GetLevelCost()
@@ -533,136 +531,7 @@ namespace WeaponEnchantments.Items
 					return Utility ? 1 + EnchantmentSize : (1 + EnchantmentSize) * 2;
 			}
         }
-        public class OmniEnchantment : Enchantments
-		{
-			OmniEnchantment() { EnchantmentSize = -1; }
-			
-			public override void UpdateInventory(Player player)
-			{
-				for (int i = 16; i < 20; i++)
-				{
-					if (player.inventory[i] == this.Item)
-					{
-						player.GetDamage(DamageClass.Generic) += 0.2f;
-						player.GetDamage(DamageClass.Ranged) += 0.2f;
-						player.GetDamage(DamageClass.Melee) += 0.2f;
-						player.GetDamage(DamageClass.Magic) += 0.2f;
-						player.GetDamage(DamageClass.Summon) += 0.2f;
-						player.GetCritChance(DamageClass.Ranged) += 3;
-						player.GetCritChance(DamageClass.Generic) += 3;
-						player.GetCritChance(DamageClass.Melee) += 3;
-						player.GetCritChance(DamageClass.Magic) += 3;
-						player.maxMinions++;
-						player.statManaMax += 500;
-						player.statManaMax2 += 500;
-						player.moveSpeed += 0.5f;
-						player.manaCost -= 0.5f;
-						player.extraAccessorySlots = 3;
-						player.extraAccessory = true;
-						player.lifeSteal = 0.1f;
-						player.ichor = true;
-						//player.statDefense += 100;
-						//player.statLifeMax += 50; 
-						//player.statLifeMax2 += 100;
-						player.statLife += 1;
-						player.statMana += 1;
-						player.lifeRegen = 1;
-						player.lifeRegenCount = 5;
-						player.lifeRegenTime = 5;
-						player.manaRegen = 1;
-						player.manaRegenCount = 5;
-						player.manaRegenDelay = 0;
-						player.manaRegenBuff = true;
-						player.noKnockback = true;
-						player.spaceGun = true;
-					}
-				};
-			}
-			private int[] freeItems = new int[] {
-				437, 
-				3380, 
-				193, 
-				1225, 
-				520, 
-				521, 
-				2786, 
-				3531, 
-				4365, 
-				4735, 
-				346, 
-				87, 
-				3813, 
-				4076, 
-				514, 
-				561, 
-				4281, 
-				5114, 
-				1309, 
-				ItemID.WoodenBoomerang, 
-				ItemID.FallenStar, 
-				ItemID.TerraBlade, 
-				ItemID.TrueNightsEdge, 
-				ItemID.TrueExcalibur, 
-				ItemID.BrokenHeroSword, 
-				ItemID.MythrilAnvil,
-				ItemID.SuspiciousLookingEye
-			};
-			private int[] bossBags = new int[] {ItemID.DeerclopsBossBag, ItemID.BossBagBetsy, ItemID.FairyQueenBossBag, ItemID.QueenSlimeBossBag };
-			public override void AddRecipes()
-			{
-                //Creates new recipe for Vanilla item
-                if (cheating)
-                {
-					for (int i = 0; i < freeItems.Length; i++)
-					{
-						/*
-						// \/Old\/
-						if (Recipe.numRecipes<Recipe.maxRecipes)
-						{
-							//Main.recipe[Recipe.numRecipes].createItem.SetDefaults(freeItems[i]);
-
-							Main.recipe[Recipe.numRecipes].createItem.stack = 1;
-							//Main.recipe[Recipe.numRecipes].requiredItem[0] = new Item();
-							Main.recipe[Recipe.numRecipes].requiredItem[0].type = ItemID.Wood;
-							Main.recipe[Recipe.numRecipes].requiredItem[0].stack = 1;
-							Main.recipe[Recipe.numRecipes].AddTile(TileID.WorkBenches);
-							//Main.recipe[Recipe.numRecipes].requiredTile[0] = TileID.WorkBenches; //Doesn't work
-							Recipe.numRecipes++;
-						}
-						// /\Old/\
-						*/
-
-
-						//I think this tracks all NPCIDs use to set all npcs to drop essence
-						//int num = NPCID.FromNetId(id);
-
-
-
-						//Recipe recipe = CreateRecipe();
-						//recipe.ReplaceResult(freeItems[i]);
-						//recipe.AddIngredient(ItemID.Wood, 1);
-						//recipe.AddTile(TileID.WorkBenches);
-						//recipe.Register();
-						//ModItemID.Add(this.Name, this.Type);
-
-
-						// \/New\/
-						Mod.CreateRecipe(freeItems[i], 1).AddTile(TileID.WoodBlock).Register();
-						// /\New/\
-					}
-					for(int i = ItemID.KingSlimeBossBag; i <= ItemID.MoonLordBossBag; i++)
-                    {
-						Mod.CreateRecipe(i, 1).AddTile(TileID.WoodBlock).Register();
-					}
-					for (int i = 0; i < bossBags.Length; i++)
-					{
-						Mod.CreateRecipe(bossBags[i], 1).AddTile(TileID.WoodBlock).Register();
-					}
-				}
-			}
-
-		}
-
+        
 		public class DamageEnchantmentBasic : Enchantments
 		{
 			DamageEnchantmentBasic() { EnchantmentSize = 0; }

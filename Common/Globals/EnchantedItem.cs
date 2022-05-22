@@ -18,7 +18,10 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         
         public int experience;//current experience of a weapon/armor/accessory item
+        public float damageBonus = 0f;
         public float totalSpeedBonus;
+        public float immunityBonus = 0f;
+        public int critBonus = 0;
         public int lastUseTimeBonusInt;
         public int lastUseAnimationBonusInt;
         public int lastShootSpeedBonusInt;
@@ -207,15 +210,17 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            float modifier = 0f;
             float speedModifier = 0f;
             int defenceBonus = 0;
             float manaCostBonus = 0f;
             float lifeStealBonus = 0f;
             float armorPenetrationBonus = 0f;
             float allForOneSpeedMultiplier = 1f;
+            float allForOneImmunityBonus = 1f;
             float oneForAllSpeedMultiplier = 1f;
             float enemySpawnBonusLocal = 1f;
+            damageBonus = 0f;
+            immunityBonus = 0f;
             allForOneBonus = 1f;
             oneForAllBonus = 0f;
             godSlayerBonus = 0f;
@@ -232,7 +237,7 @@ namespace WeaponEnchantments.Common.Globals
                     switch ((EnchantmentTypeID)((Enchantments)enchantments[i].ModItem).EnchantmentType)
                     {
                         case EnchantmentTypeID.Damage:
-                            modifier += str * damage.Multiplicative;
+                            damageBonus += str * damage.Multiplicative;
                             break;
                         case EnchantmentTypeID.Speed:
                             speedModifier += str;
@@ -252,6 +257,7 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeID.AllForOne:
                             allForOneBonus = str;
                             allForOneSpeedMultiplier = str * 0.2f;
+                            allForOneImmunityBonus = str * 0.8f;
                             allForOne = true;
                             break;
                         case EnchantmentTypeID.OneForAll:
@@ -280,19 +286,20 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            if (modifier > 0 && ContentSamples.ItemsByType[item.type].damage * (1 + modifier) * damage.Multiplicative - ContentSamples.ItemsByType[item.type].damage < 1)
+            if (damageBonus > 0 && ContentSamples.ItemsByType[item.type].damage * (1 + damageBonus) * damage.Multiplicative - ContentSamples.ItemsByType[item.type].damage < 1)
             {
-                damage.Flat += 1;
+                damageBonus = 1 / (ContentSamples.ItemsByType[item.type].damage);
             }
-            else
-            {
-                damage += modifier;
+            damage += damageBonus;
+            if (allForOne) 
+            { 
+                damage.Base = (damage.Base + ContentSamples.ItemsByType[item.type].damage) * allForOneBonus;
             }
-            if (allForOne) { damage.Base = (damage.Base + ContentSamples.ItemsByType[item.type].damage) * allForOneBonus; }
             if (player.HeldItem == item)
             {
                 player.statDefense += (int)Math.Round((float)defenceBonus / 2);
             }
+            immunityBonus = (allForOneImmunityBonus / ((1f + speedModifier) * oneForAllSpeedMultiplier) - 1f);
             if (!item.channel)
             {
                 totalSpeedBonus = (allForOneSpeedMultiplier / ((1f + speedModifier) * oneForAllSpeedMultiplier) - 1f);
@@ -300,19 +307,7 @@ namespace WeaponEnchantments.Common.Globals
                 lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * totalSpeedBonus);
                 item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus) - lastUseAnimationBonusInt;
                 lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus);
-                /*if(!item.noMelee && item.DamageType == DamageClass.Melee)
-                {
-                    item.shootSpeed += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus) - lastShootSpeedBonusInt;
-                    lastShootSpeedBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus);
-                }
-                else
-                {
-                    item.shootSpeed -= (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus) - lastShootSpeedBonusInt;
-                    lastShootSpeedBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].shootSpeed * totalSpeedBonus);
-                }*/
             }
-            //item.reuseDelay += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].reuseDelay * totalSpeedBonus) - lastReuseDelayBonus;
-            //lastReuseDelayBonus = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].reuseDelay * totalSpeedBonus);
             item.scale += wePlayer.itemScale - lastGenericScaleBonus;
             lastGenericScaleBonus = wePlayer.itemScale;
             int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneBonus * 0.4f)));
@@ -325,13 +320,15 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
+            critBonus = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 if (!enchantments[i].IsAir && (EnchantmentTypeID)((Enchantments)enchantments[i].ModItem).EnchantmentType == EnchantmentTypeID.Critical)
                 {
-                    crit += (int)(((Enchantments)enchantments[i].ModItem).EnchantmentStrength * 100);
+                    critBonus += (int)(((Enchantments)enchantments[i].ModItem).EnchantmentStrength * 100);
                 }
             }
+            crit += critBonus;
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
@@ -559,57 +556,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }//Edit Tooltips
-        }
-        public void KillNPC(Item item, NPC target)
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
-            if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
-            {
-                int xpInt;
-                float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
-                float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
-                float xp;
-                if(target.value > 0)
-                {
-                    if (effDamage - (float)target.defDefense / 2 > 1)
-                    {
-                        xp = (float)target.lifeMax * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
-                    }
-                    else
-                    {
-                        xp = (float)target.lifeMax * multiplier * effDamage;
-                    }
-                    if (item.accessory)
-                    {
-                        xp /= 2;
-                    }
-                    xpInt = (int)Math.Round(xp);
-                    if (!item.consumable)
-                    {
-                        ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                        //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                        GainXP(item, xpInt);
-                    }
-                    foreach (Item armor in wePlayer.Player.armor)
-                    {
-                        if (!armor.vanity && !armor.IsAir)
-                        {
-                            if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
-                            {
-                                if (armor.accessory)
-                                {
-                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
-                                }
-                                else
-                                {
-                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
         public void DamageNPC(Item item, NPC target, int damage)
         {

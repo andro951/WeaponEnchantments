@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,6 +10,7 @@ using WeaponEnchantments.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using static WeaponEnchantments.Items.Enchantments;
+using System;
 
 namespace WeaponEnchantments
 { 
@@ -39,6 +42,26 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
 
+        public override void Load()
+        {
+            IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+        }
+        public static void HookItemCheck_MeleeHitNPCs(ILContext il)
+        {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchCall(out _),
+                i => i.MatchLdcI4(1),
+                i => i.MatchLdcI4(101),
+                i => i.MatchCallvirt(out _),
+                i => i.MatchLdloc(7),
+                i => i.MatchBgt(out _),
+                i => i.MatchLdcI4(1)
+            )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
+            c.Emit(OpCodes.Pop);
+            c.Emit(OpCodes.Ldc_I4_0);
+        }
         public override void Initialize()
         {
             enchantingTable = new EnchantingTable();

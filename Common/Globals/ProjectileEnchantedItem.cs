@@ -17,7 +17,8 @@ namespace WeaponEnchantments.Common.Globals
         private bool playerSourceSet;
         public int lastInventoryLocation = -1;
         private bool updated = false;
-        public float minionDamageMultiplier = 1f;
+        public float damageBonus = 1f;
+        public float totalSpeedBonus;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
@@ -116,42 +117,54 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (sourceItem.TryGetGlobalItem(out EnchantedItem siGlobal))
                     {
-                        if (projectile.usesLocalNPCImmunity)
+                        damageBonus = 1f;
+
+                        if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
                         {
-                            projectile.localNPCHitCooldown *= 8;
+                            damageBonus += siGlobal.damageBonus;
+                            damageBonus *= siGlobal.allForOneBonus;
                         }
-                        float scale = 0f;
-                        minionDamageMultiplier = 1f;
-                        float allForOneMultiplier = 1f;
-                        for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                        if(sourceItem.DamageType == DamageClass.Summon)
                         {
-                            if (!siGlobal.enchantments[i].IsAir)
+                            //projectile.CritChance += siGlobal.critBonus;
+                        }
+                        projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
+                        /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (!siGlobal.enchantments[i].IsAir)
+                        {
+                            Enchantments enchantment = ((Enchantments)siGlobal.enchantments[i].ModItem);
+                            switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                             {
-                                Enchantments enchantment = ((Enchantments)siGlobal.enchantments[i].ModItem);
-                                switch ((EnchantmentTypeID)enchantment.EnchantmentType)
-                                {
-                                    case EnchantmentTypeID.Size:
-                                        scale += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
-                                        break;
-                                    case EnchantmentTypeID.AllForOne:
-                                        if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
-                                        {
-                                            allForOneMultiplier *= enchantment.EnchantmentStrength;
-                                        }
-                                        break;
-                                    case EnchantmentTypeID.Damage:
-                                        if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
-                                        {
-                                            minionDamageMultiplier += enchantment.EnchantmentStrength;
-                                        }
-                                        break;
-                                }
+                                case EnchantmentTypeID.Size:
+                                    scale += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
+                                    break;
+                                case EnchantmentTypeID.AllForOne:
+                                    if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
+                                    {
+                                        allForOneMultiplier *= enchantment.EnchantmentStrength;
+                                    }
+                                    break;
+                                case EnchantmentTypeID.Damage:
+                                    if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
+                                    {
+                                        damageBonus += enchantment.EnchantmentStrength;
+                                    }
+                                    break;
                             }
                         }
-                        minionDamageMultiplier = minionDamageMultiplier * allForOneMultiplier;
+                    }
+                    damageBonus = damageBonus * allForOneMultiplier;*/
+                    
+                        if (projectile.usesIDStaticNPCImmunity)
+                        {
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1 + siGlobal.immunityBonus));
+                        }
+                        if (projectile.usesLocalNPCImmunity)
+                        {
+                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1 + siGlobal.immunityBonus));
+                        }
                         updated = true;
-                        scale += siGlobal.lastGenericScaleBonus;
-                        projectile.scale += scale;//Update item size
                     }
                 }
             }
