@@ -611,6 +611,58 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
+        public void DamageNPC(Item item, NPC target, int damage)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
+            if (target.type != NPCID.TargetDummy && !target.SpawnedFromStatue && !target.friendly && !target.townNPC)
+            {
+                int xpInt;
+                float multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
+                float effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
+                float xp;
+                damage = damage < target.life ? damage : target.life;
+                if (target.value > 0)
+                {
+                    if (effDamage - (float)target.defDefense / 2 > 1)
+                    {
+                        xp = (float)(damage/target.lifeMax) * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
+                    }
+                    else
+                    {
+                        xp = (float)(damage / target.lifeMax) * multiplier * effDamage;
+                    }
+                    if (item.accessory)
+                    {
+                        xp /= 2;
+                    }
+                    xpInt = (int)Math.Round(xp);
+                    if (!item.consumable)
+                    {
+                        ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from hitting " + target.FullName + ".");
+                        //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
+                        GainXP(item, xpInt);
+                    }
+                    foreach (Item armor in wePlayer.Player.armor)
+                    {
+                        if (!armor.vanity && !armor.IsAir)
+                        {
+                            if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
+                            {
+                                if (armor.accessory)
+                                {
+                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
+                                }
+                                else
+                                {
+                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         public void GainXP(Item item, int xpInt)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -839,6 +891,10 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }//Prevent splitting stack of enchantable items with maxstack > 1
+        }
+        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            DamageNPC(item, target, damage);
         }
     }
 }

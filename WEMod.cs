@@ -28,7 +28,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsWeaponItem(Item item)
 		{
-			return item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun;
+			return (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory;
 		}
 		internal static bool IsArmorItem(Item item)
 		{
@@ -74,7 +74,6 @@ namespace WeaponEnchantments
 				return false;
 			}
         }
-
         public override void Unload()
 		{
 			

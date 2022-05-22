@@ -645,13 +645,13 @@ namespace WeaponEnchantments.Common.Globals
                 npc.StrikeNPC(godSlayerDamage, knockback, direction);
             }
         }
-        public override void OnKill(NPC npc)
+        /*public override void OnKill(NPC npc)
         {
             if(!xpCalculated && sourceItem != null)
             {
                 sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, npc);
             }
-        }
+        }*/
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
