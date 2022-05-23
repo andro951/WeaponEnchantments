@@ -42,7 +42,7 @@ namespace WeaponEnchantments
             int l;
             for (l = 0; l < EnchantedItem.maxLevel; l++)
             {
-                current = previous * 1.1 + (l + 1) * 223.7879;
+                current = previous * 1.23356622200537 + (l + 1) * 1000;
                 previous = current;
                 levelXps[l] = (int)current;
             }

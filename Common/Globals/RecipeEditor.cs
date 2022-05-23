@@ -15,10 +15,6 @@ namespace WeaponEnchantments.Common.Globals
 		{
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
-			//This one doesn't break with RecursiveCraft
-			//You should also add sortAfter = RecursiveCraft to your build.txt
-			//So your edit applies after the recursive craft one
-			//So your delegate runs before the recursive craft one
 		}
 		public static int counter = 0;
 		private const bool debuggingHookCreate = false;
@@ -58,22 +54,31 @@ namespace WeaponEnchantments.Common.Globals
 						{
 							if (!i2Global.enchantments[k].IsAir)
 							{
+								Enchantments enchantment = ((Enchantments)i2Global.enchantments[k].ModItem);
+								int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
 								bool cantFit = false;
-								if (((Enchantments)i2Global.enchantments[k].ModItem).GetLevelCost() < miGlobal.GetLevelsAvailable())
+								if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
 								{
-									if (((Enchantments)i2Global.enchantments[k].ModItem).Utility && miGlobal.enchantments[4].IsAir)
-									{
-										miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
+									if(uniqueItemSlot == -1)
+                                    {
+										if (enchantment.Utility && miGlobal.enchantments[4].IsAir)
+										{
+											miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
+										}
+										else if (j < 4)
+										{
+											miGlobal.enchantments[j] = i2Global.enchantments[k].Clone();
+											j++;
+										}
+										else
+										{
+											cantFit = true;
+										}
 									}
-									else if (j < 4)
-									{
-										miGlobal.enchantments[j] = i2Global.enchantments[k].Clone();
-										j++;
-									}
-									else
-									{
+                                    else
+                                    {
 										cantFit = true;
-									}
+                                    }
 								}
 								else
 								{
@@ -211,6 +216,36 @@ namespace WeaponEnchantments.Common.Globals
 
 			c.EmitDelegate((Item arrItem) => OnUseItemAsIngredient(arrItem));
 
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchLdsfld(out _),
+				i => i.MatchLdsfld(out _),
+				i => i.MatchLdelemRef(),
+				i => i.MatchLdfld(out _),
+				i => i.MatchLdcI4(-1),
+				i => i.MatchBeq(out _)
+
+			)) { throw new Exception("Failed to find instructions HookCreate 3"); }
+
+			var incomingLabels = c.IncomingLabels;
+			foreach (ILLabel cursorIncomingLabel in incomingLabels)
+				c.MarkLabel(cursorIncomingLabel);
+
+			c.Emit(OpCodes.Ldloc, 3);
+			c.Emit(OpCodes.Ldloc, 4);
+
+			c.EmitDelegate((Item item, int num) =>
+			{
+				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+				for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+				{
+					Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+					if (item.type == slotItem.type)
+					{
+						slotItem.stack -= num;
+					}
+				}
+			});
+
 			if (!c.TryGotoNext(MoveType.After,
 				i => i.MatchLdarg(0),
 				i => i.MatchLdloc(1),
@@ -221,7 +256,7 @@ namespace WeaponEnchantments.Common.Globals
 				i => i.MatchBrfalse(out _),
 
 				i => i.MatchLdloc(1)
-			)) { throw new Exception("Failed to find instructions HookCreate 1"); }
+			)) { throw new Exception("Failed to find instructions HookCreate 2"); }
 
 			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
 

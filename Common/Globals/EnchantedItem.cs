@@ -114,7 +114,7 @@ namespace WeaponEnchantments.Common.Globals
             player.GetDamage(DamageClass.Generic) += damageModifier / 4;
             player.GetAttackSpeed(DamageClass.Generic) += speedModifier / 4;
             player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
-            player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2;
+            player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2; 
             player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
             item.defense += defenceBonus - lastDefenceBonus;
             lastDefenceBonus = defenceBonus;
@@ -221,6 +221,7 @@ namespace WeaponEnchantments.Common.Globals
             float allForOneImmunityBonus = 1f;
             float oneForAllSpeedMultiplier = 1f;
             float enemySpawnBonusLocal = 1f;
+            float allForOneManaBonus = 0f;
             damageBonus = 0f;
             immunityBonus = 0f;
             allForOneBonus = 1f;
@@ -261,6 +262,7 @@ namespace WeaponEnchantments.Common.Globals
                             allForOneBonus = str;
                             allForOneSpeedMultiplier = str * 0.2f;
                             allForOneImmunityBonus = str * 0.8f;
+                            allForOneManaBonus = str * 0.4f;
                             allForOne = true;
                             break;
                         case EnchantmentTypeID.OneForAll:
@@ -313,7 +315,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             item.scale += wePlayer.itemScale - lastGenericScaleBonus;
             lastGenericScaleBonus = wePlayer.itemScale;
-            int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneBonus * 0.4f)));
+            int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneManaBonus * 0.4f)));
             item.mana -= mana - lastManaCostBonus;
             lastManaCostBonus = mana;
             lifeSteal = lifeStealBonus;
@@ -342,7 +344,13 @@ namespace WeaponEnchantments.Common.Globals
                 Enchantments enchantment = ((Enchantments)enchantments[i].ModItem);
                 if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Size)
                 {
-                    knockback += (int)(enchantment.EnchantmentStrength * 100);
+                    float temp = knockback.Additive;
+                    float temp1 = knockback.Flat;
+                    float temp2 = knockback.Base;
+                    float temp3 = knockback.Multiplicative;
+                    knockback += enchantment.EnchantmentStrength;
+                    float temp4 = knockback.Multiplicative;
+                    float temp5 = knockback.Additive;
                     scale += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                 }
             }
@@ -681,62 +689,66 @@ namespace WeaponEnchantments.Common.Globals
             {
                 IEntitySource src = player.GetSource_OpenItem(arg);
                 NPC npc = GetNPCFromBossBagType(arg);
-                WEGlobalNPC.GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
-                for (int i = 0; i < essenceValues.Length; ++i)
-                {;
-                    if (dropRate[i] > 0)
+                if(npc != null)
+                {
+                    WEGlobalNPC.GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        switch (npc.type)
+                        ;
+                        if (dropRate[i] > 0)
                         {
-                            case NPCID.EaterofWorldsHead:
-                                dropRate[i] *= 50f;
-                                break;
-                            default:
+                            switch (npc.type)
+                            {
+                                case NPCID.EaterofWorldsHead:
+                                    dropRate[i] *= 50f;
+                                    break;
+                                default:
 
-                                break;
+                                    break;
+                            }
+                            int stack = Main.rand.NextBool() ? (int)Math.Round(dropRate[i]) : (int)Math.Round(dropRate[i] + 1f);
+                            player.QuickSpawnItem(src, baseID + i, stack);
                         }
-                        int stack = Main.rand.NextBool() ? (int)Math.Round(dropRate[i]) : (int)Math.Round(dropRate[i] + 1f);
-                        player.QuickSpawnItem(src, baseID + i, stack);
                     }
-                }
-                float value = npc.value;
-                switch (npc.type)
-                {
-                    case NPCID.EaterofWorldsHead:
-                        value *= 50f;
-                        break;
-                    default:
-
-                        break;
-                }
-                player.QuickSpawnItem(src, ModContent.ItemType<ContainmentFragment>(), (int)((1f + Main.rand.NextFloat()) * value / 10000f));
-                if (Main.rand.NextFloat() <  value / 500000f)
-                {
-                    player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
-                }
-                if (Main.rand.NextFloat() < value / 1000000f)
-                {
-                    player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
-                }
-                float chance = WEGlobalNPC.GedDropChance(arg);
-                List<int> itemTypes = WEGlobalNPC.GetDropItems(arg, true);
-                if (itemTypes.Count > 1)
-                {
-                    float randFloat = Main.rand.NextFloat();
-                    for (int i = 0; i < itemTypes.Count; i++)
+                    float value = npc.value;
+                    switch (npc.type)
                     {
-                        if (randFloat >= (float)i / (float)itemTypes.Count * chance && randFloat < ((float)i + 1f) / (float)itemTypes.Count * chance)
-                        {
-                            player.QuickSpawnItem(src, itemTypes[i]);
+                        case NPCID.EaterofWorldsHead:
+                            value *= 50f;
                             break;
+                        default:
+
+                            break;
+                    }
+                    player.QuickSpawnItem(src, ModContent.ItemType<ContainmentFragment>(), (int)((1f + Main.rand.NextFloat()) * value / 10000f));
+                    if (Main.rand.NextFloat() < value / 500000f)
+                    {
+                        player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
+                    }
+                    if (Main.rand.NextFloat() < value / 1000000f)
+                    {
+                        player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
+                    }
+                    float chance = WEGlobalNPC.GedDropChance(arg);
+                    List<int> itemTypes = WEGlobalNPC.GetDropItems(arg, true);
+                    if (itemTypes.Count > 1)
+                    {
+                        float randFloat = Main.rand.NextFloat();
+                        for (int i = 0; i < itemTypes.Count; i++)
+                        {
+                            if (randFloat >= (float)i / (float)itemTypes.Count * chance && randFloat < ((float)i + 1f) / (float)itemTypes.Count * chance)
+                            {
+                                player.QuickSpawnItem(src, itemTypes[i]);
+                                break;
+                            }
                         }
                     }
-                }
-                else if(itemTypes.Count > 0)
-                {
-                    if (Main.rand.NextFloat() < chance)
+                    else if (itemTypes.Count > 0)
                     {
-                        player.QuickSpawnItem(src, itemTypes[0]);
+                        if (Main.rand.NextFloat() < chance)
+                        {
+                            player.QuickSpawnItem(src, itemTypes[0]);
+                        }
                     }
                 }
             }

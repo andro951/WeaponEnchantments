@@ -168,7 +168,7 @@ namespace WeaponEnchantments.UI
 				}
 				else if (Main.mouseItem.ModItem is Enchantments enchantment)
 				{
-                    if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment)))
+                    if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableUI.itemSlotUI[0].Item)))
                     {
 						if (Main.mouseItem.type != Item.type)
                         {
@@ -203,10 +203,25 @@ namespace WeaponEnchantments.UI
         {
 			return (!enchantment.Unique & enchantment.damageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
-		public static int FindSwapEnchantmentSlot(Enchantments enchantement)
+		public static int FindSwapEnchantmentSlot(Enchantments enchantement, Item item)
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			bool notFound = true;
+			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+			{
+				if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
+                {
+					if (!iGlobal.enchantments[i].IsAir)
+					{
+						Enchantments appliedEnchantment = (Enchantments)iGlobal.enchantments[i].ModItem;
+						if (appliedEnchantment != null && ((enchantement.Unique || enchantement.damageClassSpecific > 0) && (appliedEnchantment.damageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						{
+							return i;
+						}
+					}
+				}
+			}
+			return -1;
+			/*bool notFound = true;
 			for (int i = 0; i < EnchantingTable.maxEnchantments && notFound; i++)
 			{
 				Enchantments appliedEnchantment = ((Enchantments)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem);
@@ -214,29 +229,9 @@ namespace WeaponEnchantments.UI
                 {
 					return i;
                 }
-				/*if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && i <= _slotTier)
-				{
-					switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
-					{
-						case EnchantmentTypeID.AllForOne:
-						case EnchantmentTypeID.OneForAll:
-
-							notFound = (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.AllForOne ? false : notFound;
-							notFound = notFound && (EnchantmentTypeID)appliedEnchantment.EnchantmentType == EnchantmentTypeID.OneForAll ? false : notFound;
-							break;
-						case EnchantmentTypeID.GodSlayer:
-						case EnchantmentTypeID.Ranged:
-						case EnchantmentTypeID.Magic:
-						case EnchantmentTypeID.Summon:
-							if (notFound && appliedEnchantment.damageClassSpecific > 0)
-								notFound = false;
-							break;
-					}
-					notFound = notFound && appliedEnchantment.Unique && newEnchantment.Unique ? false : notFound;
-				}*/
 			}
-			return -1;
-        }
+			return -1;*/
+		}
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -514,57 +509,5 @@ namespace WeaponEnchantments.UI
 
 			return result;
 		}
-
-
-		//Based on Vanilla
-		/*
-        private Item[] _itemArray;
-        private int _itemIndex;//Probably not ever used since vanilla will use the UIItemSlot, look in ItemSlot.cs for UIItemSlot
-        private int _itemSlotContext;
-        private int _itemContext;
-        
-        internal Item[] item;
-        internal event Action<int> OnMouseover;
-        
-        public WEUIItemSlot(Item[] itemArray, int itemIndex, int itemSlotContext, int itemContext)
-        {
-            //ArgumentNullException.ThrowIfNull(itemArray);//Recomended fix by Exterminator
-            _itemArray = itemArray;
-            _itemIndex = itemIndex;
-            _itemSlotContext = itemSlotContext;
-            Width = new StyleDimension(48f, 0f);
-            Height = new StyleDimension(48f, 0f);
-        }
-        
-
-        
-        private void HandleItemSlotLogic()//Where you need to handle if items are allowed to be placed in.
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (IsMouseHovering)
-            {
-                if (!WeaponEnchantmentUI.IsBlockedFromTransferIntoEnchantingTable(_itemArray[_itemIndex], _itemArray, _itemContext))
-                {
-                    wePlayer.Player.mouseInterface = true;
-                    Item inv = _itemArray[_itemIndex];
-                    ItemSlot.OverrideHover(ref inv, _itemSlotContext);
-                    ItemSlot.LeftClick(ref inv, _itemSlotContext);
-                    ItemSlot.RightClick(ref inv, _itemSlotContext);
-                    ItemSlot.MouseHover(ref inv, _itemSlotContext);
-                    _itemArray[_itemIndex] = inv;
-                }
-            }
-        }
-        
-
-        
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            HandleItemSlotLogic();
-            Item inv = _itemArray[_itemIndex];//System.NullReferenceException: 'Object reference not set to an instance of an object. _itemArray was null.
-            Vector2 position = GetDimensions().Center() + new Vector2(52f, 52f) * -0.5f * Main.inventoryScale;
-            ItemSlot.Draw(spriteBatch, ref inv, _itemSlotContext, position);
-        }
-        */
 	}
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Common
 {
@@ -58,6 +60,30 @@ namespace WeaponEnchantments.Common
                 }
             }
             return matches;
+        }
+        public static bool IsSameEnchantedItem(this Item item1, Item item2)
+        {
+            if(!item1.IsAir && !item2.IsAir)
+            {
+                if (item1.TryGetGlobalItem(out EnchantedItem global1))
+                {
+                    if (item2.TryGetGlobalItem(out EnchantedItem global2))
+                    {
+                        if (item1.type == item2.type && global1.experience == global2.experience && global1.powerBoosterInstalled == global2.powerBoosterInstalled && item1.value == item2.value && item1.prefix == item2.prefix)
+                        {
+                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                            {
+                                if (global1.enchantments[i].type != global2.enchantments[i].type)
+                                {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }
