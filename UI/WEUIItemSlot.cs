@@ -59,6 +59,11 @@ namespace WeaponEnchantments.UI
 				switch (_itemContext)
 				{
 					case ItemSlotContext.Item:
+                        if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                        {
+							if (item.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+								return true;
+						}
 						return WEMod.IsEnchantable(item);
 					case ItemSlotContext.Enchantment:
 						if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)

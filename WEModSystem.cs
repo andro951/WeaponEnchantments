@@ -343,12 +343,12 @@ namespace WeaponEnchantments
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
-            bool stop = false;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.usingEnchantingTable)
             {
                 if (ItemSlot.ShiftInUse)
                 {
+                    bool stop = false;
                     if (Main.mouseItem.IsAir && !Main.HoverItem.IsAir)
                     {
                         for (int j = 0; j < EnchantingTable.maxItems && Main.cursorOverride != 9; j++)
@@ -357,32 +357,12 @@ namespace WeaponEnchantments
                             {
                                 stop = true;
                             }
-                            else
-                            {
-                                if (wePlayer.enchantingTableUI.itemSlotUI[j].Valid(Main.HoverItem) || (Main.HoverItem.type == ModContent.ItemType<PowerBooster>() && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled))
-                                {
-                                    Main.cursorOverride = 9;
-                                }
-                            }
                         }
                         for (int j = 0; j < EnchantingTable.maxEnchantments && Main.cursorOverride != 9 && !stop; j++)
                         {
                             if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].contains)
                             {
                                 stop = true;
-                            }
-                            else
-                            {
-                                if(Main.HoverItem.ModItem is Enchantments && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
-                                {
-                                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= ((Enchantments)Main.HoverItem.ModItem).GetLevelCost())
-                                    {
-                                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].Valid(Main.HoverItem))
-                                        {
-                                            Main.cursorOverride = 9;
-                                        }
-                                    }
-                                }
                             }
                         }
                         for (int j = 0; j < EnchantingTable.maxEssenceItems && Main.cursorOverride != 9 && !stop; j++)
@@ -391,24 +371,9 @@ namespace WeaponEnchantments
                             {
                                 stop = true;
                             }
-                            else
-                            {
-                                if (wePlayer.enchantingTableUI.essenceSlotUI[j].Valid(Main.HoverItem))
-                                {
-                                    if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.IsAir)
-                                    {
-                                        Main.cursorOverride = 9;
-                                    }
-                                    else
-                                    {
-                                        if (wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack < EnchantmentEssence.maxStack)
-                                        {
-                                            Main.cursorOverride = 9;
-                                        }
-                                    }
-                                }
-                            }
                         }
+                        if(!stop)
+                            wePlayer.CheckShiftClickValid(ref Main.HoverItem);
                     }
                     if (Main.cursorOverride != 9 && !stop || Main.cursorOverride == 6)
                     {
