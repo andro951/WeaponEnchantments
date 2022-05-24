@@ -28,6 +28,7 @@ namespace WeaponEnchantments
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
+        private static bool favorited;
 
         public override void OnModLoad()
         {
@@ -95,11 +96,14 @@ namespace WeaponEnchantments
                     }
                     ConfirmationUI.offered = false;
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
+                    wePlayer.itemBeingEnchanted.favorited = favorited;
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
                 }
                 if(addedItem || swappedItem)
                 {
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
+                    favorited = wePlayer.itemBeingEnchanted.favorited;
+                    wePlayer.itemBeingEnchanted.favorited = false;
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = true;
                     wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus;
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus = 0;

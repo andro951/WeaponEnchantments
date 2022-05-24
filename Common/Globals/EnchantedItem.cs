@@ -10,6 +10,7 @@ using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using static WeaponEnchantments.Items.Containment;
+using Terraria.UI;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -54,6 +55,8 @@ namespace WeaponEnchantments.Common.Globals
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
         public const int maxLevel = 40;
+        public bool favorited = false;
+        public bool trashItem = false;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -121,6 +124,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void UpdateInventory(Item item, Player player)
         {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if(experience > 0 || powerBoosterInstalled)
             {
                 int value = 0;
@@ -130,9 +134,33 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
                 int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
-                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + 16 * experience + powerBoosterValue : 0;
+                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssence.valuePerXP * experience) + powerBoosterValue : 0;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
+            }
+            if (wePlayer.stickyFavorited)
+            {
+                if (item.favorited)
+                {
+                    if (!favorited && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt))
+                    {
+                        favorited = true;
+                    }
+                }//Sticky Favorited
+                else
+                {
+                    if (favorited)
+                    {
+                        if (!(Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt)))
+                        {
+                            item.favorited = true;
+                        }
+                        else
+                        {
+                            favorited = false;
+                        }
+                    }
+                }//Sticky Favorited
             }
         }
         public void UpdateLevel()
@@ -580,7 +608,7 @@ namespace WeaponEnchantments.Common.Globals
                 float multiplier;
                 float effDamage;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 2f : 1f);
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 4f : 1f);
                 effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
                 damage = target.life < 0 ? damage + target.life : damage;
                 if (target.value > 0 || !target.SpawnedFromStatue && target.lifeMax > 5)
@@ -593,10 +621,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         xp = (float)damage * multiplier * effDamage;
                     }
-                    if (item.accessory)
-                    {
-                        xp /= 2;
-                    }
+                    xp /= UtilityMethods.GetReductionFactor((int)target.lifeMax);
                     xpInt = (int)Math.Round(xp);
                     xpInt = xpInt > 1 ? xpInt : 1;
                     if (!item.consumable)
@@ -605,22 +630,31 @@ namespace WeaponEnchantments.Common.Globals
                         //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
                         GainXP(item, xpInt);
                     }
-                    foreach (Item armor in wePlayer.Player.armor)
+                    int i = 0;
+                    foreach(Item armor in wePlayer.Player.armor)
                     {
-                        if (!armor.vanity && !armor.IsAir)
+                        if(i < 10)
                         {
-                            if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
+                            if (!armor.vanity && !armor.IsAir)
                             {
-                                if (armor.accessory)
+                                if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
                                 {
-                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt / 2);
-                                }
-                                else
-                                {
-                                    armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                    if (armor.accessory)
+                                    {
+                                        xpInt = (int)Math.Round(xp / 4f);
+                                        xpInt = xpInt > 0 ? xpInt : 1;
+                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                    }
+                                    else
+                                    {
+                                        xpInt = (int)Math.Round(xp / 2f);
+                                        xpInt = xpInt > 0 ? xpInt : 1;
+                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                    }
                                 }
                             }
                         }
+                        i++;
                     }
                 }
             }
@@ -694,7 +728,6 @@ namespace WeaponEnchantments.Common.Globals
                     WEGlobalNPC.GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        ;
                         if (dropRate[i] > 0)
                         {
                             switch (npc.type)

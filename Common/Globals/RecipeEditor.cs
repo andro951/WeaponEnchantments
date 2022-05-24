@@ -98,9 +98,9 @@ namespace WeaponEnchantments.Common.Globals
 						int xpCounter = miGlobal.experience;
 						for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
 						{
-							numberEssenceRecieved = xpCounter / ConfirmationUI.xpTiers[tier] * 4 / 5;
-							xpCounter -= ConfirmationUI.xpTiers[tier] * numberEssenceRecieved;
-							if (xpCounter < ConfirmationUI.xpTiers[0] && xpCounter > 0 && tier == 0)
+							numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier] * 4 / 5;
+							xpCounter -= (int)EnchantmentEssence.xpPerEssence[tier] * numberEssenceRecieved;
+							if (xpCounter < (int)EnchantmentEssence.xpPerEssence[0] && xpCounter > 0 && tier == 0)
 							{
 								xpCounter = 0;
 								numberEssenceRecieved += 1;
@@ -236,12 +236,15 @@ namespace WeaponEnchantments.Common.Globals
 			c.EmitDelegate((Item item, int num) =>
 			{
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-				{
-					Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-					if (item.type == slotItem.type)
+                if (wePlayer.usingEnchantingTable)
+                {
+					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
 					{
-						slotItem.stack -= num;
+						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+						if (item.type == slotItem.type)
+						{
+							slotItem.stack -= num;
+						}
 					}
 				}
 			});

@@ -17,7 +17,6 @@ namespace WeaponEnchantments
         public const int maxTier = 4;//Number of enchantingTable tiers
         public int tier = 0;//Tier of the current enchantingTable being used by the player
         public bool summonDemon;//Used to determine if the demon shopkeeper NPC should be summoned in the enchanting table (tier = maxTier enchanting table)
-        public int availableEnchantmentSlots;//Number of enchantmentSlots the player can use based on enchatning table tier
         //public static int[] essenceType = new int[maxEssenceItems];
         public List<Item> item;//Stores item(s) when enchanting table UI is closed
         public List<Item> enchantmentItem;//Stores enchantments when enchanting table UI is closed
@@ -45,8 +44,6 @@ namespace WeaponEnchantments
         }//Constructor
         public void Open()
         {
-            availableEnchantmentSlots = maxEnchantments - tier;
-            //texture = textures[Tier];//Should go in WeaponEnchantmentsUI not here
             if (tier == maxTier)
             {
                 summonDemon = true;

@@ -85,5 +85,9 @@ namespace WeaponEnchantments.Common
             }
             return false;
         }
+        public static float GetReductionFactor(int hp)
+        {
+            return hp > 7000 ? hp / 1000 + 1 : 8;
+        }
     }
 }

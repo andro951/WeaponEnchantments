@@ -41,11 +41,13 @@ namespace WeaponEnchantments
         public int allForOneTimer = 0;
         public Item[] equiptArmor;
         public Item heldItem;
+        public Item trashItem = new Item();
         public bool spelunker = false;
         public bool dangerSense = false;
         public bool hunter = false;
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
+        public bool stickyFavorited = true;
 
         public override void Load()
         {
@@ -237,13 +239,29 @@ namespace WeaponEnchantments
             bool valid = false;
             if (Main.mouseItem.IsAir)
             {
-                int num = 448;
-                int num2 = 258;
-                bool hoveringOverTrash = false;
-                //Main.inventoryScale = 1f;
-                if (Main.mouseX >= num && (float)Main.mouseX <= (float)num + (float)TextureAssets.InventoryBack.Width() && Main.mouseY >= num2 && (float)Main.mouseY <= (float)num2 + (float)TextureAssets.InventoryBack.Height())
+                if (!Player.trashItem.IsAir)
                 {
-                    hoveringOverTrash = true;
+                    if (!Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem)
+                    {
+                        if (!trashItem.IsAir)
+                        {
+                            trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
+                        }
+                        Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem = true;
+                    }
+                }
+                else
+                {
+                    if (!trashItem.IsAir)
+                    {
+                        trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
+                    }
+                }
+                bool hoveringOverTrash = false;
+                if (!item.IsAir)
+                {
+                    if(item.GetGlobalItem<EnchantedItem>().trashItem)
+                        hoveringOverTrash = true;
                 }
                 if (!hoveringOverTrash)
                 {
@@ -275,9 +293,9 @@ namespace WeaponEnchantments
                                     bool doNotSwap = false;
                                     if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
                                     {
-                                        if (iGlobal.equip)
+                                        Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
+                                        if (iGlobal.equip && !tableItem.IsAir)
                                         {
-                                            Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
                                             if(item.accessory && !tableItem.accessory || item.headSlot > 0 && tableItem.headSlot == -1 || item.bodySlot > 0 && tableItem.bodySlot == -1 || item.legSlot > 0 && tableItem.legSlot == -1)
                                             {
                                                 doNotSwap = true;
@@ -374,7 +392,7 @@ namespace WeaponEnchantments
                                 {
                                     if (!item.IsAir)
                                     {
-                                        bool canTransfered = false;
+                                        bool canTransfer = false;
                                         if (enchantingTableUI.essenceSlotUI[i].Item.IsAir)
                                         {
                                             if (moveItem)
@@ -382,7 +400,7 @@ namespace WeaponEnchantments
                                                 enchantingTableUI.essenceSlotUI[i].Item = item.Clone();
                                                 item = new Item();
                                             }
-                                            canTransfered = true;
+                                            canTransfer = true;
                                         }//essence slot empty
                                         else
                                         {
@@ -403,10 +421,10 @@ namespace WeaponEnchantments
                                                     }
                                                     enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
                                                 }
-                                                canTransfered = true;
+                                                canTransfer = true;
                                             }
                                         }//Essence slot not empty
-                                        if (canTransfered)
+                                        if (canTransfer)
                                         {
                                             if (moveItem)
                                                 SoundEngine.PlaySound(SoundID.Grab);
@@ -452,6 +470,22 @@ namespace WeaponEnchantments
                     if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
                         check = true;
                     enemySpawnBonus *= hiGlobal.enemySpawnBonus;
+                    if(hiGlobal.GetLevelsAvailable() < 0)
+                    {
+                        for(int k = EnchantingTable.maxEnchantments - 1; k >= 0 && hiGlobal.GetLevelsAvailable() < 0; k--)
+                        {
+                            if (!hiGlobal.enchantments[k].IsAir)
+                            {
+                                hiGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, hiGlobal.enchantments[i], GetItemSettings.LootAllSettings);
+                            }
+                            if (!hiGlobal.enchantments[k].IsAir)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), hiGlobal.enchantments[k]);
+                                hiGlobal.enchantments[k].TurnToAir();
+                                Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -460,6 +494,7 @@ namespace WeaponEnchantments
                 if(!heldItem.IsAir)
                     enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                 heldItem = Player.HeldItem;
+
             }//Check HeldItem
             if (!check)
             {
@@ -529,36 +564,56 @@ namespace WeaponEnchantments
                             {
                                 if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                                 {
-                                    float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
-                                    switch ((EnchantmentTypeID)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
+                                    if(i > 1 && i < 4 || i > 0 && armor.accessory)
                                     {
-                                        case EnchantmentTypeID.Size:
-                                            itemScaleBonus += str;
-                                            break;
-                                        case EnchantmentTypeID.ManaCost:
-                                            manaCostBonus += str;
-                                            break;
-                                        case EnchantmentTypeID.AmmoCost:
-                                            ammoCostBonus += str;
-                                            break;
-                                        case EnchantmentTypeID.LifeSteal:
-                                            lifeStealBonus += str;
-                                            break;
-                                        case EnchantmentTypeID.Spelunker:
-                                            spelunker = true;
-                                            break;
-                                        case EnchantmentTypeID.DangerSense:
-                                            dangerSense = true;
-                                            break;
-                                        case EnchantmentTypeID.Hunter:
-                                            hunter = true;
-                                            break;
-                                        case EnchantmentTypeID.War:
-                                            enemySpawnBonus *= 1 + str;
-                                            break;
-                                        case EnchantmentTypeID.Peace:
-                                            enemySpawnBonus /= 1 + str;
-                                            break;
+                                        armor.GetGlobalItem<EnchantedItem>().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetGlobalItem<EnchantedItem>().enchantments[i], GetItemSettings.LootAllSettings);
+                                        if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                                        {
+                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
+                                            armor.GetGlobalItem<EnchantedItem>().enchantments[i].TurnToAir();
+                                            if (armor.accessory)
+                                            {
+                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
+                                            }
+                                            else
+                                            {
+                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
+                                        switch ((EnchantmentTypeID)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
+                                        {
+                                            case EnchantmentTypeID.Size:
+                                                itemScaleBonus += str;
+                                                break;
+                                            case EnchantmentTypeID.ManaCost:
+                                                manaCostBonus += str;
+                                                break;
+                                            case EnchantmentTypeID.AmmoCost:
+                                                ammoCostBonus += str;
+                                                break;
+                                            case EnchantmentTypeID.LifeSteal:
+                                                lifeStealBonus += str;
+                                                break;
+                                            case EnchantmentTypeID.Spelunker:
+                                                spelunker = true;
+                                                break;
+                                            case EnchantmentTypeID.DangerSense:
+                                                dangerSense = true;
+                                                break;
+                                            case EnchantmentTypeID.Hunter:
+                                                hunter = true;
+                                                break;
+                                            case EnchantmentTypeID.War:
+                                                enemySpawnBonus *= 1 + str;
+                                                break;
+                                            case EnchantmentTypeID.Peace:
+                                                enemySpawnBonus /= 1 + str;
+                                                break;
+                                        }
                                     }
                                 }
                             }

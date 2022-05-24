@@ -18,6 +18,7 @@ using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
+using static WeaponEnchantments.Items.EnchantmentEssence;
 
 namespace WeaponEnchantments.UI
 {
@@ -38,7 +39,6 @@ namespace WeaponEnchantments.UI
         private readonly static Color hoverRed = new Color(184, 103, 100);
         private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
         private readonly static Color hoverColor = new Color(100, 118, 184);//Button hover color
-        public static int[] xpTiers = { 100, 400, 1600, 6400, 25600 };
 
         internal const int width = 680;
         internal const int height = 155;
@@ -53,7 +53,7 @@ namespace WeaponEnchantments.UI
                 Width.Pixels = width;
                 Height.Pixels = height;
                 Top.Pixels = int.MaxValue / 2;
-                Left.Pixels = int.MaxValue / 2 + 100;
+                Left.Pixels = int.MaxValue / 2 + 100 - 25;
                 BackgroundColor = red;
 
                 confirmationPanels = new List<UIPanel>();
@@ -143,37 +143,7 @@ namespace WeaponEnchantments.UI
             {
                 int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
                 int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
-                int numberEssenceRecieved;
-                int xpCounter = (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.enchantingTableTier));
-                for(int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
-                {
-                    if(wePlayer.enchantingTableTier >= tier)
-                    {
-                        /*if(wePlayer.enchantingTableTier == EnchantingTable.maxTier)
-                        {
-                            numberEssenceRecieved = xpCounter / xpTiers[tier];
-                            xpCounter %= xpTiers[tier];
-                        }
-                        else
-                        {*/
-                            numberEssenceRecieved = xpCounter / xpTiers[tier] * 4 / 5;
-                            xpCounter -= xpTiers[tier] * numberEssenceRecieved;
-                        //}
-                        if (xpCounter < xpTiers[0] && xpCounter > 0 && tier == 0)
-                        {
-                            xpCounter = 0;
-                            numberEssenceRecieved += 1;
-                        }
-                        if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
-                        {
-                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item = new Item(EnchantmentEssence.IDs[tier], numberEssenceRecieved);
-                        }
-                        else
-                        {
-                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
-                        }
-                    }
-                }
+                WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                 int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);
                 if (stack == 0)
                 {
@@ -191,7 +161,7 @@ namespace WeaponEnchantments.UI
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
         {
-            Left.Pixels = RelativeLeft + 100;//PR
+            Left.Pixels = RelativeLeft + 100 - 25;//PR
             Top.Pixels = RelativeTop;//PR
 
             foreach (var panel in confirmationPanels)
@@ -214,12 +184,14 @@ namespace WeaponEnchantments.UI
         {
             public const int LootAll = 0;
             public const int Offer = 1;
-            public const int xp0 = 0;
-            public const int xp1 = 1;
-            public const int xp2 = 2;
-            public const int xp3 = 3;
-            public const int xp4 = 4;
-            public const int Count = 7;
+            public const int xp0 = 0;//2
+            public const int xp1 = 1;//3
+            public const int xp2 = 2;//4
+            public const int xp3 = 3;//5
+            public const int xp4 = 4;//6
+            public const int LevelUp = 7;
+            public const int Syphon = 8;
+            public const int Count = 9;
             public static int[] xps = new int[] { xp0, xp1, xp2, xp3, xp4 };
         }//LootAll = 0, Offer = 1
         public class ItemSlotContext
@@ -231,7 +203,7 @@ namespace WeaponEnchantments.UI
 
         public const bool PR = true;//Used to toggle between my UI in progress and the UI based on PetRenaimer mod
 
-        public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer" };
+        public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
         public const float buttonScaleMinimum = 0.75f;//my UI
         public const float buttonScaleMaximum = 1f;//my UI
         public static float[] ButtonScale = new float[ButtonID.Count];//my UI
@@ -250,7 +222,7 @@ namespace WeaponEnchantments.UI
         private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
         private readonly static Color hoverColor = new Color(100, 118, 184);//Button hover color
 
-        internal const int width = 480;
+        internal const int width = 530;
         internal const int height = 155;
 
         internal int RelativeLeft => Main.screenWidth / 2 - width / 2;
@@ -270,12 +242,13 @@ namespace WeaponEnchantments.UI
 
                 panels = new List<UIPanel>();
 
+                float xOffset = -20;
                 float nextElementY = -PaddingTop / 2;
 
                 titleText = new UIText("Item           Enchantments      Utility  ")
                 {
                     Top = { Pixels = nextElementY },
-                    Left = { Pixels = 0 },
+                    Left = { Pixels = 0 + xOffset },
                     HAlign = 0.5f
                 };//UI slot labels
                 Append(titleText);
@@ -285,7 +258,7 @@ namespace WeaponEnchantments.UI
                 {
                     wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(17, ItemSlotContext.Item)
                     {
-                        Left = { Pixels = -145f },
+                        Left = { Pixels = -145f + xOffset },
                         Top = { Pixels = nextElementY },
                         HAlign = 0.5f
                     };//ItemSlot(s)
@@ -309,7 +282,7 @@ namespace WeaponEnchantments.UI
                     {
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(0, ItemSlotContext.Enchantment, i)
                         {
-                            Left = { Pixels = -67f + 47.52f * i },
+                            Left = { Pixels = -67f + 47.52f * i + xOffset },
                             Top = { Pixels = nextElementY },
                             HAlign = 0.5f
                         };
@@ -335,7 +308,7 @@ namespace WeaponEnchantments.UI
                     {
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(10, ItemSlotContext.Enchantment, i, true)
                         {
-                            Left = { Pixels = -67f + 47.52f * i },
+                            Left = { Pixels = -67f + 47.52f * i + xOffset },
                             Top = { Pixels = nextElementY },
                             HAlign = 0.5f
                         };
@@ -358,7 +331,7 @@ namespace WeaponEnchantments.UI
                 {
                     wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(4, ItemSlotContext.Essence, i)
                     {
-                        Left = { Pixels = -67f + 47.52f * i },
+                        Left = { Pixels = -67f + 47.52f * i + xOffset },
                         Top = { Pixels = nextElementY + 50 },
                         HAlign = 0.5f
                     };
@@ -381,7 +354,7 @@ namespace WeaponEnchantments.UI
                     button[2 + i] = new UIPanel()
                     {
                         Top = { Pixels = nextElementY + 96 },
-                        Left = { Pixels = -66f + 47.52f * i },
+                        Left = { Pixels = -66f + 47.52f * i + xOffset },
                         Width = { Pixels = 40f },
                         Height = { Pixels = 30f },
                         HAlign = 0.5f,
@@ -417,6 +390,46 @@ namespace WeaponEnchantments.UI
                     panels.Add(button[2 + i]);
                 }//EssenceSlots
 
+                //Level Up button
+                button[ButtonID.LevelUp] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY + 96 },
+                    Left = { Pixels = -66f + 47.52f * 5 + 25 + xOffset },
+                    Width = { Pixels = 90f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f,
+                    BackgroundColor = bgColor
+                };
+                button[ButtonID.LevelUp].OnClick += (evt, element) => { LevelUp(); };
+                UIText levelButonText = new UIText("Level Up")
+                {
+                    Top = { Pixels = -8f },
+                    Left = { Pixels = -1f }
+                };
+                button[ButtonID.LevelUp].Append(levelButonText);
+                Append(button[ButtonID.LevelUp]);
+                panels.Add(button[ButtonID.LevelUp]);
+
+                //Syphon button
+                button[ButtonID.Syphon] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY + 0 },
+                    Left = { Pixels = -66f + 47.52f * 5 + 25 + xOffset },
+                    Width = { Pixels = 90f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f,
+                    BackgroundColor = bgColor
+                };
+                button[ButtonID.Syphon].OnClick += (evt, element) => { Syphon(); };
+                UIText syphonButonText = new UIText("Sphon")
+                {
+                    Top = { Pixels = -8f },
+                    Left = { Pixels = -1f }
+                };
+                button[ButtonID.Syphon].Append(syphonButonText);
+                Append(button[ButtonID.Syphon]);
+                panels.Add(button[ButtonID.Syphon]);
+
                 nextElementY += 50;
                 float ratioFromCenter = 0.22f;
 
@@ -424,7 +437,7 @@ namespace WeaponEnchantments.UI
                 button[ButtonID.LootAll] = new UIPanel()
                 {
                     Top = { Pixels = nextElementY },
-                    Left = { Pixels = -66 },
+                    Left = { Pixels = -66 + xOffset },
                     Width = { Pixels = 100f },
                     Height = { Pixels = 30f },
                     HAlign = 0.5f - ratioFromCenter,
@@ -446,7 +459,7 @@ namespace WeaponEnchantments.UI
                 button[ButtonID.Offer] = new UIPanel()
                 {
                     Top = { Pixels = nextElementY },
-                    Left = { Pixels = -66 },
+                    Left = { Pixels = -66 + xOffset },
                     Width = { Pixels = 100f },
                     Height = { Pixels = 30f },
                     HAlign = 0.5f - ratioFromCenter,
@@ -520,154 +533,6 @@ namespace WeaponEnchantments.UI
                 }
             }//Change button color if hovering
         }//PR
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            //PR version works fine without this
-            /*
-            if (firstDraw)
-            {
-                firstDraw = false;
-                return;
-            }
-            if (ContainsPoint(Main.MouseScreen))
-            {
-                wePlayer.Player.mouseInterface = true;
-                wePlayer.Player.cursorItemIconEnabled = false;
-                Main.ItemIconCacheUpdate(0);
-            }*/
-
-
-
-            //From vaninna loook at again
-            if (!PR)
-            {
-                if (wePlayer.usingEnchantingTable && !Main.recBigList)
-                {
-                    Main.inventoryScale = 0.755f;
-                    if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, 73f, Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
-                        Main.player[Main.myPlayer].mouseInterface = true;
-                    DrawButtons(spriteBatch);
-                    DrawSlots(spriteBatch);
-                }
-                else
-                {
-                    for (int i = 0; i < ButtonID.Count; i++)
-                    {
-                        ButtonScale[i] = 0.75f;
-                        ButtonHovered[i] = false;
-                    }
-                }
-            }
-            base.DrawSelf(spriteBatch);
-        }//My UI
-        public static void UpdateHover(int ID, bool hovering)
-        {
-            if (hovering)
-            {
-                if (!ButtonHovered[ID])
-                {
-                    SoundEngine.PlaySound(SoundID.MenuTick);
-                    ButtonHovered[ID] = true;
-                    ButtonScale[ID] += 0.05f;
-                    if (ButtonScale[ID] > 1f)
-                    {
-                        ButtonScale[ID] = 1f;
-                    }
-                }
-            }
-            else
-            {
-                ButtonHovered[ID] = false;
-                ButtonScale[ID] -= 0.05f;
-                if (ButtonScale[ID] < 0.75f)
-                    ButtonScale[ID] = 0.75f;
-            }
-        }//My UI
-
-        //Having Draw exist at all causes the UI to not show up
-        /*
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            /*
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.usingEnchantingTable && !Main.recBigList)
-            {
-                Main.inventoryScale = 0.755f;
-                if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, 73f, Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale))
-                    Main.player[Main.myPlayer].mouseInterface = true;
-                DrawButtons(spriteBatch);
-                DrawSlots(spriteBatch);
-            }
-            else
-            {
-                for (int i = 0; i < ButtonID.Count; i++)
-                {
-                    ButtonScale[i] = 0.75f;
-                    ButtonHovered[i] = false;
-                }
-            }
-            //base.DrawSelf(spriteBatch);
-        }//My UI
-        */
-        private static void DrawButtons(SpriteBatch spritebatch)//Not used if Draw is disabled
-        {
-            for (int i = 0; i < ButtonID.Count; i++)
-            {
-                DrawButton(spritebatch, i, 506, Main.instance.invBottom + 40);//Change this to be the correct spot
-            }
-        }//My UI
-        private static void DrawButton(SpriteBatch spriteBatch, int ID, int X, int Y)//Not used if Draw is disabled
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            int num = ID;
-            //if (ID == 7)
-            //	num = 5;
-
-            Y += num * 26;
-            float num2 = ButtonScale[ID];
-            string text = Language.GetTextValue("Mods.WeaponEnchantments.Buttons." + ButtonNames[ID]);//Need to set up names in other languages for this to work
-
-            Vector2 value = FontAssets.MouseText.Value.MeasureString(text);
-            Color color = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor) * num2;
-            color = Color.White * 0.97f * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
-            color.A = byte.MaxValue;
-            X += (int)(value.X * num2 / 2f);
-            bool flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f, Y - 12, value.X, 24f);
-            if (ButtonHovered[ID])
-                flag = Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, (float)X - value.X / 2f - 10f, Y - 12, value.X + 16f, 24f);
-
-            if (flag)
-                color = Main.OurFavoriteColor;
-
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(X, Y), color, 0f, value / 2f, new Vector2(num2), -1f, 1.5f);
-            value *= num2;
-            UILinkPointNavigator.SetPosition(UILinkPointNavigator.Points.Count + 1, new Vector2((float)X - value.X * num2 / 2f * 0.8f, Y));
-
-            if (!flag)
-            {
-                UpdateHover(ID, hovering: false);
-                return;
-            }
-
-            UpdateHover(ID, hovering: true);
-            if (PlayerInput.IgnoreMouseInterface)
-                return;
-            wePlayer.Player.mouseInterface = true;
-            if (Main.mouseLeft && Main.mouseLeftRelease)
-            {
-                switch (ID)
-                {
-                    case 1:
-                        LootAll();
-                        break;
-                    case 2:
-                        Offer();
-                        break;
-                }
-                Recipe.FindRecipes();
-            }
-        }//My UI
         private static void ConvertEssenceToXP(int tier)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -678,8 +543,86 @@ namespace WeaponEnchantments.UI
                 essence.stack--;
                 //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                 //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                item.GetGlobalItem<EnchantedItem>().GainXP(item, ConfirmationUI.xpTiers[tier]);
+                item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssence.xpPerEssence[tier]);
                 SoundEngine.PlaySound(SoundID.MenuTick);
+            }
+        }
+        public static int ConvertXPToEssence(int xp, bool consumeAll = false)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            int numberEssenceRecieved;
+            int xpCounter = (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.enchantingTableTier));
+            int xpInitial = xpCounter;
+            int xpNotConsumed = 0;
+            for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
+            {
+                if (wePlayer.enchantingTableTier >= tier)
+                {
+                    /*if(wePlayer.enchantingTableTier == EnchantingTable.maxTier)
+                    {
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier];
+                        xpCounter %= (int)EnchantmentEssence.xpPerEssence[tier];
+                    }
+                    else
+                    {*/
+                    if(tier > 0)
+                    {
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier] * 4 / 5;
+                    }
+                    else
+                    {
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier];
+                    }
+                    xpCounter -= (int)EnchantmentEssence.xpPerEssence[tier] * numberEssenceRecieved;
+                    //}
+                    if (xpCounter < (int)EnchantmentEssence.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+                    {
+                        if (consumeAll)
+                        {
+                            numberEssenceRecieved += 1;
+                        }
+                        else
+                        {
+                            xpNotConsumed = xpCounter;
+                        }
+                        xpCounter = 0;
+                    }
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
+                    {
+                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item = new Item(EnchantmentEssence.IDs[tier], numberEssenceRecieved);
+                    }
+                    else
+                    {
+                        if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack + numberEssenceRecieved > ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack)
+                        {
+                            int ammountToTransfer = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack;
+                            numberEssenceRecieved -= ammountToTransfer;
+                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += ammountToTransfer;
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<EnchantmentEssenceBasic>() + tier, numberEssenceRecieved);
+                        }
+                        else
+                        {
+                            wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.stack += numberEssenceRecieved;
+                        }
+                    }
+                }
+            }
+            return xpInitial - xpNotConsumed;
+        }
+        public static void Syphon()
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            {
+                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>();
+                if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssence.xpPerEssence[0])
+                {
+                    Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssence.xpPerEssence[0]).ToString() + " experience.");
+                }
+                else
+                {
+                    iGlobal.experience -= ConvertXPToEssence(iGlobal.experience - WEModSystem.levelXps[EnchantedItem.maxLevel - 1]);
+                }
             }
         }
         private static void LootAll()
@@ -719,64 +662,65 @@ namespace WeaponEnchantments.UI
                 }
             }
         }
-        private static void DrawSlots(SpriteBatch spriteBatch)//Not used if Draw is disabled
+        private static void LevelUp()
         {
-            /*
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item[] item = wePlayer.enchantingTable.item;
-            Item[] enchantmentItem = wePlayer.enchantingTable.enchantmentItem;//might need to be for int i < maxEnchantments...or Clone()
-            Item[] essenceItem = wePlayer.enchantingTable.essenceItem;//might need to be for int i < maxEssence...or Clone()
-            Main.inventoryScale = 0.755f;
-            if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, 73f, Main.instance.invBottom, 560f * Main.inventoryScale, 224f * Main.inventoryScale) && !PlayerInput.IgnoreMouseInterface)
-                wePlayer.Player.mouseInterface = true;
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
+            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (!tableItem.IsAir)
             {
-                int x = (int)(73f + (float)(i * 56) * Main.inventoryScale);//change
-                int y = (int)((float)Main.instance.invBottom + (float)( 56) * Main.inventoryScale);//change
-                int slot = i  * 10;
-                new Color(100, 100, 100, 100);
-                if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, x, y, (float)TextureAssets.InventoryBack.Width() * Main.inventoryScale, (float)TextureAssets.InventoryBack.Height() * Main.inventoryScale) && !PlayerInput.IgnoreMouseInterface)
+                int xpAvailable = 0;
+                EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
+                if(iGlobal.levelBeforeBooster != EnchantedItem.maxLevel)
                 {
-                    wePlayer.Player.mouseInterface = true;
-                    ItemSlot.Handle(item, 4, slot);
-                }
-                ItemSlot.Draw(spriteBatch, item, 4, slot, new Vector2(x, y));
-            }
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                int x = (int)(73f + (float)(i * 56) * Main.inventoryScale + 50);//change
-                int y = (int)((float)Main.instance.invBottom + (float)( 56) * Main.inventoryScale);//change
-                int slot = i  * 10;
-                if (i < wePlayer.enchantingTable.availableEnchantmentSlots)
-                {
-                    new Color(100, 100, 100, 100);
+                    for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
+                    {
+                        xpAvailable += (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                    }
+                    int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.experience;
+                    if (xpAvailable >= xpNeeded)
+                    {
+                        for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
+                        {
+                            Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+                            int stack = essenceItem.stack;
+                            int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssence.xpPerEssence[i];
+                            int numberEssenceTransfered;
+                            if(numberEssenceNeeded > stack)
+                            {
+                                numberEssenceTransfered = stack;
+                            }
+                            else
+                            {
+                                numberEssenceTransfered = numberEssenceNeeded;
+                            }
+                            int xpAvailableBelowMe = 0;
+                            for (int j = i - 1; j >= 0; j--)
+                            {
+                                xpAvailableBelowMe += (int)EnchantmentEssence.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
+                            }
+                            if(xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssence.xpPerEssence[i] * numberEssenceTransfered)
+                            {
+                                numberEssenceTransfered++;
+                            }
+                            if (numberEssenceTransfered > 0)
+                            {
+                                int xpTransfered = (int)EnchantmentEssence.xpPerEssence[i] * numberEssenceTransfered;
+                                xpNeeded -= xpTransfered;
+                                essenceItem.stack -= numberEssenceTransfered;
+                                iGlobal.GainXP(tableItem, xpTransfered);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (iGlobal.levelBeforeBooster + 1).ToString() + " you only have " + xpAvailable + " available.");
+                    }
                 }
                 else
                 {
-                    new Color(50, 50, 50, 50);
+                    Main.NewText("Your " + tableItem.Name + " is already max level.");
                 }
-                if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, x, y, (float)TextureAssets.InventoryBack.Width() * Main.inventoryScale, (float)TextureAssets.InventoryBack.Height() * Main.inventoryScale) && !PlayerInput.IgnoreMouseInterface)
-                {
-                    wePlayer.Player.mouseInterface = true;
-                    ItemSlot.Handle(enchantmentItem, 4, slot);
-                }
-                ItemSlot.Draw(spriteBatch, enchantmentItem, 4, slot, new Vector2(x, y));
             }
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-            {
-                int x = (int)(73f + (float)(i * 56) * Main.inventoryScale + 100);//change
-                int y = (int)((float)Main.instance.invBottom + (float)( 56) * Main.inventoryScale);//change
-                int slot = i  * 10;
-                new Color(100, 100, 100, 100);
-                if (Utils.FloatIntersect(Main.mouseX, Main.mouseY, 0f, 0f, x, y, (float)TextureAssets.InventoryBack.Width() * Main.inventoryScale, (float)TextureAssets.InventoryBack.Height() * Main.inventoryScale) && !PlayerInput.IgnoreMouseInterface)
-                {
-                    wePlayer.Player.mouseInterface = true;
-                    ItemSlot.Handle(essenceItem, 4, slot);
-                }
-                ItemSlot.Draw(spriteBatch, essenceItem, 4, slot, new Vector2(x, y));
-            }
-            */
-        }//My UI
-
+        }
     }
 }

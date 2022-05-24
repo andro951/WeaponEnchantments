@@ -37,7 +37,7 @@ namespace WeaponEnchantments.UI
 		private int timer = 0;
 		internal WEUIItemSlot(int context, int itemContext, int slotTier = 4, bool utilitySlot = false, float scale = 0.86f)
 		{
-			_context = context;//ItemSlot.context.ChestItem or BankItem or InventoryCoin
+			_context = context;
 			_itemContext = itemContext;//0 = itemSlot, 1 = enchantmentSlot, 2 = essenceSlot
 			_slotTier = slotTier;//Associated enchantment table tier required for enchantmentSlot to unlock or the rarity of each essenceSlot
 			_utilitySlot = utilitySlot;//Only true for the last enchantmentSlot, it can only have utility enchantments
@@ -68,7 +68,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Enchantment:
 						if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
 						{
-							if (_slotTier <= wePlayer.enchantingTableTier || _utilitySlot)
+							if (UseEnchantmentSlot())
 							{
 								if (WEMod.IsEnchantmentItem(item, _utilitySlot))
 								{
@@ -145,6 +145,37 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}//Check if Item going into a slot is valid for that slot
+		private bool UseEnchantmentSlot()
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (_slotTier <= wePlayer.enchantingTableTier || _utilitySlot)
+            {
+				if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null)
+                {
+					Item item = wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item;
+					if (!item.IsAir)
+                    {
+						switch (_slotTier)
+						{
+							case 0:
+								return true;
+							case 1:
+							case 4:
+								if (!item.accessory)
+									return true;
+								break;
+							default:
+								if(WEMod.IsWeaponItem(item))
+									return true;
+								break;
+						}
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
+		}
 		internal void HandleMouseItem()
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -246,7 +277,6 @@ namespace WeaponEnchantments.UI
 				wePlayer.Player.mouseInterface = true;
 				HandleMouseItem();
 			}
-			//ItemSlot.Draw(spriteBatch, ref Item, _context, rectangle.TopLeft());
 			Draw(spriteBatch, Item, _context, _slotTier, rectangle.TopLeft(), _slotTier);
 			if (contains)
 			{
@@ -259,7 +289,7 @@ namespace WeaponEnchantments.UI
 			}
 			Main.inventoryScale = oldScale;
 		}//PR
-		public static void Draw(SpriteBatch spriteBatch, Item item, int context, int slot, Vector2 position, int slotTier)
+		public void Draw(SpriteBatch spriteBatch, Item item, int context, int slot, Vector2 position, int slotTier)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Player player = Main.player[Main.myPlayer];
@@ -277,14 +307,10 @@ namespace WeaponEnchantments.UI
 			}
 
 			Texture2D value = TextureAssets.InventoryBack.Value;
-			//Color color2 = Main.inventoryBack;
 			Color color2 = Color.White;
-			if(wePlayer.enchantingTableTier < 4 && context == 0)
+            if (!UseEnchantmentSlot() && (context == 0 || context == 10))
             {
-				if(wePlayer.enchantingTableTier - slotTier < 0)
-                {
-					context = 9;
-				}
+				context = 5;
             }
 			switch (context)
 			{

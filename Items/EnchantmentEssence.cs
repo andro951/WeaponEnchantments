@@ -13,21 +13,26 @@ namespace WeaponEnchantments.Items
 		public static int[] IDs = new int[rarity.Length];
 		public const int maxStack = 100000;
 		public static float[] values = new float[rarity.Length];
+		public static float[] xpPerEssence = new float[rarity.Length];
+		public static float valuePerXP;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
             for(int i = 0; i < rarity.Length; i++)
             {
-				values[i] = (float)(100 * Math.Pow(8, essenceRarity));
+				values[i] = (float)(25 * Math.Pow(8, i));
+				xpPerEssence[i] = (float)(400 * Math.Pow(4, i));
 			}
-        }
+			valuePerXP = (values[rarity.Length - 1] / xpPerEssence[rarity.Length - 1]);
+
+		}
         public override void SetDefaults()
 		{
 			if(essenceRarity > -1)
             {
 				Item.value = (int)values[essenceRarity];
 				//Tooltip.SetDefault("Item value: " + Item.value.ToString());
-				Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.");
+				Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 				Item.maxStack = maxStack;
 				//DisplayName.SetDefaults("");
 				//Tooltip.SetDefault("");

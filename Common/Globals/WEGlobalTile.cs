@@ -64,7 +64,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
 							int k;
 							for (k = j; Main.tile[i, k] != null && (!Main.tile[i, k].HasTile || !Main.tileSolid[Main.tile[i, k].TileType] || Main.tileSolidTop[Main.tile[i, k].TileType]); k++){}
-							xp = tileType >= 583 && tileType <= 589 ? k * 3 : k / 16 * 10 ;
+							xp = tileType >= 583 && tileType <= 589 ? k * 2 : k / 16 * 5;
 							//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 							//ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 						}
@@ -72,7 +72,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
 							if (dropItem.type != ItemID.None)
 							{
-								xp += dropItem.value / 50;
+								xp += dropItem.value / 100;
 							}
 						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
