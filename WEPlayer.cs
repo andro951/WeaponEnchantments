@@ -460,42 +460,83 @@ namespace WeaponEnchantments
         public override void PostUpdate()
         {
             bool check = false;
+            bool skipHeldItemCheck = false;
             int i = 0;
-            if(Player.HeldItem != heldItem)
+            if (Main.mouseItem.IsAir)
             {
-                EnchantedItem hiGlobal;
-                if (Player.HeldItem.type != ItemID.None)
+                if (Player.HeldItem.TryGetGlobalItem(out EnchantedItem hiGlobal))
                 {
-                    hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
-                    if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
-                        check = true;
-                    enemySpawnBonus *= hiGlobal.enemySpawnBonus;
-                    if(hiGlobal.GetLevelsAvailable() < 0)
+                    if (hiGlobal.heldItem)
                     {
-                        for(int k = EnchantingTable.maxEnchantments - 1; k >= 0 && hiGlobal.GetLevelsAvailable() < 0; k--)
-                        {
-                            if (!hiGlobal.enchantments[k].IsAir)
-                            {
-                                hiGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, hiGlobal.enchantments[i], GetItemSettings.LootAllSettings);
-                            }
-                            if (!hiGlobal.enchantments[k].IsAir)
-                            {
-                                Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), hiGlobal.enchantments[k]);
-                                hiGlobal.enchantments[k].TurnToAir();
-                                Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
-                            }
-                        }
+                        skipHeldItemCheck = true;
                     }
                 }
-                else
+                else if (Player.HeldItem.IsAir && heldItem.IsAir)
                 {
-                    check = true;
+                    skipHeldItemCheck = true;
                 }
-                if(!heldItem.IsAir)
-                    enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
-                heldItem = Player.HeldItem;
+                if (!skipHeldItemCheck)
+                {
+                    //EnchantedItem hiGlobal;
+                    if (Player.HeldItem.type != ItemID.None)
+                    {
+                        hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
+                        if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
+                            check = true;
+                        enemySpawnBonus *= hiGlobal.enemySpawnBonus;
+                        if (hiGlobal.GetLevelsAvailable() < 0)
+                        {
+                            for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && hiGlobal.GetLevelsAvailable() < 0; k--)
+                            {
+                                if (!hiGlobal.enchantments[k].IsAir)
+                                {
+                                    hiGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, hiGlobal.enchantments[i], GetItemSettings.LootAllSettings);
+                                }
+                                if (!hiGlobal.enchantments[k].IsAir)
+                                {
+                                    Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), hiGlobal.enchantments[k]);
+                                    hiGlobal.enchantments[k] = new Item();
+                                }
+                            }
+                            Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
+                        }
+                    }
+                    else
+                    {
+                        check = true;
+                    }
+                    if (!heldItem.IsAir)
+                    {
+                        enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+                        heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
+                    }
+                    heldItem = Player.HeldItem;
+                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = true;
 
-            }//Check HeldItem
+                }//Check HeldItem
+            }
+            else
+            {
+                if(Main.mouseItem.TryGetGlobalItem(out EnchantedItem miGlobal))
+                {
+                    if (miGlobal.GetLevelsAvailable() < 0)
+                    {
+                        for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && miGlobal.GetLevelsAvailable() < 0; k--)
+                        {
+                            if (!miGlobal.enchantments[k].IsAir)
+                            {
+                                miGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, miGlobal.enchantments[i], GetItemSettings.LootAllSettings);
+                            }
+                            if (!miGlobal.enchantments[k].IsAir)
+                            {
+                                Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), miGlobal.enchantments[k]);
+                                miGlobal.enchantments[k] = new Item();
+                            }
+                        }
+                        Main.NewText("Your " + Main.mouseItem.Name + "' level is too low to use that many enchantments.");
+                    }
+                }
+            }
             if (!check)
             {
                 foreach (Item armor in Player.armor)
@@ -570,7 +611,7 @@ namespace WeaponEnchantments
                                         if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                                         {
                                             Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
-                                            armor.GetGlobalItem<EnchantedItem>().enchantments[i].TurnToAir();
+                                            armor.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
                                             if (armor.accessory)
                                             {
                                                 Main.NewText("Accessories can only equip an enchantment in the first slot");
