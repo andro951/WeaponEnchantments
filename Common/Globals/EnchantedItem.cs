@@ -1,24 +1,26 @@
-﻿using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using WeaponEnchantments.Items;
-using Terraria.ModLoader.IO;
-using static WeaponEnchantments.Items.Enchantments;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using WeaponEnchantments.Items;
 using static WeaponEnchantments.Items.Containment;
-using Terraria.UI;
+using static WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantedItem : GlobalItem
     {
-        public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
-        
+        //Start Packet fields
         public int experience;//current experience of a weapon/armor/accessory item
+        public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
+        //End Packet fields
+
         public float damageBonus = 0f;
         public float totalSpeedBonus;
         public float immunityBonus = 0f;
@@ -27,6 +29,7 @@ namespace WeaponEnchantments.Common.Globals
         public int lastUseAnimationBonusInt;
         public int lastShootSpeedBonusInt;
         public int lastReuseDelayBonus;
+        public float sizeBonus;
         public float lastSizeBonus;
         public int lastValueBonus;
         public int lastDefenceBonus;
@@ -49,14 +52,15 @@ namespace WeaponEnchantments.Common.Globals
         public float enemySpawnBonus = 0f;
         public float godSlayerBonus = 0f;
         public bool equip;
-        public bool heldItem = false;
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
-        public const int maxLevel = 40;
+
+        public bool heldItem = false;
         public bool favorited = false;
         public bool trashItem = false;
+        public const int maxLevel = 40;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -75,6 +79,44 @@ namespace WeaponEnchantments.Common.Globals
                clone.enchantments[i] = enchantments[i].Clone();
             }//fixes enchantments being applied to all of an item instead of just the instance
             return clone;
+        }
+        public static class PacketIDs
+        {
+            public const byte TransferGlobalItemFields = 0;
+        }
+        public override void NetSend(Item item, BinaryWriter writer)
+        {
+            if (!item.IsAir)
+            {
+                if (WEMod.IsEnchantable(item))
+                {
+                    writer.Write(PacketIDs.TransferGlobalItemFields);
+                    writer.Write(experience);
+                    writer.Write(powerBoosterInstalled);
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        writer.Write((ushort)enchantments[i].type);
+                    }
+                }
+            }
+        }
+        public override void NetReceive(Item item, BinaryReader reader)
+        {
+            byte type = reader.ReadByte();
+            switch (type)
+            {
+                case PacketIDs.TransferGlobalItemFields:
+                    experience = reader.ReadInt32();
+                    powerBoosterInstalled = reader.ReadBoolean();
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        enchantments[i] = new Item(reader.ReadUInt16());
+                    }
+                    break;
+                default:
+                    ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
+                    break;
+            }
         }
         public override void UpdateEquip(Item item, Player player)
         {
@@ -366,24 +408,18 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
-            float scale = 0f;
+            sizeBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 Enchantments enchantment = ((Enchantments)enchantments[i].ModItem);
                 if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Size)
                 {
-                    float temp = knockback.Additive;
-                    float temp1 = knockback.Flat;
-                    float temp2 = knockback.Base;
-                    float temp3 = knockback.Multiplicative;
                     knockback += enchantment.EnchantmentStrength;
-                    float temp4 = knockback.Multiplicative;
-                    float temp5 = knockback.Additive;
-                    scale += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
+                    sizeBonus += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                 }
             }
-            item.scale += scale - lastSizeBonus;//Update item size
-            lastSizeBonus = scale;
+            item.scale += sizeBonus - lastSizeBonus;//Update item size
+            lastSizeBonus = sizeBonus;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

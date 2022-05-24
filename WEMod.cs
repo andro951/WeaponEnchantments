@@ -2,12 +2,14 @@
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 
 
@@ -15,6 +17,7 @@ namespace WeaponEnchantments
 {
     public class WEMod : Mod
     {
+		List<Item> itemsWaitingForPacket = new List<Item>();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) & !item.consumable)
@@ -78,5 +81,5 @@ namespace WeaponEnchantments
 		{
 			
 		}
-	}
+    }
 }

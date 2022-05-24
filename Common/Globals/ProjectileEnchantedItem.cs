@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Common.Globals
         private bool updated = false;
         public float damageBonus = 1f;
         public float totalSpeedBonus;
+        private Projectile parent = null;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
@@ -51,6 +52,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
                         sourceSet = true;
+                        parent = parentProjectile;
                     }
                 }
                 else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
@@ -176,6 +178,10 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if(sourceItem != null)
                 {
+                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                    {
+                        parent.Kill();
+                    }
                     //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
                     //If the item is cloned, it will be lost, so we need to verify its location.
                     if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)//If item is a summoner weapon

@@ -481,6 +481,7 @@ namespace WeaponEnchantments
                     if (Player.HeldItem.type != ItemID.None)
                     {
                         hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
+                        hiGlobal.heldItem = true;
                         if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
                             check = true;
                         enemySpawnBonus *= hiGlobal.enemySpawnBonus;
@@ -511,8 +512,6 @@ namespace WeaponEnchantments
                         heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
                     }
                     heldItem = Player.HeldItem;
-                    heldItem.GetGlobalItem<EnchantedItem>().heldItem = true;
-
                 }//Check HeldItem
             }
             else
