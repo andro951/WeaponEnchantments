@@ -421,7 +421,7 @@ namespace WeaponEnchantments.UI
                     BackgroundColor = bgColor
                 };
                 button[ButtonID.Syphon].OnClick += (evt, element) => { Syphon(); };
-                UIText syphonButonText = new UIText("Sphon")
+                UIText syphonButonText = new UIText("Syphon")
                 {
                     Top = { Pixels = -8f },
                     Left = { Pixels = -1f }

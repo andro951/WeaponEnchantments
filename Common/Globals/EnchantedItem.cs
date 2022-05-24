@@ -408,7 +408,8 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
                 }
-                tooltips.Add(new TooltipLine(Mod, "experience", "Experience: " + experience.ToString()) { OverrideColor = Color.White });
+                string levelString = level < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
+                tooltips.Add(new TooltipLine(Mod, "experience", "Experience: " + experience.ToString() + levelString) { OverrideColor = Color.White });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {

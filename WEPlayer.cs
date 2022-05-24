@@ -499,7 +499,7 @@ namespace WeaponEnchantments
                                 }
                             }
                             Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
-                        }
+                        }//Check too many enchantments on helditem
                     }
                     else
                     {
@@ -535,7 +535,7 @@ namespace WeaponEnchantments
                         }
                         Main.NewText("Your " + Main.mouseItem.Name + "' level is too low to use that many enchantments.");
                     }
-                }
+                }//Check too many enchantments on mouseItem
             }
             if (!check)
             {
