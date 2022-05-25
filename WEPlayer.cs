@@ -48,10 +48,10 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
-
+        /*
         public override void Load()
         {
-            IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+            //IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -68,7 +68,7 @@ namespace WeaponEnchantments
             )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
-        }
+        }*/
         public override void Initialize()
         {
             enchantingTable = new EnchantingTable();

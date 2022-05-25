@@ -26,9 +26,9 @@ namespace WeaponEnchantments.Common.Globals
         public bool immuneToAllForOne = false;
         public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
-        public override void Load()
+        /*public override void Load()
         {
-            IL.Terraria.Projectile.Damage += HookDamage;
+            //IL.Terraria.Projectile.Damage += HookDamage;
         }
         private static bool debuggingHookDamage = false;
         private static void HookDamage(ILContext il)
@@ -48,7 +48,7 @@ namespace WeaponEnchantments.Common.Globals
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " Instruction: " + c.Prev.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " exception: " + e.ToString()); }
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
-        }
+        }*/
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
             List<int> itemTypes = new List<int>(); 

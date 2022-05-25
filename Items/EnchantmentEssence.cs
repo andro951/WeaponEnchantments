@@ -24,18 +24,17 @@ namespace WeaponEnchantments.Items
 				xpPerEssence[i] = (float)(400 * Math.Pow(4, i));
 			}
 			valuePerXP = (values[rarity.Length - 1] / xpPerEssence[rarity.Length - 1]);
-
+			if(essenceRarity > -1)
+            {
+				Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
+			}
 		}
-        public override void SetDefaults()
+		public override void SetDefaults()
 		{
 			if(essenceRarity > -1)
             {
 				Item.value = (int)values[essenceRarity];
-				//Tooltip.SetDefault("Item value: " + Item.value.ToString());
-				Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 				Item.maxStack = maxStack;
-				//DisplayName.SetDefaults("");
-				//Tooltip.SetDefault("");
 				switch (essenceRarity)
 				{
 					case 0:
@@ -96,23 +95,23 @@ namespace WeaponEnchantments.Items
         }
 		public class EnchantmentEssenceBasic : EnchantmentEssence
 		{
-			EnchantmentEssenceBasic() { essenceRarity = 0; }
+			public EnchantmentEssenceBasic() { essenceRarity = 0; }
 		}
 		public class EnchantmentEssenceCommon : EnchantmentEssence
 		{
-			EnchantmentEssenceCommon() { essenceRarity = 1; }
+			public EnchantmentEssenceCommon() { essenceRarity = 1; }
 		}
 		public class EnchantmentEssenceRare : EnchantmentEssence
 		{
-			EnchantmentEssenceRare() { essenceRarity = 2; }
+			public EnchantmentEssenceRare() { essenceRarity = 2; }
 		}
 		public class EnchantmentEssenceSuperRare : EnchantmentEssence
 		{
-			EnchantmentEssenceSuperRare() { essenceRarity = 3; }
+			public EnchantmentEssenceSuperRare() { essenceRarity = 3; }
 		}
 		public class EnchantmentEssenceUltraRare : EnchantmentEssence
 		{
-			EnchantmentEssenceUltraRare() { essenceRarity = 4; }
+			public EnchantmentEssenceUltraRare() { essenceRarity = 4; }
 		}
 	}
 }

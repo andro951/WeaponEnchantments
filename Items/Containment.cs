@@ -23,10 +23,7 @@ namespace WeaponEnchantments.Items
             {
                 Values[i] = (1 + i) * 375;
             }
-        }
-        public override void SetDefaults()
-        {
-            if(size == 0)
+            if (size == 0)
             {
                 Tooltip.SetDefault("Used to create Superior Enchantment Containments");
             }
@@ -34,6 +31,9 @@ namespace WeaponEnchantments.Items
             {
                 Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
             }
+        }
+        public override void SetDefaults()
+        {
             Item.value = Values[size];
             Item.width = 8;
             Item.height = 8;
@@ -68,7 +68,7 @@ namespace WeaponEnchantments.Items
         }
         public class SuperiorStabilizer : Stabilizer
         {
-            SuperiorStabilizer() { size = 1; }
+            public SuperiorStabilizer() { size = 1; }
         }
     }
     public class ContainmentFragment : ModItem
@@ -76,9 +76,12 @@ namespace WeaponEnchantments.Items
         public static int ID;//Make drop from bosses and ofering
         public static int value = 10000;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Used to create Enchantment Containments");
+        }
+        public override void SetDefaults()
+        {
             Item.width = 10;
             Item.height = 10;
             Item.maxStack = 1000;
@@ -115,6 +118,7 @@ namespace WeaponEnchantments.Items
                     Values[i] += Stabilizer.Values[0];
                 }
             }
+            Tooltip.SetDefault("Used to store " + Enchantments.rarity[size] + " enchantments");
         }
         public override void SetDefaults()
         {
@@ -133,7 +137,6 @@ namespace WeaponEnchantments.Items
                 Item.width = 40;
                 Item.height = 40;
             }
-            Tooltip.SetDefault("Used to store " + Enchantments.rarity[size] + " enchantments");
         }
         public override void AddRecipes()
         {
@@ -156,13 +159,13 @@ namespace WeaponEnchantments.Items
             recipie.Register();
             IDs[size] = Item.type;
         }
-        public class MediumContainment : Containment
-        {
-            MediumContainment() { size = 1; }
-        }
-        public class SuperiorContainment : Containment
-        {
-            SuperiorContainment() { size = 2; }
-        }
+    }
+    public class MediumContainment : Containment
+    {
+        public MediumContainment() { size = 1; }
+    }
+    public class SuperiorContainment : Containment
+    {
+        public SuperiorContainment() { size = 2; }
     }
 }

@@ -81,12 +81,8 @@ namespace WeaponEnchantments.Items
             {
 				IDs.Add(arr);
             }
-        }
-        public override void SetDefaults()
-		{
-			if (EnchantmentSize > -1)
-			{
-				Item.maxStack = 99;
+			if(EnchantmentSize > -1)
+            {
 				EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
 				for (int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeID)).Length; i++)
 				{
@@ -104,20 +100,20 @@ namespace WeaponEnchantments.Items
 						break;
 					}
 				}//Check Utility
-				for(int i = 0; i < ItemID.Count; i++)
-                {
-					if(ContentSamples.ItemsByType[i].Name == EnchantmentTypeName)
-                    {
+				for (int i = 0; i < ItemID.Count; i++)
+				{
+					if (ContentSamples.ItemsByType[i].Name == EnchantmentTypeName)
+					{
 						Unique = true;
 						break;
-                    }
-                }//Check Unique (Vanilla Items)
+					}
+				}//Check Unique (Vanilla Items)
 				if (EnchantmentSize < 2)
-                {
+				{
 					Item.width = 10 + 4 * (EnchantmentSize);
 					Item.height = 10 + 4 * (EnchantmentSize);
 				}//Width/Height
-                else 
+				else
 				{
 					Item.width = 40;
 					Item.height = 40;
@@ -133,8 +129,8 @@ namespace WeaponEnchantments.Items
 						Item.value = Utility ? (int)(500 * Math.Pow(8, EnchantmentSize)) : (int)(1000 * Math.Pow(8, EnchantmentSize));
 						break;
 				}//Base Value
-                switch (EnchantmentSize)
-                {
+				switch (EnchantmentSize)
+				{
 					case 3:
 						Item.value += Containment.Values[2];
 						break;
@@ -144,9 +140,9 @@ namespace WeaponEnchantments.Items
 					default:
 						Item.value += Containment.Values[EnchantmentSize];
 						break;
-                }//Value - Containment/SuperiorStaibalizers
+				}//Value - Containment/SuperiorStaibalizers
 				switch ((EnchantmentTypeID)EnchantmentType)
-                {
+				{
 					case EnchantmentTypeID.Size:
 					case EnchantmentTypeID.War:
 					case EnchantmentTypeID.Peace:
@@ -351,7 +347,7 @@ namespace WeaponEnchantments.Items
 								break;
 						}
 						break;
-                }//EnchantmentStrength
+				}//EnchantmentStrength
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.GodSlayer:
@@ -374,6 +370,7 @@ namespace WeaponEnchantments.Items
 						damageClassSpecific = 0;
 						break;
 				}//DamageTypeSpecific
+				/*
 				if (damageClassSpecific > 0 || Unique)
                 {
 					string limmitationToolTip;
@@ -459,7 +456,14 @@ namespace WeaponEnchantments.Items
 							Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + EnchantmentTypeName + "\nLevel cost: " + GetLevelCost().ToString());
 							break;
 					}//Normal ToolTips
-				}//Normal ToolTips
+				}//Normal ToolTips*/
+			}
+		}
+        public override void SetDefaults()
+		{
+			if (EnchantmentSize > -1)
+			{
+				Item.maxStack = 99;
 			}
 		}
 		public override void AddRecipes()
@@ -534,332 +538,332 @@ namespace WeaponEnchantments.Items
         
 		public class DamageEnchantmentBasic : Enchantments
 		{
-			DamageEnchantmentBasic() { EnchantmentSize = 0; }
+			public DamageEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class DamageEnchantmentCommon : Enchantments
 		{
-			DamageEnchantmentCommon() { EnchantmentSize = 1; }
+			public DamageEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class DamageEnchantmentRare : Enchantments
 		{
-			DamageEnchantmentRare() { EnchantmentSize = 2; }
+			public DamageEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class DamageEnchantmentSuperRare : Enchantments
 		{
-			DamageEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public DamageEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class DamageEnchantmentUltraRare : Enchantments
 		{
-			DamageEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public DamageEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class CriticalEnchantmentBasic : Enchantments
 		{
-			CriticalEnchantmentBasic() { EnchantmentSize = 0; }
+			public CriticalEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class CriticalEnchantmentCommon : Enchantments
 		{
-			CriticalEnchantmentCommon() { EnchantmentSize = 1; }
+			public CriticalEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class CriticalEnchantmentRare : Enchantments
 		{
-			CriticalEnchantmentRare() { EnchantmentSize = 2; }
+			public CriticalEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class CriticalEnchantmentSuperRare : Enchantments
 		{
-			CriticalEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public CriticalEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class CriticalEnchantmentUltraRare : Enchantments
 		{
-			CriticalEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public CriticalEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SizeEnchantmentBasic : Enchantments
 		{
-			SizeEnchantmentBasic() { EnchantmentSize = 0; }
+			public SizeEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class SizeEnchantmentCommon : Enchantments
 		{
-			SizeEnchantmentCommon() { EnchantmentSize = 1; }
+			public SizeEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class SizeEnchantmentRare : Enchantments
 		{
-			SizeEnchantmentRare() { EnchantmentSize = 2; }
+			public SizeEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class SizeEnchantmentSuperRare : Enchantments
 		{
-			SizeEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public SizeEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class SizeEnchantmentUltraRare : Enchantments
 		{
-			SizeEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public SizeEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SpeedEnchantmentBasic : Enchantments
 		{
-			SpeedEnchantmentBasic() { EnchantmentSize = 0; }
+			public SpeedEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class SpeedEnchantmentCommon : Enchantments
 		{
-			SpeedEnchantmentCommon() { EnchantmentSize = 1; }
+			public SpeedEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class SpeedEnchantmentRare : Enchantments
 		{
-			SpeedEnchantmentRare() { EnchantmentSize = 2; }
+			public SpeedEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class SpeedEnchantmentSuperRare : Enchantments
 		{
-			SpeedEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public SpeedEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class SpeedEnchantmentUltraRare : Enchantments
 		{
-			SpeedEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public SpeedEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class DefenceEnchantmentBasic : Enchantments
 		{
-			DefenceEnchantmentBasic() { EnchantmentSize = 0; }
+			public DefenceEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class DefenceEnchantmentCommon : Enchantments
 		{
-			DefenceEnchantmentCommon() { EnchantmentSize = 1; }
+			public DefenceEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class DefenceEnchantmentRare : Enchantments
 		{
-			DefenceEnchantmentRare() { EnchantmentSize = 2; }
+			public DefenceEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class DefenceEnchantmentSuperRare : Enchantments
 		{
-			DefenceEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public DefenceEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class DefenceEnchantmentUltraRare : Enchantments
 		{
-			DefenceEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public DefenceEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class ManaCostEnchantmentBasic : Enchantments
 		{
-			ManaCostEnchantmentBasic() { EnchantmentSize = 0; }
+			public ManaCostEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class ManaCostEnchantmentCommon : Enchantments
 		{
-			ManaCostEnchantmentCommon() { EnchantmentSize = 1; }
+			public ManaCostEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class ManaCostEnchantmentRare : Enchantments
 		{
-			ManaCostEnchantmentRare() { EnchantmentSize = 2; }
+			public ManaCostEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class ManaCostEnchantmentSuperRare : Enchantments
 		{
-			ManaCostEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public ManaCostEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class ManaCostEnchantmentUltraRare : Enchantments
 		{
-			ManaCostEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public ManaCostEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class AmmoCostEnchantmentBasic : Enchantments
 		{
-			AmmoCostEnchantmentBasic() { EnchantmentSize = 0; }
+			public AmmoCostEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class AmmoCostEnchantmentCommon : Enchantments
 		{
-			AmmoCostEnchantmentCommon() { EnchantmentSize = 1; }
+			public AmmoCostEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class AmmoCostEnchantmentRare : Enchantments
 		{
-			AmmoCostEnchantmentRare() { EnchantmentSize = 2; }
+			public AmmoCostEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class AmmoCostEnchantmentSuperRare : Enchantments
 		{
-			AmmoCostEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public AmmoCostEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class AmmoCostEnchantmentUltraRare : Enchantments
 		{
-			AmmoCostEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public AmmoCostEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class LifeStealEnchantmentBasic : Enchantments
 		{
-			LifeStealEnchantmentBasic() { EnchantmentSize = 0; }
+			public LifeStealEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class LifeStealEnchantmentCommon : Enchantments
 		{
-			LifeStealEnchantmentCommon() { EnchantmentSize = 1; }
+			public LifeStealEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class LifeStealEnchantmentRare : Enchantments
 		{
-			LifeStealEnchantmentRare() { EnchantmentSize = 2; }
+			public LifeStealEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class LifeStealEnchantmentSuperRare : Enchantments
 		{
-			LifeStealEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public LifeStealEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class LifeStealEnchantmentUltraRare : Enchantments
 		{
-			LifeStealEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public LifeStealEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class ArmorPenetrationEnchantmentBasic : Enchantments
 		{
-			ArmorPenetrationEnchantmentBasic() { EnchantmentSize = 0; }
+			public ArmorPenetrationEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class ArmorPenetrationEnchantmentCommon : Enchantments
 		{
-			ArmorPenetrationEnchantmentCommon() { EnchantmentSize = 1; }
+			public ArmorPenetrationEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class ArmorPenetrationEnchantmentRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentRare() { EnchantmentSize = 2; }
+			public ArmorPenetrationEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class ArmorPenetrationEnchantmentSuperRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public ArmorPenetrationEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class ArmorPenetrationEnchantmentUltraRare : Enchantments
 		{
-			ArmorPenetrationEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public ArmorPenetrationEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class AllForOneEnchantmentBasic : Enchantments
 		{
-			AllForOneEnchantmentBasic() { EnchantmentSize = 0; }
+			public AllForOneEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class AllForOneEnchantmentCommon : Enchantments
 		{
-			AllForOneEnchantmentCommon() { EnchantmentSize = 1; }
+			public AllForOneEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class AllForOneEnchantmentRare : Enchantments
 		{
-			AllForOneEnchantmentRare() { EnchantmentSize = 2; }
+			public AllForOneEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class AllForOneEnchantmentSuperRare : Enchantments
 		{
-			AllForOneEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public AllForOneEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class AllForOneEnchantmentUltraRare : Enchantments
 		{
-			AllForOneEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public AllForOneEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class OneForAllEnchantmentBasic : Enchantments
 		{
-			OneForAllEnchantmentBasic() { EnchantmentSize = 0; }
+			public OneForAllEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class OneForAllEnchantmentCommon : Enchantments
 		{
-			OneForAllEnchantmentCommon() { EnchantmentSize = 1; }
+			public OneForAllEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class OneForAllEnchantmentRare : Enchantments
 		{
-			OneForAllEnchantmentRare() { EnchantmentSize = 2; }
+			public OneForAllEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class OneForAllEnchantmentSuperRare : Enchantments
 		{
-			OneForAllEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public OneForAllEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class OneForAllEnchantmentUltraRare : Enchantments
 		{
-			OneForAllEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public OneForAllEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SpelunkerEnchantmentUltraRare : Enchantments
 		{
-			SpelunkerEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public SpelunkerEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class DangerSenseEnchantmentUltraRare : Enchantments
 		{
-			DangerSenseEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public DangerSenseEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class HunterEnchantmentUltraRare : Enchantments
 		{
-			HunterEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public HunterEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class WarEnchantmentBasic : Enchantments
 		{
-			WarEnchantmentBasic() { EnchantmentSize = 0; }
+			public WarEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class WarEnchantmentCommon : Enchantments
 		{
-			WarEnchantmentCommon() { EnchantmentSize = 1; }
+			public WarEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class WarEnchantmentRare : Enchantments
 		{
-			WarEnchantmentRare() { EnchantmentSize = 2; }
+			public WarEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class WarEnchantmentSuperRare : Enchantments
 		{
-			WarEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public WarEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class WarEnchantmentUltraRare : Enchantments
 		{
-			WarEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public WarEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class PeaceEnchantmentBasic : Enchantments
 		{
-			PeaceEnchantmentBasic() { EnchantmentSize = 0; }
+			public PeaceEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class PeaceEnchantmentCommon : Enchantments
 		{
-			PeaceEnchantmentCommon() { EnchantmentSize = 1; }
+			public PeaceEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class PeaceEnchantmentRare : Enchantments
 		{
-			PeaceEnchantmentRare() { EnchantmentSize = 2; }
+			public PeaceEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class PeaceEnchantmentSuperRare : Enchantments
 		{
-			PeaceEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public PeaceEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class PeaceEnchantmentUltraRare : Enchantments
 		{
-			PeaceEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public PeaceEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class GodSlayerEnchantmentBasic : Enchantments
 		{
-			GodSlayerEnchantmentBasic() { EnchantmentSize = 0; }
+			public GodSlayerEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class GodSlayerEnchantmentCommon : Enchantments
 		{
-			GodSlayerEnchantmentCommon() { EnchantmentSize = 1; }
+			public GodSlayerEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class GodSlayerEnchantmentRare : Enchantments
 		{
-			GodSlayerEnchantmentRare() { EnchantmentSize = 2; }
+			public GodSlayerEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class GodSlayerEnchantmentSuperRare : Enchantments
 		{
-			GodSlayerEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public GodSlayerEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class GodSlayerEnchantmentUltraRare : Enchantments
 		{
-			GodSlayerEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public GodSlayerEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 
 		public class SplittingEnchantmentBasic : Enchantments
 		{
-			SplittingEnchantmentBasic() { EnchantmentSize = 0; }
+			public SplittingEnchantmentBasic() { EnchantmentSize = 0; }
 		}
 		public class SplittingEnchantmentCommon : Enchantments
 		{
-			SplittingEnchantmentCommon() { EnchantmentSize = 1; }
+			public SplittingEnchantmentCommon() { EnchantmentSize = 1; }
 		}
 		public class SplittingEnchantmentRare : Enchantments
 		{
-			SplittingEnchantmentRare() { EnchantmentSize = 2; }
+			public SplittingEnchantmentRare() { EnchantmentSize = 2; }
 		}
 		public class SplittingEnchantmentSuperRare : Enchantments
 		{
-			SplittingEnchantmentSuperRare() { EnchantmentSize = 3; }
+			public SplittingEnchantmentSuperRare() { EnchantmentSize = 3; }
 		}
 		public class SplittingEnchantmentUltraRare : Enchantments
 		{
-			SplittingEnchantmentUltraRare() { EnchantmentSize = 4; }
+			public SplittingEnchantmentUltraRare() { EnchantmentSize = 4; }
 		}
 	}
 }

@@ -11,10 +11,11 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class RecipeEditor : GlobalRecipe
     {
+		/*
 		public override void Load()
 		{
-			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
-			IL.Terraria.Recipe.Create += HookCreate;
+			//IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
+			//IL.Terraria.Recipe.Create += HookCreate;
 		}
 		public static int counter = 0;
 		private const bool debuggingHookCreate = false;
@@ -367,5 +368,6 @@ namespace WeaponEnchantments.Common.Globals
 			});
 			
 		}
+		*/
 	}
 }

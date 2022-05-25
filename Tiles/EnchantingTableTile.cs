@@ -69,19 +69,19 @@ namespace WeaponEnchantments.Tiles
                 switch (enchantingTableTier)
                 {
 					case 0:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.WoodEnchantingTable>();
+						tableType = ModContent.ItemType<Items.WoodEnchantingTable>();
 						break;
 					case 1:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.DustyEnchantingTable>();
+						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
 						break;
 					case 2:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.HellishEnchantingTable>();
+						tableType = ModContent.ItemType<Items.HellishEnchantingTable>();
 						break;
 					case 3:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.SoulEnchantingTable>();
+						tableType = ModContent.ItemType<Items.SoulEnchantingTable>();
 						break;
 					case 4:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.UltimateEnchantingTable>();
+						tableType = ModContent.ItemType<Items.UltimateEnchantingTable>();
 						break;
 				}
 				//Mod.Logger.Debug("enchantingTableTier: " + enchantingTableTier.ToString());
@@ -158,25 +158,25 @@ namespace WeaponEnchantments.Tiles
 				wePlayer.Player.cursorItemIconID = 0;
             }
 		}
-        public class WoodEnchantingTable : EnchantingTableTile
-        {
-            WoodEnchantingTable() { enchantingTableTier = 0; }
-		}
-		public class DustyEnchantingTable : EnchantingTableTile
-		{
-			DustyEnchantingTable() { enchantingTableTier = 1; }
-		}
-		public class HellishEnchantingTable : EnchantingTableTile
-		{
-			HellishEnchantingTable() { enchantingTableTier = 2; }
-		}
-		public class SoulEnchantingTable : EnchantingTableTile
-		{
-			SoulEnchantingTable() { enchantingTableTier = 3; }
-		}
-		public class UltimateEnchantingTable : EnchantingTableTile
-		{
-			UltimateEnchantingTable() { enchantingTableTier = 4; }
-		}
+	}
+	public class WoodEnchantingTable : EnchantingTableTile
+	{
+		public WoodEnchantingTable() { enchantingTableTier = 0; }
+	}
+	public class DustyEnchantingTable : EnchantingTableTile
+	{
+		public DustyEnchantingTable() { enchantingTableTier = 1; }
+	}
+	public class HellishEnchantingTable : EnchantingTableTile
+	{
+		public HellishEnchantingTable() { enchantingTableTier = 2; }
+	}
+	public class SoulEnchantingTable : EnchantingTableTile
+	{
+		public SoulEnchantingTable() { enchantingTableTier = 3; }
+	}
+	public class UltimateEnchantingTable : EnchantingTableTile
+	{
+		public UltimateEnchantingTable() { enchantingTableTier = 4; }
 	}
 }
