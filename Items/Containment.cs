@@ -12,14 +12,15 @@ namespace WeaponEnchantments.Items
     public class Stabilizer : ModItem
     {
         public static string[] sizes = new string[] { "", "Superior" };
-        public static int[,] ingredientTypes = {{177, 178, 179, 180, 181}, {182, 999, -1, -1, -1}}; 
+        public static int[,] ingredientTypes = { { 177, 178, 179, 180, 181 }, { 182, 999, -1, -1, -1 } };
         public int size = 0;
         public static int[] IDs = new int[sizes.Length];
         public static int[] Values = new int[sizes.Length];
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
-            for(int i = 0; i < sizes.Length; i++)
+            GetDefaults();
+            for (int i = 0; i < sizes.Length; i++)
             {
                 Values[i] = (1 + i) * 375;
             }
@@ -32,8 +33,27 @@ namespace WeaponEnchantments.Items
                 Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
             }
         }
+        private void GetDefaults()
+        {
+            for (int i = 0; i < sizes.Length; i++)
+            {
+                if(Name.IndexOf("Stabilizer") == 0)
+                {
+                    size = 0;
+                }
+                else
+                {
+                    if (sizes[i] == Name.Substring(Name.IndexOf("Stabilizer") + 10))
+                    {
+                        size = i;
+                        break;
+                    }
+                }
+            }
+        }
         public override void SetDefaults()
         {
+            GetDefaults();
             Item.value = Values[size];
             Item.width = 8;
             Item.height = 8;
@@ -66,11 +86,8 @@ namespace WeaponEnchantments.Items
             }
             IDs[size] = Item.type;
         }
-        public class SuperiorStabilizer : Stabilizer
-        {
-            public SuperiorStabilizer() { size = 1; }
-        }
     }
+    public class SuperiorStabilizer : Stabilizer { }
     public class ContainmentFragment : ModItem
     {
         public static int ID;//Make drop from bosses and ofering
@@ -110,7 +127,8 @@ namespace WeaponEnchantments.Items
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
-            for(int i = 0; i < sizes.Length; i++)
+            GetDefaults();
+            for (int i = 0; i < sizes.Length; i++)
             {
                 Values[i] = fragments[size] * ContainmentFragment.value;
                 if (i == 2)
@@ -118,10 +136,29 @@ namespace WeaponEnchantments.Items
                     Values[i] += Stabilizer.Values[0];
                 }
             }
-            Tooltip.SetDefault("Used to store " + Enchantments.rarity[size] + " enchantments");
+            Tooltip.SetDefault("Used to store " + AllForOneEnchantmentBasic.rarity[size] + " enchantments");
+        }
+        private void GetDefaults()
+        {
+            for (int i = 0; i < sizes.Length; i++)
+            {
+                if (Name.IndexOf("Containment") == 0)
+                {
+                    size = 0;
+                }
+                else
+                {
+                    if (sizes[i] == Name.Substring(Name.IndexOf("Containment") + 11))
+                    {
+                        size = i;
+                        break;
+                    }
+                }
+            }
         }
         public override void SetDefaults()
         {
+            GetDefaults();
             Item.maxStack = 1000;
             Item.value = fragments[size] * ContainmentFragment.value;
             //Item.value = fragments[size] * ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value;
@@ -160,12 +197,6 @@ namespace WeaponEnchantments.Items
             IDs[size] = Item.type;
         }
     }
-    public class MediumContainment : Containment
-    {
-        public MediumContainment() { size = 1; }
-    }
-    public class SuperiorContainment : Containment
-    {
-        public SuperiorContainment() { size = 2; }
-    }
+    public class MediumContainment : Containment { }
+    public class SuperiorContainment : Containment { }
 }

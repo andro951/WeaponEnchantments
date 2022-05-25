@@ -11,11 +11,11 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class RecipeEditor : GlobalRecipe
     {
-		/*
+		
 		public override void Load()
 		{
-			//IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
-			//IL.Terraria.Recipe.Create += HookCreate;
+			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
+			IL.Terraria.Recipe.Create += HookCreate;
 		}
 		public static int counter = 0;
 		private const bool debuggingHookCreate = false;
@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Common.Globals
 						{
 							if (!i2Global.enchantments[k].IsAir)
 							{
-								Enchantments enchantment = ((Enchantments)i2Global.enchantments[k].ModItem);
+								AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)i2Global.enchantments[k].ModItem);
 								int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
 								bool cantFit = false;
 								if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
@@ -99,14 +99,14 @@ namespace WeaponEnchantments.Common.Globals
 						int xpCounter = miGlobal.experience;
 						for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
 						{
-							numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier] * 4 / 5;
-							xpCounter -= (int)EnchantmentEssence.xpPerEssence[tier] * numberEssenceRecieved;
-							if (xpCounter < (int)EnchantmentEssence.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+							numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
+							xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
+							if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
 							{
 								xpCounter = 0;
 								numberEssenceRecieved += 1;
 							}
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], 1);
+							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
 						}
 						if (i2Global.powerBoosterInstalled)
 						{
@@ -123,9 +123,9 @@ namespace WeaponEnchantments.Common.Globals
 				}
                 else
                 {
-					if(arrItem.ModItem is Enchantments)
+					if(arrItem.ModItem is AllForOneEnchantmentBasic)
                     {
-						int size = ((Enchantments)arrItem.ModItem).EnchantmentSize;
+						int size = ((AllForOneEnchantmentBasic)arrItem.ModItem).EnchantmentSize;
 						if (size < 3)
                         {
 							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
@@ -366,8 +366,6 @@ namespace WeaponEnchantments.Common.Globals
 					}
 				}
 			});
-			
 		}
-		*/
 	}
 }

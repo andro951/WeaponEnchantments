@@ -9,7 +9,7 @@ using Terraria.UI;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
-using static WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments
 {
@@ -179,7 +179,7 @@ namespace WeaponEnchantments
                         {
                             foreach(Item requiredItem in Main.recipe[wePlayer.lastFocusRecipe].requiredItem)
                             {
-                                if(requiredItem.ModItem is EnchantmentEssence)
+                                if(requiredItem.ModItem is EnchantmentEssenceBasic)
                                 {
                                     int ammountConsumedFromInventory = 0;
                                     for (int j = 0; j < 50; j++)
@@ -191,7 +191,7 @@ namespace WeaponEnchantments
                                     }
                                     if(ammountConsumedFromInventory < requiredItem.stack)
                                     {
-                                        wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssence.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
+                                        wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssenceBasic.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
                                     }
                                 }
                             }
@@ -432,7 +432,7 @@ namespace WeaponEnchantments
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if(((EnchantmentEssence)wePlayer.Player.inventory[j].ModItem).essenceRarity == wePlayer.enchantingTableUI.essenceSlotUI[i]._slotTier)
+                        if(((EnchantmentEssenceBasic)wePlayer.Player.inventory[j].ModItem).essenceRarity == wePlayer.enchantingTableUI.essenceSlotUI[i]._slotTier)
                         {
                             int ammountToTransfer = 0;
                             int startingStack = wePlayer.Player.inventory[j].stack;
@@ -445,11 +445,11 @@ namespace WeaponEnchantments
                             }
                             else
                             {
-                                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssenceBasic.maxStack)
                                 {
-                                    if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack)
+                                    if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssenceBasic.maxStack)
                                     {
-                                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                        ammountToTransfer = EnchantmentEssenceBasic.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                                         wePlayer.Player.inventory[j].stack -= ammountToTransfer;
                                     }
                                     else
@@ -482,16 +482,16 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = EnchantingTable.maxEssenceItems - 1; i > 0; i--)
             {
-                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssenceBasic.maxStack)
                 {
                     int ammountToTransfer;
-                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
+                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssenceBasic.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
                     {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else
                     {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = EnchantmentEssenceBasic.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
                     if(ammountToTransfer > 0)
                     {
@@ -503,16 +503,16 @@ namespace WeaponEnchantments
             }
             for (int i = 1; i < EnchantingTable.maxEssenceItems; i++)
             {
-                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssenceBasic.maxStack)
                 {
                     int ammountToTransfer;
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssenceBasic.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
                     {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else
                     {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = EnchantmentEssenceBasic.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
                     if (ammountToTransfer > 0)
                     {
@@ -658,7 +658,7 @@ namespace WeaponEnchantments
                                 case 0://Chest
                                     chance = 0.35f;
                                     itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());

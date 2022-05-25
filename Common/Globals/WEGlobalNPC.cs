@@ -13,8 +13,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Items.Containment;
-using static WeaponEnchantments.Items.EnchantmentEssence;
-using static WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.EnchantmentEssenceBasic;
+using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -26,9 +26,9 @@ namespace WeaponEnchantments.Common.Globals
         public bool immuneToAllForOne = false;
         public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
-        /*public override void Load()
+        public override void Load()
         {
-            //IL.Terraria.Projectile.Damage += HookDamage;
+            IL.Terraria.Projectile.Damage += HookDamage;
         }
         private static bool debuggingHookDamage = false;
         private static void HookDamage(ILContext il)
@@ -48,7 +48,7 @@ namespace WeaponEnchantments.Common.Globals
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " Instruction: " + c.Prev.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " exception: " + e.ToString()); }
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
-        }*/
+        }
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
             List<int> itemTypes = new List<int>(); 
@@ -56,7 +56,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 case NPCID.KingSlime when !bossBag:
                 case ItemID.KingSlimeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
@@ -260,7 +260,7 @@ namespace WeaponEnchantments.Common.Globals
                         switch (npc.aiStyle)
                         {
                             case 1://Slime
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 2://Demon Eye
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
@@ -440,7 +440,7 @@ namespace WeaponEnchantments.Common.Globals
             float value = (float)npc.value;
             total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f;
             total /= UtilityMethods.GetReductionFactor((int)hp);
-            essenceValues = EnchantmentEssence.values;
+            essenceValues = EnchantmentEssenceBasic.values;
             dropRate = new float[essenceValues.Length];
             baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
 
