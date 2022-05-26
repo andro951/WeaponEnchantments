@@ -5,54 +5,57 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.UI;
 using Terraria.UI.Gamepad;
-using WeaponEnchantments;
-using WeaponEnchantments.Common;
-using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Tiles
 {
-	public class EnchantingTableTile : ModTile
+	public class WoodEnchantingTable : ModTile
 	{
 		public int enchantingTableTier = -1;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public override void SetStaticDefaults()
 		{
-			if (enchantingTableTier > -1)
+			GetDefaults();
+			// Properties
+			Main.tileTable[Type] = true;
+			Main.tileSolidTop[Type] = true;
+			Main.tileNoAttach[Type] = true;
+			Main.tileLavaDeath[Type] = false;
+			Main.tileFrameImportant[Type] = true;
+			TileID.Sets.DisableSmartCursor[Type] = true;
+			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
+			TileID.Sets.BasicChest[Type] = true;
+
+			//DustType = ModContent.DustType<Dusts.Sparkle>();
+			AdjTiles = new int[] { TileID.WorkBenches };
+
+			// Placement
+			//TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+			//TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
+			TileObjectData.newTile.CoordinateHeights = new[] { 34 };
+			TileObjectData.newTile.DrawYOffset = -16;
+			TileObjectData.newTile.LavaDeath = false;
+			TileObjectData.addTile(Type);
+
+			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+
+			// Etc
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault(Items.WoodEnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+			AddMapEntry(new Color(200, 200, 200), name);
+		}
+		private void GetDefaults()
+		{
+			for (int i = 0; i < Items.WoodEnchantingTable.enchantingTableNames.Length; i++)
 			{
-				// Properties
-				Main.tileTable[Type] = true;
-				Main.tileSolidTop[Type] = true;
-				Main.tileNoAttach[Type] = true;
-				Main.tileLavaDeath[Type] = false;
-				Main.tileFrameImportant[Type] = true;
-				TileID.Sets.DisableSmartCursor[Type] = true;
-				TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
-				TileID.Sets.BasicChest[Type] = true;
-
-				//DustType = ModContent.DustType<Dusts.Sparkle>();
-				AdjTiles = new int[] { TileID.WorkBenches };
-
-				// Placement
-				//TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-				//TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
-				TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
-				TileObjectData.newTile.CoordinateHeights = new[] { 34 };
-				TileObjectData.newTile.DrawYOffset = -16;
-				TileObjectData.newTile.LavaDeath = false;
-				TileObjectData.addTile(Type);
-
-				AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-
-
-				// Etc
-				ModTranslation name = CreateMapEntryName();
-				name.SetDefault(EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
-				AddMapEntry(new Color(200, 200, 200), name);
+				if (Items.WoodEnchantingTable.enchantingTableNames[i] == Name.Substring(0, Items.WoodEnchantingTable.enchantingTableNames[i].Length))
+				{
+					enchantingTableTier = i;
+					break;
+				}
 			}
 		}
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
@@ -60,7 +63,6 @@ namespace WeaponEnchantments.Tiles
 		{
 			num = fail ? 1 : 3;
 		}
-		private int[] enchantingTableTypes = new int[5];
 		public override void KillMultiTile(int x, int y, int frameX, int frameY)
 		{
 			if (enchantingTableTier > -1)
@@ -69,19 +71,19 @@ namespace WeaponEnchantments.Tiles
                 switch (enchantingTableTier)
                 {
 					case 0:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.WoodEnchantingTable>();
+						tableType = ModContent.ItemType<Items.WoodEnchantingTable>();
 						break;
 					case 1:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.DustyEnchantingTable>();
+						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
 						break;
 					case 2:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.HellishEnchantingTable>();
+						tableType = ModContent.ItemType<Items.HellishEnchantingTable>();
 						break;
 					case 3:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.SoulEnchantingTable>();
+						tableType = ModContent.ItemType<Items.SoulEnchantingTable>();
 						break;
 					case 4:
-						tableType = ModContent.ItemType<Items.EnchantingTableItem.UltimateEnchantingTable>();
+						tableType = ModContent.ItemType<Items.UltimateEnchantingTable>();
 						break;
 				}
 				//Mod.Logger.Debug("enchantingTableTier: " + enchantingTableTier.ToString());
@@ -144,7 +146,7 @@ namespace WeaponEnchantments.Tiles
 				top--;
 			}
 			wePlayer.Player.cursorItemIconText = "";
-			wePlayer.Player.cursorItemIconID = EnchantingTableItem.IDs[enchantingTableTier];
+			wePlayer.Player.cursorItemIconID = Items.WoodEnchantingTable.IDs[enchantingTableTier];
 			wePlayer.Player.noThrow = 2;
 			wePlayer.Player.cursorItemIconEnabled = true;
 		}
@@ -158,25 +160,9 @@ namespace WeaponEnchantments.Tiles
 				wePlayer.Player.cursorItemIconID = 0;
             }
 		}
-        public class WoodEnchantingTable : EnchantingTableTile
-        {
-            WoodEnchantingTable() { enchantingTableTier = 0; }
-		}
-		public class DustyEnchantingTable : EnchantingTableTile
-		{
-			DustyEnchantingTable() { enchantingTableTier = 1; }
-		}
-		public class HellishEnchantingTable : EnchantingTableTile
-		{
-			HellishEnchantingTable() { enchantingTableTier = 2; }
-		}
-		public class SoulEnchantingTable : EnchantingTableTile
-		{
-			SoulEnchantingTable() { enchantingTableTier = 3; }
-		}
-		public class UltimateEnchantingTable : EnchantingTableTile
-		{
-			UltimateEnchantingTable() { enchantingTableTier = 4; }
-		}
 	}
+	public class DustyEnchantingTable : WoodEnchantingTable { }
+	public class HellishEnchantingTable : WoodEnchantingTable { }
+	public class SoulEnchantingTable : WoodEnchantingTable { }
+	public class UltimateEnchantingTable : WoodEnchantingTable { }
 }

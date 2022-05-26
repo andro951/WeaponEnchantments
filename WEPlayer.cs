@@ -9,7 +9,7 @@ using Terraria.ModLoader.IO;
 using WeaponEnchantments.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
-using static WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 using System;
 using Terraria.UI;
 using Terraria.GameContent;
@@ -48,7 +48,7 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
-
+        
         public override void Load()
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
@@ -318,7 +318,7 @@ namespace WeaponEnchantments
                         }//Check/Move item
                         if (!valid)
                         {
-                            if (item.ModItem is Enchantments enchantment)
+                            if (item.ModItem is AllForOneEnchantmentBasic enchantment)
                             {
                                 int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].Item);
                                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -404,14 +404,14 @@ namespace WeaponEnchantments
                                         }//essence slot empty
                                         else
                                         {
-                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssenceBasic.maxStack)
                                             {
                                                 if (moveItem)
                                                 {
                                                     int ammountToTransfer;
-                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack)
+                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssenceBasic.maxStack)
                                                     {
-                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                        ammountToTransfer = EnchantmentEssenceBasic.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
                                                         item.stack -= ammountToTransfer;
                                                     }
                                                     else
@@ -624,8 +624,8 @@ namespace WeaponEnchantments
                                     }
                                     else
                                     {
-                                        float str = ((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
-                                        switch ((EnchantmentTypeID)((Enchantments)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
+                                        float str = ((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
+                                        switch ((EnchantmentTypeID)((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
                                         {
                                             case EnchantmentTypeID.Size:
                                                 itemScaleBonus += str;

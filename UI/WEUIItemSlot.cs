@@ -18,7 +18,7 @@ using Terraria.GameContent;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
-using static WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments.UI
 {
@@ -74,7 +74,7 @@ namespace WeaponEnchantments.UI
 								{
 									bool continueCheck = true;
 									int damageClassSpecific = 0;
-									Enchantments newEnchantment = ((Enchantments)item.ModItem);
+									AllForOneEnchantmentBasic newEnchantment = ((AllForOneEnchantmentBasic)item.ModItem);
 									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
 										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
@@ -98,7 +98,7 @@ namespace WeaponEnchantments.UI
 												break;
 										}
 									}
-									if(newEnchantment.damageClassSpecific != 0 && damageClassSpecific != newEnchantment.damageClassSpecific)
+									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 										continueCheck = false;
                                     if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
 										continueCheck = false;
@@ -107,7 +107,7 @@ namespace WeaponEnchantments.UI
 										case EnchantmentTypeID.AllForOne:
 										case EnchantmentTypeID.OneForAll:
 										case EnchantmentTypeID.GodSlayer:
-										case EnchantmentTypeID.Ranged:
+										case EnchantmentTypeID.Splitting:
 										case EnchantmentTypeID.Magic:
 										case EnchantmentTypeID.Summon:
 											continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
@@ -134,7 +134,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Essence:
                         if (WEMod.IsEssenceItem(item))
                         {
-							return ((EnchantmentEssence)item.ModItem).essenceRarity == _slotTier;
+							return ((EnchantmentEssenceBasic)item.ModItem).essenceRarity == _slotTier;
 						}//check essence is valid
                         else
                         {
@@ -197,7 +197,7 @@ namespace WeaponEnchantments.UI
 						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
 					}
 				}
-				else if (Main.mouseItem.ModItem is Enchantments enchantment)
+				else if (Main.mouseItem.ModItem is AllForOneEnchantmentBasic enchantment)
 				{
                     if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableUI.itemSlotUI[0].Item)))
                     {
@@ -230,11 +230,11 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public bool CheckUniqueSlot(Enchantments enchantment, int swapEnchantmentSlot)
+		public bool CheckUniqueSlot(AllForOneEnchantmentBasic enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique & enchantment.damageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique & enchantment.DamageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
-		public static int FindSwapEnchantmentSlot(Enchantments enchantement, Item item)
+		public static int FindSwapEnchantmentSlot(AllForOneEnchantmentBasic enchantement, Item item)
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -243,8 +243,8 @@ namespace WeaponEnchantments.UI
                 {
 					if (!iGlobal.enchantments[i].IsAir)
 					{
-						Enchantments appliedEnchantment = (Enchantments)iGlobal.enchantments[i].ModItem;
-						if (appliedEnchantment != null && ((enchantement.Unique || enchantement.damageClassSpecific > 0) && (appliedEnchantment.damageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						AllForOneEnchantmentBasic appliedEnchantment = (AllForOneEnchantmentBasic)iGlobal.enchantments[i].ModItem;
+						if (appliedEnchantment != null && ((enchantement.Unique || enchantement.DamageClassSpecific > 0) && (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
 						{
 							return i;
 						}

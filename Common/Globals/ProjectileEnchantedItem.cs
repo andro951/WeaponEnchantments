@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
-using static WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments.Common.Globals
 {

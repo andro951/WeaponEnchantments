@@ -43,11 +43,11 @@ namespace WeaponEnchantments
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {
-			if(item.ModItem is Enchantments)
+			if(item.ModItem is AllForOneEnchantmentBasic)
             {
                 if (utility)
                 {
-                    if (((Enchantments)item.ModItem).Utility)
+                    if (((AllForOneEnchantmentBasic)item.ModItem).Utility)
                     {
 						return true;
                     }
@@ -68,7 +68,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsEssenceItem(Item item)
         {
-			if (item.ModItem is EnchantmentEssence)
+			if (item.ModItem is EnchantmentEssenceBasic)
 			{
 				return true;
 			}

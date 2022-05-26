@@ -18,7 +18,7 @@ using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
-using static WeaponEnchantments.Items.EnchantmentEssence;
+using static WeaponEnchantments.Items.EnchantmentEssenceBasic;
 
 namespace WeaponEnchantments.UI
 {
@@ -289,7 +289,7 @@ namespace WeaponEnchantments.UI
                         string extraStr = "";
                         if (i > 0)
                         {
-                            extraStr = "\n  Requires " + EnchantingTableItem.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
+                            extraStr = "\n  Requires " + WoodEnchantingTable.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
                         }
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) =>
                         {
@@ -335,7 +335,7 @@ namespace WeaponEnchantments.UI
                         Top = { Pixels = nextElementY + 50 },
                         HAlign = 0.5f
                     };
-                    string type = EnchantmentEssence.rarity[i];
+                    string type = EnchantmentEssenceBasic.rarity[i];
                     wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) =>
                     {
                         Main.hoverItemName = "                      Place " + type + " Essence here.                ";
@@ -543,7 +543,7 @@ namespace WeaponEnchantments.UI
                 essence.stack--;
                 //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                 //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssence.xpPerEssence[tier]);
+                item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
                 SoundEngine.PlaySound(SoundID.MenuTick);
             }
         }
@@ -567,15 +567,15 @@ namespace WeaponEnchantments.UI
                     {*/
                     if(tier > 0)
                     {
-                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier] * 4 / 5;
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
                     }
                     else
                     {
-                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier];
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier];
                     }
-                    xpCounter -= (int)EnchantmentEssence.xpPerEssence[tier] * numberEssenceRecieved;
+                    xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
                     //}
-                    if (xpCounter < (int)EnchantmentEssence.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+                    if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
                     {
                         if (consumeAll)
                         {
@@ -589,7 +589,7 @@ namespace WeaponEnchantments.UI
                     }
                     if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)
                     {
-                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item = new Item(EnchantmentEssence.IDs[tier], numberEssenceRecieved);
+                        wePlayer.enchantingTableUI.essenceSlotUI[tier].Item = new Item(EnchantmentEssenceBasic.IDs[tier], numberEssenceRecieved);
                     }
                     else
                     {
@@ -615,9 +615,9 @@ namespace WeaponEnchantments.UI
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
                 EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>();
-                if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssence.xpPerEssence[0])
+                if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssenceBasic.xpPerEssence[0])
                 {
-                    Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssence.xpPerEssence[0]).ToString() + " experience.");
+                    Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssenceBasic.xpPerEssence[0]).ToString() + " experience.");
                 }
                 else
                 {
@@ -674,7 +674,7 @@ namespace WeaponEnchantments.UI
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {
-                        xpAvailable += (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        xpAvailable += (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
                     int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.experience;
                     if (xpAvailable >= xpNeeded)
@@ -683,7 +683,7 @@ namespace WeaponEnchantments.UI
                         {
                             Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
                             int stack = essenceItem.stack;
-                            int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssence.xpPerEssence[i];
+                            int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssenceBasic.xpPerEssence[i];
                             int numberEssenceTransfered;
                             if(numberEssenceNeeded > stack)
                             {
@@ -696,15 +696,15 @@ namespace WeaponEnchantments.UI
                             int xpAvailableBelowMe = 0;
                             for (int j = i - 1; j >= 0; j--)
                             {
-                                xpAvailableBelowMe += (int)EnchantmentEssence.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
+                                xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
                             }
-                            if(xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssence.xpPerEssence[i] * numberEssenceTransfered)
+                            if(xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
                             {
                                 numberEssenceTransfered++;
                             }
                             if (numberEssenceTransfered > 0)
                             {
-                                int xpTransfered = (int)EnchantmentEssence.xpPerEssence[i] * numberEssenceTransfered;
+                                int xpTransfered = (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered;
                                 xpNeeded -= xpTransfered;
                                 essenceItem.stack -= numberEssenceTransfered;
                                 iGlobal.GainXP(tableItem, xpTransfered);
