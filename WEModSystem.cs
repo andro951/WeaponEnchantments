@@ -658,7 +658,7 @@ namespace WeaponEnchantments
                                 case 0://Chest
                                     chance = 0.35f;
                                     itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());

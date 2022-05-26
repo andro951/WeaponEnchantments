@@ -457,6 +457,11 @@ namespace WeaponEnchantments
         {
             lastFocusRecipe = Main.availableRecipe[Main.focusRecipe];
         }
+        private bool CheckWeaponBuffs(EnchantedItem iGlobal = null)
+        {
+            //return iGlobal == null ? spelunker || dangerSense || hunter : spelunker && !iGlobal.spelunker || dangerSense && !iGlobal.dangerSense || hunter && !iGlobal.hunter;
+            return iGlobal == null ? spelunker || dangerSense || hunter : spelunker != iGlobal.spelunker || dangerSense != iGlobal.dangerSense || hunter != iGlobal.hunter;
+        }
         public override void PostUpdate()
         {
             bool check = false;
@@ -477,13 +482,11 @@ namespace WeaponEnchantments
                 }
                 if (!skipHeldItemCheck)
                 {
-                    //EnchantedItem hiGlobal;
                     if (Player.HeldItem.type != ItemID.None && WEMod.IsWeaponItem(Player.HeldItem))
                     {
                         hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
                         hiGlobal.heldItem = true;
-                        if (spelunker != hiGlobal.spelunker || dangerSense != hiGlobal.dangerSense || hunter != hiGlobal.hunter)
-                            check = true;
+                        check = !check ? CheckWeaponBuffs(hiGlobal) : check;
                         enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                         if (hiGlobal.GetLevelsAvailable() < 0)
                         {
@@ -502,10 +505,16 @@ namespace WeaponEnchantments
                             Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
                         }//Check too many enchantments on helditem
                     }
+                    else
+                    {
+                        check = !check ? CheckWeaponBuffs() : check;
+                    }
                     if (!heldItem.IsAir && WEMod.IsWeaponItem(heldItem))
                     {
+                        hiGlobal = heldItem.GetGlobalItem<EnchantedItem>();
+                        check = !check ? CheckWeaponBuffs(hiGlobal) : check;
                         enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
-                        heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
+                        hiGlobal.heldItem = false;
                     }
                     heldItem = Player.HeldItem;
                     if(enemySpawnBonus == 0)
