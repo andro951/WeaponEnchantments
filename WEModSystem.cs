@@ -9,7 +9,6 @@ using Terraria.UI;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
-using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments
 {
@@ -28,6 +27,7 @@ namespace WeaponEnchantments
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
+        private static int[] essenceStack = new int[EnchantedItem.maxLevel];
         private static bool favorited;
 
         public override void OnModLoad()
@@ -144,59 +144,16 @@ namespace WeaponEnchantments
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
-                if(Main.mouseItem.type == Main.recipe[wePlayer.lastFocusRecipe].createItem.type)
+                for(int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
-                    if ((wePlayer.inventoryItemRecord[91].type == 0 && wePlayer.inventoryItemRecord[91].type != Main.mouseItem.type) || wePlayer.inventoryItemRecord[91].type == Main.mouseItem.type && wePlayer.inventoryItemRecord[91].stack != Main.mouseItem.stack)
-                    {bool pickedUp = false;
-                        for(int i = 0; i < 50; i++)
-                        {
-                            if(wePlayer.inventoryItemRecord[i].type == Main.recipe[wePlayer.lastFocusRecipe].createItem.type)
-                            {
-                                if (wePlayer.Player.inventory[i].stack < wePlayer.inventoryItemRecord[i].stack)
-                                {
-                                    pickedUp = true;
-                                }
-                            }
-                        }
-                        for(int i = 92; i < 92 + EnchantingTable.maxEnchantments + EnchantingTable.maxEssenceItems; i++)
-                        {
-                            if(i < 92 + EnchantingTable.maxEnchantments)
-                            {
-                                if (wePlayer.enchantingTableUI.enchantmentSlotUI[i - 92].Item.stack < wePlayer.inventoryItemRecord[i].stack)
-                                {
-                                    pickedUp = true;
-                                }
-                            }
-                            else
-                            {
-                                if (wePlayer.enchantingTableUI.essenceSlotUI[i - EnchantingTable.maxEnchantments - 92].Item.stack < wePlayer.inventoryItemRecord[i].stack)
-                                {
-                                    pickedUp = true;
-                                }
-                            }
-                        }
-                        if (!pickedUp)
-                        {
-                            foreach(Item requiredItem in Main.recipe[wePlayer.lastFocusRecipe].requiredItem)
-                            {
-                                if(requiredItem.ModItem is EnchantmentEssenceBasic)
-                                {
-                                    int ammountConsumedFromInventory = 0;
-                                    for (int j = 0; j < 50; j++)
-                                    {
-                                        if (wePlayer.inventoryItemRecord[j].type == requiredItem.type)
-                                        {
-                                            ammountConsumedFromInventory += wePlayer.inventoryItemRecord[j].stack;
-                                        }
-                                    }
-                                    if(ammountConsumedFromInventory < requiredItem.stack)
-                                    {
-                                        wePlayer.enchantingTableUI.essenceSlotUI[requiredItem.type - EnchantmentEssenceBasic.IDs[0]].Item.stack -= requiredItem.stack - ammountConsumedFromInventory;
-                                    }
-                                }
-                            }
-                        }
+                    bool findRecipes = false;
+                    if(essenceStack[i] != wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack)
+                    {
+                        findRecipes = true;
                     }
+                    essenceStack[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                    //if (findRecipes)
+                        //Recipe.FindRecipes();
                 }
             }//If enchanting table is open, check item(s) and enchantments in it every tick
             wePlayer.StoreLastFocusRecipe();

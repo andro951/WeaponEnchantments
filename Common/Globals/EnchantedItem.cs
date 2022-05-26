@@ -9,8 +9,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WeaponEnchantments.Items;
-using static WeaponEnchantments.Items.Containment;
-using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -46,9 +44,7 @@ namespace WeaponEnchantments.Common.Globals
         public float allForOneBonus = 1f;
         public bool oneForAll;
         public float oneForAllBonus = 0f;
-        public bool spelunker = false;
-        public bool dangerSense = false;
-        public bool hunter = false;
+        public bool[] vanillaBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
         public float enemySpawnBonus = 1f;
         public float godSlayerBonus = 0f;
         public bool equip;
@@ -56,7 +52,6 @@ namespace WeaponEnchantments.Common.Globals
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
-
         public bool heldItem = false;
         public bool favorited = false;
         public bool trashItem = false;
@@ -69,7 +64,6 @@ namespace WeaponEnchantments.Common.Globals
             }
         }//Constructor
         public override bool InstancePerEntity => true;
-
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
@@ -124,7 +118,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        /*
         public override void UpdateEquip(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -136,7 +129,7 @@ namespace WeaponEnchantments.Common.Globals
             float armorPenetrationBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                Enchantments enchantment = ((Enchantments)enchantments[i].ModItem);
+                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                 if (!enchantments[i].IsAir)
                 {
                     float str = enchantment.EnchantmentStrength;
@@ -183,7 +176,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
                 int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
-                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssence.valuePerXP * experience) + powerBoosterValue : 0;
+                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue : 0;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
             }
@@ -211,7 +204,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }//Sticky Favorited
             }
-        }*/
+        }
         public void UpdateLevel()
         {
             int l;
@@ -306,9 +299,6 @@ namespace WeaponEnchantments.Common.Globals
             godSlayerBonus = 0f;
             allForOne = false;
             oneForAll = false;
-            spelunker = false;
-            dangerSense = false;
-            hunter = false;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
@@ -346,15 +336,6 @@ namespace WeaponEnchantments.Common.Globals
                             oneForAllBonus = str;
                             oneForAllSpeedMultiplier = 1f - 0.3f * str;
                             oneForAll = true;
-                            break;
-                        case EnchantmentTypeID.Spelunker:
-                            spelunker = true;
-                            break;
-                        case EnchantmentTypeID.DangerSense:
-                            dangerSense = true;
-                            break;
-                        case EnchantmentTypeID.Hunter:
-                            hunter = true;
                             break;
                         case EnchantmentTypeID.War:
                             enemySpawnBonusLocal *= 1f + str;
@@ -511,7 +492,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeID.AllForOne:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.EnchantmentStrength + "x Damage, item CD equal to " + enchantment.EnchantmentStrength * 0.8f + "x use speed\n(WARNING - DESTROYS PROJECTILES ON HIT)")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.EnchantmentStrength + "x Damage, item CD equal to " + enchantment.EnchantmentStrength * 0.8f + "x use speed")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -685,34 +666,40 @@ namespace WeaponEnchantments.Common.Globals
                         //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
                         GainXP(item, xpInt);
                     }
-                    int i = 0;
-                    foreach (Item armor in wePlayer.Player.armor)
+                    AllArmorGainXp(xpInt);
+                }
+            }
+        }
+        public static void AllArmorGainXp(int xp)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            int xpInt;
+            int i = 0;
+            foreach (Item armor in wePlayer.Player.armor)
+            {
+                if (i < 10)
+                {
+                    if (!armor.vanity && !armor.IsAir)
                     {
-                        if (i < 10)
+                        if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
                         {
-                            if (!armor.vanity && !armor.IsAir)
+                            if (WEMod.IsArmorItem(armor))
                             {
-                                if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
-                                {
-                                    if (WEMod.IsArmorItem(armor))
-                                    {
-                                        xpInt = (int)Math.Round(xp / 2f);
-                                        xpInt = xpInt > 0 ? xpInt : 1;
-                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
-                                    }
-                                    else
-                                    {
-                                        xpInt = (int)Math.Round(xp / 4f);
-                                        xpInt = xpInt > 0 ? xpInt : 1;
-                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
-                                    }
-                                    wePlayer.equiptArmor[i].GetGlobalItem<EnchantedItem>().GainXP(wePlayer.equiptArmor[i], xpInt);
-                                }
+                                xpInt = (int)Math.Round(xp / 2f);
+                                xpInt = xpInt > 0 ? xpInt : 1;
+                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
                             }
+                            else
+                            {
+                                xpInt = (int)Math.Round(xp / 4f);
+                                xpInt = xpInt > 0 ? xpInt : 1;
+                                armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                            }
+                            wePlayer.equiptArmor[i].GetGlobalItem<EnchantedItem>().GainXP(wePlayer.equiptArmor[i], xpInt);
                         }
-                        i++;
                     }
                 }
+                i++;
             }
         }
         public void GainXP(Item item, int xpInt)

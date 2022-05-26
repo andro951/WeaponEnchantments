@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using Terraria;
 using Terraria.Audio;
@@ -9,12 +8,7 @@ using Terraria.ModLoader.IO;
 using WeaponEnchantments.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
-using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 using System;
-using Terraria.UI;
-using Terraria.GameContent;
-using Terraria.GameInput;
-using Terraria.DataStructures;
 using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments
@@ -42,13 +36,17 @@ namespace WeaponEnchantments
         public Item[] equiptArmor;
         public Item heldItem;
         public Item trashItem = new Item();
-        public bool spelunker = false;
-        public bool dangerSense = false;
-        public bool hunter = false;
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
+        public bool[] vanillaBuffs = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
         
+        public enum VanillaBoolBuffs : int
+        {
+            spelunker = 9,
+            hunter = 17,
+            dangerSense = 111
+        }
         public override void Load()
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
@@ -459,8 +457,16 @@ namespace WeaponEnchantments
         }
         private bool CheckWeaponBuffs(EnchantedItem iGlobal = null)
         {
-            //return iGlobal == null ? spelunker || dangerSense || hunter : spelunker && !iGlobal.spelunker || dangerSense && !iGlobal.dangerSense || hunter && !iGlobal.hunter;
-            return iGlobal == null ? spelunker || dangerSense || hunter : spelunker != iGlobal.spelunker || dangerSense != iGlobal.dangerSense || hunter != iGlobal.hunter;
+            bool anyBoolBuff = false;
+            bool notMatched = false;
+            for (int i = 0; i < vanillaBuffs.Length; i++)
+            {
+                if(vanillaBuffs[i])
+                    anyBoolBuff = true;
+                if(vanillaBuffs[i] != iGlobal.vanillaBuffs[i])
+                    notMatched = true;
+            }
+            return iGlobal == null ? anyBoolBuff : notMatched;
         }
         public override void PostUpdate()
         {
@@ -487,6 +493,29 @@ namespace WeaponEnchantments
                         hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
                         hiGlobal.heldItem = true;
                         check = !check ? CheckWeaponBuffs(hiGlobal) : check;
+                        for (int k = 0; k < Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length; k++)
+                        {
+                            vanillaBuffs[k] = false;
+                            hiGlobal.vanillaBuffs[k] = false;
+                        }
+                        for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+                        {
+                            AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)hiGlobal.enchantments[k].ModItem);
+                            if (!hiGlobal.enchantments[k].IsAir)
+                            {
+                                float str = enchantment.EnchantmentStrength;
+                                int l = 0;
+                                foreach(VanillaBoolBuffs boolBuff in (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs)))
+                                {
+                                    if (enchantment.EnchantmentTypeName == boolBuff.ToString())
+                                    {
+                                        vanillaBuffs[l] = true;
+                                        hiGlobal.vanillaBuffs[l] = true;
+                                    }
+                                    l++;
+                                }
+                            }
+                        }
                         enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                         if (hiGlobal.GetLevelsAvailable() < 0)
                         {
@@ -580,19 +609,20 @@ namespace WeaponEnchantments
             }//Check Armor
             if (check)
             {
-                bool temp = skipHeldItemCheck;
                 if (Player.HeldItem.type != ItemID.None)
                 {
                     EnchantedItem hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
-                    spelunker = hiGlobal.spelunker;
-                    dangerSense = hiGlobal.dangerSense;
-                    hunter = hiGlobal.hunter;
+                    for (int l = 0; l < vanillaBuffs.Length; l++)
+                    {
+                        vanillaBuffs[l] = hiGlobal.vanillaBuffs[l];
+                    }
                 }
                 else
                 {
-                    spelunker = false;
-                    dangerSense = false;
-                    hunter = false;
+                    for (int l = 0; l < vanillaBuffs.Length; l++)
+                    {
+                        vanillaBuffs[l] = false;
+                    }
                 }
                 itemScale = 0f;
                 manaCost = 0f;
@@ -633,8 +663,9 @@ namespace WeaponEnchantments
                                     }
                                     else
                                     {
-                                        float str = ((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentStrength;
-                                        switch ((EnchantmentTypeID)((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem).EnchantmentType)
+                                        AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem);
+                                        float str = enchantment.EnchantmentStrength;
+                                        switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                                         {
                                             case EnchantmentTypeID.Size:
                                                 itemScaleBonus += str;
@@ -648,21 +679,21 @@ namespace WeaponEnchantments
                                             case EnchantmentTypeID.LifeSteal:
                                                 lifeStealBonus += str;
                                                 break;
-                                            case EnchantmentTypeID.Spelunker:
-                                                spelunker = true;
-                                                break;
-                                            case EnchantmentTypeID.DangerSense:
-                                                dangerSense = true;
-                                                break;
-                                            case EnchantmentTypeID.Hunter:
-                                                hunter = true;
-                                                break;
                                             case EnchantmentTypeID.War:
                                                 enemySpawnBonus *= 1 + str;
                                                 break;
                                             case EnchantmentTypeID.Peace:
                                                 enemySpawnBonus /= 1 + str;
                                                 break;
+                                        }
+                                        int l = 0;
+                                        foreach (VanillaBoolBuffs boolBuff in (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs)))
+                                        {
+                                            if (enchantment.EnchantmentTypeName == boolBuff.ToString())
+                                            {
+                                                vanillaBuffs[l] = true;
+                                            }
+                                            l++;
                                         }
                                     }
                                 }
@@ -691,9 +722,14 @@ namespace WeaponEnchantments
                 float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 1f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                 enemySpawnBonus *= heldItemEnemySpawnBonus;
             }//Update bonuses
-            if (spelunker) { Player.AddBuff(9, 1); }
-            if(dangerSense) { Player.AddBuff(111, 1); }
-            if (hunter) { Player.AddBuff(17, 1); }
+            for (int k = 0; k < Enum.GetNames(typeof(VanillaBoolBuffs)).Length; k++)
+            {
+                if (vanillaBuffs[k])
+                {
+                    VanillaBoolBuffs[] vanillaBoolBuffs = (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs));
+                    Player.AddBuff((int)vanillaBoolBuffs[k], 1);
+                }
+            }
             if (allForOneTimer > 0)
             {
                 allForOneTimer--;

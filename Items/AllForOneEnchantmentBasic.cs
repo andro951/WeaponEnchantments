@@ -174,8 +174,7 @@ namespace WeaponEnchantments.Items
 					EnchantmentSize = i;
 					break;
 				}
-			}
-
+			}//Get EnchantmentSize
 			for (int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeID)).Length; i++)
 			{
 				if (EnchantmentTypeName == ((EnchantmentTypeID)i).ToString())
@@ -210,17 +209,22 @@ namespace WeaponEnchantments.Items
 				Item.width = 40;
 				Item.height = 40;
 			}//Width/Height
+			int endSize;
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.Spelunker:
 				case EnchantmentTypeID.DangerSense:
 				case EnchantmentTypeID.Hunter:
-					Item.value = (int)(500 * Math.Pow(8, EnchantmentSize - 2));
+					endSize = EnchantmentSize - 2;
 					break;
 				default:
-					Item.value = Utility ? (int)(500 * Math.Pow(8, EnchantmentSize)) : (int)(1000 * Math.Pow(8, EnchantmentSize));
+					endSize = EnchantmentSize;
 					break;
 			}//Base Value
+			for (int i = 0; i < endSize; i++)
+			{
+				Item.value += (int)EnchantmentEssenceBasic.values[i] * (Utility ? 5 : 10);
+			}//Essence Value
 			switch (EnchantmentSize)
 			{
 				case 3:
@@ -536,24 +540,23 @@ namespace WeaponEnchantments.Items
 					return Utility ? 1 + EnchantmentSize : (1 + EnchantmentSize) * 2;
 			}
         }
-		
-		public class AllForOneEnchantmentCommon : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class AmmoCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class ArmorPenetrationEnchantmentBasic : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentCommon : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class CriticalEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class DefenceEnchantmentBasic : AllForOneEnchantmentBasic { }public class DefenceEnchantmentCommon : AllForOneEnchantmentBasic { }public class DefenceEnchantmentRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class ManaCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class SizeEnchantmentBasic : AllForOneEnchantmentBasic { }public class SizeEnchantmentCommon : AllForOneEnchantmentBasic { }public class SizeEnchantmentRare : AllForOneEnchantmentBasic { }public class SizeEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SizeEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class SpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class SpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class SpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-		public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	}
+	public class AllForOneEnchantmentCommon : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class AmmoCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class ArmorPenetrationEnchantmentBasic : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentCommon : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class CriticalEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class DefenceEnchantmentBasic : AllForOneEnchantmentBasic { }public class DefenceEnchantmentCommon : AllForOneEnchantmentBasic { }public class DefenceEnchantmentRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class ManaCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class SizeEnchantmentBasic : AllForOneEnchantmentBasic { }public class SizeEnchantmentCommon : AllForOneEnchantmentBasic { }public class SizeEnchantmentRare : AllForOneEnchantmentBasic { }public class SizeEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SizeEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class SpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class SpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class SpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 }

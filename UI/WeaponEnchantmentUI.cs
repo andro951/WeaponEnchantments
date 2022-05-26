@@ -1,24 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
-using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Default;
 using Terraria.UI;
-using Terraria.UI.Chat;
-using Terraria.UI.Gamepad;
-using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
-using static WeaponEnchantments.Items.EnchantmentEssenceBasic;
 
 namespace WeaponEnchantments.UI
 {
@@ -130,33 +120,45 @@ namespace WeaponEnchantments.UI
             state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
             bool stop = false;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
-                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                int type = item.type;
+                if(type != ItemID.CopperShortsword && type != ItemID.CopperPickaxe && type != ItemID.CopperAxe && type != ItemID.WoodenSword || iGlobal.experience > EnchantmentEssenceBasic.xpPerEssence[0])
                 {
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                        {
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                        }
+                        if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+                    }//Take all enchantments first
+                    if (!stop)
+                    {
+                        int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
+                        int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
+                        WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
+                        int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);
+                        if (stack == 0)
+                        {
+                            stack = 1;
+                        }
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<ContainmentFragment>(), stack);
+                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                        {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
+                        }
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                        offered = true;
+                        SoundEngine.PlaySound(SoundID.Grab);
+                    }
                 }
-                if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
-            }//Take all enchantments first
-            if (!stop)
-            {
-                int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
-                int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
-                WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
-                int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);
-                if (stack == 0)
+                else
                 {
-                    stack = 1;
+                    Main.NewText(".....What a pitiful offering...do not insult me again, mortal......\n......\n(Starter weapons must have at least " + (EnchantmentEssenceBasic.xpPerEssence[0] + 1) + " experience to be offered.)");
                 }
-                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<ContainmentFragment>(), stack);
-                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
-                {
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
-                }
-                wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                offered = true;
-                SoundEngine.PlaySound(SoundID.Grab);
             }
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
@@ -577,14 +579,7 @@ namespace WeaponEnchantments.UI
                     //}
                     if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
                     {
-                        if (consumeAll)
-                        {
-                            numberEssenceRecieved += 1;
-                        }
-                        else
-                        {
-                            xpNotConsumed = xpCounter;
-                        }
+                        xpNotConsumed = xpCounter;
                         xpCounter = 0;
                     }
                     if (wePlayer.enchantingTableUI.essenceSlotUI[tier].Item.IsAir)

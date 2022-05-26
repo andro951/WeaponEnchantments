@@ -3,18 +3,11 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
-using static WeaponEnchantments.Items.Containment;
-using static WeaponEnchantments.Items.EnchantmentEssenceBasic;
-using static WeaponEnchantments.Items.AllForOneEnchantmentBasic;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -56,7 +49,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 case NPCID.KingSlime when !bossBag:
                 case ItemID.KingSlimeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
@@ -260,7 +253,7 @@ namespace WeaponEnchantments.Common.Globals
                         switch (npc.aiStyle)
                         {
                             case 1://Slime
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 2://Demon Eye
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));

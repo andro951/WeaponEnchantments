@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
@@ -13,7 +8,12 @@ namespace WeaponEnchantments.Common.Globals
     {
 		public static int tileType = -1;
 		public static Item dropItem = new Item();
-		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+        public override bool Drop(int i, int j, int type)
+        {
+
+			return true;
+        }
+        public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
         {
 			Tile tileTarget = Main.tile[i, j];
 			if (tileTarget.TileType != 504)
@@ -61,10 +61,15 @@ namespace WeaponEnchantments.Common.Globals
                     {
 						xp += GetTileStrengthXP(tileType);
 						if (Main.tileAxe[tileType])
-                        {
-							int k;
-							for (k = j; Main.tile[i, k] != null && (!Main.tile[i, k].HasTile || !Main.tileSolid[Main.tile[i, k].TileType] || Main.tileSolidTop[Main.tile[i, k].TileType]); k++){}
-							xp = tileType >= 583 && tileType <= 589 ? k * 2 : k / 16 * 5;
+						{
+							int tiles = 0;
+							int y = j;
+							while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType])
+							{
+								y--;
+								tiles++;
+							}
+							xp = tileType >= TileID.TreeTopaz && tileType <= TileID.TreeAmber ? tiles  * 50 : tiles * 10;
 							//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 							//ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 						}
@@ -77,6 +82,7 @@ namespace WeaponEnchantments.Common.Globals
 						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
 						wePlayer.Player.HeldItem.GetGlobalItem<EnchantedItem>().GainXP(wePlayer.Player.HeldItem, xp);
+						EnchantedItem.AllArmorGainXp(xp);
 						tileType = -1;
 						dropItem = new Item();
 					}
