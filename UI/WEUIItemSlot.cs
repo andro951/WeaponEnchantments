@@ -161,7 +161,7 @@ namespace WeaponEnchantments.UI
 								return true;
 							case 1:
 							case 4:
-								if (!item.accessory)
+								if(WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))
 									return true;
 								break;
 							default:

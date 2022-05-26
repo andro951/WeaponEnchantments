@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool spelunker = false;
         public bool dangerSense = false;
         public bool hunter = false;
-        public float enemySpawnBonus = 0f;
+        public float enemySpawnBonus = 1f;
         public float godSlayerBonus = 0f;
         public bool equip;
         public int levelBeforeBooster;
@@ -95,27 +95,33 @@ namespace WeaponEnchantments.Common.Globals
                     writer.Write(powerBoosterInstalled);
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        writer.Write((ushort)enchantments[i].type);
+                        writer.Write((short)enchantments[i].type);
                     }
                 }
             }
         }
         public override void NetReceive(Item item, BinaryReader reader)
         {
-            byte type = reader.ReadByte();
-            switch (type)
+            if (!item.IsAir)
             {
-                case PacketIDs.TransferGlobalItemFields:
-                    experience = reader.ReadInt32();
-                    powerBoosterInstalled = reader.ReadBoolean();
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                if (WEMod.IsEnchantable(item))
+                {
+                    byte type = reader.ReadByte();
+                    switch (type)
                     {
-                        enchantments[i] = new Item(reader.ReadUInt16());
+                        case PacketIDs.TransferGlobalItemFields:
+                            experience = reader.ReadInt32();
+                            powerBoosterInstalled = reader.ReadBoolean();
+                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                            {
+                                enchantments[i] = new Item(reader.ReadUInt16());
+                            }
+                            break;
+                        default:
+                            ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
+                            break;
                     }
-                    break;
-                default:
-                    ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
-                    break;
+                }
             }
         }
         public override void UpdateEquip(Item item, Player player)
@@ -634,30 +640,41 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }//Edit Tooltips
         }
-        public void DamageNPC(Item item, NPC target, int damage)
+        public void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
-            if (target.type != NPCID.TargetDummy && !target.friendly && !target.townNPC)
+            float value;
+            switch (Main.netMode)
+            {
+                case 2:
+                    value = ContentSamples.NpcsByNetId[target.type].value;
+                    break;
+                default:
+                    value = target.value;
+                    break;
+            }
+            if (target.type != NPCID.TargetDummy && !target.friendly && !target.townNPC && (value > 0 || !target.SpawnedFromStatue && target.lifeMax > 5))
             {
                 int xpInt;
-
+                int xpDamage;
                 float multiplier;
                 float effDamage;
+                float effDamageDenom;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f + (float)target.defDamage / 40f) / (target.boss ? 4f : 1f);
-                effDamage = (float)item.damage * (1f + (float)item.crit / 100f);
-                damage = target.life < 0 ? damage + target.life : damage;
-                if (target.value > 0 || !target.SpawnedFromStatue && target.lifeMax > 5)
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) / (target.boss ? 4f : 1f);
+                effDamage = (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f);
+                float actualDefence = target.defense / 2f - target.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
+                float actualDamage = melee ? damage : damage - actualDefence;
+                actualDamage = crit && !melee ? actualDamage * 2 : actualDamage;
+                xpDamage = target.life < 0 ? (int)actualDamage + target.life : (int)actualDamage;
+                if(xpDamage > 0)
                 {
-                    if (effDamage - (float)target.defDefense / 2 > 1)
-                    {
-                        xp = (float)damage * multiplier * effDamage / (effDamage - (float)target.defDefense / 2);
-                    }
+                    effDamageDenom = effDamage - actualDefence;
+                    if (effDamageDenom > 1)
+                        xp = (float)xpDamage * multiplier * effDamage / effDamageDenom;
                     else
-                    {
-                        xp = (float)damage * multiplier * effDamage;
-                    }
+                        xp = (float)xpDamage * multiplier * effDamage;
                     xp /= UtilityMethods.GetReductionFactor((int)target.lifeMax);
                     xpInt = (int)Math.Round(xp);
                     xpInt = xpInt > 1 ? xpInt : 1;
@@ -668,26 +685,27 @@ namespace WeaponEnchantments.Common.Globals
                         GainXP(item, xpInt);
                     }
                     int i = 0;
-                    foreach(Item armor in wePlayer.Player.armor)
+                    foreach (Item armor in wePlayer.Player.armor)
                     {
-                        if(i < 10)
+                        if (i < 10)
                         {
                             if (!armor.vanity && !armor.IsAir)
                             {
                                 if (armor.GetGlobalItem<EnchantedItem>().levelBeforeBooster < maxLevel)
                                 {
-                                    if (armor.accessory)
-                                    {
-                                        xpInt = (int)Math.Round(xp / 4f);
-                                        xpInt = xpInt > 0 ? xpInt : 1;
-                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
-                                    }
-                                    else
+                                    if (WEMod.IsArmorItem(armor))
                                     {
                                         xpInt = (int)Math.Round(xp / 2f);
                                         xpInt = xpInt > 0 ? xpInt : 1;
                                         armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
                                     }
+                                    else
+                                    {
+                                        xpInt = (int)Math.Round(xp / 4f);
+                                        xpInt = xpInt > 0 ? xpInt : 1;
+                                        armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
+                                    }
+                                    wePlayer.equiptArmor[i].GetGlobalItem<EnchantedItem>().GainXP(wePlayer.equiptArmor[i], xpInt);
                                 }
                             }
                         }
@@ -931,7 +949,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            DamageNPC(item, target, damage);
+            DamageNPC(item, player, target, damage, crit, true);
         }
     }
 }

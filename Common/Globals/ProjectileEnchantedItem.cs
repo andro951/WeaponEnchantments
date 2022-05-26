@@ -309,7 +309,8 @@ namespace WeaponEnchantments.Common.Globals
                             lastInventoryLocation = -1;//Item not found
                         }
                     }//If summoner weapon, verify it's location or search for it
-                    sourceItem.GetGlobalItem<EnchantedItem>().DamageNPC(sourceItem, target, damage);
+                    Player player = Main.player[projectile.owner];
+                    sourceItem.GetGlobalItem<EnchantedItem>().DamageNPC(sourceItem, player, target, damage, crit);
                 }
             }
         }

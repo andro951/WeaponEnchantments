@@ -39,7 +39,7 @@ namespace WeaponEnchantments
 		}
 		internal static bool IsAccessoryItem(Item item)
 		{
-			return item.accessory == true;
+			return item.accessory;
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {

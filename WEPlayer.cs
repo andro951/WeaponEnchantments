@@ -296,10 +296,10 @@ namespace WeaponEnchantments
                                         Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
                                         if (iGlobal.equip && !tableItem.IsAir)
                                         {
-                                            if(item.accessory && !tableItem.accessory || item.headSlot > 0 && tableItem.headSlot == -1 || item.bodySlot > 0 && tableItem.bodySlot == -1 || item.legSlot > 0 && tableItem.legSlot == -1)
+                                            if(WEMod.IsAccessoryItem(item) && !WEMod.IsArmorItem(item) && (WEMod.IsAccessoryItem(tableItem) || WEMod.IsArmorItem(tableItem)) || item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1)
                                             {
                                                 doNotSwap = true;
-                                            }
+                                            }//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
                                         }
                                     }
                                     if (!doNotSwap)
@@ -478,7 +478,7 @@ namespace WeaponEnchantments
                 if (!skipHeldItemCheck)
                 {
                     //EnchantedItem hiGlobal;
-                    if (Player.HeldItem.type != ItemID.None)
+                    if (Player.HeldItem.type != ItemID.None && WEMod.IsWeaponItem(Player.HeldItem))
                     {
                         hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
                         hiGlobal.heldItem = true;
@@ -502,16 +502,16 @@ namespace WeaponEnchantments
                             Main.NewText("Your " + Player.HeldItem.Name + "' level is too low to use that many enchantments.");
                         }//Check too many enchantments on helditem
                     }
-                    else
-                    {
-                        check = true;
-                    }
-                    if (!heldItem.IsAir)
+                    if (!heldItem.IsAir && WEMod.IsWeaponItem(heldItem))
                     {
                         enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                         heldItem.GetGlobalItem<EnchantedItem>().heldItem = false;
                     }
                     heldItem = Player.HeldItem;
+                    if(enemySpawnBonus == 0)
+                    {
+                        check = true;
+                    }
                 }//Check HeldItem
             }
             else
@@ -571,6 +571,7 @@ namespace WeaponEnchantments
             }//Check Armor
             if (check)
             {
+                bool temp = skipHeldItemCheck;
                 if (Player.HeldItem.type != ItemID.None)
                 {
                     EnchantedItem hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
@@ -604,20 +605,20 @@ namespace WeaponEnchantments
                             {
                                 if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                                 {
-                                    if(i > 1 && i < 4 || i > 0 && armor.accessory)
+                                    if(i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor))
                                     {
                                         armor.GetGlobalItem<EnchantedItem>().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetGlobalItem<EnchantedItem>().enchantments[i], GetItemSettings.LootAllSettings);
                                         if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                                         {
                                             Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
                                             armor.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
-                                            if (armor.accessory)
+                                            if (WEMod.IsArmorItem(armor))
                                             {
-                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
+                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
                                             }
                                             else
                                             {
-                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
+                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
                                             }
                                         }
                                     }
@@ -678,8 +679,8 @@ namespace WeaponEnchantments
                 manaCost += manaCostBonus / 4;
                 ammoCost += ammoCostBonus / 4;
                 lifeSteal += lifeStealBonus / 4;
-                float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 0f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
-                this.enemySpawnBonus = enemySpawnBonus + heldItemEnemySpawnBonus;
+                float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 1f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+                enemySpawnBonus *= heldItemEnemySpawnBonus;
             }//Update bonuses
             if (spelunker) { Player.AddBuff(9, 1); }
             if(dangerSense) { Player.AddBuff(111, 1); }
