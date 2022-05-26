@@ -180,7 +180,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             return itemTypes;
         }
-        public static float GedDropChance(int arg, bool bossBag = false)
+        public static float GetDropChance(int arg, bool bossBag = false)
         {
             float chance;
             switch (arg)
@@ -235,7 +235,7 @@ namespace WeaponEnchantments.Common.Globals
                         npcLoot.Add(dropRule);
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
-                        float chance = WEGlobalNPC.GedDropChance(npc.type);
+                        float chance = WEGlobalNPC.GetDropChance(npc.type);
                         List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
                         if (itemTypes.Count > 1)
                         {

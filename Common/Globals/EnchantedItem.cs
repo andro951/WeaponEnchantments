@@ -805,7 +805,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
                     }
-                    float chance = WEGlobalNPC.GedDropChance(arg);
+                    float chance = WEGlobalNPC.GetDropChance(arg);
                     List<int> itemTypes = WEGlobalNPC.GetDropItems(arg, true);
                     if (itemTypes.Count > 1)
                     {
