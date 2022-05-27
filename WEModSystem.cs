@@ -288,7 +288,7 @@ namespace WeaponEnchantments
                 wePlayer.inventoryItemRecord[91] = Main.mouseItem.Clone();
             }
         }//If enchanting table is open, check item(s) and enchantments in it every tick
-        private void ApplyEnchantment(int i)
+        private static void ApplyEnchantment(int i)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
@@ -298,8 +298,12 @@ namespace WeaponEnchantments
             {
                 item.ApplyEnchantment(enchantment);
             }
+            else
+            {
+                //update non-static total strength values like damage etc.  do it here instead of globalitem then just 1 line in global item instead of switch
+            }
         }
-        private void RemoveEnchantment(int i)
+        private static void RemoveEnchantment(int i)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
@@ -308,6 +312,10 @@ namespace WeaponEnchantments
             if (enchantment.StaticStat)
             {
                 item.RemoveEnchantment(enchantment);
+            }
+            else
+            {
+                //update non-static total strength values like damage etc.  do it here instead of globalitem then just 1 line in global item instead of switch
             }
         }
         public override void PreUpdateItems()
@@ -643,7 +651,7 @@ namespace WeaponEnchantments
                                     chance = 0.35f;
                                     itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
@@ -651,7 +659,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<PeaceEnchantmentUltraRare>());
                                     break;
                                 case 1://Gold Chest
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
@@ -669,10 +677,10 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<WarEnchantmentUltraRare>());
                                     break;
                                 case 8://Rich Mahogany Chest (Jungle)
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     break;
                                 case 10://Ivy Chest (Jungle)
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     break;
                                 case 11://Frozen Chest
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
@@ -732,7 +740,7 @@ namespace WeaponEnchantments
                             switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
                             {
                                 case 4://Gold Dead man's chest
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
