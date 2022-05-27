@@ -726,7 +726,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public override bool CanConsumeAmmo(Item weapon, Player player)
+        public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player)
         {
             float ammoCostBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
