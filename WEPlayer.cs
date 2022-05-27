@@ -276,6 +276,7 @@ namespace WeaponEnchantments
                 }
                 if (!hoveringOverTrash)
                 {
+                    Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
                     if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
                     {
                         if (moveItem)
@@ -304,7 +305,6 @@ namespace WeaponEnchantments
                                     bool doNotSwap = false;
                                     if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
                                     {
-                                        Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
                                         if (iGlobal.equip && !tableItem.IsAir)
                                         {
                                             if(WEMod.IsAccessoryItem(item) && !WEMod.IsArmorItem(item) && (WEMod.IsAccessoryItem(tableItem) || WEMod.IsArmorItem(tableItem)) || item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1)
@@ -343,7 +343,7 @@ namespace WeaponEnchantments
                                                 if (moveItem)
                                                 {
                                                     int s = i;
-                                                    if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir)
+                                                    if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir && (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem)))
                                                     {
                                                         s = 4;
                                                     }
