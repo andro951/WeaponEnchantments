@@ -39,8 +39,8 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
-        public bool[] vanillaBuffsBoolWeapon;
-        public bool[] vanillaBuffsBoolArmor;
+        public bool[] vanillaPlayerBuffsWeapon;
+        public bool[] vanillaPlayerBuffsArmor;
         public EStat[] staticStats;
 
         public enum VanillaBoolBuffs : int
@@ -85,8 +85,8 @@ namespace WeaponEnchantments
             {
                 equiptArmor[i] = new Item();
             }
-            vanillaBuffsBoolWeapon = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
-            vanillaBuffsBoolArmor = new bool[vanillaBuffsBoolWeapon.Length];
+            vanillaPlayerBuffsWeapon = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
+            vanillaPlayerBuffsArmor = new bool[vanillaPlayerBuffsWeapon.Length];
             staticStats = new EStat[Enum.GetNames(typeof(StaticStats)).Length];
             for(int i = 0; i < staticStats.Length; i++)
             {
@@ -481,13 +481,13 @@ namespace WeaponEnchantments
                     {
                         hiGlobal = Player.HeldItem.GetGlobalItem<EnchantedItem>();
                         hiGlobal.heldItem = true;
-                        SetFalseVanillaBoolBuffs(ref vanillaBuffsBoolWeapon, hiGlobal);
+                        SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsWeapon, hiGlobal);
                         for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
                         {
                             AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)hiGlobal.enchantments[k].ModItem);
                             if (!hiGlobal.enchantments[k].IsAir)
                             {
-                                CheckEnchantmentBoolBuffs(enchantment, vanillaBuffsBoolWeapon);
+                                CheckEnchantmentBoolBuffs(enchantment, vanillaPlayerBuffsWeapon);
                             }
                         }//vanillaBuffs = enchantments
                         enemySpawnBonus *= hiGlobal.enemySpawnBonus;
@@ -509,12 +509,12 @@ namespace WeaponEnchantments
                         }//Check too many enchantments on helditem
                     }
                     else
-                        SetFalseVanillaBoolBuffs(ref vanillaBuffsBoolWeapon);
+                        SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsWeapon);
                     if (!heldItem.IsAir && WEMod.IsWeaponItem(heldItem))
                     {
                         hiGlobal = heldItem.GetGlobalItem<EnchantedItem>();
                         //check = !check ? CheckWeaponBuffs(hiGlobal) : check;
-                        SetFalseVanillaBoolBuffs(ref vanillaBuffsBoolWeapon, hiGlobal, true);
+                        SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsWeapon, hiGlobal, true);
                         enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                         hiGlobal.heldItem = false;
                     }
@@ -562,7 +562,7 @@ namespace WeaponEnchantments
             }//Check if armor changed 
             if (checkArmor)
             {
-                SetFalseVanillaBoolBuffs(ref vanillaBuffsBoolArmor);
+                SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsArmor);
                 itemScale = 0f;
                 manaCost = 0f;
                 ammoCost = 0f;
@@ -625,7 +625,7 @@ namespace WeaponEnchantments
                                                 enemySpawnBonus /= 1 + str;
                                                 break;
                                         }//switch(enchantment)
-                                        CheckEnchantmentBoolBuffs(enchantment, vanillaBuffsBoolArmor);
+                                        CheckEnchantmentBoolBuffs(enchantment, vanillaPlayerBuffsArmor);
                                     }
                                 }
                             }
@@ -652,7 +652,7 @@ namespace WeaponEnchantments
             }//Update bonuses
             for (int k = 0; k < Enum.GetNames(typeof(VanillaBoolBuffs)).Length; k++)
             {
-                if (vanillaBuffsBoolWeapon[k] || vanillaBuffsBoolArmor[k])
+                if (vanillaPlayerBuffsWeapon[k] || vanillaPlayerBuffsArmor[k])
                 {
                     VanillaBoolBuffs[] vanillaBoolBuffs = (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs));
                     int buff = (int)vanillaBoolBuffs[k];
@@ -692,16 +692,16 @@ namespace WeaponEnchantments
         {
             if (!globalOnly)
             {
-                for (int k = 0; k < vanillaBuffsBoolWeapon.Length; k++)
+                for (int k = 0; k < vanillaPlayerBuffsWeapon.Length; k++)
                 {
                     vanillaBuffsBool[k] = false;
                 }//vanillaBuffs = false
             }
             if (hiGlobal != null)
             {
-                for (int k = 0; k < vanillaBuffsBoolWeapon.Length; k++)
+                for (int k = 0; k < vanillaPlayerBuffsWeapon.Length; k++)
                 {
-                    hiGlobal.vanillaBuffs[k] = false;
+                    hiGlobal.vanillaPlayerBuffs[k] = false;
                 }//vanillaBuffs = false
             }
         }

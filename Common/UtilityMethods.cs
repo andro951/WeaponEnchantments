@@ -4,6 +4,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using System.Reflection;
+using System;
 
 namespace WeaponEnchantments.Common
 {
@@ -97,12 +98,39 @@ namespace WeaponEnchantments.Common
                 {
                     if(property.Name == staticStat.Name)
                     {
-                        staticStat + enchantment;
+                        Type propertyType = property.GetType();
+                        if (propertyType == typeof(float))
+                        {
+                            float value = (float)property.GetValue(property, null);
+                            staticStat.ApplyTo(ref value, item.type);
+                        }
+                        else if (propertyType == typeof(int))
+                        {
+                            int value = (int)property.GetValue(property, null);
+                            staticStat.ApplyTo(ref value, item.type);
+                        }
+                    }
+                }
+                foreach(FieldInfo field in item.GetType().GetFields())
+                {
+                    if (field.Name == staticStat.Name)
+                    {
+                        Type fieldType = field.GetType();
+                        if (fieldType == typeof(float))
+                        {
+                            float value = (float)field.GetValue(field);
+                            staticStat.ApplyTo(ref value, item.type);
+                        }
+                        else if (fieldType == typeof(int))
+                        {
+                            int value = (int)field.GetValue(field);
+                            staticStat.ApplyTo(ref value, item.type);
+                        }
                     }
                 }
             }
         }
-        public static void ApplyEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
+        public static void RemoveEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
         {
             foreach (StaticStatStruct staticStat in enchantment.StaticStats)
             {

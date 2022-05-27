@@ -470,7 +470,12 @@ namespace WeaponEnchantments.Items
 			}//DamageTypeSpecific
 			switch ((EnchantmentTypeID)EnchantmentType)
             {
-
+				case EnchantmentTypeID.Size:
+					StaticStats.Add(new StaticStatStruct("scale"));
+					break;
+				default:
+					StaticStat = false;
+					break;
             }//Set StaticStats
 		}
 		public override void SetDefaults()

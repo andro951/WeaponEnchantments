@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
@@ -295,7 +296,7 @@ namespace WeaponEnchantments
             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
             if (enchantment.StaticStat)
             {
-
+                item.ApplyEnchantment(enchantment);
             }
         }
         private void RemoveEnchantment(int i)
@@ -306,7 +307,7 @@ namespace WeaponEnchantments
             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
             if (enchantment.StaticStat)
             {
-
+                item.RemoveEnchantment(enchantment);
             }
         }
         public override void PreUpdateItems()

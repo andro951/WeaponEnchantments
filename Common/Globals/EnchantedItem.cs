@@ -18,42 +18,53 @@ namespace WeaponEnchantments.Common.Globals
         public int experience;//current experience of a weapon/armor/accessory item
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         //End Packet fields
-        public bool baseStatsSet = false;
 
+        //Vanilla Player buffs
+        public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
 
-        public float damageBonus = 0f;
+        public bool[] baseStatsSet = new bool[EnchantingTable.maxEnchantments];
+        //Item specific
+
         public float totalSpeedBonus;
         public float immunityBonus = 0f;
-        public int critBonus = 0;
         public int lastUseTimeBonusInt;
         public int lastUseAnimationBonusInt;
         public int lastShootSpeedBonusInt;
-        public int lastReuseDelayBonus;
-        public float sizeBonus;
-        public float lastSizeBonus;
-        public int lastValueBonus;
+        public float lastGenericScaleBonus;
+        public int lastArmorPenetrationBonus;
+
+        //Static Non-Item specific
+        public float lifeSteal;
+        public float lastLifeStealBonus;
+        public bool allForOne;
+        public float allForOneBonus = 1f;
+        public bool oneForAll;
+        public float oneForAllBonus = 0f;
+        public float enemySpawnBonus = 1f;
+        public float godSlayerBonus = 0f;
+
+
+        public float damageBonus = 0f;
+        public int critBonus = 0;
         public int lastDefenceBonus;
         public int lastManaCostBonus;
         public float lastEquipManaCostBonus;
         public float lastAmmoCostBonus;
         public float lastEquipAmmoCostBonus;
-        public float lastScaleBonus;
-        public float lastGenericScaleBonus;
-        public float lifeSteal;
-        public float lastLifeStealBonus;
-        public int lastArmorPenetrationBonus;
-        public bool allForOne;
-        public float allForOneBonus = 1f;
-        public bool oneForAll;
-        public float oneForAllBonus = 0f;
-        public bool[] vanillaBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
-        public float enemySpawnBonus = 1f;
-        public float godSlayerBonus = 0f;
-        public bool equip;
+
+        public int lastValueBonus;
+        
+        
+        
+        
+        
+        
+        
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
+        public bool equip = false;
         public bool heldItem = false;
         public bool favorited = false;
         public bool trashItem = false;
@@ -378,8 +389,8 @@ namespace WeaponEnchantments.Common.Globals
                 item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus) - lastUseAnimationBonusInt;
                 lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus);
             }
-            item.scale += sizeBonus + wePlayer.itemScale - lastGenericScaleBonus;
-            lastGenericScaleBonus = sizeBonus + wePlayer.itemScale;
+            //item.scale += sizeBonus + wePlayer.itemScale - lastGenericScaleBonus;
+            //lastGenericScaleBonus = sizeBonus + wePlayer.itemScale;
             int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneManaBonus * 0.4f)));
             item.mana -= mana - lastManaCostBonus;
             lastManaCostBonus = mana;
@@ -411,6 +422,14 @@ namespace WeaponEnchantments.Common.Globals
                     knockback += enchantment.EnchantmentStrength;
                 }
             }
+        }
+        public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
+        {
+            
+        }
+        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
