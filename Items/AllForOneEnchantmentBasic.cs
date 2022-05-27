@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items
 {
@@ -68,6 +69,8 @@ namespace WeaponEnchantments.Items
 		public bool Unique { private set; get; }
 		public bool Max1 { private set; get; } = false;
 		public int DamageClassSpecific { private set; get; }
+		public bool StaticStat { private set; get; }
+		public List<StaticStatStruct> StaticStats { private set; get; }
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
@@ -465,6 +468,10 @@ namespace WeaponEnchantments.Items
 					DamageClassSpecific = 0;
 					break;
 			}//DamageTypeSpecific
+			switch ((EnchantmentTypeID)EnchantmentType)
+            {
+
+            }//Set StaticStats
 		}
 		public override void SetDefaults()
 		{

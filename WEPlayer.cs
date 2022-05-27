@@ -41,6 +41,7 @@ namespace WeaponEnchantments
         public bool stickyFavorited = true;
         public bool[] vanillaBuffsBoolWeapon;
         public bool[] vanillaBuffsBoolArmor;
+        public EStat[] staticStats;
 
         public enum VanillaBoolBuffs : int
         {
@@ -48,7 +49,7 @@ namespace WeaponEnchantments
             Hunter = 17,
             DangerSense = 111
         }
-        public enum Buffs : int
+        public enum StaticStats : int
         {
 
         }
@@ -86,6 +87,11 @@ namespace WeaponEnchantments
             }
             vanillaBuffsBoolWeapon = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
             vanillaBuffsBoolArmor = new bool[vanillaBuffsBoolWeapon.Length];
+            staticStats = new EStat[Enum.GetNames(typeof(StaticStats)).Length];
+            for(int i = 0; i < staticStats.Length; i++)
+            {
+                staticStats[i] = new EStat();
+            }
         }
         public override void SaveData(TagCompound tag)
         {

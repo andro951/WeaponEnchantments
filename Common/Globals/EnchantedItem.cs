@@ -18,6 +18,8 @@ namespace WeaponEnchantments.Common.Globals
         public int experience;//current experience of a weapon/armor/accessory item
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         //End Packet fields
+        public bool baseStatsSet = false;
+
 
         public float damageBonus = 0f;
         public float totalSpeedBonus;

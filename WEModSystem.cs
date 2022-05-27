@@ -126,18 +126,22 @@ namespace WeaponEnchantments
                         if (wePlayer.enchantmentInEnchantingTable[i])//if enchantmentSlot HAD an enchantment in it but it was just taken out,
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
+                            RemoveEnchantment(i);
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
                     else if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item)
                     {
+                        RemoveEnchantment(i);
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        ApplyEnchantment(i);
                     }//If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
                 }//Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
@@ -283,6 +287,28 @@ namespace WeaponEnchantments
                 wePlayer.inventoryItemRecord[91] = Main.mouseItem.Clone();
             }
         }//If enchanting table is open, check item(s) and enchantments in it every tick
+        private void ApplyEnchantment(int i)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+            if (enchantment.StaticStat)
+            {
+
+            }
+        }
+        private void RemoveEnchantment(int i)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+            if (enchantment.StaticStat)
+            {
+
+            }
+        }
         public override void PreUpdateItems()
         {
             /*

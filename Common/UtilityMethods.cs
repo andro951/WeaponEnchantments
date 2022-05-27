@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments;
+using WeaponEnchantments.Items;
+using System.Reflection;
 
 namespace WeaponEnchantments.Common
 {
@@ -85,6 +88,32 @@ namespace WeaponEnchantments.Common
         {
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
+        }
+        public static void ApplyEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
+        {
+            foreach(StaticStatStruct staticStat in enchantment.StaticStats)
+            {
+                foreach(PropertyInfo property in item.GetType().GetProperties())
+                {
+                    if(property.Name == staticStat.Name)
+                    {
+                        staticStat + enchantment;
+                    }
+                }
+            }
+        }
+        public static void ApplyEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
+        {
+            foreach (StaticStatStruct staticStat in enchantment.StaticStats)
+            {
+                foreach (PropertyInfo property in item.GetType().GetProperties())
+                {
+                    if (property.Name == staticStat.Name)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
