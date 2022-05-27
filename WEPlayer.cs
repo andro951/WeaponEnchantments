@@ -48,6 +48,10 @@ namespace WeaponEnchantments
             Hunter = 17,
             DangerSense = 111
         }
+        public enum Buffs : int
+        {
+
+        }
         public override void Load()
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;

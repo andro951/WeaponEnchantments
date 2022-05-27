@@ -9,7 +9,6 @@ namespace WeaponEnchantments
 {
     public class WEMod : Mod
     {
-		List<Item> itemsWaitingForPacket = new List<Item>();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) & !item.consumable)
