@@ -180,6 +180,7 @@ namespace WeaponEnchantments.Common.Globals
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
             }
+            equip = false;
             if (wePlayer.stickyFavorited)
             {
                 if (item.favorited)
@@ -292,6 +293,7 @@ namespace WeaponEnchantments.Common.Globals
             float oneForAllSpeedMultiplier = 1f;
             float enemySpawnBonusLocal = 1f;
             float allForOneManaBonus = 0f;
+            float sizeBonus = 0f;
             damageBonus = 0f;
             immunityBonus = 0f;
             allForOneBonus = 1f;
@@ -346,6 +348,9 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeID.GodSlayer:
                             godSlayerBonus += str;
                             break;
+                        case EnchantmentTypeID.Size:
+
+                            break;
                     }
                 }
             }
@@ -371,8 +376,8 @@ namespace WeaponEnchantments.Common.Globals
                 item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus) - lastUseAnimationBonusInt;
                 lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus);
             }
-            item.scale += wePlayer.itemScale - lastGenericScaleBonus;
-            lastGenericScaleBonus = wePlayer.itemScale;
+            item.scale += sizeBonus + wePlayer.itemScale - lastGenericScaleBonus;
+            lastGenericScaleBonus = sizeBonus + wePlayer.itemScale;
             int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneManaBonus * 0.4f)));
             item.mana -= mana - lastManaCostBonus;
             lastManaCostBonus = mana;
@@ -396,18 +401,14 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
-            sizeBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                 if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Size)
                 {
                     knockback += enchantment.EnchantmentStrength;
-                    sizeBonus += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
                 }
             }
-            item.scale += sizeBonus - lastSizeBonus;//Update item size
-            lastSizeBonus = sizeBonus;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
@@ -624,12 +625,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             float value;
             switch (Main.netMode)
             {
-                case 2:
+                case 1:
                     value = ContentSamples.NpcsByNetId[target.type].value;
                     break;
                 default:
@@ -695,7 +695,7 @@ namespace WeaponEnchantments.Common.Globals
                                 xpInt = xpInt > 0 ? xpInt : 1;
                                 armor.GetGlobalItem<EnchantedItem>().GainXP(armor, xpInt);
                             }
-                            wePlayer.equiptArmor[i].GetGlobalItem<EnchantedItem>().GainXP(wePlayer.equiptArmor[i], xpInt);
+                            //wePlayer.equiptArmor[i].GetGlobalItem<EnchantedItem>().GainXP(wePlayer.equiptArmor[i], xpInt);
                         }
                     }
                 }
