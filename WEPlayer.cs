@@ -57,6 +57,10 @@ namespace WeaponEnchantments
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
+        public override void OnEnterWorld(Player player)
+        {
+            OldItemManager.ReplaceAllOldItems();
+        }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
             var c = new ILCursor(il);
@@ -497,7 +501,7 @@ namespace WeaponEnchantments
                             {
                                 if (!hiGlobal.enchantments[k].IsAir)
                                 {
-                                    hiGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, hiGlobal.enchantments[i], GetItemSettings.LootAllSettings);
+                                    Player.HeldItem.GetGlobalItem<EnchantedItem>().enchantments[i] = Player.GetItem(Main.myPlayer, hiGlobal.enchantments[i], GetItemSettings.LootAllSettings);
                                 }
                                 if (!hiGlobal.enchantments[k].IsAir)
                                 {
@@ -531,10 +535,6 @@ namespace WeaponEnchantments
                 {
                     for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && miGlobal.GetLevelsAvailable() < 0; k--)
                     {
-                        if (!miGlobal.enchantments[k].IsAir)
-                        {
-                            miGlobal.enchantments[i] = Player.GetItem(Main.myPlayer, miGlobal.enchantments[i], GetItemSettings.LootAllSettings);
-                        }
                         if (!miGlobal.enchantments[k].IsAir)
                         {
                             Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), miGlobal.enchantments[k]);
@@ -606,7 +606,7 @@ namespace WeaponEnchantments
                                         float str = enchantment.EnchantmentStrength;
                                         switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                                         {
-                                            case EnchantmentTypeID.Size:
+                                            case EnchantmentTypeID.Scale:
                                                 itemScaleBonus += str;
                                                 break;
                                             case EnchantmentTypeID.ManaCost:
@@ -705,7 +705,7 @@ namespace WeaponEnchantments
                 }//vanillaBuffs = false
             }
         }
-    private void CheckEnchantmentBoolBuffs(AllForOneEnchantmentBasic enchantment, bool[] vanillaBuffsBool)
+        private void CheckEnchantmentBoolBuffs(AllForOneEnchantmentBasic enchantment, bool[] vanillaBuffsBool)
         {
             int l = 0;
             foreach (VanillaBoolBuffs boolBuff in (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs)))

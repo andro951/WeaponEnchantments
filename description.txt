@@ -1,3 +1,6 @@
+Easier to read on Github:
+https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
+
 Weapon Enchantments adds
      -Item customization
      -Progression system
@@ -20,7 +23,7 @@ Basics:
     Enchanting Table:
         -Used to apply Enchantments to items.
         -Used to consume Essence to add xp to items.
-        -Can PERMENANTLY consume items in exchange for Essence and Containment Fragments(used to create Containments).
+        -Can PERMENANTLY consume items in exchange for Essence and ores(mix of iron/silver/gold).
 
 First 5 minutes:
      -Make a Wood Enchanting Table. (workbench and 4 torches)
@@ -28,7 +31,7 @@ First 5 minutes:
 
 Tips:
     -DONT SELL weapons/armor/accessories. Offer them instead.  
-        The value from Containment Fragments is slightly higher than an item's value and you get Essence equivalent to the item's xp. 
+        The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp. 
         Offering items returns all Enchantments/Power Booster applied to the consumed item.
     -Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
     -Make a gem tree farm (especially for diamond/amber).  They are in crafting high tier Containments.
@@ -41,17 +44,16 @@ Extra information:
     Creating/Upgrading Enchantments
         Containments:
             Containments are used to hold Enchantments.  Higher power Enchantments require larger Containments.
-            Containment Fragments are obtained from bosses or offering items in the Enchanting Table.
 
             Containment(smallest one):
                 Used to create tier 0 Enchantments (only Damage or Armor)
-                Ingredients - 4 Containment Fragments, 1 Glass
+                Ingredients - 4 Silver/Tungsten Bars, 1 Glass
             Medium Containment:
                 Used to upgrade an Enchantment from tier 0 to tier 1.
-                Ingredients - 8 Containment Fragments, 4 Glass
+                Ingredients - 8 Gold/Platinum Bars, 4 Glass
             Superior Containment:
                 Used to upgrade an Enchantment to tier 2, 3 or 4.
-                Ingredients - 16 Containment Fragments, 4 Stabilizers
+                Ingredients - 16 Demonite/Crimtane Bars, 4 Stabilizers
                     Stabilizers are crafted from any gem, except diamond/amber, in a hellforge. (1 per gem)
 
         Enchantment Crafting Ingredients:
@@ -78,7 +80,7 @@ Extra information:
 
     Enchanting Tables:
         WARNING - Offering items in an Enchanting Table is more efficient the higher tier Enchanting Table you use. (100% at tier 4)
-            (The same number of Containment Fragments will be received regardless of Enchanting Table tier.)
+            (The same ammount of ore will be received regardless of Enchanting Table tier.)
 
         tier 0 (Wood):
             Ingredients - workbench, 4 torches
@@ -101,6 +103,7 @@ Extra information:
 Please give me your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
+https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
 
 Contributors:
 Sprites made by Zorutan: https://twitter.com/ZorutanMesuta

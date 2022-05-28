@@ -5,6 +5,8 @@ using WeaponEnchantments;
 using WeaponEnchantments.Items;
 using System.Reflection;
 using System;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common
 {
@@ -40,6 +42,44 @@ namespace WeaponEnchantments.Common
                 }
             }
             return list;
+        }
+        public static string AddSpaces(string s)
+        {
+            int start = 0;
+            int end = 0;
+            string finalString = "";
+            for(int i = 1; i < s.Length; i++)
+            {
+                if (s[i].IsUpper())
+                {
+                    end = i - 1;
+                    finalString += s.Substring(start, end - start + 1) + " ";
+                    start = end + 1;
+                }
+                else if(i == s.Length - 1)
+                {
+                    end = i;
+                    finalString += s.Substring(start, end - start + 1);
+                }
+            }
+            return finalString;
+        }
+        public static string ToFieldName(string s)
+        {
+            if (s.Length > 0)
+            {
+                string[] apla = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWKYZ" };
+                if(s[0].IsUpper())
+                    for(int i = 0; i < apla[0].Length; i++)
+                    {
+                        if(s[0] == apla[1][i])
+                        {
+                            char c = apla[0][i];
+                            return c + s.Substring(1);
+                        }
+                    }
+            }
+            return s;
         }
         public static string RemoveProjectileName(this string s)
         {
@@ -90,57 +130,95 @@ namespace WeaponEnchantments.Common
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
         }
-        public static void ApplyEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
+        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, bool remove = false)
         {
+            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            int i = 0;
             foreach(StaticStatStruct staticStat in enchantment.StaticStats)
             {
-                foreach(PropertyInfo property in item.GetType().GetProperties())
+                bool found = false;
+                foreach (FieldInfo field in item.GetType().GetFields())
                 {
-                    if(property.Name == staticStat.Name)
+                    string name = field.Name;
+                    if (name == staticStat.Name)
                     {
-                        Type propertyType = property.GetType();
-                        if (propertyType == typeof(float))
+                        Type fieldType = field.FieldType;
+                        //if (fieldType == typeof(float))
                         {
-                            float value = (float)property.GetValue(property, null);
-                            staticStat.ApplyTo(ref value, item.type);
+                            float value = (float)field.GetValue(item);
+                            staticStat.UpdateStat(ref item, name, remove);
+                            found = true;
                         }
-                        else if (propertyType == typeof(int))
-                        {
-                            int value = (int)property.GetValue(property, null);
-                            staticStat.ApplyTo(ref value, item.type);
-                        }
-                    }
-                }
-                foreach(FieldInfo field in item.GetType().GetFields())
-                {
-                    if (field.Name == staticStat.Name)
-                    {
-                        Type fieldType = field.GetType();
-                        if (fieldType == typeof(float))
-                        {
-                            float value = (float)field.GetValue(field);
-                            staticStat.ApplyTo(ref value, item.type);
-                        }
-                        else if (fieldType == typeof(int))
+                        /*else if (fieldType == typeof(int))
                         {
                             int value = (int)field.GetValue(field);
-                            staticStat.ApplyTo(ref value, item.type);
+                            staticStat.UpdateStat(ref item, name, remove);
+                            found = true;
+                        }*/
+                        break;
+                    }
+                    ModContent.GetInstance<WEMod>().Logger.Info("item field " + i.ToString() + ": " + name);
+                    i++;
+                }
+                i = 0;
+                if (!found)
+                {
+                    foreach (PropertyInfo property in item.GetType().GetProperties())
+                    {
+                        string name = property.Name;
+                        if (name == staticStat.Name)
+                        {
+                            Type propertyType = property.PropertyType;
+                            //if (propertyType == typeof(float))
+                            {
+                                float value = (float)property.GetValue(property, null);
+                                staticStat.UpdateStat(ref item, name, remove);
+                                found = true;
+                            }
+                            /*else if (propertyType == typeof(int))
+                            {
+                                int value = (int)property.GetValue(property, null);
+                                staticStat.UpdateStat(ref item, name, remove);
+                                found = true;
+                            }*/
+                            break;
                         }
+                        ModContent.GetInstance<WEMod>().Logger.Info("item property " + i.ToString() + ": " + name);
+                        i++;
+                    }
+                }
+            }
+            foreach(EStat eStat in enchantment.EStats)
+            {
+                float add = eStat.Additive * (remove ? -1f : 1f);
+                float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
+                StatModifier statModifier = new StatModifier(1f + add, mult);
+                if (!iGlobal.statMultipliers.ContainsKey(eStat.StatName))
+                {
+                    iGlobal.statMultipliers.Add(eStat.StatName, statModifier);
+                }
+                else
+                {
+                    iGlobal.statMultipliers[eStat.StatName] = iGlobal.statMultipliers[eStat.StatName].CombineWith(statModifier);
+                    if(iGlobal.statMultipliers[eStat.StatName].Additive == 1f && iGlobal.statMultipliers[eStat.StatName].Multiplicative == 1f)
+                    {
+                        iGlobal.statMultipliers.Remove(eStat.StatName);
                     }
                 }
             }
         }
-        public static void RemoveEnchantment(this Item item, AllForOneEnchantmentBasic enchantment)
+        public static void SpawnCoins(int coins, bool delay = false)
         {
-            foreach (StaticStatStruct staticStat in enchantment.StaticStats)
+            int coinType = ItemID.PlatinumCoin;
+            int coinValue = 1000000;
+            while (coins > 0)
             {
-                foreach (PropertyInfo property in item.GetType().GetProperties())
-                {
-                    if (property.Name == staticStat.Name)
-                    {
-
-                    }
-                }
+                int numCoinsToSpawn = coins / coinValue;
+                if(numCoinsToSpawn > 0)
+                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), coinType, numCoinsToSpawn);
+                coins %= coinValue;
+                coinType--;
+                coinValue /= 100;
             }
         }
     }

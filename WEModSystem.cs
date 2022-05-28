@@ -88,10 +88,10 @@ namespace WeaponEnchantments
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
+                        /*if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
                         {
                             wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
-                        }
+                        }*/
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                     }
@@ -122,6 +122,12 @@ namespace WeaponEnchantments
                 }
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
+                    Item tableEnchantment = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                    Item itemEnchantment = new Item();
+                    if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetGlobalItem(out EnchantedItem ieGlobal))
+                    {
+                        itemEnchantment = ieGlobal.enchantments[i];
+                    }
                     if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
                         if (wePlayer.enchantmentInEnchantingTable[i])//if enchantmentSlot HAD an enchantment in it but it was just taken out,
@@ -132,7 +138,7 @@ namespace WeaponEnchantments
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
-                    else if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item)
+                    else if(!itemEnchantment.IsAir && itemEnchantment != tableEnchantment)
                     {
                         RemoveEnchantment(i);
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
@@ -142,7 +148,8 @@ namespace WeaponEnchantments
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
-                        ApplyEnchantment(i);
+                        if(!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
+                            ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
                 }//Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
@@ -294,14 +301,9 @@ namespace WeaponEnchantments
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+            item.UpdateEnchantment(enchantment);
             if (enchantment.StaticStat)
-            {
-                item.ApplyEnchantment(enchantment);
-            }
-            else
-            {
-                //update non-static total strength values like damage etc.  do it here instead of globalitem then just 1 line in global item instead of switch
-            }
+            iGlobal.statsSet[i] = true;
         }
         private static void RemoveEnchantment(int i)
         {
@@ -309,14 +311,8 @@ namespace WeaponEnchantments
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-            if (enchantment.StaticStat)
-            {
-                item.RemoveEnchantment(enchantment);
-            }
-            else
-            {
-                //update non-static total strength values like damage etc.  do it here instead of globalitem then just 1 line in global item instead of switch
-            }
+            item.UpdateEnchantment(enchantment, true);
+            iGlobal.statsSet[i] = false;
         }
         public override void PreUpdateItems()
         {
@@ -653,7 +649,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<PeaceEnchantmentUltraRare>());
@@ -686,7 +682,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
                                     break;
                                 case 12://Living Wood Chest
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                     break;
                                 case 13://Skyware Chest
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());

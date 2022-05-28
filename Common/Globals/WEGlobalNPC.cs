@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
@@ -221,22 +221,12 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     if (npc.boss || (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail))
                     {
-                        if (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
-                        {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                            npcLoot.Add(dropRule);
-                        }
-                        else
-                        {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)), ItemDropRule.DropNothing());
-                            npcLoot.Add(dropRule);
-                        }
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
-                        float chance = WEGlobalNPC.GetDropChance(npc.type);
-                        List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
+                        float chance = GetDropChance(npc.type);
+                        List<int> itemTypes = GetDropItems(npc.type);
                         if (itemTypes.Count > 1)
                         {
                             dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
@@ -256,7 +246,7 @@ namespace WeaponEnchantments.Common.Globals
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 2://Demon Eye
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 3://Fighter
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DefenceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
