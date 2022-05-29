@@ -629,7 +629,6 @@ namespace WeaponEnchantments.UI
                 {
                     if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
-                        ((AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem).statsSet = false;
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
                     }
