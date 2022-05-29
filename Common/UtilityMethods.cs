@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Common
     public static class UtilityMethods
     {
         public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
+        public static AllForOneEnchantmentBasic E(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+        public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlot[i].Item;
+        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlot[i].Item;
+        public static Item ES(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlot[i].Item;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
