@@ -12,6 +12,8 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
+        public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
+        
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
         {
