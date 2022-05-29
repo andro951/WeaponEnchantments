@@ -370,6 +370,7 @@ namespace WeaponEnchantments
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
+                            itemEnchantment.statsSet = false;
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
