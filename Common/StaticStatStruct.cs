@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Common
 {
@@ -17,12 +18,20 @@ namespace WeaponEnchantments.Common
         public float Additive { get; private set; }
         public float Multiplicative { get; private set; }
         public float BaseValueFloat {get; set;}
-        public StaticStatStruct(string name, float additive = 0f, float multiplicative = 0f)
+        public float Flat { get; private set; }
+        public float Base { get; private set; }
+        public bool PreventBoolStat { get; private set; }
+        public bool Inverse { get; private set; }
+        public StaticStatStruct(string name, float additive = 0f, float multiplicative = 0f, float flat = 0f, float @base = 0f)
         {
-            Name = name;
             Additive = additive;
             Multiplicative = multiplicative;
             BaseValueFloat = 0f;
+            Flat = flat;
+            Base = @base;
+            PreventBoolStat = name.Substring(0, 2) == "P_";
+            Inverse = name.Substring(0, 2) == "I_";
+            Name = PreventBoolStat || Inverse ? name.Substring(2) : name;
         }
         /*public void UpdateStat(ref Item item, string name, bool remove, bool property = false) 
         {
@@ -56,152 +65,120 @@ namespace WeaponEnchantments.Common
                 item.GetType().GetProperty(name).SetValue(item, baseValue * finalMultiplier);
             }
         }*/
-        public void UpdateStat(ref Item item, string name, bool remove, bool property = false) 
+        
+        public void UpdateStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, bool property = false) 
         {
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            float additive;
-            float multiplicative;
-            float additiveDenom;
-            float multiplicativeDenom;
-            if (!iGlobal.statMultipliers.ContainsKey(name))
-            {
-                iGlobal.statMultipliers.Add(name, new StatModifier(1f, 1f));
-            }
-            float add = Additive;
-            float mult = Multiplicative;
-            if (remove)
-            {
-                add *= -1;
-                mult *= -1;
-            }
-            additiveDenom = iGlobal.statMultipliers[name].Additive;
-            multiplicativeDenom = iGlobal.statMultipliers[name].Multiplicative;
-            iGlobal.statMultipliers[name] += add;
-            iGlobal.statMultipliers[name] += mult;
-            additive = iGlobal.statMultipliers[name].Additive;
-            multiplicative = iGlobal.statMultipliers[name].Multiplicative;
-            if (additive == 1 && multiplicative == 1)
-            {
-                iGlobal.statMultipliers.Remove(name);
-            }
             Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
-            Type contentSampleItemType = contentSampleItem.GetType();
-            float multiplier = (additive)/(additiveDenom) * (multiplicative)/(multiplicativeDenom);
-            float baseValue = 0f;
-            if(contentSampleItemType == typeof(float))
+            if (boolStat)
             {
-                baseValue = (float)item.GetType().GetField(name).GetValue(item);
-            }
-            else if(contentSampleItemType == typeof(int))
-            {
-                int baseValueInt = (int)item.GetType().GetField(name).GetValue(item);
-                baseValue = (float)baseValueInt;
-            }
-            /*if (remove)
-                finalMultiplier = 1 / multiplier;
-            else
-                finalMultiplier = multiplier;*/
-            if (!property)
-            {
-                if (!remove)
+                if (boolRestricted)
                 {
-                    FieldInfo contentSampleItemField = contentSampleItemType.GetField(name);
-                    Type fieldType = contentSampleItemField.FieldType;
-                    float contentSampleItemFieldValue = 0f;
-                    if (fieldType == typeof(float))
-                    {
-                        contentSampleItemFieldValue = (float)contentSampleItemField.GetValue(item);
-                        item.GetType().GetField(name).SetValue(item, baseValue * multiplier);
-                    }
-                    else if (fieldType == typeof(int))
-                    {
-                        int valueInt = (int)contentSampleItemField.GetValue(item);
-                        contentSampleItemFieldValue = (float)valueInt;
-                        item.GetType().GetField(name).SetValue(item, (int)(baseValue * multiplier + 5E-6));
-                    }
-                    BaseValueFloat = contentSampleItemFieldValue;
+                    iGlobal.boolPreventedFields.EditBoolField(name, remove);
                 }
-                var tempForBreakpointCheck = item.GetType().GetField(name).GetValue(item);
+                iGlobal.boolFields.EditBoolField(name, remove);
+                bool boolStatFinalValue = iGlobal.boolFields.ContainsKey(name);
+                bool restricted = iGlobal.boolPreventedFields.ContainsKey(name);
+                bool defaultValue = (bool)contentSampleItem.GetType().GetField(name).GetValue(contentSampleItem);
+                bool boolStatSetValue = (defaultValue || boolStatFinalValue) && !restricted;
+                if (!property)
+                    item.GetType().GetField(name).SetValue(item, boolStatSetValue);
+                else
+                    item.GetType().GetProperty(name).SetValue(item, boolStatSetValue);
             }
             else
             {
-                if (!remove)
+                float additive;
+                float multiplicative;
+                float additiveDenom;
+                float multiplicativeDenom;
+                if (!iGlobal.statMultipliers.ContainsKey(name))
                 {
-                    PropertyInfo contentSampleItemProperty = contentSampleItemType.GetProperty(name);
-                    Type propertyType = contentSampleItemProperty.PropertyType;
-                    float contentSampleItemPropertyValue = 0f;
-                    if (propertyType == typeof(float))
-                    {
-                        contentSampleItemPropertyValue = (float)contentSampleItemProperty.GetValue(item, null);
-                        item.GetType().GetProperty(name).SetValue(item, baseValue * multiplier);
-                    }
-                    else if (propertyType == typeof(int))
-                    {
-                        int valueInt = (int)contentSampleItemProperty.GetValue(item, null);
-                        contentSampleItemPropertyValue = (float)valueInt;
-                        item.GetType().GetProperty(name).SetValue(item, (int)(baseValue * multiplier + 5E-6));
-                    }
-                    BaseValueFloat = contentSampleItemPropertyValue;
+                    iGlobal.statMultipliers.Add(name, new StatModifier(1f, 1f));
                 }
-                var tempForBreakpointCheck = item.GetType().GetProperty(name).GetValue(item);
+                float add = Additive;
+                float mult = Multiplicative;
+                float f = Flat;
+                float b = Base;
+                if (remove)
+                {
+                    add *= -1;
+                    mult *= -1;
+                    f *= -1;
+                    b *= -1;
+                }
+                additiveDenom = iGlobal.statMultipliers[name].Additive;
+                multiplicativeDenom = iGlobal.statMultipliers[name].Multiplicative;
+                float previousFlat = iGlobal.statMultipliers[name].Flat;
+                float previousBase = iGlobal.statMultipliers[name].Base;
+                StatModifier newStatModifier = new StatModifier(1f + add, 1f + mult, f, b);
+                iGlobal.statMultipliers[name] = iGlobal.statMultipliers[name].CombineWith(newStatModifier);
+                float flat = iGlobal.statMultipliers[name].Flat;
+                float @base = iGlobal.statMultipliers[name].Base;
+                additive = iGlobal.statMultipliers[name].Additive;
+                multiplicative = iGlobal.statMultipliers[name].Multiplicative;
+                if (Inverse)
+                {
+                    additiveDenom = 1f / additiveDenom;
+                    multiplicativeDenom = 1f / multiplicativeDenom;
+                    additive = 1f / additive;
+                    multiplicative = 1f / multiplicative;
+                    flat *= -1;
+                    @base *= -1;
+                    previousFlat *= -1;
+                    previousBase *= -1;
+                }
+                if (additive == 1 && multiplicative == 1)
+                {
+                    iGlobal.statMultipliers.Remove(name);
+                }
+                Type contentSampleItemType;
+                if (!property)
+                    contentSampleItemType = contentSampleItem.GetType().GetField(name).FieldType;
+                else
+                    contentSampleItemType = contentSampleItem.GetType().GetProperty(name).PropertyType;
+                float sampleValue = 0f;
+                float baseValue = 0f;
+                if (contentSampleItemType == typeof(float))
+                {
+                    baseValue = (float)item.GetType().GetField(name).GetValue(item);
+                    sampleValue = (float)contentSampleItem.GetType().GetField(name).GetValue(contentSampleItem);
+                }
+                else if (contentSampleItemType == typeof(int))
+                {
+                    int baseValueInt = (int)item.GetType().GetField(name).GetValue(item);
+                    baseValue = (float)baseValueInt;
+                    int sampleValueInt = (int)contentSampleItem.GetType().GetField(name).GetValue(contentSampleItem);
+                    sampleValue = (float)sampleValueInt;
+                }
+                float sampleValueTemp = sampleValue;
+                BaseValueFloat = baseValue;
+                float finalValue = ((baseValue / additiveDenom / multiplicativeDenom) + @base - previousBase) * additive * multiplicative + flat - previousFlat;
+                if (!property)
+                {
+                    if (contentSampleItemType == typeof(float))
+                    {
+                        item.GetType().GetField(name).SetValue(item, finalValue);
+                    }
+                    else if (contentSampleItemType == typeof(int))
+                    {
+                        item.GetType().GetField(name).SetValue(item, (int)Math.Round(finalValue + 5E-6));
+                    }
+                    var tempForBreakpointCheck = item.GetType().GetField(name).GetValue(item);
+                }
+                else
+                {
+                    if (contentSampleItemType == typeof(float))
+                    {
+                        item.GetType().GetProperty(name).SetValue(item, finalValue);
+                    }
+                    else if (contentSampleItemType == typeof(int))
+                    {
+                        item.GetType().GetProperty(name).SetValue(item, (int)Math.Round(finalValue + 5E-6));
+                    }
+                    var tempForBreakpointCheck = item.GetType().GetProperty(name).GetValue(item);
+                }
             }
         }
-        /*public void RemoveFrom(ref Item item, string name, float baseValue, bool property = false)
-        {
-            float multiplier = (1f + Additive) * Multiplicative - 1f;
-            float finalMultiplier = 1f / (1f + multiplier * BaseValueFloat / baseValue);
-            if (!property)
-            {
-                item.GetType().GetField(name).SetValue(item, baseValue * finalMultiplier);
-                float tempForBreakpointCheck = (float)item.GetType().GetField(name).GetValue(item);
-            }
-            else
-            {
-                item.GetType().GetProperty(name).SetValue(item, baseValue * finalMultiplier);
-                float tempForBreakpointCheck = (float)item.GetType().GetProperty(name).GetValue(item);
-            }
-        }*/
-        /*public void ApplyTo(ref Item item, string name, int baseValue, bool remove, bool property = false) 
-        {
-            Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
-            Type contentSampleItemType = contentSampleItem.GetType();
-            float multiplier = (1f + Additive) * Multiplicative - 1f;
-            float finalMultiplier = 1f;
-            if(remove)
-                finalMultiplier = 1f / (1f + multiplier * BaseValueFloat / baseValue);
-            if (!property)
-            {
-                FieldInfo contentSampleItemField = contentSampleItemType.GetField(name);
-                int contentSampleItemFieldValue = (int)(contentSampleItemField.GetValue(contentSampleItem));
-                finalMultiplier = 1f + multiplier * contentSampleItemFieldValue / baseValue;
-                item.GetType().GetField(name).SetValue(item, (int)(baseValue * finalMultiplier + 5E-06f));
-                int tempForBreakpointCheck = (int)item.GetType().GetField(name).GetValue(item);
-                BaseValueInt = contentSampleItemFieldValue;
-            }
-            else
-            {
-                PropertyInfo contentSampleItemproperty = contentSampleItemType.GetProperty(name);
-                int contentSampleItemPropertyValue = (int)(contentSampleItemproperty.GetValue(contentSampleItem));
-                finalMultiplier = 1f + multiplier * contentSampleItemPropertyValue / baseValue;
-                item.GetType().GetProperty(name).SetValue(item, (int)(baseValue * finalMultiplier + 5E-06f));
-                int tempForBreakpointCheck = (int)item.GetType().GetProperty(name).GetValue(item);
-                BaseValueInt = contentSampleItemPropertyValue;
-            }
-        }*/
-        /*public void RemoveFrom(ref Item item, string name, int baseValue, bool property = false)
-        {
-            float multiplier = (1f + Additive) * Multiplicative - 1f;
-            float finalMultiplier = 1f / (1f + multiplier * BaseValueFloat / baseValue);
-            if (!property)
-            {
-                item.GetType().GetField(name).SetValue(item, (int)(baseValue * finalMultiplier + 5E-06f));
-                int tempForBreakpointCheck = (int)item.GetType().GetField(name).GetValue(item);
-            }
-            else
-            {
-                item.GetType().GetProperty(name).SetValue(item, (int)(baseValue * finalMultiplier + 5E-06f));
-                int tempForBreakpointCheck = (int)item.GetType().GetProperty(name).GetValue(item);
-            }
-        }*/
     }
 }

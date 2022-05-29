@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Common
         public float Multiplicative { get; private set; }
         public string StatName { get; private set; }
         public float Flat;
-        public EStat(float additive, float multiplicative, string statName, float flat = 0f, float @base = 0f, float intital = 1f)
+        public EStat(string statName, float additive, float multiplicative, float flat = 0f, float @base = 0f, float intital = 1f)
         {
             Additive = additive;
             Multiplicative = multiplicative;
@@ -41,14 +41,14 @@ namespace WeaponEnchantments.Common
             return hashCode;
         }
         public static EStat operator + (EStat s, float add) 
-            => new EStat(s.Additive + add, s.Multiplicative, s.StatName, s.Flat, s.Base);
+            => new EStat(s.StatName, s.Additive + add, s.Multiplicative, s.Flat, s.Base);
         public static EStat operator -(EStat s, float sub) 
-            => new EStat(s.Additive - sub, s.Multiplicative, s.StatName, s.Flat, s.Base);
+            => new EStat(s.StatName, s.Additive - sub, s.Multiplicative, s.Flat, s.Base);
         public static EStat operator *(EStat s, float mul)
-            => new EStat(s.Additive, s.Multiplicative * mul, s.StatName, s.Flat, s.Base);
+            => new EStat(s.StatName, s.Additive, s.Multiplicative * mul, s.Flat, s.Base);
 
         public static EStat operator /(EStat s, float div)
-            => new EStat(s.Additive, s.Multiplicative / div, s.StatName, s.Flat, s.Base);
+            => new EStat(s.StatName, s.Additive, s.Multiplicative / div, s.Flat, s.Base);
 
         public static EStat operator +(float add, EStat s)
             => s + add;
@@ -66,9 +66,9 @@ namespace WeaponEnchantments.Common
             (baseValue + Base) * Additive * Multiplicative + Flat;
 
         public EStat CombineWith(EStat s)
-            => new EStat(Additive + s.Additive - 1, Multiplicative * s.Multiplicative, s.StatName, Flat + s.Flat, Base + s.Base);
+            => new EStat(s.StatName, Additive + s.Additive - 1, Multiplicative * s.Multiplicative, Flat + s.Flat, Base + s.Base);
 
         public EStat Scale(float scale)
-            => new EStat(1 + (Additive - 1) * scale, 1 + (Multiplicative - 1) * scale, StatName, Flat * scale, Base * scale);
+            => new EStat(StatName, 1 + (Additive - 1) * scale, 1 + (Multiplicative - 1) * scale, Flat * scale, Base * scale);
     }
 }

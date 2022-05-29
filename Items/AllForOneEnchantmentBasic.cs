@@ -77,6 +77,7 @@ namespace WeaponEnchantments.Items
 		public bool StaticStat { private set; get; }
 		private bool checkedStats = false;
 		public int PotionBuff { private set; get; }	= -1;
+		public bool statsSet = false;
 		public List<StaticStatStruct> StaticStats { private set; get; } = new List<StaticStatStruct>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
@@ -495,13 +496,14 @@ namespace WeaponEnchantments.Items
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.AllForOne:
-						EStats.Add(new EStat(0f, EnchantmentStrength, "damage"));
-						EStats.Add(new EStat(0f, EnchantmentStrength * 0.8f, "useSpeed"));
-						EStats.Add(new EStat(0f, EnchantmentStrength * 0.8f, "useAnimation"));
-						EStats.Add(new EStat(0f, EnchantmentStrength * 0.4f, "mana"));
+						AddStaticStat("damage", 0f, EnchantmentStrength);
+						AddStaticStat("useSpeed", EnchantmentStrength * 0.8f);
+						AddStaticStat("useAnimation", EnchantmentStrength * 0.8f);
+						AddStaticStat("mana", EnchantmentStrength * 0.4f);
+						StaticStat = AddStaticStat("P_autoReuse");
 						break;
 					case EnchantmentTypeID.AmmoCost:
-						EStats.Add(new EStat(0f, 1f, EnchantmentTypeName, EnchantmentStrength));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
@@ -515,20 +517,25 @@ namespace WeaponEnchantments.Items
 						CheckPotionBuffByName();
 						break;
 					case EnchantmentTypeID.Mana:
-						EStats.Add(new EStat(-EnchantmentStrength, 1f, EnchantmentTypeName));
+						AddStaticStat(EnchantmentTypeName, -EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.OneForAll:
-						EStats.Add(new EStat(0f, EnchantmentStrength, EnchantmentTypeName));
-						EStats.Add(new EStat(0f, 1f + EnchantmentStrength * 0.3f, "useSpeed"));
-						EStats.Add(new EStat(0f, 1f + EnchantmentStrength * 0.3f, "useAnimation"));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
+						AddStaticStat("useSpeed", EnchantmentStrength * 0.3f);
+						AddStaticStat("useAnimation", EnchantmentStrength * 0.3f);
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:
-						EStats.Add(new EStat(0f, EnchantmentStrength, "spawnRate"));
-						EStats.Add(new EStat(0f, EnchantmentStrength, "maxSpawns"));
+						EStats.Add(new EStat("spawnRate", 0f, EnchantmentStrength));
+						EStats.Add(new EStat("maxSpawns", 0f, EnchantmentStrength));
+						break;
+					case EnchantmentTypeID.Speed:
+						StaticStat = AddStaticStat("autoReuse");
+						AddStaticStat("I_useSpeed", EnchantmentStrength);
+						AddStaticStat("I_useAnimation", EnchantmentStrength);
 						break;
 					default:
-						EStats.Add(new EStat(EnchantmentStrength, 1f, EnchantmentTypeName));
+						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength, 1f));
 						break;
 				}
 				StaticStat = StaticStats.Count > 0;
@@ -545,7 +552,15 @@ namespace WeaponEnchantments.Items
 					string name = UtilityMethods.ToFieldName(Name.Substring(0, fieldName.Length));
 					if (fieldName == name)
 					{
-						StaticStats.Add(new StaticStatStruct(fieldName, EnchantmentStrength));
+                        switch (name)
+                        {
+							case "crit":
+								StaticStats.Add(new StaticStatStruct(fieldName, 0f, 0f, 0f, EnchantmentStrength * 100));
+								break;
+							default:
+								StaticStats.Add(new StaticStatStruct(fieldName, EnchantmentStrength));
+								break;
+                        }
 						return true;
 					}
 				}
@@ -563,6 +578,11 @@ namespace WeaponEnchantments.Items
 				}
 			}
 			return false;
+		}
+		private bool AddStaticStat(string name, float additive = 0f, float multiplicative = 0f, float flat = 0f, float @base = 0f)
+        {
+			StaticStats.Add(new StaticStatStruct(name, additive, multiplicative, flat, @base));
+			return true;
 		}
 		private bool CheckPotionBuffByName()
         {

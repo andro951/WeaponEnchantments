@@ -11,7 +11,7 @@ namespace WeaponEnchantments
     {
 		internal static bool IsEnchantable(Item item)
         {
-			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) & !item.consumable)
+			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
             {
 				return true;
 			}

@@ -34,7 +34,8 @@ namespace WeaponEnchantments
         public float lifeStealRollover = 0f;
         public bool allForOneCooldown = false;
         public int allForOneTimer = 0;
-        public Item[] equiptArmor;
+        public Item[] equipArmor;
+        public bool[] equipArmorStatsUpdated;
         public Item heldItem;
         public Item trashItem = new Item();
         public float enemySpawnBonus = 1f;
@@ -83,13 +84,14 @@ namespace WeaponEnchantments
         {
             enchantingTable = new EnchantingTable();
             enchantingTableUI = new WeaponEnchantmentUI();
-            equiptArmor = new Item[Player.armor.Length];
+            equipArmor = new Item[Player.armor.Length];
+            equipArmorStatsUpdated = new bool[Player.armor.Length];
             heldItem = new Item();
             confirmationUI = new ConfirmationUI();
             inventoryItemRecord = new Item[102];
-            for (int i = 0; i < equiptArmor.Length; i++)
+            for (int i = 0; i < equipArmor.Length; i++)
             {
-                equiptArmor[i] = new Item();
+                equipArmor[i] = new Item();
             }
             //vanillaPlayerBuffsWeapon = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
             //vanillaPlayerBuffsArmor = new bool[vanillaPlayerBuffsWeapon.Length];
@@ -476,7 +478,6 @@ namespace WeaponEnchantments
         }
         public override void PostUpdate()
         {
-            bool checkArmor = false;
             if (Main.mouseItem.IsAir)
             {
                 bool checkWeapon = ItemChanged(Player.HeldItem, heldItem, true);
@@ -497,6 +498,7 @@ namespace WeaponEnchantments
                         }//vanillaBuffs = enchantments*/
                         enemySpawnBonus *= hiGlobal.enemySpawnBonus;
                         Player.HeldItem.RemoveUntilPositive();
+                        CheckUpdateEnchantmentsOnItem(Player.HeldItem);
                     }
                     /*else
                         SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsWeapon);*/
@@ -508,7 +510,6 @@ namespace WeaponEnchantments
                         enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                         hiGlobal.heldItem = false;
                     }
-                    CheckUpdateEnchantmentsOnItem(Player.HeldItem);
                     UpdatePotionBuffs(Player.HeldItem, heldItem);
                     heldItem = Player.HeldItem;
                 }//Check HeldItem
@@ -516,115 +517,82 @@ namespace WeaponEnchantments
             else if(WEMod.IsEnchantable(Main.mouseItem))
             {
                 Main.mouseItem.RemoveUntilPositive();
-                CheckUpdateEnchantmentsOnItem(Main.mouseItem);
+                if(WEMod.IsWeaponItem(Main.mouseItem))
+                    CheckUpdateEnchantmentsOnItem(Main.mouseItem);
             }//Check too many enchantments on mouseItem
-            if (!checkArmor)
+            for(int j = 0; j < Player.armor.Length; j++)
             {
-                for(int j = 0; j < Player.armor.Length; j++)
+                Item armor = Player.armor[j];
+                if (j < 10)
                 {
-                    Item armor = Player.armor[j];
-                    if (j < 10)
+                    if (!armor.vanity)
                     {
-                        if (!armor.vanity)
-                        {
-                            checkArmor = ItemChanged(armor, equiptArmor[j]);
-                            if (checkArmor)
-                                break;
-                        }
+                        equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
                     }
                 }
             }//Check if armor changed 
-            if (checkArmor)
+            //SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsArmor);
+            /*itemScale = 0f;
+            manaCost = 0f;
+            ammoCost = 0f;
+            lifeSteal = 0f;
+            enemySpawnBonus = 1f;
+            float itemScaleBonus = 0f;
+            float manaCostBonus = 0f;
+            float ammoCostBonus = 0f;
+            float lifeStealBonus = 0f;*/
+            for(int j = 0; j < Player.armor.Length; j++)
             {
-                //SetFalseVanillaBoolBuffs(ref vanillaPlayerBuffsArmor);
-                itemScale = 0f;
-                manaCost = 0f;
-                ammoCost = 0f;
-                lifeSteal = 0f;
-                enemySpawnBonus = 1f;
-                float itemScaleBonus = 0f;
-                float manaCostBonus = 0f;
-                float ammoCostBonus = 0f;
-                float lifeStealBonus = 0f;
-                for(int j = 0; j < Player.armor.Length; j++)
+                Item armor = Player.armor[j];
+                if (j < 10 && !equipArmorStatsUpdated[j])
                 {
-                    Item armor = Player.armor[j];
-                    if (j < 10)
+                    if (!armor.vanity && !armor.IsAir)
                     {
-                        if (!armor.vanity && !armor.IsAir)
+                        for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                         {
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                            if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                             {
-                                if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                                if(i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor))
                                 {
-                                    if(i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor))
+                                    armor.GetGlobalItem<EnchantedItem>().enchantments[i] = Main.LocalPlayer.GetItem(Main.myPlayer, armor.GetGlobalItem<EnchantedItem>().enchantments[i], GetItemSettings.LootAllSettings);
+                                    if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
                                     {
-                                        armor.GetGlobalItem<EnchantedItem>().enchantments[i] = Main.LocalPlayer.GetItem(Main.myPlayer, armor.GetGlobalItem<EnchantedItem>().enchantments[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
+                                        armor.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                                        if (WEMod.IsArmorItem(armor))
                                         {
-                                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
-                                            armor.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
-                                            if (WEMod.IsArmorItem(armor))
-                                            {
-                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
-                                            }
-                                            else
-                                            {
-                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
-                                            }
+                                            Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
                                         }
-                                    }//Pop off excess
-                                    else
-                                    {
-                                        armor.RemoveUntilPositive();
-                                        AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)armor.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem);
-                                        float str = enchantment.EnchantmentStrength;
-                                        switch ((EnchantmentTypeID)enchantment.EnchantmentType)
+                                        else
                                         {
-                                            case EnchantmentTypeID.Scale:
-                                                itemScaleBonus += str;
-                                                break;
-                                            case EnchantmentTypeID.Mana:
-                                                manaCostBonus += str;
-                                                break;
-                                            case EnchantmentTypeID.AmmoCost:
-                                                ammoCostBonus += str;
-                                                break;
-                                            case EnchantmentTypeID.LifeSteal:
-                                                lifeStealBonus += str;
-                                                break;
-                                            case EnchantmentTypeID.War:
-                                                enemySpawnBonus *= 1 + str;
-                                                break;
-                                            case EnchantmentTypeID.Peace:
-                                                enemySpawnBonus /= 1 + str;
-                                                break;
-                                        }//switch(enchantment)
+                                            Main.NewText("Accessories can only equip an enchantment in the first slot");
+                                        }
                                     }
                                 }
                             }
-                            CheckUpdateEnchantmentsOnItem(armor);
-                            UpdatePotionBuffs(armor, equiptArmor[j]);
-                        }
-                        if (!equiptArmor[j].IsAir)
-                        {
-                            Item temp = equiptArmor[j];
-                            temp.GetGlobalItem<EnchantedItem>().equip = false;
-                        }
-                        if (!armor.IsAir)
-                        {
-                            armor.GetGlobalItem<EnchantedItem>().equip = true;
-                        }
-                        equiptArmor[j] = armor;
+                        }//Pop off excess
+                        armor.RemoveUntilPositive();
+                        CheckUpdateEnchantmentsOnItem(armor);
                     }
+                    UpdatePotionBuffs(armor, equipArmor[j]);
+                    if (!equipArmor[j].IsAir)
+                    {
+                        Item temp = equipArmor[j];
+                        temp.GetGlobalItem<EnchantedItem>().equip = false;
+                    }
+                    if (!armor.IsAir)
+                    {
+                        armor.GetGlobalItem<EnchantedItem>().equip = true;
+                    }
+                    equipArmor[j] = armor;
                 }
-                itemScale += itemScaleBonus / 4;
-                manaCost += manaCostBonus / 4;
-                ammoCost += ammoCostBonus / 4;
-                lifeSteal += lifeStealBonus / 4;
-                float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 1f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
-                enemySpawnBonus *= heldItemEnemySpawnBonus;
-            }//Update bonuses
+            }
+            /*itemScale += itemScaleBonus / 4;
+            manaCost += manaCostBonus / 4;
+            ammoCost += ammoCostBonus / 4;
+            lifeSteal += lifeStealBonus / 4;
+            float heldItemEnemySpawnBonus = Player.HeldItem.IsAir ? 1f : Player.HeldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
+            enemySpawnBonus *= heldItemEnemySpawnBonus;*/
             foreach(int key in potionBuffs.Keys)
             {
                 Player.AddBuff(key, 1);
@@ -719,11 +687,16 @@ namespace WeaponEnchantments
         {
             if (WEMod.IsEnchantable(item))
             {
-                for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    if (!item.GetGlobalItem<EnchantedItem>().statsSet[k])
+                    AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+                    if(enchantment != null)
                     {
-                        item.UpdateEnchantment((AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[k].ModItem);
+                        bool statStet = enchantment.statsSet;
+                        if (!statStet)
+                        {
+                            item.UpdateEnchantment((AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem, i);
+                        }
                     }
                 }
             }

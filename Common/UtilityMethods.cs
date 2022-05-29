@@ -160,7 +160,26 @@ namespace WeaponEnchantments.Common
                 }
             }
         }
-        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, bool remove = false)
+        public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove)
+        {
+            int num;
+            if (!dictionary.ContainsKey(name))
+            {
+                dictionary.Add(name, 1);
+            }
+            else
+            {
+                num = dictionary[name];
+                dictionary[name] += (remove ? -1 : 1);
+                num = dictionary[name];
+            }
+            num = dictionary[name];
+            if (dictionary[name] < 1)
+            {
+                dictionary.Remove(name);
+            }
+        }
+        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
             if(enchantment != null)
@@ -219,7 +238,7 @@ namespace WeaponEnchantments.Common
                                     int valueInt = (int)field.GetValue(item);
                                     value = (float)valueInt;
                                 }
-                                staticStat.UpdateStat(ref item, name, remove);
+                                staticStat.UpdateStat(ref item, name, remove, fieldType == typeof(bool), staticStat.PreventBoolStat);
                                 found = true;
                                 break;
                             }
@@ -246,7 +265,7 @@ namespace WeaponEnchantments.Common
                                         int valueInt = (int)property.GetValue(item, null);
                                         value = (float)valueInt;
                                     }
-                                    staticStat.UpdateStat(ref item, name, remove);
+                                    staticStat.UpdateStat(ref item, name, remove, propertyType == typeof(bool), staticStat.PreventBoolStat, true);
                                     found = true;
                                     break;
                                 }
@@ -256,7 +275,9 @@ namespace WeaponEnchantments.Common
                         }
                     }
                 }
+                enchantment.statsSet = true;
             }
+            //iGlobal.statsSet[slotNum] = true;
         }
         public static void SpawnCoins(int coins, bool delay = false)
         {

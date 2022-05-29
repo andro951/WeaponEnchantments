@@ -9,6 +9,7 @@ using Terraria.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.UI
 {
@@ -492,6 +493,8 @@ namespace WeaponEnchantments.UI
             }//Get enchantments left in enchanting table
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
+                if (wePlayer.enchantingTable.essenceItem[i].stack < 1)
+                    wePlayer.enchantingTable.essenceItem[i] = new Item();
                 wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
             }//Get essence left in enchanting table
         }//Get items left in enchanting table
@@ -515,6 +518,8 @@ namespace WeaponEnchantments.UI
                 }//Store enchantments left in enchanting table to player
                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < 1)
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item = new Item();
                     wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
                 }//Store essence left in enchanting table to player
             }
@@ -632,7 +637,12 @@ namespace WeaponEnchantments.UI
                     {
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
+                        {
+                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+                            wePlayer.enchantingTableUI.itemSlotUI[i].Item.UpdateEnchantment(enchantment, i, true);
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                        }
                     }
                 }//Take all enchantments first
                 for (int i = 0; i < EnchantingTable.maxItems; i++)

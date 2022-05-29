@@ -25,6 +25,8 @@ namespace WeaponEnchantments.Common.Globals
         public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
         public Dictionary<string, StatModifier> statMultipliers = new Dictionary<string, StatModifier>();
         public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();
+        public Dictionary<string, int> boolFields = new Dictionary<string, int>();
+        public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
         //Item specific
 
         public float totalSpeedBonus;
@@ -86,6 +88,7 @@ namespace WeaponEnchantments.Common.Globals
             for (int i = 0; i < enchantments.Length; i++)
             {
                clone.enchantments[i] = enchantments[i].Clone();
+                clone.statsSet[i] = statsSet[i];
             }//fixes enchantments being applied to all of an item instead of just the instance
             return clone;
         }
@@ -254,24 +257,32 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void LoadData(Item item, TagCompound tag)
         {
-            experience = tag.Get<int>("experience");//Load experience tag
-            powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
-            UpdateLevel();
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if (WEMod.IsEnchantable(item))
             {
-                if (tag.Get<Item>("enchantments" + i.ToString()) != null)
+                experience = tag.Get<int>("experience");//Load experience tag
+                powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
+                UpdateLevel();
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
+                    if (tag.Get<Item>("enchantments" + i.ToString()) != null)
                     {
-                        enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
-                        OldItemManager.ReplaceOldItem(ref enchantments[i]);
+                        if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
+                        {
+                            enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
+                            OldItemManager.ReplaceOldItem(ref enchantments[i]);
+                        }
+                        else
+                        {
+                            enchantments[i] = new Item();
+                        }
                     }
-                    else
-                    {
-                        enchantments[i] = new Item();
-                    }
-                }
-            }//Load enchantment item tags
+                }//Load enchantment item tags
+                /*for(int i = 0; i < statsSet.Length ; i++)
+                {
+                    bool temp = statsSet[i];
+                    statsSet[i] = false;
+                }*/
+            }
         }
         public override void SaveData(Item item, TagCompound tag)
         {
@@ -293,7 +304,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float speedModifier = 0f;
             int defenceBonus = 0;
             float lifeStealBonus = 0f;
@@ -388,11 +399,11 @@ namespace WeaponEnchantments.Common.Globals
             item.mana -= mana - lastManaCostBonus;
             lastManaCostBonus = mana;
             lifeSteal = lifeStealBonus;
-            enemySpawnBonus = enemySpawnBonusLocal;
+            enemySpawnBonus = enemySpawnBonusLocal;*/
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
-            critBonus = 0;
+            /*critBonus = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
@@ -401,7 +412,7 @@ namespace WeaponEnchantments.Common.Globals
                     critBonus += (int)(enchantment.EnchantmentStrength * 100);
                 }
             }
-            crit += critBonus;
+            crit += critBonus;*/
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {

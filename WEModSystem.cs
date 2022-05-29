@@ -59,22 +59,6 @@ namespace WeaponEnchantments
                 promptInterface = null;
             }
         }//PR
-        private static void TryToggleAutoPauseOff()
-        {
-            if (Main.autoPause)
-            {
-                autoPause = true;
-                Main.autoPause = false;
-            }
-        }
-        private static void TryToggleAutoPauseOn()
-        {
-            if (autoPause)
-            {
-                Main.autoPause = true;
-                autoPause = false;
-            }
-        }
         private static void ApplyEnchantment(int i)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -83,10 +67,7 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(enchantment);
-                if (enchantment.StaticStat)
-                    iGlobal.statsSet[i] = true;
-                //TryToggleAutoPauseOff();
+                 item.UpdateEnchantment(enchantment, i);
             }
         }
         private static void RemoveEnchantment(int i)
@@ -97,9 +78,7 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(enchantment, true);
-                iGlobal.statsSet[i] = false;
-                //TryToggleAutoPauseOff();
+                item.UpdateEnchantment(enchantment, i, true);
             }
         }
         public override void PreUpdateItems()
@@ -404,9 +383,9 @@ namespace WeaponEnchantments
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
-                        if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
-                            ApplyEnchantment(i);
+                        //wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
+                        ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
                 }//Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
