@@ -20,10 +20,11 @@ namespace WeaponEnchantments.Common.Globals
         //End Packet fields
 
         //Vanilla Player buffs
-        public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
+        //public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
 
         public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
         public Dictionary<string, StatModifier> statMultipliers = new Dictionary<string, StatModifier>();
+        public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();
         //Item specific
 
         public float totalSpeedBonus;
@@ -253,6 +254,9 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void LoadData(Item item, TagCompound tag)
         {
+            experience = tag.Get<int>("experience");//Load experience tag
+            powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
+            UpdateLevel();
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 if (tag.Get<Item>("enchantments" + i.ToString()) != null)
@@ -268,9 +272,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }//Load enchantment item tags
-            experience = tag.Get<int>("experience");//Load experience tag
-            powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
-            UpdateLevel();
         }
         public override void SaveData(Item item, TagCompound tag)
         {
@@ -326,7 +327,7 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeID.Defence:
                             defenceBonus += (int)Math.Round(str);
                             break;
-                        case EnchantmentTypeID.ManaCost:
+                        case EnchantmentTypeID.Mana:
                             manaCostBonus += str;
                             break;
                         case EnchantmentTypeID.LifeSteal:
@@ -473,7 +474,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.ManaCost:
+                            case EnchantmentTypeID.Mana:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (enchantment.EnchantmentStrength * 100).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
@@ -563,7 +564,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.ManaCost:
+                            case EnchantmentTypeID.Mana:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (enchantment.EnchantmentStrength * 100 / 4).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]

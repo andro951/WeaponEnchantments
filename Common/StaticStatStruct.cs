@@ -87,7 +87,16 @@ namespace WeaponEnchantments.Common
             Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
             Type contentSampleItemType = contentSampleItem.GetType();
             float multiplier = (additive)/(additiveDenom) * (multiplicative)/(multiplicativeDenom);
-            float baseValue = (float)item.GetType().GetField(name).GetValue(item);
+            float baseValue = 0f;
+            if(contentSampleItemType == typeof(float))
+            {
+                baseValue = (float)item.GetType().GetField(name).GetValue(item);
+            }
+            else if(contentSampleItemType == typeof(int))
+            {
+                int baseValueInt = (int)item.GetType().GetField(name).GetValue(item);
+                baseValue = (float)baseValueInt;
+            }
             /*if (remove)
                 finalMultiplier = 1 / multiplier;
             else
@@ -97,22 +106,44 @@ namespace WeaponEnchantments.Common
                 if (!remove)
                 {
                     FieldInfo contentSampleItemField = contentSampleItemType.GetField(name);
-                    float contentSampleItemFieldValue = (float)(contentSampleItemField.GetValue(contentSampleItem));
+                    Type fieldType = contentSampleItemField.FieldType;
+                    float contentSampleItemFieldValue = 0f;
+                    if (fieldType == typeof(float))
+                    {
+                        contentSampleItemFieldValue = (float)contentSampleItemField.GetValue(item);
+                        item.GetType().GetField(name).SetValue(item, baseValue * multiplier);
+                    }
+                    else if (fieldType == typeof(int))
+                    {
+                        int valueInt = (int)contentSampleItemField.GetValue(item);
+                        contentSampleItemFieldValue = (float)valueInt;
+                        item.GetType().GetField(name).SetValue(item, (int)(baseValue * multiplier + 5E-6));
+                    }
                     BaseValueFloat = contentSampleItemFieldValue;
                 }
-                item.GetType().GetField(name).SetValue(item, baseValue * multiplier);
-                float tempForBreakpointCheck = (float)item.GetType().GetField(name).GetValue(item);
+                var tempForBreakpointCheck = item.GetType().GetField(name).GetValue(item);
             }
             else
             {
                 if (!remove)
                 {
-                    PropertyInfo contentSampleItemproperty = contentSampleItemType.GetProperty(name);
-                    float contentSampleItemPropertyValue = (float)(contentSampleItemproperty.GetValue(contentSampleItem));
+                    PropertyInfo contentSampleItemProperty = contentSampleItemType.GetProperty(name);
+                    Type propertyType = contentSampleItemProperty.PropertyType;
+                    float contentSampleItemPropertyValue = 0f;
+                    if (propertyType == typeof(float))
+                    {
+                        contentSampleItemPropertyValue = (float)contentSampleItemProperty.GetValue(item, null);
+                        item.GetType().GetProperty(name).SetValue(item, baseValue * multiplier);
+                    }
+                    else if (propertyType == typeof(int))
+                    {
+                        int valueInt = (int)contentSampleItemProperty.GetValue(item, null);
+                        contentSampleItemPropertyValue = (float)valueInt;
+                        item.GetType().GetProperty(name).SetValue(item, (int)(baseValue * multiplier + 5E-6));
+                    }
                     BaseValueFloat = contentSampleItemPropertyValue;
                 }
-                item.GetType().GetProperty(name).SetValue(item, baseValue * multiplier);
-                float tempForBreakpointCheck = (float)item.GetType().GetProperty(name).GetValue(item);
+                var tempForBreakpointCheck = item.GetType().GetProperty(name).GetValue(item);
             }
         }
         /*public void RemoveFrom(ref Item item, string name, float baseValue, bool property = false)

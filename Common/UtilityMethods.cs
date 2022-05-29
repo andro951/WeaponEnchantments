@@ -130,79 +130,130 @@ namespace WeaponEnchantments.Common
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
         }
-        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, bool remove = false)
+        public static void RemoveUntilPositive(this Item item)
         {
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            int i = 0;
-            foreach(StaticStatStruct staticStat in enchantment.StaticStats)
+            int netMode = Main.netMode;
+            int gameMode = Main.GameMode;
+            if (!item.IsAir)
             {
-                bool found = false;
-                foreach (FieldInfo field in item.GetType().GetFields())
+                if (WEMod.IsEnchantable(item))
                 {
-                    string name = field.Name;
-                    if (name == staticStat.Name)
+                    if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
                     {
-                        Type fieldType = field.FieldType;
-                        //if (fieldType == typeof(float))
+                        if (iGlobal.GetLevelsAvailable() < 0)
                         {
-                            float value = (float)field.GetValue(item);
-                            staticStat.UpdateStat(ref item, name, remove);
-                            found = true;
-                        }
-                        /*else if (fieldType == typeof(int))
-                        {
-                            int value = (int)field.GetValue(field);
-                            staticStat.UpdateStat(ref item, name, remove);
-                            found = true;
-                        }*/
-                        break;
-                    }
-                    ModContent.GetInstance<WEMod>().Logger.Info("item field " + i.ToString() + ": " + name);
-                    i++;
-                }
-                i = 0;
-                if (!found)
-                {
-                    foreach (PropertyInfo property in item.GetType().GetProperties())
-                    {
-                        string name = property.Name;
-                        if (name == staticStat.Name)
-                        {
-                            Type propertyType = property.PropertyType;
-                            //if (propertyType == typeof(float))
+                            for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--)
                             {
-                                float value = (float)property.GetValue(property, null);
-                                staticStat.UpdateStat(ref item, name, remove);
-                                found = true;
+                                if (!iGlobal.enchantments[k].IsAir)
+                                {
+                                    item.GetGlobalItem<EnchantedItem>().enchantments[k] = Main.LocalPlayer.GetItem(Main.myPlayer, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
+                                }
+                                if (!iGlobal.enchantments[k].IsAir)
+                                {
+                                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
+                                    iGlobal.enchantments[k] = new Item();
+                                }
                             }
-                            /*else if (propertyType == typeof(int))
-                            {
-                                int value = (int)property.GetValue(property, null);
-                                staticStat.UpdateStat(ref item, name, remove);
-                                found = true;
-                            }*/
-                            break;
-                        }
-                        ModContent.GetInstance<WEMod>().Logger.Info("item property " + i.ToString() + ": " + name);
-                        i++;
+                            Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
+                        }//Check too many enchantments on item
                     }
                 }
             }
-            foreach(EStat eStat in enchantment.EStats)
+        }
+        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, bool remove = false)
+        {
+            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            if(enchantment != null)
             {
-                float add = eStat.Additive * (remove ? -1f : 1f);
-                float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
-                StatModifier statModifier = new StatModifier(1f + add, mult);
-                if (!iGlobal.statMultipliers.ContainsKey(eStat.StatName))
+                int i = 0;
+                if (enchantment.PotionBuff > -1)
                 {
-                    iGlobal.statMultipliers.Add(eStat.StatName, statModifier);
-                }
-                else
-                {
-                    iGlobal.statMultipliers[eStat.StatName] = iGlobal.statMultipliers[eStat.StatName].CombineWith(statModifier);
-                    if(iGlobal.statMultipliers[eStat.StatName].Additive == 1f && iGlobal.statMultipliers[eStat.StatName].Multiplicative == 1f)
+                    if (iGlobal.potionBuffs.ContainsKey(enchantment.PotionBuff))
                     {
-                        iGlobal.statMultipliers.Remove(eStat.StatName);
+                        iGlobal.potionBuffs[enchantment.PotionBuff] += (remove ? -1 : 1);
+                        if (iGlobal.potionBuffs[enchantment.PotionBuff] < 1)
+                            iGlobal.potionBuffs.Remove(enchantment.PotionBuff);
+                    }
+                    else
+                    {
+                        iGlobal.potionBuffs.Add(enchantment.PotionBuff, 1);
+                    }
+                }
+                foreach (EStat eStat in enchantment.EStats)
+                {
+                    float add = eStat.Additive * (remove ? -1f : 1f);
+                    float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
+                    float flat = eStat.Flat * (remove ? -1f : 1f);
+                    StatModifier statModifier = new StatModifier(1f + add, mult, flat);
+                    if (!iGlobal.statMultipliers.ContainsKey(eStat.StatName))
+                    {
+                        iGlobal.statMultipliers.Add(eStat.StatName, statModifier);
+                    }
+                    else
+                    {
+                        iGlobal.statMultipliers[eStat.StatName] = iGlobal.statMultipliers[eStat.StatName].CombineWith(statModifier);
+                        if (iGlobal.statMultipliers[eStat.StatName].Additive == 1f && iGlobal.statMultipliers[eStat.StatName].Multiplicative == 1f)
+                        {
+                            iGlobal.statMultipliers.Remove(eStat.StatName);
+                        }
+                    }
+                }
+                if (enchantment.EStats.Count < 1 && enchantment.PotionBuff == -1)
+                {
+                    foreach (StaticStatStruct staticStat in enchantment.StaticStats)
+                    {
+                        bool found = false;
+                        foreach (FieldInfo field in item.GetType().GetFields())
+                        {
+                            string name = field.Name;
+                            if (name == staticStat.Name)
+                            {
+                                Type fieldType = field.FieldType;
+                                float value;
+                                if (fieldType == typeof(float))
+                                {
+                                    value = (float)field.GetValue(item);
+                                }
+                                else if (fieldType == typeof(int))
+                                {
+                                    int valueInt = (int)field.GetValue(item);
+                                    value = (float)valueInt;
+                                }
+                                staticStat.UpdateStat(ref item, name, remove);
+                                found = true;
+                                break;
+                            }
+                            //ModContent.GetInstance<WEMod>().Logger.Info("item field " + i.ToString() + ": " + name);
+                            i++;
+                        }
+                        i = 0;
+                        if (!found)
+                        {
+                            foreach (PropertyInfo property in item.GetType().GetProperties())
+                            {
+                                string name = property.Name;
+                                if (name == staticStat.Name)
+                                {
+                                    Type propertyType = property.PropertyType;
+                                    float value;
+                                    if (propertyType == typeof(float))
+                                    {
+                                        value = (float)property.GetValue(item, null);
+                                        
+                                    }
+                                    else if (propertyType == typeof(int))
+                                    {
+                                        int valueInt = (int)property.GetValue(item, null);
+                                        value = (float)valueInt;
+                                    }
+                                    staticStat.UpdateStat(ref item, name, remove);
+                                    found = true;
+                                    break;
+                                }
+                                //ModContent.GetInstance<WEMod>().Logger.Info("item property " + i.ToString() + ": " + name);
+                                i++;
+                            }
+                        }
                     }
                 }
             }

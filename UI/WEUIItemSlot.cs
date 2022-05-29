@@ -109,7 +109,7 @@ namespace WeaponEnchantments.UI
 											break;
 									}
 									int currentEnchantmentLevelCost = 0;
-                                    if (!Item.IsAir) { currentEnchantmentLevelCost = newEnchantment.GetLevelCost(); }
+                                    if (!Item.IsAir) { currentEnchantmentLevelCost = ((AllForOneEnchantmentBasic)Item.ModItem).GetLevelCost(); }
 									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
