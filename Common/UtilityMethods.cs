@@ -23,15 +23,15 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
         ///</summary>
-        public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlot[i].Item;
+        public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
         ///<summary>
         ///Gets enchantment in the enchanting table in enchantment slot i.  Gets wePlayer.enchantingTableUI.enchantmentSlot[i].Item
         ///</summary>
-        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlot[i].Item;
+        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
         ///<summary>
         ///Gets essence in the enchanting table in essence slot i.  
         ///</summary>
-        public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlot[i].Item;
+        public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
@@ -200,7 +200,7 @@ namespace WeaponEnchantments.Common
                 dictionary.Remove(name);
             }
         }
-        public static void UpdateEnchantment(this Item item, AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
+        public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
             if(enchantment != null)

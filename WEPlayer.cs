@@ -695,7 +695,7 @@ namespace WeaponEnchantments
                         bool statStet = enchantment.statsSet;
                         if (!statStet)
                         {
-                            item.UpdateEnchantment((AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem, i);
+                            item.UpdateEnchantment(ref enchantment, i);
                         }
                     }
                 }
