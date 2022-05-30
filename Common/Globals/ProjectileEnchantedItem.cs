@@ -178,7 +178,8 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
                     {
-                        parent.Kill();
+                        if(parent is Projectile)
+                            parent.Kill();
                     }
                     //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
                     //If the item is cloned, it will be lost, so we need to verify its location.
