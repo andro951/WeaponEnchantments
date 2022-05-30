@@ -14,6 +14,7 @@ using Terraria.GameContent;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.UI
 {
@@ -108,6 +109,8 @@ namespace WeaponEnchantments.UI
 											continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
 											break;
 									}
+									if(!CheckAllowedList(newEnchantment))
+										continueCheck = false;
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = ((AllForOneEnchantmentBasic)Item.ModItem).GetLevelCost(); }
 									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
@@ -140,6 +143,13 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}//Check if Item going into a slot is valid for that slot
+		public static bool CheckAllowedList(AllForOneEnchantmentBasic enchantment)
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			return enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(wePlayer.I())
+				|| enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(wePlayer.I())
+				|| enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(wePlayer.I());
+		}
 		private bool UseEnchantmentSlot()
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

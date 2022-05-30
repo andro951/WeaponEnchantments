@@ -77,9 +77,11 @@ namespace WeaponEnchantments.Items
 		public bool StaticStat { private set; get; }
 		private bool checkedStats = false;
 		public int PotionBuff { private set; get; }	= -1;
+		public bool Armor { private set; get; } = false;
 		public bool statsSet = false;
-		public List<StaticStatStruct> StaticStats { private set; get; } = new List<StaticStatStruct>();
+		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
+		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
@@ -486,6 +488,7 @@ namespace WeaponEnchantments.Items
 					DamageClassSpecific = 0;
 					break;
 			}//DamageTypeSpecific
+            
 		}
 		public override void SetDefaults()
 		{
@@ -493,6 +496,29 @@ namespace WeaponEnchantments.Items
 			GetDefaults();
 			if(!checkedStats)
             {
+				switch ((EnchantmentTypeID)EnchantmentType)
+				{
+					case EnchantmentTypeID.Defence:
+						AllowedList.Add("Weapon", 0.5f);
+						AllowedList.Add("Armor", 1f);
+						AllowedList.Add("Accessory", 1f);
+						break;
+					case EnchantmentTypeID.Peace:
+					case EnchantmentTypeID.War:
+						AllowedList.Add("Weapon", 1f);
+						AllowedList.Add("Armor", 1f);
+						AllowedList.Add("Accessory", 1f);
+						break;
+					case EnchantmentTypeID.AllForOne:
+					case EnchantmentTypeID.OneForAll:
+						AllowedList.Add("Weapon", 1f);
+						break;
+					default:
+						AllowedList.Add("Weapon", 1f);
+						AllowedList.Add("Armor", 0.25f);
+						AllowedList.Add("Accessory", 0.25f);
+						break;
+				}//AllowedList
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.AllForOne:
@@ -503,7 +529,8 @@ namespace WeaponEnchantments.Items
 						StaticStat = AddStaticStat("P_autoReuse");
 						break;
 					case EnchantmentTypeID.AmmoCost:
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
+					case EnchantmentTypeID.LifeSteal:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
@@ -537,7 +564,7 @@ namespace WeaponEnchantments.Items
 					default:
 						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength, 1f));
 						break;
-				}
+				}//SetStats
 				StaticStat = StaticStats.Count > 0;
 				checkedStats = true;
 			}//Set StaticStats
@@ -555,10 +582,10 @@ namespace WeaponEnchantments.Items
                         switch (name)
                         {
 							case "crit":
-								StaticStats.Add(new StaticStatStruct(fieldName, 0f, 0f, 0f, EnchantmentStrength * 100));
+								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 0f, 0f, EnchantmentStrength * 100));
 								break;
 							default:
-								StaticStats.Add(new StaticStatStruct(fieldName, EnchantmentStrength));
+								StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
 								break;
                         }
 						return true;
@@ -572,7 +599,7 @@ namespace WeaponEnchantments.Items
                 {
 					if (name == Name.Substring(0, name.Length))
 					{
-						StaticStats.Add(new StaticStatStruct(name, EnchantmentStrength));
+						StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
 						return true;
 					}
 				}
@@ -581,7 +608,7 @@ namespace WeaponEnchantments.Items
 		}
 		private bool AddStaticStat(string name, float additive = 0f, float multiplicative = 0f, float flat = 0f, float @base = 0f)
         {
-			StaticStats.Add(new StaticStatStruct(name, additive, multiplicative, flat, @base));
+			StaticStats.Add(new EnchantmentStaticStat(name, additive, multiplicative, flat, @base));
 			return true;
 		}
 		private bool CheckPotionBuffByName()

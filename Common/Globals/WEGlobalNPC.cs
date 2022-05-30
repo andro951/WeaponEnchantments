@@ -507,13 +507,16 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                     int total = 0;
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    //if(sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
                     {
                         total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    if(wePlayer.eStats.ContainsKey("LifeSteal"))
                     {
-                        float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
+                        //float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
+                        float lifeSteal = wePlayer.eStats["LifeSteal"].ApplyTo(0f);
                         Vector2 speed = new Vector2(0, 0);
                         float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
                         int heal = (int)healTotal;
@@ -530,11 +533,13 @@ namespace WeaponEnchantments.Common.Globals
                             wePlayer.lifeStealRollover = 0f;
                         }
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                    if(sourceItem.G().eStats.ContainsKey("GodSlayer"))
                     {
                         ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
                         projectile.Kill();
                     }
@@ -663,7 +668,8 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                            //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                            int allForOneDamage = (int)((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
                             total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
                             /*if(projectile != null)
                             {
@@ -684,7 +690,9 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!npc.friendly && !npc.townNPC)
             {
-                float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
+                float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
                 int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
                 npc.StrikeNPC(godSlayerDamage, knockback, direction);
             }
@@ -692,11 +700,18 @@ namespace WeaponEnchantments.Common.Globals
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            float enemySpawnBonus = wePlayer.enemySpawnBonus;
-            int rate = (int)(spawnRate / enemySpawnBonus);
-            spawnRate = rate < 1 ? 1 : rate;
-            int spawns = (int)Math.Round(maxSpawns * enemySpawnBonus);
-            maxSpawns = spawns >= 0 ? spawns : 0;
-        }
+            if (wePlayer.eStats.ContainsKey("spawnRate"))
+            {
+                float enemySpawnRateBonus = wePlayer.eStats["spawnRate"].ApplyTo(1f);
+                int rate = (int)(spawnRate / enemySpawnRateBonus);
+                spawnRate = rate < 1 ? 1 : rate;
+            }
+            if (wePlayer.eStats.ContainsKey("maxSpawns"))
+            {
+                float enemyMaxSpawnBonus = wePlayer.eStats["maxSpawns"].ApplyTo(1f);
+                int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
+                maxSpawns = spawns >= 0 ? spawns : 0;
+            }
+        }   
     }
 }

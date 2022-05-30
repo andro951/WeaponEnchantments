@@ -11,6 +11,7 @@ using WeaponEnchantments.Common.Globals;
 using System;
 using WeaponEnchantments.Common;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace WeaponEnchantments
 { 
@@ -43,8 +44,13 @@ namespace WeaponEnchantments
         public bool stickyFavorited = true;
         public bool[] vanillaPlayerBuffsWeapon;
         public bool[] vanillaPlayerBuffsArmor;
-        public EStat[] staticStats;
         public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();
+        public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
+        public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
+        public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
+        //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
+        //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
+        //public Dictionary<string, StaticStatStruct> staticStats = new Dictionary<string, StaticStatStruct>();
 
         /*public enum VanillaBoolBuffs : int
         {
@@ -510,6 +516,7 @@ namespace WeaponEnchantments
                         enemySpawnBonus /= heldItem.GetGlobalItem<EnchantedItem>().enemySpawnBonus;
                         hiGlobal.heldItem = false;
                     }
+                    UpdateStats(Player.HeldItem, heldItem);
                     UpdatePotionBuffs(Player.HeldItem, heldItem);
                     heldItem = Player.HeldItem;
                 }//Check HeldItem
@@ -574,6 +581,7 @@ namespace WeaponEnchantments
                         armor.RemoveUntilPositive();
                         CheckUpdateEnchantmentsOnItem(armor);
                     }
+                    UpdateStats(armor, equipArmor[j]);
                     UpdatePotionBuffs(armor, equipArmor[j]);
                     if (!equipArmor[j].IsAir)
                     {
@@ -683,6 +691,47 @@ namespace WeaponEnchantments
                 }
             }
         }
+        private static void UpdateStats(Item newItem, Item oldItem)
+        {
+            UpdateStat(newItem);
+            UpdateStat(oldItem);
+        }
+        private static void UpdateStat(Item item, bool remove = false)
+        {
+            if (WEMod.IsEnchantable(item))
+            {
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                foreach(string key in item.G().statModifiers.Keys)
+                {
+                    if (wePlayer.statModifiers.ContainsKey(key))
+                    {
+                        wePlayer.statModifiers[key] = CombineStatModifier(wePlayer.statModifiers[key], item.G().statModifiers[key], remove);
+                        /*wePlayer.statModifiers[key] += item.G().statModifiers[key].Additive * (remove ? -1f : 1f);
+                        wePlayer.statModifiers[key] *= (remove ? 1f / item.G().statModifiers[key].Multiplicative : item.G().statModifiers[key].Multiplicative);
+                        wePlayer.statModifiers[key].Base = item.G().statModifiers[key].Base * (remove ? -1f : 1f);
+                        wePlayer.statModifiers[key].Flat = item.G().statModifiers[key].Flat* (remove ? -1f : 1f);*/
+                    }
+                    else
+                        wePlayer.statModifiers.Add(key, item.G().statModifiers[key]);
+                    if(wePlayer.statModifiers[key].Additive == 1f && wePlayer.statModifiers[key].Multiplicative == 1f && wePlayer.statModifiers[key].Flat == 0f && wePlayer.statModifiers[key].Base == 0f)
+                        wePlayer.statModifiers.Remove(key);
+                }
+            }
+        }
+        public static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
+        {
+            if (remove)
+                newStatModifier = new StatModifier(2f - newStatModifier.Additive, 1/newStatModifier.Multiplicative, -newStatModifier.Flat, -newStatModifier.Base);
+            return baseStatModifier.CombineWith(newStatModifier);
+        }
+        public static void TryRemoveStat(Dictionary<string, StatModifier> dictionary, string key)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                if(dictionary[key] == StatModifier.Default)
+                    dictionary.Remove(key);
+            }
+        }
         public void CheckUpdateEnchantmentsOnItem(Item item) 
         {
             if (WEMod.IsEnchantable(item))
@@ -698,6 +747,234 @@ namespace WeaponEnchantments
                             item.UpdateEnchantment(ref enchantment, i);
                         }
                     }
+                }
+            }
+        }
+        private void UpdatePlayerStats(Item newItem, Item oldItem)
+        {
+            UpdatePlayerDictionaries(newItem);
+            UpdatePlayerDictionaries(oldItem, true);
+            UpdateItemStats(newItem);
+            UpdatePlayerStat();
+
+
+            //change to player fields/properties
+            /*foreach (EnchantmentStaticStat staticStat in item.G().staticStats.Values)
+            {
+                bool found = false;
+                foreach (FieldInfo field in item.GetType().GetFields())
+                {
+                    string name = field.Name;
+                    if (name == staticStat.Name)
+                    {
+                        Type fieldType = field.FieldType;
+                        float value;
+                        if (fieldType == typeof(float))
+                        {
+                            value = (float)field.GetValue(item);
+                        }
+                        else if (fieldType == typeof(int))
+                        {
+                            int valueInt = (int)field.GetValue(item);
+                            value = (float)valueInt;
+                        }
+                        staticStat.UpdatePlayerStat(ref item, name, remove, fieldType == typeof(bool), staticStat.PreventBoolStat, enchantment);
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    foreach (PropertyInfo property in item.GetType().GetProperties())
+                    {
+                        //string name = property.Name;
+                        //if (name == staticStat.Name)
+                        {
+                            Type propertyType = property.PropertyType;
+                            float value;
+                            if (propertyType == typeof(float))
+                            {
+                                value = (float)property.GetValue(item, null);
+
+                            }
+                            else if (propertyType == typeof(int))
+                            {
+                                int valueInt = (int)property.GetValue(item, null);
+                                value = (float)valueInt;
+                            }
+                            staticStat.UpdatePlayerStat(ref item, name, remove, propertyType == typeof(bool), staticStat.PreventBoolStat, enchantment, true);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }*/
+        }
+        private void UpdatePlayerStat()
+        {
+            foreach (string key in statModifiers.Keys)
+            {
+                bool statsNeedUpdate = true;
+                if (!appliedStatModifiers.ContainsKey(key))
+                    appliedStatModifiers.Add(key, StatModifier.Default);
+                else
+                    statsNeedUpdate = statModifiers[key] != appliedStatModifiers[key];
+                if (statsNeedUpdate)
+                {
+                    StatModifier lastAppliedStatModifier = appliedStatModifiers[key];
+                    appliedStatModifiers[key] = statModifiers[key];
+                    StatModifier staticStat = CombineStatModifier(statModifiers[key], lastAppliedStatModifier, true);
+                    FieldInfo field = Player.GetType().GetField(key);
+                    PropertyInfo property = Player.GetType().GetProperty(key);
+                    if (field != null)
+                    {
+                        Type fieldType = field.FieldType;
+                        if (fieldType == typeof(float))
+                        {
+                            float finalValue = staticStat.ApplyTo((float)field.GetValue(Player));
+                            field.SetValue(Player, finalValue);
+                        }//float (field)
+                        if (fieldType == typeof(int))
+                        {
+                            //int valueInt = (int)field.GetValue(Player);
+                            float finalValue = (float)(int)field.GetValue(Player);
+                            field.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
+                        }//int (field)
+                        if (fieldType == typeof(bool))
+                        {
+                            bool baseValue = (bool)field.GetValue(new Player());
+                            bool finalValue = statModifiers[key].Additive != 1f;
+                            field.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
+                        }//bool (field)
+                    }//field
+                    else if (property != null)
+                    {
+                        Type propertyType = property.PropertyType;
+                        if (propertyType == typeof(float))
+                        {
+                            float finalValue = staticStat.ApplyTo((float)property.GetValue(Player));
+                            property.SetValue(Player, finalValue);
+                        }//float (property)
+                        if (propertyType == typeof(int))
+                        {
+                            //int valueInt = (int)property.GetValue(Player);
+                            float finalValue = (float)(int)property.GetValue(Player);
+                            property.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
+                        }//int (property)
+                        if (propertyType == typeof(bool))
+                        {
+                            bool baseValue = (bool)property.GetValue(new Player());
+                            bool finalValue = statModifiers[key].Additive != 1f;
+                            property.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
+                        }//bool (property)
+                    }//property
+                }
+            }
+        }
+        private void UpdatePlayerDictionaries(Item item, bool remove = false)
+        {
+            foreach (string key in item.G().statModifiers.Keys)
+            {
+                if (!WEMod.IsWeaponItem(item) || item.GetType().GetField(key) == null && item.GetType().GetProperty(key) == null)
+                {
+                    if(!statModifiers.ContainsKey(key))
+                        statModifiers.Add(key, StatModifier.Default);
+                    statModifiers[key] = CombineStatModifier(statModifiers[key], item.G().statModifiers[key], remove);
+                    TryRemoveStat(statModifiers, key);
+                }
+            }
+            foreach(string key in item.G().eStats.Keys)
+            {
+                if (!eStats.ContainsKey(key))
+                    eStats.Add(key, StatModifier.Default);
+                eStats[key] = CombineStatModifier(eStats[key], item.G().eStats[key], remove);
+                TryRemoveStat(eStats, key);
+            }
+            
+        }
+        private void UpdateItemStats(Item item)
+        {
+            Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
+            foreach (string itemKey in item.G().statModifiers.Keys)
+            {
+                if(item.GetType().GetField(itemKey) != null)
+                {
+                    combinedStatModifiers.Add(itemKey, item.G().statModifiers[itemKey]);
+                }
+            }//Populate itemStatModifiers
+            if (WEMod.IsWeaponItem(item))
+            {
+                foreach (string playerKey in statModifiers.Keys)
+                {
+                    if (item.GetType().GetField(playerKey) != null)
+                    {
+                        if (combinedStatModifiers.ContainsKey(playerKey))
+                        {
+                            combinedStatModifiers[playerKey] = combinedStatModifiers[playerKey].CombineWith(statModifiers[playerKey]);
+                        }
+                        else
+                        {
+                            combinedStatModifiers.Add(playerKey, statModifiers[playerKey]);
+                        }
+                    }
+                }
+            }//Populate playerStatModifiers if item is a weapon
+            foreach(string key in combinedStatModifiers.Keys)
+            {
+                bool statsNeedUpdate = true;
+                if (!item.G().appliedStatModifiers.ContainsKey(key))
+                    item.G().appliedStatModifiers.Add(key, StatModifier.Default);
+                else
+                    statsNeedUpdate = combinedStatModifiers[key] != item.G().appliedStatModifiers[key];
+                if (statsNeedUpdate)
+                {
+                    StatModifier lastAppliedStatModifier = item.G().appliedStatModifiers[key];
+                    item.G().appliedStatModifiers[key] = combinedStatModifiers[key];
+                    StatModifier staticStat = CombineStatModifier(combinedStatModifiers[key], lastAppliedStatModifier, true);
+                    FieldInfo field = item.GetType().GetField(key);
+                    PropertyInfo property = item.GetType().GetProperty(key);
+                    if (field != null)
+                    {
+                        Type fieldType = field.FieldType;
+                        if (fieldType == typeof(float))
+                        {
+                            float finalValue = staticStat.ApplyTo((float)field.GetValue(item));
+                            field.SetValue(item, finalValue);
+                        }//float (field)
+                        if (fieldType == typeof(int))
+                        {
+                            //int valueInt = (int)field.GetValue(item);
+                            float finalValue = (float)(int)field.GetValue(item);
+                            field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
+                        }//int (field)
+                        if(fieldType == typeof(bool))
+                        {
+                            bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
+                            bool finalValue = combinedStatModifiers[key].Additive != 1f;
+                            field.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
+                        }//bool (field)
+                    }//field
+                    else if (property != null)
+                    {
+                        Type propertyType = property.PropertyType;
+                        if (propertyType == typeof(float))
+                        {
+                            float finalValue = staticStat.ApplyTo((float)property.GetValue(item));
+                            property.SetValue(item, finalValue);
+                        }//float (property)
+                        if (propertyType == typeof(int))
+                        {
+                            //int valueInt = (int)property.GetValue(item);
+                            float finalValue = (float)(int)property.GetValue(item);
+                            property.SetValue(item, (int)Math.Round(finalValue + 5E-6));
+                        }//int (property)
+                        if (propertyType == typeof(bool))
+                        {
+                            bool baseValue = (bool)property.GetValue(ContentSamples.ItemsByType[item.type]);
+                            bool finalValue = combinedStatModifiers[key].Additive != 1f;
+                            property.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
+                        }//bool (property)
+                    }//property
                 }
             }
         }

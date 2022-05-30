@@ -22,11 +22,13 @@ namespace WeaponEnchantments.Common.Globals
         //Vanilla Player buffs
         //public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
 
-        public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
-        public Dictionary<string, StatModifier> statMultipliers = new Dictionary<string, StatModifier>();
-        public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();
-        public Dictionary<string, int> boolFields = new Dictionary<string, int>();
-        public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
+        //public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
+        public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
+        public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
+        public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>(); 
+        public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();  
+        //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
+        //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
         //Item specific
 
         public float totalSpeedBonus;
@@ -456,7 +458,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
                 }
-                string levelString = level < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
+                string levelString = levelBeforeBooster < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
                 tooltips.Add(new TooltipLine(Mod, "experience", "Experience: " + experience.ToString() + levelString) { OverrideColor = Color.White });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -739,7 +741,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanConsumeAmmo(Item weapon, Player player)
         {
-            float ammoCostBonus = 0f;
+            /*float ammoCostBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
@@ -753,8 +755,8 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                     }
                 }
-            }
-            return Main.rand.NextFloat() >= ammoCostBonus;
+            }*/
+            return Main.rand.NextFloat() >= (eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
         public override bool? UseItem(Item item, Player player)
         {

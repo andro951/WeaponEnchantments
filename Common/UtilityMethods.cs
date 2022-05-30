@@ -25,9 +25,9 @@ namespace WeaponEnchantments.Common
         ///</summary>
         public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
         ///<summary>
-        ///Gets enchantment in the enchanting table in enchantment slot i.  Gets wePlayer.enchantingTableUI.enchantmentSlot[i].Item
+        ///Gets enchantment in the enchanting table in enchantment slot i.  (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem
         ///</summary>
-        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+        public static AllForOneEnchantmentBasic E(this WEPlayer wePlayer, int i) => (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
         ///<summary>
         ///Gets essence in the enchanting table in essence slot i.  
         ///</summary>
@@ -151,6 +151,11 @@ namespace WeaponEnchantments.Common
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
         }
+        public static float GetGodSlayerReductionFactor(int hp)
+        {
+            float factor =  hp / 50000f + 1f;
+            return factor;
+        }
         public static void RemoveUntilPositive(this Item item)
         {
             int netMode = Main.netMode;
@@ -181,21 +186,28 @@ namespace WeaponEnchantments.Common
                 }
             }
         }
-        public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove)
+        public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove, Dictionary<string, int> copyFromDictionary = null)
         {
-            int num;
-            if (!dictionary.ContainsKey(name))
+            int num = copyFromDictionary == null ? 1 : copyFromDictionary[name];
+            if(copyFromDictionary == null || copyFromDictionary.ContainsKey(name))
             {
-                dictionary.Add(name, 1);
+                if (!dictionary.ContainsKey(name))
+                {
+                    dictionary.Add(name, num);
+                }
+                else if(copyFromDictionary == null)
+                {
+                    //num = dictionary[name];
+                    dictionary[name] += (remove ? -1 : 1);
+                    //num = dictionary[name];
+                }
+                else
+                {
+                    dictionary[name] = num;
+                }
+                //num = dictionary[name];
             }
-            else
-            {
-                num = dictionary[name];
-                dictionary[name] += (remove ? -1 : 1);
-                num = dictionary[name];
-            }
-            num = dictionary[name];
-            if (dictionary[name] < 1)
+            if (dictionary.ContainsKey(name) && dictionary[name] < 1 || copyFromDictionary != null && !copyFromDictionary.ContainsKey(name))
             {
                 dictionary.Remove(name);
             }
@@ -224,81 +236,82 @@ namespace WeaponEnchantments.Common
                     float add = eStat.Additive * (remove ? -1f : 1f);
                     float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
                     float flat = eStat.Flat * (remove ? -1f : 1f);
-                    StatModifier statModifier = new StatModifier(1f + add, mult, flat);
-                    if (!iGlobal.statMultipliers.ContainsKey(eStat.StatName))
+                    float @base = eStat.Base * (remove ? -1f : 1f);
+                    ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
+                    StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
+                    if (!iGlobal.eStats.ContainsKey(eStat.StatName))
                     {
-                        iGlobal.statMultipliers.Add(eStat.StatName, statModifier);
+                        iGlobal.eStats.Add(eStat.StatName, statModifier);
                     }
                     else
                     {
-                        iGlobal.statMultipliers[eStat.StatName] = iGlobal.statMultipliers[eStat.StatName].CombineWith(statModifier);
-                        if (iGlobal.statMultipliers[eStat.StatName].Additive == 1f && iGlobal.statMultipliers[eStat.StatName].Multiplicative == 1f)
+                        iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
+                        if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
                         {
-                            iGlobal.statMultipliers.Remove(eStat.StatName);
+                            iGlobal.eStats.Remove(eStat.StatName);
                         }
                     }
                 }
-                if (enchantment.EStats.Count < 1 && enchantment.PotionBuff == -1)
+                foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
                 {
-                    foreach (StaticStatStruct staticStat in enchantment.StaticStats)
+                    float add = staticStat.Additive * (remove ? -1f : 1f);
+                    float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
+                    float flat = staticStat.Flat * (remove ? -1f : 1f);
+                    float @base = staticStat.Base * (remove ? -1f : 1f);
+                    ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
+                    StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
+                    if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
                     {
-                        bool found = false;
-                        foreach (FieldInfo field in item.GetType().GetFields())
+                        iGlobal.statModifiers.Add(staticStat.Name, statModifier);
+                    }
+                    else
+                    {
+                        iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
+                        if (iGlobal.statModifiers[staticStat.Name].Additive == 1f && iGlobal.statModifiers[staticStat.Name].Multiplicative == 1f)
                         {
-                            string name = field.Name;
-                            if (name == staticStat.Name)
-                            {
-                                Type fieldType = field.FieldType;
-                                float value;
-                                if (fieldType == typeof(float))
-                                {
-                                    value = (float)field.GetValue(item);
-                                }
-                                else if (fieldType == typeof(int))
-                                {
-                                    int valueInt = (int)field.GetValue(item);
-                                    value = (float)valueInt;
-                                }
-                                staticStat.UpdateStat(ref item, name, remove, fieldType == typeof(bool), staticStat.PreventBoolStat);
-                                found = true;
-                                break;
-                            }
-                            //ModContent.GetInstance<WEMod>().Logger.Info("item field " + i.ToString() + ": " + name);
-                            i++;
-                        }
-                        i = 0;
-                        if (!found)
-                        {
-                            foreach (PropertyInfo property in item.GetType().GetProperties())
-                            {
-                                string name = property.Name;
-                                if (name == staticStat.Name)
-                                {
-                                    Type propertyType = property.PropertyType;
-                                    float value;
-                                    if (propertyType == typeof(float))
-                                    {
-                                        value = (float)property.GetValue(item, null);
-                                        
-                                    }
-                                    else if (propertyType == typeof(int))
-                                    {
-                                        int valueInt = (int)property.GetValue(item, null);
-                                        value = (float)valueInt;
-                                    }
-                                    staticStat.UpdateStat(ref item, name, remove, propertyType == typeof(bool), staticStat.PreventBoolStat, true);
-                                    found = true;
-                                    break;
-                                }
-                                //ModContent.GetInstance<WEMod>().Logger.Info("item property " + i.ToString() + ": " + name);
-                                i++;
-                            }
+                            iGlobal.statModifiers.Remove(staticStat.Name);
                         }
                     }
                 }
                 enchantment.statsSet = true;
             }
             //iGlobal.statsSet[slotNum] = true;
+        }
+        public static void ApplyAllowedList(Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)
+        {
+            if (WEMod.IsWeaponItem(item))
+            {
+                if (enchantment.AllowedList.ContainsKey("Weapon"))
+                {
+                    add *= enchantment.AllowedList["Weapon"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Weapon"];
+                    flat *= enchantment.AllowedList["Weapon"];
+                    @base *= enchantment.AllowedList["Weapon"];
+                    return;
+                }
+            }
+            if (WEMod.IsArmorItem(item))
+            {
+                if (enchantment.AllowedList.ContainsKey("Armor"))
+                {
+                    add *= enchantment.AllowedList["Armor"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Armor"];
+                    flat *= enchantment.AllowedList["Armor"];
+                    @base *= enchantment.AllowedList["Armor"];
+                    return;
+                }
+            }
+            if (WEMod.IsAccessoryItem(item))
+            {
+                if (enchantment.AllowedList.ContainsKey("Accessory"))
+                {
+                    add *= enchantment.AllowedList["Accessory"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Accessory"];
+                    flat *= enchantment.AllowedList["Accessory"];
+                    @base *= enchantment.AllowedList["Accessory"];
+                    return;
+                }
+            }
         }
         public static void SpawnCoins(int coins, bool delay = false)
         {
