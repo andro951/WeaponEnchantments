@@ -12,11 +12,26 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
+        ///<summary>
+        ///Gets (EnchantedItem : GlobalItem)
+        ///</summary>
         public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
+        ///<summary>
+        ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
+        ///</summary>
         public static AllForOneEnchantmentBasic E(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+        ///<summary>
+        ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
+        ///</summary>
         public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlot[i].Item;
+        ///<summary>
+        ///Gets enchantment in the enchanting table in enchantment slot i.  Gets wePlayer.enchantingTableUI.enchantmentSlot[i].Item
+        ///</summary>
         public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlot[i].Item;
-        public static Item ES(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlot[i].Item;
+        ///<summary>
+        ///Gets essence in the enchanting table in essence slot i.  
+        ///</summary>
+        public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlot[i].Item;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
