@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Common.Globals
         public int lastInventoryLocation = -1;
         private bool updated = false;
         public float damageBonus = 1f;
-        public float totalSpeedBonus;
+        //public float totalSpeedBonus;
         private Projectile parent = null;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -30,8 +30,9 @@ namespace WeaponEnchantments.Common.Globals
                         sourceItem = uSource.Item;
                         if(sourceItem.DamageType == DamageClass.Melee)
                         {
-                            float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
-                            projectile.velocity /= (1f + speedBonus);
+                            //float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
+                            //projectile.velocity /= (1f + speedBonus);
+                            projectile.velocity /= (sourceItem.A("velocity", 1f));
                         }
                         sourceSet = true;
                     }
@@ -121,14 +122,16 @@ namespace WeaponEnchantments.Common.Globals
 
                         if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
                         {
-                            damageBonus += siGlobal.damageBonus;
-                            damageBonus *= siGlobal.allForOneBonus;
+                            /*damageBonus += siGlobal.damageBonus;
+                            damageBonus *= siGlobal.allForOneBonus;*/
+                            damageBonus = sourceItem.A("Damage", damageBonus);
                         }
                         if(sourceItem.DamageType == DamageClass.Summon)
                         {
                             //projectile.CritChance += siGlobal.critBonus;
                         }
-                        projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
+                        //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
+                        projectile.scale = sourceItem.A("scale", projectile.scale);
                         /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (!siGlobal.enchantments[i].IsAir)
@@ -158,11 +161,13 @@ namespace WeaponEnchantments.Common.Globals
                     
                         if (projectile.usesIDStaticNPCImmunity)
                         {
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1 + siGlobal.immunityBonus));
+                            //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.A("NPCHitCooldown", 1f));
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1 + siGlobal.immunityBonus));
+                            //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
+                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.A("NPCHitCooldown", 1f));
                         }
                         updated = true;
                     }
@@ -176,7 +181,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if(sourceItem != null)
                 {
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll)
+                    if (sourceItem.G().eStats.ContainsKey("OneForAll"))
                     {
                         if(parent is Projectile)
                             parent.Kill();

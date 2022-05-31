@@ -30,7 +30,6 @@ namespace WeaponEnchantments
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
         private static int[] essenceStack = new int[EnchantedItem.maxLevel];
         private static bool favorited;
-        private static bool autoPause = false;
 
         public override void OnModLoad()
         {
@@ -68,6 +67,7 @@ namespace WeaponEnchantments
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i);
+                wePlayer.UpdateItemStats(ref item);
             }
         }
         private static void RemoveEnchantment(int i)
@@ -79,6 +79,7 @@ namespace WeaponEnchantments
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i, true);
+                wePlayer.UpdateItemStats(ref item);
             }
         }
         public override void PreUpdateItems()
@@ -161,6 +162,8 @@ namespace WeaponEnchantments
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,
                         {
                             wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
+                            wePlayer.enchantmentInEnchantingTable[i] = wePlayer.E(i) != null; ;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         }
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
                     }
@@ -180,7 +183,7 @@ namespace WeaponEnchantments
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
-                            ((AllForOneEnchantmentBasic)itemEnchantment.ModItem).statsSet = false;
+                            //((AllForOneEnchantmentBasic)itemEnchantment.ModItem).statsSet = false;
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
@@ -196,8 +199,8 @@ namespace WeaponEnchantments
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
-                        if(!wePlayer.I().E(i).statsSet)
-                            ApplyEnchantment(i);
+                        //if(!wePlayer.I().E(i).statsSet)
+                        ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
                 }//Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
@@ -388,7 +391,6 @@ namespace WeaponEnchantments
         }
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
-            //TryToggleAutoPauseOn();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)

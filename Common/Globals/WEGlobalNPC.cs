@@ -539,6 +539,8 @@ namespace WeaponEnchantments.Common.Globals
                         ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
                     //if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    Dictionary<string, StatModifier> tempDict = sourceItem.G().eStats;
+                    bool temp = sourceItem.G().eStats.ContainsKey("OneForAll");
                     if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
                         projectile.Kill();
@@ -649,7 +651,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
-                    int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
+                    //int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
+                    int newImmune = (int)((float)npc.immune[player.whoAmI] * sourceItem.A("NPCHitCooldown", 1f));
                     npc.immune[player.whoAmI] = newImmune < 1 ? 1 : newImmune;
                 }
             }

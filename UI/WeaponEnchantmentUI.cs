@@ -640,7 +640,7 @@ namespace WeaponEnchantments.UI
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
                         {
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
-                            enchantment.statsSet = false;
+                            //enchantment.statsSet = false;
                             wePlayer.enchantingTableUI.itemSlotUI[i].Item.UpdateEnchantment(ref enchantment, i, true);
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
                         }

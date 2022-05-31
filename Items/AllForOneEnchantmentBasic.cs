@@ -78,7 +78,7 @@ namespace WeaponEnchantments.Items
 		private bool checkedStats = false;
 		public int PotionBuff { private set; get; }	= -1;
 		public bool Armor { private set; get; } = false;
-		public bool statsSet = false;
+		//public bool statsSet = false;
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
@@ -525,6 +525,7 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("damage", 0f, EnchantmentStrength);
 						AddStaticStat("useSpeed", EnchantmentStrength * 0.8f);
 						AddStaticStat("useAnimation", EnchantmentStrength * 0.8f);
+						EStats.Add(new EStat("NPCHitCooldown", EnchantmentStrength * 0.8f));
 						AddStaticStat("mana", EnchantmentStrength * 0.4f);
 						StaticStat = AddStaticStat("P_autoReuse");
 						break;
@@ -550,6 +551,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
 						AddStaticStat("useSpeed", EnchantmentStrength * 0.3f);
 						AddStaticStat("useAnimation", EnchantmentStrength * 0.3f);
+						EStats.Add(new EStat("NPCHitCooldown", EnchantmentStrength * 0.3f));
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:
@@ -560,6 +562,7 @@ namespace WeaponEnchantments.Items
 						StaticStat = AddStaticStat("autoReuse");
 						AddStaticStat("I_useSpeed", EnchantmentStrength);
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
+						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						break;
 					default:
 						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength, 1f));
@@ -582,7 +585,7 @@ namespace WeaponEnchantments.Items
                         switch (name)
                         {
 							case "crit":
-								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 0f, 0f, EnchantmentStrength * 100));
+								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength * 100));
 								break;
 							default:
 								StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
@@ -606,7 +609,7 @@ namespace WeaponEnchantments.Items
 			}
 			return false;
 		}
-		private bool AddStaticStat(string name, float additive = 0f, float multiplicative = 0f, float flat = 0f, float @base = 0f)
+		private bool AddStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f)
         {
 			StaticStats.Add(new EnchantmentStaticStat(name, additive, multiplicative, flat, @base));
 			return true;

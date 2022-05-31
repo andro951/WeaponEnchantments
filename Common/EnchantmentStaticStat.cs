@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Common
         public float Base { get; private set; }
         public bool PreventBoolStat { get; private set; }
         public bool Inverse { get; private set; }
-        public EnchantmentStaticStat(string name, float additive = 0f, float multiplicative = 0f, float flat = 0f, float @base = 0f)
+        public EnchantmentStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f)
         {
             Additive = additive;
             Multiplicative = multiplicative;
@@ -69,7 +69,7 @@ namespace WeaponEnchantments.Common
             }
         }*/
         
-        public void UpdatePlayerStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false) 
+        /*public void UpdatePlayerStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false) 
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
@@ -110,7 +110,7 @@ namespace WeaponEnchantments.Common
                 /*if (!iGlobal.statModifiers.ContainsKey(name))
                 {
                     iGlobal.statModifiers.Add(name, new StatModifier(1f, 1f));
-                }*/
+                }*//*
                 if (!iGlobal.statModifiers.ContainsKey(name))
                 {
                     iGlobal.statModifiers.Add(name, new StatModifier(1f, 1f));
@@ -314,9 +314,9 @@ namespace WeaponEnchantments.Common
                     item.GetType().GetProperty(name).SetValue(item, (int)Math.Round(finalValue + 5E-6));
                 }
                 var tempForBreakpointCheck = item.GetType().GetProperty(name).GetValue(item);
-            }*/
-        }
-        public void UpdateBoolStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false)
+            }
+        }*/
+        /*public void UpdateBoolStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false)
         {
             if (boolStat)
             {
@@ -339,6 +339,6 @@ namespace WeaponEnchantments.Common
                     }
                 }
             }
-        }
+        }*/
     }
 }

@@ -10,19 +10,17 @@ namespace WeaponEnchantments.Common
 {
     public struct EStat
     {
-        public float Initial;
         public float Base;
         public float Additive { get; private set; }
         public float Multiplicative { get; private set; }
         public string StatName { get; private set; }
         public float Flat;
-        public EStat(string statName, float additive, float multiplicative, float flat = 0f, float @base = 0f, float intital = 1f)
+        public EStat(string statName, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f)
         {
             Additive = additive;
             Multiplicative = multiplicative;
             Flat = flat;
             Base = @base;
-            Initial = intital;
             StatName = statName;
         }
         public override bool Equals(object obj)

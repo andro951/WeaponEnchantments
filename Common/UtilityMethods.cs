@@ -32,6 +32,14 @@ namespace WeaponEnchantments.Common
         ///Gets essence in the enchanting table in essence slot i.  
         ///</summary>
         public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+        /// <summary>
+        /// Applies the appliedStatModifier from the item's global item to the value.
+        /// </summary>
+        public static float A(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().appliedStatModifiers.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().appliedStatModifiers[key].ApplyTo(value) : value;
+        /// <summary>
+        /// Applies the eStat modifier from the item's global item to the value.
+        /// </summary>
+        public static float AE(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
@@ -186,7 +194,7 @@ namespace WeaponEnchantments.Common
                 }
             }
         }
-        public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove, Dictionary<string, int> copyFromDictionary = null)
+        /*public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove, Dictionary<string, int> copyFromDictionary = null)
         {
             int num = copyFromDictionary == null ? 1 : copyFromDictionary[name];
             if(copyFromDictionary == null || copyFromDictionary.ContainsKey(name))
@@ -211,13 +219,12 @@ namespace WeaponEnchantments.Common
             {
                 dictionary.Remove(name);
             }
-        }
+        }*/
         public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
             if(enchantment != null)
             {
-                int i = 0;
                 if (enchantment.PotionBuff > -1)
                 {
                     if (iGlobal.potionBuffs.ContainsKey(enchantment.PotionBuff))
@@ -262,18 +269,18 @@ namespace WeaponEnchantments.Common
                     StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
                     if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
                     {
-                        iGlobal.statModifiers.Add(staticStat.Name, statModifier);
+                        item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);
                     }
                     else
                     {
                         iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
                         if (iGlobal.statModifiers[staticStat.Name].Additive == 1f && iGlobal.statModifiers[staticStat.Name].Multiplicative == 1f)
                         {
-                            iGlobal.statModifiers.Remove(staticStat.Name);
+                            item.GetGlobalItem<EnchantedItem>().statModifiers.Remove(staticStat.Name);
                         }
                     }
                 }
-                enchantment.statsSet = true;
+                //enchantment.statsSet = true;
             }
             //iGlobal.statsSet[slotNum] = true;
         }

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common
@@ -50,6 +51,18 @@ namespace WeaponEnchantments.Common
                 replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
                 replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
                 replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
+            }
+            item.RemoveUntilPositive();
+            if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
+            {
+                for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                {
+                    Item enchantmentItem = iGlobal.enchantments[i];
+                    if (item.type == 5163)
+                        ReplaceOldItem(ref enchantmentItem);
+                    AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                    item.UpdateEnchantment(ref enchantment, i);
+                }
             }
         }
         private static bool TryReplaceItem(ref Item item, Dictionary<string, int> dict, OldItemContext context)

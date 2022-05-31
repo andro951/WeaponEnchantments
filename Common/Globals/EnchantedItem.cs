@@ -23,15 +23,15 @@ namespace WeaponEnchantments.Common.Globals
         //public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
 
         //public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
-        public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>(); 
-        public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();  
+        public Dictionary<string, StatModifier> statModifiers;
+        public Dictionary<string, StatModifier> appliedStatModifiers;
+        public Dictionary<string, StatModifier> eStats; 
+        public Dictionary<int, int> potionBuffs;  
         //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
         //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
         //Item specific
 
-        public float totalSpeedBonus;
+        /*public float totalSpeedBonus;
         public float immunityBonus = 0f;
         public int lastUseTimeBonusInt;
         public int lastUseAnimationBonusInt;
@@ -56,24 +56,18 @@ namespace WeaponEnchantments.Common.Globals
         public int lastManaCostBonus;
         public float lastEquipManaCostBonus;
         public float lastAmmoCostBonus;
-        public float lastEquipAmmoCostBonus;
+        public float lastEquipAmmoCostBonus;*/
 
         public int lastValueBonus;
-        
-        
-        
-        
-        
-        
-        
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
         public bool equip = false;
-        public bool heldItem = false;
-        public bool favorited = false;
+        public bool trackedWeapon = false;
+        public bool hoverItem = false;
         public bool trashItem = false;
+        public bool favorited = false;
         public const int maxLevel = 40;
         public EnchantedItem()
         {
@@ -81,6 +75,10 @@ namespace WeaponEnchantments.Common.Globals
             {
                 enchantments[i] = new Item();
             }
+            statModifiers = new Dictionary<string, StatModifier>();
+            appliedStatModifiers = new Dictionary<string, StatModifier>();
+            eStats = new Dictionary<string, StatModifier>();
+            potionBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
         public override GlobalItem Clone(Item item, Item itemClone)
@@ -90,8 +88,11 @@ namespace WeaponEnchantments.Common.Globals
             for (int i = 0; i < enchantments.Length; i++)
             {
                clone.enchantments[i] = enchantments[i].Clone();
-                clone.statsSet[i] = statsSet[i];
             }//fixes enchantments being applied to all of an item instead of just the instance
+            clone.statModifiers = new Dictionary<string, StatModifier>(statModifiers);
+            clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
+            clone.eStats = new Dictionary<string, StatModifier>(eStats);
+            clone.potionBuffs = new Dictionary<int, int>(potionBuffs);
             return clone;
         }
         public static class PacketIDs
@@ -140,7 +141,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void UpdateEquip(Item item, Player player)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float damageModifier = 0f;
             float speedModifier = 0f;
             int defenceBonus = 0;
@@ -177,7 +178,7 @@ namespace WeaponEnchantments.Common.Globals
             player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
             player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
             item.defense += defenceBonus - lastDefenceBonus;
-            lastDefenceBonus = defenceBonus;
+            lastDefenceBonus = defenceBonus;  */
         }
         public override void UpdateInventory(Item item, Player player)
         {
@@ -271,7 +272,6 @@ namespace WeaponEnchantments.Common.Globals
                         if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
                         {
                             enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
-                            OldItemManager.ReplaceOldItem(ref enchantments[i]);
                         }
                         else
                         {
@@ -756,22 +756,23 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }*/
-            return Main.rand.NextFloat() >= (eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
+            return Main.rand.NextFloat() >= weapon.AE("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
         public override bool? UseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (allForOne)
+            //if (allForOne)
+            if(eStats.ContainsKey("AllForOne"))
             {
                 wePlayer.allForOneCooldown = true;
-                wePlayer.allForOneTimer = (int)((float)item.useTime * allForOneBonus * 0.4f);
+                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AE("AllForOne", 0.4f));
             }
             return null;
         }
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            return allForOne ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
+            return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
         }
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
