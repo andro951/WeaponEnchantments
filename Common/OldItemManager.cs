@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
         public static void ReplaceAllOldItems()
         {
+            ReplaceOldItems(Main.LocalPlayer.armor);
             ReplaceOldItems(Main.LocalPlayer.inventory);
             ReplaceOldItems(Main.LocalPlayer.bank.item);
             ReplaceOldItems(Main.LocalPlayer.bank2.item);
