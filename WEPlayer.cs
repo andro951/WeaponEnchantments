@@ -23,20 +23,21 @@ namespace WeaponEnchantments
             bool checkWeapon = wePlayer.ItemChanged(newItem, oldItem, true);
             if (checkWeapon)
             {
-                if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem hiGlobal))
+                ("\\/CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
+                if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem newGlobal))
                 {
-                    hiGlobal.trackedWeapon = true;
+                    newGlobal.trackedWeapon = true;
                     //newItem.RemoveUntilPositive();
                     //CheckUpdateEnchantmentsOnItem(newItem);
                 }
-                if (!oldItem.IsAir)
+                if (!oldItem.IsAir && oldItem.TryGetGlobalItem(out EnchantedItem oldGlobal))
                 {
-                    hiGlobal = oldItem.GetGlobalItem<EnchantedItem>();
-                    hiGlobal.trackedWeapon = false;
+                    oldGlobal.trackedWeapon = false;
                 }
                 wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
                 wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
                 oldItem = newItem;
+                ("/\\CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
             }//Check HeldItem
         }
     }
@@ -540,11 +541,14 @@ namespace WeaponEnchantments
                 Main.mouseItem.CheckWeapon(ref trackedWeapon);
                 //Main.mouseItem.RemoveUntilPositive();
             }//Check too many enchantments on mouseItem
+            //(Main.HoverItem.Name + " Main.HoverItem != null: " + (Main.HoverItem != null) + " && WEMod.IsWeaponItem(Main.HoverItem): " + WEMod.IsWeaponItem(Main.HoverItem) + " && !Main.HoverItem.G().trackedWeapon: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon) + " && !Main.HoverItem.G().hoverItem: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)).LogT();
             if (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)
             {
-
+                ("\\/Start hoverItem check").Log();
                 Item newItem = null;
-                if (UtilityMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], hoverItem))
+                if(usingEnchantingTable && UtilityMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
+                    newItem = enchantingTableUI.itemSlotUI[0].Item;
+                if (newItem != null && UtilityMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
                     newItem = Player.inventory[hoverItemIndex];
                 if(newItem != null && Player.chest != -1)
                 {
@@ -567,7 +571,7 @@ namespace WeaponEnchantments
                             inventory = Player.bank4.item;
                             break;
                     }
-                    if (UtilityMethods.IsSameEnchantedItem(inventory[hoverItemIndex], hoverItem))
+                    if (UtilityMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
                         newItem = inventory[hoverItemIndex];
                 }
                 if (newItem == null)
@@ -576,7 +580,7 @@ namespace WeaponEnchantments
                     {
                         if (WEMod.IsWeaponItem(Player.inventory[i]))
                         {
-                            if (UtilityMethods.IsSameEnchantedItem(Player.inventory[i], hoverItem))
+                            if (UtilityMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem))
                             {
                                 //Player.inventory[i].G().hoverItem = true;
                                 hoverItemIndex = i;
@@ -612,7 +616,7 @@ namespace WeaponEnchantments
                         Item chestItem = inventory[i];
                         if (WEMod.IsWeaponItem(chestItem))
                         {
-                            if (UtilityMethods.IsSameEnchantedItem(chestItem, hoverItem))
+                            if (UtilityMethods.IsSameEnchantedItem(chestItem, Main.HoverItem))
                             {
                                 //chestItem.G().hoverItem = true;
                                 hoverItemIndex = i;
@@ -623,10 +627,12 @@ namespace WeaponEnchantments
                         }
                     }
                 }
+                ("newItem: " + (newItem != null ? newItem.Name : "null ")).Log();
                 bool checkWeapon = ItemChanged(newItem, hoverItem, true);
+                ("checkWeapon: " + ItemChanged(newItem, hoverItem, true)).Log();
                 if (checkWeapon)
                 {
-                    "checkWeapon".Log();
+                    ("C UpdateItemStats(" + newItem.Name + ")").Log();
                     newItem.G().hoverItem = true;
                     //newItem.RemoveUntilPositive();
                     //CheckUpdateEnchantmentsOnItem(newItem);
@@ -637,11 +643,13 @@ namespace WeaponEnchantments
                     hoverItem = newItem;
                     UpdateItemStats(ref newItem);
                 }//Check HeldItem
+                ("/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
             }
             else
             {
-                if (hoverItem != null && !hoverItem.IsAir)
+                if (hoverItem != null && !hoverItem.IsAir && (!WEMod.IsWeaponItem(Main.HoverItem) || !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem))
                 {
+                    ("remove hoverItem: " + hoverItem.Name).Log();
                     hoverItem.G().hoverItem = false;
                     hoverItem = null;
                 }
@@ -814,9 +822,9 @@ namespace WeaponEnchantments
             if (!WEMod.IsWeaponItem(newItem))
             {
                 Item weapon = null;
-                if (Player.HeldItem.G().trackedWeapon)
+                if (!Player.HeldItem.IsAir && Player.HeldItem.G().trackedWeapon)
                     weapon = Player.HeldItem;
-                else if (Main.mouseItem.G().trackedWeapon)
+                else if (!Main.mouseItem.IsAir && Main.mouseItem.G().trackedWeapon)
                     weapon = Main.mouseItem;
                 if (weapon != null)
                     UpdateItemStats(ref weapon);

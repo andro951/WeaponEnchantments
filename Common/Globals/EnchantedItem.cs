@@ -252,9 +252,10 @@ namespace WeaponEnchantments.Common.Globals
             int total = 0;
             for (int i = 0; i < enchantments.Length; i++)
             {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir) 
-                { 
+                if (enchantments[i] != null && !enchantments[i].IsAir)
+                {
+                    //("enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
+                    AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                     total += enchantment.GetLevelCost();
                 }
             }

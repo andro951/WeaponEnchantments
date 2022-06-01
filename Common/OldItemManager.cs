@@ -46,23 +46,30 @@ namespace WeaponEnchantments.Common
         }
         public static void ReplaceOldItem(ref Item item)
         {
-            if (item.type == 5163)
+            if (item.Name == "Unloaded Item")
             {
                 bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
                 replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
                 replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
                 replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
             }
-            item.RemoveUntilPositive();
-            if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
+            if (WEMod.IsEnchantable(item))
             {
-                for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
-                    Item enchantmentItem = iGlobal.enchantments[i];
-                    if (item.type == 5163)
-                        ReplaceOldItem(ref enchantmentItem);
-                    AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                    item.UpdateEnchantment(ref enchantment, i);
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        Item enchantmentItem = iGlobal.enchantments[i];
+                        if (enchantmentItem.Name == "Unloaded Item")
+                            ReplaceOldItem(ref enchantmentItem);
+                    }
+                    item.RemoveUntilPositive();
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        Item enchantmentItem = iGlobal.enchantments[i];
+                        AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                        item.UpdateEnchantment(ref enchantment, i);
+                    }
                 }
             }
         }

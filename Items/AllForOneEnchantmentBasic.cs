@@ -91,15 +91,6 @@ namespace WeaponEnchantments.Items
 				IDs.Add(arr);
             }
 			GetDefaults();
-			switch ((EnchantmentTypeID)EnchantmentType)
-			{
-				case EnchantmentTypeID.Scale:
-					MyDisplayName = "Size";
-					break;
-				default:
-					MyDisplayName = EnchantmentTypeName;
-					break;
-			}//New Display Name
 			string utilityToolTip = Utility ? "\n   *Utility*" : "";
 			if (DamageClassSpecific > 0 || Unique)
             {
@@ -488,7 +479,15 @@ namespace WeaponEnchantments.Items
 					DamageClassSpecific = 0;
 					break;
 			}//DamageTypeSpecific
-            
+			switch ((EnchantmentTypeID)EnchantmentType)
+			{
+				case EnchantmentTypeID.Scale:
+					MyDisplayName = "Size";
+					break;
+				default:
+					MyDisplayName = EnchantmentTypeName;
+					break;
+			}//New Display Name
 		}
 		public override void SetDefaults()
 		{
