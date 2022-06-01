@@ -12,6 +12,9 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
+        private static bool debugging = true;
+        private static Dictionary<string, double> logsT = new Dictionary<string, double>();
+
         ///<summary>
         ///Gets (EnchantedItem : GlobalItem)
         ///</summary>
@@ -40,7 +43,7 @@ namespace WeaponEnchantments.Common
         /// Applies the eStat modifier from the item's global item to the value.
         /// </summary>
         public static float AE(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
-        
+
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
         {
@@ -77,7 +80,7 @@ namespace WeaponEnchantments.Common
             int start = 0;
             int end = 0;
             string finalString = "";
-            for(int i = 1; i < s.Length; i++)
+            for (int i = 1; i < s.Length; i++)
             {
                 if (s[i].IsUpper())
                 {
@@ -85,7 +88,7 @@ namespace WeaponEnchantments.Common
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = end + 1;
                 }
-                else if(i == s.Length - 1)
+                else if (i == s.Length - 1)
                 {
                     end = i;
                     finalString += s.Substring(start, end - start + 1);
@@ -98,10 +101,10 @@ namespace WeaponEnchantments.Common
             if (s.Length > 0)
             {
                 string[] apla = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWKYZ" };
-                if(s[0].IsUpper())
-                    for(int i = 0; i < apla[0].Length; i++)
+                if (s[0].IsUpper())
+                    for (int i = 0; i < apla[0].Length; i++)
                     {
-                        if(s[0] == apla[1][i])
+                        if (s[0] == apla[1][i])
                         {
                             char c = apla[0][i];
                             return c + s.Substring(1);
@@ -118,11 +121,11 @@ namespace WeaponEnchantments.Common
         public static int CheckMatches(this List<string> l1, List<string> l2)
         {
             int matches = 0;
-            foreach(string s in l1)
+            foreach (string s in l1)
             {
-                foreach(string s2 in l2)
+                foreach (string s2 in l2)
                 {
-                    if(s2.IndexOf(s) > -1)
+                    if (s2.IndexOf(s) > -1)
                     {
                         matches++;
                     }
@@ -132,22 +135,25 @@ namespace WeaponEnchantments.Common
         }
         public static bool IsSameEnchantedItem(this Item item1, Item item2)
         {
-            if(!item1.IsAir && !item2.IsAir)
+            if (item1 != null && item2 != null)
             {
-                if (item1.TryGetGlobalItem(out EnchantedItem global1))
+                if (!item1.IsAir && !item2.IsAir)
                 {
-                    if (item2.TryGetGlobalItem(out EnchantedItem global2))
+                    if (item1.TryGetGlobalItem(out EnchantedItem global1))
                     {
-                        if (item1.type == item2.type && global1.experience == global2.experience && global1.powerBoosterInstalled == global2.powerBoosterInstalled && item1.value == item2.value && item1.prefix == item2.prefix)
+                        if (item2.TryGetGlobalItem(out EnchantedItem global2))
                         {
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                            if (item1.type == item2.type && global1.experience == global2.experience && global1.powerBoosterInstalled == global2.powerBoosterInstalled && item1.value == item2.value && item1.prefix == item2.prefix)
                             {
-                                if (global1.enchantments[i].type != global2.enchantments[i].type)
+                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                                 {
-                                    return false;
+                                    if (global1.enchantments[i].type != global2.enchantments[i].type)
+                                    {
+                                        return false;
+                                    }
                                 }
+                                return true;
                             }
-                            return true;
                         }
                     }
                 }
@@ -161,7 +167,7 @@ namespace WeaponEnchantments.Common
         }
         public static float GetGodSlayerReductionFactor(int hp)
         {
-            float factor =  hp / 50000f + 1f;
+            float factor = hp / 50000f + 1f;
             return factor;
         }
         public static void RemoveUntilPositive(this Item item)
@@ -223,7 +229,7 @@ namespace WeaponEnchantments.Common
         public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            if(enchantment != null)
+            if (enchantment != null)
             {
                 if (enchantment.PotionBuff > -1)
                 {
@@ -327,11 +333,28 @@ namespace WeaponEnchantments.Common
             while (coins > 0)
             {
                 int numCoinsToSpawn = coins / coinValue;
-                if(numCoinsToSpawn > 0)
+                if (numCoinsToSpawn > 0)
                     Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), coinType, numCoinsToSpawn);
                 coins %= coinValue;
                 coinType--;
                 coinValue /= 100;
+            }
+        }
+        public static void Log(this string s) { if (debugging) ModContent.GetInstance<WEMod>().Logger.Info(s); }
+        public static void LogT(this string s) 
+        {
+            if (debugging)
+            {
+                foreach (string key in logsT.Keys)
+                {
+                    if(logsT[key] + 59 < Main.GameUpdateCount)
+                        logsT.Remove(key);
+                }
+                if (!logsT.ContainsKey(s))
+                {
+                    ModContent.GetInstance<WEMod>().Logger.Info(s);
+                    logsT.Add(s, Main.GameUpdateCount);
+                }
             }
         }
     }

@@ -1,17 +1,17 @@
 ﻿using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using WeaponEnchantments.UI;
-using WeaponEnchantments.Items;
-using WeaponEnchantments.Common.Globals;
-using System;
 using WeaponEnchantments.Common;
-using System.Collections.Generic;
-using System.Reflection;
+using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Items;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments
 {
@@ -64,6 +64,8 @@ namespace WeaponEnchantments
         public bool[] equipArmorStatsUpdated;
         public Item trackedWeapon;
         public Item hoverItem;
+        int hoverItemIndex = 0;
+        int hoverItemChest = 0;
         public Item trashItem = new Item();
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
@@ -540,26 +542,108 @@ namespace WeaponEnchantments
             }//Check too many enchantments on mouseItem
             if (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)
             {
-                Item newItem = Main.HoverItem;
-                bool checkWeapon = ItemChanged(newItem, hoverItem, true);
-                if(newItem != null)
+
+                Item newItem = null;
+                if (UtilityMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], hoverItem))
+                    newItem = Player.inventory[hoverItemIndex];
+                if(newItem != null && Player.chest != -1)
                 {
-                    if (checkWeapon)
+                    Item[] inventory = null;
+                    switch (hoverItemChest)
                     {
-                        if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem hiGlobal))
+                        case > -1:
+                            inventory = Main.chest[hoverItemChest].item;
+                            break;
+                        case -2:
+                            inventory = Player.bank.item;
+                            break;
+                        case -3:
+                            inventory = Player.bank2.item;
+                            break;
+                        case -4:
+                            inventory = Player.bank3.item;
+                            break;
+                        case -5:
+                            inventory = Player.bank4.item;
+                            break;
+                    }
+                    if (UtilityMethods.IsSameEnchantedItem(inventory[hoverItemIndex], hoverItem))
+                        newItem = inventory[hoverItemIndex];
+                }
+                if (newItem == null)
+                {
+                    for (int i = 0; i < Player.inventory.Length; i++)
+                    {
+                        if (WEMod.IsWeaponItem(Player.inventory[i]))
                         {
-                            hiGlobal.hoverItem = true;
-                            //newItem.RemoveUntilPositive();
-                            //CheckUpdateEnchantmentsOnItem(newItem);
+                            if (UtilityMethods.IsSameEnchantedItem(Player.inventory[i], hoverItem))
+                            {
+                                //Player.inventory[i].G().hoverItem = true;
+                                hoverItemIndex = i;
+                                newItem = Player.inventory[i];
+                                break;
+                            }
                         }
-                        if (hoverItem != null && !hoverItem.IsAir)
+                    }
+                }
+                if(Player.chest != -1 && newItem == null)
+                {
+                    Item[] inventory = null;
+                    switch(Player.chest)
+                    {
+                        case > -1:
+                            inventory = Main.chest[Player.chest].item;
+                            break;
+                        case -2:
+                            inventory = Player.bank.item;
+                            break;
+                        case -3:
+                            inventory = Player.bank2.item;
+                            break;
+                        case -4:
+                            inventory = Player.bank3.item;
+                            break;
+                        case -5:
+                            inventory = Player.bank4.item;
+                            break;
+                    }
+                    for(int i = 0; i < inventory.Length; i++)
+                    {
+                        Item chestItem = inventory[i];
+                        if (WEMod.IsWeaponItem(chestItem))
                         {
-                            hiGlobal = hoverItem.GetGlobalItem<EnchantedItem>();
-                            hiGlobal.hoverItem = false;
+                            if (UtilityMethods.IsSameEnchantedItem(chestItem, hoverItem))
+                            {
+                                //chestItem.G().hoverItem = true;
+                                hoverItemIndex = i;
+                                newItem = chestItem;
+                                hoverItemChest = Player.chest;
+                                break;
+                            }
                         }
-                        hoverItem = newItem;
-                        UpdateItemStats(ref newItem);
-                    }//Check HeldItem
+                    }
+                }
+                bool checkWeapon = ItemChanged(newItem, hoverItem, true);
+                if (checkWeapon)
+                {
+                    "checkWeapon".Log();
+                    newItem.G().hoverItem = true;
+                    //newItem.RemoveUntilPositive();
+                    //CheckUpdateEnchantmentsOnItem(newItem);
+                    if (hoverItem != null && !hoverItem.IsAir)
+                    {
+                        hoverItem.G().hoverItem = false;
+                    }
+                    hoverItem = newItem;
+                    UpdateItemStats(ref newItem);
+                }//Check HeldItem
+            }
+            else
+            {
+                if (hoverItem != null && !hoverItem.IsAir)
+                {
+                    hoverItem.G().hoverItem = false;
+                    hoverItem = null;
                 }
             }
             for(int j = 0; j < Player.armor.Length; j++)
@@ -683,36 +767,10 @@ namespace WeaponEnchantments
             }
             return false;
         }
-        /*private void SetFalseVanillaBoolBuffs(ref bool[] vanillaBuffsBool, EnchantedItem hiGlobal = null, bool globalOnly = false)
-        {
-            if (!globalOnly)
-            {
-                for (int k = 0; k < vanillaPlayerBuffsWeapon.Length; k++)
-                {
-                    vanillaBuffsBool[k] = false;
-                }//vanillaBuffs = false
-            }
-            if (hiGlobal != null)
-            {
-                for (int k = 0; k < vanillaPlayerBuffsWeapon.Length; k++)
-                {
-                    hiGlobal.vanillaPlayerBuffs[k] = false;
-                }//vanillaBuffs = false
-            }
-        }*/
         public void UpdatePotionBuffs(ref Item newItem, ref Item oldItem)
         {
             UpdatePotionBuff(ref newItem);
             UpdatePotionBuff(ref oldItem, true);
-            /*int l = 0;
-            foreach (VanillaBoolBuffs boolBuff in (VanillaBoolBuffs[])Enum.GetValues(typeof(VanillaBoolBuffs)))
-            {
-                if (enchantment.EnchantmentTypeName == boolBuff.ToString())
-                {
-                    vanillaBuffsBool[l] = true;
-                }
-                l++;
-            }*/
         }
         private static void UpdatePotionBuff(ref Item item, bool remove = false)
         {
@@ -731,33 +789,6 @@ namespace WeaponEnchantments
                 }
             }
         }
-        /*private static void UpdateStats(Item newItem, Item oldItem)
-        {
-            UpdateStat(newItem);
-            UpdateStat(oldItem);
-        }
-        private static void UpdateStat(Item item, bool remove = false)
-        {
-            if (WEMod.IsEnchantable(item))
-            {
-                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                foreach(string key in item.G().statModifiers.Keys)
-                {
-                    if (wePlayer.statModifiers.ContainsKey(key))
-                    {
-                        wePlayer.statModifiers[key] = CombineStatModifier(wePlayer.statModifiers[key], item.G().statModifiers[key], remove);
-                        /*wePlayer.statModifiers[key] += item.G().statModifiers[key].Additive * (remove ? -1f : 1f);
-                        wePlayer.statModifiers[key] *= (remove ? 1f / item.G().statModifiers[key].Multiplicative : item.G().statModifiers[key].Multiplicative);
-                        wePlayer.statModifiers[key].Base = item.G().statModifiers[key].Base * (remove ? -1f : 1f);
-                        wePlayer.statModifiers[key].Flat = item.G().statModifiers[key].Flat* (remove ? -1f : 1f);*//*
-                    }
-                    else
-                        wePlayer.statModifiers.Add(key, item.G().statModifiers[key]);
-                    if(wePlayer.statModifiers[key].Additive == 1f && wePlayer.statModifiers[key].Multiplicative == 1f && wePlayer.statModifiers[key].Flat == 0f && wePlayer.statModifiers[key].Base == 0f)
-                        wePlayer.statModifiers.Remove(key);
-                }
-            }
-        }*/
         private static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
         {
             if (remove)
@@ -772,24 +803,6 @@ namespace WeaponEnchantments
                     dictionary.Remove(key);
             }
         }
-        /*private void CheckUpdateEnchantmentsOnItem(Item item) 
-        {
-            if (WEMod.IsEnchantable(item))
-            {
-                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                {
-                    AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
-                    if(enchantment != null)
-                    {
-                        bool statStet = enchantment.statsSet;
-                        if (!statStet)
-                        {
-                            item.UpdateEnchantment(ref enchantment, i);
-                        }
-                    }
-                }
-            }
-        }*/
         public void UpdatePlayerStats(ref Item newItem, ref Item oldItem)
         {
             if (WEMod.IsEnchantable(newItem))
@@ -809,59 +822,6 @@ namespace WeaponEnchantments
                     UpdateItemStats(ref weapon);
             }
             UpdatePlayerStat();
-
-
-            //change to player fields/properties
-            /*foreach (EnchantmentStaticStat staticStat in item.G().staticStats.Values)
-            {
-                bool found = false;
-                foreach (FieldInfo field in item.GetType().GetFields())
-                {
-                    string name = field.Name;
-                    if (name == staticStat.Name)
-                    {
-                        Type fieldType = field.FieldType;
-                        float value;
-                        if (fieldType == typeof(float))
-                        {
-                            value = (float)field.GetValue(item);
-                        }
-                        else if (fieldType == typeof(int))
-                        {
-                            int valueInt = (int)field.GetValue(item);
-                            value = (float)valueInt;
-                        }
-                        staticStat.UpdatePlayerStat(ref item, name, remove, fieldType == typeof(bool), staticStat.PreventBoolStat, enchantment);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    foreach (PropertyInfo property in item.GetType().GetProperties())
-                    {
-                        //string name = property.Name;
-                        //if (name == staticStat.Name)
-                        {
-                            Type propertyType = property.PropertyType;
-                            float value;
-                            if (propertyType == typeof(float))
-                            {
-                                value = (float)property.GetValue(item, null);
-
-                            }
-                            else if (propertyType == typeof(int))
-                            {
-                                int valueInt = (int)property.GetValue(item, null);
-                                value = (float)valueInt;
-                            }
-                            staticStat.UpdatePlayerStat(ref item, name, remove, propertyType == typeof(bool), staticStat.PreventBoolStat, enchantment, true);
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-            }*/
         }
         private void UpdatePlayerStat()
         {
@@ -929,7 +889,7 @@ namespace WeaponEnchantments
         }
         private void UpdatePlayerDictionaries(Item item, bool remove = false)
         {
-            int temp = item.GetGlobalItem<EnchantedItem>().statModifiers.Count;
+            (item.Name + " statModifiers.Count: " + item.GetGlobalItem<EnchantedItem>().statModifiers.Count).Log();
             foreach (string key in item.G().statModifiers.Keys)
             {
                 if (!WEMod.IsWeaponItem(item) || item.GetType().GetField(key) == null && item.GetType().GetProperty(key) == null)
