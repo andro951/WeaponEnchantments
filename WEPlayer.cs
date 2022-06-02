@@ -747,7 +747,7 @@ namespace WeaponEnchantments
                 allForOneTimer--;
                 if (allForOneTimer == 0)
                 {
-                    SoundEngine.PlaySound(SoundID.MaxMana);
+                    SoundEngine.PlaySound(SoundID.Unlock);
                 }
             }
         }
