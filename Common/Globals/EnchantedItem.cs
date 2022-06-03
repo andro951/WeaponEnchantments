@@ -350,11 +350,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            item.AE(ref damage, "Damage");
+            //item.AE(ref damage, "Damage");
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
-            crit = item.AE("CriticalStrikeChance", crit);
+            //crit = item.AE("CriticalStrikeChance", crit);
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
@@ -415,7 +415,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                         {
-                            case EnchantmentTypeID.Defence:
+                            case EnchantmentTypeID.StatDefense:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength / 2).ToString() + " " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
@@ -511,7 +511,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                         {
-                            case EnchantmentTypeID.Defence:
+                            case EnchantmentTypeID.StatDefense:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + enchantment.EnchantmentStrength.ToString() + " " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]

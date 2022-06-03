@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Items
 		CriticalStrikeChance,
 		Damage,
 		DangerSense,
-		Defence,
+		StatDefense,
 		GodSlayer,
 		Hunter,
 		LifeSteal,
@@ -140,7 +140,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Speed:
 						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + MyDisplayName + "\n(Lowers NPC immunity time to raise dps for minions/channeled weapons)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
-					case EnchantmentTypeID.Defence:
+					case EnchantmentTypeID.StatDefense:
 						Tooltip.SetDefault("+" + EnchantmentStrength.ToString() + " " + MyDisplayName + "\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault(EnchantmentStrength + "x Damage, item CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n(Raises NPC immunity time to lower dps for minions/channeled weapons)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.OneForAll:
-						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies by " + (EnchantmentStrength * 100).ToString() + "% of damage dealt, " + (30f * EnchantmentStrength).ToString() + "% reduced base attack speed\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
+						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies by " + (EnchantmentStrength * 100).ToString() + "% of damage dealt, " + (30f * EnchantmentStrength).ToString() + "% reduced base attack speed\n(WARNING - Destroys your projectiles upon hitting an enemy)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.Spelunker:
 						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
@@ -289,7 +289,7 @@ namespace WeaponEnchantments.Items
 							break;
 					}
 					break;
-				case EnchantmentTypeID.Defence:
+				case EnchantmentTypeID.StatDefense:
 					switch (EnchantmentSize)
 					{
 						case 0:
@@ -497,6 +497,9 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Scale:
 					MyDisplayName = "Size";
 					break;
+				case EnchantmentTypeID.StatDefense:
+					MyDisplayName = "Defence";
+					break;
 				default:
 					MyDisplayName = EnchantmentTypeName;
 					break;
@@ -510,7 +513,7 @@ namespace WeaponEnchantments.Items
             {
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
-					case EnchantmentTypeID.Defence:
+					case EnchantmentTypeID.StatDefense:
 						AllowedList.Add("Weapon", 0.5f);
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);
@@ -535,21 +538,22 @@ namespace WeaponEnchantments.Items
 				{
 					case EnchantmentTypeID.AllForOne:
 						AddStaticStat("damage", 0f, EnchantmentStrength);
-						AddStaticStat("I_useSpeed", EnchantmentStrength * 0.8f);
+						AddStaticStat("I_useTime", EnchantmentStrength * 0.8f);
 						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.8f);
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.8f));
 						AddStaticStat("mana", EnchantmentStrength * 0.4f);
-						StaticStat = AddStaticStat("P_autoReuse");
+						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.AmmoCost:
 					case EnchantmentTypeID.LifeSteal:
-					/*case EnchantmentTypeID.CriticalStrikeChance:
+					//case EnchantmentTypeID.CriticalStrikeChance:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						break;*/
+						break;
 					case EnchantmentTypeID.ArmorPenetration:
-					/*case EnchantmentTypeID.CriticalStrikeChance:
-					case EnchantmentTypeID.Damage:*/
+					case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.Damage:
 					case EnchantmentTypeID.Scale:
+					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.DangerSense:
@@ -563,7 +567,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
-						AddStaticStat("I_useSpeed", EnchantmentStrength * 0.3f);
+						AddStaticStat("I_useTime", EnchantmentStrength * 0.3f);
 						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.3f);
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.3f));
 						break;
@@ -573,8 +577,8 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("maxSpawns", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Speed:
-						StaticStat = AddStaticStat("autoReuse");
-						AddStaticStat("I_useSpeed", EnchantmentStrength);
+						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
+						AddStaticStat("I_useTime", EnchantmentStrength);
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						break;
@@ -614,6 +618,40 @@ namespace WeaponEnchantments.Items
 				string name = property.Name;
 				if (name.Length < Name.Length)
                 {
+					if (name == Name.Substring(0, name.Length))
+					{
+						StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
+						return true;
+					}
+				}
+			}
+			Player player = new();
+			foreach (FieldInfo field in player.GetType().GetFields())
+			{
+				string fieldName = field.Name;
+				if (fieldName.Length < Name.Length)
+				{
+					string name = UtilityMethods.ToFieldName(Name.Substring(0, fieldName.Length));
+					if (fieldName == name)
+					{
+						switch (name)
+						{
+							case "statDefense":
+								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength));
+								break;
+							default:
+								StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
+								break;
+						}
+						return true;
+					}
+				}
+			}
+			foreach (PropertyInfo property in player.GetType().GetProperties())
+			{
+				string name = property.Name;
+				if (name.Length < Name.Length)
+				{
 					if (name == Name.Substring(0, name.Length))
 					{
 						StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
@@ -675,7 +713,7 @@ namespace WeaponEnchantments.Items
 							skipIfLessOrEqualToSize = 4;
 							break;
 						case EnchantmentTypeID.Damage:
-						case EnchantmentTypeID.Defence:
+						case EnchantmentTypeID.StatDefense:
 							skipIfLessOrEqualToSize = -1;
 							break;
 						default:
@@ -735,7 +773,6 @@ namespace WeaponEnchantments.Items
 	public class CriticalStrikeChanceEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class DefenceEnchantmentBasic : AllForOneEnchantmentBasic { }public class DefenceEnchantmentCommon : AllForOneEnchantmentBasic { }public class DefenceEnchantmentRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DefenceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
@@ -747,5 +784,6 @@ namespace WeaponEnchantments.Items
 	public class SpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class SpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class SpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class StatDefenseEnchantmentBasic : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentCommon : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 }

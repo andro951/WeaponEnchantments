@@ -639,9 +639,10 @@ namespace WeaponEnchantments.UI
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
                         {
-                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+                            WEModSystem.RemoveEnchantment(i);
+                            //AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
+                            //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
                         }
                     }

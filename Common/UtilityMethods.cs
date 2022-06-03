@@ -179,6 +179,13 @@ namespace WeaponEnchantments.Common
             }
             return false;
         }
+        public static float RoundCheck(this float value, StatModifier statModifier, int baseValue)
+        {
+            float checkValue = (value + 1f) * 1f / statModifier.ApplyTo(1f);
+            if ((int)Math.Round(checkValue) == baseValue)
+                return value + 1f;
+            return value;
+        }
         public static float GetReductionFactor(int hp)
         {
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
@@ -219,32 +226,6 @@ namespace WeaponEnchantments.Common
                 }
             }
         }
-        /*public static void EditBoolField(this Dictionary<string, int> dictionary, string name, bool remove, Dictionary<string, int> copyFromDictionary = null)
-        {
-            int num = copyFromDictionary == null ? 1 : copyFromDictionary[name];
-            if(copyFromDictionary == null || copyFromDictionary.ContainsKey(name))
-            {
-                if (!dictionary.ContainsKey(name))
-                {
-                    dictionary.Add(name, num);
-                }
-                else if(copyFromDictionary == null)
-                {
-                    //num = dictionary[name];
-                    dictionary[name] += (remove ? -1 : 1);
-                    //num = dictionary[name];
-                }
-                else
-                {
-                    dictionary[name] = num;
-                }
-                //num = dictionary[name];
-            }
-            if (dictionary.ContainsKey(name) && dictionary[name] < 1 || copyFromDictionary != null && !copyFromDictionary.ContainsKey(name))
-            {
-                dictionary.Remove(name);
-            }
-        }*/
         public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             if(enchantment != null)

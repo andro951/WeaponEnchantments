@@ -72,7 +72,7 @@ namespace WeaponEnchantments
             }
             ("/\\ApplyEnchantment(i: " + i + ")").Log();
         }
-        private static void RemoveEnchantment(int i)
+        public static void RemoveEnchantment(int i)
         {
             ("\\/RemoveEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -667,7 +667,7 @@ namespace WeaponEnchantments
                             {
                                 case 0://Chest
                                     chance = 0.35f;
-                                    itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());

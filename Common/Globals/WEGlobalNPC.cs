@@ -75,7 +75,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.Deerclops when !bossBag:
                 case ItemID.DeerclopsBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
                     break;
                 case NPCID.WallofFlesh when !bossBag:
                 case ItemID.WallOfFleshBossBag when bossBag:
@@ -249,7 +249,7 @@ namespace WeaponEnchantments.Common.Globals
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 3://Fighter
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DefenceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 5://Flying
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
