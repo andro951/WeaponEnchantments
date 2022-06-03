@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Common
         public float Flat { get; private set; }
         public float Base { get; private set; }
         public bool PreventBoolStat { get; private set; }
-        public bool Inverse { get; private set; }
+        //public bool Inverse { get; private set; }
         public EnchantmentStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f)
         {
             Additive = additive;
@@ -33,8 +33,9 @@ namespace WeaponEnchantments.Common
             /*PreventBoolStat = name.Substring(0, 2) == "P_";
             Inverse = name.Substring(0, 2) == "I_";
             Name = PreventBoolStat || Inverse ? name.Substring(2) : name;*/
-            Inverse = name.Substring(0, 2) == "I_";
-            Name = Inverse ? name.Substring(2) : name;
+            //Inverse = name.Substring(0, 2) == "I_";
+            //Name = Inverse ? name.Substring(2) : name;
+            Name = name;
         }
         /*public void UpdateStat(ref Item item, string name, bool remove, bool property = false) 
         {

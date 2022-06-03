@@ -60,7 +60,8 @@ namespace WeaponEnchantments.Common
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
         public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
-
+        public static string RI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
+        public static bool CI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
@@ -299,7 +300,7 @@ namespace WeaponEnchantments.Common
                         float flat = staticStat.Flat * (remove ? -1f : 1f);
                         float @base = staticStat.Base * (remove ? -1f : 1f);
                         ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
+                        StatModifier statModifier =new StatModifier(1f + add, mult, flat, @base);
                         if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
                         {
                             item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);

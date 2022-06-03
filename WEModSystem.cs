@@ -396,6 +396,8 @@ namespace WeaponEnchantments
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if(!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)
+                wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].Item, GetItemSettings.LootAllSettings);
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {
@@ -539,6 +541,7 @@ namespace WeaponEnchantments
             if (wePlayer.usingEnchantingTable)
             {
                 CloseWeaponEnchantmentUI();
+                wePlayer.enchantingTableUI.OnDeactivate();
             }
         }
         public override void UpdateUI(GameTime gameTime)//*

@@ -113,6 +113,26 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         writer.Write((short)enchantments[i].type);
                     }
+                    /*short count = (short)eStats.Count;
+                    writer.Write(count);
+                    foreach(string key in eStats.Keys)
+                    {
+                        writer.Write(key);
+                        writer.Write(eStats[key].Additive);
+                        writer.Write(eStats[key].Multiplicative);
+                        writer.Write(eStats[key].Base);
+                        writer.Write(eStats[key].Flat);
+                    }
+                    count = (short)statModifiers.Count;
+                    writer.Write(count);
+                    foreach (string key in statModifiers.Keys)
+                    {
+                        writer.Write(key);
+                        writer.Write(statModifiers[key].Additive);
+                        writer.Write(statModifiers[key].Multiplicative);
+                        writer.Write(statModifiers[key].Flat);
+                        writer.Write(statModifiers[key].Base);
+                    }*/
                 }
             }
         }
@@ -132,6 +152,28 @@ namespace WeaponEnchantments.Common.Globals
                             {
                                 enchantments[i] = new Item(reader.ReadUInt16());
                             }
+                            /*eStats.Clear();
+                            int count = reader.ReadUInt16();
+                            for (int i = 0; i < count; i++)
+                            {
+                                string key = reader.ReadString();
+                                float additive = reader.ReadSingle();
+                                float multiplicative = reader.ReadSingle();
+                                float flat = reader.ReadSingle();
+                                float @base = reader.ReadSingle();
+                                eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                            }
+                            statModifiers.Clear();
+                            count = reader.ReadUInt16();
+                            for (int i = 0; i < count; i++)
+                            {
+                                string key = reader.ReadString();
+                                float additive = reader.ReadSingle();
+                                float multiplicative = reader.ReadSingle();
+                                float flat = reader.ReadSingle();
+                                float @base = reader.ReadSingle();
+                                statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                            }*/
                             break;
                         default:
                             ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
@@ -308,11 +350,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            //item.AE(ref damage, "Damage");
+            item.AE(ref damage, "Damage");
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
-            //crit = item.AE("CriticalStrikeChance", crit);
+            crit = item.AE("CriticalStrikeChance", crit);
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {

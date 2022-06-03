@@ -952,7 +952,7 @@ namespace WeaponEnchantments
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
-                    if (item.GetType().GetField(itemKey) != null)
+                    if (item.GetType().GetField(itemKey.RI()) != null)
                     {
                         combinedStatModifiers.Add(itemKey, item.G().statModifiers[itemKey]);
                         ("combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
@@ -962,7 +962,7 @@ namespace WeaponEnchantments
                 {
                     foreach (string playerKey in statModifiers.Keys)
                     {
-                        if (item.GetType().GetField(playerKey) != null)
+                        if (item.GetType().GetField(playerKey.RI()) != null)
                         {
                             if (combinedStatModifiers.ContainsKey(playerKey))
                             {
@@ -978,6 +978,7 @@ namespace WeaponEnchantments
                 }//Populate playerStatModifiers if item is a weapon
                 foreach (string key in combinedStatModifiers.Keys)
                 {
+                    bool inverse = key.CI();
                     bool statsNeedUpdate = true;
                     if (item.G().appliedStatModifiers.ContainsKey(key))
                         statsNeedUpdate = combinedStatModifiers[key] != item.G().appliedStatModifiers[key];

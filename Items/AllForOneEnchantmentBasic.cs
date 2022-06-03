@@ -87,9 +87,7 @@ namespace WeaponEnchantments.Items
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override ModItem Clone(Item newEntity)
         {
-			//EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
-			//AllForOneEnchantmentBasic clone = (AllForOneEnchantmentBasic)base.Clone();
-			AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)base.Clone(newEntity);//newEntity.ModItem);
+			AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)base.Clone(newEntity);
 			enchantment.StaticStats = new List<EnchantmentStaticStat>(StaticStats);
 			enchantment.EStats = new List<EStat>(EStats);
 			return enchantment;
@@ -537,9 +535,9 @@ namespace WeaponEnchantments.Items
 				{
 					case EnchantmentTypeID.AllForOne:
 						AddStaticStat("damage", 0f, EnchantmentStrength);
-						AddStaticStat("useSpeed", EnchantmentStrength * 0.8f);
-						AddStaticStat("useAnimation", EnchantmentStrength * 0.8f);
-						EStats.Add(new EStat("NPCHitCooldown", EnchantmentStrength * 0.8f));
+						AddStaticStat("I_useSpeed", EnchantmentStrength * 0.8f);
+						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.8f);
+						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.8f));
 						AddStaticStat("mana", EnchantmentStrength * 0.4f);
 						StaticStat = AddStaticStat("P_autoReuse");
 						break;
@@ -549,8 +547,8 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;*/
 					case EnchantmentTypeID.ArmorPenetration:
-					case EnchantmentTypeID.CriticalStrikeChance:
-					case EnchantmentTypeID.Damage:
+					/*case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.Damage:*/
 					case EnchantmentTypeID.Scale:
 						StaticStat = CheckStaticStatByName();
 						break;
@@ -565,9 +563,9 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
-						AddStaticStat("useSpeed", EnchantmentStrength * 0.3f);
-						AddStaticStat("useAnimation", EnchantmentStrength * 0.3f);
-						EStats.Add(new EStat("NPCHitCooldown", EnchantmentStrength * 0.3f));
+						AddStaticStat("I_useSpeed", EnchantmentStrength * 0.3f);
+						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.3f);
+						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.3f));
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:

@@ -592,50 +592,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }*/
         }
-        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
-        {
-            /*if(!npc.townNPC && !npc.friendly)
-            {
-                if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
-                {
-                    sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-                }
-                if(sourceItem != null && sourceItem.IsAir)
-                    sourceItem = null;
-                if (sourceItem != null)
-                {
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
-                    {
-                        if (npc.GetGlobalNPC<WEGlobalNPC>().immuneToAllForOne)
-                        {
-                            //if (timeHitByAllForOne[projectile.owner] + 16f * sourceItem.GetGlobalItem<EnchantedItem>().oneForAllBonus > Main.GameUpdateCount)
-                            if (timeHitByAllForOne[projectile.owner] + 80 > Main.GameUpdateCount)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                timeHitByAllForOne[projectile.owner] = 0;
-                                bool noPlayersLeft = true;
-                                for (int j = 0; j < timeHitByAllForOne.Length; j++)
-                                {
-                                    if (timeHitByAllForOne[j] > 0)
-                                    {
-                                        noPlayersLeft = false;
-                                        break;
-                                    }
-                                }
-                                if (noPlayersLeft)
-                                {
-                                    immuneToAllForOne = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
-            return null;
-        }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
             OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
