@@ -292,7 +292,8 @@ namespace WeaponEnchantments.Common.Globals
                                 { 
                                     ModContent.ItemType<SpelunkerEnchantmentUltraRare>(),
                                     ModContent.ItemType<DangerSenseEnchantmentUltraRare>(),
-                                    ModContent.ItemType<HunterEnchantmentUltraRare>()
+                                    ModContent.ItemType<HunterEnchantmentUltraRare>(),
+                                    ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>()
                                 };
                                 npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
                                 break;

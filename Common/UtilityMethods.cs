@@ -13,6 +13,7 @@ namespace WeaponEnchantments.Common
     public static class UtilityMethods
     {
         private static bool debugging = true;
+        private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 
         ///<summary>
@@ -43,7 +44,24 @@ namespace WeaponEnchantments.Common
         /// Applies the eStat modifier from the item's global item to the value.
         /// </summary>
         public static float AE(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+        public static void AE(this Item item, ref StatModifier statModifer, string key) 
+        {
+            if (item.G().eStats.ContainsKey(key))
+                statModifer = statModifer.CombineWith(item.G().eStats[key]);
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (wePlayer.eStats.ContainsKey(key))
+                statModifer = statModifer.CombineWith(wePlayer.eStats[key]);
+        }
+        public static string S(this StatModifier statModifier) => "<A: " + statModifier.Additive + ", M: " + statModifier.Multiplicative + ", B: " + statModifier.Base + ", F: " + statModifier.Flat + ">";
+        public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
+        public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
+        public static string S(this Item item) => item != null ? !item.IsAir ? item.Name : "<Air>" : "null";
+        public static string S(this AllForOneEnchantmentBasic enchantment) => enchantment != null ? enchantment.Name : "null";
+        public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
+        public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
+        public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
 
+        
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         public static bool IsUpper(this char c)
         {
@@ -228,67 +246,79 @@ namespace WeaponEnchantments.Common
         }*/
         public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            if (enchantment != null)
+            if(enchantment != null)
             {
-                if (enchantment.PotionBuff > -1)
+                ("\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                if (enchantment != null)
                 {
-                    if (iGlobal.potionBuffs.ContainsKey(enchantment.PotionBuff))
+                    if (enchantment.PotionBuff > -1)
                     {
-                        iGlobal.potionBuffs[enchantment.PotionBuff] += (remove ? -1 : 1);
-                        if (iGlobal.potionBuffs[enchantment.PotionBuff] < 1)
-                            iGlobal.potionBuffs.Remove(enchantment.PotionBuff);
-                    }
-                    else
-                    {
-                        iGlobal.potionBuffs.Add(enchantment.PotionBuff, 1);
-                    }
-                }
-                foreach (EStat eStat in enchantment.EStats)
-                {
-                    float add = eStat.Additive * (remove ? -1f : 1f);
-                    float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
-                    float flat = eStat.Flat * (remove ? -1f : 1f);
-                    float @base = eStat.Base * (remove ? -1f : 1f);
-                    ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                    StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
-                    if (!iGlobal.eStats.ContainsKey(eStat.StatName))
-                    {
-                        iGlobal.eStats.Add(eStat.StatName, statModifier);
-                    }
-                    else
-                    {
-                        iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
-                        if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
+                        (iGlobal.potionBuffs.S(enchantment.PotionBuff)).Log();
+                        if (iGlobal.potionBuffs.ContainsKey(enchantment.PotionBuff))
                         {
-                            iGlobal.eStats.Remove(eStat.StatName);
+                            iGlobal.potionBuffs[enchantment.PotionBuff] += (remove ? -1 : 1);
+                            if (iGlobal.potionBuffs[enchantment.PotionBuff] < 1)
+                                iGlobal.potionBuffs.Remove(enchantment.PotionBuff);
+                        }
+                        else
+                        {
+                            iGlobal.potionBuffs.Add(enchantment.PotionBuff, 1);
                         }
                     }
-                }
-                foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
-                {
-                    float add = staticStat.Additive * (remove ? -1f : 1f);
-                    float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
-                    float flat = staticStat.Flat * (remove ? -1f : 1f);
-                    float @base = staticStat.Base * (remove ? -1f : 1f);
-                    ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                    StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
-                    if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
+                    foreach (EStat eStat in enchantment.EStats)
                     {
-                        item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);
-                    }
-                    else
-                    {
-                        iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
-                        if (iGlobal.statModifiers[staticStat.Name].Additive == 1f && iGlobal.statModifiers[staticStat.Name].Multiplicative == 1f)
+                        ("eStat: " + eStat.S()).Log();
+                        (item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
+                        float add = eStat.Additive * (remove ? -1f : 1f);
+                        float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
+                        float flat = eStat.Flat * (remove ? -1f : 1f);
+                        float @base = eStat.Base * (remove ? -1f : 1f);
+                        ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
+                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
+                        if (!iGlobal.eStats.ContainsKey(eStat.StatName))
                         {
-                            item.GetGlobalItem<EnchantedItem>().statModifiers.Remove(staticStat.Name);
+                            iGlobal.eStats.Add(eStat.StatName, statModifier);
                         }
+                        else
+                        {
+                            iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
+                            if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
+                            {
+                                iGlobal.eStats.Remove(eStat.StatName);
+                            }
+                        }
+                        (item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
                     }
+                    foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
+                    {
+                        ("staticStat: " + staticStat.S()).Log();
+                        (item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
+                        float add = staticStat.Additive * (remove ? -1f : 1f);
+                        float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
+                        float flat = staticStat.Flat * (remove ? -1f : 1f);
+                        float @base = staticStat.Base * (remove ? -1f : 1f);
+                        ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
+                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
+                        if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
+                        {
+                            item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);
+                        }
+                        else
+                        {
+                            iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
+                            /*if (iGlobal.statModifiers[staticStat.Name].Additive == 1f && iGlobal.statModifiers[staticStat.Name].Multiplicative == 1f)
+                            {
+                                item.GetGlobalItem<EnchantedItem>().statModifiers.Remove(staticStat.Name);
+                            }*/
+                        }
+                        (item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
+                    }
+                    //enchantment.statsSet = true;
                 }
-                //enchantment.statsSet = true;
+                //iGlobal.statsSet[slotNum] = true;
+                ("/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
             }
-            //iGlobal.statsSet[slotNum] = true;
         }
         public static void ApplyAllowedList(Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)
         {
@@ -340,11 +370,20 @@ namespace WeaponEnchantments.Common
                 coinValue /= 100;
             }
         }
-        public static void Log(this string s) { if (debugging) ModContent.GetInstance<WEMod>().Logger.Info(s); }
+        public static void Log(this string s)
+        {
+            if (debugging)
+            {
+                UpdateSpaces(s);
+                ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
+                UpdateSpaces(s, true);
+            }
+        }
         public static void LogT(this string s) 
         {
             if (debugging)
             {
+                UpdateSpaces(s);
                 foreach (string key in logsT.Keys)
                 {
                     if(logsT[key] + 59 < Main.GameUpdateCount)
@@ -352,10 +391,19 @@ namespace WeaponEnchantments.Common
                 }
                 if (!logsT.ContainsKey(s))
                 {
-                    ModContent.GetInstance<WEMod>().Logger.Info(s);
+                    ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
                     logsT.Add(s, Main.GameUpdateCount);
                 }
+                UpdateSpaces(s, true);
             }
         }
+        public static void UpdateSpaces(string s, bool atEnd = false)
+        {
+            if (atEnd && s.Substring(0, 2) == "\\/")
+                spaces++;
+            else if (!atEnd && s.Substring(0, 2) == "/\\")
+                spaces--;
+        }
+        public static string AddWS(this string s) => new string('|', spaces) + s;
     }
 }

@@ -22,6 +22,7 @@ namespace WeaponEnchantments.Items
 		Hunter,
 		LifeSteal,
 		Mana,
+		ObsidianSkin,
 		OneForAll,
 		Peace,
 		Scale,
@@ -40,6 +41,7 @@ namespace WeaponEnchantments.Items
 		Hunter,
 		LifeSteal,
 		Mana,
+		ObsidianSkin,
 		Peace,
 		Scale,
 		Spelunker,
@@ -83,6 +85,15 @@ namespace WeaponEnchantments.Items
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public override ModItem Clone(Item newEntity)
+        {
+			//EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
+			//AllForOneEnchantmentBasic clone = (AllForOneEnchantmentBasic)base.Clone();
+			AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)base.Clone(newEntity);//newEntity.ModItem);
+			enchantment.StaticStats = new List<EnchantmentStaticStat>(StaticStats);
+			enchantment.EStats = new List<EStat>(EStats);
+			return enchantment;
+		}
         public override void SetStaticDefaults()
         {
 			int[] arr = new int[rarity.Length];
@@ -161,6 +172,9 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Hunter:
 						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
+					case EnchantmentTypeID.ObsidianSkin:
+						Tooltip.SetDefault("Grants the Obsidian Skin buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
+						break;
 					case EnchantmentTypeID.War:
 						Tooltip.SetDefault((EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
@@ -229,6 +243,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Spelunker:
 				case EnchantmentTypeID.DangerSense:
 				case EnchantmentTypeID.Hunter:
+				case EnchantmentTypeID.ObsidianSkin:
 					endSize = EnchantmentSize - 2;
 					break;
 				default:
@@ -530,8 +545,9 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.AmmoCost:
 					case EnchantmentTypeID.LifeSteal:
+					/*case EnchantmentTypeID.CriticalStrikeChance:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						break;
+						break;*/
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
 					case EnchantmentTypeID.Damage:
@@ -541,6 +557,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.DangerSense:
 					case EnchantmentTypeID.Hunter:
 					case EnchantmentTypeID.Spelunker:
+					case EnchantmentTypeID.ObsidianSkin:
 						CheckPotionBuffByName();
 						break;
 					case EnchantmentTypeID.Mana:
@@ -656,6 +673,7 @@ namespace WeaponEnchantments.Items
 						case EnchantmentTypeID.Spelunker:
 						case EnchantmentTypeID.DangerSense:
 						case EnchantmentTypeID.Hunter:
+						case EnchantmentTypeID.ObsidianSkin:
 							skipIfLessOrEqualToSize = 4;
 							break;
 						case EnchantmentTypeID.Damage:
@@ -724,6 +742,7 @@ namespace WeaponEnchantments.Items
 	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ScaleEnchantmentBasic : AllForOneEnchantmentBasic { }public class ScaleEnchantmentCommon : AllForOneEnchantmentBasic { }public class ScaleEnchantmentRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentUltraRare : AllForOneEnchantmentBasic { }

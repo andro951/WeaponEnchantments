@@ -60,6 +60,7 @@ namespace WeaponEnchantments
         }//PR
         private static void ApplyEnchantment(int i)
         {
+            ("\\/ApplyEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!item.IsAir)
@@ -69,9 +70,11 @@ namespace WeaponEnchantments
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
             }
+            ("/\\ApplyEnchantment(i: " + i + ")").Log();
         }
         private static void RemoveEnchantment(int i)
         {
+            ("\\/RemoveEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!item.IsAir)
@@ -81,6 +84,7 @@ namespace WeaponEnchantments
                 item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
+            ("/\\RemoveEnchantment(i: " + i + ")").Log();
         }
         public override void PreUpdateItems()
         {
@@ -674,6 +678,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 2://Gold Chest (Locked)
@@ -755,6 +760,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 10://SandStone Chest
