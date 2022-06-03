@@ -19,49 +19,67 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         //End Packet fields
 
-        public float damageBonus = 0f;
-        public float totalSpeedBonus;
+        //Vanilla Player buffs
+        //public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
+
+        //public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
+        public Dictionary<string, StatModifier> statModifiers;
+        public Dictionary<string, StatModifier> appliedStatModifiers;
+        public Dictionary<string, StatModifier> eStats;
+        public Dictionary<int, int> potionBuffs;  
+        //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
+        //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
+        //Item specific
+
+        /*public float totalSpeedBonus;
         public float immunityBonus = 0f;
-        public int critBonus = 0;
         public int lastUseTimeBonusInt;
         public int lastUseAnimationBonusInt;
         public int lastShootSpeedBonusInt;
-        public int lastReuseDelayBonus;
-        public float sizeBonus;
-        public float lastSizeBonus;
-        public int lastValueBonus;
-        public int lastDefenceBonus;
-        public int lastManaCostBonus;
-        public float lastEquipManaCostBonus;
-        public float lastAmmoCostBonus;
-        public float lastEquipAmmoCostBonus;
-        public float lastScaleBonus;
         public float lastGenericScaleBonus;
+        public int lastArmorPenetrationBonus;
+
+        //Static Non-Item specific
         public float lifeSteal;
         public float lastLifeStealBonus;
-        public int lastArmorPenetrationBonus;
         public bool allForOne;
         public float allForOneBonus = 1f;
         public bool oneForAll;
         public float oneForAllBonus = 0f;
-        public bool[] vanillaBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
         public float enemySpawnBonus = 1f;
         public float godSlayerBonus = 0f;
-        public bool equip;
+
+
+        public float damageBonus = 0f;
+        public int critBonus = 0;
+        public int lastDefenceBonus;
+        public int lastManaCostBonus;
+        public float lastEquipManaCostBonus;
+        public float lastAmmoCostBonus;
+        public float lastEquipAmmoCostBonus;*/
+
+        public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
         public bool powerBoosterInstalled;//Tracks if Power Booster is installed on item +10 levels to spend on enchantments (Does not affect experience)
         public bool inEnchantingTable;
-        public bool heldItem = false;
-        public bool favorited = false;
+        public bool equip = false;
+        public bool trackedWeapon = false;
+        public bool hoverItem = false;
         public bool trashItem = false;
+        public bool favorited = false;
         public const int maxLevel = 40;
+        public int prefix;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
             {
                 enchantments[i] = new Item();
             }
+            statModifiers = new Dictionary<string, StatModifier>();
+            appliedStatModifiers = new Dictionary<string, StatModifier>();
+            eStats = new Dictionary<string, StatModifier>();
+            potionBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
         public override GlobalItem Clone(Item item, Item itemClone)
@@ -72,6 +90,10 @@ namespace WeaponEnchantments.Common.Globals
             {
                clone.enchantments[i] = enchantments[i].Clone();
             }//fixes enchantments being applied to all of an item instead of just the instance
+            clone.statModifiers = new Dictionary<string, StatModifier>(statModifiers);
+            clone.eStats = new Dictionary<string, StatModifier>(eStats);
+            clone.potionBuffs = new Dictionary<int, int>(potionBuffs);
+            clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
             return clone;
         }
         public static class PacketIDs
@@ -91,6 +113,26 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         writer.Write((short)enchantments[i].type);
                     }
+                    /*short count = (short)eStats.Count;
+                    writer.Write(count);
+                    foreach(string key in eStats.Keys)
+                    {
+                        writer.Write(key);
+                        writer.Write(eStats[key].Additive);
+                        writer.Write(eStats[key].Multiplicative);
+                        writer.Write(eStats[key].Base);
+                        writer.Write(eStats[key].Flat);
+                    }
+                    count = (short)statModifiers.Count;
+                    writer.Write(count);
+                    foreach (string key in statModifiers.Keys)
+                    {
+                        writer.Write(key);
+                        writer.Write(statModifiers[key].Additive);
+                        writer.Write(statModifiers[key].Multiplicative);
+                        writer.Write(statModifiers[key].Flat);
+                        writer.Write(statModifiers[key].Base);
+                    }*/
                 }
             }
         }
@@ -110,6 +152,28 @@ namespace WeaponEnchantments.Common.Globals
                             {
                                 enchantments[i] = new Item(reader.ReadUInt16());
                             }
+                            /*eStats.Clear();
+                            int count = reader.ReadUInt16();
+                            for (int i = 0; i < count; i++)
+                            {
+                                string key = reader.ReadString();
+                                float additive = reader.ReadSingle();
+                                float multiplicative = reader.ReadSingle();
+                                float flat = reader.ReadSingle();
+                                float @base = reader.ReadSingle();
+                                eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                            }
+                            statModifiers.Clear();
+                            count = reader.ReadUInt16();
+                            for (int i = 0; i < count; i++)
+                            {
+                                string key = reader.ReadString();
+                                float additive = reader.ReadSingle();
+                                float multiplicative = reader.ReadSingle();
+                                float flat = reader.ReadSingle();
+                                float @base = reader.ReadSingle();
+                                statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                            }*/
                             break;
                         default:
                             ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
@@ -120,12 +184,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void UpdateEquip(Item item, Player player)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float damageModifier = 0f;
             float speedModifier = 0f;
             int defenceBonus = 0;
             float criticalBonus = 0f;
-            float knockbackBonus = 0f;
             float armorPenetrationBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -144,11 +207,8 @@ namespace WeaponEnchantments.Common.Globals
                         case EnchantmentTypeID.Defence:
                             defenceBonus += (int)Math.Round(str);
                             break;
-                        case EnchantmentTypeID.Critical:
+                        case EnchantmentTypeID.CriticalStrikeChance:
                             criticalBonus += str;
-                            break;
-                        case EnchantmentTypeID.Size:
-                            knockbackBonus += str;
                             break;
                         case EnchantmentTypeID.ArmorPenetration:
                             armorPenetrationBonus += str;
@@ -159,10 +219,9 @@ namespace WeaponEnchantments.Common.Globals
             player.GetDamage(DamageClass.Generic) += damageModifier / 4;
             player.GetAttackSpeed(DamageClass.Generic) += speedModifier / 4;
             player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
-            player.GetKnockback(DamageClass.Generic) += knockbackBonus / 2; 
             player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
             item.defense += defenceBonus - lastDefenceBonus;
-            lastDefenceBonus = defenceBonus;
+            lastDefenceBonus = defenceBonus;  */
         }
         public override void UpdateInventory(Item item, Player player)
         {
@@ -234,9 +293,10 @@ namespace WeaponEnchantments.Common.Globals
             int total = 0;
             for (int i = 0; i < enchantments.Length; i++)
             {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir) 
-                { 
+                if (enchantments[i] != null && !enchantments[i].IsAir)
+                {
+                    //("enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
+                    AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                     total += enchantment.GetLevelCost();
                 }
             }
@@ -244,23 +304,31 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void LoadData(Item item, TagCompound tag)
         {
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            if (WEMod.IsEnchantable(item))
             {
-                if (tag.Get<Item>("enchantments" + i.ToString()) != null)
+                experience = tag.Get<int>("experience");//Load experience tag
+                powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
+                UpdateLevel();
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
+                    if (tag.Get<Item>("enchantments" + i.ToString()) != null)
                     {
-                        enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
+                        if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
+                        {
+                            enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
+                        }
+                        else
+                        {
+                            enchantments[i] = new Item();
+                        }
                     }
-                    else
-                    {
-                        enchantments[i] = new Item();
-                    }
-                }
-            }//Load enchantment item tags
-            experience = tag.Get<int>("experience");//Load experience tag
-            powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
-            UpdateLevel();
+                }//Load enchantment item tags
+                /*for(int i = 0; i < statsSet.Length ; i++)
+                {
+                    bool temp = statsSet[i];
+                    statsSet[i] = false;
+                }*/
+            }
         }
         public override void SaveData(Item item, TagCompound tag)
         {
@@ -282,133 +350,30 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            float speedModifier = 0f;
-            int defenceBonus = 0;
-            float manaCostBonus = 0f;
-            float lifeStealBonus = 0f;
-            float armorPenetrationBonus = 0f;
-            float allForOneSpeedMultiplier = 1f;
-            float allForOneImmunityBonus = 1f;
-            float oneForAllSpeedMultiplier = 1f;
-            float enemySpawnBonusLocal = 1f;
-            float allForOneManaBonus = 0f;
-            float sizeBonus = 0f;
-            damageBonus = 0f;
-            immunityBonus = 0f;
-            allForOneBonus = 1f;
-            oneForAllBonus = 0f;
-            godSlayerBonus = 0f;
-            allForOne = false;
-            oneForAll = false;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir)
-                {
-                    float str = enchantment.EnchantmentStrength;
-                    switch ((EnchantmentTypeID)enchantment.EnchantmentType)
-                    {
-                        case EnchantmentTypeID.Damage:
-                            damageBonus += str * damage.Multiplicative;
-                            break;
-                        case EnchantmentTypeID.Speed:
-                            speedModifier += str;
-                            break;
-                        case EnchantmentTypeID.Defence:
-                            defenceBonus += (int)Math.Round(str);
-                            break;
-                        case EnchantmentTypeID.ManaCost:
-                            manaCostBonus += str;
-                            break;
-                        case EnchantmentTypeID.LifeSteal:
-                            lifeStealBonus += str;
-                            break;
-                        case EnchantmentTypeID.ArmorPenetration:
-                            armorPenetrationBonus += str;
-                            break;
-                        case EnchantmentTypeID.AllForOne:
-                            allForOneBonus = str;
-                            allForOneSpeedMultiplier = str * 0.2f;
-                            allForOneImmunityBonus = str * 0.8f;
-                            allForOneManaBonus = str * 0.4f;
-                            allForOne = true;
-                            break;
-                        case EnchantmentTypeID.OneForAll:
-                            oneForAllBonus = str;
-                            oneForAllSpeedMultiplier = 1f - 0.3f * str;
-                            oneForAll = true;
-                            break;
-                        case EnchantmentTypeID.War:
-                            enemySpawnBonusLocal *= 1f + str;
-                            break;
-                        case EnchantmentTypeID.Peace:
-                            enemySpawnBonusLocal /= 1f + str;
-                            break;
-                        case EnchantmentTypeID.GodSlayer:
-                            godSlayerBonus += str;
-                            break;
-                        case EnchantmentTypeID.Size:
-
-                            break;
-                    }
-                }
-            }
-            if (damageBonus > 0 && ContentSamples.ItemsByType[item.type].damage * (1 + damageBonus) * damage.Multiplicative - ContentSamples.ItemsByType[item.type].damage < 1)
-            {
-                damageBonus = 1 / (ContentSamples.ItemsByType[item.type].damage);
-            }
-            damage += damageBonus;
-            if (allForOne) 
-            { 
-                damage.Base = (damage.Base + ContentSamples.ItemsByType[item.type].damage) * allForOneBonus;
-            }
-            if (player.HeldItem == item)
-            {
-                player.statDefense += (int)Math.Round((float)defenceBonus / 2);
-            }
-            immunityBonus = (allForOneImmunityBonus / ((1f + speedModifier) * oneForAllSpeedMultiplier) - 1f);
-            if (!item.channel)
-            {
-                totalSpeedBonus = (allForOneSpeedMultiplier / ((1f + speedModifier) * oneForAllSpeedMultiplier) - 1f);
-                item.useTime += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * totalSpeedBonus) - lastUseTimeBonusInt;
-                lastUseTimeBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useTime * totalSpeedBonus);
-                item.useAnimation += (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus) - lastUseAnimationBonusInt;
-                lastUseAnimationBonusInt = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].useAnimation * totalSpeedBonus);
-            }
-            item.scale += sizeBonus + wePlayer.itemScale - lastGenericScaleBonus;
-            lastGenericScaleBonus = sizeBonus + wePlayer.itemScale;
-            int mana = (int)Math.Round((float)ContentSamples.ItemsByType[item.type].mana * (manaCostBonus + wePlayer.manaCost - (allForOneManaBonus * 0.4f)));
-            item.mana -= mana - lastManaCostBonus;
-            lastManaCostBonus = mana;
-            lifeSteal = lifeStealBonus;
-            item.ArmorPenetration += (int)armorPenetrationBonus - lastArmorPenetrationBonus;
-            lastArmorPenetrationBonus = (int)armorPenetrationBonus;
-            enemySpawnBonus = enemySpawnBonusLocal;
+            //item.AE(ref damage, "Damage");
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
-            critBonus = 0;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Critical)
-                {
-                    critBonus += (int)(enchantment.EnchantmentStrength * 100);
-                }
-            }
-            crit += critBonus;
+            //crit = item.AE("CriticalStrikeChance", crit);
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+            /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Size)
+                if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Knockback)
                 {
                     knockback += enchantment.EnchantmentStrength;
                 }
-            }
+            }*/
+        }
+        public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
+        {
+            
+        }
+        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
@@ -433,7 +398,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
                 }
-                string levelString = level < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
+                string levelString = levelBeforeBooster < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
                 tooltips.Add(new TooltipLine(Mod, "experience", "Experience: " + experience.ToString() + levelString) { OverrideColor = Color.White });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -450,14 +415,8 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                         {
-                            case EnchantmentTypeID.Size:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength * 50).ToString() + "% " + enchantment.EnchantmentTypeName + ", +" + (enchantment.EnchantmentStrength * 100).ToString() + "% Knockback")
-                                {
-                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
-                                });
-                                break;
-                            case EnchantmentTypeID.Defence:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength / 2).ToString() + " " + enchantment.EnchantmentTypeName)
+                            case EnchantmentTypeID.StatDefense:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength / 2).ToString() + " " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -468,7 +427,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.ManaCost:
+                            case EnchantmentTypeID.Mana:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (enchantment.EnchantmentStrength * 100).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
@@ -516,6 +475,12 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
+                            case EnchantmentTypeID.ObsidianSkin:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Obsidian Skin buff")
+                                {
+                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
+                                });
+                                break;
                             case EnchantmentTypeID.War:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (enchantment.EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies")
                                 {
@@ -535,7 +500,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             default:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength * 100).ToString() + "% " + enchantment.EnchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength * 100).ToString() + "% " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -546,14 +511,8 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         switch ((EnchantmentTypeID)enchantment.EnchantmentType)
                         {
-                            case EnchantmentTypeID.Size:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((enchantment.EnchantmentStrength * 50 / 2)).ToString() + "% " + enchantment.EnchantmentTypeName + ", +" + ((enchantment.EnchantmentStrength * 100 / 2)).ToString() + "% Knockback")
-                                {
-                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
-                                });
-                                break;
-                            case EnchantmentTypeID.Defence:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + enchantment.EnchantmentStrength.ToString() + " " + enchantment.EnchantmentTypeName)
+                            case EnchantmentTypeID.StatDefense:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + enchantment.EnchantmentStrength.ToString() + " " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -564,7 +523,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.ManaCost:
+                            case EnchantmentTypeID.Mana:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "-" + (enchantment.EnchantmentStrength * 100 / 4).ToString() + "% Mana Cost")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
@@ -600,6 +559,12 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
+                            case EnchantmentTypeID.ObsidianSkin:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "Obsidian Skin buff")
+                                {
+                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
+                                });
+                                break;
                             case EnchantmentTypeID.War:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (enchantment.EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies")
                                 {
@@ -613,7 +578,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             default:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((enchantment.EnchantmentStrength * 100 / 4)).ToString() + "% " + enchantment.EnchantmentTypeName)
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + ((enchantment.EnchantmentStrength * 100 / 4)).ToString() + "% " + enchantment.MyDisplayName)
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -728,7 +693,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player)
         {
-            float ammoCostBonus = 0f;
+            /*float ammoCostBonus = 0f;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
                 AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
@@ -742,23 +707,24 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                     }
                 }
-            }
-            return Main.rand.NextFloat() >= ammoCostBonus;
+            }*/
+            return Main.rand.NextFloat() >= weapon.AE("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
         public override bool? UseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (allForOne)
+            //if (allForOne)
+            if(eStats.ContainsKey("AllForOne"))
             {
                 wePlayer.allForOneCooldown = true;
-                wePlayer.allForOneTimer = (int)((float)item.useTime * allForOneBonus * 0.4f);
+                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AE("AllForOne", 0.4f));
             }
             return null;
         }
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            return allForOne ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
+            return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
         }
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
@@ -796,7 +762,6 @@ namespace WeaponEnchantments.Common.Globals
 
                             break;
                     }
-                    player.QuickSpawnItem(src, ModContent.ItemType<ContainmentFragment>(), (int)((1f + Main.rand.NextFloat()) * value / 10000f));
                     if (Main.rand.NextFloat() < value / 500000f)
                     {
                         player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
@@ -938,6 +903,11 @@ namespace WeaponEnchantments.Common.Globals
         public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
             DamageNPC(item, player, target, damage, crit, true);
+        }
+        public override void PostReforge(Item item)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            wePlayer.UpdateItemStats(ref item);
         }
     }
 }

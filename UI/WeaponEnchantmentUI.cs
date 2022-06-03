@@ -9,6 +9,7 @@ using Terraria.UI;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.UI
 {
@@ -124,40 +125,41 @@ namespace WeaponEnchantments.UI
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
                 int type = item.type;
-                if(type != ItemID.CopperShortsword && type != ItemID.CopperPickaxe && type != ItemID.CopperAxe && type != ItemID.WoodenSword || iGlobal.experience > EnchantmentEssenceBasic.xpPerEssence[0])
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
-                        if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
-                        {
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
-                        }
-                        if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
-                    }//Take all enchantments first
-                    if (!stop)
-                    {
-                        int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
-                        int value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
-                        WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
-                        int stack = (int)Math.Round((float)value / ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value);
-                        if (stack == 0)
-                        {
-                            stack = 1;
-                        }
-                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<ContainmentFragment>(), stack);
-                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
-                        {
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
-                        }
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                        offered = true;
-                        SoundEngine.PlaySound(SoundID.Grab);
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
                     }
-                }
-                else
+                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+                }//Take all enchantments first
+                if (!stop)
                 {
-                    Main.NewText(".....What a pitiful offering...do not insult me again, mortal......\n......\n(Starter weapons must have at least " + (EnchantmentEssenceBasic.xpPerEssence[0] + 1) + " experience to be offered.)");
+                    int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
+                    float value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
+                    WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
+                    int[] ores = { ItemID.GoldOre , ItemID.SilverOre, ItemID.IronOre};
+                    for (int i = 0; i < 3; i++) 
+                    {
+                        int orevalue = ContentSamples.ItemsByType[ores[i]].value;
+                        int stack;
+                        if (ores[i] > ItemID.IronOre)
+                            stack = (int)Math.Round(value * 0.8f / orevalue);
+                        else
+                            stack = (int)(value / orevalue);
+                        value -= stack * orevalue;
+                        if (ores[i] == ItemID.IronOre)
+                            stack++;
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+                    }
+                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    {
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
+                    }
+                    wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                    offered = true;
+                    SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
         }//Consume item to upgrade table or get resources
@@ -491,6 +493,8 @@ namespace WeaponEnchantments.UI
             }//Get enchantments left in enchanting table
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
+                if (wePlayer.enchantingTable.essenceItem[i].stack < 1)
+                    wePlayer.enchantingTable.essenceItem[i] = new Item();
                 wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
             }//Get essence left in enchanting table
         }//Get items left in enchanting table
@@ -514,6 +518,8 @@ namespace WeaponEnchantments.UI
                 }//Store enchantments left in enchanting table to player
                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < 1)
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item = new Item();
                     wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
                 }//Store essence left in enchanting table to player
             }
@@ -631,6 +637,14 @@ namespace WeaponEnchantments.UI
                     {
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
+                        {
+                            WEModSystem.RemoveEnchantment(i);
+                            //AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+                            //enchantment.statsSet = false;
+                            //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                        }
                     }
                 }//Take all enchantments first
                 for (int i = 0; i < EnchantingTable.maxItems; i++)

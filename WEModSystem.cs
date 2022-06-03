@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
@@ -57,12 +58,64 @@ namespace WeaponEnchantments
                 promptInterface = null;
             }
         }//PR
-        public override void PostUpdatePlayers()
+        private static void ApplyEnchantment(int i)
+        {
+            ("\\/ApplyEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (!item.IsAir)
+            {
+                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            ("/\\ApplyEnchantment(i: " + i + ")").Log();
+        }
+        public static void RemoveEnchantment(int i)
+        {
+            ("\\/RemoveEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (!item.IsAir)
+            {
+                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i, true);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            ("/\\RemoveEnchantment(i: " + i + ")").Log();
+        }
+        public override void PreUpdateItems()
+        {
+            /*
+            if (!Main.HoverItem.IsAir)
+            {
+                if(Main.mouseRight && Main.mouseRightRelease)
+                {
+                    if(Main.HoverItem.GetGlobalItem<EnchantedItem>().experience > 0 || Main.HoverItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    {
+                        if (Main.HoverItem.stack > 1)
+                        {
+                            Main.mouseItem = Main.HoverItem.Clone();
+                            Main.HoverItem = new Item();
+                        }
+                    }
+                }
+            }
+            */
+        }
+        public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-
             if (wePlayer.usingEnchantingTable)
             {
+                //TryToggleAutoPauseOn();
+                /*if (Main.autoPause)
+                {
+                    autoPause = Main.autoPause;
+                    Main.autoPause = false;
+                }*/
                 bool removedItem = false;
                 bool addedItem = false;
                 bool swappedItem = false;
@@ -74,16 +127,16 @@ namespace WeaponEnchantments
                     }//Transfer items to global item and break the link between the global item and enchanting table itemSlots/enchantmentSlots
                     wePlayer.itemInEnchantingTable = false;//The itemSlot's PREVIOUS state is now empty(false)
                 }//Check if the itemSlot is empty because the item was just taken out and transfer the mods to the global item if so
-                else if(!wePlayer.itemInEnchantingTable)//If itemSlot WAS empty but now has an item in it
+                else if (!wePlayer.itemInEnchantingTable)//If itemSlot WAS empty but now has an item in it
                 {
                     addedItem = true;
                     wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
                 }//Check if itemSlot has item that was just placed there, copy the enchantments to the slots and link the slots to the global item
-                else if(wePlayer.itemBeingEnchanted != wePlayer.enchantingTableUI.itemSlotUI[0].Item)
+                else if (wePlayer.itemBeingEnchanted != wePlayer.enchantingTableUI.itemSlotUI[0].Item)
                 {
                     swappedItem = true;
                 }
-                if(removedItem || swappedItem)
+                if (removedItem || swappedItem)
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
@@ -98,8 +151,9 @@ namespace WeaponEnchantments
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+                    //TryToggleAutoPauseOff();
                 }
-                if(addedItem || swappedItem)
+                if (addedItem || swappedItem)
                 {
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
                     favorited = wePlayer.itemBeingEnchanted.favorited;
@@ -112,50 +166,68 @@ namespace WeaponEnchantments
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,
                         {
                             wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
+                            wePlayer.enchantmentInEnchantingTable[i] = wePlayer.E(i) != null; ;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         }
-                        //else
-                        {
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
-                        }
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
                     }
+                    //TryToggleAutoPauseOff();
                 }
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
+                    Item tableEnchantment = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                    Item itemEnchantment = new Item();
+                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetGlobalItem(out EnchantedItem ieGlobal))
+                    {
+                        itemEnchantment = ieGlobal.enchantments[i];
+                    }
                     if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
                         if (wePlayer.enchantmentInEnchantingTable[i])//if enchantmentSlot HAD an enchantment in it but it was just taken out,
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
+                            RemoveEnchantment(i);
+                            //((AllForOneEnchantmentBasic)itemEnchantment.ModItem).statsSet = false;
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
-                    else if(wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item)
+                    else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment)
                     {
+                        RemoveEnchantment(i);
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        ApplyEnchantment(i);
                     }//If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
+                        //if(!wePlayer.I().E(i).statsSet)
+                        ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
                 }//Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
-                for(int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
                     bool findRecipes = false;
-                    if(essenceStack[i] != wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack)
+                    if (essenceStack[i] != wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack)
                     {
                         findRecipes = true;
                     }
                     essenceStack[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     //if (findRecipes)
-                        //Recipe.FindRecipes();
+                    //Recipe.FindRecipes();
                 }
             }//If enchanting table is open, check item(s) and enchantments in it every tick
+            /*else if (autoPause)
+            {
+                Main.autoPause = true;
+                autoPause = false;
+            }*/
             wePlayer.StoreLastFocusRecipe();
             if (Main.playerInventory)
             {
@@ -235,7 +307,7 @@ namespace WeaponEnchantments
                     {
                         wePlayer.inventoryItemRecord[90] = new Item();//Try get rid of this
                     }
-                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (wePlayer.enchantingTableUI?.enchantmentSlotUI?[i]?.Item != null)//Try get rid of this
                         {
@@ -282,29 +354,7 @@ namespace WeaponEnchantments
                 }
                 wePlayer.inventoryItemRecord[91] = Main.mouseItem.Clone();
             }
-        }//If enchanting table is open, check item(s) and enchantments in it every tick
-        public override void PreUpdateItems()
-        {
-            /*
-            if (!Main.HoverItem.IsAir)
-            {
-                if(Main.mouseRight && Main.mouseRightRelease)
-                {
-                    if(Main.HoverItem.GetGlobalItem<EnchantedItem>().experience > 0 || Main.HoverItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
-                    {
-                        if (Main.HoverItem.stack > 1)
-                        {
-                            Main.mouseItem = Main.HoverItem.Clone();
-                            Main.HoverItem = new Item();
-                        }
-                    }
-                }
-            }
-            */
-        }
-        public override void PostDrawInterface(SpriteBatch spriteBatch)
-        {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            
             if (wePlayer.usingEnchantingTable)
             {
                 if (ItemSlot.ShiftInUse)
@@ -346,6 +396,8 @@ namespace WeaponEnchantments
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if(!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)
+                wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].Item, GetItemSettings.LootAllSettings);
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {
@@ -489,13 +541,14 @@ namespace WeaponEnchantments
             if (wePlayer.usingEnchantingTable)
             {
                 CloseWeaponEnchantmentUI();
+                wePlayer.enchantingTableUI.OnDeactivate();
             }
         }
         public override void UpdateUI(GameTime gameTime)//*
         {
-            _lastUpdateUiGameTime = gameTime;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            //if (wePlayer.usingEnchantingTable)
+            //Update UI
+            _lastUpdateUiGameTime = gameTime;
             if(weModSystemUI?.CurrentState != null)
             {
                 weModSystemUI.Update(gameTime);
@@ -614,20 +667,21 @@ namespace WeaponEnchantments
                             {
                                 case 0://Chest
                                     chance = 0.35f;
-                                    itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<PeaceEnchantmentUltraRare>());
                                     break;
                                 case 1://Gold Chest
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 2://Gold Chest (Locked)
@@ -642,16 +696,16 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<WarEnchantmentUltraRare>());
                                     break;
                                 case 8://Rich Mahogany Chest (Jungle)
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     break;
                                 case 10://Ivy Chest (Jungle)
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     break;
                                 case 11://Frozen Chest
-                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
                                     break;
                                 case 12://Living Wood Chest
-                                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                     break;
                                 case 13://Skyware Chest
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
@@ -667,7 +721,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentUltraRare>());
                                     break;
                                 case 17://Water Chest
-                                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
                                     break;
                                 case 23://Jungle Chest
                                         chance = 1f;
@@ -705,10 +759,11 @@ namespace WeaponEnchantments
                             switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
                             {
                                 case 4://Gold Dead man's chest
-                                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 10://SandStone Chest

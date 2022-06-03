@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
@@ -63,7 +63,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.BrainofCthulhu when !bossBag:
                 case ItemID.BrainOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ManaCostEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
                     break;
                 case NPCID.QueenBee when !bossBag:
                 case ItemID.QueenBeeBossBag when bossBag:
@@ -71,11 +71,11 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.SkeletronHead when !bossBag:
                 case ItemID.SkeletronBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<CriticalEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                     break;
                 case NPCID.Deerclops when !bossBag:
                 case ItemID.DeerclopsBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<DefenceEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
                     break;
                 case NPCID.WallofFlesh when !bossBag:
                 case ItemID.WallOfFleshBossBag when bossBag:
@@ -221,22 +221,12 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     if (npc.boss || (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail))
                     {
-                        if (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
-                        {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), (int)(20000 / 3 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                            npcLoot.Add(dropRule);
-                        }
-                        else
-                        {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<ContainmentFragment>(), 1, (int)(npc.value / 10000), (int)(npc.value / 5000)), ItemDropRule.DropNothing());
-                            npcLoot.Add(dropRule);
-                        }
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
-                        float chance = WEGlobalNPC.GetDropChance(npc.type);
-                        List<int> itemTypes = WEGlobalNPC.GetDropItems(npc.type);
+                        float chance = GetDropChance(npc.type);
+                        List<int> itemTypes = GetDropItems(npc.type);
                         if (itemTypes.Count > 1)
                         {
                             dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
@@ -256,25 +246,25 @@ namespace WeaponEnchantments.Common.Globals
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 2://Demon Eye
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 3://Fighter
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DefenceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 5://Flying
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 6://Worm
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 8://Caster
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 10://Cursed Skull
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 13://Plant
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 14://Bat
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
@@ -286,10 +276,10 @@ namespace WeaponEnchantments.Common.Globals
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 18://Jellyfish
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 19://Antlion
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
                                 break;
                             case 22://Hovering
 
@@ -302,7 +292,8 @@ namespace WeaponEnchantments.Common.Globals
                                 { 
                                     ModContent.ItemType<SpelunkerEnchantmentUltraRare>(),
                                     ModContent.ItemType<DangerSenseEnchantmentUltraRare>(),
-                                    ModContent.ItemType<HunterEnchantmentUltraRare>()
+                                    ModContent.ItemType<HunterEnchantmentUltraRare>(),
+                                    ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>()
                                 };
                                 npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
                                 break;
@@ -517,13 +508,16 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                     int total = 0;
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    //if(sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
                     {
                         total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    if(wePlayer.eStats.ContainsKey("LifeSteal"))
                     {
-                        float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
+                        //float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
+                        float lifeSteal = wePlayer.eStats["LifeSteal"].ApplyTo(0f);
                         Vector2 speed = new Vector2(0, 0);
                         float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
                         int heal = (int)healTotal;
@@ -540,11 +534,15 @@ namespace WeaponEnchantments.Common.Globals
                             wePlayer.lifeStealRollover = 0f;
                         }
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                    if(sourceItem.G().eStats.ContainsKey("GodSlayer"))
                     {
                         ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    //if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
+                    Dictionary<string, StatModifier> tempDict = sourceItem.G().eStats;
+                    bool temp = sourceItem.G().eStats.ContainsKey("OneForAll");
+                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
                         projectile.Kill();
                     }
@@ -594,50 +592,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }*/
         }
-        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
-        {
-            /*if(!npc.townNPC && !npc.friendly)
-            {
-                if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
-                {
-                    sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-                }
-                if(sourceItem != null && sourceItem.IsAir)
-                    sourceItem = null;
-                if (sourceItem != null)
-                {
-                    if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
-                    {
-                        if (npc.GetGlobalNPC<WEGlobalNPC>().immuneToAllForOne)
-                        {
-                            //if (timeHitByAllForOne[projectile.owner] + 16f * sourceItem.GetGlobalItem<EnchantedItem>().oneForAllBonus > Main.GameUpdateCount)
-                            if (timeHitByAllForOne[projectile.owner] + 80 > Main.GameUpdateCount)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                timeHitByAllForOne[projectile.owner] = 0;
-                                bool noPlayersLeft = true;
-                                for (int j = 0; j < timeHitByAllForOne.Length; j++)
-                                {
-                                    if (timeHitByAllForOne[j] > 0)
-                                    {
-                                        noPlayersLeft = false;
-                                        break;
-                                    }
-                                }
-                                if (noPlayersLeft)
-                                {
-                                    immuneToAllForOne = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
-            return null;
-        }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
             OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
@@ -654,7 +608,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
-                    int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
+                    //int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
+                    int newImmune = (int)((float)npc.immune[player.whoAmI] * sourceItem.A("NPCHitCooldown", 1f));
                     npc.immune[player.whoAmI] = newImmune < 1 ? 1 : newImmune;
                 }
             }
@@ -673,7 +628,8 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                             target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                            int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                            //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                            int allForOneDamage = (int)((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
                             total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
                             /*if(projectile != null)
                             {
@@ -694,7 +650,9 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!npc.friendly && !npc.townNPC)
             {
-                float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
+                float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
                 int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
                 npc.StrikeNPC(godSlayerDamage, knockback, direction);
             }
@@ -702,11 +660,18 @@ namespace WeaponEnchantments.Common.Globals
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            float enemySpawnBonus = wePlayer.enemySpawnBonus;
-            int rate = (int)(spawnRate / enemySpawnBonus);
-            spawnRate = rate < 1 ? 1 : rate;
-            int spawns = (int)Math.Round(maxSpawns * enemySpawnBonus);
-            maxSpawns = spawns >= 0 ? spawns : 0;
-        }
+            if (wePlayer.eStats.ContainsKey("spawnRate"))
+            {
+                float enemySpawnRateBonus = wePlayer.eStats["spawnRate"].ApplyTo(1f);
+                int rate = (int)(spawnRate / enemySpawnRateBonus);
+                spawnRate = rate < 1 ? 1 : rate;
+            }
+            if (wePlayer.eStats.ContainsKey("maxSpawns"))
+            {
+                float enemyMaxSpawnBonus = wePlayer.eStats["maxSpawns"].ApplyTo(1f);
+                int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
+                maxSpawns = spawns >= 0 ? spawns : 0;
+            }
+        }   
     }
 }
