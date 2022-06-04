@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,22 +14,26 @@ namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
-        public static void HookItemCheck_MeleeHitNPCs(ILContext il)
+        /*public static void HookModLoaderIOLoad(ILContext il)
         {
             var c = new ILCursor(il);
 
-            if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchCall(out _),
-                i => i.MatchLdcI4(1),
-                i => i.MatchLdcI4(101),
-                i => i.MatchCallvirt(out _),
-                i => i.MatchLdloc(7),
-                i => i.MatchBgt(out _),
-                i => i.MatchLdcI4(1)
-            )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
-            c.Emit(OpCodes.Pop);
-            c.Emit(OpCodes.Ldc_I4_0);
-        }
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdloc(0),
+                i => i.MatchLdstr("Terraria")
+            )) { throw new Exception("Failed to find instructions HookModLoaderIOLoad"); }
+            c.Emit(OpCodes.Ldloc, 0);
+            c.Emit(OpCodes.Ldarg, 0);
+            c.EmitDelegate((Item item, string modName) => 
+            {
+                if(modName == "Weapon Enchantments")
+                {
+                    ReplaceOldItem(ref item);
+                }
+                return item;
+            });
+            c.Emit(OpCodes.Starg, 0);
+        }*/
         private enum OldItemContext
         {
             firstWordNames,
@@ -33,11 +41,11 @@ namespace WeaponEnchantments.Common
             wholeNameReplaceWithItem,
             wholeNameReplaceWithCoins
         }
-        private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, {"Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense }, { "War", (int)EnchantmentTypeID.War1 } };
+        private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, { "Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense }};
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { { "SuperRare", 3 }, { "UltraRare", 4 }, { "Rare", 2 } };
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { { "ContainmentFragment", ItemID.GoldBar } };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
-        /*public static void ReplaceAllOldItems()
+        public static void ReplaceAllOldItems()
         {
             ReplaceOldItems(Main.LocalPlayer.armor);
             ReplaceOldItems(Main.LocalPlayer.inventory);
@@ -52,17 +60,17 @@ namespace WeaponEnchantments.Common
                 else
                     break;
             }
-        }*/
-        /*private static void ReplaceOldItems(Item[] inventory)
+        }
+        private static void ReplaceOldItems(Item[] inventory)
         {
             for(int i = 0; i < inventory.Length; i++)
             {
                  ReplaceOldItem(ref inventory[i]);
             }
-        }*/
+        }
         public static void ReplaceOldItem(ref Item item)
         {
-            if (item.Name == "Unloaded Item")
+            if (item.ModItem is UnloadedItem)
             {
                 bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
                 replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
@@ -76,7 +84,7 @@ namespace WeaponEnchantments.Common
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         Item enchantmentItem = iGlobal.enchantments[i];
-                        if (enchantmentItem.Name == "Unloaded Item")
+                        if (enchantmentItem.ModItem is UnloadedItem)
                             ReplaceOldItem(ref enchantmentItem);
                         if(enchantmentItem != null && !enchantmentItem.IsAir)
                         {

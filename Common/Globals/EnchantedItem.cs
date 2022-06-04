@@ -305,7 +305,6 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void LoadData(Item item, TagCompound tag)
         {
-            //OldItemManager.ReplaceOldItem(ref item);
             if (WEMod.IsEnchantable(item))
             {
                 experience = tag.Get<int>("experience");//Load experience tag
@@ -318,7 +317,7 @@ namespace WeaponEnchantments.Common.Globals
                         if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
                         {
                             enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
-                            //OldItemManager.ReplaceOldItem(ref enchantments[i]);
+                            OldItemManager.ReplaceOldItem(ref enchantments[i]);
                         }
                         else
                         {
@@ -484,7 +483,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.War1:
+                            case EnchantmentTypeID.War:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (enchantment.EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
@@ -568,7 +567,7 @@ namespace WeaponEnchantments.Common.Globals
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
                                 break;
-                            case EnchantmentTypeID.War1:
+                            case EnchantmentTypeID.War:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (enchantment.EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]

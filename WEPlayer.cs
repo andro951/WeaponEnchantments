@@ -96,10 +96,10 @@ namespace WeaponEnchantments
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
-        /*public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld(Player player)
         {
             OldItemManager.ReplaceAllOldItems();
-        }*/
+        }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
             var c = new ILCursor(il);

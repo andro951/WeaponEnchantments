@@ -397,7 +397,17 @@ namespace WeaponEnchantments
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if(!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)
+            {
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].Item, GetItemSettings.LootAllSettings);
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                {
+                    wePlayer.enchantingTable.item[0] = new Item();
+                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        wePlayer.enchantingTable.enchantmentItem[i] = new Item();
+                    }
+                }
+            }
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {
@@ -674,7 +684,7 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<PeaceEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
                                     break;
                                 case 1://Gold Chest
                                     itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
@@ -693,7 +703,7 @@ namespace WeaponEnchantments
                                     chance = 1f;
                                     itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<War1EnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
                                     break;
                                 case 8://Rich Mahogany Chest (Jungle)
                                     itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
