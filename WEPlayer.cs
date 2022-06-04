@@ -812,7 +812,7 @@ namespace WeaponEnchantments
             }
             ("/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
         }
-        private static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
+        public static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
         {
             ("\\/CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
             StatModifier finalModifier;
@@ -827,7 +827,7 @@ namespace WeaponEnchantments
             ("/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
             return finalModifier;
         }
-        private static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key)
+        public static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key)
         {
             ("\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
             if (dictionary.ContainsKey(key))
@@ -1027,7 +1027,8 @@ namespace WeaponEnchantments
                                 {
                                     //int valueInt = (int)field.GetValue(item);
                                     float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
-                                    finalValue.RoundCheck(staticStat, (int)field.GetValue(item));
+                                    //Item contentSampleItem = new Item(item.type);
+                                    staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), item.G().appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
                                     field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
                                 }//int (field)
                                 if (fieldType == typeof(bool))
@@ -1051,7 +1052,8 @@ namespace WeaponEnchantments
                                 {
                                     //int valueInt = (int)property.GetValue(item);
                                     float finalValue = (float)(int)property.GetValue(item);
-                                    finalValue.RoundCheck(staticStat, (int)field.GetValue(item));
+                                    //Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
+                                    staticStat.RoundCheck(ref finalValue, (int)property.GetValue(item), item.G().appliedStatModifiers[key], (int)property.GetValue(ContentSamples.ItemsByType[item.type]));
                                     property.SetValue(item, (int)Math.Round(finalValue + 5E-6));
                                 }//int (property)
                                 if (propertyType == typeof(bool))

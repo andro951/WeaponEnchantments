@@ -353,10 +353,10 @@ namespace WeaponEnchantments.Items
 					switch (EnchantmentSize)
 					{
 						case 0:
-							EnchantmentStrength = 1f;
+							EnchantmentStrength = 2f;
 							break;
 						case 1:
-							EnchantmentStrength = 2f;
+							EnchantmentStrength = 3f;
 							break;
 						case 2:
 							EnchantmentStrength = 5f;
@@ -537,18 +537,19 @@ namespace WeaponEnchantments.Items
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.AllForOne:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
 						AddStaticStat("damage", 0f, EnchantmentStrength);
-						AddStaticStat("I_useTime", EnchantmentStrength * 0.8f);
-						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.8f);
-						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.8f));
+						AddStaticStat("useTime", EnchantmentStrength * 0.2f);
+						AddStaticStat("useAnimation", EnchantmentStrength * 0.2f);
+						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));
 						AddStaticStat("mana", EnchantmentStrength * 0.4f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
-					case EnchantmentTypeID.AmmoCost:
-					case EnchantmentTypeID.LifeSteal:
+					//case EnchantmentTypeID.AmmoCost:
+					//case EnchantmentTypeID.LifeSteal:
 					//case EnchantmentTypeID.CriticalStrikeChance:
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						break;
+						//EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
+						//break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
 					case EnchantmentTypeID.Damage:
@@ -566,15 +567,15 @@ namespace WeaponEnchantments.Items
 						AddStaticStat(EnchantmentTypeName, -EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.OneForAll:
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
-						AddStaticStat("I_useTime", EnchantmentStrength * 0.3f);
-						AddStaticStat("I_useAnimation", EnchantmentStrength * 0.3f);
-						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength * 0.3f));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
+						AddStaticStat("useTime", EnchantmentStrength * 0.3f);
+						AddStaticStat("useAnimation", EnchantmentStrength * 0.3f);
+						EStats.Add(new EStat("NPCHitCooldown", 1f,  1f + EnchantmentStrength * 0.3f));
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:
-						EStats.Add(new EStat("spawnRate", 0f, EnchantmentStrength));
-						EStats.Add(new EStat("maxSpawns", 0f, EnchantmentStrength));
+						EStats.Add(new EStat("spawnRate", 0f, 1f + EnchantmentStrength));
+						EStats.Add(new EStat("maxSpawns", 0f, 1f + EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Speed:
 						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
@@ -583,7 +584,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						break;
 					default:
-						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength, 1f));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 				}//SetStats
 				StaticStat = StaticStats.Count > 0;
