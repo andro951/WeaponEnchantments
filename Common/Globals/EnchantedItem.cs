@@ -317,6 +317,7 @@ namespace WeaponEnchantments.Common.Globals
                         if (!tag.Get<Item>("enchantments" + i.ToString()).IsAir)
                         {
                             enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
+                            OldItemManager.ReplaceOldItem(ref enchantments[i]);
                         }
                         else
                         {

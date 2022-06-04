@@ -11,7 +11,6 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class RecipeEditor : GlobalRecipe
     {
-		
 		public override void Load()
 		{
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;

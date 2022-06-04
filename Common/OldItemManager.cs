@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +14,26 @@ namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
+        /*public static void HookModLoaderIOLoad(ILContext il)
+        {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdloc(0),
+                i => i.MatchLdstr("Terraria")
+            )) { throw new Exception("Failed to find instructions HookModLoaderIOLoad"); }
+            c.Emit(OpCodes.Ldloc, 0);
+            c.Emit(OpCodes.Ldarg, 0);
+            c.EmitDelegate((Item item, string modName) => 
+            {
+                if(modName == "Weapon Enchantments")
+                {
+                    ReplaceOldItem(ref item);
+                }
+                return item;
+            });
+            c.Emit(OpCodes.Starg, 0);
+        }*/
         private enum OldItemContext
         {
             firstWordNames,
@@ -17,7 +41,7 @@ namespace WeaponEnchantments.Common
             wholeNameReplaceWithItem,
             wholeNameReplaceWithCoins
         }
-        private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, {"Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense } };
+        private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, { "Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense }};
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { { "SuperRare", 3 }, { "UltraRare", 4 }, { "Rare", 2 } };
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { { "ContainmentFragment", ItemID.GoldBar } };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
@@ -46,7 +70,7 @@ namespace WeaponEnchantments.Common
         }
         public static void ReplaceOldItem(ref Item item)
         {
-            if (item.Name == "Unloaded Item" || item.Name == "UnloadedItem" || item.ModItem is UnloadedItem)
+            if (item.ModItem is UnloadedItem)
             {
                 bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
                 replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
@@ -60,8 +84,28 @@ namespace WeaponEnchantments.Common
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         Item enchantmentItem = iGlobal.enchantments[i];
-                        if (enchantmentItem.Name == "Unloaded Item" || item.Name == "UnloadedItem" || item.ModItem is UnloadedItem)
+                        if (enchantmentItem.ModItem is UnloadedItem)
                             ReplaceOldItem(ref enchantmentItem);
+                        if(enchantmentItem != null && !enchantmentItem.IsAir)
+                        {
+                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                            if(WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
+                            {
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                            }
+                            else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
+                            {
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                            }
+                            else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
+                            {
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                            }
+                            if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
+                            {
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                            }
+                        }
                     }
                     item.RemoveUntilPositive();
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -72,6 +116,16 @@ namespace WeaponEnchantments.Common
                     }
                 }
             }
+        }
+        private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, string msg)
+        {
+            enchantmentItem = Main.LocalPlayer.GetItem(Main.myPlayer, enchantmentItem, GetItemSettings.LootAllSettings);
+            if (!enchantmentItem.IsAir)
+            {
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
+                enchantmentItem = new Item();
+            }
+            Main.NewText(msg);
         }
         private static bool TryReplaceItem(ref Item item, Dictionary<string, int> dict, OldItemContext context)
         {

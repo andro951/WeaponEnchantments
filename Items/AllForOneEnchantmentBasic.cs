@@ -39,7 +39,6 @@ namespace WeaponEnchantments.Items
 		AmmoCost,
 		DangerSense,
 		Hunter,
-		LifeSteal,
 		Mana,
 		ObsidianSkin,
 		Peace,
@@ -526,6 +525,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.AllForOne:
 					case EnchantmentTypeID.OneForAll:
+					case EnchantmentTypeID.LifeSteal:
 						AllowedList.Add("Weapon", 1f);
 						break;
 					default:
