@@ -46,7 +46,7 @@ namespace WeaponEnchantments.Common
         }
         public static void ReplaceOldItem(ref Item item)
         {
-            if (item.Name == "Unloaded Item")
+            if (item.Name == "Unloaded Item" || item.Name == "UnloadedItem" || item.ModItem is UnloadedItem)
             {
                 bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
                 replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Common
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         Item enchantmentItem = iGlobal.enchantments[i];
-                        if (enchantmentItem.Name == "Unloaded Item")
+                        if (enchantmentItem.Name == "Unloaded Item" || item.Name == "UnloadedItem" || item.ModItem is UnloadedItem)
                             ReplaceOldItem(ref enchantmentItem);
                     }
                     item.RemoveUntilPositive();
