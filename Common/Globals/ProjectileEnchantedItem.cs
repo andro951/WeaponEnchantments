@@ -77,12 +77,13 @@ namespace WeaponEnchantments.Common.Globals
                     projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
                     if(projectiles > 0)
                     {
-                        float spreat = (float)Math.PI / 10f;
+                        float spread = (float)Math.PI / 10f;
                         for(int i = 0; i < projectiles; i++)
                         {
-                            Vector2 position = projectile.position;
+                            float rotation = (float)i - ((float)projectiles - 2f) / 2f;
+                            Vector2 position = projectile.position.RotatedBy(spread * rotation);
                             Vector2 velocity = projectile.velocity;
-                            Projectile.NewProjectile(projectile.GetSource_FromThis, position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
                         }
                     }
                 }

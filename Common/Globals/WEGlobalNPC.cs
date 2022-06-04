@@ -360,7 +360,8 @@ namespace WeaponEnchantments.Common.Globals
                             case 87://Biome Mimic - Big Mimics
                                 int[] optionsBiomeMimic = new int[]
                                 {
-                                    ModContent.ItemType<GodSlayerEnchantmentBasic>()
+                                    ModContent.ItemType<GodSlayerEnchantmentBasic>(),
+                                    ModContent.ItemType<SplittingEnchantmentBasic>()
                                 };
                                 npcLoot.Add(ItemDropRule.OneFromOptions(1, optionsBiomeMimic));
                                 break;

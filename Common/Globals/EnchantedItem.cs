@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -724,6 +725,8 @@ namespace WeaponEnchantments.Common.Globals
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
+                return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
         }
         public override void OpenVanillaBag(string context, Player player, int arg)

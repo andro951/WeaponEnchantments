@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
         ///</summary>
+        public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
         public static AllForOneEnchantmentBasic E(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item

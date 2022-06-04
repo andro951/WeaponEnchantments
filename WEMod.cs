@@ -22,15 +22,15 @@ namespace WeaponEnchantments
         }
 		internal static bool IsWeaponItem(Item item)
 		{
-			return (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory && !item.IsAir;
+			return item != null && (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory && !item.IsAir;
 		}
 		internal static bool IsArmorItem(Item item)
 		{
-			return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1) && !item.IsAir;
+			return item != null && !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1) && !item.IsAir;
 		}
 		internal static bool IsAccessoryItem(Item item)
 		{
-			return item.accessory && !IsArmorItem(item) && !item.IsAir;
+			return item != null && item.accessory && !IsArmorItem(item) && !item.IsAir;
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {

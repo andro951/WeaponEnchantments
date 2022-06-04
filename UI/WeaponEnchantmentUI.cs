@@ -167,7 +167,7 @@ namespace WeaponEnchantments.UI
         {
             Left.Pixels = RelativeLeft + 100 - 25;//PR
             Top.Pixels = RelativeTop;//PR
-
+            WeaponEnchantmentUI.preventItenUse = false;
             foreach (var panel in confirmationPanels)
             {
                 if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
@@ -179,6 +179,7 @@ namespace WeaponEnchantments.UI
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
                 }
             }//Change button color if hovering
+            if (IsMouseHovering) WeaponEnchantmentUI.preventItenUse = true;
         }//PR
     }
 
@@ -213,6 +214,7 @@ namespace WeaponEnchantments.UI
         public static float[] ButtonScale = new float[ButtonID.Count];//my UI
         public static bool[] ButtonHovered = new bool[ButtonID.Count];//my UI
         public static bool needToQuickStack;
+        public static bool preventItenUse = false;
 
         private UIText titleText;//PR
         private UIPanel[] button = new UIPanel[ButtonID.Count];//PR
@@ -528,7 +530,7 @@ namespace WeaponEnchantments.UI
         {
             Left.Pixels = RelativeLeft;//PR
             Top.Pixels = RelativeTop;//PR
-
+            preventItenUse = false;
             foreach (var panel in panels)
             {
                 if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
@@ -540,6 +542,7 @@ namespace WeaponEnchantments.UI
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
                 }
             }//Change button color if hovering
+            if (IsMouseHovering) preventItenUse = true;
         }//PR
         private static void ConvertEssenceToXP(int tier)
         {
