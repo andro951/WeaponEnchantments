@@ -68,7 +68,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             }
-            /*if(sourceSet && UtilityMethods.PC("Splitting"))
+            if(sourceSet && UtilityMethods.PC("Splitting"))
             {
                 if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                 {
@@ -86,7 +86,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-            }*/
+            }
         }
         public static Item FindMiscSourceItem(Projectile projectile, string context = "")
         {
