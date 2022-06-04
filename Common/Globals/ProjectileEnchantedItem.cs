@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -65,6 +67,25 @@ namespace WeaponEnchantments.Common.Globals
                     playerSourceSet = true;
                 }
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            }
+            if(sourceSet && UtilityMethods.PC("Splitting"))
+            {
+                if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
+                {
+                    float projectileChance = sourceItem.AE("Splitting", 0f);
+                    int projectiles = (int)projectileChance;
+                    projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
+                    if(projectiles > 0)
+                    {
+                        float spreat = (float)Math.PI / 10f;
+                        for(int i = 0; i < projectiles; i++)
+                        {
+                            Vector2 position = projectile.position;
+                            Vector2 velocity = projectile.velocity;
+                            Projectile.NewProjectile(projectile.GetSource_FromThis, position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                        }
+                    }
+                }
             }
         }
         public static Item FindMiscSourceItem(Projectile projectile, string context = "")
@@ -162,12 +183,12 @@ namespace WeaponEnchantments.Common.Globals
                         if (projectile.usesIDStaticNPCImmunity)
                         {
                             //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.A("NPCHitCooldown", 1f));
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AE("NPCHitCooldown", 1f));
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
                             //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.A("NPCHitCooldown", 1f));
+                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AE("NPCHitCooldown", 1f));
                         }
                         updated = true;
                     }
