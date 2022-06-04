@@ -716,8 +716,8 @@ namespace WeaponEnchantments.Common.Globals
             //if (allForOne)
             if(eStats.ContainsKey("AllForOne"))
             {
-                wePlayer.allForOneCooldown = true;
-                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AE("AllForOne", 0.4f));
+                //wePlayer.allForOneCooldown = true;
+                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AE("NPCHitCooldown", 0.5f));
             }
             return null;
         }

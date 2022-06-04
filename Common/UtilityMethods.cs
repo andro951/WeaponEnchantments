@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
-        private static bool debugging = false;
+        private static bool debugging = true;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 
@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Common
         /// <summary>
         /// Applies the eStat modifier from the item's global item to the value.
         /// </summary>
-        public static float AE(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+        public static float AE(this Item item, string key, float value) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
         public static void AE(this Item item, ref StatModifier statModifer, string key) 
         {
             if (item.G().eStats.ContainsKey(key))
@@ -179,12 +179,18 @@ namespace WeaponEnchantments.Common
             }
             return false;
         }
-        public static float RoundCheck(this float value, StatModifier statModifier, int baseValue)
+        public static void RoundCheck(this StatModifier statModifier, ref float value, int baseValue, StatModifier appliedStatModifier, int contentSample)
         {
-            float checkValue = (value + 1f) * 1f / statModifier.ApplyTo(1f);
-            if ((int)Math.Round(checkValue) == baseValue)
-                return value + 1f;
-            return value;
+            if(value > baseValue)
+            {
+                float checkValue = (float)((int)value + 1) * 1f / statModifier.ApplyTo(1f);
+                if ((int)Math.Round(checkValue) == baseValue)
+                {
+                    float sampleValue = WEPlayer.CombineStatModifier(appliedStatModifier, statModifier, true).ApplyTo(contentSample);
+                    if((int)Math.Round(sampleValue) == baseValue)
+                        value += 0.5f;
+                }
+            }
         }
         public static float GetReductionFactor(int hp)
         {
@@ -264,11 +270,14 @@ namespace WeaponEnchantments.Common
                         }
                         else
                         {
+                            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                             iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
-                            if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
+                            //wePlayer.eStats[eStat.StatName] = wePlayer.eStats[eStat.StatName].CombineWith(statModifier);
+                            WEPlayer.TryRemoveStat(ref iGlobal.eStats, eStat.StatName);
+                            /*if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
                             {
                                 iGlobal.eStats.Remove(eStat.StatName);
-                            }
+                            }*/
                         }
                         (item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
                     }
