@@ -832,7 +832,7 @@ namespace WeaponEnchantments
             ("\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
             if (dictionary.ContainsKey(key))
             {
-                if((float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Additive, 4)) - 1f) < 1E-4 && (float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Multiplicative, 4)) - 1f) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Flat)) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Base)) < 1E-4)
+                if((float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Additive, 4)) - 1f) < 1E-4 && (float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Multiplicative, 4)) - 1f) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Flat, 4)) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Base, 4)) < 1E-4)
                 {
                     dictionary.Remove(key);
                     (key + " removed").Log();
@@ -943,8 +943,9 @@ namespace WeaponEnchantments
                 {
                     if(!statModifiers.ContainsKey(key))
                         statModifiers.Add(key, StatModifier.Default);
-                    (statModifiers[key].S()).Log();
+                    statModifiers[key].S().Log();
                     statModifiers[key] = CombineStatModifier(statModifiers[key], item.G().statModifiers[key], remove);
+                    statModifiers[key].S().Log();
                     TryRemoveStat(ref statModifiers, key);
                 }
             }
