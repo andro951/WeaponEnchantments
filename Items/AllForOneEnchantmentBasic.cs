@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items
 		Speed,
 		Spelunker,
 		Splitting,
-		War,
+		War1,
 
 		Magic,//change
 		Summon,//change
@@ -39,7 +39,6 @@ namespace WeaponEnchantments.Items
 		AmmoCost,
 		DangerSense,
 		Hunter,
-		LifeSteal,
 		Mana,
 		ObsidianSkin,
 		Peace,
@@ -173,7 +172,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.ObsidianSkin:
 						Tooltip.SetDefault("Grants the Obsidian Skin buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
-					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.War1:
 						Tooltip.SetDefault((EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.Peace:
@@ -267,7 +266,7 @@ namespace WeaponEnchantments.Items
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.Scale:
-				case EnchantmentTypeID.War:
+				case EnchantmentTypeID.War1:
 				case EnchantmentTypeID.Peace:
 				case EnchantmentTypeID.OneForAll:
 					switch (EnchantmentSize)
@@ -519,13 +518,14 @@ namespace WeaponEnchantments.Items
 						AllowedList.Add("Accessory", 1f);
 						break;
 					case EnchantmentTypeID.Peace:
-					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.War1:
 						AllowedList.Add("Weapon", 1f);
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);
 						break;
 					case EnchantmentTypeID.AllForOne:
 					case EnchantmentTypeID.OneForAll:
+					case EnchantmentTypeID.LifeSteal:
 						AllowedList.Add("Weapon", 1f);
 						break;
 					default:
@@ -573,7 +573,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("NPCHitCooldown", 1f,  1f + EnchantmentStrength * 0.3f));
 						break;
 					case EnchantmentTypeID.Peace:
-					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.War1:
 						EStats.Add(new EStat("spawnRate", 0f, 1f + EnchantmentStrength));
 						EStats.Add(new EStat("maxSpawns", 0f, 1f + EnchantmentStrength));
 						break;
@@ -786,5 +786,5 @@ namespace WeaponEnchantments.Items
 	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class StatDefenseEnchantmentBasic : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentCommon : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class War1EnchantmentBasic : AllForOneEnchantmentBasic { }public class War1EnchantmentCommon : AllForOneEnchantmentBasic { }public class War1EnchantmentRare : AllForOneEnchantmentBasic { }public class War1EnchantmentSuperRare : AllForOneEnchantmentBasic { }public class War1EnchantmentUltraRare : AllForOneEnchantmentBasic { }
 }

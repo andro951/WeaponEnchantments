@@ -326,6 +326,13 @@ namespace WeaponEnchantments.Common
                     @base *= enchantment.AllowedList["Weapon"];
                     return;
                 }
+                else
+                {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
+                }
             }
             if (WEMod.IsArmorItem(item))
             {
@@ -337,6 +344,13 @@ namespace WeaponEnchantments.Common
                     @base *= enchantment.AllowedList["Armor"];
                     return;
                 }
+                else
+                {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
+                }
             }
             if (WEMod.IsAccessoryItem(item))
             {
@@ -347,6 +361,13 @@ namespace WeaponEnchantments.Common
                     flat *= enchantment.AllowedList["Accessory"];
                     @base *= enchantment.AllowedList["Accessory"];
                     return;
+                }
+                else
+                {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
                 }
             }
         }

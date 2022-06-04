@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -95,10 +96,10 @@ namespace WeaponEnchantments
         {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
-        public override void OnEnterWorld(Player player)
+        /*public override void OnEnterWorld(Player player)
         {
             OldItemManager.ReplaceAllOldItems();
-        }
+        }*/
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
             var c = new ILCursor(il);
@@ -865,6 +866,11 @@ namespace WeaponEnchantments
         private void UpdatePlayerStat()
         {
             ("\\/UpdatePlayerStat()").LogT();
+            /*foreach (string key in item.G().appliedStatModifiers.Keys)
+                {
+                    if (!combinedStatModifiers.ContainsKey(key))
+                        combinedStatModifiers.Add(key, StatModifier.Default);
+                } //May need something like this here too if stats arent being removed when removing armor*/
             foreach (string key in statModifiers.Keys)
             {
                 string statName = key.RI();
@@ -995,6 +1001,11 @@ namespace WeaponEnchantments
                         }
                     }
                 }//Populate playerStatModifiers if item is a weapon
+                foreach (string key in item.G().appliedStatModifiers.Keys)
+                {
+                    if (!combinedStatModifiers.ContainsKey(key))
+                        combinedStatModifiers.Add(key, StatModifier.Default);
+                }
                 foreach (string key in combinedStatModifiers.Keys)
                 {
                     string statName = key.RI();
@@ -1071,6 +1082,26 @@ namespace WeaponEnchantments
                 }
             ("/\\UpdateItemStats(" + item.S() + ")").Log();
             }
+        }
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            for (int i = 0; i < Player.inventory.Length; i++)
+            {
+                if (WEMod.IsEnchantable(Player.inventory[i]))
+                {
+                    Player.inventory[i].G().appliedStatModifiers.Clear();
+                }
+            }
+            for (int i = 0; i < Player.armor.Length; i++)
+            {
+                if (WEMod.IsEnchantable(Player.armor[i]))
+                {
+                    Player.armor[i].G().appliedStatModifiers.Clear();
+                }
+            }
+            //appliedStatModifiers.Clear();
+            //statModifiers.Clear();
+            //eStats.Clear();
         }
     }
 }

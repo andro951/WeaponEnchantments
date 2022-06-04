@@ -693,7 +693,7 @@ namespace WeaponEnchantments
                                     chance = 1f;
                                     itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<WarEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<War1EnchantmentUltraRare>());
                                     break;
                                 case 8://Rich Mahogany Chest (Jungle)
                                     itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());

@@ -72,5 +72,9 @@ namespace WeaponEnchantments
 		{
 			
 		}
+        public override void Load()
+        {
+            IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+        }
     }
 }
