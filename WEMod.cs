@@ -86,16 +86,16 @@ namespace WeaponEnchantments
             switch (type)
             {
 				case PacketIDs.TransferGlobalItemFields:
-					if (!newItem.IsAir)
-					{
-						if (IsEnchantable(newItem))
-						{
-							packet.Write(weapon);
-							packet.Write(armorSlot);
-							WriteItem(newItem, packet);
-							WriteItem(oldItem, packet);
-						}
-					}
+					packet.Write(weapon);
+					packet.Write(armorSlot);
+					bool writeNewItem = IsEnchantable(newItem);
+					packet.Write(writeNewItem);
+					if (writeNewItem)
+						WriteItem(newItem, packet);
+					bool writeOldItem = IsEnchantable(oldItem);
+					packet.Write(writeOldItem);
+					if (writeOldItem)
+						WriteItem(oldItem, packet);
 					break;
             }
 			packet.Send();
@@ -110,9 +110,18 @@ namespace WeaponEnchantments
 					byte armorSlot = reader.ReadByte();
 					WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 					Item newItem = weapon ? wePlayer.trackedWeapon : wePlayer.Player.armor[armorSlot];
-					Item oldItem = new Item(newItem.type);
-					ReadItem(newItem, reader);
-					ReadItem(oldItem, reader);
+					Item oldItem = new Item();
+					bool readNewItem = reader.ReadBoolean();
+					if (readNewItem)
+						ReadItem(newItem, reader);
+					else
+						newItem = new Item();
+					bool readOldItem = reader.ReadBoolean();
+                    if (readOldItem)
+                    {
+						oldItem = new Item(ItemID.CopperShortsword);
+						ReadItem(oldItem, reader);
+					}
 					wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
 					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
 					break;
