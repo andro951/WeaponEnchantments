@@ -64,17 +64,12 @@ namespace WeaponEnchantments.Common.Globals
             clone.equip = false;
             return clone;
         }
-        public static class PacketIDs
-        {
-            public const byte TransferGlobalItemFields = 0;
-        }
         public override void NetSend(Item item, BinaryWriter writer)
         {
             if (!item.IsAir)
             {
                 if (WEMod.IsEnchantable(item))
                 {
-                    writer.Write(PacketIDs.TransferGlobalItemFields);
                     writer.Write(experience);
                     writer.Write(powerBoosterInstalled);
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -110,42 +105,33 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (WEMod.IsEnchantable(item))
                 {
-                    byte type = reader.ReadByte();
-                    switch (type)
+                    experience = reader.ReadInt32();
+                    powerBoosterInstalled = reader.ReadBoolean();
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        case PacketIDs.TransferGlobalItemFields:
-                            experience = reader.ReadInt32();
-                            powerBoosterInstalled = reader.ReadBoolean();
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                            {
-                                enchantments[i] = new Item(reader.ReadUInt16());
-                            }
-                            eStats.Clear();
-                            int count = reader.ReadUInt16();
-                            for (int i = 0; i < count; i++)
-                            {
-                                string key = reader.ReadString();
-                                float additive = reader.ReadSingle();
-                                float multiplicative = reader.ReadSingle();
-                                float flat = reader.ReadSingle();
-                                float @base = reader.ReadSingle();
-                                eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-                            }
-                            statModifiers.Clear();
-                            count = reader.ReadUInt16();
-                            for (int i = 0; i < count; i++)
-                            {
-                                string key = reader.ReadString();
-                                float additive = reader.ReadSingle();
-                                float multiplicative = reader.ReadSingle();
-                                float flat = reader.ReadSingle();
-                                float @base = reader.ReadSingle();
-                                statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-                            }
-                            break;
-                        default:
-                            ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
-                            break;
+                        enchantments[i] = new Item(reader.ReadUInt16());
+                    }
+                    eStats.Clear();
+                    int count = reader.ReadUInt16();
+                    for (int i = 0; i < count; i++)
+                    {
+                        string key = reader.ReadString();
+                        float additive = reader.ReadSingle();
+                        float multiplicative = reader.ReadSingle();
+                        float flat = reader.ReadSingle();
+                        float @base = reader.ReadSingle();
+                        eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                    }
+                    statModifiers.Clear();
+                    count = reader.ReadUInt16();
+                    for (int i = 0; i < count; i++)
+                    {
+                        string key = reader.ReadString();
+                        float additive = reader.ReadSingle();
+                        float multiplicative = reader.ReadSingle();
+                        float flat = reader.ReadSingle();
+                        float @base = reader.ReadSingle();
+                        statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
                     }
                 }
             }
