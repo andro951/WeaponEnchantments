@@ -27,7 +27,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (source is EntitySource_ItemUse uSource)
                 {
-                    if(uSource.Item != null)
+                    if(uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
                     {
                         sourceItem = uSource.Item;
                         if(sourceItem.DamageType == DamageClass.Melee)
@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 else if(source is EntitySource_ItemUse_WithAmmo wSource)
                 {
-                    if (wSource.Item != null)
+                    if (wSource.Item != null && WEMod.IsEnchantable(wSource.Item))
                     {
                         sourceItem = wSource.Item;
                         sourceSet = true;
@@ -72,7 +72,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                 {
-                    float projectileChance = sourceItem.AE("Splitting", 0f);
+                    float projectileChance = sourceItem.AEP("Splitting", 0f);
                     int projectiles = (int)projectileChance;
                     projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
                     if(projectiles > 0)
@@ -184,12 +184,12 @@ namespace WeaponEnchantments.Common.Globals
                         if (projectile.usesIDStaticNPCImmunity)
                         {
                             //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AE("NPCHitCooldown", 1f));
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
                             //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AE("NPCHitCooldown", 1f));
+                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
                         }
                         updated = true;
                     }

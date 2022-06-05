@@ -20,44 +20,10 @@ namespace WeaponEnchantments.Common.Globals
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
         //End Packet fields
 
-        //Vanilla Player buffs
-        //public bool[] vanillaPlayerBuffs = new bool[Enum.GetNames(typeof(WEPlayer.VanillaBoolBuffs)).Length];
-
-        //public bool[] statsSet = new bool[EnchantingTable.maxEnchantments];
         public Dictionary<string, StatModifier> statModifiers;
         public Dictionary<string, StatModifier> appliedStatModifiers;
         public Dictionary<string, StatModifier> eStats;
-        public Dictionary<int, int> potionBuffs;  
-        //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
-        //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
-        //Item specific
-
-        /*public float totalSpeedBonus;
-        public float immunityBonus = 0f;
-        public int lastUseTimeBonusInt;
-        public int lastUseAnimationBonusInt;
-        public int lastShootSpeedBonusInt;
-        public float lastGenericScaleBonus;
-        public int lastArmorPenetrationBonus;
-
-        //Static Non-Item specific
-        public float lifeSteal;
-        public float lastLifeStealBonus;
-        public bool allForOne;
-        public float allForOneBonus = 1f;
-        public bool oneForAll;
-        public float oneForAllBonus = 0f;
-        public float enemySpawnBonus = 1f;
-        public float godSlayerBonus = 0f;
-
-
-        public float damageBonus = 0f;
-        public int critBonus = 0;
-        public int lastDefenceBonus;
-        public int lastManaCostBonus;
-        public float lastEquipManaCostBonus;
-        public float lastAmmoCostBonus;
-        public float lastEquipAmmoCostBonus;*/
+        public Dictionary<int, int> potionBuffs;
 
         public int lastValueBonus;
         public int levelBeforeBooster;
@@ -95,6 +61,7 @@ namespace WeaponEnchantments.Common.Globals
             clone.eStats = new Dictionary<string, StatModifier>(eStats);
             clone.potionBuffs = new Dictionary<int, int>(potionBuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
+            clone.equip = false;
             return clone;
         }
         public static class PacketIDs
@@ -114,7 +81,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         writer.Write((short)enchantments[i].type);
                     }
-                    /*short count = (short)eStats.Count;
+                    short count = (short)eStats.Count;
                     writer.Write(count);
                     foreach(string key in eStats.Keys)
                     {
@@ -133,7 +100,7 @@ namespace WeaponEnchantments.Common.Globals
                         writer.Write(statModifiers[key].Multiplicative);
                         writer.Write(statModifiers[key].Flat);
                         writer.Write(statModifiers[key].Base);
-                    }*/
+                    }
                 }
             }
         }
@@ -153,7 +120,7 @@ namespace WeaponEnchantments.Common.Globals
                             {
                                 enchantments[i] = new Item(reader.ReadUInt16());
                             }
-                            /*eStats.Clear();
+                            eStats.Clear();
                             int count = reader.ReadUInt16();
                             for (int i = 0; i < count; i++)
                             {
@@ -174,7 +141,7 @@ namespace WeaponEnchantments.Common.Globals
                                 float flat = reader.ReadSingle();
                                 float @base = reader.ReadSingle();
                                 statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-                            }*/
+                            }
                             break;
                         default:
                             ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
@@ -710,7 +677,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }*/
-            return Main.rand.NextFloat() >= weapon.AE("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
+            return Main.rand.NextFloat() >= weapon.AEP("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
         public override bool? UseItem(Item item, Player player)
         {
@@ -719,7 +686,7 @@ namespace WeaponEnchantments.Common.Globals
             if(eStats.ContainsKey("AllForOne"))
             {
                 //wePlayer.allForOneCooldown = true;
-                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AE("NPCHitCooldown", 0.5f));
+                wePlayer.allForOneTimer = (int)((float)item.useTime * item.AEI("NPCHitCooldown", 0.5f));
             }
             return null;
         }

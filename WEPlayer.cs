@@ -35,8 +35,10 @@ namespace WeaponEnchantments
                 {
                     oldGlobal.trackedWeapon = false;
                 }
-                wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
-                wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
+                Item newCheckItem = WEMod.IsWeaponItem(newItem) ? newItem : new Item();
+                Item oldCheckItem = WEMod.IsWeaponItem(oldItem) ? oldItem : new Item();
+                wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
+                wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
                 oldItem = newItem;
                 ("/\\CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
             }//Check HeldItem
@@ -679,7 +681,8 @@ namespace WeaponEnchantments
             for(int j = 0; j < Player.armor.Length; j++)
             {
                 Item armor = Player.armor[j];
-                if (j < 10 && !equipArmorStatsUpdated[j])
+                bool armorStatsUpdated = equipArmorStatsUpdated[j];
+                if (j < 10 && !armorStatsUpdated)
                 {
                     if (!armor.vanity && !armor.IsAir)
                     {

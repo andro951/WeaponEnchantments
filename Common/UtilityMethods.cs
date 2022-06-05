@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
-        private static bool debugging = false;
+        private static bool debugging = true;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 
@@ -44,11 +44,30 @@ namespace WeaponEnchantments.Common
         /// <summary>
         /// Applies the eStat modifier from the item's global item to the value.
         /// </summary>
-        public static float AE(this Item item, string key, float value) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
-        public static void AE(this Item item, ref StatModifier statModifer, string key) 
+        public static float AEI(this Item item, string key, float value)
+        {
+            if (item.G().eStats.ContainsKey(key))
+                return item.G().eStats[key].ApplyTo(value);
+            return value;
+            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+        }
+        public static float AEP(this Item item, string key, float value)
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (wePlayer.eStats.ContainsKey(key))
+                return wePlayer.eStats[key].ApplyTo(value);
+            return value;
+            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+        }
+        public static void AEI(this Item item, ref StatModifier statModifer, string key)
         {
             if (item.G().eStats.ContainsKey(key))
                 statModifer = statModifer.CombineWith(item.G().eStats[key]);
+        }
+        public static void AEP(this Item item, ref StatModifier statModifer, string key) 
+        {
+            //if (item.G().eStats.ContainsKey(key))
+                //statModifer = statModifer.CombineWith(item.G().eStats[key]);
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.eStats.ContainsKey(key))
                 statModifer = statModifer.CombineWith(wePlayer.eStats[key]);
