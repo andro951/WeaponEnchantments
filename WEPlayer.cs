@@ -39,6 +39,8 @@ namespace WeaponEnchantments
                 Item oldCheckItem = WEMod.IsWeaponItem(oldItem) ? oldItem : new Item();
                 wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
                 wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                    ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, newCheckItem, oldCheckItem);
                 oldItem = newItem;
                 ("/\\CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
             }//Check HeldItem
@@ -715,6 +717,8 @@ namespace WeaponEnchantments
                     //UpdateStats(armor, equipArmor[j]);
                     UpdatePotionBuffs(ref armor, ref equipArmor[j]);
                     UpdatePlayerStats(ref armor, ref equipArmor[j]);
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, armor, equipArmor[j], true, (byte)j);
                     if (!equipArmor[j].IsAir)
                     {
                         Item temp = equipArmor[j];
@@ -1088,23 +1092,23 @@ namespace WeaponEnchantments
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            for (int i = 0; i < Player.inventory.Length; i++)
+            if(Player.difficulty == 1 || Player.difficulty == 2)
             {
-                if (WEMod.IsEnchantable(Player.inventory[i]))
+                for (int i = 0; i < Player.inventory.Length; i++)
                 {
-                    Player.inventory[i].G().appliedStatModifiers.Clear();
+                    if (WEMod.IsEnchantable(Player.inventory[i]))
+                    {
+                        Player.inventory[i].G().appliedStatModifiers.Clear();
+                    }
+                }
+                for (int i = 0; i < Player.armor.Length; i++)
+                {
+                    if (WEMod.IsEnchantable(Player.armor[i]))
+                    {
+                        Player.armor[i].G().appliedStatModifiers.Clear();
+                    }
                 }
             }
-            for (int i = 0; i < Player.armor.Length; i++)
-            {
-                if (WEMod.IsEnchantable(Player.armor[i]))
-                {
-                    Player.armor[i].G().appliedStatModifiers.Clear();
-                }
-            }
-            //appliedStatModifiers.Clear();
-            //statModifiers.Clear();
-            //eStats.Clear();
         }
     }
 }
