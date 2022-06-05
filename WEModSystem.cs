@@ -255,16 +255,16 @@ namespace WeaponEnchantments
                     Item[] inventory;
                     switch (wePlayer.Player.chest)
                     {
-                        case -1:
+                        case -2:
                             inventory = wePlayer.Player.bank.item;
                             break;
-                        case -2:
+                        case -3:
                             inventory = wePlayer.Player.bank2.item;
                             break;
-                        case -3:
+                        case -4:
                             inventory = wePlayer.Player.bank3.item;
                             break;
-                        case -4:
+                        case -5:
                             inventory = wePlayer.Player.bank4.item;
                             break;
                         default:
