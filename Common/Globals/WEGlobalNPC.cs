@@ -484,16 +484,21 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
+            ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
             HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
+            ($"/\\ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
+            ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
             Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
             damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
             HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+            ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null)
         {
+            ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
             if (item?.GetGlobalItem<EnchantedItem>() != null)
             {
                 sourceItem = item;
@@ -520,6 +525,7 @@ namespace WeaponEnchantments.Common.Globals
                     WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
                     int total = 0;
                     //if(sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    ($"sourceItem: {sourceItem.S()} {sourceItem.G().eStats.S("OneForAll")}").Log();
                     if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
                     {
                         total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
@@ -559,16 +565,21 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
+            ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
+            ($"\\/OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
             OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
+            ($"/\\OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
+            ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
             Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
             damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
             OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
+            ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
         private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null)
         {
@@ -584,6 +595,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {
+            ($"\\/ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()})").Log();
             int total = 0;
             int wormCounter = 0;
             float oneForAllRange = baseOneForAllRange * item.scale;
@@ -592,7 +604,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (target.whoAmI != npc.whoAmI)
                 {
-                    if (!target.friendly && !target.townNPC)
+                    if (!target.friendly && !target.townNPC && target.type != NPCID.DD2LanePortal)
                     {
                         Vector2 vector2 = target.Center - npc.Center;
                         float distanceFromOrigin = vector2.Length();
@@ -617,7 +629,10 @@ namespace WeaponEnchantments.Common.Globals
                 //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
                 float baseAllForOneDamage = ((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
                 int allForOneDamage = (int)((wormCounter > 10 ? wormCounter < 21 ? 1f - (float)(wormCounter - 10) / 10f : 0f : 1f) * (baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange));
-                total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
+                if(Main.netMode == NetmodeID.SinglePlayer)
+                    total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
+                else
+                    total += (int)target.StrikeNPC(allForOneDamage, knockback, direction, false, false, true);
                 /*if(projectile != null)
                 {
                     target.GetGlobalNPC<WEGlobalNPC>().ModifyHitByProjectile(target, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
@@ -628,6 +643,7 @@ namespace WeaponEnchantments.Common.Globals
                 }*/
                 target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
             }
+            ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
             return total;
         }
         private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
@@ -638,7 +654,10 @@ namespace WeaponEnchantments.Common.Globals
                 float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
                 int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
-                npc.StrikeNPC(godSlayerDamage, knockback, direction);
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                    npc.StrikeNPC(godSlayerDamage, knockback, direction);
+                else
+                    npc.StrikeNPC(godSlayerDamage, knockback, direction, false, false, true);
             }
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)

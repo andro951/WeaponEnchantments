@@ -790,19 +790,35 @@ namespace WeaponEnchantments
                             break;
                     }
                     // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest. Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding. 
-                    if (chest != null)
+                    if (chest != null)//Make sure the chest exists
                     {
-                        for (int j = 0; j < 40 & itemsPlaced < chance; j++)
+                        for (int j = 0; j < 40 && itemsPlaced < chance; j++)//for each slot in the chest(40), try to place an item.  itemsPlaced < chance is if you want to place more than 1 by setting chance to something greater than 1f.
                         {
-                            if (chest.item[j].type == ItemID.None)
+                            if (chest.item[j].type == ItemID.None)//If the itemslot you're currently looking at in the chest is empty(ItemID.None), try spawning an item there.
                             {
-                                if (itemTypes.Count > 1)
+                                if (itemTypes.Count > 1)//itemTypes is set in the switch statemts eariler.  It's a list of possible items to spawn.
                                 {
-                                    float randFloat = Main.rand.NextFloat();
-                                    for (int i = 0; i < itemTypes.Count; i++)
+                                    float randFloat = Main.rand.NextFloat();//Get a random float number between 0f and 1f.
+                                    for (int i = 0; i < itemTypes.Count; i++)//This part distributes the drop chance between all the items in itemTypes evenly
                                     {
+                                        //Example, Gold Dead man's chest (just above this section) has 6 items in itemTypes and a chance of 0.5f (50%).  
+                                        //Lets say randFloat is 0.3f;
+                                        //iterating through the loop: starting with i = 0:
+
+                                        //randFloat: 0.5, i: 0, itemTypes.Count: 6, chance: 0.5
+                                        //0.3 >= 0 / 6 * 0.5 && 0.3 < (0 + 1) / 6 * 0.5   (simplify)   0.3 >= 0 && 0.3 < 0.083333.  This statement is false, so is skipped
+
+                                        //randFloat: 0.5, i: 1, itemTypes.Count: 6, chance: 0.5
+                                        //0.3 >= 1 / 6 * 0.5 && 0.3 < (1 + 1) / 6 * 0.5   (simplify)   0.3 >= 0.083333 && 0.3 < 0.1666667.  This statement is false, so is skipped
+
+                                        //randFloat: 0.5, i: 1, itemTypes.Count: 6, chance: 0.5
+                                        //0.3 >= 2 / 6 * 0.5 && 0.3 < (2 + 1) / 6 * 0.5   (simplify)   0.3 >= 0.1666667 && 0.3 < 0.25.  This statement is false, so is skipped
+
+                                        //randFloat: 0.5, i: 1, itemTypes.Count: 6, chance: 0.5
+                                        //0.3 >= 3 / 6 * 0.5 && 0.3 < (3 + 1) / 6 * 0.5   (simplify)   0.3 >= 0.25 && 0.3 < 0.333333  This statement is true, so the if statement executes.
                                         if (randFloat >= (float)i / (float)itemTypes.Count * chance && randFloat < ((float)i + 1f) / (float)itemTypes.Count * chance)
                                         {
+                                            //The item in the empty slot becomes the itemTypes[3] item in this case it would be "HunterEnchantmentUltraRare".
                                             chest.item[j].SetDefaults(itemTypes[i]);
                                             break;
                                         }
@@ -810,13 +826,15 @@ namespace WeaponEnchantments
                                 }
                                 else if(itemTypes.Count == 1)
                                 {
+                                    //If there is only 1 possible drop, there is no need for the above calculation.  Just compair the chance to the random float:
+                                    //we'll say it was 0.3 again.  and chance is 0.5 again.  0.3 is < 0.5, so it will spawn the item.
                                     if (Main.rand.NextFloat() < chance)
                                     {
                                         chest.item[j].SetDefaults(itemTypes[0]);
                                     }
                                     
                                 }
-                                itemsPlaced++;
+                                itemsPlaced++;//This will stop stop spawning from happening if your chance is < 1 becasue of "&& itemsPlaced < chance" in the for loop. 
                             }
                         }
                     }

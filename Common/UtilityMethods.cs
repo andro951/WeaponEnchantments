@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
-        private static bool debugging = false;
+        private static bool debugging = true;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 
@@ -78,6 +78,8 @@ namespace WeaponEnchantments.Common
         public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
         public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
         public static string S(this Item item) => item != null ? !item.IsAir ? item.Name : "<Air>" : "null";
+        public static string S(this Projectile projectile) => projectile != null ? projectile.Name : "null";
+        public static string S(this Player player) => player != null ? player.name : "null";
         public static string S(this AllForOneEnchantmentBasic enchantment) => enchantment != null ? enchantment.Name : "null";
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
