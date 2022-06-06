@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items
 {
-    public class Stabilizer : ModItem
+    /*public class Stabilizer : ModItem
     {
         public static string[] sizes = new string[] { "", "Superior" };
         public static int[,] ingredientTypes = { { 177, 178, 179, 180, 181 }, { 182, 999, -1, -1, -1 } };
@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Items
             IDs[size] = Item.type;
         }
     }
-    public class SuperiorStabilizer : Stabilizer { }
+    public class SuperiorStabilizer : Stabilizer { }*/
     public class Containment : ModItem
     {
         public static string[] sizes = new string[] { "", "Medium", "Superior" };
@@ -91,6 +91,7 @@ namespace WeaponEnchantments.Items
         public static int[,] barIDs = new int[,] { { ItemID.SilverBar, ItemID.GoldBar, ItemID.DemoniteBar }, { ItemID.TungstenBar, ItemID.PlatinumBar, ItemID.CrimtaneBar } };
         public static int[] IDs = new int[sizes.Length];
         public static int[] Values = new int[sizes.Length];
+        
         public int size = 0;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
@@ -101,7 +102,7 @@ namespace WeaponEnchantments.Items
                 Values[size] = bars[size] * ContentSamples.ItemsByType[barIDs[0, size]].value;
                 if (size == 2)
                 {
-                    Values[size] += Stabilizer.Values[0];
+                    Values[size] += ContentSamples.ItemsByType[177].value * 4;
                 }
             }
             Tooltip.SetDefault("Used to store " + AllForOneEnchantmentBasic.rarity[size] + " enchantments");
@@ -134,7 +135,7 @@ namespace WeaponEnchantments.Items
             Item.height = 28 + 4 * (size);
             if(size == 2)
             {
-                Item.value += 4 * ModContent.GetModItem(ModContent.ItemType<Stabilizer>()).Item.value;
+                Item.value += ContentSamples.ItemsByType[177].value * 4;
             }
         }
         public override void AddRecipes()
@@ -145,7 +146,7 @@ namespace WeaponEnchantments.Items
                 recipie.AddTile(TileID.WorkBenches);
                 if (size == 2)
                 {
-                    recipie.AddIngredient(ModContent.ItemType<Stabilizer>(), 4);
+                    recipie.AddRecipeGroup("WeaponEnchantments:CommonGems", 4);
                 }
                 else
                 {
