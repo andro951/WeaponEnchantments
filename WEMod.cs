@@ -272,6 +272,19 @@ namespace WeaponEnchantments
 				packet.Write(iGlobal.statModifiers[key].Base);
 			}
 		}
+	public override void AddRecipeGroups()
+	{
+		RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Common Gem", new int[]
+		{
+			177, 178, 179, 180, 181
+		});
+		RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
+		RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Rare Gem", new int[]
+		{
+			182, 999
+		});
+		RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
+	}
         private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
