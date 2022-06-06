@@ -37,21 +37,21 @@ namespace WeaponEnchantments.Common
         }
         public static void ReplaceAllPlayerOldItems(Player player)
         {
-            ReplaceOldItems(player.armor, player);
+            ReplaceOldItems(player.armor, player, 91);
             ReplaceOldItems(player.inventory, player);
-            ReplaceOldItems(player.bank.item, player);
-            ReplaceOldItems(player.bank2.item, player);
-            ReplaceOldItems(player.bank3.item, player);
-            ReplaceOldItems(player.bank4.item, player);
+            ReplaceOldItems(player.bank.item, player, 50, -2);
+            ReplaceOldItems(player.bank2.item, player, 50, -3);
+            ReplaceOldItems(player.bank3.item, player, 50, -4);
+            ReplaceOldItems(player.bank4.item, player, 50, -5);
         }
-        private static void ReplaceOldItems(Item[] inventory, Player player = null)
+        private static void ReplaceOldItems(Item[] inventory, Player player = null, itemSlotNumber = 0, bank = -1)
         {
             for(int i = 0; i < inventory.Length; i++)
             {
-                 ReplaceOldItem(ref inventory[i], player);
+                 ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
             }
         }
-        public static void ReplaceOldItem(ref Item item, Player player = null)
+        public static void ReplaceOldItem(ref Item item, Player player = null, itemSlotNumber = 0, bank = -1)
         {
             if (item.ModItem is UnloadedItem)
             {
@@ -98,6 +98,8 @@ namespace WeaponEnchantments.Common
                             Item enchantmentItem = iGlobal.enchantments[i];
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                             item.UpdateEnchantment(player, ref enchantment, i);
+                            if(Main.netMode == 1 && enchantmentItem != null)
+                                WEMod.SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, bank);
                         }
                     }
                 }
