@@ -53,8 +53,7 @@ Extra information:
                 Ingredients - 8 Gold/Platinum Bars, 4 Glass
             Superior Containment:
                 Used to upgrade an Enchantment to tier 2, 3 or 4.
-                Ingredients - 16 Demonite/Crimtane Bars, 4 Stabilizers
-                    Stabilizers are crafted from any gem, except diamond/amber, in a hellforge. (1 per gem)
+                Ingredients - 16 Demonite/Crimtane Bars, 4 common gems (any except diamond/amber)
 
         Enchantment Crafting Ingredients:
             tier 0 (Basic): 
@@ -67,8 +66,7 @@ Extra information:
             tier 3 (Super Rare):
                 Ingredients - 10 Super Rare Essence, tier 2 Enchantment
             tier 4 (Ultra Rare):
-                Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 4 Superior Stabilizers
-                Superior Stabilizers are crafted from diamonds/amber with an adamant/titanium forge. (4 per gem)
+                Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber)
 
             (Tiers can be skipped if you have all of the items required to reach the final product)
                 (Ex. Make tier 2 Life Steal Enchantment from tier 0 Life Steal Enchantment, 10 Medium Essence, 10 Rare Essence, Superior Containment)
