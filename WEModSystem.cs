@@ -67,7 +67,7 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(ref enchantment, i);
+                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
             }
             ("/\\ApplyEnchantment(i: " + i + ")").Log();
@@ -81,7 +81,7 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(ref enchantment, i, true);
+                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
             ("/\\RemoveEnchantment(i: " + i + ")").Log();

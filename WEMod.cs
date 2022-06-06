@@ -78,6 +78,7 @@ namespace WeaponEnchantments
 		public static class PacketIDs
 		{
 			public const byte TransferGlobalItemFields = 0;
+			public const byte Enchantment = 1;
 		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
@@ -103,12 +104,31 @@ namespace WeaponEnchantments
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
 			byte type = reader.ReadByte();
+			("\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 			switch (type)
 			{
 				case PacketIDs.TransferGlobalItemFields:
 					bool weapon = reader.ReadBoolean();
 					byte armorSlot = reader.ReadByte();
-					WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+					WEPlayer wePlayer = Main.player[whoAmI].GetModPlayer<WEPlayer>();
+					Item newItem = weapon ? armorSlot == 0 ? wePlayer.Player.HeldItem : Main.mouseItem : wePlayer.Player.armor[armorSlot];
+					Item oldItem = weapon ? wePlayer.trackedWeapon : wePlayer.equipArmor[armorSlot];
+					bool readNewItem = reader.ReadBoolean();
+					if (readNewItem)
+						ReadItem(newItem, reader);
+					else
+						newItem = new Item();
+					bool readOldItem = reader.ReadBoolean();
+					if (readOldItem)
+					{
+						oldItem = new Item(ItemID.CopperShortsword);
+						ReadItem(oldItem, reader);
+					}
+					wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
+					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
+					/*bool weapon = reader.ReadBoolean();
+					byte armorSlot = reader.ReadByte();
+					WEPlayer wePlayer = Main.player[whoAmI].GetModPlayer<WEPlayer>();
 					Item newItem = weapon ? wePlayer.trackedWeapon : wePlayer.Player.armor[armorSlot];
 					Item oldItem = new Item();
 					bool readNewItem = reader.ReadBoolean();
@@ -123,43 +143,53 @@ namespace WeaponEnchantments
 						ReadItem(oldItem, reader);
 					}
 					wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
-					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
+					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);*/
+					break;
+				case PacketIDs.Enchantment:
+					int itemWhoAmI = reader.ReadInt32();
+					byte i = reader.ReadByte();
+					short enchantmentType = reader.ReadInt16();
+					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);
 					break;
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;
 			}
+			("/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 		}
 		private void ReadItem(Item item, BinaryReader reader)
         {
-			EnchantedItem iGlobal = item.G();
-			iGlobal.experience = reader.ReadInt32();
-			iGlobal.powerBoosterInstalled = reader.ReadBoolean();
-			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-			{
-				iGlobal.enchantments[i] = new Item(reader.ReadUInt16());
-			}
-			iGlobal.eStats.Clear();
-			int count = reader.ReadUInt16();
-			for (int i = 0; i < count; i++)
-			{
-				string key = reader.ReadString();
-				float additive = reader.ReadSingle();
-				float multiplicative = reader.ReadSingle();
-				float flat = reader.ReadSingle();
-				float @base = reader.ReadSingle();
-				iGlobal.eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-			}
-			iGlobal.statModifiers.Clear();
-			count = reader.ReadUInt16();
-			for (int i = 0; i < count; i++)
-			{
-				string key = reader.ReadString();
-				float additive = reader.ReadSingle();
-				float multiplicative = reader.ReadSingle();
-				float flat = reader.ReadSingle();
-				float @base = reader.ReadSingle();
-				iGlobal.statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+            if (IsEnchantable(item))
+            {
+				EnchantedItem iGlobal = item.G();
+				iGlobal.experience = reader.ReadInt32();
+				iGlobal.powerBoosterInstalled = reader.ReadBoolean();
+				for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+				{
+					iGlobal.enchantments[i] = new Item(reader.ReadUInt16());
+				}
+				iGlobal.eStats.Clear();
+				int count = reader.ReadUInt16();
+				for (int i = 0; i < count; i++)
+				{
+					string key = reader.ReadString();
+					float additive = reader.ReadSingle();
+					float multiplicative = reader.ReadSingle();
+					float flat = reader.ReadSingle();
+					float @base = reader.ReadSingle();
+					iGlobal.eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+				}
+				iGlobal.statModifiers.Clear();
+				count = reader.ReadUInt16();
+				for (int i = 0; i < count; i++)
+				{
+					string key = reader.ReadString();
+					float additive = reader.ReadSingle();
+					float multiplicative = reader.ReadSingle();
+					float flat = reader.ReadSingle();
+					float @base = reader.ReadSingle();
+					iGlobal.statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+				} 
 			}
 		}
 		private void WriteItem(Item item, ModPacket packet)
