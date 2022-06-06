@@ -1,4 +1,5 @@
-﻿using MonoMod.RuntimeDetour.HookGen;
+﻿using IL.Terraria.Localization;
+using MonoMod.RuntimeDetour.HookGen;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -80,7 +81,7 @@ namespace WeaponEnchantments
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
 		}
-		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, byte bank = -1, byte type = 1)
+		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
 		{
 			ModPacket packet = GetPacket();
 			packet.Write(type);
@@ -159,10 +160,10 @@ namespace WeaponEnchantments
 				case PacketIDs.Enchantment:
 					byte enchantmentSlotNumber = reader.ReadByte();
 					byte slotNumber = reader.ReadByte();
-					byte bank = -1;
+					short bank = -1;
 					if(slotNumber >= 50 && slotNumber < 90)
 						bank = reader.ReadByte();
-					short itemType = reader.ReadUInt16();
+					short itemType = reader.ReadInt16();
 					Item item = new Item();
 					switch(slotNumber)
 					{
@@ -187,14 +188,14 @@ namespace WeaponEnchantments
 							}
 							break;
 						case 90:
-							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlot[0].item;
+							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlotUI[0].Item;
 							break;
 						case <= 100:
 							item = Main.player[whoAmI].armor[slotNumber - 91];
 							break;
 					}
 					item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
-					AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem
+					AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
 					item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
 					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
@@ -274,14 +275,14 @@ namespace WeaponEnchantments
 		}
 	public override void AddRecipeGroups()
 	{
-		RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Common Gem", new int[]
+		RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
 		{
-			177, 178, 179, 180, 181
+			180, 181, 178, 179, 177
 		});
 		RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
-		RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Rare Gem", new int[]
+		group = new RecipeGroup(() => "Any Rare Gem", new int[]
 		{
-			182, 999
+			999, 182
 		});
 		RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 	}

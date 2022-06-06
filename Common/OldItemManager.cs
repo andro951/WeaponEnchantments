@@ -44,14 +44,14 @@ namespace WeaponEnchantments.Common
             ReplaceOldItems(player.bank3.item, player, 50, -4);
             ReplaceOldItems(player.bank4.item, player, 50, -5);
         }
-        private static void ReplaceOldItems(Item[] inventory, Player player = null, itemSlotNumber = 0, bank = -1)
+        private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
             for(int i = 0; i < inventory.Length; i++)
             {
                  ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
             }
         }
-        public static void ReplaceOldItem(ref Item item, Player player = null, itemSlotNumber = 0, bank = -1)
+        public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
             if (item.ModItem is UnloadedItem)
             {
@@ -98,8 +98,8 @@ namespace WeaponEnchantments.Common
                             Item enchantmentItem = iGlobal.enchantments[i];
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                             item.UpdateEnchantment(player, ref enchantment, i);
-                            if(Main.netMode == 1 && enchantmentItem != null)
-                                WEMod.SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, bank);
+                            if(Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
+                                ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
                         }
                     }
                 }
@@ -111,8 +111,8 @@ namespace WeaponEnchantments.Common
             if (!enchantmentItem.IsAir)
             {
                 player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
-                enchantmentItem = new Item();
             }
+            enchantmentItem = new Item();
             Main.NewText(msg);
         }
         private static bool TryReplaceItem(ref Item item, Dictionary<string, int> dict, OldItemContext context)

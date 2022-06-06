@@ -102,7 +102,7 @@ namespace WeaponEnchantments.Items
                 Values[size] = bars[size] * ContentSamples.ItemsByType[barIDs[0, size]].value;
                 if (size == 2)
                 {
-                    Values[size] += ContentSamples.ItemsByType[177].value * 4;
+                    Values[size] += ContentSamples.ItemsByType[180].value * 4;
                 }
             }
             Tooltip.SetDefault("Used to store " + AllForOneEnchantmentBasic.rarity[size] + " enchantments");
@@ -117,7 +117,7 @@ namespace WeaponEnchantments.Items
                 }
                 else
                 {
-                    if (sizes[i] == Name.Substring(Name.IndexOf("Containment") + 11))
+                    if (sizes[i] == Name.Substring(0, Name.IndexOf("Containment")))
                     {
                         size = i;
                         break;
@@ -135,14 +135,15 @@ namespace WeaponEnchantments.Items
             Item.height = 28 + 4 * (size);
             if(size == 2)
             {
-                Item.value += ContentSamples.ItemsByType[177].value * 4;
+                Item.value += ContentSamples.ItemsByType[180].value * 4;
             }
         }
         public override void AddRecipes()
         {
-            for(int i = 0; i < 2; i++)
+            Recipe recipie;
+            for (int i = 0; i < 2; i++)
             {
-                Recipe recipie = CreateRecipe();
+                recipie = CreateRecipe();
                 recipie.AddTile(TileID.WorkBenches);
                 if (size == 2)
                 {
@@ -156,10 +157,7 @@ namespace WeaponEnchantments.Items
                 recipie.Register();
             }
             IDs[size] = Item.type;
-            Recipe recipie = CreateRecipe(barIDs[0, size], bars[size]);
-            recipie.AddIngredient(Item.type);
-            recipie.AddTile(TileID.Furnace);
-            recipie.Register();
+            Mod.CreateRecipe(barIDs[0, size], bars[size]).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
         }
     }
     public class MediumContainment : Containment { }

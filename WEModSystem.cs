@@ -211,7 +211,7 @@ namespace WeaponEnchantments
                 {
                     CloseWeaponEnchantmentUI();
                 }//If player is too far away, close the enchantment table
-                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                /*for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
                     bool findRecipes = false;
                     if (essenceStack[i] != wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack)
@@ -221,7 +221,7 @@ namespace WeaponEnchantments
                     essenceStack[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     //if (findRecipes)
                     //Recipe.FindRecipes();
-                }
+                }*/
             }//If enchanting table is open, check item(s) and enchantments in it every tick
             /*else if (autoPause)
             {

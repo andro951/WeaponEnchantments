@@ -133,8 +133,8 @@ namespace WeaponEnchantments.Common.Globals
 					}
 					else if(arrItem.ModItem is Containment containment)
 					{
-						if(containment.size == 2 && Main.mouseItem == Containment.BarIDs[0, 2])
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 177, 1);
+						if(containment.size == 2 && Main.mouseItem.type == Containment.barIDs[0, 2])
+							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 4);
 					}
                 }
 			}
