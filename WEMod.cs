@@ -80,6 +80,17 @@ namespace WeaponEnchantments
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
 		}
+		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, byte bank = -1, byte type = 1)
+		{
+			ModPacket packet = GetPacket();
+			packet.Write(type);
+			packet.Write(enchantmentSlotNumber);
+			packet.Write(slotNumber);
+			if(bank != -1)
+				packet.Write(bank);
+			packet.Write(itemType);
+			packet.Send();
+		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
 			ModPacket packet = GetPacket();
@@ -146,10 +157,47 @@ namespace WeaponEnchantments
 					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);*/
 					break;
 				case PacketIDs.Enchantment:
-					int itemWhoAmI = reader.ReadInt32();
+					byte enchantmentSlotNumber = reader.ReadByte();
+					byte slotNumber = reader.ReadByte();
+					byte bank = -1;
+					if(slotNumber >= 50 && slotNumber < 90)
+						bank = reader.ReadByte();
+					short itemType = reader.ReadUInt16();
+					Item item = new Item();
+					switch(slotNumber)
+					{
+						case < 50:
+							item = Main.player[whoAmI].inventory[slotNumber];
+							break;
+						case < 90:
+							switch(bank)
+							{
+								case -2:
+									item = Main.player[whoAmI].bank.item[slotNumber - 50];
+									break;
+								case -3:
+									item = Main.player[whoAmI].bank2.item[slotNumber - 50];
+									break;
+								case -4:
+									item = Main.player[whoAmI].bank3.item[slotNumber - 50];
+									break;
+								case -5:
+									item = Main.player[whoAmI].bank4.item[slotNumber - 50];
+									break;
+							}
+							break;
+						case 90:
+							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlot[0].item;
+							break;
+						case <= 100:
+							item = Main.player[whoAmI].armor[slotNumber - 91];
+							break;
+					}
+					item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
+					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
 					short enchantmentType = reader.ReadInt16();
-					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);
+					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);*/
 					break;
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
