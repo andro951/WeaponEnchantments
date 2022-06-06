@@ -193,6 +193,8 @@ namespace WeaponEnchantments.Common
         public static void ReplaceItem(ref Item item, int type, bool replaceWithCoins = false)
         {
             int stack = item.stack;
+            if(type == 999)
+                stack = stack / 4 + (stack % 4 > 0 ? 1 : 0);
             item.TurnToAir();
             if (replaceWithCoins)
             {
