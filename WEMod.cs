@@ -1,4 +1,5 @@
-﻿using MonoMod.RuntimeDetour.HookGen;
+﻿using IL.Terraria.Localization;
+using MonoMod.RuntimeDetour.HookGen;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -80,6 +81,17 @@ namespace WeaponEnchantments
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
 		}
+		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
+		{
+			ModPacket packet = GetPacket();
+			packet.Write(type);
+			packet.Write(enchantmentSlotNumber);
+			packet.Write(slotNumber);
+			if(bank != -1)
+				packet.Write(bank);
+			packet.Write(itemType);
+			packet.Send();
+		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
 			ModPacket packet = GetPacket();
@@ -146,10 +158,49 @@ namespace WeaponEnchantments
 					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);*/
 					break;
 				case PacketIDs.Enchantment:
-					int itemWhoAmI = reader.ReadInt32();
+					byte enchantmentSlotNumber = reader.ReadByte();
+					byte slotNumber = reader.ReadByte();
+					short bank = -1;
+					if(slotNumber >= 50 && slotNumber < 90)
+						bank = reader.ReadByte();
+					short itemType = reader.ReadInt16();
+					Item item = new Item();
+					switch(slotNumber)
+					{
+						case < 50:
+							item = Main.player[whoAmI].inventory[slotNumber];
+							break;
+						case < 90:
+							switch(bank)
+							{
+								case -2:
+									item = Main.player[whoAmI].bank.item[slotNumber - 50];
+									break;
+								case -3:
+									item = Main.player[whoAmI].bank2.item[slotNumber - 50];
+									break;
+								case -4:
+									item = Main.player[whoAmI].bank3.item[slotNumber - 50];
+									break;
+								case -5:
+									item = Main.player[whoAmI].bank4.item[slotNumber - 50];
+									break;
+							}
+							break;
+						case 90:
+							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlotUI[0].Item;
+							break;
+						case <= 100:
+							item = Main.player[whoAmI].armor[slotNumber - 91];
+							break;
+					}
+					item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
+					AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
+					item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
+					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
 					short enchantmentType = reader.ReadInt16();
-					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);
+					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);*/
 					break;
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
@@ -222,6 +273,19 @@ namespace WeaponEnchantments
 				packet.Write(iGlobal.statModifiers[key].Base);
 			}
 		}
+	public override void AddRecipeGroups()
+	{
+		RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
+		{
+			180, 181, 178, 179, 177
+		});
+		RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
+		group = new RecipeGroup(() => "Any Rare Gem", new int[]
+		{
+			999, 182
+		});
+		RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
+	}
         private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;

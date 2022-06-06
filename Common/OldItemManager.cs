@@ -14,26 +14,6 @@ namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
-        /*public static void HookModLoaderIOLoad(ILContext il)
-        {
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.Before,
-                i => i.MatchLdloc(0),
-                i => i.MatchLdstr("Terraria")
-            )) { throw new Exception("Failed to find instructions HookModLoaderIOLoad"); }
-            c.Emit(OpCodes.Ldloc, 0);
-            c.Emit(OpCodes.Ldarg, 0);
-            c.EmitDelegate((Item item, string modName) => 
-            {
-                if(modName == "Weapon Enchantments")
-                {
-                    ReplaceOldItem(ref item);
-                }
-                return item;
-            });
-            c.Emit(OpCodes.Starg, 0);
-        }*/
         private enum OldItemContext
         {
             firstWordNames,
@@ -43,7 +23,7 @@ namespace WeaponEnchantments.Common
         }
         private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, { "Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense }};
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { { "SuperRare", 3 }, { "UltraRare", 4 }, { "Rare", 2 } };
-        private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { { "ContainmentFragment", ItemID.GoldBar } };
+        private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { { "ContainmentFragment", ItemID.GoldBar }, {"Stabilizer", 177}, {"SuperiorStabilizer", 999} };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
         public static void ReplaceAllOldItems()
         {
@@ -57,21 +37,21 @@ namespace WeaponEnchantments.Common
         }
         public static void ReplaceAllPlayerOldItems(Player player)
         {
-            ReplaceOldItems(player.armor, player);
+            ReplaceOldItems(player.armor, player, 91);
             ReplaceOldItems(player.inventory, player);
-            ReplaceOldItems(player.bank.item, player);
-            ReplaceOldItems(player.bank2.item, player);
-            ReplaceOldItems(player.bank3.item, player);
-            ReplaceOldItems(player.bank4.item, player);
+            ReplaceOldItems(player.bank.item, player, 50, -2);
+            ReplaceOldItems(player.bank2.item, player, 50, -3);
+            ReplaceOldItems(player.bank3.item, player, 50, -4);
+            ReplaceOldItems(player.bank4.item, player, 50, -5);
         }
-        private static void ReplaceOldItems(Item[] inventory, Player player = null)
+        private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
             for(int i = 0; i < inventory.Length; i++)
             {
-                 ReplaceOldItem(ref inventory[i], player);
+                 ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
             }
         }
-        public static void ReplaceOldItem(ref Item item, Player player = null)
+        public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
             if (item.ModItem is UnloadedItem)
             {
@@ -118,6 +98,8 @@ namespace WeaponEnchantments.Common
                             Item enchantmentItem = iGlobal.enchantments[i];
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                             item.UpdateEnchantment(player, ref enchantment, i);
+                            if(Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
+                                ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
                         }
                     }
                 }
@@ -129,8 +111,8 @@ namespace WeaponEnchantments.Common
             if (!enchantmentItem.IsAir)
             {
                 player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
-                enchantmentItem = new Item();
             }
+            enchantmentItem = new Item();
             Main.NewText(msg);
         }
         private static bool TryReplaceItem(ref Item item, Dictionary<string, int> dict, OldItemContext context)
@@ -211,6 +193,8 @@ namespace WeaponEnchantments.Common
         public static void ReplaceItem(ref Item item, int type, bool replaceWithCoins = false)
         {
             int stack = item.stack;
+            if(type == 999)
+                stack = stack / 4 + (stack % 4 > 0 ? 1 : 0);
             item.TurnToAir();
             if (replaceWithCoins)
             {

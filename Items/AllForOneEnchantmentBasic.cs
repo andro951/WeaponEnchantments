@@ -257,7 +257,7 @@ namespace WeaponEnchantments.Items
 					Item.value += Containment.Values[2];
 					break;
 				case 4:
-					Item.value += Containment.Values[2] + Stabilizer.Values[1] * 4;
+					Item.value += ContentSamples.ItemsByType[999].value;
 					break;
 				default:
 					Item.value += Containment.Values[EnchantmentSize];
@@ -745,7 +745,7 @@ namespace WeaponEnchantments.Items
 							}
 							if (EnchantmentSize == 4)
 							{
-								recipe.AddIngredient(ModContent.ItemType<SuperiorStabilizer>(), 4);
+								recipe.AddRecipeGroup("WeaponEnchantments:RareGems");
 							}
 							recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable");
 							recipe.Register();
