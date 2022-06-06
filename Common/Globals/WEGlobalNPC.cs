@@ -213,10 +213,16 @@ namespace WeaponEnchantments.Common.Globals
                                 dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
                                 npcLoot.Add(dropRule);
                             }
-                            else
+                            else if (npc.boss)
                             {
                                 int denominator = (int)Math.Round(1f / dropRate[i]);
                                 dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, denominator, 1, 1), ItemDropRule.DropNothing());
+                                npcLoot.Add(dropRule);
+                            }
+                            else
+                            {
+                                int denominator = (int)Math.Round(1f / dropRate[i]);
+                                dropRule = ItemDropRule.Common(baseID + i, denominator, 1, 1);
                                 npcLoot.Add(dropRule);
                             }
                         }
