@@ -14,26 +14,6 @@ namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
-        /*public static void HookModLoaderIOLoad(ILContext il)
-        {
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.Before,
-                i => i.MatchLdloc(0),
-                i => i.MatchLdstr("Terraria")
-            )) { throw new Exception("Failed to find instructions HookModLoaderIOLoad"); }
-            c.Emit(OpCodes.Ldloc, 0);
-            c.Emit(OpCodes.Ldarg, 0);
-            c.EmitDelegate((Item item, string modName) => 
-            {
-                if(modName == "Weapon Enchantments")
-                {
-                    ReplaceOldItem(ref item);
-                }
-                return item;
-            });
-            c.Emit(OpCodes.Starg, 0);
-        }*/
         private enum OldItemContext
         {
             firstWordNames,
