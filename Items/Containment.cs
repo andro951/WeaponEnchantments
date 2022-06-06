@@ -156,6 +156,10 @@ namespace WeaponEnchantments.Items
                 recipie.Register();
             }
             IDs[size] = Item.type;
+            Recipe recipie = CreateRecipe(barIDs[0, size], bars[size]);
+            recipie.AddIngredient(Item.type);
+            recipie.AddTile(TileID.Furnace);
+            recipie.Register();
         }
     }
     public class MediumContainment : Containment { }
