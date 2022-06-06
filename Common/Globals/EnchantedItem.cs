@@ -49,6 +49,10 @@ namespace WeaponEnchantments.Common.Globals
             potionBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
+        /*public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        {
+            
+        }*/
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
@@ -66,74 +70,78 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void NetSend(Item item, BinaryWriter writer)
         {
-            if (!item.IsAir)
+            if (WEMod.IsEnchantable(item))
             {
-                if (WEMod.IsEnchantable(item))
+                ("\\/NetSend(" + item.Name + ")").Log();
+                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                writer.Write(experience);
+                writer.Write(powerBoosterInstalled);
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    writer.Write(experience);
-                    writer.Write(powerBoosterInstalled);
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                    {
-                        writer.Write((short)enchantments[i].type);
-                    }
-                    short count = (short)eStats.Count;
-                    writer.Write(count);
-                    foreach(string key in eStats.Keys)
-                    {
-                        writer.Write(key);
-                        writer.Write(eStats[key].Additive);
-                        writer.Write(eStats[key].Multiplicative);
-                        writer.Write(eStats[key].Base);
-                        writer.Write(eStats[key].Flat);
-                    }
-                    count = (short)statModifiers.Count;
-                    writer.Write(count);
-                    foreach (string key in statModifiers.Keys)
-                    {
-                        writer.Write(key);
-                        writer.Write(statModifiers[key].Additive);
-                        writer.Write(statModifiers[key].Multiplicative);
-                        writer.Write(statModifiers[key].Flat);
-                        writer.Write(statModifiers[key].Base);
-                    }
+                    writer.Write((short)enchantments[i].type);
+                    ("e " + i + ": " + enchantments[i].Name).Log();
                 }
+                short count = (short)eStats.Count;
+                writer.Write(count);
+                foreach(string key in eStats.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(eStats[key].Additive);
+                    writer.Write(eStats[key].Multiplicative);
+                    writer.Write(eStats[key].Base);
+                    writer.Write(eStats[key].Flat);
+                }
+                count = (short)statModifiers.Count;
+                writer.Write(count);
+                foreach (string key in statModifiers.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(statModifiers[key].Additive);
+                    writer.Write(statModifiers[key].Multiplicative);
+                    writer.Write(statModifiers[key].Flat);
+                    writer.Write(statModifiers[key].Base);
+                }
+                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                ("/\\NetSend(" + item.Name + ")").Log();
             }
         }
         public override void NetReceive(Item item, BinaryReader reader)
         {
-            if (!item.IsAir)
+            if (WEMod.IsEnchantable(item))
             {
-                if (WEMod.IsEnchantable(item))
+                ("\\/NetRecieve(" + item.Name + ")").Log();
+                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                experience = reader.ReadInt32();
+                powerBoosterInstalled = reader.ReadBoolean();
+                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    experience = reader.ReadInt32();
-                    powerBoosterInstalled = reader.ReadBoolean();
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                    {
-                        enchantments[i] = new Item(reader.ReadUInt16());
-                    }
-                    eStats.Clear();
-                    int count = reader.ReadUInt16();
-                    for (int i = 0; i < count; i++)
-                    {
-                        string key = reader.ReadString();
-                        float additive = reader.ReadSingle();
-                        float multiplicative = reader.ReadSingle();
-                        float flat = reader.ReadSingle();
-                        float @base = reader.ReadSingle();
-                        eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-                    }
-                    statModifiers.Clear();
-                    count = reader.ReadUInt16();
-                    for (int i = 0; i < count; i++)
-                    {
-                        string key = reader.ReadString();
-                        float additive = reader.ReadSingle();
-                        float multiplicative = reader.ReadSingle();
-                        float flat = reader.ReadSingle();
-                        float @base = reader.ReadSingle();
-                        statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
-                    }
+                    enchantments[i] = new Item(reader.ReadUInt16());
+                    ("e " + i + ": " + enchantments[i].Name).Log();
                 }
+                eStats.Clear();
+                int count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    string key = reader.ReadString();
+                    float additive = reader.ReadSingle();
+                    float multiplicative = reader.ReadSingle();
+                    float flat = reader.ReadSingle();
+                    float @base = reader.ReadSingle();
+                    eStats.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                }
+                statModifiers.Clear();
+                count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    string key = reader.ReadString();
+                    float additive = reader.ReadSingle();
+                    float multiplicative = reader.ReadSingle();
+                    float flat = reader.ReadSingle();
+                    float @base = reader.ReadSingle();
+                    statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
+                }
+                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                ("/\\NetRecieve(" + item.Name + ")").Log();
             }
         }
         public override void UpdateEquip(Item item, Player player)
@@ -260,6 +268,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (WEMod.IsEnchantable(item))
             {
+                ("\\/LoadData(" + item.Name + ")").Log();
                 experience = tag.Get<int>("experience");//Load experience tag
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
                 UpdateLevel();
@@ -271,6 +280,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
                             OldItemManager.ReplaceOldItem(ref enchantments[i]);
+                            ("e " + i + ": " + enchantments[i].Name).Log();
                         }
                         else
                         {
@@ -278,11 +288,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }//Load enchantment item tags
-                /*for(int i = 0; i < statsSet.Length ; i++)
-                {
-                    bool temp = statsSet[i];
-                    statsSet[i] = false;
-                }*/
+                ("/\\LoadData(" + item.Name + ")").Log();
             }
         }
         public override void SaveData(Item item, TagCompound tag)

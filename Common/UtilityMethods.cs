@@ -224,7 +224,7 @@ namespace WeaponEnchantments.Common
             float factor = hp / 50000f + 1f;
             return factor;
         }
-        public static void RemoveUntilPositive(this Item item)
+        public static void RemoveUntilPositive(this Item item, Player player)
         {
             int netMode = Main.netMode;
             int gameMode = Main.GameMode;
@@ -240,11 +240,11 @@ namespace WeaponEnchantments.Common
                             {
                                 if (!iGlobal.enchantments[k].IsAir)
                                 {
-                                    item.GetGlobalItem<EnchantedItem>().enchantments[k] = Main.LocalPlayer.GetItem(Main.myPlayer, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
+                                    item.GetGlobalItem<EnchantedItem>().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
                                 }
                                 if (!iGlobal.enchantments[k].IsAir)
                                 {
-                                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
+                                    player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
                                     iGlobal.enchantments[k] = new Item();
                                 }
                             }
@@ -254,7 +254,7 @@ namespace WeaponEnchantments.Common
                 }
             }
         }
-        public static void UpdateEnchantment(this Item item, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
+        public static void UpdateEnchantment(this Item item, Player player, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
             if(enchantment != null)
             {
@@ -292,7 +292,7 @@ namespace WeaponEnchantments.Common
                         }
                         else
                         {
-                            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
                             iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
                             //wePlayer.eStats[eStat.StatName] = wePlayer.eStats[eStat.StatName].CombineWith(statModifier);
                             WEPlayer.TryRemoveStat(ref iGlobal.eStats, eStat.StatName);

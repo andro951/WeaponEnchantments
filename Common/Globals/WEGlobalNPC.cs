@@ -213,10 +213,16 @@ namespace WeaponEnchantments.Common.Globals
                                 dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
                                 npcLoot.Add(dropRule);
                             }
-                            else
+                            else if (npc.boss)
                             {
                                 int denominator = (int)Math.Round(1f / dropRate[i]);
                                 dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, denominator, 1, 1), ItemDropRule.DropNothing());
+                                npcLoot.Add(dropRule);
+                            }
+                            else
+                            {
+                                int denominator = (int)Math.Round(1f / dropRate[i]);
+                                dropRule = ItemDropRule.Common(baseID + i, denominator, 1, 1);
                                 npcLoot.Add(dropRule);
                             }
                         }
@@ -511,7 +517,7 @@ namespace WeaponEnchantments.Common.Globals
                         critLevel--;
                         damage *= (int)Math.Pow(2, critLevel);
                     }
-                    WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                    WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
                     int total = 0;
                     //if(sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
                     if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
@@ -553,49 +559,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            /*if (projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
-            {
-                sourceItem = projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            }
-            if (sourceItem != null)
-            {
-                if (sourceItem.GetGlobalItem<EnchantedItem>().allForOne)
-                {
-                    immuneToAllForOne = true;
-                    timeHitByAllForOne[projectile.owner] = Main.GameUpdateCount;
-                }
-                damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().minionDamageMultiplier);
-                int total = 0;
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
-                {
-                    total = ActivateOneForAllProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection, sourceItem);
-                }
-                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
-                {
-                    float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
-                    Vector2 speed = new Vector2(0, 0);
-                    float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
-                    int heal = (int)healTotal;
-                    if (wePlayer.Player.statLife < wePlayer.Player.statLifeMax2)
-                    {
-                        if (heal > 0)
-                        {
-                            Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, projectile.owner, projectile.owner, heal);
-                        }
-                        wePlayer.lifeStealRollover = healTotal - heal;
-                    }
-                    else
-                    {
-                        wePlayer.lifeStealRollover = 0f;
-                    }
-                }
-                if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
-                {
-                    //ActivateOneForAllProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection, sourceItem);
-                    projectile.Kill();
-                }
-            }*/
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
@@ -683,6 +646,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             if (wePlayer.eStats.ContainsKey("spawnRate"))
             {
+                ("\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
                 float enemySpawnRateBonus = wePlayer.eStats["spawnRate"].ApplyTo(1f);
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 spawnRate = rate < 1 ? 1 : rate;
@@ -692,7 +656,8 @@ namespace WeaponEnchantments.Common.Globals
                 float enemyMaxSpawnBonus = wePlayer.eStats["maxSpawns"].ApplyTo(1f);
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
                 maxSpawns = spawns >= 0 ? spawns : 0;
+                ("/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
             }
-        }   
+        }
     }
 }

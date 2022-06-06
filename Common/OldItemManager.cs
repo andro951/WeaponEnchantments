@@ -47,12 +47,6 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
         public static void ReplaceAllOldItems()
         {
-            ReplaceOldItems(Main.LocalPlayer.armor);
-            ReplaceOldItems(Main.LocalPlayer.inventory);
-            ReplaceOldItems(Main.LocalPlayer.bank.item);
-            ReplaceOldItems(Main.LocalPlayer.bank2.item);
-            ReplaceOldItems(Main.LocalPlayer.bank3.item);
-            ReplaceOldItems(Main.LocalPlayer.bank4.item);
             foreach (Chest chest in Main.chest)
             {
                 if (chest != null)
@@ -61,14 +55,23 @@ namespace WeaponEnchantments.Common
                     break;
             }
         }
-        private static void ReplaceOldItems(Item[] inventory)
+        public static void ReplaceAllPlayerOldItems(Player player)
+        {
+            ReplaceOldItems(player.armor, player);
+            ReplaceOldItems(player.inventory, player);
+            ReplaceOldItems(player.bank.item, player);
+            ReplaceOldItems(player.bank2.item, player);
+            ReplaceOldItems(player.bank3.item, player);
+            ReplaceOldItems(player.bank4.item, player);
+        }
+        private static void ReplaceOldItems(Item[] inventory, Player player = null)
         {
             for(int i = 0; i < inventory.Length; i++)
             {
-                 ReplaceOldItem(ref inventory[i]);
+                 ReplaceOldItem(ref inventory[i], player);
             }
         }
-        public static void ReplaceOldItem(ref Item item)
+        public static void ReplaceOldItem(ref Item item, Player player = null)
         {
             if (item.ModItem is UnloadedItem)
             {
@@ -85,44 +88,47 @@ namespace WeaponEnchantments.Common
                     {
                         Item enchantmentItem = iGlobal.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem)
-                            ReplaceOldItem(ref enchantmentItem);
-                        if(enchantmentItem != null && !enchantmentItem.IsAir)
+                            ReplaceOldItem(ref enchantmentItem, player);
+                        if(enchantmentItem != null && !enchantmentItem.IsAir && player != null)
                         {
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                             if(WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                             }
                             if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
                             }
                         }
                     }
-                    item.RemoveUntilPositive();
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    if(player != null)
                     {
-                        Item enchantmentItem = iGlobal.enchantments[i];
-                        AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                        item.UpdateEnchantment(ref enchantment, i);
+                        item.RemoveUntilPositive(player);
+                        for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                        {
+                            Item enchantmentItem = iGlobal.enchantments[i];
+                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                            item.UpdateEnchantment(player, ref enchantment, i);
+                        }
                     }
                 }
             }
         }
-        private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, string msg)
+        private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg)
         {
-            enchantmentItem = Main.LocalPlayer.GetItem(Main.myPlayer, enchantmentItem, GetItemSettings.LootAllSettings);
+            enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
             if (!enchantmentItem.IsAir)
             {
-                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
+                player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
                 enchantmentItem = new Item();
             }
             Main.NewText(msg);
