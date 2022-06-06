@@ -194,6 +194,8 @@ namespace WeaponEnchantments
 							break;
 					}
 					item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
+					AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem
+					item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
 					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
 					short enchantmentType = reader.ReadInt16();
