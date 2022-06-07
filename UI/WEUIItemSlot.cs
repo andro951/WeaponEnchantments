@@ -76,6 +76,7 @@ namespace WeaponEnchantments.UI
 										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
 										{
 											case DamageTypeSpecificID.Melee:
+											case DamageTypeSpecificID.MeleeNoSpeed:
 											case DamageTypeSpecificID.SummonMeleeSpeed:
 												damageClassSpecific = (int)DamageTypeSpecificID.Melee;
 												break;

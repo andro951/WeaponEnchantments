@@ -48,16 +48,17 @@ namespace WeaponEnchantments.Items
 	}
 	public enum DamageTypeSpecificID
 	{
-		None = 0,
-		Generic = 1,
-		Melee = 2,
-		Ranged = 3,
-		Magic = 4,
-		Summon = 5,
-		SummonMeleeSpeed = 6,
-		MagicSummonHybrid = 7,
-		Throwing = 8
-	}
+		Default,
+		Generic,
+		Melee,
+		MeleeNoSpeed,
+		Ranged,
+		Magic,
+		Summon,
+		SummonMeleeSpeed,
+		MagicSummonHybrid,
+		Throwing
+	}//Located in DamageClassLoader.cs
 	public class AllForOneEnchantmentBasic : ModItem
 	{
 		bool ToggleRarityNames = false;
