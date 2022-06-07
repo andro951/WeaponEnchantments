@@ -550,17 +550,15 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("mana", EnchantmentStrength * 0.4f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
-					//case EnchantmentTypeID.AmmoCost:
-					//case EnchantmentTypeID.LifeSteal:
-					//case EnchantmentTypeID.CriticalStrikeChance:
-						//EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						//break;
 					case EnchantmentTypeID.ArmorPenetration:
 					/*case EnchantmentTypeID.CriticalStrikeChance:
 					case EnchantmentTypeID.Damage:*/
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
+						break;
+					case EnchantmentTypeID.CriticalStrikeChance:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength * 100));
 						break;
 					case EnchantmentTypeID.Damage:
 						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength));
