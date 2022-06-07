@@ -695,8 +695,8 @@ namespace WeaponEnchantments
                                     itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
                                     break;
                                 case 2://Gold Chest (Locked)
-                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentUltraRare>());
-                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
                                     break;
                                 case 3://Shadow Chest
                                 case 4://Shadow Chest (Locked)
@@ -727,8 +727,8 @@ namespace WeaponEnchantments
                                     chance = 1f;
                                     itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
                                     itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentUltraRare>());
-                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentUltraRare>());
+                                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
                                     break;
                                 case 17://Water Chest
                                     itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());

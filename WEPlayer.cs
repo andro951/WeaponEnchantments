@@ -769,14 +769,17 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
+                ($"potionBuffs.Count: {potionBuffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.potionBuffs.Count}").Log();
                 foreach (int key in iGlobal.potionBuffs.Keys)
                 {
+                    ($"player: {potionBuffs.S(key)}, item: {iGlobal.potionBuffs.S(key)}").Log();
                     if (wePlayer.potionBuffs.ContainsKey(key))
                         wePlayer.potionBuffs[key] += iGlobal.potionBuffs[key] * (remove ? -1 : 1);
                     else
                         wePlayer.potionBuffs.Add(key, iGlobal.potionBuffs[key]);
                     if (remove && wePlayer.potionBuffs[key] < 1)
                         wePlayer.potionBuffs.Remove(key);
+                    ($"player: {potionBuffs.S(key)}, item: {iGlobal.potionBuffs.S(key)}").Log();
                 }
             }
             ("/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();

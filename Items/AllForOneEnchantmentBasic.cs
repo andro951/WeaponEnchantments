@@ -156,7 +156,7 @@ namespace WeaponEnchantments.Items
 						Tooltip.SetDefault((EnchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.AllForOne:
-						Tooltip.SetDefault(EnchantmentStrength + "x Damage, item CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n(Raises NPC immunity time to lower dps for minions/channeled weapons)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
+						Tooltip.SetDefault(EnchantmentStrength + "x Damage dealt (Not visible in weapon stats applied at damage calculation) \nitem CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n(Raises NPC immunity time to lower dps for minions/channeled weapons)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					case EnchantmentTypeID.OneForAll:
 						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies by " + (EnchantmentStrength * 100).ToString() + "% of damage dealt, " + (30f * EnchantmentStrength).ToString() + "% reduced base attack speed\n(WARNING - Destroys your projectiles upon hitting an enemy)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
@@ -181,6 +181,9 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.Splitting:
 						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% to produce an extra projectile.\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
+						break;
+					case EnchantmentTypeID.Damage:
+						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% Damage dealt. (Not visible in weapon stats applied at damage calculation)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
 						break;
 					default:
 						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + MyDisplayName + "\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
@@ -539,7 +542,8 @@ namespace WeaponEnchantments.Items
 				{
 					case EnchantmentTypeID.AllForOne:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
-						AddStaticStat("damage", 0f, EnchantmentStrength);
+						EStats.Add(new EStat("damage",0f, EnchantmentStrength));
+						//AddStaticStat("damage", 0f, EnchantmentStrength);
 						AddStaticStat("useTime", EnchantmentStrength * 0.2f);
 						AddStaticStat("useAnimation", EnchantmentStrength * 0.2f);
 						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));
@@ -552,11 +556,14 @@ namespace WeaponEnchantments.Items
 						//EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						//break;
 					case EnchantmentTypeID.ArmorPenetration:
-					case EnchantmentTypeID.CriticalStrikeChance:
-					case EnchantmentTypeID.Damage:
+					/*case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.Damage:*/
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
+						break;
+					case EnchantmentTypeID.Damage:
+						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.DangerSense:
 					case EnchantmentTypeID.Hunter:

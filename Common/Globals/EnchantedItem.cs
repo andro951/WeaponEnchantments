@@ -37,6 +37,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool favorited = false;
         public const int maxLevel = 40;
         public int prefix;
+        public double cooldownEnd;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -311,11 +312,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            //item.AE(ref damage, "Damage");
+            //item.AEP(ref damage, "Damage");
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
         {
-            //crit = item.AE("CriticalStrikeChance", crit);
+            crit = item.AEP("CriticalStrikeChance", crit);
         }
         public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
         {
@@ -413,7 +414,7 @@ namespace WeaponEnchantments.Common.Globals
                                 });
                                 break;
                             case EnchantmentTypeID.AllForOne:
-                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.EnchantmentStrength + "x Damage, item CD equal to " + enchantment.EnchantmentStrength * 0.8f + "x use speed")
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.EnchantmentStrength + "x Damage dealt (not visible on stats), item CD equal to " + enchantment.EnchantmentStrength * 0.8f + "x use speed")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -456,6 +457,12 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case EnchantmentTypeID.GodSlayer:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (enchantment.EnchantmentStrength * 100).ToString() + "% God Slayer Bonus")
+                                {
+                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeID.Damage:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength * 100).ToString() + "% Damage dealt (not visible on stats)")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
@@ -534,6 +541,12 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case EnchantmentTypeID.Peace:
                                 tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), (1f / (enchantment.EnchantmentStrength + 1f)).ToString() + "x enemy spawn rate and max enemies")
+                                {
+                                    OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
+                                });
+                                break;
+                            case EnchantmentTypeID.Damage:
+                                tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), "+" + (enchantment.EnchantmentStrength * 100 / 4).ToString() + "% Damage dealt (not visible on stats)")
                                 {
                                     OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                                 });
