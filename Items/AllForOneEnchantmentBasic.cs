@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Items
 		AmmoCost,
 		DangerSense,
 		Hunter,
+		//LifeSteal,
 		Mana,
 		ObsidianSkin,
 		Peace,
@@ -542,8 +543,8 @@ namespace WeaponEnchantments.Items
 				{
 					case EnchantmentTypeID.AllForOne:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
-						EStats.Add(new EStat("damage",0f, EnchantmentStrength));
-						//AddStaticStat("damage", 0f, EnchantmentStrength);
+						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
+						//AddStaticStat("Damage", 0f, EnchantmentStrength);
 						AddStaticStat("useTime", EnchantmentStrength * 0.2f);
 						AddStaticStat("useAnimation", EnchantmentStrength * 0.2f);
 						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));

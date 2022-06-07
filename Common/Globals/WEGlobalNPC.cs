@@ -506,7 +506,7 @@ namespace WeaponEnchantments.Common.Globals
                     sourceItem = null;
                 if(sourceItem != null)
                 {
-                    damage = (int)Math.Round(item.AEI("damage", damage));
+                    damage = (int)Math.Round(item.AEI("Damage", damage));
                     int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
                     int critLevel = 0;
                     crit = false;
