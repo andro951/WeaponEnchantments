@@ -9,7 +9,7 @@ using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    internal class ProjectileEnchantedItem : GlobalProjectile
+    public class ProjectileEnchantedItem : GlobalProjectile
     {
         public Item sourceItem;
         public Player playerSource;
@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Common.Globals
         public int lastInventoryLocation = -1;
         private bool updated = false;
         public float damageBonus = 1f;
+        public double cooldownEnd = 0;
         //public float totalSpeedBonus;
         private Projectile parent = null;
         public override bool InstancePerEntity => true;
@@ -54,12 +55,15 @@ namespace WeaponEnchantments.Common.Globals
                         sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
                         sourceSet = true;
                         parent = parentProjectile;
+                        cooldownEnd = sourceItem.G().cooldownEnd;
                     }
                 }
                 else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
                 {
                     sourceItem = FindMiscSourceItem(projectile, eSource.Context);
                     sourceSet = sourceItem != null;
+                    if(sourceItem != null)
+                        cooldownEnd = sourceItem.G().cooldownEnd;
                 }
                 else if(source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
                 {
@@ -180,16 +184,18 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                     damageBonus = damageBonus * allForOneMultiplier;*/
-                    
-                        if (projectile.usesIDStaticNPCImmunity)
+                        if (!sourceItem.G().eStats.ContainsKey("AllForOne") || !(sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                         {
-                            //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
-                        }
-                        if (projectile.usesLocalNPCImmunity)
-                        {
-                            //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
+                            if (projectile.usesIDStaticNPCImmunity)
+                            {
+                                //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
+                                projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
+                            }
+                            if (projectile.usesLocalNPCImmunity)
+                            {
+                                //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
+                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
+                            }
                         }
                         updated = true;
                     }
@@ -338,7 +344,15 @@ namespace WeaponEnchantments.Common.Globals
                     Player player = Main.player[projectile.owner];
                     sourceItem.GetGlobalItem<EnchantedItem>().DamageNPC(sourceItem, player, target, damage, crit);
                 }
+                if (sourceSet && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
+                    sourceItem.G().cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f)) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f)) : sourceItem.useTime);
             }
+        }
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (sourceSet && Main.GameUpdateCount < sourceItem.G().cooldownEnd)
+                return false;
+            return null;
         }
     }
 }
