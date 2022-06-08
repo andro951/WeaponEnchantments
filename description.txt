@@ -64,7 +64,7 @@ Extra information:
             tier 2 (Rare):
                 Ingredients - 10 Rare Essence, Superior Containment, tier 1 Enchantment
             tier 3 (Super Rare):
-                Ingredients - 10 Super Rare Essence, tier 2 Enchantment
+                Ingredients - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber)
             tier 4 (Ultra Rare):
                 Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber)
 

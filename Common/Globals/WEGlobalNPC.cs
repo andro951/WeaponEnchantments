@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,6 +20,9 @@ namespace WeaponEnchantments.Common.Globals
         private bool oneForAllOrigin = true;
         public bool immuneToAllForOne = false;
         float baseOneForAllRange = 240f;
+        static bool war = false;
+        static int warReduction = 1;
+        int myWarReduction = 1;
         //public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
         public override void Load()
@@ -86,12 +90,12 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.QueenSlimeBoss when !bossBag:
                 case ItemID.QueenSlimeBossBag when bossBag:
-
+                    itemTypes.Add(ModContent.ItemType<HellsWrathEnchantmentBasic>());
                     break;
                 case NPCID.Retinazer when !bossBag:
                 case ItemID.TwinsBossBag when bossBag:
                 case NPCID.Spazmatism when !bossBag:
-
+                    itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
                     break;
                 case NPCID.TheDestroyer when !bossBag:
                 case ItemID.DestroyerBossBag when bossBag:
@@ -103,7 +107,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.Plantera when !bossBag:
                 case ItemID.PlanteraBossBag when bossBag:
-
+                    itemTypes.Add(ModContent.ItemType<JunglesFuryEnchantmentBasic>());
                     break;
                 case NPCID.Golem when !bossBag:
                 case ItemID.GolemBossBag when bossBag:
@@ -119,7 +123,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.CultistBoss when !bossBag:
                 case ItemID.CultistBossBag when bossBag:
-
+                    itemTypes.Add(ModContent.ItemType<MoonlightEnchantmentBasic>());
                     break;
                 case NPCID.MoonLordCore when !bossBag:
                 case ItemID.MoonLordBossBag when bossBag:
@@ -424,6 +428,19 @@ namespace WeaponEnchantments.Common.Globals
 
                                 break;
                         }
+                        switch (npc.type)
+                        {
+                            case NPCID.Pixie://75
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case NPCID.Mothron://477
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                            case NPCID.PirateShip://491
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                break;
+                        }
                     }
                 }
             }
@@ -506,7 +523,13 @@ namespace WeaponEnchantments.Common.Globals
                     sourceItem = null;
                 if(sourceItem != null)
                 {
-                    damage = (int)Math.Round(item.AEI("Damage", damage));
+                    int baseDamage = ContentSamples.ItemsByType[item.type].damage;
+                    int damageReduction = npc.defense / 2 - npc.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
+                    if (damageReduction >= damage)
+                        damageReduction = damage - 1;
+                    damage -= damageReduction;
+                    float temp2 = player.AEP("Damage", 1f);
+                    damage = (int)Math.Round(item.AEP("Damage", (float)damage));
                     int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
                     int critLevel = 0;
                     crit = false;
@@ -514,7 +537,7 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         critLevel++;
                         critChance -= 100;
-                    }
+                    }//FirstCritLevel
                     if (Main.rand.Next(0, 100) < critChance)
                         critLevel++;
                     if(critLevel > 0)
@@ -522,16 +545,19 @@ namespace WeaponEnchantments.Common.Globals
                         crit = true;
                         critLevel--;
                         damage *= (int)Math.Pow(2, critLevel);
-                    }
+                    }//MultipleCritlevels
+                    damage += damageReduction;
                     WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
                     int total = 0;
-                    //if(sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin)
+                    foreach(int debuff in item.G().debuffs.Keys)
+                    {
+                        npc.AddBuff(debuff, 300);
+                    }//AddDebuffs
                     ($"sourceItem: {sourceItem.S()} {sourceItem.G().eStats.S("OneForAll")}").Log();
                     if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
                     {
                         total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-                    }
-                    //if (sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal > 0f || wePlayer.lifeSteal > 0f)
+                    }//OneForAll
                     if(item.G().eStats.ContainsKey("LifeSteal"))
                     {
                         //float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
@@ -551,21 +577,19 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             wePlayer.lifeStealRollover = 0f;
                         }
-                    }
-                    //if (sourceItem.GetGlobalItem<EnchantedItem>().godSlayerBonus > 0f)
+                    }//LifeSteal
                     if(sourceItem.G().eStats.ContainsKey("GodSlayer"))
                     {
                         ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-                    }
-                    //if (sourceItem.GetGlobalItem<EnchantedItem>().oneForAll && oneForAllOrigin && projectile != null)
-                    Dictionary<string, StatModifier> tempDict = sourceItem.G().eStats;
-                    bool temp = sourceItem.G().eStats.ContainsKey("OneForAll");
+                    }//GodSlayer
                     if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
                         projectile.Kill();
                     }
                 }
             }
+            if (myWarReduction > 1f && projectile != null && npc.FindBuffIndex(BuffID.RainbowWhipNPCDebuff) == -1 && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
+                damage /= myWarReduction;
             ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
@@ -651,14 +675,25 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!npc.friendly && !npc.townNPC)
             {
+                //($"\\/ActivateGodSlayer").Log();
                 //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
                 float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
-                int godSlayerDamage = (int)((float)(damage + (npc.defDefense - player.GetWeaponArmorPenetration(item) / 2)) / 100f * (godSlayerBonus * npc.lifeMax));
+                int godSlayerDamage;
+                godSlayerDamage = (int)Math.Round(((float)damage / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     npc.StrikeNPC(godSlayerDamage, knockback, direction);
                 else
                     npc.StrikeNPC(godSlayerDamage, knockback, direction, false, false, true);
+            }
+        }
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (war && !npc.friendly && !npc.townNPC && !npc.boss)
+            {
+                myWarReduction = warReduction;
+                npc.lavaImmune = true;
+                npc.trapImmune = true;
             }
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
@@ -669,7 +704,17 @@ namespace WeaponEnchantments.Common.Globals
                 ("\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
                 float enemySpawnRateBonus = wePlayer.eStats["spawnRate"].ApplyTo(1f);
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
+                if (enemySpawnRateBonus > 1f)
+                {
+                    warReduction = (int)enemySpawnRateBonus;
+                    war = true;
+                }
                 spawnRate = rate < 1 ? 1 : rate;
+            }
+            else
+            {
+                warReduction = 1;
+                war = false;
             }
             if (wePlayer.eStats.ContainsKey("maxSpawns"))
             {

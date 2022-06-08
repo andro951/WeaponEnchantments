@@ -97,7 +97,9 @@ namespace WeaponEnchantments.UI
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 										continueCheck = false;
-                                    if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
+									if (newEnchantment.RestrictedClass != 0 && damageClassSpecific == newEnchantment.RestrictedClass)
+										continueCheck = false;
+									if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
 										continueCheck = false;
                                     switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
                                     {

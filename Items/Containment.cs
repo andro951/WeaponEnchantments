@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,6 +19,7 @@ namespace WeaponEnchantments.Items
         public override void SetStaticDefaults()
         {
             GetDefaults();
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
             //for (int i = 0; i < sizes.Length; i++)
             {
                 Values[size] = bars[size] * ContentSamples.ItemsByType[barIDs[0, size]].value;

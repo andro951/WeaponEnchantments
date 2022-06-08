@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items
@@ -23,6 +24,7 @@ namespace WeaponEnchantments.Items
 			}
 			valuePerXP = (values[rarity.Length - 1] / xpPerEssence[rarity.Length - 1]);
 			GetDefaults();
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 			Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 		}
         private void GetDefaults()

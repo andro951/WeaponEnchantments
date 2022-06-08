@@ -52,6 +52,13 @@ namespace WeaponEnchantments.Common
             return value;
             //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
         }
+        public static float AEP(this Player player, string key, float value)
+        {
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            if (wePlayer.eStats.ContainsKey(key))
+                return wePlayer.eStats[key].ApplyTo(value);
+            return value;
+        }
         public static float AEP(this Item item, string key, float value)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -140,7 +147,7 @@ namespace WeaponEnchantments.Common
             }
             return finalString;
         }
-        public static string ToFieldName(string s)
+        public static string ToFieldName(this string s)
         {
             if (s.Length > 0)
             {
@@ -227,6 +234,10 @@ namespace WeaponEnchantments.Common
             float factor = hp / 50000f + 1f;
             return factor;
         }
+        public static int DamageBeforeArmor(this Item item, bool crit)
+        {
+            return (int)Math.Round(item.AEP("Damage", (float)item.damage * (crit ? 2f : 1f)));
+        }
         public static void RemoveUntilPositive(this Item item, Player player)
         {
             int netMode = Main.netMode;
@@ -265,18 +276,32 @@ namespace WeaponEnchantments.Common
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 if (enchantment != null)
                 {
-                    if (enchantment.PotionBuff > -1)
+                    if (enchantment.Buff > -1)
                     {
-                        (iGlobal.potionBuffs.S(enchantment.PotionBuff)).Log();
-                        if (iGlobal.potionBuffs.ContainsKey(enchantment.PotionBuff))
+                        (iGlobal.buffs.S(enchantment.Buff)).Log();
+                        if (iGlobal.buffs.ContainsKey(enchantment.Buff))
                         {
-                            iGlobal.potionBuffs[enchantment.PotionBuff] += (remove ? -1 : 1);
-                            if (iGlobal.potionBuffs[enchantment.PotionBuff] < 1)
-                                iGlobal.potionBuffs.Remove(enchantment.PotionBuff);
+                            iGlobal.buffs[enchantment.Buff] += (remove ? -1 : 1);
+                            if (iGlobal.buffs[enchantment.Buff] < 1)
+                                iGlobal.buffs.Remove(enchantment.Buff);
                         }
                         else
                         {
-                            iGlobal.potionBuffs.Add(enchantment.PotionBuff, 1);
+                            iGlobal.buffs.Add(enchantment.Buff, 1);
+                        }
+                    }
+                    if (enchantment.Debuff > -1)
+                    {
+                        (iGlobal.debuffs.S(enchantment.Debuff)).Log();
+                        if (iGlobal.debuffs.ContainsKey(enchantment.Debuff))
+                        {
+                            iGlobal.debuffs[enchantment.Debuff] += (remove ? -1 : 1);
+                            if (iGlobal.debuffs[enchantment.Debuff] < 1)
+                                iGlobal.debuffs.Remove(enchantment.Debuff);
+                        }
+                        else
+                        {
+                            iGlobal.debuffs.Add(enchantment.Debuff, 1);
                         }
                     }
                     foreach (EStat eStat in enchantment.EStats)
