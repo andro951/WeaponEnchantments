@@ -74,19 +74,19 @@ namespace WeaponEnchantments.Common
                             AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                             if(WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                             }
                             if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
                             {
-                                RemoveEnchantmentNoUpdate(ref enchantmentItem, player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
                             }
                         }
                     }

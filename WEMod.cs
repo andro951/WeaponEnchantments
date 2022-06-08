@@ -83,14 +83,17 @@ namespace WeaponEnchantments
 		}
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
 		{
-			ModPacket packet = GetPacket();
-			packet.Write(type);
-			packet.Write(enchantmentSlotNumber);
-			packet.Write(slotNumber);
-			if(bank != -1)
-				packet.Write(bank);
-			packet.Write(itemType);
-			packet.Send();
+			if(itemType > 0)
+            {
+				ModPacket packet = GetPacket();
+				packet.Write(type);
+				packet.Write(enchantmentSlotNumber);
+				packet.Write(slotNumber);
+				if (bank != -1)
+					packet.Write(bank);
+				packet.Write(itemType);
+				packet.Send();
+			}
 		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
@@ -138,24 +141,6 @@ namespace WeaponEnchantments
 					}
 					wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
 					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);
-					/*bool weapon = reader.ReadBoolean();
-					byte armorSlot = reader.ReadByte();
-					WEPlayer wePlayer = Main.player[whoAmI].GetModPlayer<WEPlayer>();
-					Item newItem = weapon ? wePlayer.trackedWeapon : wePlayer.Player.armor[armorSlot];
-					Item oldItem = new Item();
-					bool readNewItem = reader.ReadBoolean();
-					if (readNewItem)
-						ReadItem(newItem, reader);
-					else
-						newItem = new Item();
-					bool readOldItem = reader.ReadBoolean();
-                    if (readOldItem)
-                    {
-						oldItem = new Item(ItemID.CopperShortsword);
-						ReadItem(oldItem, reader);
-					}
-					wePlayer.UpdatePotionBuffs(ref newItem, ref oldItem);
-					wePlayer.UpdatePlayerStats(ref newItem, ref oldItem);*/
 					break;
 				case PacketIDs.Enchantment:
 					byte enchantmentSlotNumber = reader.ReadByte();

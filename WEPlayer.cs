@@ -81,7 +81,7 @@ namespace WeaponEnchantments
         public bool stickyFavorited = true;
         public bool[] vanillaPlayerBuffsWeapon;
         public bool[] vanillaPlayerBuffsArmor;
-        public Dictionary<int, int> potionBuffs = new Dictionary<int, int>();
+        public Dictionary<int, int> buffs = new Dictionary<int, int>();
         public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
@@ -718,7 +718,7 @@ namespace WeaponEnchantments
                 if (updatePlayerStat)
                     UpdatePlayerStat();
             }
-            foreach (int key in potionBuffs.Keys)
+            foreach (int key in buffs.Keys)
             {
                 Player.AddBuff(key, 1);
             }
@@ -769,17 +769,17 @@ namespace WeaponEnchantments
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
-                ($"potionBuffs.Count: {potionBuffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.potionBuffs.Count}").Log();
-                foreach (int key in iGlobal.potionBuffs.Keys)
+                ($"potionBuffs.Count: {buffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.buffs.Count}").Log();
+                foreach (int key in iGlobal.buffs.Keys)
                 {
-                    ($"player: {potionBuffs.S(key)}, item: {iGlobal.potionBuffs.S(key)}").Log();
-                    if (wePlayer.potionBuffs.ContainsKey(key))
-                        wePlayer.potionBuffs[key] += iGlobal.potionBuffs[key] * (remove ? -1 : 1);
+                    ($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
+                    if (wePlayer.buffs.ContainsKey(key))
+                        wePlayer.buffs[key] += iGlobal.buffs[key] * (remove ? -1 : 1);
                     else
-                        wePlayer.potionBuffs.Add(key, iGlobal.potionBuffs[key]);
-                    if (remove && wePlayer.potionBuffs[key] < 1)
-                        wePlayer.potionBuffs.Remove(key);
-                    ($"player: {potionBuffs.S(key)}, item: {iGlobal.potionBuffs.S(key)}").Log();
+                        wePlayer.buffs.Add(key, iGlobal.buffs[key]);
+                    if (remove && wePlayer.buffs[key] < 1)
+                        wePlayer.buffs.Remove(key);
+                    ($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
                 }
             }
             ("/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
@@ -797,6 +797,19 @@ namespace WeaponEnchantments
                 finalModifier = new StatModifier(baseStatModifier.Additive * newStatModifier.Additive, baseStatModifier.Multiplicative * newStatModifier.Multiplicative, baseStatModifier.Flat + newStatModifier.Flat, baseStatModifier.Base + newStatModifier.Base);
             }
             ("/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
+            return finalModifier;
+        }
+        public static StatModifier InverseCombineWith(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
+        {
+            ("\\/InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
+            StatModifier newInvertedStatModifier;
+            if (remove)
+                newInvertedStatModifier = new StatModifier(2f - newStatModifier.Additive, 1f/newStatModifier.Multiplicative, -newStatModifier.Flat, -newStatModifier.Base);
+            else
+                newInvertedStatModifier = newStatModifier;
+            ("newInvertedStatModifier: " + newInvertedStatModifier.S()).Log();
+            StatModifier finalModifier = baseStatModifier.CombineWith(newInvertedStatModifier);
+            ("/\\InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
             return finalModifier;
         }
         public static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key)
@@ -921,7 +934,7 @@ namespace WeaponEnchantments
                     if(!statModifiers.ContainsKey(key))
                         statModifiers.Add(key, StatModifier.Default);
                     statModifiers[key].S().Log();
-                    statModifiers[key] = CombineStatModifier(statModifiers[key], item.G().statModifiers[key], remove);
+                    statModifiers[key] = InverseCombineWith(statModifiers[key], item.G().statModifiers[key], remove);
                     statModifiers[key].S().Log();
                     TryRemoveStat(ref statModifiers, key);
                 }
@@ -930,7 +943,7 @@ namespace WeaponEnchantments
             {
                 if (!eStats.ContainsKey(key))
                     eStats.Add(key, StatModifier.Default);
-                eStats[key] = CombineStatModifier(eStats[key], item.G().eStats[key], remove);
+                eStats[key] = InverseCombineWith(eStats[key], item.G().eStats[key], remove);
                 TryRemoveStat(ref eStats, key);
             }
             ("/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();

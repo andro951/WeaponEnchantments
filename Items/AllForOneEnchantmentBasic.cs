@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WeaponEnchantments.Common;
 using System.Reflection;
+using Terraria.GameContent.Creative;
 
 namespace WeaponEnchantments.Items
 {
@@ -31,6 +32,11 @@ namespace WeaponEnchantments.Items
 		Splitting,
 		War,
 
+		ColdSteel,
+		HellsWrath,
+		JunglesFury,
+		Moonlight,
+
 		Magic,//change
 		Summon,//change
 	}
@@ -39,7 +45,6 @@ namespace WeaponEnchantments.Items
 		AmmoCost,
 		DangerSense,
 		Hunter,
-		//LifeSteal,
 		Mana,
 		ObsidianSkin,
 		Peace,
@@ -64,7 +69,6 @@ namespace WeaponEnchantments.Items
 	{
 		bool ToggleRarityNames = false;
 
-		public static List<int[]> IDs { private set; get; } = new List<int[]>();
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
@@ -77,9 +81,11 @@ namespace WeaponEnchantments.Items
 		public bool Unique { private set; get; }
 		public bool Max1 { private set; get; } = false;
 		public int DamageClassSpecific { private set; get; }
+		public int RestrictedClass { private set; get; }
 		public bool StaticStat { private set; get; }
 		private bool checkedStats = false;
-		public int PotionBuff { private set; get; }	= -1;
+		public int Buff { private set; get; }	= -1;
+		public int Debuff { private set; get; } = -1;
 		public bool Armor { private set; get; } = false;
 		//public bool statsSet = false;
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
@@ -95,14 +101,10 @@ namespace WeaponEnchantments.Items
 		}
         public override void SetStaticDefaults()
         {
-			int[] arr = new int[rarity.Length];
-            for(int i = 0; i < Enum.GetNames(typeof(EnchantmentTypeID)).Length; i++)
-            {
-				IDs.Add(arr);
-            }
 			GetDefaults();
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			string utilityToolTip = Utility ? "\n   *Utility*" : "";
-			if (DamageClassSpecific > 0 || Unique)
+			if (DamageClassSpecific > 0 || Unique || RestrictedClass > 0)
             {
 				string limmitationToolTip;
 				switch ((EnchantmentTypeID)EnchantmentType)
@@ -394,6 +396,10 @@ namespace WeaponEnchantments.Items
 					}
 					break;
 				case EnchantmentTypeID.Splitting:
+				case EnchantmentTypeID.ColdSteel:
+				case EnchantmentTypeID.HellsWrath:
+				case EnchantmentTypeID.JunglesFury:
+				case EnchantmentTypeID.Moonlight:
 					switch (EnchantmentSize)
 					{
 						case 0:
@@ -492,6 +498,12 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.OneForAll:
 					Max1 = true;
 					break;
+				case EnchantmentTypeID.ColdSteel:
+				case EnchantmentTypeID.HellsWrath:
+				case EnchantmentTypeID.JunglesFury:
+				case EnchantmentTypeID.Moonlight:
+					RestrictedClass = (int)DamageTypeSpecificID.Summon;
+					break;
 				default:
 					DamageClassSpecific = 0;
 					break;
@@ -531,6 +543,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.AllForOne:
 					case EnchantmentTypeID.OneForAll:
 					case EnchantmentTypeID.LifeSteal:
+					case EnchantmentTypeID.ColdSteel:
+					case EnchantmentTypeID.HellsWrath:
+					case EnchantmentTypeID.JunglesFury:
+					case EnchantmentTypeID.Moonlight:
 						AllowedList.Add("Weapon", 1f);
 						break;
 					default:
@@ -548,7 +564,7 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("useTime", EnchantmentStrength * 0.2f);
 						AddStaticStat("useAnimation", EnchantmentStrength * 0.2f);
 						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));
-						AddStaticStat("mana", EnchantmentStrength * 0.4f);
+						AddStaticStat("mana", EnchantmentStrength * 0.3f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
@@ -557,6 +573,32 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
+						break;
+					case EnchantmentTypeID.ColdSteel:
+						CheckBuffByName(false, "CoolWhipPlayerBuff");
+						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
+						break;
+					case EnchantmentTypeID.HellsWrath:
+						CheckBuffByName(true, "FlameWhipEnemyDebuff");
+						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
+						break;
+					case EnchantmentTypeID.JunglesFury:
+						CheckBuffByName(false, "SwordWhipPlayerBuff");
+						CheckBuffByName(true, "SwordWhipNPCDebuff");
+						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
+						break;
+					case EnchantmentTypeID.Moonlight:
+						CheckBuffByName(false, "ScytheWhipPlayerBuff");
+						CheckBuffByName(true, "ScytheWhipEnemyDebuff");
+						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.CriticalStrikeChance:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength * 100));
@@ -568,10 +610,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Hunter:
 					case EnchantmentTypeID.Spelunker:
 					case EnchantmentTypeID.ObsidianSkin:
-						CheckPotionBuffByName();
+						CheckBuffByName();
 						break;
 					case EnchantmentTypeID.Mana:
-						AddStaticStat(EnchantmentTypeName, -EnchantmentStrength);
+						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
@@ -674,18 +716,23 @@ namespace WeaponEnchantments.Items
 			StaticStats.Add(new EnchantmentStaticStat(name, additive, multiplicative, flat, @base));
 			return true;
 		}
-		private bool CheckPotionBuffByName()
+		private bool CheckBuffByName(bool debuff = false, string baseName = "")
         {
+			if (baseName == "")
+				baseName = Name;
 			BuffID buffID = new();
 			foreach(FieldInfo field in buffID.GetType().GetFields())
             {
 				string fieldName = field.Name;
-				if (fieldName.Length < Name.Length)
+				if (fieldName.Length < baseName.Length)
 				{
-					string name = Name.Substring(0, fieldName.Length);
+					string name = baseName.Substring(0, fieldName.Length);
 					if (fieldName.ToLower() == name.ToLower())
 					{
-						PotionBuff = (int)buffID.GetType().GetField(fieldName).GetValue(buffID);
+						if(debuff)
+							Debuff = (int)buffID.GetType().GetField(fieldName).GetValue(buffID);
+						else
+							Buff = (int)buffID.GetType().GetField(fieldName).GetValue(buffID);
 						//StaticStats.Add(new StaticStatStruct(fieldName, EnchantmentStrength));
 						return true;
 					}
@@ -750,6 +797,10 @@ namespace WeaponEnchantments.Items
 							{
 								recipe.AddIngredient(Mod, Containment.sizes[2] + "Containment", 1);
 							}
+							if(EnchantmentSize == 3)
+                            {
+								recipe.AddRecipeGroup("WeaponEnchantments:CommonGems",  2);
+							}
 							if (EnchantmentSize == 4)
 							{
 								recipe.AddRecipeGroup("WeaponEnchantments:RareGems");
@@ -759,7 +810,6 @@ namespace WeaponEnchantments.Items
 						}
 					}
 				}
-				IDs[EnchantmentType][EnchantmentSize] = Type;
 			}
 		}
 		public int GetLevelCost()
@@ -769,6 +819,10 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.AllForOne:
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.Splitting:
+				case EnchantmentTypeID.ColdSteel:
+				case EnchantmentTypeID.HellsWrath:
+				case EnchantmentTypeID.JunglesFury:
+				case EnchantmentTypeID.Moonlight:
 					return (1 + EnchantmentSize) * 3;
 				default:
 					return Utility ? (1 + EnchantmentSize) * 1 : (1 + EnchantmentSize) * 2;
@@ -778,13 +832,17 @@ namespace WeaponEnchantments.Items
 	public class AllForOneEnchantmentCommon : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class AmmoCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ArmorPenetrationEnchantmentBasic : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentCommon : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class ColdSteelEnchantmentBasic : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentCommon : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class CriticalStrikeChanceEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class HellsWrathEnchantmentBasic : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentCommon : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class JunglesFuryEnchantmentBasic : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentCommon : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class MoonlightEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }

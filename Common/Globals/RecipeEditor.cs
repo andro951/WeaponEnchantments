@@ -129,7 +129,10 @@ namespace WeaponEnchantments.Common.Globals
                         {
 							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
 						}
-
+						else if(size == 3)
+                        {
+							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 2);
+						}
 					}
 					else if(arrItem.ModItem is Containment containment)
 					{

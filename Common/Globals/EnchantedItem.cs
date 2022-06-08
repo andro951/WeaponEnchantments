@@ -23,7 +23,8 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<string, StatModifier> statModifiers;
         public Dictionary<string, StatModifier> appliedStatModifiers;
         public Dictionary<string, StatModifier> eStats;
-        public Dictionary<int, int> potionBuffs;
+        public Dictionary<int, int> buffs;
+        public Dictionary<int, int> debuffs;
 
         public int lastValueBonus;
         public int levelBeforeBooster;
@@ -37,7 +38,6 @@ namespace WeaponEnchantments.Common.Globals
         public bool favorited = false;
         public const int maxLevel = 40;
         public int prefix;
-        public double cooldownEnd;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -47,7 +47,8 @@ namespace WeaponEnchantments.Common.Globals
             statModifiers = new Dictionary<string, StatModifier>();
             appliedStatModifiers = new Dictionary<string, StatModifier>();
             eStats = new Dictionary<string, StatModifier>();
-            potionBuffs = new Dictionary<int, int>();
+            buffs = new Dictionary<int, int>();
+            debuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
         /*public override bool AppliesToEntity(Item entity, bool lateInstantiation)
@@ -64,7 +65,8 @@ namespace WeaponEnchantments.Common.Globals
             }//fixes enchantments being applied to all of an item instead of just the instance
             clone.statModifiers = new Dictionary<string, StatModifier>(statModifiers);
             clone.eStats = new Dictionary<string, StatModifier>(eStats);
-            clone.potionBuffs = new Dictionary<int, int>(potionBuffs);
+            clone.buffs = new Dictionary<int, int>(buffs);
+            clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
             clone.equip = false;
             return clone;
