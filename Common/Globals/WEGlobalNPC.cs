@@ -563,7 +563,12 @@ namespace WeaponEnchantments.Common.Globals
                         //float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
                         float lifeSteal = item.G().eStats["LifeSteal"].ApplyTo(0f);
                         Vector2 speed = new Vector2(0, 0);
-                        float healTotal = wePlayer.lifeStealDamage;
+                        // \/NEW\/
+                        float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
+                        if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)
+                            healTotal /= 2f;
+                        // /\NEW/\
+                        /*float healTotal = wePlayer.lifeStealDamage;
                         if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)
                         {
                             wePlayer.lifeStealDamage = ((damage / 2) + total) * lifeSteal + wePlayer.lifeStealRollover;
@@ -571,7 +576,7 @@ namespace WeaponEnchantments.Common.Globals
                         else
                         {
                             wePlayer.lifeStealDamage = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
-                        }
+                        }*/
                         int heal = (int)healTotal;
                         if (player.statLife < player.statLifeMax2)
                         {
