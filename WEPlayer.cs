@@ -24,7 +24,7 @@ namespace WeaponEnchantments
             bool checkWeapon = wePlayer.ItemChanged(newItem, oldItem, true);
             if (checkWeapon)
             {
-                ($"\\/CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
+                //($"\\/CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
                 if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem newGlobal))
                 {
                     newGlobal.trackedWeapon = true;
@@ -44,7 +44,7 @@ namespace WeaponEnchantments
                     //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, newCheckItem, oldCheckItem, true, (byte)slot);
                 }
                 oldItem = newItem;
-                ($"/\\CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
+                //($"/\\CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
             }//Check HeldItem
         }
     }
@@ -105,14 +105,14 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            ($"\\/OnEnterWorld({player.S()})").Log();
+            //($"\\/OnEnterWorld({player.S()})").Log();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            ($"/\\OnEnterWorld({player.S()})").Log();
+            //($"/\\OnEnterWorld({player.S()})").Log();
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -541,7 +541,7 @@ namespace WeaponEnchantments
                 //(Main.HoverItem.Name + " Main.HoverItem != null: " + (Main.HoverItem != null) + " && WEMod.IsWeaponItem(Main.HoverItem): " + WEMod.IsWeaponItem(Main.HoverItem) + " && !Main.HoverItem.G().trackedWeapon: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon) + " && !Main.HoverItem.G().hoverItem: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)).LogT();
                 if (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)
                 {
-                    ("\\/Start hoverItem check").Log();
+                    //("\\/Start hoverItem check").Log();
                     Item newItem = null;
                     if (usingEnchantingTable && UtilityMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
                         newItem = enchantingTableUI.itemSlotUI[0].Item;
@@ -622,9 +622,9 @@ namespace WeaponEnchantments
                             }
                         }
                     }
-                    ("newItem: " + newItem.S()).Log();
+                    //("newItem: " + newItem.S()).Log();
                     bool checkWeapon = ItemChanged(newItem, hoverItem, true);
-                    ("checkWeapon: " + ItemChanged(newItem, hoverItem, true)).Log();
+                    //("checkWeapon: " + ItemChanged(newItem, hoverItem, true)).Log();
                     if (checkWeapon)
                     {
                         if (newItem != null && !newItem.IsAir)
@@ -636,13 +636,13 @@ namespace WeaponEnchantments
                         hoverItem = newItem;
                         UpdateItemStats(ref newItem);
                     }//Check HeldItem
-                    ("/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
+                    //("/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
                 }
                 else
                 {
                     if (hoverItem != null && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
                     {
-                        ($"remove hoverItem: {hoverItem.S()}").Log();
+                        //($"remove hoverItem: {hoverItem.S()}").Log();
                         if(hoverItem != null)
                         hoverItem.G().hoverItem = false;
                         hoverItem = null;
@@ -766,36 +766,36 @@ namespace WeaponEnchantments
         }
         public void UpdatePotionBuffs(ref Item newItem, ref Item oldItem)
         {
-            ("\\/UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
+            //("\\/UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
             UpdatePotionBuff(ref newItem);
             UpdatePotionBuff(ref oldItem, true);
-            ("/\\UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
+            //("/\\UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
         }
         private void UpdatePotionBuff(ref Item item, bool remove = false)
         {
-            ("\\/UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
+            //("\\/UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
             if (WEMod.IsEnchantable(item))
             {
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
-                ($"potionBuffs.Count: {buffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.buffs.Count}").Log();
+                //($"potionBuffs.Count: {buffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.buffs.Count}").Log();
                 foreach (int key in iGlobal.buffs.Keys)
                 {
-                    ($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
+                    //($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
                     if (wePlayer.buffs.ContainsKey(key))
                         wePlayer.buffs[key] += iGlobal.buffs[key] * (remove ? -1 : 1);
                     else
                         wePlayer.buffs.Add(key, iGlobal.buffs[key]);
                     if (remove && wePlayer.buffs[key] < 1)
                         wePlayer.buffs.Remove(key);
-                    ($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
+                    //($"player: {buffs.S(key)}, item: {iGlobal.buffs.S(key)}").Log();
                 }
             }
-            ("/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
+            //("/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
         }
         public static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
         {
-            ("\\/CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
+            //("\\/CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
             StatModifier finalModifier;
             if (remove)
             {
@@ -805,38 +805,38 @@ namespace WeaponEnchantments
             {
                 finalModifier = new StatModifier(baseStatModifier.Additive * newStatModifier.Additive, baseStatModifier.Multiplicative * newStatModifier.Multiplicative, baseStatModifier.Flat + newStatModifier.Flat, baseStatModifier.Base + newStatModifier.Base);
             }
-            ("/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
+            //("/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
             return finalModifier;
         }
         public static StatModifier InverseCombineWith(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove)
         {
-            ("\\/InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
+            //("\\/InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
             StatModifier newInvertedStatModifier;
             if (remove)
                 newInvertedStatModifier = new StatModifier(2f - newStatModifier.Additive, 1f/newStatModifier.Multiplicative, -newStatModifier.Flat, -newStatModifier.Base);
             else
                 newInvertedStatModifier = newStatModifier;
-            ("newInvertedStatModifier: " + newInvertedStatModifier.S()).Log();
+            //("newInvertedStatModifier: " + newInvertedStatModifier.S()).Log();
             StatModifier finalModifier = baseStatModifier.CombineWith(newInvertedStatModifier);
-            ("/\\InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
+            //("/\\InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
             return finalModifier;
         }
         public static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key)
         {
-            ("\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
+            //("\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
             if (dictionary.ContainsKey(key))
             {
                 if((float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Additive, 4)) - 1f) < 1E-4 && (float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Multiplicative, 4)) - 1f) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Flat, 4)) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Base, 4)) < 1E-4)
                 {
                     dictionary.Remove(key);
-                    (key + " removed").Log();
+                    //(key + " removed").Log();
                 }
             }
-            ("/\\TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
+            //("/\\TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
         }
         public void UpdatePlayerStats(ref Item newItem, ref Item oldItem)
         {
-            ("\\/UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
+            //("\\/UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
             if (WEMod.IsEnchantable(newItem))
                 UpdatePlayerDictionaries(newItem);
             if (WEMod.IsEnchantable(oldItem))
@@ -854,11 +854,11 @@ namespace WeaponEnchantments
                     UpdateItemStats(ref weapon);
             }
             UpdatePlayerStat();
-            ("/\\UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
+            //("/\\UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
         }
         private void UpdatePlayerStat()
         {
-            ("\\/UpdatePlayerStat()").LogT();
+            //("\\/UpdatePlayerStat()").LogT();
             /*foreach (string key in item.G().appliedStatModifiers.Keys)
                 {
                     if (!combinedStatModifiers.ContainsKey(key))
@@ -883,7 +883,7 @@ namespace WeaponEnchantments
                         StatModifier staticStat = CombineStatModifier(statModifiers[key], lastAppliedStatModifier, true);
                         if (field != null)
                         {
-                            (statName.ToString() + ": " + field.GetValue(Player)).LogT();
+                            //(statName.ToString() + ": " + field.GetValue(Player)).LogT();
                             Type fieldType = field.FieldType;
                             if (fieldType == typeof(float))
                             {
@@ -902,11 +902,11 @@ namespace WeaponEnchantments
                                 bool finalValue = statModifiers[key].Additive != 1f;
                                 field.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
                             }//bool (field)
-                            (statName.ToString() + ": " + field.GetValue(Player)).LogT();
+                            //(statName.ToString() + ": " + field.GetValue(Player)).LogT();
                         }//field
                         else if (property != null)
                         {
-                            (statName.ToString() + ": " + property.GetValue(Player)).LogT();
+                            //(statName.ToString() + ": " + property.GetValue(Player)).LogT();
                             Type propertyType = property.PropertyType;
                             if (propertyType == typeof(float))
                             {
@@ -925,16 +925,16 @@ namespace WeaponEnchantments
                                 bool finalValue = statModifiers[key].Additive != 1f;
                                 property.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
                             }//bool (property)
-                            (statName.ToString() + ": " + property.GetValue(Player)).LogT();
+                            //(statName.ToString() + ": " + property.GetValue(Player)).LogT();
                         }//property
                     }
                 }
             }
-            ("/\\UpdatePlayerStat()").LogT();
+            //("/\\UpdatePlayerStat()").LogT();
         }
         private void UpdatePlayerDictionaries(Item item, bool remove = false)
         {
-            ("\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + item.GetGlobalItem<EnchantedItem>().statModifiers.Count).Log();
+            //("\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + item.GetGlobalItem<EnchantedItem>().statModifiers.Count).Log();
             foreach (string key in item.G().statModifiers.Keys)
             {
                 string statName = key.RI();
@@ -942,9 +942,9 @@ namespace WeaponEnchantments
                 {
                     if(!statModifiers.ContainsKey(key))
                         statModifiers.Add(key, StatModifier.Default);
-                    statModifiers[key].S().Log();
+                    //statModifiers[key].S().Log();
                     statModifiers[key] = InverseCombineWith(statModifiers[key], item.G().statModifiers[key], remove);
-                    statModifiers[key].S().Log();
+                    //statModifiers[key].S().Log();
                     TryRemoveStat(ref statModifiers, key);
                 }
             }
@@ -955,13 +955,13 @@ namespace WeaponEnchantments
                 eStats[key] = InverseCombineWith(eStats[key], item.G().eStats[key], remove);
                 TryRemoveStat(ref eStats, key);
             }
-            ("/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();
+            //("/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();
         }
         public void UpdateItemStats(ref Item item)
         {
             if (WEMod.IsEnchantable(item))
             {
-                ("\\/UpdateItemStats(" + item.S() + ")").Log();
+                //("\\/UpdateItemStats(" + item.S() + ")").Log();
                 if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
@@ -973,7 +973,7 @@ namespace WeaponEnchantments
                     if (item.GetType().GetField(itemKey.RI()) != null)
                     {
                         combinedStatModifiers.Add(itemKey, item.G().statModifiers[itemKey]);
-                        ("combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
+                        //("combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
                     }
                 }//Populate itemStatModifiers
                 if (WEMod.IsWeaponItem(item))
@@ -990,7 +990,7 @@ namespace WeaponEnchantments
                             {
                                 combinedStatModifiers.Add(playerKey, statModifiers[playerKey]);
                             }
-                            ("combinedStatModifiers.Add(playerKey: " + playerKey + ", " + item.G().statModifiers.S(playerKey) + ")").Log();
+                            //("combinedStatModifiers.Add(playerKey: " + playerKey + ", " + item.G().statModifiers.S(playerKey) + ")").Log();
                         }
                     }
                 }//Populate playerStatModifiers if item is a weapon
@@ -1005,7 +1005,7 @@ namespace WeaponEnchantments
                     bool statsNeedUpdate = true;
                     if (item.G().appliedStatModifiers.ContainsKey(key))
                         statsNeedUpdate = combinedStatModifiers[key] != item.G().appliedStatModifiers[key];
-                    ("statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + item.G().appliedStatModifiers.S(key)).Log();
+                    //("statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + item.G().appliedStatModifiers.S(key)).Log();
                     if (statsNeedUpdate)
                     {
                         if (key.CI())
@@ -1021,7 +1021,7 @@ namespace WeaponEnchantments
                             StatModifier staticStat = CombineStatModifier(combinedStatModifiers[key], lastAppliedStatModifier, true);
                             if (field != null)
                             {
-                                (statName.ToString() + ": " + field.GetValue(item)).Log();
+                                //(statName.ToString() + ": " + field.GetValue(item)).Log();
                                 Type fieldType = field.FieldType;
                                 if (fieldType == typeof(float))
                                 {
@@ -1042,11 +1042,11 @@ namespace WeaponEnchantments
                                     bool finalValue = combinedStatModifiers[key].Additive != 1f;
                                     field.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
                                 }//bool (field)
-                                (statName.ToString() + ": " + field.GetValue(item)).Log();
+                                //(statName.ToString() + ": " + field.GetValue(item)).Log();
                             }//field
                             else if (property != null)
                             {
-                                (statName.ToString() + property.GetValue(item)).Log();
+                                //(statName.ToString() + property.GetValue(item)).Log();
                                 Type propertyType = property.PropertyType;
                                 if (propertyType == typeof(float))
                                 {
@@ -1067,13 +1067,13 @@ namespace WeaponEnchantments
                                     bool finalValue = combinedStatModifiers[key].Additive != 1f;
                                     property.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
                                 }//bool (property)
-                                (statName.ToString() + property.GetValue(item)).Log();
+                                //(statName.ToString() + property.GetValue(item)).Log();
                             }//property
                             TryRemoveStat(ref item.G().appliedStatModifiers, key);
                         }
                     }
                 }
-            ("/\\UpdateItemStats(" + item.S() + ")").Log();
+                //("/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)

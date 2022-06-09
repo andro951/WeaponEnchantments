@@ -60,7 +60,7 @@ namespace WeaponEnchantments
         }//PR
         private static void ApplyEnchantment(int i)
         {
-            ("\\/ApplyEnchantment(i: " + i + ")").Log();
+            //("\\/ApplyEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!item.IsAir)
@@ -70,11 +70,11 @@ namespace WeaponEnchantments
                 item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
             }
-            ("/\\ApplyEnchantment(i: " + i + ")").Log();
+            //("/\\ApplyEnchantment(i: " + i + ")").Log();
         }
         public static void RemoveEnchantment(int i)
         {
-            ("\\/RemoveEnchantment(i: " + i + ")").Log();
+            //("\\/RemoveEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!item.IsAir)
@@ -84,7 +84,7 @@ namespace WeaponEnchantments
                 item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
-            ("/\\RemoveEnchantment(i: " + i + ")").Log();
+            //("/\\RemoveEnchantment(i: " + i + ")").Log();
         }
         public override void PreUpdateItems()
         {
