@@ -69,6 +69,8 @@ namespace WeaponEnchantments.Common.Globals
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
             clone.equip = false;
+            if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
+                clone.trackedWeapon = false;
             return clone;
         }
         public override void NetSend(Item item, BinaryWriter writer)
@@ -311,33 +313,6 @@ namespace WeaponEnchantments.Common.Globals
             }
             tag["experience"] = experience;//Save experience tag
             tag["powerBooster"] = powerBoosterInstalled;//save status of powerBoosterInstalled
-        }
-        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-        {
-            //item.AEP(ref damage, "Damage");
-        }
-        public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
-        {
-            crit = item.AEP("CriticalStrikeChance", crit);
-        }
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-        {
-            /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Knockback)
-                {
-                    knockback += enchantment.EnchantmentStrength;
-                }
-            }*/
-        }
-        public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
-        {
-            
-        }
-        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

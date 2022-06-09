@@ -24,7 +24,7 @@ namespace WeaponEnchantments
             bool checkWeapon = wePlayer.ItemChanged(newItem, oldItem, true);
             if (checkWeapon)
             {
-                ("\\/CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
+                ($"\\/CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
                 if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem newGlobal))
                 {
                     newGlobal.trackedWeapon = true;
@@ -44,7 +44,7 @@ namespace WeaponEnchantments
                     //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, newCheckItem, oldCheckItem, true, (byte)slot);
                 }
                 oldItem = newItem;
-                ("/\\CheckWeapon(" + (newItem != null ? newItem.Name : "null ") + ", " + (oldItem != null ? oldItem.Name : "null ") + ") -after if(checkWeapon)").Log();
+                ($"/\\CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
             }//Check HeldItem
         }
     }
@@ -105,12 +105,14 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
+            ($"\\/OnEnterWorld({player.S()})").Log();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
+            ($"/\\OnEnterWorld({player.S()})").Log();
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -638,12 +640,19 @@ namespace WeaponEnchantments
                 }
                 else
                 {
-                    if (hoverItem != null && !hoverItem.IsAir && (!WEMod.IsWeaponItem(Main.HoverItem) || !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem))
+                    if (hoverItem != null && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
+                    {
+                        ($"remove hoverItem: {hoverItem.S()}").Log();
+                        if(hoverItem != null)
+                        hoverItem.G().hoverItem = false;
+                        hoverItem = null;
+                    }
+                    /*if (hoverItem != null && !hoverItem.IsAir && (!WEMod.IsWeaponItem(Main.HoverItem) || !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem))
                     {
                         ("remove hoverItem: " + hoverItem.Name).Log();
                         hoverItem.G().hoverItem = false;
                         hoverItem = null;
-                    }
+                    }*/
                 }
                 for (int j = 0; j < Player.armor.Length; j++)
                 {

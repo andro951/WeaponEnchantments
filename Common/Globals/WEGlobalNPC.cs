@@ -682,9 +682,9 @@ namespace WeaponEnchantments.Common.Globals
                 int godSlayerDamage;
                 godSlayerDamage = (int)Math.Round(((float)damage / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
                 if (Main.netMode == NetmodeID.SinglePlayer)
-                    npc.StrikeNPC(godSlayerDamage, knockback, direction);
+                    npc.StrikeNPC(godSlayerDamage, knockback, direction, crit);
                 else
-                    npc.StrikeNPC(godSlayerDamage, knockback, direction, false, false, true);
+                    npc.StrikeNPC(godSlayerDamage, knockback, direction, crit, false, true);
             }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
