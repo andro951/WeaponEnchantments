@@ -23,7 +23,6 @@ namespace WeaponEnchantments.Common.Globals
         static bool war = false;
         static int warReduction = 1;
         int myWarReduction = 1;
-        //public double[] timeHitByAllForOne = new double[256];
         public override bool InstancePerEntity => true;
         public override void Load()
         {
@@ -447,7 +446,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
         {
-            float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) * (npc.boss ? 1f : 4f);
+            float multiplier = (0.5f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 20f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
             total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f;
@@ -475,7 +474,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 for (int i = 0; i < essenceValues.Length; ++i)
                 {
-                    if (total / essenceValues[i] < 0.05)
+                    if (total / essenceValues[i] < 0.025)
                     {
                         break;
                     }
@@ -560,7 +559,6 @@ namespace WeaponEnchantments.Common.Globals
                     }//OneForAll
                     if(item.G().eStats.ContainsKey("LifeSteal"))
                     {
-                        //float lifeSteal = sourceItem.GetGlobalItem<EnchantedItem>().lifeSteal + wePlayer.lifeSteal;
                         float lifeSteal = item.G().eStats["LifeSteal"].ApplyTo(0f);
                         Vector2 speed = new Vector2(0, 0);
                         float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
