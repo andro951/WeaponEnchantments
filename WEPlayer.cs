@@ -67,6 +67,7 @@ namespace WeaponEnchantments
         public float ammoCost = 0f;
         public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
+        public float lifeStealDamage;
         public bool allForOneCooldown = false;
         public int allForOneTimer = 0;
         public Item[] equipArmor;
