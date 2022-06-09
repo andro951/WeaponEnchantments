@@ -27,22 +27,22 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
         public static void ReplaceAllOldItems()
         {
-            //("\\/ReplaceAllOldItems()").Log();
+            if(UtilityMethods.debugging) ($"\\/ReplaceAllOldItems()").Log();
             int i = 0;
             foreach (Chest chest in Main.chest)
             {
                 if (chest != null)
                 {
-                    //($"chest: {i}").Log();
+                    if(UtilityMethods.debugging) ($"chest: {i}").Log();
                     ReplaceOldItems(chest.item);
                 }
                 i++;
             }
-            //("/\\ReplaceAllOldItems()").Log();
+            if(UtilityMethods.debugging) ($"/\\ReplaceAllOldItems()").Log();
         }
         public static void ReplaceAllPlayerOldItems(Player player)
         {
-            //($"\\/ReplaceAllPlayerOldItems(player: {player.S()})").Log();
+            if(UtilityMethods.debugging) ($"\\/ReplaceAllPlayerOldItems(player: {player.S()})").Log();
             //"armor".Log();
             ReplaceOldItems(player.armor, player, 91);
             //"inventory".Log();
@@ -55,22 +55,22 @@ namespace WeaponEnchantments.Common
             ReplaceOldItems(player.bank3.item, player, 50, -4);
             //"bank4".Log();
             ReplaceOldItems(player.bank4.item, player, 50, -5);
-            //($"/\\ReplaceAllPlayerOldItems(player: {player.S()})").Log();
+            if(UtilityMethods.debugging) ($"/\\ReplaceAllPlayerOldItems(player: {player.S()})").Log();
         }
         private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
-            //($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if(UtilityMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             for(int i = 0; i < inventory.Length; i++)
             {
                  ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
             }
-            //($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if(UtilityMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
         }
         public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
             if(item != null && !item.IsAir)
             {
-                //($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if(UtilityMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
                 if (item.ModItem is UnloadedItem)
                 {
                     bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
@@ -122,7 +122,7 @@ namespace WeaponEnchantments.Common
                         }
                     }
                 }
-            //($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             }
         }
         private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg)

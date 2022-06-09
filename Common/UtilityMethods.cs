@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
-        //private static bool debugging = true;
+        public readonly static bool debugging = false;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 
@@ -272,7 +272,7 @@ namespace WeaponEnchantments.Common
         {
             if(enchantment != null)
             {
-                //("\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+                if(UtilityMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 if (enchantment != null)
                 {
@@ -306,7 +306,7 @@ namespace WeaponEnchantments.Common
                     }
                     foreach (EStat eStat in enchantment.EStats)
                     {
-                        //("eStat: " + eStat.S()).Log();
+                        if(UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
                         //(item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
                         float add = eStat.Additive * (remove ? -1f : 1f);
                         float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
@@ -333,7 +333,7 @@ namespace WeaponEnchantments.Common
                     }
                     foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
                     {
-                        //("staticStat: " + staticStat.S()).Log();
+                        if(UtilityMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
                         //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
                         float add = staticStat.Additive * (remove ? -1f : 1f);
                         float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
@@ -358,7 +358,7 @@ namespace WeaponEnchantments.Common
                     //enchantment.statsSet = true;
                 }
                 //iGlobal.statsSet[slotNum] = true;
-                //("/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+                if(UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
             }
         }
         public static void ApplyAllowedList(Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)
@@ -432,7 +432,7 @@ namespace WeaponEnchantments.Common
                 coinValue /= 100;
             }
         }
-        /*public static void Log(this string s)
+        public static void Log(this string s)
         {
             if (debugging)
             {
@@ -466,6 +466,6 @@ namespace WeaponEnchantments.Common
             else if (!atEnd && s.Substring(0, 2) == "/\\")
                 spaces--;
         }
-        public static string AddWS(this string s) => new string('|', spaces) + s;*/
+        public static string AddWS(this string s) => new string('|', spaces) + s;
     }
 }

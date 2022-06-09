@@ -119,7 +119,7 @@ namespace WeaponEnchantments
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
 			byte type = reader.ReadByte();
-			//("\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(UtilityMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 			switch (type)
 			{
 				case PacketIDs.TransferGlobalItemFields:
@@ -191,7 +191,7 @@ namespace WeaponEnchantments
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;
 			}
-			//("/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(UtilityMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 		}
 		private void ReadItem(Item item, BinaryReader reader)
         {
