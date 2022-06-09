@@ -58,15 +58,15 @@ Extra information:
         Enchantment Crafting Ingredients:
             tier 0 (Basic): 
                 Only Basic Damage and Armor Enchantments can be directly crafted.  
-                Ingredients - 10 Basic Essence, Containment(the smallest one)
+                Ingredients - 10 Basic Essence, Containment(the smallest one) (tier 0, Wood enchanting table or better)
             tier 1 (Medium):
-                Ingredients - 10 Medium Essence, Medium Containment, tier 0 Enchantment
+                Ingredients - 10 Medium Essence, Medium Containment, tier 0 Enchantment (tier 1, Dusty enchanting table or better)
             tier 2 (Rare):
-                Ingredients - 10 Rare Essence, Superior Containment, tier 1 Enchantment
+                Ingredients - 10 Rare Essence, Superior Containment, tier 1 Enchantment (tier 2, Hellish enchanting table or better)
             tier 3 (Super Rare):
-                Ingredients - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber)
+                Ingredients - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
             tier 4 (Ultra Rare):
-                Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber)
+                Ingredients - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
 
             (Tiers can be skipped if you have all of the items required to reach the final product)
                 (Ex. Make tier 2 Life Steal Enchantment from tier 0 Life Steal Enchantment, 10 Medium Essence, 10 Rare Essence, Superior Containment)
@@ -97,6 +97,7 @@ Extra information:
             Ingredients - tier 3 Enchanting Table, 2 hallowed bars
             100% of item experience converted to Essence when offering items.
 
+        Syphon - Allows you to convert experience from a weapon that is level 40 into essence (Does not consume the weapon.  Only converts excess experience to essence.)
 
 Please give me your feedback!!!!!!
 https://discord.gg/mPywEhyV9b

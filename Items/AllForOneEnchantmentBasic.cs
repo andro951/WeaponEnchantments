@@ -568,8 +568,8 @@ namespace WeaponEnchantments.Items
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
-					/*case EnchantmentTypeID.CriticalStrikeChance:
-					case EnchantmentTypeID.Damage:*/
+					case EnchantmentTypeID.CriticalStrikeChance:
+					/*case EnchantmentTypeID.Damage:*/
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
@@ -600,9 +600,9 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
-					case EnchantmentTypeID.CriticalStrikeChance:
+					/*case EnchantmentTypeID.CriticalStrikeChance:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength * 100));
-						break;
+						break;*/
 					case EnchantmentTypeID.Damage:
 						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength));
 						break;

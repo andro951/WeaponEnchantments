@@ -69,20 +69,22 @@ namespace WeaponEnchantments.Common.Globals
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
             clone.equip = false;
+            if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
+                clone.trackedWeapon = false;
             return clone;
         }
         public override void NetSend(Item item, BinaryWriter writer)
         {
             if (WEMod.IsEnchantable(item))
             {
-                ("\\/NetSend(" + item.Name + ")").Log();
-                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                if(UtilityMethods.debugging) ($"\\/NetSend(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 writer.Write(experience);
                 writer.Write(powerBoosterInstalled);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     writer.Write((short)enchantments[i].type);
-                    ("e " + i + ": " + enchantments[i].Name).Log();
+                    if(UtilityMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
                 }
                 short count = (short)eStats.Count;
                 writer.Write(count);
@@ -104,22 +106,22 @@ namespace WeaponEnchantments.Common.Globals
                     writer.Write(statModifiers[key].Flat);
                     writer.Write(statModifiers[key].Base);
                 }
-                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
-                ("/\\NetSend(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                if(UtilityMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log();
             }
         }
         public override void NetReceive(Item item, BinaryReader reader)
         {
             if (WEMod.IsEnchantable(item))
             {
-                ("\\/NetRecieve(" + item.Name + ")").Log();
-                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                if(UtilityMethods.debugging) ($"\\/NetRecieve(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 experience = reader.ReadInt32();
                 powerBoosterInstalled = reader.ReadBoolean();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     enchantments[i] = new Item(reader.ReadUInt16());
-                    ("e " + i + ": " + enchantments[i].Name).Log();
+                    if(UtilityMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
                 }
                 eStats.Clear();
                 int count = reader.ReadUInt16();
@@ -143,8 +145,8 @@ namespace WeaponEnchantments.Common.Globals
                     float @base = reader.ReadSingle();
                     statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
                 }
-                ("eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
-                ("/\\NetRecieve(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                if(UtilityMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
             }
         }
         public override void UpdateEquip(Item item, Player player)
@@ -260,7 +262,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (enchantments[i] != null && !enchantments[i].IsAir)
                 {
-                    //("enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
+                    if(UtilityMethods.debugging) ($"enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
                     AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                     total += enchantment.GetLevelCost();
                 }
@@ -271,7 +273,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (WEMod.IsEnchantable(item))
             {
-                ("\\/LoadData(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
                 experience = tag.Get<int>("experience");//Load experience tag
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
                 UpdateLevel();
@@ -283,7 +285,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
                             OldItemManager.ReplaceOldItem(ref enchantments[i]);
-                            ("e " + i + ": " + enchantments[i].Name).Log();
+                            if(UtilityMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
                         }
                         else
                         {
@@ -291,7 +293,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }//Load enchantment item tags
-                ("/\\LoadData(" + item.Name + ")").Log();
+                if(UtilityMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log();
             }
         }
         public override void SaveData(Item item, TagCompound tag)
@@ -311,33 +313,6 @@ namespace WeaponEnchantments.Common.Globals
             }
             tag["experience"] = experience;//Save experience tag
             tag["powerBooster"] = powerBoosterInstalled;//save status of powerBoosterInstalled
-        }
-        public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-        {
-            //item.AEP(ref damage, "Damage");
-        }
-        public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
-        {
-            crit = item.AEP("CriticalStrikeChance", crit);
-        }
-        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback)
-        {
-            /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir && (EnchantmentTypeID)enchantment.EnchantmentType == EnchantmentTypeID.Knockback)
-                {
-                    knockback += enchantment.EnchantmentStrength;
-                }
-            }*/
-        }
-        public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult)
-        {
-            
-        }
-        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

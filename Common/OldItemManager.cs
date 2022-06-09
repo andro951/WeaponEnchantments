@@ -27,82 +27,102 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
         public static void ReplaceAllOldItems()
         {
+            if(UtilityMethods.debugging) ($"\\/ReplaceAllOldItems()").Log();
+            int i = 0;
             foreach (Chest chest in Main.chest)
             {
                 if (chest != null)
+                {
+                    if(UtilityMethods.debugging) ($"chest: {i}").Log();
                     ReplaceOldItems(chest.item);
-                else
-                    break;
+                }
+                i++;
             }
+            if(UtilityMethods.debugging) ($"/\\ReplaceAllOldItems()").Log();
         }
         public static void ReplaceAllPlayerOldItems(Player player)
         {
+            if(UtilityMethods.debugging) ($"\\/ReplaceAllPlayerOldItems(player: {player.S()})").Log();
+            //"armor".Log();
             ReplaceOldItems(player.armor, player, 91);
+            //"inventory".Log();
             ReplaceOldItems(player.inventory, player);
+            //"bank1".Log();
             ReplaceOldItems(player.bank.item, player, 50, -2);
+            //"bank2".Log();
             ReplaceOldItems(player.bank2.item, player, 50, -3);
+            //"bank3".Log();
             ReplaceOldItems(player.bank3.item, player, 50, -4);
+            //"bank4".Log();
             ReplaceOldItems(player.bank4.item, player, 50, -5);
+            if(UtilityMethods.debugging) ($"/\\ReplaceAllPlayerOldItems(player: {player.S()})").Log();
         }
         private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
+            if(UtilityMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             for(int i = 0; i < inventory.Length; i++)
             {
                  ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
             }
+            if(UtilityMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
         }
         public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1)
         {
-            if (item.ModItem is UnloadedItem)
+            if(item != null && !item.IsAir)
             {
-                bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
-                replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
-                replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
-                replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
-            }
-            if (WEMod.IsEnchantable(item))
-            {
-                if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
+                if(UtilityMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if (item.ModItem is UnloadedItem)
                 {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
+                    replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
+                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
+                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
+                }
+                if (WEMod.IsEnchantable(item))
+                {
+                    if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
                     {
-                        Item enchantmentItem = iGlobal.enchantments[i];
-                        if (enchantmentItem.ModItem is UnloadedItem)
-                            ReplaceOldItem(ref enchantmentItem, player);
-                        if(enchantmentItem != null && !enchantmentItem.IsAir && player != null)
-                        {
-                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                            if(WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
-                            {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
-                            }
-                            else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
-                            {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
-                            }
-                            else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
-                            {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
-                            }
-                            if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
-                            {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
-                            }
-                        }
-                    }
-                    if(player != null)
-                    {
-                        item.RemoveUntilPositive(player);
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                         {
                             Item enchantmentItem = iGlobal.enchantments[i];
-                            AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                            item.UpdateEnchantment(player, ref enchantment, i);
-                            if(Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
-                                ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
+                            if (enchantmentItem.ModItem is UnloadedItem)
+                                ReplaceOldItem(ref enchantmentItem, player);
+                            if (enchantmentItem != null && !enchantmentItem.IsAir && player != null)
+                            {
+                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                                if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
+                                {
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                                }
+                                else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
+                                {
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                                }
+                                else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
+                                {
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                                }
+                                if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
+                                {
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                                }
+                            }
+                        }
+                        if (player != null)
+                        {
+                            item.RemoveUntilPositive(player);
+                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                            {
+                                Item enchantmentItem = iGlobal.enchantments[i];
+                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                                item.UpdateEnchantment(player, ref enchantment, i);
+                                if (Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
+                                    ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
+                            }
                         }
                     }
                 }
+            if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             }
         }
         private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg)
