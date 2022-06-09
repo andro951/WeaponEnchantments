@@ -446,10 +446,10 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
         {
-            float multiplier = (0.5f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 20f);
+            float multiplier = (1f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 10f) * (npc.boss ? 1f : 4f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
-            total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f;
+            total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
             total /= UtilityMethods.GetReductionFactor((int)hp);
             essenceValues = EnchantmentEssenceBasic.values;
             dropRate = new float[essenceValues.Length];
@@ -474,7 +474,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 for (int i = 0; i < essenceValues.Length; ++i)
                 {
-                    if (total / essenceValues[i] < 0.025)
+                    if (total / essenceValues[i] < 0.05)
                     {
                         break;
                     }
