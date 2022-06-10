@@ -85,6 +85,8 @@ namespace WeaponEnchantments.Items
 		public int DamageClassSpecific { private set; get; }
 		public int RestrictedClass { private set; get; }
 		public bool StaticStat { private set; get; }
+		public string ShortToolTip { private set; get; }
+		public string FullToolTip { private set; get; }
 		private bool checkedStats = false;
 		public List<int> Buff { private set; get; }	= new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
@@ -101,6 +103,10 @@ namespace WeaponEnchantments.Items
 			AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)base.Clone(newEntity);
 			enchantment.StaticStats = new List<EnchantmentStaticStat>(StaticStats);
 			enchantment.EStats = new List<EStat>(EStats);
+			enchantment.OnHitBuff = new Dictionary<int, int>(OnHitBuff);
+			enchantment.Debuff = new Dictionary<int, int>(Debuff);
+			enchantment.Buff = new List<int>(Buff);
+			enchantment.AllowedList = new Dictionary<string, float>(AllowedList);
 			return enchantment;
 		}
         public override void SetStaticDefaults()

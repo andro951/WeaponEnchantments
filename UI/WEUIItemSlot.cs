@@ -77,7 +77,6 @@ namespace WeaponEnchantments.UI
 										{
 											case DamageTypeSpecificID.Melee:
 											case DamageTypeSpecificID.MeleeNoSpeed:
-											case DamageTypeSpecificID.SummonMeleeSpeed:
 												damageClassSpecific = (int)DamageTypeSpecificID.Melee;
 												break;
 											case DamageTypeSpecificID.Ranged:
@@ -88,6 +87,7 @@ namespace WeaponEnchantments.UI
 												break;
 											case DamageTypeSpecificID.Summon:
 											case DamageTypeSpecificID.MagicSummonHybrid:
+											case DamageTypeSpecificID.SummonMeleeSpeed:
 												damageClassSpecific = (int)DamageTypeSpecificID.Summon;
 												break;
 											case DamageTypeSpecificID.Throwing:
@@ -240,7 +240,7 @@ namespace WeaponEnchantments.UI
 		}
 		public bool CheckUniqueSlot(AllForOneEnchantmentBasic enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique & enchantment.DamageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && enchantment.RestrictedClass == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(AllForOneEnchantmentBasic enchantement, Item item)
         {
@@ -252,10 +252,17 @@ namespace WeaponEnchantments.UI
 					if (!iGlobal.enchantments[i].IsAir)
 					{
 						AllForOneEnchantmentBasic appliedEnchantment = (AllForOneEnchantmentBasic)iGlobal.enchantments[i].ModItem;
-						if (appliedEnchantment != null && ((enchantement.Unique || enchantement.DamageClassSpecific > 0) && (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						if (appliedEnchantment != null && (
+							(enchantement.Unique || enchantement.DamageClassSpecific > 0 || enchantement.RestrictedClass > 0) 
+							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique || appliedEnchantment.RestrictedClass > 0) 
+							|| enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
 						{
 							return i;
 						}
+						/*if (appliedEnchantment != null && ((enchantement.Unique || enchantement.DamageClassSpecific > 0) && (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						{
+							return i;
+						}*/
 					}
 				}
 			}
