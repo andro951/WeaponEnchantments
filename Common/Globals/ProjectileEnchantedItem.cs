@@ -21,6 +21,7 @@ namespace WeaponEnchantments.Common.Globals
         public double cooldownEnd = 0;
         //public float totalSpeedBonus;
         public Projectile parent = null;
+        public bool skipOnHitEffects = false;
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
@@ -184,11 +185,15 @@ namespace WeaponEnchantments.Common.Globals
                     damageBonus = damageBonus * allForOneMultiplier;*/
                         if (sourceItem.G().eStats.ContainsKey("AllForOne"))
                         {
-                            if(!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
+                            if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
                             {
                                 projectile.usesIDStaticNPCImmunity = true;
                                 projectile.idStaticNPCHitCooldown = projectile.aiStyle == 99 ? 10 : 3;
                             }
+                            else if (projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown < 1)
+                                projectile.idStaticNPCHitCooldown = 3;
+                            else if (projectile.usesLocalNPCImmunity && projectile.localNPCHitCooldown < 1)
+                                projectile.localNPCHitCooldown = 3;
                         }
                         if (projectile.usesIDStaticNPCImmunity)
                         {

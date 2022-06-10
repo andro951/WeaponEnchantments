@@ -432,6 +432,7 @@ namespace WeaponEnchantments.UI
                     Top = { Pixels = -8f },
                     Left = { Pixels = -1f }
                 };
+                //button[ButtonID.Syphon].OnMouseOver += (evt, element) => { Main.hoverItemName = "TestHover"; };
                 button[ButtonID.Syphon].Append(syphonButonText);
                 Append(button[ButtonID.Syphon]);
                 panels.Add(button[ButtonID.Syphon]);
@@ -536,10 +537,12 @@ namespace WeaponEnchantments.UI
                 if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
                 {
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+                    //Main.hoverItemName = panel.IsMouseHovering ? "TestHover" : "";
                 }
                 else if (panel.BackgroundColor == red || panel.BackgroundColor == hoverRed)
                 {
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
+                    //Main.hoverItemName = panel.IsMouseHovering ? "TestHover" : "";
                 }
             }//Change button color if hovering
             if (IsMouseHovering) preventItenUse = true;

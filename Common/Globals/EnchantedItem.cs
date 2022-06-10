@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<string, StatModifier> eStats;
         public Dictionary<int, int> buffs;
         public Dictionary<int, int> debuffs;
+        public Dictionary<int, int> onHitBuffs;
 
         public int lastValueBonus;
         public int levelBeforeBooster;
@@ -49,6 +50,7 @@ namespace WeaponEnchantments.Common.Globals
             eStats = new Dictionary<string, StatModifier>();
             buffs = new Dictionary<int, int>();
             debuffs = new Dictionary<int, int>();
+            onHitBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
         /*public override bool AppliesToEntity(Item entity, bool lateInstantiation)
@@ -67,6 +69,7 @@ namespace WeaponEnchantments.Common.Globals
             clone.eStats = new Dictionary<string, StatModifier>(eStats);
             clone.buffs = new Dictionary<int, int>(buffs);
             clone.debuffs = new Dictionary<int, int>(debuffs);
+            clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
             clone.equip = false;
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
@@ -262,7 +265,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (enchantments[i] != null && !enchantments[i].IsAir)
                 {
-                    if(UtilityMethods.debugging) ($"enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
+                    //if(UtilityMethods.debugging) ($"enchantments[" + i + "]: name: " + enchantments[i].Name + " type: " + enchantments[i].type).Log();
                     AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
                     total += enchantment.GetLevelCost();
                 }

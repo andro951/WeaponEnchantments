@@ -79,6 +79,7 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
+        public bool disableLeftShiftTrashCan = false;
         public bool[] vanillaPlayerBuffsWeapon;
         public bool[] vanillaPlayerBuffsArmor;
         public Dictionary<int, int> buffs = new Dictionary<int, int>();
@@ -105,7 +106,8 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            if(UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
+            //AllForOneEnchantmentBasic.temp.Log();
+            if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();
@@ -640,10 +642,9 @@ namespace WeaponEnchantments
                 }
                 else
                 {
-                    if (hoverItem != null && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
+                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
                     {
                         if(UtilityMethods.debugging) ($"remove hoverItem: {hoverItem.S()}").Log();
-                        if(hoverItem != null)
                         hoverItem.G().hoverItem = false;
                         hoverItem = null;
                     }

@@ -276,32 +276,61 @@ namespace WeaponEnchantments.Common
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 if (enchantment != null)
                 {
-                    if (enchantment.Buff > -1)
+                    if (enchantment.Buff.Count > 0)
                     {
-                        //(iGlobal.buffs.S(enchantment.Buff)).Log();
-                        if (iGlobal.buffs.ContainsKey(enchantment.Buff))
+                        foreach(int buff in enchantment.Buff)
                         {
-                            iGlobal.buffs[enchantment.Buff] += (remove ? -1 : 1);
-                            if (iGlobal.buffs[enchantment.Buff] < 1)
-                                iGlobal.buffs.Remove(enchantment.Buff);
-                        }
-                        else
-                        {
-                            iGlobal.buffs.Add(enchantment.Buff, 1);
+                            if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
+                            if (iGlobal.buffs.ContainsKey(buff))
+                            {
+                                iGlobal.buffs[buff] += (remove ? -1 : 1);
+                                if (iGlobal.buffs[buff] < 1)
+                                    iGlobal.buffs.Remove(buff);
+                            }
+                            else
+                            {
+                                iGlobal.buffs.Add(buff, 1);
+                            }
+                            if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
                         }
                     }
-                    if (enchantment.Debuff > -1)
+                    if (enchantment.Debuff.Count > 0)
                     {
-                        //(iGlobal.debuffs.S(enchantment.Debuff)).Log();
-                        if (iGlobal.debuffs.ContainsKey(enchantment.Debuff))
+                        foreach(int debuff in enchantment.Debuff.Keys)
                         {
-                            iGlobal.debuffs[enchantment.Debuff] += (remove ? -1 : 1);
-                            if (iGlobal.debuffs[enchantment.Debuff] < 1)
-                                iGlobal.debuffs.Remove(enchantment.Debuff);
+                            if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
+                            int duration = enchantment.Debuff[debuff];
+                            if (iGlobal.debuffs.ContainsKey(debuff))
+                            {
+                                iGlobal.debuffs[debuff] += (remove ? - duration: duration);
+                                if (iGlobal.debuffs[debuff] < 1)
+                                    iGlobal.debuffs.Remove(debuff);
+                            }
+                            else
+                            {
+                                iGlobal.debuffs.Add(debuff, duration);
+                            }
+                            if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
                         }
-                        else
+                    }
+                    if(enchantment.OnHitBuff.Count > 0)
+                    {
+                        foreach (int onHitBuff in enchantment.OnHitBuff.Keys)
                         {
-                            iGlobal.debuffs.Add(enchantment.Debuff, 1);
+                            if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
+                            int duration = enchantment.OnHitBuff[onHitBuff];
+                            if (iGlobal.onHitBuffs.ContainsKey(onHitBuff))
+                            {
+                                int temp = enchantment.OnHitBuff[onHitBuff];
+                                iGlobal.onHitBuffs[onHitBuff] += (remove ? -duration : duration);
+                                if (iGlobal.onHitBuffs[onHitBuff] < 1)
+                                    iGlobal.onHitBuffs.Remove(onHitBuff);
+                            }
+                            else
+                            {
+                                iGlobal.onHitBuffs.Add(onHitBuff, duration);
+                            }
+                            if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
                         }
                     }
                     foreach (EStat eStat in enchantment.EStats)
@@ -355,7 +384,50 @@ namespace WeaponEnchantments.Common
                         }
                         //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
                     }
-                    //enchantment.statsSet = true;
+                    if(enchantment.NewDamageType > -1)
+                    {
+                        if (remove)
+                            item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
+                        else
+                        {
+                            int temp = item.DamageType.Type;
+                            switch ((DamageTypeSpecificID)enchantment.NewDamageType)
+                            {
+                                case DamageTypeSpecificID.Default:
+                                    item.DamageType = DamageClass.Default;
+                                    break;
+                                case DamageTypeSpecificID.Generic:
+                                    item.DamageType = DamageClass.Generic;
+                                    break;
+                                case DamageTypeSpecificID.Melee:
+                                    item.DamageType = DamageClass.Melee;
+                                    break;
+                                case DamageTypeSpecificID.MeleeNoSpeed:
+                                    item.DamageType = DamageClass.MeleeNoSpeed;
+                                    break;
+                                case DamageTypeSpecificID.Ranged:
+                                    item.DamageType = DamageClass.Ranged;
+                                    break;
+                                case DamageTypeSpecificID.Magic:
+                                    item.DamageType = DamageClass.Magic;
+                                    break;
+                                case DamageTypeSpecificID.Summon:
+                                    item.DamageType = DamageClass.Summon;
+                                    break;
+                                case DamageTypeSpecificID.SummonMeleeSpeed:
+                                    item.DamageType = DamageClass.SummonMeleeSpeed;
+                                    break;
+                                case DamageTypeSpecificID.MagicSummonHybrid:
+                                    item.DamageType = DamageClass.MagicSummonHybrid;
+                                    break;
+                                case DamageTypeSpecificID.Throwing:
+                                    item.DamageType = DamageClass.Throwing;
+                                    break;
+                            }
+                            temp = item.DamageType.Type;
+                        }
+                    }
+
                 }
                 //iGlobal.statsSet[slotNum] = true;
                 if(UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();

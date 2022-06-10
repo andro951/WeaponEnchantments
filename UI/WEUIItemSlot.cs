@@ -73,7 +73,7 @@ namespace WeaponEnchantments.UI
 									AllForOneEnchantmentBasic newEnchantment = ((AllForOneEnchantmentBasic)item.ModItem);
 									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
-										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
+										switch ((DamageTypeSpecificID)ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type)
 										{
 											case DamageTypeSpecificID.Melee:
 											case DamageTypeSpecificID.MeleeNoSpeed:

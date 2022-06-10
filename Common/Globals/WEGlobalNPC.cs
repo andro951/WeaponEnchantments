@@ -546,47 +546,74 @@ namespace WeaponEnchantments.Common.Globals
                         damage *= (int)Math.Pow(2, critLevel);
                     }//MultipleCritlevels
                     damage += damageReduction;
+                    bool skipOnHitEffects = projectile != null ? projectile.G().skipOnHitEffects : false;
                     WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-                    int total = 0;
-                    foreach(int debuff in item.G().debuffs.Keys)
+                    Dictionary<string, StatModifier> ItemEStats = item.G().eStats;
+                    if (!skipOnHitEffects)
                     {
-                        npc.AddBuff(debuff, 300);
-                    }//AddDebuffs
-                    if(UtilityMethods.debugging) ($"sourceItem: {sourceItem.S()} {sourceItem.G().eStats.S("OneForAll")}").Log();
-                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin)
-                    {
-                        total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-                    }//OneForAll
-                    if(item.G().eStats.ContainsKey("LifeSteal"))
-                    {
-                        float lifeSteal = item.G().eStats["LifeSteal"].ApplyTo(0f);
-                        Vector2 speed = new Vector2(0, 0);
-                        float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
-                        int heal = (int)healTotal;
-                        if (player.statLife < player.statLifeMax2)
+                        foreach (int debuff in item.G().debuffs.Keys)
                         {
-                            if (heal > 0)
+                            npc.AddBuff(debuff, item.G().debuffs[debuff]);
+                        }//Debuffs
+                        if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
+                            player.MinionAttackTargetNPC = npc.whoAmI;//Force minions to target npc
+                    }
+                    if (npc.type != NPCID.TargetDummy)
+                    {
+                        int total = 0;
+                        if (!skipOnHitEffects)
+                        {
+                            foreach (int onHitBuff in item.G().onHitBuffs.Keys)
                             {
-                                Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
-                            }
-                            wePlayer.lifeStealRollover = healTotal - heal;
-                        }
-                        else
+                                switch (onHitBuff)
+                                {
+                                    case BuffID.CoolWhipPlayerBuff:
+                                        if (player.FindBuffIndex(onHitBuff) == -1)
+                                        {
+                                            int newProjectileWhoAmI = Projectile.NewProjectile(projectile != null ? projectile.GetSource_FromThis() : item.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.CoolWhipProj, 10, 0f, player.whoAmI);
+                                            Main.projectile[newProjectileWhoAmI].G().skipOnHitEffects = true;
+                                        }
+                                        break;
+                                }
+                                player.AddBuff(onHitBuff, item.G().onHitBuffs[onHitBuff]);
+                            }//On Hit Player buffs
+                        }//Buffs and Debuffs
+                        if (UtilityMethods.debugging) ($"sourceItem: {sourceItem.S()} {ItemEStats.S("OneForAll")}").Log();
+                        if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin)
                         {
-                            wePlayer.lifeStealRollover = 0f;
-                        }
-                    }//LifeSteal
-                    if(sourceItem.G().eStats.ContainsKey("GodSlayer"))
+                            total = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+                        }//OneForAll
+                        if (ItemEStats.ContainsKey("LifeSteal"))
+                        {
+                            float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
+                            Vector2 speed = new Vector2(0, 0);
+                            float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
+                            int heal = (int)healTotal;
+                            if (player.statLife < player.statLifeMax2)
+                            {
+                                if (heal > 0)
+                                {
+                                    Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                                }
+                                wePlayer.lifeStealRollover = healTotal - heal;
+                            }
+                            else
+                            {
+                                wePlayer.lifeStealRollover = 0f;
+                            }
+                        }//LifeSteal
+                    }
+                    if(ItemEStats.ContainsKey("GodSlayer"))
                     {
                         ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
                     }//GodSlayer
-                    if (sourceItem.G().eStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
+                    if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
                         projectile.Kill();
                     }
                 }
             }
-            if (myWarReduction > 1f && projectile != null && npc.FindBuffIndex(BuffID.RainbowWhipNPCDebuff) == -1 && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
+            if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
                 damage /= myWarReduction;
             if(UtilityMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
         }

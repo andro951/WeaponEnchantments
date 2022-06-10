@@ -72,6 +72,8 @@ namespace WeaponEnchantments.Items
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
+
+		public static readonly int defaultBuffDuration = 60;
 		public int EnchantmentSize { private set; get; } = -1;
 		public int EnchantmentType { private set; get; } = -1;
 		public string EnchantmentTypeName { private set; get; }
@@ -84,10 +86,12 @@ namespace WeaponEnchantments.Items
 		public int RestrictedClass { private set; get; }
 		public bool StaticStat { private set; get; }
 		private bool checkedStats = false;
-		public int Buff { private set; get; }	= -1;
-		public int Debuff { private set; get; } = -1;
+		public List<int> Buff { private set; get; }	= new List<int>();
+		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
+		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public bool Armor { private set; get; } = false;
-		//public bool statsSet = false;
+		public int NewDamageType = -1;
+		//public static string temp = "";
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
@@ -197,6 +201,7 @@ namespace WeaponEnchantments.Items
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			else
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+			//temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
         {
@@ -396,10 +401,6 @@ namespace WeaponEnchantments.Items
 					}
 					break;
 				case EnchantmentTypeID.Splitting:
-				case EnchantmentTypeID.ColdSteel:
-				case EnchantmentTypeID.HellsWrath:
-				case EnchantmentTypeID.JunglesFury:
-				case EnchantmentTypeID.Moonlight:
 					switch (EnchantmentSize)
 					{
 						case 0:
@@ -416,6 +417,29 @@ namespace WeaponEnchantments.Items
 							break;
 						case 4:
 							EnchantmentStrength = 1f;
+							break;
+					}
+					break;
+				case EnchantmentTypeID.ColdSteel:
+				case EnchantmentTypeID.HellsWrath:
+				case EnchantmentTypeID.JunglesFury:
+				case EnchantmentTypeID.Moonlight:
+					switch (EnchantmentSize)
+					{
+						case 0:
+							EnchantmentStrength = 0.25f;
+							break;
+						case 1:
+							EnchantmentStrength = 0.30f;
+							break;
+						case 2:
+							EnchantmentStrength = 0.35f;
+							break;
+						case 3:
+							EnchantmentStrength = 0.4f;
+							break;
+						case 4:
+							EnchantmentStrength = 0.5f;
 							break;
 					}
 					break;
@@ -555,6 +579,7 @@ namespace WeaponEnchantments.Items
 						AllowedList.Add("Accessory", 0.25f);
 						break;
 				}//AllowedList
+				int buffDuration = GetBuffDuration();
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.AllForOne:
@@ -575,28 +600,35 @@ namespace WeaponEnchantments.Items
 						StaticStat = CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.ColdSteel:
-						CheckBuffByName(false, "CoolWhipPlayerBuff");
-						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
+						if (EnchantmentSize == 4) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
+						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(BuffID.Frostburn, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.HellsWrath:
-						CheckBuffByName(true, "FlameWhipEnemyDebuff");
-						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
+						Debuff.Add(BuffID.FlameWhipEnemyDebuff, buffDuration);
+						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 4 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.JunglesFury:
-						CheckBuffByName(false, "SwordWhipPlayerBuff");
-						CheckBuffByName(true, "SwordWhipNPCDebuff");
-						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
+						OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, buffDuration);
+						Debuff.Add(BuffID.SwordWhipNPCDebuff, buffDuration);
+						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 4 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Moonlight:
-						CheckBuffByName(false, "ScytheWhipPlayerBuff");
-						CheckBuffByName(true, "ScytheWhipEnemyDebuff");
-						CheckBuffByName(true, "RainbowWhipNPCDebuff");
+						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
+						OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, buffDuration);
+						if(EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
+						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
@@ -724,15 +756,15 @@ namespace WeaponEnchantments.Items
 			foreach(FieldInfo field in buffID.GetType().GetFields())
             {
 				string fieldName = field.Name;
-				if (fieldName.Length < baseName.Length)
+				if (fieldName.Length <= baseName.Length)
 				{
 					string name = baseName.Substring(0, fieldName.Length);
 					if (fieldName.ToLower() == name.ToLower())
 					{
 						if(debuff)
-							Debuff = (int)buffID.GetType().GetField(fieldName).GetValue(buffID);
+							Debuff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID), GetBuffDuration());
 						else
-							Buff = (int)buffID.GetType().GetField(fieldName).GetValue(buffID);
+							Buff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID));
 						//StaticStats.Add(new StaticStatStruct(fieldName, EnchantmentStrength));
 						return true;
 					}
@@ -740,6 +772,10 @@ namespace WeaponEnchantments.Items
 			}
 			return false;
         }
+		private int GetBuffDuration()
+        {
+			return defaultBuffDuration * (EnchantmentSize + 1);
+		}
 		public static int GetEnchantmentSize(string name)
         {
 			for (int i = 0; i < rarity.Length; i++)

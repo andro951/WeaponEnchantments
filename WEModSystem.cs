@@ -110,6 +110,11 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.usingEnchantingTable)
             {
+                if (ItemSlot.Options.DisableLeftShiftTrashCan)
+                {
+                    wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
+                    ItemSlot.Options.DisableLeftShiftTrashCan = false;
+                }
                 //TryToggleAutoPauseOn();
                 /*if (Main.autoPause)
                 {
@@ -420,6 +425,7 @@ namespace WeaponEnchantments
                 weModSystemUI.SetState(null);
                 promptInterface.SetState(null);
             }//PR
+            ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
         }
         internal static void OpenWeaponEnchantmentUI()
         {
