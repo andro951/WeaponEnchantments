@@ -589,6 +589,8 @@ namespace WeaponEnchantments.Common.Globals
                             Vector2 speed = new Vector2(0, 0);
                             float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
                             int heal = (int)healTotal;
+                            if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)
+                                healTotal /= 2f;
                             if (player.statLife < player.statLifeMax2)
                             {
                                 if (heal > 0)
