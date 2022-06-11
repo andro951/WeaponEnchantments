@@ -242,12 +242,19 @@ namespace WeaponEnchantments.Common.Globals
                         List<int> itemTypes = GetDropItems(npc.type);
                         if (itemTypes.Count > 1)
                         {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
+                            if (npc.type == NPCID.CultistBoss)
+                                dropRule = ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray());
+                            else
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.OneFromOptions((int)Math.Round(1f / chance), itemTypes.ToArray()), ItemDropRule.DropNothing());
+                            
                             npcLoot.Add(dropRule);
                         }
                         else if (itemTypes.Count > 0)
                         {
-                            dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
+                            if (npc.type == NPCID.CultistBoss)
+                                dropRule = ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance));
+                            else
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                     }

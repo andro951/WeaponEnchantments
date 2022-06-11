@@ -15,14 +15,18 @@ namespace WeaponEnchantments.Items
 		AllForOne,
 		AmmoCost,
 		ArmorPenetration,
+		ColdSteel,
 		CriticalStrikeChance,
 		Damage,
 		DangerSense,
 		StatDefense,
 		GodSlayer,
+		HellsWrath,
 		Hunter,
+		JunglesFury,
 		LifeSteal,
 		Mana,
+		Moonlight,
 		ObsidianSkin,
 		OneForAll,
 		Peace,
@@ -32,13 +36,7 @@ namespace WeaponEnchantments.Items
 		Splitting,
 		War,
 
-		ColdSteel,
-		HellsWrath,
-		JunglesFury,
-		Moonlight,
-
 		Magic,//change
-		Summon,//change
 	}
 	public enum UtilityEnchantmentNames
 	{
@@ -113,97 +111,30 @@ namespace WeaponEnchantments.Items
         {
 			GetDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			string utilityToolTip = Utility ? "\n   *Utility*" : "";
-			if (DamageClassSpecific > 0 || Unique || RestrictedClass > 0)
-            {
-				string limmitationToolTip;
-				switch ((EnchantmentTypeID)EnchantmentType)
-				{
-					case EnchantmentTypeID.GodSlayer:
-						limmitationToolTip = "\n   *Melee Only*";
-						break;
-					case EnchantmentTypeID.Splitting:
-						limmitationToolTip = "\n   *Ranged Only*";
-						break;
-					case EnchantmentTypeID.Magic:
-						limmitationToolTip = "\n   *Magic Only*";
-						break;
-					case EnchantmentTypeID.Summon:
-						limmitationToolTip = "\n   *Summon Only*";
-						break;
-					default:
-						limmitationToolTip = "\n   *" + UtilityMethods.AddSpaces(Item.ModItem.Name) + " Only*";
-						break;
-				}//DamageTypeSpecific
-				limmitationToolTip += "\n   *Unique*\n(Limmited to 1 Unique Enchantment)";
-				switch ((EnchantmentTypeID)EnchantmentType)
-                {
-					case EnchantmentTypeID.GodSlayer:
-						Tooltip.SetDefault((EnchantmentStrength * 100).ToString() + "% God Slayer Bonus\n(Bonus damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal against bosses)\nLevel cost: " + GetLevelCost().ToString() + limmitationToolTip + utilityToolTip);
-						break;
-					default:
-						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + MyDisplayName + "\nLevel cost: " + GetLevelCost().ToString() + limmitationToolTip + utilityToolTip);
-						break;
-				}//Unique ToolTips
-			}//DamageTypeSpecific and Unique ToolTips
-            else
-            {
-				switch ((EnchantmentTypeID)EnchantmentType)
-				{
-					case EnchantmentTypeID.Speed:
-						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + MyDisplayName + "\n(Lowers NPC immunity time to raise dps for minions/channeled weapons)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.StatDefense:
-						Tooltip.SetDefault("+" + EnchantmentStrength.ToString() + " " + MyDisplayName + "\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.ArmorPenetration:
-						Tooltip.SetDefault(EnchantmentStrength.ToString() + " Armor Penetration\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Mana:
-						Tooltip.SetDefault("-" + (EnchantmentStrength * 100).ToString() + "% Mana Cost\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.AmmoCost:
-						Tooltip.SetDefault("-" + (EnchantmentStrength * 100).ToString() + "% Chance to consume ammo\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.LifeSteal:
-						Tooltip.SetDefault((EnchantmentStrength * 100).ToString() + "% Life Steal (remainder is saved to prevent \nalways rounding to 0 for low damage weapons)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.AllForOne:
-						Tooltip.SetDefault(EnchantmentStrength + "x Damage dealt (Not visible in weapon stats applied at damage calculation) \nitem CD equal to " + EnchantmentStrength * 0.8f + "x use speed\n" + EnchantmentStrength * 0.4f + "x mana cost\n(Raises NPC immunity time to lower dps for minions/channeled weapons)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.OneForAll:
-						Tooltip.SetDefault("Hiting an enemy will damage all nearby enemies by " + (EnchantmentStrength * 100).ToString() + "% of damage dealt, " + (30f * EnchantmentStrength).ToString() + "% reduced base attack speed\n(WARNING - Destroys your projectiles upon hitting an enemy)\n   *Weapons Only*\n   *Max of 1 per weapon*\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Spelunker:
-						Tooltip.SetDefault("Grants the Spelunker buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.DangerSense:
-						Tooltip.SetDefault("Grants the Danger Sense buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Hunter:
-						Tooltip.SetDefault("Grants the Hunter buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.ObsidianSkin:
-						Tooltip.SetDefault("Grants the Obsidian Skin buff\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.War:
-						Tooltip.SetDefault((EnchantmentStrength + 1f).ToString() + "x enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Peace:
-						Tooltip.SetDefault((1f / (EnchantmentStrength + 1f)).ToString() + "x enemy spawn rate and max enemies\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Splitting:
-						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% to produce an extra projectile.\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					case EnchantmentTypeID.Damage:
-						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% Damage dealt. (Not visible in weapon stats applied at damage calculation)\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-					default:
-						Tooltip.SetDefault("+" + (EnchantmentStrength * 100).ToString() + "% " + MyDisplayName + "\nLevel cost: " + GetLevelCost().ToString() + utilityToolTip);
-						break;
-				}//Normal ToolTips
-			}//Normal ToolTips
-			if(EnchantmentSize > 2 && ToggleRarityNames)
+			string toolTip = "";
+			switch ((EnchantmentTypeID)EnchantmentType)
+			{
+				case EnchantmentTypeID.AllForOne:
+					toolTip = $"item CD equal to {EnchantmentStrength * 0.8f}x use speed";
+					break;
+				case EnchantmentTypeID.GodSlayer:
+					toolTip = "(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
+					break;
+				case EnchantmentTypeID.LifeSteal:
+					toolTip = "(remainder is saved to prevent always rounding to 0 for low damage weapons)";
+					break;
+				case EnchantmentTypeID.OneForAll:
+					toolTip = "Hiting an enemy will damage all nearby enemies\n(WARNING - Destroys your projectiles upon hitting an enemy)";
+					break;
+				case EnchantmentTypeID.Splitting:
+					toolTip = "Chance to produce an extra projectile.";
+					break;
+				case EnchantmentTypeID.War:
+					toolTip = "Minion Damage is reduced by your spawn rate multiplier(from enchantments) unless they are your minion attack target\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\nPrevents consuming boss summoning items if spawn rate multiplier(from enchantments) is > 1";
+					break;
+			}//ToolTips
+			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
+			if (EnchantmentSize > 2 && ToggleRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			else
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
@@ -221,24 +152,8 @@ namespace WeaponEnchantments.Items
 					break;
 				}
 			}//Check EnchantmentType
-			for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++)
+			switch (EnchantmentSize)
 			{
-				if (EnchantmentTypeName == ((UtilityEnchantmentNames)i).ToString())
-				{
-					Utility = true;
-					break;
-				}
-			}//Check Utility
-			for (int i = 0; i < ItemID.Count; i++)
-			{
-				if (ContentSamples.ItemsByType[i].Name == EnchantmentTypeName)
-				{
-					Unique = true;
-					break;
-				}
-			}//Check Unique (Vanilla Items)
-            switch (EnchantmentSize)
-            {
 				case 3:
 					Item.width = 44;
 					Item.height = 40;
@@ -281,11 +196,26 @@ namespace WeaponEnchantments.Items
 					Item.value += Containment.Values[EnchantmentSize];
 					break;
 			}//Value - Containment/SuperiorStaibalizers
+			for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++)
+			{
+				if (EnchantmentTypeName == ((UtilityEnchantmentNames)i).ToString())
+				{
+					Utility = true;
+					break;
+				}
+			}//Check Utility
+			for (int i = 0; i < ItemID.Count; i++)
+			{
+				if (ContentSamples.ItemsByType[i].Name == EnchantmentTypeName)
+				{
+					Unique = true;
+					break;
+				}
+			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.War:
-				case EnchantmentTypeID.Peace:
 				case EnchantmentTypeID.OneForAll:
 					switch (EnchantmentSize)
 					{
@@ -303,6 +233,26 @@ namespace WeaponEnchantments.Items
 							break;
 						case 4:
 							EnchantmentStrength = 1f;
+							break;
+					}
+					break;
+				case EnchantmentTypeID.Peace:
+					switch (EnchantmentSize)
+					{
+						case 0:
+							EnchantmentStrength = 1f / 1.1f - 1f;
+							break;
+						case 1:
+							EnchantmentStrength = 1f / 1.2f - 1f;
+							break;
+						case 2:
+							EnchantmentStrength = 1f / 1.5f - 1f;
+							break;
+						case 3:
+							EnchantmentStrength = 1f / 1.8f - 1f;
+							break;
+						case 4:
+							EnchantmentStrength = 1f / 2f - 1f;
 							break;
 					}
 					break;
@@ -469,26 +419,6 @@ namespace WeaponEnchantments.Items
 							break;
 					}
 					break;
-				case EnchantmentTypeID.Summon:
-					switch (EnchantmentSize)
-					{
-						case 0:
-							EnchantmentStrength = 0.03f;
-							break;
-						case 1:
-							EnchantmentStrength = 0.08f;
-							break;
-						case 2:
-							EnchantmentStrength = 0.16f;
-							break;
-						case 3:
-							EnchantmentStrength = 0.25f;
-							break;
-						case 4:
-							EnchantmentStrength = 0.40f;
-							break;
-					}
-					break;
 				default:
 					switch (EnchantmentSize)
 					{
@@ -521,23 +451,20 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Magic:
 					DamageClassSpecific = (int)DamageTypeSpecificID.Magic;
 					break;
-				case EnchantmentTypeID.Summon:
-					DamageClassSpecific = (int)DamageTypeSpecificID.Summon;
-					break;
-				case EnchantmentTypeID.AllForOne:
-				case EnchantmentTypeID.OneForAll:
-					Max1 = true;
-					break;
 				case EnchantmentTypeID.ColdSteel:
 				case EnchantmentTypeID.HellsWrath:
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
 					RestrictedClass = (int)DamageTypeSpecificID.Summon;
 					break;
+				case EnchantmentTypeID.AllForOne:
+				case EnchantmentTypeID.OneForAll:
+					Max1 = true;
+					break;
 				default:
 					DamageClassSpecific = 0;
 					break;
-			}//DamageTypeSpecific
+			}//DamageTypeSpecific, Max1, RestrictedClass
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.Scale:
@@ -550,13 +477,8 @@ namespace WeaponEnchantments.Items
 					MyDisplayName = EnchantmentTypeName;
 					break;
 			}//New Display Name
-		}
-		public override void SetDefaults()
-		{
-			Item.maxStack = 99;
-			GetDefaults();
-			if(!checkedStats)
-            {
+			if (!checkedStats)
+			{
 				switch ((EnchantmentTypeID)EnchantmentType)
 				{
 					case EnchantmentTypeID.StatDefense:
@@ -591,56 +513,54 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.AllForOne:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						//AddStaticStat("Damage", 0f, EnchantmentStrength);
-						AddStaticStat("useTime", EnchantmentStrength * 0.2f);
-						AddStaticStat("useAnimation", EnchantmentStrength * 0.2f);
 						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));
+						AddStaticStat("useTime", 0f, EnchantmentStrength * 0.2f);
+						AddStaticStat("useAnimation", 0f, EnchantmentStrength * 0.2f);
 						AddStaticStat("mana", EnchantmentStrength * 0.3f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
+					case EnchantmentTypeID.AmmoCost:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength));
+						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
-					/*case EnchantmentTypeID.Damage:*/
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.ColdSteel:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						if (EnchantmentSize == 4) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
 						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(BuffID.Frostburn, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.HellsWrath:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						Debuff.Add(BuffID.FlameWhipEnemyDebuff, buffDuration);
 						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(EnchantmentSize == 4 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.JunglesFury:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, buffDuration);
 						Debuff.Add(BuffID.SwordWhipNPCDebuff, buffDuration);
 						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(EnchantmentSize == 4 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Moonlight:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, buffDuration);
-						if(EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
 						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
-					/*case EnchantmentTypeID.CriticalStrikeChance:
-						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength * 100));
-						break;*/
 					case EnchantmentTypeID.Damage:
 						EStats.Add(new EStat(EnchantmentTypeName, EnchantmentStrength));
 						break;
@@ -655,9 +575,9 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						AddStaticStat("useTime", EnchantmentStrength * 0.3f);
-						AddStaticStat("useAnimation", EnchantmentStrength * 0.3f);
-						EStats.Add(new EStat("NPCHitCooldown", 1f,  1f + EnchantmentStrength * 0.3f));
+						EStats.Add(new EStat("NPCHitCooldown", 0f, 1f + EnchantmentStrength * 0.3f));
+						AddStaticStat("useTime", 0f, 1f + EnchantmentStrength * 0.3f);
+						AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.3f);
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:
@@ -665,38 +585,86 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("maxSpawns", 0f, 1f + EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Speed:
-						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
+						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						AddStaticStat("I_useTime", EnchantmentStrength);
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
-						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
+						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
 						break;
 					default:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
-				}//SetStats
+				}//Set Stats
 				StaticStat = StaticStats.Count > 0;
+				ShortToolTip = GenerateShortTooltip();
 				checkedStats = true;
-			}//Set StaticStats
+			}//SetStats and AllowedList
 		}
-		private bool CheckStaticStatByName()
+		public override void SetDefaults()
 		{
+			Item.maxStack = 99;
+			GetDefaults();
+		}
+		private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false)
+		{
+			percentage = true;
+			multiply100 = true;
+			plus = staticStat;
+			switch (s)
+			{
+				case "ArmorPenetration":
+				case "statDefense":
+					percentage = false;
+					multiply100 = false;
+					plus = true;
+					break;
+				case "crit":
+					multiply100 = false;
+					plus = true;
+					break;
+				case "Damage":
+				case "NPCHitCooldown":
+					plus = true;
+					break;
+			}//percentage, multiply100
+		}
+		public string CheckStatAlteredName(string name)
+		{
+			switch (name)
+			{
+				case "crit":
+				case "statDefense":
+				case "scale":
+					return MyDisplayName.AddSpaces();
+				case "Damage":
+					return "Damage dealt(Not visible in weapon stats applied at damage calculation)";
+				default:
+					return name.CapitalizeFirst().AddSpaces();
+			}
+		}
+		private bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false)
+		{
+			if (checkName == "")
+				checkName = Name;
 			foreach (FieldInfo field in Item.GetType().GetFields())
 			{
 				string fieldName = field.Name;
-				if(fieldName.Length < Name.Length)
+				if(fieldName.Length <= checkName.Length)
                 {
-					string name = UtilityMethods.ToFieldName(Name.Substring(0, fieldName.Length));
+					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name)
 					{
-                        switch (name)
-                        {
-							case "crit":
-								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength * 100));
-								break;
-							default:
-								StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
-								break;
-                        }
+						if (checkBoolOnly)
+							return field.FieldType == typeof(bool);
+						else
+							switch (name)
+							{
+								case "crit":
+									StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength * 100));
+									break;
+								default:
+									StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
+									break;
+							}
 						return true;
 					}
 				}
@@ -704,11 +672,14 @@ namespace WeaponEnchantments.Items
 			foreach (PropertyInfo property in Item.GetType().GetProperties())
 			{
 				string name = property.Name;
-				if (name.Length < Name.Length)
+				if (name.Length <= checkName.Length)
                 {
-					if (name == Name.Substring(0, name.Length))
+					if (name == checkName.Substring(0, name.Length))
 					{
-						StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
+						if (checkBoolOnly)
+							return property.PropertyType == typeof(bool);
+						else
+							StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
 						return true;
 					}
 				}
@@ -717,20 +688,23 @@ namespace WeaponEnchantments.Items
 			foreach (FieldInfo field in player.GetType().GetFields())
 			{
 				string fieldName = field.Name;
-				if (fieldName.Length < Name.Length)
+				if (fieldName.Length <= checkName.Length)
 				{
-					string name = UtilityMethods.ToFieldName(Name.Substring(0, fieldName.Length));
+					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name)
 					{
-						switch (name)
-						{
-							case "statDefense":
-								StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength));
-								break;
-							default:
-								StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
-								break;
-						}
+						if (checkBoolOnly)
+							return field.FieldType == typeof(bool);
+						else
+							switch (name)
+							{
+								case "statDefense":
+									StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength));
+									break;
+								default:
+									StaticStats.Add(new EnchantmentStaticStat(fieldName, EnchantmentStrength));
+									break;
+							}
 						return true;
 					}
 				}
@@ -738,11 +712,14 @@ namespace WeaponEnchantments.Items
 			foreach (PropertyInfo property in player.GetType().GetProperties())
 			{
 				string name = property.Name;
-				if (name.Length < Name.Length)
+				if (name.Length <= checkName.Length)
 				{
-					if (name == Name.Substring(0, name.Length))
+					if (name == checkName.Substring(0, name.Length))
 					{
-						StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
+						if (checkBoolOnly)
+							return property.PropertyType == typeof(bool);
+						else
+							StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
 						return true;
 					}
 				}
@@ -778,6 +755,221 @@ namespace WeaponEnchantments.Items
 			}
 			return false;
         }
+		private string GetBuffName(int id)
+		{
+			BuffID buffID = new();
+			foreach (FieldInfo field in buffID.GetType().GetFields())
+			{
+				if(field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id)
+                {
+					return field.Name;
+                }
+			}
+			return "";
+		}
+		private string GenerateShortTooltip(bool forFullToolTip = false, bool firstToolTip = false)
+        {
+			if(EStats.Count > 0)
+            {
+				EStat baseNameEStat = EStats[0];
+				return GetEStatToolTip(baseNameEStat, forFullToolTip, firstToolTip);
+			}
+			else if(Buff.Count > 0)
+            {
+				return $"Grants {MyDisplayName.AddSpaces()} Buff (tier {EnchantmentSize})";
+            }
+			else if(StaticStats.Count > 0)
+            {
+				EnchantmentStaticStat baseNameStaticStat = StaticStats[0];
+				return GetStaticStatToolTip(baseNameStaticStat, forFullToolTip, firstToolTip);
+			};
+			return "";
+        }
+		private string GenerateFullTooltip(string uniqueTooltip)
+        {
+			string shortTooltip = GenerateShortTooltip(true, true);
+			string toolTip = $"{shortTooltip}{(uniqueTooltip != "" ? "\n" : "")}{uniqueTooltip}";
+			if (NewDamageType > -1)
+				toolTip += $"\nConverts weapon damage type to {((DamageTypeSpecificID)GetDamageClass(NewDamageType)).ToString().AddSpaces()}";
+			if(EStats.Count > 0)
+            {
+				foreach (EStat eStat in EStats)
+				{
+					string eStatToolTip = GetEStatToolTip(eStat, true);
+					if (eStatToolTip != shortTooltip)
+						toolTip += $"\n{eStatToolTip}";
+				}
+			}//Estats
+			if (StaticStats.Count > 0)
+            {
+				foreach (EnchantmentStaticStat staticStat in StaticStats)
+				{
+					string staticStatToolTip = GetStaticStatToolTip(staticStat, true);
+					if (staticStatToolTip != shortTooltip)
+						toolTip += $"\n{staticStatToolTip}";
+				}
+			}//StaticStats
+			if (OnHitBuff.Count > 0)
+            {
+				int i = 0;
+				bool first = true;
+				foreach (int onHitBuff in OnHitBuff.Keys)
+				{
+					string buffName = GetBuffName(onHitBuff).AddSpaces();
+					if (first)
+					{
+						toolTip += $"\nOn Hit Buffs: {buffName}";
+						first = false;
+					}
+					else if (i == OnHitBuff.Count - 1)
+						toolTip += $" and {buffName}";
+					else
+						toolTip += $", {buffName}";
+					i++;
+				}
+			}//OnHitBuffs
+			if(Debuff.Count > 0)
+            {
+				int i = 0;
+				bool first = true;
+				foreach (int debuff in Debuff.Keys)
+				{
+					string buffName = GetBuffName(debuff).AddSpaces();
+					if (first)
+					{
+						toolTip += $"\nOn Hit Debuffs: {buffName}";
+						first = false;
+					}
+					else if (i == Debuff.Count - 1)
+						toolTip += $" and {buffName}";
+					else
+						toolTip += $", {buffName}";
+					i++;
+				}
+			}//Debuffs
+			toolTip += $"\nLevel cost: { GetLevelCost()}";
+			if (DamageClassSpecific > 0 || Unique || RestrictedClass > 0)
+			{
+				string limmitationToolTip = "";
+				if (Unique)
+					limmitationToolTip = "\n   *" + UtilityMethods.AddSpaces(Item.ModItem.Name) + " Only*";
+				else if (DamageClassSpecific > 0)
+					limmitationToolTip = $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
+				else if (RestrictedClass > 0)
+					limmitationToolTip = $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
+				limmitationToolTip += "\n   *Unique* (Limmited to 1 Unique Enchantment)";
+				toolTip += limmitationToolTip;
+			}//Unique, DamageClassSpecific, RestrictedClass
+			if (AllowedList.Count < 3)
+            {
+				int i = 0;
+				bool first = true;
+				foreach (string key in AllowedList.Keys)
+                {
+					if (first)
+					{
+						toolTip += $"\n   *{key}{(AllowedList.Count == 1 ? " Only*" : "")}";
+						first = false;
+					}
+					else if (i == AllowedList.Count - 1)
+						toolTip += $" and {key} Only*";
+					else
+						toolTip += $", {key}";
+					i++;
+				}
+            }//AllowedList
+			if (Max1)
+				toolTip += "\n   *Max of 1 per weapon*";
+			toolTip += Utility ? "\n   *Utility*" : "";
+			return toolTip;
+		}
+		public string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false)
+        {
+			string toolTip = "";
+			bool percentage, multiply100, plus;
+			GetPercentageMult100(eStat.StatName, out percentage, out multiply100, out plus);
+			string statName;
+			bool invert = forFullToolTip && !firstToolTip && eStat.StatName.Substring(0, 2) == "I_";
+			if (invert)
+				statName = eStat.StatName.Substring(2);
+			else
+				statName = eStat.StatName;
+			EStat enchantmentStat = new EStat(statName, eStat.Additive * (invert ? -1f : 1f), invert ? 1f / eStat.Multiplicative : eStat.Multiplicative, eStat.Flat * (invert ? -1f : 1f), eStat.Base * (invert ? -1f : 1f));
+			if (enchantmentStat.Additive != 0f || enchantmentStat.Multiplicative != 1f)
+			{
+				if (enchantmentStat.Additive != 0f)
+					toolTip += (plus ? (enchantmentStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";
+				else if (enchantmentStat.Multiplicative != 1f)
+					toolTip += $"{enchantmentStat.Multiplicative}x";
+			}
+			else
+			{
+				float num = enchantmentStat.Base != 0f ? enchantmentStat.Base : enchantmentStat.Flat;
+				toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";// " + (enchantmenteStat.Base != 0f ? "base" : "");
+			}
+			toolTip += $" {(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStat.StatName) : MyDisplayName)}";
+			return toolTip;
+		}
+		public string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false)
+        {
+			string toolTip = "";
+			string statName;
+			bool invert = staticStat.Name.Substring(0, 2) == "I_";
+			bool prevent = staticStat.Name.Substring(0, 2) == "P_";
+			if (invert || prevent)
+				statName = staticStat.Name.Substring(2);
+			else
+				statName = staticStat.Name;
+			bool statIsBool = CheckStaticStatByName(statName, true);
+			if(statIsBool)
+            {
+				statName = statName.CapitalizeFirst().AddSpaces();
+				if (prevent)
+					statName = $"Prevent {statName}";
+				toolTip = statName;
+            }
+            else
+            {
+				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, staticStat.Additive * (invert ? -1f : 1f), invert ? 1f / staticStat.Multiplicative : staticStat.Multiplicative, staticStat.Flat * (invert ? -1f : 1f), staticStat.Base * (invert ? -1f : 1f));
+				bool percentage, multiply100, plus;
+				GetPercentageMult100(enchantmentStaticStat.Name, out percentage, out multiply100, out plus, true);
+				if (enchantmentStaticStat.Additive != 0f || enchantmentStaticStat.Multiplicative != 1f)
+				{
+					if (enchantmentStaticStat.Additive != 0f)
+						toolTip += (plus ? (enchantmentStaticStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStaticStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";
+					else if (enchantmentStaticStat.Multiplicative != 1f)
+						toolTip += $"{enchantmentStaticStat.Multiplicative}x";
+				}
+				else
+				{
+					float num = enchantmentStaticStat.Base != 0f ? enchantmentStaticStat.Base : enchantmentStaticStat.Flat;
+					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";// " + (enchantmentStaticStat.Base != 0f ? "base" : "");
+				}
+				toolTip += $" {(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStaticStat.Name) : MyDisplayName)}";
+			}
+			return toolTip;
+		}
+		public static int GetDamageClass(int damageType)
+        {
+			switch ((DamageTypeSpecificID)damageType)
+			{
+				case DamageTypeSpecificID.Melee:
+				case DamageTypeSpecificID.MeleeNoSpeed:
+					return (int)DamageTypeSpecificID.Melee;
+				case DamageTypeSpecificID.Ranged:
+					return (int)DamageTypeSpecificID.Ranged;
+				case DamageTypeSpecificID.Magic:
+					return (int)DamageTypeSpecificID.Magic;
+				case DamageTypeSpecificID.Summon:
+				case DamageTypeSpecificID.MagicSummonHybrid:
+				case DamageTypeSpecificID.SummonMeleeSpeed:
+					return (int)DamageTypeSpecificID.Summon;
+				case DamageTypeSpecificID.Throwing:
+					return (int)DamageTypeSpecificID.Throwing;
+				default:
+					return (int)DamageTypeSpecificID.Generic;
+			}
+		}
 		private int GetBuffDuration()
         {
 			return defaultBuffDuration * (EnchantmentSize + 1);
