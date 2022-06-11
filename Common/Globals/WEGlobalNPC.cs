@@ -647,7 +647,8 @@ namespace WeaponEnchantments.Common.Globals
                 if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
                     //int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
-                    int newImmune = (int)((float)npc.immune[player.whoAmI] * sourceItem.A("NPCHitCooldown", 1f));
+                    float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f) / sourceItem.AEI("I_NPCHitCooldown", 1f);
+                    int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
                     npc.immune[player.whoAmI] = newImmune < 1 ? 1 : newImmune;
                 }
             }

@@ -71,24 +71,31 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             }
-            if(sourceSet && UtilityMethods.PC("Splitting"))
+            if(sourceSet)
             {
-                if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
+                if (UtilityMethods.PC("Splitting"))
                 {
-                    float projectileChance = sourceItem.AEP("Splitting", 0f);
-                    int projectiles = (int)projectileChance;
-                    projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
-                    if(projectiles > 0)
+                    if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
-                        float spread = (float)Math.PI / 10f;
-                        for(int i = 0; i < projectiles; i++)
+                        float projectileChance = sourceItem.AEP("Splitting", 0f);
+                        int projectiles = (int)projectileChance;
+                        projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
+                        if (projectiles > 0)
                         {
-                            float rotation = (float)i - ((float)projectiles - 2f) / 2f;
-                            Vector2 position = projectile.position.RotatedBy(spread * rotation);
-                            Vector2 velocity = projectile.velocity;
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            float spread = (float)Math.PI / 10f;
+                            for (int i = 0; i < projectiles; i++)
+                            {
+                                float rotation = (float)i - ((float)projectiles - 2f) / 2f;
+                                Vector2 position = projectile.position.RotatedBy(spread * rotation);
+                                Vector2 velocity = projectile.velocity;
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            }
                         }
                     }
+                }
+                if (UtilityMethods.PC("InfinitePenetration"))
+                {
+                    projectile.penetrate = -1;
                 }
             }
         }
@@ -157,33 +164,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
                         projectile.scale = sourceItem.A("scale", projectile.scale);
-                        /*for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                    {
-                        if (!siGlobal.enchantments[i].IsAir)
-                        {
-                            Enchantments enchantment = ((Enchantments)siGlobal.enchantments[i].ModItem);
-                            switch ((EnchantmentTypeID)enchantment.EnchantmentType)
-                            {
-                                case EnchantmentTypeID.Size:
-                                    scale += enchantment.EnchantmentStrength / 2;//Only do 50% of enchantmentStrength to size
-                                    break;
-                                case EnchantmentTypeID.AllForOne:
-                                    if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
-                                    {
-                                        allForOneMultiplier *= enchantment.EnchantmentStrength;
-                                    }
-                                    break;
-                                case EnchantmentTypeID.Damage:
-                                    if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
-                                    {
-                                        damageBonus += enchantment.EnchantmentStrength;
-                                    }
-                                    break;
-                            }
-                        }
-                    }
-                    damageBonus = damageBonus * allForOneMultiplier;*/
-                        if (sourceItem.G().eStats.ContainsKey("AllForOne"))
+                        /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
                         {
                             if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
                             {
@@ -194,16 +175,15 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.idStaticNPCHitCooldown = 3;
                             else if (projectile.usesLocalNPCImmunity && projectile.localNPCHitCooldown < 1)
                                 projectile.localNPCHitCooldown = 3;
-                        }
+                        }*/
+                        float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f) / sourceItem.AEI("I_NPCHitCooldown", 1f);
                         if (projectile.usesIDStaticNPCImmunity)
                         {
-                            //projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
-                            //projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * (1f + siGlobal.immunityBonus));
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f));
+                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         updated = true;
                     }

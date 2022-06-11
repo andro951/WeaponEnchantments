@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Items
 		public int DamageClassSpecific { private set; get; }
 		public int RestrictedClass { private set; get; }
 		public bool StaticStat { private set; get; }
-		public string ShortToolTip { private set; get; }
+		//public string ShortToolTip { private set; get; }
 		public string FullToolTip { private set; get; }
 		private bool checkedStats = false;
 		public List<int> Buff { private set; get; }	= new List<int>();
@@ -94,6 +94,7 @@ namespace WeaponEnchantments.Items
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
+		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override ModItem Clone(Item newEntity)
         {
@@ -104,6 +105,7 @@ namespace WeaponEnchantments.Items
 			enchantment.Debuff = new Dictionary<int, int>(Debuff);
 			enchantment.Buff = new List<int>(Buff);
 			enchantment.AllowedList = new Dictionary<string, float>(AllowedList);
+			enchantment.AllowedListTooltips = new Dictionary<string, string>(AllowedListTooltips);
 			return enchantment;
 		}
         public override void SetStaticDefaults()
@@ -516,7 +518,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
 						EStats.Add(new EStat("InfinitePenetration", 0f, 1f, EnchantmentStrength));
 						AddStaticStat("scale", 0f, EnchantmentStrength * 10f);
-						AddStaticStat("shootSpeed", 0f, -0.8f * EnchantmentStrength);
+						AddStaticStat("shootSpeed", 0f, 1f - 0.8f * EnchantmentStrength);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ColdSteel:
@@ -586,7 +588,10 @@ namespace WeaponEnchantments.Items
 						break;
 				}//Set Stats
 				StaticStat = StaticStats.Count > 0;
-				ShortToolTip = GenerateShortTooltip();
+				foreach(string key in AllowedList.Keys)
+                {
+					AllowedListTooltips.Add(key, GenerateShortTooltip(false, false, key));
+				}
 				checkedStats = true;
 			}//SetStats and AllowedList
 		}
@@ -758,12 +763,12 @@ namespace WeaponEnchantments.Items
 			}
 			return "";
 		}
-		private string GenerateShortTooltip(bool forFullToolTip = false, bool firstToolTip = false)
+		private string GenerateShortTooltip(bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
         {
 			if(EStats.Count > 0)
             {
 				EStat baseNameEStat = EStats[0];
-				return GetEStatToolTip(baseNameEStat, forFullToolTip, firstToolTip);
+				return GetEStatToolTip(baseNameEStat, forFullToolTip, firstToolTip, allowedListKey);
 			}
 			else if(Buff.Count > 0)
             {
@@ -772,7 +777,7 @@ namespace WeaponEnchantments.Items
 			else if(StaticStats.Count > 0)
             {
 				EnchantmentStaticStat baseNameStaticStat = StaticStats[0];
-				return GetStaticStatToolTip(baseNameStaticStat, forFullToolTip, firstToolTip);
+				return GetStaticStatToolTip(baseNameStaticStat, forFullToolTip, firstToolTip, allowedListKey);
 			};
 			return "";
         }
@@ -851,7 +856,7 @@ namespace WeaponEnchantments.Items
 				limmitationToolTip += "\n   *Unique* (Limmited to 1 Unique Enchantment)";
 				toolTip += limmitationToolTip;
 			}//Unique, DamageClassSpecific, RestrictedClass
-			if (AllowedList.Count < 3)
+			if (AllowedList.Count > 0)
             {
 				int i = 0;
 				bool first = true;
@@ -859,13 +864,13 @@ namespace WeaponEnchantments.Items
                 {
 					if (first)
 					{
-						toolTip += $"\n   *{key}{(AllowedList.Count == 1 ? " Only*" : "")}";
+						toolTip += $"\n   *Allowed on {key}: {AllowedList[key] * 100}%{(AllowedList.Count == 1 ? " Only*" : "")}";
 						first = false;
 					}
 					else if (i == AllowedList.Count - 1)
-						toolTip += $" and {key} Only*";
+						toolTip += $" and {key}: {AllowedList[key] * 100}%{(AllowedList.Count < 3 ? " Only*" : "")}";
 					else
-						toolTip += $", {key}";
+						toolTip += $", {key}: {AllowedList[key] * 100}%";
 					i++;
 				}
             }//AllowedList
@@ -874,7 +879,7 @@ namespace WeaponEnchantments.Items
 			toolTip += Utility ? "\n   *Utility*" : "";
 			return toolTip;
 		}
-		public string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false)
+		public string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
         {
 			string toolTip = "";
 			bool percentage, multiply100, plus;
@@ -885,7 +890,12 @@ namespace WeaponEnchantments.Items
 				statName = eStat.StatName.Substring(2);
 			else
 				statName = eStat.StatName;
-			EStat enchantmentStat = new EStat(statName, eStat.Additive * (invert ? -1f : 1f), invert ? 1f / eStat.Multiplicative : eStat.Multiplicative, eStat.Flat * (invert ? -1f : 1f), eStat.Base * (invert ? -1f : 1f));
+			EStat enchantmentStat = new EStat(statName, 
+				eStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+				invert ? 1f / (eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
+					eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+				eStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+				eStat.Base * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f));
 			if (enchantmentStat.Additive != 0f || enchantmentStat.Multiplicative != 1f)
 			{
 				if (enchantmentStat.Additive != 0f)
@@ -901,7 +911,7 @@ namespace WeaponEnchantments.Items
 			toolTip += $" {(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStat.StatName) : MyDisplayName)}";
 			return toolTip;
 		}
-		public string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false)
+		public string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
         {
 			string toolTip = "";
 			string statName;
@@ -921,7 +931,12 @@ namespace WeaponEnchantments.Items
             }
             else
             {
-				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, staticStat.Additive * (invert ? -1f : 1f), invert ? 1f / staticStat.Multiplicative : staticStat.Multiplicative, staticStat.Flat * (invert ? -1f : 1f), staticStat.Base * (invert ? -1f : 1f));
+				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, 
+					staticStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+					invert ? 1f / (staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
+						staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+					staticStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+					staticStat.Base * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f));
 				bool percentage, multiply100, plus;
 				GetPercentageMult100(enchantmentStaticStat.Name, out percentage, out multiply100, out plus, true);
 				if (enchantmentStaticStat.Additive != 0f || enchantmentStaticStat.Multiplicative != 1f)
@@ -1039,7 +1054,13 @@ namespace WeaponEnchantments.Items
 		}
 		public int GetLevelCost()
         {
-            switch ((EnchantmentTypeID)EnchantmentType)
+			int multiplier = 2;
+			if(Utility)
+				multiplier = 1;
+			if (Unique || DamageClassSpecific > 0 || RestrictedClass > 0)
+				multiplier = 3;
+			return (1 + EnchantmentSize) * multiplier;
+            /*switch ((EnchantmentTypeID)EnchantmentType)
             {
 				case EnchantmentTypeID.AllForOne:
 				case EnchantmentTypeID.OneForAll:
@@ -1051,12 +1072,13 @@ namespace WeaponEnchantments.Items
 					return (1 + EnchantmentSize) * 3;
 				default:
 					return Utility ? (1 + EnchantmentSize) * 1 : (1 + EnchantmentSize) * 2;
-			}
+			}*/
         }
 	}
 	public class AllForOneEnchantmentCommon : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class AmmoCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ArmorPenetrationEnchantmentBasic : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentCommon : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class CatastrophicReleaseEnchantmentBasic : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentCommon : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentRare : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ColdSteelEnchantmentBasic : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentCommon : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class CriticalStrikeChanceEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }

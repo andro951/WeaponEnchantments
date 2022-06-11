@@ -333,15 +333,11 @@ namespace WeaponEnchantments.Common.Globals
             if (experience > 0 || powerBoosterInstalled || inEnchantingTable || enchantemntInstalled)
             {
                 if (powerBoosterInstalled)
-                {
-                    tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString() + " (Booster Installed)") { OverrideColor = Color.LightGreen });
-                }
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} Points available: {GetLevelsAvailable()} (Booster Installed)") { OverrideColor = Color.LightGreen });
                 else
-                {
-                    tooltips.Add(new TooltipLine(Mod, "level", "Level: " + levelBeforeBooster.ToString() + " Points available: " + GetLevelsAvailable().ToString()) { OverrideColor = Color.LightGreen });
-                }
-                string levelString = levelBeforeBooster < maxLevel ? " (" + (WEModSystem.levelXps[levelBeforeBooster] - experience).ToString() + " to next level)" : " (Max Level)";
-                tooltips.Add(new TooltipLine(Mod, "experience", "Experience: " + experience.ToString() + levelString) { OverrideColor = Color.White });
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} Points available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
+                string levelString = levelBeforeBooster < maxLevel ? $" ({WEModSystem.levelXps[levelBeforeBooster] - experience} to next level)" : " (Max Level)";
+                tooltips.Add(new TooltipLine(Mod, "experience", $"Experience: {experience}{levelString}") { OverrideColor = Color.White });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -353,7 +349,14 @@ namespace WeaponEnchantments.Common.Globals
                         tooltips.Add(new TooltipLine(Mod, "enchantmentsToolTip", "Enchantments:") { OverrideColor = Color.Violet});
                         enchantmentsToolTipAdded = true;
                     }//Enchantmenst: tooltip
-                    tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.ShortToolTip)
+                    string itemType = "";
+                    if (WEMod.IsWeaponItem(item))
+                        itemType = "Weapon";
+                    else if (WEMod.IsArmorItem(item))
+                        itemType = "Armor";
+                    else if (WEMod.IsAccessoryItem(item))
+                        itemType = "Accessory";
+                    tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), enchantment.AllowedListTooltips[itemType])
                     {
                         OverrideColor = AllForOneEnchantmentBasic.rarityColors[enchantment.EnchantmentSize]
                     });
@@ -486,6 +489,12 @@ namespace WeaponEnchantments.Common.Globals
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             //if (allForOne)
+            if (eStats.ContainsKey("CatastrophicRelease"))
+            {
+                player.statMana = 0;
+                Main.mouseLeft = false;
+                Main.mouseLeftRelease = true;
+            }
             if(eStats.ContainsKey("AllForOne"))
             {
                 //wePlayer.allForOneCooldown = true;
@@ -496,6 +505,8 @@ namespace WeaponEnchantments.Common.Globals
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
+                return false;
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
                 return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
