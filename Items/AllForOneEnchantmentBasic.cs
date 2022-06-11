@@ -15,6 +15,7 @@ namespace WeaponEnchantments.Items
 		AllForOne,
 		AmmoCost,
 		ArmorPenetration,
+		CatastrophicRelease,
 		ColdSteel,
 		CriticalStrikeChance,
 		Damage,
@@ -35,8 +36,6 @@ namespace WeaponEnchantments.Items
 		Spelunker,
 		Splitting,
 		War,
-
-		Magic,//change
 	}
 	public enum UtilityEnchantmentNames
 	{
@@ -115,7 +114,10 @@ namespace WeaponEnchantments.Items
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.AllForOne:
-					toolTip = $"item CD equal to {EnchantmentStrength * 0.8f}x use speed";
+					toolTip = $"(item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
+					break;
+				case EnchantmentTypeID.CatastrophicRelease:
+					toolTip = "()";
 					break;
 				case EnchantmentTypeID.GodSlayer:
 					toolTip = "(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
@@ -124,13 +126,13 @@ namespace WeaponEnchantments.Items
 					toolTip = "(remainder is saved to prevent always rounding to 0 for low damage weapons)";
 					break;
 				case EnchantmentTypeID.OneForAll:
-					toolTip = "Hiting an enemy will damage all nearby enemies\n(WARNING - Destroys your projectiles upon hitting an enemy)";
+					toolTip = "(Hiting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
 					break;
 				case EnchantmentTypeID.Splitting:
-					toolTip = "Chance to produce an extra projectile.";
+					toolTip = "(Chance to produce an extra projectile)";
 					break;
 				case EnchantmentTypeID.War:
-					toolTip = "Minion Damage is reduced by your spawn rate multiplier(from enchantments) unless they are your minion attack target\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\nPrevents consuming boss summoning items if spawn rate multiplier(from enchantments) is > 1";
+					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)";
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
@@ -226,7 +228,7 @@ namespace WeaponEnchantments.Items
 							EnchantmentStrength = 0.2f;
 							break;
 						case 2:
-							EnchantmentStrength = 0.50f;
+							EnchantmentStrength = 0.5f;
 							break;
 						case 3:
 							EnchantmentStrength = 0.8f;
@@ -234,7 +236,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 1f;
 							break;
-					}
+					}// 0.1, 0.2, 0.5, 0.8, 1
 					break;
 				case EnchantmentTypeID.Peace:
 					switch (EnchantmentSize)
@@ -254,7 +256,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 1f / 2f - 1f;
 							break;
-					}
+					}// 1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f
 					break;
 				case EnchantmentTypeID.StatDefense:
 					switch (EnchantmentSize)
@@ -274,7 +276,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 10f;
 							break;
-					}
+					}// 1, 2, 3, 5, 10
 					break;
 				case EnchantmentTypeID.ArmorPenetration:
 					switch (EnchantmentSize)
@@ -286,7 +288,7 @@ namespace WeaponEnchantments.Items
 							EnchantmentStrength = 4f;
 							break;
 						case 2:
-							EnchantmentStrength = 8f;
+							EnchantmentStrength = 6f;
 							break;
 						case 3:
 							EnchantmentStrength = 10f;
@@ -294,7 +296,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 20f;
 							break;
-					}
+					}// 2, 4, 6, 10, 20
 					break;
 				case EnchantmentTypeID.LifeSteal:
 					switch (EnchantmentSize)
@@ -314,7 +316,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 0.04f;
 							break;
-					}
+					}// 0.005, 0.01, 0.02, 0.03, 0.04
 					break;
 				case EnchantmentTypeID.AllForOne:
 					switch (EnchantmentSize)
@@ -334,7 +336,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 10f;
 							break;
-					}
+					}// 2, 3, 5, 8, 10
 					break;
 				case EnchantmentTypeID.GodSlayer:
 					switch (EnchantmentSize)
@@ -354,9 +356,10 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 0.10f;
 							break;
-					}
+					}// 0.02, 0.04, 0.06, 0.08, 0.10
 					break;
 				case EnchantmentTypeID.Splitting:
+				case EnchantmentTypeID.CatastrophicRelease:
 					switch (EnchantmentSize)
 					{
 						case 0:
@@ -374,7 +377,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 1f;
 							break;
-					}
+					}//0.5, 0.6, 0.75, 0.85, 1
 					break;
 				case EnchantmentTypeID.ColdSteel:
 				case EnchantmentTypeID.HellsWrath:
@@ -397,27 +400,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 0.5f;
 							break;
-					}
-					break;
-				case EnchantmentTypeID.Magic:
-					switch (EnchantmentSize)
-					{
-						case 0:
-							EnchantmentStrength = 0.03f;
-							break;
-						case 1:
-							EnchantmentStrength = 0.08f;
-							break;
-						case 2:
-							EnchantmentStrength = 0.16f;
-							break;
-						case 3:
-							EnchantmentStrength = 0.25f;
-							break;
-						case 4:
-							EnchantmentStrength = 0.40f;
-							break;
-					}
+					}// 0.25, 0.30, 0.35, 0.4, 0.5
 					break;
 				default:
 					switch (EnchantmentSize)
@@ -437,7 +420,7 @@ namespace WeaponEnchantments.Items
 						case 4:
 							EnchantmentStrength = 0.40f;
 							break;
-					}
+					}//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
 			}//EnchantmentStrength
 			switch ((EnchantmentTypeID)EnchantmentType)
@@ -448,7 +431,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Splitting:
 					DamageClassSpecific = (int)DamageTypeSpecificID.Ranged;
 					break;
-				case EnchantmentTypeID.Magic:
+				case EnchantmentTypeID.CatastrophicRelease:
 					DamageClassSpecific = (int)DamageTypeSpecificID.Magic;
 					break;
 				case EnchantmentTypeID.ColdSteel:
@@ -499,6 +482,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.HellsWrath:
 					case EnchantmentTypeID.JunglesFury:
 					case EnchantmentTypeID.Moonlight:
+					case EnchantmentTypeID.CatastrophicRelease:
 						AllowedList.Add("Weapon", 1f);
 						break;
 					default:
@@ -527,6 +511,13 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						StaticStat = CheckStaticStatByName();
+						break;
+					case EnchantmentTypeID.CatastrophicRelease:
+						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
+						EStats.Add(new EStat("InfinitePenetration", 0f, 1f, EnchantmentStrength));
+						AddStaticStat("scale", 0f, EnchantmentStrength * 10f);
+						AddStaticStat("shootSpeed", 0f, -0.8f * EnchantmentStrength);
+						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ColdSteel:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
