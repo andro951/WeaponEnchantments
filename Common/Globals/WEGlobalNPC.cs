@@ -529,13 +529,13 @@ namespace WeaponEnchantments.Common.Globals
                     sourceItem = null;
                 if(sourceItem != null)
                 {
-                    int baseDamage = ContentSamples.ItemsByType[item.type].damage;
+                    //int baseDamage = ContentSamples.ItemsByType[item.type].damage;
                     int damageReduction = npc.defense / 2 - npc.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
                     if (damageReduction >= damage)
                         damageReduction = damage - 1;
                     damage -= damageReduction;
-                    float temp2 = player.AEP("Damage", 1f);
-                    damage = (int)Math.Round(item.AEP("Damage", (float)damage));
+                    //float temp2 = player.AEP("Damage", 1f);
+                    damage = (int)Math.Round(item.AEI("Damage", (float)damage));
                     int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
                     int critLevel = 0;
                     crit = false;
@@ -734,10 +734,10 @@ namespace WeaponEnchantments.Common.Globals
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            if (wePlayer.eStats.ContainsKey("spawnRate"))
+            if (player.CEP("spawnRate"))// wePlayer.eStats.ContainsKey("spawnRate"))
             {
                 if(UtilityMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
-                float enemySpawnRateBonus = wePlayer.eStats["spawnRate"].ApplyTo(1f);
+                float enemySpawnRateBonus = player.AEP("spawnRate", 1f);// wePlayer.eStats["spawnRate"].ApplyTo(1f);
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 if (enemySpawnRateBonus > 1f)
                 {
@@ -751,9 +751,9 @@ namespace WeaponEnchantments.Common.Globals
                 warReduction = 1;
                 war = false;
             }
-            if (wePlayer.eStats.ContainsKey("maxSpawns"))
+            if (player.CEP("maxSpawns"))//wePlayer.eStats.ContainsKey("maxSpawns"))
             {
-                float enemyMaxSpawnBonus = wePlayer.eStats["maxSpawns"].ApplyTo(1f);
+                float enemyMaxSpawnBonus = player.AEP("maxSpawns", 1f);//wePlayer.eStats["maxSpawns"].ApplyTo(1f);
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
                 maxSpawns = spawns >= 0 ? spawns : 0;
                 if(UtilityMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();

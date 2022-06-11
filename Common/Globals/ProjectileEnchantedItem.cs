@@ -77,7 +77,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
-                        float projectileChance = sourceItem.AEP("Splitting", 0f);
+                        float projectileChance = sourceItem.AEI("Splitting", 0f);
                         int projectiles = (int)projectileChance;
                         projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
                         if (projectiles > 0)

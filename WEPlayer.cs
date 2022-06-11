@@ -949,12 +949,15 @@ namespace WeaponEnchantments
                     TryRemoveStat(ref statModifiers, key);
                 }
             }
-            foreach(string key in item.G().eStats.Keys)
+            if (!WEMod.IsWeaponItem(item))
             {
-                if (!eStats.ContainsKey(key))
-                    eStats.Add(key, StatModifier.Default);
-                eStats[key] = InverseCombineWith(eStats[key], item.G().eStats[key], remove);
-                TryRemoveStat(ref eStats, key);
+                foreach (string key in item.G().eStats.Keys)
+                {
+                    if (!eStats.ContainsKey(key))
+                        eStats.Add(key, StatModifier.Default);
+                    eStats[key] = InverseCombineWith(eStats[key], item.G().eStats[key], remove);
+                    TryRemoveStat(ref eStats, key);
+                }
             }
             if(UtilityMethods.debugging) ($"/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();
         }
@@ -966,14 +969,17 @@ namespace WeaponEnchantments
                 if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
+                    item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
                 }
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
-                    if (item.GetType().GetField(itemKey.RI()) != null)
+                    string riItemKey = itemKey.RI();
+                    if (item.GetType().GetField(riItemKey) != null)
                     {
-                        combinedStatModifiers.Add(itemKey, item.G().statModifiers[itemKey]);
+                        StatModifier riStatModifier = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().statModifiers[itemKey], true) : item.G().statModifiers[itemKey];
+                        combinedStatModifiers.Add(riItemKey, riStatModifier);
                         if(UtilityMethods.debugging) ($"combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
                     }
                 }//Populate itemStatModifiers
@@ -981,15 +987,17 @@ namespace WeaponEnchantments
                 {
                     foreach (string playerKey in statModifiers.Keys)
                     {
-                        if (item.GetType().GetField(playerKey.RI()) != null)
+                        string riPlayerKey = playerKey.RI();
+                        if (item.GetType().GetField(riPlayerKey) != null)
                         {
-                            if (combinedStatModifiers.ContainsKey(playerKey))
+                            StatModifier riStatModifier = playerKey.CI() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
+                            if (combinedStatModifiers.ContainsKey(riPlayerKey))
                             {
-                                combinedStatModifiers[playerKey] = combinedStatModifiers[playerKey].CombineWith(statModifiers[playerKey]);
+                                combinedStatModifiers[riPlayerKey] = combinedStatModifiers[riPlayerKey].CombineWith(riStatModifier);
                             }
                             else
                             {
-                                combinedStatModifiers.Add(playerKey, statModifiers[playerKey]);
+                                combinedStatModifiers.Add(riPlayerKey, riStatModifier);
                             }
                             if(UtilityMethods.debugging) ($"combinedStatModifiers.Add(playerKey: " + playerKey + ", " + item.G().statModifiers.S(playerKey) + ")").Log();
                         }
@@ -1002,18 +1010,15 @@ namespace WeaponEnchantments
                 }
                 foreach (string key in combinedStatModifiers.Keys)
                 {
-                    string statName = key.RI();
                     bool statsNeedUpdate = true;
                     if (item.G().appliedStatModifiers.ContainsKey(key))
                         statsNeedUpdate = combinedStatModifiers[key] != item.G().appliedStatModifiers[key];
                     if(UtilityMethods.debugging) ($"statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + item.G().appliedStatModifiers.S(key)).Log();
                     if (statsNeedUpdate)
                     {
-                        if (key.CI())
-                            combinedStatModifiers[key] = CombineStatModifier(StatModifier.Default, combinedStatModifiers[key], true);
-                        FieldInfo field = item.GetType().GetField(statName);
-                        PropertyInfo property = item.GetType().GetProperty(statName);
-                        if (item.GetType().GetField(statName) != null || item.GetType().GetProperty(statName) != null)
+                        FieldInfo field = item.GetType().GetField(key);
+                        PropertyInfo property = item.GetType().GetProperty(key);
+                        if (item.GetType().GetField(key) != null || item.GetType().GetProperty(key) != null)
                         {
                             if (!item.G().appliedStatModifiers.ContainsKey(key))
                                 item.G().appliedStatModifiers.Add(key, StatModifier.Default);
@@ -1074,7 +1079,51 @@ namespace WeaponEnchantments
                         }
                     }
                 }
-                if(UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
+                Dictionary<string, StatModifier> combinedEStats = new Dictionary<string, StatModifier>();
+                foreach (string itemKey in item.G().eStats.Keys)
+                {
+                    string riItemKey = itemKey.RI();
+                    StatModifier riEStat = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().eStats[itemKey], true) : item.G().eStats[itemKey];
+                    combinedEStats.Add(riItemKey, riEStat);
+                    if (UtilityMethods.debugging) ($"combinedEStats.Add(itemKey: " + itemKey + ", " + item.G().eStats.S(itemKey) + ")").Log();
+                }//Populate itemeStats
+                if (WEMod.IsWeaponItem(item))
+                {
+                    foreach (string playerKey in eStats.Keys)
+                    {
+                        string riPlayerKey = playerKey.RI();
+                        StatModifier riEStat = playerKey.CI() ? CombineStatModifier(StatModifier.Default, eStats[playerKey], true) : eStats[playerKey];
+                        if (combinedEStats.ContainsKey(riPlayerKey))
+                        {
+                            combinedEStats[riPlayerKey] = combinedEStats[riPlayerKey].CombineWith(riEStat);
+                        }
+                        else
+                        {
+                            combinedEStats.Add(riPlayerKey, riEStat);
+                        }
+                        if (UtilityMethods.debugging) ($"combinedEStats.Add(riPlayerKey: " + riPlayerKey + ", " + item.G().eStats.S(playerKey) + ")").Log();
+                    }
+                }//Populate playereStats if item is a weapon
+                foreach (string key in item.G().appliedEStats.Keys)
+                {
+                    if (!combinedEStats.ContainsKey(key))
+                        combinedEStats.Add(key, StatModifier.Default);
+                }
+                foreach (string key in combinedEStats.Keys)
+                {
+                    bool statsNeedUpdate = true;
+                    if (item.G().appliedEStats.ContainsKey(key))
+                        statsNeedUpdate = combinedEStats[key] != item.G().appliedEStats[key];
+                    if (statsNeedUpdate)
+                    {
+                        if (!item.G().appliedEStats.ContainsKey(key))
+                            item.G().appliedEStats.Add(key, combinedEStats[key]);
+                        else
+                            item.G().appliedEStats[key] = combinedEStats[key];
+                        TryRemoveStat(ref item.G().appliedEStats, key);
+                    }
+                }
+                if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)

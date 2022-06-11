@@ -47,38 +47,41 @@ namespace WeaponEnchantments.Common
         /// </summary>
         public static float AEI(this Item item, string key, float value)
         {
-            if (item.G().eStats.ContainsKey(key))
-                return item.G().eStats[key].ApplyTo(value);
+            if (item.G().appliedEStats.ContainsKey(key))
+                return item.G().appliedEStats[key].ApplyTo(value);
             return value;
             //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+        }
+        public static bool CEP(this Player player, string key)
+        {
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            if (wePlayer.eStats.ContainsKey(key))
+                return true;
+            Item weapon = wePlayer.trackedWeapon;
+            if (weapon != null && !weapon.IsAir && weapon.G().eStats.ContainsKey(key))
+                return true;
+            return false;
         }
         public static float AEP(this Player player, string key, float value)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
-                return wePlayer.eStats[key].ApplyTo(value);
-            return value;
+                combinedStatModifier = wePlayer.eStats[key];
+            Item weapon = wePlayer.trackedWeapon;
+            if (weapon != null && !weapon.IsAir && weapon.G().eStats.ContainsKey(key))
+                combinedStatModifier = combinedStatModifier.CombineWith(weapon.G().eStats[key]);
+            return combinedStatModifier.ApplyTo(value);
         }
-        public static float AEP(this Item item, string key, float value)
+        public static float AEP(this Player player, Item item, string key, float value)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
-                return wePlayer.eStats[key].ApplyTo(value);
-            return value;
-            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
-        }
-        public static void AEI(this Item item, ref StatModifier statModifer, string key)
-        {
-            if (item.G().eStats.ContainsKey(key))
-                statModifer = statModifer.CombineWith(item.G().eStats[key]);
-        }
-        public static void AEP(this Item item, ref StatModifier statModifer, string key) 
-        {
-            //if (item.G().eStats.ContainsKey(key))
-                //statModifer = statModifer.CombineWith(item.G().eStats[key]);
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.eStats.ContainsKey(key))
-                statModifer = statModifer.CombineWith(wePlayer.eStats[key]);
+                combinedStatModifier = wePlayer.eStats[key];
+            if (item != null && !item.IsAir && item.G().eStats.ContainsKey(key))
+                combinedStatModifier = combinedStatModifier.CombineWith(item.G().eStats[key]);
+            return combinedStatModifier.ApplyTo(value);
         }
         public static bool C(this Item item, string key) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key);
         public static bool PC(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
@@ -293,7 +296,7 @@ namespace WeaponEnchantments.Common
         }
         public static int DamageBeforeArmor(this Item item, bool crit)
         {
-            return (int)Math.Round(item.AEP("Damage", (float)item.damage * (crit ? 2f : 1f)));
+            return (int)Math.Round(item.AEI("Damage", (float)item.damage * (crit ? 2f : 1f)));
         }
         public static void RemoveUntilPositive(this Item item, Player player)
         {

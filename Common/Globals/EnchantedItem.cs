@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<string, StatModifier> statModifiers;
         public Dictionary<string, StatModifier> appliedStatModifiers;
         public Dictionary<string, StatModifier> eStats;
+        public Dictionary<string, StatModifier> appliedEStats;
         public Dictionary<int, int> buffs;
         public Dictionary<int, int> debuffs;
         public Dictionary<int, int> onHitBuffs;
@@ -47,6 +48,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             statModifiers = new Dictionary<string, StatModifier>();
             appliedStatModifiers = new Dictionary<string, StatModifier>();
+            appliedEStats = new Dictionary<string, StatModifier>();
             eStats = new Dictionary<string, StatModifier>();
             buffs = new Dictionary<int, int>();
             debuffs = new Dictionary<int, int>();
@@ -71,6 +73,7 @@ namespace WeaponEnchantments.Common.Globals
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
             clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
+            clone.appliedEStats = new Dictionary<string, StatModifier>(appliedEStats);
             clone.equip = false;
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
@@ -483,7 +486,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }*/
-            return Main.rand.NextFloat() >= -1f * weapon.AEP("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
+            return Main.rand.NextFloat() >= -1f * weapon.AEI("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
         public override bool? UseItem(Item item, Player player)
         {
