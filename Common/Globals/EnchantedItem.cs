@@ -508,8 +508,8 @@ namespace WeaponEnchantments.Common.Globals
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
-                return false;
+            /*if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
+                return false;*/
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
                 return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;

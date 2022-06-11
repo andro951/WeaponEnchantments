@@ -516,9 +516,10 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.CatastrophicRelease:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
-						EStats.Add(new EStat("InfinitePenetration", 0f, 1f, EnchantmentStrength));
+						EStats.Add(new EStat("InfinitePenetration", 0f, 1f, 13.13f));
 						AddStaticStat("scale", 0f, EnchantmentStrength * 10f);
 						AddStaticStat("shootSpeed", 0f, 1f - 0.8f * EnchantmentStrength);
+						AddStaticStat("useTime", 0f, 1000f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ColdSteel:
@@ -591,7 +592,7 @@ namespace WeaponEnchantments.Items
 				foreach(string key in AllowedList.Keys)
                 {
 					AllowedListTooltips.Add(key, GenerateShortTooltip(false, false, key));
-				}
+				}//AllowedListTooltips
 				checkedStats = true;
 			}//SetStats and AllowedList
 		}
@@ -890,25 +891,28 @@ namespace WeaponEnchantments.Items
 				statName = eStat.StatName.Substring(2);
 			else
 				statName = eStat.StatName;
-			EStat enchantmentStat = new EStat(statName, 
-				eStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
-				invert ? 1f / (eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
-					eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
-				eStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+			EStat enchantmentStat = new EStat(statName,
+				eStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f),
+				invert ? 1f / (eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) :
+					eStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f),
+				eStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f),
 				eStat.Base * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f));
-			if (enchantmentStat.Additive != 0f || enchantmentStat.Multiplicative != 1f)
-			{
-				if (enchantmentStat.Additive != 0f)
-					toolTip += (plus ? (enchantmentStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";
-				else if (enchantmentStat.Multiplicative != 1f)
-					toolTip += $"{enchantmentStat.Multiplicative}x";
+			if (eStat.Flat != 13.13f)
+            {
+				if (enchantmentStat.Additive != 0f || enchantmentStat.Multiplicative != 1f)
+				{
+					if (enchantmentStat.Additive != 0f)
+						toolTip += (plus ? (enchantmentStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";
+					else if (enchantmentStat.Multiplicative != 1f)
+						toolTip += $"{enchantmentStat.Multiplicative}x ";
+				}
+				else
+				{
+					float num = enchantmentStat.Base != 0f ? enchantmentStat.Base : enchantmentStat.Flat;
+					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";// " + (enchantmenteStat.Base != 0f ? "base" : "");
+				}
 			}
-			else
-			{
-				float num = enchantmentStat.Base != 0f ? enchantmentStat.Base : enchantmentStat.Flat;
-				toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";// " + (enchantmenteStat.Base != 0f ? "base" : "");
-			}
-			toolTip += $" {(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStat.StatName) : MyDisplayName)}";
+			toolTip += $"{(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStat.StatName) : MyDisplayName)}";
 			return toolTip;
 		}
 		public string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
@@ -942,16 +946,16 @@ namespace WeaponEnchantments.Items
 				if (enchantmentStaticStat.Additive != 0f || enchantmentStaticStat.Multiplicative != 1f)
 				{
 					if (enchantmentStaticStat.Additive != 0f)
-						toolTip += (plus ? (enchantmentStaticStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStaticStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";
+						toolTip += (plus ? (enchantmentStaticStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStaticStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";
 					else if (enchantmentStaticStat.Multiplicative != 1f)
-						toolTip += $"{enchantmentStaticStat.Multiplicative}x";
+						toolTip += $"{enchantmentStaticStat.Multiplicative}x ";
 				}
 				else
 				{
 					float num = enchantmentStaticStat.Base != 0f ? enchantmentStaticStat.Base : enchantmentStaticStat.Flat;
-					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")}";// " + (enchantmentStaticStat.Base != 0f ? "base" : "");
+					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";// " + (enchantmentStaticStat.Base != 0f ? "base" : "");
 				}
-				toolTip += $" {(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStaticStat.Name) : MyDisplayName)}";
+				toolTip += $"{(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStaticStat.Name) : MyDisplayName)}";
 			}
 			return toolTip;
 		}
