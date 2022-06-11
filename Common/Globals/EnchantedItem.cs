@@ -368,6 +368,8 @@ namespace WeaponEnchantments.Common.Globals
         }
         public void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
+            int useTime = item.useTime;
+            int animationSpeed = item.useAnimation;
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             float value;
             switch (Main.netMode)
@@ -490,13 +492,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool? UseItem(Item item, Player player)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             //if (allForOne)
             if (eStats.ContainsKey("CatastrophicRelease"))
             {
                 player.statMana = 0;
-                Main.mouseLeft = false;
-                Main.mouseLeftRelease = true;
             }
             if(eStats.ContainsKey("AllForOne"))
             {
@@ -508,8 +508,8 @@ namespace WeaponEnchantments.Common.Globals
         public override bool CanUseItem(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            /*if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
-                return false;*/
+            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
+                return false;
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
                 return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;

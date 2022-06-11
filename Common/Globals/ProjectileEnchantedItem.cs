@@ -176,14 +176,16 @@ namespace WeaponEnchantments.Common.Globals
                             else if (projectile.usesLocalNPCImmunity && projectile.localNPCHitCooldown < 1)
                                 projectile.localNPCHitCooldown = 3;
                         }*/
-                        float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f) / sourceItem.AEI("I_NPCHitCooldown", 1f);
+                        float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
                         if (projectile.usesIDStaticNPCImmunity)
                         {
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
+                            if(projectile.idStaticNPCHitCooldown > 0)
+                                projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
-                            projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                            if (projectile.localNPCHitCooldown > 0)
+                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         updated = true;
                     }

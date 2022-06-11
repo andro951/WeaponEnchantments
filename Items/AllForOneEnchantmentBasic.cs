@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using WeaponEnchantments.Common;
 using System.Reflection;
 using Terraria.GameContent.Creative;
+using WeaponEnchantments.Debuffs;
 
 namespace WeaponEnchantments.Items
 {
@@ -36,6 +37,7 @@ namespace WeaponEnchantments.Items
 		Spelunker,
 		Splitting,
 		War,
+		WorldAblaze,
 	}
 	public enum UtilityEnchantmentNames
 	{
@@ -90,7 +92,7 @@ namespace WeaponEnchantments.Items
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public bool Armor { private set; get; } = false;
 		public int NewDamageType = -1;
-		//public static string temp = "";
+		public static string temp = "";
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
@@ -136,13 +138,16 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.War:
 					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)\n(Enemies spawned will be immune to lava/traps)";
 					break;
+				case EnchantmentTypeID.WorldAblaze:
+					toolTip = $"(None shall survive the unstopable flames of Amaterasu)";
+					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
 			if (EnchantmentSize > 2 && ToggleRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			else
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
-			//temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
+			temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
         {
@@ -221,6 +226,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.OneForAll:
+				case EnchantmentTypeID.WorldAblaze:
 					switch (EnchantmentSize)
 					{
 						case 0:
@@ -434,6 +440,7 @@ namespace WeaponEnchantments.Items
 					DamageClassSpecific = (int)DamageTypeSpecificID.Ranged;
 					break;
 				case EnchantmentTypeID.CatastrophicRelease:
+				case EnchantmentTypeID.WorldAblaze:
 					DamageClassSpecific = (int)DamageTypeSpecificID.Magic;
 					break;
 				case EnchantmentTypeID.ColdSteel:
@@ -485,6 +492,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.JunglesFury:
 					case EnchantmentTypeID.Moonlight:
 					case EnchantmentTypeID.CatastrophicRelease:
+					case EnchantmentTypeID.WorldAblaze:
 						AllowedList.Add("Weapon", 1f);
 						break;
 					default:
@@ -519,7 +527,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("InfinitePenetration", 0f, 1f, 13.13f));
 						AddStaticStat("scale", 0f, EnchantmentStrength * 10f);
 						AddStaticStat("shootSpeed", 0f, 1f - 0.8f * EnchantmentStrength);
-						AddStaticStat("useTime", 0f, 1000f);
+						//AddStaticStat("useTime", 0f, 1000f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.ColdSteel:
@@ -584,13 +592,22 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
 						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
 						break;
+					case EnchantmentTypeID.WorldAblaze:
+						//if(EnchantmentSize == 4) EStats.Add(new EStat("Amaterasu", 0f, 1f, 13.13f));
+						if (EnchantmentSize == 4) Debuff.Add(ModContent.BuffType<AmaterasuDebuff>(), -1);
+						Debuff.Add(BuffID.OnFire, (int)((float)buffDuration * 1f));
+						Debuff.Add(BuffID.Oiled, (int)((float)buffDuration * 0.8f));
+						if (EnchantmentSize > 0) Debuff.Add(BuffID.CursedInferno, (int)((float)buffDuration * 0.6f));
+						if(EnchantmentSize > 1) Debuff.Add(BuffID.ShadowFlame, (int)((float)buffDuration * 0.4f));
+						if (EnchantmentSize > 2) Debuff.Add(BuffID.OnFire3, (int)((float)buffDuration * 0.2f));
+						break;
 					default:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						break;
 				}//Set Stats
 				StaticStat = StaticStats.Count > 0;
-				foreach(string key in AllowedList.Keys)
-                {
+				foreach (string key in AllowedList.Keys)
+				{
 					AllowedListTooltips.Add(key, GenerateShortTooltip(false, false, key));
 				}//AllowedListTooltips
 				checkedStats = true;
@@ -754,14 +771,22 @@ namespace WeaponEnchantments.Items
         }
 		private string GetBuffName(int id)
 		{
-			BuffID buffID = new();
-			foreach (FieldInfo field in buffID.GetType().GetFields())
-			{
-				if(field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id)
-                {
-					return field.Name;
-                }
+			if(id < BuffID.Count)
+            {
+				BuffID buffID = new();
+				foreach (FieldInfo field in buffID.GetType().GetFields())
+				{
+					if (field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id)
+					{
+						return field.Name;
+					}
+				}
 			}
+            else
+            {
+				if (id == ModContent.BuffType<AmaterasuDebuff>())
+					return "Amaterasu";
+            }
 			return "";
 		}
 		private string GenerateShortTooltip(bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
@@ -780,7 +805,7 @@ namespace WeaponEnchantments.Items
 				EnchantmentStaticStat baseNameStaticStat = StaticStats[0];
 				return GetStaticStatToolTip(baseNameStaticStat, forFullToolTip, firstToolTip, allowedListKey);
 			};
-			return "";
+			return $"{MyDisplayName} {EnchantmentSize}";
         }
 		private string GenerateFullTooltip(string uniqueTooltip)
         {
@@ -1103,4 +1128,5 @@ namespace WeaponEnchantments.Items
 	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class StatDefenseEnchantmentBasic : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentCommon : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class WorldAblazeEnchantmentBasic : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentCommon : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 }

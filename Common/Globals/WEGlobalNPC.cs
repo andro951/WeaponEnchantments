@@ -10,6 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Debuffs;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -20,9 +21,12 @@ namespace WeaponEnchantments.Common.Globals
         private bool oneForAllOrigin = true;
         public bool immuneToAllForOne = false;
         float baseOneForAllRange = 240f;
+        float amaterasuSpreadRange = 60f;
         static bool war = false;
         static int warReduction = 1;
         int myWarReduction = 1;
+        public int amaterasuDamage = 0;
+        private double lastAmaterasuTime = 0;
         public override bool InstancePerEntity => true;
         public override void Load()
         {
@@ -94,7 +98,7 @@ namespace WeaponEnchantments.Common.Globals
                 case NPCID.Retinazer when !bossBag:
                 case ItemID.TwinsBossBag when bossBag:
                 case NPCID.Spazmatism when !bossBag:
-                    itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<WorldAblazeEnchantmentBasic>());
                     break;
                 case NPCID.TheDestroyer when !bossBag:
                 case ItemID.DestroyerBossBag when bossBag:
@@ -102,7 +106,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.SkeletronPrime when !bossBag:
                 case ItemID.SkeletronPrimeBossBag when bossBag:
-
+                    itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
                     break;
                 case NPCID.Plantera when !bossBag:
                 case ItemID.PlanteraBossBag when bossBag:
@@ -560,7 +564,13 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         foreach (int debuff in item.G().debuffs.Keys)
                         {
-                            npc.AddBuff(debuff, item.G().debuffs[debuff]);
+                            if(debuff < BuffID.Count)
+                                npc.AddBuff(debuff, item.G().debuffs[debuff]);
+                            else
+                            {
+                                if (debuff == ModContent.BuffType<AmaterasuDebuff>())
+                                    npc.AddBuff(debuff, damage);
+                            }
                         }//Debuffs
                         if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
                             player.MinionAttackTargetNPC = npc.whoAmI;//Force minions to target npc
@@ -647,7 +657,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
                     //int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
-                    float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f) / sourceItem.AEI("I_NPCHitCooldown", 1f);
+                    float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
                     int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
                     npc.immune[player.whoAmI] = newImmune < 1 ? 1 : newImmune;
                 }
@@ -659,22 +669,7 @@ namespace WeaponEnchantments.Common.Globals
             int total = 0;
             int wormCounter = 0;
             float oneForAllRange = baseOneForAllRange * item.scale;
-            Dictionary<int, float> npcs = new Dictionary<int, float>();
-            foreach (NPC target in Main.npc)
-            {
-                if (target.whoAmI != npc.whoAmI)
-                {
-                    if (!target.friendly && !target.townNPC && target.type != NPCID.DD2LanePortal)
-                    {
-                        Vector2 vector2 = target.Center - npc.Center;
-                        float distanceFromOrigin = vector2.Length();
-                        if (distanceFromOrigin <= oneForAllRange)
-                        {
-                            npcs.Add(target.whoAmI, distanceFromOrigin);
-                        }
-                    }
-                }
-            }
+            Dictionary<int, float> npcs = SortNPCsByRange(npc, oneForAllRange);
             //Dictionary<int, float> sortedNpcs = new Dictionary<int, float>();
             // = from entry in npcs.Values ascending select entry;
             foreach(KeyValuePair<int, float> pair in npcs.OrderBy(key => key.Value))
@@ -706,6 +701,26 @@ namespace WeaponEnchantments.Common.Globals
             if(UtilityMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
             return total;
         }
+        private Dictionary<int, float> SortNPCsByRange(NPC npc, float range)
+        {
+            Dictionary<int, float> npcs = new Dictionary<int, float>();
+            foreach (NPC target in Main.npc)
+            {
+                if (target.whoAmI != npc.whoAmI)
+                {
+                    if (!target.friendly && !target.townNPC && target.type != NPCID.DD2LanePortal)
+                    {
+                        Vector2 vector2 = target.Center - npc.Center;
+                        float distanceFromOrigin = vector2.Length();
+                        if (distanceFromOrigin <= range)
+                        {
+                            npcs.Add(target.whoAmI, distanceFromOrigin);
+                        }
+                    }
+                }
+            }
+            return npcs;
+        }
         private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {
             if (!npc.friendly && !npc.townNPC)
@@ -729,6 +744,24 @@ namespace WeaponEnchantments.Common.Globals
                 myWarReduction = warReduction;
                 npc.lavaImmune = true;
                 npc.trapImmune = true;
+            }
+        }
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            if(amaterasuDamage > 0)
+            {
+                amaterasuDamage++;
+                damage += amaterasuDamage / 240;
+                npc.lifeRegen -= amaterasuDamage / 30;
+                if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 9 < Main.GameUpdateCount)
+                {
+                    Dictionary<int, float> npcs = SortNPCsByRange(npc, amaterasuSpreadRange);
+                    foreach (int whoAmI in npcs.Keys)
+                    {
+                        Main.npc[whoAmI].AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 2);
+                    }
+                    lastAmaterasuTime = Main.GameUpdateCount;
+                }
             }
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
@@ -757,6 +790,25 @@ namespace WeaponEnchantments.Common.Globals
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
                 maxSpawns = spawns >= 0 ? spawns : 0;
                 if(UtilityMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
+            }
+        }
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+            if(amaterasuDamage > 0)
+            {
+                if (Main.rand.Next(4) < 3)
+                {
+                    Dust dust4 = Dust.NewDustDirect(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.WhiteTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 3.5f);
+                    dust4.noGravity = true;
+                    dust4.velocity *= 1.8f;
+                    dust4.velocity.Y -= 0.5f;
+                    if (Main.rand.Next(4) == 0)
+                    {
+                        dust4.noGravity = false;
+                        dust4.scale *= 0.5f;
+                    }
+                }
+                Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
         }
     }

@@ -106,7 +106,7 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            //AllForOneEnchantmentBasic.temp.Log();
+            AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
             if (!OldWorldItemsReplaced)
             {
@@ -979,8 +979,11 @@ namespace WeaponEnchantments
                     if (item.GetType().GetField(riItemKey) != null)
                     {
                         StatModifier riStatModifier = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().statModifiers[itemKey], true) : item.G().statModifiers[itemKey];
-                        combinedStatModifiers.Add(riItemKey, riStatModifier);
-                        if(UtilityMethods.debugging) ($"combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
+                        if(combinedStatModifiers.ContainsKey(riItemKey))
+                            combinedStatModifiers[riItemKey] = combinedStatModifiers[riItemKey].CombineWith(riStatModifier); 
+                        else
+                            combinedStatModifiers.Add(riItemKey, riStatModifier);
+                        if (UtilityMethods.debugging) ($"combinedStatModifiers.Add(itemKey: " + itemKey + ", " + item.G().statModifiers.S(itemKey) + ")").Log();
                     }
                 }//Populate itemStatModifiers
                 if (WEMod.IsWeaponItem(item))
@@ -992,13 +995,9 @@ namespace WeaponEnchantments
                         {
                             StatModifier riStatModifier = playerKey.CI() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
                             if (combinedStatModifiers.ContainsKey(riPlayerKey))
-                            {
                                 combinedStatModifiers[riPlayerKey] = combinedStatModifiers[riPlayerKey].CombineWith(riStatModifier);
-                            }
                             else
-                            {
                                 combinedStatModifiers.Add(riPlayerKey, riStatModifier);
-                            }
                             if(UtilityMethods.debugging) ($"combinedStatModifiers.Add(playerKey: " + playerKey + ", " + item.G().statModifiers.S(playerKey) + ")").Log();
                         }
                     }
@@ -1084,7 +1083,10 @@ namespace WeaponEnchantments
                 {
                     string riItemKey = itemKey.RI();
                     StatModifier riEStat = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().eStats[itemKey], true) : item.G().eStats[itemKey];
-                    combinedEStats.Add(riItemKey, riEStat);
+                    if(combinedEStats.ContainsKey(riItemKey))
+                        combinedEStats[riItemKey] = combinedEStats[riItemKey].CombineWith(riEStat);
+                    else
+                        combinedEStats.Add(riItemKey, riEStat);
                     if (UtilityMethods.debugging) ($"combinedEStats.Add(itemKey: " + itemKey + ", " + item.G().eStats.S(itemKey) + ")").Log();
                 }//Populate itemeStats
                 if (WEMod.IsWeaponItem(item))
@@ -1094,13 +1096,9 @@ namespace WeaponEnchantments
                         string riPlayerKey = playerKey.RI();
                         StatModifier riEStat = playerKey.CI() ? CombineStatModifier(StatModifier.Default, eStats[playerKey], true) : eStats[playerKey];
                         if (combinedEStats.ContainsKey(riPlayerKey))
-                        {
                             combinedEStats[riPlayerKey] = combinedEStats[riPlayerKey].CombineWith(riEStat);
-                        }
                         else
-                        {
                             combinedEStats.Add(riPlayerKey, riEStat);
-                        }
                         if (UtilityMethods.debugging) ($"combinedEStats.Add(riPlayerKey: " + riPlayerKey + ", " + item.G().eStats.S(playerKey) + ")").Log();
                     }
                 }//Populate playereStats if item is a weapon
