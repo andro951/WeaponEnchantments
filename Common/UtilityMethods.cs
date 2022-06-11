@@ -96,11 +96,32 @@ namespace WeaponEnchantments.Common
         public static bool CI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        private static readonly char[] lowerCase = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+        private static readonly char[] numbers = "0123456789".ToCharArray();
+        private static readonly string[] apla = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWKYZ" };
         public static bool IsUpper(this char c)
         {
             foreach (char upper in upperCase)
             {
                 if (upper == c)
+                    return true;
+            }
+            return false;
+        }
+        public static bool IsLower(this char c)
+        {
+            foreach (char lower in lowerCase)
+            {
+                if (lower == c)
+                    return true;
+            }
+            return false;
+        }
+        public static bool IsNumber(this char c)
+        {
+            foreach (char number in numbers)
+            {
+                if (number == c)
                     return true;
             }
             return false;
@@ -126,15 +147,33 @@ namespace WeaponEnchantments.Common
             }
             return list;
         }
-        public static string AddSpaces(string s)
+        public static string AddSpaces(this string s)
         {
             int start = 0;
             int end = 0;
             string finalString = "";
             for (int i = 1; i < s.Length; i++)
             {
-                if (s[i].IsUpper())
+                if (s[i].IsUpper() || s[i].IsNumber())
                 {
+                    if(s[i - 1].IsUpper())
+                    {
+                        int j = 0;
+                        while(i + j < s.Length - 1 && s[i + j].IsUpper())
+                        {
+                            j++;
+                        }
+                        i += j - 1;
+                    }
+                    else if(s[i - 1].IsNumber())
+                    {
+                        int j = 0;
+                        while (i + j < s.Length - 1 && s[i + j].IsNumber())
+                        {
+                            j++;
+                        }
+                        i += j - 1;
+                    }
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = end + 1;
@@ -143,15 +182,33 @@ namespace WeaponEnchantments.Common
                 {
                     end = i;
                     finalString += s.Substring(start, end - start + 1);
+                    start = -1;
                 }
             }
+            if (start != -1)
+                finalString += s.Substring(start);
             return finalString;
+        }
+        public static string CapitalizeFirst(this string s)
+        {
+            if (s.Length > 0)
+            {
+                if (s[0].IsLower())
+                    for (int i = 0; i < apla[0].Length; i++)
+                    {
+                        if (s[0] == apla[0][i])
+                        {
+                            char c = apla[1][i];
+                            return c + s.Substring(1);
+                        }
+                    }
+            }
+            return s;
         }
         public static string ToFieldName(this string s)
         {
             if (s.Length > 0)
             {
-                string[] apla = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWKYZ" };
                 if (s[0].IsUpper())
                     for (int i = 0; i < apla[0].Length; i++)
                     {
@@ -506,30 +563,24 @@ namespace WeaponEnchantments.Common
         }
         public static void Log(this string s)
         {
-            if (debugging)
-            {
-                UpdateSpaces(s);
-                ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
-                UpdateSpaces(s, true);
-            }
+            UpdateSpaces(s);
+            ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
+            UpdateSpaces(s, true);
         }
         public static void LogT(this string s) 
         {
-            if (debugging)
+            UpdateSpaces(s);
+            foreach (string key in logsT.Keys)
             {
-                UpdateSpaces(s);
-                foreach (string key in logsT.Keys)
-                {
-                    if(logsT[key] + 59 < Main.GameUpdateCount)
-                        logsT.Remove(key);
-                }
-                if (!logsT.ContainsKey(s))
-                {
-                    ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
-                    logsT.Add(s, Main.GameUpdateCount);
-                }
-                UpdateSpaces(s, true);
+                if(logsT[key] + 59 < Main.GameUpdateCount)
+                    logsT.Remove(key);
             }
+            if (!logsT.ContainsKey(s))
+            {
+                ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
+                logsT.Add(s, Main.GameUpdateCount);
+            }
+            UpdateSpaces(s, true);
         }
         public static void UpdateSpaces(string s, bool atEnd = false)
         {

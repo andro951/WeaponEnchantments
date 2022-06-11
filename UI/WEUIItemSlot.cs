@@ -73,27 +73,7 @@ namespace WeaponEnchantments.UI
 									AllForOneEnchantmentBasic newEnchantment = ((AllForOneEnchantmentBasic)item.ModItem);
 									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
-										switch ((DamageTypeSpecificID)ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type)
-										{
-											case DamageTypeSpecificID.Melee:
-											case DamageTypeSpecificID.MeleeNoSpeed:
-												damageClassSpecific = (int)DamageTypeSpecificID.Melee;
-												break;
-											case DamageTypeSpecificID.Ranged:
-												damageClassSpecific = (int)DamageTypeSpecificID.Ranged;
-												break;
-											case DamageTypeSpecificID.Magic:
-												damageClassSpecific = (int)DamageTypeSpecificID.Magic;
-												break;
-											case DamageTypeSpecificID.Summon:
-											case DamageTypeSpecificID.MagicSummonHybrid:
-											case DamageTypeSpecificID.SummonMeleeSpeed:
-												damageClassSpecific = (int)DamageTypeSpecificID.Summon;
-												break;
-											case DamageTypeSpecificID.Throwing:
-												damageClassSpecific = (int)DamageTypeSpecificID.Throwing;
-												break;
-										}
+										damageClassSpecific = AllForOneEnchantmentBasic.GetDamageClass(ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type);
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 										continueCheck = false;
@@ -101,17 +81,6 @@ namespace WeaponEnchantments.UI
 										continueCheck = false;
 									if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
 										continueCheck = false;
-                                    switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
-                                    {
-										case EnchantmentTypeID.AllForOne:
-										case EnchantmentTypeID.OneForAll:
-										case EnchantmentTypeID.GodSlayer:
-										case EnchantmentTypeID.Splitting:
-										case EnchantmentTypeID.Magic:
-										case EnchantmentTypeID.Summon:
-											continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
-											break;
-									}
 									if(!CheckAllowedList(newEnchantment))
 										continueCheck = false;
 									int currentEnchantmentLevelCost = 0;
