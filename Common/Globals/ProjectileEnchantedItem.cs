@@ -19,12 +19,28 @@ namespace WeaponEnchantments.Common.Globals
         private bool updated = false;
         public float damageBonus = 1f;
         public double cooldownEnd = 0;
+        public float[] lastAIValue = new float[] {0f, 0f};
         //public float totalSpeedBonus;
         public Projectile parent = null;
         public bool skipOnHitEffects = false;
+        //float speedAdd = 0f;
+        //float speedCarryover = 0f;
+        float speed;
+        public bool[] spawnedChild = { false, false };
+        float[] spawnChildValue = { 0f, 0f};
+        float[] nextValueAfterChild = { 0f, 0f};
+        public bool[] finishedObservationPeriod = { false, false };
+        int[] cyclesObserver = { 0, 0 };
+        bool[] positive = { true, true };
+        bool[] positiveSet = { false, false };
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            for (int i = 0; i < projectile.ai.Length; i++)
+            {
+                float aiValue = projectile.ai[i];
+                ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+            }
             if (!sourceSet)
             {
                 if (source is EntitySource_ItemUse uSource)
@@ -57,6 +73,31 @@ namespace WeaponEnchantments.Common.Globals
                         sourceSet = true;
                         parent = parentProjectile;
                         cooldownEnd = parent.G().cooldownEnd;
+                        //if(parent.G().speedAdd != 0f)
+                        {
+                            for (int i = 0; i < 2; i++)
+                            {
+                                if (parent.G().positiveSet[i])
+                                {
+                                    parent.G().spawnedChild[i] = true;
+                                }
+                                else
+                                {
+                                    float lastAIValue = parent.G().lastAIValue[i];
+                                    float ai = parent.ai[i];
+                                    double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
+                                    if (difference > 4)
+                                    {
+                                        parent.G().spawnedChild[i] = true;
+                                        parent.G().spawnChildValue[i] = lastAIValue;
+                                        parent.G().nextValueAfterChild[i] = ai;
+                                    }
+                                }
+                                string txt = $"parent: {parent.S()} spanedChild at ai values:";
+                                txt += $" parent.ai[{i}]: {parent.ai[i]} parent.G().lastAIValue[{i}]: {parent.G().lastAIValue[i]}";
+                                txt.Log();
+                            }
+                        }
                     }
                 }
                 else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
@@ -139,7 +180,76 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            if (!updated)
+                projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            return true;
+        }
+        public override bool ShouldUpdatePosition(Projectile projectile)
+        {
+            if (sourceItem != null)
+            {
+                //if(speedAdd != 0)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        float aiValue = projectile.ai[i];
+                        //if (finishedObservationPeriod[i])
+                        {
+                            if (spawnedChild[i])
+                            {
+                                if (!positiveSet[i])
+                                    positive[i] = spawnChildValue[i] > nextValueAfterChild[i];
+                                projectile.ai[i] += (positive[i] ? 1 : -1) * (int)((positive[i] ? spawnChildValue[i] : nextValueAfterChild[i]) * speed);
+                                /*if (speed < 1f)
+                                {
+                                    projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
+                                    /*if (positive[i])
+                                        projectile.ai[i] += ;
+                                    else
+                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
+                                }
+                                else
+                                {
+                                    if (positive[i])
+                                    {
+
+                                        projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
+                                    }
+                                    else
+                                    {
+                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
+                                    }
+                                }*/
+                                float newValue = projectile.ai[i];
+                                spawnedChild[i] = false;
+                                /*speedCarryover += speedAdd;
+                                //if (aiValue > controlValue)
+                                {
+                                    if (speedCarryover > 1f)
+                                    {
+                                        float value = (float)(int)speedCarryover;
+                                        speedCarryover -= value;
+                                        projectile.ai[i] += value * (positive[i] ? 1f : -1f);
+                                    }
+                                    else if (speedCarryover < -1f)
+                                    {
+                                        speedCarryover += 1f;
+                                        projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
+                                    }
+
+                                }
+                                //projectile.ai[0] = 61f;
+                                //projectile.ai[1] = 0f;
+                                ;*/
+                            }
+                        }
+                        if(aiValue != 0 || lastAIValue[i] != 0)
+                            ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+                        lastAIValue[i] = aiValue;
+                    }
+                }
+            }
+            
             return true;
         }
         public void UpdateProjectile(Projectile projectile)
@@ -150,18 +260,18 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (sourceItem.TryGetGlobalItem(out EnchantedItem siGlobal))
                     {
-                        damageBonus = 1f;
+                        /*damageBonus = 1f;
 
                         if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
                         {
                             /*damageBonus += siGlobal.damageBonus;
-                            damageBonus *= siGlobal.allForOneBonus;*/
+                            damageBonus *= siGlobal.allForOneBonus;*//*
                             damageBonus = sourceItem.A("Damage", damageBonus);
                         }
                         if(sourceItem.DamageType == DamageClass.Summon)
                         {
                             //projectile.CritChance += siGlobal.critBonus;
-                        }
+                        }*/
                         //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
                         projectile.scale = sourceItem.A("scale", projectile.scale);
                         /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
@@ -177,6 +287,14 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.localNPCHitCooldown = 3;
                         }*/
                         float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
+                        /*float speed = 1f / NPCHitCooldownMultiplier;
+                        speedAdd = speed - 1f;*/
+                        if (projectile.minion || projectile.DamageType == DamageClass.Summon)
+                        {
+                            float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
+                            speed = 1f - 1f / speedMult;
+                            //speedAdd = speedMult - 1f;
+                        }
                         if (projectile.usesIDStaticNPCImmunity)
                         {
                             if(projectile.idStaticNPCHitCooldown > 0)
@@ -202,7 +320,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (sourceItem.G().eStats.ContainsKey("OneForAll"))
                     {
                         if(parent is Projectile)
-                            parent.Kill();
+                            parent.active = false;
                     }
                     //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
                     //If the item is cloned, it will be lost, so we need to verify its location.
@@ -246,7 +364,9 @@ namespace WeaponEnchantments.Common.Globals
                                     inventoryLocation = 0;
                                     break;
                             }//Determine which player inventory to look in
-                            if (inventory[inventoryLocation].type != sourceItem.type || wePlayer.Player.inventory[inventoryLocation].value != sourceItem.value || inventory[inventoryLocation].GetGlobalItem<EnchantedItem>().powerBoosterInstalled != sourceItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                            found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
+                            sourceItem = found ? inventory[inventoryLocation] : sourceItem;
+                            /*if (inventory[inventoryLocation].type != sourceItem.type || wePlayer.Player.inventory[inventoryLocation].value != sourceItem.value || inventory[inventoryLocation].GetGlobalItem<EnchantedItem>().powerBoosterInstalled != sourceItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
                             {
                                 found = false;
                             }
@@ -254,7 +374,7 @@ namespace WeaponEnchantments.Common.Globals
                             {
                                 found = true;
                                 sourceItem = inventory[inventoryLocation];//If itemSlot item matches sourceItem, Re-set sourceItem to the itemSlot it's in just in case
-                            }
+                            }*/
                         }
                         if (!found)
                         {
@@ -300,7 +420,7 @@ namespace WeaponEnchantments.Common.Globals
                                             break;
                                     }//Determine which player inventory to look in
                                 }
-                                if (inventory?[inventoryLocation] != null)
+                                /*if (inventory?[inventoryLocation] != null)
                                 {
                                     if (!inventory[inventoryLocation].IsAir)
                                     {
@@ -318,6 +438,13 @@ namespace WeaponEnchantments.Common.Globals
                                             }
                                         }
                                     }
+                                }*/
+                                found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
+                                if (found)
+                                {
+                                    sourceItem = inventory[inventoryLocation];
+                                    lastInventoryLocation = inventoryLocation;
+                                    break;
                                 }
                                 inventoryLocation++;
                             }
@@ -336,11 +463,10 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 if (sourceSet && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                 {
-                    cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f)) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown * sourceItem.AEI("NPCHitCooldown", 1f)) : sourceItem.useTime);
+                    cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown) : sourceItem.useTime);
                     if(parent != null)
                         parent.G().cooldownEnd = cooldownEnd;
                 }
-                     
             }
         }
         public override bool? CanHitNPC(Projectile projectile, NPC target)

@@ -975,7 +975,7 @@ namespace WeaponEnchantments
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
-                    string riItemKey = itemKey.RI();
+                    string riItemKey = itemKey.RI().RP();
                     if (item.GetType().GetField(riItemKey) != null)
                     {
                         StatModifier riStatModifier = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().statModifiers[itemKey], true) : item.G().statModifiers[itemKey];
@@ -990,7 +990,7 @@ namespace WeaponEnchantments
                 {
                     foreach (string playerKey in statModifiers.Keys)
                     {
-                        string riPlayerKey = playerKey.RI();
+                        string riPlayerKey = playerKey.RI().RP();
                         if (item.GetType().GetField(riPlayerKey) != null)
                         {
                             StatModifier riStatModifier = playerKey.CI() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
@@ -1044,8 +1044,14 @@ namespace WeaponEnchantments
                                 if (fieldType == typeof(bool))
                                 {
                                     bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
-                                    bool finalValue = combinedStatModifiers[key].Additive != 1f;
-                                    field.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
+                                    bool finalValue = combinedStatModifiers[key].Additive > 1.001f;
+                                    bool containtPrevent = item.G().statModifiers.ContainsKey("P_" + key) && item.G().statModifiers["P_" + key].Additive > 1.001f || statModifiers.ContainsKey("P_" + key) && statModifiers["P_" + key].Additive > 1.001f;
+                                    foreach(string key2 in combinedStatModifiers.Keys)
+                                    {
+                                        string temp = key2;
+                                    }
+                                    bool setValue = !containtPrevent && (baseValue || finalValue);
+                                    field.SetValue(item, setValue);
                                 }//bool (field)
                                 //(statName.ToString() + ": " + field.GetValue(item)).Log();
                             }//field

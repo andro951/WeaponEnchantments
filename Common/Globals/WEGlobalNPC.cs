@@ -628,12 +628,16 @@ namespace WeaponEnchantments.Common.Globals
                     }//GodSlayer
                     if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
-                        projectile.Kill();
+                        if(projectile.penetrate != 1)
+                            projectile.active = false;
                     }
                 }
             }
             if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
+            {
+
                 damage /= myWarReduction;
+            }
             if(UtilityMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
         }
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
@@ -654,7 +658,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if(sourceItem != null)
             {
-                if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
+                if (sourceItem.TryGetGlobalItem(out EnchantedItem iGlobal) && npc.immune[player.whoAmI] > 0)
                 {
                     //int newImmune = (int)((float)npc.immune[player.whoAmI] * (1 + iGlobal.immunityBonus));
                     float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);

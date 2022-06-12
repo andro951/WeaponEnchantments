@@ -97,6 +97,7 @@ namespace WeaponEnchantments.Common
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
         public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
         public static string RI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
+        public static string RP(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool CI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
         
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
@@ -255,7 +256,7 @@ namespace WeaponEnchantments.Common
                     {
                         if (item2.TryGetGlobalItem(out EnchantedItem global2))
                         {
-                            if (item1.type == item2.type && global1.experience == global2.experience && global1.powerBoosterInstalled == global2.powerBoosterInstalled && item1.value == item2.value && item1.prefix == item2.prefix)
+                            if (item1.type == item2.type &&/* global1.experience == global2.experience &&*/ global1.powerBoosterInstalled == global2.powerBoosterInstalled/* && item1.value == item2.value*/ && item1.prefix == item2.prefix)
                             {
                                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                                 {
@@ -354,7 +355,7 @@ namespace WeaponEnchantments.Common
                             }
                             if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
                         }
-                    }
+                    }//Buffs
                     if (enchantment.Debuff.Count > 0)
                     {
                         foreach(int debuff in enchantment.Debuff.Keys)
@@ -373,7 +374,7 @@ namespace WeaponEnchantments.Common
                             }
                             if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
                         }
-                    }
+                    }//Debuffs
                     if(enchantment.OnHitBuff.Count > 0)
                     {
                         foreach (int onHitBuff in enchantment.OnHitBuff.Keys)
@@ -393,7 +394,7 @@ namespace WeaponEnchantments.Common
                             }
                             if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
                         }
-                    }
+                    }//OnHitBuffs
                     foreach (EStat eStat in enchantment.EStats)
                     {
                         if(UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
