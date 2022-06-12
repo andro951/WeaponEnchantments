@@ -36,11 +36,11 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            for (int i = 0; i < projectile.ai.Length; i++)
+            /*for (int i = 0; i < projectile.ai.Length; i++)
             {
                 float aiValue = projectile.ai[i];
                 ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
-            }
+            }*/
             if (!sourceSet)
             {
                 if (source is EntitySource_ItemUse uSource)
@@ -243,8 +243,8 @@ namespace WeaponEnchantments.Common.Globals
                                 ;*/
                             }
                         }
-                        if(aiValue != 0 || lastAIValue[i] != 0)
-                            ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+                        /*if(aiValue != 0 || lastAIValue[i] != 0)
+                            ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();*/
                         lastAIValue[i] = aiValue;
                     }
                 }
