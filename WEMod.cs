@@ -178,10 +178,29 @@ namespace WeaponEnchantments
 						case <= 100:
 							item = Main.player[whoAmI].armor[slotNumber - 91];
 							break;
+						default:
+							item = null;
+							break;
 					}
-					item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
-					AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
-					item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
+					if(item != null && !item.isAir)
+					{
+						if(item.TryGetGlobalItem(out EnchantedItem iGlobal)
+						{
+							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
+							AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
+							item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
+						}
+						else
+						{
+							Item enchantmentItem = new Item(itemType);
+							($"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to failing to get GlobalItem EnchantedItem.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951").Log();
+						}
+					}
+					else
+					{
+						Item enchantmentItem = new Item(itemType);
+						($"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to item being null or air.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951").Log();
+					}
 					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
 					short enchantmentType = reader.ReadInt16();
