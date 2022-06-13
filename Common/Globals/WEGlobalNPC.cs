@@ -574,7 +574,7 @@ namespace WeaponEnchantments.Common.Globals
                         }//Debuffs
                         if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
                             player.MinionAttackTargetNPC = npc.whoAmI;//Force minions to target npc
-                    }
+                    }//Buffs and debuffs
                     if (npc.type != NPCID.TargetDummy)
                     {
                         int total = 0;
@@ -624,7 +624,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     if(ItemEStats.ContainsKey("GodSlayer"))
                     {
-                        ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+                        ActivateGodSlayer(npc, player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
                     }//GodSlayer
                     if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
@@ -725,7 +725,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             return npcs;
         }
-        private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
+        private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, int damageReduction, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {
             if (!npc.friendly && !npc.townNPC)
             {
@@ -734,7 +734,7 @@ namespace WeaponEnchantments.Common.Globals
                 float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
                 int godSlayerDamage;
-                godSlayerDamage = (int)Math.Round(((float)damage / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
+                godSlayerDamage = (int)Math.Round(((float)(damage - damageReduction) / (projectile != null ? 2f : 1f) / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     npc.StrikeNPC(godSlayerDamage, knockback, direction, crit);
                 else

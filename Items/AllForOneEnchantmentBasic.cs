@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Configs;
 using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
@@ -426,7 +427,7 @@ namespace WeaponEnchantments.Items
 							EnchantmentStrength = 0.25f;
 							break;
 						case 4:
-							EnchantmentStrength = 0.40f;
+							EnchantmentStrength = 0.40f *  ModContent.GetInstance<EnchantmentConfig>().configStrMultiplier;
 							break;
 					}//0.03, 0.08, 0.16, 0.25, 0.40
 					break;

@@ -182,9 +182,9 @@ namespace WeaponEnchantments
 							item = null;
 							break;
 					}
-					if(item != null && !item.isAir)
+					if(item != null && !item.IsAir)
 					{
-						if(item.TryGetGlobalItem(out EnchantedItem iGlobal)
+						if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
 						{
 							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
 							AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
