@@ -79,7 +79,7 @@ namespace WeaponEnchantments.Items
 				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f}
 				{1f, 2f, 3f, 5f, 10f}
 				{2f, 4f, 6f, 10f, 20f}
-				{0.005f, 0.01f, 0.02f, 0.03f, 0.04f}
+				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f}
 				{2f, 3f, 5f, 8f, 10f}
 				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f}
 				{0.5f, 0.6f, 0.75f, 0.85f, 1f}
@@ -253,7 +253,7 @@ namespace WeaponEnchantments.Items
 					StrengthGroup = 4;// 2, 4, 6, 10, 20
 					break;
 				case EnchantmentTypeID.LifeSteal:
-					StrengthGroup = 5;// 0.005, 0.01, 0.02, 0.03, 0.04
+					StrengthGroup = 5;// 0.005, 0.01, 0.015, 0.02, 0.025
 					break;
 				case EnchantmentTypeID.AllForOne:
 					StrengthGroup = 6;//2, 3, 5, 8, 10
