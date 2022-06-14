@@ -26,7 +26,23 @@ Namespace WeaponEnchantments.Common.Configs
     public class EnchantmentConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-
+	
+	//public PresetData presetData; // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
+	
+        public ComplexData complexData = new ComplexData();
+	
+	[Label("Recomended Strength Multiplier(%)")]
+	[Range(1, 250)]
+	[Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." + 
+		"\nUses the same calculations as the presets but allows you to pick a different number." + 
+		"\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides preset)")]
+	public int recomendedStrengthMultiplier;
+	
+	[Label("Linear Strength Multiplier(%)")]
+	[Range(1, 250)]
+	[Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
+	public int linearStrengthMultiplier;
+	
         /*[Label("Custom UI Element")]
         [Tooltip("This UI Element is modder defined")]
         [CustomModConfigItem(typeof(GradientElement))]
@@ -58,29 +74,28 @@ Namespace WeaponEnchantments.Common.Configs
         public float tint;*/
 
         /*public Dictionary<string, Pair> StringPairDictionary = new Dictionary<string, Pair>();*/
-        public Dictionary<ItemDefinition, int> individualStrengths = new Dictionary<ItemDefinition, float>();//Maybe individual enchantment values
-
-        public HashSet<ItemDefinition> strengthGroups = new HashSet<ItemDefinition>();//Maybe enchantment strength catagories
+	[Label("Strength Groups")]
+	[Tooltip("Select multiple enchantments here to adjust all of their strengths by the chosen percentage. (Overrides Linear Strength Multiplier and above)")]
+	public HashSet<ItemDefinition> strengthGroups = new HashSet<ItemDefinition>();//Maybe enchantment strength catagories
+	
+	[Label("Individual Strengths")]
+	[Tooltip("Modify individual enchantment strengths by value. (NOT PERCENTAGE!) (Overrides all other options)")]
+        public Dictionary<ItemDefinition, float> individualStrengths = new Dictionary<ItemDefinition, float>();//Maybe individual enchantment values
 
         /*[Label("ListOfPair2 label")]
         public List<Pair> ListOfPair2 = new List<Pair>();
-        public Pair pairExample2 = new Pair();/*
-
-        public PresetData presetData; // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
+        public Pair pairExample2 = new Pair();*/
 
         // This annotation allows the UI to null out this class. You need to make sure to initialize fields without the NullAllowed annotation in constructor or initializer or you might have issues. Of course, if you allow nulls, you'll need to make sure the rest of your mod will handle them correctly. Try to avoid null unless you have a good reason to use them, as null objects will only complicate the rest of your code.
         /*[NullAllowed]
         [JsonDefaultValue("{\"boost\": 777}")] // With NullAllowed, you can specify a default value like this.
         public PresetData presetData2;*/
 
-        [Label("Really Complex Data")]
-        public ComplexData complexData = new ComplexData();
-
         /*[JsonExtensionData]
-        private IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();/*
+        private IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();*/
 
         // See _additionalData usage in OnDeserializedMethod to see how this modifiedEnchantmentStrengths can be populated from old versions of this mod.
-        public List<int> modifiedEnchantmentStrengths = new List<int>();
+        /*public List<int> modifiedEnchantmentStrengths = new List<int>();*/
 
         Public EnchantmentConfig()
         {
@@ -104,7 +119,8 @@ Namespace WeaponEnchantments.Common.Configs
             _additionalData.Clear(); // make sure to clear this or it'll crash.
         }
     }
-    Public Enum SampleEnum
+    
+    /*Public Enum SampleEnum
     {
         Weird,
         Odd,
@@ -113,9 +129,9 @@ Namespace WeaponEnchantments.Common.Configs
         Strange,
         [Label("$Mods.ExampleMod.Config.SampleEnumLabels.Peculiar")]
         Peculiar
-    }
+    }*/
 
-    public class Gradient
+    /*public class Gradient
     {
         [Tooltip("The color the gradient starts at")]
         [DefaultValue(typeof(Color), "0, 0, 255, 255")]
@@ -135,9 +151,9 @@ Namespace WeaponEnchantments.Common.Configs
         {
             return new { start, end }.GetHashCode();
         }
-    }
+    }*/
 
-    [BackgroundColor(0, 255, 255)]
+    /*[BackgroundColor(0, 255, 255)]
     [Label("Pair label")]
     public class Pair
     {
@@ -162,7 +178,7 @@ Namespace WeaponEnchantments.Common.Configs
         {
             return new { boost, enabled }.GetHashCode();
         }
-    }
+    }*/
 
     [BackgroundColor(255, 7, 7)]
     public class PresetData
@@ -199,16 +215,19 @@ Namespace WeaponEnchantments.Common.Configs
 
     public class ComplexData
     {
-        [Range(1, 250)]
-        public List<int> modifiedEnchantmentStrengths = new List<int>();//Maybe use for individual enchantment strengths
+    	[Label("Strength Presets")]
+	[Tooltip("Adjust all enchantment strengths to one of 4 recomended preset values.")]
+    	public PresetData nestedSimple = new PresetData();
+    	
+        /*[Range(1, 250)]
+        public List<int> modifiedEnchantmentStrengths = new List<int>();//Maybe use for individual enchantment strengths*/
 
-        public PresetData nestedSimple = new PresetData();
-
-        [Range(2f, 3f)]
+        
+        /*[Range(2f, 3f)]
         [Increment(.25f)]
         [DrawTicks]
         [DefaultValue(2f)]
-        public float IncrementalFloat = 2f;
+        public float IncrementalFloat = 2f;*/
         public override bool Equals(object obj)
         {
             if (obj is ComplexData other)
@@ -222,7 +241,7 @@ Namespace WeaponEnchantments.Common.Configs
         }
     }
 
-    [TypeConverter(typeof(ToFromStringConverter<ClassUsedAsKey>))]
+    /*[TypeConverter(typeof(ToFromStringConverter<ClassUsedAsKey>))]
     public class ClassUsedAsKey
     {
         // When you save data from a dictionary into a file (json), you need to represent the key as a string
@@ -267,13 +286,13 @@ Namespace WeaponEnchantments.Common.Configs
                 SomeNumber = Convert.ToInt32(vars[1])
             };
         }
-    }
+    }*/
 
     // ATTENTION: Below this point are custom config UI elements. Be aware that mods using custom config elements will break with the next few tModLoader updates until their design is finalized.
     // You will need to be very active in updating your mod if you use these as they can break in any update.
 
     // This custom config UI element uses vanilla config elements paired with custom drawing.
-    class GradientElement: ConfigElement
+    /*class GradientElement: ConfigElement
     {
         public override void OnBind()
         {
@@ -325,9 +344,9 @@ Namespace WeaponEnchantments.Common.Configs
                 //Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(hitbox.X + 3 * hitbox.Width / 4, hitbox.Y, hitbox.Width / 4, 30), g.end);
             }
         }
-    }
+    }*/
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    /*[JsonConverter(typeof(StringEnumConverter))]
     [CustomModConfigItem(typeof(CornerElement))]
     Public Enum Corner
     {
@@ -335,10 +354,10 @@ Namespace WeaponEnchantments.Common.Configs
         TopRight,
         BottomLeft,
         BottomRight
-    }
+    }*/
 
     // This custom config UI element shows a completely custom config element that handles setting and getting the values in addition to custom drawing.
-    class CornerElement: ConfigElement
+    /*class CornerElement: ConfigElement
     {
         Texture2D circleTexture;
         string[] valueStrings;
@@ -386,13 +405,13 @@ Namespace WeaponEnchantments.Common.Configs
             Vector2 circlePositionOffset = new Vector2((int)corner % 2 * 8, (int)corner / 2 * 8);
             spriteBatch.Draw(circleTexture, new Vector2(dimensions.X + dimensions.Width - 25, dimensions.Y + 4) + circlePositionOffset, circleSourceRectangle, Color.White);
         }
-    }
+    }*/
 
-    class CustomFloatElement: FloatElement
+    /*class CustomFloatElement: FloatElement
     {
         Public CustomFloatElement()
         {
             ColorMethod = new Utils.ColorLerpMethod((percent) => Color.Lerp(Color.BlueViolet, Color.Aquamarine, percent));
         }
-    }
+    }*/
 }
