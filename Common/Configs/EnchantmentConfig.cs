@@ -20,29 +20,29 @@ using Terraria.ID;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 
-Namespace WeaponEnchantments.Common.Configs
+namespace WeaponEnchantments.Common.Configs
 {
     [Label("Enchantment Config")]
     public class EnchantmentConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 	
-	//public PresetData presetData; // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
+	    public PresetData presetData; // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
 	
-        public ComplexData complexData = new ComplexData();
+        /*public ComplexData complexData = new ComplexData();*/
 	
-	[Label("Recomended Strength Multiplier(%)")]
-	[Range(1, 250)]
-	[Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." + 
-		"\nUses the same calculations as the presets but allows you to pick a different number." + 
-		"\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides preset)")]
-	public int recomendedStrengthMultiplier;
+	    [Label("Recomended Strength Multiplier(%)")]
+	    [Range(1, 250)]
+	    [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." + 
+		    "\nUses the same calculations as the presets but allows you to pick a different number." + 
+		    "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides preset)")]
+	    public int recomendedStrengthMultiplier;
 	
-	[Label("Linear Strength Multiplier(%)")]
-	[Range(1, 250)]
-	[Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
-	public int linearStrengthMultiplier;
-	
+	    [Label("Linear Strength Multiplier(%)")]
+	    [Range(1, 250)]
+	    [Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
+	    public int linearStrengthMultiplier;
+
         /*[Label("Custom UI Element")]
         [Tooltip("This UI Element is modder defined")]
         [CustomModConfigItem(typeof(GradientElement))]
@@ -74,12 +74,16 @@ Namespace WeaponEnchantments.Common.Configs
         public float tint;*/
 
         /*public Dictionary<string, Pair> StringPairDictionary = new Dictionary<string, Pair>();*/
-	[Label("Strength Groups")]
-	[Tooltip("Select multiple enchantments here to adjust all of their strengths by the chosen percentage. (Overrides Linear Strength Multiplier and above)")]
-	public HashSet<ItemDefinition> strengthGroups = new HashSet<ItemDefinition>();//Maybe enchantment strength catagories
+        [Label("Strength")]
+        [Tooltip("")]
+        public float strengthGroupMultiplier;
+
+	    [Label("Strength Group")]
+	    [Tooltip("Select multiple enchantments here to adjust all of their strengths by the chosen percentage. (Overrides Linear Strength Multiplier and above)")]
+	    public HashSet<ItemDefinition> strengthGroups = new HashSet<ItemDefinition>();//Maybe enchantment strength catagories
 	
-	[Label("Individual Strengths")]
-	[Tooltip("Modify individual enchantment strengths by value. (NOT PERCENTAGE!) (Overrides all other options)")]
+	    [Label("Individual Strengths")]
+	    [Tooltip("Modify individual enchantment strengths by value. (NOT PERCENTAGE!) (Overrides all other options)")]
         public Dictionary<ItemDefinition, float> individualStrengths = new Dictionary<ItemDefinition, float>();//Maybe individual enchantment values
 
         /*[Label("ListOfPair2 label")]
@@ -91,13 +95,13 @@ Namespace WeaponEnchantments.Common.Configs
         [JsonDefaultValue("{\"boost\": 777}")] // With NullAllowed, you can specify a default value like this.
         public PresetData presetData2;*/
 
-        /*[JsonExtensionData]
-        private IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();*/
+        [JsonExtensionData]
+        private IDictionary<string, JToken> _additionalData = new Dictionary<string, JToken>();
 
         // See _additionalData usage in OnDeserializedMethod to see how this modifiedEnchantmentStrengths can be populated from old versions of this mod.
-        /*public List<int> modifiedEnchantmentStrengths = new List<int>();*/
+        public List<int> modifiedEnchantmentStrengths = new List<int>();
 
-        Public EnchantmentConfig()
+        public EnchantmentConfig()
         {
             presetData = new PresetData();
             /*presetData.boost = 32;
@@ -195,7 +199,7 @@ Namespace WeaponEnchantments.Common.Configs
         [DefaultValue("Normal")]
         public string preset;
 
-        Public PresetData()
+        public PresetData()
         {
             preset = "Normal";
         }
@@ -203,20 +207,20 @@ Namespace WeaponEnchantments.Common.Configs
         public override bool Equals(object obj)
         {
             if (obj is PresetData other)
-                return boost == other.boost && percent == other.percent && enabled == other.enabled && preset == other.preset;
+                return /*boost == other.boost && percent == other.percent && enabled == other.enabled && */preset == other.preset;
             return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return new { boost, percent, enabled, preset }.GetHashCode();
+            return new { /*boost, percent, enabled, */preset }.GetHashCode();
         }
     }
 
     public class ComplexData
     {
     	[Label("Strength Presets")]
-	[Tooltip("Adjust all enchantment strengths to one of 4 recomended preset values.")]
+	    [Tooltip("Adjust all enchantment strengths to one of 4 recomended preset values.")]
     	public PresetData nestedSimple = new PresetData();
     	
         /*[Range(1, 250)]
@@ -231,13 +235,13 @@ Namespace WeaponEnchantments.Common.Configs
         public override bool Equals(object obj)
         {
             if (obj is ComplexData other)
-                return modifiedEnchantmentStrengths.SequenceEqual(other.modifiedEnchantmentStrengths) && IncrementalFloat == other.IncrementalFloat && nestedSimple.Equals(other.nestedSimple);
+                return /*modifiedEnchantmentStrengths.SequenceEqual(other.modifiedEnchantmentStrengths) && IncrementalFloat == other.IncrementalFloat && */nestedSimple.Equals(other.nestedSimple);
             return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return new { modifiedEnchantmentStrengths, nestedSimple, IncrementalFloat }.GetHashCode();
+            return new { /*modifiedEnchantmentStrengths, */nestedSimple/*, IncrementalFloat*/ }.GetHashCode();
         }
     }
 

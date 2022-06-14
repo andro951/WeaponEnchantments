@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 
@@ -278,7 +279,7 @@ namespace WeaponEnchantments
 				packet.Write(iGlobal.statModifiers[key].Base);
 			}
 		}
-	public override void AddRecipeGroups()
+		public override void AddRecipeGroups()
 	{
 		RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
 		{
@@ -297,6 +298,7 @@ namespace WeaponEnchantments
 		public override void Load()
         {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
+
         }
 		public override void Unload()
 		{

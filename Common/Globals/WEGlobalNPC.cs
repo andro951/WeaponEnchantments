@@ -511,6 +511,13 @@ namespace WeaponEnchantments.Common.Globals
                     dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
                 }
             }
+            else
+            {
+                total = 0;
+                dropRate = null;
+                baseID = 0;
+                essenceValues = null;
+            }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {

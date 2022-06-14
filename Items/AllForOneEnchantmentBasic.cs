@@ -9,10 +9,11 @@ using WeaponEnchantments.Common.Configs;
 using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
+using Terraria.ModLoader.Config;
 
 namespace WeaponEnchantments.Items
 {
-	public enum EnchantmentTypeID : int
+    public enum EnchantmentTypeID : int
 	{
 		AllForOne,
 		AmmoCost,
@@ -72,19 +73,19 @@ namespace WeaponEnchantments.Items
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
-		public static readonly float[][] defaultEnchantmentStrengths = 
+		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},
 				{0.1f, 0.2f, 0.5f, 0.8f, 1f},
-				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f}
-				{1f, 2f, 3f, 5f, 10f}
-				{2f, 4f, 6f, 10f, 20f}
-				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f}
-				{2f, 3f, 5f, 8f, 10f}
-				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f}
-				{0.5f, 0.6f, 0.75f, 0.85f, 1f}
+				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f},
+				{1f, 2f, 3f, 5f, 10f},
+				{2f, 4f, 6f, 10f, 20f},
+				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},
+				{2f, 3f, 5f, 8f, 10f},
+				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},
+				{0.5f, 0.6f, 0.75f, 0.85f, 1f},
 				{0.25f, 0.30f, 0.35f, 0.4f, 0.5f}
-			}
+			};
 		public int StrengthGroup { private set; get; } = 0;
 		public static readonly int defaultBuffDuration = 60;
 		public int EnchantmentSize { private set; get; } = -1;
@@ -275,17 +276,18 @@ namespace WeaponEnchantments.Items
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
 			}//EnchantmentStrength
-			if(EnchantmentConfig.individualStrengths.ContainsKey(Name))
-				EnchantmentStrength = EnchantmentConfig.individualStrengths[Name];
+			ItemDefinition itemDefinition = new ItemDefinition(Name);
+			if(WEMod.config.individualStrengths.ContainsKey(itemDefinition))
+				EnchantmentStrength = WEMod.config.individualStrengths[itemDefinition];
 			else
 			{
 				float multiplier = 
 				(float)(
-					EnchantmentConfig.strengthGroups.ContainsKey(Name) ? EnchantmentConfig.strengthGroups[Name] :
-					EnchantmentConfig.linearStrengthMultiplier != 100 ? EnchantmentConfig.linearStrengthMultiplier : 
-					EnchantmentConfig.recomendedStrengthMultiplier
+					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
+					WEMod.config.linearStrengthMultiplier != 100 ? WEMod.config.linearStrengthMultiplier :
+					WEMod.config.recomendedStrengthMultiplier
 				) / 100f;
-				EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup][EnchantmentSize];
+				EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 			}
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
