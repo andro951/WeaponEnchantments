@@ -284,8 +284,8 @@ namespace WeaponEnchantments.Items
 				float multiplier = 
 				(float)(
 					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
-					WEMod.config.linearStrengthMultiplier != 100 ? WEMod.config.linearStrengthMultiplier :
-					WEMod.config.recomendedStrengthMultiplier
+					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
+					WEMod.config.presetData.recomendedStrengthMultiplier
 				) / 100f;
 				EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 			}

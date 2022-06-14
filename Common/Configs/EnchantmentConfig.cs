@@ -26,22 +26,12 @@ namespace WeaponEnchantments.Common.Configs
     public class EnchantmentConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-	
-	    public PresetData presetData; // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
-	
+
+        public PresetData presetData {set; get; } // you can also initialize in the constructor, see initialization in public ModConfigShowcaseMisc() below.
+
         /*public ComplexData complexData = new ComplexData();*/
-	
-	    [Label("Recomended Strength Multiplier(%)")]
-	    [Range(1, 250)]
-	    [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." + 
-		    "\nUses the same calculations as the presets but allows you to pick a different number." + 
-		    "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides preset)")]
-	    public int recomendedStrengthMultiplier;
-	
-	    [Label("Linear Strength Multiplier(%)")]
-	    [Range(1, 250)]
-	    [Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
-	    public int linearStrengthMultiplier;
+
+        
 
         /*[Label("Custom UI Element")]
         [Tooltip("This UI Element is modder defined")]
@@ -76,7 +66,9 @@ namespace WeaponEnchantments.Common.Configs
         /*public Dictionary<string, Pair> StringPairDictionary = new Dictionary<string, Pair>();*/
         [Label("Strength")]
         [Tooltip("")]
-        public float strengthGroupMultiplier;
+        [Range(1, 250)]
+        [DefaultValue(100)]
+        public int strengthGroupMultiplier;
 
 	    [Label("Strength Group")]
 	    [Tooltip("Select multiple enchantments here to adjust all of their strengths by the chosen percentage. (Overrides Linear Strength Multiplier and above)")]
@@ -123,7 +115,7 @@ namespace WeaponEnchantments.Common.Configs
             _additionalData.Clear(); // make sure to clear this or it'll crash.
         }
     }
-    
+
     /*Public Enum SampleEnum
     {
         Weird,
@@ -187,6 +179,10 @@ namespace WeaponEnchantments.Common.Configs
     [BackgroundColor(255, 7, 7)]
     public class PresetData
     {
+        [JsonIgnore]
+        public static List<int> presetValues = new List<int> { 250, 100, 50, 25 };
+        [JsonIgnore]
+        public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
         /*[Header("Awesome")]
         public int boost;
         public float percent;
@@ -195,9 +191,30 @@ namespace WeaponEnchantments.Common.Configs
         public bool enabled;*/
 
         [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master" })]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
         [DefaultValue("Normal")]
-        public string preset;
+        public string preset { get => presetValues.Contains(recomendedStrengthMultiplier) ? presetNames[presetValues.IndexOf(recomendedStrengthMultiplier)] : "Custom";
+            set {
+                if (presetNames.Contains(preset))
+                {
+                    recomendedStrengthMultiplier = presetValues[presetNames.IndexOf(preset)];
+                } 
+            } 
+        }
+
+        [Label("Recomended Strength Multiplier(%)")]
+        [Range(1, 250)]
+        [DefaultValue(100)]
+        [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
+            "\nUses the same calculations as the presets but allows you to pick a different number." +
+            "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides preset)")]
+        public int recomendedStrengthMultiplier;
+
+        [Label("Linear Strength Multiplier(%)")]
+        [Range(1, 250)]
+        [DefaultValue(100)]
+        [Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
+        public int linearStrengthMultiplier;
 
         public PresetData()
         {
