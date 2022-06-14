@@ -1,6 +1,21 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+using WeaponEnchantments.Items;
+using WeaponEnchantments.UI;
 
+namespace WeaponEnchantments.Common.Globals
 {
-public override void OpenVanillaBag(string context, Player player, int arg)
+    public class GlobalBossBags : GlobalItem
+        {
+        public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if(context == "bossBag")
             {
@@ -16,7 +31,7 @@ public override void OpenVanillaBag(string context, Player player, int arg)
                             switch (npc.type)
                             {
                                 case NPCID.EaterofWorldsHead:
-                                    dropRate[i] *= 50f;
+                                    dropRate[i] *= 100f;
                                     break;
                                 default:
 
@@ -30,7 +45,7 @@ public override void OpenVanillaBag(string context, Player player, int arg)
                     switch (npc.type)
                     {
                         case NPCID.EaterofWorldsHead:
-                            value *= 50f;
+                            value *= 100f;
                             break;
                         default:
 
@@ -147,4 +162,5 @@ public override void OpenVanillaBag(string context, Player player, int arg)
             }
             return null;
         }
+}
 }
