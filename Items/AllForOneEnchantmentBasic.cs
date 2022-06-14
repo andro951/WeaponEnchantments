@@ -275,7 +275,10 @@ namespace WeaponEnchantments.Items
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
 			}//EnchantmentStrength
-			EnchantmentStrength = defaultEnchantmentStrengths[StrengthGroup][EnchantmentSize];
+			EnchantmentStrength = 
+				EnchantmentConfig.individualStrengths.ContainsKey(Name) ? EnchantmentConfig.individualStrengths[Name] :
+				EnchantmentConfig.strengthGroups.ContainsKey(Name) ? EnchantmentConfig.strengthGroups[Name] :
+				defaultEnchantmentStrengths[StrengthGroup][EnchantmentSize];
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.GodSlayer:
