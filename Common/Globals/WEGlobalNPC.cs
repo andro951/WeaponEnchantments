@@ -460,53 +460,56 @@ namespace WeaponEnchantments.Common.Globals
             float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
-            total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
-            total /= UtilityMethods.GetReductionFactor((int)hp);
-            essenceValues = EnchantmentEssenceBasic.values;
-            dropRate = new float[essenceValues.Length];
-            baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
+            if(value > 0 || hp > 10)
+            {
+                total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
+                total /= UtilityMethods.GetReductionFactor((int)hp);
+                essenceValues = EnchantmentEssenceBasic.values;
+                dropRate = new float[essenceValues.Length];
+                baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
 
-            int rarity = 0;
-            if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
-            {
-                for (int i = 0; i < essenceValues.Length; ++i)
+                int rarity = 0;
+                if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                 {
-                    if (total / essenceValues[i] > 1)
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        rarity = i;
-                    }
-                    else
-                    {
-                        break;
+                        if (total / essenceValues[i] > 1)
+                        {
+                            rarity = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                for (int i = 0; i < essenceValues.Length; ++i)
+                else
                 {
-                    if (total / essenceValues[i] < 0.025)
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        break;
-                    }
-                    else
-                    {
-                        rarity = i;
+                        if (total / essenceValues[i] < 0.025)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            rarity = i;
+                        }
                     }
                 }
-            }
-            if (rarity == 0)
-            {
-                dropRate[rarity] = 1.25f * total / essenceValues[rarity];
-            }
-            else
-            {
-                dropRate[rarity] = total / essenceValues[rarity];
-                dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
-            }
-            if (rarity < 4)
-            {
-                dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
+                if (rarity == 0)
+                {
+                    dropRate[rarity] = 1.25f * total / essenceValues[rarity];
+                }
+                else
+                {
+                    dropRate[rarity] = total / essenceValues[rarity];
+                    dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
+                }
+                if (rarity < 4)
+                {
+                    dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
+                }
             }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
