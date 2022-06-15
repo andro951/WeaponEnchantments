@@ -75,16 +75,16 @@ namespace WeaponEnchantments.Items
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
-				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},
-				{0.1f, 0.2f, 0.5f, 0.8f, 1f},
-				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f},
-				{1f, 2f, 3f, 5f, 10f},
-				{2f, 4f, 6f, 10f, 20f},
-				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},
-				{2f, 3f, 5f, 8f, 10f},
-				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},
-				{0.5f, 0.6f, 0.75f, 0.85f, 1f},
-				{0.25f, 0.30f, 0.35f, 0.4f, 0.5f}
+				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
+				{0.1f, 0.2f, 0.5f, 0.8f, 1f},//1
+				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f},//2
+				{1f, 2f, 3f, 5f, 10f},//3
+				{2f, 4f, 6f, 10f, 20f},//4
+				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
+				{2f, 3f, 5f, 8f, 10f},//6
+				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
+				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
+				{0.6f, 0.65f, 0.7f, 0.8f, 0.9f}//9
 			};
 		public int StrengthGroup { private set; get; } = 0;
 		public static readonly int defaultBuffDuration = 60;
@@ -270,25 +270,36 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.HellsWrath:
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
-					StrengthGroup = 9;// 0.25, 0.30, 0.35, 0.4, 0.5
+					StrengthGroup = 9;// 0.6f, 0.65f, 0.7f, 0.8f, 0.9f
 					break;
 				default:
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
 			}//EnchantmentStrength
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
-			if(WEMod.config.individualStrengths.ContainsKey(itemDefinition))
-				EnchantmentStrength = WEMod.config.individualStrengths[itemDefinition];
-			else
+			bool foundIndividualStrength = false;
+			if(WEMod.config.individualStrengthsEnabled && WEMod.config.individualStrengths.Count > 0)
+            {
+				foreach (Pair pair in WEMod.config.individualStrengths)
+				{
+					if (pair.itemDefinition.Name == Name)
+					{
+						EnchantmentStrength = (float)(pair.Strength / 1000);
+						foundIndividualStrength = true;
+					}
+				}
+			}
+			if(!foundIndividualStrength)
 			{
 				float multiplier = 
 				(float)(
 					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
 					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
 					WEMod.config.presetData.recomendedStrengthMultiplier
-				) / 100f;
+				) / 100;
 				EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 			}
+			EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 3);
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.GodSlayer:
