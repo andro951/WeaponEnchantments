@@ -75,17 +75,19 @@ namespace WeaponEnchantments.Items
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
-				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},
-				{0.1f, 0.2f, 0.5f, 0.8f, 1f},
-				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f},
-				{1f, 2f, 3f, 5f, 10f},
-				{2f, 4f, 6f, 10f, 20f},
-				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},
-				{2f, 3f, 5f, 8f, 10f},
-				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},
-				{0.5f, 0.6f, 0.75f, 0.85f, 1f},
-				{0.25f, 0.30f, 0.35f, 0.4f, 0.5f}
+				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
+				{0f, 0f, 0f, 0f, 0f},//1 Not used yet
+				{0f, 0f, 0f, 0f, 0f},//2 Not used yet
+				{1f, 2f, 3f, 5f, 10f},//3
+				{2f, 4f, 6f, 10f, 20f},//4
+				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
+				{2f, 3f, 5f, 8f, 10f},//6
+				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//6
+				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//7
+				{0.25f, 0.30f, 0.35f, 0.4f, 0.5f},//8
+				{0.2f, 0.4f, 0.6f, 0.8f, 1f}//9
 			};
+		private float scalePercent;
 		public int StrengthGroup { private set; get; } = 0;
 		public static readonly int defaultBuffDuration = 60;
 		public int EnchantmentSize { private set; get; } = -1;
@@ -238,14 +240,10 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case EnchantmentTypeID.Scale:
-				case EnchantmentTypeID.War:
-				case EnchantmentTypeID.OneForAll:
-				case EnchantmentTypeID.WorldAblaze:
-					StrengthGroup = 1;// 0.1, 0.2, 0.5, 0.8, 1
+				case (EnchantmentTypeID)(-1):
+					StrengthGroup = 1;// Not used yet
 					break;
-				case EnchantmentTypeID.Peace:
-					StrengthGroup = 2;// 1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f
+					StrengthGroup = 2;// Not used yet
 					break;
 				case EnchantmentTypeID.StatDefense:
 					StrengthGroup = 3;// 1, 2, 3, 5, 10
@@ -272,23 +270,54 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Moonlight:
 					StrengthGroup = 9;// 0.25, 0.30, 0.35, 0.4, 0.5
 					break;
+				case EnchantmentTypeID.Scale:
+				case EnchantmentTypeID.War:
+				case EnchantmentTypeID.Peace:
+				case EnchantmentTypeID.OneForAll:
+				case EnchantmentTypeID.WorldAblaze:
+					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
+					break;
 				default:
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
 			}//EnchantmentStrength
+			switch ((EnchantmentTypeID)EnchantmentType)
+			{
+				case EnchantmentTypeID.LifeSteal:
+				case EnchantmentTypeID.AllForOne:
+				case EnchantmentTypeID.OneForAll:
+					scalePercent = 0.8f;
+					break;
+				case EnchantmentTypeID.ColdSteel:
+				case EnchantmentTypeID.HellsWrath:
+				case EnchantmentTypeID.JunglesFury:
+				case EnchantmentTypeID.Moonlight:
+					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
+					break;
+				default:
+					scalePercent = 1f;
+					break;
+			}//Scale Percents
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
 			if(WEMod.config.individualStrengths.ContainsKey(itemDefinition))
-				EnchantmentStrength = WEMod.config.individualStrengths[itemDefinition];
+				EnchantmentStrength = WEMod.config.individualStrengths[itemDefinition];//EnchantmentStrength individual strength
 			else
 			{
-				float multiplier = 
+				float multiplier =
 				(float)(
 					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
 					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
-					WEMod.config.presetData.recomendedStrengthMultiplier
+					-100f
 				) / 100f;
-				EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
-			}
+				if(multiplier != -1f)
+					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];//Linear
+                else
+                {
+					multiplier = WEMod.config.presetData.recomendedStrengthMultiplier;
+					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
+					EnchantmentStrength = (1f - scalePercent) * defaultStrength + defaultStrength * multiplier * scalePercent;
+				}//Recomended
+			}//Strength Multipliers
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.GodSlayer:
@@ -365,9 +394,9 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.AllForOne:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
-						EStats.Add(new EStat("NPCHitCooldown", 0f, EnchantmentStrength * 0.8f));
-						AddStaticStat("useTime", 0f, EnchantmentStrength * 0.2f);
-						AddStaticStat("useAnimation", 0f, EnchantmentStrength * 0.2f);
+						EStats.Add(new EStat("NPCHitCooldown", 0f, 4f + EnchantmentStrength * 0.4f));
+						AddStaticStat("useTime", 0f, 1f + EnchantmentStrength * 0.1f);
+						AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.1f);
 						AddStaticStat("mana", EnchantmentStrength * 0.3f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
@@ -435,11 +464,14 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
-						EStats.Add(new EStat("NPCHitCooldown", 0f, 1f + EnchantmentStrength * 0.3f));
-						AddStaticStat("useTime", 0f, 1f + EnchantmentStrength * 0.3f);
-						AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.3f);
+						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
+						AddStaticStat("useTime", 0f, 1.5f - EnchantmentStrength * 0.2f);
+						AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
 						break;
 					case EnchantmentTypeID.Peace:
+						EStats.Add(new EStat("spawnRate", 0f, 1f / (1f + EnchantmentStrength)));
+						EStats.Add(new EStat("maxSpawns", 0f, 1f / (1f + EnchantmentStrength)));
+						break;
 					case EnchantmentTypeID.War:
 						EStats.Add(new EStat("spawnRate", 0f, 1f + EnchantmentStrength));
 						EStats.Add(new EStat("maxSpawns", 0f, 1f + EnchantmentStrength));
@@ -448,16 +480,16 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						AddStaticStat("I_useTime", EnchantmentStrength);
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
-						StaticStat = AddStaticStat("autoReuse", EnchantmentStrength);
+						StaticStat = EnchantmentStrength >= 0.1f ? AddStaticStat("autoReuse", EnchantmentStrength) : false;
 						break;
 					case EnchantmentTypeID.WorldAblaze:
-						//if(EnchantmentSize == 4) EStats.Add(new EStat("Amaterasu", 0f, 1f, 13.13f));
+						if(EnchantmentSize == 4) EStats.Add(new EStat("Amaterasu", 0f, 1f, 0f, EnchantmentStrength));
 						if (EnchantmentSize == 4) Debuff.Add(ModContent.BuffType<AmaterasuDebuff>(), -1);
-						Debuff.Add(BuffID.OnFire, (int)((float)buffDuration * 1f));
-						Debuff.Add(BuffID.Oiled, (int)((float)buffDuration * 0.8f));
-						if (EnchantmentSize > 0) Debuff.Add(BuffID.CursedInferno, (int)((float)buffDuration * 0.6f));
-						if(EnchantmentSize > 1) Debuff.Add(BuffID.ShadowFlame, (int)((float)buffDuration * 0.4f));
-						if (EnchantmentSize > 2) Debuff.Add(BuffID.OnFire3, (int)((float)buffDuration * 0.2f));
+						Debuff.Add(BuffID.OnFire, (int)((float)buffDuration * EnchantmentStrength));
+						Debuff.Add(BuffID.Oiled, (int)((float)buffDuration * 0.8f * EnchantmentStrength));
+						if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 0]) Debuff.Add(BuffID.CursedInferno, (int)((float)buffDuration * 0.6f * EnchantmentStrength));
+						if(EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 1]) Debuff.Add(BuffID.ShadowFlame, (int)((float)buffDuration * 0.4f * EnchantmentStrength));
+						if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 2]) Debuff.Add(BuffID.OnFire3, (int)((float)buffDuration * 0.2f * EnchantmentStrength));
 						break;
 					default:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));

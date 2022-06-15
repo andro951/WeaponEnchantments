@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Common.Globals
         int myWarReduction = 1;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
+        private float amaterasuStrength = 0f;
         public override bool InstancePerEntity => true;
         public override void Load()
         {
@@ -578,6 +579,8 @@ namespace WeaponEnchantments.Common.Globals
                                 npc.AddBuff(debuff, item.G().debuffs[debuff]);
                             else
                             {
+                                if (amaterasuStrength == 0)
+                                    amaterasuStrength = item.AEI("Amaterasu", 1f);
                                 if (debuff == ModContent.BuffType<AmaterasuDebuff>())
                                     npc.AddBuff(debuff, damage);
                             }
@@ -766,7 +769,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 amaterasuDamage++;
                 damage += amaterasuDamage / 240;
-                npc.lifeRegen -= amaterasuDamage / 30;
+                npc.lifeRegen -=  (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
                 if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 9 < Main.GameUpdateCount)
                 {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, amaterasuSpreadRange);
