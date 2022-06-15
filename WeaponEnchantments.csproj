@@ -8,19 +8,16 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Common\Configs\**" />
     <Compile Remove="Content\**" />
     <Compile Remove="GameContent\**" />
     <Compile Remove="Images\**" />
     <Compile Remove="Items\Placeable\**" />
     <Compile Remove="UI\WeaponEnchantmentUI\**" />
-    <EmbeddedResource Remove="Common\Configs\**" />
     <EmbeddedResource Remove="Content\**" />
     <EmbeddedResource Remove="GameContent\**" />
     <EmbeddedResource Remove="Images\**" />
     <EmbeddedResource Remove="Items\Placeable\**" />
     <EmbeddedResource Remove="UI\WeaponEnchantmentUI\**" />
-    <None Remove="Common\Configs\**" />
     <None Remove="Content\**" />
     <None Remove="GameContent\**" />
     <None Remove="Images\**" />

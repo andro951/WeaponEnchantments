@@ -401,7 +401,7 @@ namespace WeaponEnchantments
         internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if(!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && wePlayer.enchantingTableUI.itemSlotUI[0].Item != null)
+            if(wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].Item, GetItemSettings.LootAllSettings);
                 if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
