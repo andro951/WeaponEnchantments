@@ -76,16 +76,15 @@ namespace WeaponEnchantments.Items
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-				{0f, 0f, 0f, 0f, 0f},//1 Not used yet
-				{0f, 0f, 0f, 0f, 0f},//2 Not used yet
+				{0.1f, 0.2f, 0.5f, 0.8f, 1f},//1
+				{1f / 1.1f - 1f, 1f / 1.2f - 1f, 1f / 1.5f - 1f, 1f / 1.8f - 1f, 1f / 2f - 1f},//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
 				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
 				{2f, 3f, 5f, 8f, 10f},//6
-				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//6
-				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//7
-				{0.25f, 0.30f, 0.35f, 0.4f, 0.5f},//8
-				{0.2f, 0.4f, 0.6f, 0.8f, 1f}//9
+				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
+				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
+				{0.6f, 0.65f, 0.7f, 0.8f, 0.9f}//9
 			};
 		private float scalePercent;
 		public int StrengthGroup { private set; get; } = 0;
@@ -268,7 +267,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.HellsWrath:
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
-					StrengthGroup = 9;// 0.25, 0.30, 0.35, 0.4, 0.5
+					StrengthGroup = 9;// 0.6f, 0.65f, 0.7f, 0.8f, 0.9f
 					break;
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.War:
@@ -299,9 +298,19 @@ namespace WeaponEnchantments.Items
 					break;
 			}//Scale Percents
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
-			if(WEMod.config.individualStrengths.ContainsKey(itemDefinition))
-				EnchantmentStrength = WEMod.config.individualStrengths[itemDefinition];//EnchantmentStrength individual strength
-			else
+			bool foundIndividualStrength = false;
+			if(WEMod.config.individualStrengthsEnabled && WEMod.config.individualStrengths.Count > 0)
+            {
+				foreach (Pair pair in WEMod.config.individualStrengths)
+				{
+					if (pair.itemDefinition.Name == Name)
+					{
+						EnchantmentStrength = (float)(pair.Strength / 1000);
+						foundIndividualStrength = true;
+					}
+				}
+			}
+			if(!foundIndividualStrength)
 			{
 				float multiplier =
 				(float)(
