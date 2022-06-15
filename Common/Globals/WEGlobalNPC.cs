@@ -614,14 +614,15 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
                             Vector2 speed = new Vector2(0, 0);
-                            float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
+                            float healTotal = (damage + total) * lifeSteal * (player.moonLeech ? 0.5f : 1f) 
+                                * (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid ? 0.5f : 1f) 
+                                + wePlayer.lifeStealRollover;
                             int heal = (int)healTotal;
-                            if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)
-                                healTotal /= 2f;
                             if (player.statLife < player.statLifeMax2)
                             {
-                                if (heal > 0)
+                                if (heal > 0 && player.lifeSteal > 0f)
                                 {
+                                    player.lifeSteal -= heal;
                                     Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
                                 }
                                 wePlayer.lifeStealRollover = healTotal - heal;
