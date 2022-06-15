@@ -327,6 +327,7 @@ namespace WeaponEnchantments.Items
 					EnchantmentStrength = (1f - scalePercent) * defaultStrength + defaultStrength * multiplier * scalePercent;
 				}//Recomended
 			}//Strength Multipliers
+			EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 4);
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.GodSlayer:
