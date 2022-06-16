@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Common.Globals
         int myWarReduction = 1;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
+        private float amaterasuStrength = 0f;
         public override bool InstancePerEntity => true;
         public override void Load()
         {
@@ -460,53 +461,63 @@ namespace WeaponEnchantments.Common.Globals
             float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
-            total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
-            total /= UtilityMethods.GetReductionFactor((int)hp);
-            essenceValues = EnchantmentEssenceBasic.values;
-            dropRate = new float[essenceValues.Length];
-            baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
+            if(value > 0 || hp > 10)
+            {
+                total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
+                total /= UtilityMethods.GetReductionFactor((int)hp);
+                essenceValues = EnchantmentEssenceBasic.values;
+                dropRate = new float[essenceValues.Length];
+                baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
 
-            int rarity = 0;
-            if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
-            {
-                for (int i = 0; i < essenceValues.Length; ++i)
+                int rarity = 0;
+                if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                 {
-                    if (total / essenceValues[i] > 1)
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        rarity = i;
+                        if (total / essenceValues[i] > 1)
+                        {
+                            rarity = i;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        break;
+                        if (total / essenceValues[i] < 0.025)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            rarity = i;
+                        }
                     }
+                }
+                if (rarity == 0)
+                {
+                    dropRate[rarity] = 1.25f * total / essenceValues[rarity];
+                }
+                else
+                {
+                    dropRate[rarity] = total / essenceValues[rarity];
+                    dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
+                }
+                if (rarity < 4)
+                {
+                    dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
                 }
             }
             else
             {
-                for (int i = 0; i < essenceValues.Length; ++i)
-                {
-                    if (total / essenceValues[i] < 0.025)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        rarity = i;
-                    }
-                }
-            }
-            if (rarity == 0)
-            {
-                dropRate[rarity] = 1.25f * total / essenceValues[rarity];
-            }
-            else
-            {
-                dropRate[rarity] = total / essenceValues[rarity];
-                dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
-            }
-            if (rarity < 4)
-            {
-                dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
+                total = 0;
+                dropRate = null;
+                baseID = 0;
+                essenceValues = null;
             }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
@@ -568,13 +579,15 @@ namespace WeaponEnchantments.Common.Globals
                                 npc.AddBuff(debuff, item.G().debuffs[debuff]);
                             else
                             {
+                                if (amaterasuStrength == 0)
+                                    amaterasuStrength = item.AEI("Amaterasu", 1f);
                                 if (debuff == ModContent.BuffType<AmaterasuDebuff>())
                                     npc.AddBuff(debuff, damage);
                             }
                         }//Debuffs
                         if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
                             player.MinionAttackTargetNPC = npc.whoAmI;//Force minions to target npc
-                    }
+                    }//Buffs and debuffs
                     if (npc.type != NPCID.TargetDummy)
                     {
                         int total = 0;
@@ -604,14 +617,15 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
                             Vector2 speed = new Vector2(0, 0);
-                            float healTotal = (damage + total) * lifeSteal + wePlayer.lifeStealRollover;
+                            float healTotal = (damage + total) * lifeSteal * (player.moonLeech ? 0.5f : 1f) 
+                                * (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid ? 0.5f : 1f) 
+                                + wePlayer.lifeStealRollover;
                             int heal = (int)healTotal;
-                            if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)
-                                healTotal /= 2f;
                             if (player.statLife < player.statLifeMax2)
                             {
-                                if (heal > 0)
+                                if (heal > 0 && player.lifeSteal > 0f)
                                 {
+                                    player.lifeSteal -= heal;
                                     Projectile.NewProjectile(sourceItem.GetSource_ItemUse(sourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
                                 }
                                 wePlayer.lifeStealRollover = healTotal - heal;
@@ -624,7 +638,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     if(ItemEStats.ContainsKey("GodSlayer"))
                     {
-                        ActivateGodSlayer(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+                        ActivateGodSlayer(npc, player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
                     }//GodSlayer
                     if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null)
                     {
@@ -725,7 +739,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             return npcs;
         }
-        private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
+        private void ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, int damageReduction, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {
             if (!npc.friendly && !npc.townNPC)
             {
@@ -734,7 +748,7 @@ namespace WeaponEnchantments.Common.Globals
                 float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
                 int godSlayerDamage;
-                godSlayerDamage = (int)Math.Round(((float)damage / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
+                godSlayerDamage = (int)Math.Round(((float)(damage - damageReduction) / (projectile != null ? 2f : 1f) / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
                 if (Main.netMode == NetmodeID.SinglePlayer)
                     npc.StrikeNPC(godSlayerDamage, knockback, direction, crit);
                 else
@@ -756,7 +770,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 amaterasuDamage++;
                 damage += amaterasuDamage / 240;
-                npc.lifeRegen -= amaterasuDamage / 30;
+                npc.lifeRegen -=  (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
                 if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 9 < Main.GameUpdateCount)
                 {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, amaterasuSpreadRange);
