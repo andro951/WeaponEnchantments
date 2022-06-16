@@ -114,7 +114,45 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            if(UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
+
+            Dictionary<string, List<int[]>> weaponsDict = GetItemDict(0);
+
+            /*foreach(Mod mod in ModLoader.Mods)
+            {
+                if (ModContent.TryFind<ModItem>("NameOfMod/ItemName", out ModItem modItem))
+                {
+                    int type = modItem.Type;
+                    //use type here
+                }
+                foreach (Item item in mod)
+            }*/
+            if (UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
+        }
+        private static Dictionary<string, List<int[]>> GetItemDict(byte mode)
+        {
+            int itemType = ItemID.Count;
+            bool checkingItems = true;
+            Dictionary<string, List<int[]>> itemsDict = new Dictionary<string, List<int[]>>();
+
+            while (checkingItems)
+            {
+                Item item = new Item(itemType);
+                if (item != null)
+                {
+                    string modName = item.ModItem.Mod.Name;
+                    if (mode == 0 && WEMod.IsWeaponItem(item) || mode == 1 && WEMod.IsArmorItem(item) || mode == 2 && WEMod.IsArmorItem(item))
+                    {
+                        int[] itemStats = { item.damage, item.value, item.rare };
+                        if (!itemsDict.ContainsKey(modName))
+                            itemsDict.Add(modName, new List<int[]>());
+                        itemsDict[modName].Add(itemStats);
+                    }
+                    itemType++;
+                }
+                else
+                    checkingItems = false;
+            }
+            return itemsDict;
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -642,7 +680,7 @@ namespace WeaponEnchantments
                 }
                 else
                 {
-                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
+                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && (Main.HoverItem.G() != null && Main.HoverItem.G().hoverItem == false) || (Main.HoverItem == null || Main.HoverItem.IsAir)))
                     {
                         if(UtilityMethods.debugging) ($"remove hoverItem: {hoverItem.S()}").Log();
                         hoverItem.G().hoverItem = false;

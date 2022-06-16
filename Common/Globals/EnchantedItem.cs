@@ -55,10 +55,10 @@ namespace WeaponEnchantments.Common.Globals
             onHitBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
-        /*public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            
-        }*/
+            return WEMod.IsEnchantable(entity);
+        }
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
@@ -381,7 +381,7 @@ namespace WeaponEnchantments.Common.Globals
                     value = target.value;
                     break;
             }
-            if (target.type != NPCID.TargetDummy && !target.friendly && !target.townNPC && (value > 0 || !target.SpawnedFromStatue && target.lifeMax > 5))
+            if (target.type != NPCID.TargetDummy && !target.friendly && !target.townNPC && (value > 0 || !target.SpawnedFromStatue && target.lifeMax > 10))
             {
                 int xpInt;
                 int xpDamage;
@@ -389,7 +389,7 @@ namespace WeaponEnchantments.Common.Globals
                 float effDamage;
                 float effDamageDenom;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) / (target.boss ? 4f : 1f);
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.config.BossExperienceMultiplier/400f : WEMod.config.BossExperienceMultiplier/100f);
                 effDamage = (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f);
                 float actualDefence = target.defense / 2f - target.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
                 float actualDamage = melee ? damage : damage - actualDefence;

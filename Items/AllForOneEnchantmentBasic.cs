@@ -77,7 +77,7 @@ namespace WeaponEnchantments.Items
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
 				{0f, 0f, 0f, 0f, 0f},//1 Not used yet
-				{0f, 0f, 0f, 0f, 0f},//2 Not used yet
+				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
 				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
@@ -243,7 +243,9 @@ namespace WeaponEnchantments.Items
 				case (EnchantmentTypeID)(-1):
 					StrengthGroup = 1;// Not used yet
 					break;
-					StrengthGroup = 2;// Not used yet
+				case EnchantmentTypeID.War:
+				case EnchantmentTypeID.Peace:
+					StrengthGroup = 2;// 1.2f, 1.4f, 1.6f, 1.8f, 2f
 					break;
 				case EnchantmentTypeID.StatDefense:
 					StrengthGroup = 3;// 1, 2, 3, 5, 10
@@ -271,8 +273,6 @@ namespace WeaponEnchantments.Items
 					StrengthGroup = 9;// 0.6f, 0.65f, 0.7f, 0.8f, 0.9f
 					break;
 				case EnchantmentTypeID.Scale:
-				case EnchantmentTypeID.War:
-				case EnchantmentTypeID.Peace:
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.WorldAblaze:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
@@ -408,7 +408,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 4f + EnchantmentStrength * 0.4f));
 						AddStaticStat("useTime", 0f, 1f + EnchantmentStrength * 0.1f);
 						AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.1f);
-						AddStaticStat("mana", EnchantmentStrength * 0.3f);
+						AddStaticStat("mana", 1.5f + EnchantmentStrength * 0.15f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.AmmoCost:
@@ -480,12 +480,12 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
 						break;
 					case EnchantmentTypeID.Peace:
-						EStats.Add(new EStat("spawnRate", 0f, 1f / (1f + EnchantmentStrength)));
-						EStats.Add(new EStat("maxSpawns", 0f, 1f / (1f + EnchantmentStrength)));
+						EStats.Add(new EStat("spawnRate", 0f, 1f / EnchantmentStrength));
+						EStats.Add(new EStat("maxSpawns", 0f, 1f / EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.War:
-						EStats.Add(new EStat("spawnRate", 0f, 1f + EnchantmentStrength));
-						EStats.Add(new EStat("maxSpawns", 0f, 1f + EnchantmentStrength));
+						EStats.Add(new EStat("spawnRate", 0f, EnchantmentStrength));
+						EStats.Add(new EStat("maxSpawns", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Speed:
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
@@ -519,7 +519,7 @@ namespace WeaponEnchantments.Items
 			Item.maxStack = 99;
 			GetDefaults();
 		}
-		private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false)
+        private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false)
 		{
 			percentage = true;
 			multiply100 = true;

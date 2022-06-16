@@ -196,10 +196,10 @@ namespace WeaponEnchantments.Common.Globals
             switch (arg)
             {
                 case NPCID.WallofFlesh when !bossBag:
-                    chance = 1f;
+                    chance = WEMod.config.BossEnchantmentDropChance * 2f;
                     break;
                 default:
-                    chance = 0.5f;
+                    chance = WEMod.config.BossEnchantmentDropChance;
                     break;
             }
             return chance;
@@ -265,46 +265,49 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
+                        float mult = WEMod.config.EnchantmentDropChance;
+                        int defaultDenom = (int)(500 * hp * mult / (total * 1));
+                        int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
                         {
                             case 1://Slime
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 2://Demon Eye
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 3://Fighter
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 5://Flying
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 6://Worm
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 8://Caster
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 10://Cursed Skull
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 13://Plant
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 14://Bat
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 16://Swimming
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 17://Vulture
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 18://Jellyfish
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 19://Antlion
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 22://Hovering
 
@@ -320,13 +323,13 @@ namespace WeaponEnchantments.Common.Globals
                                     ModContent.ItemType<HunterEnchantmentUltraRare>(),
                                     ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>()
                                 };
-                                npcLoot.Add(ItemDropRule.OneFromOptions(1, options));
+                                npcLoot.Add(ItemDropRule.OneFromOptions(denom100, options));
                                 break;
                             case 26://Unicorn
 
                                 break;
                             case 29://The Hungry - Wall of flesh plant minions
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 38://Snowman
 
@@ -347,7 +350,7 @@ namespace WeaponEnchantments.Common.Globals
 
                                 break;
                             case 55://Creeper Brain of Cthulhu minions
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), 100, 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 56://Dungeon Spirit - 1 hit kill dungion skulls
 
@@ -388,7 +391,7 @@ namespace WeaponEnchantments.Common.Globals
                                     ModContent.ItemType<GodSlayerEnchantmentBasic>(),
                                     ModContent.ItemType<SplittingEnchantmentBasic>()
                                 };
-                                npcLoot.Add(ItemDropRule.OneFromOptions(1, optionsBiomeMimic));
+                                npcLoot.Add(ItemDropRule.OneFromOptions(denom100, optionsBiomeMimic));
                                 break;
                             case 88://Mothron - Solar Eclipse
 
@@ -442,14 +445,14 @@ namespace WeaponEnchantments.Common.Globals
                         switch (npc.type)
                         {
                             case NPCID.Pixie://75
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case NPCID.Mothron://477
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), defaultDenom, 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case NPCID.PirateShip://491
-                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), (int)(500 * hp / (total * 1)), 1, 1));
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                         }
                     }
@@ -458,7 +461,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
         {
-            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f);
+            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f) * (npc.boss ? WEMod.config.BossEssenceMultiplier / 100f : WEMod.config.EssenceMultiplier / 100f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
             if(value > 0 || hp > 10)

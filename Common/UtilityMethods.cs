@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets (EnchantedItem : GlobalItem)
         ///</summary>
-        public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
+        public static EnchantedItem G(this Item item) => WEMod.IsEnchantable(item) ? item.GetGlobalItem<EnchantedItem>() : null;
         ///<summary>
         ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
         ///</summary>
