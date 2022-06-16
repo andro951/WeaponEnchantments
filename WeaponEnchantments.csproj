@@ -25,6 +25,12 @@
     <None Remove="UI\WeaponEnchantmentUI\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Common\Globals\GlobalBossBags.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common\Globals\GlobalBossBags.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>

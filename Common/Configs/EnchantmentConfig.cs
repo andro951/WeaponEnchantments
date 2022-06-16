@@ -52,7 +52,7 @@ namespace WeaponEnchantments.Common.Configs
         public bool individualStrengthsEnabled;
 
         [Label("Individual Strengths")]
-        [Tooltip("Modify individual enchantment strengths by value. (NOT PERCENTAGE!) (Overrides all other options)")]
+        [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
         [ReloadRequired]
         public List<Pair> individualStrengths = new List<Pair>();
         //[DefaultDictionaryKeyValue(0f)]
@@ -97,6 +97,10 @@ namespace WeaponEnchantments.Common.Configs
             }
             _additionalData.Clear(); // make sure to clear this or it'll crash.*/
         }
+        /*public override bool NeedsReload(ModConfig pendingConfig)
+        {
+            return true;
+        }*/
     }
     //[BackgroundColor(0, 255, 255)]
     //[Label("Pair label")]
@@ -144,7 +148,7 @@ namespace WeaponEnchantments.Common.Configs
         [DrawTicks]
         [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
         [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
+        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset
         {
@@ -158,6 +162,7 @@ namespace WeaponEnchantments.Common.Configs
                 }
             }
         }
+
         [Header("Multipliers")]
         [Label("Recomended Strength Multiplier(%)")]
         [Range(1, 250)]
@@ -168,11 +173,10 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int recomendedStrengthMultiplier { get; set; }
 
-        [JsonIgnore]
         [Label("Linear Strength Multiplier(%)")]
         [Range(1, 250)]
         [DefaultValue(100)]
-        [Tooltip("Adjusts all enchantment strengths linearly. (Overides Recomended Power Slider and above)")]
+        [Tooltip("Adjusts all enchantment strengths linearly\n(Overides Recomended Strength Multiplier and above)")]
         [ReloadRequired]
         public int linearStrengthMultiplier { get; set; }
 
@@ -184,13 +188,13 @@ namespace WeaponEnchantments.Common.Configs
         public override bool Equals(object obj)
         {
             if (obj is PresetData other)
-                return Preset == other.Preset;
+                return Preset == other.Preset && recomendedStrengthMultiplier == other.recomendedStrengthMultiplier && linearStrengthMultiplier == other.linearStrengthMultiplier;
             return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return new { Preset }.GetHashCode();
+            return new { Preset, recomendedStrengthMultiplier, linearStrengthMultiplier }.GetHashCode();
         }
     }
 
