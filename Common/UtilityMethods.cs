@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets (EnchantedItem : GlobalItem)
         ///</summary>
-        public static EnchantedItem G(this Item item) => WEMod.IsEnchantable(item) ? item.GetGlobalItem<EnchantedItem>() : null;
+        public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
         ///<summary>
         ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
         ///</summary>
@@ -80,7 +80,7 @@ namespace WeaponEnchantments.Common
             StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
-            if (item != null && !item.IsAir && item.G().eStats.ContainsKey(key))
+            if (item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.G().eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(item.G().eStats[key]);
             return combinedStatModifier.ApplyTo(value);
         }

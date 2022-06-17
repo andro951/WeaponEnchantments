@@ -106,7 +106,7 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            AllForOneEnchantmentBasic.temp.Log();
+            //AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
             if (!OldWorldItemsReplaced)
             {
@@ -130,28 +130,33 @@ namespace WeaponEnchantments
         }
         private static Dictionary<string, List<int[]>> GetItemDict(byte mode)
         {
-            int itemType = ItemID.Count;
-            bool checkingItems = true;
             Dictionary<string, List<int[]>> itemsDict = new Dictionary<string, List<int[]>>();
-
-            while (checkingItems)
+            string msg = "";
+            for(int itemType = 1; itemType < ItemLoader.ItemCount; itemType++)
             {
                 Item item = new Item(itemType);
                 if (item != null)
                 {
-                    string modName = item.ModItem.Mod.Name;
-                    if (mode == 0 && WEMod.IsWeaponItem(item) || mode == 1 && WEMod.IsArmorItem(item) || mode == 2 && WEMod.IsArmorItem(item))
+                    if(!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1)
                     {
-                        int[] itemStats = { item.damage, item.value, item.rare };
-                        if (!itemsDict.ContainsKey(modName))
-                            itemsDict.Add(modName, new List<int[]>());
-                        itemsDict[modName].Add(itemStats);
+                        string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
+                        if (mode == 0 && WEMod.IsWeaponItem(item) || mode == 1 && WEMod.IsArmorItem(item) || mode == 2 && WEMod.IsArmorItem(item))
+                        {
+                            msg += item.Name;
+                            int[] itemStats = { item.damage, item.value, item.rare };
+                            if (!itemsDict.ContainsKey(modName))
+                                itemsDict.Add(modName, new List<int[]>());
+                            itemsDict[modName].Add(itemStats);
+                            for (int i = 0; i < itemStats.Length; i++)
+                            {
+                                msg += $",{itemStats[i]}";
+                            }
+                            msg += "\n";
+                        }
                     }
-                    itemType++;
                 }
-                else
-                    checkingItems = false;
             }
+            msg.Log();
             return itemsDict;
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)

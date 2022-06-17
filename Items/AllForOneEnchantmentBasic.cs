@@ -178,6 +178,7 @@ namespace WeaponEnchantments.Items
 					break;
 				}
 			}//Check EnchantmentType
+			Item.rare = EnchantmentSize;
 			switch (EnchantmentSize)
 			{
 				case 3:

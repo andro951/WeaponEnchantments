@@ -55,10 +55,10 @@ namespace WeaponEnchantments.Common.Globals
             onHitBuffs = new Dictionary<int, int>();
         }//Constructor
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        /*public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
             return WEMod.IsEnchantable(entity);
-        }
+        }*/
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
