@@ -80,7 +80,7 @@ namespace WeaponEnchantments.Common
             StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
-            if (item != null && !item.IsAir && item.G().eStats.ContainsKey(key))
+            if (item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.G().eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(item.G().eStats[key]);
             return combinedStatModifier.ApplyTo(value);
         }

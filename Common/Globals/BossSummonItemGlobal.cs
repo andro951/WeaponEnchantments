@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool? UseItem(Item item, Player player)
         {
-            if (player.AEP(item, "spawnRate", 1f) > 1f || item.AEI("spawnRate", 1f) > 1f)
+            if (player.AEP(null, "spawnRate", 1f) > 1f)// || item.AEI("spawnRate", 1f) > 1f)
                 item.stack++;
             return null;
         }

@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Common.Configs
     public class EnchantmentConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-        [Label("Presets and Multipliers")]
+        [Header("Presets and Multipliers")]
         [ReloadRequired]
         public PresetData presetData;
 
@@ -51,10 +51,55 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool individualStrengthsEnabled;
 
+        [Header("Individual Item Strengths")]
         [Label("Individual Strengths")]
         [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
         [ReloadRequired]
         public List<Pair> individualStrengths = new List<Pair>();
+
+        [Header("Essence and Experience")]
+        [Label("Boss Essence Multiplier(%)")]
+        [Tooltip("Modify the ammount of essence recieved by bosses.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        [ReloadRequired]
+        public int BossEssenceMultiplier;
+
+        [Label("Non-Boss Essence Multiplier(%)")]
+        [Tooltip("Modify the ammount of essence recieved by non-boss enemies.")] 
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        [ReloadRequired]
+        public int EssenceMultiplier;
+
+        [Label("Boss Experience Multiplier(%)")]
+        [Tooltip("Modify the ammount of experience recieved by bosses.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        [ReloadRequired]
+        public int BossExperienceMultiplier;
+
+        [Label("Non-Boss Experience Multiplier(%)")]
+        [Tooltip("Modify the ammount of experience recieved by non-boss enemies.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        [ReloadRequired]
+        public int ExperienceMultiplier;
+
+        [Header("Enchantment Drop Rates(%)")]
+        [Label("Boss Enchantment Drop Rate")]
+        [Tooltip("Adjust the drop rate of enchantments from bosses.\n(Default is 50%)")]
+        [Range(0, 100)]
+        [DefaultValue(50)]
+        [ReloadRequired]
+        public int BossEnchantmentDropChance;
+
+        [Label("Non-Boss Enchantment Drop Rate(%)")]
+        [Tooltip("Adjust the drop rate of enchantments from non -boss enemies.\n(Default is 100%)")]
+        [Range(0, 1000)]
+        [DefaultValue(100)]
+        [ReloadRequired]
+        public int EnchantmentDropChance;
         //[DefaultDictionaryKeyValue(0f)]
         /*[DefaultListValue(0f)]
         [Range(0f, 100f)]

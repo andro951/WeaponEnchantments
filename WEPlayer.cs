@@ -73,6 +73,8 @@ namespace WeaponEnchantments
         public bool[] equipArmorStatsUpdated;
         public Item trackedWeapon;
         public Item hoverItem;
+        public Item infusionConsumeItem = null;
+        public string previousInfusedItemName = "";
         int hoverItemIndex = 0;
         int hoverItemChest = 0;
         public Item trashItem = new Item();
@@ -106,15 +108,27 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            AllForOneEnchantmentBasic.temp.Log();
+            //AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
+            InfusionManager.SetUpVanilla();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            if(UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
+
+
+            /*foreach(Mod mod in ModLoader.Mods)
+            {
+                if (ModContent.TryFind<ModItem>("NameOfMod/ItemName", out ModItem modItem))
+                {
+                    int type = modItem.Type;
+                    //use type here
+                }
+                foreach (Item item in mod)
+            }*/
+            if (UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -197,6 +211,7 @@ namespace WeaponEnchantments
                 int tempInt = enchantingTable.essenceItem[i].stack;
                 tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
             }
+            tag["infusionConsumeItem"] = infusionConsumeItem;
         }
         public override void LoadData(TagCompound tag)
         {
@@ -251,6 +266,9 @@ namespace WeaponEnchantments
                 string name = Player.name;
                 int tempInt = enchantingTable.essenceItem[i].stack;
             }
+            infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
+            if (infusionConsumeItem.IsAir)
+                infusionConsumeItem = null;
         }
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot)
         {
@@ -642,7 +660,7 @@ namespace WeaponEnchantments
                 }
                 else
                 {
-                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && Main.HoverItem.G().hoverItem == false || (Main.HoverItem == null || Main.HoverItem.IsAir)))
+                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && (Main.HoverItem.G() != null && Main.HoverItem.G().hoverItem == false) || (Main.HoverItem == null || Main.HoverItem.IsAir)))
                     {
                         if(UtilityMethods.debugging) ($"remove hoverItem: {hoverItem.S()}").Log();
                         hoverItem.G().hoverItem = false;

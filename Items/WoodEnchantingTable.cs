@@ -50,6 +50,7 @@ namespace WeaponEnchantments.Items
 					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
 					break;
 			}
+			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 14;
 			Item.useTurn = true;

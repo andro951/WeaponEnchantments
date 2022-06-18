@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,14 +14,14 @@ using WeaponEnchantments.UI;
 namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
-        {
+    {
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
-            if(context == "bossBag")
+            if (context == "bossBag")
             {
                 IEntitySource src = player.GetSource_OpenItem(arg);
                 NPC npc = GetNPCFromBossBagType(arg);
-                if(npc != null)
+                if (npc != null)
                 {
                     WEGlobalNPC.GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
                     for (int i = 0; i < essenceValues.Length; ++i)
@@ -155,12 +155,12 @@ namespace WeaponEnchantments.Common.Globals
                     npcID = -1000;
                     break;
             }
-            if(npcID != -1000)
+            if (npcID != -1000)
             {
                 NPC tempNpc = (NPC)ContentSamples.NpcsByNetId[npcID].Clone();
                 return tempNpc;
             }
             return null;
         }
-}
+    }
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -10,6 +11,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
+using static WeaponEnchantments.UI.WeaponEnchantmentUI;
 
 namespace WeaponEnchantments
 {
@@ -152,7 +154,16 @@ namespace WeaponEnchantments
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                     }
-                    ConfirmationUI.offered = false;
+                    if (wePlayer.infusionConsumeItem != null && !wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
+                    {
+                        wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
+                        UIText infusionButonText = new UIText("Cancel")
+                        {
+                            Top = { Pixels = -8f },
+                            Left = { Pixels = -1f }
+                        };
+                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                    }
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
@@ -166,6 +177,17 @@ namespace WeaponEnchantments
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = true;
                     wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus;
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus = 0;
+                    wePlayer.previousInfusedItemName = wePlayer.itemBeingEnchanted.G().infusedItemName;
+                    if (wePlayer.infusionConsumeItem != null && WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted))
+                    {
+                        wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+                        UIText infusionButonText = new UIText("Finalize")
+                        {
+                            Top = { Pixels = -8f },
+                            Left = { Pixels = -1f }
+                        };
+                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                    }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,

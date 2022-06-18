@@ -32,15 +32,15 @@ namespace WeaponEnchantments
         }
 		internal static bool IsWeaponItem(Item item)
 		{
-			return item != null && (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory && !item.IsAir;
+			return item != null && !item.IsAir && (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory;
 		}
 		internal static bool IsArmorItem(Item item)
 		{
-			return item != null && !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1) && !item.IsAir;
+			return item != null && !item.IsAir && !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
 		}
 		internal static bool IsAccessoryItem(Item item)
 		{
-			return item != null && item.accessory && !IsArmorItem(item) && !item.IsAir;
+			return item != null && !item.IsAir && item.accessory && !IsArmorItem(item);
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {
@@ -82,7 +82,9 @@ namespace WeaponEnchantments
 		{
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
+			public const byte Infusion = 2;
 		}
+		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
 		{
 			if(itemType > 0)
@@ -298,8 +300,7 @@ namespace WeaponEnchantments
 		public override void Load()
         {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-
-        }
+		}
 		public override void Unload()
 		{
 			return;
