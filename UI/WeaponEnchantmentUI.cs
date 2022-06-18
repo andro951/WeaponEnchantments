@@ -22,10 +22,9 @@ namespace WeaponEnchantments.UI
             public const int Count = 2;
         }//LootAll = 0, Offer = 1
         public static string[] ConfirmationButtonNames = new string[] { "Yes", "No" };
-        private UIText promptText;
+        public UIText promptText;
         private UIPanel[] confirmationButton = new UIPanel[ConfirmationButtonID.Count];
         private List<UIPanel> confirmationPanels;//PR
-        public static bool offered = false;
         private readonly static Color red = new Color(171, 76, 73);
         private readonly static Color hoverRed = new Color(184, 103, 100);
         private readonly static Color bgColor = new Color(73, 94, 171);//Background UI color
@@ -113,52 +112,68 @@ namespace WeaponEnchantments.UI
             state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
         }
-        private static void ConfirmOffer()
+        public static void ConfirmOffer(Item item = null, bool noOre = false)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            WEModSystem.promptInterface.SetState(null);
-            UIState state = new UIState();
-            state.Append(wePlayer.enchantingTableUI);
-            WEModSystem.weModSystemUI.SetState(state);
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); bool nonTableItem = false;
+            if (item == null)
+            {
+                WEModSystem.promptInterface.SetState(null);
+                UIState state = new UIState();
+                state.Append(wePlayer.enchantingTableUI);
+                WEModSystem.weModSystemUI.SetState(state);
+                item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            }
+            else
+                nonTableItem = true;
             bool stop = false;
-            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
-                int type = item.type;
-                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++)
                 {
-                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    if (!item.IsAir)
                     {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                        if (!nonTableItem)
+                        {
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                        }
+                        else
+                        {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
+                        }
                     }
-                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+                    if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
                 }//Take all enchantments first
                 if (!stop)
                 {
-                    int xp = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().experience;
-                    float value = wePlayer.enchantingTableUI.itemSlotUI[0].Item.value;
+                    int xp = item.GetGlobalItem<EnchantedItem>().experience;
+                    float value = item.value;
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
-                    int[] ores = { ItemID.GoldOre , ItemID.SilverOre, ItemID.IronOre};
-                    for (int i = 0; i < 3; i++) 
+                    if (!noOre)
                     {
-                        int orevalue = ContentSamples.ItemsByType[ores[i]].value;
-                        int stack;
-                        if (ores[i] > ItemID.IronOre)
-                            stack = (int)Math.Round(value * 0.8f / orevalue);
-                        else
-                            stack = (int)(value / orevalue);
-                        value -= stack * orevalue;
-                        if (ores[i] == ItemID.IronOre)
-                            stack++;
-                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+                        int[] ores = { ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+                        for (int i = 0; i < 3; i++)
+                        {
+                            int orevalue = ContentSamples.ItemsByType[ores[i]].value;
+                            int stack;
+                            if (ores[i] > ItemID.IronOre)
+                                stack = (int)Math.Round(value * 0.8f / orevalue);
+                            else
+                                stack = (int)(value / orevalue);
+                            value -= stack * orevalue;
+                            if (ores[i] == ItemID.IronOre)
+                                stack++;
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+                        }
                     }
-                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    if (item.G().powerBoosterInstalled)
                     {
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
                     }
-                    wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                    offered = true;
+                    if (!nonTableItem)
+                    {
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                    }
                     SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
@@ -196,7 +211,8 @@ namespace WeaponEnchantments.UI
             public const int xp4 = 4;//6
             public const int LevelUp = 7;
             public const int Syphon = 8;
-            public const int Count = 9;
+            public const int Infusion = 9;
+            public const int Count = 10;
             public static int[] xps = new int[] { xp0, xp1, xp2, xp3, xp4 };
         }//LootAll = 0, Offer = 1
         public class ItemSlotContext
@@ -217,7 +233,7 @@ namespace WeaponEnchantments.UI
         public static bool preventItenUse = false;
 
         private UIText titleText;//PR
-        private UIPanel[] button = new UIPanel[ButtonID.Count];//PR
+        public UIPanel[] button = new UIPanel[ButtonID.Count];//PR
         private List<UIPanel> panels;//PR
         public WEUIItemSlot[] itemSlotUI = new WEUIItemSlot[EnchantingTable.maxItems];//PR
         public WEUIItemSlot[] enchantmentSlotUI = new WEUIItemSlot[EnchantingTable.maxEnchantments];//PR
@@ -437,6 +453,27 @@ namespace WeaponEnchantments.UI
                 Append(button[ButtonID.Syphon]);
                 panels.Add(button[ButtonID.Syphon]);
 
+                //Infusion button
+                button[ButtonID.Infusion] = new UIPanel()
+                {
+                    Top = { Pixels = nextElementY + 35 },
+                    Left = { Pixels = -66f + 47.52f * 5 + 25 + xOffset },
+                    Width = { Pixels = 90f },
+                    Height = { Pixels = 30f },
+                    HAlign = 0.5f,
+                    BackgroundColor = bgColor
+                };
+                button[ButtonID.Infusion].OnClick += (evt, element) => { Infusion(); };
+                UIText infusionButonText = new UIText("Infusion")
+                {
+                    Top = { Pixels = -8f },
+                    Left = { Pixels = -1f }
+                };
+                //button[ButtonID.Infusion].OnMouseOver += (evt, element) => { Main.hoverItemName = "TestHover"; };
+                button[ButtonID.Infusion].Append(infusionButonText);
+                Append(button[ButtonID.Infusion]);
+                panels.Add(button[ButtonID.Infusion]);
+
                 nextElementY += 50;
                 float ratioFromCenter = 0.22f;
 
@@ -616,6 +653,59 @@ namespace WeaponEnchantments.UI
             }
             return xpInitial - xpNotConsumed;
         }
+        public static void Infusion()
+        {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            {
+                if(wePlayer.infusionConsumeItem == null)
+                {
+                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    {
+                        wePlayer.infusionConsumeItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                        UIText infusionButonText = new UIText("Cancel")
+                        {
+                            Top = { Pixels = -8f },
+                            Left = { Pixels = -1f }
+                        };
+                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                    }
+                    else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                        Main.NewText("Armor infusion not set up yet.  Coming soon.");
+                }
+                else
+                {
+                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    {
+                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
+                        {
+                            ConfirmationUI.ConfirmOffer(wePlayer.infusionConsumeItem, true);
+                            wePlayer.infusionConsumeItem = null;
+                            UIText infusionButonText = new UIText("Infusion")
+                            {
+                                Top = { Pixels = -8f },
+                                Left = { Pixels = -1f }
+                            };
+                            wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        }
+                    }
+                    else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                        Main.NewText("Armor infusion not set up yet.  Coming soon.");
+                }
+            }
+            else if(wePlayer.infusionConsumeItem != null)
+            {
+                wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
+                wePlayer.infusionConsumeItem = null;
+                UIText infusionButonText = new UIText("Infusion")
+                {
+                    Top = { Pixels = -8f },
+                    Left = { Pixels = -1f }
+                };
+                wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+            }
+        }
         public static void Syphon()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -663,13 +753,40 @@ namespace WeaponEnchantments.UI
                 }//Take item(s)
             }
         }//Loot all item(s) and enchantments from enchantment table (Not Essence)
-        private static void Offer()
+        private static void Offer(Item item = null, bool noOre = false)
         {
             if (WEModSystem.promptInterface.CurrentState == null)
             {
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
+                    /*foreach(UIElement element in (List<UIElement>)(wePlayer.confirmationUI.GetType().GetField("Elements").GetValue(wePlayer.confirmationUI)))
+                    {
+
+                    }*/
+                    /*List<UIElement> list = (List<UIElement>)(wePlayer.confirmationUI.GetType().GetField("Elements").GetValue(wePlayer.confirmationUI));
+                    if (list[0] is UIText uiText)
+                        uiText.SetText("test");*/
+                    //for(int i = 0; i < wePlayer.confirmationUI.Children.)
+
+
+
+                    /*foreach(UIElement uIElement in wePlayer.confirmationUI.Children)
+                    {
+                        if(uIElement is UIText)
+                            uIElement = new UIText("TEST! Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
+                            {
+                                Top = { Pixels = -wePlayer.confirmationUI.PaddingTop / 2 + 15 },
+                                Left = { Pixels = 70 },
+                                HAlign = 0.5f
+                            };//Confirmation label
+                    }
+                    wePlayer.confirmationUI.promptText = new UIText("TEST! Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
+                    {
+                        Top = { Pixels = -wePlayer.confirmationUI.PaddingTop / 2 + 15 },
+                        Left = { Pixels = 70 },
+                        HAlign = 0.5f
+                    };//Confirmation label*/
                     WEModSystem.weModSystemUI.SetState(null);
                     UIState state = new UIState();
                     state.Append(wePlayer.confirmationUI);

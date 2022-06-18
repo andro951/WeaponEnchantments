@@ -302,15 +302,24 @@ namespace WeaponEnchantments.Common.Globals
                             speed = 1f - 1f / speedMult;
                             //speedAdd = speedMult - 1f;
                         }
+                        if (projectile.usesLocalNPCImmunity)
+                        {
+                            if(NPCHitCooldownMultiplier > 1f)
+                            {
+                                projectile.usesIDStaticNPCImmunity = true;
+                                projectile.usesLocalNPCImmunity = false;
+                                projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                            }
+                            else
+                            {
+                                if (projectile.localNPCHitCooldown > 0)
+                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                            }
+                        }
                         if (projectile.usesIDStaticNPCImmunity)
                         {
                             if(projectile.idStaticNPCHitCooldown > 0)
                                 projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
-                        }
-                        if (projectile.usesLocalNPCImmunity)
-                        {
-                            if (projectile.localNPCHitCooldown > 0)
-                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         updated = true;
                     }

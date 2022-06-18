@@ -28,6 +28,9 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<int, int> debuffs;
         public Dictionary<int, int> onHitBuffs;
 
+        public string infusedItemName = "";
+        public int infusedPower = 0;
+        public float damageMultiplier = 1f;
         public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
@@ -87,6 +90,7 @@ namespace WeaponEnchantments.Common.Globals
                 if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 writer.Write(experience);
                 writer.Write(powerBoosterInstalled);
+                writer.Write(infusedItemName);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     writer.Write((short)enchantments[i].type);
@@ -124,6 +128,8 @@ namespace WeaponEnchantments.Common.Globals
                 if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 experience = reader.ReadInt32();
                 powerBoosterInstalled = reader.ReadBoolean();
+                infusedItemName = reader.ReadString();
+                item.TryGetGlotalItemStats(infusedItemName, out infusedPower, out damageMultiplier);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     enchantments[i] = new Item(reader.ReadUInt16());
@@ -282,6 +288,10 @@ namespace WeaponEnchantments.Common.Globals
                 if(UtilityMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
                 experience = tag.Get<int>("experience");//Load experience tag
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
+                infusedItemName = tag.Get<string>("infusedItemName");
+                infusedPower = tag.Get<int>("infusedPower");
+                damageMultiplier = tag.Get<float>("damageMultiplier");
+                item.UpdateInfusionDamage(damageMultiplier, false);
                 UpdateLevel();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
@@ -319,9 +329,13 @@ namespace WeaponEnchantments.Common.Globals
             }
             tag["experience"] = experience;//Save experience tag
             tag["powerBooster"] = powerBoosterInstalled;//save status of powerBoosterInstalled
+            tag["infusedItemName"] = infusedItemName;
+            tag["infusedPower"] = infusedPower;
+            tag["damageMultiplier"] = damageMultiplier;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            WEPlayer wePlayer = Main.LocalPlayer.G();
             bool enchantmentsToolTipAdded = false;
             bool enchantemntInstalled = false;
             UpdateLevel();
@@ -341,6 +355,17 @@ namespace WeaponEnchantments.Common.Globals
                     tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} Points available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
                 string levelString = levelBeforeBooster < maxLevel ? $" ({WEModSystem.levelXps[levelBeforeBooster] - experience} to next level)" : " (Max Level)";
                 tooltips.Add(new TooltipLine(Mod, "experience", $"Experience: {experience}{levelString}") { OverrideColor = Color.White });
+            }
+            if(infusedItemName != "")
+            {
+                tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", $"Item Power: {infusedPower} Infused Item: {infusedItemName}") { OverrideColor = Color.DarkRed });
+            }
+            if(inEnchantingTable && wePlayer.infusionConsumeItem != null)
+            {
+                if(WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(wePlayer.infusionConsumeItem))
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Item Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
+                else if (WEMod.IsArmorItem(item) && WEMod.IsArmorItem(wePlayer.infusionConsumeItem))
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Item Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {

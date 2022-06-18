@@ -73,6 +73,8 @@ namespace WeaponEnchantments
         public bool[] equipArmorStatsUpdated;
         public Item trackedWeapon;
         public Item hoverItem;
+        public Item infusionConsumeItem = null;
+        public string previousInfusedItemName = "";
         int hoverItemIndex = 0;
         int hoverItemChest = 0;
         public Item trashItem = new Item();
@@ -108,6 +110,7 @@ namespace WeaponEnchantments
         {
             //AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
+            InfusionManager.SetUpVanilla();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();
@@ -115,7 +118,6 @@ namespace WeaponEnchantments
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
 
-            Dictionary<string, List<int[]>> weaponsDict = GetItemDict(0);
 
             /*foreach(Mod mod in ModLoader.Mods)
             {
@@ -127,37 +129,6 @@ namespace WeaponEnchantments
                 foreach (Item item in mod)
             }*/
             if (UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
-        }
-        private static Dictionary<string, List<int[]>> GetItemDict(byte mode)
-        {
-            Dictionary<string, List<int[]>> itemsDict = new Dictionary<string, List<int[]>>();
-            string msg = "";
-            for(int itemType = 1; itemType < ItemLoader.ItemCount; itemType++)
-            {
-                Item item = new Item(itemType);
-                if (item != null)
-                {
-                    if(!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1)
-                    {
-                        string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
-                        if (mode == 0 && WEMod.IsWeaponItem(item) || mode == 1 && WEMod.IsArmorItem(item) || mode == 2 && WEMod.IsArmorItem(item))
-                        {
-                            msg += item.Name;
-                            int[] itemStats = { item.damage, item.value, item.rare };
-                            if (!itemsDict.ContainsKey(modName))
-                                itemsDict.Add(modName, new List<int[]>());
-                            itemsDict[modName].Add(itemStats);
-                            for (int i = 0; i < itemStats.Length; i++)
-                            {
-                                msg += $",{itemStats[i]}";
-                            }
-                            msg += "\n";
-                        }
-                    }
-                }
-            }
-            msg.Log();
-            return itemsDict;
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
         {
@@ -240,6 +211,7 @@ namespace WeaponEnchantments
                 int tempInt = enchantingTable.essenceItem[i].stack;
                 tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
             }
+            tag["infusionConsumeItem"] = infusionConsumeItem;
         }
         public override void LoadData(TagCompound tag)
         {
@@ -294,6 +266,9 @@ namespace WeaponEnchantments
                 string name = Player.name;
                 int tempInt = enchantingTable.essenceItem[i].stack;
             }
+            infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
+            if (infusionConsumeItem.IsAir)
+                infusionConsumeItem = null;
         }
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot)
         {

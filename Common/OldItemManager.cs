@@ -119,6 +119,7 @@ namespace WeaponEnchantments.Common
                                 if (Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
                                     ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
                             }
+                            item.TryGetGlotalItemStats();
                         }
                     }
                 }

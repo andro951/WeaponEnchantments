@@ -72,7 +72,7 @@ namespace WeaponEnchantments.Items
 
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
-		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.Orange };
+		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
@@ -307,7 +307,7 @@ namespace WeaponEnchantments.Items
 				{
 					if (pair.itemDefinition.Name == Name)
 					{
-						EnchantmentStrength = (float)(pair.Strength / 1000);
+						EnchantmentStrength = ((float)pair.Strength / 1000f);
 						foundIndividualStrength = true;
 					}
 				}

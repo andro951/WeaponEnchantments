@@ -82,7 +82,9 @@ namespace WeaponEnchantments
 		{
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
+			public const byte Infusion = 2;
 		}
+		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
 		{
 			if(itemType > 0)
@@ -298,8 +300,7 @@ namespace WeaponEnchantments
 		public override void Load()
         {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-
-        }
+		}
 		public override void Unload()
 		{
 			return;
