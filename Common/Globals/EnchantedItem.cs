@@ -90,7 +90,10 @@ namespace WeaponEnchantments.Common.Globals
                 if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 writer.Write(experience);
                 writer.Write(powerBoosterInstalled);
-                writer.Write(infusedItemName);
+                bool noName = infusedItemName == "";
+                writer.Write(noName);
+                if(!noName)
+                    writer.Write(infusedItemName);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     writer.Write((short)enchantments[i].type);
@@ -128,7 +131,11 @@ namespace WeaponEnchantments.Common.Globals
                 if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 experience = reader.ReadInt32();
                 powerBoosterInstalled = reader.ReadBoolean();
-                infusedItemName = reader.ReadString();
+                bool noName = reader.ReadBoolean();
+                if (!noName)
+                    infusedItemName = reader.ReadString();
+                else
+                    infusedItemName = "";
                 item.TryGetGlotalItemStats(infusedItemName, out infusedPower, out damageMultiplier);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {

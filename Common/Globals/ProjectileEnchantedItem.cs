@@ -455,7 +455,7 @@ namespace WeaponEnchantments.Common.Globals
                                         }
                                     }
                                 }*/
-                                found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
+                                found = UtilityMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
                                 if (found)
                                 {
                                     sourceItem = inventory[inventoryLocation];
