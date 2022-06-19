@@ -224,16 +224,23 @@ namespace WeaponEnchantments.Common
         {
             if(damageMultiplier != 1f || item.G().statModifiers.ContainsKey("damage"))
             {
-                if (item.G().statModifiers.ContainsKey("damage"))
+                if(damageMultiplier > 0f)
                 {
-                    item.G().statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
+                    if (item.G().statModifiers.ContainsKey("damage"))
+                    {
+                        item.G().statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
+                    }
+                    else
+                    {
+                        item.G().statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
+                    }
+                    if (updateStats)
+                        Main.LocalPlayer.G().UpdateItemStats(ref item);
                 }
                 else
                 {
-                    item.G().statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
+                    ($"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951").Log();
                 }
-                if (updateStats)
-                    Main.LocalPlayer.G().UpdateItemStats(ref item);
             }
         }
     }
