@@ -66,11 +66,16 @@ namespace WeaponEnchantments.Common.Configs
         public int BossEssenceMultiplier;
 
         [Label("Non-Boss Essence Multiplier(%)")]
-        [Tooltip("Modify the ammount of essence recieved by non-boss enemies.")] 
+        [Tooltip("Modify the ammount of essence recieved by non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         [ReloadRequired]
         public int EssenceMultiplier;
+
+        [Label("Automatically send essence to UI")]
+        [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
+        [DefaultValue(false)]
+        public bool teleportEssence;
 
         [Label("Boss Experience Multiplier(%)")]
         [Tooltip("Modify the ammount of experience recieved by bosses.")]

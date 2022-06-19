@@ -420,7 +420,7 @@ namespace WeaponEnchantments
                 }
             }
         }
-        internal static void CloseWeaponEnchantmentUI()//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
+        internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if(wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
@@ -438,7 +438,7 @@ namespace WeaponEnchantments
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {
-                SoundEngine.PlaySound(SoundID.MenuClose);
+                if (!noSound) SoundEngine.PlaySound(SoundID.MenuClose);
             }
             wePlayer.enchantingTable.Close();
             //wePlayer.enchantingTableUI.OnDeactivate();//Store items left in enchanting table to player
@@ -449,11 +449,11 @@ namespace WeaponEnchantments
             }//PR
             ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
         }
-        internal static void OpenWeaponEnchantmentUI()
+        internal static void OpenWeaponEnchantmentUI(bool noSound = false)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = true;
-            SoundEngine.PlaySound(SoundID.MenuOpen);
+            if(!noSound) SoundEngine.PlaySound(SoundID.MenuOpen);
 
             if (WeaponEnchantmentUI.PR)
             {

@@ -202,7 +202,8 @@ namespace WeaponEnchantments.Common.Globals
                     chance = WEMod.config.BossEnchantmentDropChance;
                     break;
             }
-            return chance;
+            chance /= 100f;
+            return chance < 1f ? chance : 1f;
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
@@ -265,8 +266,8 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
-                        float mult = WEMod.config.EnchantmentDropChance;
-                        int defaultDenom = (int)(500 * hp * mult / (total * 1));
+                        float mult = WEMod.config.EnchantmentDropChance / 100f;
+                        int defaultDenom = (int)((5000 + hp * 5) * mult / (total * 1));
                         int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
                         {

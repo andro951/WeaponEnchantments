@@ -400,10 +400,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }//Edit Tooltips
         }
-        public void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
+        public static void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
-            int useTime = item.useTime;
-            int animationSpeed = item.useAnimation;
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             float value;
             switch (Main.netMode)
@@ -424,8 +422,8 @@ namespace WeaponEnchantments.Common.Globals
                 float effDamageDenom;
                 float xp;
                 multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.config.BossExperienceMultiplier/400f : WEMod.config.BossExperienceMultiplier/100f);
-                effDamage = (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f);
-                float actualDefence = target.defense / 2f - target.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
+                effDamage = item != null ? (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f) : damage;
+                float actualDefence = target.defense / 2f - (item != null ? target.checkArmorPenetration(player.GetWeaponArmorPenetration(item)) : 0f);
                 float actualDamage = melee ? damage : damage - actualDefence;
                 actualDamage = crit && !melee ? actualDamage * 2 : actualDamage;
                 xpDamage = target.life < 0 ? (int)actualDamage + target.life : (int)actualDamage;
@@ -439,11 +437,11 @@ namespace WeaponEnchantments.Common.Globals
                     xp /= UtilityMethods.GetReductionFactor((int)target.lifeMax);
                     xpInt = (int)Math.Round(xp);
                     xpInt = xpInt > 1 ? xpInt : 1;
-                    if (!item.consumable)
+                    if (item != null && !item.IsAir && !item.consumable)
                     {
                         //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from hitting " + target.FullName + ".");
                         //Main.NewText(wePlayer.Player.name + " recieved " + xpInt.ToString() + " xp from killing " + target.FullName + ".");
-                        GainXP(item, xpInt);
+                        item.G().GainXP(item, xpInt);
                     }
                     AllArmorGainXp(xpInt);
                 }

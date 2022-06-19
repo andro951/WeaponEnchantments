@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items
 {
@@ -95,7 +96,7 @@ namespace WeaponEnchantments.Items
 				}
 			}
 		}
-	}
+    }
 	public class EnchantmentEssenceCommon : EnchantmentEssenceBasic { }
 	public class EnchantmentEssenceRare : EnchantmentEssenceBasic { }
 	public class EnchantmentEssenceSuperRare : EnchantmentEssenceBasic { }

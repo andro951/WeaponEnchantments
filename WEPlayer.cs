@@ -88,6 +88,7 @@ namespace WeaponEnchantments
         public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
+
         //public Dictionary<string, int> boolPreventedFields = new Dictionary<string, int>();
         //public Dictionary<string, int> boolFields = new Dictionary<string, int>();
         //public Dictionary<string, StaticStatStruct> staticStats = new Dictionary<string, StaticStatStruct>();
@@ -117,7 +118,6 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-
 
             /*foreach(Mod mod in ModLoader.Mods)
             {

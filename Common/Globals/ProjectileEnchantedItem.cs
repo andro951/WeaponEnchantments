@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Common.Globals
         private bool updated = false;
         public float damageBonus = 1f;
         public double cooldownEnd = 0;
-        public float[] lastAIValue = new float[] {0f, 0f};
+        public float[] lastAIValue = new float[] { 0f, 0f };
         //public float totalSpeedBonus;
         public Projectile parent = null;
         public bool skipOnHitEffects = false;
@@ -27,8 +27,8 @@ namespace WeaponEnchantments.Common.Globals
         //float speedCarryover = 0f;
         float speed;
         public bool[] spawnedChild = { false, false };
-        float[] spawnChildValue = { 0f, 0f};
-        float[] nextValueAfterChild = { 0f, 0f};
+        float[] spawnChildValue = { 0f, 0f };
+        float[] nextValueAfterChild = { 0f, 0f };
         public bool[] finishedObservationPeriod = { false, false };
         int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
@@ -70,41 +70,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile)
                 {
-                    if (parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
-                    {
-                        sourceItem = parentProjectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-                        sourceSet = true;
-                        parent = parentProjectile;
-                        cooldownEnd = parent.G().cooldownEnd;
-                        //if(parent.G().speedAdd != 0f)
-                        {
-                            for (int i = 0; i < 2; i++)
-                            {
-                                if (parent.G().positiveSet[i])
-                                {
-                                    parent.G().spawnedChild[i] = true;
-                                }
-                                else
-                                {
-                                    float lastAIValue = parent.G().lastAIValue[i];
-                                    float ai = parent.ai[i];
-                                    double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
-                                    if (difference > 4)
-                                    {
-                                        parent.G().spawnedChild[i] = true;
-                                        parent.G().spawnChildValue[i] = lastAIValue;
-                                        parent.G().nextValueAfterChild[i] = ai;
-                                    }
-                                }
-                                if(UtilityMethods.debugging)
-                                {
-                                    string txt = $"parent: {parent.S()} spanedChild at ai values:";
-                                    txt += $" parent.ai[{i}]: {parent.ai[i]} parent.G().lastAIValue[{i}]: {parent.G().lastAIValue[i]}";
-                                    txt.Log();
-                                }
-                            }
-                        }
-                    }
+                    parent = parentProjectile;
+                    TryUpdateFromParent();
                 }
                 else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
                 {
@@ -143,6 +110,44 @@ namespace WeaponEnchantments.Common.Globals
                 if (UtilityMethods.PC("InfinitePenetration"))
                 {
                     projectile.penetrate = -1;
+                }
+            }
+        }
+        private void TryUpdateFromParent()
+        {
+            playerSource = parent.G().playerSource;
+            if (parent.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
+            {
+                sourceItem = parent.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                sourceSet = true;
+                cooldownEnd = parent.G().cooldownEnd;
+                //if(parent.G().speedAdd != 0f)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (parent.G().positiveSet[i])
+                        {
+                            parent.G().spawnedChild[i] = true;
+                        }
+                        else
+                        {
+                            float lastAIValue = parent.G().lastAIValue[i];
+                            float ai = parent.ai[i];
+                            double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
+                            if (difference > 4)
+                            {
+                                parent.G().spawnedChild[i] = true;
+                                parent.G().spawnChildValue[i] = lastAIValue;
+                                parent.G().nextValueAfterChild[i] = ai;
+                            }
+                        }
+                        if (UtilityMethods.debugging)
+                        {
+                            string txt = $"parent: {parent.S()} spanedChild at ai values:";
+                            txt += $" parent.ai[{i}]: {parent.ai[i]} parent.G().lastAIValue[{i}]: {parent.G().lastAIValue[i]}";
+                            txt.Log();
+                        }
+                    }
                 }
             }
         }
@@ -324,6 +329,10 @@ namespace WeaponEnchantments.Common.Globals
                         updated = true;
                     }
                 }
+                else if(parent != null)
+                {
+                    TryUpdateFromParent();
+                }
             }
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
@@ -474,8 +483,11 @@ namespace WeaponEnchantments.Common.Globals
                             lastInventoryLocation = -1;//Item not found
                         }
                     }//If summoner weapon, verify it's location or search for it
-                    Player player = Main.player[projectile.owner];
-                    sourceItem.GetGlobalItem<EnchantedItem>().DamageNPC(sourceItem, player, target, damage, crit);
+                    EnchantedItem.DamageNPC(sourceItem, Main.player[projectile.owner], target, damage, crit);
+                }
+                else if(playerSource != null)
+                {
+                    EnchantedItem.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
                 }
                 if (sourceSet && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                 {

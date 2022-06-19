@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
+using WeaponEnchantments.Items;
+
+namespace WeaponEnchantments.Common.Globals
+{
+    public class EnchantmentEssenceGlobal : GlobalItem
+    {
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
+        {
+            if(entity.ModItem != null)
+            {
+                if (entity.ModItem is EnchantmentEssenceBasic)
+                    return true;
+            }
+            return false;
+        }
+        public override void UpdateInventory(Item item, Player player)
+        {
+            WEPlayer wePlayer = player.G();
+            EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
+            if (WEMod.config.teleportEssence && !wePlayer.usingEnchantingTable)
+            {
+                if (item.stack + wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack < item.maxStack)
+                {
+                    if (wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack < 1)
+                        wePlayer.enchantingTable.essenceItem[modItem.essenceRarity] = new Item(ModContent.ItemType<EnchantmentEssenceBasic>() + modItem.essenceRarity, item.stack);
+                    else
+                        wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack += item.stack;
+                    item.stack = 0;
+                    
+                }
+            }
+        }
+    }
+}

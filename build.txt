@@ -1,4 +1,5 @@
 displayName = Weapon Enchantments (Beta)
 author = andro951
-version = 0.2.0.5
+version = 0.2.0.6
 sortAfter = RecursiveCraft
+weakReferences = JoJoStands@2.3.2
