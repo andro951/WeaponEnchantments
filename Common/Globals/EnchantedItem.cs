@@ -298,6 +298,8 @@ namespace WeaponEnchantments.Common.Globals
                 infusedItemName = tag.Get<string>("infusedItemName");
                 infusedPower = tag.Get<int>("infusedPower");
                 damageMultiplier = tag.Get<float>("damageMultiplier");
+                if (damageMultiplier == 0f)
+                    damageMultiplier = 1f;
                 item.UpdateInfusionDamage(damageMultiplier, false);
                 UpdateLevel();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)

@@ -210,14 +210,13 @@ namespace WeaponEnchantments.Common
                 if (type > 0)
                 {
                     GetGlotalItemStats(item, new Item(type), out infusedPower, out damageMultiplier);
-
                     item.UpdateInfusionDamage(damageMultiplier, false);
                     return true;
                 }
             }
             infusedPower = 0;
             damageMultiplier = 1f;
-            item.UpdateInfusionDamage(damageMultiplier);
+            item.UpdateInfusionDamage(damageMultiplier, false);
             return false;
         }
         public static void UpdateInfusionDamage(this Item item, float damageMultiplier, bool updateStats = true)
