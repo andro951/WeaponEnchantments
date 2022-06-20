@@ -586,10 +586,12 @@ namespace WeaponEnchantments.Common.Globals
                     damage += damageReduction;
 
                     bool makingPacket = false;
-                    ModPacket packet = ModContent.GetInstance<WEMod>().GetPacket();
+
+                    ModPacket packet = null;
                     bool[] onHitEffects = new bool[OnHitEffectID.Count];
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                     {
+                        packet = ModContent.GetInstance<WEMod>().GetPacket();
                         makingPacket = true;
                         packet.Write(WEMod.PacketIDs.OnHitEffects);
                         packet.Write(npc.whoAmI);
