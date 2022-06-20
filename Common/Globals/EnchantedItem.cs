@@ -402,6 +402,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
+            if(UtilityMethods.debugging) ($"\\/DamageNPC").Log();
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             float value;
             switch (Main.netMode)
@@ -446,6 +447,7 @@ namespace WeaponEnchantments.Common.Globals
                     AllArmorGainXp(xpInt);
                 }
             }
+            if (UtilityMethods.debugging) ($"/\\DamageNPC").Log();
         }
         public static void AllArmorGainXp(int xp)
         {

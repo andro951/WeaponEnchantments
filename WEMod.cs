@@ -11,6 +11,7 @@ using Terraria.ModLoader.IO;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Items;
 
 
@@ -83,7 +84,7 @@ namespace WeaponEnchantments
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
 			public const byte Infusion = 2;
-			public const byte GodSlayer = 3;
+			public const byte OnHitEffects = 3;
 		}
 		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
@@ -99,15 +100,6 @@ namespace WeaponEnchantments
 				packet.Write(itemType);
 				packet.Send();
 			}
-		}
-		public void SendGodSlayerPacket(int npcWhoAmI, int damage, bool crit)
-        {
-			ModPacket packet = GetPacket();
-			packet.Write(PacketIDs.GodSlayer);
-			packet.Write(npcWhoAmI);
-			packet.Write(damage);
-			packet.Write(crit);
-			packet.Send();
 		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
@@ -220,14 +212,55 @@ namespace WeaponEnchantments
 					short enchantmentType = reader.ReadInt16();
 					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);*/
 					break;
-				case PacketIDs.GodSlayer:
+				case PacketIDs.OnHitEffects:
 					int npcWhoAmI = reader.ReadInt32();
-					int godSlayerDamage = reader.ReadInt32();
+					int damage = reader.ReadInt32();
 					bool crit = reader.ReadBoolean();
-                    if (Main.npc[npcWhoAmI].active)
+					if(UtilityMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
+					for (int i = 0; i < OnHitEffectID.Count; i++)
                     {
-						Main.npc[npcWhoAmI].StrikeNPC(godSlayerDamage, 0, 0, crit);
+						bool applyEffect = reader.ReadBoolean();
+                        if (applyEffect)
+                        {
+                            switch (i)
+                            {
+								case OnHitEffectID.GodSlayer:
+									int godSlayerDamage = reader.ReadInt32();
+									WEGlobalNPC.StrikeNPC(npcWhoAmI, godSlayerDamage, crit);
+									break;
+								case OnHitEffectID.OneForAll:
+									int oneForAllWhoAmIsCount = reader.ReadInt32();
+									for (int j = 0; j < oneForAllWhoAmIsCount; j++)
+                                    {
+										int oneForAllWhoAmI = reader.ReadInt32();
+										int oneForAllDamages = reader.ReadInt32();
+										WEGlobalNPC.StrikeNPC(oneForAllWhoAmI, oneForAllDamages, crit);
+									}
+									break;
+								case OnHitEffectID.Amaterasu:
+									float amaterasuItemStrength = reader.ReadSingle();
+									if (Main.npc[npcWhoAmI].G().amaterasuStrength == 0f)
+										Main.npc[npcWhoAmI].G().amaterasuStrength = amaterasuItemStrength;
+									Main.npc[npcWhoAmI].G().amaterasuDamage += damage * (crit ? 2 : 1);
+									/*int debuffsCount = reader.ReadInt32();
+									;
+									for (int j = 0; j < debuffsCount; j++)
+                                    {
+										int debuff = reader.ReadInt32();
+										int time = reader.ReadInt32();
+										if(debuff == ModContent.BuffType<AmaterasuDebuff>())
+                                        {
+											float amaterasuItemStrength = reader.ReadSingle();
+											if (Main.npc[npcWhoAmI].G().amaterasuStrength == 0f)
+												Main.npc[npcWhoAmI].G().amaterasuStrength = amaterasuItemStrength;
+										}
+										Main.npc[npcWhoAmI].AddBuff(debuff, time);
+									}*/
+									break;
+							}
+                        }
 					}
+					if (UtilityMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					break;
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");

@@ -13,7 +13,6 @@ namespace WeaponEnchantments.Debuffs
 {
     public class AmaterasuDebuff : ModBuff
     {
-        private int damage = 60;
         int[] notImmuneBuffs = new int[] {BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
         public override void SetStaticDefaults()
         {
@@ -24,12 +23,6 @@ namespace WeaponEnchantments.Debuffs
         {
             foreach (int notImmuneBuff in notImmuneBuffs)
                 npc.buffImmune[notImmuneBuff] = false;
-            int buffTime = npc.buffTime[buffIndex];
-            if (buffTime > -1)
-            {
-                npc.G().amaterasuDamage += buffTime;
-                npc.buffTime[buffIndex] = -1;
-            }
             //npc.G().amaterasuDamage += damage;
             //Make not immune to the other buffs that WorldAblaze applies
         }
