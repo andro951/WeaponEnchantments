@@ -83,6 +83,7 @@ namespace WeaponEnchantments
 			public const byte TransferGlobalItemFields = 0;
 			public const byte Enchantment = 1;
 			public const byte Infusion = 2;
+			public const byte GodSlayer = 3;
 		}
 		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
@@ -98,6 +99,15 @@ namespace WeaponEnchantments
 				packet.Write(itemType);
 				packet.Send();
 			}
+		}
+		public void SendGodSlayerPacket(int npcWhoAmI, int damage, bool crit)
+        {
+			ModPacket packet = GetPacket();
+			packet.Write(PacketIDs.GodSlayer);
+			packet.Write(npcWhoAmI);
+			packet.Write(damage);
+			packet.Write(crit);
+			packet.Send();
 		}
 		public void SendPacket(byte type, Item newItem, Item oldItem, bool weapon = true, byte armorSlot = 0)
         {
@@ -209,6 +219,15 @@ namespace WeaponEnchantments
 					byte i = reader.ReadByte();
 					short enchantmentType = reader.ReadInt16();
 					Main.item[itemWhoAmI].G().enchantments[i] = new Item(enchantmentType);*/
+					break;
+				case PacketIDs.GodSlayer:
+					int npcWhoAmI = reader.ReadInt32();
+					int godSlayerDamage = reader.ReadInt32();
+					bool crit = reader.ReadBoolean();
+                    if (Main.npc[npcWhoAmI].active)
+                    {
+						Main.npc[npcWhoAmI].StrikeNPC(godSlayerDamage, 0, 0, crit);
+					}
 					break;
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");

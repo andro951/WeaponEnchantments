@@ -84,6 +84,7 @@ namespace WeaponEnchantments.Common.Globals
                     playerSourceSet = true;
                 }
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+                if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
             }
             if(sourceSet)
             {
