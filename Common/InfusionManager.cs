@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Common
                 averageValues[i] = (float)total[i]/(float)count[i];
                 msg += $"rarity: {i} average: {averageValues[i]} min: {minValues[i]} max: {maxValues[i]}\n";
             }
-            msg.Log();
+            //msg.Log();
         }
         private static Dictionary<string, List<int[]>> GetItemDict(byte mode)
         {

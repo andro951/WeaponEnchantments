@@ -601,7 +601,6 @@ namespace WeaponEnchantments.Common.Globals
                     Dictionary<string, StatModifier> ItemEStats = item.G().eStats;
                     if (!skipOnHitEffects)
                     {
-                        ($"AmaterasuDebuff: {item.G().debuffs.S(ModContent.BuffType<AmaterasuDebuff>())}").Log();
                         foreach (int debuff in item.G().debuffs.Keys)
                         {
                             if(debuff == ModContent.BuffType<AmaterasuDebuff>())

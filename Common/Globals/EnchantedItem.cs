@@ -367,14 +367,18 @@ namespace WeaponEnchantments.Common.Globals
             }
             if(infusedItemName != "")
             {
-                tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", $"Item Power: {infusedPower} Infused Item: {infusedItemName}") { OverrideColor = Color.DarkRed });
+                tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", $"Infusion Power: {infusedPower} Infused Item: {infusedItemName}") { OverrideColor = Color.DarkRed });
+            }
+            else if (wePlayer.usingEnchantingTable && WEMod.IsWeaponItem(item))
+            {
+                tooltips.Add(new TooltipLine(Mod, "infusionPowerTooltip", $"Infusion Power: {item.GetInfusionPower()}") { OverrideColor = Color.DarkRed });
             }
             if(inEnchantingTable && wePlayer.infusionConsumeItem != null)
             {
                 if(WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(wePlayer.infusionConsumeItem))
-                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Item Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
                 else if (WEMod.IsArmorItem(item) && WEMod.IsArmorItem(wePlayer.infusionConsumeItem))
-                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Item Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
