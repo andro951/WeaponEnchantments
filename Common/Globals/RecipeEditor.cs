@@ -125,7 +125,7 @@ namespace WeaponEnchantments.Common.Globals
 						if (arrItem.ModItem is AllForOneEnchantmentBasic)
 						{
 							int size = ((AllForOneEnchantmentBasic)arrItem.ModItem).EnchantmentSize;
-							if (size < 3)
+							if (size < 2)
 							{
 								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
 							}
