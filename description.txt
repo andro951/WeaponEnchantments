@@ -98,6 +98,25 @@ Extra information:
             100% of item experience converted to Essence when offering items.
 
         Syphon - Allows you to convert experience from a weapon that is level 40 into essence (Does not consume the weapon.  Only converts excess experience to essence.)
+        Infusion - Allows you to consume high rarity items to upgrade the damage of low rarity weapons.  Example, if you like Veilthorn more than your newer/stronger
+                   weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.  The damage bonus is based on the difference in
+                   rarity and value between the 2 items.  Terraria has 10 rarities of vanilla weapons, so I based the system off of those.  (modded items can be rarity
+                   11 which will cause their Infusion Power to be the same as the max value rarity 10 items (1100).  
+        Infusion Power - A weapon stat that is determined by an item's rarity and value.  100 Infusion Power per rarity (rarity x100).  Additionally, the item's rarity
+                         will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.  
+                         (Example: items of rarity 0 have an average value of about 3000 copper (30 silver).  The lowest value item is worth 100 copper.  This 100
+                         copper item would have an infusion power of 0.  A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.  
+                         The max value rarity 0 item would have 100 infusion power.  The min, max and average values are calculated based only on vanilla items.
+                         Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation.  
+                         Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value 
+                         of rarity 10 weapons.
+         How to Infuse - 
+                 Place the higher Infusion Power item into the enchanting table (this item will be destroyed)
+                 Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
+                 Place the lower Infusion Power item into the enchanting table
+                 Click Finalize (Same button as Infusion/Cancel
+                 Note - The consumed item is Offered just like with the Offer button.  The only difference is you will not get ore, but you will get all of the
+                        enchantments/experience as essence/power booster back.
 
 Please give me your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
