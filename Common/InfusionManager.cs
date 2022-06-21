@@ -79,6 +79,7 @@ namespace WeaponEnchantments.Common
             float valueMultiplier = 0.5f;
             int rarity = sampleItem.rare;
             if(rarity > 10) rarity = 10;
+            else if(rarity < 0) rarity = 0;
             int value = sampleItem.value;
             float averageValue = averageValues[rarity];
             float combinedRarity;
