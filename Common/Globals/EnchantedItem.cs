@@ -31,6 +31,7 @@ namespace WeaponEnchantments.Common.Globals
         public string infusedItemName = "";
         public int infusedPower = 0;
         public float damageMultiplier = 1f;
+        public int infusionValueAdded = 0;
         public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
@@ -221,7 +222,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
                 int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
-                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue : 0;
+                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue + infusionValueAdded : 0;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
             }
