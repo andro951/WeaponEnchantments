@@ -295,6 +295,10 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Moonlight:
 					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
 					break;
+				case EnchantmentTypeID.War:
+				case EnchantmentTypeID.Peace:
+					scalePercent = -1f;
+					break;
 				default:
 					scalePercent = 1f;
 					break;
@@ -326,7 +330,12 @@ namespace WeaponEnchantments.Items
                 {
 					multiplier = WEMod.config.presetData.recomendedStrengthMultiplier / 100f;
 					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
-					EnchantmentStrength = (1f - scalePercent) * defaultStrength + defaultStrength * multiplier * scalePercent;
+					float scale = Math.Abs(scalePercent);
+					if(scalePercent < 0f && multiplier < 1f)
+						EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
+					else
+						EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
+
 				}//Recomended
 			}//Strength Multipliers
 			EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 4);
