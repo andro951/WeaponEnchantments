@@ -128,8 +128,7 @@ namespace WeaponEnchantments.Common
                     else
                         failedItemFind = true;
                 }
-                Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
-                if (sampleItem.rare < consumedItem.rare || reset)
+                if (item.GetInfusionPower() < consumedItem.GetInfusionPower() || reset)
                 {
                     int infusedPower;
                     float damageMultiplier;
@@ -156,8 +155,8 @@ namespace WeaponEnchantments.Common
                             item.G().infusedPower = infusedPower;
                             item.G().damageMultiplier = damageMultiplier;
                             item.G().infusedItemName = consumedItemName;
-                            item.value += ContentSamples.ItemsByType[consumedItem.type].value - sampleItem.value;
-                            item.rare = consumedItem.rare;
+                            int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
+                            item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
                         return true;
                     }
