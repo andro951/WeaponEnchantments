@@ -988,7 +988,7 @@ namespace WeaponEnchantments.Items
 			int multiplier = 2;
 			if(Utility)
 				multiplier = 1;
-			if (Unique || DamageClassSpecific > 0 || RestrictedClass > 0)
+			if (Unique || DamageClassSpecific > 0 || RestrictedClass > 0 || Max1)
 				multiplier = 3;
 			return (1 + EnchantmentSize) * multiplier;
             /*switch ((EnchantmentTypeID)EnchantmentType)
