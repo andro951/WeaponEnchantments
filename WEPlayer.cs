@@ -734,17 +734,6 @@ namespace WeaponEnchantments
                         equipArmor[j] = armor;
                     }
                 }
-                bool updatePlayerStat = false;
-                foreach (string key in statModifiers.Keys)
-                {
-                    if (Player.GetType().GetField(key) != null)
-                    {
-                        appliedStatModifiers.Remove(key);
-                        updatePlayerStat = true;
-                    }
-                }
-                if (updatePlayerStat)
-                    UpdatePlayerStat();
             }
             foreach (int key in buffs.Keys)
             {
@@ -877,7 +866,7 @@ namespace WeaponEnchantments
         }
         private void UpdatePlayerStat()
         {
-            if(UtilityMethods.debugging) ($"\\/UpdatePlayerStat()").LogT();
+            if(UtilityMethods.debugging) ($"\\/UpdatePlayerStat()").Log();
             /*foreach (string key in item.G().appliedStatModifiers.Keys)
                 {
                     if (!combinedStatModifiers.ContainsKey(key))
@@ -949,7 +938,7 @@ namespace WeaponEnchantments
                     }
                 }
             }
-            if(UtilityMethods.debugging) ($"/\\UpdatePlayerStat()").LogT();
+            if(UtilityMethods.debugging) ($"/\\UpdatePlayerStat()").Log();
         }
         private void UpdatePlayerDictionaries(Item item, bool remove = false)
         {
@@ -1167,6 +1156,22 @@ namespace WeaponEnchantments
                     }
                 }
             }
+        }
+        public override void ResetEffects()
+        {
+            int temp1 = Player.maxMinions;
+            bool updatePlayerStat = false;
+            foreach (string key in statModifiers.Keys)
+            {
+                if (Player.GetType().GetField(key) != null)
+                {
+                    appliedStatModifiers.Remove(key);
+                    updatePlayerStat = true;
+                }
+            }
+            if (updatePlayerStat)
+                UpdatePlayerStat();
+            temp1 = Player.maxMinions;
         }
     }
 }

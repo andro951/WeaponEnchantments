@@ -276,7 +276,8 @@ namespace WeaponEnchantments.Common
         }
         public static void RoundCheck(this StatModifier statModifier, ref float value, int baseValue, StatModifier appliedStatModifier, int contentSample)
         {
-            if(value > baseValue)
+            if(UtilityMethods.debugging) ($"\\/RoundCheck").Log();
+            if (value > baseValue)
             {
                 float checkValue = (float)((int)value + 1) * 1f / statModifier.ApplyTo(1f);
                 if ((int)Math.Round(checkValue) == baseValue)
@@ -286,6 +287,7 @@ namespace WeaponEnchantments.Common
                         value += 0.5f;
                 }
             }
+            if (UtilityMethods.debugging) ($"/\\RoundCheck").Log();
         }
         public static float GetReductionFactor(int hp)
         {

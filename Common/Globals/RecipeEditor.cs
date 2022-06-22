@@ -61,7 +61,7 @@ namespace WeaponEnchantments.Common.Globals
 									{
 										if (uniqueItemSlot == -1)
 										{
-											if (enchantment.Utility && miGlobal.enchantments[4].IsAir)
+											if (enchantment.Utility && miGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(Main.mouseItem) || WEMod.IsArmorItem(Main.mouseItem)))
 											{
 												miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
 											}

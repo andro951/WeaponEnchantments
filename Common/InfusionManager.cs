@@ -12,11 +12,13 @@ namespace WeaponEnchantments.Common
 {
     public static class InfusionManager
     {
-        public const int numRarities = 11;
+        public const int numVanillaWeaponRarities = 11;
+        public const int numRarities = 17;
         public static float[] averageValues = new float[numRarities];
         public static int[] minValues = new int[numRarities];
         public static int[] maxValues = new int[numRarities];
         public const float rarityMultiplier = 1.25f;
+        public const float minMaxValueMultiplier = 0.25f;
 
         public static void SetUpVanilla()
         {
@@ -33,6 +35,15 @@ namespace WeaponEnchantments.Common
                     minValues[rarity] = value;
                 if(maxValues[rarity] < value)
                     maxValues[rarity] = value;
+            }
+            for(int i = numVanillaWeaponRarities; i < numRarities; i++)
+            {
+                if (i == 16)
+                    averageValues[i] = 2000000;
+                else
+                    averageValues[i] = 1100000 + 100000 * i;
+                minValues[i] = (int)((1f - minMaxValueMultiplier) * averageValues[i]);
+                maxValues[i] = (int)((1f + minMaxValueMultiplier) * averageValues[i]);
             }
             string msg = "";
             for(int i = 0; i < numRarities; i++)
@@ -78,7 +89,7 @@ namespace WeaponEnchantments.Common
             Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
             float valueMultiplier = 0.5f;
             int rarity = sampleItem.rare;
-            if(rarity > 10) rarity = 10;
+            if(rarity > numRarities - 1) rarity = numRarities - 1;
             else if(rarity < 0) rarity = 0;
             int value = sampleItem.value;
             float averageValue = averageValues[rarity];

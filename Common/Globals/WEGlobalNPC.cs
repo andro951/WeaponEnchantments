@@ -85,7 +85,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.QueenBee when !bossBag:
                 case ItemID.QueenBeeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<MaxMinionsEnchantmentBasic>());
                     break;
                 case NPCID.SkeletronHead when !bossBag:
                 case ItemID.SkeletronBossBag when bossBag:
@@ -134,7 +134,7 @@ namespace WeaponEnchantments.Common.Globals
 
                     break;
                 case NPCID.CultistBoss when !bossBag:
-                case ItemID.CultistBossBag when bossBag:
+                case ItemID.CultistBossBag when bossBag://Unobtainable
                     itemTypes.Add(ModContent.ItemType<MoonlightEnchantmentBasic>());
                     break;
                 case NPCID.MoonLordCore when !bossBag:
@@ -275,7 +275,8 @@ namespace WeaponEnchantments.Common.Globals
                     else
                     {
                         float mult = WEMod.config.EnchantmentDropChance / 100f;
-                        int defaultDenom = (int)((5000 + hp * 5) * mult / (total * 1));
+                        int defaultDenom = (int)((5000 + hp * 5)  / (total * mult));
+                        if(defaultDenom < 1) defaultDenom = 1;
                         int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
                         {
@@ -347,7 +348,7 @@ namespace WeaponEnchantments.Common.Globals
 
                                 break;
                             case 40://Spider
-
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MaxMinionsEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
                             case 41://Derpling - Blue jungle bug
 
@@ -361,7 +362,7 @@ namespace WeaponEnchantments.Common.Globals
                             case 55://Creeper Brain of Cthulhu minions
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
-                            case 56://Dungeon Spirit - 1 hit kill dungion skulls
+                            case 56://Dungeon Guardians
 
                                 break;
                             case 62://Elf Copter
@@ -773,20 +774,23 @@ namespace WeaponEnchantments.Common.Globals
             // = from entry in npcs.Values ascending select entry;
             foreach(KeyValuePair<int, float> pair in npcs.OrderBy(key => key.Value))
             {
-                whoAmIs.Add(pair.Key);
-                float distanceFromOrigin = pair.Value;
-                int whoAmI = pair.Key;
-                NPC target = Main.npc[whoAmI];
-                if (npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer)
-                    wormCounter++;
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
-                float baseAllForOneDamage = ((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
-                int allForOneDamage = (int)((wormCounter > 10 ? wormCounter < 21 ? 1f - (float)(wormCounter - 10) / 10f : 0f : 1f) * (baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange));
-                total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
-                damages.Add(allForOneDamage);
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
+                if (npc.active)
+                {
+                    whoAmIs.Add(pair.Key);
+                    float distanceFromOrigin = pair.Value;
+                    int whoAmI = pair.Key;
+                    NPC target = Main.npc[whoAmI];
+                    if (npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer)
+                        wormCounter++;
+                    target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
+                    target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
+                    //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                    float baseAllForOneDamage = ((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
+                    int allForOneDamage = (int)((wormCounter > 10 ? wormCounter < 21 ? 1f - (float)(wormCounter - 10) / 10f : 0f : 1f) * (baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange));
+                    total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
+                    damages.Add(allForOneDamage);
+                    target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
+                }
             }
             if(UtilityMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
             return total;
@@ -813,7 +817,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public int ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, int damageReduction, ref float knockback, ref bool crit, int direction, Projectile projectile = null)
         {
-            if (!npc.friendly && !npc.townNPC)
+            if (!npc.friendly && !npc.townNPC && npc.active)
             {
                 if(UtilityMethods.debugging) ($"\\/ActivateGodSlayer").Log();
                 //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
@@ -829,7 +833,8 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void StrikeNPC(int npcWhoAmI, int damage, bool crit)
         {
-            Main.npc[npcWhoAmI].StrikeNPC(damage, 0, 0, crit, false, true);
+            if(Main.npc[npcWhoAmI].active)
+                Main.npc[npcWhoAmI].StrikeNPC(damage, 0, 0, crit, false, true);
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
@@ -864,9 +869,10 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
+            if (UtilityMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
+            if (UtilityMethods.debugging) (player.G().eStats.S("spawnRate")).LogT();
             if (player.CEP("spawnRate"))// wePlayer.eStats.ContainsKey("spawnRate"))
             {
-                //if(UtilityMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
                 float enemySpawnRateBonus = player.AEP("spawnRate", 1f);// wePlayer.eStats["spawnRate"].ApplyTo(1f);
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 if (enemySpawnRateBonus > 1f)
@@ -886,8 +892,8 @@ namespace WeaponEnchantments.Common.Globals
                 float enemyMaxSpawnBonus = player.AEP("maxSpawns", 1f);//wePlayer.eStats["maxSpawns"].ApplyTo(1f);
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
                 maxSpawns = spawns >= 0 ? spawns : 0;
-                //if(UtilityMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
             }
+            if (UtilityMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {

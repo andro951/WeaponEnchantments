@@ -30,6 +30,7 @@ namespace WeaponEnchantments.Items
 		JunglesFury,
 		LifeSteal,
 		Mana,
+		MaxMinions,
 		Moonlight,
 		ObsidianSkin,
 		OneForAll,
@@ -76,7 +77,7 @@ namespace WeaponEnchantments.Items
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-				{0f, 0f, 0f, 0f, 0f},//1 Not used yet
+				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1
 				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
@@ -147,7 +148,7 @@ namespace WeaponEnchantments.Items
 					toolTip = "(remainder is saved to prevent always rounding to 0 for low damage weapons)";
 					break;
 				case EnchantmentTypeID.OneForAll:
-					toolTip = "(Hiting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
+					toolTip = "(Hitting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
 					break;
 				case EnchantmentTypeID.Splitting:
 					toolTip = "(Chance to produce an extra projectile)";
@@ -241,8 +242,8 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case (EnchantmentTypeID)(-1):
-					StrengthGroup = 1;// Not used yet
+				case EnchantmentTypeID.MaxMinions:
+					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -315,7 +316,7 @@ namespace WeaponEnchantments.Items
 						foundIndividualStrength = true;
 					}
 				}
-			}
+			}//Individual Strength
 			if(!foundIndividualStrength)
 			{
 				float multiplier =
@@ -403,6 +404,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.WorldAblaze:
 						AllowedList.Add("Weapon", 1f);
 						break;
+					case EnchantmentTypeID.MaxMinions:
+						AllowedList.Add("Armor", 1f);
+						AllowedList.Add("Accessory", 1f);
+						break;
 					default:
 						AllowedList.Add("Weapon", 1f);
 						AllowedList.Add("Armor", 0.25f);
@@ -428,7 +433,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.CriticalStrikeChance:
 					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
-						StaticStat = CheckStaticStatByName();
+						CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.CatastrophicRelease:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
@@ -483,6 +488,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Mana:
 						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
+					case EnchantmentTypeID.MaxMinions:
+						CheckStaticStatByName();
+						EStats.Add(new EStat("Damage", EnchantmentStrength * .025f));
+						break;
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
@@ -501,7 +510,7 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("I_NPCHitCooldown", EnchantmentStrength));
 						AddStaticStat("I_useTime", EnchantmentStrength);
 						AddStaticStat("I_useAnimation", EnchantmentStrength);
-						StaticStat = EnchantmentStrength >= 0.1f ? AddStaticStat("autoReuse", EnchantmentStrength) : false;
+						if(EnchantmentStrength >= 0.1f) AddStaticStat("autoReuse", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.WorldAblaze:
 						if(EnchantmentSize == 4) EStats.Add(new EStat("Amaterasu", 0f, 1f, 0f, EnchantmentStrength));
@@ -538,6 +547,7 @@ namespace WeaponEnchantments.Items
 			{
 				case "ArmorPenetration":
 				case "statDefense":
+				case "maxMinions":
 					percentage = false;
 					multiply100 = false;
 					plus = true;
@@ -624,6 +634,7 @@ namespace WeaponEnchantments.Items
 							switch (name)
 							{
 								case "statDefense":
+								case "maxMinions":
 									StaticStats.Add(new EnchantmentStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength));
 									break;
 								default:
@@ -702,7 +713,7 @@ namespace WeaponEnchantments.Items
 		}
 		private string GenerateShortTooltip(bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "")
         {
-			if(EStats.Count > 0)
+			if(EStats.Count > 0 && (EStats[0].StatName != "Damage" || Buff.Count == 0 && StaticStats.Count == 0))
             {
 				EStat baseNameEStat = EStats[0];
 				return GetEStatToolTip(baseNameEStat, forFullToolTip, firstToolTip, allowedListKey);
@@ -1029,6 +1040,7 @@ namespace WeaponEnchantments.Items
 	public class JunglesFuryEnchantmentBasic : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentCommon : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class MaxMinionsEnchantmentBasic : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentCommon : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class MoonlightEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
