@@ -504,5 +504,15 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
             return null;
         }
+        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
+        {
+            if (sourceSet)
+            {
+                if (projectile.scale >= 1f && projectile.scale < sourceItem.scale || projectile.scale < 1f && projectile.scale > sourceItem.scale)
+                    projectile.scale *= sourceItem.scale;
+                hitbox.Height = (int)Math.Round(hitbox.Height * projectile.scale);
+                hitbox.Width = (int)Math.Round(hitbox.Width * projectile.scale);
+            }
+        }
     }
 }

@@ -431,9 +431,12 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
-					case EnchantmentTypeID.Scale:
 					case EnchantmentTypeID.StatDefense:
 						CheckStaticStatByName();
+						break;
+					case EnchantmentTypeID.Scale:
+						CheckStaticStatByName();
+						AddStaticStat("whipRangeMultiplier", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.CatastrophicRelease:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength));
