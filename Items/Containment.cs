@@ -80,7 +80,7 @@ namespace WeaponEnchantments.Items
                 recipie.Register();
             }
             IDs[size] = Item.type;
-            Mod.CreateRecipe(barIDs[0, size], bars[size]).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
+            Recipe.Create(barIDs[0, size], bars[size]).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
         }
     }
     public class MediumContainment : Containment { }
