@@ -274,8 +274,16 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     else
                     {
+                        //This is where Drop rates are calculated
+
+                        //mult is the config multiplier
                         float mult = WEMod.config.EnchantmentDropChance / 100f;
-                        int defaultDenom = (int)((5000 + hp * 5)  / (total * mult));
+                        //defaultDenom is the denominator of the drop rate.  The numerator is always 1 (This is part of how Terraria calculates drop rates, I can't change it)
+                        //  hp is the npc's max hp
+                        //  total is calculated based on npc max hp.  Use total = hp + 0.2 * value
+                        //Example: defaultDenom = 5, numerator is 1.  Drop rate = 1/5 = 20%
+                        //Aproximate drop rate = (hp + 0.2 * value)/(5000 + hp * 5) * config multiplier
+                        int defaultDenom = (int)((5000f + hp * 5f)  / (total / UtilityMethods.GetReductionFactor((int)hp) * mult));
                         if(defaultDenom < 1) defaultDenom = 1;
                         int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
@@ -477,7 +485,7 @@ namespace WeaponEnchantments.Common.Globals
             if(value > 0 || hp > 10)
             {
                 total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
-                total /= UtilityMethods.GetReductionFactor((int)hp);
+                total *= UtilityMethods.GetReductionFactor((int)hp);
                 essenceValues = EnchantmentEssenceBasic.values;
                 dropRate = new float[essenceValues.Length];
                 baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
