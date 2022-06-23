@@ -283,7 +283,7 @@ namespace WeaponEnchantments.Common.Globals
                         //  total is calculated based on npc max hp.  Use total = hp + 0.2 * value
                         //Example: defaultDenom = 5, numerator is 1.  Drop rate = 1/5 = 20%
                         //Aproximate drop rate = (hp + 0.2 * value)/(5000 + hp * 5) * config multiplier
-                        int defaultDenom = (int)((5000f + hp * 5f)  / (total / UtilityMethods.GetReductionFactor((int)hp) * mult));
+                        int defaultDenom = (int)((5000f + hp * 5f)  / (total * mult));
                         if(defaultDenom < 1) defaultDenom = 1;
                         int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
@@ -479,13 +479,14 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
         {
-            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f) * (npc.boss ? WEMod.config.BossEssenceMultiplier / 100f : WEMod.config.EssenceMultiplier / 100f);
+            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
             if(value > 0 || hp > 10)
             {
                 total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
-                total *= UtilityMethods.GetReductionFactor((int)hp);
+                total /= UtilityMethods.GetReductionFactor((int)hp);
+                float essenceTotal = total * (npc.boss ? WEMod.config.BossEssenceMultiplier / 100f : WEMod.config.EssenceMultiplier / 100f);
                 essenceValues = EnchantmentEssenceBasic.values;
                 dropRate = new float[essenceValues.Length];
                 baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
@@ -495,7 +496,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        if (total / essenceValues[i] > 1)
+                        if (essenceTotal / essenceValues[i] > 1)
                         {
                             rarity = i;
                         }
@@ -509,7 +510,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        if (total / essenceValues[i] < 0.025)
+                        if (essenceTotal / essenceValues[i] < 0.025)
                         {
                             break;
                         }
@@ -521,17 +522,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 if (rarity == 0)
                 {
-                    dropRate[rarity] = 1.25f * total / essenceValues[rarity];
+                    dropRate[rarity] = 1.25f * essenceTotal / essenceValues[rarity];
                 }
                 else
                 {
-                    dropRate[rarity] = total / essenceValues[rarity];
-                    dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
+                    dropRate[rarity] = essenceTotal / essenceValues[rarity];
+                    dropRate[rarity - 1] = 0.5f * essenceTotal / essenceValues[rarity];
                 }
                 if (rarity < 4)
                 {
-                    dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
+                    dropRate[rarity + 1] = 0.06125f * essenceTotal / essenceValues[rarity];
                 }
+                
             }
             else
             {
