@@ -19,7 +19,8 @@ namespace WeaponEnchantments
 {
     public class WEMod : Mod
     {
-		internal static EnchantmentConfig config = ModContent.GetInstance<EnchantmentConfig>();
+		internal static ServerConfig config = ModContent.GetInstance<ServerConfig>();
+		//internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)

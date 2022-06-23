@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             WEPlayer wePlayer = player.G();
             EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
-            if (WEMod.config.teleportEssence && !wePlayer.usingEnchantingTable)
+            if (WEMod.config.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
                 if (item.stack + wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack < item.maxStack)
                 {

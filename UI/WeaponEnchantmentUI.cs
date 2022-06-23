@@ -591,11 +591,18 @@ namespace WeaponEnchantments.UI
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!essence.IsAir && !item.IsAir)
             {
-                essence.stack--;
-                //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
-                SoundEngine.PlaySound(SoundID.MenuTick);
+                if(item.G().experience < int.MaxValue)
+                {
+                    essence.stack--;
+                    //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                    //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                    item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
+                    SoundEngine.PlaySound(SoundID.MenuTick);
+                }
+                else
+                {
+                    Main.NewText($"You cannot gain any more experience on your {item.S()}.");
+                }
             }
         }
         public static int ConvertXPToEssence(int xp, bool consumeAll = false)

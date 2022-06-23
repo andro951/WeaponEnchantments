@@ -171,6 +171,8 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void UpdateEquip(Item item, Player player)
         {
+            //experience = int.MaxValue;
+
             /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float damageModifier = 0f;
             float speedModifier = 0f;
@@ -295,6 +297,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if(UtilityMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
                 experience = tag.Get<int>("experience");//Load experience tag
+                if (experience < 0)
+                    experience = int.MaxValue;
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
                 infusedItemName = tag.Get<string>("infusedItemName");
                 infusedPower = tag.Get<int>("infusedPower");
@@ -490,7 +494,14 @@ namespace WeaponEnchantments.Common.Globals
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             int currentLevel = levelBeforeBooster;
+            if(xpInt < 0)
+            {
+                xpInt = 0;
+                ($"Prevented your {item.S()} from loosing experience due to a calculation error.  Please report this to andro951 allong with a description of what you were doing at the time.").Log();
+            }
             experience += xpInt;
+            if(experience < 0)
+                experience = int.MaxValue;
             if (levelBeforeBooster < maxLevel)
             {
                 UpdateLevel();

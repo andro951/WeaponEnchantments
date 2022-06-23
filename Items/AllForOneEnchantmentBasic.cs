@@ -69,8 +69,6 @@ namespace WeaponEnchantments.Items
 	}//Located in DamageClassLoader.cs
 	public class AllForOneEnchantmentBasic : ModItem
 	{
-		bool ToggleRarityNames = false;
-
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
@@ -161,10 +159,10 @@ namespace WeaponEnchantments.Items
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
-			if (EnchantmentSize > 2 && ToggleRarityNames)
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
-			else
+			if (WEMod.config.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+			else
+				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
@@ -389,6 +387,10 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.Peace:
 					case EnchantmentTypeID.War:
+					case EnchantmentTypeID.Spelunker:
+					case EnchantmentTypeID.Hunter:
+					case EnchantmentTypeID.DangerSense:
+					case EnchantmentTypeID.ObsidianSkin:
 						AllowedList.Add("Weapon", 1f);
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);

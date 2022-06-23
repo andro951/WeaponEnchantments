@@ -286,7 +286,7 @@ namespace WeaponEnchantments.Common.Globals
                             //projectile.CritChance += siGlobal.critBonus;
                         }*/
                         //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
-                        projectile.scale = sourceItem.A("scale", projectile.scale);
+                        //projectile.scale = sourceItem.A("scale", projectile.scale);
                         /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
                         {
                             if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
