@@ -296,7 +296,7 @@ namespace WeaponEnchantments.Common
         }
         public static float GetGodSlayerReductionFactor(int hp)
         {
-            float factor = hp / 50000f + 1f;
+            float factor = hp * 49f / 150000f + 1f;
             return factor;
         }
         public static int DamageBeforeArmor(this Item item, bool crit)

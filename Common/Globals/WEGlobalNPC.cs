@@ -821,10 +821,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if(UtilityMethods.debugging) ($"\\/ActivateGodSlayer").Log();
                 //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
-                float godSlayerBonusDefault = item.G().eStats["GodSlayer"].ApplyTo(0f);
-                float godSlayerBonus = npc.boss ? godSlayerBonusDefault / (10 * UtilityMethods.GetGodSlayerReductionFactor(npc.lifeMax)) : godSlayerBonusDefault;
+                float godSlayerBonus = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 int godSlayerDamage;
-                godSlayerDamage = (int)Math.Round(((float)(damage - damageReduction) / (projectile != null ? 2f : 1f) / 100f * (godSlayerBonus * npc.lifeMax)) + (npc.defDefense - player.GetWeaponArmorPenetration(item)) / 2);
+                godSlayerDamage = (int)Math.Round(((float)(damage - damageReduction) / (projectile != null ? 2f : 1f) / 100f * (godSlayerBonus * npc.lifeMax)) + damageReduction);
                 npc.StrikeNPC(godSlayerDamage, knockback, direction, crit);
                 if (UtilityMethods.debugging) ($"/\\ActivateGodSlayer").Log();
                 return godSlayerDamage;
