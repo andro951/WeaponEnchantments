@@ -11,7 +11,6 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class RecipeEditor : GlobalRecipe
     {
-		
 		public override void Load()
 		{
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
@@ -24,68 +23,97 @@ namespace WeaponEnchantments.Common.Globals
 		{
 			if (!arrItem.IsAir)
 			{
-				EnchantedItem miGlobal = Main.mouseItem.GetGlobalItem<EnchantedItem>();
-				EnchantedItem i2Global = arrItem.GetGlobalItem<EnchantedItem>();
-				if (i2Global.experience > 0 || i2Global.powerBoosterInstalled)
-				{
-					if (WEMod.IsEnchantable(Main.mouseItem))
+				if(arrItem.TryGetGlobalItem(out EnchantedItem i2Global) && Main.mouseItem.TryGetGlobalItem(out EnchantedItem miGlobal))
+                {
+					if (i2Global.experience > 0 || i2Global.powerBoosterInstalled)
 					{
-						miGlobal.experience += i2Global.experience;
-						if (i2Global.powerBoosterInstalled)
+						if (WEMod.IsEnchantable(Main.mouseItem))
 						{
-							if (!miGlobal.powerBoosterInstalled)
+							miGlobal.experience += i2Global.experience;
+							if (i2Global.powerBoosterInstalled)
 							{
-								miGlobal.powerBoosterInstalled = true;
-							}
-							else
-							{
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
-							}
-						}
-						miGlobal.UpdateLevel();
-						int j;
-						for (j = 0; j <= EnchantingTable.maxEnchantments; j++)
-						{
-							if (j > 4)
-								break;
-							if (miGlobal.enchantments[j].IsAir)
-								break;
-						}
-						for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
-						{
-							if (!i2Global.enchantments[k].IsAir)
-							{
-								AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)i2Global.enchantments[k].ModItem);
-								int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
-								bool cantFit = false;
-								if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
+								if (!miGlobal.powerBoosterInstalled)
 								{
-									if(uniqueItemSlot == -1)
-                                    {
-										if (enchantment.Utility && miGlobal.enchantments[4].IsAir)
+									miGlobal.powerBoosterInstalled = true;
+								}
+								else
+								{
+									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+								}
+							}
+							miGlobal.UpdateLevel();
+							int j;
+							for (j = 0; j <= EnchantingTable.maxEnchantments; j++)
+							{
+								if (j > 4)
+									break;
+								if (miGlobal.enchantments[j].IsAir)
+									break;
+							}
+							for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+							{
+								if (!i2Global.enchantments[k].IsAir)
+								{
+									AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)i2Global.enchantments[k].ModItem);
+									int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
+									bool cantFit = false;
+									if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
+									{
+										if (uniqueItemSlot == -1)
 										{
-											miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
-										}
-										else if (j < 4)
-										{
-											miGlobal.enchantments[j] = i2Global.enchantments[k].Clone();
-											j++;
+											if (enchantment.Utility && miGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(Main.mouseItem) || WEMod.IsArmorItem(Main.mouseItem)))
+											{
+												miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
+											}
+											else if (j < 4)
+											{
+												miGlobal.enchantments[j] = i2Global.enchantments[k].Clone();
+												j++;
+											}
+											else
+											{
+												cantFit = true;
+											}
 										}
 										else
 										{
 											cantFit = true;
 										}
 									}
-                                    else
-                                    {
+									else
+									{
 										cantFit = true;
-                                    }
+									}
+									if (cantFit)
+									{
+										Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), i2Global.enchantments[k].type, 1);
+									}
 								}
-								else
+							}
+						}
+						else
+						{
+							miGlobal.experience += i2Global.experience;
+							int numberEssenceRecieved;
+							int xpCounter = miGlobal.experience;
+							for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
+							{
+								numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
+								xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
+								if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
 								{
-									cantFit = true;
+									xpCounter = 0;
+									numberEssenceRecieved += 1;
 								}
-								if (cantFit)
+								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
+							}
+							if (i2Global.powerBoosterInstalled)
+							{
+								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+							}
+							for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+							{
+								if (!i2Global.enchantments[k].IsAir)
 								{
 									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), i2Global.enchantments[k].type, 1);
 								}
@@ -94,45 +122,25 @@ namespace WeaponEnchantments.Common.Globals
 					}
 					else
 					{
-						miGlobal.experience += i2Global.experience;
-						int numberEssenceRecieved;
-						int xpCounter = miGlobal.experience;
-						for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
+						if (arrItem.ModItem is AllForOneEnchantmentBasic)
 						{
-							numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
-							xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
-							if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+							int size = ((AllForOneEnchantmentBasic)arrItem.ModItem).EnchantmentSize;
+							if (size < 2)
 							{
-								xpCounter = 0;
-								numberEssenceRecieved += 1;
+								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
 							}
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
-						}
-						if (i2Global.powerBoosterInstalled)
-						{
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
-						}
-						for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
-						{
-							if (!i2Global.enchantments[k].IsAir)
+							else if (size == 3)
 							{
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), i2Global.enchantments[k].type, 1);
+								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 2);
 							}
+						}
+						else if (arrItem.ModItem is Containment containment)
+						{
+							if (containment.size == 2 && Main.mouseItem.type == Containment.barIDs[0, 2])
+								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 4);
 						}
 					}
 				}
-                else
-                {
-					if(arrItem.ModItem is AllForOneEnchantmentBasic)
-                    {
-						int size = ((AllForOneEnchantmentBasic)arrItem.ModItem).EnchantmentSize;
-						if (size < 3)
-                        {
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
-						}
-
-					}
-                }
 			}
 			if (debuggingHookCreate)
 			{

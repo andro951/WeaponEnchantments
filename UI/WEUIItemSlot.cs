@@ -14,6 +14,7 @@ using Terraria.GameContent;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.UI
 {
@@ -72,44 +73,18 @@ namespace WeaponEnchantments.UI
 									AllForOneEnchantmentBasic newEnchantment = ((AllForOneEnchantmentBasic)item.ModItem);
 									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
                                     {
-										switch ((DamageTypeSpecificID)wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType.Type)
-										{
-											case DamageTypeSpecificID.Melee:
-											case DamageTypeSpecificID.SummonMeleeSpeed:
-												damageClassSpecific = (int)DamageTypeSpecificID.Melee;
-												break;
-											case DamageTypeSpecificID.Ranged:
-												damageClassSpecific = (int)DamageTypeSpecificID.Ranged;
-												break;
-											case DamageTypeSpecificID.Magic:
-												damageClassSpecific = (int)DamageTypeSpecificID.Magic;
-												break;
-											case DamageTypeSpecificID.Summon:
-											case DamageTypeSpecificID.MagicSummonHybrid:
-												damageClassSpecific = (int)DamageTypeSpecificID.Summon;
-												break;
-											case DamageTypeSpecificID.Throwing:
-												damageClassSpecific = (int)DamageTypeSpecificID.Throwing;
-												break;
-										}
+										damageClassSpecific = AllForOneEnchantmentBasic.GetDamageClass(ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type);
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 										continueCheck = false;
-                                    if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
+									if (newEnchantment.RestrictedClass != 0 && damageClassSpecific == newEnchantment.RestrictedClass)
 										continueCheck = false;
-                                    switch ((EnchantmentTypeID)newEnchantment.EnchantmentType)
-                                    {
-										case EnchantmentTypeID.AllForOne:
-										case EnchantmentTypeID.OneForAll:
-										case EnchantmentTypeID.GodSlayer:
-										case EnchantmentTypeID.Splitting:
-										case EnchantmentTypeID.Magic:
-										case EnchantmentTypeID.Summon:
-											continueCheck = continueCheck && WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item);
-											break;
-									}
+									if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
+										continueCheck = false;
+									if(!CheckAllowedList(newEnchantment))
+										continueCheck = false;
 									int currentEnchantmentLevelCost = 0;
-                                    if (!Item.IsAir) { currentEnchantmentLevelCost = newEnchantment.GetLevelCost(); }
+                                    if (!Item.IsAir) { currentEnchantmentLevelCost = ((AllForOneEnchantmentBasic)Item.ModItem).GetLevelCost(); }
 									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
@@ -140,6 +115,13 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}//Check if Item going into a slot is valid for that slot
+		public static bool CheckAllowedList(AllForOneEnchantmentBasic enchantment)
+        {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			return enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(wePlayer.I())
+				|| enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(wePlayer.I())
+				|| enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(wePlayer.I());
+		}
 		private bool UseEnchantmentSlot()
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -227,7 +209,7 @@ namespace WeaponEnchantments.UI
 		}
 		public bool CheckUniqueSlot(AllForOneEnchantmentBasic enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique & enchantment.DamageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && enchantment.RestrictedClass == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(AllForOneEnchantmentBasic enchantement, Item item)
         {
@@ -239,10 +221,17 @@ namespace WeaponEnchantments.UI
 					if (!iGlobal.enchantments[i].IsAir)
 					{
 						AllForOneEnchantmentBasic appliedEnchantment = (AllForOneEnchantmentBasic)iGlobal.enchantments[i].ModItem;
-						if (appliedEnchantment != null && ((enchantement.Unique || enchantement.DamageClassSpecific > 0) && (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						if (appliedEnchantment != null && (
+							(enchantement.Unique || enchantement.DamageClassSpecific > 0 || enchantement.RestrictedClass > 0) 
+							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique || appliedEnchantment.RestrictedClass > 0) 
+							|| enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
 						{
 							return i;
 						}
+						/*if (appliedEnchantment != null && ((enchantement.Unique || enchantement.DamageClassSpecific > 0) && (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+						{
+							return i;
+						}*/
 					}
 				}
 			}

@@ -1,134 +1,31 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Items
 {
-    public class Stabilizer : ModItem
-    {
-        public static string[] sizes = new string[] { "", "Superior" };
-        public static int[,] ingredientTypes = { { 177, 178, 179, 180, 181 }, { 182, 999, -1, -1, -1 } };
-        public int size = 0;
-        public static int[] IDs = new int[sizes.Length];
-        public static int[] Values = new int[sizes.Length];
-        public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public override void SetStaticDefaults()
-        {
-            GetDefaults();
-            for (int i = 0; i < sizes.Length; i++)
-            {
-                Values[i] = (1 + i) * 375;
-            }
-            if (size == 0)
-            {
-                Tooltip.SetDefault("Used to create Superior Enchantment Containments");
-            }
-            else
-            {
-                Tooltip.SetDefault("Used to create Ultra Rare Enchantments");
-            }
-        }
-        private void GetDefaults()
-        {
-            for (int i = 0; i < sizes.Length; i++)
-            {
-                if(Name.IndexOf("Stabilizer") == 0)
-                {
-                    size = 0;
-                }
-                else
-                {
-                    if (sizes[i] == Name.Substring(Name.IndexOf("Stabilizer") + 10))
-                    {
-                        size = i;
-                        break;
-                    }
-                }
-            }
-        }
-        public override void SetDefaults()
-        {
-            GetDefaults();
-            Item.value = Values[size];
-            Item.width = 8;
-            Item.height = 8;
-            Item.maxStack = 1000;
-        }
-        public override void AddRecipes()
-        {
-            for (int i = 0; i < ingredientTypes.Length / 2; i++)
-            {
-                if (ingredientTypes[size, i] != -1)
-                {
-                    Recipe recipie;
-                    if (size == 0)
-                    {
-                        recipie = CreateRecipe();
-                        recipie.AddTile(TileID.Hellforge);
-                        recipie.AddIngredient(ingredientTypes[size, i], 1);
-                        recipie.Register();
-                        recipie = CreateRecipe();
-                        recipie.AddTile(TileID.AdamantiteForge);
-                    }
-                    else
-                    {
-                        recipie = CreateRecipe(4);
-                        recipie.AddTile(TileID.AdamantiteForge);
-                    }
-                    recipie.AddIngredient(ingredientTypes[size, i], 1);
-                    recipie.Register();
-                }
-            }
-            IDs[size] = Item.type;
-        }
-    }
-    public class SuperiorStabilizer : Stabilizer { }
-    public class ContainmentFragment : ModItem
-    {
-        public static int ID;//Make drop from bosses and ofering
-        public static int value = 10000;
-        public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Used to create Enchantment Containments");
-        }
-        public override void SetDefaults()
-        {
-            Item.width = 10;
-            Item.height = 10;
-            Item.maxStack = 1000;
-            Item.value = value;
-        }
-        public override void AddRecipes()
-        {
-            for (int i = 0; i < Containment.sizes.Length; i++)
-            {
-                Recipe recipie = CreateRecipe(Containment.fragments[i]);
-                recipie.AddTile(TileID.WorkBenches);
-                recipie.AddIngredient(Mod, Containment.sizes[i] + "Containment", 1);
-                recipie.Register();
-            }
-            ID = Item.type;
-        }
-    }
     public class Containment : ModItem
     {
         public static string[] sizes = new string[] { "", "Medium", "Superior" };
         public static int[] glass = new int[] { 1, 4, 0};
-        public static int[] fragments = new int[] { 4, 8, 16 };
+        public static int[] bars = new int[] { 4, 8, 16 };
+        public static int[,] barIDs = new int[,] { { ItemID.SilverBar, ItemID.GoldBar, ItemID.DemoniteBar }, { ItemID.TungstenBar, ItemID.PlatinumBar, ItemID.CrimtaneBar } };
         public static int[] IDs = new int[sizes.Length];
         public static int[] Values = new int[sizes.Length];
+        
         public int size = 0;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public override void SetStaticDefaults()
         {
             GetDefaults();
-            for (int i = 0; i < sizes.Length; i++)
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            //for (int i = 0; i < sizes.Length; i++)
             {
-                Values[i] = fragments[size] * ContainmentFragment.value;
-                if (i == 2)
+                Values[size] = bars[size] * ContentSamples.ItemsByType[barIDs[0, size]].value;
+                if (size == 2)
                 {
-                    Values[i] += Stabilizer.Values[0];
+                    Values[size] += ContentSamples.ItemsByType[180].value * 4;
                 }
             }
             Tooltip.SetDefault("Used to store " + AllForOneEnchantmentBasic.rarity[size] + " enchantments");
@@ -143,7 +40,7 @@ namespace WeaponEnchantments.Items
                 }
                 else
                 {
-                    if (sizes[i] == Name.Substring(Name.IndexOf("Containment") + 11))
+                    if (sizes[i] == Name.Substring(0, Name.IndexOf("Containment")))
                     {
                         size = i;
                         break;
@@ -155,41 +52,35 @@ namespace WeaponEnchantments.Items
         {
             GetDefaults();
             Item.maxStack = 1000;
-            Item.value = fragments[size] * ContainmentFragment.value;
+            Item.value = bars[size] * ContentSamples.ItemsByType[barIDs[0, size]].value;
             //Item.value = fragments[size] * ModContent.GetModItem(ModContent.ItemType<ContainmentFragment>()).Item.value;
-
-            if (size < 2)
+            Item.width = 28 + 4 * (size);
+            Item.height = 28 + 4 * (size);
+            if(size == 2)
             {
-                Item.width = 10 + 4 * (size);
-                Item.height = 10 + 4 * (size);
-            }
-            else
-            {
-                Item.value += 4 * ModContent.GetModItem(ModContent.ItemType<Stabilizer>()).Item.value;
-                Item.width = 40;
-                Item.height = 40;
+                Item.value += ContentSamples.ItemsByType[180].value * 4;
             }
         }
         public override void AddRecipes()
         {
-            Recipe recipie = CreateRecipe();
-            recipie.AddTile(TileID.WorkBenches);
-            if (size > 0)
+            Recipe recipie;
+            for (int i = 0; i < 2; i++)
             {
-                //recipie.AddIngredient(Mod, sizes[size - 1] + "Containment", 1);
+                recipie = CreateRecipe();
+                recipie.AddTile(TileID.WorkBenches);
+                if (size == 2)
+                {
+                    recipie.AddRecipeGroup("WeaponEnchantments:CommonGems", 4);
+                }
+                else
+                {
+                    recipie.AddIngredient(ItemID.Glass, glass[size]);
+                }
+                recipie.AddIngredient(barIDs[i,size], bars[size]);
+                recipie.Register();
             }
-            if(size == 2)
-            {
-                recipie.AddIngredient(ModContent.ItemType<Stabilizer>(), 4);
-            }
-            else
-            {
-                recipie.AddIngredient(ItemID.Glass, glass[size]);
-            }
-            recipie.AddIngredient(ModContent.ItemType<ContainmentFragment>(), fragments[size]);
-            //recipie.AddIngredient(ContainmentFragment.ID, fragments[size]);
-            recipie.Register();
             IDs[size] = Item.type;
+            Mod.CreateRecipe(barIDs[0, size], bars[size]).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
         }
     }
     public class MediumContainment : Containment { }

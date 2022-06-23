@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +14,7 @@ namespace WeaponEnchantments.Items
 		public override void SetStaticDefaults()
 		{
 			GetDefaults();
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 		}
@@ -48,6 +50,7 @@ namespace WeaponEnchantments.Items
 					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
 					break;
 			}
+			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 14;
 			Item.useTurn = true;
