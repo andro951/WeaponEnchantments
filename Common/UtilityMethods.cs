@@ -294,11 +294,6 @@ namespace WeaponEnchantments.Common
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
         }
-        public static float GetGodSlayerReductionFactor(int hp)
-        {
-            float factor = hp * 49f / 150000f + 1f;
-            return factor;
-        }
         public static int DamageBeforeArmor(this Item item, bool crit)
         {
             return (int)Math.Round(item.AEI("Damage", (float)item.damage * (crit ? 2f : 1f)));
