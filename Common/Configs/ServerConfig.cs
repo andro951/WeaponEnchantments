@@ -22,7 +22,7 @@ using Terraria.UI;
 
 namespace WeaponEnchantments.Common.Configs
 {
-    [Label("Config")]
+    [Label("Server Config")]
     public class ServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
