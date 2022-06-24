@@ -327,7 +327,7 @@ namespace WeaponEnchantments.Items
 					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];//Linear
                 else
                 {
-					multiplier = WEMod.config.presetData.recomendedStrengthMultiplier / 100f;
+					multiplier = WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
 					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 					float scale = Math.Abs(scalePercent);
 					if(scalePercent < 0f && multiplier < 1f)
