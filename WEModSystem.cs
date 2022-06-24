@@ -148,8 +148,9 @@ namespace WeaponEnchantments
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
+                        //if(wePlayer.itemBeingEnchanted != null && !wePlayer.itemBeingEnchanted.IsAir)
                         {
-                            wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
+                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
                         }
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
@@ -440,10 +441,20 @@ namespace WeaponEnchantments
                     wePlayer.enchantingTable.item[0] = new Item();
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
+                        if (!wePlayer.enchantingTable.enchantmentItem[i].IsAir)
+                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTable.enchantmentItem[i];
+                        else
+                            wePlayer.itemBeingEnchanted.G().enchantments[i] = new Item();
+                    }
+                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    {
+                        wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
                     }
                 }
             }
+            wePlayer.itemBeingEnchanted = null;
+            wePlayer.itemInEnchantingTable = false;
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {

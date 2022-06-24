@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Common
                         Main.NewText($"Your {item.Name}({item.G().infusedPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                 }
                 else if (finalize)
-                    Main.NewText($"The base rarity of the item being upgraded must be lower than the rarity of the consumed item.");
+                    Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
             }
             return false;
         }
