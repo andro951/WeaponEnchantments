@@ -204,10 +204,10 @@ namespace WeaponEnchantments.Common.Globals
             switch (arg)
             {
                 case NPCID.WallofFlesh when !bossBag:
-                    chance = WEMod.config.BossEnchantmentDropChance * 2f;
+                    chance = WEMod.serverConfig.BossEnchantmentDropChance * 2f;
                     break;
                 default:
-                    chance = WEMod.config.BossEnchantmentDropChance;
+                    chance = WEMod.serverConfig.BossEnchantmentDropChance;
                     break;
             }
             chance /= 100f;
@@ -277,7 +277,7 @@ namespace WeaponEnchantments.Common.Globals
                         //This is where Drop rates are calculated
 
                         //mult is the config multiplier
-                        float mult = WEMod.config.EnchantmentDropChance / 100f;
+                        float mult = WEMod.serverConfig.EnchantmentDropChance / 100f;
                         //defaultDenom is the denominator of the drop rate.  The numerator is always 1 (This is part of how Terraria calculates drop rates, I can't change it)
                         //  hp is the npc's max hp
                         //  total is calculated based on npc max hp.  Use total = hp + 0.2 * value
@@ -486,7 +486,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
                 total /= UtilityMethods.GetReductionFactor((int)hp);
-                float essenceTotal = total * (npc.boss ? WEMod.config.BossEssenceMultiplier / 100f : WEMod.config.EssenceMultiplier / 100f);
+                float essenceTotal = total * (npc.boss ? WEMod.serverConfig.BossEssenceMultiplier / 100f : WEMod.serverConfig.EssenceMultiplier / 100f);
                 essenceValues = EnchantmentEssenceBasic.values;
                 dropRate = new float[essenceValues.Length];
                 baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
@@ -577,7 +577,7 @@ namespace WeaponEnchantments.Common.Globals
                         damageReduction = damage - 1;
                     damage -= damageReduction;
                     int armorPenetration = player.GetWeaponArmorPenetration(item);
-                    if (WEMod.config.teleportEssence && armorPenetration > npc.defDamage)
+                    if (WEMod.serverConfig.teleportEssence && armorPenetration > npc.defDamage)
                         damage += (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
                     //float temp2 = player.AEP("Damage", 1f);
                     damage = (int)Math.Round(item.AEI("Damage", (float)damage));

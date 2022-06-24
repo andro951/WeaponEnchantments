@@ -21,6 +21,7 @@ namespace WeaponEnchantments
     {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+		//public static Dictionary<string, bool> playerTeleportItemSetting = new();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
@@ -86,6 +87,8 @@ namespace WeaponEnchantments
 			public const byte Enchantment = 1;
 			public const byte Infusion = 2;
 			public const byte OnHitEffects = 3;
+			/*public const byte TeleportItemSetting = 4;
+			public const byte PickUpEssence = 5;*/
 		}
 		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
@@ -263,6 +266,19 @@ namespace WeaponEnchantments
 					}
 					if (UtilityMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					break;
+				/*case PacketIDs.TeleportItemSetting:
+					string name = reader.ReadString();
+					bool teleportItemSetting = reader.ReadBoolean();
+					if (playerTeleportItemSetting.ContainsKey(name))
+						playerTeleportItemSetting[name] = teleportItemSetting;
+					else
+						playerTeleportItemSetting.Add(name, teleportItemSetting);
+					break;
+				case PacketIDs.PickUpEssence:
+					int rarity = (int)reader.ReadByte();
+					int stack = reader.ReadInt32();
+					//Main.player[whoAmI].G().PickUpEssence(rarity, stack);
+					break;*/
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;

@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             WEPlayer wePlayer = player.G();
             EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
-            if (WEMod.config.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
+            if (WEMod.serverConfig.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
                 if (item.stack + wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack < item.maxStack)
                 {
@@ -39,11 +39,11 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }*/
-        public override bool CanPickup(Item item, Player player)
+        public override bool OnPickup(Item item, Player player)
         {
             WEPlayer wePlayer = player.G();
             EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
-            if (WEMod.config.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
+            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
                 if (item.stack + wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack <= item.maxStack)
                 {
@@ -51,15 +51,56 @@ namespace WeaponEnchantments.Common.Globals
                         wePlayer.enchantingTable.essenceItem[modItem.essenceRarity] = new Item(ModContent.ItemType<EnchantmentEssenceBasic>() + modItem.essenceRarity, item.stack);
                     else
                         wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack += item.stack;
-                    item.stack = 0;
                     PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
-                    item.TurnToAir();
                     SoundEngine.PlaySound(SoundID.Grab);
-
+                    item.TurnToAir();
                     return false;
                 }
             }
             return true;
         }
+        /*public override bool CanPickup(Item item, Player player)
+        {
+            if(Main.netMode == NetmodeID.SinglePlayer)
+            {
+                //($"\\/CanPickup(item: {item.S()}, player: {player.S()})").Log();
+                WEPlayer wePlayer = player.G();
+                EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
+                if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
+                {
+                    if (item.stack + wePlayer.enchantingTable.essenceItem[modItem.essenceRarity].stack <= item.maxStack)
+                    {
+                        //wePlayer.PickUpEssence(modItem.essenceRarity, item.stack);
+                        wePlayer.PickUpEssence(item.whoAmI);
+                        //PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
+                        //bool popupTextActive = Main.popupText[0].active;
+                        //PopupText.NewText(PopupTextContext.RegularItemPickup, new Item(item.type, item.stack), item.stack);
+                        item.TurnToAir();
+                        //($"/\\CanPickup(item: {item.S()}, player: {player.S()}) return false").Log();
+                        return false;
+                    }
+                }
+                //($"/\\CanPickup(item: {item.S()}, player: {player.S()}) return true").Log();
+                return true;
+            }
+            else
+            {
+                if (WEMod.playerTeleportItemSetting.ContainsKey(player.name))
+                {
+                    if (WEMod.playerTeleportItemSetting[player.name])
+                    {
+                        ModPacket packet = ModContent.GetInstance<WEMod>().GetPacket();
+                        EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
+                        packet.Write(WEMod.PacketIDs.PickUpEssence);
+                        packet.Write((byte)modItem.essenceRarity);
+                        packet.Write(item.stack);
+                        packet.Send(player.whoAmI);
+                        item.TurnToAir();
+                        return true;
+                    }
+                }
+                return true;
+            }
+        }*/
     }
 }

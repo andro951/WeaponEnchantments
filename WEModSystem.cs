@@ -421,19 +421,11 @@ namespace WeaponEnchantments
             }
             if(EnchantedItem.newPrefix > 0)
             {
-                if(EnchantedItem.reforgeItem != null)
+                if(EnchantedItem.reforgeItem != null && Main.reforgeItem != null && !Main.reforgeItem.IsAir)
                 {
-                    //Main.reforgeItem = EnchantedItem.reforgeItem.Clone();
-                    //Main.reforgeItem.prefix = EnchantedItem.newPrefix;
-                    //Main.reforgeItem.G().Instance(Main.reforgeItem);
-                    EnchantedItem.cloneReforgedItem = true;
-                    EnchantedItem.reforgeItem.G().Clone(EnchantedItem.reforgeItem, Main.reforgeItem);
-                    //EnchantedItem.cloneReforgedItem = false;
-                    //Main.reforgeItem.GetGlobalItem<EnchantedItem>().Instance(Main.reforgeItem) = 
-                    //Main.reforgeItem.G().NewInstance(EnchantedItem.reforgeItem);// = EnchantedItem.reforgeItem.G().Clone(EnchantedItem.reforgeItem, Main.reforgeItem);
-                    EnchantedItem.reforgeItem = null;
+                    Main.reforgeItem.G().prefix = Main.reforgeItem.prefix;
+                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player);
                     EnchantedItem.newPrefix = 0;
-                    wePlayer.UpdateItemStats(ref Main.reforgeItem);
                 }
             }
         }

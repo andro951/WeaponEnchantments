@@ -7,6 +7,7 @@ using System.Reflection;
 using System;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WeaponEnchantments.Common
 {

@@ -128,6 +128,14 @@ namespace WeaponEnchantments
                 }
                 foreach (Item item in mod)
             }*/
+            /*if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket packet = ModContent.GetInstance<WEMod>().GetPacket();
+                packet.Write(WEMod.PacketIDs.TeleportItemSetting);
+                packet.Write(player.name);
+                packet.Write(WEMod.clientConfig.teleportEssence);
+                packet.Send();
+            }*/
             if (UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
@@ -973,12 +981,12 @@ namespace WeaponEnchantments
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
-                /*if (item.G().prefix != item.prefix)
+                if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
                     item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
-                }*/
+                }
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
@@ -1173,5 +1181,38 @@ namespace WeaponEnchantments
                 UpdatePlayerStat();
             temp1 = Player.maxMinions;
         }
+        /*public void PickUpEssence(int rarity, int stack)
+        {
+            if (enchantingTable.essenceItem[rarity].stack < 1)
+                enchantingTable.essenceItem[rarity] = new Item(ModContent.ItemType<EnchantmentEssenceBasic>() + rarity, stack);
+            else
+                enchantingTable.essenceItem[rarity].stack += stack;
+            //stack = 0;
+            ($"essence tier: {rarity}, stack in table: {enchantingTable.essenceItem[rarity].stack}").Log();
+            Item item = new Item(ModContent.ItemType<EnchantmentEssenceBasic>() + rarity, stack);
+            bool showItemText = Main.showItemText;
+            bool active = item.active;
+            string name = item.Name;
+            int netMode = Main.netMode;
+
+            PopupText.NewText(PopupTextContext.RegularItemPickup, item, stack);
+            SoundEngine.PlaySound(SoundID.Grab);
+        }*/
+        /*public void PickUpEssence(int whoAmI)
+        {
+            Item item = Main.item[whoAmI];
+            EnchantmentEssenceBasic modItem = (EnchantmentEssenceBasic)item.ModItem;
+            if (enchantingTable.essenceItem[modItem.essenceRarity].stack < 1)
+                enchantingTable.essenceItem[modItem.essenceRarity] = new Item(ModContent.ItemType<EnchantmentEssenceBasic>() + modItem.essenceRarity, item.stack);
+            else
+                enchantingTable.essenceItem[modItem.essenceRarity].stack += item.stack;
+            //stack = 0;
+            ($"essence tier: {modItem.essenceRarity}, stack in table: {enchantingTable.essenceItem[modItem.essenceRarity].stack}").Log();
+            //PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
+            int popupNumber = PopupText.NewText(PopupTextContext.RegularItemPickup, Main.item[whoAmI], Main.item[whoAmI].stack);
+            Main.popupText[popupNumber].Update(popupNumber);
+            bool popupTextActive = Main.popupText[0].active;
+            SoundEngine.PlaySound(SoundID.Grab);
+        }*/
     }
 }

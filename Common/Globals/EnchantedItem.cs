@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool trashItem = false;
         public bool favorited = false;
         public const int maxLevel = 40;
-        //public int prefix;
+        public int prefix;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -505,7 +505,7 @@ namespace WeaponEnchantments.Common.Globals
                 float effDamage;
                 float effDamageDenom;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.config.BossExperienceMultiplier/400f : WEMod.config.BossExperienceMultiplier/100f);
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.serverConfig.BossExperienceMultiplier/400f : WEMod.serverConfig.BossExperienceMultiplier/100f);
                 effDamage = item != null ? (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f) : damage;
                 float actualDefence = target.defense / 2f - (item != null ? target.checkArmorPenetration(player.GetWeaponArmorPenetration(item)) : 0f);
                 float actualDamage = melee ? damage : damage - actualDefence;
@@ -693,6 +693,10 @@ namespace WeaponEnchantments.Common.Globals
             //item.prefix = prefix;
             newPrefix = item.prefix;
             //wePlayer.UpdateItemStats(ref item);
+            if(Main.reforgeItem.IsAir && item != null && !item.IsAir)
+            {
+                ReforgeItem(ref item, Main.LocalPlayer);
+            }
             if (UtilityMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
         }
         public override bool PreReforge(Item item)
@@ -709,7 +713,16 @@ namespace WeaponEnchantments.Common.Globals
                 s.Log();
             }
             if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
-            return true;
+            return true; 
+        }
+        public static void ReforgeItem(ref Item item, Player player)
+        {
+            WEPlayer wePlayer = player.G();
+            cloneReforgedItem = true;
+            reforgeItem.G().Clone(reforgeItem, item);
+            reforgeItem = null;
+            newPrefix = 0;
+            wePlayer.UpdateItemStats(ref item);
         }
     }
 }
