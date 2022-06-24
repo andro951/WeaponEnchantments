@@ -102,6 +102,12 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
+        [Header("General Game Changes")]
+        [Label("Convert excess armor penetration to bonus damage")]
+        [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
+        [DefaultValue(true)]
+        public bool teleportEssence;
+
         [Header("Client Config")]
         public ClientConfig clientConfig = new();
         public class ClientConfig : ModConfig

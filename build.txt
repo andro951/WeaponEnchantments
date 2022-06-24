@@ -1,4 +1,4 @@
 displayName = Weapon Enchantments (Beta)
 author = andro951
-version = 0.2.0.18
+version = 0.2.0.19
 sortAfter = RecursiveCraft

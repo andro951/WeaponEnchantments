@@ -88,7 +88,8 @@ namespace WeaponEnchantments.Common.Globals
             }
             if(sourceSet)
             {
-                if (UtilityMethods.PC("Splitting"))
+                Player player = Main.player[projectile.owner];
+                if (player.C("Splitting", sourceItem))
                 {
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
@@ -108,7 +109,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-                if (UtilityMethods.PC("InfinitePenetration"))
+                if (player.C("InfinitePenetration", sourceItem))
                 {
                     projectile.penetrate = -1;
                 }

@@ -85,7 +85,8 @@ namespace WeaponEnchantments.Common
             return combinedStatModifier.ApplyTo(value);
         }
         public static bool C(this Item item, string key) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key);
-        public static bool PC(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
+        public static bool C(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
+        public static bool C(this Player player, string key, Item item) => player.G().eStats.ContainsKey(key) || item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.G().eStats.ContainsKey(key);
         public static string S(this StatModifier statModifier) => "<A: " + statModifier.Additive + ", M: " + statModifier.Multiplicative + ", B: " + statModifier.Base + ", F: " + statModifier.Flat + ">";
         public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
         public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
