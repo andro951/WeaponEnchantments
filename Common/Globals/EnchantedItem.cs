@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
         public int infusedPower = 0;
         public float damageMultiplier = 1f;
         public int infusionValueAdded = 0;
+        public int damageType = -1;
         public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
@@ -105,6 +106,11 @@ namespace WeaponEnchantments.Common.Globals
                 clone.trackedWeapon = false;
             return clone;
         }
+        public override bool OnPickup(Item item, Player player)
+        {
+            player.G().UpdateItemStats(ref item);
+            return true;
+        }
         public override void NetSend(Item item, BinaryWriter writer)
         {
             if (WEMod.IsEnchantable(item))
@@ -142,7 +148,29 @@ namespace WeaponEnchantments.Common.Globals
                     writer.Write(statModifiers[key].Flat);
                     writer.Write(statModifiers[key].Base);
                 }
-                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                count = (short)buffs.Count;
+                writer.Write(count);
+                foreach(int key in buffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(buffs[key]);
+                }
+                count = (short)debuffs.Count;
+                writer.Write(count);
+                foreach (int key in debuffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(debuffs[key]);
+                }
+                count = (short)onHitBuffs.Count;
+                writer.Write(count);
+                foreach (int key in onHitBuffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(onHitBuffs[key]);
+                }
+                writer.Write((short)damageType);
+                if (UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 if(UtilityMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log();
             }
         }
@@ -187,7 +215,31 @@ namespace WeaponEnchantments.Common.Globals
                     float @base = reader.ReadSingle();
                     statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
                 }
-                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                count = reader.ReadUInt16();
+                for(int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    buffs.Add(key, value);
+                }
+                count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    debuffs.Add(key, value);
+                }
+                count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    onHitBuffs.Add(key, value);
+                }
+                damageType = reader.ReadUInt16();
+                if(damageType > -1)
+                    item.UpdateDamageType(damageType);
+                if (UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 if(UtilityMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
             }
         }
@@ -579,7 +631,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanUseItem(Item item, Player player)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
