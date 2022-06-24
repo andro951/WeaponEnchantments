@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Items
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
-			if (WEMod.config.clientConfig.UseOldRarityNames)
+			if (WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
 			else
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
@@ -304,9 +304,9 @@ namespace WeaponEnchantments.Items
 			}//Scale Percents
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
 			bool foundIndividualStrength = false;
-			if(WEMod.config.individualStrengthsEnabled && WEMod.config.individualStrengths.Count > 0)
+			if(WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0)
             {
-				foreach (Pair pair in WEMod.config.individualStrengths)
+				foreach (Pair pair in WEMod.serverConfig.individualStrengths)
 				{
 					if (pair.itemDefinition.Name == Name)
 					{
@@ -319,8 +319,8 @@ namespace WeaponEnchantments.Items
 			{
 				float multiplier =
 				(float)(
-					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
-					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
+					WEMod.serverConfig.strengthGroups.Contains(itemDefinition) ? WEMod.serverConfig.strengthGroupMultiplier :
+					WEMod.serverConfig.presetData.linearStrengthMultiplier != 100 ? WEMod.serverConfig.presetData.linearStrengthMultiplier :
 					-100f
 				) / 100f;
 				if(multiplier != -1f)
