@@ -48,6 +48,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool favorited = false;
         public const int maxLevel = 40;
         public int prefix;
+        public bool normalReforge = false;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -691,9 +692,9 @@ namespace WeaponEnchantments.Common.Globals
             //int prefix = item.prefix;
             //item = reforgeItem;
             //item.prefix = prefix;
-            newPrefix = item.prefix;
             //wePlayer.UpdateItemStats(ref item);
-            if(Main.reforgeItem.IsAir && item != null && !item.IsAir)
+            newPrefix = item.prefix;
+            if (Main.reforgeItem.IsAir && item != null && !item.IsAir || !Main.reforgeItem.IsAir && Main.reforgeItem.G().normalReforge)
             {
                 ReforgeItem(ref item, Main.LocalPlayer);
             }
@@ -703,6 +704,8 @@ namespace WeaponEnchantments.Common.Globals
         {
             if(UtilityMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
             reforgeItem = item.Clone();
+            if (!Main.reforgeItem.IsAir)
+                Main.reforgeItem.G().normalReforge = true;
             if (UtilityMethods.debugging)
             {
                 string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
@@ -722,6 +725,9 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem.G().Clone(reforgeItem, item);
             reforgeItem = null;
             newPrefix = 0;
+            if(!Main.reforgeItem.IsAir)
+                Main.reforgeItem.G().normalReforge = false;
+            item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
         }
     }
