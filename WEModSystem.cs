@@ -419,6 +419,23 @@ namespace WeaponEnchantments
                     }
                 }
             }
+            if(EnchantedItem.newPrefix > 0)
+            {
+                if(EnchantedItem.reforgeItem != null)
+                {
+                    //Main.reforgeItem = EnchantedItem.reforgeItem.Clone();
+                    //Main.reforgeItem.prefix = EnchantedItem.newPrefix;
+                    //Main.reforgeItem.G().Instance(Main.reforgeItem);
+                    EnchantedItem.cloneReforgedItem = true;
+                    EnchantedItem.reforgeItem.G().Clone(EnchantedItem.reforgeItem, Main.reforgeItem);
+                    //EnchantedItem.cloneReforgedItem = false;
+                    //Main.reforgeItem.GetGlobalItem<EnchantedItem>().Instance(Main.reforgeItem) = 
+                    //Main.reforgeItem.G().NewInstance(EnchantedItem.reforgeItem);// = EnchantedItem.reforgeItem.G().Clone(EnchantedItem.reforgeItem, Main.reforgeItem);
+                    EnchantedItem.reforgeItem = null;
+                    EnchantedItem.newPrefix = 0;
+                    wePlayer.UpdateItemStats(ref Main.reforgeItem);
+                }
+            }
         }
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {

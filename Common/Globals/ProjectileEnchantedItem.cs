@@ -287,6 +287,8 @@ namespace WeaponEnchantments.Common.Globals
                         }*/
                         //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
                         //projectile.scale = sourceItem.A("scale", projectile.scale);
+                        if (projectile.scale >= 1f && projectile.scale < sourceItem.scale || projectile.scale < 1f && projectile.scale > sourceItem.scale)
+                            projectile.scale *= sourceItem.scale;
                         /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
                         {
                             if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
@@ -508,7 +510,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (sourceSet)
             {
-                if (projectile.scale >= 1f && projectile.scale < sourceItem.scale || projectile.scale < 1f && projectile.scale > sourceItem.scale)
+                if (projectile.minion && (projectile.scale >= 1f && projectile.scale < sourceItem.scale || projectile.scale < 1f && projectile.scale > sourceItem.scale))
                     projectile.scale *= sourceItem.scale;
                 hitbox.Height = (int)Math.Round(hitbox.Height * projectile.scale);
                 hitbox.Width = (int)Math.Round(hitbox.Width * projectile.scale);

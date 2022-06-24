@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common
 {
     public static class UtilityMethods
     {
-        public readonly static bool debugging = false;
+        public readonly static bool debugging = true;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
 

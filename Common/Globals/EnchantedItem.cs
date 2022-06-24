@@ -15,6 +15,9 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantedItem : GlobalItem
     {
+        public static Item reforgeItem = null;
+        public static int newPrefix = 0;
+        public static bool cloneReforgedItem = false;
         //Start Packet fields
         public int experience;//current experience of a weapon/armor/accessory item
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
@@ -43,7 +46,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool trashItem = false;
         public bool favorited = false;
         public const int maxLevel = 40;
-        public int prefix;
+        //public int prefix;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -65,7 +68,28 @@ namespace WeaponEnchantments.Common.Globals
         }*/
         public override GlobalItem Clone(Item item, Item itemClone)
         {
-            EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
+            EnchantedItem clone;
+            if (cloneReforgedItem)
+            {
+                clone = itemClone.G();
+                cloneReforgedItem = false;
+                clone.experience = experience;
+                clone.infusedItemName = infusedItemName;
+                clone.infusedPower = infusedPower;
+                clone.damageMultiplier = damageMultiplier;
+                clone.infusionValueAdded = infusionValueAdded;
+                clone.lastValueBonus = lastValueBonus;
+                clone.levelBeforeBooster = levelBeforeBooster;
+                clone.level = level;
+                clone.powerBoosterInstalled = powerBoosterInstalled;
+                //clone.prefix = prefix;
+            }
+            else
+            {
+                clone = (EnchantedItem)base.Clone(item, itemClone);
+                clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
+                clone.appliedEStats = new Dictionary<string, StatModifier>(appliedEStats);
+            }
             clone.enchantments = (Item[])enchantments.Clone();
             for (int i = 0; i < enchantments.Length; i++)
             {
@@ -76,8 +100,6 @@ namespace WeaponEnchantments.Common.Globals
             clone.buffs = new Dictionary<int, int>(buffs);
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
-            clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
-            clone.appliedEStats = new Dictionary<string, StatModifier>(appliedEStats);
             clone.equip = false;
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
@@ -597,8 +619,45 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void PostReforge(Item item)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            wePlayer.UpdateItemStats(ref item);
+            if (UtilityMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
+            /*if (UtilityMethods.debugging)
+            {
+                string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+                s = $"item: {item.S()}, prefix: {item.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+            }*/
+            //WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            //int prefix = item.prefix;
+            //item = reforgeItem;
+            //item.prefix = prefix;
+            newPrefix = item.prefix;
+            //wePlayer.UpdateItemStats(ref item);
+            if (UtilityMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
+        }
+        public override bool PreReforge(Item item)
+        {
+            if(UtilityMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
+            reforgeItem = item.Clone();
+            if (UtilityMethods.debugging)
+            {
+                string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+            }
+            if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
+            return true;
         }
     }
 }

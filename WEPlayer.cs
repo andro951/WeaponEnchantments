@@ -973,12 +973,12 @@ namespace WeaponEnchantments
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
-                if (item.G().prefix != item.prefix)
+                /*if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
                     item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
-                }
+                }*/
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
