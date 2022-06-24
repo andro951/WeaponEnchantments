@@ -108,9 +108,9 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool teleportEssence;
 
-        [Header("Client Config")]
-        public ClientConfig clientConfig = new();
-        public class ClientConfig : ModConfig
+        //[Header("Client Config")]
+        //public ClientConfig clientConfig = new();
+        /*public class ClientConfig : ModConfig
         {
             public override ConfigScope Mode => ConfigScope.ClientSide;
 
@@ -124,7 +124,7 @@ namespace WeaponEnchantments.Common.Configs
             [DefaultValue(false)]
             [ReloadRequired]
             public bool UseOldRarityNames;
-        }
+        }*/
 
         //[DefaultDictionaryKeyValue(0f)]
         /*[DefaultListValue(0f)]
@@ -172,6 +172,22 @@ namespace WeaponEnchantments.Common.Configs
         {
             return true;
         }*/
+    }
+    [Label("ClientConfig")]
+    public class ClientConfig : ModConfig
+    {
+        public override ConfigScope Mode => ConfigScope.ClientSide;
+
+        [Label("Automatically send essence to UI")]
+        [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
+        [DefaultValue(false)]
+        public bool teleportEssence;
+
+        [Label("Use Original Rarity Names")]
+        [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool UseOldRarityNames;
     }
 
     //[BackgroundColor(0, 255, 255)]
