@@ -441,13 +441,6 @@ namespace WeaponEnchantments
                     wePlayer.enchantingTable.item[0] = new Item();
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (!wePlayer.enchantingTable.enchantmentItem[i].IsAir)
-                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTable.enchantmentItem[i];
-                        else
-                            wePlayer.itemBeingEnchanted.G().enchantments[i] = new Item();
-                    }
-                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                    {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
                     }
