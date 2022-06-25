@@ -77,15 +77,19 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Modify the ammount of experience recieved by bosses.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
-        [ReloadRequired]
         public int BossExperienceMultiplier;
 
         [Label("Non-Boss Experience Multiplier(%)")]
         [Tooltip("Modify the ammount of experience recieved by non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
-        [ReloadRequired]
         public int ExperienceMultiplier;
+
+        [Label("Gathering Experience Multiplier(%)")]
+        [Tooltip("Modify the ammount of experience recieved from Mining/chopping/fishing")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        public int GatheringExperienceMultiplier;
 
         [Header("Enchantment Drop Rates(%)")]
         [Label("Boss Enchantment Drop Rate")]

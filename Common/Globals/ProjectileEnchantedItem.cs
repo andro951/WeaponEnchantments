@@ -537,18 +537,15 @@ namespace WeaponEnchantments.Common.Globals
                 if (firstScaleCheck)
                 {
                     firstScaleCheck = false;
-                    if(sourceItem.scale > 1f)
+                    switch (projectile.type)
                     {
-                        switch (projectile.type)
-                        {
-                            case ProjectileID.LastPrismLaser:
-                            case ProjectileID.StardustDragon1:
-                            case ProjectileID.StardustDragon2:
-                            case ProjectileID.StardustDragon3:
-                            case ProjectileID.StardustDragon4:
-                                reApplyScale = true;
-                                break;
-                        }
+                        case ProjectileID.LastPrismLaser:
+                        case ProjectileID.StardustDragon1:
+                        case ProjectileID.StardustDragon2:
+                        case ProjectileID.StardustDragon3:
+                        case ProjectileID.StardustDragon4:
+                            reApplyScale = true;
+                            break;
                     }
                     if (Math.Abs(projectile.scale - initialScale) < Math.Abs(projectile.scale - referenceScale))
                         initialScale = projectile.scale;

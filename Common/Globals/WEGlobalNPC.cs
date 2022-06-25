@@ -579,6 +579,18 @@ namespace WeaponEnchantments.Common.Globals
                 if(sourceItem != null)
                 {
                     //int baseDamage = ContentSamples.ItemsByType[item.type].damage;
+                    if(projectile != null && ProjectileID.Sets.StardustDragon[projectile.type])
+                    {
+                        float enchantmentScaleMultiplier = sourceItem.A("scale", 1f);
+                        if(enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f)
+                        {
+                            float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
+                            float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
+                            float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
+                            float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
+                            damage = (int)Math.Round((float)damage * combinedMultiplier);
+                        }
+                    }//Stardust dragon scale damage multiplier correction
                     int damageReduction = npc.defense / 2 - npc.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
                     if (damageReduction >= damage)
                         damageReduction = damage - 1;
