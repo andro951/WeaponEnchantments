@@ -546,7 +546,6 @@ namespace WeaponEnchantments.Common.Globals
                             case ProjectileID.StardustDragon2:
                             case ProjectileID.StardustDragon3:
                             case ProjectileID.StardustDragon4:
-                            case 119:
                                 reApplyScale = true;
                                 break;
                         }
