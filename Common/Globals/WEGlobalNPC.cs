@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<MoveSpeedEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
@@ -227,7 +227,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                             {
-                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
                                 npcLoot.Add(dropRule);
                             }
                             else if (npc.boss)
@@ -266,9 +266,9 @@ namespace WeaponEnchantments.Common.Globals
                         else if (itemTypes.Count > 0)
                         {
                             if (npc.type == NPCID.CultistBoss)
-                                dropRule = ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance));
+                                dropRule = ItemDropRule.Common(itemTypes[0], (int)Math.Round(1f / chance));
                             else
-                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                     }
@@ -471,6 +471,13 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             case NPCID.PirateShip://491
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
+                                break;
+                            case NPCID.GiantWalkingAntlion://508
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                                break;
+                            case NPCID.WalkingAntlion://580
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                                break;
                                 break;
                         }
                     }
