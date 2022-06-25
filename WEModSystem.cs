@@ -443,6 +443,7 @@ namespace WeaponEnchantments
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
                     }
                 }
             }
