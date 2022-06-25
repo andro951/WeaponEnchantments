@@ -15,6 +15,9 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantedItem : GlobalItem
     {
+        public static Item reforgeItem = null;
+        public static int newPrefix = 0;
+        public static bool cloneReforgedItem = false;
         //Start Packet fields
         public int experience;//current experience of a weapon/armor/accessory item
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
@@ -32,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
         public int infusedPower = 0;
         public float damageMultiplier = 1f;
         public int infusionValueAdded = 0;
+        public int damageType = -1;
         public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
@@ -44,6 +48,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool favorited = false;
         public const int maxLevel = 40;
         public int prefix;
+        public bool normalReforge = false;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -65,7 +70,28 @@ namespace WeaponEnchantments.Common.Globals
         }*/
         public override GlobalItem Clone(Item item, Item itemClone)
         {
-            EnchantedItem clone = (EnchantedItem)base.Clone(item, itemClone);
+            EnchantedItem clone;
+            if (cloneReforgedItem)
+            {
+                clone = itemClone.G();
+                cloneReforgedItem = false;
+                clone.experience = experience;
+                clone.infusedItemName = infusedItemName;
+                clone.infusedPower = infusedPower;
+                clone.damageMultiplier = damageMultiplier;
+                clone.infusionValueAdded = infusionValueAdded;
+                clone.lastValueBonus = lastValueBonus;
+                clone.levelBeforeBooster = levelBeforeBooster;
+                clone.level = level;
+                clone.powerBoosterInstalled = powerBoosterInstalled;
+                //clone.prefix = prefix;
+            }
+            else
+            {
+                clone = (EnchantedItem)base.Clone(item, itemClone);
+                clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
+                clone.appliedEStats = new Dictionary<string, StatModifier>(appliedEStats);
+            }
             clone.enchantments = (Item[])enchantments.Clone();
             for (int i = 0; i < enchantments.Length; i++)
             {
@@ -76,12 +102,15 @@ namespace WeaponEnchantments.Common.Globals
             clone.buffs = new Dictionary<int, int>(buffs);
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
-            clone.appliedStatModifiers = new Dictionary<string, StatModifier>(appliedStatModifiers);
-            clone.appliedEStats = new Dictionary<string, StatModifier>(appliedEStats);
             clone.equip = false;
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
             return clone;
+        }
+        public override bool OnPickup(Item item, Player player)
+        {
+            player.G().UpdateItemStats(ref item);
+            return true;
         }
         public override void NetSend(Item item, BinaryWriter writer)
         {
@@ -120,7 +149,29 @@ namespace WeaponEnchantments.Common.Globals
                     writer.Write(statModifiers[key].Flat);
                     writer.Write(statModifiers[key].Base);
                 }
-                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                count = (short)buffs.Count;
+                writer.Write(count);
+                foreach(int key in buffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(buffs[key]);
+                }
+                count = (short)debuffs.Count;
+                writer.Write(count);
+                foreach (int key in debuffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(debuffs[key]);
+                }
+                count = (short)onHitBuffs.Count;
+                writer.Write(count);
+                foreach (int key in onHitBuffs.Keys)
+                {
+                    writer.Write(key);
+                    writer.Write(onHitBuffs[key]);
+                }
+                writer.Write((short)damageType);
+                if (UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 if(UtilityMethods.debugging) ($"/\\NetSend(" + item.Name + ")").Log();
             }
         }
@@ -165,12 +216,38 @@ namespace WeaponEnchantments.Common.Globals
                     float @base = reader.ReadSingle();
                     statModifiers.Add(key, new StatModifier(additive, multiplicative, flat, @base));
                 }
-                if(UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
+                count = reader.ReadUInt16();
+                for(int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    buffs.Add(key, value);
+                }
+                count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    debuffs.Add(key, value);
+                }
+                count = reader.ReadUInt16();
+                for (int i = 0; i < count; i++)
+                {
+                    int key = reader.ReadInt32();
+                    int value = reader.ReadInt32();
+                    onHitBuffs.Add(key, value);
+                }
+                damageType = reader.ReadUInt16();
+                if(damageType > -1)
+                    item.UpdateDamageType(damageType);
+                if (UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 if(UtilityMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
             }
         }
         public override void UpdateEquip(Item item, Player player)
         {
+            //experience = int.MaxValue;
+
             /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             float damageModifier = 0f;
             float speedModifier = 0f;
@@ -295,6 +372,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if(UtilityMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
                 experience = tag.Get<int>("experience");//Load experience tag
+                if (experience < 0)
+                    experience = int.MaxValue;
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
                 infusedItemName = tag.Get<string>("infusedItemName");
                 infusedPower = tag.Get<int>("infusedPower");
@@ -427,7 +506,7 @@ namespace WeaponEnchantments.Common.Globals
                 float effDamage;
                 float effDamageDenom;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.config.BossExperienceMultiplier/400f : WEMod.config.BossExperienceMultiplier/100f);
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.serverConfig.BossExperienceMultiplier/400f : WEMod.serverConfig.BossExperienceMultiplier/100f);
                 effDamage = item != null ? (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f) : damage;
                 float actualDefence = target.defense / 2f - (item != null ? target.checkArmorPenetration(player.GetWeaponArmorPenetration(item)) : 0f);
                 float actualDamage = melee ? damage : damage - actualDefence;
@@ -490,7 +569,14 @@ namespace WeaponEnchantments.Common.Globals
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             int currentLevel = levelBeforeBooster;
+            if(xpInt < 0)
+            {
+                xpInt = 0;
+                ($"Prevented your {item.S()} from loosing experience due to a calculation error.  Please report this to andro951 allong with a description of what you were doing at the time.").Log();
+            }
             experience += xpInt;
+            if(experience < 0)
+                experience = int.MaxValue;
             if (levelBeforeBooster < maxLevel)
             {
                 UpdateLevel();
@@ -546,7 +632,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanUseItem(Item item, Player player)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
@@ -586,7 +672,62 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void PostReforge(Item item)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (UtilityMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
+            /*if (UtilityMethods.debugging)
+            {
+                string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+                s = $"item: {item.S()}, prefix: {item.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+            }*/
+            //WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            //int prefix = item.prefix;
+            //item = reforgeItem;
+            //item.prefix = prefix;
+            //wePlayer.UpdateItemStats(ref item);
+            newPrefix = item.prefix;
+            if (Main.reforgeItem.IsAir && item != null && !item.IsAir || !Main.reforgeItem.IsAir && Main.reforgeItem.G().normalReforge)
+            {
+                ReforgeItem(ref item, Main.LocalPlayer);
+            }
+            if (UtilityMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
+        }
+        public override bool PreReforge(Item item)
+        {
+            if(UtilityMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
+            reforgeItem = item.Clone();
+            if (!Main.reforgeItem.IsAir)
+                Main.reforgeItem.G().normalReforge = true;
+            if (UtilityMethods.debugging)
+            {
+                string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
+                foreach (Item enchantment in reforgeItem.G().enchantments)
+                {
+                    s += enchantment.S();
+                }
+                s.Log();
+            }
+            if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
+            return true; 
+        }
+        public static void ReforgeItem(ref Item item, Player player)
+        {
+            WEPlayer wePlayer = player.G();
+            cloneReforgedItem = true;
+            reforgeItem.G().Clone(reforgeItem, item);
+            reforgeItem = null;
+            newPrefix = 0;
+            if(!Main.reforgeItem.IsAir)
+                Main.reforgeItem.G().normalReforge = false;
+            item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
         }
     }

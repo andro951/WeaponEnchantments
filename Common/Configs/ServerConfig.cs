@@ -22,11 +22,12 @@ using Terraria.UI;
 
 namespace WeaponEnchantments.Common.Configs
 {
-    [Label("Config")]
-    public class EnchantmentConfig : ModConfig
+    [Label("Server Config")]
+    public class ServerConfig : ModConfig
     {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
-        [Header("Presets and Multipliers")]
+        public override ConfigScope Mode => ConfigScope.ServerSide;
+        [Header("Server Config")]
+        [Label("Presets and Multipliers")]
         [ReloadRequired]
         public PresetData presetData;
 
@@ -45,13 +46,13 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public HashSet<ItemDefinition> strengthGroups = new HashSet<ItemDefinition>();//Maybe enchantment strength catagories
 
+        [Header("Individual Item Strengths")]
         [Label("Individual Strengths Enabled")]
         [Tooltip("Enabling this will cause the Indvidual strength values selected below to overite all other settings.")]
         [ReloadRequired]
         [DefaultValue(false)]
         public bool individualStrengthsEnabled;
 
-        [Header("Individual Item Strengths")]
         [Label("Individual Strengths")]
         [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
         [ReloadRequired]
@@ -71,11 +72,6 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(100)]
         [ReloadRequired]
         public int EssenceMultiplier;
-
-        [Label("Automatically send essence to UI")]
-        [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
-        [DefaultValue(false)]
-        public bool teleportEssence;
 
         [Label("Boss Experience Multiplier(%)")]
         [Tooltip("Modify the ammount of experience recieved by bosses.")]
@@ -105,6 +101,31 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(100)]
         [ReloadRequired]
         public int EnchantmentDropChance;
+
+        [Header("General Game Changes")]
+        [Label("Convert excess armor penetration to bonus damage")]
+        [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
+        [DefaultValue(true)]
+        public bool teleportEssence;
+
+        //[Header("Client Config")]
+        //public ClientConfig clientConfig = new();
+        /*public class ClientConfig : ModConfig
+        {
+            public override ConfigScope Mode => ConfigScope.ClientSide;
+
+            [Label("Automatically send essence to UI")]
+            [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
+            [DefaultValue(false)]
+            public bool teleportEssence;
+
+            [Label("Use Original Rarity Names")]
+            [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
+            [DefaultValue(false)]
+            [ReloadRequired]
+            public bool UseOldRarityNames;
+        }*/
+
         //[DefaultDictionaryKeyValue(0f)]
         /*[DefaultListValue(0f)]
         [Range(0f, 100f)]
@@ -126,7 +147,7 @@ namespace WeaponEnchantments.Common.Configs
         // See _additionalData usage in OnDeserializedMethod to see how this modifiedEnchantmentStrengths can be populated from old versions of this mod.
         /*public List<int> modifiedEnchantmentStrengths = new List<int>();*/
 
-        public EnchantmentConfig()
+        public ServerConfig()
         {
             presetData = new PresetData();
             /*presetData.boost = 32;
@@ -152,6 +173,23 @@ namespace WeaponEnchantments.Common.Configs
             return true;
         }*/
     }
+    [Label("ClientConfig")]
+    public class ClientConfig : ModConfig
+    {
+        public override ConfigScope Mode => ConfigScope.ClientSide;
+
+        [Label("Automatically send essence to UI")]
+        [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
+        [DefaultValue(false)]
+        public bool teleportEssence;
+
+        [Label("Use Original Rarity Names")]
+        [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool UseOldRarityNames;
+    }
+
     //[BackgroundColor(0, 255, 255)]
     //[Label("Pair label")]
     public class Pair

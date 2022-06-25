@@ -131,7 +131,7 @@ namespace WeaponEnchantments.Common
         }
         public static bool TryInfuseItem(this Item item, Item consumedItem, bool reset = false, bool finalize = false)
         {
-            if (WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(consumedItem))
+            if (WEMod.IsWeaponItem(item) && (WEMod.IsWeaponItem(consumedItem) || consumedItem.IsAir))
             {
                 bool failedItemFind = false;
                 if (consumedItem.G().infusedItemName != "")
@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Common
                         Main.NewText($"Your {item.Name}({item.G().infusedPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                 }
                 else if (finalize)
-                    Main.NewText($"The base rarity of the item being upgraded must be lower than the rarity of the consumed item.");
+                    Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
             }
             return false;
         }

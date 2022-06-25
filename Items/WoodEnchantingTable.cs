@@ -74,7 +74,7 @@ namespace WeaponEnchantments.Items
 				switch (enchantingTableTier)
 				{
 					case 0:
-						recipe.AddIngredient(ItemID.WorkBench, 1); //Workbench
+						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches");
 						recipe.AddIngredient(ItemID.Torch, 4); //Torches
 						break;
 					case 1:

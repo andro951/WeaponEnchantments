@@ -32,6 +32,7 @@ namespace WeaponEnchantments.Items
 		Mana,
 		MaxMinions,
 		Moonlight,
+		MoveSpeed,
 		ObsidianSkin,
 		OneForAll,
 		Peace,
@@ -48,6 +49,7 @@ namespace WeaponEnchantments.Items
 		DangerSense,
 		Hunter,
 		Mana,
+		MoveSpeed,
 		ObsidianSkin,
 		Peace,
 		Scale,
@@ -69,8 +71,6 @@ namespace WeaponEnchantments.Items
 	}//Located in DamageClassLoader.cs
 	public class AllForOneEnchantmentBasic : ModItem
 	{
-		bool ToggleRarityNames = false;
-
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
@@ -86,7 +86,8 @@ namespace WeaponEnchantments.Items
 				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
 				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
 				{0.6f, 0.65f, 0.7f, 0.8f, 0.9f},//9
-				{0.2f, 0.4f, 0.6f, 0.8f, 1f }//10
+				{0.2f, 0.4f, 0.6f, 0.8f, 1f },//10
+				{0.04f, 0.08f, 0.12f, 0.16f, 0.20f},//7
 			};
 		private float scalePercent;
 		public int StrengthGroup { private set; get; } = 0;
@@ -161,10 +162,10 @@ namespace WeaponEnchantments.Items
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
-			if (EnchantmentSize > 2 && ToggleRarityNames)
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
-			else
+			if (WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+			else
+				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
@@ -279,6 +280,9 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.WorldAblaze:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
+				case EnchantmentTypeID.MoveSpeed:
+					StrengthGroup = 11;//0.04f, 0.08f, 0.12f, 0.16f, 0.20f
+					break;
 				default:
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
 					break;
@@ -306,9 +310,9 @@ namespace WeaponEnchantments.Items
 			}//Scale Percents
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
 			bool foundIndividualStrength = false;
-			if(WEMod.config.individualStrengthsEnabled && WEMod.config.individualStrengths.Count > 0)
+			if(WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0)
             {
-				foreach (Pair pair in WEMod.config.individualStrengths)
+				foreach (Pair pair in WEMod.serverConfig.individualStrengths)
 				{
 					if (pair.itemDefinition.Name == Name)
 					{
@@ -321,15 +325,15 @@ namespace WeaponEnchantments.Items
 			{
 				float multiplier =
 				(float)(
-					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
-					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
+					WEMod.serverConfig.strengthGroups.Contains(itemDefinition) ? WEMod.serverConfig.strengthGroupMultiplier :
+					WEMod.serverConfig.presetData.linearStrengthMultiplier != 100 ? WEMod.serverConfig.presetData.linearStrengthMultiplier :
 					-100f
 				) / 100f;
 				if(multiplier != -1f)
 					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];//Linear
                 else
                 {
-					multiplier = WEMod.config.presetData.recomendedStrengthMultiplier / 100f;
+					multiplier = WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
 					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 					float scale = Math.Abs(scalePercent);
 					if(scalePercent < 0f && multiplier < 1f)
@@ -387,7 +391,12 @@ namespace WeaponEnchantments.Items
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);
 						break;
+					case EnchantmentTypeID.DangerSense:
+					case EnchantmentTypeID.Hunter:
+					case EnchantmentTypeID.MoveSpeed:
+					case EnchantmentTypeID.ObsidianSkin:
 					case EnchantmentTypeID.Peace:
+					case EnchantmentTypeID.Spelunker:
 					case EnchantmentTypeID.War:
 						AllowedList.Add("Weapon", 1f);
 						AllowedList.Add("Armor", 1f);
@@ -431,6 +440,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
 						CheckStaticStatByName();
 						break;
@@ -1045,6 +1055,7 @@ namespace WeaponEnchantments.Items
 	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class MaxMinionsEnchantmentBasic : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentCommon : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class MoonlightEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class MoveSpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }

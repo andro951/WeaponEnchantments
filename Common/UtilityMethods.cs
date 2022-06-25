@@ -7,6 +7,7 @@ using System.Reflection;
 using System;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WeaponEnchantments.Common
 {
@@ -85,7 +86,8 @@ namespace WeaponEnchantments.Common
             return combinedStatModifier.ApplyTo(value);
         }
         public static bool C(this Item item, string key) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key);
-        public static bool PC(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
+        public static bool C(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
+        public static bool C(this Player player, string key, Item item) => player.G().eStats.ContainsKey(key) || item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.G().eStats.ContainsKey(key);
         public static string S(this StatModifier statModifier) => "<A: " + statModifier.Additive + ", M: " + statModifier.Multiplicative + ", B: " + statModifier.Base + ", F: " + statModifier.Flat + ">";
         public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
         public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
@@ -447,50 +449,56 @@ namespace WeaponEnchantments.Common
                     if(enchantment.NewDamageType > -1)
                     {
                         if (remove)
+                        {
                             item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
+                            item.G().damageType = -1;
+                        }
                         else
                         {
-                            int temp = item.DamageType.Type;
-                            switch ((DamageTypeSpecificID)enchantment.NewDamageType)
-                            {
-                                case DamageTypeSpecificID.Default:
-                                    item.DamageType = DamageClass.Default;
-                                    break;
-                                case DamageTypeSpecificID.Generic:
-                                    item.DamageType = DamageClass.Generic;
-                                    break;
-                                case DamageTypeSpecificID.Melee:
-                                    item.DamageType = DamageClass.Melee;
-                                    break;
-                                case DamageTypeSpecificID.MeleeNoSpeed:
-                                    item.DamageType = DamageClass.MeleeNoSpeed;
-                                    break;
-                                case DamageTypeSpecificID.Ranged:
-                                    item.DamageType = DamageClass.Ranged;
-                                    break;
-                                case DamageTypeSpecificID.Magic:
-                                    item.DamageType = DamageClass.Magic;
-                                    break;
-                                case DamageTypeSpecificID.Summon:
-                                    item.DamageType = DamageClass.Summon;
-                                    break;
-                                case DamageTypeSpecificID.SummonMeleeSpeed:
-                                    item.DamageType = DamageClass.SummonMeleeSpeed;
-                                    break;
-                                case DamageTypeSpecificID.MagicSummonHybrid:
-                                    item.DamageType = DamageClass.MagicSummonHybrid;
-                                    break;
-                                case DamageTypeSpecificID.Throwing:
-                                    item.DamageType = DamageClass.Throwing;
-                                    break;
-                            }
-                            temp = item.DamageType.Type;
+                            item.G().damageType = enchantment.NewDamageType;
+                            item.UpdateDamageType(enchantment.NewDamageType);
                         }
                     }
 
                 }
                 //iGlobal.statsSet[slotNum] = true;
                 if(UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+            }
+        }
+        public static void UpdateDamageType(this Item item, int type)
+        {
+            switch ((DamageTypeSpecificID)type)
+            {
+                case DamageTypeSpecificID.Default:
+                    item.DamageType = DamageClass.Default;
+                    break;
+                case DamageTypeSpecificID.Generic:
+                    item.DamageType = DamageClass.Generic;
+                    break;
+                case DamageTypeSpecificID.Melee:
+                    item.DamageType = DamageClass.Melee;
+                    break;
+                case DamageTypeSpecificID.MeleeNoSpeed:
+                    item.DamageType = DamageClass.MeleeNoSpeed;
+                    break;
+                case DamageTypeSpecificID.Ranged:
+                    item.DamageType = DamageClass.Ranged;
+                    break;
+                case DamageTypeSpecificID.Magic:
+                    item.DamageType = DamageClass.Magic;
+                    break;
+                case DamageTypeSpecificID.Summon:
+                    item.DamageType = DamageClass.Summon;
+                    break;
+                case DamageTypeSpecificID.SummonMeleeSpeed:
+                    item.DamageType = DamageClass.SummonMeleeSpeed;
+                    break;
+                case DamageTypeSpecificID.MagicSummonHybrid:
+                    item.DamageType = DamageClass.MagicSummonHybrid;
+                    break;
+                case DamageTypeSpecificID.Throwing:
+                    item.DamageType = DamageClass.Throwing;
+                    break;
             }
         }
         public static void ApplyAllowedList(Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)

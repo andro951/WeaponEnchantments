@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<MoveSpeedEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
@@ -204,10 +204,10 @@ namespace WeaponEnchantments.Common.Globals
             switch (arg)
             {
                 case NPCID.WallofFlesh when !bossBag:
-                    chance = WEMod.config.BossEnchantmentDropChance * 2f;
+                    chance = WEMod.serverConfig.BossEnchantmentDropChance * 2f;
                     break;
                 default:
-                    chance = WEMod.config.BossEnchantmentDropChance;
+                    chance = WEMod.serverConfig.BossEnchantmentDropChance;
                     break;
             }
             chance /= 100f;
@@ -227,7 +227,7 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             if (npc.boss && (npc.type < NPCID.EaterofWorldsHead || npc.type > NPCID.EaterofWorldsTail))
                             {
-                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(baseID + i, 1, (int)Math.Round(dropRate[i]), (int)Math.Round(dropRate[i] + 1f)), ItemDropRule.DropNothing());
                                 npcLoot.Add(dropRule);
                             }
                             else if (npc.boss)
@@ -266,16 +266,24 @@ namespace WeaponEnchantments.Common.Globals
                         else if (itemTypes.Count > 0)
                         {
                             if (npc.type == NPCID.CultistBoss)
-                                dropRule = ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance));
+                                dropRule = ItemDropRule.Common(itemTypes[0], (int)Math.Round(1f / chance));
                             else
-                                dropRule = new DropBasedOnExpertMode(ItemDropRule.NotScalingWithLuck(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
+                                dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(itemTypes[0], (int)Math.Round(1f / chance)), ItemDropRule.DropNothing());
                             npcLoot.Add(dropRule);
                         }
                     }
                     else
                     {
-                        float mult = WEMod.config.EnchantmentDropChance / 100f;
-                        int defaultDenom = (int)((5000 + hp * 5)  / (total * mult));
+                        //This is where Drop rates are calculated
+
+                        //mult is the config multiplier
+                        float mult = WEMod.serverConfig.EnchantmentDropChance / 100f;
+                        //defaultDenom is the denominator of the drop rate.  The numerator is always 1 (This is part of how Terraria calculates drop rates, I can't change it)
+                        //  hp is the npc's max hp
+                        //  total is calculated based on npc max hp.  Use total = hp + 0.2 * value
+                        //Example: defaultDenom = 5, numerator is 1.  Drop rate = 1/5 = 20%
+                        //Aproximate drop rate = (hp + 0.2 * value)/(5000 + hp * 5) * config multiplier
+                        int defaultDenom = (int)((5000f + hp * 5f)  / (total * mult));
                         if(defaultDenom < 1) defaultDenom = 1;
                         int denom100 = (int)Math.Round(1f / mult);
                         switch (npc.aiStyle)
@@ -464,6 +472,13 @@ namespace WeaponEnchantments.Common.Globals
                             case NPCID.PirateShip://491
                                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
                                 break;
+                            case NPCID.GiantWalkingAntlion://508
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                                break;
+                            case NPCID.WalkingAntlion://580
+                                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                                break;
+                                break;
                         }
                     }
                 }
@@ -471,13 +486,14 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total)
         {
-            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f) * (npc.boss ? WEMod.config.BossEssenceMultiplier / 100f : WEMod.config.EssenceMultiplier / 100f);
+            float multiplier = (2f + ((float)((npc.noGravity ? 1f : 0f) + (npc.noTileCollide ? 1f : 0f)) - npc.knockBackResist) / 5f);
             hp = (float)npc.lifeMax * (1f + (float)npc.defDefense + (float)npc.defDamage / 2f) / 40f;
             float value = (float)npc.value;
             if(value > 0 || hp > 10)
             {
                 total = value > 0 ? (hp + 0.2f * value) * multiplier : hp * 2.6f * multiplier;
                 total /= UtilityMethods.GetReductionFactor((int)hp);
+                float essenceTotal = total * (npc.boss ? WEMod.serverConfig.BossEssenceMultiplier / 100f : WEMod.serverConfig.EssenceMultiplier / 100f);
                 essenceValues = EnchantmentEssenceBasic.values;
                 dropRate = new float[essenceValues.Length];
                 baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
@@ -487,7 +503,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        if (total / essenceValues[i] > 1)
+                        if (essenceTotal / essenceValues[i] > 1)
                         {
                             rarity = i;
                         }
@@ -501,7 +517,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < essenceValues.Length; ++i)
                     {
-                        if (total / essenceValues[i] < 0.025)
+                        if (essenceTotal / essenceValues[i] < 0.025)
                         {
                             break;
                         }
@@ -513,17 +529,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 if (rarity == 0)
                 {
-                    dropRate[rarity] = 1.25f * total / essenceValues[rarity];
+                    dropRate[rarity] = 1.25f * essenceTotal / essenceValues[rarity];
                 }
                 else
                 {
-                    dropRate[rarity] = total / essenceValues[rarity];
-                    dropRate[rarity - 1] = 0.5f * total / essenceValues[rarity];
+                    dropRate[rarity] = essenceTotal / essenceValues[rarity];
+                    dropRate[rarity - 1] = 0.5f * essenceTotal / essenceValues[rarity];
                 }
                 if (rarity < 4)
                 {
-                    dropRate[rarity + 1] = 0.06125f * total / essenceValues[rarity];
+                    dropRate[rarity + 1] = 0.06125f * essenceTotal / essenceValues[rarity];
                 }
+                
             }
             else
             {
@@ -566,6 +583,9 @@ namespace WeaponEnchantments.Common.Globals
                     if (damageReduction >= damage)
                         damageReduction = damage - 1;
                     damage -= damageReduction;
+                    int armorPenetration = player.GetWeaponArmorPenetration(item);
+                    if (WEMod.serverConfig.teleportEssence && armorPenetration > npc.defDamage)
+                        damage += (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
                     //float temp2 = player.AEP("Damage", 1f);
                     damage = (int)Math.Round(item.AEI("Damage", (float)damage));
                     int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);

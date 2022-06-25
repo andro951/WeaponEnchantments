@@ -19,7 +19,9 @@ namespace WeaponEnchantments
 {
     public class WEMod : Mod
     {
-		internal static EnchantmentConfig config = ModContent.GetInstance<EnchantmentConfig>();
+		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
+		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+		//public static Dictionary<string, bool> playerTeleportItemSetting = new();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
@@ -85,6 +87,8 @@ namespace WeaponEnchantments
 			public const byte Enchantment = 1;
 			public const byte Infusion = 2;
 			public const byte OnHitEffects = 3;
+			/*public const byte TeleportItemSetting = 4;
+			public const byte PickUpEssence = 5;*/
 		}
 		//public void SendInfusionPacket()
 		public void SendEnchantmentPacket(byte enchantmentSlotNumber, byte slotNumber, short itemType, short bank = -1, byte type = 1)
@@ -262,6 +266,19 @@ namespace WeaponEnchantments
 					}
 					if (UtilityMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					break;
+				/*case PacketIDs.TeleportItemSetting:
+					string name = reader.ReadString();
+					bool teleportItemSetting = reader.ReadBoolean();
+					if (playerTeleportItemSetting.ContainsKey(name))
+						playerTeleportItemSetting[name] = teleportItemSetting;
+					else
+						playerTeleportItemSetting.Add(name, teleportItemSetting);
+					break;
+				case PacketIDs.PickUpEssence:
+					int rarity = (int)reader.ReadByte();
+					int stack = reader.ReadInt32();
+					//Main.player[whoAmI].G().PickUpEssence(rarity, stack);
+					break;*/
 				default:
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;
@@ -334,18 +351,23 @@ namespace WeaponEnchantments
 			}
 		}
 		public override void AddRecipeGroups()
-	{
-		RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
 		{
-			180, 181, 178, 179, 177
-		});
-		RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
-		group = new RecipeGroup(() => "Any Rare Gem", new int[]
-		{
-			999, 182
-		});
-		RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
-	}
+			RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
+			{
+				180, 181, 178, 179, 177
+			});
+			RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
+			group = new RecipeGroup(() => "Any Rare Gem", new int[]
+			{
+				999, 182
+			});
+			RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
+			group = new RecipeGroup(() => "Workbenches", new int[]
+			{
+				ItemID.WorkBench, ItemID.BambooWorkbench, ItemID.BlueDungeonWorkBench, ItemID.BoneWorkBench, ItemID.BorealWoodWorkBench, ItemID.CactusWorkBench, ItemID.CrystalWorkbench, ItemID.DynastyWorkBench, ItemID.EbonwoodWorkBench, ItemID.FleshWorkBench, ItemID.FrozenWorkBench, ItemID.GlassWorkBench, ItemID.GoldenWorkbench, ItemID.GothicWorkBench, ItemID.GraniteWorkBench, ItemID.GreenDungeonWorkBench, ItemID.HoneyWorkBench, ItemID.LesionWorkbench, ItemID.LihzahrdWorkBench, ItemID.LivingWoodWorkBench, ItemID.MarbleWorkBench, ItemID.MartianWorkBench, ItemID.MeteoriteWorkBench, ItemID.MushroomWorkBench, ItemID.NebulaWorkbench, ItemID.ObsidianWorkBench, ItemID.PalmWoodWorkBench, ItemID.PearlwoodWorkBench, ItemID.PinkDungeonWorkBench, ItemID.PumpkinWorkBench, ItemID.RichMahoganyWorkBench, ItemID.SandstoneWorkbench, ItemID.ShadewoodWorkBench, ItemID.SkywareWorkbench, ItemID.SlimeWorkBench, ItemID.SolarWorkbench, ItemID.SpiderWorkbench, ItemID.SpookyWorkBench, ItemID.StardustWorkbench, ItemID.SteampunkWorkBench, ItemID.VortexWorkbench
+			}) ;
+			RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
+		}
         private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
