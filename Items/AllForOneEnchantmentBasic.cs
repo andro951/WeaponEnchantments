@@ -77,7 +77,7 @@ namespace WeaponEnchantments.Items
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1
+				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
 				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
@@ -243,8 +243,8 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case EnchantmentTypeID.MaxMinions:
-					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f
+				case EnchantmentTypeID(-1):
+					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f Not used yet
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -278,6 +278,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.WorldAblaze:
+				case EnchantmentTypeID.MaxMinions:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -299,6 +300,9 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
 					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
+					break;
+				case EnchantmentTypeID.MaxMinions:
+					scalePercent = 0.6f;
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -440,6 +444,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.MaxMinions:
 					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
 						CheckStaticStatByName();
@@ -501,10 +506,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Mana:
 						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
-					case EnchantmentTypeID.MaxMinions:
+					/*case EnchantmentTypeID.MaxMinions:
 						CheckStaticStatByName();
 						EStats.Add(new EStat("Damage", EnchantmentStrength * .025f));
-						break;
+						break;*/
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
