@@ -459,8 +459,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.ColdSteel:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
-						if (EnchantmentSize == 4) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(BuffID.Frostburn, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
@@ -468,8 +468,8 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						Debuff.Add(BuffID.FlameWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.JunglesFury:
@@ -477,16 +477,16 @@ namespace WeaponEnchantments.Items
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, buffDuration);
 						Debuff.Add(BuffID.SwordWhipNPCDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Moonlight:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, buffDuration);
-						if (EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Damage:
