@@ -39,16 +39,17 @@ namespace WeaponEnchantments.Common
             for(int i = numVanillaWeaponRarities; i < numRarities; i++)
             {
                 if (i == 16)
-                    averageValues[i] = 2000000;
+                    maxValues[i] = 2000000;
                 else
-                    averageValues[i] = 1100000 + 100000 * i;
-                minValues[i] = (int)((1f - minMaxValueMultiplier) * averageValues[i]);
-                maxValues[i] = (int)((1f + minMaxValueMultiplier) * averageValues[i]);
+                    maxValues[i] = 1100000 + 100000 * (i - numVanillaWeaponRarities);
+                minValues[i] = maxValues[i - 1];
+                averageValues[i] = (minValues[i] + maxValues[i]) / 2;
             }
             string msg = "";
             for(int i = 0; i < numRarities; i++)
             {
-                averageValues[i] = (float)total[i]/(float)count[i];
+                if(i < numVanillaWeaponRarities)
+                    averageValues[i] = (float)total[i]/(float)count[i];
                 msg += $"rarity: {i} average: {averageValues[i]} min: {minValues[i]} max: {maxValues[i]}\n";
             }
             //msg.Log();
