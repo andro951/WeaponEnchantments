@@ -87,22 +87,28 @@ namespace WeaponEnchantments.Common
         }
         public static float GetRarity(this Item item)
         {
-            Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
-            float valueMultiplier = 0.5f;
-            int rarity = sampleItem.rare;
-            if(rarity > numRarities - 1) rarity = numRarities - 1;
-            else if(rarity < 0) rarity = 0;
-            int value = sampleItem.value;
-            float averageValue = averageValues[rarity];
-            float combinedRarity;
-            int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
-            float denom = Math.Abs(averageValue - maxOrMin);
-            combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
-            if (combinedRarity > rarity + 2 * valueMultiplier)
-                combinedRarity = rarity + 2 * valueMultiplier;
-            else if (combinedRarity < rarity - 2 * valueMultiplier)
-                combinedRarity = rarity - 2 * valueMultiplier;
-            return combinedRarity;
+            switch (item.Name)
+            {
+                case "Pulse Pistol":
+                    return 3.25f;
+                default:
+                    Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
+                    float valueMultiplier = 0.5f;
+                    int rarity = sampleItem.rare;
+                    if (rarity > numRarities - 1) rarity = numRarities - 1;
+                    else if (rarity < 0) rarity = 0;
+                    int value = sampleItem.value;
+                    float averageValue = averageValues[rarity];
+                    float combinedRarity;
+                    int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
+                    float denom = Math.Abs(averageValue - maxOrMin);
+                    combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
+                    if (combinedRarity > rarity + 2 * valueMultiplier)
+                        combinedRarity = rarity + 2 * valueMultiplier;
+                    else if (combinedRarity < rarity - 2 * valueMultiplier)
+                        combinedRarity = rarity - 2 * valueMultiplier;
+                    return combinedRarity;
+            }
         }
         public static float GetMultiplier(this Item item, Item consumedItem, out int infusedPower)
         {

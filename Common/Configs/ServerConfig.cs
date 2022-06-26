@@ -110,7 +110,13 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
         [DefaultValue(true)]
-        public bool teleportEssence;
+        public bool TeleportEssence;
+
+        [Header("Random Extra Stuff")]
+        [Label("Start with a Drill Containment Unit")]
+        [Tooltip("All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough.")]
+        [DefaultValue(false)]
+        public bool DCUStart;
 
         //[Header("Client Config")]
         //public ClientConfig clientConfig = new();
