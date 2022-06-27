@@ -158,7 +158,7 @@ namespace WeaponEnchantments.Items
 					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)\n(Enemies spawned will be immune to lava/traps)";
 					break;
 				case EnchantmentTypeID.WorldAblaze:
-					toolTip = $"(None shall survive the unstopable flames of Amaterasu)";
+					toolTip = $"(None shall survive the unstopable flames of Amaterasu)\n(Inflict a unique fire debuff to enemies that never stops)\n(The damage from the debuff grows over time and from dealing more damage to the target)\n(Spreads to nearby enemies)";
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
