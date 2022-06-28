@@ -635,7 +635,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
-            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
+            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
                 return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
         }

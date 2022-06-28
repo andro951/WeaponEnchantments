@@ -158,12 +158,7 @@ namespace WeaponEnchantments
                     if (wePlayer.infusionConsumeItem != null && !wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
                     {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
-                        UIText infusionButonText = new UIText("Cancel")
-                        {
-                            Top = { Pixels = -8f },
-                            Left = { Pixels = -1f }
-                        };
-                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
                     }
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
@@ -182,12 +177,7 @@ namespace WeaponEnchantments
                     if (wePlayer.infusionConsumeItem != null && WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted))
                     {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-                        UIText infusionButonText = new UIText("Finalize")
-                        {
-                            Top = { Pixels = -8f },
-                            Left = { Pixels = -1f }
-                        };
-                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {

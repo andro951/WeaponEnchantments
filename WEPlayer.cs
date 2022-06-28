@@ -1181,5 +1181,15 @@ namespace WeaponEnchantments
                 UpdatePlayerStat();
             temp1 = Player.maxMinions;
         }
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            List<Item> items = new List<Item>();
+            if (WEMod.serverConfig.DCUStart)
+            {
+                Item item = new Item(ItemID.DrillContainmentUnit);
+                items.Add(item);
+            }
+            return items;
+        }
     }
 }

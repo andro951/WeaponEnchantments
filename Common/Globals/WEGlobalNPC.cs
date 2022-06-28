@@ -596,7 +596,7 @@ namespace WeaponEnchantments.Common.Globals
                         damageReduction = damage - 1;
                     damage -= damageReduction;
                     int armorPenetration = player.GetWeaponArmorPenetration(item);
-                    if (WEMod.serverConfig.teleportEssence && armorPenetration > npc.defDamage)
+                    if (WEMod.serverConfig.TeleportEssence && armorPenetration > npc.defDamage)
                         damage += (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
                     //float temp2 = player.AEP("Damage", 1f);
                     damage = (int)Math.Round(item.AEI("Damage", (float)damage));
