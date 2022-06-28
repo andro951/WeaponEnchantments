@@ -102,16 +102,25 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         float projectileChance = sourceItem.AEI("Splitting", 0f);
                         int projectiles = (int)projectileChance;
-                        projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
+                        float chance = Main.rand.NextFloat();
+                        projectiles += (chance <= projectileChance - (float)projectiles ? 1 : 0);
                         if (projectiles > 0)
                         {
-                            float spread = (float)Math.PI / 10f;
-                            for (int i = 0; i < projectiles; i++)
+                            float spread = (float)Math.PI / 200f;
+                            bool invert = false;
+                            int rotationCount = 0;
+                            for (int i = 1; i <= projectiles; i++)
                             {
-                                float rotation = (float)i - ((float)projectiles - 2f) / 2f;
-                                Vector2 position = projectile.position.RotatedBy(spread * rotation);
-                                Vector2 velocity = projectile.velocity;
+                                if (!invert)
+                                    rotationCount++;
+                                float rotation = (float)rotationCount - ((float)projectiles - 2f) / 2f;
+                                if (invert)
+                                    rotation *= -1f;
+                                //Vector2 position = projectile.position.RotatedBy(spread * rotation);
+                                Vector2 position = projectile.position;
+                                Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
                                 Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                                invert = !invert;
                             }
                         }
                     }
