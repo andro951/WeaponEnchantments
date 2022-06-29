@@ -243,7 +243,7 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case EnchantmentTypeID(-1):
+				case (EnchantmentTypeID)(-1):
 					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f Not used yet
 					break;
 				case EnchantmentTypeID.War:

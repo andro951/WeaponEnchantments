@@ -716,7 +716,7 @@ namespace WeaponEnchantments.Common.Globals
                 s.Log();
             }
             if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
-            return true; 
+            return true;
         }
         public static void ReforgeItem(ref Item item, Player player)
         {
@@ -725,10 +725,14 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem.G().Clone(reforgeItem, item);
             reforgeItem = null;
             newPrefix = 0;
-            if(!Main.reforgeItem.IsAir)
+            if (!Main.reforgeItem.IsAir)
                 Main.reforgeItem.G().normalReforge = false;
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
+        }
+        public override void OnCreate(Item item, ItemCreationContext context)
+        {
+            
         }
     }
 }
