@@ -39,16 +39,17 @@ namespace WeaponEnchantments.Common
             for(int i = numVanillaWeaponRarities; i < numRarities; i++)
             {
                 if (i == 16)
-                    averageValues[i] = 2000000;
+                    maxValues[i] = 2000000;
                 else
-                    averageValues[i] = 1100000 + 100000 * i;
-                minValues[i] = (int)((1f - minMaxValueMultiplier) * averageValues[i]);
-                maxValues[i] = (int)((1f + minMaxValueMultiplier) * averageValues[i]);
+                    maxValues[i] = 1100000 + 100000 * (i - numVanillaWeaponRarities);
+                minValues[i] = maxValues[i - 1];
+                averageValues[i] = (minValues[i] + maxValues[i]) / 2;
             }
             string msg = "";
             for(int i = 0; i < numRarities; i++)
             {
-                averageValues[i] = (float)total[i]/(float)count[i];
+                if(i < numVanillaWeaponRarities)
+                    averageValues[i] = (float)total[i]/(float)count[i];
                 msg += $"rarity: {i} average: {averageValues[i]} min: {minValues[i]} max: {maxValues[i]}\n";
             }
             //msg.Log();
@@ -86,22 +87,28 @@ namespace WeaponEnchantments.Common
         }
         public static float GetRarity(this Item item)
         {
-            Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
-            float valueMultiplier = 0.5f;
-            int rarity = sampleItem.rare;
-            if(rarity > numRarities - 1) rarity = numRarities - 1;
-            else if(rarity < 0) rarity = 0;
-            int value = sampleItem.value;
-            float averageValue = averageValues[rarity];
-            float combinedRarity;
-            int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
-            float denom = Math.Abs(averageValue - maxOrMin);
-            combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
-            if (combinedRarity > rarity + 2 * valueMultiplier)
-                combinedRarity = rarity + 2 * valueMultiplier;
-            else if (combinedRarity < rarity - 2 * valueMultiplier)
-                combinedRarity = rarity - 2 * valueMultiplier;
-            return combinedRarity;
+            switch (item.Name)
+            {
+                case "Pulse Pistol":
+                    return 3.25f;
+                default:
+                    Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
+                    float valueMultiplier = 0.5f;
+                    int rarity = sampleItem.rare;
+                    if (rarity > numRarities - 1) rarity = numRarities - 1;
+                    else if (rarity < 0) rarity = 0;
+                    int value = sampleItem.value;
+                    float averageValue = averageValues[rarity];
+                    float combinedRarity;
+                    int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
+                    float denom = Math.Abs(averageValue - maxOrMin);
+                    combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
+                    if (combinedRarity > rarity + 2 * valueMultiplier)
+                        combinedRarity = rarity + 2 * valueMultiplier;
+                    else if (combinedRarity < rarity - 2 * valueMultiplier)
+                        combinedRarity = rarity - 2 * valueMultiplier;
+                    return combinedRarity;
+            }
         }
         public static float GetMultiplier(this Item item, Item consumedItem, out int infusedPower)
         {
@@ -131,7 +138,7 @@ namespace WeaponEnchantments.Common
         }
         public static bool TryInfuseItem(this Item item, Item consumedItem, bool reset = false, bool finalize = false)
         {
-            if (WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(consumedItem))
+            if (WEMod.IsWeaponItem(item) && (WEMod.IsWeaponItem(consumedItem) || consumedItem.IsAir))
             {
                 bool failedItemFind = false;
                 if (consumedItem.G().infusedItemName != "")
@@ -177,7 +184,7 @@ namespace WeaponEnchantments.Common
                         Main.NewText($"Your {item.Name}({item.G().infusedPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                 }
                 else if (finalize)
-                    Main.NewText($"The base rarity of the item being upgraded must be lower than the rarity of the consumed item.");
+                    Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
             }
             return false;
         }

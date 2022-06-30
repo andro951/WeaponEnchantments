@@ -128,6 +128,14 @@ namespace WeaponEnchantments
                 }
                 foreach (Item item in mod)
             }*/
+            /*if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket packet = ModContent.GetInstance<WEMod>().GetPacket();
+                packet.Write(WEMod.PacketIDs.TeleportItemSetting);
+                packet.Write(player.name);
+                packet.Write(WEMod.clientConfig.teleportEssence);
+                packet.Send();
+            }*/
             if (UtilityMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
         }
         public static void HookItemCheck_MeleeHitNPCs(ILContext il)
@@ -1172,6 +1180,16 @@ namespace WeaponEnchantments
             if (updatePlayerStat)
                 UpdatePlayerStat();
             temp1 = Player.maxMinions;
+        }
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            List<Item> items = new List<Item>();
+            if (WEMod.serverConfig.DCUStart)
+            {
+                Item item = new Item(ItemID.DrillContainmentUnit);
+                items.Add(item);
+            }
+            return items;
         }
     }
 }

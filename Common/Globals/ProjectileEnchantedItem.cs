@@ -26,6 +26,13 @@ namespace WeaponEnchantments.Common.Globals
         //float speedAdd = 0f;
         //float speedCarryover = 0f;
         float speed;
+        bool firstScaleCheck = true;
+        bool secondScaleCheck = true;
+        bool reApplyScale = false;
+        float firstAIScale = 1f;
+        float initialScale = 1f;
+        float referenceScale = 1f;
+        float lastScaleBonus = 1f;
         public bool[] spawnedChild = { false, false };
         float[] spawnChildValue = { 0f, 0f };
         float[] nextValueAfterChild = { 0f, 0f };
@@ -68,7 +75,7 @@ namespace WeaponEnchantments.Common.Globals
                         sourceSet = true;
                     }
                 }
-                else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile)
+                else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
                 {
                     parent = parentProjectile;
                     TryUpdateFromParent();
@@ -88,27 +95,37 @@ namespace WeaponEnchantments.Common.Globals
             }
             if(sourceSet)
             {
-                if (UtilityMethods.PC("Splitting"))
+                Player player = Main.player[projectile.owner];
+                if (player.C("Splitting", sourceItem))
                 {
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
                         float projectileChance = sourceItem.AEI("Splitting", 0f);
                         int projectiles = (int)projectileChance;
-                        projectiles += (Main.rand.NextFloat() >= projectileChance - (float)projectiles ? 1 : 0);
+                        float chance = Main.rand.NextFloat();
+                        projectiles += (chance <= projectileChance - (float)projectiles ? 1 : 0);
                         if (projectiles > 0)
                         {
-                            float spread = (float)Math.PI / 10f;
-                            for (int i = 0; i < projectiles; i++)
+                            float spread = (float)Math.PI / 200f;
+                            bool invert = false;
+                            int rotationCount = 0;
+                            for (int i = 1; i <= projectiles; i++)
                             {
-                                float rotation = (float)i - ((float)projectiles - 2f) / 2f;
-                                Vector2 position = projectile.position.RotatedBy(spread * rotation);
-                                Vector2 velocity = projectile.velocity;
+                                if (!invert)
+                                    rotationCount++;
+                                float rotation = (float)rotationCount - ((float)projectiles - 2f) / 2f;
+                                if (invert)
+                                    rotation *= -1f;
+                                //Vector2 position = projectile.position.RotatedBy(spread * rotation);
+                                Vector2 position = projectile.position;
+                                Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
                                 Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                                invert = !invert;
                             }
                         }
                     }
                 }
-                if (UtilityMethods.PC("InfinitePenetration"))
+                if (player.C("InfinitePenetration", sourceItem))
                 {
                     projectile.penetrate = -1;
                 }
@@ -194,6 +211,17 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!updated)
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            if (sourceSet)
+            {
+                if (sourceItem.scale != lastScaleBonus)
+                {
+                    projectile.scale /= lastScaleBonus;
+                    referenceScale /= lastScaleBonus;
+                    projectile.scale *= sourceItem.scale;
+                    referenceScale *= sourceItem.scale;
+                    lastScaleBonus = sourceItem.scale;
+                }
+            }
             return true;
         }
         public override bool ShouldUpdatePosition(Projectile projectile)
@@ -285,8 +313,15 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             //projectile.CritChance += siGlobal.critBonus;
                         }*/
+                        initialScale = projectile.scale;
+                        if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale)
+                        {
+                            projectile.scale *= sourceItem.scale;
+                            lastScaleBonus = sourceItem.scale;
+                        }
+                        referenceScale = projectile.scale;
                         //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
-                        projectile.scale = sourceItem.A("scale", projectile.scale);
+                        //projectile.scale = sourceItem.A("scale", projectile.scale);
                         /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
                         {
                             if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
@@ -508,10 +543,33 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (sourceSet)
             {
-                if (projectile.scale >= 1f && projectile.scale < sourceItem.scale || projectile.scale < 1f && projectile.scale > sourceItem.scale)
+                if (firstScaleCheck)
+                {
+                    firstScaleCheck = false;
+                    switch (projectile.type)
+                    {
+                        case ProjectileID.LastPrismLaser:
+                        case ProjectileID.StardustDragon1:
+                        case ProjectileID.StardustDragon2:
+                        case ProjectileID.StardustDragon3:
+                        case ProjectileID.StardustDragon4:
+                            reApplyScale = true;
+                            break;
+                    }
+                    if (Math.Abs(projectile.scale - initialScale) < Math.Abs(projectile.scale - referenceScale))
+                        initialScale = projectile.scale;
+                }
+                if (reApplyScale || sourceItem.scale > 1f && projectile.scale == initialScale)
+                {
+                    if (projectile.scale / lastScaleBonus >= 1f)
+                    {
+                        projectile.scale /= lastScaleBonus;
+                    }
                     projectile.scale *= sourceItem.scale;
-                hitbox.Height = (int)Math.Round(hitbox.Height * projectile.scale);
-                hitbox.Width = (int)Math.Round(hitbox.Width * projectile.scale);
+                }
+
+                hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
+                hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
             }
         }
     }

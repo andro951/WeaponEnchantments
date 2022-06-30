@@ -148,8 +148,9 @@ namespace WeaponEnchantments
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
+                        //if(wePlayer.itemBeingEnchanted != null && !wePlayer.itemBeingEnchanted.IsAir)
                         {
-                            wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
+                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
                         }
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
@@ -157,12 +158,7 @@ namespace WeaponEnchantments
                     if (wePlayer.infusionConsumeItem != null && !wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
                     {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
-                        UIText infusionButonText = new UIText("Cancel")
-                        {
-                            Top = { Pixels = -8f },
-                            Left = { Pixels = -1f }
-                        };
-                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
                     }
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
@@ -181,12 +177,7 @@ namespace WeaponEnchantments
                     if (wePlayer.infusionConsumeItem != null && WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted))
                     {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-                        UIText infusionButonText = new UIText("Finalize")
-                        {
-                            Top = { Pixels = -8f },
-                            Left = { Pixels = -1f }
-                        };
-                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
@@ -419,6 +410,15 @@ namespace WeaponEnchantments
                     }
                 }
             }
+            if(EnchantedItem.newPrefix > 0)
+            {
+                if(EnchantedItem.reforgeItem != null && Main.reforgeItem != null && !Main.reforgeItem.IsAir)
+                {
+                    Main.reforgeItem.G().prefix = Main.reforgeItem.prefix;
+                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player);
+                    EnchantedItem.newPrefix = 0;
+                }
+            }
         }
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
@@ -431,10 +431,14 @@ namespace WeaponEnchantments
                     wePlayer.enchantingTable.item[0] = new Item();
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
+                        wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
                     }
                 }
             }
+            wePlayer.itemBeingEnchanted = null;
+            wePlayer.itemInEnchantingTable = false;
             wePlayer.usingEnchantingTable = false;//Stop checking enchantingTable slots
             if(wePlayer.Player.chest == -1)
             {

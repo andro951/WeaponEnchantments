@@ -32,6 +32,7 @@ namespace WeaponEnchantments.Items
 		Mana,
 		MaxMinions,
 		Moonlight,
+		MoveSpeed,
 		ObsidianSkin,
 		OneForAll,
 		Peace,
@@ -48,6 +49,7 @@ namespace WeaponEnchantments.Items
 		DangerSense,
 		Hunter,
 		Mana,
+		MoveSpeed,
 		ObsidianSkin,
 		Peace,
 		Scale,
@@ -69,15 +71,13 @@ namespace WeaponEnchantments.Items
 	}//Located in DamageClassLoader.cs
 	public class AllForOneEnchantmentBasic : ModItem
 	{
-		bool ToggleRarityNames = false;
-
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1
+				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
 				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
@@ -86,7 +86,8 @@ namespace WeaponEnchantments.Items
 				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
 				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
 				{0.6f, 0.65f, 0.7f, 0.8f, 0.9f},//9
-				{0.2f, 0.4f, 0.6f, 0.8f, 1f }//10
+				{0.2f, 0.4f, 0.6f, 0.8f, 1f },//10
+				{0.04f, 0.08f, 0.12f, 0.16f, 0.20f},//7
 			};
 		private float scalePercent;
 		public int StrengthGroup { private set; get; } = 0;
@@ -157,14 +158,14 @@ namespace WeaponEnchantments.Items
 					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)\n(Enemies spawned will be immune to lava/traps)";
 					break;
 				case EnchantmentTypeID.WorldAblaze:
-					toolTip = $"(None shall survive the unstopable flames of Amaterasu)";
+					toolTip = $"(None shall survive the unstopable flames of Amaterasu)\n(Inflict a unique fire debuff to enemies that never stops)\n(The damage from the debuff grows over time and from dealing more damage to the target)\n(Spreads to nearby enemies)";
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
-			if (EnchantmentSize > 2 && ToggleRarityNames)
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
-			else
+			if (WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+			else
+				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
 			temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
@@ -242,8 +243,8 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case EnchantmentTypeID.MaxMinions:
-					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f
+				case (EnchantmentTypeID)(-1):
+					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f Not used yet
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -277,7 +278,11 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.WorldAblaze:
+				case EnchantmentTypeID.MaxMinions:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
+					break;
+				case EnchantmentTypeID.MoveSpeed:
+					StrengthGroup = 11;//0.04f, 0.08f, 0.12f, 0.16f, 0.20f
 					break;
 				default:
 					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
@@ -296,6 +301,9 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Moonlight:
 					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
 					break;
+				case EnchantmentTypeID.MaxMinions:
+					scalePercent = 0.6f;
+					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
 					scalePercent = -1f;
@@ -306,9 +314,9 @@ namespace WeaponEnchantments.Items
 			}//Scale Percents
 			ItemDefinition itemDefinition = new ItemDefinition(Name);
 			bool foundIndividualStrength = false;
-			if(WEMod.config.individualStrengthsEnabled && WEMod.config.individualStrengths.Count > 0)
+			if(WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0)
             {
-				foreach (Pair pair in WEMod.config.individualStrengths)
+				foreach (Pair pair in WEMod.serverConfig.individualStrengths)
 				{
 					if (pair.itemDefinition.Name == Name)
 					{
@@ -321,15 +329,15 @@ namespace WeaponEnchantments.Items
 			{
 				float multiplier =
 				(float)(
-					WEMod.config.strengthGroups.Contains(itemDefinition) ? WEMod.config.strengthGroupMultiplier :
-					WEMod.config.presetData.linearStrengthMultiplier != 100 ? WEMod.config.presetData.linearStrengthMultiplier :
+					WEMod.serverConfig.strengthGroups.Contains(itemDefinition) ? WEMod.serverConfig.strengthGroupMultiplier :
+					WEMod.serverConfig.presetData.linearStrengthMultiplier != 100 ? WEMod.serverConfig.presetData.linearStrengthMultiplier :
 					-100f
 				) / 100f;
 				if(multiplier != -1f)
 					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];//Linear
                 else
                 {
-					multiplier = WEMod.config.presetData.recomendedStrengthMultiplier / 100f;
+					multiplier = WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
 					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
 					float scale = Math.Abs(scalePercent);
 					if(scalePercent < 0f && multiplier < 1f)
@@ -387,7 +395,12 @@ namespace WeaponEnchantments.Items
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);
 						break;
+					case EnchantmentTypeID.DangerSense:
+					case EnchantmentTypeID.Hunter:
+					case EnchantmentTypeID.MoveSpeed:
+					case EnchantmentTypeID.ObsidianSkin:
 					case EnchantmentTypeID.Peace:
+					case EnchantmentTypeID.Spelunker:
 					case EnchantmentTypeID.War:
 						AllowedList.Add("Weapon", 1f);
 						AllowedList.Add("Armor", 1f);
@@ -431,6 +444,8 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.MaxMinions:
+					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
 						CheckStaticStatByName();
 						break;
@@ -449,8 +464,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.ColdSteel:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
-						if (EnchantmentSize == 4) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(BuffID.Frostburn, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
@@ -458,8 +473,8 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						Debuff.Add(BuffID.FlameWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.JunglesFury:
@@ -467,16 +482,16 @@ namespace WeaponEnchantments.Items
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, buffDuration);
 						Debuff.Add(BuffID.SwordWhipNPCDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Moonlight:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, buffDuration);
-						if (EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Damage:
@@ -491,10 +506,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Mana:
 						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
-					case EnchantmentTypeID.MaxMinions:
+					/*case EnchantmentTypeID.MaxMinions:
 						CheckStaticStatByName();
 						EStats.Add(new EStat("Damage", EnchantmentStrength * .025f));
-						break;
+						break;*/
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
@@ -1045,6 +1060,7 @@ namespace WeaponEnchantments.Items
 	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class MaxMinionsEnchantmentBasic : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentCommon : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class MoonlightEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class MoveSpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }

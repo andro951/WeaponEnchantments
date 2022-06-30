@@ -27,6 +27,8 @@ namespace WeaponEnchantments.Items
 			GetDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 			Tooltip.SetDefault(rarity[essenceRarity] + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
+			if (!WEMod.clientConfig.UseOldRarityNames)
+				DisplayName.SetDefault(UtilityMethods.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + AllForOneEnchantmentBasic.displayRarity[essenceRarity]));
 		}
         private void GetDefaults()
         {

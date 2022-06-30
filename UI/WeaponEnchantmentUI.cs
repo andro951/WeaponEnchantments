@@ -10,6 +10,7 @@ using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
 using WeaponEnchantments.Common;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WeaponEnchantments.UI
 {
@@ -49,7 +50,7 @@ namespace WeaponEnchantments.UI
                 confirmationPanels = new List<UIPanel>();
 
                 float nextElementY = -PaddingTop / 2;
-                promptText = new UIText("Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
+                promptText = new UIText("")
                 {
                     Top = { Pixels = nextElementY + 15 },
                     Left = { Pixels = 70 },
@@ -180,9 +181,10 @@ namespace WeaponEnchantments.UI
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
         {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Left.Pixels = RelativeLeft + 100 - 25;//PR
             Top.Pixels = RelativeTop;//PR
-            WeaponEnchantmentUI.preventItenUse = false;
+            WeaponEnchantmentUI.preventItemUse = false;
             foreach (var panel in confirmationPanels)
             {
                 if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
@@ -194,7 +196,8 @@ namespace WeaponEnchantments.UI
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
                 }
             }//Change button color if hovering
-            if (IsMouseHovering) WeaponEnchantmentUI.preventItenUse = true;
+            if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\nlevel {wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\nIn exchange for Iron, Silver and Gold ore and Essence?\n(Based on item value/experience.  Enchantments will be returned.)");
         }//PR
     }
 
@@ -230,10 +233,11 @@ namespace WeaponEnchantments.UI
         public static float[] ButtonScale = new float[ButtonID.Count];//my UI
         public static bool[] ButtonHovered = new bool[ButtonID.Count];//my UI
         public static bool needToQuickStack;
-        public static bool preventItenUse = false;
+        public static bool preventItemUse = false;
 
         private UIText titleText;//PR
         public UIPanel[] button = new UIPanel[ButtonID.Count];//PR
+        public UIText infusionButonText;
         private List<UIPanel> panels;//PR
         public WEUIItemSlot[] itemSlotUI = new WEUIItemSlot[EnchantingTable.maxItems];//PR
         public WEUIItemSlot[] enchantmentSlotUI = new WEUIItemSlot[EnchantingTable.maxEnchantments];//PR
@@ -464,7 +468,17 @@ namespace WeaponEnchantments.UI
                     BackgroundColor = bgColor
                 };
                 button[ButtonID.Infusion].OnClick += (evt, element) => { Infusion(); };
-                UIText infusionButonText = new UIText("Infusion")
+                string infusionText;
+                if (wePlayer.infusionConsumeItem != null)
+                {
+                    if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir)
+                        infusionText = "Cancel";
+                    else
+                        infusionText = "Finalize";
+                }
+                else
+                    infusionText = "Infusion";
+                infusionButonText = new UIText(infusionText)
                 {
                     Top = { Pixels = -8f },
                     Left = { Pixels = -1f }
@@ -568,7 +582,7 @@ namespace WeaponEnchantments.UI
         {
             Left.Pixels = RelativeLeft;//PR
             Top.Pixels = RelativeTop;//PR
-            preventItenUse = false;
+            preventItemUse = false;
             foreach (var panel in panels)
             {
                 if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor)
@@ -582,7 +596,7 @@ namespace WeaponEnchantments.UI
                     //Main.hoverItemName = panel.IsMouseHovering ? "TestHover" : "";
                 }
             }//Change button color if hovering
-            if (IsMouseHovering) preventItenUse = true;
+            if (IsMouseHovering) preventItemUse = true;
         }//PR
         private static void ConvertEssenceToXP(int tier)
         {
@@ -591,11 +605,18 @@ namespace WeaponEnchantments.UI
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!essence.IsAir && !item.IsAir)
             {
-                essence.stack--;
-                //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
-                SoundEngine.PlaySound(SoundID.MenuTick);
+                if(item.G().experience < int.MaxValue)
+                {
+                    essence.stack--;
+                    //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                    //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
+                    item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
+                    SoundEngine.PlaySound(SoundID.MenuTick);
+                }
+                else
+                {
+                    Main.NewText($"You cannot gain any more experience on your {item.S()}.");
+                }
             }
         }
         public static int ConvertXPToEssence(int xp, bool consumeAll = false)
@@ -653,7 +674,7 @@ namespace WeaponEnchantments.UI
             }
             return xpInitial - xpNotConsumed;
         }
-        public static void Infusion()
+        public void Infusion()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
@@ -664,12 +685,7 @@ namespace WeaponEnchantments.UI
                     {
                         wePlayer.infusionConsumeItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                        UIText infusionButonText = new UIText("Cancel")
-                        {
-                            Top = { Pixels = -8f },
-                            Left = { Pixels = -1f }
-                        };
-                        wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                        infusionButonText.SetText("Cancel");
                     }
                     else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
                         Main.NewText("Armor infusion not set up yet.  Coming soon.");
@@ -682,12 +698,7 @@ namespace WeaponEnchantments.UI
                         {
                             ConfirmationUI.ConfirmOffer(wePlayer.infusionConsumeItem, true);
                             wePlayer.infusionConsumeItem = null;
-                            UIText infusionButonText = new UIText("Infusion")
-                            {
-                                Top = { Pixels = -8f },
-                                Left = { Pixels = -1f }
-                            };
-                            wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                            infusionButonText.SetText("Infusion");
                         }
                     }
                     else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
@@ -698,12 +709,7 @@ namespace WeaponEnchantments.UI
             {
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
                 wePlayer.infusionConsumeItem = null;
-                UIText infusionButonText = new UIText("Infusion")
-                {
-                    Top = { Pixels = -8f },
-                    Left = { Pixels = -1f }
-                };
-                wePlayer.enchantingTableUI.button[ButtonID.Infusion].Append(infusionButonText);
+                infusionButonText.SetText("Infusion");
             }
         }
         public static void Syphon()

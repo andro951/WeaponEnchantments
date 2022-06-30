@@ -1,6 +1,7 @@
 ﻿using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
+using System;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -81,6 +82,13 @@ namespace WeaponEnchantments.Common.Globals
 							}
 						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
+						float configMultiplier = (float)WEMod.serverConfig.GatheringExperienceMultiplier / 100f;
+						if (configMultiplier > 1f)
+						{
+							xp = (int)Math.Round((float)xp * configMultiplier);
+							if (xp < 1)
+								xp = 1;
+						}
 						wePlayer.Player.HeldItem.GetGlobalItem<EnchantedItem>().GainXP(wePlayer.Player.HeldItem, xp);
 						EnchantedItem.AllArmorGainXp(xp);
 						tileType = -1;
