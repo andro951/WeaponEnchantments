@@ -506,7 +506,7 @@ namespace WeaponEnchantments.Common.Globals
                 float effDamage;
                 float effDamageDenom;
                 float xp;
-                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.serverConfig.BossExperienceMultiplier/400f : WEMod.serverConfig.BossExperienceMultiplier/100f);
+                multiplier = (1f + ((float)((target.noGravity ? 2f : 0f) + (target.noTileCollide ? 2f : 0f)) + 2f * (1f - target.knockBackResist)) / 10f) * (target.boss ? WEMod.serverConfig.BossExperienceMultiplier/400f : WEMod.serverConfig.ExperienceMultiplier/100f);
                 effDamage = item != null ? (float)item.damage * (1f + (float)player.GetWeaponCrit(item) / 100f) : damage;
                 float actualDefence = target.defense / 2f - (item != null ? target.checkArmorPenetration(player.GetWeaponArmorPenetration(item)) : 0f);
                 float actualDamage = melee ? damage : damage - actualDefence;
@@ -635,7 +635,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
-            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItenUse)
+            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
                 return false;
             return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
         }
@@ -716,7 +716,7 @@ namespace WeaponEnchantments.Common.Globals
                 s.Log();
             }
             if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
-            return true; 
+            return true;
         }
         public static void ReforgeItem(ref Item item, Player player)
         {
@@ -725,10 +725,14 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem.G().Clone(reforgeItem, item);
             reforgeItem = null;
             newPrefix = 0;
-            if(!Main.reforgeItem.IsAir)
+            if (!Main.reforgeItem.IsAir)
                 Main.reforgeItem.G().normalReforge = false;
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
+        }
+        public override void OnCreate(Item item, ItemCreationContext context)
+        {
+            
         }
     }
 }

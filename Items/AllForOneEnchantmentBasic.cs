@@ -77,7 +77,7 @@ namespace WeaponEnchantments.Items
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
 			{
 				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1
+				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
 				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
 				{1f, 2f, 3f, 5f, 10f},//3
 				{2f, 4f, 6f, 10f, 20f},//4
@@ -158,7 +158,7 @@ namespace WeaponEnchantments.Items
 					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)\n(Enemies spawned will be immune to lava/traps)";
 					break;
 				case EnchantmentTypeID.WorldAblaze:
-					toolTip = $"(None shall survive the unstopable flames of Amaterasu)";
+					toolTip = $"(None shall survive the unstopable flames of Amaterasu)\n(Inflict a unique fire debuff to enemies that never stops)\n(The damage from the debuff grows over time and from dealing more damage to the target)\n(Spreads to nearby enemies)";
 					break;
 			}//ToolTips
 			Tooltip.SetDefault(GenerateFullTooltip(toolTip));
@@ -243,8 +243,8 @@ namespace WeaponEnchantments.Items
 			}//Check Unique (Vanilla Items)
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
-				case EnchantmentTypeID.MaxMinions:
-					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f
+				case (EnchantmentTypeID)(-1):
+					StrengthGroup = 1;// 0.4f, 0.8f, 1.2f, 1.6f, 2f Not used yet
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -278,6 +278,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.Scale:
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.WorldAblaze:
+				case EnchantmentTypeID.MaxMinions:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -299,6 +300,9 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
 					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
+					break;
+				case EnchantmentTypeID.MaxMinions:
+					scalePercent = 0.6f;
 					break;
 				case EnchantmentTypeID.War:
 				case EnchantmentTypeID.Peace:
@@ -440,6 +444,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case EnchantmentTypeID.ArmorPenetration:
 					case EnchantmentTypeID.CriticalStrikeChance:
+					case EnchantmentTypeID.MaxMinions:
 					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
 						CheckStaticStatByName();
@@ -459,8 +464,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.ColdSteel:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
-						if (EnchantmentSize == 4) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						Debuff.Add(BuffID.Frostburn, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
@@ -468,8 +473,8 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						Debuff.Add(BuffID.FlameWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.OnFire3 : BuffID.OnFire, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.JunglesFury:
@@ -477,16 +482,16 @@ namespace WeaponEnchantments.Items
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, buffDuration);
 						Debuff.Add(BuffID.SwordWhipNPCDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
-						Debuff.Add(EnchantmentSize == 4 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						Debuff.Add(EnchantmentSize == 3 ? BuffID.Venom : BuffID.Poisoned, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Moonlight:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						NewDamageType = (int)DamageTypeSpecificID.SummonMeleeSpeed;
 						OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, buffDuration);
-						if (EnchantmentSize == 4) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
-						Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
+						if (EnchantmentSize == 3) Debuff.Add(BuffID.ScytheWhipEnemyDebuff, buffDuration);
+						if (EnchantmentSize == 4) Debuff.Add(BuffID.RainbowWhipNPCDebuff, buffDuration);
 						EStats.Add(new EStat("Damage", 0f, EnchantmentStrength));
 						break;
 					case EnchantmentTypeID.Damage:
@@ -501,10 +506,10 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Mana:
 						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
-					case EnchantmentTypeID.MaxMinions:
+					/*case EnchantmentTypeID.MaxMinions:
 						CheckStaticStatByName();
 						EStats.Add(new EStat("Damage", EnchantmentStrength * .025f));
-						break;
+						break;*/
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
