@@ -141,7 +141,7 @@ namespace WeaponEnchantments.Common
             if (WEMod.IsWeaponItem(item) && (WEMod.IsWeaponItem(consumedItem) || consumedItem.IsAir))
             {
                 bool failedItemFind = false;
-                if (consumedItem.G().infusedItemName != "")
+                if (!consumedItem.IsAir && consumedItem.G().infusedItemName != "")
                 {
                     if (TryInfuseItem(item, consumedItem.G().infusedItemName, reset, finalize))
                         return true;

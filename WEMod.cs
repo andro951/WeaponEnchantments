@@ -17,7 +17,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using WeaponEnchantments.UI;
-
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments
 {
@@ -25,7 +25,6 @@ namespace WeaponEnchantments
     {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
-		//public static Dictionary<string, bool> playerTeleportItemSetting = new();
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
@@ -372,7 +371,23 @@ namespace WeaponEnchantments
 			}) ;
 			RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
 		}
-        private delegate Item orig_ItemIOLoad(TagCompound tag);
+		public override void PostSetupContent()
+		{
+			if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
+			{
+				for (int i = 0; i < ItemLoader.ItemCount; i++)
+				{
+					if (IsEnchantable(new Item(i)))
+					{
+						magicStorage.Call("Register Sorting", i, (Func<Item, Item, bool>)((item1, item2) =>
+							!(item1.G().experience > 0 || item1.G().powerBoosterInstalled || item2.G().experience > 0 || item2.G().powerBoosterInstalled)
+						));
+					}
+				}
+			}
+		}
+
+		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
 		public override void Load()
