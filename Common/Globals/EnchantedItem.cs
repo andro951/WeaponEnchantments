@@ -34,6 +34,7 @@ namespace WeaponEnchantments.Common.Globals
         public string infusedItemName = "";
         public int infusedPower = 0;
         public float damageMultiplier = 1f;
+        public int infusedArmorSlot = -1;
         public int infusionValueAdded = 0;
         public int damageType = -1;
         public int lastValueBonus;
@@ -107,7 +108,19 @@ namespace WeaponEnchantments.Common.Globals
                 clone.trackedWeapon = false;
             return clone;
         }
-        public override bool OnPickup(Item item, Player player)
+		public override void UpdateEquip(Item item, Player player)
+		{
+            if (inEnchantingTable && (Main.LocalPlayer.G().enchantingTableUI?.itemSlotUI?[0]?.Item != null || Main.LocalPlayer.G().enchantingTableUI.itemSlotUI[0].Item.IsAir))
+            {
+                inEnchantingTable = false;
+                if (item.GetInfusionArmorSlot() != infusedArmorSlot)
+                {
+                    infusedArmorSlot = -1;
+                    item.TryInfuseItem(new Item(), true);
+                }
+            }
+        }
+		public override bool OnPickup(Item item, Player player)
         {
             player.G().UpdateItemStats(ref item);
             return true;
@@ -188,7 +201,7 @@ namespace WeaponEnchantments.Common.Globals
                     infusedItemName = reader.ReadString();
                 else
                     infusedItemName = "";
-                item.TryGetGlotalItemStats(infusedItemName, out infusedPower, out damageMultiplier);
+                item.TryGetGlotalItemStats(infusedItemName, out infusedPower, out damageMultiplier, out infusedArmorSlot);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     enchantments[i] = new Item(reader.ReadUInt16());
@@ -243,49 +256,6 @@ namespace WeaponEnchantments.Common.Globals
                 if (UtilityMethods.debugging) ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 if(UtilityMethods.debugging) ($"/\\NetRecieve(" + item.Name + ")").Log();
             }
-        }
-        public override void UpdateEquip(Item item, Player player)
-        {
-            //experience = int.MaxValue;
-
-            /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            float damageModifier = 0f;
-            float speedModifier = 0f;
-            int defenceBonus = 0;
-            float criticalBonus = 0f;
-            float armorPenetrationBonus = 0f;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-            {
-                AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)enchantments[i].ModItem);
-                if (!enchantments[i].IsAir)
-                {
-                    float str = enchantment.EnchantmentStrength;
-                    switch ((EnchantmentTypeID)enchantment.EnchantmentType)
-                    {
-                        case EnchantmentTypeID.Damage:
-                            damageModifier += str;
-                            break;
-                        case EnchantmentTypeID.Speed:
-                            speedModifier += str;
-                            break;
-                        case EnchantmentTypeID.Defence:
-                            defenceBonus += (int)Math.Round(str);
-                            break;
-                        case EnchantmentTypeID.CriticalStrikeChance:
-                            criticalBonus += str;
-                            break;
-                        case EnchantmentTypeID.ArmorPenetration:
-                            armorPenetrationBonus += str;
-                            break;
-                    }
-                }
-            }
-            player.GetDamage(DamageClass.Generic) += damageModifier / 4;
-            player.GetAttackSpeed(DamageClass.Generic) += speedModifier / 4;
-            player.GetCritChance(DamageClass.Generic) += criticalBonus * 25;
-            player.GetArmorPenetration(DamageClass.Generic) += armorPenetrationBonus / 4;
-            item.defense += defenceBonus - lastDefenceBonus;
-            lastDefenceBonus = defenceBonus;  */
         }
         public override void UpdateInventory(Item item, Player player)
         {
@@ -447,18 +417,29 @@ namespace WeaponEnchantments.Common.Globals
             }
             if(infusedItemName != "")
             {
-                tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", $"Infusion Power: {infusedPower} Infused Item: {infusedItemName}") { OverrideColor = Color.DarkRed });
+                string tooltip = "";
+                if (WEMod.IsWeaponItem(item))
+                    tooltip = $"Infusion Power: {infusedPower}   Infused Item: {infusedItemName}";
+                else if (WEMod.IsArmorItem(item))
+                    tooltip = $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
+                tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", tooltip) { OverrideColor = Color.DarkRed });
             }
-            else if (wePlayer.usingEnchantingTable && WEMod.IsWeaponItem(item))
+            else if (wePlayer.usingEnchantingTable)
             {
-                tooltips.Add(new TooltipLine(Mod, "infusionPowerTooltip", $"Infusion Power: {item.GetInfusionPower()}") { OverrideColor = Color.DarkRed });
+                string tooltip = "";
+                if (WEMod.IsWeaponItem(item))
+                    tooltip = $"Infusion Power: {item.GetWeaponInfusionPower()}";
+                else if (WEMod.IsArmorItem(item))
+                    tooltip = $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
+                if (tooltip != "")
+                tooltips.Add(new TooltipLine(Mod, "infusionPowerTooltip", tooltip) { OverrideColor = Color.DarkRed });
             }
             if(inEnchantingTable && wePlayer.infusionConsumeItem != null)
             {
                 if(WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(wePlayer.infusionConsumeItem))
-                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
                 else if (WEMod.IsArmorItem(item) && WEMod.IsArmorItem(wePlayer.infusionConsumeItem))
-                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetInfusionPower()} New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
+                    tooltips.Add(new TooltipLine(Mod, "newInfusedItemTooltip", $"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*") { OverrideColor = Color.DarkRed });
             }
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
@@ -716,7 +697,7 @@ namespace WeaponEnchantments.Common.Globals
                 s.Log();
             }
             if (UtilityMethods.debugging) ($"/\\PreReforge({item.S()})").Log();
-            return true; 
+            return true;
         }
         public static void ReforgeItem(ref Item item, Player player)
         {
@@ -725,10 +706,14 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem.G().Clone(reforgeItem, item);
             reforgeItem = null;
             newPrefix = 0;
-            if(!Main.reforgeItem.IsAir)
+            if (!Main.reforgeItem.IsAir)
                 Main.reforgeItem.G().normalReforge = false;
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
+        }
+        public override void OnCreate(Item item, ItemCreationContext context)
+        {
+            
         }
     }
 }

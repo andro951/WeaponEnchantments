@@ -155,9 +155,10 @@ namespace WeaponEnchantments
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                     }
-                    if (wePlayer.infusionConsumeItem != null && !wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
+                    if (wePlayer.infusionConsumeItem != null)
                     {
-                        wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
+                        if(!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
+                            wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
                     }
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
@@ -174,7 +175,7 @@ namespace WeaponEnchantments
                     wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus;
                     wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus = 0;
                     wePlayer.previousInfusedItemName = wePlayer.itemBeingEnchanted.G().infusedItemName;
-                    if (wePlayer.infusionConsumeItem != null && WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted))
+                    if (wePlayer.infusionConsumeItem != null && (WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted) || WEMod.IsArmorItem(wePlayer.itemBeingEnchanted)))
                     {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
