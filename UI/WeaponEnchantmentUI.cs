@@ -134,18 +134,10 @@ namespace WeaponEnchantments.UI
                     if (!item.IsAir)
                     {
                         if (!nonTableItem)
-                        {
-							if (!wePlayer.E(i).Item.IsAir)
-							{
-                                wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                                wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
-                            }
-                        }
-                        else
-                        {
-							if (!iGlobal.enchantments[i].IsAir)
+							if (!wePlayer.E(i).IsAir)
+                                wePlayer.EUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.E(i), GetItemSettings.LootAllSettings);
+                        else if (!iGlobal.enchantments[i].IsAir)
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
-                        }
                     }
                     if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
                 }//Take all enchantments first

@@ -185,7 +185,7 @@ namespace WeaponEnchantments
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,
                         {
                             wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
-                            wePlayer.enchantmentInEnchantingTable[i] = wePlayer.E(i) != null; ;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
+                            wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EM(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         }
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots

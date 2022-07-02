@@ -8,6 +8,7 @@ using System;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common
 {
@@ -27,15 +28,24 @@ namespace WeaponEnchantments.Common
         public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
         public static ProjectileEnchantedItem G(this Projectile projectile) => projectile.GetGlobalProjectile<ProjectileEnchantedItem>();
         public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
-        public static AllForOneEnchantmentBasic E(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+        public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];
+        public static AllForOneEnchantmentBasic EM(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
         ///</summary>
         public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
         ///<summary>
+        ///Gets enchantment in the enchanting table in enchantment slot i.  wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item
+        ///</summary>
+        public static WEUIItemSlot EUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
+        ///<summary>
+        ///Gets enchantment in the enchanting table in enchantment slot i.  wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item
+        ///</summary>
+        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+        ///<summary>
         ///Gets enchantment in the enchanting table in enchantment slot i.  (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem
         ///</summary>
-        public static AllForOneEnchantmentBasic E(this WEPlayer wePlayer, int i) => (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
+        public static AllForOneEnchantmentBasic EM(this WEPlayer wePlayer, int i) => (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
         ///<summary>
         ///Gets essence in the enchanting table in essence slot i.  
         ///</summary>
