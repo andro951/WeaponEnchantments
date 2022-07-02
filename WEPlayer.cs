@@ -111,7 +111,7 @@ namespace WeaponEnchantments
         {
             //AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
-            InfusionManager.SetUpVanilla();
+            InfusionManager.SetUpVanillaWeaponInfusionPowers();
             if (!OldWorldItemsReplaced)
             {
                 OldItemManager.ReplaceAllOldItems();

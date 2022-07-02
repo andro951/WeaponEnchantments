@@ -135,12 +135,16 @@ namespace WeaponEnchantments.UI
                     {
                         if (!nonTableItem)
                         {
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+							if (!wePlayer.E(i).Item.IsAir)
+							{
+                                wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
+                                wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                            }
                         }
                         else
                         {
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
+							if (!iGlobal.enchantments[i].IsAir)
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
                         }
                     }
                     if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
@@ -681,18 +685,16 @@ namespace WeaponEnchantments.UI
             {
                 if(wePlayer.infusionConsumeItem == null)
                 {
-                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) || WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
                     {
                         wePlayer.infusionConsumeItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
                         infusionButonText.SetText("Cancel");
                     }
-                    else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
-                        Main.NewText("Armor infusion not set up yet.  Coming soon.");
                 }
                 else
                 {
-                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) || WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
@@ -701,8 +703,6 @@ namespace WeaponEnchantments.UI
                             infusionButonText.SetText("Infusion");
                         }
                     }
-                    else if (WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
-                        Main.NewText("Armor infusion not set up yet.  Coming soon.");
                 }
             }
             else if(wePlayer.infusionConsumeItem != null)
@@ -766,33 +766,6 @@ namespace WeaponEnchantments.UI
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                 {
-                    /*foreach(UIElement element in (List<UIElement>)(wePlayer.confirmationUI.GetType().GetField("Elements").GetValue(wePlayer.confirmationUI)))
-                    {
-
-                    }*/
-                    /*List<UIElement> list = (List<UIElement>)(wePlayer.confirmationUI.GetType().GetField("Elements").GetValue(wePlayer.confirmationUI));
-                    if (list[0] is UIText uiText)
-                        uiText.SetText("test");*/
-                    //for(int i = 0; i < wePlayer.confirmationUI.Children.)
-
-
-
-                    /*foreach(UIElement uIElement in wePlayer.confirmationUI.Children)
-                    {
-                        if(uIElement is UIText)
-                            uIElement = new UIText("TEST! Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
-                            {
-                                Top = { Pixels = -wePlayer.confirmationUI.PaddingTop / 2 + 15 },
-                                Left = { Pixels = 70 },
-                                HAlign = 0.5f
-                            };//Confirmation label
-                    }
-                    wePlayer.confirmationUI.promptText = new UIText("TEST! Are you sure you want to PERMENANTLY DESTROY your\nlevel " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().level.ToString() + " " + wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name + "\nIn exchange for Containment Fragments and Essence?\n(Based on item value/experience.  Enchantments will be returned.)")
-                    {
-                        Top = { Pixels = -wePlayer.confirmationUI.PaddingTop / 2 + 15 },
-                        Left = { Pixels = 70 },
-                        HAlign = 0.5f
-                    };//Confirmation label*/
                     WEModSystem.weModSystemUI.SetState(null);
                     UIState state = new UIState();
                     state.Append(wePlayer.confirmationUI);
