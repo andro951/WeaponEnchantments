@@ -13,7 +13,7 @@ Basics:
         -Found in chests or dropped by enemies.
         -Added to items in an Enchanting Table.
         -Enchantments have a level cost
-            Ex. A level 4 weapon can apply 2 Basic Damage Enchantments (cost 2 points each).
+            Ex. A level 4 weapon can apply 2 Basic Damage Enchantments (cost 2 Enchantment Capacity each).
         -Require a larger Containment to upgrade an Enchantment.
     Essence:
         -Resource for upgrading Enchantments or consumed to add xp to items in an Enchanting Table.

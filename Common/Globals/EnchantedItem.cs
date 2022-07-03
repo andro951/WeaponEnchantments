@@ -410,10 +410,11 @@ namespace WeaponEnchantments.Common.Globals
             }
             if (experience > 0 || powerBoosterInstalled || inEnchantingTable || enchantemntInstalled)
             {
+                string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
                 if (powerBoosterInstalled)
-                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} Points available: {GetLevelsAvailable()} (Booster Installed)") { OverrideColor = Color.LightGreen });
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} pointsName available: {GetLevelsAvailable()} (Booster Installed)") { OverrideColor = Color.LightGreen });
                 else
-                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} Points available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} pointsName available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
                 string levelString = levelBeforeBooster < maxLevel ? $" ({WEModSystem.levelXps[levelBeforeBooster] - experience} to next level)" : " (Max Level)";
                 tooltips.Add(new TooltipLine(Mod, "experience", $"Experience: {experience}{levelString}") { OverrideColor = Color.White });
             }

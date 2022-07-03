@@ -198,6 +198,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool UseOldRarityNames;
+
+        [Label("\"Points\" insted of \"Enchantment Capacity\"")]
+        [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool UsePointsAsTooltip;
     }
 
     //[BackgroundColor(0, 255, 255)]
