@@ -50,6 +50,7 @@ namespace WeaponEnchantments.Common.Globals
         public const int maxLevel = 40;
         public int prefix;
         public bool normalReforge = false;
+        public Projectile masterProjectile = null;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -122,6 +123,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 		public override bool OnPickup(Item item, Player player)
         {
+
             player.G().UpdateItemStats(ref item);
             return true;
         }

@@ -26,6 +26,8 @@ namespace WeaponEnchantments.Common.Globals
         //float speedAdd = 0f;
         //float speedCarryover = 0f;
         float speed;
+        //float speedAdd;
+        float[] speedCarryover = new float[] {0f, 0f};
         bool firstScaleCheck = true;
         bool secondScaleCheck = true;
         bool reApplyScale = false;
@@ -53,6 +55,19 @@ namespace WeaponEnchantments.Common.Globals
             }
             if (!sourceSet)
             {
+                if(projectile.type != ProjectileID.VortexBeater && source is EntitySource_ItemUse_WithAmmo vbSource && vbSource.Item.type == ItemID.VortexBeater)
+				{
+                    if (vbSource.Item.G().masterProjectile != null)
+                        source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
+					else//Delete after testing
+					{
+                        for(int i = 0; i < Main.projectile.Length; i++)
+						{
+                            if(Main.projectile[i].type == ProjectileID.VortexBeater)
+                                source = Main.projectile[i].GetSource_FromThis();
+						}
+					}//Delete after testing
+                }
                 if (source is EntitySource_ItemUse uSource)
                 {
                     if(uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
@@ -64,7 +79,10 @@ namespace WeaponEnchantments.Common.Globals
                             //projectile.velocity /= (1f + speedBonus);
                             projectile.velocity /= (sourceItem.A("velocity", 1f));
                         }
+                        if (projectile.type == ProjectileID.VortexBeater)
+                            sourceItem.G().masterProjectile = projectile;
                         sourceSet = true;
+
                     }
                 }
                 else if(source is EntitySource_ItemUse_WithAmmo wSource)
@@ -96,7 +114,7 @@ namespace WeaponEnchantments.Common.Globals
             if(sourceSet)
             {
                 Player player = Main.player[projectile.owner];
-                if (player.C("Splitting", sourceItem))
+                if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater)
                 {
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
@@ -152,7 +170,7 @@ namespace WeaponEnchantments.Common.Globals
                             float lastAIValue = parent.G().lastAIValue[i];
                             float ai = parent.ai[i];
                             double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
-                            if (difference > 4)
+                            if (difference > 3)
                             {
                                 parent.G().spawnedChild[i] = true;
                                 parent.G().spawnChildValue[i] = lastAIValue;
@@ -237,9 +255,24 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             if (spawnedChild[i])
                             {
+                                float thisSpawnChildValue = spawnChildValue[i];
+                                float thisNextValueAfterChild = nextValueAfterChild[i];
                                 if (!positiveSet[i])
-                                    positive[i] = spawnChildValue[i] > nextValueAfterChild[i];
-                                projectile.ai[i] += (positive[i] ? 1 : -1) * (int)((positive[i] ? spawnChildValue[i] : nextValueAfterChild[i]) * speed);
+                                {
+                                    positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
+                                    positiveSet[i] = true;
+                                }
+                                bool thisPositive = positive[i];
+                                float speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
+                                int valueToAdd = (int)speedAddValue;
+								speedCarryover[i] = speedAddValue % 1f;
+                                projectile.ai[i] += valueToAdd;
+                                
+                                //Change the source = to cloneing a source instead to not mess with other mods
+                                
+                                //Add change to ai[0] for vortexBeater
+                                
+                                
                                 /*if (speed < 1f)
                                 {
                                     projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
@@ -283,9 +316,36 @@ namespace WeaponEnchantments.Common.Globals
                                 ;*/
                                 if(UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                             }
+                            /*else if(projectile.type == ProjectileID.VortexBeater)
+							{
+                                if(i == 0)
+                                {
+                                    speedCarryover += speedAdd;
+                                    //if (aiValue > controlValue)
+                                    {
+                                        if (speedCarryover > 1f)
+                                        {
+                                            float value = (float)(int)speedCarryover;
+                                            speedCarryover -= value;
+                                            projectile.ai[i] += value;
+                                        }
+                                        else if (speedCarryover < -1f)
+                                        {
+                                            speedCarryover += 1f;
+                                            projectile.ai[i] -= 1f;
+                                        }
+                                    }
+                                }
+								else
+								{
+
+								}
+                            }*/
                         }
                         /*if(aiValue != 0 || lastAIValue[i] != 0)
                             ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();*/
+                        if (i == 0 && sourceItem.type == ItemID.VortexBeater)
+                            projectile.ai[0] += speed;
                         lastAIValue[i] = aiValue;
                     }
                 }
@@ -299,6 +359,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (sourceSet)
                 {
+                    for (int i = 0; i < 2; i++)
+                        lastAIValue[i] = projectile.ai[i];
                     if (sourceItem.TryGetGlobalItem(out EnchantedItem siGlobal))
                     {
                         /*damageBonus = 1f;
@@ -337,7 +399,7 @@ namespace WeaponEnchantments.Common.Globals
                         float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
                         /*float speed = 1f / NPCHitCooldownMultiplier;
                         speedAdd = speed - 1f;*/
-                        if (projectile.minion || projectile.DamageType == DamageClass.Summon)
+                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater)
                         {
                             float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
                             speed = 1f - 1f / speedMult;

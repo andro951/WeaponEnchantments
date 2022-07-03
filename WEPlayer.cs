@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
@@ -81,7 +82,7 @@ namespace WeaponEnchantments
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool stickyFavorited = true;
-        public bool disableLeftShiftTrashCan = false;
+        public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
         public bool[] vanillaPlayerBuffsWeapon;
         public bool[] vanillaPlayerBuffsArmor;
         public Dictionary<int, int> buffs = new Dictionary<int, int>();

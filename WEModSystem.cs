@@ -112,7 +112,7 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.usingEnchantingTable)
             {
-                if (ItemSlot.Options.DisableLeftShiftTrashCan)
+                //if (ItemSlot.Options.DisableLeftShiftTrashCan)
                 {
                     wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
                     ItemSlot.Options.DisableLeftShiftTrashCan = false;

@@ -371,7 +371,7 @@ namespace WeaponEnchantments
 			}) ;
 			RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
 		}
-		public override void PostSetupContent()
+		/*public override void PostSetupContent()
 		{
 			if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
 			{
@@ -385,7 +385,7 @@ namespace WeaponEnchantments
 					}
 				}
 			}
-		}
+		}*/
 
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);

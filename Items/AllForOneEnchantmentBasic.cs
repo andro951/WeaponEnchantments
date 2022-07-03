@@ -155,7 +155,7 @@ namespace WeaponEnchantments.Items
 					toolTip = "(Chance to produce an extra projectile)";
 					break;
 				case EnchantmentTypeID.War:
-					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1)\n(Enemies spawned will be immune to lava/traps)";
+					toolTip = "(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)\n(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)\n(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1.6)\n(Enemies spawned will be immune to lava/traps)";
 					break;
 				case EnchantmentTypeID.WorldAblaze:
 					toolTip = $"(None shall survive the unstopable flames of Amaterasu)\n(Inflict a unique fire debuff to enemies that never stops)\n(The damage from the debuff grows over time and from dealing more damage to the target)\n(Spreads to nearby enemies)";
@@ -506,10 +506,6 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.Mana:
 						AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
 						break;
-					/*case EnchantmentTypeID.MaxMinions:
-						CheckStaticStatByName();
-						EStats.Add(new EStat("Damage", EnchantmentStrength * .025f));
-						break;*/
 					case EnchantmentTypeID.OneForAll:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength));
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
