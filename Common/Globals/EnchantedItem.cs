@@ -718,10 +718,6 @@ namespace WeaponEnchantments.Common.Globals
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
         }
-		public override bool CanPickup(Item item, Player player)
-		{
-            return true;
-		}
 		public override void OnSpawn(Item item, IEntitySource source)
 		{
 			if (WEMod.IsWeaponItem(item) && source is EntitySource_DropAsItem dropSource && dropSource.Context == "Stolen")

@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using WeaponEnchantments.Common;
@@ -159,8 +160,9 @@ namespace WeaponEnchantments
         {
             enchantingTable = new EnchantingTable();
             enchantingTableUI = new WeaponEnchantmentUI();
-            equipArmor = new Item[Player.armor.Length];
-            equipArmorStatsUpdated = new bool[Player.armor.Length];
+            int armorCount = Player.armor.Length / 2 + Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
+            equipArmor = new Item[armorCount];
+            equipArmorStatsUpdated = new bool[armorCount];
             trackedWeapon = new Item();
             confirmationUI = new ConfirmationUI();
             inventoryItemRecord = new Item[102];
@@ -682,22 +684,52 @@ namespace WeaponEnchantments
                         hoverItem = null;
                     }*/
                 }
-                for (int j = 0; j < Player.armor.Length; j++)
+                int vanillaArmorLength = Player.armor.Length / 2;
+                var loader = LoaderManager.Get<AccessorySlotLoader>();
+                for (int j = 0; j < equipArmor.Length; j++)
                 {
-                    Item armor = Player.armor[j];
-                    if (j < 10)
+                    Item armor;
+                    if(j < vanillaArmorLength)
+                        armor = Player.armor[j];
+					else
+					{
+                        int num = j - vanillaArmorLength;
+                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
+                            armor = loader.Get(num).FunctionalItem;
+                        else
+                            armor = new Item();
+					}
+                    if (!armor.vanity)
                     {
-                        if (!armor.vanity)
-                        {
-                            equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-                        }
+                        equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
                     }
                 }//Check if armor changed
-                for (int j = 0; j < Player.armor.Length; j++)
+                /*for (int k = 0; k < Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount; k++)
                 {
-                    Item armor = Player.armor[j];
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(k, Player))
+                    {
+                        Item accessory = loader.Get(k).FunctionalItem;
+                        if (!accessory.vanity)
+                        {
+                            modAccessoryStatsUpdated[k] = !ItemChanged(accessory, modAccessorys[k]);
+                        };
+                    }
+                }*/
+                for (int j = 0; j < equipArmor.Length; j++)
+                {
+                    Item armor;
+                    if (j < vanillaArmorLength)
+                        armor = Player.armor[j];
+                    else
+                    {
+                        int num = j - vanillaArmorLength;
+                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
+                            armor = loader.Get(num).FunctionalItem;
+                        else
+                            armor = new Item();
+                    }
                     bool armorStatsUpdated = equipArmorStatsUpdated[j];
-                    if (j < 10 && !armorStatsUpdated)
+                    if (!armorStatsUpdated)
                     {
                         if (!armor.vanity && !armor.IsAir)
                         {
