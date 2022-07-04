@@ -982,12 +982,17 @@ namespace WeaponEnchantments
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
+                int prefix = item.G().prefix;
                 if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
                     item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
                 }
+                int infusedArmorSlot = item.G().infusedArmorSlot;
+                int armorSlot = item.GetInfusionArmorSlot(false, true);
+                if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
+                    item.UpdateArmorSlot(item.G().infusedArmorSlot);
                 Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {

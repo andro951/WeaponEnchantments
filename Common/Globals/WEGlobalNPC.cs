@@ -571,7 +571,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 damage /= myWarReduction;
             }
-            if (item?.GetGlobalItem<EnchantedItem>() != null)
+            if (item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
                 sourceItem = item;
                 if (sourceItem.IsAir)

@@ -51,6 +51,9 @@ namespace WeaponEnchantments.Common.Globals
         public int prefix;
         public bool normalReforge = false;
         public Projectile masterProjectile = null;
+        public bool stolen;
+        public bool? needsClear = null;
+        public static List<int> needClearWhoAmIs = new();
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -105,6 +108,8 @@ namespace WeaponEnchantments.Common.Globals
             clone.debuffs = new Dictionary<int, int>(debuffs);
             clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
             clone.equip = false;
+            clone.prefix = prefix;
+            clone.stolen = stolen;
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
             return clone;
@@ -123,7 +128,6 @@ namespace WeaponEnchantments.Common.Globals
         }
 		public override bool OnPickup(Item item, Player player)
         {
-
             player.G().UpdateItemStats(ref item);
             return true;
         }
@@ -262,7 +266,7 @@ namespace WeaponEnchantments.Common.Globals
         public override void UpdateInventory(Item item, Player player)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if(experience > 0 || powerBoosterInstalled)
+            if(experience > 0 || powerBoosterInstalled || infusedItemName != "")
             {
                 int value = 0;
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -627,7 +631,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (item.stack > 1)
             {
-                if (experience > 0 || powerBoosterInstalled)
+                if (experience > 0 || powerBoosterInstalled || infusedItemName != "")
                 {
                     if (Main.mouseItem.IsAir)
                     {
@@ -641,7 +645,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (item.stack > 1)
             {
-                if (experience > 0 || powerBoosterInstalled)
+                if (experience > 0 || powerBoosterInstalled || infusedItemName != "")
                 {
                     if (Main.mouseItem.IsAir)
                     {
@@ -714,9 +718,20 @@ namespace WeaponEnchantments.Common.Globals
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
         }
-        public override void OnCreate(Item item, ItemCreationContext context)
-        {
-            
-        }
-    }
+		public override bool CanPickup(Item item, Player player)
+		{
+            return true;
+		}
+		public override void OnSpawn(Item item, IEntitySource source)
+		{
+			if (WEMod.IsWeaponItem(item) && source is EntitySource_DropAsItem dropSource && dropSource.Context == "Stolen")
+			{
+                for (int i = 0; i < Main.item.Length; i++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient && item.type == Main.item[i].type && item.position == Main.item[i].position)
+                        WEModSystem.stolenItemToBeCleared = i;
+                }
+			}
+		}
+	}
 }

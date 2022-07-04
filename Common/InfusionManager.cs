@@ -329,9 +329,9 @@ namespace WeaponEnchantments.Common
                     item.legSlot = infusedArmorSlot;
             }
 		}//Done
-        public static int GetInfusionArmorSlot(this Item item, bool checkBase = false)
+        public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false)
 		{
-            if (item.TryGetGlobalItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1)
+            if (!getCurrent && item.TryGetGlobalItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1)
                 return iGlobal.infusedArmorSlot;
 			else
             {

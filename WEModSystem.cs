@@ -32,6 +32,7 @@ namespace WeaponEnchantments
         public static int[] levelXps = new int[EnchantedItem.maxLevel];
         private static int[] essenceStack = new int[EnchantedItem.maxLevel];
         private static bool favorited;
+        public static int stolenItemToBeCleared = -1;
 
         public override void OnModLoad()
         {
@@ -419,6 +420,16 @@ namespace WeaponEnchantments
                     EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player);
                     EnchantedItem.newPrefix = 0;
                 }
+            }
+            if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Item itemToClear = Main.item[stolenItemToBeCleared];
+                if (itemToClear != null && itemToClear.TryGetGlobalItem(out EnchantedItem iGlobal))
+                {
+                    iGlobal.lastValueBonus = 0;
+                    iGlobal.prefix = -1;
+                }
+                stolenItemToBeCleared = -1;
             }
         }
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest

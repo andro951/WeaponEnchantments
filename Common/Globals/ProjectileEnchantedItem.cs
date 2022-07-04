@@ -53,64 +53,61 @@ namespace WeaponEnchantments.Common.Globals
                     ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                 }
             }
-            if (!sourceSet)
-            {
-                if(projectile.type != ProjectileID.VortexBeater && source is EntitySource_ItemUse_WithAmmo vbSource && vbSource.Item.type == ItemID.VortexBeater)
+            if(projectile.type != ProjectileID.VortexBeater && source is EntitySource_ItemUse_WithAmmo vbSource && vbSource.Item.type == ItemID.VortexBeater)
+			{
+                if (vbSource.Item.G().masterProjectile != null)
+                    source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
+				else//Delete after testing
 				{
-                    if (vbSource.Item.G().masterProjectile != null)
-                        source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
-					else//Delete after testing
+                    for(int i = 0; i < Main.projectile.Length; i++)
 					{
-                        for(int i = 0; i < Main.projectile.Length; i++)
-						{
-                            if(Main.projectile[i].type == ProjectileID.VortexBeater)
-                                source = Main.projectile[i].GetSource_FromThis();
-						}
-					}//Delete after testing
-                }
-                if (source is EntitySource_ItemUse uSource)
-                {
-                    if(uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
-                    {
-                        sourceItem = uSource.Item;
-                        if(sourceItem.DamageType == DamageClass.Melee)
-                        {
-                            //float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
-                            //projectile.velocity /= (1f + speedBonus);
-                            projectile.velocity /= (sourceItem.A("velocity", 1f));
-                        }
-                        if (projectile.type == ProjectileID.VortexBeater)
-                            sourceItem.G().masterProjectile = projectile;
-                        sourceSet = true;
-
-                    }
-                }
-                else if(source is EntitySource_ItemUse_WithAmmo wSource)
-                {
-                    if (wSource.Item != null && WEMod.IsEnchantable(wSource.Item))
-                    {
-                        sourceItem = wSource.Item;
-                        sourceSet = true;
-                    }
-                }
-                else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
-                {
-                    parent = parentProjectile;
-                    TryUpdateFromParent();
-                }
-                else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
-                {
-                    sourceItem = FindMiscSourceItem(projectile, eSource.Context);
-                    sourceSet = sourceItem != null;
-                }
-                else if(source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
-                {
-                    playerSource = player;
-                    playerSourceSet = true;
-                }
-                projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
-                if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
+                        if(Main.projectile[i].type == ProjectileID.VortexBeater)
+                            source = Main.projectile[i].GetSource_FromThis();
+					}
+				}//Delete after testing
             }
+            if (source is EntitySource_ItemUse uSource)
+            {
+                if(uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
+                {
+                    sourceItem = uSource.Item;
+                    if(sourceItem.DamageType == DamageClass.Melee)
+                    {
+                        //float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
+                        //projectile.velocity /= (1f + speedBonus);
+                        projectile.velocity /= (sourceItem.A("velocity", 1f));
+                    }
+                    if (projectile.type == ProjectileID.VortexBeater)
+                        sourceItem.G().masterProjectile = projectile;
+                    sourceSet = true;
+
+                }
+            }
+            else if(source is EntitySource_ItemUse_WithAmmo wSource)
+            {
+                if (wSource.Item != null && WEMod.IsEnchantable(wSource.Item))
+                {
+                    sourceItem = wSource.Item;
+                    sourceSet = true;
+                }
+            }
+            else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
+            {
+                parent = parentProjectile;
+                TryUpdateFromParent();
+            }
+            else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
+            {
+                sourceItem = FindMiscSourceItem(projectile, eSource.Context);
+                sourceSet = sourceItem.TG();
+            }
+            else if(source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
+            {
+                playerSource = player;
+                playerSourceSet = true;
+            }
+            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
             if(sourceSet)
             {
                 Player player = Main.player[projectile.owner];
@@ -211,7 +208,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type)
                 {
-                    if(proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceSet)
+                    if(proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem.TG())
                     {
                         projectileNames = proj.Name.RemoveProjectileName().SplitString();
                         checkMatches = projNames.CheckMatches(projectileNames);
@@ -229,7 +226,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!updated)
                 projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
-            if (sourceSet)
+            if (sourceItem.TG())
             {
                 if (sourceItem.scale != lastScaleBonus)
                 {
@@ -357,7 +354,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (!updated)
             {
-                if (sourceSet)
+                if (sourceItem.TG())
                 {
                     for (int i = 0; i < 2; i++)
                         lastAIValue[i] = projectile.ai[i];
@@ -438,7 +435,7 @@ namespace WeaponEnchantments.Common.Globals
             projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             //if (target.life <= 0)//If NPC died
             {
-                if(sourceItem != null)
+                if(sourceItem.TG())
                 {
                     if (sourceItem.G().eStats.ContainsKey("OneForAll"))
                     {
@@ -587,7 +584,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     EnchantedItem.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
                 }
-                if (sourceSet && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
+                if (sourceItem.TG() && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                 {
                     cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown) : sourceItem.useTime);
                     if(parent != null)
@@ -597,13 +594,13 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool? CanHitNPC(Projectile projectile, NPC target)
         {
-            if (sourceSet && Main.GameUpdateCount < cooldownEnd)
+            if (sourceItem.TG() && Main.GameUpdateCount < cooldownEnd)
                 return false;
             return null;
         }
         public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
         {
-            if (sourceSet)
+            if (sourceItem.TG())
             {
                 if (firstScaleCheck)
                 {
