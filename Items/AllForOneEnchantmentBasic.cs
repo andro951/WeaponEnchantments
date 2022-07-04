@@ -898,8 +898,8 @@ namespace WeaponEnchantments.Items
             {
 				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, 
 					staticStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
-					invert ? 1f / (staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
-						staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+					staticStat.Multiplicative != 1f ? (invert ? 1f / (staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
+						staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 1f, 
 					staticStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
 					staticStat.Base * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f));
 				bool percentage, multiply100, plus;

@@ -190,36 +190,41 @@ namespace WeaponEnchantments.Common
             }//Weapon
             else if (WEMod.IsArmorItem(item) && ((WEMod.IsArmorItem(consumedItem) || consumedItem.IsAir)))
 			{
-                if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot())
-                {
-					if (failedItemFind)
-					{
-                        consumedItemName = item.G().infusedItemName;
-                        infusedArmorSlot = ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
-                    }
-                    else
+                if(item.headSlot > -1 && consumedItem.headSlot > -1 || item.bodySlot > -1 && consumedItem.bodySlot > -1 || item.legSlot > -1 && consumedItem.legSlot > -1)
+				{
+                    if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot())
                     {
-                        consumedItemName = consumedItem.Name;
-                        infusedArmorSlot = consumedItem.GetInfusionArmorSlot();
+                        if (failedItemFind)
+                        {
+                            consumedItemName = item.G().infusedItemName;
+                            infusedArmorSlot = ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
+                        }
+                        else
+                        {
+                            consumedItemName = consumedItem.Name;
+                            infusedArmorSlot = consumedItem.GetInfusionArmorSlot();
+                        }
+                        if (!finalize)
+                        {
+                            item.UpdateArmorSlot(infusedArmorSlot);
+                        }
+                        else
+                        {
+                            item.G().infusedItemName = consumedItemName;
+                            item.G().infusedArmorSlot = infusedArmorSlot;
+                            int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
+                            item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                        }
+                        return true;
                     }
-					if (!finalize)
-					{
-                        item.UpdateArmorSlot(infusedArmorSlot);
-					}
-                    else
-					{
-                        item.G().infusedItemName = consumedItemName;
-                        item.G().infusedArmorSlot = infusedArmorSlot;
-                        int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                        item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
-                    }
-                    return true;
+                    else if (finalize && !failedItemFind)
+                        Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
                 }
                 else if (finalize && !failedItemFind)
-                    Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
+                    Main.NewText($"The armor types must match to perform infusion.  (Helmet/Chest/Legs)");
             }//Armor
-            if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item)) || WEMod.IsArmorItem(item))
-                Main.NewText($"Infusion is only possitle between items of the same type (Weapon/Armor)");
+            else if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
+                Main.NewText($"Infusion is only possible between items of the same type (Weapon/Armor)");
             return false;
         }//Done
         public static bool TryInfuseItem(this Item item, string infusedItemName, bool reset = false, bool finalize = false)
