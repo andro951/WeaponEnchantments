@@ -46,7 +46,9 @@ namespace WeaponEnchantments.ModIntegration
 			{
                 int type0 = ModContent.ItemType<EnchantmentEssenceBasic>();
                 Main.LocalPlayer.G().enchantingTable.essenceItem[item.type - type0].stack -= stack;
-            }
-		}
+
+            }//Will be done by magic storage next update
+            WEMod.consumedItems.Add(item.Clone());
+        }
 	}
 }

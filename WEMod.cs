@@ -26,6 +26,8 @@ namespace WeaponEnchantments
     {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+
+		public static List<Item> consumedItems = new(); 
 		internal static bool IsEnchantable(Item item)
         {
 			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
@@ -414,6 +416,8 @@ namespace WeaponEnchantments
 		{
 			if (!arrItem.IsAir)
 			{
+				WEMod.consumedItems.Add(arrItem.Clone());
+				/*
 				if (arrItem.TryGetGlobalItem(out EnchantedItem i2Global) && Main.mouseItem.TryGetGlobalItem(out EnchantedItem miGlobal))
 				{
 					if (i2Global.experience > 0 || i2Global.powerBoosterInstalled)
@@ -532,6 +536,7 @@ namespace WeaponEnchantments
 						}
 					}
 				}
+				*/
 			}
 			if (debuggingHookCreate)
 			{
