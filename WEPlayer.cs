@@ -55,6 +55,7 @@ namespace WeaponEnchantments
         public static bool OldWorldItemsReplaced = false;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
+        public int highestTableTierUsed;
         public bool itemInEnchantingTable;
         public bool[] enchantmentInEnchantingTable = new bool[EnchantingTable.maxEnchantments];
         public Item itemBeingEnchanted;
@@ -223,6 +224,7 @@ namespace WeaponEnchantments
                 tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
             }
             tag["infusionConsumeItem"] = infusionConsumeItem;
+            tag["highestTableTierUsed"] = highestTableTierUsed;
         }
         public override void LoadData(TagCompound tag)
         {
@@ -280,6 +282,7 @@ namespace WeaponEnchantments
             infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
             if (infusionConsumeItem.IsAir)
                 infusionConsumeItem = null;
+            highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
         }
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot)
         {

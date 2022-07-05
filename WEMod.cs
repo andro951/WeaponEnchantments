@@ -18,6 +18,7 @@ using MonoMod.Cil;
 using System;
 using WeaponEnchantments.UI;
 using WeaponEnchantments.ModIntegration;
+using System.Runtime.CompilerServices;
 
 namespace WeaponEnchantments
 {

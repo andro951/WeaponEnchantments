@@ -114,6 +114,8 @@ namespace WeaponEnchantments.Tiles
 			else
 			{
 				wePlayer.enchantingTableTier = enchantingTableTier;
+				if (wePlayer.highestTableTierUsed < enchantingTableTier)
+					wePlayer.highestTableTierUsed = enchantingTableTier;
 				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;
 				UILinkPointNavigator.ForceMovementCooldown(120);
