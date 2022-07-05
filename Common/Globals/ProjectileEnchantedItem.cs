@@ -98,8 +98,13 @@ namespace WeaponEnchantments.Common.Globals
             if(sourceSet)
             {
                 Player player = Main.player[projectile.owner];
-                if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater)
+                if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.Celeb2Weapon && projectile.type != ProjectileID.Phantasm)
                 {
+                    if (sourceItem.Name == "Shadethrower")
+					{
+                        projectile.usesLocalNPCImmunity = true;
+                        projectile.localNPCHitCooldown = (int)(10f / sourceItem.AEI("Splitting", 1f));
+					}
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
                         float projectileChance = sourceItem.AEI("Splitting", 0f);
@@ -349,18 +354,6 @@ namespace WeaponEnchantments.Common.Globals
                         lastAIValue[i] = projectile.ai[i];
                     if (sourceItem.TG())
                     {
-                        /*damageBonus = 1f;
-
-                        if (sourceItem.DamageType == DamageClass.Summon || sourceItem.type == ItemID.LastPrism || sourceItem.type == ItemID.CoinGun)
-                        {
-                            /*damageBonus += siGlobal.damageBonus;
-                            damageBonus *= siGlobal.allForOneBonus;*//*
-                            damageBonus = sourceItem.A("Damage", damageBonus);
-                        }
-                        if(sourceItem.DamageType == DamageClass.Summon)
-                        {
-                            //projectile.CritChance += siGlobal.critBonus;
-                        }*/
                         initialScale = projectile.scale;
                         if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale)
                         {
@@ -368,23 +361,7 @@ namespace WeaponEnchantments.Common.Globals
                             lastScaleBonus = sourceItem.scale;
                         }
                         referenceScale = projectile.scale;
-                        //projectile.scale += siGlobal.lastGenericScaleBonus; ;//Update item size
-                        //projectile.scale = sourceItem.A("scale", projectile.scale);
-                        /*if (sourceItem.G().eStats.ContainsKey("AllForOne") || sourceItem.G().eStats.ContainsKey("InfinitePenetration"))
-                        {
-                            if (!projectile.usesIDStaticNPCImmunity && !projectile.usesLocalNPCImmunity)
-                            {
-                                projectile.usesIDStaticNPCImmunity = true;
-                                projectile.idStaticNPCHitCooldown = projectile.aiStyle == 99 ? 10 : 3;
-                            }
-                            else if (projectile.usesIDStaticNPCImmunity && projectile.idStaticNPCHitCooldown < 1)
-                                projectile.idStaticNPCHitCooldown = 3;
-                            else if (projectile.usesLocalNPCImmunity && projectile.localNPCHitCooldown < 1)
-                                projectile.localNPCHitCooldown = 3;
-                        }*/
                         float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                        /*float speed = 1f / NPCHitCooldownMultiplier;
-                        speedAdd = speed - 1f;*/
                         if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
                         {
                             float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
@@ -402,7 +379,7 @@ namespace WeaponEnchantments.Common.Globals
                             else
                             {
                                 if (projectile.localNPCHitCooldown > 0)
-                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                                    projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                             }
                         }
                         if (projectile.usesIDStaticNPCImmunity)

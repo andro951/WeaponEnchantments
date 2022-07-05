@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using System;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -11,10 +12,21 @@ namespace WeaponEnchantments.Common.Globals
 		public static Item dropItem = new Item();
         public override bool Drop(int i, int j, int type)
         {
-
 			return true;
         }
-        public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
+		public override bool CanPlace(int i, int j, int type)
+		{
+			int mainTile = Main.tile[i, j].TileType;
+			for (int k = 0; k < Items.WoodEnchantingTable.enchantingTableNames.Length; k++)
+			{
+				int tableType = ModContent.TileType<WoodEnchantingTable>() - k;
+				Item heldItem = Main.LocalPlayer.HeldItem;
+				if (type == tableType && mainTile != 0 || mainTile == tableType && heldItem.pick == 0)
+					return false;
+			}
+			return true;
+		}
+		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
         {
 			Tile tileTarget = Main.tile[i, j];
 			if (tileTarget.TileType != 504)

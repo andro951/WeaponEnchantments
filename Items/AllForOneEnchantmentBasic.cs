@@ -367,11 +367,15 @@ namespace WeaponEnchantments.Items
 					RestrictedClass = (int)DamageTypeSpecificID.Summon;
 					break;
 				case EnchantmentTypeID.AllForOne:
+					Max1 = true;
+					RestrictedClass = (int)DamageTypeSpecificID.Summon;
+					break;
 				case EnchantmentTypeID.OneForAll:
 					Max1 = true;
 					break;
 				default:
 					DamageClassSpecific = 0;
+					RestrictedClass = -1;
 					break;
 			}//DamageTypeSpecific, Max1, RestrictedClass
 			switch ((EnchantmentTypeID)EnchantmentType)
@@ -438,6 +442,7 @@ namespace WeaponEnchantments.Items
 						AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.1f);
 						AddStaticStat("mana", 1.5f + EnchantmentStrength * 0.15f);
 						StaticStat = AddStaticStat("P_autoReuse", EnchantmentStrength);
+						AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
 						break;
 					case EnchantmentTypeID.AmmoCost:
 						EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength));

@@ -416,9 +416,9 @@ namespace WeaponEnchantments.Common.Globals
             {
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
                 if (powerBoosterInstalled)
-                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} pointsName available: {GetLevelsAvailable()} (Booster Installed)") { OverrideColor = Color.LightGreen });
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()} (Booster Installed)") { OverrideColor = Color.LightGreen });
                 else
-                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster} pointsName available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
+                    tooltips.Add(new TooltipLine(Mod, "level", $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}") { OverrideColor = Color.LightGreen });
                 string levelString = levelBeforeBooster < maxLevel ? $" ({WEModSystem.levelXps[levelBeforeBooster] - experience} to next level)" : " (Max Level)";
                 tooltips.Add(new TooltipLine(Mod, "experience", $"Experience: {experience}{levelString}") { OverrideColor = Color.White });
             }
@@ -603,7 +603,14 @@ namespace WeaponEnchantments.Common.Globals
             }*/
             return Main.rand.NextFloat() >= -1f * weapon.AEI("AmmoCost", 0f); //(eStats.ContainsKey("AmmoCost") ? eStats["AmmoCost"].ApplyTo(0f) : 0f);
         }
-        public override bool? UseItem(Item item, Player player)
+		public override bool? CanAutoReuseItem(Item item, Player player)
+		{
+            if (statModifiers.ContainsKey("P_autoReuse"))
+                return false;
+            else
+                return null;
+		}
+		public override bool? UseItem(Item item, Player player)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             //if (allForOne)
@@ -613,7 +620,6 @@ namespace WeaponEnchantments.Common.Globals
             }
             if(eStats.ContainsKey("AllForOne"))
             {
-                //wePlayer.allForOneCooldown = true;
                 wePlayer.allForOneTimer = (int)((float)item.useTime * item.AEI("NPCHitCooldown", 0.5f));
             }
             return null;
@@ -625,7 +631,11 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
                 return false;
-            return eStats.ContainsKey("AllForOne") ? (wePlayer.allForOneTimer <= 0 ? true : false) : true;
+			if (eStats.ContainsKey("AllForOne"))
+			{
+                return wePlayer.allForOneTimer <= 0;
+            }
+            return true;
         }
         public override bool CanRightClick(Item item)
         {

@@ -91,21 +91,15 @@ namespace WeaponEnchantments.Common
                             {
                                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
                                 if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
-                                {
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
-                                }
                                 else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
-                                {
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
-                                }
                                 else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
-                                {
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
-                                }
                                 if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
-                                {
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
-                                }
+                                if(enchantment.RestrictedClass > -1 && item.DamageType.Type == enchantment.RestrictedClass)
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
                             }
                         }
                         if (player != null)

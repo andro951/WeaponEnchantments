@@ -1209,7 +1209,8 @@ namespace WeaponEnchantments
             bool updatePlayerStat = false;
             foreach (string key in statModifiers.Keys)
             {
-                if (Player.GetType().GetField(key) != null)
+                string name = key.RI().RP();
+                if (Player.GetType().GetField(name) != null)
                 {
                     appliedStatModifiers.Remove(key);
                     updatePlayerStat = true;
@@ -1217,7 +1218,7 @@ namespace WeaponEnchantments
             }
             if (updatePlayerStat)
                 UpdatePlayerStat();
-            temp1 = Player.maxMinions;
+            bool autoReuseGlove = Player.autoReuseGlove;
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
