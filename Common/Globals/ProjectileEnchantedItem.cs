@@ -20,11 +20,14 @@ namespace WeaponEnchantments.Common.Globals
         public float damageBonus = 1f;
         public double cooldownEnd = 0;
         public float[] lastAIValue = new float[] { 0f, 0f };
+        //public float totalSpeedBonus;
         public Projectile parent = null;
         public bool skipOnHitEffects = false;
+        //float speedAdd = 0f;
+        //float speedCarryover = 0f;
         float speed;
         //float speedAdd;
-        float[] speedCarryover = new float[] { 0f, 0f };
+        float[] speedCarryover = new float[] {0f, 0f};
         bool firstScaleCheck = true;
         bool secondScaleCheck = true;
         bool reApplyScale = false;
@@ -42,7 +45,7 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (UtilityMethods.debugging)
+            if(UtilityMethods.debugging)
             {
                 for (int i = 0; i < projectile.ai.Length; i++)
                 {
@@ -50,10 +53,18 @@ namespace WeaponEnchantments.Common.Globals
                     ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                 }
             }
-            if (source is EntitySource_ItemUse_WithAmmo vbSource && (vbSource.Item.type == ItemID.VortexBeater && projectile.type != ProjectileID.VortexBeater || vbSource.Item.type == ItemID.Celeb2 && projectile.type != ProjectileID.Celeb2Weapon || vbSource.Item.type == ItemID.Phantasm && projectile.type != ProjectileID.Phantasm))
+            if(projectile.type != ProjectileID.VortexBeater && source is EntitySource_ItemUse_WithAmmo vbSource && vbSource.Item.type == ItemID.VortexBeater)
 			{
                 if (vbSource.Item.G().masterProjectile != null)
                     source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
+				else//Delete after testing
+				{
+                    for(int i = 0; i < Main.projectile.Length; i++)
+					{
+                        if(Main.projectile[i].type == ProjectileID.VortexBeater)
+                            source = Main.projectile[i].GetSource_FromThis();
+					}
+				}//Delete after testing
             }
             if (source is EntitySource_ItemUse uSource)
             {
@@ -62,9 +73,11 @@ namespace WeaponEnchantments.Common.Globals
                     sourceItem = uSource.Item;
                     if(sourceItem.DamageType == DamageClass.Melee)
                     {
+                        //float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
+                        //projectile.velocity /= (1f + speedBonus);
                         projectile.velocity /= (sourceItem.A("velocity", 1f));
                     }
-                    if (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
+                    if (projectile.type == ProjectileID.VortexBeater)
                         sourceItem.G().masterProjectile = projectile;
                     sourceSet = true;
 
@@ -235,113 +248,111 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (sourceItem != null)
             {
-                if(speed != 0)
+                //if(speedAdd != 0)
                 {
                     for (int i = 0; i < 2; i++)
                     {
                         float aiValue = projectile.ai[i];
-                        if (spawnedChild[i])
+                        //if (finishedObservationPeriod[i])
                         {
-                            float thisSpawnChildValue = spawnChildValue[i];
-                            float thisNextValueAfterChild = nextValueAfterChild[i];
-                            if (!positiveSet[i])
+                            if (spawnedChild[i])
                             {
-                                positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
-                                positiveSet[i] = true;
-                            }
-                            bool thisPositive = positive[i];
-                            float speedAddValue;
-                            speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
-                            int valueToAdd = (int)speedAddValue;
-                            speedCarryover[i] = speedAddValue % 1f;
-                            projectile.ai[i] += valueToAdd;
-                            if (i == 1 && (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm))
-                            {
-                                projectile.ai[0] -= valueToAdd;
-                            }
-                        }
+                                float thisSpawnChildValue = spawnChildValue[i];
+                                float thisNextValueAfterChild = nextValueAfterChild[i];
+                                if (!positiveSet[i])
+                                {
+                                    positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
+                                    positiveSet[i] = true;
+                                }
+                                bool thisPositive = positive[i];
+                                float speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
+                                int valueToAdd = (int)speedAddValue;
+								speedCarryover[i] = speedAddValue % 1f;
+                                projectile.ai[i] += valueToAdd;
+                                
+                                //Change the source = to cloneing a source instead to not mess with other mods
+                                
+                                //Add change to ai[0] for vortexBeater
+                                
+                                
+                                /*if (speed < 1f)
+                                {
+                                    projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
+                                    /*if (positive[i])
+                                        projectile.ai[i] += ;
+                                    else
+                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
+                                }
+                                else
+                                {
+                                    if (positive[i])
+                                    {
 
-
-                        /*if (speed < 1f)
-                        {
-                            projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
-                            /*if (positive[i])
-                                projectile.ai[i] += ;
-                            else
-                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
-                        }
-                        else
-                        {
-                            if (positive[i])
-                            {
-
-                                projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
-                            }
-                            else
-                            {
-                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
-                            }
-                        }*/
-                        float newValue = projectile.ai[i];
-                        spawnedChild[i] = false;
-                        /*speedCarryover += speedAdd;
-                        //if (aiValue > controlValue)
-                        {
-                            if (speedCarryover > 1f)
-                            {
-                                float value = (float)(int)speedCarryover;
-                                speedCarryover -= value;
-                                projectile.ai[i] += value * (positive[i] ? 1f : -1f);
-                            }
-                            else if (speedCarryover < -1f)
-                            {
-                                speedCarryover += 1f;
-                                projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
-                            }
-
-                        }
-                        //projectile.ai[0] = 61f;
-                        //projectile.ai[1] = 0f;
-                        ;*/
-                        if (UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
-                        /*else if(projectile.type == ProjectileID.VortexBeater)
-						{
-                            if(i == 0)
-                            {
-                                speedCarryover += speedAdd;
+                                        projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
+                                    }
+                                    else
+                                    {
+                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
+                                    }
+                                }*/
+                                float newValue = projectile.ai[i];
+                                spawnedChild[i] = false;
+                                /*speedCarryover += speedAdd;
                                 //if (aiValue > controlValue)
                                 {
                                     if (speedCarryover > 1f)
                                     {
                                         float value = (float)(int)speedCarryover;
                                         speedCarryover -= value;
-                                        projectile.ai[i] += value;
+                                        projectile.ai[i] += value * (positive[i] ? 1f : -1f);
                                     }
                                     else if (speedCarryover < -1f)
                                     {
                                         speedCarryover += 1f;
-                                        projectile.ai[i] -= 1f;
+                                        projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
+                                    }
+
+                                }
+                                //projectile.ai[0] = 61f;
+                                //projectile.ai[1] = 0f;
+                                ;*/
+                                if(UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+                            }
+                            /*else if(projectile.type == ProjectileID.VortexBeater)
+							{
+                                if(i == 0)
+                                {
+                                    speedCarryover += speedAdd;
+                                    //if (aiValue > controlValue)
+                                    {
+                                        if (speedCarryover > 1f)
+                                        {
+                                            float value = (float)(int)speedCarryover;
+                                            speedCarryover -= value;
+                                            projectile.ai[i] += value;
+                                        }
+                                        else if (speedCarryover < -1f)
+                                        {
+                                            speedCarryover += 1f;
+                                            projectile.ai[i] -= 1f;
+                                        }
                                     }
                                 }
-                            }
-							else
-							{
+								else
+								{
 
-							}
-                        }*/
+								}
+                            }*/
+                        }
                         /*if(aiValue != 0 || lastAIValue[i] != 0)
                             ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();*/
-                        /*if (i == 0 && (sourceItem.type == ItemID.VortexBeater || sourceItem.type == ItemID.Celeb2 || sourceItem.type == ItemID.Phantasm))
-						{
-                            speedCarryover[i] += speed;
-                            int speedToAdd = (int)speedCarryover[i];
-							speedCarryover[i] -= speedToAdd;
-                            projectile.ai[0] += speedToAdd;
-                        }*/
+                        if (i == 0 && sourceItem.type == ItemID.VortexBeater)
+                            projectile.ai[0] += speed;
                         lastAIValue[i] = aiValue;
                     }
                 }
             }
+            
             return true;
         }
         public void UpdateProjectile(Projectile projectile)
@@ -352,7 +363,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < 2; i++)
                         lastAIValue[i] = projectile.ai[i];
-                    if (sourceItem.TG())
+                    if (sourceItem.TryGetGlobalItem(out EnchantedItem siGlobal))
                     {
                         initialScale = projectile.scale;
                         if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale)
@@ -362,7 +373,9 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         referenceScale = projectile.scale;
                         float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
+                        /*float speed = 1f / NPCHitCooldownMultiplier;
+                        speedAdd = speed - 1f;*/
+                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater)
                         {
                             float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
                             speed = 1f - 1f / speedMult;
