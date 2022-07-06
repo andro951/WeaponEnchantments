@@ -209,7 +209,7 @@ namespace WeaponEnchantments.UI
 		}
 		public bool CheckUniqueSlot(AllForOneEnchantmentBasic enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && enchantment.RestrictedClass == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(AllForOneEnchantmentBasic enchantement, Item item)
         {
@@ -222,8 +222,8 @@ namespace WeaponEnchantments.UI
 					{
 						AllForOneEnchantmentBasic appliedEnchantment = (AllForOneEnchantmentBasic)iGlobal.enchantments[i].ModItem;
 						if (appliedEnchantment != null && (
-							(enchantement.Unique || enchantement.DamageClassSpecific > 0 || enchantement.RestrictedClass > 0) 
-							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique || appliedEnchantment.RestrictedClass > 0) 
+							(enchantement.Unique || enchantement.DamageClassSpecific > 0) 
+							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) 
 							|| enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
 						{
 							return i;
