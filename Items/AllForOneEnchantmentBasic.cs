@@ -365,6 +365,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
 					RestrictedClass = (int)DamageTypeSpecificID.Summon;
+					Unique = true;
 					break;
 				case EnchantmentTypeID.AllForOne:
 					Max1 = true;
@@ -633,7 +634,17 @@ namespace WeaponEnchantments.Items
 						if (checkBoolOnly)
 							return property.PropertyType == typeof(bool);
 						else
-							StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
+						{
+							switch (name)
+							{
+								case "ArmorPenetration":
+									StaticStats.Add(new EnchantmentStaticStat(name, 0f, 1f, 0f, EnchantmentStrength));
+									break;
+								default:
+									StaticStats.Add(new EnchantmentStaticStat(name, EnchantmentStrength));
+									break;
+							}
+						}
 						return true;
 					}
 				}
@@ -811,7 +822,7 @@ namespace WeaponEnchantments.Items
 				}
 			}//Debuffs
 			toolTip += $"\nLevel cost: { GetLevelCost()}";
-			if (DamageClassSpecific > 0 || Unique || RestrictedClass > 0)
+			if (DamageClassSpecific > 0 || Unique)
 			{
 				string limmitationToolTip = "";
 				if (Unique)
@@ -1027,7 +1038,7 @@ namespace WeaponEnchantments.Items
 			int multiplier = 2;
 			if(Utility)
 				multiplier = 1;
-			if (Unique || DamageClassSpecific > 0 || RestrictedClass > 0 || Max1)
+			if (Unique || DamageClassSpecific > 0 || Max1)
 				multiplier = 3;
 			return (1 + EnchantmentSize) * multiplier;
             /*switch ((EnchantmentTypeID)EnchantmentType)

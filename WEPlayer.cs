@@ -1014,6 +1014,7 @@ namespace WeaponEnchantments
         }
         public void UpdateItemStats(ref Item item)
         {
+            int armorPenetration = item.ArmorPenetration;
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
@@ -1032,7 +1033,7 @@ namespace WeaponEnchantments
                 foreach (string itemKey in item.G().statModifiers.Keys)
                 {
                     string riItemKey = itemKey.RI().RP();
-                    if (item.GetType().GetField(riItemKey) != null)
+                    if (item.GetType().GetField(riItemKey) != null || item.GetType().GetProperty(riItemKey) != null)
                     {
                         StatModifier riStatModifier = itemKey.CI() ? CombineStatModifier(StatModifier.Default, item.G().statModifiers[itemKey], true) : item.G().statModifiers[itemKey];
                         if(combinedStatModifiers.ContainsKey(riItemKey))
@@ -1047,7 +1048,7 @@ namespace WeaponEnchantments
                     foreach (string playerKey in statModifiers.Keys)
                     {
                         string riPlayerKey = playerKey.RI().RP();
-                        if (item.GetType().GetField(riPlayerKey) != null)
+                        if (item.GetType().GetField(riPlayerKey) != null || item.GetType().GetProperty(riPlayerKey) != null)
                         {
                             StatModifier riStatModifier = playerKey.CI() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
                             if (combinedStatModifiers.ContainsKey(riPlayerKey))
@@ -1123,7 +1124,7 @@ namespace WeaponEnchantments
                                 if (propertyType == typeof(int))
                                 {
                                     //int valueInt = (int)property.GetValue(item);
-                                    float finalValue = (float)(int)property.GetValue(item);
+                                    float finalValue = staticStat.ApplyTo((float)(int)property.GetValue(item));
                                     //Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
                                     staticStat.RoundCheck(ref finalValue, (int)property.GetValue(item), item.G().appliedStatModifiers[key], (int)property.GetValue(ContentSamples.ItemsByType[item.type]));
                                     property.SetValue(item, (int)Math.Round(finalValue + 5E-6));
@@ -1185,6 +1186,7 @@ namespace WeaponEnchantments
                 }
                 if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
+            int armorPenetrationAfter = item.ArmorPenetration;
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
