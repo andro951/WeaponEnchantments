@@ -25,7 +25,6 @@ namespace WeaponEnchantments.ModIntegration
         {
             return Main.LocalPlayer.G().enchantingTable.essenceItem;
         }
-
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information)
 		{
             int highestTableTierUsed = Main.LocalPlayer.G().highestTableTierUsed;
