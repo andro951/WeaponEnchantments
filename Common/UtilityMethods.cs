@@ -208,6 +208,36 @@ namespace WeaponEnchantments.Common
                 finalString += s.Substring(start);
             return finalString;
         }
+        public static string RemoveSpaces(this string s)
+		{
+            bool started = false;
+            int start = 0;
+            int end = 0;
+            string finalString = "";
+            for (int i = 0; i < s.Length; i++)
+			{
+				if (started)
+				{
+                    if (s[i] == ' ')
+					{
+                        started = false;
+                        end = i;
+                        finalString += s.Substring(start, end - start);
+					}
+                }
+				else
+				{
+					if (s[i] != ' ')
+					{
+                        started = true;
+                        start = i;
+					}
+				}
+			}
+            if (started)
+                finalString += s.Substring(start, s.Length - start);
+            return finalString;
+        }
         public static string CapitalizeFirst(this string s)
         {
             if (s.Length > 0)
@@ -340,6 +370,19 @@ namespace WeaponEnchantments.Common
                     }
                 }
             }
+        }
+        public static void ApplyEnchantment(this Item item, int i)
+        {
+            if (UtilityMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!item.IsAir)
+            {
+                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            if (UtilityMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
         }
         public static void UpdateEnchantment(this Item item, Player player, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {

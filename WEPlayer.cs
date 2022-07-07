@@ -121,7 +121,7 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-
+            AllForOneEnchantmentBasic.temp.Log();
             /*foreach(Mod mod in ModLoader.Mods)
             {
                 if (ModContent.TryFind<ModItem>("NameOfMod/ItemName", out ModItem modItem))
@@ -1014,7 +1014,6 @@ namespace WeaponEnchantments
         }
         public void UpdateItemStats(ref Item item)
         {
-            int armorPenetration = item.ArmorPenetration;
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
@@ -1024,6 +1023,9 @@ namespace WeaponEnchantments
                     item.G().appliedStatModifiers.Clear();
                     item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
+                    int damageType = item.G().damageType;
+                    if (damageType > -1)
+                        item.UpdateDamageType(damageType);
                 }
                 int infusedArmorSlot = item.G().infusedArmorSlot;
                 int armorSlot = item.GetInfusionArmorSlot(false, true);
@@ -1186,7 +1188,6 @@ namespace WeaponEnchantments
                 }
                 if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
-            int armorPenetrationAfter = item.ArmorPenetration;
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
