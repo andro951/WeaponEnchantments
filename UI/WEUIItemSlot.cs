@@ -77,9 +77,10 @@ namespace WeaponEnchantments.UI
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 										continueCheck = false;
-									if (newEnchantment.RestrictedClass != 0 && damageClassSpecific == newEnchantment.RestrictedClass)
+									if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
 										continueCheck = false;
-									if (newEnchantment.Unique && newEnchantment.EnchantmentTypeName != wePlayer.enchantingTableUI.itemSlotUI[0].Item.ModItem.Name)
+									string uniqueWeaponName = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name.RemoveSpaces();
+									if (newEnchantment.Unique && !newEnchantment.Max1 && newEnchantment.DamageClassSpecific == 0 && newEnchantment.RestrictedClass == -1 && newEnchantment.EnchantmentTypeName != uniqueWeaponName)
 										continueCheck = false;
 									if(!CheckAllowedList(newEnchantment))
 										continueCheck = false;

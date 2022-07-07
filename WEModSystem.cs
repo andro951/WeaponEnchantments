@@ -63,17 +63,9 @@ namespace WeaponEnchantments
         }//PR
         private static void ApplyEnchantment(int i)
         {
-            if(UtilityMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-            if (!item.IsAir)
-            {
-                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i);
-                wePlayer.UpdateItemStats(ref item);
-            }
-            if(UtilityMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
+            item.ApplyEnchantment(i);
         }
         public static void RemoveEnchantment(int i)
         {

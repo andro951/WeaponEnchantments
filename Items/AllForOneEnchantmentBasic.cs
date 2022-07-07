@@ -140,7 +140,7 @@ namespace WeaponEnchantments.Items
 					toolTip = $"(item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
 					break;
 				case EnchantmentTypeID.CatastrophicRelease:
-					toolTip = "()";
+					toolTip = "(Does not work, Not finished)";
 					break;
 				case EnchantmentTypeID.GodSlayer:
 					toolTip = "(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
@@ -235,7 +235,7 @@ namespace WeaponEnchantments.Items
 			}//Check Utility
 			for (int i = 0; i < ItemID.Count; i++)
 			{
-				if (ContentSamples.ItemsByType[i].Name == EnchantmentTypeName)
+				if (ContentSamples.ItemsByType[i].Name.RemoveSpaces() == EnchantmentTypeName)
 				{
 					Unique = true;
 					break;

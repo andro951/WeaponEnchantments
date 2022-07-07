@@ -791,10 +791,12 @@ namespace WeaponEnchantments.Common.Globals
                                                         if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
                                                         {
                                                             iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
+                                                            item.ApplyEnchantment(j);
                                                         }
                                                         else if (j < 4)
                                                         {
                                                             iGlobal.enchantments[j] = cGlobal.enchantments[k].Clone();
+                                                            item.ApplyEnchantment(j);
                                                             j++;
                                                         }
                                                         else
