@@ -72,7 +72,7 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f - ratioFromCenter,
                     BackgroundColor = red
                 };
-                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
+                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOfferButton(); };
                 UIText yesButtonText = new UIText("Yes")
                 {
                     Top = { Pixels = -4f },
@@ -113,9 +113,27 @@ namespace WeaponEnchantments.UI
             state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
         }
-        public static void ConfirmOffer(Item item = null, bool noOre = false)
+	public static void ConfirmOfferButton() //Rename to ConfirmOffer
+	{
+		int type = ConfirmOffer();
+		if(type > 0)
+		{
+			if(WEMod.clientConfig.OfferAll)
+			{
+				Player player = Main.localPlayer;
+				for(int i = 0; i < player.inventory.length; i++)
+				{
+					if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
+						ConfirmOffer(player.inventory[i]);
+				}
+			}
+		}
+		
+	}
+        public static int ConfirmOffer(Item item = null, bool noOre = false) //Rename this to OfferItem
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); bool nonTableItem = false;
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); 
+	    bool nonTableItem = false;
             if (item == null)
             {
                 WEModSystem.promptInterface.SetState(null);
@@ -126,6 +144,7 @@ namespace WeaponEnchantments.UI
             }
             else
                 nonTableItem = true;
+	    int type = item.type;
             bool stop = false;
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
@@ -174,6 +193,7 @@ namespace WeaponEnchantments.UI
                     SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
+	    return type;
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
         {
