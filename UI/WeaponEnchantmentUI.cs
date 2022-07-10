@@ -792,36 +792,46 @@ namespace WeaponEnchantments.UI
             if (!tableItem.IsAir)
             {
                 int xpAvailable = 0;
+		int nonFavoriteXpAvailable = 0;
                 EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
                 if(iGlobal.levelBeforeBooster != EnchantedItem.maxLevel)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {
-                        xpAvailable += (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+		    	int xpToAdd = (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        xpAvailable += xpToAdd;
+			if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
+				nonFavoriteXpAvailable += xpToAdd;
                     }
                     int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.experience;
+		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
                     if (xpAvailable >= xpNeeded)
                     {
                         for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                         {
                             Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+			    bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited || !enoughWithoutFavorite
                             int stack = essenceItem.stack;
                             int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssenceBasic.xpPerEssence[i];
-                            int numberEssenceTransfered;
-                            if(numberEssenceNeeded > stack)
-                            {
-                                numberEssenceTransfered = stack;
-                            }
-                            else
-                            {
-                                numberEssenceTransfered = numberEssenceNeeded;
-                            }
+                            int numberEssenceTransfered = 0;
+			    if(allowUsingThisEssence)
+			    {
+			    	if(numberEssenceNeeded > stack)
+                            	{
+                                	numberEssenceTransfered = stack;
+                            	}
+                            	else
+                            	{
+                                	numberEssenceTransfered = numberEssenceNeeded;
+                            	}
+			    }
                             int xpAvailableBelowMe = 0;
                             for (int j = i - 1; j >= 0; j--)
                             {
-                                xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
+			    	if(!wePlayer.enchantingTableUI.essenceSlotUI[j].Item.favorited || !enoughWithoutFavorite)
+                                	xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
                             }
-                            if(xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
+                            if(allowUsingThisEssence && xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
                             {
                                 numberEssenceTransfered++;
                             }
