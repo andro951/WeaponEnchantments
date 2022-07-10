@@ -52,6 +52,7 @@ namespace WeaponEnchantments
     }
     public class WEPlayer : ModPlayer
     {
+    	private string name = "";
         public static bool OldWorldItemsReplaced = false;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
@@ -120,7 +121,7 @@ namespace WeaponEnchantments
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
-            OldItemManager.ReplaceAllPlayerOldItems(player);
+            //OldItemManager.ReplaceAllPlayerOldItems(player);
             AllForOneEnchantmentBasic.temp.Log();
             /*foreach(Mod mod in ModLoader.Mods)
             {
@@ -1236,5 +1237,13 @@ namespace WeaponEnchantments
             }
             return items;
         }
+	public override void OnSpawn()
+	{
+		if(Player.name != name)
+		{
+			OldItemManager.ReplaceAllPlayerOldItems(player);
+			name = Player.name;
+		}
+	}
     }
 }

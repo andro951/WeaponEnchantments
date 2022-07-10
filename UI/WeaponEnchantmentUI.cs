@@ -72,7 +72,7 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f - ratioFromCenter,
                     BackgroundColor = red
                 };
-                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
+                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOfferButton(); };
                 UIText yesButtonText = new UIText("Yes")
                 {
                     Top = { Pixels = -4f },
@@ -113,9 +113,27 @@ namespace WeaponEnchantments.UI
             state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
         }
-        public static void ConfirmOffer(Item item = null, bool noOre = false)
+	public static void ConfirmOfferButton() //Rename to ConfirmOffer
+	{
+		int type = ConfirmOffer();
+		if(type > 0)
+		{
+			if(WEMod.clientConfig.OfferAll)
+			{
+				Player player = Main.localPlayer;
+				for(int i = 0; i < player.inventory.length; i++)
+				{
+					if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
+						ConfirmOffer(player.inventory[i]);
+				}
+			}
+		}
+		
+	}
+        public static int ConfirmOffer(Item item = null, bool noOre = false) //Rename this to OfferItem
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); bool nonTableItem = false;
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); 
+	    bool nonTableItem = false;
             if (item == null)
             {
                 WEModSystem.promptInterface.SetState(null);
@@ -126,6 +144,7 @@ namespace WeaponEnchantments.UI
             }
             else
                 nonTableItem = true;
+	    int type = item.type;
             bool stop = false;
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
@@ -148,19 +167,21 @@ namespace WeaponEnchantments.UI
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
                     {
-                        int[] ores = { ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
-                        for (int i = 0; i < 3; i++)
+                        int[] ores = { ItemID.ChlorophiteOre, ItemID.AdamantiteOre, ItemID.MithrilOre, ItemID.PaladiumOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+			refNum = ores.Length - 3;
+			for (int i = downedWOF ? 0 : refNum; i < ores.Length; i++)
                         {
                             int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                             int stack;
                             if (ores[i] > ItemID.IronOre)
-                                stack = (int)Math.Round(value * 0.8f / orevalue);
+                                stack = (int)Math.Round(value * i < refNum ? 0.8f : 0.2f / orevalue);
                             else
                                 stack = (int)(value / orevalue);
                             value -= stack * orevalue;
                             if (ores[i] == ItemID.IronOre)
                                 stack++;
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+			    if(stack > 0)
+                            	Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
                         }
                     }
                     if (item.G().powerBoosterInstalled)
@@ -174,6 +195,7 @@ namespace WeaponEnchantments.UI
                     SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
+	    return type;
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
         {
@@ -772,36 +794,46 @@ namespace WeaponEnchantments.UI
             if (!tableItem.IsAir)
             {
                 int xpAvailable = 0;
+		int nonFavoriteXpAvailable = 0;
                 EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
                 if(iGlobal.levelBeforeBooster != EnchantedItem.maxLevel)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {
-                        xpAvailable += (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+		    	int xpToAdd = (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        xpAvailable += xpToAdd;
+			if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
+				nonFavoriteXpAvailable += xpToAdd;
                     }
                     int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.experience;
+		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
                     if (xpAvailable >= xpNeeded)
                     {
                         for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                         {
                             Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+			    bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited || !enoughWithoutFavorite
                             int stack = essenceItem.stack;
                             int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssenceBasic.xpPerEssence[i];
-                            int numberEssenceTransfered;
-                            if(numberEssenceNeeded > stack)
-                            {
-                                numberEssenceTransfered = stack;
-                            }
-                            else
-                            {
-                                numberEssenceTransfered = numberEssenceNeeded;
-                            }
+                            int numberEssenceTransfered = 0;
+			    if(allowUsingThisEssence)
+			    {
+			    	if(numberEssenceNeeded > stack)
+                            	{
+                                	numberEssenceTransfered = stack;
+                            	}
+                            	else
+                            	{
+                                	numberEssenceTransfered = numberEssenceNeeded;
+                            	}
+			    }
                             int xpAvailableBelowMe = 0;
                             for (int j = i - 1; j >= 0; j--)
                             {
-                                xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
+			    	if(!wePlayer.enchantingTableUI.essenceSlotUI[j].Item.favorited || !enoughWithoutFavorite)
+                                	xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
                             }
-                            if(xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
+                            if(allowUsingThisEssence && xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
                             {
                                 numberEssenceTransfered++;
                             }
