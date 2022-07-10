@@ -106,6 +106,12 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
+		[Header("Enchanting Table Options")]
+        [Label("Recieve ores up to Chlorophyte from Offering items.")]
+        [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold.\n(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
+        [DefaultValue(true)]
+        public bool AllowHighTierOres;
+
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
@@ -197,7 +203,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.")]
         [DefaultValue(false)]
         public bool OfferAll;
-        
+
         [Header("Display Names")]
         [Label("Use Original Rarity Names")]
         [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]

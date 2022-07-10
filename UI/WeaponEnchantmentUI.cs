@@ -72,7 +72,7 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f - ratioFromCenter,
                     BackgroundColor = red
                 };
-                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOfferButton(); };
+                confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
                 UIText yesButtonText = new UIText("Yes")
                 {
                     Top = { Pixels = -4f },
@@ -113,27 +113,26 @@ namespace WeaponEnchantments.UI
             state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
         }
-	public static void ConfirmOfferButton() //Rename to ConfirmOffer
-	{
-		int type = ConfirmOffer();
-		if(type > 0)
-		{
-			if(WEMod.clientConfig.OfferAll)
-			{
-				Player player = Main.LocalPlayer;
-				for(int i = 0; i < player.inventory.Length; i++)
-				{
-					if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
-						ConfirmOffer(player.inventory[i]);
-				}
-			}
-		}
-		
-	}
-        public static int ConfirmOffer(Item item = null, bool noOre = false) //Rename this to OfferItem
+	    public static void ConfirmOffer()
+	    {
+		    int type = OfferItem();
+		    if(type > 0)
+		    {
+			    if(WEMod.clientConfig.OfferAll)
+			    {
+				    Player player = Main.LocalPlayer;
+				    for(int i = 0; i < player.inventory.Length; i++)
+				    {
+					    if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
+						    OfferItem(player.inventory[i]);
+				    }
+			    }
+		    }
+	    }
+        public static int OfferItem(Item item = null, bool noOre = false)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); 
-	    bool nonTableItem = false;
+	        bool nonTableItem = false;
             if (item == null)
             {
                 WEModSystem.promptInterface.SetState(null);
@@ -144,7 +143,7 @@ namespace WeaponEnchantments.UI
             }
             else
                 nonTableItem = true;
-	    int type = item.type;
+	        int type = item.type;
             bool stop = false;
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
             {
@@ -167,20 +166,20 @@ namespace WeaponEnchantments.UI
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
                     {
-                        int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.PlatinumOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+                        int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.CobaltOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
 			            int refNum = ores.Length - 3;
-			            for (int i = Main.hardMode ? 0 : refNum; i < ores.Length; i++)
+			            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? NPC.downedMechBossAny ? 0 : 1 : refNum; i < ores.Length; i++)
                         {
                             int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                             int stack;
                             if (ores[i] > ItemID.IronOre)
-                                stack = (int)Math.Round(value * i < refNum ? 0.8f : 0.2f / orevalue);
+                                stack = (int)Math.Round(value * (i >= refNum ? 0.8f : 0.2f) / orevalue);
                             else
                                 stack = (int)(value / orevalue);
                             value -= stack * orevalue;
                             if (ores[i] == ItemID.IronOre)
                                 stack++;
-			    if(stack > 0)
+			                if(stack > 0)
                             	Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
                         }
                     }
@@ -195,7 +194,7 @@ namespace WeaponEnchantments.UI
                     SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
-	    return type;
+	        return type;
         }//Consume item to upgrade table or get resources
         public override void Update(GameTime gameTime)
         {
@@ -712,7 +711,7 @@ namespace WeaponEnchantments.UI
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
-                            ConfirmationUI.ConfirmOffer(wePlayer.infusionConsumeItem, true);
+                            ConfirmationUI.OfferItem(wePlayer.infusionConsumeItem, true);
                             wePlayer.infusionConsumeItem = null;
                             infusionButonText.SetText("Infusion");
                         }
