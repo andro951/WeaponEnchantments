@@ -187,12 +187,18 @@ namespace WeaponEnchantments.Common.Configs
     public class ClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
-
+        [Header("Enchanting Table Options")]
         [Label("Automatically send essence to UI")]
         [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool teleportEssence;
-
+        
+        [Label("Offer all of the same item.")]
+        [Tooltip("Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.")]
+        [DefaultValue(false)]
+        public bool OfferAll;
+        
+        [Header("Display Names")]
         [Label("Use Original Rarity Names")]
         [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
         [DefaultValue(false)]
