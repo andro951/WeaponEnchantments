@@ -167,19 +167,21 @@ namespace WeaponEnchantments.UI
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
                     {
-                        int[] ores = { ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
-                        for (int i = 0; i < 3; i++)
+                        int[] ores = { ItemID.ChlorophiteOre, ItemID.AdamantiteOre, ItemID.MithrilOre, ItemID.PaladiumOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+			refNum = ores.Length - 3;
+			for (int i = downedWOF ? 0 : refNum; i < ores.Length; i++)
                         {
                             int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                             int stack;
                             if (ores[i] > ItemID.IronOre)
-                                stack = (int)Math.Round(value * 0.8f / orevalue);
+                                stack = (int)Math.Round(value * i < refNum ? 0.8f : 0.2f / orevalue);
                             else
                                 stack = (int)(value / orevalue);
                             value -= stack * orevalue;
                             if (ores[i] == ItemID.IronOre)
                                 stack++;
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+			    if(stack > 0)
+                            	Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
                         }
                     }
                     if (item.G().powerBoosterInstalled)
