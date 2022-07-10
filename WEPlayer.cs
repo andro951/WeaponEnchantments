@@ -1237,13 +1237,17 @@ namespace WeaponEnchantments
             }
             return items;
         }
-	public override void OnSpawn()
-	{
-		if(Player.name != name)
+		public override void OnRespawn(Player player)
 		{
-			OldItemManager.ReplaceAllPlayerOldItems(player);
-			name = Player.name;
+			base.OnRespawn(player);
 		}
-	}
+		/*public override void OnSpawn()
+	    {
+		    if(Player.name != name)
+		    {
+			    OldItemManager.ReplaceAllPlayerOldItems(player);
+			    name = Player.name;
+		    }
+	    }*/
     }
 }

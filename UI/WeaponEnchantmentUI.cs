@@ -120,8 +120,8 @@ namespace WeaponEnchantments.UI
 		{
 			if(WEMod.clientConfig.OfferAll)
 			{
-				Player player = Main.localPlayer;
-				for(int i = 0; i < player.inventory.length; i++)
+				Player player = Main.LocalPlayer;
+				for(int i = 0; i < player.inventory.Length; i++)
 				{
 					if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
 						ConfirmOffer(player.inventory[i]);
@@ -167,9 +167,9 @@ namespace WeaponEnchantments.UI
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
                     {
-                        int[] ores = { ItemID.ChlorophiteOre, ItemID.AdamantiteOre, ItemID.MithrilOre, ItemID.PaladiumOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
-			refNum = ores.Length - 3;
-			for (int i = downedWOF ? 0 : refNum; i < ores.Length; i++)
+                        int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.PlatinumOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+			            int refNum = ores.Length - 3;
+			            for (int i = Main.hardMode ? 0 : refNum; i < ores.Length; i++)
                         {
                             int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                             int stack;
@@ -794,31 +794,31 @@ namespace WeaponEnchantments.UI
             if (!tableItem.IsAir)
             {
                 int xpAvailable = 0;
-		int nonFavoriteXpAvailable = 0;
+		        int nonFavoriteXpAvailable = 0;
                 EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
                 if(iGlobal.levelBeforeBooster != EnchantedItem.maxLevel)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {
-		    	int xpToAdd = (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+		    	        int xpToAdd = (int)EnchantmentEssenceBasic.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                         xpAvailable += xpToAdd;
-			if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
-				nonFavoriteXpAvailable += xpToAdd;
+			            if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
+				            nonFavoriteXpAvailable += xpToAdd;
                     }
                     int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.experience;
-		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
+		            bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
                     if (xpAvailable >= xpNeeded)
                     {
                         for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                         {
                             Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-			    bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited || !enoughWithoutFavorite
+                            bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited || !enoughWithoutFavorite;
                             int stack = essenceItem.stack;
                             int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssenceBasic.xpPerEssence[i];
                             int numberEssenceTransfered = 0;
-			    if(allowUsingThisEssence)
-			    {
-			    	if(numberEssenceNeeded > stack)
+			                if(allowUsingThisEssence)
+			                {
+			    	            if(numberEssenceNeeded > stack)
                             	{
                                 	numberEssenceTransfered = stack;
                             	}
@@ -826,11 +826,11 @@ namespace WeaponEnchantments.UI
                             	{
                                 	numberEssenceTransfered = numberEssenceNeeded;
                             	}
-			    }
+			                }
                             int xpAvailableBelowMe = 0;
                             for (int j = i - 1; j >= 0; j--)
                             {
-			    	if(!wePlayer.enchantingTableUI.essenceSlotUI[j].Item.favorited || !enoughWithoutFavorite)
+			    	        if(!wePlayer.enchantingTableUI.essenceSlotUI[j].Item.favorited || !enoughWithoutFavorite)
                                 	xpAvailableBelowMe += (int)EnchantmentEssenceBasic.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
                             }
                             if(allowUsingThisEssence && xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssenceBasic.xpPerEssence[i] * numberEssenceTransfered)
