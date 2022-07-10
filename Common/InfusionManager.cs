@@ -314,7 +314,9 @@ namespace WeaponEnchantments.Common
                 }
                 else
                 {
-                    ($"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951").Log();
+                    string errorMessage = $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951";
+                    errorMessage.Log();
+                    Main.NewText(errorMessage);
                 }
             }
         }

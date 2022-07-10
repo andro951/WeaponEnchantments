@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Common.Globals
 			{
 				int tableType = ModContent.TileType<WoodEnchantingTable>() - k;
 				Item heldItem = Main.LocalPlayer.HeldItem;
-				if (type == tableType && mainTile != 0 || mainTile == tableType && heldItem.pick == 0)
+				if (type == tableType && !(mainTile == 0 || mainTile == 233) || mainTile == tableType && heldItem.pick == 0)
 					return false;
 			}
 			return true;

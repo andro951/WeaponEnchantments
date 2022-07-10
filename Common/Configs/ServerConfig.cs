@@ -110,7 +110,7 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
         [DefaultValue(true)]
-        public bool TeleportEssence;
+        public bool ArmorPenetration;
 
         [Header("Random Extra Stuff")]
         [Label("Start with a Drill Containment Unit")]
@@ -188,9 +188,9 @@ namespace WeaponEnchantments.Common.Configs
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [Label("Automatically send essence to UI")]
-        [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
-        [DefaultValue(false)]
+        [Label("Automatically send essence to Enchanting Table UI")]
+        [Tooltip("Automatically send essence from your inventory to the Enchanting Table UI essence slots.\n(Disables while the UI is open.)")]
+        [DefaultValue(true)]
         public bool teleportEssence;
 
         [Label("Use Original Rarity Names")]

@@ -357,7 +357,6 @@ namespace WeaponEnchantments.Items
 					DamageClassSpecific = (int)DamageTypeSpecificID.Ranged;
 					break;
 				case EnchantmentTypeID.CatastrophicRelease:
-				case EnchantmentTypeID.WorldAblaze:
 					DamageClassSpecific = (int)DamageTypeSpecificID.Magic;
 					break;
 				case EnchantmentTypeID.ColdSteel:
@@ -372,6 +371,7 @@ namespace WeaponEnchantments.Items
 					RestrictedClass = (int)DamageTypeSpecificID.Summon;
 					break;
 				case EnchantmentTypeID.OneForAll:
+				case EnchantmentTypeID.WorldAblaze:
 					Max1 = true;
 					break;
 				default:

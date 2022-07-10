@@ -560,7 +560,9 @@ namespace WeaponEnchantments.Common.Globals
             if(xpInt < 0)
             {
                 xpInt = 0;
-                ($"Prevented your {item.S()} from loosing experience due to a calculation error.  Please report this to andro951 allong with a description of what you were doing at the time.").Log();
+                string errorMessage = $"Prevented your {item.S()} from loosing experience due to a calculation error.  Please report this to andro951 allong with a description of what you were doing at the time.";
+                errorMessage.Log();
+                Main.NewText(errorMessage);
             }
             experience += xpInt;
             if(experience < 0)

@@ -1105,10 +1105,6 @@ namespace WeaponEnchantments
                                     bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
                                     bool finalValue = combinedStatModifiers[key].Additive > 1.001f;
                                     bool containtPrevent = item.G().statModifiers.ContainsKey("P_" + key) && item.G().statModifiers["P_" + key].Additive > 1.001f || statModifiers.ContainsKey("P_" + key) && statModifiers["P_" + key].Additive > 1.001f;
-                                    foreach(string key2 in combinedStatModifiers.Keys)
-                                    {
-                                        string temp = key2;
-                                    }
                                     bool setValue = !containtPrevent && (baseValue || finalValue);
                                     field.SetValue(item, setValue);
                                 }//bool (field)
@@ -1139,7 +1135,7 @@ namespace WeaponEnchantments
                                 }//bool (property)
                                 //(statName.ToString() + property.GetValue(item)).Log();
                             }//property
-                            TryRemoveStat(ref item.G().appliedStatModifiers, key);
+                            //TryRemoveStat(ref item.G().appliedStatModifiers, key);
                         }
                     }
                 }
@@ -1183,9 +1179,13 @@ namespace WeaponEnchantments
                             item.G().appliedEStats.Add(key, combinedEStats[key]);
                         else
                             item.G().appliedEStats[key] = combinedEStats[key];
-                        TryRemoveStat(ref item.G().appliedEStats, key);
+                        //TryRemoveStat(ref item.G().appliedEStats, key);
                     }
                 }
+                foreach(string key in item.G().appliedEStats.Keys)
+                    TryRemoveStat(ref item.G().appliedStatModifiers, key);
+                foreach(string key in item.G().statModifiers.Keys)
+                    TryRemoveStat(ref item.G().statModifiers, key);
                 if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }

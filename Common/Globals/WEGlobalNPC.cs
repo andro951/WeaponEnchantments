@@ -600,8 +600,17 @@ namespace WeaponEnchantments.Common.Globals
                         damageReduction = damage - 1;
                     damage -= damageReduction;
                     int armorPenetration = player.GetWeaponArmorPenetration(item);
-                    if (WEMod.serverConfig.TeleportEssence && armorPenetration > npc.defDamage)
-                        damage += (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
+                    if (WEMod.serverConfig.ArmorPenetration && armorPenetration > npc.defDamage)
+					{
+                        int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
+                        if (armorPenetrationBonusDamage > 50)
+                        {
+                            int maxArmorPenetration = 50 + (int)item.A("ArmorPenetration", 0f) / 2;
+                            if (armorPenetrationBonusDamage > maxArmorPenetration)
+                                armorPenetrationBonusDamage = maxArmorPenetration;
+                        }
+                        damage += armorPenetrationBonusDamage;
+                    }
                     //float temp2 = player.AEP("Damage", 1f);
                     damage = (int)Math.Round(item.AEI("Damage", (float)damage));
                     int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
