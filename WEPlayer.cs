@@ -121,7 +121,7 @@ namespace WeaponEnchantments
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
-            //OldItemManager.ReplaceAllPlayerOldItems(player);
+            OldItemManager.ReplaceAllPlayerOldItems(player);
             AllForOneEnchantmentBasic.temp.Log();
             /*foreach(Mod mod in ModLoader.Mods)
             {
@@ -1237,17 +1237,5 @@ namespace WeaponEnchantments
             }
             return items;
         }
-		public override void OnRespawn(Player player)
-		{
-			base.OnRespawn(player);
-		}
-		/*public override void OnSpawn()
-	    {
-		    if(Player.name != name)
-		    {
-			    OldItemManager.ReplaceAllPlayerOldItems(player);
-			    name = Player.name;
-		    }
-	    }*/
-    }
+	}
 }
