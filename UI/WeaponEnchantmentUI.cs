@@ -115,7 +115,8 @@ namespace WeaponEnchantments.UI
         }
 	    public static void ConfirmOffer()
 	    {
-		    int type = OfferItem();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            int type = OfferItem(ref wePlayer.enchantingTableUI.itemSlotUI[0].Item);
 		    if(type > 0)
 		    {
 			    if(WEMod.clientConfig.OfferAll)
@@ -124,25 +125,22 @@ namespace WeaponEnchantments.UI
 				    for(int i = 0; i < player.inventory.Length; i++)
 				    {
 					    if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
-						    OfferItem(player.inventory[i]);
+						    OfferItem(ref player.inventory[i]);
 				    }
 			    }
 		    }
 	    }
-        public static int OfferItem(Item item = null, bool noOre = false)
+        public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = false)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>(); 
-	        bool nonTableItem = false;
-            if (item == null)
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (item.IsSameEnchantedItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
             {
                 WEModSystem.promptInterface.SetState(null);
                 UIState state = new UIState();
                 state.Append(wePlayer.enchantingTableUI);
                 WEModSystem.weModSystemUI.SetState(state);
-                item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+                //item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             }
-            else
-                nonTableItem = true;
 	        int type = item.type;
             bool stop = false;
             if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
@@ -187,10 +185,11 @@ namespace WeaponEnchantments.UI
                     {
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
                     }
-                    if (!nonTableItem)
+                    item = new Item();
+                    /*if (!nonTableItem)
                     {
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                    }
+                    }*/
                     SoundEngine.PlaySound(SoundID.Grab);
                 }
             }
@@ -711,7 +710,7 @@ namespace WeaponEnchantments.UI
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
-                            ConfirmationUI.OfferItem(wePlayer.infusionConsumeItem, true);
+                            ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true);
                             wePlayer.infusionConsumeItem = null;
                             infusionButonText.SetText("Infusion");
                         }
