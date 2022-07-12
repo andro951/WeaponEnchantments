@@ -96,6 +96,19 @@ namespace WeaponEnchantments.Common
                     Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
                     float valueMultiplier = 0.5f;
                     int rarity = sampleItem.rare;
+                    if (rarity == 11 && item.value > maxValues[11])
+                    {
+                        int i;
+                        for (i = 12; i < numRarities; i++)
+                        {
+                            if (minValues[i] >= item.value)
+                            {
+                                i--;
+                                break;
+                            }
+                        }
+                        rarity = i;
+                    }
                     if (rarity > numRarities - 1) rarity = numRarities - 1;
                     else if (rarity < 0) rarity = 0;
                     int value = sampleItem.value;
