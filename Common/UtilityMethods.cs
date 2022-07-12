@@ -27,9 +27,9 @@ namespace WeaponEnchantments.Common
         ///</summary>
         public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
         public static ProjectileEnchantedItem G(this Projectile projectile) => projectile.GetGlobalProjectile<ProjectileEnchantedItem>();
-		public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
+        public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TG(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
-		public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];
+        public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];
         public static AllForOneEnchantmentBasic EM(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
@@ -113,7 +113,7 @@ namespace WeaponEnchantments.Common
         public static string RI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
         public static string RP(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool CI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
-        
+
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         private static readonly char[] lowerCase = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         private static readonly char[] numbers = "0123456789".ToCharArray();
@@ -175,16 +175,16 @@ namespace WeaponEnchantments.Common
             {
                 if (s[i].IsUpper() || s[i].IsNumber())
                 {
-                    if(s[i - 1].IsUpper())
+                    if (s[i - 1].IsUpper())
                     {
                         int j = 0;
-                        while(i + j < s.Length - 1 && s[i + j].IsUpper())
+                        while (i + j < s.Length - 1 && s[i + j].IsUpper())
                         {
                             j++;
                         }
                         i += j - 1;
                     }
-                    else if(s[i - 1].IsNumber())
+                    else if (s[i - 1].IsNumber())
                     {
                         int j = 0;
                         while (i + j < s.Length - 1 && s[i + j].IsNumber())
@@ -209,31 +209,31 @@ namespace WeaponEnchantments.Common
             return finalString;
         }
         public static string RemoveSpaces(this string s)
-		{
+        {
             bool started = false;
             int start = 0;
             int end = 0;
             string finalString = "";
             for (int i = 0; i < s.Length; i++)
-			{
-				if (started)
-				{
+            {
+                if (started)
+                {
                     if (s[i] == ' ')
-					{
+                    {
                         started = false;
                         end = i;
                         finalString += s.Substring(start, end - start);
-					}
+                    }
                 }
-				else
-				{
-					if (s[i] != ' ')
-					{
+                else
+                {
+                    if (s[i] != ' ')
+                    {
                         started = true;
                         start = i;
-					}
-				}
-			}
+                    }
+                }
+            }
             if (started)
                 finalString += s.Substring(start, s.Length - start);
             return finalString;
@@ -319,14 +319,14 @@ namespace WeaponEnchantments.Common
         }
         public static void RoundCheck(this StatModifier statModifier, ref float value, int baseValue, StatModifier appliedStatModifier, int contentSample)
         {
-            if(UtilityMethods.debugging) ($"\\/RoundCheck").Log();
+            if (UtilityMethods.debugging) ($"\\/RoundCheck").Log();
             if (value > baseValue)
             {
                 float checkValue = (float)((int)value + 1) * 1f / statModifier.ApplyTo(1f);
                 if ((int)Math.Round(checkValue) == baseValue)
                 {
                     float sampleValue = WEPlayer.CombineStatModifier(appliedStatModifier, statModifier, true).ApplyTo(contentSample);
-                    if((int)Math.Round(sampleValue) == baseValue)
+                    if ((int)Math.Round(sampleValue) == baseValue)
                         value += 0.5f;
                 }
             }
@@ -386,15 +386,15 @@ namespace WeaponEnchantments.Common
         }
         public static void UpdateEnchantment(this Item item, Player player, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
         {
-            if(enchantment != null)
+            if (enchantment != null)
             {
-                if(UtilityMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+                if (UtilityMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
                 EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
                 if (enchantment != null)
                 {
                     if (enchantment.Buff.Count > 0)
                     {
-                        foreach(int buff in enchantment.Buff)
+                        foreach (int buff in enchantment.Buff)
                         {
                             if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
                             if (iGlobal.buffs.ContainsKey(buff))
@@ -412,13 +412,13 @@ namespace WeaponEnchantments.Common
                     }//Buffs
                     if (enchantment.Debuff.Count > 0)
                     {
-                        foreach(int debuff in enchantment.Debuff.Keys)
+                        foreach (int debuff in enchantment.Debuff.Keys)
                         {
                             if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
                             int duration = enchantment.Debuff[debuff];
                             if (iGlobal.debuffs.ContainsKey(debuff))
                             {
-                                iGlobal.debuffs[debuff] += (remove ? - duration: duration);
+                                iGlobal.debuffs[debuff] += (remove ? -duration : duration);
                                 if (iGlobal.debuffs[debuff] < 1)
                                     iGlobal.debuffs.Remove(debuff);
                             }
@@ -429,7 +429,7 @@ namespace WeaponEnchantments.Common
                             if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
                         }
                     }//Debuffs
-                    if(enchantment.OnHitBuff.Count > 0)
+                    if (enchantment.OnHitBuff.Count > 0)
                     {
                         foreach (int onHitBuff in enchantment.OnHitBuff.Keys)
                         {
@@ -451,7 +451,7 @@ namespace WeaponEnchantments.Common
                     }//OnHitBuffs
                     foreach (EStat eStat in enchantment.EStats)
                     {
-                        if(UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
+                        if (UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
                         //(item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
                         float add = eStat.Additive * (remove ? -1f : 1f);
                         float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
@@ -478,14 +478,14 @@ namespace WeaponEnchantments.Common
                     }
                     foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
                     {
-                        if(UtilityMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
+                        if (UtilityMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
                         //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
                         float add = staticStat.Additive * (remove ? -1f : 1f);
                         float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
                         float flat = staticStat.Flat * (remove ? -1f : 1f);
                         float @base = staticStat.Base * (remove ? -1f : 1f);
                         ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                        StatModifier statModifier =new StatModifier(1f + add, mult, flat, @base);
+                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
                         if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
                         {
                             item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);
@@ -500,7 +500,7 @@ namespace WeaponEnchantments.Common
                         }
                         //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
                     }
-                    if(enchantment.NewDamageType > -1)
+                    if (enchantment.NewDamageType > -1)
                     {
                         if (remove)
                         {
@@ -516,7 +516,7 @@ namespace WeaponEnchantments.Common
 
                 }
                 //iGlobal.statsSet[slotNum] = true;
-                if(UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+                if (UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
             }
         }
         public static void UpdateDamageType(this Item item, int type)
@@ -632,12 +632,12 @@ namespace WeaponEnchantments.Common
             ModContent.GetInstance<WEMod>().Logger.Info(s.AddWS());
             UpdateSpaces(s, true);
         }
-        public static void LogT(this string s) 
+        public static void LogT(this string s)
         {
             UpdateSpaces(s);
             foreach (string key in logsT.Keys)
             {
-                if(logsT[key] + 59 < Main.GameUpdateCount)
+                if (logsT[key] + 59 < Main.GameUpdateCount)
                     logsT.Remove(key);
             }
             if (!logsT.ContainsKey(s))
@@ -655,5 +655,157 @@ namespace WeaponEnchantments.Common
                 spaces--;
         }
         public static string AddWS(this string s) => new string('|', spaces) + s;
+        public static void CombineEnchantedItems(this Item item, ref List<Item> consumedItems)
+        {
+            if (consumedItems.Count > 0)
+            {
+                for (int c = 0; c < consumedItems.Count; c++)
+                {
+                    Item consumedItem = consumedItems[c];
+                    if (!consumedItem.IsAir)
+                    {
+                        if (consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal))
+                        {
+                            if (cGlobal.experience > 0 || cGlobal.powerBoosterInstalled)
+                            {
+                                if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
+                                {
+                                    item.CheckConvertExcessExperience(consumedItem);
+                                    if(iGlobal.infusedPower < cGlobal.infusedPower && item.GetWeaponInfusionPower() < cGlobal.infusedPower)
+                                        item.TryInfuseItem(consumedItem);
+                                    if (cGlobal.powerBoosterInstalled)
+                                    {
+                                        if (!iGlobal.powerBoosterInstalled)
+                                            iGlobal.powerBoosterInstalled = true;
+                                        else
+                                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                                    }
+                                    iGlobal.UpdateLevel();
+                                    int j;
+                                    for (j = 0; j <= EnchantingTable.maxEnchantments; j++)
+                                    {
+                                        if (j > 4)
+                                            break;
+                                        if (iGlobal.enchantments[j].IsAir)
+                                            break;
+                                    }
+                                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+                                    {
+                                        if (!cGlobal.enchantments[k].IsAir)
+                                        {
+                                            AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)cGlobal.enchantments[k].ModItem);
+                                            int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
+                                            bool cantFit = false;
+                                            if (enchantment.GetLevelCost() <= iGlobal.GetLevelsAvailable())
+                                            {
+                                                if (uniqueItemSlot == -1)
+                                                {
+                                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
+                                                    {
+                                                        iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
+                                                        item.ApplyEnchantment(j);
+                                                    }
+                                                    else if (j < 4)
+                                                    {
+                                                        iGlobal.enchantments[j] = cGlobal.enchantments[k].Clone();
+                                                        item.ApplyEnchantment(j);
+                                                        j++;
+                                                    }
+                                                    else
+                                                    {
+                                                        cantFit = true;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    cantFit = true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                cantFit = true;
+                                            }
+                                            if (cantFit)
+                                            {
+                                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                                            }
+                                        }
+                                        cGlobal.enchantments[k] = new Item();
+                                    }
+                                }
+                                else
+                                {
+                                    item.CheckConvertExcessExperience(consumedItem);
+                                    int numberEssenceRecieved;
+                                    int xpCounter = iGlobal.experience;
+                                    for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
+                                    {
+                                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
+                                        xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
+                                        if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+                                        {
+                                            xpCounter = 0;
+                                            numberEssenceRecieved += 1;
+                                        }
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
+                                    }
+                                    if (cGlobal.powerBoosterInstalled)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                                    }
+                                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
+                                    {
+                                        if (!cGlobal.enchantments[k].IsAir)
+                                        {
+                                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (consumedItem.ModItem is AllForOneEnchantmentBasic)
+                                {
+                                    int size = ((AllForOneEnchantmentBasic)consumedItem.ModItem).EnchantmentSize;
+                                    if (size < 2)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
+                                    }
+                                    else if (size == 3)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 2);
+                                    }
+                                }
+                                else if (consumedItem.ModItem is Containment containment)
+                                {
+                                    if (containment.size == 2 && item.type == Containment.barIDs[0, 2])
+                                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 4);
+                                }
+                            }
+                        }
+                    }
+                }
+                consumedItems.Clear();
+            }
+        }
+        public static void CheckConvertExcessExperience(this Item item, Item consumedItem)
+		{
+            if(item.TryGetGlobalItem(out EnchantedItem iGlobal) && consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal))
+			{
+                long xp = (long)iGlobal.experience + (long)cGlobal.experience;
+                if (xp <= (long)int.MaxValue)
+                    iGlobal.experience += cGlobal.experience;
+                else
+                {
+                    iGlobal.experience = int.MaxValue;
+                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (double)int.MaxValue), true);
+                }
+            }
+			else
+			{
+                Main.NewText($"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951 and give a description of what you were doing.");
+                ($"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951 and give a description of what you were doing.").Log();
+            }
+        }
     }
 }
