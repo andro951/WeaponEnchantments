@@ -503,7 +503,7 @@ namespace WeaponEnchantments.Common.Globals
                     value = target.value;
                     break;
             }
-            if (target.type != NPCID.TargetDummy && !target.friendly && !target.townNPC && (value > 0 || !target.SpawnedFromStatue && target.lifeMax > 10))
+            if (target.type != NPCID.TargetDummy && target.FullName != "Super Dummy" && !target.friendly && !target.townNPC && (value > 0 || !target.SpawnedFromStatue && target.lifeMax > 10))
             {
                 int xpInt;
                 int xpDamage;
