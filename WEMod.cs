@@ -25,6 +25,7 @@ namespace WeaponEnchantments
     {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+		public static bool calamity = false;
 
 		public static List<Item> consumedItems = new(); 
 		internal static bool IsEnchantable(Item item)
@@ -208,13 +209,17 @@ namespace WeaponEnchantments
 						else
 						{
 							Item enchantmentItem = new Item(itemType);
-							($"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to failing to get GlobalItem EnchantedItem.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951").Log();
+							string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to failing to get GlobalItem EnchantedItem.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease note exactly what you were doing when this occured and notify andro951";
+							errorMessage.Log();
+							Main.NewText(errorMessage);
 						}
 					}
 					else
 					{
 						Item enchantmentItem = new Item(itemType);
-						($"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to item being null or air.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951").Log();
+						string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to item being null or air.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951";
+						errorMessage.Log();
+						Main.NewText(errorMessage);
 					}
 					/*int itemWhoAmI = reader.ReadInt32();
 					byte i = reader.ReadByte();
@@ -397,6 +402,7 @@ namespace WeaponEnchantments
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
+			calamity = ModLoader.HasMod("Calamity");
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag)
         {

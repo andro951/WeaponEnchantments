@@ -52,6 +52,7 @@ namespace WeaponEnchantments
     }
     public class WEPlayer : ModPlayer
     {
+    	private string name = "";
         public static bool OldWorldItemsReplaced = false;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
@@ -347,19 +348,12 @@ namespace WeaponEnchantments
                     if (!Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem)
                     {
                         if (!trashItem.IsAir)
-                        {
                             trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
-                        }
                         Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem = true;
                     }
-                }
-                else
-                {
-                    if (!trashItem.IsAir)
-                    {
-                        trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
-                    }
-                }
+                }//Trash Item
+                else if (!trashItem.IsAir)
+                    trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
                 bool hoveringOverTrash = false;
                 if (!item.IsAir)
                 {
@@ -375,13 +369,9 @@ namespace WeaponEnchantments
                         {
                             enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
                             if (item.stack > 1)
-                            {
                                 item.stack--;
-                            }
                             else
-                            {
                                 item = new Item();
-                            }
                             SoundEngine.PlaySound(SoundID.Grab);
                         }
                         valid = true;
@@ -396,15 +386,9 @@ namespace WeaponEnchantments
                                 {
                                     bool doNotSwap = false;
                                     if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
-                                    {
                                         if (iGlobal.equip && !tableItem.IsAir)
-                                        {
                                             if(WEMod.IsAccessoryItem(item) && !WEMod.IsArmorItem(item) && (WEMod.IsAccessoryItem(tableItem) || WEMod.IsArmorItem(tableItem)) || item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1)
-                                            {
-                                                doNotSwap = true;
-                                            }//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
-                                        }
-                                    }
+                                                doNotSwap = true;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
                                     if (!doNotSwap)
                                     {
                                         if (moveItem)
@@ -1105,10 +1089,6 @@ namespace WeaponEnchantments
                                     bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
                                     bool finalValue = combinedStatModifiers[key].Additive > 1.001f;
                                     bool containtPrevent = item.G().statModifiers.ContainsKey("P_" + key) && item.G().statModifiers["P_" + key].Additive > 1.001f || statModifiers.ContainsKey("P_" + key) && statModifiers["P_" + key].Additive > 1.001f;
-                                    foreach(string key2 in combinedStatModifiers.Keys)
-                                    {
-                                        string temp = key2;
-                                    }
                                     bool setValue = !containtPrevent && (baseValue || finalValue);
                                     field.SetValue(item, setValue);
                                 }//bool (field)
@@ -1139,7 +1119,7 @@ namespace WeaponEnchantments
                                 }//bool (property)
                                 //(statName.ToString() + property.GetValue(item)).Log();
                             }//property
-                            TryRemoveStat(ref item.G().appliedStatModifiers, key);
+                            //TryRemoveStat(ref item.G().appliedStatModifiers, key);
                         }
                     }
                 }
@@ -1183,9 +1163,13 @@ namespace WeaponEnchantments
                             item.G().appliedEStats.Add(key, combinedEStats[key]);
                         else
                             item.G().appliedEStats[key] = combinedEStats[key];
-                        TryRemoveStat(ref item.G().appliedEStats, key);
+                        //TryRemoveStat(ref item.G().appliedEStats, key);
                     }
                 }
+                foreach(string key in item.G().appliedEStats.Keys)
+                    TryRemoveStat(ref item.G().appliedStatModifiers, key);
+                foreach(string key in item.G().statModifiers.Keys)
+                    TryRemoveStat(ref item.G().statModifiers, key);
                 if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }
@@ -1236,5 +1220,5 @@ namespace WeaponEnchantments
             }
             return items;
         }
-    }
+	}
 }

@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common.Globals
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            return entity.useStyle == 4 && entity.consumable && entity.useAnimation == 45 && entity.useTime == 45;
+            return !WEMod.calamity && entity.useStyle == 4 && entity.consumable && entity.useAnimation == 45 && entity.useTime == 45;
         }
         public override bool? UseItem(Item item, Player player)
         {

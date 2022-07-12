@@ -260,7 +260,25 @@ namespace WeaponEnchantments.UI
 			if (contains && !PlayerInput.IgnoreMouseInterface)
 			{
 				wePlayer.Player.mouseInterface = true;
-				HandleMouseItem();
+				if (_itemContext == 2 && Main.keyState.IsKeyDown(Main.FavoriteKey) && Main.mouseItem.IsAir)
+				{
+					Main.cursorOverride = 3;
+					if(Main.mouseLeft && Main.mouseLeftRelease)
+					{
+						Item.favorited = !Item.favorited;
+						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+				}
+				else if (Item.favorited && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+				{
+					Main.cursorOverride = 9;
+					if (!Item.IsAir && Main.mouseLeft && Main.mouseLeftRelease)
+					{
+						Item = wePlayer.Player.GetItem(wePlayer.Player.whoAmI, Item, GetItemSettings.LootAllSettings);
+					}
+				}
+				else
+					HandleMouseItem();
 			}
 			Draw(spriteBatch, Item, _context, _slotTier, rectangle.TopLeft(), _slotTier);
 			if (contains)
@@ -299,14 +317,17 @@ namespace WeaponEnchantments.UI
             }
 			switch (context)
 			{
-				case 2: 
+				case 2:
 					value = TextureAssets.InventoryBack2.Value;
 					break;
 				case 3:
 					value = TextureAssets.InventoryBack3.Value;
 					break;
-				case 4:
+				case 4 when !Item.favorited:
 					value = TextureAssets.InventoryBack4.Value;
+					break;
+				case 4 when Item.favorited:
+					value = (Texture2D)ModContent.Request<Texture2D>("WeaponEnchantments/UI/Sprites/Inventory_Back4(Favorited)");
 					break;
 				case 5:
 					value = TextureAssets.InventoryBack5.Value;

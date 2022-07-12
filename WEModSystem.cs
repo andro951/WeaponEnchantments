@@ -33,6 +33,8 @@ namespace WeaponEnchantments
         private static int[] essenceStack = new int[EnchantedItem.maxLevel];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
+        public static bool playerSwapperModEnabled = false;
+        public static string localPlayerName = null;
 
         public override void OnModLoad()
         {
@@ -51,6 +53,7 @@ namespace WeaponEnchantments
                 previous = current;
                 levelXps[l] = (int)current;
             }
+            playerSwapperModEnabled = ModLoader.HasMod("PlayerSwapper");
         }//PR
         public override void Unload()
         {
@@ -110,12 +113,6 @@ namespace WeaponEnchantments
                     wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
                     ItemSlot.Options.DisableLeftShiftTrashCan = false;
                 }
-                //TryToggleAutoPauseOn();
-                /*if (Main.autoPause)
-                {
-                    autoPause = Main.autoPause;
-                    Main.autoPause = false;
-                }*/
                 bool removedItem = false;
                 bool addedItem = false;
                 bool swappedItem = false;
@@ -235,11 +232,6 @@ namespace WeaponEnchantments
                     //Recipe.FindRecipes();
                 }*/
             }//If enchanting table is open, check item(s) and enchantments in it every tick
-            /*else if (autoPause)
-            {
-                Main.autoPause = true;
-                autoPause = false;
-            }*/
             wePlayer.StoreLastFocusRecipe();
             if (Main.playerInventory)
             {
@@ -423,6 +415,12 @@ namespace WeaponEnchantments
                 }
                 stolenItemToBeCleared = -1;
             }
+            if(playerSwapperModEnabled && wePlayer.Player.name != localPlayerName && Main.netMode != NetmodeID.Server)
+            {
+                if (localPlayerName != null)
+                    OldItemManager.ReplaceAllPlayerOldItems(wePlayer.Player);
+                localPlayerName = wePlayer.Player.name;
+            }
         }
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
@@ -505,7 +503,6 @@ namespace WeaponEnchantments
                                     if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssenceBasic.maxStack)
                                     {
                                         ammountToTransfer = EnchantmentEssenceBasic.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
-                                        wePlayer.Player.inventory[j].stack -= ammountToTransfer;
                                     }
                                     else
                                     {

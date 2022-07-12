@@ -15,37 +15,15 @@ namespace WeaponEnchantments.ModIntegration
     {
         public const string magicStorageName = "MagicStorage";
         public static bool Enabled { get; private set; }
-        public override void Load()
+        /*public override void Load()
         {
             Enabled = ModLoader.HasMod(magicStorageName);
             if (Enabled)
 			{
                 LoadIntegration();
-                /*for (int i = 0; i < ItemLoader.ItemCount; i++)
-                {
-                    Item item;
-                    bool add;
-                    if (i < ItemID.Count)
-                    {
-                        item = new Item(i);
-                        add = WEMod.IsEnchantable(item);
-                    }
-                    else
-                    {
-                        add = true;
-                        //item = ItemLoader.GetItem(i).Item;
-                    }
-                    if (add)
-                    {
-                        var combining = new MagicStorageItemCombining(i);
-                        Mod.AddContent(combining);
-                    }
-                }*/
-                /*var weEnvironmentModule = new WEEnvironmentModule();
-                Mod.AddContent(weEnvironmentModule);*/
             }
-        }
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        }*/
+        /*[MethodImpl(MethodImplOptions.NoInlining)]
         private static void LoadIntegration()
         {
             for (int i = 0; i < ItemLoader.ItemCount; i++)
@@ -68,8 +46,8 @@ namespace WeaponEnchantments.ModIntegration
                     ModContent.GetInstance<WEMod>().AddContent(combining);
                 }
             }
-        }
-        public override void Unload()
+        }*/
+        /*public override void Unload()
         {
             if (Enabled)
                 UnloadIntegration();
@@ -78,7 +56,7 @@ namespace WeaponEnchantments.ModIntegration
         private static void UnloadIntegration()
         {
 
-        }
+        }*/
 
     }
 }

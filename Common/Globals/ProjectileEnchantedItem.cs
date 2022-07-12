@@ -608,6 +608,11 @@ namespace WeaponEnchantments.Common.Globals
 
                 hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
                 hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
+                float scaleShift = (projectile.scale - 1f)/(2f * projectile.scale);
+                hitbox.Y -= (int)(scaleShift * hitbox.Height);
+                hitbox.X -= (int)(scaleShift * hitbox.Width);
+                //hitbox.Y -= hitbox.Height / 2;
+                //hitbox.X -= hitbox.Width / 2;
             }
         }
     }
