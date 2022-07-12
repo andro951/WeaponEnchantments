@@ -102,6 +102,18 @@ namespace WeaponEnchantments
                 }
             }
             */
+            /*if (Main.mouseLeft)
+                if (Main.mouseLeft && !Main.mouseItem.IsAir && Main.mouseItem.maxStack > 1 && WEMod.IsEnchantable(Main.mouseItem) && Main.mouseItem.type == Main.HoverItem.type)
+                {
+                    Item hoverItem = Main.HoverItem;
+                    int maxStack = Main.mouseItem.maxStack;
+                    if (Main.mouseItem.stack + hoverItem.stack <= maxStack)
+                    {
+                        List<Item> list = new List<Item>();
+                        list.Add(hoverItem);
+						Main.mouseItem.CombineEnchantedItems(ref list);
+                    }
+                }*/
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {

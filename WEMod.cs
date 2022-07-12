@@ -30,8 +30,9 @@ namespace WeaponEnchantments
 		public static List<Item> consumedItems = new(); 
 		internal static bool IsEnchantable(Item item)
         {
-			if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
-            {
+			//if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
+			if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
+			{
 				return true;
 			}
             else

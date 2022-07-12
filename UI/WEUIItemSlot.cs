@@ -277,6 +277,38 @@ namespace WeaponEnchantments.UI
 						Item = wePlayer.Player.GetItem(wePlayer.Player.whoAmI, Item, GetItemSettings.LootAllSettings);
 					}
 				}
+				else if(_itemContext == 0 && Item.maxStack > 1 && Main.mouseRight)
+				{
+					if (Main.mouseRightRelease)
+					{
+						if (Item.stack > 1)
+						{
+							if (Main.mouseItem.IsAir)
+							{
+								Main.mouseItem = new Item(Item.type);
+								Item.stack--;
+							}
+							else if (Main.mouseItem.type == Item.type)
+							{
+								Main.mouseItem.stack++;
+								Item.stack--;
+							}
+						}
+						else
+						{
+							if (Main.mouseItem.IsAir)
+							{
+								Main.mouseItem = Item.Clone();
+							}
+							else if (Main.mouseItem.G().CanStack(Main.mouseItem, Item))
+							{
+								Main.mouseItem.stack++;
+							}
+							Item = new Item();
+						}
+						SoundEngine.PlaySound(SoundID.MenuTick);
+					}
+				}
 				else
 					HandleMouseItem();
 			}
