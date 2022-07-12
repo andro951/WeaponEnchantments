@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Common.Globals
     {
         public static Item reforgeItem = null;
         public static int newPrefix = 0;
-        public static bool cloneReforgedItem = false;
+        public static bool cloneReforgedItem = false;  
         //Start Packet fields
         public int experience;//current experience of a weapon/armor/accessory item
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];//Track enchantment items on a weapon/armor/accessory item
@@ -128,6 +128,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 		public override bool OnPickup(Item item, Player player)
         {
+            //experience = int.MaxValue - 5;
             player.G().UpdateItemStats(ref item);
             return true;
         }

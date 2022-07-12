@@ -503,7 +503,6 @@ namespace WeaponEnchantments
                                     if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssenceBasic.maxStack)
                                     {
                                         ammountToTransfer = EnchantmentEssenceBasic.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
-                                        wePlayer.Player.inventory[j].stack -= ammountToTransfer;
                                     }
                                     else
                                     {
