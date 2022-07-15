@@ -125,7 +125,7 @@ namespace WeaponEnchantments.UI
 				    for(int i = 0; i < player.inventory.Length; i++)
 				    {
 					    if(player.inventory[i].type == type && player.inventory[i].G().experience == 0 && !player.inventory[i].G().powerBoosterInstalled)
-						    OfferItem(ref player.inventory[i]);
+						    OfferItem(ref player.inventory[i], true, true);
 				    }
 			    }
 		    }
@@ -147,15 +147,15 @@ namespace WeaponEnchantments.UI
             {
                 for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++)
                 {
-                    if (!item.IsAir)
+                    //if (!item.IsAir)
                     {
-                        if (!nonTableItem)
-							if (!wePlayer.E(i).IsAir)
+                        if (!nonTableItem && !wePlayer.E(i).IsAir)
                                 wePlayer.EUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.E(i), GetItemSettings.LootAllSettings);
                         else if (!iGlobal.enchantments[i].IsAir)
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
                     }
-                    if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir) { stop = true; }//Player didn't have enough space in their inventory to take all enchantments
+                    if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                        stop = true;//Player didn't have enough space in their inventory to take all enchantments
                 }//Take all enchantments first
                 if (!stop)
                 {
@@ -250,6 +250,7 @@ namespace WeaponEnchantments.UI
         public static bool[] ButtonHovered = new bool[ButtonID.Count];//my UI
         public static bool needToQuickStack;
         public static bool preventItemUse = false;
+        public static bool pressedLootAll = true;
 
         private UIText titleText;//PR
         public UIPanel[] button = new UIPanel[ButtonID.Count];//PR
@@ -707,24 +708,34 @@ namespace WeaponEnchantments.UI
         public void Infusion()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (tableItem != null && !tableItem.IsAir)
             {
                 if(wePlayer.infusionConsumeItem == null)
                 {
-                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) || WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    if (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem))
                     {
-                        wePlayer.infusionConsumeItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                        infusionButonText.SetText("Cancel");
+                        if (tableItem.stack > 1)
+						{
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
+                            wePlayer.infusionConsumeItem = new Item(tableItem.type);
+                            infusionButonText.SetText("Finalize");
+                        }
+						else
+						{
+                            wePlayer.infusionConsumeItem = tableItem.Clone();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                            infusionButonText.SetText("Cancel");
+                        }
                     }
                 }
                 else
                 {
-                    if (WEMod.IsWeaponItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item) || WEMod.IsArmorItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+                    if (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem))
                     {
                         if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
-                            ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true);
+                            ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
                             wePlayer.infusionConsumeItem = null;
                             infusionButonText.SetText("Infusion");
                         }
@@ -758,6 +769,7 @@ namespace WeaponEnchantments.UI
         {
             if (WEModSystem.promptInterface.CurrentState == null)
             {
+                pressedLootAll = true;
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
@@ -783,6 +795,7 @@ namespace WeaponEnchantments.UI
                         wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, GetItemSettings.LootAllSettings);
                     }
                 }//Take item(s)
+                pressedLootAll = false;
             }
         }//Loot all item(s) and enchantments from enchantment table (Not Essence)
         private static void Offer(Item item = null, bool noOre = false)

@@ -92,6 +92,8 @@ namespace WeaponEnchantments.Common
             {
                 case "Pulse Pistol":
                     return 3.25f;
+                case "The Only Thing I Know For Real":
+                    return 8;
                 default:
                     Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
                     float valueMultiplier = 0.5f;
@@ -121,7 +123,7 @@ namespace WeaponEnchantments.Common
                         combinedRarity = rarity + 2 * valueMultiplier;
                     else if (combinedRarity < rarity - 2 * valueMultiplier)
                         combinedRarity = rarity - 2 * valueMultiplier;
-                    return combinedRarity;
+                    return combinedRarity > 0 ? combinedRarity : 0;
             }
         }//Done
         public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower)
