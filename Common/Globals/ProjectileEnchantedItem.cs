@@ -38,6 +38,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool[] spawnedChild = { false, false };
         float[] spawnChildValue = { 0f, 0f };
         float[] nextValueAfterChild = { 0f, 0f };
+        long[] lastChildSpawnTime = {0, 0};
         public bool[] finishedObservationPeriod = { false, false };
         int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
@@ -156,33 +157,43 @@ namespace WeaponEnchantments.Common.Globals
             playerSource = parent.G().playerSource;
             if (parent.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
             {
-                sourceItem = parent.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                ProjectileEnchantedItem pGlobal = parent.G();
+                sourceItem = pGlobal.sourceItem;
                 sourceSet = true;
-                cooldownEnd = parent.G().cooldownEnd;
-                //if(parent.G().speedAdd != 0f)
+                cooldownEnd = pGlobal.cooldownEnd;
+                //if(pGlobal.speedAdd != 0f)
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        if (parent.G().positiveSet[i])
+                        if (pGlobal.positiveSet[i])
                         {
-                            parent.G().spawnedChild[i] = true;
+                            float ai = parent.ai[i];
+                            double lastspawntime = pGlobal.lastChildSpawnTime[i];
+                            if(Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i])
+                            {
+                                pGlobal.spawnedChild[i] = true;
+                                if (Math.Abs(ai) < Math.Abs(pGlobal.nextValueAfterChild[i]))
+                                    pGlobal.nextValueAfterChild[i] = ai;
+                            }
+							else
+                                pGlobal.positiveSet[i] = false;//Just used to force a recalculate of nextValueAfterChild.
                         }
                         else
                         {
-                            float lastAIValue = parent.G().lastAIValue[i];
+                            float lastAIValue = pGlobal.lastAIValue[i];
                             float ai = parent.ai[i];
                             double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
                             if (difference > 3)
                             {
-                                parent.G().spawnedChild[i] = true;
-                                parent.G().spawnChildValue[i] = lastAIValue;
-                                parent.G().nextValueAfterChild[i] = ai;
+                                pGlobal.spawnedChild[i] = true;
+                                pGlobal.spawnChildValue[i] = lastAIValue;
+                                pGlobal.nextValueAfterChild[i] = ai;
                             }
                         }
                         if (UtilityMethods.debugging)
                         {
                             string txt = $"parent: {parent.S()} spanedChild at ai values:";
-                            txt += $" parent.ai[{i}]: {parent.ai[i]} parent.G().lastAIValue[{i}]: {parent.G().lastAIValue[i]}";
+                            txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
                             txt.Log();
                         }
                     }
@@ -253,64 +264,67 @@ namespace WeaponEnchantments.Common.Globals
                     for (int i = 0; i < 2; i++)
                     {
                         float aiValue = projectile.ai[i];
-                        //if (finishedObservationPeriod[i])
+                        if (spawnedChild[i])
                         {
-                            if (spawnedChild[i])
+                            lastChildSpawnTime[i] = Main.GameUpdateCount;
+                            float thisSpawnChildValue = spawnChildValue[i];
+                            float thisNextValueAfterChild = nextValueAfterChild[i];
+                            if (!positiveSet[i])
                             {
-                                float thisSpawnChildValue = spawnChildValue[i];
-                                float thisNextValueAfterChild = nextValueAfterChild[i];
-                                if (!positiveSet[i])
-                                {
-                                    positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
-                                    positiveSet[i] = true;
-                                }
-                                bool thisPositive = positive[i];
-                                float speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
-                                int valueToAdd = (int)speedAddValue;
-								speedCarryover[i] = speedAddValue % 1f;
-                                projectile.ai[i] += valueToAdd;
-                                
-                                //Change the source = to cloneing a source instead to not mess with other mods
-                                
-                                //Add change to ai[0] for vortexBeater
-                                
-                                
-                                /*if (speed < 1f)
-                                {
-                                    projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
-                                    /*if (positive[i])
-                                        projectile.ai[i] += ;
-                                    else
-                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
-                                }
-                                else
-                                {
-                                    if (positive[i])
-                                    {
+                                positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
+                                positiveSet[i] = true;
+                            }
+                            bool thisPositive = positive[i];
+                            float speedAddValue;
+                            speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
+                            int valueToAdd = (int)speedAddValue;
+                            speedCarryover[i] = speedAddValue % 1f;
+                            projectile.ai[i] += valueToAdd;
+                            if (i == 1 && (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm))
+                            {
+                                projectile.ai[0] -= valueToAdd;
+                            }
+                            float newValue = projectile.ai[i];
+                            spawnedChild[i] = false;
+                        }
 
-                                        projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
-                                    }
-                                    else
-                                    {
-                                        projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
-                                    }
-                                }*/
-                                float newValue = projectile.ai[i];
-                                spawnedChild[i] = false;
-                                /*speedCarryover += speedAdd;
-                                //if (aiValue > controlValue)
-                                {
-                                    if (speedCarryover > 1f)
-                                    {
-                                        float value = (float)(int)speedCarryover;
-                                        speedCarryover -= value;
-                                        projectile.ai[i] += value * (positive[i] ? 1f : -1f);
-                                    }
-                                    else if (speedCarryover < -1f)
-                                    {
-                                        speedCarryover += 1f;
-                                        projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
-                                    }
+
+                        /*if (speed < 1f)
+                        {
+                            projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
+                            /*if (positive[i])
+                                projectile.ai[i] += ;
+                            else
+                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
+                        }
+                        else
+                        {
+                            if (positive[i])
+                            {
+
+                                projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
+                            }
+                            else
+                            {
+                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
+                            }
+                        }*/
+                        float newValue = projectile.ai[i];
+                        spawnedChild[i] = false;
+                        /*speedCarryover += speedAdd;
+                        //if (aiValue > controlValue)
+                        {
+                            if (speedCarryover > 1f)
+                            {
+                                float value = (float)(int)speedCarryover;
+                                speedCarryover -= value;
+                                projectile.ai[i] += value * (positive[i] ? 1f : -1f);
+                            }
+                            else if (speedCarryover < -1f)
+                            {
+                                speedCarryover += 1f;
+                                projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
+                            }
 
                                 }
                                 //projectile.ai[0] = 61f;
