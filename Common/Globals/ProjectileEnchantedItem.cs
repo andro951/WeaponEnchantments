@@ -309,7 +309,8 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
                             }
                         }*/
-                        
+                        float newValue = projectile.ai[i];
+                        spawnedChild[i] = false;
                         /*speedCarryover += speedAdd;
                         //if (aiValue > controlValue)
                         {
