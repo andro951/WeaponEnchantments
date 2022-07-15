@@ -57,6 +57,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool? needsClear = null;
         public static List<int> needClearWhoAmIs = new();
         public bool stack0 = false;
+        public bool needsUpdateOldItems = false;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -717,12 +718,12 @@ namespace WeaponEnchantments.Common.Globals
                     if (Main.mouseItem.IsAir)
                     {
                         //item.stack++;
-                        RichtClickStackableItem(item, player);
+                        RightClickStackableItem(item, player);
                     }
                 }
             }//Prevent splitting stack of enchantable items with maxstack > 1
         }
-        public void RichtClickStackableItem(Item item, Player player)
+        public void RightClickStackableItem(Item item, Player player)
 		{
             if(item.stack > 1)
 			{
@@ -835,7 +836,7 @@ namespace WeaponEnchantments.Common.Globals
                 item2.G().stack0 = false;
                 item2.stack--;
 			}
-            if (item2.G().inEnchantingTable && !Main.mouseLeft && !Main.mouseRight)
+            if (item2.G().inEnchantingTable && !Main.mouseLeft && !Main.mouseRight && !WeaponEnchantmentUI.pressedLootAll)
                 return true;
             int maxStack = item1.maxStack;
             //if (item1.stack + item2.stack <= maxStack)
@@ -876,13 +877,13 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            for(int i = 0; i < 5 ; i++)
+            /*for(int i = 0; i < 5 ; i++)
 			{
                 Item enchantment1 = item1.G().enchantments[i];
                 Item enchantment2 = item2.G().enchantments[i];
 			}
             int xp1 = item1.G().experience;
-            int xp2 = item2.G().experience;
+            int xp2 = item2.G().experience;*/
             return true;
         }
 		public override bool CanStackInWorld(Item item1, Item item2)

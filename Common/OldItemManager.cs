@@ -80,6 +80,7 @@ namespace WeaponEnchantments.Common
                 }
                 if (WEMod.IsEnchantable(item))
                 {
+                    item.G().needsUpdateOldItems = player == null;
                     if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
                     {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++)

@@ -254,6 +254,11 @@ namespace WeaponEnchantments
                         if (!wePlayer.Player.inventory[i].IsAir)//try get rid of
                         {
                             wePlayer.inventoryItemRecord[i] = wePlayer.Player.inventory[i].Clone();
+                            if(wePlayer.Player.inventory[i].TryGetGlobalItem(out EnchantedItem iGlobal))
+                            {
+                                if (iGlobal.needsUpdateOldItems)
+                                    OldItemManager.ReplaceOldItem(ref wePlayer.Player.inventory[i], wePlayer.Player, i);
+                            }
                         }
                         else
                         {

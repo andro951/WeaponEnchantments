@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool[] spawnedChild = { false, false };
         float[] spawnChildValue = { 0f, 0f };
         float[] nextValueAfterChild = { 0f, 0f };
+        long[] lastChildSpawnTime = {0, 0};
         public bool[] finishedObservationPeriod = { false, false };
         int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
@@ -143,33 +144,43 @@ namespace WeaponEnchantments.Common.Globals
             playerSource = parent.G().playerSource;
             if (parent.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
             {
-                sourceItem = parent.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
+                ProjectileEnchantedItem pGlobal = parent.G();
+                sourceItem = pGlobal.sourceItem;
                 sourceSet = true;
-                cooldownEnd = parent.G().cooldownEnd;
-                //if(parent.G().speedAdd != 0f)
+                cooldownEnd = pGlobal.cooldownEnd;
+                //if(pGlobal.speedAdd != 0f)
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        if (parent.G().positiveSet[i])
+                        if (pGlobal.positiveSet[i])
                         {
-                            parent.G().spawnedChild[i] = true;
+                            float ai = parent.ai[i];
+                            double lastspawntime = pGlobal.lastChildSpawnTime[i];
+                            if(Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i])
+                            {
+                                pGlobal.spawnedChild[i] = true;
+                                if (Math.Abs(ai) < Math.Abs(pGlobal.nextValueAfterChild[i]))
+                                    pGlobal.nextValueAfterChild[i] = ai;
+                            }
+							else
+                                pGlobal.positiveSet[i] = false;//Just used to force a recalculate of nextValueAfterChild.
                         }
                         else
                         {
-                            float lastAIValue = parent.G().lastAIValue[i];
+                            float lastAIValue = pGlobal.lastAIValue[i];
                             float ai = parent.ai[i];
                             double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
                             if (difference > 3)
                             {
-                                parent.G().spawnedChild[i] = true;
-                                parent.G().spawnChildValue[i] = lastAIValue;
-                                parent.G().nextValueAfterChild[i] = ai;
+                                pGlobal.spawnedChild[i] = true;
+                                pGlobal.spawnChildValue[i] = lastAIValue;
+                                pGlobal.nextValueAfterChild[i] = ai;
                             }
                         }
                         if (UtilityMethods.debugging)
                         {
                             string txt = $"parent: {parent.S()} spanedChild at ai values:";
-                            txt += $" parent.ai[{i}]: {parent.ai[i]} parent.G().lastAIValue[{i}]: {parent.G().lastAIValue[i]}";
+                            txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
                             txt.Log();
                         }
                     }
@@ -242,6 +253,7 @@ namespace WeaponEnchantments.Common.Globals
                         float aiValue = projectile.ai[i];
                         if (spawnedChild[i])
                         {
+                            lastChildSpawnTime[i] = Main.GameUpdateCount;
                             float thisSpawnChildValue = spawnChildValue[i];
                             float thisNextValueAfterChild = nextValueAfterChild[i];
                             if (!positiveSet[i])
@@ -259,6 +271,8 @@ namespace WeaponEnchantments.Common.Globals
                             {
                                 projectile.ai[0] -= valueToAdd;
                             }
+                            float newValue = projectile.ai[i];
+                            spawnedChild[i] = false;
                         }
 
 
@@ -282,8 +296,7 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
                             }
                         }*/
-                        float newValue = projectile.ai[i];
-                        spawnedChild[i] = false;
+                        
                         /*speedCarryover += speedAdd;
                         //if (aiValue > controlValue)
                         {
