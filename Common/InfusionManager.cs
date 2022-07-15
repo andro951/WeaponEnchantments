@@ -202,6 +202,7 @@ namespace WeaponEnchantments.Common
                 }
                 else if (finalize)
                     Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
+                return false;
             }//Weapon
             else if (WEMod.IsArmorItem(item) && ((WEMod.IsArmorItem(consumedItem) || consumedItem.IsAir)))
 			{
@@ -232,8 +233,9 @@ namespace WeaponEnchantments.Common
                 }
                 else if (finalize && !failedItemFind)
                     Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
+                return false;
             }//Armor
-            if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item)) || WEMod.IsArmorItem(item))
+            if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
                 Main.NewText($"Infusion is only possitle between items of the same type (Weapon/Armor)");
             return false;
         }//Done
