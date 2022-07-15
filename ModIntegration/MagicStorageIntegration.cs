@@ -20,15 +20,15 @@ namespace WeaponEnchantments.ModIntegration
         private Item lastHoverItem = new Item();
         private Item lastMouseItem = new Item();
         private int lastMouseItemStack = 0;
-		/*public override void Load()
+        public override void Load()
         {
             Enabled = ModLoader.HasMod(magicStorageName);
-            if (Enabled)
+            /*if (Enabled)
 			{
                 LoadIntegration();
-            }
-        }*/
-		/*[MethodImpl(MethodImplOptions.NoInlining)]
+            }*/
+        }
+        /*[MethodImpl(MethodImplOptions.NoInlining)]
         private static void LoadIntegration()
         {
             for (int i = 0; i < ItemLoader.ItemCount; i++)
@@ -52,7 +52,7 @@ namespace WeaponEnchantments.ModIntegration
                 }
             }
         }*/
-		/*public override void Unload()
+        /*public override void Unload()
         {
             if (Enabled)
                 UnloadIntegration();
@@ -62,16 +62,25 @@ namespace WeaponEnchantments.ModIntegration
         {
 
         }*/
-		public override void PostDrawInterface(SpriteBatch spriteBatch)
+        
+        public override void PostDrawInterface(SpriteBatch spriteBatch)
+		{
+			if (Enabled)
+			{
+                HandleOnTickEvents();
+            }
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void HandleOnTickEvents()
 		{
             if (Main.playerInventory && MagicStorage.StoragePlayer.LocalPlayer.ViewingStorage().X >= 0)
-			{
+            {
                 Item mouseItem = Main.mouseItem;
                 Item hoverItem = Main.HoverItem;
-                if(Main.mouseRight)
+                if (Main.mouseRight)
                 {
-                    if(lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1))
-					{
+                    if (lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1))
+                    {
                         if (lastHoverItem.TryGetGlobalItem(out EnchantedItem hiGlobal) && (hiGlobal.experience > 0 || hiGlobal.powerBoosterInstalled || hiGlobal.infusedItemName != ""))
                         {
                             if (mouseItem.stack == 1)
@@ -87,7 +96,7 @@ namespace WeaponEnchantments.ModIntegration
                 }
                 lastHoverItem = hoverItem;
                 lastMouseItem = mouseItem;
-			}
+            }
         }
 	}
 }
