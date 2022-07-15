@@ -20,14 +20,11 @@ namespace WeaponEnchantments.Common.Globals
         public float damageBonus = 1f;
         public double cooldownEnd = 0;
         public float[] lastAIValue = new float[] { 0f, 0f };
-        //public float totalSpeedBonus;
         public Projectile parent = null;
         public bool skipOnHitEffects = false;
-        //float speedAdd = 0f;
-        //float speedCarryover = 0f;
         float speed;
         //float speedAdd;
-        float[] speedCarryover = new float[] {0f, 0f};
+        float[] speedCarryover = new float[] { 0f, 0f };
         bool firstScaleCheck = true;
         bool secondScaleCheck = true;
         bool reApplyScale = false;
@@ -38,7 +35,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool[] spawnedChild = { false, false };
         float[] spawnChildValue = { 0f, 0f };
         float[] nextValueAfterChild = { 0f, 0f };
-        long[] lastChildSpawnTime = {0, 0};
+        long[] lastChildSpawnTime = { 0, 0 };
         public bool[] finishedObservationPeriod = { false, false };
         int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
@@ -46,7 +43,7 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if(UtilityMethods.debugging)
+            if (UtilityMethods.debugging)
             {
                 for (int i = 0; i < projectile.ai.Length; i++)
                 {
@@ -54,37 +51,27 @@ namespace WeaponEnchantments.Common.Globals
                     ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                 }
             }
-            if(projectile.type != ProjectileID.VortexBeater && source is EntitySource_ItemUse_WithAmmo vbSource && vbSource.Item.type == ItemID.VortexBeater)
-			{
+            if (source is EntitySource_ItemUse_WithAmmo vbSource && (vbSource.Item.type == ItemID.VortexBeater && projectile.type != ProjectileID.VortexBeater || vbSource.Item.type == ItemID.Celeb2 && projectile.type != ProjectileID.Celeb2Weapon || vbSource.Item.type == ItemID.Phantasm && projectile.type != ProjectileID.Phantasm))
+            {
                 if (vbSource.Item.G().masterProjectile != null)
                     source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
-				else//Delete after testing
-				{
-                    for(int i = 0; i < Main.projectile.Length; i++)
-					{
-                        if(Main.projectile[i].type == ProjectileID.VortexBeater)
-                            source = Main.projectile[i].GetSource_FromThis();
-					}
-				}//Delete after testing
             }
             if (source is EntitySource_ItemUse uSource)
             {
-                if(uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
+                if (uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
                 {
                     sourceItem = uSource.Item;
-                    if(sourceItem.DamageType == DamageClass.Melee)
+                    if (sourceItem.DamageType == DamageClass.Melee)
                     {
-                        //float speedBonus = sourceItem.GetGlobalItem<EnchantedItem>().totalSpeedBonus;
-                        //projectile.velocity /= (1f + speedBonus);
                         projectile.velocity /= (sourceItem.A("velocity", 1f));
                     }
-                    if (projectile.type == ProjectileID.VortexBeater)
+                    if (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
                         sourceItem.G().masterProjectile = projectile;
                     sourceSet = true;
 
                 }
             }
-            else if(source is EntitySource_ItemUse_WithAmmo wSource)
+            else if (source is EntitySource_ItemUse_WithAmmo wSource)
             {
                 if (wSource.Item != null && WEMod.IsEnchantable(wSource.Item))
                 {
@@ -92,33 +79,33 @@ namespace WeaponEnchantments.Common.Globals
                     sourceSet = true;
                 }
             }
-            else if(source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
+            else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
             {
                 parent = parentProjectile;
                 TryUpdateFromParent();
             }
-            else if(source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
+            else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
             {
                 sourceItem = FindMiscSourceItem(projectile, eSource.Context);
                 sourceSet = sourceItem.TG();
             }
-            else if(source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
+            else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
             {
                 playerSource = player;
                 playerSourceSet = true;
             }
             projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
-            if(sourceSet)
+            if (sourceSet)
             {
                 Player player = Main.player[projectile.owner];
                 if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.Celeb2Weapon && projectile.type != ProjectileID.Phantasm)
                 {
                     if (sourceItem.Name == "Shadethrower")
-					{
+                    {
                         projectile.usesLocalNPCImmunity = true;
                         projectile.localNPCHitCooldown = (int)(10f / sourceItem.AEI("Splitting", 1f));
-					}
+                    }
                     if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
                     {
                         float projectileChance = sourceItem.AEI("Splitting", 0f);
@@ -169,13 +156,13 @@ namespace WeaponEnchantments.Common.Globals
                         {
                             float ai = parent.ai[i];
                             double lastspawntime = pGlobal.lastChildSpawnTime[i];
-                            if(Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i])
+                            if (Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i])
                             {
                                 pGlobal.spawnedChild[i] = true;
                                 if (Math.Abs(ai) < Math.Abs(pGlobal.nextValueAfterChild[i]))
                                     pGlobal.nextValueAfterChild[i] = ai;
                             }
-							else
+                            else
                                 pGlobal.positiveSet[i] = false;//Just used to force a recalculate of nextValueAfterChild.
                         }
                         else
@@ -211,7 +198,7 @@ namespace WeaponEnchantments.Common.Globals
                 //if (!item.IsAir && item.shoot > ProjectileID.None && (item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid))
                 {
                     //string name = ContentSamples.ProjectilesByType[item.shoot].Name;
-                    
+
                 }
             }
             List<string> projectileNames;
@@ -224,7 +211,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type)
                 {
-                    if(proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem.TG())
+                    if (proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem.TG())
                     {
                         projectileNames = proj.Name.RemoveProjectileName().SplitString();
                         checkMatches = projNames.CheckMatches(projectileNames);
@@ -259,7 +246,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (sourceItem != null)
             {
-                //if(speedAdd != 0)
+                if (speed != 0)
                 {
                     for (int i = 0; i < 2; i++)
                     {
@@ -309,8 +296,7 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
                             }
                         }*/
-                        float newValue = projectile.ai[i];
-                        spawnedChild[i] = false;
+
                         /*speedCarryover += speedAdd;
                         //if (aiValue > controlValue)
                         {
@@ -326,47 +312,49 @@ namespace WeaponEnchantments.Common.Globals
                                 projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
                             }
 
-                                }
-                                //projectile.ai[0] = 61f;
-                                //projectile.ai[1] = 0f;
-                                ;*/
-                                if(UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
-                            }
-                            /*else if(projectile.type == ProjectileID.VortexBeater)
-							{
-                                if(i == 0)
+                        }
+                        //projectile.ai[0] = 61f;
+                        //projectile.ai[1] = 0f;
+                        ;*/
+                        if (UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+                        /*else if(projectile.type == ProjectileID.VortexBeater)
+						{
+                            if(i == 0)
+                            {
+                                speedCarryover += speedAdd;
+                                //if (aiValue > controlValue)
                                 {
-                                    speedCarryover += speedAdd;
-                                    //if (aiValue > controlValue)
+                                    if (speedCarryover > 1f)
                                     {
-                                        if (speedCarryover > 1f)
-                                        {
-                                            float value = (float)(int)speedCarryover;
-                                            speedCarryover -= value;
-                                            projectile.ai[i] += value;
-                                        }
-                                        else if (speedCarryover < -1f)
-                                        {
-                                            speedCarryover += 1f;
-                                            projectile.ai[i] -= 1f;
-                                        }
+                                        float value = (float)(int)speedCarryover;
+                                        speedCarryover -= value;
+                                        projectile.ai[i] += value;
+                                    }
+                                    else if (speedCarryover < -1f)
+                                    {
+                                        speedCarryover += 1f;
+                                        projectile.ai[i] -= 1f;
                                     }
                                 }
-								else
-								{
+                            }
+							else
+							{
 
-								}
-                            }*/
-                        }
+							}
+                        }*/
                         /*if(aiValue != 0 || lastAIValue[i] != 0)
                             ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();*/
-                        if (i == 0 && sourceItem.type == ItemID.VortexBeater)
-                            projectile.ai[0] += speed;
+                        /*if (i == 0 && (sourceItem.type == ItemID.VortexBeater || sourceItem.type == ItemID.Celeb2 || sourceItem.type == ItemID.Phantasm))
+						{
+                            speedCarryover[i] += speed;
+                            int speedToAdd = (int)speedCarryover[i];
+							speedCarryover[i] -= speedToAdd;
+                            projectile.ai[0] += speedToAdd;
+                        }*/
                         lastAIValue[i] = aiValue;
                     }
                 }
             }
-            
             return true;
         }
         public void UpdateProjectile(Projectile projectile)
@@ -377,7 +365,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     for (int i = 0; i < 2; i++)
                         lastAIValue[i] = projectile.ai[i];
-                    if (sourceItem.TryGetGlobalItem(out EnchantedItem siGlobal))
+                    if (sourceItem.TG())
                     {
                         initialScale = projectile.scale;
                         if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale)
@@ -387,9 +375,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         referenceScale = projectile.scale;
                         float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                        /*float speed = 1f / NPCHitCooldownMultiplier;
-                        speedAdd = speed - 1f;*/
-                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater)
+                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
                         {
                             float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
                             speed = 1f - 1f / speedMult;
@@ -397,7 +383,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         if (projectile.usesLocalNPCImmunity)
                         {
-                            if(NPCHitCooldownMultiplier > 1f)
+                            if (NPCHitCooldownMultiplier > 1f)
                             {
                                 projectile.usesIDStaticNPCImmunity = true;
                                 projectile.usesLocalNPCImmunity = false;
@@ -411,13 +397,13 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         if (projectile.usesIDStaticNPCImmunity)
                         {
-                            if(projectile.idStaticNPCHitCooldown > 0)
+                            if (projectile.idStaticNPCHitCooldown > 0)
                                 projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
                         }
                         updated = true;
                     }
                 }
-                else if(parent != null)
+                else if (parent != null)
                 {
                     TryUpdateFromParent();
                 }
@@ -428,11 +414,11 @@ namespace WeaponEnchantments.Common.Globals
             projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             //if (target.life <= 0)//If NPC died
             {
-                if(sourceItem.TG())
+                if (sourceItem.TG())
                 {
                     if (sourceItem.G().eStats.ContainsKey("OneForAll"))
                     {
-                        if(parent is Projectile)
+                        if (parent is Projectile)
                             parent.active = false;
                     }
                     //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
@@ -573,14 +559,14 @@ namespace WeaponEnchantments.Common.Globals
                     }//If summoner weapon, verify it's location or search for it
                     EnchantedItem.DamageNPC(sourceItem, Main.player[projectile.owner], target, damage, crit);
                 }
-                else if(playerSource != null)
+                else if (playerSource != null)
                 {
                     EnchantedItem.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
                 }
                 if (sourceItem.TG() && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                 {
                     cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown) : sourceItem.useTime);
-                    if(parent != null)
+                    if (parent != null)
                         parent.G().cooldownEnd = cooldownEnd;
                 }
             }
@@ -622,7 +608,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
                 hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
-                float scaleShift = (projectile.scale - 1f)/(2f * projectile.scale);
+                float scaleShift = (projectile.scale - 1f) / (2f * projectile.scale);
                 hitbox.Y -= (int)(scaleShift * hitbox.Height);
                 hitbox.X -= (int)(scaleShift * hitbox.Width);
                 //hitbox.Y -= hitbox.Height / 2;
