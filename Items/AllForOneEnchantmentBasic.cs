@@ -36,6 +36,7 @@ namespace WeaponEnchantments.Items
 		ObsidianSkin,
 		OneForAll,
 		Peace,
+		PhaseJump,
 		Scale,
 		Speed,
 		Spelunker,
@@ -69,6 +70,12 @@ namespace WeaponEnchantments.Items
 		MagicSummonHybrid,
 		Throwing
 	}//Located in DamageClassLoader.cs
+	public enum ArmorSlotSpecificID
+	{
+		Head,
+		Body,
+		Legs
+	}
 	public class AllForOneEnchantmentBasic : ModItem
 	{
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
@@ -100,8 +107,9 @@ namespace WeaponEnchantments.Items
 		public bool Utility { private set; get; }
 		public bool Unique { private set; get; }
 		public bool Max1 { private set; get; } = false;
-		public int DamageClassSpecific { private set; get; }
-		public int RestrictedClass { private set; get; }
+		public int DamageClassSpecific { private set; get; } = 0;
+		public int ArmorSlotSpecific { private set; get; } = -1;
+		public int RestrictedClass { private set; get; } = -1;
 		public bool StaticStat { private set; get; }
 		//public string ShortToolTip { private set; get; }
 		public string FullToolTip { private set; get; }
@@ -150,6 +158,9 @@ namespace WeaponEnchantments.Items
 					break;
 				case EnchantmentTypeID.OneForAll:
 					toolTip = "(Hitting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
+					break;
+				case EnchantmentTypeID.PhaseJump:
+					toolTip = $"(Dash)";
 					break;
 				case EnchantmentTypeID.Splitting:
 					toolTip = "(Chance to produce an extra projectile)";
@@ -279,6 +290,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.OneForAll:
 				case EnchantmentTypeID.WorldAblaze:
 				case EnchantmentTypeID.MaxMinions:
+				case EnchantmentTypeID.PhaseJump:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -302,6 +314,7 @@ namespace WeaponEnchantments.Items
 					scalePercent = 0.2f/defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
 					break;
 				case EnchantmentTypeID.MaxMinions:
+				case EnchantmentTypeID.PhaseJump:
 					scalePercent = 0.6f;
 					break;
 				case EnchantmentTypeID.War:
@@ -374,9 +387,8 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.WorldAblaze:
 					Max1 = true;
 					break;
-				default:
-					DamageClassSpecific = 0;
-					RestrictedClass = -1;
+				case EnchantmentTypeID.PhaseJump:
+					ArmorSlotSpecific = (int)ArmorSlotSpecificID.Legs;
 					break;
 			}//DamageTypeSpecific, Max1, RestrictedClass
 			switch ((EnchantmentTypeID)EnchantmentType)
@@ -425,6 +437,9 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.MaxMinions:
 						AllowedList.Add("Armor", 1f);
 						AllowedList.Add("Accessory", 1f);
+						break;
+					case EnchantmentTypeID.PhaseJump:
+						AllowedList.Add("Armor", 1f);
 						break;
 					default:
 						AllowedList.Add("Weapon", 1f);
@@ -517,10 +532,14 @@ namespace WeaponEnchantments.Items
 						EStats.Add(new EStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f));
 						AddStaticStat("useTime", 0f, 1.5f - EnchantmentStrength * 0.2f);
 						AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
+						NewDamageType = (int)DamageTypeSpecificID.Melee;
 						break;
 					case EnchantmentTypeID.Peace:
 						EStats.Add(new EStat("spawnRate", 0f, 1f / EnchantmentStrength));
 						EStats.Add(new EStat("maxSpawns", 0f, 1f / EnchantmentStrength));
+						break;
+					case EnchantmentTypeID.PhaseJump:
+						AddStaticStat("dashType", 0f, 1f, 0f, 3f);
 						break;
 					case EnchantmentTypeID.War:
 						EStats.Add(new EStat("spawnRate", 0f, EnchantmentStrength));
@@ -822,15 +841,17 @@ namespace WeaponEnchantments.Items
 				}
 			}//Debuffs
 			toolTip += $"\nLevel cost: { GetLevelCost()}";
-			if (DamageClassSpecific > 0 || Unique)
+			if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1)
 			{
 				string limmitationToolTip = "";
 				if (Unique)
-					limmitationToolTip = "\n   *" + UtilityMethods.AddSpaces(Item.ModItem.Name) + " Only*";
+					limmitationToolTip += "\n   *" + UtilityMethods.AddSpaces(Item.ModItem.Name) + " Only*";
 				else if (DamageClassSpecific > 0)
-					limmitationToolTip = $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
-				else if (RestrictedClass > 0)
-					limmitationToolTip = $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
+					limmitationToolTip += $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
+				else if (ArmorSlotSpecific > -1)
+					limmitationToolTip += $"\n   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*";
+				if (RestrictedClass > -1)
+					limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
 				limmitationToolTip += "\n   *Unique* (Limmited to 1 Unique Enchantment)";
 				toolTip += limmitationToolTip;
 			}//Unique, DamageClassSpecific, RestrictedClass
@@ -1038,7 +1059,7 @@ namespace WeaponEnchantments.Items
 			int multiplier = 2;
 			if(Utility)
 				multiplier = 1;
-			if (Unique || DamageClassSpecific > 0 || Max1)
+			if (Unique || DamageClassSpecific > 0 || Max1 || ArmorSlotSpecific > -1)
 				multiplier = 3;
 			return (1 + EnchantmentSize) * multiplier;
             /*switch ((EnchantmentTypeID)EnchantmentType)
@@ -1076,6 +1097,7 @@ namespace WeaponEnchantments.Items
 	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class PhaseJumpEnchantmentBasic : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentCommon : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentRare : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class ScaleEnchantmentBasic : AllForOneEnchantmentBasic { }public class ScaleEnchantmentCommon : AllForOneEnchantmentBasic { }public class ScaleEnchantmentRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class SpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class SpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }

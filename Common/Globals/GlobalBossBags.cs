@@ -19,8 +19,6 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (context == "bossBag")
             {
-                string temp = ContentSamples.ItemsByType[arg].Name;
-                temp.Log();
                 IEntitySource src = player.GetSource_OpenItem(arg);
                 NPC npc = GetNPCFromBossBagType(arg);
                 if (npc != null)
@@ -168,15 +166,21 @@ namespace WeaponEnchantments.Common.Globals
                 default:
                     npcID = -1000;
                     string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[bossBagType].Name);
-                    for (int i = 0; i < ContentSamples.NpcsByNetId.Count; i++)
+                    if(bossName != null)
 					{
-                        NPC sampleNPC = ContentSamples.NpcsByNetId[i];
-                        if (sampleNPC.FullName == bossName)
+                        for (int i = 0; i < NPCLoader.NPCCount; i++)
                         {
-                            npcID = sampleNPC.netID;
-                            break;
-						}
-					}
+                            NPC sampleNPC = ContentSamples.NpcsByNetId[i];
+                            if (sampleNPC.FullName == bossName)
+                            {
+                                npcID = sampleNPC.netID;
+                                break;
+                            }
+                        }
+                        string error = $"Failed to find this boss name: {(bossName != null ? bossName : "Null")} that dropps this boss bag type: {bossBagType}.\nPlease inform andro951 including what boss bag you tried to open and what mod it is from.";
+                        Main.NewText(error);
+                        error.Log();
+                    }
                     break;
             }
             if (npcID != -1000)

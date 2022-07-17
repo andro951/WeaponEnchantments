@@ -84,6 +84,24 @@ namespace WeaponEnchantments.UI
 										continueCheck = false;
 									if(!CheckAllowedList(newEnchantment))
 										continueCheck = false;
+									if(newEnchantment.ArmorSlotSpecific > -1)
+									{
+										int slot = -1;
+										switch (newEnchantment.ArmorSlotSpecific)
+										{
+											case (int)ArmorSlotSpecificID.Head:
+												slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.headSlot;
+												break;
+											case (int)ArmorSlotSpecificID.Body:
+												slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.bodySlot;
+												break;
+											case (int)ArmorSlotSpecificID.Legs:
+												slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.legSlot;
+												break;
+										}
+										if (slot == -1)
+											continueCheck = false;
+									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = ((AllForOneEnchantmentBasic)Item.ModItem).GetLevelCost(); }
 									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
@@ -210,7 +228,7 @@ namespace WeaponEnchantments.UI
 		}
 		public bool CheckUniqueSlot(AllForOneEnchantmentBasic enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && !enchantment.Max1 && enchantment.ArmorSlotSpecific == -1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(AllForOneEnchantmentBasic enchantement, Item item)
         {
@@ -223,8 +241,8 @@ namespace WeaponEnchantments.UI
 					{
 						AllForOneEnchantmentBasic appliedEnchantment = (AllForOneEnchantmentBasic)iGlobal.enchantments[i].ModItem;
 						if (appliedEnchantment != null && (
-							(enchantement.Unique || enchantement.DamageClassSpecific > 0) 
-							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique) 
+							(enchantement.Unique || enchantement.DamageClassSpecific > 0 || enchantement.ArmorSlotSpecific > -1) 
+							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique || appliedEnchantment.ArmorSlotSpecific > -1) 
 							|| enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
 						{
 							return i;

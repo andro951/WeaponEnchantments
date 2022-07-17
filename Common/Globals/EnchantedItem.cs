@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Common.Globals
         public int infusedArmorSlot = -1;
         public int infusionValueAdded = 0;
         public int damageType = -1;
+        public int baseDamageType = -1;
         public int lastValueBonus;
         public int levelBeforeBooster;
         public int level;
@@ -293,6 +294,13 @@ namespace WeaponEnchantments.Common.Globals
                 valueToAdd /= item.stack;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
+                if(baseDamageType != damageType)
+				{
+                    if (baseDamageType == -1)
+                        baseDamageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
+                    if(item.DamageType.Type == baseDamageType)
+                        item.UpdateDamageType(damageType);
+                }
             }
             equip = false;
             if (wePlayer.stickyFavorited)
