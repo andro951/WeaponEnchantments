@@ -852,7 +852,7 @@ namespace WeaponEnchantments.Items
 					limmitationToolTip += $"\n   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*";
 				if (RestrictedClass > -1)
 					limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
-				limmitationToolTip += "\n   *Unique* (Limmited to 1 Unique Enchantment)";
+				limmitationToolTip += "\n   *Unique* (Limited to 1 Unique Enchantment)";
 				toolTip += limmitationToolTip;
 			}//Unique, DamageClassSpecific, RestrictedClass
 			if (AllowedList.Count > 0)
