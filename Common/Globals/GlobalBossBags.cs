@@ -177,9 +177,12 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             }
                         }
-                        string error = $"Failed to find this boss name: {(bossName != null ? bossName : "Null")} that dropps this boss bag type: {bossBagType}.\nPlease inform andro951 including what boss bag you tried to open and what mod it is from.";
-                        Main.NewText(error);
-                        error.Log();
+                        if(npcID == -1000)
+						{
+                            string error = $"Failed to find this boss name: {(bossName != null ? bossName : "Null")} that dropps this boss bag type: {bossBagType}.\nPlease inform andro951(Weapon Enchantments) including what boss bag you tried to open and what mod it is from.";
+                            Main.NewText(error);
+                            error.Log();
+                        }
                     }
                     break;
             }
@@ -296,6 +299,9 @@ namespace WeaponEnchantments.Common.Globals
                 case "Treasure Coffer (Supreme Calamitas)":
                     return "Supreme Calamitas";
                 default:
+                    string message = $"Support for this boss bag: {bagName} has not yet been added.\nPlease inform andro951(Weapon Enchantments) and include the name of the boss that drops it and which mod it is from.";
+                    Main.NewText(message);
+                    message.Log();
                     return null;
             }
         }

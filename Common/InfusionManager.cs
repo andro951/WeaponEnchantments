@@ -374,7 +374,7 @@ namespace WeaponEnchantments.Common
                 }
                 else
                 {
-                    string errorMessage = $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951";
+                    string errorMessage = $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951(Weapon Enchantments)";
                     errorMessage.Log();
                     Main.NewText(errorMessage);
                 }

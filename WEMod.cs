@@ -210,7 +210,7 @@ namespace WeaponEnchantments
 						else
 						{
 							Item enchantmentItem = new Item(itemType);
-							string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to failing to get GlobalItem EnchantedItem.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease note exactly what you were doing when this occured and notify andro951";
+							string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to failing to get GlobalItem EnchantedItem.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease note exactly what you were doing when this occured and notify andro951(Weapon Enchantments)";
 							errorMessage.Log();
 							Main.NewText(errorMessage);
 						}
@@ -218,7 +218,7 @@ namespace WeaponEnchantments
 					else
 					{
 						Item enchantmentItem = new Item(itemType);
-						string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to item being null or air.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951";
+						string errorMessage = $"unable to update enchantment from packet: {enchantmentItem.S()} on item: {item.S()} due to item being null or air.  player whoAmI: {whoAmI} player: {Main.player[whoAmI].S()} enchantmentSlotNumber: {enchantmentSlotNumber} slotNumber: {slotNumber} bank: {bank} \n\t\tPlease notify andro951(Weapon Enchantments)";
 						errorMessage.Log();
 						Main.NewText(errorMessage);
 					}

@@ -803,8 +803,9 @@ namespace WeaponEnchantments.Common
             }
 			else
 			{
-                Main.NewText($"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951 and give a description of what you were doing.");
-                ($"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951 and give a description of what you were doing.").Log();
+                string error = $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951(Weapon Enchantments) and give a description of what you were doing.";
+                Main.NewText(error);
+                error.Log();
             }
         }
     }
