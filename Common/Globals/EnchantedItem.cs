@@ -290,6 +290,7 @@ namespace WeaponEnchantments.Common.Globals
                 int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
                 int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
                 int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue + infusionValueAdded : 0;
+                valueToAdd /= item.stack;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
             }
@@ -449,7 +450,7 @@ namespace WeaponEnchantments.Common.Globals
                     tooltip = $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
                 tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", tooltip) { OverrideColor = Color.DarkRed });
             }
-            else if (wePlayer.usingEnchantingTable)
+            else if (wePlayer.usingEnchantingTable || WEMod.clientConfig.AlwaysDisplayInfusionPower)
             {
                 string tooltip = "";
                 if (WEMod.IsWeaponItem(item))
@@ -490,7 +491,20 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }//Edit Tooltips
         }
-        public static void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
+		public override void ModifyWeaponCrit(Item item, Player player, ref float crit)
+		{
+			if (!WEMod.serverConfig.CritPerLevelDisabled)
+			{
+                float multiplier;
+                float linearMultiplier = WEMod.serverConfig.presetData.linearStrengthMultiplier / 100f;
+                if (linearMultiplier != 1f)
+                    multiplier = linearMultiplier;
+                else
+                    multiplier = WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
+                crit += (float)levelBeforeBooster * multiplier;
+            }
+		}
+		public static void DamageNPC(Item item, Player player, NPC target, int damage, bool crit, bool melee = false)
         {
             if(UtilityMethods.debugging) ($"\\/DamageNPC").Log();
             target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
@@ -657,7 +671,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 wePlayer.allForOneTimer = (int)((float)item.useTime * item.AEI("NPCHitCooldown", 0.5f));
             }
-            if(item.consumable && item.stack < 2 && (experience > 0 || powerBoosterInstalled))
+            if(item.consumable && item.stack < 2 && (experience > 0 || powerBoosterInstalled || infusedItemName != "") && item.placeStyle == -1)
 			{
                 Restock(item);
                 if(item.stack < 2)

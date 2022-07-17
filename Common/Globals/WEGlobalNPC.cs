@@ -36,10 +36,41 @@ namespace WeaponEnchantments.Common.Globals
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
         public float amaterasuStrength = 0f;
+        public static List<int> preHardModeBossTypes;
+        public static List<string> preHardModeModBossNames;
         public override bool InstancePerEntity => true;
         public override void Load()
         {
             IL.Terraria.Projectile.Damage += HookDamage;
+            preHardModeBossTypes = new List<int>()
+            {
+                NPCID.EyeofCthulhu,
+                NPCID.EaterofWorldsBody,
+                NPCID.EaterofWorldsHead,
+                NPCID.EaterofWorldsTail,
+                NPCID.BrainofCthulhu,
+                NPCID.KingSlime,
+                NPCID.Deerclops
+            };
+            preHardModeModBossNames = new List<string>()
+            {
+                "Desert Scourge",//Calamity
+                "Crabulon",//Calamity
+                "The Hive Mind",//Calamity
+                "The Perforator Hive",//Calamity
+                "The Slime God",//Calamity
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            };
         }
         private static bool debuggingHookDamage = false;
         private static void HookDamage(ILContext il)
@@ -62,7 +93,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static List<int> GetDropItems(int arg, bool bossBag = false)
         {
-            List<int> itemTypes = new List<int>(); 
+            List<int> itemTypes = new List<int>();
             switch (arg)
             {
                 case NPCID.KingSlime when !bossBag:
@@ -248,8 +279,11 @@ namespace WeaponEnchantments.Common.Globals
                     {
                         dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), (int)(500000 / npc.value), 1, 1), ItemDropRule.DropNothing());
                         npcLoot.Add(dropRule);
-                        dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
-                        npcLoot.Add(dropRule);
+						if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !(preHardModeBossTypes.Contains(npc.type) || preHardModeModBossNames.Contains(npc.FullName)))
+						{
+                            dropRule = new DropBasedOnExpertMode(ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), (int)(1000000 / npc.value), 1, 1), ItemDropRule.DropNothing());
+                            npcLoot.Add(dropRule);
+                        }
                         float chance = GetDropChance(npc.type);
                         if (npc.type >= NPCID.EaterofWorldsHead && npc.type <= NPCID.EaterofWorldsTail)
                             chance /= 100f;
@@ -613,22 +647,25 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     //float temp2 = player.AEP("Damage", 1f);
                     damage = (int)Math.Round(item.AEI("Damage", (float)damage));
-                    int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
-                    int critLevel = 0;
-                    crit = false;
-                    while(critChance > 100)
-                    {
-                        critLevel++;
-                        critChance -= 100;
-                    }//FirstCritLevel
-                    if (Main.rand.Next(0, 100) < critChance)
-                        critLevel++;
-                    if(critLevel > 0)
-                    {
-                        crit = true;
-                        critLevel--;
-                        damage *= (int)Math.Pow(2, critLevel);
-                    }//MultipleCritlevels
+                    if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits)
+					{
+                        int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
+                        int critLevel = 0;
+                        crit = false;
+                        while (critChance > 100)
+                        {
+                            critLevel++;
+                            critChance -= 100;
+                        }//FirstCritLevel
+                        if (Main.rand.Next(0, 100) < critChance)
+                            critLevel++;
+                        if (critLevel > 0)
+                        {
+                            crit = true;
+                            critLevel--;
+                            damage *= (int)Math.Pow(2, critLevel);
+                        }//MultipleCritlevels
+                    }
                     damage += damageReduction;
 
                     bool makingPacket = false;

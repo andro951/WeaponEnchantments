@@ -160,25 +160,34 @@ namespace WeaponEnchantments.UI
                 if (!stop)
                 {
                     int xp = item.GetGlobalItem<EnchantedItem>().experience;
-                    float value = item.value;
+                    float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
                     {
-                        int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.CobaltOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
-			            int refNum = ores.Length - 3;
-			            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? NPC.downedMechBossAny ? 0 : 1 : refNum; i < ores.Length; i++)
-                        {
-                            int orevalue = ContentSamples.ItemsByType[ores[i]].value;
-                            int stack;
-                            if (ores[i] > ItemID.IronOre)
-                                stack = (int)Math.Round(value * (i >= refNum ? 0.8f : 0.2f) / orevalue);
-                            else
-                                stack = (int)(value / orevalue);
-                            value -= stack * orevalue;
-                            if (ores[i] == ItemID.IronOre)
-                                stack++;
-			                if(stack > 0)
-                            	Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+                        int essenceValue = (int)(value * (float)WEMod.serverConfig.PercentOfferEssence / 100f);
+                        int oresValue = (int)Math.Round(value - (float)essenceValue);
+                        if (oresValue > 0)
+						{
+                            int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.CobaltOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+                            int refNum = ores.Length - 3;
+                            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? NPC.downedMechBossAny ? 0 : 1 : refNum; i < ores.Length; i++)
+                            {
+                                int orevalue = ContentSamples.ItemsByType[ores[i]].value;
+                                int stack;
+                                if (ores[i] > ItemID.IronOre)
+                                    stack = (int)Math.Round(oresValue * (i >= refNum ? 0.8f : 0.2f) / orevalue);
+                                else
+                                    stack = (int)(oresValue / orevalue);
+                                oresValue -= stack * orevalue;
+                                if (ores[i] == ItemID.IronOre)
+                                    stack++;
+                                if (stack > 0)
+                                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ores[i], stack);
+                            }
+                        }
+                        if(essenceValue > 0)
+						{
+                            WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true);
                         }
                     }
                     if (item.G().powerBoosterInstalled)
@@ -638,72 +647,77 @@ namespace WeaponEnchantments.UI
         }
         public static int ConvertXPToEssence(int xp, bool consumeAll = false)
         {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            bool usingEnchantingTable = wePlayer.usingEnchantingTable;
-            /*if (!usingEnchantingTable)
-                WEModSystem.OpenWeaponEnchantmentUI();*/
-            int numberEssenceRecieved;
-            int xpCounter = wePlayer.highestTableTierUsed < 4 ? (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.highestTableTierUsed)) : xp;
-            int xpInitial = xpCounter;
-            int xpNotConsumed = 0;
-            for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
-            {
-                if (wePlayer.highestTableTierUsed >= tier)
+            if(xp > 0)
+			{
+                WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+                bool usingEnchantingTable = wePlayer.usingEnchantingTable;
+                /*if (!usingEnchantingTable)
+                    WEModSystem.OpenWeaponEnchantmentUI();*/
+                int numberEssenceRecieved;
+                int xpCounter = wePlayer.highestTableTierUsed < 4 ? (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.highestTableTierUsed)) : xp;
+                int xpInitial = xpCounter;
+                int xpNotConsumed = 0;
+                for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
                 {
-                    /*if(wePlayer.highestTableTierUsed == EnchantingTable.maxTier)
+                    if (wePlayer.highestTableTierUsed >= tier)
                     {
-                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier];
-                        xpCounter %= (int)EnchantmentEssence.xpPerEssence[tier];
-                    }
-                    else
-                    {*/
-                    if(tier > 0)
-                    {
-                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
-                    }
-                    else
-                    {
-                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier];
-                    }
-                    xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
-                    //}
-                    if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
-                    {
-                        xpNotConsumed = xpCounter;
-                        xpCounter = 0;
-                    }
-                    if (wePlayer.enchantingTable.essenceItem[tier].IsAir)
-                    {
-                        wePlayer.enchantingTable.essenceItem[tier] = new Item(EnchantmentEssenceBasic.IDs[tier], numberEssenceRecieved);
-                    }
-                    else
-                    {
-                        int maxStack = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack;
-                        if (wePlayer.enchantingTable.essenceItem[tier].stack + numberEssenceRecieved > maxStack)
+                        /*if(wePlayer.highestTableTierUsed == EnchantingTable.maxTier)
                         {
-                            int ammountToTransfer = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
-                            numberEssenceRecieved -= ammountToTransfer;
-                            wePlayer.enchantingTable.essenceItem[tier].stack += ammountToTransfer;
-                            while(numberEssenceRecieved > 0)
-							{
-                                int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
-                                numberEssenceRecieved -= stack;
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<EnchantmentEssenceBasic>() + tier, stack);
-                            }
+                            numberEssenceRecieved = xpCounter / (int)EnchantmentEssence.xpPerEssence[tier];
+                            xpCounter %= (int)EnchantmentEssence.xpPerEssence[tier];
+                        }
+                        else
+                        {*/
+                        if (tier > 0)
+                        {
+                            numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
                         }
                         else
                         {
-                            wePlayer.enchantingTable.essenceItem[tier].stack += numberEssenceRecieved;
+                            numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier];
+                        }
+                        xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
+                        //}
+                        if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
+                        {
+                            xpNotConsumed = xpCounter;
+                            xpCounter = 0;
+                        }
+                        if (wePlayer.enchantingTable.essenceItem[tier].IsAir)
+                        {
+                            wePlayer.enchantingTable.essenceItem[tier] = new Item(EnchantmentEssenceBasic.IDs[tier], numberEssenceRecieved);
+                        }
+                        else
+                        {
+                            int maxStack = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack;
+                            if (wePlayer.enchantingTable.essenceItem[tier].stack + numberEssenceRecieved > maxStack)
+                            {
+                                int ammountToTransfer = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
+                                numberEssenceRecieved -= ammountToTransfer;
+                                wePlayer.enchantingTable.essenceItem[tier].stack += ammountToTransfer;
+                                while (numberEssenceRecieved > 0)
+                                {
+                                    int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
+                                    numberEssenceRecieved -= stack;
+                                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<EnchantmentEssenceBasic>() + tier, stack);
+                                }
+                            }
+                            else
+                            {
+                                wePlayer.enchantingTable.essenceItem[tier].stack += numberEssenceRecieved;
+                            }
                         }
                     }
                 }
+                /*if (!usingEnchantingTable)
+                    WEModSystem.CloseWeaponEnchantmentUI();*/
+                if (wePlayer.usingEnchantingTable)
+                    for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
+                return xpInitial - xpNotConsumed;
             }
-            /*if (!usingEnchantingTable)
-                WEModSystem.CloseWeaponEnchantmentUI();*/
-            if(wePlayer.usingEnchantingTable)
-                for(int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-                    wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack = wePlayer.enchantingTable.essenceItem[i].stack;
-            return xpInitial - xpNotConsumed;
+            else
+                return 0;
         }
         public void Infusion()
         {
@@ -715,17 +729,24 @@ namespace WeaponEnchantments.UI
                 {
                     if (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem))
                     {
-                        if (tableItem.stack > 1)
+                        if(tableItem.Name == "Murasama")
 						{
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
-                            wePlayer.infusionConsumeItem = new Item(tableItem.type);
-                            infusionButonText.SetText("Finalize");
-                        }
+                            Main.NewText("Murasama is banned from infusion until a check for the Jungle Dragon, Yharon being defeated can be added.");
+						}
 						else
 						{
-                            wePlayer.infusionConsumeItem = tableItem.Clone();
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                            infusionButonText.SetText("Cancel");
+                            if (tableItem.stack > 1)
+                            {
+                                wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
+                                wePlayer.infusionConsumeItem = new Item(tableItem.type);
+                                infusionButonText.SetText("Finalize");
+                            }
+                            else
+                            {
+                                wePlayer.infusionConsumeItem = tableItem.Clone();
+                                wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                                infusionButonText.SetText("Cancel");
+                            }
                         }
                     }
                 }

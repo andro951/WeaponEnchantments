@@ -122,7 +122,8 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            AllForOneEnchantmentBasic.temp.Log();
+            //AllForOneEnchantmentBasic.temp.Log();
+
             /*foreach(Mod mod in ModLoader.Mods)
             {
                 if (ModContent.TryFind<ModItem>("NameOfMod/ItemName", out ModItem modItem))

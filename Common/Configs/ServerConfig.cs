@@ -106,17 +106,51 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
-		[Header("Enchanting Table Options")]
+        [Header("Other Drop Rates")]
+        [Label("Prevent pre-hard mode bosses from dropping power boosters.")]
+        [Tooltip("Does not include wall of flesh.")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool PreventPowerBoosterFromPreHardMode;
+
+        [Header("Enchanting Table Options")]
         [Label("Recieve ores up to Chlorophyte from Offering items.")]
-        [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold.\n(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
+        [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold.\n" +
+			"(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
         [DefaultValue(true)]
         public bool AllowHighTierOres;
 
+        [Label("Percentage of offered Item value converted to essence.")]
+        [DefaultValue(50)]
+        [Range(0, 100)]
+        public int PercentOfferEssence;
+
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
-        [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
+        [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n" +
+			"10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
         [DefaultValue(true)]
         public bool ArmorPenetration;
+
+        [Label("Dissable Minion Critical hits")]
+        [Tooltip("In vanilla, minions arent affected by weapon critical chance.\n" +
+			"Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
+			"This option disables the crits(vanilla mechanics)")]
+        [DefaultValue(false)]
+        public bool DisableMinionCrits;
+
+        [Label("Dissable Item critical strike chance per level")]
+        [Tooltip("Items gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
+        [DefaultValue(false)]
+        public bool CritPerLevelDisabled;
+
+        [Label("Infusion Damage Multiplier (Divites by 1000, 1 -> 0.001)")]
+        [DefaultValue(1300)]
+        [Range(1000, 2000)]
+        [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +
+			"Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.\n" +
+			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
+        public int InfusionDamageMultiplier;
 
         [Header("Random Extra Stuff")]
         [Label("Start with a Drill Containment Unit")]
@@ -203,6 +237,11 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.")]
         [DefaultValue(false)]
         public bool OfferAll;
+
+        [Label("Always display Infusion Power")]
+        [Tooltip("Enable to display item's Infusion Power always instead of just when the enchanting table is open.")]
+        [DefaultValue(false)]
+        public bool AlwaysDisplayInfusionPower;
 
         [Header("Display Names")]
         [Label("Use Original Rarity Names")]

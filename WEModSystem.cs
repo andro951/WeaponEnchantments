@@ -34,7 +34,7 @@ namespace WeaponEnchantments
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static bool playerSwapperModEnabled = false;
-        public static string localPlayerName = null;
+        public static List<string> updatedPlayerNames;
 
         public override void OnModLoad()
         {
@@ -54,6 +54,8 @@ namespace WeaponEnchantments
                 levelXps[l] = (int)current;
             }
             playerSwapperModEnabled = ModLoader.HasMod("PlayerSwapper");
+            if (playerSwapperModEnabled)
+                updatedPlayerNames = new List<string>();
         }//PR
         public override void Unload()
         {
@@ -432,11 +434,14 @@ namespace WeaponEnchantments
                 }
                 stolenItemToBeCleared = -1;
             }
-            if(playerSwapperModEnabled && wePlayer.Player.name != localPlayerName && Main.netMode != NetmodeID.Server)
+            if(playerSwapperModEnabled && Main.netMode != NetmodeID.Server)
             {
-                if (localPlayerName != null)
+                string playerName = wePlayer.Player.name;
+                if (!updatedPlayerNames.Contains(playerName))
+				{
                     OldItemManager.ReplaceAllPlayerOldItems(wePlayer.Player);
-                localPlayerName = wePlayer.Player.name;
+                    updatedPlayerNames.Add(playerName);
+                }
             }
         }
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest

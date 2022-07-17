@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Common
         public static float[] averageValues = new float[numRarities];
         public static int[] minValues = new int[numRarities];
         public static int[] maxValues = new int[numRarities];
-        public const float rarityMultiplier = 1.25f;
+        public static readonly float rarityMultiplier = (float)WEMod.serverConfig.InfusionDamageMultiplier / 1000f;
         public const float minMaxValueMultiplier = 0.25f;
 
         public static void SetUpVanillaWeaponInfusionPowers()
@@ -88,43 +88,68 @@ namespace WeaponEnchantments.Common
         }
         public static float GetWeaponRarity(this Item item)
         {
+            bool valueOnly = false;
+            int rarity = 0;
+            Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
+            if(item.ModItem?.Mod.Name == "Calamity" && item.rare == 9)
+                valueOnly = true;
             switch (item.Name)
             {
-                case "Pulse Pistol":
-                    return 3.25f;
+                /*case "Pulse Pistol":
+                case "Taser":
+                case "Gauss Dagger":
+                case "Star Swallower Containment Unit":
+                case "Trackig Disk":
+                    valueOnly = true;
+                    //rarity = 3;
+                    break;*/
                 case "The Only Thing I Know For Real":
-                    return 8;
+                    rarity = 8;
+                    break;
                 default:
-                    Item sampleItem = ContentSamples.ItemsByType[item.type].Clone();
-                    float valueMultiplier = 0.5f;
-                    int rarity = sampleItem.rare;
-                    if (rarity == 11 && item.value > maxValues[11])
-                    {
-                        int i;
-                        for (i = 12; i < numRarities; i++)
-                        {
-                            if (minValues[i] >= item.value)
-                            {
-                                i--;
-                                break;
-                            }
-                        }
-                        rarity = i;
-                    }
-                    if (rarity > numRarities - 1) rarity = numRarities - 1;
-                    else if (rarity < 0) rarity = 0;
-                    int value = sampleItem.value;
-                    float averageValue = averageValues[rarity];
-                    float combinedRarity;
-                    int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
-                    float denom = Math.Abs(averageValue - maxOrMin);
-                    combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
-                    if (combinedRarity > rarity + 2 * valueMultiplier)
-                        combinedRarity = rarity + 2 * valueMultiplier;
-                    else if (combinedRarity < rarity - 2 * valueMultiplier)
-                        combinedRarity = rarity - 2 * valueMultiplier;
-                    return combinedRarity > 0 ? combinedRarity : 0;
+                    rarity = sampleItem.rare;
+                    break;
             }
+            float valueMultiplier = 0.5f;
+			if (valueOnly)
+			{
+                int i;
+                for(i = 0; i < numRarities; i++)
+				{
+                    if (minValues[i] >= item.value)
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                rarity = i;
+			}
+            if (rarity == 11 && item.value > maxValues[11])
+            {
+                int i;
+                for (i = 12; i < numRarities; i++)
+                {
+                    if (minValues[i] >= item.value)
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                rarity = i;
+            }
+            if (rarity > numRarities - 1) rarity = numRarities - 1;
+            else if (rarity < 0) rarity = 0;
+            int value = sampleItem.value;
+            float averageValue = averageValues[rarity];
+            float combinedRarity;
+            int maxOrMin = value < averageValue ? minValues[rarity] : maxValues[rarity];
+            float denom = Math.Abs(averageValue - maxOrMin);
+            combinedRarity = valueMultiplier + rarity + valueMultiplier * (value - averageValue) / denom;
+            if (combinedRarity > rarity + 2 * valueMultiplier)
+                combinedRarity = rarity + 2 * valueMultiplier;
+            else if (combinedRarity < rarity - 2 * valueMultiplier)
+                combinedRarity = rarity - 2 * valueMultiplier;
+            return combinedRarity > 0 ? combinedRarity : 0;
         }//Done
         public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower)
         {

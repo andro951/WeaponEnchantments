@@ -19,6 +19,8 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (context == "bossBag")
             {
+                string temp = ContentSamples.ItemsByType[arg].Name;
+                temp.Log();
                 IEntitySource src = player.GetSource_OpenItem(arg);
                 NPC npc = GetNPCFromBossBagType(arg);
                 if (npc != null)
@@ -51,13 +53,25 @@ namespace WeaponEnchantments.Common.Globals
 
                             break;
                     }
+                    bool canDropPowerBooster = false;
+                    int bossType = GetBossTypeFromBag(arg);
+                    if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode)
+                        canDropPowerBooster = true;
+					else if (bossType > int.MinValue && !WEGlobalNPC.preHardModeBossTypes.Contains(bossType))
+                        canDropPowerBooster = true;
+                    else if(npc.ModNPC != null)
+                    {
+                        string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[arg].Name);
+                        if (bossName != "" && !WEGlobalNPC.preHardModeModBossNames.Contains(bossName))
+                            canDropPowerBooster = true;
+                    }
+                    if (canDropPowerBooster && Main.rand.NextFloat() < value / 1000000f)
+                    {
+                        player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
+                    }
                     if (Main.rand.NextFloat() < value / 500000f)
                     {
                         player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
-                    }
-                    if (Main.rand.NextFloat() < value / 1000000f)
-                    {
-                        player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
                     }
                     float chance = WEGlobalNPC.GetDropChance(arg);
                     List<int> itemTypes = WEGlobalNPC.GetDropItems(arg, true);
@@ -153,6 +167,16 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 default:
                     npcID = -1000;
+                    string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[bossBagType].Name);
+                    for (int i = 0; i < ContentSamples.NpcsByNetId.Count; i++)
+					{
+                        NPC sampleNPC = ContentSamples.NpcsByNetId[i];
+                        if (sampleNPC.FullName == bossName)
+                        {
+                            npcID = sampleNPC.netID;
+                            break;
+						}
+					}
                     break;
             }
             if (npcID != -1000)
@@ -161,6 +185,115 @@ namespace WeaponEnchantments.Common.Globals
                 return tempNpc;
             }
             return null;
+        }
+        public static int GetBossTypeFromBag(int bagID)
+        {
+            switch (bagID)
+            {
+                case ItemID.KingSlimeBossBag:
+                    return NPCID.KingSlime;
+                case ItemID.EyeOfCthulhuBossBag:
+                    return NPCID.EyeofCthulhu;
+                case ItemID.EaterOfWorldsBossBag:
+                    return NPCID.EaterofWorldsHead;
+                case ItemID.BrainOfCthulhuBossBag:
+                    return NPCID.BrainofCthulhu;
+                case ItemID.QueenBeeBossBag:
+                    return NPCID.QueenBee;
+                case ItemID.SkeletronBossBag:
+                    return NPCID.SkeletronHead;
+                case ItemID.DeerclopsBossBag:
+                    return NPCID.Deerclops;
+                case ItemID.WallOfFleshBossBag:
+                    return NPCID.WallofFlesh;
+                case ItemID.QueenSlimeBossBag:
+                    return NPCID.QueenSlimeBoss;
+                case ItemID.TwinsBossBag:
+                    return NPCID.Retinazer;
+                case ItemID.DestroyerBossBag:
+                    return NPCID.TheDestroyer;
+                case ItemID.SkeletronPrimeBossBag:
+                    return NPCID.SkeletronPrime;
+                case ItemID.PlanteraBossBag:
+                    return NPCID.Plantera;
+                case ItemID.GolemBossBag:
+                    return NPCID.Golem;
+                case ItemID.FishronBossBag:
+                    return NPCID.DukeFishron;
+                case ItemID.FairyQueenBossBag:
+                    return NPCID.HallowBoss;
+                case ItemID.CultistBossBag://Unobtainable
+                    return NPCID.CultistBoss;
+                case ItemID.MoonLordBossBag:
+                    return NPCID.MoonLordCore;
+                case ItemID.BossBagDarkMage://Unobtainable
+                    return NPCID.DD2DarkMageT1;
+                case ItemID.BossBagOgre://Unobtainable
+                    return NPCID.DD2OgreT2;
+                case ItemID.BossBagBetsy:
+                    return NPCID.DD2Betsy;
+                default:
+                    return int.MinValue;
+            }
+        }
+        public static string GetModdedBossNameFromBag(string bagName)
+        {
+            //Contributed by SnarkyEspresso
+            switch (bagName)
+            {
+                case "Treasure Bag (Desert Scourge)":
+                    return "Desert Scourge";
+                case "Treasure Bag (Crabulon)":
+                    return "Crabulon";
+                case "Treasure Bag (The Hive Mind)":
+                    return "The Hive Mind";
+                case "Treasure Bag (The Perforators)":
+                    return "The Perforator Hive";
+                case "Treasure Bag (The Slime God)":
+                    return "The Slime God";
+                case "Treasure Bag (Cryogen)":
+                    return "Cryogen";
+                case "Treasure Bag (Aquatic Scourge)":
+                    return "Aquatic Scourge";
+                case "Treasure Bag (Brimstone Elemental)":
+                    return "Brimstone Elemental";
+                case "Treasure Bag (Calamitas)":
+                    return "Calamitas";
+                case "Treasure Bag (Leviathan and Anahita)":
+                    return "The Leviathan";
+                case "Treasure Bag (Astrum Aureus)":
+                    return "Astrum Aureus";
+                case "Treasure Bag (The Plaguebringer Goliath)":
+                    return "The Plaguebringer Goliath";
+                case "Treasure Bag (Ravager)":
+                    return "Ravager";
+                case "Treasure Bag (Astrum Deus)":
+                    return "Astrum Deus";
+                case "Treasure Bag (The Dragonfolly)":
+                    return "The Dragonfolly";
+                case "Treasure Bag (Providence, the Profaned Goddess)":
+                    return "Providence, the Profaned Goddess";
+                case "Treasure Bag (Ceaseless Void)":
+                    return "Ceaseless Void";
+                case "Treasure Bag (Storm Weaver)":
+                    return "Storm Weaver";
+                case "Treasure Bag (Signus, Envoy of the Devourer)":
+                    return "Signus, Envoy of the Devourer";
+                case "Treasure Bag (Polterghast)":
+                    return "Polterghast";
+                case "Treasure Bag (The Old Duke)":
+                    return "The Old Duke";
+                case "Treasure Bag (The Devourer of Gods)":
+                    return "The Devourer of Gods";
+                case "Treasure Bag (Jungle Dragon, Yharon)":
+                    return "Jungle Dragon, Yharon";
+                case "Treasure Box (Exo Mechs)":
+                    return "XF-09 Ares";
+                case "Treasure Coffer (Supreme Calamitas)":
+                    return "Supreme Calamitas";
+                default:
+                    return null;
+            }
         }
     }
 }
