@@ -245,9 +245,10 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static string GetModdedBossNameFromBag(string bagName)
         {
-            //Contributed by SnarkyEspresso
+            
             switch (bagName)
             {
+                // \/Calamity contributed by SnarkyEspresso
                 case "Treasure Bag (Desert Scourge)":
                     return "Desert Scourge";
                 case "Treasure Bag (Crabulon)":
@@ -298,6 +299,20 @@ namespace WeaponEnchantments.Common.Globals
                     return "XF-09 Ares";
                 case "Treasure Coffer (Supreme Calamitas)":
                     return "Supreme Calamitas";
+                // /\Calamity contributed by SnarkyEspresso
+
+                // \/Fargo's Souls contributed by SnarkyEspresso
+                case "Treasure Bag (Trojan Squirrel)":
+                    return "Trojan Squirrel";
+                case "Treasure Bag (Deviantt)":
+                    return "Deviantt";
+                case "Treasure Bag (Eridanus)":
+                    return "Eridanus";
+                case "Treasure Bag (Abomination)":
+                    return "Abomination";
+                case "Treasure Bag (Mutant)":
+                    return "Mutant";
+                // /\Fargo's Souls contributed by SnarkyEspresso
                 default:
                     string message = $"Support for this boss bag: {bagName} has not yet been added.\nPlease inform andro951(Weapon Enchantments) and include the name of the boss that drops it and which mod it is from.";
                     Main.NewText(message);

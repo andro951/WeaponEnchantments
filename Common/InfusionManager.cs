@@ -18,6 +18,9 @@ namespace WeaponEnchantments.Common
         public static float[] averageValues = new float[numRarities];
         public static int[] minValues = new int[numRarities];
         public static int[] maxValues = new int[numRarities];
+        public static int[] calamityAverageValues = new int[numRarities];
+        public static int[] calamityMinValues = new int[numRarities];
+        public static int[] calamityMaxValues = new int[] {1000, 2000, 4000, 8000, 24000, 48000, 72000, 96000, 120000, 160000, 200000, 220000, 240000, 260000, 280000, 300000, 400000};
         public static readonly float rarityMultiplier = (float)WEMod.serverConfig.InfusionDamageMultiplier / 1000f;
         public const float minMaxValueMultiplier = 0.25f;
 
@@ -46,6 +49,14 @@ namespace WeaponEnchantments.Common
                 minValues[i] = maxValues[i - 1];
                 averageValues[i] = (minValues[i] + maxValues[i]) / 2;
             }
+            for (int i = 0; i < numRarities; i++)
+			{
+                if (i == 0)
+                    calamityMinValues[i] = 0;
+                else
+                    calamityMinValues[i] = calamityMaxValues[i - 1];
+                calamityAverageValues[i] = (calamityMinValues[i] + calamityMaxValues[i]) / 2;
+			}
             string msg = "";
             for(int i = 0; i < numRarities; i++)
             {
@@ -103,57 +114,59 @@ namespace WeaponEnchantments.Common
                     valueOnly = true;
                     //rarity = 3;
                     break;*/
-                case "Arkhalis":
-                    rarity = 5;
+                case "Slime Staff":
+                    rarity = 2;
                     break;
                 case "Terragrim":
                     rarity = 3;
                     break;
+                case "Arkhalis":
+                    rarity = 5;
+                    break;
+                case "Nullification Pistol":
+                    rarity = 8;
+                    break;
                 case "The Only Thing I Know For Real":
                     rarity = 9;
                     break;
-                case "Bury The Light":
-                case "Ultima Thule":
-                    rarity = 12;
-                    break;
                 default:
                     rarity = sampleItem.rare;
+                    if (valueOnly)
+                    {
+                        int i;
+                        for (i = 0; i < numRarities; i++)
+                        {
+                            float max = calamityMaxValues[i];
+                            if (calamityMaxValues[i] > item.value)
+                            {
+                                float average = calamityAverageValues[i];
+                                if (calamityAverageValues[i] >= item.value)
+                                {
+                                    float min = calamityMinValues[i];
+                                    if (calamityMinValues[i] > item.value)
+                                        i--;
+                                    break;
+                                }
+                            }
+                        }
+                        rarity = i;
+                    }
+                    else if (rarity == 11 && item.value > maxValues[11])
+                    {
+                        int i;
+                        for (i = 12; i < numRarities; i++)
+                        {
+                            if (minValues[i] >= item.value)
+                            {
+                                i--;
+                                break;
+                            }
+                        }
+                        rarity = i;
+                    }
                     break;
             }
             float valueMultiplier = 0.5f;
-			if (valueOnly)
-			{
-                int i;
-                for(i = 0; i < numRarities; i++)
-				{
-                    float max = maxValues[i];
-                    if(maxValues[i] > item.value)
-					{
-                        float average = averageValues[i];
-                        if (averageValues[i] >= item.value)
-                        {
-                            float min = minValues[i];
-                            if (minValues[i] > item.value)
-                                i--;
-                            break;
-                        }
-                    }
-                }
-                rarity = i;
-			}
-            else if (rarity == 11 && item.value > maxValues[11])
-            {
-                int i;
-                for (i = 12; i < numRarities; i++)
-                {
-                    if (minValues[i] >= item.value)
-                    {
-                        i--;
-                        break;
-                    }
-                }
-                rarity = i;
-            }
             if (rarity > numRarities - 1) rarity = numRarities - 1;
             else if (rarity < 0) rarity = 0;
             int value = sampleItem.value;

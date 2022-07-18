@@ -648,10 +648,13 @@ namespace WeaponEnchantments.UI
         public static int ConvertXPToEssence(int xp, bool consumeAll = false)
         {
             if(xp > 0)
-			{
+            {
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                bool usingEnchantingTable = wePlayer.usingEnchantingTable;
-                /*if (!usingEnchantingTable)
+                if (wePlayer.usingEnchantingTable)
+                    for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
+                        wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                /*bool usingEnchantingTable = wePlayer.usingEnchantingTable;
+                if (!usingEnchantingTable)
                     WEModSystem.OpenWeaponEnchantmentUI();*/
                 int numberEssenceRecieved;
                 int xpCounter = wePlayer.highestTableTierUsed < 4 ? (int)Math.Round(xp * (0.6f + 0.1f * wePlayer.highestTableTierUsed)) : xp;
@@ -782,7 +785,8 @@ namespace WeaponEnchantments.UI
                 }
                 else
                 {
-                    iGlobal.experience -= ConvertXPToEssence(iGlobal.experience - WEModSystem.levelXps[EnchantedItem.maxLevel - 1]);
+                    int xp = iGlobal.experience - WEModSystem.levelXps[EnchantedItem.maxLevel - 1];
+                    iGlobal.experience -= ConvertXPToEssence(xp);
                 }
             }
         }

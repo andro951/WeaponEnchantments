@@ -50,7 +50,9 @@ namespace WeaponEnchantments.Common.Globals
                 NPCID.EaterofWorldsTail,
                 NPCID.BrainofCthulhu,
                 NPCID.KingSlime,
-                NPCID.Deerclops
+                NPCID.Deerclops,
+                NPCID.QueenBee,
+                NPCID.SkeletronHead
             };
             preHardModeModBossNames = new List<string>()
             {
