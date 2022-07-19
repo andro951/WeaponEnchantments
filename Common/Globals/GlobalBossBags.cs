@@ -257,56 +257,56 @@ namespace WeaponEnchantments.Common.Globals
             switch (bagName)
             {
                 // \/Calamity contributed by SnarkyEspresso
-                case "Treasure Bag (Desert Scourge)":
-                    return "Desert Scourge";
-                case "Treasure Bag (Crabulon)":
-                    return "Crabulon";
-                case "Treasure Bag (The Hive Mind)":
-                    return "The Hive Mind";
-                case "Treasure Bag (The Perforators)":
-                    return "The Perforator Hive";
-                case "Treasure Bag (The Slime God)":
-                    return "The Slime God";
-                case "Treasure Bag (Cryogen)":
-                    return "Cryogen";
-                case "Treasure Bag (Aquatic Scourge)":
+                case "AquaticScourgeBag":
                     return "Aquatic Scourge";
-                case "Treasure Bag (Brimstone Elemental)":
-                    return "Brimstone Elemental";
-                case "Treasure Bag (Calamitas)":
-                    return "Calamitas";
-                case "Treasure Bag (Leviathan and Anahita)":
-                    return "The Leviathan";
-                case "Treasure Bag (Astrum Aureus)":
+                case "AstrumAureusBag":
                     return "Astrum Aureus";
-                case "Treasure Bag (The Plaguebringer Goliath)":
-                    return "The Plaguebringer Goliath";
-                case "Treasure Bag (Ravager)":
-                    return "Ravager";
-                case "Treasure Bag (Astrum Deus)":
+                case "AstrumDeusBag":
                     return "Astrum Deus";
-                case "Treasure Bag (The Dragonfolly)":
-                    return "The Dragonfolly";
-                case "Treasure Bag (Providence, the Profaned Goddess)":
-                    return "Providence, the Profaned Goddess";
-                case "Treasure Bag (Ceaseless Void)":
+                case "BrimstoneWaifuBag":
+                    return "Brimstone Elemental";
+                case "CalamitasBag":
+                    return "Calamitas";
+                case "CeaselessVoidBag":
                     return "Ceaseless Void";
-                case "Treasure Bag (Storm Weaver)":
-                    return "Storm Weaver";
-                case "Treasure Bag (Signus, Envoy of the Devourer)":
-                    return "Signus, Envoy of the Devourer";
-                case "Treasure Bag (Polterghast)":
-                    return "Polterghast";
-                case "Treasure Bag (The Old Duke)":
-                    return "The Old Duke";
-                case "Treasure Bag (The Devourer of Gods)":
+                case "CrabulonBag":
+                    return "Crabulon";
+                case "CryogenBag":
+                    return "Cryogen";
+                case "DesertScourgeBag":
+                    return "Desert Scourge";
+                case "DevourerofGodsBag":
                     return "The Devourer of Gods";
-                case "Treasure Bag (Jungle Dragon, Yharon)":
-                    return "Jungle Dragon, Yharon";
-                case "Treasure Box (Exo Mechs)":
+                case "DragonfollyBag":
+                    return "The Dragonfolly";
+                case "DraedonBag":
                     return "XF-09 Ares";
-                case "Treasure Coffer (Supreme Calamitas)":
+                case "HiveMindBag":
+                    return "The Hive Mind";
+                case "LeviathanBag":
+                    return "The Leviathan";
+                case "OldDukeBag":
+                    return "The Old Duke";
+                case "PerforatorBag":
+                    return "The Perforator Hive";
+                case "PlaguebringerGoliathBag":
+                    return "The Plaguebringer Goliath";
+                case "PolterghastBag":
+                    return "Polterghast";
+                case "ProvidenceBag":
+                    return "Providence, the Profaned Goddess";
+                case "RavagerBag":
+                    return "Ravager";
+                case "SignusBag":
+                    return "Signus, Envoy of the Devourer";
+                case "SlimeGodBag":
+                    return "The Slime God";
+                case "StormWeaverBag":
+                    return "Storm Weaver";
+                case "SupremeCalamitasCoffer":
                     return "Supreme Calamitas";
+                case "YharonBag":
+                    return "Jungle Dragon, Yharon";
                 // /\Calamity contributed by SnarkyEspresso
 
                 // \/Fargo's Souls contributed by SnarkyEspresso
