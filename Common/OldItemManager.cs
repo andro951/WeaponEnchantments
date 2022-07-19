@@ -116,6 +116,8 @@ namespace WeaponEnchantments.Common
                             }
                             item.TryGetGlotalItemStats();
                         }
+                        if (iGlobal.failedUpdateInfusionDamage)
+                            item.UpdateInfusionDamage(iGlobal.damageMultiplier);
                     }
                 }
             if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();

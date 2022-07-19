@@ -200,12 +200,22 @@ namespace WeaponEnchantments.Common
             float itemRarity = GetWeaponRarity(item);
             float consumedRarity = GetWeaponRarity(consumedItem);
             infusedPower = (int)Math.Round(consumedRarity * 100f);
-            return (float)Math.Pow(rarityMultiplier, consumedRarity - itemRarity);
+            float multiplier = (float)Math.Pow(rarityMultiplier, consumedRarity - itemRarity);
+            return multiplier > 1f ? multiplier : 1f;
         }//Done
+        public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower)
+		{
+            float itemRarity = GetWeaponRarity(item);
+            float consumedRarity = (float)consumedItemInfusionPower / 100f;
+            float multiplier = (float)Math.Pow(rarityMultiplier, consumedRarity - itemRarity);
+            return multiplier > 1f ? multiplier : 1f;
+        }
         public static int GetWeaponInfusionPower(this Item item)
         {
+            if(item.IsAir)
+                return 0;
             if (item.G().infusedItemName != "")
-                return item.G().infusedPower;
+                return item.G().infusionPower;
             float notUse = GetWeaponMultiplier(new Item(ItemID.CopperShortsword), item, out int infusedPower);
             return infusedPower;
         }//Done
@@ -236,7 +246,7 @@ namespace WeaponEnchantments.Common
                 {
                     if (failedItemFind)
                     {
-                        infusedPower = consumedItem.G().infusedPower;
+                        infusedPower = consumedItem.G().infusionPower;
                         damageMultiplier = consumedItem.G().damageMultiplier;
                         consumedItemName = consumedItem.G().infusedItemName;
                     }
@@ -245,7 +255,7 @@ namespace WeaponEnchantments.Common
                         consumedItemName = consumedItem.Name;
                         damageMultiplier = GetWeaponMultiplier(item, consumedItem, out infusedPower);
                     }
-                    if (item.G().infusedPower < infusedPower || reset)
+                    if (item.G().infusionPower < infusedPower || reset)
                     {
                         if (!finalize)
                         {
@@ -253,7 +263,7 @@ namespace WeaponEnchantments.Common
                         }
                         else
                         {
-                            item.G().infusedPower = infusedPower;
+                            item.G().infusionPower = infusedPower;
                             item.G().damageMultiplier = damageMultiplier;
                             item.G().infusedItemName = consumedItemName;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
@@ -262,7 +272,7 @@ namespace WeaponEnchantments.Common
                         return true;
                     }
                     else if (finalize)
-                        Main.NewText($"Your {item.Name}({item.G().infusedPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
+                        Main.NewText($"Your {item.Name}({item.G().infusionPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                 }
                 else if (finalize)
                     Main.NewText($"The Infusion Power of the item being upgraded must be lower than the Infusion Power of the consumed item.");
@@ -332,7 +342,7 @@ namespace WeaponEnchantments.Common
             bool returnValue = TryGetGlotalItemStats(item, item.G().infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
             if (returnValue)
             {
-                item.G().infusedPower = infusedPower;
+                item.G().infusionPower = infusedPower;
                 item.G().damageMultiplier = damageMultiplier;
                 item.G().infusedArmorSlot = infusedArmorSlot;
             }
@@ -379,14 +389,19 @@ namespace WeaponEnchantments.Common
                 {
                     if (item.G().statModifiers.ContainsKey("damage"))
                     {
-                        item.G().statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
+                        item.G().statModifiers["damage"] = new StatModifier(1f, damageMultiplier);//This is being hit.  It's never supposed to be.  Just a precaution.
                     }
                     else
                     {
                         item.G().statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
                     }
                     if (updateStats)
-                        Main.LocalPlayer.G().UpdateItemStats(ref item);
+					{
+                        if(Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+                            wePlayer.UpdateItemStats(ref item);
+                        else
+                            item.G().failedUpdateInfusionDamage = true;
+                    }
                 }
                 else
                 {

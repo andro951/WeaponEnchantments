@@ -671,7 +671,7 @@ namespace WeaponEnchantments.Common
                                 if (item.TryGetGlobalItem(out EnchantedItem iGlobal))
                                 {
                                     item.CheckConvertExcessExperience(consumedItem);
-                                    if(iGlobal.infusedPower < cGlobal.infusedPower && item.GetWeaponInfusionPower() < cGlobal.infusedPower)
+                                    if(iGlobal.infusionPower < cGlobal.infusionPower && item.GetWeaponInfusionPower() < cGlobal.infusionPower)
                                         item.TryInfuseItem(consumedItem);
                                     if (cGlobal.powerBoosterInstalled)
                                     {

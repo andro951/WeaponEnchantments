@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<int, int> onHitBuffs;
 
         public string infusedItemName = "";
-        public int infusedPower = 0;
+        public int infusionPower = 0;
         public float damageMultiplier = 1f;
         public int infusedArmorSlot = -1;
         public int infusionValueAdded = 0;
@@ -59,6 +59,7 @@ namespace WeaponEnchantments.Common.Globals
         public static List<int> needClearWhoAmIs = new();
         public bool stack0 = false;
         public bool needsUpdateOldItems = false;
+        public bool failedUpdateInfusionDamage = false;
         public EnchantedItem()
         {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) 
@@ -87,7 +88,7 @@ namespace WeaponEnchantments.Common.Globals
                 cloneReforgedItem = false;
                 clone.experience = experience;
                 clone.infusedItemName = infusedItemName;
-                clone.infusedPower = infusedPower;
+                clone.infusionPower = infusionPower;
                 clone.damageMultiplier = damageMultiplier;
                 clone.infusionValueAdded = infusionValueAdded;
                 clone.lastValueBonus = lastValueBonus;
@@ -222,7 +223,7 @@ namespace WeaponEnchantments.Common.Globals
                     infusedItemName = reader.ReadString();
                 else
                     infusedItemName = "";
-                item.TryGetGlotalItemStats(infusedItemName, out infusedPower, out damageMultiplier, out infusedArmorSlot);
+                item.TryGetGlotalItemStats(infusedItemName, out infusionPower, out damageMultiplier, out infusedArmorSlot);
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
                     enchantments[i] = new Item(reader.ReadUInt16());
@@ -375,12 +376,16 @@ namespace WeaponEnchantments.Common.Globals
                     experience = int.MaxValue;
                 powerBoosterInstalled = tag.Get<bool>("powerBooster");//Load status of powerBoosterInstalled
                 infusedItemName = tag.Get<string>("infusedItemName");
-                infusedPower = tag.Get<int>("infusedPower");
-                damageMultiplier = tag.Get<float>("damageMultiplier");
+                if (infusedItemName != "")
+                {
+                    if (!item.TryInfuseItem(infusedItemName) || !item.TryInfuseItem(infusedItemName, false, true))
+                    {
+                        infusionPower = tag.Get<int>("infusedPower");
+                        damageMultiplier = item.GetWeaponMultiplier(infusionPower);
+                        item.UpdateInfusionDamage(damageMultiplier);
+                    }
+                }
                 stack0 = tag.Get<bool>("stack0");
-                if (damageMultiplier == 0f)
-                    damageMultiplier = 1f;
-                item.UpdateInfusionDamage(damageMultiplier, false);
                 UpdateLevel();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
@@ -419,7 +424,7 @@ namespace WeaponEnchantments.Common.Globals
             tag["experience"] = experience;//Save experience tag
             tag["powerBooster"] = powerBoosterInstalled;//save status of powerBoosterInstalled
             tag["infusedItemName"] = infusedItemName;
-            tag["infusedPower"] = infusedPower;
+            tag["infusedPower"] = infusionPower;
             tag["damageMultiplier"] = damageMultiplier;
             tag["stack0"] = stack0;
         }
@@ -453,7 +458,7 @@ namespace WeaponEnchantments.Common.Globals
             {
                 string tooltip = "";
                 if (WEMod.IsWeaponItem(item))
-                    tooltip = $"Infusion Power: {infusedPower}   Infused Item: {infusedItemName}";
+                    tooltip = $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
                 else if (WEMod.IsArmorItem(item))
                     tooltip = $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
                 tooltips.Add(new TooltipLine(Mod, "infusedItemTooltip", tooltip) { OverrideColor = Color.DarkRed });
