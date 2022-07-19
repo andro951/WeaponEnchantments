@@ -19,6 +19,11 @@ namespace WeaponEnchantments.Common.Globals
         {
             if (context == "bossBag")
             {
+                if(ContentSamples.ItemsByType[arg].ModItem != null)
+				{
+                    string bagName = ContentSamples.ItemsByType[arg].ModItem.Name;
+                    bagName.Log();
+                }
                 IEntitySource src = player.GetSource_OpenItem(arg);
                 NPC npc = GetNPCFromBossBagType(arg);
                 if (npc != null)
@@ -59,7 +64,7 @@ namespace WeaponEnchantments.Common.Globals
                         canDropPowerBooster = true;
                     else if(npc.ModNPC != null)
                     {
-                        string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[arg].Name);
+                        string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[arg].ModItem.Name);
                         if (bossName != "" && !WEGlobalNPC.preHardModeModBossNames.Contains(bossName))
                             canDropPowerBooster = true;
                     }
@@ -165,7 +170,11 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 default:
                     npcID = -1000;
-                    string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[bossBagType].Name);
+                    string bossName = null;
+                    if(ContentSamples.ItemsByType[bossBagType].ModItem != null)
+					{
+                        bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[bossBagType].ModItem.Name);
+                    }
                     if(bossName != null)
 					{
                         for (int i = 0; i < NPCLoader.NPCCount; i++)
@@ -245,7 +254,6 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static string GetModdedBossNameFromBag(string bagName)
         {
-            
             switch (bagName)
             {
                 // \/Calamity contributed by SnarkyEspresso
@@ -302,17 +310,57 @@ namespace WeaponEnchantments.Common.Globals
                 // /\Calamity contributed by SnarkyEspresso
 
                 // \/Fargo's Souls contributed by SnarkyEspresso
-                case "Treasure Bag (Trojan Squirrel)":
+                case "TrojanSquirrelBag":
                     return "Trojan Squirrel";
-                case "Treasure Bag (Deviantt)":
+                case "DeviBag":
                     return "Deviantt";
-                case "Treasure Bag (Eridanus)":
-                    return "Eridanus";
-                case "Treasure Bag (Abomination)":
-                    return "Abomination";
-                case "Treasure Bag (Mutant)":
+                case "CosmosBag":
+                    return "Eridanus, Champion of Cosmos";
+                case "AbomBag":
+                    return "Abominationn";
+                case "MutantBag":
                     return "Mutant";
                 // /\Fargo's Souls contributed by SnarkyEspresso
+
+                // \/Stars Above
+                case "VagrantBossBag":
+                    return "The Vagrant of Space and Time";
+                case "NalhaunBossBag":
+                    return "Nalhaun, The Burnished King";
+                case "PenthBossBag":
+                    return "Penthesilea, the Witch of Ink";
+                case "ArbitrationBossBag":
+                    return "Arbitration";
+                case "WarriorBossBag":
+                    return "The Warrior Of Light";
+                //case "":
+                //    return "Tsukiyomi, the First Starfarer";//No drops?
+                // /\Stars Above
+
+                /*case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";
+                case "":
+                    return "";*/
                 default:
                     string message = $"Support for this boss bag: {bagName} has not yet been added.\nPlease inform andro951(Weapon Enchantments) and include the name of the boss that drops it and which mod it is from.";
                     Main.NewText(message);

@@ -61,8 +61,8 @@ namespace WeaponEnchantments.Common.Globals
                 "The Hive Mind",//Calamity
                 "The Perforator Hive",//Calamity
                 "The Slime God",//Calamity
-                "",
-                "",
+                "Trojan Squirrel",//Fargo's
+                "Deviantt",//Fargo's
                 "",
                 "",
                 "",
@@ -606,6 +606,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null)
         {
+            npc.FullName.Log();
             if(UtilityMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
             if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
             {
