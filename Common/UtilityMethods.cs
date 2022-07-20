@@ -12,11 +12,11 @@ using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common
 {
-    public static class UtilityMethods
-    {
+    public static class UtilityMethods {
         public readonly static bool debugging = false;
         private static int spaces = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
+        public static string reporteMessage = "\nPlease report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.";
 
         ///<summary>
         ///Gets (EnchantedItem : GlobalItem)
@@ -29,6 +29,14 @@ namespace WeaponEnchantments.Common
         public static WEProjectile G(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
         public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TG(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
+        public static bool TG(this Item item, out EnchantedItem iGlobal) {
+            if (item != null && item.TryGetGlobalItem(out iGlobal))
+                return true;
+			else {
+                iGlobal = null;
+                return false;
+			}
+        }
         public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];
         public static AllForOneEnchantmentBasic EM(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
         ///<summary>
@@ -110,6 +118,7 @@ namespace WeaponEnchantments.Common
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
         public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
+        public static string S(this bool b) => b ? "True" : "False";
         public static string RI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
         public static string RP(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool CI(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;

@@ -795,13 +795,13 @@ namespace WeaponEnchantments.UI
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
                 EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>();
-                if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssenceBasic.xpPerEssence[0])
+                if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0])
                 {
-                    Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.maxLevel - 1] + EnchantmentEssenceBasic.xpPerEssence[0]).ToString() + " experience.");
+                    Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0]).ToString() + " experience.");
                 }
                 else
                 {
-                    int xp = iGlobal.experience - WEModSystem.levelXps[EnchantedItem.maxLevel - 1];
+                    int xp = iGlobal.experience - WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1];
                     iGlobal.experience -= ConvertXPToEssence(xp);
                 }
             }
@@ -862,7 +862,7 @@ namespace WeaponEnchantments.UI
                 int xpAvailable = 0;
 		        int nonFavoriteXpAvailable = 0;
                 EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
-                if(iGlobal.levelBeforeBooster != EnchantedItem.maxLevel)
+                if(iGlobal.levelBeforeBooster != EnchantedItem.MAX_LEVEL)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {

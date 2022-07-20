@@ -29,8 +29,8 @@ namespace WeaponEnchantments
         public static bool playerInventoryUpdated = false;
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
-        public static int[] levelXps = new int[EnchantedItem.maxLevel];
-        private static int[] essenceStack = new int[EnchantedItem.maxLevel];
+        public static int[] levelXps = new int[EnchantedItem.MAX_LEVEL];
+        private static int[] essenceStack = new int[EnchantedItem.MAX_LEVEL];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static bool playerSwapperModEnabled = false;
@@ -47,7 +47,7 @@ namespace WeaponEnchantments
             double previous = 0;
             double current;
             int l;
-            for (l = 0; l < EnchantedItem.maxLevel; l++)
+            for (l = 0; l < EnchantedItem.MAX_LEVEL; l++)
             {
                 current = previous * 1.23356622200537 + (l + 1) * 1000;
                 previous = current;
