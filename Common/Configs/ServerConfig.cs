@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Individual Strengths")]
         [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
-        [ReloadRequired]
+        //[ReloadRequired]
         public List<Pair> individualStrengths = new List<Pair>();
 
         [Header("Essence and Experience")]

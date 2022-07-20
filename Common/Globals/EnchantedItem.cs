@@ -291,7 +291,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 int powerBoosterValue = powerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
                 int npcTalking = player.talkNPC != -1 ? Main.npc[player.talkNPC].type : -1;
-                int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue + infusionValueAdded : 0;
+                //int valueToAdd = npcTalking != NPCID.GoblinTinkerer ? value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue + infusionValueAdded : 0;
+                int valueToAdd = value + (int)(EnchantmentEssenceBasic.valuePerXP * experience) + powerBoosterValue + infusionValueAdded;
                 valueToAdd /= item.stack;
                 item.value += valueToAdd - lastValueBonus;//Update items value based on enchantments installed
                 lastValueBonus = valueToAdd;
@@ -675,7 +676,6 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool? UseItem(Item item, Player player)
         {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            //if (allForOne)
             if (eStats.ContainsKey("CatastrophicRelease"))
             {
                 player.statMana = 0;
@@ -742,6 +742,8 @@ namespace WeaponEnchantments.Common.Globals
             {
                 if (experience > 0 || powerBoosterInstalled || infusedItemName != "")
                 {
+                    if (item.Name == "Primary Zenith")
+                        return;
                     if (Main.mouseItem.IsAir)
                     {
                         //item.stack++;
@@ -830,6 +832,11 @@ namespace WeaponEnchantments.Common.Globals
                 Main.reforgeItem.G().normalReforge = false;
             item.G().normalReforge = false;
             wePlayer.UpdateItemStats(ref item);
+        }
+		public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
+		{
+            reforgePrice -= lastValueBonus;
+            return true;
         }
 		public override void OnSpawn(Item item, IEntitySource source)
 		{

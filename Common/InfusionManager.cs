@@ -118,6 +118,9 @@ namespace WeaponEnchantments.Common
                     valueOnly = true;
                     //rarity = 3;
                     break;*/
+                case "Primary Zenith":
+                    rarity = 0;
+                    break;
                 case "Slime Staff":
                     rarity = 2;
                     break;
@@ -280,33 +283,39 @@ namespace WeaponEnchantments.Common
             }//Weapon
             else if (WEMod.IsArmorItem(item) && ((WEMod.IsArmorItem(consumedItem) || consumedItem.IsAir)))
 			{
-                if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot())
+                if (item.GetSlotIndex() == consumedItem.GetSlotIndex())
                 {
-					if (failedItemFind)
-					{
-                        consumedItemName = item.G().infusedItemName;
-                        infusedArmorSlot = ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
-                    }
-                    else
+                    if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot())
                     {
-                        consumedItemName = consumedItem.Name;
-                        infusedArmorSlot = consumedItem.GetInfusionArmorSlot();
+                        if (failedItemFind)
+                        {
+                            consumedItemName = item.G().infusedItemName;
+                            infusedArmorSlot = ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
+                        }
+                        else
+                        {
+                            consumedItemName = consumedItem.Name;
+                            infusedArmorSlot = consumedItem.GetInfusionArmorSlot();
+                        }
+                        if (!finalize)
+                        {
+                            item.UpdateArmorSlot(infusedArmorSlot);
+                        }
+                        else
+                        {
+                            item.G().infusedItemName = consumedItemName;
+                            item.G().infusedArmorSlot = infusedArmorSlot;
+                            int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
+                            item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                        }
+                        return true;
                     }
-					if (!finalize)
-					{
-                        item.UpdateArmorSlot(infusedArmorSlot);
-					}
-                    else
-					{
-                        item.G().infusedItemName = consumedItemName;
-                        item.G().infusedArmorSlot = infusedArmorSlot;
-                        int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                        item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
-                    }
-                    return true;
+                    else if (finalize && !failedItemFind)
+                        Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
+                    return false;
                 }
                 else if (finalize && !failedItemFind)
-                    Main.NewText($"The item being upgraded has the same set bonus as the item being consumed and will have no effect.");
+                    Main.NewText($"You cannot infuse armor of different types such as a helmet and body.");
                 return false;
             }//Armor
             if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
@@ -448,5 +457,18 @@ namespace WeaponEnchantments.Common
                 }
             }
         }//Done
+
+        public static int GetSlotIndex(this Item item)
+		{
+            Item SampleItem = ContentSamples.ItemsByType[(item.type)];
+            if (SampleItem.headSlot != -1)
+                return 0;
+            else if (SampleItem.bodySlot != -1)
+                return 1;
+            else if (SampleItem.legSlot != -1)
+                return 2;
+            else
+                return -1;
+        }
     }
 }

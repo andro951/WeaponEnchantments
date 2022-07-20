@@ -732,11 +732,17 @@ namespace WeaponEnchantments.UI
                 {
                     if (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem))
                     {
-                        if(tableItem.Name == "Murasama")
+                        bool canConsume = false;
+                        switch (tableItem.Name)
 						{
-                            Main.NewText("Murasama is banned from infusion until a check for the Jungle Dragon, Yharon being defeated can be added.");
+                            case "Murasama":
+                                Main.NewText("Murasama cannot be consumed for infusion until a check for the Jungle Dragon, Yharon being defeated can be added.");
+                                break;
+                            default:
+                                canConsume = true;
+                                break;
 						}
-						else
+						if(canConsume)
 						{
                             if (tableItem.stack > 1)
                             {
@@ -757,7 +763,17 @@ namespace WeaponEnchantments.UI
                 {
                     if (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem))
                     {
-                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
+                        bool canInfuse = false;
+						switch (tableItem.Name)
+						{
+                            case "Primary Zenith":
+                                Main.NewText($"{tableItem.Name} resisted your attempt to empower it.");
+                                break;
+                            default:
+                                canInfuse = true;
+                                break;
+                        }
+                        if (canInfuse && wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
                             ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
                             wePlayer.infusionConsumeItem = null;
