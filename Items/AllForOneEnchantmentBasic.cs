@@ -342,7 +342,6 @@ namespace WeaponEnchantments.Items
 			{
 				float multiplier =
 				(float)(
-					WEMod.serverConfig.strengthGroups.Contains(itemDefinition) ? WEMod.serverConfig.strengthGroupMultiplier :
 					WEMod.serverConfig.presetData.linearStrengthMultiplier != 100 ? WEMod.serverConfig.presetData.linearStrengthMultiplier :
 					-100f
 				) / 100f;

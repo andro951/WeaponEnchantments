@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Common
         ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
         ///</summary>
         public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
-        public static ProjectileEnchantedItem G(this Projectile projectile) => projectile.GetGlobalProjectile<ProjectileEnchantedItem>();
+        public static WEProjectile G(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
         public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TG(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
         public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];

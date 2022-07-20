@@ -9,7 +9,7 @@ using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public class ProjectileEnchantedItem : GlobalProjectile
+    public class WEProjectile : GlobalProjectile
     {
         public Item sourceItem;
         public Player playerSource;
@@ -94,7 +94,7 @@ namespace WeaponEnchantments.Common.Globals
                 playerSource = player;
                 playerSourceSet = true;
             }
-            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
             if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
             if (sourceSet)
             {
@@ -142,9 +142,9 @@ namespace WeaponEnchantments.Common.Globals
         private void TryUpdateFromParent()
         {
             playerSource = parent.G().playerSource;
-            if (parent.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem != null)
+            if (parent.GetGlobalProjectile<WEProjectile>()?.sourceItem != null)
             {
-                ProjectileEnchantedItem pGlobal = parent.G();
+                WEProjectile pGlobal = parent.G();
                 sourceItem = pGlobal.sourceItem;
                 sourceSet = true;
                 cooldownEnd = pGlobal.cooldownEnd;
@@ -211,7 +211,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type)
                 {
-                    if (proj.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem.TG())
+                    if (proj.GetGlobalProjectile<WEProjectile>().sourceItem.TG())
                     {
                         projectileNames = proj.Name.RemoveProjectileName().SplitString();
                         checkMatches = projNames.CheckMatches(projectileNames);
@@ -223,12 +223,12 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem : null;
+            return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<WEProjectile>().sourceItem : null;
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
             if (!updated)
-                projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+                projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
             if (sourceItem.TG())
             {
                 if (sourceItem.scale != lastScaleBonus)
@@ -411,7 +411,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
-            projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
+            projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
             //if (target.life <= 0)//If NPC died
             {
                 if (sourceItem.TG())
@@ -605,6 +605,11 @@ namespace WeaponEnchantments.Common.Globals
                     }
                     projectile.scale *= sourceItem.scale;
                 }
+
+                switch (projectile.type) {
+                    case ProjectileID.LastPrismLaser:
+                        return;
+                }//Excluded Projectiles
 
                 hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
                 hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);

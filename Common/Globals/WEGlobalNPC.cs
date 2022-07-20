@@ -599,8 +599,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if(UtilityMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
+            Item item = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
             HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
             if(UtilityMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
@@ -828,8 +828,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             if(UtilityMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
+            Item item = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
             OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
             if(UtilityMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
