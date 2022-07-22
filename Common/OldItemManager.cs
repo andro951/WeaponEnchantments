@@ -71,12 +71,22 @@ namespace WeaponEnchantments.Common
             if(item != null && !item.IsAir)
             {
                 if(UtilityMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                
                 if (item.ModItem is UnloadedItem)
                 {
-                    bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
-                    replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
-                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
-                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
+                    bool replaced = false;
+					if (!replaced) {
+                        replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
+                    }
+                    if (!replaced) {
+                        replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
+                    }
+                    if (!replaced) {
+                        replaced = TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem);
+                    }
+                    if (!replaced) {
+                        TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins);
+                    }
                 }
                 if (WEMod.IsEnchantable(item))
                 {
@@ -106,23 +116,16 @@ namespace WeaponEnchantments.Common
                         if (player != null)
                         {
                             item.RemoveUntilPositive(player);
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                            {
-                                Item enchantmentItem = iGlobal.enchantments[i];
-                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                                item.UpdateEnchantment(player, ref enchantment, i);
-                                if (Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
-                                    ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
-                            }
-                            item.TryGetGlotalItemStats();
+
+                            item.SetupGlobals();
                         }
-                        if (iGlobal.failedUpdateInfusionDamage)
-                            item.UpdateInfusionDamage(iGlobal.damageMultiplier);
                     }
                 }
-            if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+
+                if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             }
         }
+
         private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg)
         {
             enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);

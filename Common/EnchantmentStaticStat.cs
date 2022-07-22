@@ -73,7 +73,7 @@ namespace WeaponEnchantments.Common
         /*public void UpdatePlayerStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false) 
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            EnchantedItem iGlobal = item.G();
             Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
             Player contentSamplePlayer = new Player();
             if (boolStat)
@@ -201,7 +201,7 @@ namespace WeaponEnchantments.Common
                 }
             }
             /*WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            EnchantedItem iGlobal = item.G();
             Item contentSampleItem = ContentSamples.ItemsByType[item.type].Clone();
             if (boolStat)
             {

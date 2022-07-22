@@ -26,6 +26,7 @@ namespace WeaponEnchantments.Common.Configs
     public class ServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
+
         [Header("Server Config")]
         [Label("Presets and Multipliers")]
         [ReloadRequired]

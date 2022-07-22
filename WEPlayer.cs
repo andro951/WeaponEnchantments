@@ -76,7 +76,7 @@ namespace WeaponEnchantments
         public Item[] equipArmor;
         public bool[] equipArmorStatsUpdated;
         public Item trackedWeapon;
-        public Item hoverItem;
+        public Item trackedHoverItem;
         public Item infusionConsumeItem = null;
         public string previousInfusedItemName = "";
         int hoverItemIndex = 0;
@@ -84,7 +84,6 @@ namespace WeaponEnchantments
         public Item trashItem = new Item();
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
-        public bool stickyFavorited = true;
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
         public bool[] vanillaPlayerBuffsWeapon;
         public bool[] vanillaPlayerBuffsArmor;
@@ -346,29 +345,29 @@ namespace WeaponEnchantments
             {
                 if (!Player.trashItem.IsAir)
                 {
-                    if (!Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem)
+                    if (!Player.trashItem.G().trashItem)
                     {
                         if (!trashItem.IsAir)
-                            trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
-                        Player.trashItem.GetGlobalItem<EnchantedItem>().trashItem = true;
+                            trashItem.G().trashItem = false;
+                        Player.trashItem.G().trashItem = true;
                     }
                 }//Trash Item
                 else if (!trashItem.IsAir)
-                    trashItem.GetGlobalItem<EnchantedItem>().trashItem = false;
+                    trashItem.G().trashItem = false;
                 bool hoveringOverTrash = false;
                 if (!item.IsAir)
                 {
-                    if(item.GetGlobalItem<EnchantedItem>().trashItem)
+                    if(item.TG(out EnchantedItem iGlobal) && iGlobal.trashItem)
                         hoveringOverTrash = true;
                 }
                 if (!hoveringOverTrash)
                 {
                     Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
-                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled)
                     {
                         if (moveItem)
                         {
-                            enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+                            enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled = true;
                             if (item.stack > 1)
                                 item.stack--;
                             else
@@ -387,7 +386,7 @@ namespace WeaponEnchantments
                                 {
                                     bool doNotSwap = false;
                                     if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
-                                        if (iGlobal.equip && !tableItem.IsAir)
+                                        if (iGlobal.equippedInArmorSlot && !tableItem.IsAir)
                                             if(WEMod.IsAccessoryItem(item) && !WEMod.IsArmorItem(item) && (WEMod.IsAccessoryItem(tableItem) || WEMod.IsArmorItem(tableItem)) || item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1)
                                                 doNotSwap = true;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
                                     if (!doNotSwap)
@@ -642,28 +641,28 @@ namespace WeaponEnchantments
                         }
                     }
                     if(UtilityMethods.debugging) ($"newItem: " + newItem.S()).Log();
-                    bool checkWeapon = ItemChanged(newItem, hoverItem, true);
-                    if(UtilityMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, hoverItem, true)).Log();
+                    bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
+                    if(UtilityMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
                     if (checkWeapon)
                     {
-                        if (newItem != null && !newItem.IsAir)
+                        if (newItem != null && WEMod.IsEnchantable(newItem))
                             newItem.G().hoverItem = true;
-                        if (hoverItem != null && !hoverItem.IsAir)
+                        if (trackedHoverItem != null && WEMod.IsEnchantable(trackedHoverItem))
                         {
-                            hoverItem.G().hoverItem = false;
+                            trackedHoverItem.G().hoverItem = false;
                         }
-                        hoverItem = newItem;
+                        trackedHoverItem = newItem;
                         UpdateItemStats(ref newItem);
                     }//Check HeldItem
                     if(UtilityMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
                 }
                 else
                 {
-                    if (hoverItem != null && !hoverItem.IsAir && (Main.HoverItem != null && !Main.HoverItem.IsAir && (Main.HoverItem.G() != null && Main.HoverItem.G().hoverItem == false) || (Main.HoverItem == null || Main.HoverItem.IsAir)))
+                    if (trackedHoverItem.TG(out EnchantedItem trackedHoverItemEI) && (Main.HoverItem.TG(out EnchantedItem hoverItemEI) && (hoverItemEI != null && hoverItemEI.hoverItem == false) || (Main.HoverItem == null || Main.HoverItem.IsAir)))
                     {
-                        if(UtilityMethods.debugging) ($"remove hoverItem: {hoverItem.S()}").Log();
-                        hoverItem.G().hoverItem = false;
-                        hoverItem = null;
+                        if(UtilityMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
+                        trackedHoverItemEI.hoverItem = false;
+                        trackedHoverItem = null;
                     }
                     /*if (hoverItem != null && !hoverItem.IsAir && (!WEMod.IsWeaponItem(Main.HoverItem) || !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem))
                     {
@@ -723,15 +722,15 @@ namespace WeaponEnchantments
                         {
                             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                             {
-                                if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                                if (!armor.G().enchantments[i].IsAir)
                                 {
                                     if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor))
                                     {
-                                        armor.GetGlobalItem<EnchantedItem>().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetGlobalItem<EnchantedItem>().enchantments[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetGlobalItem<EnchantedItem>().enchantments[i].IsAir)
+                                        armor.G().enchantments[i] = Player.GetItem(Main.myPlayer, armor.G().enchantments[i], GetItemSettings.LootAllSettings);
+                                        if (!armor.G().enchantments[i].IsAir)
                                         {
-                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetGlobalItem<EnchantedItem>().enchantments[i]);
-                                            armor.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.G().enchantments[i]);
+                                            armor.G().enchantments[i] = new Item();
                                             if (WEMod.IsArmorItem(armor))
                                             {
                                                 Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
@@ -754,11 +753,11 @@ namespace WeaponEnchantments
                         if (!equipArmor[j].IsAir)
                         {
                             Item temp = equipArmor[j];
-                            temp.GetGlobalItem<EnchantedItem>().equip = false;
+                            temp.G().equippedInArmorSlot = false;
                         }
                         if (!armor.IsAir)
                         {
-                            armor.GetGlobalItem<EnchantedItem>().equip = true;
+                            armor.G().equippedInArmorSlot = true;
                         }
                         equipArmor[j] = armor;
                     }
@@ -781,7 +780,6 @@ namespace WeaponEnchantments
         {
             if (current != null && !current.IsAir)
             {
-                EnchantedItem cGlobal = current.GetGlobalItem<EnchantedItem>();
                 if(previous == null)
                 {
                     return true;
@@ -790,7 +788,7 @@ namespace WeaponEnchantments
                 {
                     return true;
                 }
-                else if (WEMod.IsEnchantable(current) && (weapon && !cGlobal.trackedWeapon || !weapon && !cGlobal.equip))
+                else if (WEMod.IsEnchantable(current) && (weapon && !current.G().trackedWeapon || !weapon && !current.G().equippedInArmorSlot))
                 {
                     return true;
                 }
@@ -813,7 +811,7 @@ namespace WeaponEnchantments
             if(UtilityMethods.debugging) ($"\\/UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
             if (WEMod.IsEnchantable(item))
             {
-                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                EnchantedItem iGlobal = item.G();
                 WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
                 if(UtilityMethods.debugging) ($"potionBuffs.Count: {buffs.Count}, iGlobal.potionBuffs.Count: {iGlobal.buffs.Count}").Log();
                 foreach (int key in iGlobal.buffs.Keys)
@@ -883,9 +881,9 @@ namespace WeaponEnchantments
             if (!WEMod.IsWeaponItem(newItem))
             {
                 Item weapon = null;
-                if (!Player.HeldItem.IsAir && Player.HeldItem.G().trackedWeapon)
+                if (WEMod.IsEnchantable(Player.HeldItem) && Player.HeldItem.G().trackedWeapon)
                     weapon = Player.HeldItem;
-                else if (!Main.mouseItem.IsAir && Main.mouseItem.G().trackedWeapon)
+                else if (WEMod.IsEnchantable(Main.mouseItem) && Main.mouseItem.G().trackedWeapon)
                     weapon = Main.mouseItem;
                 if (weapon != null)
                     UpdateItemStats(ref weapon);
@@ -971,7 +969,7 @@ namespace WeaponEnchantments
         }
         private void UpdatePlayerDictionaries(Item item, bool remove = false)
         {
-            if(UtilityMethods.debugging) ($"\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + item.GetGlobalItem<EnchantedItem>().statModifiers.Count).Log();
+            if(UtilityMethods.debugging) ($"\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + item.G().statModifiers.Count).Log();
             foreach (string key in item.G().statModifiers.Keys)
             {
                 string statName = key.RI();
@@ -1002,7 +1000,7 @@ namespace WeaponEnchantments
             if (WEMod.IsEnchantable(item))
             {
                 if(UtilityMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
-                int prefix = item.G().prefix;
+
                 if (item.G().prefix != item.prefix)
                 {
                     item.G().appliedStatModifiers.Clear();
@@ -1167,10 +1165,19 @@ namespace WeaponEnchantments
                         //TryRemoveStat(ref item.G().appliedEStats, key);
                     }
                 }
-                foreach(string key in item.G().appliedEStats.Keys)
-                    TryRemoveStat(ref item.G().appliedStatModifiers, key);
-                foreach(string key in item.G().statModifiers.Keys)
+
+                foreach (string key in item.G().statModifiers.Keys)
                     TryRemoveStat(ref item.G().statModifiers, key);
+
+                foreach (string key in item.G().appliedStatModifiers.Keys)
+                    TryRemoveStat(ref item.G().appliedStatModifiers, key);
+                
+                foreach(string key in item.G().eStats.Keys)
+                    TryRemoveStat(ref item.G().eStats, key);
+
+                foreach(string key in item.G().appliedEStats.Keys)
+                    TryRemoveStat(ref item.G().appliedEStats, key);
+
                 if (UtilityMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }

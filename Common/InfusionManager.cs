@@ -192,7 +192,7 @@ namespace WeaponEnchantments.Common
                 combinedRarity = rarity - 2 * valueMultiplier;*/
             float combinedRarity = rarity + valueRarity;
             return combinedRarity > 0 ? combinedRarity : 0;
-        }//Done
+        }
         public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower)
         {
             if (consumedItem.IsAir)
@@ -205,7 +205,7 @@ namespace WeaponEnchantments.Common
             infusedPower = (int)Math.Round(consumedRarity * 100f);
             float multiplier = (float)Math.Pow(rarityMultiplier, consumedRarity - itemRarity);
             return multiplier > 1f ? multiplier : 1f;
-        }//Done
+        }
         public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower)
 		{
             float itemRarity = GetWeaponRarity(item);
@@ -221,14 +221,14 @@ namespace WeaponEnchantments.Common
                 return item.G().infusionPower;
             float notUse = GetWeaponMultiplier(new Item(ItemID.CopperShortsword), item, out int infusedPower);
             return infusedPower;
-        }//Done
+        }
         public static string GetInfusionItemName(this Item item)
         {
             if (item.G().infusedItemName != "")
                 return item.G().infusedItemName;
             else
                 return item.Name;
-        }//Done
+        }
         public static bool TryInfuseItem(this Item item, Item consumedItem, bool reset = false, bool finalize = false)
         {
             bool failedItemFind = false;
@@ -321,7 +321,7 @@ namespace WeaponEnchantments.Common
             if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
                 Main.NewText($"Infusion is only possitle between items of the same type (Weapon/Armor)");
             return false;
-        }//Done
+        }
         public static bool TryInfuseItem(this Item item, string infusedItemName, bool reset = false, bool finalize = false)
         {
             for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++)
@@ -331,7 +331,7 @@ namespace WeaponEnchantments.Common
                     return TryInfuseItem(item, foundItem, reset, finalize);
             }
             return TryInfuseItem(item, new Item(), reset, finalize);
-        }//Done
+        }
         public static void GetGlotalItemStats(this Item item, Item infusedItem, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot)
         {
 			if (WEMod.IsWeaponItem(item))
@@ -345,7 +345,7 @@ namespace WeaponEnchantments.Common
                 infusedPower = 0;
                 infusedArmorSlot = infusedItem.GetInfusionArmorSlot();
             }
-        }//Done
+        }
         public static bool TryGetGlotalItemStats(this Item item)
         {
             bool returnValue = TryGetGlotalItemStats(item, item.G().infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
@@ -356,7 +356,7 @@ namespace WeaponEnchantments.Common
                 item.G().infusedArmorSlot = infusedArmorSlot;
             }
             return returnValue;
-        }//Done
+        }
         public static bool TryGetGlotalItemStats(this Item item, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot)
         {
             if (infusedItemName != "")
@@ -389,7 +389,7 @@ namespace WeaponEnchantments.Common
             else if (WEMod.IsArmorItem(item))
                 item.UpdateArmorSlot(infusedArmorSlot);
             return false;
-        }//Done
+        }
         public static void UpdateInfusionDamage(this Item item, float damageMultiplier, bool updateStats = true)
         {
             if(damageMultiplier != 1f || item.G().statModifiers.ContainsKey("damage"))
@@ -399,24 +399,26 @@ namespace WeaponEnchantments.Common
                     if (item.G().statModifiers.ContainsKey("damage"))
                     {
                         item.G().statModifiers["damage"] = new StatModifier(1f, damageMultiplier);//This is being hit.  It's never supposed to be.  Just a precaution.
+
+                        $"Updated the infusion damage multiplier again for item: {item.S()}.  This shouldn't ever happen".LogNT();
                     }
                     else
                     {
                         item.G().statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
                     }
-                    if (updateStats)
+                    if (updateStats && Main.netMode < NetmodeID.Server)
 					{
-                        if(Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+                        if(Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer)) {
                             wePlayer.UpdateItemStats(ref item);
-                        else
-                            item.G().failedUpdateInfusionDamage = true;
+                        }
+						else {
+                            $"Failed to UpdateItemStats on item: {item.S()} due to Main.LocalPlayer being null.".LogNT();
+						}
                     }
                 }
                 else
                 {
-                    string errorMessage = $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.  Please inform andro951(Weapon Enchantments)";
-                    errorMessage.Log();
-                    Main.NewText(errorMessage);
+                    $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.".LogNT();
                 }
             }
         }
@@ -435,7 +437,7 @@ namespace WeaponEnchantments.Common
                 else if (item.legSlot != -1)
                     item.legSlot = infusedArmorSlot;
             }
-		}//Done
+		}
         public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false)
 		{
             if (!getCurrent && item.TryGetGlobalItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1)
@@ -456,8 +458,7 @@ namespace WeaponEnchantments.Common
                         return -1;
                 }
             }
-        }//Done
-
+        }
         public static int GetSlotIndex(this Item item)
 		{
             Item SampleItem = ContentSamples.ItemsByType[(item.type)];

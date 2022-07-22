@@ -159,7 +159,7 @@ namespace WeaponEnchantments.UI
                 }//Take all enchantments first
                 if (!stop)
                 {
-                    int xp = item.GetGlobalItem<EnchantedItem>().experience;
+                    int xp = item.G().experience;
                     float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
@@ -636,7 +636,7 @@ namespace WeaponEnchantments.UI
                     essence.stack--;
                     //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                     //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                    item.GetGlobalItem<EnchantedItem>().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
+                    item.G().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
                 else
@@ -794,7 +794,7 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
-                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>();
+                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G();
                 if(iGlobal.experience < WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0])
                 {
                     Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0]).ToString() + " experience.");
@@ -821,10 +821,10 @@ namespace WeaponEnchantments.UI
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
                         {
                             WEModSystem.RemoveEnchantment(i);
-                            //AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+                            //AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
                             //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = new Item();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = new Item();
                         }
                     }
                 }//Take all enchantments first
@@ -861,7 +861,7 @@ namespace WeaponEnchantments.UI
             {
                 int xpAvailable = 0;
 		        int nonFavoriteXpAvailable = 0;
-                EnchantedItem iGlobal = tableItem.GetGlobalItem<EnchantedItem>();
+                EnchantedItem iGlobal = tableItem.G();
                 if(iGlobal.levelBeforeBooster != EnchantedItem.MAX_LEVEL)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)

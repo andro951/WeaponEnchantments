@@ -30,7 +30,6 @@ namespace WeaponEnchantments
 		public static List<Item> consumedItems = new(); 
 		internal static bool IsEnchantable(Item item)
         {
-			//if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
 			if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
 			{
 				return true;
@@ -205,7 +204,7 @@ namespace WeaponEnchantments
 						{
 							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
 							AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
-							item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
+							item.UpdateEnchantment(ref enchantment, enchantmentSlotNumber);
 						}
 						else
 						{

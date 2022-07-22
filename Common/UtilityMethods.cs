@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Common
         ///</summary>
         public static EnchantedItem G(this Item item) => item.GetGlobalItem<EnchantedItem>();
         ///<summary>
-        ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem
+        ///Gets this item's enchantemnt at index i.  Gets (AllForOneEnchantmentBasic)item.G().enchantments[i].ModItem
         ///</summary>
         public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
         public static WEProjectile G(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
@@ -37,8 +37,8 @@ namespace WeaponEnchantments.Common
                 return false;
 			}
         }
-        public static Item E(this Item item, int i) => item.GetGlobalItem<EnchantedItem>().enchantments[i];
-        public static AllForOneEnchantmentBasic EM(this Item item, int i) => (AllForOneEnchantmentBasic)item.GetGlobalItem<EnchantedItem>().enchantments[i].ModItem;
+        public static Item E(this Item item, int i) => item.G().enchantments[i];
+        public static AllForOneEnchantmentBasic EM(this Item item, int i) => (AllForOneEnchantmentBasic)item.G().enchantments[i].ModItem;
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
         ///</summary>
@@ -62,7 +62,7 @@ namespace WeaponEnchantments.Common
         /// <summary>
         /// Applies the appliedStatModifier from the item's global item to the value.
         /// </summary>
-        public static float A(this Item item, string key, float value) => item.GetGlobalItem<EnchantedItem>().appliedStatModifiers.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().appliedStatModifiers[key].ApplyTo(value) : value;
+        public static float A(this Item item, string key, float value) => item.G().appliedStatModifiers.ContainsKey(key) ? item.G().appliedStatModifiers[key].ApplyTo(value) : value;
         /// <summary>
         /// Applies the eStat modifier from the item's global item to the value.
         /// </summary>
@@ -71,7 +71,7 @@ namespace WeaponEnchantments.Common
             if (item.G().appliedEStats.ContainsKey(key))
                 return item.G().appliedEStats[key].ApplyTo(value);
             return value;
-            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.GetGlobalItem<EnchantedItem>().eStats[key].ApplyTo(value) : value;
+            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.G().eStats[key].ApplyTo(value) : value;
         }
         public static bool CEP(this Player player, string key)
         {
@@ -79,7 +79,7 @@ namespace WeaponEnchantments.Common
             if (wePlayer.eStats.ContainsKey(key))
                 return true;
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon != null && !weapon.IsAir && weapon.G().eStats.ContainsKey(key))
+            if (weapon != null && WEMod.IsWeaponItem(weapon) && weapon.G().eStats.ContainsKey(key))
                 return true;
             return false;
         }
@@ -104,7 +104,7 @@ namespace WeaponEnchantments.Common
                 combinedStatModifier = combinedStatModifier.CombineWith(item.G().eStats[key]);
             return combinedStatModifier.ApplyTo(value);
         }
-        public static bool C(this Item item, string key) => item.GetGlobalItem<EnchantedItem>().eStats.ContainsKey(key);
+        public static bool C(this Item item, string key) => item.G().eStats.ContainsKey(key);
         public static bool C(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
         public static bool C(this Player player, string key, Item item) => player.G().eStats.ContainsKey(key) || item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.G().eStats.ContainsKey(key);
         public static string S(this StatModifier statModifier) => "<A: " + statModifier.Additive + ", M: " + statModifier.Multiplicative + ", B: " + statModifier.Base + ", F: " + statModifier.Flat + ">";
@@ -113,7 +113,7 @@ namespace WeaponEnchantments.Common
         public static string S(this Item item) => item != null ? !item.IsAir ? item.Name : "<Air>" : "null";
         public static string S(this Projectile projectile) => projectile != null ? projectile.Name : "null";
         public static string S(this Player player) => player != null ? player.name : "null";
-        public static string S(this NPC npc) => npc != null ? $"name: {npc.FullName} whoAmI: {npc.whoAmI}" : "null";
+        public static string S(this NPC npc, bool stats = false) => npc != null ? $"name: {npc.FullName} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeMax}, life: {npc.life}" : "")}" : "null";
         public static string S(this AllForOneEnchantmentBasic enchantment) => enchantment != null ? enchantment.Name : "null";
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
@@ -366,7 +366,7 @@ namespace WeaponEnchantments.Common
                             {
                                 if (!iGlobal.enchantments[k].IsAir)
                                 {
-                                    item.GetGlobalItem<EnchantedItem>().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
+                                    item.G().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
                                 }
                                 if (!iGlobal.enchantments[k].IsAir)
                                 {
@@ -386,147 +386,12 @@ namespace WeaponEnchantments.Common
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (!item.IsAir)
             {
-                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+                EnchantedItem iGlobal = item.G();
                 AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i);
+                item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
             }
             if (UtilityMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
-        }
-        public static void UpdateEnchantment(this Item item, Player player, ref AllForOneEnchantmentBasic enchantment, int slotNum, bool remove = false)
-        {
-            if (enchantment != null)
-            {
-                if (UtilityMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
-                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-                if (enchantment != null)
-                {
-                    if (enchantment.Buff.Count > 0)
-                    {
-                        foreach (int buff in enchantment.Buff)
-                        {
-                            if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
-                            if (iGlobal.buffs.ContainsKey(buff))
-                            {
-                                iGlobal.buffs[buff] += (remove ? -1 : 1);
-                                if (iGlobal.buffs[buff] < 1)
-                                    iGlobal.buffs.Remove(buff);
-                            }
-                            else
-                            {
-                                iGlobal.buffs.Add(buff, 1);
-                            }
-                            if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
-                        }
-                    }//Buffs
-                    if (enchantment.Debuff.Count > 0)
-                    {
-                        foreach (int debuff in enchantment.Debuff.Keys)
-                        {
-                            if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
-                            int duration = enchantment.Debuff[debuff];
-                            if (iGlobal.debuffs.ContainsKey(debuff))
-                            {
-                                iGlobal.debuffs[debuff] += (remove ? -duration : duration);
-                                if (iGlobal.debuffs[debuff] < 1)
-                                    iGlobal.debuffs.Remove(debuff);
-                            }
-                            else
-                            {
-                                iGlobal.debuffs.Add(debuff, duration);
-                            }
-                            if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
-                        }
-                    }//Debuffs
-                    if (enchantment.OnHitBuff.Count > 0)
-                    {
-                        foreach (int onHitBuff in enchantment.OnHitBuff.Keys)
-                        {
-                            if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
-                            int duration = enchantment.OnHitBuff[onHitBuff];
-                            if (iGlobal.onHitBuffs.ContainsKey(onHitBuff))
-                            {
-                                int temp = enchantment.OnHitBuff[onHitBuff];
-                                iGlobal.onHitBuffs[onHitBuff] += (remove ? -duration : duration);
-                                if (iGlobal.onHitBuffs[onHitBuff] < 1)
-                                    iGlobal.onHitBuffs.Remove(onHitBuff);
-                            }
-                            else
-                            {
-                                iGlobal.onHitBuffs.Add(onHitBuff, duration);
-                            }
-                            if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
-                        }
-                    }//OnHitBuffs
-                    foreach (EStat eStat in enchantment.EStats)
-                    {
-                        if (UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
-                        //(item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
-                        float add = eStat.Additive * (remove ? -1f : 1f);
-                        float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
-                        float flat = eStat.Flat * (remove ? -1f : 1f);
-                        float @base = eStat.Base * (remove ? -1f : 1f);
-                        ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
-                        if (!iGlobal.eStats.ContainsKey(eStat.StatName))
-                        {
-                            iGlobal.eStats.Add(eStat.StatName, statModifier);
-                        }
-                        else
-                        {
-                            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-                            iGlobal.eStats[eStat.StatName] = iGlobal.eStats[eStat.StatName].CombineWith(statModifier);
-                            //wePlayer.eStats[eStat.StatName] = wePlayer.eStats[eStat.StatName].CombineWith(statModifier);
-                            WEPlayer.TryRemoveStat(ref iGlobal.eStats, eStat.StatName);
-                            /*if (iGlobal.eStats[eStat.StatName].Additive == 1f && iGlobal.eStats[eStat.StatName].Multiplicative == 1f)
-                            {
-                                iGlobal.eStats.Remove(eStat.StatName);
-                            }*/
-                        }
-                        //(item.S() + " eStats[" + eStat.StatName + "]: " + iGlobal.eStats.S(eStat.StatName)).Log();
-                    }
-                    foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats)
-                    {
-                        if (UtilityMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
-                        //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
-                        float add = staticStat.Additive * (remove ? -1f : 1f);
-                        float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
-                        float flat = staticStat.Flat * (remove ? -1f : 1f);
-                        float @base = staticStat.Base * (remove ? -1f : 1f);
-                        ApplyAllowedList(item, enchantment, ref add, ref mult, ref flat, ref @base);
-                        StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
-                        if (!iGlobal.statModifiers.ContainsKey(staticStat.Name))
-                        {
-                            item.GetGlobalItem<EnchantedItem>().statModifiers.Add(staticStat.Name, statModifier);
-                        }
-                        else
-                        {
-                            iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
-                            /*if (iGlobal.statModifiers[staticStat.Name].Additive == 1f && iGlobal.statModifiers[staticStat.Name].Multiplicative == 1f)
-                            {
-                                item.GetGlobalItem<EnchantedItem>().statModifiers.Remove(staticStat.Name);
-                            }*/
-                        }
-                        //(item.S() + " statModifiers[" + staticStat.Name + "]: " + iGlobal.statModifiers.S(staticStat.Name)).Log();
-                    }
-                    if (enchantment.NewDamageType > -1)
-                    {
-                        if (remove)
-                        {
-                            item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
-                            item.G().damageType = -1;
-                        }
-                        else
-                        {
-                            item.G().damageType = enchantment.NewDamageType;
-                            item.UpdateDamageType(enchantment.NewDamageType);
-                        }
-                    }
-
-                }
-                //iGlobal.statsSet[slotNum] = true;
-                if (UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
-            }
         }
         public static void UpdateDamageType(this Item item, int type)
         {
@@ -564,7 +429,7 @@ namespace WeaponEnchantments.Common
                     break;
             }
         }
-        public static void ApplyAllowedList(Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)
+        public static void ApplyAllowedList(this Item item, AllForOneEnchantmentBasic enchantment, ref float add, ref float mult, ref float flat, ref float @base)
         {
             if (WEMod.IsWeaponItem(item))
             {
@@ -635,6 +500,14 @@ namespace WeaponEnchantments.Common
                 coinValue /= 100;
             }
         }
+        public static void LogNT(this string s) {
+            s += reporteMessage;
+
+            if(Main.netMode < NetmodeID.Server)
+                Main.NewText(s);
+
+            s.Log();
+		}
         public static void Log(this string s)
         {
             UpdateSpaces(s);

@@ -145,7 +145,7 @@ namespace WeaponEnchantments.Items
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.AllForOne:
-					toolTip = $"(item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
+					toolTip = $"(Item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
 					break;
 				case EnchantmentTypeID.CatastrophicRelease:
 					toolTip = "(Does not work, Not finished)";

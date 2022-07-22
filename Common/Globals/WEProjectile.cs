@@ -465,7 +465,7 @@ namespace WeaponEnchantments.Common.Globals
                             }//Determine which player inventory to look in
                             found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
                             sourceItem = found ? inventory[inventoryLocation] : sourceItem;
-                            /*if (inventory[inventoryLocation].type != sourceItem.type || wePlayer.Player.inventory[inventoryLocation].value != sourceItem.value || inventory[inventoryLocation].GetGlobalItem<EnchantedItem>().powerBoosterInstalled != sourceItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                            /*if (inventory[inventoryLocation].type != sourceItem.type || wePlayer.Player.inventory[inventoryLocation].value != sourceItem.value || inventory[inventoryLocation].G().powerBoosterInstalled != sourceItem.G().powerBoosterInstalled)
                             {
                                 found = false;
                             }
@@ -525,7 +525,7 @@ namespace WeaponEnchantments.Common.Globals
                                     {
                                         if (inventory[inventoryLocation].type == sourceItem.type)
                                         {
-                                            if (inventory[inventoryLocation].GetGlobalItem<EnchantedItem>().powerBoosterInstalled == sourceItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                                            if (inventory[inventoryLocation].G().powerBoosterInstalled == sourceItem.G().powerBoosterInstalled)
                                             {
                                                 if (inventory[inventoryLocation].value == sourceItem.value)
                                                 {
@@ -550,18 +550,18 @@ namespace WeaponEnchantments.Common.Globals
                         }//Look through the players inventory and banks for the item
                         if (found)//If found the item
                         {
-                            //sourceItem.GetGlobalItem<EnchantedItem>().KillNPC(sourceItem, target);//Have item gain xp
+                            //sourceItem.G().KillNPC(sourceItem, target);//Have item gain xp
                         }
                         else
                         {
                             lastInventoryLocation = -1;//Item not found
                         }
                     }//If summoner weapon, verify it's location or search for it
-                    EnchantedItem.DamageNPC(sourceItem, Main.player[projectile.owner], target, damage, crit);
+                    sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
                 }
                 else if (playerSource != null)
                 {
-                    EnchantedItem.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
+                    EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
                 }
                 if (sourceItem.TG() && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
                 {

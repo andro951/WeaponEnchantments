@@ -101,8 +101,8 @@ namespace WeaponEnchantments.Common.Globals
 							if (xp < 1)
 								xp = 1;
 						}
-						wePlayer.Player.HeldItem.GetGlobalItem<EnchantedItem>().GainXP(wePlayer.Player.HeldItem, xp);
-						EnchantedItem.AllArmorGainXp(xp);
+						wePlayer.Player.HeldItem.G().GainXP(wePlayer.Player.HeldItem, xp);
+						EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
 						tileType = -1;
 						dropItem = new Item();
 					}

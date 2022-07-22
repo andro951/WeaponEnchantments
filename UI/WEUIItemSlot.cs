@@ -57,7 +57,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Item:
                         if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                         {
-							if (item.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+							if (item.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled)
 								return true;
 						}
 						return WEMod.IsEnchantable(item);
@@ -104,7 +104,7 @@ namespace WeaponEnchantments.UI
 									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = ((AllForOneEnchantmentBasic)Item.ModItem).GetLevelCost(); }
-									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
                                 {
@@ -179,7 +179,7 @@ namespace WeaponEnchantments.UI
 			{
 				if (Main.mouseItem.type == PowerBooster.ID)
 				{
-					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
+					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						if (Main.mouseItem.stack > 1)
 						{
@@ -190,7 +190,7 @@ namespace WeaponEnchantments.UI
 							Main.mouseItem = new Item();
 						}
 						SoundEngine.PlaySound(SoundID.Grab);
-						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().powerBoosterInstalled = true;
+						wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled = true;
 					}
 				}
 				else if (Main.mouseItem.ModItem is AllForOneEnchantmentBasic enchantment)
