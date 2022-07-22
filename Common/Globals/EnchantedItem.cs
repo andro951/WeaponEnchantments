@@ -792,22 +792,31 @@ namespace WeaponEnchantments.Common.Globals
             if (item.stack <= 1)
                 return false;
 
+            if (!Modified)
+                return false;
 
-            if (item.stack > 1) {
-                if (Modified) {
-                    if (Main.mouseItem.IsAir) {
-                        return true;
-                    }
-                }
-            }//Prevent splitting stack of enchantable items with maxstack > 1
+            if (Main.mouseItem.IsAir) {
+                return true;
+            }
+
             return false;
         }
         public override void RightClick(Item item, Player player)
         {
+            if (item.stack <= 1)
+                return;
+
+            if (!Modified)
+                return;
+
+			switch (item.Name) {
+                case "Primary Zenith":
+                    return;
+            }
+
             if (item.stack > 1) {
                 if (Modified) {
-                    if (item.Name == "Primary Zenith")
-                        return;
+                    
                     if (Main.mouseItem.IsAir) {
                         RightClickStackableItem(item, player);
                     }
