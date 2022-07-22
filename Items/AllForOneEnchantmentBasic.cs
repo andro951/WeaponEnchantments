@@ -43,6 +43,9 @@ namespace WeaponEnchantments.Items
 		Splitting,
 		War,
 		WorldAblaze,
+
+		Velocity,
+		LifeTime,
 	}
 	public enum UtilityEnchantmentNames
 	{
@@ -55,7 +58,10 @@ namespace WeaponEnchantments.Items
 		Peace,
 		Scale,
 		Spelunker,
-		War
+		War,
+
+		Velocity,
+		LifeTime,
 	}
 	public enum DamageTypeSpecificID
 	{
@@ -76,26 +82,27 @@ namespace WeaponEnchantments.Items
 		Body,
 		Legs
 	}
+
 	public class AllForOneEnchantmentBasic : ModItem
 	{
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[5] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
-		{
-			{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-			{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
-			{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
-			{1f, 2f, 3f, 5f, 10f},//3
-			{2f, 4f, 6f, 10f, 20f},//4
-			{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
-			{2f, 3f, 5f, 8f, 10f},//6
-			{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
-			{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
-			{0.6f, 0.65f, 0.7f, 0.8f, 0.9f},//9
-			{0.2f, 0.4f, 0.6f, 0.8f, 1f },//10
-			{0.04f, 0.08f, 0.12f, 0.16f, 0.20f},//7
-		};
+			{
+				{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
+				{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
+				{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
+				{1f, 2f, 3f, 5f, 10f},//3
+				{2f, 4f, 6f, 10f, 20f},//4
+				{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
+				{2f, 3f, 5f, 8f, 10f},//6
+				{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
+				{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
+				{0.6f, 0.65f, 0.7f, 0.8f, 0.9f},//9
+				{0.2f, 0.4f, 0.6f, 0.8f, 1f },//10
+				{0.04f, 0.08f, 0.12f, 0.16f, 0.20f},//7
+			};
 		private float scalePercent;
 		public int StrengthGroup { private set; get; } = 0;
 		public static readonly int defaultBuffDuration = 60;
@@ -145,7 +152,7 @@ namespace WeaponEnchantments.Items
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
 				case EnchantmentTypeID.AllForOne:
-					toolTip = $"(item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
+					toolTip = $"(Item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
 					break;
 				case EnchantmentTypeID.CatastrophicRelease:
 					toolTip = "(Does not work, Not finished)";
@@ -291,6 +298,8 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.WorldAblaze:
 				case EnchantmentTypeID.MaxMinions:
 				case EnchantmentTypeID.PhaseJump:
+				case EnchantmentTypeID.Velocity:
+				case EnchantmentTypeID.LifeTime:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -390,6 +399,10 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.PhaseJump:
 					ArmorSlotSpecific = (int)ArmorSlotSpecificID.Legs;
 					break;
+				default:
+					DamageClassSpecific = 0;
+					RestrictedClass = -1;
+					break;
 			}//DamageTypeSpecific, Max1, RestrictedClass
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
@@ -469,6 +482,8 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.MaxMinions:
 					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
+
+					case EnchantmentTypeID.Velocity:
 						CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.Scale:
@@ -852,7 +867,7 @@ namespace WeaponEnchantments.Items
 				else if (ArmorSlotSpecific > -1)
 					limmitationToolTip += $"\n   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*";
 				if (RestrictedClass > -1)
-					limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
+					limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*"; 
 				limmitationToolTip += "\n   *Unique* (Limited to 1 Unique Enchantment)";
 				toolTip += limmitationToolTip;
 			}//Unique, DamageClassSpecific, RestrictedClass
