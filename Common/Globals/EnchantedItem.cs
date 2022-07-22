@@ -776,10 +776,11 @@ namespace WeaponEnchantments.Common.Globals
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
 
-
+            //Prevent using items when hoving over enchanting table ui
             if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
                 return false;
 
+            //AllForOne
             if (eStats.ContainsKey("AllForOne")) {
                 return wePlayer.allForOneTimer <= 0;
             }
@@ -788,6 +789,10 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanRightClick(Item item)
         {
+            if (item.stack <= 1)
+                return false;
+
+
             if (item.stack > 1) {
                 if (Modified) {
                     if (Main.mouseItem.IsAir) {
