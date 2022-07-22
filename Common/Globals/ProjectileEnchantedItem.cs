@@ -96,8 +96,12 @@ namespace WeaponEnchantments.Common.Globals
             }
             projectile.GetGlobalProjectile<ProjectileEnchantedItem>().UpdateProjectile(projectile);
             if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
-            if (sourceSet)
-            {
+            if (sourceSet) {
+                float tempx = projectile.velocity.X;
+                float tempY = projectile.velocity.Y;
+                float tempL = projectile.velocity.Length();
+                float tempss = sourceItem.shootSpeed;
+
                 Player player = Main.player[projectile.owner];
                 if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.Celeb2Weapon && projectile.type != ProjectileID.Phantasm)
                 {

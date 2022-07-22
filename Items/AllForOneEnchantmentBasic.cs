@@ -43,9 +43,8 @@ namespace WeaponEnchantments.Items
 		Splitting,
 		War,
 		WorldAblaze,
-
-		Velocity,
-		LifeTime,
+		ShootSpeed
+		//LifeTime,
 	}
 	public enum UtilityEnchantmentNames
 	{
@@ -59,9 +58,8 @@ namespace WeaponEnchantments.Items
 		Scale,
 		Spelunker,
 		War,
-
-		Velocity,
-		LifeTime,
+		ShootSpeed
+		//LifeTime,
 	}
 	public enum DamageTypeSpecificID
 	{
@@ -298,8 +296,8 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.WorldAblaze:
 				case EnchantmentTypeID.MaxMinions:
 				case EnchantmentTypeID.PhaseJump:
-				case EnchantmentTypeID.Velocity:
-				case EnchantmentTypeID.LifeTime:
+				case EnchantmentTypeID.ShootSpeed:
+				//case EnchantmentTypeID.LifeTime:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -399,10 +397,6 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.PhaseJump:
 					ArmorSlotSpecific = (int)ArmorSlotSpecificID.Legs;
 					break;
-				default:
-					DamageClassSpecific = 0;
-					RestrictedClass = -1;
-					break;
 			}//DamageTypeSpecific, Max1, RestrictedClass
 			switch ((EnchantmentTypeID)EnchantmentType)
 			{
@@ -482,8 +476,7 @@ namespace WeaponEnchantments.Items
 					case EnchantmentTypeID.MaxMinions:
 					case EnchantmentTypeID.MoveSpeed:
 					case EnchantmentTypeID.StatDefense:
-
-					case EnchantmentTypeID.Velocity:
+					case EnchantmentTypeID.ShootSpeed:
 						CheckStaticStatByName();
 						break;
 					case EnchantmentTypeID.Scale:
@@ -634,12 +627,23 @@ namespace WeaponEnchantments.Items
 		private bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false)
 		{
 			if (checkName == "")
-				checkName = Name;
+				checkName = EnchantmentTypeName;
 			foreach (FieldInfo field in Item.GetType().GetFields())
 			{
 				string fieldName = field.Name;
 				if(fieldName.Length <= checkName.Length)
                 {
+					if(fieldName.Length < checkName.Length) {
+						switch (checkName) {
+							case "CriticalStrikeChance":
+								//Do nothing
+								break;
+							default:
+								//Prevent name checking if not correct length.
+								continue;
+						}
+					}
+					
 					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name)
 					{
@@ -1102,7 +1106,7 @@ namespace WeaponEnchantments.Items
 	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class HellsWrathEnchantmentBasic : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentCommon : AllForOneEnchantmentBasic { }public class HStatDefenseEnchantmentBasicellsWrathEnchantmentRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class HellsWrathEnchantmentBasic : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentCommon : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class JunglesFuryEnchantmentBasic : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentCommon : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
@@ -1119,7 +1123,7 @@ namespace WeaponEnchantments.Items
 	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class StatDefenseEnchantmentBasic : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentCommon : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class VelocityEnchantmentBasic : AllForOneEnchantmentBasic { }public class VelocityEnchantmentCommon : AllForOneEnchantmentBasic { }public class VelocityEnchantmentRare : AllForOneEnchantmentBasic { }public class VelocityEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class VelocityEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class ShootSpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 	public class WorldAblazeEnchantmentBasic : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentCommon : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentUltraRare : AllForOneEnchantmentBasic { }
 }

@@ -367,7 +367,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             return level - total;
         }
-        public override void LoadData(Item item, TagCompound tag)
+		public override void LoadData(Item item, TagCompound tag)
         {
             if (WEMod.IsEnchantable(item))
             {
