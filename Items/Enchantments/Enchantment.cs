@@ -38,6 +38,7 @@ namespace WeaponEnchantments.Items
 		Peace,
 		PhaseJump,
 		Scale,
+		ShootSpeed,
 		Speed,
 		Spelunker,
 		Splitting,
@@ -55,6 +56,7 @@ namespace WeaponEnchantments.Items
 		ObsidianSkin,
 		Peace,
 		Scale,
+		ShootSpeed,
 		Spelunker,
 		War
 	}
@@ -295,6 +297,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.WorldAblaze:
 				case EnchantmentTypeID.MaxMinions:
 				case EnchantmentTypeID.PhaseJump:
+				case EnchantmentTypeID.ShootSpeed:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
 				case EnchantmentTypeID.MoveSpeed:
@@ -482,6 +485,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.MaxMinions:
 				case EnchantmentTypeID.MoveSpeed:
 				case EnchantmentTypeID.StatDefense:
+				case EnchantmentTypeID.ShootSpeed:
 					CheckStaticStatByName();
 					break;
 				case EnchantmentTypeID.Scale:
@@ -627,10 +631,22 @@ namespace WeaponEnchantments.Items
 		}
 		private bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
 			if (checkName == "")
-				checkName = Name;
+				checkName = EnchantmentTypeName;
 			foreach (FieldInfo field in Item.GetType().GetFields()) {
 				string fieldName = field.Name;
 				if (fieldName.Length <= checkName.Length) {
+
+					if (fieldName.Length < checkName.Length) {
+						switch (checkName) {
+							case "CriticalStrikeChance":
+								//Do nothing
+								break;
+							default:
+								//Prevent name checking if not correct length.
+								continue;
+						}
+					}
+
 					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name) {
 						if (checkBoolOnly)
@@ -1022,6 +1038,7 @@ namespace WeaponEnchantments.Items
 	public class PeaceEnchantmentBasic : Enchantment { }public class PeaceEnchantmentCommon : Enchantment { }public class PeaceEnchantmentRare : Enchantment { }public class PeaceEnchantmentSuperRare : Enchantment { }public class PeaceEnchantmentUltraRare : Enchantment { }
 	public class PhaseJumpEnchantmentBasic : Enchantment { }public class PhaseJumpEnchantmentCommon : Enchantment { }public class PhaseJumpEnchantmentRare : Enchantment { }public class PhaseJumpEnchantmentSuperRare : Enchantment { }public class PhaseJumpEnchantmentUltraRare : Enchantment { }
 	public class ScaleEnchantmentBasic : Enchantment { }public class ScaleEnchantmentCommon : Enchantment { }public class ScaleEnchantmentRare : Enchantment { }public class ScaleEnchantmentSuperRare : Enchantment { }public class ScaleEnchantmentUltraRare : Enchantment { }
+	public class ShootSpeedEnchantmentBasic : Enchantment { }public class ShootSpeedEnchantmentCommon : Enchantment { }public class ShootSpeedEnchantmentRare : Enchantment { }public class ShootSpeedEnchantmentSuperRare : Enchantment { }public class ShootSpeedEnchantmentUltraRare : Enchantment { }
 	public class SpeedEnchantmentBasic : Enchantment { }public class SpeedEnchantmentCommon : Enchantment { }public class SpeedEnchantmentRare : Enchantment { }public class SpeedEnchantmentSuperRare : Enchantment { }public class SpeedEnchantmentUltraRare : Enchantment { }
 	public class SpelunkerEnchantmentUltraRare : Enchantment { }
 	public class SplittingEnchantmentBasic : Enchantment { }public class SplittingEnchantmentCommon : Enchantment { }public class SplittingEnchantmentRare : Enchantment { }public class SplittingEnchantmentSuperRare : Enchantment { }public class SplittingEnchantmentUltraRare : Enchantment { }
