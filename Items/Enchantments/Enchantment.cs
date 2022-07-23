@@ -52,7 +52,7 @@ namespace WeaponEnchantments.Items
 		DangerSense,
 		Hunter,
 		Mana,
-		MoveSpeed,
+		//MoveSpeed,
 		ObsidianSkin,
 		Peace,
 		Scale,
@@ -85,47 +85,114 @@ namespace WeaponEnchantments.Items
 		public static readonly string[] rarity = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
 		public static readonly Color[] rarityColors = new Color[] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
-		public static readonly float[,] defaultEnchantmentStrengths = new float[,]
-		{
-			{0.03f, 0.08f, 0.16f, 0.25f, 0.40f},//0
-			{0.4f, 0.8f, 1.2f, 1.6f, 2f},//1 Not used yet
-			{1.2f, 1.4f, 1.6f, 1.8f, 2f },//2
-			{1f, 2f, 3f, 5f, 10f},//3
-			{2f, 4f, 6f, 10f, 20f},//4
-			{0.005f, 0.01f, 0.015f, 0.02f, 0.025f},//5
-			{2f, 3f, 5f, 8f, 10f},//6
-			{0.02f, 0.04f, 0.06f, 0.08f, 0.10f},//7
-			{0.5f, 0.6f, 0.75f, 0.85f, 1f},//8
-			{0.6f, 0.65f, 0.7f, 0.8f, 0.9f},//9
-			{0.2f, 0.4f, 0.6f, 0.8f, 1f },//10
-			{0.04f, 0.08f, 0.12f, 0.16f, 0.20f},//7
-		};
+		public struct EnchantmentStrengths {
+			public EnchantmentStrengths(float[] strengths) {
+				enchantmentTierStrength = strengths;
+			}
+			public float[] enchantmentTierStrength = new float[rarity.Length];
+		}
+		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
+			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
+			new EnchantmentStrengths(new float[] { 0.4f, 0.8f, 1.2f, 1.6f, 2f }),
+			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f }),
+			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
+			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f }),
+			new EnchantmentStrengths(new float[] { 0.005f, 0.01f, 0.015f, 0.02f, 0.025f }),
+			new EnchantmentStrengths(new float[] { 2f, 3f, 5f, 8f, 10f }),
+			new EnchantmentStrengths(new float[] { 0.02f, 0.04f, 0.06f, 0.08f, 0.10f }),
+			new EnchantmentStrengths(new float[] { 0.5f, 0.6f, 0.75f, 0.85f, 1f }),
+			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
+			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
+			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f })
+		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 		public static readonly int defaultBuffDuration = 60;
-		public static string listOfAllEnchantmentTooltips = "";//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
+
+		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
+		public static string listOfAllEnchantmentTooltips = "";
 		public static bool printListOfEnchantmentTooltips = false;
 
 		//Strength
 		public float EnchantmentStrength { private set; get; }
+
+		/// <summary>
+		/// If not overriden, the default will be StrengthGroup 0, 0.03f, 0.08f, 0.16f, 0.25f, 0.40f<br/>
+		/// <list>
+		/// <term>0</term><description>{ 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }</description><br/>
+		/// <term>1</term><description>{ 0.4f, 0.8f, 1.2f, 1.6f, 2f } Not used Yet</description><br/>
+		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f }</description><br/>
+		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f }</description><br/>
+		/// <term>4</term><description>{ 2f, 4f, 6f, 10f, 20f }</description><br/>
+		/// <term>5</term><description>{ 0.005f, 0.01f, 0.015f, 0.02f, 0.025f }</description><br/>
+		/// <term>6</term><description>{ 2f, 3f, 5f, 8f, 10f }</description><br/>
+		/// <term>7</term><description>{ 0.02f, 0.04f, 0.06f, 0.08f, 0.10f }</description><br/>
+		/// <term>8</term><description>{ 0.5f, 0.6f, 0.75f, 0.85f, 1f }</description><br/>
+		/// <term>9</term><description>{ 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }</description><br/>
+		/// <term>10</term><description>{ 0.2f, 0.4f, 0.6f, 0.8f, 1f }</description><br/>
+		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }</description><br/>
+		/// </list>
+		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
 
 		/// <summary>
-		/// Need comment about what negative scalepercent value means.  Default 1f.
+		/// <para>
+		/// Default 1f (All of the strength will be modified by the Recomended Strength Multiplier)<br/>
+		/// Acceptable range: -1f to 1f<br/>
+		/// Not required.  (Feel free to skip this and ask andro951 about it)<br/>
+		/// Allows you to affect how much an enchantment is affected by the Recomended Strength multiplier.<br/>
+		/// </para><br/>
+		/// <para>
+		/// When would I need this? (This example is the Cold Steel damage multiplier at tier 4.  It desperatly needs a ScalePercent)<br/>
+		/// The ScalePercent of Cold Steel is 2/9 = 0.22222.... for this example, I'm using 0.22f to make it a bit easier to read.<br/>
+		/// Example: ScalePercent value of 0.2f, EnchantmentStrength of 0.9 (90%), RecomendedStrengthMultiplier of 0.25 (25%).<br/>
+		///		Actual EnchantmentStrength value = ScalePercent * EnchantmentStrength * RecomendedStrengthMultiplier + (1f - ScalePercent) * EnchantmentStrength<br/>
+		///		Actual EnchantmentStrength value = 0.22f * 0.9 * 0.25 + (1f - 0.22f) * 0.9f => 0.05f + 0.7f => 0.75f<br/>
+		///	</para><br/>
+		///	<para>
+		///	If you did nothing:
+		///	Example: ScalePercent value of 1f, EnchantmentStrength of 0.9 (90%), RecomendedStrengthMultiplier of 0.25 (25%).<br/>
+		///		Actual EnchantmentStrength value = ScalePercent * EnchantmentStrength * RecomendedStrengthMultiplier + (1f - ScalePercent) * EnchantmentStrength<br/>
+		///		Actual EnchantmentStrength value = 1f * 0.9 * 0.25 + (1f - 1f) * 0.9f => 0.225f + 0f * 0.9f => 0.225f<br/>
+		///	</para><br/>
+		///	<para>
+		/// Having a damage multiplier less than 1 on the Cold Steel enchantment is meant as a small nerf to offset the benefits of the enchantment.<br/>
+		/// This number going from 0.9 (Normal config preset) => 0.75 (Master config preset) is a reasonable downgrade.<br/>
+		/// If no ScalePercent was used, going from 0.9 (Normal config preset) => 0.225 (Master config preset) is a massive downgrade, making the enchantment worthless.<br/>
+		/// <para><br/>
+		/// </para>
+		/// Note: To fix an issue with War and Peace, the ScalePercent can be set to a negative value.<br/>
+		/// </para>
 		/// </summary>
 		public virtual float ScalePercent { private set; get; } = 1f;
-		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
+		public virtual Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
 
 		//Identifiers and names
+		/// <summary>
+		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
+		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
+		/// </summary>
 		public virtual string CustomTooltip { private set; get; } = "";
 		public int EnchantmentSize { private set; get; } = -1;
 		public int EnchantmentType { private set; get; } = -1;
 		public string EnchantmentTypeName { private set; get; }
+
+		/// <summary>
+		/// Default value will the the class name with spaces added.<br/>
+		/// Not required.  Only override this if the class name is different than the desired in game name.<br/>
+		/// </summary>
 		public virtual string MyDisplayName { private set; get; } = "";
 		public string FullToolTip { private set; get; }
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 
 		//Restrictions and enchantment types
-		public bool Utility { private set; get; }
-		public virtual bool Unique { private set; get; }
+		public bool Utility { private set; get; } = false;
+
+		/// <summary>
+		/// Default false.<br/>
+		/// True will make this enchantment cost 15 points.<br/>
+		/// Only 1 Unique enchantment can be on a weapon.<br/>
+		/// (Automatically set to true if DamageClassSpecific is not 0, or ArmorSlotSpecific is not -1)<br/>
+		/// </summary>
+		public virtual bool Unique { private set; get; } = false;
 		public virtual bool Max1 { private set; get; } = false;
 		public virtual int DamageClassSpecific { private set; get; } = 0;
 		public virtual int ArmorSlotSpecific { private set; get; } = -1;
@@ -143,9 +210,12 @@ namespace WeaponEnchantments.Items
 
 		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
 
+		public virtual void MyDefaults() {
+			//Meant to be overriden in the specific Enchantment class.
+		}
 		public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
-			GetDefaults(true);//Change this to have arguments to only get the needed info for setting up tooltips.
+			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
 
 			//Journy mode item sacrifice
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -167,7 +237,7 @@ namespace WeaponEnchantments.Items
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
-		private void GetDefaults(bool tooltipSetupOnly = false) {
+		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//EnchantmentTypeName
 			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
 
@@ -300,12 +370,12 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.ShootSpeed:
 					StrengthGroup = 10;// 0.2f, 0.4f, 0.6f, 0.8f, 1f
 					break;
-				case EnchantmentTypeID.MoveSpeed:
-					StrengthGroup = 11;//0.04f, 0.08f, 0.12f, 0.16f, 0.20f
-					break;
-				default:
-					StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
-					break;
+				//case EnchantmentTypeID.MoveSpeed:
+				//	StrengthGroup = 11;//0.04f, 0.08f, 0.12f, 0.16f, 0.20f
+				//	break;
+				//default:
+				//	StrengthGroup = 0;//0.03, 0.08, 0.16, 0.25, 0.40
+				//	break;
 			}
 
 			//Scale Percents (will be removed)
@@ -319,7 +389,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.HellsWrath:
 				case EnchantmentTypeID.JunglesFury:
 				case EnchantmentTypeID.Moonlight:
-					ScalePercent = 0.2f / defaultEnchantmentStrengths[StrengthGroup, rarity.Length - 1];
+					ScalePercent = 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[rarity.Length - 1];
 					break;
 				case EnchantmentTypeID.MaxMinions:
 				case EnchantmentTypeID.PhaseJump:
@@ -349,12 +419,12 @@ namespace WeaponEnchantments.Items
 
 				if(usingLinearStrengthMultiplier) {
 					//Linear
-					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
+					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentSize];
 				}
 				else {
 					//Recomended
 					multiplier = RecomendedStrengthMultiplier;
-					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup, EnchantmentSize];
+					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentSize];
 					float scale = Math.Abs(ScalePercent);
 
 					//Apply Scale Percent
@@ -428,7 +498,7 @@ namespace WeaponEnchantments.Items
 					break;
 				case EnchantmentTypeID.DangerSense:
 				case EnchantmentTypeID.Hunter:
-				case EnchantmentTypeID.MoveSpeed:
+				//case EnchantmentTypeID.MoveSpeed:
 				case EnchantmentTypeID.ObsidianSkin:
 				case EnchantmentTypeID.Peace:
 				case EnchantmentTypeID.Spelunker:
@@ -483,7 +553,7 @@ namespace WeaponEnchantments.Items
 				case EnchantmentTypeID.ArmorPenetration:
 				case EnchantmentTypeID.CriticalStrikeChance:
 				case EnchantmentTypeID.MaxMinions:
-				case EnchantmentTypeID.MoveSpeed:
+				//case EnchantmentTypeID.MoveSpeed:
 				case EnchantmentTypeID.StatDefense:
 				case EnchantmentTypeID.ShootSpeed:
 					CheckStaticStatByName();
@@ -573,9 +643,9 @@ namespace WeaponEnchantments.Items
 					if (EnchantmentSize == 4) Debuff.Add(ModContent.BuffType<AmaterasuDebuff>(), -1);
 					Debuff.Add(BuffID.OnFire, (int)((float)BuffDuration * EnchantmentStrength));
 					Debuff.Add(BuffID.Oiled, (int)((float)BuffDuration * 0.8f * EnchantmentStrength));
-					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 0]) Debuff.Add(BuffID.CursedInferno, (int)((float)BuffDuration * 0.6f * EnchantmentStrength));
-					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 1]) Debuff.Add(BuffID.ShadowFlame, (int)((float)BuffDuration * 0.4f * EnchantmentStrength));
-					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup, 2]) Debuff.Add(BuffID.OnFire3, (int)((float)BuffDuration * 0.2f * EnchantmentStrength));
+					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[0]) Debuff.Add(BuffID.CursedInferno, (int)((float)BuffDuration * 0.6f * EnchantmentStrength));
+					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[1]) Debuff.Add(BuffID.ShadowFlame, (int)((float)BuffDuration * 0.4f * EnchantmentStrength));
+					if (EnchantmentStrength > defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[2]) Debuff.Add(BuffID.OnFire3, (int)((float)BuffDuration * 0.2f * EnchantmentStrength));
 					break;
 			}
 
@@ -588,6 +658,8 @@ namespace WeaponEnchantments.Items
 			foreach (string key in AllowedList.Keys) {
 				AllowedListTooltips.Add(key, GenerateShortTooltip(false, false, key));
 			}
+
+			MyDefaults();
 
 			finishedOneTimeSetup = true;
 		}
@@ -617,7 +689,7 @@ namespace WeaponEnchantments.Items
 					break;
 			}//percentage, multiply100
 		}
-		public string CheckStatAlteredName(string name) {
+		private string CheckStatAlteredName(string name) {
 			switch (name) {
 				case "crit":
 				case "statDefense":
@@ -629,7 +701,7 @@ namespace WeaponEnchantments.Items
 					return name.CapitalizeFirst().AddSpaces();
 			}
 		}
-		private bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
+		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
 			if (checkName == "")
 				checkName = EnchantmentTypeName;
 			foreach (FieldInfo field in Item.GetType().GetFields()) {
@@ -720,11 +792,11 @@ namespace WeaponEnchantments.Items
 			}
 			return false;
 		}
-		private bool AddStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
+		protected bool AddStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
 			StaticStats.Add(new EnchantmentStaticStat(name, additive, multiplicative, flat, @base));
 			return true;
 		}
-		private bool CheckBuffByName(bool debuff = false, string baseName = "") {
+		protected bool CheckBuffByName(bool debuff = false, string baseName = "") {
 			if (baseName == "")
 				baseName = Name;
 			BuffID buffID = new();
@@ -858,7 +930,7 @@ namespace WeaponEnchantments.Items
 			toolTip += Utility ? "\n   *Utility*" : "";
 			return toolTip;
 		}
-		public string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "") {
+		private string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "") {
 			string toolTip = "";
 			bool percentage, multiply100, plus;
 			GetPercentageMult100(eStat.StatName, out percentage, out multiply100, out plus);
@@ -889,7 +961,7 @@ namespace WeaponEnchantments.Items
 			toolTip += $"{(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStat.StatName) : MyDisplayName)}";
 			return toolTip;
 		}
-		public string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "") {
+		private string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false, string allowedListKey = "") {
 			string toolTip = "";
 			string statName;
 			bool invert = staticStat.Name.Substring(0, 2) == "I_";
@@ -1032,7 +1104,7 @@ namespace WeaponEnchantments.Items
 	public class ManaEnchantmentBasic : Enchantment { }public class ManaEnchantmentCommon : Enchantment { }public class ManaEnchantmentRare : Enchantment { }public class ManaEnchantmentSuperRare : Enchantment { }public class ManaEnchantmentUltraRare : Enchantment { }
 	public class MaxMinionsEnchantmentBasic : Enchantment { }public class MaxMinionsEnchantmentCommon : Enchantment { }public class MaxMinionsEnchantmentRare : Enchantment { }public class MaxMinionsEnchantmentSuperRare : Enchantment { }public class MaxMinionsEnchantmentUltraRare : Enchantment { }
 	public class MoonlightEnchantmentBasic : Enchantment { }public class MoonlightEnchantmentCommon : Enchantment { }public class MoonlightEnchantmentRare : Enchantment { }public class MoonlightEnchantmentSuperRare : Enchantment { }public class MoonlightEnchantmentUltraRare : Enchantment { }
-	public class MoveSpeedEnchantmentBasic : Enchantment { }public class MoveSpeedEnchantmentCommon : Enchantment { }public class MoveSpeedEnchantmentRare : Enchantment { }public class MoveSpeedEnchantmentSuperRare : Enchantment { }public class MoveSpeedEnchantmentUltraRare : Enchantment { }
+	//public class MoveSpeedEnchantmentBasic : Enchantment { }public class MoveSpeedEnchantmentCommon : Enchantment { }public class MoveSpeedEnchantmentRare : Enchantment { }public class MoveSpeedEnchantmentSuperRare : Enchantment { }public class MoveSpeedEnchantmentUltraRare : Enchantment { }
 	public class ObsidianSkinEnchantmentUltraRare : Enchantment { }
 	public class OneForAllEnchantmentBasic : Enchantment { }public class OneForAllEnchantmentCommon : Enchantment { }public class OneForAllEnchantmentRare : Enchantment { }public class OneForAllEnchantmentSuperRare : Enchantment { }public class OneForAllEnchantmentUltraRare : Enchantment { }
 	public class PeaceEnchantmentBasic : Enchantment { }public class PeaceEnchantmentCommon : Enchantment { }public class PeaceEnchantmentRare : Enchantment { }public class PeaceEnchantmentSuperRare : Enchantment { }public class PeaceEnchantmentUltraRare : Enchantment { }
