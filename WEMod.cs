@@ -403,7 +403,6 @@ namespace WeaponEnchantments
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
-			calamity = ModLoader.HasMod("Calamity");
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag)
         {
