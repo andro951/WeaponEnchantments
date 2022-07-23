@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -80,8 +81,7 @@ namespace WeaponEnchantments.Items
 		Body,
 		Legs
 	}
-
-	public class AllForOneEnchantmentBasic : ModItem
+	public class AllForOneBasicEnchantment : ModItem
 	{
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };
@@ -122,26 +122,13 @@ namespace WeaponEnchantments.Items
 		public List<int> Buff { private set; get; }	= new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
-		public bool Armor { private set; get; } = false;
 		public int NewDamageType = -1;
-		public static string temp = "";
+		public static string listOfAllEnchantmentTooltips = "";
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public Dictionary<string, float> AllowedList { private set; get; } = new Dictionary<string, float>();
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public override ModItem Clone(Item newEntity)
-        {
-			AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)base.Clone(newEntity);
-			enchantment.StaticStats = new List<EnchantmentStaticStat>(StaticStats);
-			enchantment.EStats = new List<EStat>(EStats);
-			enchantment.OnHitBuff = new Dictionary<int, int>(OnHitBuff);
-			enchantment.Debuff = new Dictionary<int, int>(Debuff);
-			enchantment.Buff = new List<int>(Buff);
-			enchantment.AllowedList = new Dictionary<string, float>(AllowedList);
-			enchantment.AllowedListTooltips = new Dictionary<string, string>(AllowedListTooltips);
-			return enchantment;
-		}
         public override void SetStaticDefaults()
         {
 			GetDefaults();
@@ -182,7 +169,7 @@ namespace WeaponEnchantments.Items
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
 			else
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentSize]));
-			temp += $"{Name}\n{Tooltip.GetDefault()}\n\n";
+			listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 		}
 		private void GetDefaults()
         {
@@ -225,9 +212,11 @@ namespace WeaponEnchantments.Items
 					endSize = EnchantmentSize;
 					break;
 			}//Base Value
-			for (int i = 0; i < endSize; i++)
+			for (int i = 0; i <= endSize; i++)
 			{
-				Item.value += (int)EnchantmentEssenceBasic.values[i] * (Utility ? 5 : 10);
+				int quantity = Utility ? 5 : 10;
+				int value = (int)EnchantmentEssenceBasic.values[i];
+				Item.value += value * quantity;
 			}//Essence Value
 			switch (EnchantmentSize)
 			{
@@ -349,7 +338,6 @@ namespace WeaponEnchantments.Items
 			{
 				float multiplier =
 				(float)(
-					WEMod.serverConfig.strengthGroups.Contains(itemDefinition) ? WEMod.serverConfig.strengthGroupMultiplier :
 					WEMod.serverConfig.presetData.linearStrengthMultiplier != 100 ? WEMod.serverConfig.presetData.linearStrengthMultiplier :
 					-100f
 				) / 100f;
@@ -955,8 +943,8 @@ namespace WeaponEnchantments.Items
             {
 				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, 
 					staticStat.Additive * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
-					invert ? 1f / (staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
-						staticStat.Multiplicative * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
+					invert ? 1f / (1f + (staticStat.Multiplicative - 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f)) : 
+						1f + (staticStat.Multiplicative - 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
 					staticStat.Flat * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f), 
 					staticStat.Base * (invert ? -1f : 1f) * (allowedListKey != "" ? AllowedList[allowedListKey] : 1f));
 				bool percentage, multiply100, plus;
@@ -1082,48 +1070,35 @@ namespace WeaponEnchantments.Items
 			if (Unique || DamageClassSpecific > 0 || Max1 || ArmorSlotSpecific > -1)
 				multiplier = 3;
 			return (1 + EnchantmentSize) * multiplier;
-            /*switch ((EnchantmentTypeID)EnchantmentType)
-            {
-				case EnchantmentTypeID.AllForOne:
-				case EnchantmentTypeID.OneForAll:
-				case EnchantmentTypeID.Splitting:
-				case EnchantmentTypeID.ColdSteel:
-				case EnchantmentTypeID.HellsWrath:
-				case EnchantmentTypeID.JunglesFury:
-				case EnchantmentTypeID.Moonlight:
-					return (1 + EnchantmentSize) * 3;
-				default:
-					return Utility ? (1 + EnchantmentSize) * 1 : (1 + EnchantmentSize) * 2;
-			}*/
         }
 	}
-	public class AllForOneEnchantmentCommon : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AllForOneEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class AmmoCostEnchantmentBasic : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentCommon : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class AmmoCostEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ArmorPenetrationEnchantmentBasic : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentCommon : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ArmorPenetrationEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class CatastrophicReleaseEnchantmentBasic : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentCommon : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentRare : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CatastrophicReleaseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ColdSteelEnchantmentBasic : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentCommon : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ColdSteelEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class CriticalStrikeChanceEnchantmentBasic : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentCommon : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class CriticalStrikeChanceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class DamageEnchantmentBasic : AllForOneEnchantmentBasic { }public class DamageEnchantmentCommon : AllForOneEnchantmentBasic { }public class DamageEnchantmentRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class DamageEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class DangerSenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class GodSlayerEnchantmentBasic : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentCommon : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class GodSlayerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class HellsWrathEnchantmentBasic : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentCommon : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class HellsWrathEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class HunterEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class JunglesFuryEnchantmentBasic : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentCommon : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class JunglesFuryEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class LifeStealEnchantmentBasic : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentCommon : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class LifeStealEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ManaEnchantmentBasic : AllForOneEnchantmentBasic { }public class ManaEnchantmentCommon : AllForOneEnchantmentBasic { }public class ManaEnchantmentRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ManaEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class MaxMinionsEnchantmentBasic : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentCommon : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MaxMinionsEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class MoonlightEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoonlightEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class MoveSpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class MoveSpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ObsidianSkinEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class OneForAllEnchantmentBasic : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentCommon : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class OneForAllEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class PeaceEnchantmentBasic : AllForOneEnchantmentBasic { }public class PeaceEnchantmentCommon : AllForOneEnchantmentBasic { }public class PeaceEnchantmentRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PeaceEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class PhaseJumpEnchantmentBasic : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentCommon : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentRare : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class PhaseJumpEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ScaleEnchantmentBasic : AllForOneEnchantmentBasic { }public class ScaleEnchantmentCommon : AllForOneEnchantmentBasic { }public class ScaleEnchantmentRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ScaleEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class SpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class SpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class SpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class SpelunkerEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class SplittingEnchantmentBasic : AllForOneEnchantmentBasic { }public class SplittingEnchantmentCommon : AllForOneEnchantmentBasic { }public class SplittingEnchantmentRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class SplittingEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class StatDefenseEnchantmentBasic : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentCommon : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class StatDefenseEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class ShootSpeedEnchantmentBasic : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentCommon : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentRare : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class ShootSpeedEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class WarEnchantmentBasic : AllForOneEnchantmentBasic { }public class WarEnchantmentCommon : AllForOneEnchantmentBasic { }public class WarEnchantmentRare : AllForOneEnchantmentBasic { }public class WarEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WarEnchantmentUltraRare : AllForOneEnchantmentBasic { }
-	public class WorldAblazeEnchantmentBasic : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentCommon : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentSuperRare : AllForOneEnchantmentBasic { }public class WorldAblazeEnchantmentUltraRare : AllForOneEnchantmentBasic { }
+	public class AllForOneEnchantmentCommon : Enchantment { }public class AllForOneEnchantmentRare : Enchantment { }public class AllForOneEnchantmentSuperRare : Enchantment { }public class AllForOneEnchantmentUltraRare : Enchantment { }
+	public class AmmoCostEnchantmentBasic : Enchantment { }public class AmmoCostEnchantmentCommon : Enchantment { }public class AmmoCostEnchantmentRare : Enchantment { }public class AmmoCostEnchantmentSuperRare : Enchantment { }public class AmmoCostEnchantmentUltraRare : Enchantment { }
+	public class ArmorPenetrationEnchantmentBasic : Enchantment { }public class ArmorPenetrationEnchantmentCommon : Enchantment { }public class ArmorPenetrationEnchantmentRare : Enchantment { }public class ArmorPenetrationEnchantmentSuperRare : Enchantment { }public class ArmorPenetrationEnchantmentUltraRare : Enchantment { }
+	public class CatastrophicReleaseEnchantmentBasic : Enchantment { }public class CatastrophicReleaseEnchantmentCommon : Enchantment { }public class CatastrophicReleaseEnchantmentRare : Enchantment { }public class CatastrophicReleaseEnchantmentSuperRare : Enchantment { }public class CatastrophicReleaseEnchantmentUltraRare : Enchantment { }
+	public class ColdSteelEnchantmentBasic : Enchantment { }public class ColdSteelEnchantmentCommon : Enchantment { }public class ColdSteelEnchantmentRare : Enchantment { }public class ColdSteelEnchantmentSuperRare : Enchantment { }public class ColdSteelEnchantmentUltraRare : Enchantment { }
+	public class CriticalStrikeChanceEnchantmentBasic : Enchantment { }public class CriticalStrikeChanceEnchantmentCommon : Enchantment { }public class CriticalStrikeChanceEnchantmentRare : Enchantment { }public class CriticalStrikeChanceEnchantmentSuperRare : Enchantment { }public class CriticalStrikeChanceEnchantmentUltraRare : Enchantment { }
+	public class DamageEnchantmentBasic : Enchantment { }public class DamageEnchantmentCommon : Enchantment { }public class DamageEnchantmentRare : Enchantment { }public class DamageEnchantmentSuperRare : Enchantment { }public class DamageEnchantmentUltraRare : Enchantment { }
+	public class DangerSenseEnchantmentUltraRare : Enchantment { }
+	public class GodSlayerEnchantmentBasic : Enchantment { }public class GodSlayerEnchantmentCommon : Enchantment { }public class GodSlayerEnchantmentRare : Enchantment { }public class GodSlayerEnchantmentSuperRare : Enchantment { }public class GodSlayerEnchantmentUltraRare : Enchantment { }
+	public class HellsWrathEnchantmentBasic : Enchantment { }public class HellsWrathEnchantmentCommon : Enchantment { }public class HellsWrathEnchantmentRare : Enchantment { }public class HellsWrathEnchantmentSuperRare : Enchantment { }public class HellsWrathEnchantmentUltraRare : Enchantment { }
+	public class HunterEnchantmentUltraRare : Enchantment { }
+	public class JunglesFuryEnchantmentBasic : Enchantment { }public class JunglesFuryEnchantmentCommon : Enchantment { }public class JunglesFuryEnchantmentRare : Enchantment { }public class JunglesFuryEnchantmentSuperRare : Enchantment { }public class JunglesFuryEnchantmentUltraRare : Enchantment { }
+	public class LifeStealEnchantmentBasic : Enchantment { }public class LifeStealEnchantmentCommon : Enchantment { }public class LifeStealEnchantmentRare : Enchantment { }public class LifeStealEnchantmentSuperRare : Enchantment { }public class LifeStealEnchantmentUltraRare : Enchantment { }
+	public class ManaEnchantmentBasic : Enchantment { }public class ManaEnchantmentCommon : Enchantment { }public class ManaEnchantmentRare : Enchantment { }public class ManaEnchantmentSuperRare : Enchantment { }public class ManaEnchantmentUltraRare : Enchantment { }
+	public class MaxMinionsEnchantmentBasic : Enchantment { }public class MaxMinionsEnchantmentCommon : Enchantment { }public class MaxMinionsEnchantmentRare : Enchantment { }public class MaxMinionsEnchantmentSuperRare : Enchantment { }public class MaxMinionsEnchantmentUltraRare : Enchantment { }
+	public class MoonlightEnchantmentBasic : Enchantment { }public class MoonlightEnchantmentCommon : Enchantment { }public class MoonlightEnchantmentRare : Enchantment { }public class MoonlightEnchantmentSuperRare : Enchantment { }public class MoonlightEnchantmentUltraRare : Enchantment { }
+	public class MoveSpeedEnchantmentBasic : Enchantment { }public class MoveSpeedEnchantmentCommon : Enchantment { }public class MoveSpeedEnchantmentRare : Enchantment { }public class MoveSpeedEnchantmentSuperRare : Enchantment { }public class MoveSpeedEnchantmentUltraRare : Enchantment { }
+	public class ObsidianSkinEnchantmentUltraRare : Enchantment { }
+	public class OneForAllEnchantmentBasic : Enchantment { }public class OneForAllEnchantmentCommon : Enchantment { }public class OneForAllEnchantmentRare : Enchantment { }public class OneForAllEnchantmentSuperRare : Enchantment { }public class OneForAllEnchantmentUltraRare : Enchantment { }
+	public class PeaceEnchantmentBasic : Enchantment { }public class PeaceEnchantmentCommon : Enchantment { }public class PeaceEnchantmentRare : Enchantment { }public class PeaceEnchantmentSuperRare : Enchantment { }public class PeaceEnchantmentUltraRare : Enchantment { }
+	public class PhaseJumpEnchantmentBasic : Enchantment { }public class PhaseJumpEnchantmentCommon : Enchantment { }public class PhaseJumpEnchantmentRare : Enchantment { }public class PhaseJumpEnchantmentSuperRare : Enchantment { }public class PhaseJumpEnchantmentUltraRare : Enchantment { }
+	public class ScaleEnchantmentBasic : Enchantment { }public class ScaleEnchantmentCommon : Enchantment { }public class ScaleEnchantmentRare : Enchantment { }public class ScaleEnchantmentSuperRare : Enchantment { }public class ScaleEnchantmentUltraRare : Enchantment { }
+	public class SpeedEnchantmentBasic : Enchantment { }public class SpeedEnchantmentCommon : Enchantment { }public class SpeedEnchantmentRare : Enchantment { }public class SpeedEnchantmentSuperRare : Enchantment { }public class SpeedEnchantmentUltraRare : Enchantment { }
+	public class SpelunkerEnchantmentUltraRare : Enchantment { }
+	public class SplittingEnchantmentBasic : Enchantment { }public class SplittingEnchantmentCommon : Enchantment { }public class SplittingEnchantmentRare : Enchantment { }public class SplittingEnchantmentSuperRare : Enchantment { }public class SplittingEnchantmentUltraRare : Enchantment { }
+	public class StatDefenseEnchantmentBasic : Enchantment { }public class StatDefenseEnchantmentCommon : Enchantment { }public class StatDefenseEnchantmentRare : Enchantment { }public class StatDefenseEnchantmentSuperRare : Enchantment { }public class StatDefenseEnchantmentUltraRare : Enchantment { }
+	public class WarEnchantmentBasic : Enchantment { }public class WarEnchantmentCommon : Enchantment { }public class WarEnchantmentRare : Enchantment { }public class WarEnchantmentSuperRare : Enchantment { }public class WarEnchantmentUltraRare : Enchantment { }
+	public class WorldAblazeEnchantmentBasic : Enchantment { }public class WorldAblazeEnchantmentCommon : Enchantment { }public class WorldAblazeEnchantmentRare : Enchantment { }public class WorldAblazeEnchantmentSuperRare : Enchantment { }public class WorldAblazeEnchantmentUltraRare : Enchantment { }
 }
+*/

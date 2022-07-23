@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Debuffs;
+using WeaponEnchantments.Items.Enchantments.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -599,14 +600,13 @@ namespace WeaponEnchantments.Common.Globals
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if(UtilityMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
+            Item item = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
             HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
             if(UtilityMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null)
         {
-            npc.FullName.Log();
             if(UtilityMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
             if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && (projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion))
             {
@@ -828,8 +828,8 @@ namespace WeaponEnchantments.Common.Globals
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             if(UtilityMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            Item item = projectile.GetGlobalProjectile<ProjectileEnchantedItem>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<ProjectileEnchantedItem>().sourceItem;
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<ProjectileEnchantedItem>().damageBonus);
+            Item item = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
+            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
             OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
             if(UtilityMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
         }
@@ -871,7 +871,7 @@ namespace WeaponEnchantments.Common.Globals
                         wormCounter++;
                     target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                     target.GetGlobalNPC<WEGlobalNPC>().sourceItem = sourceItem;
-                    //int allForOneDamage = (int)((float)damage * item.GetGlobalItem<EnchantedItem>().oneForAllBonus);
+                    //int allForOneDamage = (int)((float)damage * item.G().oneForAllBonus);
                     float baseAllForOneDamage = ((float)damage * item.G().eStats["OneForAll"].ApplyTo(0f));
                     int allForOneDamage = (int)((wormCounter > 10 ? wormCounter < 21 ? 1f - (float)(wormCounter - 10) / 10f : 0f : 1f) * (baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange));
                     total += (int)target.StrikeNPC(allForOneDamage, knockback, direction);
@@ -907,7 +907,7 @@ namespace WeaponEnchantments.Common.Globals
             if (!npc.friendly && !npc.townNPC && npc.active)
             {
                 if(UtilityMethods.debugging) ($"\\/ActivateGodSlayer").Log();
-                //float godSlayerBonus = npc.boss ? item.GetGlobalItem<EnchantedItem>().godSlayerBonus / 10f : item.GetGlobalItem<EnchantedItem>().godSlayerBonus;
+                //float godSlayerBonus = npc.boss ? item.G().godSlayerBonus / 10f : item.G().godSlayerBonus;
                 float godSlayerBonus;
                 godSlayerBonus = item.G().eStats["GodSlayer"].ApplyTo(0f);
                 int godSlayerDamage;

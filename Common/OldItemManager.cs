@@ -71,12 +71,22 @@ namespace WeaponEnchantments.Common
             if(item != null && !item.IsAir)
             {
                 if(UtilityMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                
                 if (item.ModItem is UnloadedItem)
                 {
-                    bool replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
-                    replaced = !replaced ? TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames) : replaced;//Not tested
-                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem) : replaced;
-                    replaced = !replaced ? TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins) : replaced;
+                    bool replaced = false;
+					if (!replaced) {
+                        replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
+                    }
+                    if (!replaced) {
+                        replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
+                    }
+                    if (!replaced) {
+                        replaced = TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem);
+                    }
+                    if (!replaced) {
+                        TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins);
+                    }
                 }
                 if (WEMod.IsEnchantable(item))
                 {
@@ -90,7 +100,7 @@ namespace WeaponEnchantments.Common
                                 ReplaceOldItem(ref enchantmentItem, player);
                             if (enchantmentItem != null && !enchantmentItem.IsAir && player != null)
                             {
-                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                                Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                                 if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                                 else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
@@ -106,23 +116,16 @@ namespace WeaponEnchantments.Common
                         if (player != null)
                         {
                             item.RemoveUntilPositive(player);
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                            {
-                                Item enchantmentItem = iGlobal.enchantments[i];
-                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
-                                item.UpdateEnchantment(player, ref enchantment, i);
-                                if (Main.netMode == NetmodeID.MultiplayerClient && enchantmentItem != null)
-                                    ModContent.GetInstance<WEMod>().SendEnchantmentPacket((byte)i, (byte)itemSlotNumber, (short)enchantmentItem.type, (short)bank);
-                            }
-                            item.TryGetGlotalItemStats();
+
+                            item.SetupGlobals();
                         }
-                        if (iGlobal.failedUpdateInfusionDamage)
-                            item.UpdateInfusionDamage(iGlobal.damageMultiplier);
                     }
                 }
-            if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+
+                if(UtilityMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
             }
         }
+
         private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg)
         {
             enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
@@ -156,7 +159,7 @@ namespace WeaponEnchantments.Common
                         if (index > -1)
                         {
                             key = k;
-                            name = name.Substring(0, index - 1) + AllForOneEnchantmentBasic.rarity[dict[key]] + name.Substring(index);
+                            name = name.Substring(0, index - 1) + Enchantment.rarity[dict[key]] + name.Substring(index);
                         }
                         break;
                     default:
@@ -174,11 +177,11 @@ namespace WeaponEnchantments.Common
                     case OldItemContext.firstWordNames:
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
                         {
-                            if (modItem is AllForOneEnchantmentBasic enchantment)
+                            if (modItem is Enchantment enchantment)
                             {
                                 if (enchantment.EnchantmentType == dict[key])
                                 {
-                                    int typeOffset = AllForOneEnchantmentBasic.GetEnchantmentSize(name);
+                                    int typeOffset = Enchantment.GetEnchantmentSize(name);
                                     ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     return true;
                                 }
@@ -188,7 +191,7 @@ namespace WeaponEnchantments.Common
                     case OldItemContext.searchWordNames://Not tested
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
                         {
-                            if (modItem is AllForOneEnchantmentBasic enchantment)
+                            if (modItem is Enchantment enchantment)
                             {
                                 if(enchantment.Name == name)
                                 {

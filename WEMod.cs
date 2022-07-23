@@ -30,7 +30,6 @@ namespace WeaponEnchantments
 		public static List<Item> consumedItems = new(); 
 		internal static bool IsEnchantable(Item item)
         {
-			//if((IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) && !item.consumable)
 			if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
 			{
 				return true;
@@ -54,11 +53,11 @@ namespace WeaponEnchantments
 		}
 		internal static bool IsEnchantmentItem(Item item, bool utility)
         {
-			if(item.ModItem is AllForOneEnchantmentBasic)
+			if(item.ModItem is Enchantment)
             {
                 if (utility)
                 {
-                    if (((AllForOneEnchantmentBasic)item.ModItem).Utility)
+                    if (((Enchantment)item.ModItem).Utility)
                     {
 						return true;
                     }
@@ -204,8 +203,8 @@ namespace WeaponEnchantments
 						if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
 						{
 							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
-							AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)item.G().enchantments[enchantmentSlotNumber].ModItem;
-							item.UpdateEnchantment(Main.player[whoAmI], ref enchantment, enchantmentSlotNumber);
+							Enchantment enchantment = (Enchantment)item.G().enchantments[enchantmentSlotNumber].ModItem;
+							item.UpdateEnchantment(ref enchantment, enchantmentSlotNumber);
 						}
 						else
 						{
@@ -301,8 +300,8 @@ namespace WeaponEnchantments
             if (IsEnchantable(item))
             {
 				EnchantedItem iGlobal = item.G();
-				iGlobal.experience = reader.ReadInt32();
-				iGlobal.powerBoosterInstalled = reader.ReadBoolean();
+				iGlobal.Experience = reader.ReadInt32();
+				iGlobal.PowerBoosterInstalled = reader.ReadBoolean();
 				for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
 				{
 					iGlobal.enchantments[i] = new Item(reader.ReadUInt16());
@@ -334,8 +333,8 @@ namespace WeaponEnchantments
 		private void WriteItem(Item item, ModPacket packet)
         {
 			EnchantedItem iGlobal = item.G();
-			packet.Write(iGlobal.experience);
-			packet.Write(iGlobal.powerBoosterInstalled);
+			packet.Write(iGlobal.Experience);
+			packet.Write(iGlobal.PowerBoosterInstalled);
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
 			{
 				packet.Write((short)iGlobal.enchantments[i].type);
@@ -403,7 +402,8 @@ namespace WeaponEnchantments
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
-			calamity = ModLoader.HasMod("Calamity");
+
+			calamity = ModLoader.HasMod("CalamityMod");
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag)
         {
@@ -455,7 +455,7 @@ namespace WeaponEnchantments
 							{
 								if (!i2Global.enchantments[k].IsAir)
 								{
-									AllForOneEnchantmentBasic enchantment = ((AllForOneEnchantmentBasic)i2Global.enchantments[k].ModItem);
+									Enchantment enchantment = ((Enchantment)i2Global.enchantments[k].ModItem);
 									int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
 									bool cantFit = false;
 									if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
@@ -523,9 +523,9 @@ namespace WeaponEnchantments
 					}
 					else
 					{
-						if (arrItem.ModItem is AllForOneEnchantmentBasic)
+						if (arrItem.ModItem is Enchantment)
 						{
-							int size = ((AllForOneEnchantmentBasic)arrItem.ModItem).EnchantmentSize;
+							int size = ((Enchantment)arrItem.ModItem).EnchantmentSize;
 							if (size < 2)
 							{
 								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);

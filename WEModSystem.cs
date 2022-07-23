@@ -10,6 +10,7 @@ using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.UI.WeaponEnchantmentUI;
 
@@ -29,12 +30,20 @@ namespace WeaponEnchantments
         public static bool playerInventoryUpdated = false;
         public static bool enchantingTableInventoryUpdated = false;
         public static int previousChest = -1;
-        public static int[] levelXps = new int[EnchantedItem.maxLevel];
-        private static int[] essenceStack = new int[EnchantedItem.maxLevel];
+        public static int[] levelXps = new int[EnchantedItem.MAX_LEVEL];
+        private static int[] essenceStack = new int[EnchantedItem.MAX_LEVEL];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static bool playerSwapperModEnabled = false;
         public static List<string> updatedPlayerNames;
+
+
+
+        #region Properties (static)
+
+        public static bool AltDown => Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt);
+
+        #endregion
 
         public override void OnModLoad()
         {
@@ -47,7 +56,7 @@ namespace WeaponEnchantments
             double previous = 0;
             double current;
             int l;
-            for (l = 0; l < EnchantedItem.maxLevel; l++)
+            for (l = 0; l < EnchantedItem.MAX_LEVEL; l++)
             {
                 current = previous * 1.23356622200537 + (l + 1) * 1000;
                 previous = current;
@@ -79,9 +88,9 @@ namespace WeaponEnchantments
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!item.IsAir)
             {
-                EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(Main.LocalPlayer, ref enchantment, i, true);
+                EnchantedItem iGlobal = item.G();
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
             if(UtilityMethods.debugging) ($"/\\RemoveEnchantment(i: " + i + ")").Log();
@@ -93,7 +102,7 @@ namespace WeaponEnchantments
             {
                 if(Main.mouseRight && Main.mouseRightRelease)
                 {
-                    if(Main.HoverItem.GetGlobalItem<EnchantedItem>().experience > 0 || Main.HoverItem.GetGlobalItem<EnchantedItem>().powerBoosterInstalled)
+                    if(Main.HoverItem.G().experience > 0 || Main.HoverItem.G().powerBoosterInstalled)
                     {
                         if (Main.HoverItem.stack > 1)
                         {
@@ -165,7 +174,7 @@ namespace WeaponEnchantments
                             wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
                     }
-                    wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = false;
+                    wePlayer.itemBeingEnchanted.G().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
                     //TryToggleAutoPauseOff();
@@ -175,9 +184,9 @@ namespace WeaponEnchantments
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
                     favorited = wePlayer.itemBeingEnchanted.favorited;
                     wePlayer.itemBeingEnchanted.favorited = false;
-                    wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().inEnchantingTable = true;
-                    wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus;
-                    wePlayer.itemBeingEnchanted.GetGlobalItem<EnchantedItem>().lastValueBonus = 0;
+                    wePlayer.itemBeingEnchanted.G().inEnchantingTable = true;
+                    wePlayer.itemBeingEnchanted.value -= wePlayer.itemBeingEnchanted.G().lastValueBonus;
+                    wePlayer.itemBeingEnchanted.G().lastValueBonus = 0;
                     wePlayer.previousInfusedItemName = wePlayer.itemBeingEnchanted.G().infusedItemName;
                     if (wePlayer.infusionConsumeItem != null && (WEMod.IsWeaponItem(wePlayer.itemBeingEnchanted) || WEMod.IsArmorItem(wePlayer.itemBeingEnchanted)))
                     {
@@ -186,13 +195,13 @@ namespace WeaponEnchantments
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] != null)//For each enchantment in the global item,
+                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] != null)//For each enchantment in the global item,
                         {
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
                             wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EM(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         }
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
                     }
                     //TryToggleAutoPauseOff();
                 }
@@ -210,22 +219,22 @@ namespace WeaponEnchantments
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
-                            //((AllForOneEnchantmentBasic)itemEnchantment.ModItem).statsSet = false;
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                            //((Enchantment)itemEnchantment.ModItem).statsSet = false;
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
                     else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment)
                     {
                         RemoveEnchantment(i);
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         ApplyEnchantment(i);
                     }//If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
-                        //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetGlobalItem<EnchantedItem>().statsSet[i])
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().statsSet[i])
                         //if(!wePlayer.I().E(i).statsSet)
                         ApplyEnchantment(i);
                     }//If it WAS empty but isn't now, re-link global item to enchantmentSlot just in case
@@ -415,15 +424,19 @@ namespace WeaponEnchantments
                     }
                 }
             }
-            if(EnchantedItem.newPrefix > 0)
-            {
-                if(EnchantedItem.reforgeItem != null && Main.reforgeItem != null && !Main.reforgeItem.IsAir)
-                {
-                    Main.reforgeItem.G().prefix = Main.reforgeItem.prefix;
-                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player);
-                    EnchantedItem.newPrefix = 0;
+
+            //Calamity Reforge
+            if(EnchantedItem.calamityReforged) {
+                if(Main.reforgeItem.TG()) {
+                    //Calamity only
+                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player, true);
+                }
+				else {
+                    //Calamity and AutoReforge
+                    EnchantedItem.ReforgeItem(ref EnchantedItem.calamityAndAutoReforgePostReforgeItem, wePlayer.Player, true);
                 }
             }
+
             if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
