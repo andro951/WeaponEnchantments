@@ -81,7 +81,7 @@ namespace WeaponEnchantments
         public string previousInfusedItemName = "";
         int hoverItemIndex = 0;
         int hoverItemChest = 0;
-        public Item trashItem = new Item();
+        public Item trackedTrashItem = new Item();
         public float enemySpawnBonus = 1f;
         public bool godSlayer = false;
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
@@ -112,7 +112,6 @@ namespace WeaponEnchantments
         }
         public override void OnEnterWorld(Player player)
         {
-            //AllForOneEnchantmentBasic.temp.Log();
             if (UtilityMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
             InfusionManager.SetUpVanillaWeaponInfusionPowers();
             if (!OldWorldItemsReplaced)
@@ -121,7 +120,7 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            //AllForOneEnchantmentBasic.temp.Log();
+            //Enchantment.listOfAllEnchantmentTooltips.Log();
 
             /*foreach(Mod mod in ModLoader.Mods)
             {
@@ -343,17 +342,20 @@ namespace WeaponEnchantments
             bool valid = false;
             if (Main.mouseItem.IsAir)
             {
+                //Trash Item
                 if (!Player.trashItem.IsAir)
                 {
-                    if (!Player.trashItem.G().trashItem)
+                    if (Player.trashItem.TG(out EnchantedItem tGlobal) && !tGlobal.trashItem)
                     {
-                        if (!trashItem.IsAir)
-                            trashItem.G().trashItem = false;
-                        Player.trashItem.G().trashItem = true;
+                        if (trackedTrashItem.TG(out EnchantedItem trackedTrashGlobal))
+                            trackedTrashGlobal.trashItem = false;
+                        tGlobal.trashItem = true;
                     }
-                }//Trash Item
-                else if (!trashItem.IsAir)
-                    trashItem.G().trashItem = false;
+                }
+                else if (trackedTrashItem.TG(out EnchantedItem trackedTrashGlobal)) {
+                    trackedTrashGlobal.trashItem = false;
+                }
+
                 bool hoveringOverTrash = false;
                 if (!item.IsAir)
                 {
@@ -363,11 +365,11 @@ namespace WeaponEnchantments
                 if (!hoveringOverTrash)
                 {
                     Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
-                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled)
+                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled)
                     {
                         if (moveItem)
                         {
-                            enchantingTableUI.itemSlotUI[0].Item.G().powerBoosterInstalled = true;
+                            enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled = true;
                             if (item.stack > 1)
                                 item.stack--;
                             else
@@ -405,7 +407,7 @@ namespace WeaponEnchantments
                         }//Check/Move item
                         if (!valid)
                         {
-                            if (item.ModItem is AllForOneEnchantmentBasic enchantment)
+                            if (item.ModItem is Enchantment enchantment)
                             {
                                 int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].Item);
                                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)

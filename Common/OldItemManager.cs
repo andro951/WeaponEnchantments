@@ -100,7 +100,7 @@ namespace WeaponEnchantments.Common
                                 ReplaceOldItem(ref enchantmentItem, player);
                             if (enchantmentItem != null && !enchantmentItem.IsAir && player != null)
                             {
-                                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)enchantmentItem.ModItem;
+                                Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                                 if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon"))
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                                 else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor"))
@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Common
                         if (index > -1)
                         {
                             key = k;
-                            name = name.Substring(0, index - 1) + AllForOneEnchantmentBasic.rarity[dict[key]] + name.Substring(index);
+                            name = name.Substring(0, index - 1) + Enchantment.rarity[dict[key]] + name.Substring(index);
                         }
                         break;
                     default:
@@ -177,11 +177,11 @@ namespace WeaponEnchantments.Common
                     case OldItemContext.firstWordNames:
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
                         {
-                            if (modItem is AllForOneEnchantmentBasic enchantment)
+                            if (modItem is Enchantment enchantment)
                             {
                                 if (enchantment.EnchantmentType == dict[key])
                                 {
-                                    int typeOffset = AllForOneEnchantmentBasic.GetEnchantmentSize(name);
+                                    int typeOffset = Enchantment.GetEnchantmentSize(name);
                                     ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     return true;
                                 }
@@ -191,7 +191,7 @@ namespace WeaponEnchantments.Common
                     case OldItemContext.searchWordNames://Not tested
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
                         {
-                            if (modItem is AllForOneEnchantmentBasic enchantment)
+                            if (modItem is Enchantment enchantment)
                             {
                                 if(enchantment.Name == name)
                                 {

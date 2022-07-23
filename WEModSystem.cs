@@ -88,7 +88,7 @@ namespace WeaponEnchantments
             if (!item.IsAir)
             {
                 EnchantedItem iGlobal = item.G();
-                AllForOneEnchantmentBasic enchantment = (AllForOneEnchantmentBasic)(iGlobal.enchantments[i].ModItem);
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
@@ -218,7 +218,7 @@ namespace WeaponEnchantments
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
-                            //((AllForOneEnchantmentBasic)itemEnchantment.ModItem).statsSet = false;
+                            //((Enchantment)itemEnchantment.ModItem).statsSet = false;
                             wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
@@ -423,15 +423,19 @@ namespace WeaponEnchantments
                     }
                 }
             }
-            if(EnchantedItem.newPrefix > 0)
-            {
-                if(EnchantedItem.reforgeItem != null && Main.reforgeItem != null && !Main.reforgeItem.IsAir)
-                {
-                    Main.reforgeItem.G().prefix = Main.reforgeItem.prefix;
-                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player);
-                    EnchantedItem.newPrefix = 0;
+
+            //Calamity Reforge
+            if(EnchantedItem.calamityReforged) {
+                if(Main.reforgeItem.TG()) {
+                    //Calamity only
+                    EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player, true);
+                }
+				else {
+                    //Calamity and AutoReforge
+                    EnchantedItem.ReforgeItem(ref EnchantedItem.calamityAndAutoReforgePostReforgeItem, wePlayer.Player, true);
                 }
             }
+
             if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Item itemToClear = Main.item[stolenItemToBeCleared];

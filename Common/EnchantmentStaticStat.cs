@@ -70,7 +70,7 @@ namespace WeaponEnchantments.Common
             }
         }*/
         
-        /*public void UpdatePlayerStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false) 
+        /*public void UpdatePlayerStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, Enchantment enchantment, bool property = false) 
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             EnchantedItem iGlobal = item.G();
@@ -317,7 +317,7 @@ namespace WeaponEnchantments.Common
                 var tempForBreakpointCheck = item.GetType().GetProperty(name).GetValue(item);
             }
         }*/
-        /*public void UpdateBoolStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, AllForOneEnchantmentBasic enchantment, bool property = false)
+        /*public void UpdateBoolStat(ref Item item, string name, bool remove, bool boolStat, bool boolRestricted, Enchantment enchantment, bool property = false)
         {
             if (boolStat)
             {

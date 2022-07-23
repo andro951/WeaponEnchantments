@@ -270,7 +270,7 @@ namespace WeaponEnchantments.Common
                             item.G().damageMultiplier = damageMultiplier;
                             item.G().infusedItemName = consumedItemName;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                            item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                            item.G().InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
                         return true;
                     }
@@ -306,7 +306,7 @@ namespace WeaponEnchantments.Common
                             item.G().infusedItemName = consumedItemName;
                             item.G().infusedArmorSlot = infusedArmorSlot;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                            item.G().infusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                            item.G().InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
                         return true;
                     }

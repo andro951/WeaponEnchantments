@@ -28,7 +28,7 @@ namespace WeaponEnchantments.Items
                     Values[size] += ContentSamples.ItemsByType[180].value * 4;
                 }
             }
-            Tooltip.SetDefault("Used to store " + AllForOneEnchantmentBasic.rarity[size] + " enchantments");
+            Tooltip.SetDefault("Used to store " + Enchantment.rarity[size] + " enchantments");
         }
         private void GetDefaults()
         {

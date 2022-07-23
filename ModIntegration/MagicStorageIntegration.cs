@@ -81,7 +81,7 @@ namespace WeaponEnchantments.ModIntegration
                 {
                     if (lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1))
                     {
-                        if (lastHoverItem.TryGetGlobalItem(out EnchantedItem hiGlobal) && (hiGlobal.experience > 0 || hiGlobal.powerBoosterInstalled || hiGlobal.infusedItemName != ""))
+                        if (lastHoverItem.TryGetGlobalItem(out EnchantedItem hiGlobal) && (hiGlobal.Experience > 0 || hiGlobal.PowerBoosterInstalled || hiGlobal.infusedItemName != ""))
                         {
                             if (mouseItem.stack == 1)
                                 Main.mouseItem = new Item(mouseItem.type);
