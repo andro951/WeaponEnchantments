@@ -184,7 +184,12 @@ namespace WeaponEnchantments.Common
         public static string GetNameFolderName(this string s, int numberOfFolders = 1) {
             int i = s.Length - 1;
             for(int j = 0; j < numberOfFolders; j++) {
-
+                for(; i > 0; i--) {
+                    char c = s[i];
+                    if(c == '.') {
+                        break;
+					}
+				}
 
                 //Not last time loop will run
                 if(j != numberOfFolders - 1) {
@@ -192,6 +197,8 @@ namespace WeaponEnchantments.Common
                     s = s.Substring(0, i);
 				}
 			}
+
+            return s.Substring(i + 1);
 		}
         public static string AddSpaces(this string s)
         {

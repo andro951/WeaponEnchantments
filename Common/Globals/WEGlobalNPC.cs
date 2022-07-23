@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Debuffs;
+using WeaponEnchantments.Items.Enchantments.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {

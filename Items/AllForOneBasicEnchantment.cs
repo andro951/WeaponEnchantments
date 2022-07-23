@@ -77,7 +77,7 @@ namespace WeaponEnchantments.Items
 		Body,
 		Legs
 	}
-	public class Enchantment : ModItem
+	public class AllForOneBasicEnchantment : ModItem
 	{
 		public static readonly string[] rarity = new string[5] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
 		public static readonly string[] displayRarity = new string[5] { "Basic", "Common", "Rare", "Epic", "Legendary" };

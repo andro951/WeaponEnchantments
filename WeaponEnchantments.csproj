@@ -19,6 +19,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Items\Enchantments\Utility - Copy\" />
     <Folder Include="ModIntegration\" />
   </ItemGroup>
 </Project>

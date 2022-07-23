@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Items
 	//Will be removed
 	public enum UtilityEnchantmentNames
 	{
-		AmmoCost,
+		//AmmoCost,
 		DangerSense,
 		Hunter,
 		Mana,
@@ -131,15 +131,15 @@ namespace WeaponEnchantments.Items
 
 		//Stats and buffs
 		private bool finishedOneTimeSetup = false;
-		public int NewDamageType = -1;
+		public virtual int NewDamageType { private set; get; } = -1;
 		public int BuffDuration => GetBuffDuration();
-		public List<int> Buff { private set; get; } = new List<int>();
-		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
-		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
-		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
-		public List<EStat> EStats { private set; get; } = new List<EStat>();
+		public virtual List<int> Buff { private set; get; } = new List<int>();
+		public virtual Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
+		public virtual Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
+		public virtual List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
+		public virtual List<EStat> EStats { private set; get; } = new List<EStat>();
 
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
 
 		public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
@@ -234,14 +234,19 @@ namespace WeaponEnchantments.Items
 			}
 
 			//Check Utility
-			string temp = 
-			if(GetType().Namespace.GetNameFolderName())
-			/*for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++) {
-				if (EnchantmentTypeName == ((UtilityEnchantmentNames)i).ToString()) {
-					Utility = true;
-					break;
+			string temp = GetType().Namespace.GetNameFolderName();
+			if (GetType().Namespace.GetNameFolderName() == "Utility")
+				Utility = true;
+
+			//Check Utility enum (will be removed)
+			if (!Utility) {
+				for (int i = 0; i < Enum.GetNames(typeof(UtilityEnchantmentNames)).Length; i++) {
+					if (EnchantmentTypeName == ((UtilityEnchantmentNames)i).ToString()) {
+						Utility = true;
+						break;
+					}
 				}
-			}*/
+			}
 
 			//Check Unique (Vanilla Items)
 			for (int i = 0; i < ItemID.Count; i++) {
@@ -469,9 +474,9 @@ namespace WeaponEnchantments.Items
 					AddStaticStat("P_autoReuse", EnchantmentStrength);
 					AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
 					break;
-				case EnchantmentTypeID.AmmoCost:
-					EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength));
-					break;
+				//case EnchantmentTypeID.AmmoCost:
+				//	EStats.Add(new EStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength));
+				//	break;
 				case EnchantmentTypeID.ArmorPenetration:
 				case EnchantmentTypeID.CriticalStrikeChance:
 				case EnchantmentTypeID.MaxMinions:
@@ -996,7 +1001,7 @@ namespace WeaponEnchantments.Items
 		}
 	}
 	public class AllForOneEnchantmentBasic : Enchantment { }public class AllForOneEnchantmentCommon : Enchantment { }public class AllForOneEnchantmentRare : Enchantment { }public class AllForOneEnchantmentSuperRare : Enchantment { }public class AllForOneEnchantmentUltraRare : Enchantment { }
-	public class AmmoCostEnchantmentBasic : Enchantment { }public class AmmoCostEnchantmentCommon : Enchantment { }public class AmmoCostEnchantmentRare : Enchantment { }public class AmmoCostEnchantmentSuperRare : Enchantment { }public class AmmoCostEnchantmentUltraRare : Enchantment { }
+	//public class AmmoCostEnchantmentBasic : Enchantment { }public class AmmoCostEnchantmentCommon : Enchantment { }public class AmmoCostEnchantmentRare : Enchantment { }public class AmmoCostEnchantmentSuperRare : Enchantment { }public class AmmoCostEnchantmentUltraRare : Enchantment { }
 	public class ArmorPenetrationEnchantmentBasic : Enchantment { }public class ArmorPenetrationEnchantmentCommon : Enchantment { }public class ArmorPenetrationEnchantmentRare : Enchantment { }public class ArmorPenetrationEnchantmentSuperRare : Enchantment { }public class ArmorPenetrationEnchantmentUltraRare : Enchantment { }
 	public class CatastrophicReleaseEnchantmentBasic : Enchantment { }public class CatastrophicReleaseEnchantmentCommon : Enchantment { }public class CatastrophicReleaseEnchantmentRare : Enchantment { }public class CatastrophicReleaseEnchantmentSuperRare : Enchantment { }public class CatastrophicReleaseEnchantmentUltraRare : Enchantment { }
 	public class ColdSteelEnchantmentBasic : Enchantment { }public class ColdSteelEnchantmentCommon : Enchantment { }public class ColdSteelEnchantmentRare : Enchantment { }public class ColdSteelEnchantmentSuperRare : Enchantment { }public class ColdSteelEnchantmentUltraRare : Enchantment { }
