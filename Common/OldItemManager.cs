@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Common
             wholeNameReplaceWithItem,
             wholeNameReplaceWithCoins
         }
-        private static Dictionary<string, int> firstWordNames = new Dictionary<string, int> { { "Critical", (int)EnchantmentTypeID.CriticalStrikeChance }, { "Size", (int)EnchantmentTypeID.Scale }, { "ManaCost", (int)EnchantmentTypeID.Mana }, { "Defence", (int)EnchantmentTypeID.StatDefense }};
+        private static Dictionary<string, string> firstWordNames = new Dictionary<string, string> { { "Critical", "CriticalStrikeChance" }, { "Size", "Scale" }, { "ManaCost", "Mana" }, { "Defence", "StatDefense" } };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { { "SuperRare", 3 }, { "UltraRare", 4 }, { "Rare", 2 } };
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { { "ContainmentFragment", ItemID.GoldBar }, {"Stabilizer", 177}, {"SuperiorStabilizer", 999} };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>();// { { "ContainmentFragment", 2000 } };
@@ -144,16 +144,6 @@ namespace WeaponEnchantments.Common
             {
                 switch (context) 
                 {
-                    case OldItemContext.firstWordNames:
-                        if (name.Length >= k.Length)
-                        {
-                            string keyCheck = name.Substring(0, k.Length);
-                            if (keyCheck == k)
-                            {
-                                key = k;
-                            }
-                        }
-                        break;
                     case OldItemContext.searchWordNames://Not tested
                         int index = name.IndexOf(k);
                         if (index > -1)
@@ -174,20 +164,6 @@ namespace WeaponEnchantments.Common
             {
                 switch (context)
                 {
-                    case OldItemContext.firstWordNames:
-                        foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
-                        {
-                            if (modItem is Enchantment enchantment)
-                            {
-                                if (enchantment.EnchantmentType == dict[key])
-                                {
-                                    int typeOffset = Enchantment.GetEnchantmentSize(name);
-                                    ReplaceItem(ref item, enchantment.Item.type + typeOffset);
-                                    return true;
-                                }
-                            }
-                        }
-                        break;
                     case OldItemContext.searchWordNames://Not tested
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>())
                         {
@@ -207,6 +183,40 @@ namespace WeaponEnchantments.Common
                     case OldItemContext.wholeNameReplaceWithCoins:
                         ReplaceItem(ref item, dict[key], true);
                         return true;
+                }
+            }//firstWordNames
+            return false;
+        }
+        private static bool TryReplaceItem(ref Item item, Dictionary<string, string> dict, OldItemContext context) {
+            string name = ((UnloadedItem)item.ModItem).ItemName;
+            string key = null;
+            foreach (string k in dict.Keys) {
+                switch (context) {
+                    case OldItemContext.firstWordNames:
+                        if (name.Length >= k.Length) {
+                            string keyCheck = name.Substring(0, k.Length);
+                            if (keyCheck == k) {
+                                key = k;
+                            }
+                        }
+                        break;
+                }
+                if (key != null)
+                    break;
+            }
+            if (key != null) {
+                switch (context) {
+                    case OldItemContext.firstWordNames:
+                        foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>()) {
+                            if (modItem is Enchantment enchantment) {
+                                if (enchantment.EnchantmentTypeName == dict[key]) {
+                                    int typeOffset = Enchantment.GetEnchantmentSize(name);
+                                    ReplaceItem(ref item, enchantment.Item.type + typeOffset);
+                                    return true;
+                                }
+                            }
+                        }
+                        break;
                 }
             }//firstWordNames
             return false;

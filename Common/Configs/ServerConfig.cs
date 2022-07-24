@@ -117,19 +117,19 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool ArmorPenetration;
 
-        [Label("Dissable Minion Critical hits")]
+        [Label("Disable Minion Critical hits")]
         [Tooltip("In vanilla, minions arent affected by weapon critical chance.\n" +
 			"Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
 			"This option disables the crits(vanilla mechanics)")]
         [DefaultValue(false)]
         public bool DisableMinionCrits;
 
-        [Label("Dissable Item critical strike chance per level")]
+        [Label("Disable Item critical strike chance per level")]
         [Tooltip("Items gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
         [DefaultValue(false)]
         public bool CritPerLevelDisabled;
 
-        [Label("Infusion Damage Multiplier (Divites by 1000, 1 -> 0.001)")]
+        [Label("Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)")]
         [DefaultValue(1300)]
         [Range(1000, 2000)]
         [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +

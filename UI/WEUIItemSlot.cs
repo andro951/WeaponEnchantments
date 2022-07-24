@@ -79,8 +79,7 @@ namespace WeaponEnchantments.UI
 										continueCheck = false;
 									if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
 										continueCheck = false;
-									string uniqueWeaponName = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name.RemoveSpaces();
-									if (newEnchantment.Unique && !newEnchantment.Max1 && newEnchantment.DamageClassSpecific == 0 && newEnchantment.RestrictedClass == -1 && newEnchantment.EnchantmentTypeName != uniqueWeaponName)
+									if (newEnchantment.Unique && !newEnchantment.Max1)
 										continueCheck = false;
 									if(!CheckAllowedList(newEnchantment))
 										continueCheck = false;
@@ -228,7 +227,7 @@ namespace WeaponEnchantments.UI
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot)
         {
-			return (!enchantment.Unique && enchantment.DamageClassSpecific == 0 && !enchantment.Max1 && enchantment.ArmorSlotSpecific == -1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return (!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item)
         {
@@ -241,9 +240,7 @@ namespace WeaponEnchantments.UI
 					{
 						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
 						if (appliedEnchantment != null && (
-							(enchantement.Unique || enchantement.DamageClassSpecific > 0 || enchantement.ArmorSlotSpecific > -1) 
-							&& (appliedEnchantment.DamageClassSpecific > 0 || appliedEnchantment.Unique || appliedEnchantment.ArmorSlotSpecific > -1) 
-							|| enchantement.Max1 && enchantement.EnchantmentType == appliedEnchantment.EnchantmentType))
+							(enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName))
 						{
 							return i;
 						}
