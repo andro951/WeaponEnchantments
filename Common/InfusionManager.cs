@@ -131,7 +131,8 @@ namespace WeaponEnchantments.Common
                     rarity = 5;
                     break;
                 case "Nullification Pistol":
-                    rarity = 8;
+                case "Atomic Annie":
+                    rarity = 3;
                     break;
                 case "The Only Thing I Know For Real":
                     rarity = 9;

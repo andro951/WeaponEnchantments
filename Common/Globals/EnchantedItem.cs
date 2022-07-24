@@ -1307,8 +1307,6 @@ namespace WeaponEnchantments.Common.Globals
             if (UtilityMethods.debugging) ($"\\/DamageNPC").Log();
 
             #endregion
-
-            target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             
             //dummy return
             if (target.type == NPCID.TargetDummy || target.FullName != "Super Dummy")

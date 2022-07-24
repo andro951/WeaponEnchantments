@@ -715,5 +715,30 @@ namespace WeaponEnchantments.Common
                 error.Log();
             }
         }
+
+        /// <summary>
+		/// Randomly selects an item from the list if the chance is higher than the randomly generated float.<br/>
+        /// <c>This can be done with var rand = new WeightedRandom<Item>(Main.rand)<br/>
+        /// rand.Add(item, chance)<br/>
+        /// rand.Add(new Item(), chanceN) //chance to get nothing<br/>
+        /// Item chosen = rand.Get()<br/></c>
+		/// </summary>
+		/// <param name="options">Posible items to be selected.</param>
+		/// <param name="chance">Chance to select an item from the list.</param>
+		/// <returns>Item selected or null if chance was less than the generated float.</returns>
+		public static T GetOneFromList<T>(List<T> options, float chance) where T : new() {
+            //Example: items contains 4 items and chance = 0.4f (40%)
+            float randFloat = Main.rand.NextFloat();//Example randFloat = 0.24f
+            if (randFloat < chance) {
+                float count = options.Count;// = 4f
+                float chancePerItem = chance / count;// chancePerItem = 0.4f / 4f = 0.1f.  (10% chance each item)  
+                int chosenItemNum = (int)(randFloat / chancePerItem);// chosenItemNum = (int)(0.24f / 0.1f) = (int)(2.4f) = 2.
+                return options[chosenItemNum];// items[2] being the 3rd item in the list.
+            }
+            else {
+                //If the chance is less than the generated float, return null.
+                return new T();
+            }
+        }
     }
 }
