@@ -711,7 +711,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     string tooltip = enchantment.AllowedListTooltips[itemType]; 
-                    Color color = Enchantment.rarityColors[enchantment.EnchantmentSize];
+                    Color color = Enchantment.rarityColors[enchantment.EnchantmentTier];
                     tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), tooltip) { OverrideColor = color });
                 }
             }

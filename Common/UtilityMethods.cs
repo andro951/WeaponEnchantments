@@ -673,7 +673,7 @@ namespace WeaponEnchantments.Common
                             {
                                 if (consumedItem.ModItem is Enchantment)
                                 {
-                                    int size = ((Enchantment)consumedItem.ModItem).EnchantmentSize;
+                                    int size = ((Enchantment)consumedItem.ModItem).EnchantmentTier;
                                     if (size < 2)
                                     {
                                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
