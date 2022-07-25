@@ -10,76 +10,79 @@ namespace WeaponEnchantments.Common.Globals
     {
 		public static int tileType = -1;
 		public static Item dropItem = new Item();
-        public override bool Drop(int i, int j, int type)
-        {
-			return true;
-        }
-		public override bool CanPlace(int i, int j, int type)
-		{
+		public override bool CanPlace(int i, int j, int type) {
 			int mainTile = Main.tile[i, j].TileType;
-			for (int k = 0; k < Items.WoodEnchantingTable.enchantingTableNames.Length; k++)
-			{
+			for (int k = 0; k < Items.WoodEnchantingTable.enchantingTableNames.Length; k++) {
 				int tableType = ModContent.TileType<WoodEnchantingTable>() - k;
 				Item heldItem = Main.LocalPlayer.HeldItem;
-				if (type == tableType && !(mainTile == 0 || mainTile == 3 || mainTile == 24 || mainTile == 185 || mainTile == 187 || mainTile == 233) || mainTile == tableType && heldItem.pick == 0)
+
+				//Prevent block swapping on top of the table (fix that was causing a crash)
+				if (mainTile == tableType && heldItem.pick == 0)
 					return false;
+
+				//Prevent block swapping the table onto other items except ones that won't crash the game.
+				if(type == tableType) {
+					switch (mainTile) {
+						case 0:
+						case 3:
+						case 24:
+						case 185:
+						case 187:
+						case 233:
+							//Allow placing the table
+							break;
+						default:
+							return false;
+					}
+				}
 			}
 
 			return true;
 		}
-		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
-        {
+		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged) {
 			Tile tileTarget = Main.tile[i, j];
-			if (tileTarget.TileType != 504)
-			{
+			if (tileTarget.TileType != TileID.MysticSnakeRope) {
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 				int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
 				int damageAmount = 0;
-				if (Main.tileAxe[tileTarget.TileType])
-                {
-					if (tileTarget.TileType == 80)
+				if (Main.tileAxe[tileTarget.TileType]) {
+					if (tileTarget.TileType == 80) {
 						damageAmount += (int)(wePlayer.Player.HeldItem.axe * 3 * 1.2f);
-					else
+					}
+					else {
 						TileLoader.MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
+					}
 				}
-                else
-                {
+                else {
 					damageAmount = GetPickaxeDamage(i, j, wePlayer.Player.inventory[wePlayer.Player.selectedItem].pick, hitBufferIndex, tileTarget);
 				}
+
 				int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
-				if (damage >= 100)
-				{
+				if (damage >= 100) {
 					tileType = tileTarget.TileType;
 					ModTile modTile = TileLoader.GetTile(type);
-					if (modTile != null && TileID.Sets.Ore[tileType])
-					{
+					if (modTile != null && TileID.Sets.Ore[tileType]) {
 						dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item;
 					}
-					else
-					{
+					else {
 						dropItem = new Item(GetDroppedItems(tileTarget));
 					}
 				}
 			}
+
 			return true;
         }
-        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.Player.HeldItem.pick > 0 || wePlayer.Player.HeldItem.axe > 0 || wePlayer.Player.HeldItem.hammer > 0)
-            {
+            if (wePlayer.Player.HeldItem.pick > 0 || wePlayer.Player.HeldItem.axe > 0 || wePlayer.Player.HeldItem.hammer > 0) {
                 int xp = 1;
-				if(tileType != 504)
-                {
-					if(tileType >= 0)
-                    {
+				if(tileType != 504) {
+					if(tileType >= 0) {
 						xp += GetTileStrengthXP(tileType);
-						if (Main.tileAxe[tileType])
-						{
+						if (Main.tileAxe[tileType]) {
 							int tiles = 0;
 							int y = j;
-							while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType])
-							{
+							while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType]) {
 								y--;
 								tiles++;
 							}
@@ -87,17 +90,14 @@ namespace WeaponEnchantments.Common.Globals
 							//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 							//ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
 						}
-                        else
-                        {
-							if (dropItem.type != ItemID.None)
-							{
+                        else {
+							if (dropItem.type != ItemID.None) {
 								xp += dropItem.value / 100;
 							}
 						}
 						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
 						float configMultiplier = (float)WEMod.serverConfig.GatheringExperienceMultiplier / 100f;
-						if (configMultiplier > 1f)
-						{
+						if (configMultiplier > 1f) {
 							xp = (int)Math.Round((float)xp * configMultiplier);
 							if (xp < 1)
 								xp = 1;
@@ -110,11 +110,9 @@ namespace WeaponEnchantments.Common.Globals
 				}
             }
         }
-		public static int GetDroppedItems(Tile tileCache)
-		{
+		public static int GetDroppedItems(Tile tileCache) {
 			int dropItem = 0;
-			switch (tileCache.TileType)
-			{
+			switch (tileCache.TileType) {
 				case 330:
 					dropItem = 71;
 					break;
@@ -233,10 +231,10 @@ namespace WeaponEnchantments.Common.Globals
 					dropItem = 182;
 					break;
 			}
+
 			return dropItem;
 		}
-		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget)
-		{
+		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget) {
 			Player player = Main.LocalPlayer;
 			int num = 0;
 			if (Main.tileNoFail[tileTarget.TileType])
@@ -263,75 +261,58 @@ namespace WeaponEnchantments.Common.Globals
 			if (tileTarget.TileType == 211 && pickPower < 200)
 				num = 0;
 
-			if ((tileTarget.TileType == 25 || tileTarget.TileType == 203) && pickPower < 65)
-			{
+			if ((tileTarget.TileType == 25 || tileTarget.TileType == 203) && pickPower < 65) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 117 && pickPower < 65)
-			{
+			else if (tileTarget.TileType == 117 && pickPower < 65) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 37 && pickPower < 50)
-			{
+			else if (tileTarget.TileType == 37 && pickPower < 50) {
 				num = 0;
 			}
-			else if ((tileTarget.TileType == 22 || tileTarget.TileType == 204) && (double)y > Main.worldSurface && pickPower < 55)
-			{
+			else if ((tileTarget.TileType == 22 || tileTarget.TileType == 204) && (double)y > Main.worldSurface && pickPower < 55) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 56 && pickPower < 55)
-			{
+			else if (tileTarget.TileType == 56 && pickPower < 55) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 77 && pickPower < 65 && y >= Main.UnderworldLayer)
-			{
+			else if (tileTarget.TileType == 77 && pickPower < 65 && y >= Main.UnderworldLayer) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 58 && pickPower < 65)
-			{
+			else if (tileTarget.TileType == 58 && pickPower < 65) {
 				num = 0;
 			}
-			else if ((tileTarget.TileType == 226 || tileTarget.TileType == 237) && pickPower < 210)
-			{
+			else if ((tileTarget.TileType == 226 || tileTarget.TileType == 237) && pickPower < 210) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 137 && pickPower < 210)
-			{
+			else if (tileTarget.TileType == 137 && pickPower < 210) {
 				int num2 = tileTarget.TileFrameY / 18;
 				if ((uint)(num2 - 1) <= 3u)
 					num = 0;
 			}
-			else if (Main.tileDungeon[tileTarget.TileType] && pickPower < 100 && (double)y > Main.worldSurface)
-			{
+			else if (Main.tileDungeon[tileTarget.TileType] && pickPower < 100 && (double)y > Main.worldSurface) {
 				if ((double)x < (double)Main.maxTilesX * 0.35 || (double)x > (double)Main.maxTilesX * 0.65)
 					num = 0;
 			}
-			else if (tileTarget.TileType == 107 && pickPower < 100)
-			{
+			else if (tileTarget.TileType == 107 && pickPower < 100) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 108 && pickPower < 110)
-			{
+			else if (tileTarget.TileType == 108 && pickPower < 110) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 111 && pickPower < 150)
-			{
+			else if (tileTarget.TileType == 111 && pickPower < 150) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 221 && pickPower < 100)
-			{
+			else if (tileTarget.TileType == 221 && pickPower < 100) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 222 && pickPower < 110)
-			{
+			else if (tileTarget.TileType == 222 && pickPower < 110) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 223 && pickPower < 150)
-			{
+			else if (tileTarget.TileType == 223 && pickPower < 150) {
 				num = 0;
 			}
-			else
-			{
+			else {
 				TileLoader.PickPowerCheck(tileTarget, pickPower, ref num);
 			}
 
@@ -344,33 +325,27 @@ namespace WeaponEnchantments.Common.Globals
 			if (tileTarget.TileType == 165 || Main.tileRope[tileTarget.TileType] || tileTarget.TileType == 199)
 				num = 100;
 
-			if (tileTarget.TileType == 128 || tileTarget.TileType == 269)
-			{
-				if (tileTarget.TileFrameX == 18 || tileTarget.TileFrameX == 54)
-				{
+			if (tileTarget.TileType == 128 || tileTarget.TileType == 269) {
+				if (tileTarget.TileFrameX == 18 || tileTarget.TileFrameX == 54) {
 					x--;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
 				}
 
-				if (tileTarget.TileFrameX >= 100)
-				{
+				if (tileTarget.TileFrameX >= 100) {
 					num = 0;
 					Main.blockMouse = true;
 				}
 			}
 
-			if (tileTarget.TileType == 334)
-			{
-				if (tileTarget.TileFrameY == 0)
-				{
+			if (tileTarget.TileType == 334) {
+				if (tileTarget.TileFrameY == 0) {
 					y++;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
 				}
 
-				if (tileTarget.TileFrameY == 36)
-				{
+				if (tileTarget.TileFrameY == 36) {
 					y--;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
@@ -379,8 +354,7 @@ namespace WeaponEnchantments.Common.Globals
 				int frameX = tileTarget.TileFrameX;
 				bool flag = frameX >= 5000;
 				bool flag2 = false;
-				if (!flag)
-				{
+				if (!flag) {
 					int num3 = frameX / 18;
 					num3 %= 3;
 					x -= num3;
@@ -389,8 +363,7 @@ namespace WeaponEnchantments.Common.Globals
 						flag = true;
 				}
 
-				if (flag)
-				{
+				if (flag) {
 					frameX = tileTarget.TileFrameX;
 					int num4 = 0;
 					while (frameX >= 5000)
@@ -403,8 +376,7 @@ namespace WeaponEnchantments.Common.Globals
 						flag2 = true;
 				}
 
-				if (flag2)
-				{
+				if (flag2) {
 					num = 0;
 					Main.blockMouse = true;
 				}
@@ -412,11 +384,9 @@ namespace WeaponEnchantments.Common.Globals
 
 			return num;
 		}
-		private int GetTileStrengthXP(int tileType)
-        {
+		private int GetTileStrengthXP(int tileType) {
 			int xp = 10;
-            switch (tileType)
-            {
+            switch (tileType) {
 				case 25:
 				case 58:
 				case 107:
@@ -439,17 +409,16 @@ namespace WeaponEnchantments.Common.Globals
 					xp *= 5;
 					break;
 				default:
-					if (Main.tileDungeon[tileType])
-                    {
+					if (Main.tileDungeon[tileType]) {
 						xp *= 2;
                     }
-                    else
-                    {
+                    else {
 						ModTile modTile = TileLoader.GetTile(tileType);
 						xp = modTile != null ? (int)(xp * modTile.MineResist) : xp;
                     }
 					break;
             }
+
 			return xp;
         }
 	}

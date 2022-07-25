@@ -114,6 +114,13 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool CritPerLevelDisabled;
 
+        [Label("Multiplicative critical hits past the first.")]
+        [Tooltip("Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.\n" +
+            "By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....\n" +
+            "Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... ")]
+        [DefaultValue(false)]
+        public bool MultiplicativeCriticalHits;
+
         [Label("Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)")]
         [DefaultValue(1300)]
         [Range(1000, 2000)]
