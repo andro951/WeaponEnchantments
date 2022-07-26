@@ -20,29 +20,17 @@ Enchantments allow customization of your items:
         *Armor
         *Life steal
     More unique upgrades such as:
-    Hitting all enemies in an area (One for All)
-    Dealing massive damage but having a long recovery (All for One)
-    Flames that spread between enemies (World Ablaze)
-    Max health true damage (God Slayer)
+        *Hitting all enemies in an area (One for All)
+        *Dealing massive damage but having a long recovery (All for One)
+        *Flames that spread between enemies (World Ablaze)
+        *Max health true damage (God Slayer)
 
-Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity. Some enchantments are **Utility** enchantments with a dedicated slot on an item.
+Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity.
 
 They're obtained by...
 * Crafting (Only Damage and Armor)
 * Looting chests.
 * Defeating enemies.
-
-Most enchantments can be upgraded with a new containment and some essence.
-
-There are 5 tiers:
-0. Basic
-1. Medium
-2. Rare
-3. Epic
-4. Legendary
-> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
-
-Crafting and upgrading enchantments requires essence and containments.
 
 ## Item Experience
 All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
@@ -54,24 +42,35 @@ You can obtain XP by damaging enemies, doing skilling activities such as mining 
 > Items with no XP will not display experience or levels.
 
 ![Tooltip](GithubSprites/MusketTooltip.png)
+## Crafting and Upgrading Enchantments
 
-## Essence
+Most enchantments can be upgraded with a new containment and some essence.
+
+There are 5 tiers:
+0. Basic
+1. Medium
+2. Rare
+3. Super Rare
+4. Ultra Rare
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
+
+### Essence
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
-This is the mod's main currency. They represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
+Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
 They can be used to...
 * Upgrade enchantments.
 * Infuse it's XP value into items.
 
 There are 5 Essence types, each worth more than the last:
-1. Basic
-2. Common
-3. Rare
-4. Super Rare
-5. Ultra Rare
+0. Basic
+1. Common
+2. Rare
+3. Super Rare
+4. Ultra Rare
 
-## Containments
+### Containments
 ![Containment](/Items/Sprites/Containment.png)
 ![Medium Containment](/Items/Sprites/MediumContainment.png)
 
@@ -126,6 +125,7 @@ If you have enchantments and an item with enough level that you wish to upgrade,
 3. Add (or remove) the utility enchantment you wish to add (or remove) on the *Utility* slot.
 
 ![Tooltip](GithubSprites/EnchantingTableUI.png)
+> Some enchantments are **Utility** enchantments.  The far right enchantment slot is the **Utility** slot.  Only **Utility** enchantments can go here.
 
 ### Offering items
 If you have an item that is currently useless to you, you offer it.
