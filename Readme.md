@@ -6,51 +6,69 @@ Terraria has you frequently swapping old gear for new. This enchanting system al
 # Wiki
 
 ## Item Experience
-* All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
-* These items have a level based on their XP.
-    * Items with no XP will not display any levels.
-* You can obtain XP by defeating enemies.
-* All enchantable items have an enchantment capacity proportional to their level.
+All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
+
+These items have a level based on their XP and all enchantable items have an enchantment capacity proportional to their level.
+
+You can obtain XP by defeating enemies.
+
+> Items with no XP will not display any levels.
 
 ## Essence
-* This is the mod's main currency. They represent solidified experience.
-* They can be used to...
-    * Upgrade enchantments.
-    * Infuse it's XP value into items.
-* They are automatically stored on the enchanting table inventory (like a piggy bank).
+![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
+![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
+
+This is the mod's main currency. They represent solidified experience and are automatically stored on the enchanting table inventory (like a piggy bank).
+They can be used to...
+* Upgrade enchantments.
+* Infuse it's XP value into items.
+
+There are 5 Essence types, each worth more than the last:
+1. Basic
+2. Common
+3. Rare
+4. Super Rare
+5. Ultra Rare
 
 ## Containments
-* These are the enchantment's vessels.
-* An enchantment's level is dependant on their vessel.
-* There are 3 levels:
-    1. Small (Silver or Tungsten)
-    2. Medium (Gold or Platinum)
-    3. Big (Demonite or Crimtane)
+![Small Containment](/Items/Sprites/Containment.png)
+![Medium Containment](/Items/Sprites/MediumContainment.png)
+
+These are the enchantment's vessels, an enchantment's level is dependant on their vessel.
+
+There are 3 containment levels:
+1. Small (Silver or Tungsten)
+2. Medium (Gold or Platinum)
+3. Big (Demonite or Crimtane)
 
 ## Enchantments
-* Enchantments are the mod's main feature. They contain effects that items can aquire.
-* They're obtained by...
-    * Looting chests.
-    * Defeating enemies.
-* They are held by a **containment**. Higher level enchantments require bigger containments.
-* An enchantment requires an enchantment capacity equal to its level to be applied to an item.
-* Some enchantments are **Utility** enchantments with a dedicated slot on an item.
-* Most enchantments can be upgraded with a new containment and some essence.
-* There are 5 tiers:
-    0. Basic
-    1. Medium
-    2. Rare
-    3. Super Rare
-    4. Ultra Rare
-* Some enchantments are tier 4 exclusive.
+![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
+![Spelunker Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
+
+Enchantments are the mod's main feature. They contain effects that items can aquire. They are held by a **containment**. Higher level enchantments require bigger containments.
+
+An enchantment requires an enchantment capacity equal to its level to be applied to an item. Some enchantments are **Utility** enchantments with a dedicated slot on an item.
+
+They're obtained by...
+* Looting chests.
+* Defeating enemies.
+
+Most enchantments can be upgraded with a new containment and some essence.
+
+There are 5 tiers:
+1. Basic
+2. Medium
+3. Rare
+4. Super Rare
+5. Ultra Rare
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment.
 
 ## Power Boosters
-* Rare items obtained by defeating bosses
-* They add 10 levels over your item's level, without adding on to the level cost.
-* They can be used only once per item.
-* They are returned upon offering the item.
+These are rare items obtained by defeating bosses, and add 10 levels over your item's level, without adding on to the level cost. They can be used only once per item and are returned upon offering the item.
 
 ## Enchanting Table
+![EnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
+
 This is the mod's main station. All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
 * Create enchantments.
 * Upgrade enchantments.
@@ -152,10 +170,11 @@ The piece of armor will also look like the consumed one while equiped.
 * Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
-#### Where do I get the good Enchantments?
-* Unique Enchantments are obtained from chests/bosses.
-* Pre-Hardmode bosses drop general Enchantments usable on all items.
-* Post-Hardmode bosses drop more specialized Enchantments.
+### Where do I get the good Enchantments?
+![Hunter](/Items/Sprites/HunterEnchantmentUltraRare.png)
+![Spelunker](/Items/Sprites/SpelunkerEnchantmentUltraRare.png)
+
+Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
 ## We're happy to read your feedback!
 Hop on our [discord](https://discord.gg/mPywEhyV9b) and have a chat with the community!
