@@ -61,15 +61,23 @@ namespace WeaponEnchantments.Items
 			Item.consumable = true;
 			Item.value = 150;
 		}
+
+		private string GetPreviousTierItemName()
+        {
+			return WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
+		}
+
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
 			if (enchantingTableTier > -1)
 			{
+				string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
 				if (enchantingTableTier > 0)
 				{
 					//recipe.AddTile(TileID.WorkBenches);
-					recipe.AddIngredient(Mod, WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+					previousTierName = GetPreviousTierItemName();
+					recipe.AddIngredient(Mod, previousTierName, 1);
 				}
 				switch (enchantingTableTier)
 				{
@@ -81,7 +89,7 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.DesertFossil, 10); //Fossil Helm
 						recipe.Register();
 						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+						recipe.AddIngredient(Mod, previousTierName, 1);
 						recipe.AddIngredient(ItemID.FossilOre, 1);
 						break;
 					case 2:
@@ -91,11 +99,11 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.SoulofLight, 2); //Soul of Light
 						recipe.Register();
 						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+						recipe.AddIngredient(Mod, previousTierName, 1);
 						recipe.AddIngredient(ItemID.SoulofNight, 2); //Soul of Night
 						recipe.Register();
 						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable", 1);
+						recipe.AddIngredient(Mod, previousTierName, 1);
 						recipe.AddIngredient(ItemID.SoulofNight, 1); //Soul of Night
 						recipe.AddIngredient(ItemID.SoulofLight, 1); //Soul of Light
 						break;
