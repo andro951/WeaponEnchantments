@@ -120,7 +120,33 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            //Enchantment.listOfAllEnchantmentTooltips.Log();
+            
+            //Enchantment tooltips
+            if(Enchantment.printListOfEnchantmentTooltips)
+                Enchantment.listOfAllEnchantmentTooltips.Log();
+
+			//Contributors
+			if (Enchantment.printListOfContributors) {
+                //New dictionary with artist names as the key
+                Dictionary<string, List<string>> artistCredits = new Dictionary<string, List<string>>();
+                foreach (string key in Enchantment.enchantmentContributors.Keys) {
+					if (artistCredits.ContainsKey(key)) {
+                        artistCredits[Enchantment.enchantmentContributors[key].Artist].Add(key);
+					}
+					else {
+                        artistCredits.Add(key, new List<string>() { key });
+					}
+                }
+
+                //Create and print the GitHub Artist credits.
+                string artistsMessage = "";
+                foreach (string artistName in artistCredits.Keys) {
+                    artistsMessage += $"{artistName}: "; 
+                    foreach(string enchantmentTypeName in artistCredits[artistName]) {
+
+					}
+				}
+            }
 
             /*foreach(Mod mod in ModLoader.Mods)
             {
