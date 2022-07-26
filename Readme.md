@@ -9,6 +9,53 @@ Terraria has you frequently swapping old gear for new. The enchanting system all
 
 # Wiki
 
+#Config (Most options on the 2nd page!)
+Weapon Enchantments for many players will feel too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%).
+> You have an extreme ammount of control over the power of this mod via the config.
+
+## Item Experience
+All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
+
+These items have a level based on their XP which is for two things: and all enchantable items have an enchantment capacity proportional to their tier.
+Increases enchantment capacity by 1 per level
+Increases weapon critical strike chance by 1 per level (configurable)
+
+You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
+
+> Items with no XP will not display experience or levels.
+
+![Tooltip](GithubSprites/MusketTooltip.png)
+
+## Essence
+![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
+![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
+
+Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
+They can be used to...
+* Upgrade enchantments.
+* Infuse it's XP value into items.
+
+There are 5 Essence types, each worth more than the last:
+0. Basic
+1. Common
+2. Rare
+3. Super Rare
+4. Ultra Rare
+
+## Containments
+![Containment](/Items/Sprites/Containment.png)
+![Medium Containment](/Items/Sprites/MediumContainment.png)
+
+These contain the power of the enchantments.  More powerful enchantments require larger and stronger containments to hold them.
+
+There are 3 containment levels:
+1. Containment (Silver or Tungsten) 
+    *Ingredients - 4 Silver/Tungsten Bars, 1 Glass
+2. Medium Containment (Gold or Platinum) 
+    *Ingredients - 8 Gold/Platinum Bars, 4 Glass
+3. Superior Containment (Demonite or Crimtane) 
+    *Ingredients - 16 Demonite/Crimtane Bars, 4 common gems (any except diamond/amber)
+
 ## Enchantments
 ![Defense Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
 ![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
@@ -32,76 +79,59 @@ They're obtained by...
 * Looting chests.
 * Defeating enemies.
 
-## Item Experience
-All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
-
-These items have a level based on their XP and all enchantable items have an enchantment capacity proportional to their tier.
-
-You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
-
-> Items with no XP will not display experience or levels.
-
-![Tooltip](GithubSprites/MusketTooltip.png)
 ## Crafting and Upgrading Enchantments
 
-Most enchantments can be upgraded with a new containment and some essence.
+Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
+ > Magic Storage: The environment module lets you access the essence in the enchanting table.  The environment module will also act as the highest tier enchanting table your player has ever ussd.
+
+
+Only Basic Damage and Basic Armor enchantments can be crafted.  The rest must be found.  They can all be upgraded as described below.
 
 There are 5 tiers:
-0. Basic
-1. Medium
-2. Rare
-3. Super Rare
-4. Ultra Rare
+0. Basic - 10 Basic Essence, Containment(the smallest one) (tier 0, Wood enchanting table or better)
+1. Medium - 10 Medium Essence, Medium Containment, tier 0 Enchantment (tier 1, Dusty enchanting table or better)
+2. Rare - 10 Rare Essence, Superior Containment, tier 1 Enchantment (tier 2, Hellish enchanting table or better)
+3. Super Rare - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
+4. Ultra Rare - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
 > Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
 
-### Essence
-![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
-![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
-
-Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
-They can be used to...
-* Upgrade enchantments.
-* Infuse it's XP value into items.
-
-There are 5 Essence types, each worth more than the last:
-0. Basic
-1. Common
-2. Rare
-3. Super Rare
-4. Ultra Rare
-
-### Containments
-![Containment](/Items/Sprites/Containment.png)
-![Medium Containment](/Items/Sprites/MediumContainment.png)
-
-These contain the power of the enchantments.  More powerful enchantments require larger and stronger containments to hold them.
-
-There are 3 containment levels:
-1. Containment (Silver or Tungsten)
-2. Medium Containment (Gold or Platinum)
-3. Superior Containment (Demonite or Crimtane)
-
 ## Power Boosters
-These are rare items obtained by defeating bosses, and add 10 levels over your item's level, without adding on to the level cost. They can be used only once per item and are returned upon offering the item.
+These are rare items obtained by defeating bosses, and add 10 levels to your item. They can be used only once per item and are returned upon offering the item.
+> The 10 levels do not count towards the lvl 40 cap and do not give critical strike chance.
 
 ## Enchanting Table
 ![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
 
-This is the mod's main station. All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
+All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
 * Create enchantments.
 * Upgrade enchantments.
-* Infuse essence into items (to level them up).
-* Enchant (or disenchant) items.
-* Offer items (equivalent of selling).
-* Syphon and item's XP.
+* Apply and remove Enchants from   items.
+    > All you have to do is place an enchantment in an enchantment slot.  There is no cost or confirm button.
+* Convert essence to item experience.
+* Offer items (Destroyes the item in exchange for essence and ores - configurable).
+    > The value of essence and ores recieved is slightly more than the item's base sell price.
+    > Also returns all enchantments and power boosters applied to the weapon and converts experience on the item to essence.
+* Syphon excess xp from an item past the max level, 40.
+* Infuse items
 
 There are 5 tiers of enchanting tables
-1. Wooden (60% Offering effectivity)
-2. Dusty (70% Offering effectivity)
-3. Hellish (80% Offering effectivity)
-4. Soul (90% Offering effectivity)
-5. Ultimate (100% Offering effectivity)
+0. Wood:
+    *Ingredients - workbench, 4 torches
+    *60% of item experience converted to Essence when offering items.
+1. Dusty:
+    *Ingredients - tier 0 Enchanting Table, 10 desert fossil or 1 sturdy fossil. (Used to be Fossil Helmet until I realized that's way too expensive early game)
+       > (TIP - Found in the desert, look for amber while you're there)
+    *70% of item experience converted to Essence when offering items.
+2. Hellish:
+    *Ingredients - tier 1 Enchanting Table, obsidian skull
+    *80% of item experience converted to Essence when offering items.
+3. Soul:
+    *Ingredients - tier 2 Enchanting Table, 2 souls of light/night
+    *90% of item experience converted to Essence when offering items.
+4. Ultimate:
+    *Ingredients - tier 3 Enchanting Table, 2 hallowed bars
+    *100% of item experience converted to Essence when offering items.
 
 ### Creating enchantments
 To create or upgrade an enchantment, the recipes are on the crafting grid to your left.
@@ -199,10 +229,10 @@ The piece of armor will also look like the consumed one while equiped.
 
 Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
-## We're happy to read your feedback!
-Hop on our [discord](https://discord.gg/mPywEhyV9b) and have a chat with the community!
+## Please give us your feedback!!!!!
+[Weapon Enchantments Discord](https://discord.gg/mPywEhyV9b)
 
-And here's a link to our [forum page](https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/) if you want to read updates that way!
+And here's a link to our [forum page](https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/) (Not checked as often as Steam and Discord.)
 
 ## Contributors
 Sprites made by Zorutan: https://twitter.com/ZorutanMesuta

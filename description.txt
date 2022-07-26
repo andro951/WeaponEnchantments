@@ -1,4 +1,4 @@
-Easier to read on Github:
+More detailed description on Github:
 https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
 
 Weapon Enchantments adds
