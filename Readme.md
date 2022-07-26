@@ -193,7 +193,7 @@ The piece of armor will also look like the consumed one while equiped.
 
 ### Where do I get the good Enchantments?
 ![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)
-![Cold Steel](/Items/Sprites/ColdSteelEnchantmentUltraRare.png)
+![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
 
 Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
