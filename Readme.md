@@ -224,7 +224,7 @@ The piece of armor will also look like the consumed one while equiped.
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
 ### Where do I get the good Enchantments?
-![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
+![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)[Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
 
 Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 

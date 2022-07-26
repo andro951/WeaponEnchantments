@@ -141,9 +141,9 @@ namespace WeaponEnchantments
                 //Create and print the GitHub Artist credits.
                 string artistsMessage = "";
                 foreach (string artistName in artistCredits.Keys) {
-                    artistsMessage += $"{artistName}: "; 
+                    artistsMessage += $"{artistName}: \n"; 
                     foreach(string enchantmentTypeName in artistCredits[artistName]) {
-
+                        artistsMessage += ;
 					}
 				}
             }
