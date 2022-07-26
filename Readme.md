@@ -1,24 +1,63 @@
 ﻿# Weapon Enchantments
-This mod adds modular enchantments to the game, allowing for item customization and a more diverse progression system.
 
-Terraria has you frequently swapping old gear for new. This enchanting system allows you to customize your weapons and armor to fit your style, and keep this style as you change and upgrade your gear.
+# Features
+*Item Customization (Enchantments)
+*Progression System (Item Experience)
+*Item Upgrading (Infusion)
+
+Terraria has you frequently swapping old gear for new. The enchanting system allows you to customize your weapons and armor, and keep your progress as you change or upgrade your gear.
 
 # Wiki
+
+## Enchantments
+![Defense Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
+![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
+
+Enchantments allow customization of your items:
+    Basic stat upgrades such as:
+        *Damage
+        *Critical strike chance
+        *Armor
+        *Life steal
+    More unique upgrades such as:
+    Hitting all enemies in an area (One for All)
+    Dealing massive damage but having a long recovery (All for One)
+    Flames that spread between enemies (World Ablaze)
+    Max health true damage (God Slayer)
+
+Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity. Some enchantments are **Utility** enchantments with a dedicated slot on an item.
+
+They're obtained by...
+* Crafting (Only Damage and Armor)
+* Looting chests.
+* Defeating enemies.
+
+Most enchantments can be upgraded with a new containment and some essence.
+
+There are 5 tiers:
+0. Basic
+1. Medium
+2. Rare
+3. Super Rare
+4. Ultra Rare
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
 
 ## Item Experience
 All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
 
-These items have a level based on their XP and all enchantable items have an enchantment capacity proportional to their level.
+These items have a level based on their XP and all enchantable items have an enchantment capacity proportional to their tier.
 
-You can obtain XP by defeating enemies.
+You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
 
-> Items with no XP will not display any levels.
+> Items with no XP will not display experience or levels.
+
+![Tooltip](GithubSprites/MusketTooltip.png)
 
 ## Essence
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
-This is the mod's main currency. They represent solidified experience and are automatically stored on the enchanting table inventory (like a piggy bank).
+This is the mod's main currency. They represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
 They can be used to...
 * Upgrade enchantments.
 * Infuse it's XP value into items.
@@ -31,43 +70,22 @@ There are 5 Essence types, each worth more than the last:
 5. Ultra Rare
 
 ## Containments
-![Small Containment](/Items/Sprites/Containment.png)
+![Containment](/Items/Sprites/Containment.png)
 ![Medium Containment](/Items/Sprites/MediumContainment.png)
 
-These are the enchantment's vessels, an enchantment's level is dependant on their vessel.
+These contain the power of the enchantments.  More powerful enchantments require larger and stronger containments to hold them.
 
 There are 3 containment levels:
-1. Small (Silver or Tungsten)
-2. Medium (Gold or Platinum)
-3. Big (Demonite or Crimtane)
-
-## Enchantments
-![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
-![Spelunker Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
-
-Enchantments are the mod's main feature. They contain effects that items can aquire. They are held by a **containment**. Higher level enchantments require bigger containments.
-
-An enchantment requires an enchantment capacity equal to its level to be applied to an item. Some enchantments are **Utility** enchantments with a dedicated slot on an item.
-
-They're obtained by...
-* Looting chests.
-* Defeating enemies.
-
-Most enchantments can be upgraded with a new containment and some essence.
-
-There are 5 tiers:
-1. Basic
-2. Medium
-3. Rare
-4. Super Rare
-5. Ultra Rare
-> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment.
+1. Containment (Silver or Tungsten)
+2. Medium Containment (Gold or Platinum)
+3. Superior Containment (Demonite or Crimtane)
 
 ## Power Boosters
 These are rare items obtained by defeating bosses, and add 10 levels over your item's level, without adding on to the level cost. They can be used only once per item and are returned upon offering the item.
 
 ## Enchanting Table
-![EnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
+![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
+![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
 
 This is the mod's main station. All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
 * Create enchantments.
@@ -104,6 +122,9 @@ If you have enchantments and an item with enough level that you wish to upgrade,
 1. Place the item you wish to modify on the *Item* slot.
 2. Add (or remove) the enchantments you wish to add (or remove) on to the the *Enchantments* slots.
 3. Add (or remove) the utility enchantment you wish to add (or remove) on the *Utility* slot.
+
+![Tooltip](GithubSprites/EnchantingTableUI.png)
+
 ### Offering items
 If you have an item that is currently useless to you, you offer it.
 0. NOTE: you will lose the item in exchange of essence, and a mix of iron, silver and gold.
@@ -171,8 +192,8 @@ The piece of armor will also look like the consumed one while equiped.
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
 ### Where do I get the good Enchantments?
-![Hunter](/Items/Sprites/HunterEnchantmentUltraRare.png)
-![Spelunker](/Items/Sprites/SpelunkerEnchantmentUltraRare.png)
+![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)
+![Cold Steel](/Items/Sprites/ColdSteelEnchantmentUltraRare.png)
 
 Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
