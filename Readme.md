@@ -20,12 +20,12 @@ Enchantments allow customization of your items:
         *Armor
         *Life steal
     More unique upgrades such as:
-    Hitting all enemies in an area (One for All)
-    Dealing massive damage but having a long recovery (All for One)
-    Flames that spread between enemies (World Ablaze)
-    Max health true damage (God Slayer)
+        *Hitting all enemies in an area (One for All)
+        *Dealing massive damage but having a long recovery (All for One)
+        *Flames that spread between enemies (World Ablaze)
+        *Max health true damage (God Slayer)
 
-Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity. Some enchantments are **Utility** enchantments with a dedicated slot on an item.
+Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity.
 
 They're obtained by...
 * Crafting (Only Damage and Armor)
@@ -52,8 +52,8 @@ You can obtain XP by damaging enemies, doing skilling activities such as mining 
 > Items with no XP will not display experience or levels.
 
 ![Tooltip](GithubSprites/MusketTooltip.png)
-
-## Essence
+## Crafting and Upgrading Enchantments
+### Essence
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
@@ -69,7 +69,7 @@ There are 5 Essence types, each worth more than the last:
 4. Super Rare
 5. Ultra Rare
 
-## Containments
+### Containments
 ![Containment](/Items/Sprites/Containment.png)
 ![Medium Containment](/Items/Sprites/MediumContainment.png)
 
@@ -124,6 +124,7 @@ If you have enchantments and an item with enough level that you wish to upgrade,
 3. Add (or remove) the utility enchantment you wish to add (or remove) on the *Utility* slot.
 
 ![Tooltip](GithubSprites/EnchantingTableUI.png)
+> Some enchantments are **Utility** enchantments.  The far right enchantment slot is the **Utility** slot.  Only **Utility** enchantments can go here.
 
 ### Offering items
 If you have an item that is currently useless to you, you offer it.
