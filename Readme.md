@@ -32,16 +32,6 @@ They're obtained by...
 * Looting chests.
 * Defeating enemies.
 
-Most enchantments can be upgraded with a new containment and some essence.
-
-There are 5 tiers:
-0. Basic
-1. Medium
-2. Rare
-3. Super Rare
-4. Ultra Rare
-> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
-
 ## Item Experience
 All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
 
@@ -53,21 +43,32 @@ You can obtain XP by damaging enemies, doing skilling activities such as mining 
 
 ![Tooltip](GithubSprites/MusketTooltip.png)
 ## Crafting and Upgrading Enchantments
+
+Most enchantments can be upgraded with a new containment and some essence.
+
+There are 5 tiers:
+0. Basic
+1. Medium
+2. Rare
+3. Super Rare
+4. Ultra Rare
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
+
 ### Essence
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
-This is the mod's main currency. They represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
+Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
 They can be used to...
 * Upgrade enchantments.
 * Infuse it's XP value into items.
 
 There are 5 Essence types, each worth more than the last:
-1. Basic
-2. Common
-3. Rare
-4. Super Rare
-5. Ultra Rare
+0. Basic
+1. Common
+2. Rare
+3. Super Rare
+4. Ultra Rare
 
 ### Containments
 ![Containment](/Items/Sprites/Containment.png)
