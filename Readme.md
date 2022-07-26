@@ -1,7 +1,9 @@
-﻿# Weapon Enchantments Wiki
+﻿# Weapon Enchantments
 This mod adds modular enchantments to the game, allowing for item customization and a more diverse progression system.
 
 Terraria has you frequently swapping old gear for new. This enchanting system allows you to customize your weapons and armor to fit your style, and keep this style as you change and upgrade your gear.
+
+# Wiki
 
 ## Item Experience
 * All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
@@ -49,21 +51,21 @@ Terraria has you frequently swapping old gear for new. This enchanting system al
 * They are returned upon offering the item.
 
 ## Enchanting Table
-* This is the mod's main station. All of the essence you pick up are stored here.
-* It allows you to...
-    * Create enchantments.
-    * Upgrade enchantments.
-    * Infuse essence into items (to level them up).
-    * Enchant (or disenchant) items.
-    * Offer items (equivalent of selling).
-    * Syphon and item's XP.
-* There are 5 tiers:
-    0. Wooden
-    1. Dusty
-    2. Hellish
-    3. Soul
-    4. Ultimate
-* Right clicking the enchanting table opens the enchanting table interface.
+This is the mod's main station. All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
+* Create enchantments.
+* Upgrade enchantments.
+* Infuse essence into items (to level them up).
+* Enchant (or disenchant) items.
+* Offer items (equivalent of selling).
+* Syphon and item's XP.
+
+There are 5 tiers of enchanting tables
+1. Wooden (60% Offering effectivity)
+2. Dusty (70% Offering effectivity)
+3. Hellish (80% Offering effectivity)
+4. Soul (90% Offering effectivity)
+5. Ultimate (100% Offering effectivity)
+
 ### Creating enchantments
 To create or upgrade an enchantment, the recipes are on the crafting grid to your left.
 * You ask the guide about crafting with enchantments.
@@ -143,7 +145,7 @@ The piece of armor will also look like the consumed one while equiped.
 * Upgrade your new weapons and armor with the obtained essence.
 * Keep growing!
 
-### Tips
+### Tips & Tricks
 * DONT SELL enchantable items! Offer them instead.
     * The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
     * Offering items returns all Enchantments/Power Booster applied to the consumed item.
@@ -160,5 +162,5 @@ https://discord.gg/mPywEhyV9b
 
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
 
-# Contributors:
+# Contributors
 Sprites made by Zorutan: https://twitter.com/ZorutanMesuta
