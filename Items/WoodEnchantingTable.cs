@@ -96,7 +96,7 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
 						break;
 					case 3:
-						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches", 2); // Soul of Light or Night
+						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); // Soul of Light or Night
 						break;
 					case 4:
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
