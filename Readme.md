@@ -38,9 +38,11 @@ There are 5 tiers:
 0. Basic
 1. Medium
 2. Rare
-3. Super Rare
-4. Ultra Rare
+3. Epic
+4. Legendary
 > Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
+
+Crafting and upgrading enchantments requires essence and containments.
 
 ## Item Experience
 All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
