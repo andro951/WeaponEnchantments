@@ -86,7 +86,7 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.Torch, 4); //Torches
 						break;
 					case 1:
-						recipe.AddIngredient(ItemID.DesertFossil, 10); //Fossil Helm
+						recipe.AddIngredient(ItemID.DesertFossil, 10); //Desert Fossil
 						recipe.Register();
 						recipe = CreateRecipe();
 						recipe.AddIngredient(Mod, previousTierName, 1);
@@ -96,16 +96,7 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
 						break;
 					case 3:
-						recipe.AddIngredient(ItemID.SoulofLight, 2); //Soul of Light
-						recipe.Register();
-						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, previousTierName, 1);
-						recipe.AddIngredient(ItemID.SoulofNight, 2); //Soul of Night
-						recipe.Register();
-						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, previousTierName, 1);
-						recipe.AddIngredient(ItemID.SoulofNight, 1); //Soul of Night
-						recipe.AddIngredient(ItemID.SoulofLight, 1); //Soul of Light
+						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches", 2); // Soul of Light or Night
 						break;
 					case 4:
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
