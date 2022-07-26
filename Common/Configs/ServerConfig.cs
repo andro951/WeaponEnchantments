@@ -129,6 +129,12 @@ namespace WeaponEnchantments.Common.Configs
 			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
         public int InfusionDamageMultiplier;
 
+        [Label("Minion Life Steal Multiplier (%)")]
+        [Tooltip("Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.")]
+        [DefaultValue(50)]
+        [Range(0, 100)]
+        public int MinionLifeStealMultiplier;
+
         [Header("Random Extra Stuff")]
         [Label("Start with a Drill Containment Unit")]
         [Tooltip("All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough.")]

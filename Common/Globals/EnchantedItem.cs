@@ -1088,7 +1088,7 @@ namespace WeaponEnchantments.Common.Globals
             if (i1Global.infusedArmorSlot > -1 && i2Global.infusedArmorSlot < -1)
                 return false;
 
-            //Splitting stack with right click
+            //Multishot stack with right click
             if (item1.type == Main.mouseItem.type && item1.stack == Main.mouseItem.stack && Main.mouseRight && item2.stack > 1)
                 return true;
 

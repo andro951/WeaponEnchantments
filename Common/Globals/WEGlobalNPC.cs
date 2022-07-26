@@ -545,7 +545,7 @@ namespace WeaponEnchantments.Common.Globals
                     case 87://Biome Mimic - Big Mimics
                         int[] optionsBiomeMimic = new int[] {
                             ModContent.ItemType<GodSlayerEnchantmentBasic>(),
-                            ModContent.ItemType<SplittingEnchantmentBasic>()
+                            ModContent.ItemType<MultishotEnchantmentBasic>()
                         };
                         npcLoot.Add(ItemDropRule.OneFromOptions(denom100, optionsBiomeMimic));
                         break;
@@ -1058,10 +1058,10 @@ namespace WeaponEnchantments.Common.Globals
             if (npc.immune[player.whoAmI] <= 0)
                 return;
 
-            //Fix for splitting not improving damage on flamethrowers
+            //Fix for Multishot not improving damage on flamethrowers
             float NPCHitCooldownMultiplier = SourceItem.AEI("NPCHitCooldown", 1f);
             if(SourceItem.useAmmo == ItemID.Gel && SourceItem.Name != "Shadethrower")
-                NPCHitCooldownMultiplier *= 1f / (SourceItem.AEI("Splitting", 1f));
+                NPCHitCooldownMultiplier *= 1f / (SourceItem.AEI("Multishot", 1f));
 
             //npc.immune
             int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
