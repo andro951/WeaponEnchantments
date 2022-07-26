@@ -100,8 +100,8 @@ If you have a level 40 item (maximum level) and you want to extract leftover exp
 2. Click the syphon button.
 3. Profit!
 ### Infusion
-Weapon Infusion allows you to consume high rarity items to upgrade the damage of low rarity weapons.
-For example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.
+Infusion allows you to consume high rarity items to upgrade the damage of low rarity weapons.
+> For example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.
 The damage bonus is based on the difference in rarity and value between the 2 items.
 
 A weapon's **Infusion Power** stat is determined by the item's rarity and value. 100 Infusion Power per rarity (rarity x100). Additionally, the item's rarity will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.
@@ -110,9 +110,9 @@ A weapon's **Infusion Power** stat is determined by the item's rarity and value.
 > A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.
 > The max value rarity 0 item would have 100 infusion power.  The min, max and average values are calculated based only on vanilla items.
 
-> Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation. Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.
+Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation. Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.
 
-> Vanilla Terraria has 10 rarities for items, yet Modded items can be rarity 11 or higher which will cause their Infusion Power to be the same as the max value rarity 10 items.
+Vanilla Terraria has 10 rarities for items, yet Modded items can be rarity 11 or higher which will cause their Infusion Power to be the same as the max value rarity 10 items.
 
 #### Infusing Weapons
 1. Place the higher Infusion Power item into the *Item* slot in the enchanting table (this item will be destroyed)
@@ -123,7 +123,7 @@ A weapon's **Infusion Power** stat is determined by the item's rarity and value.
 > The consumed item is Offered just like with the Offer button. The only difference is you will not get ore, but you will get all of the enchantments/experience as essence/power booster back.
 
 #### Infusing Armor
-Allows you to consume a piece of armor and replace the set bonus of an item with one from another.
+Infusing armor allows you to consume a piece of armor and replace the set bonus of an item with one from another.
 The piece of armor will act like the consumed one for the purposes of determining set bonuses.
 The piece of armor will also look like the consumed one while equiped.
 
@@ -157,10 +157,10 @@ The piece of armor will also look like the consumed one while equiped.
 * Pre-Hardmode bosses drop general Enchantments usable on all items.
 * Post-Hardmode bosses drop more specialized Enchantments.
 
-# We're happy to read your feedback!
-https://discord.gg/mPywEhyV9b
+## We're happy to read your feedback!
+Hop on our [discord](https://discord.gg/mPywEhyV9b) and have a chat with the community!
 
-https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
+And here's a link to our [forum page](https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/) if you want to read updates that way!
 
-# Contributors
+## Contributors
 Sprites made by Zorutan: https://twitter.com/ZorutanMesuta
