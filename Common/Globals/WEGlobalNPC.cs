@@ -37,6 +37,7 @@ namespace WeaponEnchantments.Common.Globals
         static float warReduction = 1f;
 
         #endregion
+
         private Item _sourceItem;
         public Item SourceItem {
             get => _sourceItem;

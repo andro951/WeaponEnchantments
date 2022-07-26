@@ -51,6 +51,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
+
 			#region Debug
 
 			if (UtilityMethods.debugging)
@@ -115,6 +116,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
 
             #endregion
+
             if (!itemSourceSet)
                 return;
 
@@ -128,7 +130,7 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.localNPCHitCooldown = (int)Math.Round(10f / (1f + sultishotChance));
                 }
 
-
+                //Multishot
                 bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
                 if (notAMultishotProjectile) {
                     int projectiles = (int)sultishotChance;
@@ -162,45 +164,51 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public void UpdateProjectile(Projectile projectile) {
-            if (!updated) {
-                if (sourceItem.TG()) {
-                    for (int i = 0; i < 2; i++) {//Sould be around the if......
-                        lastAIValue[i] = projectile.ai[i];
-                    }
-                    if (sourceItem.TG()) {
-                        initialScale = projectile.scale;
-                        if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale) {
-                            projectile.scale *= sourceItem.scale;
-                            lastScaleBonus = sourceItem.scale;
-                        }
-                        referenceScale = projectile.scale;
-                        float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm) {
-                            float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
-                            speed = 1f - 1f / speedMult;
-                            //speedAdd = speedMult - 1f;
-                        }
-                        if (projectile.usesLocalNPCImmunity) {
-                            if (NPCHitCooldownMultiplier > 1f) {
-                                projectile.usesIDStaticNPCImmunity = true;
-                                projectile.usesLocalNPCImmunity = false;
-                                projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
-                            }
-                            else {
-                                if (projectile.localNPCHitCooldown > 0)
-                                    projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
-                            }
-                        }
-                        if (projectile.usesIDStaticNPCImmunity) {
-                            if (projectile.idStaticNPCHitCooldown > 0)
-                                projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
-                        }
-                        updated = true;
-                    }
-                }
-                else if (parent != null) {
+            if (updated)
+                return;
+
+            if (!itemSourceSet) {
+                if (parent != null)
                     TryUpdateFromParent();
+
+                return;
+            }
+
+
+            if (sourceItem.TG()) {
+                if (sourceItem.TG()) {
+                    initialScale = projectile.scale;
+                    if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale) {
+                        projectile.scale *= sourceItem.scale;
+                        lastScaleBonus = sourceItem.scale;
+                    }
+                    referenceScale = projectile.scale;
+                    float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
+                    if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm) {
+                        float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
+                        speed = 1f - 1f / speedMult;
+                        //speedAdd = speedMult - 1f;
+                    }
+                    if (projectile.usesLocalNPCImmunity) {
+                        if (NPCHitCooldownMultiplier > 1f) {
+                            projectile.usesIDStaticNPCImmunity = true;
+                            projectile.usesLocalNPCImmunity = false;
+                            projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                        }
+                        else {
+                            if (projectile.localNPCHitCooldown > 0)
+                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                        }
+                    }
+                    if (projectile.usesIDStaticNPCImmunity) {
+                        if (projectile.idStaticNPCHitCooldown > 0)
+                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
+                    }
+                    updated = true;
                 }
+            }
+            else  {
+                
             }
         }
         private void TryUpdateFromParent() {
