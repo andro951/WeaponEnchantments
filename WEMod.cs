@@ -364,12 +364,12 @@ namespace WeaponEnchantments
 		{
 			RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
 			{
-				180, 181, 178, 179, 177
+				ItemID.Sapphire, ItemID.Ruby, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst
 			});
 			RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
 			group = new RecipeGroup(() => "Any Rare Gem", new int[]
 			{
-				999, 182
+				ItemID.Amber, ItemID.Diamond
 			});
 			RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 			group = new RecipeGroup(() => "Workbenches", new int[]

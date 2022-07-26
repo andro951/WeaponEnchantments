@@ -342,9 +342,9 @@ namespace WeaponEnchantments.Items
 		/// CheckStaticStatByName()<br/>
 		/// CheckBuffByName()<br/>
 		/// </summary>
-		public virtual void GetMyStats() {
-			//Meant to be overriden in the specific Enchantment class.
-		}
+		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
+
+
 		public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
 			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
