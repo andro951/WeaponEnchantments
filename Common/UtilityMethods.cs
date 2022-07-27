@@ -31,6 +31,15 @@ namespace WeaponEnchantments.Common
         ///</summary>
         public static WEPlayer G(this Player player) => player.GetModPlayer<WEPlayer>();
         public static WEProjectile G(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
+        public static bool TG(this Projectile projectile, out WEProjectile pGlobal) {
+            if(projectile != null && projectile.TryGetGlobalProjectile(out pGlobal)) {
+                return true;
+			}
+			else {
+                pGlobal = null;
+                return false;
+			}
+        }
         public static WEGlobalNPC G(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TG(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
         public static bool TG(this Item item, out EnchantedItem iGlobal) {

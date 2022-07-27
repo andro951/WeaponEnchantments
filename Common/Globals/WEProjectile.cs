@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Common.Globals
         //public bool[] finishedObservationPeriod = { false, false };
         //int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
-        bool[] positiveSet = { false, false };
+        bool[] completedChildSpawnSpeedSetup = { false, false };
 
         //Tracking
         private bool updated = false;
@@ -220,42 +220,66 @@ namespace WeaponEnchantments.Common.Globals
             updated = true;
         }
         private void TryUpdateFromParent() {
+            //Player source
             playerSource = parent.G().playerSource;
-            if (parent.GetGlobalProjectile<WEProjectile>()?.sourceItem != null) {
-                WEProjectile pGlobal = parent.G();
-                sourceItem = pGlobal.sourceItem;
-                itemSourceSet = true;
-                hitCooldownEnd = pGlobal.hitCooldownEnd;
-                for (int i = 0; i < 2; i++) {
-                    if (pGlobal.positiveSet[i]) {
-                        float ai = parent.ai[i];
-                        double lastspawntime = pGlobal.lastChildSpawnTime[i];
-                        if (Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i]) {
-                            pGlobal.spawnedChild[i] = true;
-                            if (Math.Abs(ai) < Math.Abs(pGlobal.nextValueAfterChild[i]))
-                                pGlobal.nextValueAfterChild[i] = ai;
-                        }
-                        else
-                            pGlobal.positiveSet[i] = false;//Just used to force a recalculate of nextValueAfterChild.
-                    }
-                    else {
-                        float lastAIValue = pGlobal.lastAIValue[i];
-                        float ai = parent.ai[i];
-                        double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
-                        if (difference > 3) {
-                            pGlobal.spawnedChild[i] = true;
-                            pGlobal.spawnChildValue[i] = lastAIValue;
+            
+            if (!parent.TG(out WEProjectile pGlobal))
+                return;
+
+            //Source Item
+            sourceItem = pGlobal.sourceItem;
+            itemSourceSet = true;
+
+            //Hit cooldown end
+            hitCooldownEnd = pGlobal.hitCooldownEnd;
+
+
+            for (int i = 0; i < 2; i++) {
+                if (pGlobal.completedChildSpawnSpeedSetup[i]) {
+                    //Parent has spawned a child before
+                    float ai = parent.ai[i];
+                    double lastspawntime = pGlobal.lastChildSpawnTime[i];
+                    float nextAfterChild = pGlobal.nextValueAfterChild[i];
+                    if (Main.GameUpdateCount - 1 > lastspawntime) {
+                        pGlobal.spawnedChild[i] = true;
+                        if (Math.Abs(ai) < Math.Abs(nextAfterChild))
                             pGlobal.nextValueAfterChild[i] = ai;
-                        }
                     }
-                    if (UtilityMethods.debugging) {
-                        string txt = $"parent: {parent.S()} spanedChild at ai values:";
-                        txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
-                        txt.Log();
+					else {
+                        //Force recalculate nextValueAfterChild if triggering every tick. (Fixes an infinite loop of shooting every tick)
+                        pGlobal.completedChildSpawnSpeedSetup[i] = false;
                     }
-                } 
-            }
-        }
+                }
+                else {
+                    //Parent has not spwned a child before
+                    float lastAIValue = pGlobal.lastAIValue[i];
+                    float ai = parent.ai[i];
+                    double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
+                    if (difference > 3) {
+                        pGlobal.spawnedChild[i] = true;
+                        pGlobal.spawnChildValue[i] = lastAIValue;
+                        pGlobal.nextValueAfterChild[i] = ai;
+                    }
+                }
+
+				#region Debug
+
+				if (UtilityMethods.debugging) {
+                    string txt = $"parent: {parent.S()} spanedChild at ai values:";
+                    txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
+                    txt.Log();
+                }
+
+				#endregion
+			}
+		}
+
+        /// <summary>
+        /// Usually used for projectiles spawned by ai behavior of itself creating a new projectile. (Example Desert Tiger Staff)
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public static Item FindMiscSourceItem(Projectile projectile, string context = "") {
             int matchs = 0;
             int bestMatch = -1;
@@ -267,6 +291,7 @@ namespace WeaponEnchantments.Common.Globals
                 Projectile proj = Main.projectile[i];
                 if (proj.type == ProjectileID.None)
                     break;
+
                 if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type) {
                     if (proj.GetGlobalProjectile<WEProjectile>().sourceItem.TG()) {
                         projectileNames = proj.Name.RemoveProjectileName().SplitString();
@@ -306,9 +331,9 @@ namespace WeaponEnchantments.Common.Globals
                             lastChildSpawnTime[i] = Main.GameUpdateCount;
                             float thisSpawnChildValue = spawnChildValue[i];
                             float thisNextValueAfterChild = nextValueAfterChild[i];
-                            if (!positiveSet[i]) {
+                            if (!completedChildSpawnSpeedSetup[i]) {
                                 positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
-                                positiveSet[i] = true;
+                                completedChildSpawnSpeedSetup[i] = true;
                             }
                             bool thisPositive = positive[i];
                             float speedAddValue;
