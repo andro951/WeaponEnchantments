@@ -48,6 +48,7 @@ namespace WeaponEnchantments.Common.Globals
         private bool updated = false;
         public bool skipOnHitEffects = false;
         public int lastInventoryLocation = -1;
+        bool weaponProjectile = false;
 
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
@@ -66,7 +67,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
 
             //VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
-            bool weaponProjectile = projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm;
+            weaponProjectile = projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm;
             if (source is EntitySource_ItemUse_WithAmmo vbSource) {
                 //These weapons shoot the weapon sprite instead of shooting bullest/arrows etc.  This causes many challenges with changing attackspeed.
                 bool projectileFromVortexBeater = vbSource.Item.type == ItemID.VortexBeater;
@@ -174,42 +175,50 @@ namespace WeaponEnchantments.Common.Globals
                 return;
             }
 
+            if (!sourceItem.TG())
+                return;
 
-            if (sourceItem.TG()) {
-                if (sourceItem.TG()) {
-                    initialScale = projectile.scale;
-                    if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale) {
-                        projectile.scale *= sourceItem.scale;
-                        lastScaleBonus = sourceItem.scale;
-                    }
-                    referenceScale = projectile.scale;
-                    float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                    if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm) {
-                        float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
-                        speed = 1f - 1f / speedMult;
-                        //speedAdd = speedMult - 1f;
-                    }
-                    if (projectile.usesLocalNPCImmunity) {
-                        if (NPCHitCooldownMultiplier > 1f) {
-                            projectile.usesIDStaticNPCImmunity = true;
-                            projectile.usesLocalNPCImmunity = false;
-                            projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
-                        }
-                        else {
-                            if (projectile.localNPCHitCooldown > 0)
-                                projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
-                        }
-                    }
-                    if (projectile.usesIDStaticNPCImmunity) {
-                        if (projectile.idStaticNPCHitCooldown > 0)
-                            projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
-                    }
-                    updated = true;
+            //Initial scale
+            initialScale = projectile.scale;
+            bool projectileScaleNotModified = projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale;
+            if (sourceItem.scale >= 1f && projectileScaleNotModified) {
+                projectile.scale *= sourceItem.scale;
+                lastScaleBonus = sourceItem.scale;
+            }
+
+            //Reference scale (after applying sourceItem.scale if needed)
+            referenceScale = projectile.scale;
+
+            //NPC Hit Cooldown
+            float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
+            if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
+                Item sampleItem = ContentSamples.ItemsByType[sourceItem.type];
+                float sampleUseTime = sampleItem.useTime;
+                float useTime = sourceItem.useTime;
+                float sampleUseAnimation = sampleItem.useAnimation;
+                float useAnimation = sourceItem.useAnimation;
+                float allForOne = sourceItem.C("AllForOne") ? 4f : 1f;
+                float speedMult = (sampleUseTime / useTime + sampleUseAnimation / useAnimation) / (2f * allForOne);
+                speed = 1f - 1f / speedMult;
+            }
+
+            //Immunities
+            if (projectile.usesLocalNPCImmunity) {
+                if (NPCHitCooldownMultiplier > 1f) {
+                    projectile.usesIDStaticNPCImmunity = true;
+                    projectile.usesLocalNPCImmunity = false;
+                    projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                }
+                else {
+                    if (projectile.localNPCHitCooldown > 0)
+                        projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
-            else  {
-                
+            if (projectile.usesIDStaticNPCImmunity) {
+                if (projectile.idStaticNPCHitCooldown > 0)
+                    projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
             }
+            updated = true;
         }
         private void TryUpdateFromParent() {
             playerSource = parent.G().playerSource;

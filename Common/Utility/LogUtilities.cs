@@ -64,42 +64,52 @@ namespace WeaponEnchantments.Common.Utility
                 return;
 
             //Enchantment tooltips
-            if (printListOfEnchantmentTooltips)
+            if (printListOfEnchantmentTooltips && listOfAllEnchantmentTooltips != "") {
                 listOfAllEnchantmentTooltips.Log();
+                listOfAllEnchantmentTooltips = "";
+            }
 
             //Contributors  change to give exact file location when added to contributor.
-            if (printListOfContributors) {
-                //New dictionary with artist names as the key
-                SortedDictionary<string, List<string>> artistCredits = new SortedDictionary<string, List<string>>();
-                foreach (string key in contributorsData.Keys) {
-                    string artistName = contributorsData[key].Artist;
-                    if (artistName != null) {
-                        if (artistCredits.ContainsKey(artistName)) {
-                            artistCredits[artistName].Add(key);
-                        }
-                        else {
-                            artistCredits.Add(artistName, new List<string>() { key });
-                        }
+            PrintContributorsList();
+        }
+
+        private static void PrintContributorsList() {
+            if (!printListOfContributors)
+                return;
+
+            if (contributorsData.Count <= 0)
+                return;
+            
+            //New dictionary with artist names as the key
+            SortedDictionary<string, List<string>> artistCredits = new SortedDictionary<string, List<string>>();
+            foreach (string key in contributorsData.Keys) {
+                string artistName = contributorsData[key].Artist;
+                if (artistName != null) {
+                    if (artistCredits.ContainsKey(artistName)) {
+                        artistCredits[artistName].Add(key);
+                    }
+                    else {
+                        artistCredits.Add(artistName, new List<string>() { key });
                     }
                 }
-
-                //Create and print the GitHub Artist credits.
-                string artistsMessage = "";
-                foreach (string artistName in artistCredits.Keys) {
-                    artistsMessage += $"\n{artistName}: ";
-                    if (contributorLinks.ContainsKey(artistName))
-                        artistsMessage += contributorLinks[artistName];
-
-                    artistsMessage += "\n\n";
-                    foreach (string texture in artistCredits[artistName]) {
-                        artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveNameSpace('/', false)}.png)\n";
-                    }
-                }
-                artistsMessage.Log();
-
-                namesAddedToContributorDictionary.Clear();
-                contributorsData.Clear();
             }
+
+            //Create and print the GitHub Artist credits.
+            string artistsMessage = "";
+            foreach (string artistName in artistCredits.Keys) {
+                artistsMessage += $"\n{artistName}: ";
+                if (contributorLinks.ContainsKey(artistName))
+                    artistsMessage += contributorLinks[artistName];
+
+                artistsMessage += "\n\n";
+                foreach (string texture in artistCredits[artistName]) {
+                    artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveNameSpace('/', false)}.png)\n";
+                }
+            }
+            artistsMessage.Log();
+
+            namesAddedToContributorDictionary.Clear();
+            contributorsData.Clear();
         }
 	}
 }
