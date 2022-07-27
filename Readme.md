@@ -238,6 +238,7 @@ Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop ge
 ### Art
 
 Zorutan: https://twitter.com/ZorutanMesuta
+
 ![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
