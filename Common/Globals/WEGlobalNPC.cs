@@ -789,7 +789,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            if (!item.TryGetGlobalItem(out EnchantedItem iGlobal))
+            if (!item.TG(out EnchantedItem iGlobal))
                 return;
 
             SourceItem = item;
@@ -1055,7 +1055,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!SourceItem.TryGetGlobalItem(out EnchantedItem iGlobal))
+            if (!SourceItem.TG(out EnchantedItem iGlobal))
                 return;
 
             //If projectile/npc doesn't use npc.immune, return
