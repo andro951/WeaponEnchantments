@@ -209,14 +209,13 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.usesLocalNPCImmunity = false;
                     projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
                 }
-                else {
-                    if (projectile.localNPCHitCooldown > 0)
-                        projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                else if (projectile.localNPCHitCooldown > 0) {
+                        projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
             if (projectile.usesIDStaticNPCImmunity) {
                 if (projectile.idStaticNPCHitCooldown > 0)
-                    projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
+                    projectile.idStaticNPCHitCooldown = (int)Math.Round((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
             }
             updated = true;
         }
