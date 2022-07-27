@@ -82,11 +82,11 @@ namespace WeaponEnchantments.Common.Utility
                 //Create and print the GitHub Artist credits.
                 string artistsMessage = "";
                 foreach (string artistName in artistCredits.Keys) {
-                    artistsMessage += $"\n\n{artistName}: ";
+                    artistsMessage += $"\n{artistName}: ";
                     if (contributorLinks.ContainsKey(artistName))
                         artistsMessage += contributorLinks[artistName];
 
-                    artistsMessage += "\n";
+                    artistsMessage += "\n\n";
                     foreach (string texture in artistCredits[artistName]) {
                         artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveNameSpace('/', false)}.png)\n";
                     }

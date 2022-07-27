@@ -238,17 +238,18 @@ Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop ge
 ### Art
 
 andro951: 
+
 ![CatastrophicReleaseEnchantmentCommon](/Items/Sprites/CatastrophicReleaseEnchantmentCommon.png)
 ![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
 ![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
 ![PowerBooster](/Items/Sprites/PowerBooster.png)
 
-
 Sir Bumpleton: 
+
 ![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
 
-
 Zorutan: https://twitter.com/ZorutanMesuta
+
 ![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
