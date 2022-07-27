@@ -24,14 +24,14 @@ namespace WeaponEnchantments.Items
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
 
-		public abstract Color glowColor { get; }		// The color of the essence's glow. Alpha is brightness.
+		public abstract Color glowColor { get; }		// The color of the essence's glow. Alpha is brightness (Exponentially brighter with each point).
 		public abstract int animationFrames { get; }	// The amount of frames of the essence animation
 		public abstract int entitySize { get; }         // The entity's hitbox size in the world
 
 		public override void SetStaticDefaults()
         {
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, animationFrames));
-			ItemID.Sets.AnimatesAsSoul[Item.type] = true; // Makes the item have an animation while in world (not held.). Use in combination with RegisterItemAnimation
+			ItemID.Sets.AnimatesAsSoul[Item.type] = true; // Makes the item have an animation while in world (not held.).
 			ItemID.Sets.ItemIconPulse[Item.type] = true; // The item pulses while in the player's inventory
 			ItemID.Sets.ItemNoGravity[Item.type] = true; // Makes the item have no gravity
 
@@ -108,12 +108,12 @@ namespace WeaponEnchantments.Items
     }
 	public class EnchantmentEssenceBasic: EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0xA9, 0x37, 0x44);	// #18A937
+		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0xA9, 0x37, 0x56);	// #18A937
 		public override int entitySize => 12;
     }
 	public class EnchantmentEssenceCommon : EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0x44, 0xA9, 0x55);	// #1844A9
+		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0x44, 0xA9, 0x5E);	// #1844A9
 		public override int entitySize => 16;
 	}
 	public class EnchantmentEssenceRare : EnchantmentEssence {
@@ -123,12 +123,12 @@ namespace WeaponEnchantments.Items
 	}
 	public class EnchantmentEssenceSuperRare : EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x21, 0x18, 0x77);   // #A92118
+		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x21, 0x18, 0x6E);   // #A92118
 		public override int entitySize => 24;
 	}
 	public class EnchantmentEssenceUltraRare : EnchantmentEssence {
 		public override int animationFrames => 4;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x68, 0x18, 0x88);	// #A96818
+		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x68, 0x18, 0x76);	// #A96818
 		public override int entitySize => 28;
 	}
 }
