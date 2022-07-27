@@ -10,13 +10,7 @@ namespace WeaponEnchantments.Common.Globals
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            if(entity.ModItem != null)
-            {
-                if (entity.ModItem is EnchantmentEssence)
-                    return true;
-            }
-
-            return false;
+            return entity.ModItem != null && entity.ModItem is EnchantmentEssence;
         }
         public override bool OnPickup(Item item, Player player)
         {
