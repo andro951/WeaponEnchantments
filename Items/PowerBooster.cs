@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -11,6 +12,9 @@ namespace WeaponEnchantments.Items
     {
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+
+        public virtual string Artist { private set; get; } = "andro951";
+        public virtual string Designer { private set; get; } = "andro951";
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -19,6 +23,8 @@ namespace WeaponEnchantments.Items
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             Tooltip.SetDefault("Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n(Shift left click from your inventory or left click on item in the table with this on your cursor.)\nThis item will be returned if the boosted item is offered.");
+
+            LogUtilities.UpdateContributorsList(this);
         }
         public override void SetDefaults()
         {

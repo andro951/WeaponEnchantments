@@ -2,6 +2,7 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -11,12 +12,17 @@ namespace WeaponEnchantments.Items
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+
+		public virtual string Artist { private set; get; } = "Zorutan";
+		public virtual string Designer { private set; get; } = "andro951";
 		public override void SetStaticDefaults()
 		{
 			GetDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+
+			LogUtilities.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
         {

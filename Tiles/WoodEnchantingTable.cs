@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Tiles
 {
@@ -15,6 +16,10 @@ namespace WeaponEnchantments.Tiles
 	{
 		public int enchantingTableTier = -1;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+
+		public virtual string Artist { private set; get; } = "Zorutan";
+		public virtual string Designer { private set; get; } = "andro951";
+
 		public override void SetStaticDefaults()
 		{
 			GetDefaults();
@@ -46,6 +51,8 @@ namespace WeaponEnchantments.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault(Items.WoodEnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 			AddMapEntry(new Color(200, 200, 200), name);
+
+			LogUtilities.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
 		{

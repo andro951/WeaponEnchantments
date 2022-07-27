@@ -10,6 +10,7 @@ using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.Utility.LogUtilities;
 
 namespace WeaponEnchantments.Items
 {
@@ -61,10 +62,6 @@ namespace WeaponEnchantments.Items
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly int defaultBuffDuration = 60;
-
-		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
-		public static string listOfAllEnchantmentTooltips = "";
-		public static bool printListOfEnchantmentTooltips = false;
 
 		#endregion
 
@@ -218,6 +215,9 @@ namespace WeaponEnchantments.Items
 		public string FullToolTip { private set; get; }
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 
+		public virtual string Artist { private set; get; } = null;
+		public virtual string Designer { private set; get; } = null;
+
 		#endregion
 
 		#region Restrictions and enchantment types
@@ -368,6 +368,13 @@ namespace WeaponEnchantments.Items
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
+
+			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+				//All for one is allowed to pass every sprite
+				bool allForOne = EnchantmentTypeName == "AllForOne";
+
+				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
+			}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//EnchantmentTypeName

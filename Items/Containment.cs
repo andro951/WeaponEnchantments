@@ -2,6 +2,7 @@
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -16,6 +17,9 @@ namespace WeaponEnchantments.Items
         
         public int size = 0;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+
+        public virtual string Artist { private set; get; } = "Zorutan";
+        public virtual string Designer { private set; get; } = "andro951";
         public override void SetStaticDefaults()
         {
             GetDefaults();
@@ -29,6 +33,8 @@ namespace WeaponEnchantments.Items
                 }
             }
             Tooltip.SetDefault("Used to store " + Enchantment.rarity[size] + " enchantments");
+            
+            LogUtilities.UpdateContributorsList(this);
         }
         private void GetDefaults()
         {

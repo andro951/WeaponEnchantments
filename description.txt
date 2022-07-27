@@ -1,5 +1,5 @@
-Easier to read on Github:
-https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
+More detailed description on Github:
+https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
 Weapon Enchantments adds
      -Item customization
@@ -40,10 +40,10 @@ All other info for the mod moved here:
 https://github.com/andro951/WeaponEnchantments/blob/master/Wiki.txt
 
 
-Please give me your feedback!!!!!!
+Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
-https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
+https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
 Contributors:
-Sprites made by Zorutan: https://twitter.com/ZorutanMesuta
+See github for contributors list

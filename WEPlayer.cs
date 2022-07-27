@@ -120,7 +120,6 @@ namespace WeaponEnchantments
                 OldWorldItemsReplaced = true;
             }
             OldItemManager.ReplaceAllPlayerOldItems(player);
-            //Enchantment.listOfAllEnchantmentTooltips.Log();
 
             /*foreach(Mod mod in ModLoader.Mods)
             {

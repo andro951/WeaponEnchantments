@@ -184,12 +184,7 @@ namespace WeaponEnchantments.Common
         public static string GetNameFolderName(this string s, int numberOfFolders = 1) {
             int i = s.Length - 1;
             for(int j = 0; j < numberOfFolders; j++) {
-                for(; i > 0; i--) {
-                    char c = s[i];
-                    if(c == '.') {
-                        break;
-					}
-				}
+                i = s.FindChar('.', false);
 
                 //Not last time loop will run
                 if(j != numberOfFolders - 1) {
@@ -199,6 +194,43 @@ namespace WeaponEnchantments.Common
 			}
 
             return s.Substring(i + 1);
+		}
+
+        public static string GetFileName(this string s, char searchChar = '.') {
+            int i = s.FindChar(searchChar, false);
+
+            return s.Substring(i + 1);
+		}
+
+        public static int FindChar(this string s, char searchChar, bool startLeft = true) {
+            int length = s.Length;
+            int i = startLeft ? 0 : length - 1;
+            if(startLeft) {
+                for (; i < length; i++) {
+                    char c = s[i];
+                    if (c == searchChar) {
+                        return i;
+                    }
+                }
+            }
+			else {
+                for (; i >= 0; i--) {
+                    char c = s[i];
+                    if (c == searchChar) {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public static string RemoveNameSpace(this string s, char searchChar = '.', bool removeSearchChar = true) {
+            int i = s.FindChar(searchChar);
+
+            if (removeSearchChar)
+                i++;
+
+            return s.Substring(i);
 		}
         public static string AddSpaces(this string s)
         {

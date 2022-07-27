@@ -23,6 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Debuff.Add(EnchantmentTier == 3 ? BuffID.Venom : BuffID.Poisoned, BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment { }
 	public class JunglesFuryEnchantmentCommon : JunglesFuryEnchantment { }

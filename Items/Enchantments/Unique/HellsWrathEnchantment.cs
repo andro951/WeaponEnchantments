@@ -22,6 +22,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Debuff.Add(EnchantmentTier == 3 ? BuffID.OnFire3 : BuffID.OnFire, BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment { }
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }

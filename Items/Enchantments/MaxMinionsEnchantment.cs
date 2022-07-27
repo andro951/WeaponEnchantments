@@ -15,6 +15,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			CheckStaticStatByName();
 		}
+
+		public override string Artist => "andro951";
+		public override string Designer => "andro951";
 	}
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment { }
 	public class MaxMinionsEnchantmentCommon : MaxMinionsEnchantment { }
