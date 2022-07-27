@@ -12,6 +12,10 @@ namespace WeaponEnchantments.Common.Utility
 	public class LogUtilities : ModSystem
 	{
         //Only used to print the full list of contributors.
+        private static Dictionary<string, string> contributorLinks = new Dictionary<string, string>() {
+            { "Zorutan", "https://twitter.com/ZorutanMesuta" }
+		};
+
         public struct Contributors
         {
             public Contributors(string artist, string designer) {
@@ -21,7 +25,7 @@ namespace WeaponEnchantments.Common.Utility
             public string Artist;
             public string Designer;
         }
-        public static SortedDictionary<string, Contributors> enchantmentContributors = new SortedDictionary<string, Contributors>();
+        public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static bool printListOfContributors = true;
 
@@ -44,8 +48,11 @@ namespace WeaponEnchantments.Common.Utility
             string artist = (string)thisObjectsType.GetProperty("Artist").GetValue(modTypeWithTexture);
             string designer = (string)thisObjectsType.GetProperty("Designer").GetValue(modTypeWithTexture);
 
-            if (!enchantmentContributors.ContainsKey(texture))
-                enchantmentContributors.Add(texture, new Contributors(artist, designer));
+            if (!contributorsData.ContainsKey(texture))
+                contributorsData.Add(texture, new Contributors(artist, designer));
+
+            if (sharedName != null)
+                namesAddedToContributorDictionary.Add(sharedName);
         }
 
 		public override void OnWorldLoad() {
@@ -60,8 +67,8 @@ namespace WeaponEnchantments.Common.Utility
             if (printListOfContributors) {
                 //New dictionary with artist names as the key
                 Dictionary<string, List<string>> artistCredits = new Dictionary<string, List<string>>();
-                foreach (string key in enchantmentContributors.Keys) {
-                    string artistName = enchantmentContributors[key].Artist;
+                foreach (string key in contributorsData.Keys) {
+                    string artistName = contributorsData[key].Artist;
                     if (artistName != null) {
                         if (artistCredits.ContainsKey(artistName)) {
                             artistCredits[artistName].Add(key);
@@ -75,12 +82,19 @@ namespace WeaponEnchantments.Common.Utility
                 //Create and print the GitHub Artist credits.
                 string artistsMessage = "";
                 foreach (string artistName in artistCredits.Keys) {
-                    artistsMessage += $"\n\n{artistName}: \n";
+                    artistsMessage += $"\n\n{artistName}: ";
+                    if (contributorLinks.ContainsKey(artistName))
+                        artistsMessage += contributorLinks[artistName];
+
+                    artistsMessage += "\n";
                     foreach (string texture in artistCredits[artistName]) {
-                        artistsMessage += $"![{texture}]({texture}.png)\n";
+                        artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveNameSpace('/', false)}.png)\n";
                     }
                 }
                 artistsMessage.Log();
+
+                namesAddedToContributorDictionary.Clear();
+                contributorsData.Clear();
             }
         }
 	}
