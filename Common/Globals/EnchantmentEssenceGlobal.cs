@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,28 +21,30 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.G();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
+                List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
                 int rarity = essence.essenceRarity;
-                int tableStack = wePlayer.enchantingTable.essenceItem[rarity].stack;
+                int tableStack = essenceSlots[rarity].stack;
+                int toStore = Math.Min(item.maxStack - tableStack, item.stack);
+                item.stack -= toStore;
                 //Less than max stack when combined
-                if (item.stack + tableStack <= item.maxStack)
+
+                if (essenceSlots[rarity].stack < 1) {
+                    //Table is empty
+                    essenceSlots[rarity] = new Item(item.type, toStore);
+                }
+				else {
+                    //Table not empty
+                    essenceSlots[rarity].stack += toStore;
+                }
+
+                PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);
+                if (item.stack < 1)
                 {
-                    if (wePlayer.enchantingTable.essenceItem[rarity].stack < 1) {
-                        //Table is empty
-                        wePlayer.enchantingTable.essenceItem[rarity] = new Item(item.type, item.stack);
-                    }
-					else {
-                        //Table not empty
-                        wePlayer.enchantingTable.essenceItem[rarity].stack += item.stack;
-                    }
-                    
-                    PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
                     SoundEngine.PlaySound(SoundID.Grab);
                     item.TurnToAir();
-
                     return false;
                 }
             }
-
             return true;
         }
     }
