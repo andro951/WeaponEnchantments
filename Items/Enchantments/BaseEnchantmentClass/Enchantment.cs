@@ -10,6 +10,7 @@ using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.Utility.LogUtilities;
 
 namespace WeaponEnchantments.Items
 {
@@ -61,22 +62,6 @@ namespace WeaponEnchantments.Items
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly int defaultBuffDuration = 60;
-
-		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
-		public static string listOfAllEnchantmentTooltips = "";
-		public static bool printListOfEnchantmentTooltips = false;
-
-		//Only used to print the full list of contributors.
-		public struct Contributors {
-			public Contributors(string artist, string designer) {
-				Artist = artist;
-				Designer = designer;
-			}
-			public string Artist;
-			public string Designer;
-		}
-		public static SortedDictionary <string, Contributors> enchantmentContributors;
-		public static bool printListOfContributors = true;
 
 		#endregion
 
@@ -230,8 +215,8 @@ namespace WeaponEnchantments.Items
 		public string FullToolTip { private set; get; }
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 
-		internal virtual string Artist { private set; get; }
-		internal virtual string Designer { private set; get; }
+		public virtual string Artist { private set; get; } = null;
+		public virtual string Designer { private set; get; } = null;
 
 		#endregion
 
@@ -384,9 +369,7 @@ namespace WeaponEnchantments.Items
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 
-			//Only used to print the full list of contributors.
-			if (printListOfContributors && !enchantmentContributors.ContainsKey(EnchantmentTypeName))
-				enchantmentContributors.Add(EnchantmentTypeName, new Contributors(Artist, Designer));
+			UpdateContributorsList(this, EnchantmentTypeName);
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//EnchantmentTypeName

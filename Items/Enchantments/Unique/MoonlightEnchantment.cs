@@ -24,6 +24,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class MoonlightEnchantmentBasic : MoonlightEnchantment { }
 	public class MoonlightEnchantmentCommon : MoonlightEnchantment { }

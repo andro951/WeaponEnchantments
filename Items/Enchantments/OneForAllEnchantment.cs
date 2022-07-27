@@ -18,6 +18,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddStaticStat("useTime", 0f, 1.5f - EnchantmentStrength * 0.2f);
 			AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class OneForAllEnchantmentBasic : OneForAllEnchantment { }
 	public class OneForAllEnchantmentCommon : OneForAllEnchantment { }

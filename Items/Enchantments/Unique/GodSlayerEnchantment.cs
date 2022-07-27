@@ -10,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
 			{ "Weapon", 1f }
 		};
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class GodSlayerEnchantmentBasic : GodSlayerEnchantment { }
 	public class GodSlayerEnchantmentCommon : GodSlayerEnchantment { }

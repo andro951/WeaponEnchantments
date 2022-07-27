@@ -11,6 +11,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			if (EnchantmentStrength >= 0.1f)
 				AddStaticStat("autoReuse", EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class SpeedEnchantmentBasic : SpeedEnchantment { }
 	public class SpeedEnchantmentCommon : SpeedEnchantment { }

@@ -13,6 +13,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			CheckStaticStatByName();
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentCommon : ArmorPenetrationEnchantment { }

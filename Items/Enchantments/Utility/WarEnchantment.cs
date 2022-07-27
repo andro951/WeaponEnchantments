@@ -21,6 +21,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			AddEStat("spawnRate", 0f, EnchantmentStrength);
 			AddEStat("maxSpawns", 0f, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class WarEnchantmentBasic : WarEnchantment { }
 	public class WarEnchantmentCommon : WarEnchantment { }

@@ -24,6 +24,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Debuff.Add(BuffID.Frostburn, BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment { }
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }

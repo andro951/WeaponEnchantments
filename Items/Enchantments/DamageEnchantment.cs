@@ -8,6 +8,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class DamageEnchantmentBasic : DamageEnchantment { }
 	public class DamageEnchantmentCommon : DamageEnchantment { }

@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public PresetData presetData;
 
-        [Header("Individual Item Strengths")]
+        [Header("Individual Enchantment Strengths")]
         [Label("Individual Strengths Enabled")]
         [Tooltip("Enabling this will cause the Indvidual strength values selected below to overite all other settings.")]
         [ReloadRequired]

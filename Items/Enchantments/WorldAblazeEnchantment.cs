@@ -38,6 +38,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			if (EnchantmentStrength > tier2DefaultStrength)
 				Debuff.Add(BuffID.OnFire3, (int)((float)BuffDuration * 0.2f * EnchantmentStrength));
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment { }
 	public class WorldAblazeEnchantmentCommon : WorldAblazeEnchantment { }

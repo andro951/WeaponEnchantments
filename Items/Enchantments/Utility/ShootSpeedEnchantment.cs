@@ -8,6 +8,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override void GetMyStats() {
 			CheckStaticStatByName();
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class ShootSpeedEnchantmentBasic : ShootSpeedEnchantment { }
 	public class ShootSpeedEnchantmentCommon : ShootSpeedEnchantment { }
