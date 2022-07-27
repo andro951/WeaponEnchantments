@@ -10,12 +10,13 @@ namespace WeaponEnchantments.Common.Globals
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            return entity.ModItem != null && entity.ModItem is EnchantmentEssence;
+            return entity.ModItem != null && entity.ModItem is EnchantmentEssence; // The item to which this script applies will always be an enchantment essence
         }
+
         public override bool OnPickup(Item item, Player player)
         {
-            WEPlayer wePlayer = player.G();
             EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+            WEPlayer wePlayer = player.G();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
                 int rarity = essence.essenceRarity;
@@ -25,8 +26,7 @@ namespace WeaponEnchantments.Common.Globals
                 {
                     if (wePlayer.enchantingTable.essenceItem[rarity].stack < 1) {
                         //Table is empty
-                        int basicEssenceType = ModContent.ItemType<EnchantmentEssenceBasic>();
-                        wePlayer.enchantingTable.essenceItem[rarity] = new Item(basicEssenceType + rarity, item.stack);
+                        wePlayer.enchantingTable.essenceItem[rarity] = new Item(item.type, item.stack);
                     }
 					else {
                         //Table not empty
