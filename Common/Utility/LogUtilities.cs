@@ -66,7 +66,7 @@ namespace WeaponEnchantments.Common.Utility
             //Contributors  change to give exact file location when added to contributor.
             if (printListOfContributors) {
                 //New dictionary with artist names as the key
-                Dictionary<string, List<string>> artistCredits = new Dictionary<string, List<string>>();
+                SortedDictionary<string, List<string>> artistCredits = new SortedDictionary<string, List<string>>();
                 foreach (string key in contributorsData.Keys) {
                     string artistName = contributorsData[key].Artist;
                     if (artistName != null) {

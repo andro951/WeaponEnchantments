@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddStaticStat("dashType", 0f, 1f, 0f, 3f);
 		}
 
-		public override string Artist => "Zorutan";
+		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 	}
 	public class PhaseJumpEnchantmentBasic : PhaseJumpEnchantment { }

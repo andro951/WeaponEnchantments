@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
 		}
 
-		public override string Artist => "Zorutan";
+		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 	}
 	public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment { }

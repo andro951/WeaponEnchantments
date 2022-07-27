@@ -237,30 +237,54 @@ Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop ge
 
 ### Art
 
-Zorutan: https://twitter.com/ZorutanMesuta
+andro951: 
+![CatastrophicReleaseEnchantmentCommon](/Items/Sprites/CatastrophicReleaseEnchantmentCommon.png)
+![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
+![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
+![PowerBooster](/Items/Sprites/PowerBooster.png)
 
+
+Sir Bumpleton: 
+![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
+
+
+Zorutan: https://twitter.com/ZorutanMesuta
 ![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
-![CatastrophicReleaseEnchantmentCommon](/Items/Sprites/CatastrophicReleaseEnchantmentCommon.png)
 ![ColdSteelEnchantmentCommon](/Items/Sprites/ColdSteelEnchantmentCommon.png)
+![Containment](/Items/Sprites/Containment.png)
 ![CriticalStrikeChanceEnchantmentCommon](/Items/Sprites/CriticalStrikeChanceEnchantmentCommon.png)
 ![DamageEnchantmentCommon](/Items/Sprites/DamageEnchantmentCommon.png)
+![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
+![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
+![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
+![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
+![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
+![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
 ![GodSlayerEnchantmentCommon](/Items/Sprites/GodSlayerEnchantmentCommon.png)
+![HellishEnchantingTable](/Items/Sprites/HellishEnchantingTable.png)
 ![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)
 ![JunglesFuryEnchantmentCommon](/Items/Sprites/JunglesFuryEnchantmentCommon.png)
 ![LifeStealEnchantmentCommon](/Items/Sprites/LifeStealEnchantmentCommon.png)
 ![ManaEnchantmentCommon](/Items/Sprites/ManaEnchantmentCommon.png)
-![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
+![MediumContainment](/Items/Sprites/MediumContainment.png)
 ![MoonlightEnchantmentCommon](/Items/Sprites/MoonlightEnchantmentCommon.png)
 ![MoveSpeedEnchantmentCommon](/Items/Sprites/MoveSpeedEnchantmentCommon.png)
 ![MultishotEnchantmentCommon](/Items/Sprites/MultishotEnchantmentCommon.png)
 ![OneForAllEnchantmentCommon](/Items/Sprites/OneForAllEnchantmentCommon.png)
 ![PeaceEnchantmentCommon](/Items/Sprites/PeaceEnchantmentCommon.png)
-![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
 ![ScaleEnchantmentCommon](/Items/Sprites/ScaleEnchantmentCommon.png)
-![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
+![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
 ![SpeedEnchantmentCommon](/Items/Sprites/SpeedEnchantmentCommon.png)
 ![StatDefenseEnchantmentCommon](/Items/Sprites/StatDefenseEnchantmentCommon.png)
+![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
+![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)
 ![WarEnchantmentCommon](/Items/Sprites/WarEnchantmentCommon.png)
+![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
 ![WorldAblazeEnchantmentCommon](/Items/Sprites/WorldAblazeEnchantmentCommon.png)
+![DustyEnchantingTable](/Tiles/Sprites/DustyEnchantingTable.png)
+![HellishEnchantingTable](/Tiles/Sprites/HellishEnchantingTable.png)
+![SoulEnchantingTable](/Tiles/Sprites/SoulEnchantingTable.png)
+![UltimateEnchantingTable](/Tiles/Sprites/UltimateEnchantingTable.png)
+![WoodEnchantingTable](/Tiles/Sprites/WoodEnchantingTable.png)

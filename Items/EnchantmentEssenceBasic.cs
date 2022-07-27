@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -16,7 +17,10 @@ namespace WeaponEnchantments.Items
 		public static float[] xpPerEssence = new float[rarity.Length];
 		public static float valuePerXP;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public override void SetStaticDefaults()
+
+		public virtual string Artist { private set; get; } = "Zorutan";
+		public virtual string Designer { private set; get; } = "andro951";
+		public override void SetStaticDefaults()
         {
             for(int i = 0; i < rarity.Length; i++)
             {
@@ -29,6 +33,8 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault(Enchantment.displayRarity[essenceRarity].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 			if (!WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
+
+			LogUtilities.UpdateContributorsList(this);
 		}
         private void GetDefaults()
         {

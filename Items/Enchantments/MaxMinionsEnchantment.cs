@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			CheckStaticStatByName();
 		}
 
-		public override string Artist => "Zorutan";
+		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 	}
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment { }
