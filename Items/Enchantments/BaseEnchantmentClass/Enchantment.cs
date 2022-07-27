@@ -369,7 +369,7 @@ namespace WeaponEnchantments.Items
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 
-			if(printListOfContributors && EnchantmentTier == 1)
+			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne"))
 				UpdateContributorsList(this, EnchantmentTypeName);
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {

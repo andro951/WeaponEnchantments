@@ -10,7 +10,13 @@ using WeaponEnchantments.Items;
 namespace WeaponEnchantments.Common.Utility
 {
 	public class LogUtilities : ModSystem
-	{
+    {
+        public static bool printListOfContributors = false;
+
+        public static bool printListOfEnchantmentTooltips = false;
+
+
+
         //Only used to print the full list of contributors.
         private static Dictionary<string, string> contributorLinks = new Dictionary<string, string>() {
             { "Zorutan", "https://twitter.com/ZorutanMesuta" }
@@ -27,12 +33,10 @@ namespace WeaponEnchantments.Common.Utility
         }
         public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
-        public static bool printListOfContributors = true;
 
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
         public static string listOfAllEnchantmentTooltips = "";
-        public static bool printListOfEnchantmentTooltips = false;
 
         //Requires an input type to have properties: Texture
         public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {

@@ -250,7 +250,7 @@ Sir Bumpleton:
 
 Zorutan: https://twitter.com/ZorutanMesuta
 
-![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
+![AllForOneEnchantmentBasic](/Items/Sprites/AllForOneEnchantmentBasic.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
 ![ColdSteelEnchantmentCommon](/Items/Sprites/ColdSteelEnchantmentCommon.png)
