@@ -1309,7 +1309,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
             
             //dummy return
-            if (target.type == NPCID.TargetDummy || target.FullName != "Super Dummy")
+            if (target.type == NPCID.TargetDummy || target.FullName == "Super Dummy")
                 return;
 
             //friendly return

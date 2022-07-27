@@ -781,9 +781,11 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
 
             //Minion damage reduction from war enchantment
-            bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion;
-            if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
-                damage = (int)Math.Round(damage / myWarReduction);
+            if(projectile != null) {
+                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion;
+                if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
+                    damage = (int)Math.Round(damage / myWarReduction);
+                }
             }
 
             if (!item.TryGetGlobalItem(out EnchantedItem iGlobal))
