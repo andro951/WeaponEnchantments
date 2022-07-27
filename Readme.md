@@ -235,8 +235,9 @@ Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop ge
 
 ## Contributors
 Sprites made by Zorutan: https://twitter.com/ZorutanMesuta 
-![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentBasic](WeaponEnchantments/Items/Sprites/AllForOneEnchantmentBasic.png)
-![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentCommon](WeaponEnchantments/Items/Sprites/AllForOneEnchantmentCommon.png)
+
+![AllForOneEnchantmentBasic](/Items/Sprites/AllForOneEnchantmentBasic.png)
+![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentRare](WeaponEnchantments/Items/Sprites/AllForOneEnchantmentRare.png)
 ![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentSuperRare](WeaponEnchantments/Items/Sprites/AllForOneEnchantmentSuperRare.png)
 ![WeaponEnchantments/Items/Sprites/AllForOneEnchantmentUltraRare](WeaponEnchantments/Items/Sprites/AllForOneEnchantmentUltraRare.png)
