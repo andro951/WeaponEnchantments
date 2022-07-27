@@ -31,19 +31,18 @@ First 5 minutes:
 
 Tips:
     -DONT SELL weapons/armor/accessories. Offer them instead.  
-        The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp. 
+        The value from ore and essence recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp. 
         Offering items returns all Enchantments/Power Booster applied to the consumed item.
     -Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
-    -Make a gem tree farm (especially for diamond/amber).  They are in crafting high tier Containments.
+    -Make a gem tree farm (especially for diamond/amber).  They are used in crafting high tier Containments.
 
-All other info for the mod moved here: 
-https://github.com/andro951/WeaponEnchantments/blob/master/Wiki.txt
+All other info for the mod on the github: 
+https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
 
 Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
-https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
 Contributors:
 See github for contributors list
