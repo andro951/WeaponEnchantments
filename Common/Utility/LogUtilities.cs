@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Common.Utility
 {
 	public class LogUtilities : ModSystem
     {
-        public static bool printListOfContributors = false;
+        public static bool printListOfContributors = true;
 
         public static bool printListOfEnchantmentTooltips = false;
 

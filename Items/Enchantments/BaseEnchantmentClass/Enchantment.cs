@@ -369,8 +369,12 @@ namespace WeaponEnchantments.Items
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 
-			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne"))
-				UpdateContributorsList(this, EnchantmentTypeName);
+			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+				//All for one is allowed to pass every sprite
+				bool allForOne = EnchantmentTypeName == "AllForOne";
+
+				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
+			}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//EnchantmentTypeName
