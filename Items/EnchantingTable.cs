@@ -6,8 +6,8 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-	public class WoodEnchantingTable : ModItem
-	{
+	public abstract class EnchantingTable : ModItem
+    {
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
@@ -25,7 +25,7 @@ namespace WeaponEnchantments.Items
 			LogUtilities.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
-        {
+		{
 			for (int i = 0; i < enchantingTableNames.Length; i++)
 			{
 				if (enchantingTableNames[i] == Name.Substring(0, enchantingTableNames[i].Length))
@@ -69,8 +69,8 @@ namespace WeaponEnchantments.Items
 		}
 
 		private string GetPreviousTierItemName()
-        {
-			return WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
+		{
+			return enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
 		}
 
 		public override void AddRecipes()
@@ -113,8 +113,9 @@ namespace WeaponEnchantments.Items
 			}
 		}
 	}
-	public class DustyEnchantingTable : WoodEnchantingTable { }
-	public class HellishEnchantingTable : WoodEnchantingTable { }
-	public class SoulEnchantingTable : WoodEnchantingTable { }
-	public class UltimateEnchantingTable : WoodEnchantingTable { }
+	public class WoodEnchantingTable : EnchantingTable { }
+	public class DustyEnchantingTable : EnchantingTable { }
+	public class HellishEnchantingTable : EnchantingTable { }
+	public class SoulEnchantingTable : EnchantingTable { }
+	public class UltimateEnchantingTable : EnchantingTable { }
 }

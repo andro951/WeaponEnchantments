@@ -992,7 +992,7 @@ namespace WeaponEnchantments.Items
 					}
 
 					//Enchanting Table
-					recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable");
+					recipe.AddTile(Mod, EnchantingTable.enchantingTableNames[i] + "EnchantingTable");
 
 					recipe.Register();
 				}

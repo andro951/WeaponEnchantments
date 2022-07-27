@@ -12,7 +12,7 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Tiles
 {
-	public class WoodEnchantingTable : ModTile
+	public abstract class EnchantingTableTile : ModTile
 	{
 		public int enchantingTableTier = -1;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
@@ -49,16 +49,16 @@ namespace WeaponEnchantments.Tiles
 
 			// Etc
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault(Items.WoodEnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+			name.SetDefault(Items.EnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			LogUtilities.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
 		{
-			for (int i = 0; i < Items.WoodEnchantingTable.enchantingTableNames.Length; i++)
+			for (int i = 0; i < Items.EnchantingTable.enchantingTableNames.Length; i++)
 			{
-				if (Items.WoodEnchantingTable.enchantingTableNames[i] == Name.Substring(0, Items.WoodEnchantingTable.enchantingTableNames[i].Length))
+				if (Items.EnchantingTable.enchantingTableNames[i] == Name.Substring(0, Items.EnchantingTable.enchantingTableNames[i].Length))
 				{
 					enchantingTableTier = i;
 					break;
@@ -78,7 +78,7 @@ namespace WeaponEnchantments.Tiles
                 switch (enchantingTableTier)
                 {
 					case 0:
-						tableType = ModContent.ItemType<Items.WoodEnchantingTable>();
+						tableType = ModContent.ItemType<Items.EnchantingTable>();
 						break;
 					case 1:
 						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
@@ -155,7 +155,7 @@ namespace WeaponEnchantments.Tiles
 				top--;
 			}
 			wePlayer.Player.cursorItemIconText = "";
-			wePlayer.Player.cursorItemIconID = Items.WoodEnchantingTable.IDs[enchantingTableTier];
+			wePlayer.Player.cursorItemIconID = Items.EnchantingTable.IDs[enchantingTableTier];
 			wePlayer.Player.noThrow = 2;
 			wePlayer.Player.cursorItemIconEnabled = true;
 		}
@@ -170,8 +170,9 @@ namespace WeaponEnchantments.Tiles
             }
 		}
 	}
-	public class DustyEnchantingTable : WoodEnchantingTable { }
-	public class HellishEnchantingTable : WoodEnchantingTable { }
-	public class SoulEnchantingTable : WoodEnchantingTable { }
-	public class UltimateEnchantingTable : WoodEnchantingTable { }
+	public class WoodEnchantingTable : EnchantingTableTile { }
+	public class DustyEnchantingTable : EnchantingTableTile { }
+	public class HellishEnchantingTable : EnchantingTableTile { }
+	public class SoulEnchantingTable : EnchantingTableTile { }
+	public class UltimateEnchantingTable : EnchantingTableTile { }
 }

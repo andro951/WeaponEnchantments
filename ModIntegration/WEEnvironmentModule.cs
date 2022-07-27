@@ -28,7 +28,7 @@ namespace WeaponEnchantments.ModIntegration
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information)
 		{
             int highestTableTierUsed = Main.LocalPlayer.G().highestTableTierUsed;
-            int baseTableTier = ModContent.TileType<Tiles.WoodEnchantingTable>();
+            int baseTableTier = ModContent.TileType<Tiles.EnchantingTableTile>();
             int tableTier;
             if (highestTableTierUsed == 0)
                 tableTier = baseTableTier;

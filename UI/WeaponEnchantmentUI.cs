@@ -341,7 +341,7 @@ namespace WeaponEnchantments.UI
                         string extraStr = "";
                         if (i > 0)
                         {
-                            extraStr = "\n  Requires " + WoodEnchantingTable.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
+                            extraStr = "\n  Requires " + Items.EnchantingTable.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
                         }
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) =>
                         {

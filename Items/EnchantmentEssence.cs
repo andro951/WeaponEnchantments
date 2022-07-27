@@ -88,7 +88,7 @@ namespace WeaponEnchantments.Items
 					if (essenceRarity > 0)
 					{
 						recipe.AddIngredient(Mod, "EnchantmentEssence" + rarity[essenceRarity - 1], 8 - i);
-						recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable"); //Put this inside if(essenceRarity >0) when not testing
+						recipe.AddTile(Mod, EnchantingTable.enchantingTableNames[i] + "EnchantingTable"); //Put this inside if(essenceRarity >0) when not testing
 						recipe.Register(); //Put this inside if(essenceRarity >0) when not testing
 					}
 					
@@ -98,7 +98,7 @@ namespace WeaponEnchantments.Items
 						recipe = CreateRecipe();
 						recipe.AddIngredient(Mod, "EnchantmentEssence" + rarity[essenceRarity + 1], 1);
 						recipe.createItem.stack = 2 + i / 2;
-						recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable");
+						recipe.AddTile(Mod, EnchantingTable.enchantingTableNames[i] + "EnchantingTable");
 						recipe.Register();
 					}
 					IDs[essenceRarity] = this.Type;

@@ -14,8 +14,8 @@ namespace WeaponEnchantments.Common.Globals
 		public static Item dropItem = new Item();
 		public override bool CanPlace(int i, int j, int type) {
 			int mainTile = Main.tile[i, j].TileType;
-			for (int k = 0; k < Items.WoodEnchantingTable.enchantingTableNames.Length; k++) {
-				int tableType = ModContent.TileType<WoodEnchantingTable>() - k;
+			for (int k = 0; k < Items.EnchantingTable.enchantingTableNames.Length; k++) {
+				int tableType = ModContent.TileType<Tiles.WoodEnchantingTable>() - k;
 				Item heldItem = Main.LocalPlayer.HeldItem;
 
 				//Prevent block swapping on top of the table (fix that was causing a crash)
