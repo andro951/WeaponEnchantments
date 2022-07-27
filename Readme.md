@@ -10,15 +10,15 @@ Terraria has you frequently swapping old gear for new. The enchanting system all
 # Wiki
 
 #Config (Most options on the 2nd page!)
-Weapon Enchantments for many players will feel too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%).
-> You have an extreme ammount of control over the power of this mod via the config.
+Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
+> You have an extreme ammount of control over the power level of this mod via the config.
 
 ## Item Experience
 All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
 
-These items have a level based on their XP which is for two things: and all enchantable items have an enchantment capacity proportional to their tier.
-Increases enchantment capacity by 1 per level
-Increases weapon critical strike chance by 1 per level (configurable)
+These items have a level based on their XP which is for two things:
+Increases enchantment capacity of the item by 1 per level
+Increases weapon critical strike chance by 1 per level (can be disabled, affected by the Config Recomended Strength multiplier mentioned above.)
 
 You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
 
@@ -84,8 +84,11 @@ They're obtained by...
 Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
  > Magic Storage: The environment module lets you access the essence in the enchanting table.  The environment module will also act as the highest tier enchanting table your player has ever ussd.
 
+Recipies can easily be looked up:
+* You can give items to the vanilla guide to see what it can be crafted into.
+* You can also use the recipe browser mod.
 
-Only Basic Damage and Basic Armor enchantments can be crafted.  The rest must be found.  They can all be upgraded as described below.
+Only Basic Damage and Basic Armor enchantments can be crafted.  The other Basic tier enchantments must be found.  They can all be upgraded as described below.
 
 There are 5 tiers:
 0. Basic - 10 Basic Essence, Containment(the smallest one) (tier 0, Wood enchanting table or better)
@@ -99,6 +102,7 @@ There are 5 tiers:
 These are rare items obtained by defeating bosses, and add 10 levels to your item. They can be used only once per item and are returned upon offering the item.
 > The 10 levels do not count towards the lvl 40 cap and do not give critical strike chance.
 
+STOPED HERE
 ## Enchanting Table
 ![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
@@ -109,11 +113,12 @@ All of the essence you pick up are stored here. Right clicking the enchanting ta
 * Apply and remove Enchants from   items.
     > All you have to do is place an enchantment in an enchantment slot.  There is no cost or confirm button.
 * Convert essence to item experience.
+    > The Level up button will consume lower tiers of essence first if possible.  These slots can be favorited (same as vanilla favoriting) to prevent them being consumed unless there is not enough to level up without them.
 * Offer items (Destroyes the item in exchange for essence and ores - configurable).
-    > The value of essence and ores recieved is slightly more than the item's base sell price.
+    > The value of essence and ores recieved is slightly more than the item's base sell price. (config default is half or half essence)
     > Also returns all enchantments and power boosters applied to the weapon and converts experience on the item to essence.
 * Syphon excess xp from an item past the max level, 40.
-* Infuse items
+* Infuse items (Discussed in it's own section)
 
 There are 5 tiers of enchanting tables
 0. Wood:
@@ -133,10 +138,6 @@ There are 5 tiers of enchanting tables
     *Ingredients - tier 3 Enchanting Table, 2 hallowed bars
     *100% of item experience converted to Essence when offering items.
 
-### Creating enchantments
-To create or upgrade an enchantment, the recipes are on the crafting grid to your left.
-* You ask the guide about crafting with enchantments.
-* You can also ask the recipe browser mod if you're into that.
 ### Leveling items up
 If you need to accelerate an item's growth, you add XP to it.
 * Automatically
