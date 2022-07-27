@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common.Globals
         {
             if(entity.ModItem != null)
             {
-                if (entity.ModItem is EnchantmentEssenceBasic)
+                if (entity.ModItem is EnchantmentEssence)
                     return true;
             }
 
@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Common.Globals
         public override bool OnPickup(Item item, Player player)
         {
             WEPlayer wePlayer = player.G();
-            EnchantmentEssenceBasic essence = (EnchantmentEssenceBasic)item.ModItem;
+            EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
                 int rarity = essence.essenceRarity;

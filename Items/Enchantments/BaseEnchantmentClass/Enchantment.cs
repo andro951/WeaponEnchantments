@@ -405,7 +405,7 @@ namespace WeaponEnchantments.Items
 			//Value - Essence
 			for (int i = 0; i <= EnchantmentTier + EnchantmentValueTierReduction; i++) {
 				int quantity = Utility ? 5 : 10;
-				int value = (int)EnchantmentEssenceBasic.values[i];
+				int value = (int)EnchantmentEssence.values[i];
 				Item.value += value * quantity;
 			}
 
@@ -967,7 +967,7 @@ namespace WeaponEnchantments.Items
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
 						int essenceNumber = Utility ? 5 : 10;
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssenceBasic.rarity[k], essenceNumber);
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[k], essenceNumber);
 					}
 
 					//Enchantment

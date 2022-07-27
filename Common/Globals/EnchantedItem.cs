@@ -565,7 +565,7 @@ namespace WeaponEnchantments.Common.Globals
                 enchantmentsValue += enchantments[i].value;
             }
             int powerBoosterValue = PowerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
-            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssenceBasic.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
+            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
             valueToAdd /= Item.stack;
 
             if (Stack0)

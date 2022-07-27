@@ -678,7 +678,8 @@ namespace WeaponEnchantments.Common.Globals
                 essenceTotal *= EssenceMultiplier;
             }
 
-            essenceValues = EnchantmentEssenceBasic.values;
+            essenceValues = EnchantmentEssence
+                .values;
             dropRate = new float[essenceValues.Length];
             baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
             int essenceTier = 0;

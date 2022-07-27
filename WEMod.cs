@@ -78,7 +78,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsEssenceItem(Item item)
         {
-			if (item.ModItem is EnchantmentEssenceBasic)
+			if (item.ModItem is EnchantmentEssence)
 			{
 				return true;
 			}
