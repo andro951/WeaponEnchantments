@@ -175,41 +175,40 @@ If you have an item that is currently useless to you, you offer it.
 If you have a level 40 item (maximum level) and you want to extract leftover experience from it, you syphon it.
 1. Place the item you wish to syphon on the *Item* slot.
 2. Click the syphon button.
-3. Profit!
+3. Essence spawned to the enchanting table. (Or your inventory if the table is full.)
 
-### Infusion
-Infusion allows you to consume high rarity items to upgrade the damage of low rarity weapons.
-> For example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.
-The damage bonus is based on the difference in rarity and value between the 2 items.
+### Infusion:
+#### Weapon Infusion - 
+Allows you to consume high rarity items to upgrade the damage of low rarity weapons.  Example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.  The damage bonus is based on the difference in rarity and value between the 2 items.  Terraria has 10 rarities of vanilla weapons, so I based the system off of those.  (modded items can be rarity 11 which will cause their Infusion Power to be the same as the max value rarity 10 items (1100).  
 
-A weapon's **Infusion Power** stat is determined by the item's rarity and value. 100 Infusion Power per rarity (rarity x100). Additionally, the item's rarity will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.
-> Example: Items of rarity 0 have an average value of about 3000 copper (30 silver).
-> The lowest value item is worth 100 copper. This 100 copper item would have an infusion power of 0.
-> A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.
-> The max value rarity 0 item would have 100 infusion power.  The min, max and average values are calculated based only on vanilla items.
+Infusion Power - A weapon stat that is determined by an item's rarity and value.  100 Infusion Power per rarity (rarity x100).  Additionally, the item's rarity
+    will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.  
+    (Example: items of rarity 0 have an average value of about 3000 copper (30 silver).  The lowest value item is worth 100 copper.  This 100
+    copper item would have an infusion power of 0.  A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.  
+    The max value rarity 0 item would have 100 infusion power.  The min, max and average values are calculated based only on vanilla items.
+    Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation.  
+    Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value 
+    of rarity 10 weapons.
 
-Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation. Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.
+How to Infuse - 
+    Place the higher Infusion Power item into the enchanting table (this item will be destroyed)
+    Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
+    Place the lower Infusion Power item into the enchanting table
+    Click Finalize (Same button as Infusion/Cancel)
+    Note - The consumed item is Offered just like with the Offer button.  The only difference is you will not get ore, but you will get all of the
+        enchantments/experience as essence/power booster back.
 
-Vanilla Terraria has 10 rarities for items, yet Modded items can be rarity 11 or higher which will cause their Infusion Power to be the same as the max value rarity 10 items.
+Armor Infusion - Allows you to consume a piece of armor and replace the set bonus of an item with one from another.  
+        The piece of armor will act like the consumed one for the purposes of determining set bonuses.
+        The piece of armor will also look like the consumed one while equiped.
 
-#### Infusing Weapons
-1. Place the higher Infusion Power item into the *Item* slot in the enchanting table (this item will be destroyed)
-2. Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
-3. Place the lower Infusion Power item into the enchanting table
-4. Click Finalize (Same button as Infusion/Cancel)
-
-> The consumed item is Offered just like with the Offer button. The only difference is you will not get ore, but you will get all of the enchantments/experience as essence/power booster back.
-
-#### Infusing Armor
-Infusing armor allows you to consume a piece of armor and replace the set bonus of an item with one from another.
-The piece of armor will act like the consumed one for the purposes of determining set bonuses.
-The piece of armor will also look like the consumed one while equiped.
-
-1. Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)
-2. Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
-3. Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's)
-4. Click Finalize (Same button as Infusion/Cancel)
-> The consumed item is Offered just like with the Offer button.  The only difference is you will not get ore, but you will get all of the enchantments/experience as essence/power booster back.
+    How to Infuse - 
+        Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)
+        Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
+        Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's)
+        Click Finalize (Same button as Infusion/Cancel)
+        Note - The consumed item is Offered just like with the Offer button.  The only difference is you will not get ore, but you will get all of the
+            enchantments/experience as essence/power booster back.
 
 #### Remember that...
 * You cannot add an enchantment to an item if the enchantment's capacity cost is greater than the item's remaining capacity.
