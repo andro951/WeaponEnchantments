@@ -184,7 +184,8 @@ Example, if you like Veilthorn more than your newer/stronger weapon, just infuse
 The damage bonus is based on the difference in rarity and value between the 2 items.  Terraria has 10 rarities of vanilla weapons, so I based the system off of those.  
 (modded items can be rarity 11 which will cause their Infusion Power to be the same as the max value rarity 10 items (1100).  
 
-Infusion Power - A weapon stat that is determined by an item's rarity and value.  100 Infusion Power per rarity (rarity x100).  
+Infusion Power - 
+A weapon stat that is determined by an item's rarity and value.  100 Infusion Power per rarity (rarity x100).  
 Additionally, the item's rarity will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.  
 (Example: items of rarity 0 have an average value of about 3000 copper (30 silver).  The lowest value item is worth 100 copper.  
 This 100 copper item would have an infusion power of 0.  A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.  
@@ -192,18 +193,21 @@ The max value rarity 0 item would have 100 infusion power.  The min, max and ave
 Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation.  
 Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.
 
-How to Infuse - Place the higher Infusion Power item into the enchanting table (this item will be destroyed)
+How to Infuse - 
+Place the higher Infusion Power item into the enchanting table (this item will be destroyed)
 Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
 Place the lower Infusion Power item into the enchanting table
 Click Finalize (Same button as Infusion/Cancel)
 > The consumed item is Offered just like with the Offer button.  The only difference is you will not get ore, but you will get all of the 
 enchantments/experience as essence/power booster back.
 
-Armor Infusion - Allows you to consume a piece of armor and replace the set bonus of an item with one from another.  
+Armor Infusion - 
+Allows you to consume a piece of armor and replace the set bonus of an item with one from another.  
 The piece of armor will act like the consumed one for the purposes of determining set bonuses.
 The piece of armor will also look like the consumed one while equiped.
 
-How to Infuse - Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)
+How to Infuse - 
+Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)
 Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)
 Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's)
 Click Finalize (Same button as Infusion/Cancel)
@@ -226,13 +230,13 @@ enchantments/experience as essence/power booster back.
 * DONT SELL enchantable items! Offer them instead.
     * The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
     * Offering items returns all Enchantments/Power Booster applied to the consumed item.
-* Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
+* Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.(Especially if you set the config to 0% ore, 100% essence)
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
 ### Where do I get the good Enchantments?
 ![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
 
-Unique Enchantments are obtained from chests/bosses. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
+Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
 ## Please give us your feedback!!!!!
 [Weapon Enchantments Discord](https://discord.gg/mPywEhyV9b)
