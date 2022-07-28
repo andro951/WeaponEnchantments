@@ -539,7 +539,7 @@ namespace WeaponEnchantments.Items
 				case "scale":
 					return MyDisplayName.AddSpaces();
 				case "Damage":
-					return "Damage dealt(Not visible in weapon stats applied at damage calculation)";
+					return "Damage bonus is applied after defenses (Not visible in weapon tooltip)";
 				default:
 					return name.CapitalizeFirst().AddSpaces();
 			}

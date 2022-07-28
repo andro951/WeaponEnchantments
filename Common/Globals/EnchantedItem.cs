@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -510,7 +511,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (baseDamageType == -1)
                         baseDamageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
 
-                    if (item.DamageType.Type == baseDamageType)
+                    if (AlwaysOverrideDamageType || item.DamageType.Type == baseDamageType)
                         item.UpdateDamageType(damageType);
                 }
 

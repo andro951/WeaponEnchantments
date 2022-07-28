@@ -102,7 +102,6 @@ There are 5 tiers:
 These are rare items obtained by defeating bosses, and add 10 levels to your item. They can be used only once per item and are returned upon offering the item.
 > The 10 levels do not count towards the lvl 40 cap and do not give critical strike chance.
 
-STOPED HERE
 ## Enchanting Table
 ![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
@@ -110,14 +109,14 @@ STOPED HERE
 All of the essence you pick up are stored here. Right clicking the enchanting table opens the enchanting interface. In an enchanting table you can...
 * Create enchantments.
 * Upgrade enchantments.
-* Apply and remove Enchants from   items.
+* Apply and remove Enchants from items.
     > All you have to do is place an enchantment in an enchantment slot.  There is no cost or confirm button.
 * Convert essence to item experience.
-    > The Level up button will consume lower tiers of essence first if possible.  These slots can be favorited (same as vanilla favoriting) to prevent them being consumed unless there is not enough to level up without them.
+    > The Level up button will consume lower tiers of essence first if possible.  These slots can be favorited (same as vanilla favoriting) to prevent them being consumed unless there is not enough essence to level up without them.
 * Offer items (Destroyes the item in exchange for essence and ores - configurable).
-    > The value of essence and ores recieved is slightly more than the item's base sell price. (config default is half or half essence)
+    > The value of essence and ores recieved is slightly more than the item's base sell price. (config default is half ore, half essence)
     > Also returns all enchantments and power boosters applied to the weapon and converts experience on the item to essence.
-* Syphon excess xp from an item past the max level, 40.
+* Syphon excess xp from an item past the max level, 40, converting it to essence.
 * Infuse items (Discussed in it's own section)
 
 There are 5 tiers of enchanting tables
@@ -139,38 +138,45 @@ There are 5 tiers of enchanting tables
     *100% of item experience converted to Essence when offering items.
 
 ### Leveling items up
-If you need to accelerate an item's growth, you add XP to it.
-* Automatically
+If you need to accelerate an item's growth, you can add XP to it from essence.
+* Level Up button
     1. Place your item in the *Item* slot.
     2. Click on the "Level Up" button.
-    3. Enough essence is used to level your item up *once*.
+    3. Enough essence is used to level your item up *once*. 
+        > Nothing happens if not enough.  Uses lower tier essence first.  Favorited essence is ignored if possible.
 * Using a specific essence
     1. Place your item in the *Item* slot.
     2. Locate the essence you want to use.
     3. Click on the XP button below it.
     4. One of that essence is consumed to add its XP value to your item.
+
 ### Enchanting items
-If you have enchantments and an item with enough level that you wish to upgrade, you enchant it.
-1. Place the item you wish to modify on the *Item* slot.
+If you have enchantments and an item with enough level that you wish to upgrade, you can enchant it.
+1. Place the item you wish to modify on the *Item* slot. 
+    > Far left top row, or shift left click from your inventory.
 2. Add (or remove) the enchantments you wish to add (or remove) on to the the *Enchantments* slots.
+    > All other top row slots, far right is the Utility only slot.  Can also be shift clicked to move.
 3. Add (or remove) the utility enchantment you wish to add (or remove) on the *Utility* slot.
+    < Shift clicking a utility enchantment will put it in the utility slot first if empty.
 
 ![Tooltip](GithubSprites/EnchantingTableUI.png)
-> Some enchantments are **Utility** enchantments.  The far right enchantment slot is the **Utility** slot.  Only **Utility** enchantments can go here.
 
 ### Offering items
 If you have an item that is currently useless to you, you offer it.
-0. NOTE: you will lose the item in exchange of essence, and a mix of iron, silver and gold.
+0. NOTE: you will lose the item in exchange of essence, and a mix of ores up to chlorophyte depending on your game progress. (configurable)
 1. Place the item you want to offer on the item slot.
 2. Press the offer button.
 3. Carefully read the warning.
 4. Confirm the offering.
-5. Profit!
+5. Items spawned into your inventory.
+    > Config option available to offer all of the same item from your inventory. (Ignores enchanted items)
+
 ### Syphoning an item
 If you have a level 40 item (maximum level) and you want to extract leftover experience from it, you syphon it.
 1. Place the item you wish to syphon on the *Item* slot.
 2. Click the syphon button.
 3. Profit!
+
 ### Infusion
 Infusion allows you to consume high rarity items to upgrade the damage of low rarity weapons.
 > For example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.

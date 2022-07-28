@@ -13,5 +13,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float GatheringExperienceMultiplier = serverConfig.GatheringExperienceMultiplier / 100f;
 
 		public static bool MultiplicativeCriticalHits = serverConfig.MultiplicativeCriticalHits;
+		public static bool AlwaysOverrideDamageType = serverConfig.AlwaysOverrideDamageType;
 	}
 }

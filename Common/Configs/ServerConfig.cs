@@ -28,6 +28,13 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
         public List<Pair> individualStrengths = new List<Pair>();
 
+        [Header("Enchantment Settings")]
+        [Label("Damage type converting enchantments always override.")]
+        [Tooltip("Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.\n" +
+			"If not selected, the damage type will only be changed if the weapon is currently it's original damage type.")]
+        [DefaultValue(true)]
+        public bool AlwaysOverrideDamageType;
+
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
         [Tooltip("Modify the ammount of essence recieved by bosses.")]

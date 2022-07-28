@@ -284,9 +284,7 @@ namespace WeaponEnchantments.Common.Globals
             int matchs = 0;
             int bestMatch = -1;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            List<string> projectileNames;
             List<string> projNames = context == "" ? projectile.Name.RemoveProjectileName().SplitString() : context.SplitString();
-            int checkMatches = 0;
             for (int i = 0; i < Main.projectile.Length; i++) {
                 Projectile proj = Main.projectile[i];
                 if (proj.type == ProjectileID.None)
@@ -294,8 +292,8 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type) {
                     if (proj.GetGlobalProjectile<WEProjectile>().sourceItem.TG()) {
-                        projectileNames = proj.Name.RemoveProjectileName().SplitString();
-                        checkMatches = projNames.CheckMatches(projectileNames);
+                        List<string> projectileNames = proj.Name.RemoveProjectileName().SplitString();
+                        int checkMatches = projNames.CheckMatches(projectileNames);
                         if (checkMatches > matchs) {
                             matchs = checkMatches;
                             bestMatch = i;
