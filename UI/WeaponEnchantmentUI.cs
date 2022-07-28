@@ -232,31 +232,32 @@ namespace WeaponEnchantments.UI
         {
             public const int LootAll = 0;
             public const int Offer = 1;
-            public const int xp0 = 0;//2
-            public const int xp1 = 1;//3
-            public const int xp2 = 2;//4
-            public const int xp3 = 3;//5
-            public const int xp4 = 4;//6
+            public const int xp0 = 0; //2
+            public const int xp1 = 1; //3
+            public const int xp2 = 2; //4
+            public const int xp3 = 3; //5
+            public const int xp4 = 4; //6
             public const int LevelUp = 7;
             public const int Syphon = 8;
             public const int Infusion = 9;
             public const int Count = 10;
             public static int[] xps = new int[] { xp0, xp1, xp2, xp3, xp4 };
-        }//LootAll = 0, Offer = 1
-        public class ItemSlotContext
-        {
-            public const int Item = 0;
-            public const int Enchantment = 1;
-            public const int Essence = 2;
-        }//Item = 0, Enchantment = 1, Essence = 3
+        } //LootAll = 0, Offer = 1
 
-        public const bool PR = true;//Used to toggle between my UI in progress and the UI based on PetRenaimer mod
+        public enum ItemSlotContext
+        {
+            Item = 0,
+            Enchantment = 1,
+            Essence = 2,
+        } //Item = 0, Enchantment = 1, Essence = 3
+
+        public const bool PR = true; // Used to toggle between my UI in progress and the UI based on PetRenaimer mod
 
         public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
-        public const float buttonScaleMinimum = 0.75f;//my UI
-        public const float buttonScaleMaximum = 1f;//my UI
-        public static float[] ButtonScale = new float[ButtonID.Count];//my UI
-        public static bool[] ButtonHovered = new bool[ButtonID.Count];//my UI
+        public const float buttonScaleMinimum = 0.75f; //my UI
+        public const float buttonScaleMaximum = 1f; //my UI
+        public static float[] ButtonScale = new float[ButtonID.Count];// my UI
+        public static bool[] ButtonHovered = new bool[ButtonID.Count];// my UI
         public static bool needToQuickStack;
         public static bool preventItemUse = false;
         public static bool pressedLootAll = true;
@@ -297,24 +298,26 @@ namespace WeaponEnchantments.UI
                 float xOffset = -20;
                 float nextElementY = -PaddingTop / 2;
 
+                // UI slot labels
                 titleText = new UIText("Item           Enchantments      Utility  ")
                 {
                     Top = { Pixels = nextElementY },
                     Left = { Pixels = 0 + xOffset },
                     HAlign = 0.5f
-                };//UI slot labels
+                }; 
                 Append(titleText);
                 nextElementY += 20;
 
-                for (int i = 0; i < EnchantingTable.maxItems; i++)
+                // ItemSlot(s)
+                for (int itemSlotIdx = 0; itemSlotIdx < EnchantingTable.maxItems; itemSlotIdx++)
                 {
-                    wePlayer.enchantingTableUI.itemSlotUI[i] = new WEUIItemSlot(17, ItemSlotContext.Item)
+                    wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx] = new WEUIItemSlot(17, ItemSlotContext.Item)
                     {
                         Left = { Pixels = -145f + xOffset },
                         Top = { Pixels = nextElementY },
                         HAlign = 0.5f
                     };//ItemSlot(s)
-                    wePlayer.enchantingTableUI.itemSlotUI[i].OnMouseover += (timer) =>
+                    wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx].OnMouseover += (timer) =>
                     {
                         Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
                         if (timer > 60)
@@ -326,121 +329,122 @@ namespace WeaponEnchantments.UI
                           "\n          provides diminished bonuses and vice versa.          ";
                         }
                     };//ItemSlot(s) mouseover text
-                    Append(wePlayer.enchantingTableUI.itemSlotUI[i]);
-                }//ItemSlot(s)
-                for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
+                    Append(wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx]);
+                } 
+                
+                // Enchantment Slots
+                for (int enchSlotIdx = 0; enchSlotIdx < EnchantingTable.maxEnchantments; enchSlotIdx++)
                 {
-                    if (i < EnchantingTable.maxEnchantments - 1)
+                    // Calculate Item Slot Offset
+                    float LeftPixels = -67f + 47.52f * enchSlotIdx + xOffset;
+                    float TopPixels = nextElementY;
+
+                    // Last slot is utility enchantment; context 10.
+                    bool isLastSlot = enchSlotIdx == EnchantingTable.maxEnchantments - 1;
+                    int slotContext = isLastSlot ? 10 : 0;
+
+                    // Create item slot instance
+                    WEUIItemSlot itemSlot = new WEUIItemSlot(slotContext, ItemSlotContext.Enchantment, enchSlotIdx, isLastSlot)
                     {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(0, ItemSlotContext.Enchantment, i)
-                        {
-                            Left = { Pixels = -67f + 47.52f * i + xOffset },
-                            Top = { Pixels = nextElementY },
-                            HAlign = 0.5f
-                        };
-                        string extraStr = "";
-                        if (i > 0)
-                        {
-                            extraStr = "\n  Requires " + Items.EnchantingTable.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
-                        }
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) =>
-                        {
-                            Main.hoverItemName = "                   Place Enchantments here.                    "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                            if (timer > 60)
-                            {
-                                Main.hoverItemName =
-                            "                   Place Enchantments here.                    "
-                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                        + "\n       Using weapon Enchantments on armor or accessories       " +
-                            "\n          provides diminished bonuses and vice versa.          " + extraStr;
-                            }
-                        };
-                    }//enchantmentSlot 0-3
-                    else
-                    {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i] = new WEUIItemSlot(10, ItemSlotContext.Enchantment, i, true)
-                        {
-                            Left = { Pixels = -67f + 47.52f * i + xOffset },
-                            Top = { Pixels = nextElementY },
-                            HAlign = 0.5f
-                        };
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) =>
-                        {
-                            Main.hoverItemName = "            Only utility Enchantments can go here.             "; //change to a titleText = new UIText("Item           Enchantments      Utility  ")
-                            if (timer > 60)
-                            {
-                                Main.hoverItemName =
-                            "            Only utility Enchantments can go here.             "
-                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                        + "\n       Using weapon Enchantments on armor or accessories       " +
-                            "\n          provides diminished bonuses and vice versa.          ";
-                            }
-                        };
-                    }//enchantmentSlot 4 (Utility only Slot)
-                    Append(wePlayer.enchantingTableUI.enchantmentSlotUI[i]);
-                }//EnchantmentSlots
-                for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-                {
-                    wePlayer.enchantingTableUI.essenceSlotUI[i] = new WEUIItemSlot(4, ItemSlotContext.Essence, i)
-                    {
-                        Left = { Pixels = -67f + 47.52f * i + xOffset },
-                        Top = { Pixels = nextElementY + 50 },
+                        Left = { Pixels = LeftPixels },
+                        Top = { Pixels = TopPixels },
                         HAlign = 0.5f
                     };
-                    string type = EnchantmentEssence.rarity[i];
-                    wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) =>
+
+                    // Set up on mouseover information.
+                    // TODO: Move this text to some localization file.
+                    // TODO: move this into the class
+                    string RequiredTableName = Items.EnchantingTable.enchantingTableNames[enchSlotIdx];
+                    string baseText =           "You can place enchantments here.";
+                    string extraInfoText =      "\nBetter enchanting tables unlock more enchantment slots." +
+                                                "\nUsing weapon enchantments on armor or accessories" +
+                                                "\nor using equipment enchantments on weapons" +
+                                                "\nprovides diminished bonuses.";
+                    string utilityWarn =        "\nOnly utility enchantments can go here.";
+                    string tableRequirement =   $"\nA {RequiredTableName} enchanting table or better" +
+                                                $"\nis required to use this slot.";
+
+                    // Set up the mouseover
+                    itemSlot.OnMouseover += (timer) =>
                     {
-                        Main.hoverItemName = "                      Place " + type + " Essence here.                ";
+                        string mouseOverText = baseText;
+                        if (isLastSlot) mouseOverText += utilityWarn;
+                        if (timer > 60) 
+                        {
+                            mouseOverText += extraInfoText;
+                            if (!isLastSlot && enchSlotIdx > 0) mouseOverText += tableRequirement;
+                        }
+                        Main.hoverItemName = mouseOverText; // TODO: Add a background
+                    };
+
+                    // Place it on wePlayer I guess
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[enchSlotIdx] = itemSlot;
+
+                    // Add the item slot to the UI
+                    Append(itemSlot);
+                }
+                
+                // Essence Slots
+                for (int essenceSlotIdx = 0; essenceSlotIdx < EnchantingTable.maxEssenceItems; essenceSlotIdx++)
+                {
+                    // Calculate Item Slot Offset
+                    float LeftPixels = -67f + 47.52f * essenceSlotIdx + xOffset;
+                    float TopPixels = nextElementY + 50;
+
+                    // Create the slot object for the essence
+                    WEUIItemSlot essenceSlot = new WEUIItemSlot(4, ItemSlotContext.Essence, essenceSlotIdx)
+                    {
+                        Left = { Pixels = LeftPixels },
+                        Top = { Pixels = TopPixels },
+                        HAlign = 0.5f
+                    };
+
+                    // Set up hover information
+                    string essenceTypeName = EnchantmentEssence.rarity[essenceSlotIdx];
+                    string baseInformation = $"Place {essenceTypeName} essence here.";
+                    string extraInfoText =  "\nPressing the [xp] button below consumes this essence" +
+                                            "\nand applies its experience value to the item.";
+                    
+                    // Set up mouseover event
+                    essenceSlot.OnMouseover += (timer) =>
+                    {
+                        string hoverInfo = baseInformation;
                         if (timer > 60)
                         {
-                            Main.hoverItemName =
-                        "                      Place " + type + " Essence here.                "
-                    + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                    + "\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          ";
+                            hoverInfo += extraInfoText;
                         }
+                        Main.hoverItemName = hoverInfo;
                     };
-                    Append(wePlayer.enchantingTableUI.essenceSlotUI[i]);
+                    
+                    // Place it on wePlayer I guess
+                    wePlayer.enchantingTableUI.essenceSlotUI[essenceSlotIdx] = essenceSlot;
 
-                    //XP+ buttons
-                    button[2 + i] = new UIPanel()
+                    // Add the item slot to the UI
+                    Append(essenceSlot);
+
+                    // XP+ buttons (respective to the current essenceSlot)
+                    button[2 + essenceSlotIdx] = new UIPanel()
                     {
                         Top = { Pixels = nextElementY + 96 },
-                        Left = { Pixels = -66f + 47.52f * i + xOffset },
+                        Left = { Pixels = -66f + 47.52f * essenceSlotIdx + xOffset },
                         Width = { Pixels = 40f },
                         Height = { Pixels = 30f },
                         HAlign = 0.5f,
                         BackgroundColor = bgColor
                     };
 
-                    switch (i)
-                    {
-                        case 0:
-                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(0); };
-                            break;
-                        case 1:
-                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(1); };
-                            break;
-                        case 2:
-                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(2); };
-                            break;
-                        case 3:
-                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(3); };
-                            break;
-                        case 4:
-                            button[2 + i].OnClick += (evt, element) => { ConvertEssenceToXP(4); };
-                            break;
-                    }
+                    int essenceLevel = essenceSlotIdx;
+                    button[2 + essenceSlotIdx].OnClick += (evt, element) => { ConvertEssenceToXP(essenceLevel); };
 
                     UIText xpButonText = new UIText("xp")
                     {
                         Top = { Pixels = -8f },
                         Left = { Pixels = 0f }
                     };
-                    button[2 + i].Append(xpButonText);
-                    Append(button[2 + i]);
-                    panels.Add(button[2 + i]);
-                }//EssenceSlots
+                    button[2 + essenceSlotIdx].Append(xpButonText);
+                    Append(button[2 + essenceSlotIdx]);
+                    panels.Add(button[2 + essenceSlotIdx]);
+                }
 
                 //Level Up button
                 button[ButtonID.LevelUp] = new UIPanel()
@@ -478,7 +482,6 @@ namespace WeaponEnchantments.UI
                     Top = { Pixels = -8f },
                     Left = { Pixels = -1f }
                 };
-                //button[ButtonID.Syphon].OnMouseOver += (evt, element) => { Main.hoverItemName = "TestHover"; };
                 button[ButtonID.Syphon].Append(syphonButonText);
                 Append(button[ButtonID.Syphon]);
                 panels.Add(button[ButtonID.Syphon]);
@@ -502,14 +505,12 @@ namespace WeaponEnchantments.UI
                     else
                         infusionText = "Finalize";
                 }
-                else
-                    infusionText = "Infusion";
+                else infusionText = "Infusion";
                 infusionButonText = new UIText(infusionText)
                 {
                     Top = { Pixels = -8f },
                     Left = { Pixels = -1f }
                 };
-                //button[ButtonID.Infusion].OnMouseOver += (evt, element) => { Main.hoverItemName = "TestHover"; };
                 button[ButtonID.Infusion].Append(infusionButonText);
                 Append(button[ButtonID.Infusion]);
                 panels.Add(button[ButtonID.Infusion]);
@@ -536,7 +537,7 @@ namespace WeaponEnchantments.UI
                 button[ButtonID.LootAll].Append(lootAllButonText);
                 Append(button[ButtonID.LootAll]);
                 panels.Add(button[ButtonID.LootAll]);
-
+                
                 nextElementY += 35;
 
                 //Offer Button
@@ -553,13 +554,15 @@ namespace WeaponEnchantments.UI
                 UIText offerButtonText = new UIText("Offer")
                 {
                     Top = { Pixels = -4f },
-                    Left = { Pixels = -6f }
+                    Left = { Pixels = -6f },
+                    HAlign = 0.5f - ratioFromCenter
                 };
                 button[ButtonID.Offer].Append(offerButtonText);
                 Append(button[ButtonID.Offer]);
                 panels.Add(button[ButtonID.Offer]);
-            }//PetRenaimer based UI
-        }//Set up PR UI
+            } // PetRenaimer based UI
+        } // Set up PR UI
+
         public override void OnActivate()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -623,11 +626,12 @@ namespace WeaponEnchantments.UI
                 }
             }//Change button color if hovering
             if (IsMouseHovering) preventItemUse = true;
-        }//PR
-        private static void ConvertEssenceToXP(int tier)
+        } //PR
+
+        private static void ConvertEssenceToXP(int essenceTier)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item essence = wePlayer.enchantingTableUI.essenceSlotUI[tier].Item;
+            Item essence = wePlayer.enchantingTableUI.essenceSlotUI[essenceTier].Item;
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!essence.IsAir && !item.IsAir)
             {
@@ -636,7 +640,7 @@ namespace WeaponEnchantments.UI
                     essence.stack--;
                     //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                     //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                    item.G().GainXP(item, (int)EnchantmentEssence.xpPerEssence[tier]);
+                    item.G().GainXP(item, (int)EnchantmentEssence.xpPerEssence[essenceTier]);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
                 else

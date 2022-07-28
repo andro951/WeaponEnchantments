@@ -21,7 +21,7 @@ namespace WeaponEnchantments.UI
     public class WEUIItemSlot : UIElement
     {
 		internal Item Item;
-		private readonly int _itemContext;
+		private readonly ItemSlotContext _itemContext;
 		private readonly int _context;
 		private readonly float _scale;
 		private readonly bool _utilitySlot;
@@ -31,25 +31,26 @@ namespace WeaponEnchantments.UI
 		internal event Action<int> OnMouseover;
 
 		private int timer = 0;
-		internal WEUIItemSlot(int context, int itemContext, int slotTier = 4, bool utilitySlot = false, float scale = 0.86f)
+		internal WEUIItemSlot(int context, ItemSlotContext itemContext, int slotTier = 4, bool utilitySlot = false, float scale = 0.86f)
 		{
 			_context = context;
-			_itemContext = itemContext;//0 = itemSlot, 1 = enchantmentSlot, 2 = essenceSlot
-			_slotTier = slotTier;//Associated enchantment table tier required for enchantmentSlot to unlock or the rarity of each essenceSlot
-			_utilitySlot = utilitySlot;//Only true for the last enchantmentSlot, it can only have utility enchantments
+			_itemContext = itemContext;		//	0 = itemSlot, 1 = enchantmentSlot, 2 = essenceSlot
+			_slotTier = slotTier;			//	Associated enchantment table tier required for enchantmentSlot to unlock or the rarity of each essenceSlot
+			_utilitySlot = utilitySlot;		//	Only true for the last enchantmentSlot, it can only have utility enchantments
 			_scale = scale;
 			Item = new Item();
 			Item.SetDefaults();
 			Width.Set(49 * scale, 0f);
 			Height.Set(49 * scale, 0f);
-		}//Constructor
+		} // Constructor
+
 		public bool Valid(Item item)
 		{
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			if (item.IsAir)
 			{
 				return true;
-			}//Hand is empty
+			} // Hand is empty
 			else
 			{
 				switch (_itemContext)
@@ -275,7 +276,7 @@ namespace WeaponEnchantments.UI
 			if (contains && !PlayerInput.IgnoreMouseInterface)
 			{
 				wePlayer.Player.mouseInterface = true;
-				if (_itemContext == 2 && Main.keyState.IsKeyDown(Main.FavoriteKey) && Main.mouseItem.IsAir)
+				if (_itemContext == ItemSlotContext.Essence && Main.keyState.IsKeyDown(Main.FavoriteKey) && Main.mouseItem.IsAir)
 				{
 					Main.cursorOverride = 3;
 					if(Main.mouseLeft && Main.mouseLeftRelease)

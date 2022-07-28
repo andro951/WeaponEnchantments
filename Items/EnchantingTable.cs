@@ -7,55 +7,29 @@ using WeaponEnchantments.Common.Utility;
 namespace WeaponEnchantments.Items
 {
 	public abstract class EnchantingTable : ModItem
-    {
-		public int enchantingTableTier = -1;
+	{
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
+
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+
+		public abstract int enchantingTableTier { get; }
+		public abstract int Tile {get; }								// The tile type to be placed
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
 		public override void SetStaticDefaults()
 		{
-			GetDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 
 			LogUtilities.UpdateContributorsList(this);
 		}
-		private void GetDefaults()
-		{
-			for (int i = 0; i < enchantingTableNames.Length; i++)
-			{
-				if (enchantingTableNames[i] == Name.Substring(0, enchantingTableNames[i].Length))
-				{
-					enchantingTableTier = i;
-					break;
-				}
-			}
-		}
+
 		public override void SetDefaults()
 		{
-			GetDefaults();
-			switch (enchantingTableTier)
-			{
-				case 0:
-					Item.createTile = ModContent.TileType<Tiles.WoodEnchantingTable>();
-					break;
-				case 1:
-					Item.createTile = ModContent.TileType<Tiles.DustyEnchantingTable>();
-					break;
-				case 2:
-					Item.createTile = ModContent.TileType<Tiles.HellishEnchantingTable>();
-					break;
-				case 3:
-					Item.createTile = ModContent.TileType<Tiles.SoulEnchantingTable>();
-					break;
-				case 4:
-					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
-					break;
-			}
+			Item.createTile = Tile;
 			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 14;
@@ -113,9 +87,34 @@ namespace WeaponEnchantments.Items
 			}
 		}
 	}
-	public class WoodEnchantingTable : EnchantingTable { }
-	public class DustyEnchantingTable : EnchantingTable { }
-	public class HellishEnchantingTable : EnchantingTable { }
-	public class SoulEnchantingTable : EnchantingTable { }
-	public class UltimateEnchantingTable : EnchantingTable { }
+
+    public class WoodEnchantingTable : EnchantingTable
+    {
+        public override int enchantingTableTier => 0;
+        public override int Tile => ModContent.TileType<Tiles.WoodEnchantingTable>();
+    }
+
+    public class DustyEnchantingTable : EnchantingTable
+    {
+        public override int enchantingTableTier => 1;
+        public override int Tile => ModContent.TileType<Tiles.DustyEnchantingTable>();
+    }
+
+    public class HellishEnchantingTable : EnchantingTable
+    {
+        public override int enchantingTableTier => 2;
+        public override int Tile => ModContent.TileType<Tiles.HellishEnchantingTable>();
+    }
+
+    public class SoulEnchantingTable : EnchantingTable
+    {
+        public override int enchantingTableTier => 3;
+        public override int Tile => ModContent.TileType<Tiles.SoulEnchantingTable>();
+    }
+
+    public class UltimateEnchantingTable : EnchantingTable
+    {
+        public override int enchantingTableTier => 4;
+        public override int Tile => ModContent.TileType<Tiles.UltimateEnchantingTable>();
+    }
 }

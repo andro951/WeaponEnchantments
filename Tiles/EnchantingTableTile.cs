@@ -14,7 +14,9 @@ namespace WeaponEnchantments.Tiles
 {
 	public abstract class EnchantingTableTile : ModTile
 	{
-		public int enchantingTableTier = -1;
+		protected abstract int DroppedItem { get; }
+		protected abstract int EnchantingTier { get; }
+
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
@@ -22,7 +24,6 @@ namespace WeaponEnchantments.Tiles
 
 		public override void SetStaticDefaults()
 		{
-			GetDefaults();
 			// Properties
 			Main.tileTable[Type] = true;
 			Main.tileSolidTop[Type] = true;
@@ -49,21 +50,10 @@ namespace WeaponEnchantments.Tiles
 
 			// Etc
 			ModTranslation name = CreateMapEntryName();
-			name.SetDefault(Items.EnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+			name.SetDefault(Items.EnchantingTable.enchantingTableNames[EnchantingTier] + " Enchanting Table");
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			LogUtilities.UpdateContributorsList(this);
-		}
-		private void GetDefaults()
-		{
-			for (int i = 0; i < Items.EnchantingTable.enchantingTableNames.Length; i++)
-			{
-				if (Items.EnchantingTable.enchantingTableNames[i] == Name.Substring(0, Items.EnchantingTable.enchantingTableNames[i].Length))
-				{
-					enchantingTableTier = i;
-					break;
-				}
-			}
 		}
 		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 		public override void NumDust(int x, int y, bool fail, ref int num)
@@ -72,32 +62,9 @@ namespace WeaponEnchantments.Tiles
 		}
 		public override void KillMultiTile(int x, int y, int frameX, int frameY)
 		{
-			if (enchantingTableTier > -1)
-			{
-				int tableType = -1;
-                switch (enchantingTableTier)
-                {
-					case 0:
-						tableType = ModContent.ItemType<Items.EnchantingTable>();
-						break;
-					case 1:
-						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
-						break;
-					case 2:
-						tableType = ModContent.ItemType<Items.HellishEnchantingTable>();
-						break;
-					case 3:
-						tableType = ModContent.ItemType<Items.SoulEnchantingTable>();
-						break;
-					case 4:
-						tableType = ModContent.ItemType<Items.UltimateEnchantingTable>();
-						break;
-				}
-				//Mod.Logger.Debug("enchantingTableTier: " + enchantingTableTier.ToString());
-				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
-				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				WEModSystem.CloseWeaponEnchantmentUI();
-			}
+			Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, DroppedItem);
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			WEModSystem.CloseWeaponEnchantmentUI();
 		}
 		public override bool RightClick(int x, int y)
         {
@@ -120,9 +87,9 @@ namespace WeaponEnchantments.Tiles
 			}
 			else
 			{
-				wePlayer.enchantingTableTier = enchantingTableTier;
-				if (wePlayer.highestTableTierUsed < enchantingTableTier)
-					wePlayer.highestTableTierUsed = enchantingTableTier;
+				wePlayer.enchantingTableTier = EnchantingTier;
+				if (wePlayer.highestTableTierUsed < EnchantingTier)
+					wePlayer.highestTableTierUsed = EnchantingTier;
 				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;
 				UILinkPointNavigator.ForceMovementCooldown(120);
@@ -131,7 +98,7 @@ namespace WeaponEnchantments.Tiles
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 				}
 				SoundEngine.PlaySound(SoundID.MenuTick);
-				WEModSystem.OpenWeaponEnchantmentUI();
+				WEModSystem.OpenWeaponEnchantmentUI(false);
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();
@@ -155,7 +122,7 @@ namespace WeaponEnchantments.Tiles
 				top--;
 			}
 			wePlayer.Player.cursorItemIconText = "";
-			wePlayer.Player.cursorItemIconID = Items.EnchantingTable.IDs[enchantingTableTier];
+			wePlayer.Player.cursorItemIconID = DroppedItem;
 			wePlayer.Player.noThrow = 2;
 			wePlayer.Player.cursorItemIconEnabled = true;
 		}
@@ -170,9 +137,30 @@ namespace WeaponEnchantments.Tiles
             }
 		}
 	}
-	public class WoodEnchantingTable : EnchantingTableTile { }
-	public class DustyEnchantingTable : EnchantingTableTile { }
-	public class HellishEnchantingTable : EnchantingTableTile { }
-	public class SoulEnchantingTable : EnchantingTableTile { }
-	public class UltimateEnchantingTable : EnchantingTableTile { }
+
+    public class WoodEnchantingTable : EnchantingTableTile
+    {
+		protected override int DroppedItem => ModContent.ItemType<Items.WoodEnchantingTable>();
+        protected override int EnchantingTier => 0;
+    }
+
+    public class DustyEnchantingTable : EnchantingTableTile {
+		protected override int DroppedItem => ModContent.ItemType<Items.DustyEnchantingTable>();
+		protected override int EnchantingTier => 1;
+	}
+
+	public class HellishEnchantingTable : EnchantingTableTile {
+		protected override int DroppedItem => ModContent.ItemType<Items.HellishEnchantingTable>();
+		protected override int EnchantingTier => 2;
+	}
+
+	public class SoulEnchantingTable : EnchantingTableTile {
+		protected override int DroppedItem => ModContent.ItemType<Items.SoulEnchantingTable>();
+		protected override int EnchantingTier => 3;
+	}
+
+	public class UltimateEnchantingTable : EnchantingTableTile {
+		protected override int DroppedItem => ModContent.ItemType<Items.UltimateEnchantingTable>();
+		protected override int EnchantingTier => 4;
+	}
 }
