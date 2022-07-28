@@ -35,7 +35,7 @@ namespace WeaponEnchantments
 
 		internal static bool IsWeaponItem(Item item)
 		{
-			return item != null && !item.IsAir && (item.damage > 0 && item.ammo == 0 || item.type == ItemID.CoinGun) && !item.accessory;
+			return item != null && !item.IsAir && ((item.damage > 0 && item.ammo == 0) || item.type == ItemID.CoinGun) && !item.accessory;
 		}
 
 		internal static bool IsArmorItem(Item item)
@@ -52,26 +52,9 @@ namespace WeaponEnchantments
         {
 			if(item.ModItem is Enchantment)
             {
-                if (utility)
-                {
-                    if (((Enchantment)item.ModItem).Utility)
-                    {
-						return true;
-                    }
-                    else
-                    {
-						return false;
-                    }
-                }
-                else
-                {
-					return true;
-				}
+				return !(utility && !((Enchantment)item.ModItem).IsUtility); // Truth table shenanigans
 			}
-            else
-            {
-				return false;
-            }
+			return false;
         }
 		internal static bool IsEssenceItem(Item item)
         {
@@ -186,7 +169,7 @@ namespace WeaponEnchantments
 							}
 							break;
 						case 90:
-							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlotUI[0].Item;
+							item = Main.player[whoAmI].GetModPlayer<WEPlayer>().enchantingTableUI.itemSlotUI[0].ItemInSlot;
 							break;
 						case <= 100:
 							item = Main.player[whoAmI].armor[slotNumber - 91];
@@ -651,7 +634,7 @@ namespace WeaponEnchantments
 				{
 					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
 					{
-						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot;
 						if (item.type == slotItem.type)
 						{
 							slotItem.stack -= num;
@@ -765,7 +748,7 @@ namespace WeaponEnchantments
 					}
 					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
 					{
-						Item item = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+						Item item = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot;
 						if (item != null && item.stack > 0)
 						{
 							if (dictionary.ContainsKey(item.netID))

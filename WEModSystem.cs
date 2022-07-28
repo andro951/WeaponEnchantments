@@ -80,14 +80,14 @@ namespace WeaponEnchantments
         private static void ApplyEnchantment(int i)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
             item.ApplyEnchantment(i);
         }
         public static void RemoveEnchantment(int i)
         {
             if(UtilityMethods.debugging) ($"\\/RemoveEnchantment(i: " + i + ")").Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
             if (!item.IsAir)
             {
                 EnchantedItem iGlobal = item.G();
@@ -141,7 +141,7 @@ namespace WeaponEnchantments
                 bool removedItem = false;
                 bool addedItem = false;
                 bool swappedItem = false;
-                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)
                 {
                     if (wePlayer.itemInEnchantingTable)//If item WAS in the itemSlot but it is empty now,
                     {
@@ -154,7 +154,7 @@ namespace WeaponEnchantments
                     addedItem = true;
                     wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
                 }//Check if itemSlot has item that was just placed there, copy the enchantments to the slots and link the slots to the global item
-                else if (wePlayer.itemBeingEnchanted != wePlayer.enchantingTableUI.itemSlotUI[0].Item)
+                else if (wePlayer.itemBeingEnchanted != wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot)
                 {
                     swappedItem = true;
                 }
@@ -162,12 +162,12 @@ namespace WeaponEnchantments
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
+                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot != null)//For each enchantment in the enchantmentSlots,
                         //if(wePlayer.itemBeingEnchanted != null && !wePlayer.itemBeingEnchanted.IsAir)
                         {
-                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
+                            wePlayer.itemBeingEnchanted.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.Clone();//copy enchantments to the global item
                         }
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
                     }
                     if (wePlayer.infusionConsumeItem != null)
@@ -178,12 +178,12 @@ namespace WeaponEnchantments
                     }
                     wePlayer.itemBeingEnchanted.G().inEnchantingTable = false;
                     wePlayer.itemBeingEnchanted.favorited = favorited;
-                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;//Stop tracking the item that just left the itemSlot
                     //TryToggleAutoPauseOff();
                 }
                 if (addedItem || swappedItem)
                 {
-                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;// Link the item in the table to the player so it can be updated after being taken out.
+                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;// Link the item in the table to the player so it can be updated after being taken out.
                     favorited = wePlayer.itemBeingEnchanted.favorited;
                     wePlayer.itemBeingEnchanted.favorited = false;
                     wePlayer.itemBeingEnchanted.G().inEnchantingTable = true;
@@ -197,45 +197,45 @@ namespace WeaponEnchantments
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] != null)//For each enchantment in the global item,
+                        if (wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] != null)//For each enchantment in the global item,
                         {
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
                             wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EM(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                            wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;//Force link to enchantmentSlot just in case
                         }
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
+                        wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;//Link global item to the enchantmentSlots
                     }
                     //TryToggleAutoPauseOff();
                 }
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    Item tableEnchantment = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                    Item tableEnchantment = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;
                     Item itemEnchantment = new Item();
-                    if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetGlobalItem(out EnchantedItem ieGlobal))
+                    if (wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.TryGetGlobalItem(out EnchantedItem ieGlobal))
                     {
                         itemEnchantment = ieGlobal.enchantments[i];
                     }
-                    if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.IsAir)
                     {
                         if (wePlayer.enchantmentInEnchantingTable[i])//if enchantmentSlot HAD an enchantment in it but it was just taken out,
                         {
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
                             //((Enchantment)itemEnchantment.ModItem).statsSet = false;
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                            wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
                     else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment)
                     {
                         RemoveEnchantment(i);
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;
                         ApplyEnchantment(i);
                     }//If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;//Force link to enchantmentSlot just in case
                         //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().statsSet[i])
                         //if(!wePlayer.I().E(i).statsSet)
                         ApplyEnchantment(i);
@@ -326,11 +326,11 @@ namespace WeaponEnchantments
                 }
                 if (wePlayer.usingEnchantingTable)
                 {
-                    if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//Try get rid of this
+                    if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.ItemInSlot != null)//Try get rid of this
                     {
-                        if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)//Try get rid of this
+                        if (!wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)//Try get rid of this
                         {
-                            wePlayer.inventoryItemRecord[90] = wePlayer.enchantingTableUI.itemSlotUI[0].Item.Clone();
+                            wePlayer.inventoryItemRecord[90] = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.Clone();
                         }
                         else
                         {
@@ -343,11 +343,11 @@ namespace WeaponEnchantments
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI?.enchantmentSlotUI?[i]?.Item != null)//Try get rid of this
+                        if (wePlayer.enchantingTableUI?.enchantmentSlotUI?[i]?.ItemInSlot != null)//Try get rid of this
                         {
-                            if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)//Try get rid of this
+                            if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.IsAir)//Try get rid of this
                             {
-                                wePlayer.inventoryItemRecord[92 + i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                                wePlayer.inventoryItemRecord[92 + i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.Clone();
                             }
                             else
                             {
@@ -361,11 +361,11 @@ namespace WeaponEnchantments
                     }
                     for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                     {
-                        if (wePlayer.enchantingTableUI?.essenceSlotUI?[i]?.Item != null)//Try get rid of this
+                        if (wePlayer.enchantingTableUI?.essenceSlotUI?[i]?.ItemInSlot != null)//Try get rid of this
                         {
-                            if (!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.IsAir)//Try get rid of this
+                            if (!wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.IsAir)//Try get rid of this
                             {
-                                wePlayer.inventoryItemRecord[97 + i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                                wePlayer.inventoryItemRecord[97 + i] = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.Clone();
                             }
                             else
                             {
@@ -462,17 +462,17 @@ namespace WeaponEnchantments
         internal static void CloseWeaponEnchantmentUI(bool noSound = false)//Check on tick if too far or wePlayer.Player.chest != wePlayer.chest
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if(wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            if(wePlayer.enchantingTableUI?.itemSlotUI[0]?.ItemInSlot != null && !wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)
             {
-                wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].Item, GetItemSettings.LootAllSettings);
-                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot, GetItemSettings.LootAllSettings);
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)
                 {
                     wePlayer.enchantingTable.item[0] = new Item();
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = new Item();
                     }
                 }
             }
@@ -501,7 +501,7 @@ namespace WeaponEnchantments
             if (WeaponEnchantmentUI.PR)
             {
                 UIState state = new UIState();
-                state.Append(wePlayer.enchantingTableUI);
+                state.Append(new WeaponEnchantmentUI());
                 weModSystemUI.SetState(state);
             }
 
@@ -526,26 +526,26 @@ namespace WeaponEnchantments
                         {
                             int ammountToTransfer = 0;
                             int startingStack = wePlayer.Player.inventory[j].stack;
-                            if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.IsAir)
+                            if (wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.IsAir)
                             {
                                 ammountToTransfer = wePlayer.Player.inventory[j].stack;
-                                wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.Player.inventory[j].Clone();
+                                wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot = wePlayer.Player.inventory[j].Clone();
                                 wePlayer.Player.inventory[j] = new Item();
                                 transfered = true;
                             }
                             else
                             {
-                                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                                if(wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack < EnchantmentEssence.maxStack)
                                 {
-                                    if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack)
+                                    if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack > EnchantmentEssence.maxStack)
                                     {
-                                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack;
                                     }
                                     else
                                     {
                                         ammountToTransfer = wePlayer.Player.inventory[j].stack;
                                     }
-                                    wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
+                                    wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack += ammountToTransfer;
                                     wePlayer.Player.inventory[j].stack -= ammountToTransfer;
                                     transfered = true;
                                 }
@@ -571,42 +571,42 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = EnchantingTable.maxEssenceItems - 1; i > 0; i--)
             {
-                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                if(wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack < EnchantmentEssence.maxStack)
                 {
                     int ammountToTransfer;
-                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
+                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack / 4)))
                     {
-                        ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
+                        ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack / 4;
                     }
                     else
                     {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack;
                     }
                     if(ammountToTransfer > 0)
                     {
-                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
-                        wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack -= ammountToTransfer * 4;
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack += ammountToTransfer;
+                        wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack -= ammountToTransfer * 4;
                         crafted = true;
                     }
                 }
             }
             for (int i = 1; i < EnchantingTable.maxEssenceItems; i++)
             {
-                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack < EnchantmentEssence.maxStack)
                 {
                     int ammountToTransfer;
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4)))
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack / 4)))
                     {
-                        ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
+                        ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack / 4;
                     }
                     else
                     {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack;
                     }
                     if (ammountToTransfer > 0)
                     {
-                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
-                        wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack -= ammountToTransfer * 4;
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack += ammountToTransfer;
+                        wePlayer.enchantingTableUI.essenceSlotUI[i - 1].ItemInSlot.stack -= ammountToTransfer * 4;
                         crafted = true;
                     }
                 }

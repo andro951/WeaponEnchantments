@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
@@ -8,8 +9,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[rarity.Length - 1];
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override int NewDamageType => (int)DamageTypeSpecificID.SummonMeleeSpeed;
+		public override DamageClass RestrictedClass => DamageClass.Summon;
+		public override DamageClass NewDamageType => DamageClass.SummonMeleeSpeed;
 		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
 			{ "Weapon", 1f }
 		};

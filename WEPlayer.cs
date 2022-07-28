@@ -294,7 +294,7 @@ namespace WeaponEnchantments
                     if (enchantingTableUI.itemSlotUI[j].contains)
                     {
                         stop = true;
-                        enchantingTableSlotItem = enchantingTableUI.itemSlotUI[j].Item;
+                        enchantingTableSlotItem = enchantingTableUI.itemSlotUI[j].ItemInSlot;
                     }
                 }//Check itemSlot(s)
                 for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++)
@@ -302,7 +302,7 @@ namespace WeaponEnchantments
                     if (enchantingTableUI.enchantmentSlotUI[j].contains)
                     {
                         stop = true;
-                        enchantingTableSlotItem = enchantingTableUI.enchantmentSlotUI[j].Item;
+                        enchantingTableSlotItem = enchantingTableUI.enchantmentSlotUI[j].ItemInSlot;
                     }
                 }//Check enchantmentSlots
                 for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++)
@@ -310,7 +310,7 @@ namespace WeaponEnchantments
                     if (enchantingTableUI.essenceSlotUI[j].contains)
                     {
                         stop = true;
-                        enchantingTableSlotItem = enchantingTableUI.essenceSlotUI[j].Item;
+                        enchantingTableSlotItem = enchantingTableUI.essenceSlotUI[j].ItemInSlot;
                     }
                 }//Check essenceSlots
                 if (stop)
@@ -363,12 +363,12 @@ namespace WeaponEnchantments
                 }
                 if (!hoveringOverTrash)
                 {
-                    Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
-                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled)
+                    Item tableItem = enchantingTableUI.itemSlotUI[0].ItemInSlot;
+                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir && !enchantingTableUI.itemSlotUI[0].ItemInSlot.G().PowerBoosterInstalled)
                     {
                         if (moveItem)
                         {
-                            enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled = true;
+                            enchantingTableUI.itemSlotUI[0].ItemInSlot.G().PowerBoosterInstalled = true;
                             if (item.stack > 1)
                                 item.stack--;
                             else
@@ -394,7 +394,7 @@ namespace WeaponEnchantments
                                     {
                                         if (moveItem)
                                         {
-                                            enchantingTableUI.itemSlotUI[i].Item = item.Clone();
+                                            enchantingTableUI.itemSlotUI[i].ItemInSlot = item.Clone();
                                             item = itemInEnchantingTable ? itemBeingEnchanted : new Item();
                                             SoundEngine.PlaySound(SoundID.Grab);
                                         }
@@ -408,24 +408,24 @@ namespace WeaponEnchantments
                         {
                             if (item.ModItem is Enchantment enchantment)
                             {
-                                int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].Item);
+                                int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].ItemInSlot);
                                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                                 {
                                     if (enchantingTableUI.enchantmentSlotUI[i].Valid(item))
                                     {
                                         if (!item.IsAir)
                                         {
-                                            if (enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && uniqueItemSlot == -1)
+                                            if (enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.IsAir && uniqueItemSlot == -1)
                                             {
                                                 if (moveItem)
                                                 {
                                                     int s = i;
-                                                    if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[4].Item.IsAir && (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem)))
+                                                    if (enchantment.IsUtility && enchantingTableUI.enchantmentSlotUI[4].ItemInSlot.IsAir && (WEMod.IsWeaponItem(tableItem) || WEMod.IsArmorItem(tableItem)))
                                                     {
                                                         s = 4;
                                                     }
-                                                    enchantingTableUI.enchantmentSlotUI[s].Item = item.Clone();
-                                                    enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
+                                                    enchantingTableUI.enchantmentSlotUI[s].ItemInSlot = item.Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[s].ItemInSlot.stack = 1;
                                                     if (item.stack > 1)
                                                     {
                                                         item.stack--;
@@ -439,13 +439,13 @@ namespace WeaponEnchantments
                                                 valid = true;
                                                 break;
                                             }//Empty slot or not a unique enchantment
-                                            else if (uniqueItemSlot != -1 && enchantingTableUI.enchantmentSlotUI[i].CheckUniqueSlot(enchantment, uniqueItemSlot) && item.type != enchantingTableUI.enchantmentSlotUI[i].Item.type)
+                                            else if (uniqueItemSlot != -1 && enchantingTableUI.enchantmentSlotUI[i].CheckUniqueSlot(enchantment, uniqueItemSlot) && item.type != enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.type)
                                             {
                                                 if (moveItem)
                                                 {
-                                                    Item returnItem = enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
-                                                    enchantingTableUI.enchantmentSlotUI[i].Item = item.Clone();
-                                                    enchantingTableUI.enchantmentSlotUI[i].Item.stack = 1;
+                                                    Item returnItem = enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = item.Clone();
+                                                    enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.stack = 1;
                                                     if (!returnItem.IsAir)
                                                     {
                                                         if (item.stack > 1)
@@ -481,25 +481,25 @@ namespace WeaponEnchantments
                                     if (!item.IsAir)
                                     {
                                         bool canTransfer = false;
-                                        if (enchantingTableUI.essenceSlotUI[i].Item.IsAir)
+                                        if (enchantingTableUI.essenceSlotUI[i].ItemInSlot.IsAir)
                                         {
                                             if (moveItem)
                                             {
-                                                enchantingTableUI.essenceSlotUI[i].Item = item.Clone();
+                                                enchantingTableUI.essenceSlotUI[i].ItemInSlot = item.Clone();
                                                 item = new Item();
                                             }
                                             canTransfer = true;
                                         }//essence slot empty
                                         else
                                         {
-                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack)
+                                            if (enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack < EnchantmentEssence.maxStack)
                                             {
                                                 if (moveItem)
                                                 {
                                                     int ammountToTransfer;
-                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack)
+                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack > EnchantmentEssence.maxStack)
                                                     {
-                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack;
                                                         item.stack -= ammountToTransfer;
                                                     }
                                                     else
@@ -507,7 +507,7 @@ namespace WeaponEnchantments
                                                         ammountToTransfer = item.stack;
                                                         item.stack = 0;
                                                     }
-                                                    enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
+                                                    enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack += ammountToTransfer;
                                                 }
                                                 canTransfer = true;
                                             }
@@ -562,8 +562,8 @@ namespace WeaponEnchantments
                 {
                     if(UtilityMethods.debugging) ($"\\/Start hoverItem check").Log();
                     Item newItem = null;
-                    if (usingEnchantingTable && UtilityMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
-                        newItem = enchantingTableUI.itemSlotUI[0].Item;
+                    if (usingEnchantingTable && UtilityMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].ItemInSlot, Main.HoverItem))
+                        newItem = enchantingTableUI.itemSlotUI[0].ItemInSlot;
                     if (newItem != null && UtilityMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
                         newItem = Player.inventory[hoverItemIndex];
                     if (newItem != null && Player.chest != -1)
@@ -1007,8 +1007,8 @@ namespace WeaponEnchantments
                     item.G().appliedStatModifiers.Clear();
                     item.G().appliedEStats.Clear();
                     item.G().prefix = item.prefix;
-                    int damageType = item.G().damageType;
-                    if (damageType > -1)
+                    DamageClass damageType = item.G().damageType;
+                    if (damageType != null)
                         item.UpdateDamageType(damageType);
                 }
                 int infusedArmorSlot = item.G().infusedArmorSlot;

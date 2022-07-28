@@ -449,7 +449,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             default://enchantingTable itemSlot
                                 inventory = new Item[1];
-                                inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+                                inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
                                 inventoryLocation = 0;
                                 break;
                         }//Determine which player inventory to look in
@@ -494,9 +494,9 @@ namespace WeaponEnchantments.Common.Globals
                                         break;
                                     default://enchantingTable itemSlot
                                         inventory = new Item[1];
-                                        if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
+                                        if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.ItemInSlot != null)
                                         {
-                                            inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+                                            inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
                                         }
                                         else
                                         {

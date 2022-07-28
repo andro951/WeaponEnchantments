@@ -116,7 +116,7 @@ namespace WeaponEnchantments.UI
 	    public static void ConfirmOffer()
 	    {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            int type = OfferItem(ref wePlayer.enchantingTableUI.itemSlotUI[0].Item);
+            int type = OfferItem(ref wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot);
 		    if(type > 0)
 		    {
 			    if(WEMod.clientConfig.OfferAll)
@@ -133,7 +133,7 @@ namespace WeaponEnchantments.UI
         public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = false)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (item.IsSameEnchantedItem(wePlayer.enchantingTableUI.itemSlotUI[0].Item))
+            if (item.IsSameEnchantedItem(wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot))
             {
                 WEModSystem.promptInterface.SetState(null);
                 UIState state = new UIState();
@@ -150,11 +150,11 @@ namespace WeaponEnchantments.UI
                     //if (!item.IsAir)
                     {
                         if (!nonTableItem && !wePlayer.E(i).IsAir)
-                                wePlayer.EUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.E(i), GetItemSettings.LootAllSettings);
+                                wePlayer.EUI(i).ItemInSlot = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.E(i), GetItemSettings.LootAllSettings);
                         else if (!iGlobal.enchantments[i].IsAir)
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
                     }
-                    if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.IsAir)
                         stop = true;//Player didn't have enough space in their inventory to take all enchantments
                 }//Take all enchantments first
                 if (!stop)
@@ -222,7 +222,7 @@ namespace WeaponEnchantments.UI
                 }
             }//Change button color if hovering
             if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
-            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\nlevel {wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\nIn exchange for Iron, Silver and Gold ore and Essence?\n(Based on item value/experience.  Enchantments will be returned.)");
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\nlevel {wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().level} {wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.Name}\nIn exchange for Iron, Silver and Gold ore and Essence?\n(Based on item value/experience.  Enchantments will be returned.)");
         }//PR
     }
 
@@ -311,25 +311,32 @@ namespace WeaponEnchantments.UI
                 // ItemSlot(s)
                 for (int itemSlotIdx = 0; itemSlotIdx < EnchantingTable.maxItems; itemSlotIdx++)
                 {
-                    wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx] = new WEUIItemSlot(17, ItemSlotContext.Item)
+                    WEUIItemSlot itemSlot = new WEUIItemSlot(17, ItemSlotContext.Item)
                     {
                         Left = { Pixels = -145f + xOffset },
                         Top = { Pixels = nextElementY },
                         HAlign = 0.5f
                     };//ItemSlot(s)
-                    wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx].OnMouseover += (timer) =>
+
+                    string baseText =       "You can place an enchantable item here.";
+                    string extraInfoText =  "\nBetter enchanting tables unlock more enchantment slots." +
+                                            "\nUsing weapon enchantments on armor or accessories" +
+                                            "\nor using equipment enchantments on weapons" +
+                                            "\nprovides diminished bonuses.";
+                    itemSlot.OnMouseover += (timer) =>
                     {
-                        Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
+                        string mouseOverText = baseText;
                         if (timer > 60)
                         {
-                            Main.hoverItemName =
-                            "       Place a weapon, piece of armor or accessory here.       "
-                        + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                        + "\n       Using weapon Enchantments on armor or accessories       " +
-                          "\n          provides diminished bonuses and vice versa.          ";
+                            mouseOverText += extraInfoText;
                         }
-                    };//ItemSlot(s) mouseover text
-                    Append(wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx]);
+                        Main.hoverItemName = mouseOverText;
+                    };
+
+                    // Place it on wePlayer I guess
+                    wePlayer.enchantingTableUI.itemSlotUI[itemSlotIdx] = itemSlot;
+
+                    Append(itemSlot);
                 } 
                 
                 // Enchantment Slots
@@ -344,7 +351,7 @@ namespace WeaponEnchantments.UI
                     int slotContext = isLastSlot ? 10 : 0;
 
                     // Create item slot instance
-                    WEUIItemSlot itemSlot = new WEUIItemSlot(slotContext, ItemSlotContext.Enchantment, enchSlotIdx, isLastSlot)
+                    WEUIItemSlot enchSlot = new WEUIItemSlot(slotContext, ItemSlotContext.Enchantment, enchSlotIdx, isLastSlot)
                     {
                         Left = { Pixels = LeftPixels },
                         Top = { Pixels = TopPixels },
@@ -365,7 +372,7 @@ namespace WeaponEnchantments.UI
                                                 $"\nis required to use this slot.";
 
                     // Set up the mouseover
-                    itemSlot.OnMouseover += (timer) =>
+                    enchSlot.OnMouseover += (timer) =>
                     {
                         string mouseOverText = baseText;
                         if (isLastSlot) mouseOverText += utilityWarn;
@@ -378,10 +385,10 @@ namespace WeaponEnchantments.UI
                     };
 
                     // Place it on wePlayer I guess
-                    wePlayer.enchantingTableUI.enchantmentSlotUI[enchSlotIdx] = itemSlot;
+                    wePlayer.enchantingTableUI.enchantmentSlotUI[enchSlotIdx] = enchSlot;
 
                     // Add the item slot to the UI
-                    Append(itemSlot);
+                    Append(enchSlot);
                 }
                 
                 // Essence Slots
@@ -562,23 +569,22 @@ namespace WeaponEnchantments.UI
                 panels.Add(button[ButtonID.Offer]);
             } // PetRenaimer based UI
         } // Set up PR UI
-
         public override void OnActivate()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = 0; i < EnchantingTable.maxItems; i++)
             {
-                wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
+                wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot = wePlayer.enchantingTable.item[i].Clone();
             }//Get item(s) left in enchanting table
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
             {
-                wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTable.enchantmentItem[i].Clone();
+                wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = wePlayer.enchantingTable.enchantmentItem[i].Clone();
             }//Get enchantments left in enchanting table
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
             {
                 if (wePlayer.enchantingTable.essenceItem[i].stack < 1)
                     wePlayer.enchantingTable.essenceItem[i] = new Item();
-                wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
+                wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot = wePlayer.enchantingTable.essenceItem[i].Clone();
             }//Get essence left in enchanting table
         }//Get items left in enchanting table
         public override void OnDeactivate()
@@ -589,21 +595,21 @@ namespace WeaponEnchantments.UI
             {
                 //SoundEngine.PlaySound(SoundID.MenuClose);
             }
-            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)//If it hasn't been opened yet, it will be null
+            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.ItemInSlot != null)//If it hasn't been opened yet, it will be null
             {
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
-                    wePlayer.enchantingTable.item[i] = wePlayer.enchantingTableUI.itemSlotUI[i].Item.Clone();
+                    wePlayer.enchantingTable.item[i] = wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot.Clone();
                 }//Store item(s) left in enchanting table to player
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    wePlayer.enchantingTable.enchantmentItem[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                    wePlayer.enchantingTable.enchantmentItem[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.Clone();
                 }//Store enchantments left in enchanting table to player
                 for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
                 {
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < 1)
-                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item = new Item();
-                    wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack < 1)
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot = new Item();
+                    wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.Clone();
                 }//Store essence left in enchanting table to player
             }
         }//Store items left in enchanting table to player
@@ -627,12 +633,11 @@ namespace WeaponEnchantments.UI
             }//Change button color if hovering
             if (IsMouseHovering) preventItemUse = true;
         } //PR
-
         private static void ConvertEssenceToXP(int essenceTier)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item essence = wePlayer.enchantingTableUI.essenceSlotUI[essenceTier].Item;
-            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            Item essence = wePlayer.enchantingTableUI.essenceSlotUI[essenceTier].ItemInSlot;
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
             if (!essence.IsAir && !item.IsAir)
             {
                 if(item.G().Experience < int.MaxValue)
@@ -656,7 +661,7 @@ namespace WeaponEnchantments.UI
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 if (wePlayer.usingEnchantingTable)
                     for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-                        wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.Clone();
+                        wePlayer.enchantingTable.essenceItem[i] = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.Clone();
                 /*bool usingEnchantingTable = wePlayer.usingEnchantingTable;
                 if (!usingEnchantingTable)
                     WEModSystem.OpenWeaponEnchantmentUI();*/
@@ -720,7 +725,7 @@ namespace WeaponEnchantments.UI
                     WEModSystem.CloseWeaponEnchantmentUI();*/
                 if (wePlayer.usingEnchantingTable)
                     for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-                        wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
+                        wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot = wePlayer.enchantingTable.essenceItem[i].Clone();
                 return xpInitial - xpNotConsumed;
             }
             else
@@ -729,7 +734,7 @@ namespace WeaponEnchantments.UI
         public void Infusion()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
             if (tableItem != null && !tableItem.IsAir)
             {
                 if(wePlayer.infusionConsumeItem == null)
@@ -750,14 +755,14 @@ namespace WeaponEnchantments.UI
 						{
                             if (tableItem.stack > 1)
                             {
-                                wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
+                                wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.stack -= 1;
                                 wePlayer.infusionConsumeItem = new Item(tableItem.type);
                                 infusionButonText.SetText("Finalize");
                             }
                             else
                             {
                                 wePlayer.infusionConsumeItem = tableItem.Clone();
-                                wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
+                                wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot = new Item();
                                 infusionButonText.SetText("Cancel");
                             }
                         }
@@ -777,7 +782,7 @@ namespace WeaponEnchantments.UI
                                 canInfuse = true;
                                 break;
                         }
-                        if (canInfuse && wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
+                        if (canInfuse && wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.TryInfuseItem(wePlayer.infusionConsumeItem, false, true))
                         {
                             ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
                             wePlayer.infusionConsumeItem = null;
@@ -788,7 +793,7 @@ namespace WeaponEnchantments.UI
             }
             else if(wePlayer.infusionConsumeItem != null)
             {
-                wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
+                wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot = wePlayer.infusionConsumeItem.Clone();
                 wePlayer.infusionConsumeItem = null;
                 infusionButonText.SetText("Infusion");
             }
@@ -796,9 +801,9 @@ namespace WeaponEnchantments.UI
         public static void Syphon()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            if (!wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)
             {
-                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G();
+                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G();
                 if(iGlobal.Experience < WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssence.xpPerEssence[0])
                 {
                     Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssence.xpPerEssence[0]).ToString() + " experience.");
@@ -818,26 +823,26 @@ namespace WeaponEnchantments.UI
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                 {
-                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
+                    if (!wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.IsAir)
                     {
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.position = wePlayer.Player.Center;
-                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item, GetItemSettings.LootAllSettings);
-                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.stack < 1)
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.position = wePlayer.Player.Center;
+                        wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot, GetItemSettings.LootAllSettings);
+                        if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.stack < 1)
                         {
                             WEModSystem.RemoveEnchantment(i);
                             //Enchantment enchantment = (Enchantment)wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
                             //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = new Item();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.G().enchantments[i] = new Item();
                         }
                     }
                 }//Take all enchantments first
                 for (int i = 0; i < EnchantingTable.maxItems; i++)
                 {
-                    if (!wePlayer.enchantingTableUI.itemSlotUI[i].Item.IsAir)
+                    if (!wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot.IsAir)
                     {
-                        wePlayer.enchantingTableUI.itemSlotUI[i].Item.position = wePlayer.Player.Center;
-                        wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].Item, GetItemSettings.LootAllSettings);
+                        wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot.position = wePlayer.Player.Center;
+                        wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot, GetItemSettings.LootAllSettings);
                     }
                 }//Take item(s)
                 pressedLootAll = false;
@@ -848,7 +853,7 @@ namespace WeaponEnchantments.UI
             if (WEModSystem.promptInterface.CurrentState == null)
             {
                 WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+                if (!wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot.IsAir)
                 {
                     WEModSystem.weModSystemUI.SetState(null);
                     UIState state = new UIState();
@@ -860,7 +865,7 @@ namespace WeaponEnchantments.UI
         private static void LevelUp()
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].ItemInSlot;
             if (!tableItem.IsAir)
             {
                 int xpAvailable = 0;
@@ -870,9 +875,9 @@ namespace WeaponEnchantments.UI
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                     {
-		    	        int xpToAdd = (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+		    	        int xpToAdd = (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.stack;
                         xpAvailable += xpToAdd;
-			            if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
+			            if(!wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.favorited)
 				            nonFavoriteXpAvailable += xpToAdd;
                     }
                     int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.Experience;
@@ -881,8 +886,8 @@ namespace WeaponEnchantments.UI
                     {
                         for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)
                         {
-                            Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-                            bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited || !enoughWithoutFavorite;
+                            Item essenceItem = wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot;
+                            bool allowUsingThisEssence = !wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot.favorited || !enoughWithoutFavorite;
                             int stack = essenceItem.stack;
                             int numberEssenceNeeded = xpNeeded / (int)EnchantmentEssence.xpPerEssence[i];
                             int numberEssenceTransfered = 0;
@@ -900,8 +905,8 @@ namespace WeaponEnchantments.UI
                             int xpAvailableBelowMe = 0;
                             for (int j = i - 1; j >= 0; j--)
                             {
-			    	        if(!wePlayer.enchantingTableUI.essenceSlotUI[j].Item.favorited || !enoughWithoutFavorite)
-                                	xpAvailableBelowMe += (int)EnchantmentEssence.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].Item.stack;
+			    	        if(!wePlayer.enchantingTableUI.essenceSlotUI[j].ItemInSlot.favorited || !enoughWithoutFavorite)
+                                	xpAvailableBelowMe += (int)EnchantmentEssence.xpPerEssence[j] * wePlayer.enchantingTableUI.essenceSlotUI[j].ItemInSlot.stack;
                             }
                             if(allowUsingThisEssence && xpAvailableBelowMe < xpNeeded - (int)EnchantmentEssence.xpPerEssence[i] * numberEssenceTransfered)
                             {

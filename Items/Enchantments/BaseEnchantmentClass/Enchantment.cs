@@ -11,6 +11,7 @@ using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogUtilities;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Items
 {
@@ -26,7 +27,7 @@ namespace WeaponEnchantments.Items
 		SummonMeleeSpeed,
 		MagicSummonHybrid,
 		Throwing
-	}//Located in DamageClassLoader.cs
+	} //Located in DamageClassLoader.cs
 	public enum ArmorSlotSpecificID
 	{
 		Head,
@@ -228,7 +229,7 @@ namespace WeaponEnchantments.Items
 		/// Note: It is actually based on the namespace, but the default namespace is the folder it's in.<br/>
 		/// Manually changing the namespace will prevent this from being set.<br/>
 		/// </summary>
-		public bool Utility { private set; get; } = false;
+		public bool IsUtility { private set; get; } = false;
 
 		/// <summary>
 		/// Default false<br/>
@@ -236,7 +237,7 @@ namespace WeaponEnchantments.Items
 		/// Note: It is actually based on the namespace, but the default namespace is the folder it's in.<br/>
 		/// Manually changing the namespace will prevent this from being set.<br/>
 		/// </summary>
-		public bool Unique { private set; get; } = false;
+		public bool IsUnique { private set; get; } = false;
 		/// <summary>
 		/// Default false<br/>
 		/// True will prevent more than 1 of this enchantment from being applied to an item.<br/>
@@ -260,7 +261,7 @@ namespace WeaponEnchantments.Items
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int DamageClassSpecific { private set; get; } = 0;
+		public virtual DamageClass DamageClassSpecific { private set; get; } = null;
 
 		/// <summary>
 		/// Default -1<br/>
@@ -292,7 +293,7 @@ namespace WeaponEnchantments.Items
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int RestrictedClass { private set; get; } = -1;
+		public virtual DamageClass RestrictedClass { private set; get; } = null;
 
 		#endregion
 
@@ -316,7 +317,7 @@ namespace WeaponEnchantments.Items
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int NewDamageType { private set; get; } = -1;
+		public virtual DamageClass NewDamageType { private set; get; } = null;
 		public int BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
@@ -404,7 +405,7 @@ namespace WeaponEnchantments.Items
 
 			//Value - Essence
 			for (int i = 0; i <= EnchantmentTier + EnchantmentValueTierReduction; i++) {
-				int quantity = Utility ? 5 : 10;
+				int quantity = IsUtility ? 5 : 10;
 				int value = (int)EnchantmentEssence.values[i];
 				Item.value += value * quantity;
 			}
@@ -424,11 +425,11 @@ namespace WeaponEnchantments.Items
 
 			//Check Utility
 			if (GetType().Namespace.GetNameFolderName() == "Utility")
-				Utility = true;
+				IsUtility = true;
 
 			//Check Unique
 			if (GetType().Namespace.GetNameFolderName() == "Unique")
-				Unique = true;
+				IsUnique = true;
 
 			//Check Unique (Vanilla Items)
 			/*for (int i = 0; i < ItemID.Count; i++) {
@@ -488,7 +489,7 @@ namespace WeaponEnchantments.Items
 			GetMyStats();
 
 			//Default Stat
-			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1 && NewDamageType == -1) {
+			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1 && NewDamageType == null) {
 				AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
 			}
 
@@ -706,8 +707,8 @@ namespace WeaponEnchantments.Items
 		private string GenerateFullTooltip(string uniqueTooltip) {
 			string shortTooltip = GenerateShortTooltip(true, true);
 			string toolTip = $"{shortTooltip}{(uniqueTooltip != "" ? "\n" : "")}{uniqueTooltip}";
-			if (NewDamageType > -1)
-				toolTip += $"\nConverts weapon damage type to {((DamageTypeSpecificID)GetDamageClass(NewDamageType)).ToString().AddSpaces()}";
+			if (NewDamageType != null)
+				toolTip += $"\nConverts weapon damage type to {(NewDamageType.DisplayName)}";
 
 			//Estats
 			if (EStats.Count > 0) {
@@ -771,15 +772,15 @@ namespace WeaponEnchantments.Items
 			toolTip += $"\nLevel cost: { GetLevelCost()}";
 
 			//Unique, DamageClassSpecific, RestrictedClass, ArmorSlotSpecific
-			if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1) {
+			if (DamageClassSpecific != null || IsUnique || RestrictedClass != null || ArmorSlotSpecific > -1) {
 				string limmitationToolTip = "";
-				if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
+				if (IsUnique && !Max1 && DamageClassSpecific == null && ArmorSlotSpecific == -1 && RestrictedClass == null && IsUtility == false) {
 					//Unique (Specific Item)
 					limmitationToolTip += $"\n   *{UtilityMethods.AddSpaces(EnchantmentTypeName)} Only*";
 				}
-				else if (DamageClassSpecific > 0) {
+				else if (DamageClassSpecific != null) {
 					//DamageClassSpecific
-					limmitationToolTip += $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
+					limmitationToolTip += $"\n   *{DamageClassSpecific.DisplayName} Only*";
 				}
 				else if (ArmorSlotSpecific > -1) {
 					//ArmorSlotSpecific
@@ -787,12 +788,12 @@ namespace WeaponEnchantments.Items
 				}
 
 				//RestrictedClass
-				if (RestrictedClass > -1) {
-					limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
+				if (RestrictedClass != null) {
+					limmitationToolTip += $"\n   *Not allowed on {RestrictedClass.DisplayName} weapons*";
 				}
 
 				//Unique
-				if(Unique)
+				if(IsUnique)
 					limmitationToolTip += "\n   *Unique* (Limited to 1 Unique Enchantment)";
 
 
@@ -823,7 +824,7 @@ namespace WeaponEnchantments.Items
 				toolTip += "\n   *Max of 1 per weapon*";
 
 			//Utility
-			toolTip += Utility ? "\n   *Utility*" : "";
+			toolTip += IsUtility ? "\n   *Utility*" : "";
 
 			return toolTip;
 		}
@@ -922,25 +923,7 @@ namespace WeaponEnchantments.Items
 
 			return toolTip;
 		}
-		public static int GetDamageClass(int damageType) {
-			switch ((DamageTypeSpecificID)damageType) {
-				case DamageTypeSpecificID.Melee:
-				case DamageTypeSpecificID.MeleeNoSpeed:
-					return (int)DamageTypeSpecificID.Melee;
-				case DamageTypeSpecificID.Ranged:
-					return (int)DamageTypeSpecificID.Ranged;
-				case DamageTypeSpecificID.Magic:
-					return (int)DamageTypeSpecificID.Magic;
-				case DamageTypeSpecificID.Summon:
-				case DamageTypeSpecificID.MagicSummonHybrid:
-				case DamageTypeSpecificID.SummonMeleeSpeed:
-					return (int)DamageTypeSpecificID.Summon;
-				case DamageTypeSpecificID.Throwing:
-					return (int)DamageTypeSpecificID.Throwing;
-				default:
-					return (int)DamageTypeSpecificID.Generic;
-			}
-		}
+
 		private int GetBuffDuration() {
 			return defaultBuffDuration * (EnchantmentTier + 1);
 		}
@@ -966,7 +949,7 @@ namespace WeaponEnchantments.Items
 
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
-						int essenceNumber = Utility ? 5 : 10;
+						int essenceNumber = IsUtility ? 5 : 10;
 						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[k], essenceNumber);
 					}
 
@@ -1001,13 +984,62 @@ namespace WeaponEnchantments.Items
 		public int GetLevelCost() {
 			int multiplier = 2;
 
-			if (Utility)
+			if (IsUtility)
 				multiplier = 1;
 
-			if (Unique || Max1)
+			if (IsUnique || Max1)
 				multiplier = 3;
 
 			return (1 + EnchantmentTier) * multiplier;
 		}
+		
+		// Returns true if this enchantment can be applied to the item (replacing another item if needed)
+		public bool IsValidForItem(EnchantedItem enchantableItem, Item enchantmentToReplace = null)
+        {
+			Item item = enchantableItem.Item;
+
+
+			if (DamageClassSpecific != null && !Item.DamageType.CountsAsClass(DamageClassSpecific))
+                return false;
+            if (RestrictedClass != null && Item.DamageType.CountsAsClass(RestrictedClass))
+                return false;
+            if (IsUnique && !Max1)
+                return false;
+
+			if (!((AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(item))
+				|| (AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(item))
+				|| (AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(item))))
+				return false;
+			
+
+			if (ArmorSlotSpecific > -1)
+            {
+                int slot = -1;
+                switch (ArmorSlotSpecific)
+                {
+                    case (int)ArmorSlotSpecificID.Head:
+                        slot = item.headSlot;
+                        break;
+                    case (int)ArmorSlotSpecificID.Body:
+                        slot = item.bodySlot;
+                        break;
+                    case (int)ArmorSlotSpecificID.Legs:
+                        slot = item.legSlot;
+                        break;
+                }
+                if (slot == -1)
+                    return false;
+            }
+
+			int toReplaceLevelCost = 0;
+			if (enchantmentToReplace != null && !enchantmentToReplace.IsAir && enchantmentToReplace.ModItem is Enchantment)
+			{
+				Enchantment toReplace = ((Enchantment)enchantmentToReplace.ModItem);
+				toReplaceLevelCost = toReplace.GetLevelCost();
+			}
+			int thisLevelCost = GetLevelCost();
+			int avaliableLevels = enchantableItem.GetLevelsAvailable();
+			return  avaliableLevels >= thisLevelCost - toReplaceLevelCost;
+        }
 	}
 }

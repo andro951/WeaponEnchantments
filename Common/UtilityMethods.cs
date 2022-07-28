@@ -48,7 +48,7 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets item in the enchanting table itemslot.  Gets wePlayer.enchantingTableUI.itemSlot[i].Item
         ///</summary>
-        public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
+        public static Item I(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].ItemInSlot;
         ///<summary>
         ///Gets enchantment in the enchanting table in enchantment slot i.  wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item
         ///</summary>
@@ -56,15 +56,15 @@ namespace WeaponEnchantments.Common
         ///<summary>
         ///Gets enchantment in the enchanting table in enchantment slot i.  wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item
         ///</summary>
-        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+        public static Item E(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot;
         ///<summary>
         ///Gets enchantment in the enchanting table in enchantment slot i.  (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem
         ///</summary>
-        public static Enchantment EM(this WEPlayer wePlayer, int i) => (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
+        public static Enchantment EM(this WEPlayer wePlayer, int i) => (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].ItemInSlot.ModItem;
         ///<summary>
         ///Gets essence in the enchanting table in essence slot i.  
         ///</summary>
-        public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+        public static Item Es(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].ItemInSlot;
         /// <summary>
         /// Applies the appliedStatModifier from the item's global item to the value.
         /// </summary>
@@ -450,41 +450,9 @@ namespace WeaponEnchantments.Common
             }
             if (UtilityMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
         }
-        public static void UpdateDamageType(this Item item, int type)
+        public static void UpdateDamageType(this Item item, DamageClass type)
         {
-            switch ((DamageTypeSpecificID)type)
-            {
-                case DamageTypeSpecificID.Default:
-                    item.DamageType = DamageClass.Default;
-                    break;
-                case DamageTypeSpecificID.Generic:
-                    item.DamageType = DamageClass.Generic;
-                    break;
-                case DamageTypeSpecificID.Melee:
-                    item.DamageType = DamageClass.Melee;
-                    break;
-                case DamageTypeSpecificID.MeleeNoSpeed:
-                    item.DamageType = DamageClass.MeleeNoSpeed;
-                    break;
-                case DamageTypeSpecificID.Ranged:
-                    item.DamageType = DamageClass.Ranged;
-                    break;
-                case DamageTypeSpecificID.Magic:
-                    item.DamageType = DamageClass.Magic;
-                    break;
-                case DamageTypeSpecificID.Summon:
-                    item.DamageType = DamageClass.Summon;
-                    break;
-                case DamageTypeSpecificID.SummonMeleeSpeed:
-                    item.DamageType = DamageClass.SummonMeleeSpeed;
-                    break;
-                case DamageTypeSpecificID.MagicSummonHybrid:
-                    item.DamageType = DamageClass.MagicSummonHybrid;
-                    break;
-                case DamageTypeSpecificID.Throwing:
-                    item.DamageType = DamageClass.Throwing;
-                    break;
-            }
+            item.DamageType = type;
         }
         public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base)
         {
@@ -639,7 +607,7 @@ namespace WeaponEnchantments.Common
                                             {
                                                 if (uniqueItemSlot == -1)
                                                 {
-                                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
+                                                    if (enchantment.IsUtility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item)))
                                                     {
                                                         iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
                                                         item.ApplyEnchantment(j);

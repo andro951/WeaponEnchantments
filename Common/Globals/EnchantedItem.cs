@@ -61,8 +61,8 @@ namespace WeaponEnchantments.Common.Globals
         #region Enchantment
 
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];
-        public int damageType = -1;
-        public int baseDamageType = -1;
+        public DamageClass damageType = null;
+        public DamageClass baseDamageType = null;
 
         #endregion
 
@@ -507,11 +507,11 @@ namespace WeaponEnchantments.Common.Globals
             if (Modified) {
                 //Stars Above compatibility fix
                 if (baseDamageType != damageType) {
-                    if (baseDamageType == -1)
-                        baseDamageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
+                    if (baseDamageType == null)
+                        baseDamageType = item.DamageType;
 
-                    if (item.DamageType.Type == baseDamageType)
-                        item.UpdateDamageType(damageType);
+                    if (item.DamageType == baseDamageType)
+                        item.DamageType = damageType;
                 }
 
                 //Update Item Value if stack changed.
@@ -1105,7 +1105,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Clear enchantments in enchanting table if item2 is in it (Will only have cleared off of the player tracked enchantments from combining)
                 if (i2Global.inEnchantingTable) {
                     for (int i = 0; i < enchantments.Length; i++) {
-                        Main.LocalPlayer.G().enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
+                        Main.LocalPlayer.G().enchantingTableUI.enchantmentSlotUI[i].ItemInSlot = new Item();
                     }
                         
                 }
@@ -1278,11 +1278,11 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //New Damage Type
-            if (enchantment.NewDamageType > -1) {
+            if (enchantment.NewDamageType != null) {
                 if (remove) {
                     item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
 
-                    item.G().damageType = -1;
+                    item.G().damageType = null;
                 }
                 else {
                     item.G().damageType = enchantment.NewDamageType;

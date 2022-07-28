@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
@@ -7,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override string CustomTooltip => "(Does not work, Not finished)";
 		public override int StrengthGroup => 8;
-		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Magic;
+		public override DamageClass DamageClassSpecific => DamageClass.Magic;
 		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
 			{ "Weapon", 1f }
 		};

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
@@ -9,7 +10,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 6;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
+		public override DamageClass RestrictedClass => DamageClass.Summon;
 		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
 			{ "Weapon", 1f }
 		};

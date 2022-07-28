@@ -107,9 +107,9 @@ namespace WeaponEnchantments.Common
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                                 else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory"))
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
-                                if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
+                                if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.IsUtility)
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
-                                if(enchantment.RestrictedClass > -1 && item.DamageType.Type == enchantment.RestrictedClass)
+                                if (enchantment.RestrictedClass != null && item.DamageType.CountsAsClass(enchantment.RestrictedClass))
                                     RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
                             }
                         }
