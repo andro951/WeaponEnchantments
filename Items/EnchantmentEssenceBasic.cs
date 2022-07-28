@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items
 			if (!WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(UtilityMethods.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
 
-			LogUtilities.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);
 		}
         private void GetDefaults()
         {

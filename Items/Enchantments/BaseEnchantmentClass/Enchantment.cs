@@ -10,7 +10,7 @@ using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
-using static WeaponEnchantments.Common.Utility.LogUtilities;
+using static WeaponEnchantments.Common.Utility.LogModSystem;
 
 namespace WeaponEnchantments.Items
 {

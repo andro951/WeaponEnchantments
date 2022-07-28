@@ -124,7 +124,7 @@ namespace WeaponEnchantments.UI
 				    Player player = Main.LocalPlayer;
 				    for(int i = 0; i < player.inventory.Length; i++)
 				    {
-					    if(player.inventory[i].type == type && player.inventory[i].G().Experience == 0 && !player.inventory[i].G().PowerBoosterInstalled)
+					    if(player.inventory[i].type == type && player.inventory[i].GetEnchantedItem().Experience == 0 && !player.inventory[i].GetEnchantedItem().PowerBoosterInstalled)
 						    OfferItem(ref player.inventory[i], true, true);
 				    }
 			    }
@@ -149,8 +149,8 @@ namespace WeaponEnchantments.UI
                 {
                     //if (!item.IsAir)
                     {
-                        if (!nonTableItem && !wePlayer.E(i).IsAir)
-                                wePlayer.EUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.E(i), GetItemSettings.LootAllSettings);
+                        if (!nonTableItem && !wePlayer.Enchantments(i).IsAir)
+                                wePlayer.EnchantmentsInUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.Enchantments(i), GetItemSettings.LootAllSettings);
                         else if (!iGlobal.enchantments[i].IsAir)
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
                     }
@@ -159,7 +159,7 @@ namespace WeaponEnchantments.UI
                 }//Take all enchantments first
                 if (!stop)
                 {
-                    int xp = item.G().Experience;
+                    int xp = item.GetEnchantedItem().Experience;
                     float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
                     WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
                     if (!noOre)
@@ -190,7 +190,7 @@ namespace WeaponEnchantments.UI
                             WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true);
                         }
                     }
-                    if (item.G().PowerBoosterInstalled)
+                    if (item.GetEnchantedItem().PowerBoosterInstalled)
                     {
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
                     }
@@ -222,7 +222,7 @@ namespace WeaponEnchantments.UI
                 }
             }//Change button color if hovering
             if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
-            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\nlevel {wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\nIn exchange for Iron, Silver and Gold ore and Essence?\n(Based on item value/experience.  Enchantments will be returned.)");
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\nlevel {wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\nIn exchange for Iron, Silver and Gold ore and Essence?\n(Based on item value/experience.  Enchantments will be returned.)");
         }//PR
     }
 
@@ -631,12 +631,12 @@ namespace WeaponEnchantments.UI
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!essence.IsAir && !item.IsAir)
             {
-                if(item.G().Experience < int.MaxValue)
+                if(item.GetEnchantedItem().Experience < int.MaxValue)
                 {
                     essence.stack--;
                     //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                     //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                    item.G().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
+                    item.GetEnchantedItem().GainXP(item, (int)EnchantmentEssenceBasic.xpPerEssence[tier]);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
                 else
@@ -794,7 +794,7 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
-                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G();
+                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem();
                 if(iGlobal.Experience < WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0])
                 {
                     Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssenceBasic.xpPerEssence[0]).ToString() + " experience.");
@@ -824,7 +824,7 @@ namespace WeaponEnchantments.UI
                             //Enchantment enchantment = (Enchantment)wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
                             //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i] = new Item();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = new Item();
                         }
                     }
                 }//Take all enchantments first
@@ -861,7 +861,7 @@ namespace WeaponEnchantments.UI
             {
                 int xpAvailable = 0;
 		        int nonFavoriteXpAvailable = 0;
-                EnchantedItem iGlobal = tableItem.G();
+                EnchantedItem iGlobal = tableItem.GetEnchantedItem();
                 if(iGlobal.levelBeforeBooster != EnchantedItem.MAX_LEVEL)
                 {
                     for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--)

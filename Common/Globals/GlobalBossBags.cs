@@ -4,9 +4,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
-using static WeaponEnchantments.Common.UtilityMethods;
+using static WeaponEnchantments.Common.Utility.UtilityMethods;
 using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using System.Collections.Generic;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -17,7 +18,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Debug
 
-				if (UtilityMethods.debugging && ContentSamples.ItemsByType[arg].ModItem != null) {
+				if (LogMethods.debugging && ContentSamples.ItemsByType[arg].ModItem != null) {
                     string bagName = ContentSamples.ItemsByType[arg].ModItem.Name;
                     bagName.Log();
                 }

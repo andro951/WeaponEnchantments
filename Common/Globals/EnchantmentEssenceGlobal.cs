@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool OnPickup(Item item, Player player)
         {
-            WEPlayer wePlayer = player.G();
+            WEPlayer wePlayer = player.GetWEPlayer();
             EnchantmentEssenceBasic essence = (EnchantmentEssenceBasic)item.ModItem;
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {

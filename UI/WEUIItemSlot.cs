@@ -57,7 +57,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Item:
                         if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
                         {
-							if (item.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled)
+							if (item.type == PowerBooster.ID && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled)
 								return true;
 						}
 						return WEMod.IsEnchantable(item);
@@ -103,7 +103,7 @@ namespace WeaponEnchantments.UI
 									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir) { currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetLevelCost(); }
-									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
                                 {
@@ -136,9 +136,9 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment)
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			return enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(wePlayer.I())
-				|| enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(wePlayer.I())
-				|| enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(wePlayer.I());
+			return enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(wePlayer.ItemInUI())
+				|| enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(wePlayer.ItemInUI())
+				|| enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(wePlayer.ItemInUI());
 		}
 		private bool UseEnchantmentSlot()
         {
@@ -178,7 +178,7 @@ namespace WeaponEnchantments.UI
 			{
 				if (Main.mouseItem.type == PowerBooster.ID)
 				{
-					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
+					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						if (Main.mouseItem.stack > 1)
 						{
@@ -189,7 +189,7 @@ namespace WeaponEnchantments.UI
 							Main.mouseItem = new Item();
 						}
 						SoundEngine.PlaySound(SoundID.Grab);
-						wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().PowerBoosterInstalled = true;
+						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled = true;
 					}
 				}
 				else if (Main.mouseItem.ModItem is Enchantment enchantment)
@@ -315,7 +315,7 @@ namespace WeaponEnchantments.UI
 							{
 								Main.mouseItem = Item.Clone();
 							}
-							else if (Main.mouseItem.G().CanStack(Main.mouseItem, Item))
+							else if (Main.mouseItem.GetEnchantedItem().CanStack(Main.mouseItem, Item))
 							{
 								Main.mouseItem.stack++;
 							}

@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 
-			LogUtilities.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
         {

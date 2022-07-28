@@ -9,13 +9,14 @@ namespace WeaponEnchantments.Common
         public float Multiplicative { get; private set; }
         public float Flat { get; private set; }
         public float Base { get; private set; }
-        public bool PreventBoolStat { get; private set; }
-        public EnchantmentStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
+        public bool SetValue { get; private set; }
+        public EnchantmentStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, bool setValue = false) {
             Name = name;
             Additive = additive;
             Multiplicative = multiplicative;
             Flat = flat;
             Base = @base;
+            SetValue = setValue;
         }
     }
 }

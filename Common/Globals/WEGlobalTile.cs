@@ -5,6 +5,7 @@ using System;
 using WeaponEnchantments.Tiles;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static Terraria.ID.TileID;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -134,7 +135,7 @@ namespace WeaponEnchantments.Common.Globals
 			}
 			
 			//Gain xp
-			wePlayer.Player.HeldItem.G().GainXP(wePlayer.Player.HeldItem, xp);
+			wePlayer.Player.HeldItem.GetEnchantedItem().GainXP(wePlayer.Player.HeldItem, xp);
 			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
 			
 			//Reset static tile info

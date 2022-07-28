@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using WeaponEnchantments.Items;
+using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 
 namespace WeaponEnchantments.Common.Utility
 {
-	public class LogUtilities : ModSystem
-    {
-        public static bool printListOfContributors = true;
+    public class LogModSystem : ModSystem {
+        public static bool printListOfContributors = false;
 
         public static bool printListOfEnchantmentTooltips = false;
 
+        public static class GetItemDictModeID {
+            public static byte Weapon = 0;
+            public static byte Armor = 1;
+            public static byte Accessory = 2;
+        }
+        public static Dictionary<int, bool> PrintListOfItems = new Dictionary<int, bool>() {
+            { Weapon, true },
+            { Armor, false },
+            { Accessory, false }
+        };
 
 
         //Only used to print the full list of contributors.
@@ -111,5 +116,6 @@ namespace WeaponEnchantments.Common.Utility
             namesAddedToContributorDictionary.Clear();
             contributorsData.Clear();
         }
+
 	}
 }

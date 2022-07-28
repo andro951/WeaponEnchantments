@@ -23,11 +23,11 @@ namespace WeaponEnchantments.ModIntegration
         public override string Name => "WeaponEnchantments_EnvironmentModule";
 		public override IEnumerable<Item> GetAdditionalItems(EnvironmentSandbox sandbox)
         {
-            return Main.LocalPlayer.G().enchantingTable.essenceItem;
+            return Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem;
         }
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information)
 		{
-            int highestTableTierUsed = Main.LocalPlayer.G().highestTableTierUsed;
+            int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;
             int baseTableTier = ModContent.TileType<Tiles.WoodEnchantingTable>();
             int tableTier;
             if (highestTableTierUsed == 0)
@@ -44,7 +44,7 @@ namespace WeaponEnchantments.ModIntegration
 			if (item.ModItem != null && item.ModItem is EnchantmentEssenceBasic)
             {
                 int type0 = ModContent.ItemType<EnchantmentEssenceBasic>();
-                Main.LocalPlayer.G().enchantingTable.essenceItem[item.type - type0].stack -= stack;
+                Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem[item.type - type0].stack -= stack;
 
             }//Will be done by magic storage next update
             

@@ -15,6 +15,7 @@ using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -736,7 +737,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+			if (LogMethods.debugging) ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
 			#endregion
 
@@ -744,7 +745,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"/\\ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
             
             #endregion
         }
@@ -752,7 +753,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
 
@@ -761,14 +762,11 @@ namespace WeaponEnchantments.Common.Globals
             //Projectile SourceItem
             Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
 
-            //Minion Damage bonus
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
-
             HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
         }
@@ -776,26 +774,26 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
 
             #endregion
 
             //Minion damage reduction from war enchantment
             if(projectile != null) {
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.G().parent != null && projectile.G().parent.minion;
+                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.GetWEProjectile().parent != null && projectile.GetWEProjectile().parent.minion;
                 if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
                     damage = (int)Math.Round(damage / myWarReduction);
                 }
             }
 
-            if (!item.TG(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
             SourceItem = item;
 
             //Stardust dragon scale damage multiplier correction//Stardust Dragon
             if (projectile != null && ProjectileID.Sets.StardustDragon[projectile.type]) {
-                float enchantmentScaleMultiplier = SourceItem.A("scale", 1f);
+                float enchantmentScaleMultiplier = SourceItem.ApplyStatModifier("scale", 1f);
                 if(enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f) {
                     float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
                     float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
@@ -819,7 +817,7 @@ namespace WeaponEnchantments.Common.Globals
             if (WEMod.serverConfig.ArmorPenetration && armorPenetration > npc.defDamage) {
                 int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
                 if (armorPenetrationBonusDamage > 50) {
-                    int maxArmorPenetration = 50 + (int)item.A("ArmorPenetration", 0f) / 2;
+                    int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
                     if (armorPenetrationBonusDamage > maxArmorPenetration)
                         armorPenetrationBonusDamage = maxArmorPenetration;
                 }
@@ -828,7 +826,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Damage Enchantment
-            damage = (int)Math.Round(item.AEI("Damage", (float)damage));
+            damage = (int)Math.Round(item.ApplyEStat("Damage", (float)damage));
 
             //Critical strike
             if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
@@ -871,26 +869,26 @@ namespace WeaponEnchantments.Common.Globals
                 onHitEffectsPacket.Write(crit);
             }
 
-            bool skipOnHitEffects = projectile != null ? projectile.G().skipOnHitEffects : false;
+            bool skipOnHitEffects = projectile != null ? projectile.GetWEProjectile().skipOnHitEffects : false;
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
-            Dictionary<string, StatModifier> ItemEStats = item.G().eStats;
+            Dictionary<string, StatModifier> ItemEStats = item.GetEnchantedItem().eStats;
 
             //Buffs and debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
-                foreach (int debuff in item.G().debuffs.Keys) {
+                foreach (int debuff in item.GetEnchantedItem().debuffs.Keys) {
                     //Amaterasu
                     if(debuff == ModContent.BuffType<AmaterasuDebuff>()) {
                         onHitEffects[OnHitEffectID.Amaterasu] = true;
                         if (amaterasuStrength == 0)
-                            amaterasuStrength = item.AEI("Amaterasu", 0f);
+                            amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
 
                         amaterasuDamage += damage * (crit ? 2 : 1);
                     }
 
-                    npc.AddBuff(debuff, item.G().debuffs[debuff]);
+                    npc.AddBuff(debuff, item.GetEnchantedItem().debuffs[debuff]);
                 }
 
                 //Sets Minion Attack target
@@ -905,24 +903,24 @@ namespace WeaponEnchantments.Common.Globals
                 //Buffs and Debuffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
-                    foreach (int onHitBuff in item.G().onHitBuffs.Keys) {
+                    foreach (int onHitBuff in item.GetEnchantedItem().onHitBuffs.Keys) {
                         switch (onHitBuff) {
                             case BuffID.CoolWhipPlayerBuff:
                                 //CoolWhip Snowflake
                                 if (player.FindBuffIndex(onHitBuff) == -1) {
                                     int newProjectileWhoAmI = Projectile.NewProjectile(projectile != null ? projectile.GetSource_FromThis() : item.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.CoolWhipProj, 10, 0f, player.whoAmI);
-                                    Main.projectile[newProjectileWhoAmI].G().skipOnHitEffects = true;
+                                    Main.projectile[newProjectileWhoAmI].GetWEProjectile().skipOnHitEffects = true;
                                 }
                                 break;
                         }
 
-                        player.AddBuff(onHitBuff, item.G().onHitBuffs[onHitBuff]);
+                        player.AddBuff(onHitBuff, item.GetEnchantedItem().onHitBuffs[onHitBuff]);
                     }
                 }
 
 				#region Debug
 
-				if (UtilityMethods.debugging) ($"sourceItem: {SourceItem.S()} {ItemEStats.S("OneForAll")}").Log();
+				if (LogMethods.debugging) ($"sourceItem: {SourceItem.S()} {ItemEStats.S("OneForAll")}").Log();
 
 				#endregion
 
@@ -998,7 +996,7 @@ namespace WeaponEnchantments.Common.Globals
                                 }
                                 break;
                             case OnHitEffectID.Amaterasu:
-                                onHitEffectsPacket.Write(item.AEI("Amaterasu", 0f));
+                                onHitEffectsPacket.Write(item.ApplyEStat("Amaterasu", 0f));
                                 break;
                         }
                     }
@@ -1009,7 +1007,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+			if (LogMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
 
 			#endregion
 		}
@@ -1017,7 +1015,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"\\/OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
 
@@ -1025,7 +1023,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"/\\OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
         }
@@ -1033,7 +1031,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
 
@@ -1042,19 +1040,16 @@ namespace WeaponEnchantments.Common.Globals
             //Projectile SourceItem
             Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
 
-            //Minion Damage bonus
-            damage = (int)Math.Round((float)damage * projectile.GetGlobalProjectile<WEProjectile>().damageBonus);
-
             OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
         }
         private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!SourceItem.TG(out EnchantedItem iGlobal))
+            if (!SourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
             //If projectile/npc doesn't use npc.immune, return
@@ -1062,9 +1057,9 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Fix for Multishot not improving damage on flamethrowers
-            float NPCHitCooldownMultiplier = SourceItem.AEI("NPCHitCooldown", 1f);
+            float NPCHitCooldownMultiplier = SourceItem.ApplyEStat("NPCHitCooldown", 1f);
             if(SourceItem.useAmmo == ItemID.Gel && SourceItem.Name != "Shadethrower")
-                NPCHitCooldownMultiplier *= 1f / (SourceItem.AEI("Multishot", 1f));
+                NPCHitCooldownMultiplier *= 1f / (SourceItem.ApplyEStat("Multishot", 1f));
 
             //npc.immune
             int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
@@ -1077,7 +1072,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()})").Log();
 
             #endregion
 
@@ -1108,7 +1103,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                 target.GetGlobalNPC<WEGlobalNPC>().SourceItem = SourceItem;
-                float allForOneMultiplier = item.G().eStats["OneForAll"].ApplyTo(0f);
+                float allForOneMultiplier = item.GetEnchantedItem().eStats["OneForAll"].ApplyTo(0f);
                 float baseAllForOneDamage = damage * allForOneMultiplier;
 
                 float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
@@ -1139,7 +1134,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
+			if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
 
 			#endregion
 
@@ -1167,11 +1162,11 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"\\/ActivateGodSlayer").Log();
+			if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log();
 
 			#endregion
 			
-			float godSlayerBonus = item.G().eStats["GodSlayer"].ApplyTo(0f);
+			float godSlayerBonus = item.GetEnchantedItem().eStats["GodSlayer"].ApplyTo(0f);
             
             float actualDamageDealt = damage - damageReduction;
             float godSlayerDamage = actualDamageDealt * godSlayerBonus * npc.lifeMax / 100f;
@@ -1194,7 +1189,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\ActivateGodSlayer").Log();
+			if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log();
 
 			#endregion
 
@@ -1219,7 +1214,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
             
-			if (UtilityMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+			if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
 			#endregion
 
@@ -1236,8 +1231,8 @@ namespace WeaponEnchantments.Common.Globals
             if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 10 <= Main.GameUpdateCount) {
                 Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
                 foreach (int whoAmI in npcs.Keys) {
-                    Main.npc[whoAmI].G().amaterasuDamage += 10;
-                    Main.npc[whoAmI].G().amaterasuStrength = amaterasuStrength;
+                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuDamage += 10;
+                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuStrength;
                     Main.npc[whoAmI].AddBuff(ModContent.BuffType<AmaterasuDebuff>(), -1);
                 }
 
@@ -1246,7 +1241,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+			if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
 			#endregion
 		}
@@ -1254,16 +1249,16 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) {
+            if (LogMethods.debugging) {
                 ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
-                (player.G().eStats.S("spawnRate")).LogT();
+                (player.GetWEPlayer().eStats.S("spawnRate")).LogT();
             }
 
 			#endregion
 
             //Spawn Rate
-			if (player.CEP("spawnRate")) {
-                float enemySpawnRateBonus = player.AEP("spawnRate", 1f);
+			if (player.ContainsEStatOnPlayer("spawnRate")) {
+                float enemySpawnRateBonus = player.ApplyEStatFromPlayer("spawnRate", 1f);
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 if (enemySpawnRateBonus > 1f) {
                     warReduction = enemySpawnRateBonus;
@@ -1281,8 +1276,8 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Max Spawns
-            if (player.CEP("maxSpawns")) {
-                float enemyMaxSpawnBonus = player.AEP("maxSpawns", 1f);
+            if (player.ContainsEStatOnPlayer("maxSpawns")) {
+                float enemyMaxSpawnBonus = player.ApplyEStatFromPlayer("maxSpawns", 1f);
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
 
                 if (spawns < 0)
@@ -1293,7 +1288,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
+			if (LogMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
 			#endregion
 		}

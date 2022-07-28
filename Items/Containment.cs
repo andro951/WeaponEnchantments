@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items
             }
             Tooltip.SetDefault("Used to store " + Enchantment.rarity[size] + " enchantments");
             
-            LogUtilities.UpdateContributorsList(this);
+            LogModSystem.UpdateContributorsList(this);
         }
         private void GetDefaults()
         {

@@ -52,7 +52,7 @@ namespace WeaponEnchantments.Tiles
 			name.SetDefault(Items.WoodEnchantingTable.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 			AddMapEntry(new Color(200, 200, 200), name);
 
-			LogUtilities.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);
 		}
 		private void GetDefaults()
 		{

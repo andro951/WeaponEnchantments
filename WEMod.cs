@@ -18,6 +18,7 @@ using MonoMod.Cil;
 using System;
 using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments
 {
@@ -135,7 +136,7 @@ namespace WeaponEnchantments
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
 			byte type = reader.ReadByte();
-			if(UtilityMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(LogMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 			switch (type)
 			{
 				case PacketIDs.TransferGlobalItemFields:
@@ -202,8 +203,8 @@ namespace WeaponEnchantments
 					{
 						if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
 						{
-							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
-							Enchantment enchantment = (Enchantment)item.G().enchantments[enchantmentSlotNumber].ModItem;
+							item.GetEnchantedItem().enchantments[enchantmentSlotNumber] = new Item(itemType);
+							Enchantment enchantment = (Enchantment)item.GetEnchantedItem().enchantments[enchantmentSlotNumber].ModItem;
 							item.UpdateEnchantment(ref enchantment, enchantmentSlotNumber);
 						}
 						else
@@ -230,7 +231,7 @@ namespace WeaponEnchantments
 					int npcWhoAmI = reader.ReadInt32();
 					int damage = reader.ReadInt32();
 					bool crit = reader.ReadBoolean();
-					if(UtilityMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
+					if(LogMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					for (int i = 0; i < OnHitEffectID.Count; i++)
                     {
 						bool applyEffect = reader.ReadBoolean();
@@ -253,9 +254,9 @@ namespace WeaponEnchantments
 									break;
 								case OnHitEffectID.Amaterasu:
 									float amaterasuItemStrength = reader.ReadSingle();
-									if (Main.npc[npcWhoAmI].G().amaterasuStrength == 0f)
-										Main.npc[npcWhoAmI].G().amaterasuStrength = amaterasuItemStrength;
-									Main.npc[npcWhoAmI].G().amaterasuDamage += damage * (crit ? 2 : 1);
+									if (Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength == 0f)
+										Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuItemStrength;
+									Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuDamage += damage * (crit ? 2 : 1);
 									/*int debuffsCount = reader.ReadInt32();
 									;
 									for (int j = 0; j < debuffsCount; j++)
@@ -274,7 +275,7 @@ namespace WeaponEnchantments
 							}
                         }
 					}
-					if (UtilityMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
+					if (LogMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					break;
 				/*case PacketIDs.TeleportItemSetting:
 					string name = reader.ReadString();
@@ -293,13 +294,13 @@ namespace WeaponEnchantments
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;
 			}
-			if(UtilityMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(LogMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 		}
 		private void ReadItem(Item item, BinaryReader reader)
         {
             if (IsEnchantable(item))
             {
-				EnchantedItem iGlobal = item.G();
+				EnchantedItem iGlobal = item.GetEnchantedItem();
 				iGlobal.Experience = reader.ReadInt32();
 				iGlobal.PowerBoosterInstalled = reader.ReadBoolean();
 				for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -332,7 +333,7 @@ namespace WeaponEnchantments
 		}
 		private void WriteItem(Item item, ModPacket packet)
         {
-			EnchantedItem iGlobal = item.G();
+			EnchantedItem iGlobal = item.GetEnchantedItem();
 			packet.Write(iGlobal.Experience);
 			packet.Write(iGlobal.PowerBoosterInstalled);
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)

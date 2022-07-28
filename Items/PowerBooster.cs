@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Items
             ItemID.Sets.ItemNoGravity[Item.type] = true;
             Tooltip.SetDefault("Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n(Shift left click from your inventory or left click on item in the table with this on your cursor.)\nThis item will be returned if the boosted item is offered.");
 
-            LogUtilities.UpdateContributorsList(this);
+            LogModSystem.UpdateContributorsList(this);
         }
         public override void SetDefaults()
         {

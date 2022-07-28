@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿
 
 namespace WeaponEnchantments.Common
 {
     public struct EStat
     {
-        public float Base;
         public float Additive { get; private set; }
         public float Multiplicative { get; private set; }
+        public float Flat { get; private set; }
+        public float Base { get; private set; }
         public string StatName { get; private set; }
-        public float Flat;
         public EStat(string statName, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f)
         {
             Additive = additive;
