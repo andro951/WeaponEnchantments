@@ -25,7 +25,7 @@ namespace WeaponEnchantments.Items
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
-		private int entitySize = 24;					// The entity's hitbox size in the world
+		private int entitySize = 20;					// The entity's hitbox size in the world
 
 		public abstract Color glowColor { get; }
 		public abstract int animationFrames { get; }    // The amount of frames of the essence animation
