@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {

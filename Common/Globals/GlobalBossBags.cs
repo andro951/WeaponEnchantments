@@ -13,92 +13,29 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
-        public override void OpenVanillaBag(string context, Player player, int arg) {
-            if (context == "bossBag") {
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
+            int type = item.type;
+            if (ItemID.Sets.BossBag[type]) {
 
 				#region Debug
 
-				if (LogMethods.debugging && ContentSamples.ItemsByType[arg].ModItem != null) {
-                    string bagName = ContentSamples.ItemsByType[arg].ModItem.Name;
+				if (LogMethods.debugging && item.ModItem != null) {
+                    string bagName = item.ModItem.Name;
                     bagName.Log();
                 }
 
 				#endregion
 
-				IEntitySource src = player.GetSource_OpenItem(arg);
+				//IEntitySource src = player.GetSource_OpenItem(type);
 
                 //Check if the bag has an associated npc setup
-                NPC npc = GetNPCFromBossBagType(arg);
+                NPC npc = GetNPCFromBossBagType(type);
 
                 //If npc is setup, spawn items
                 if (npc == null)
                     return;
 
-
-                GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
-
-                //Multi-segmentBossMultiplier
-                float multiSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.type);
-
-                //Essence
-                for (int i = 0; i < essenceValues.Length; ++i) {
-                    if (dropRate[i] > 0) {
-                        float thisDropRate = dropRate[i];
-
-                        //Some bosses may need to have bag drop rates changed if they have multiple parts that all count as a boss.
-                        thisDropRate *= multiSegmentBossMultiplier;
-
-                        int stack = (int)Math.Round(thisDropRate);
-                        if (Main.rand.NextBool())
-                            stack++;
-
-                        player.QuickSpawnItem(src, baseID + i, stack);
-                    }
-                }
-
-                //Some bosses need to have bag drop rates changed if they have multiple parts that all count as a boss.
-                total *= multiSegmentBossMultiplier;
-
-                bool canDropPowerBooster = false;
-                int bossType = GetBossTypeFromBag(arg);
-
-                //Check if power booster can be dropped
-                if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode) {
-                    //Config allows pre-hardmode to drop power booster
-                    canDropPowerBooster = true;
-                }
-				else if (bossType > int.MinValue && !preHardModeBossTypes.Contains(bossType)) {
-                    //Vanilla boss that is not pre-hardmode
-                    canDropPowerBooster = true;
-                }
-                else if(npc.ModNPC != null) {
-                    //Modded boss
-                    string bossName = GetModdedBossNameFromBag(ContentSamples.ItemsByType[arg].ModItem.Name);
-
-                    //Modded boss that is not pre-hardmode
-                    if (bossName != "" && !preHardModeModBossNames.Contains(bossName))
-                        canDropPowerBooster = true;
-                }
-
-                //Power Booster
-                if (canDropPowerBooster) {
-                    float powerBoosterChance =  total / 1000000f;
-                    float randFloat = Main.rand.NextFloat();
-                    if(randFloat < powerBoosterChance)
-                        player.QuickSpawnItem(src, ModContent.ItemType<PowerBooster>());
-                }
-
-                //Superior Containment
-                if (Main.rand.NextFloat() < total / 500000f) {
-                    player.QuickSpawnItem(src, ModContent.ItemType<SuperiorContainment>());
-                }
-
-                //Enchantment
-                float chance = GetEnchantmentDropChance(arg);
-                List<int> itemTypes = GetEnchantmentDropList(arg, true);
-                int enchantmentTypeToSpawn = GetOneFromList(itemTypes, chance);
-                if(enchantmentTypeToSpawn > 0)
-                    player.QuickSpawnItem(src, enchantmentTypeToSpawn);
+                GetLoot(itemLoot, npc, true);
             }
         }
 

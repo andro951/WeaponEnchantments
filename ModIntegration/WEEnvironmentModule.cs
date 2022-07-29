@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.ModIntegration
@@ -48,7 +49,7 @@ namespace WeaponEnchantments.ModIntegration
 
             }//Will be done by magic storage next update
             
-            WEMod.consumedItems.Add(item.Clone());
+            //WEMod.consumedItems.Add(item.Clone());
         }
 	}
 }

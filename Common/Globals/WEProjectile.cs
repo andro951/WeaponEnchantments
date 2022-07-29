@@ -303,7 +303,7 @@ namespace WeaponEnchantments.Common.Globals
             if (!updated)
                 UpdateProjectile(projectile);
 
-            if (sourceItem.TryGetEnchantedItem())
+            if (!sourceItem.TryGetEnchantedItem())
                 return true;
 
             //If source item scale changed, update the projectile scale.
@@ -473,7 +473,7 @@ namespace WeaponEnchantments.Common.Globals
                                 }
                             }
 
-                            found = UtilityMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
+                            found = EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
                             if (found) {
                                 sourceItem = inventory[inventoryLocation];
                                 lastInventoryLocation = inventoryLocation;

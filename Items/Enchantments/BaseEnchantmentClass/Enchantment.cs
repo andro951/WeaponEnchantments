@@ -11,6 +11,7 @@ using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -358,11 +359,11 @@ namespace WeaponEnchantments.Items
 			//DisplayName
 			if (WEMod.clientConfig.UseOldRarityNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
 			}
 			else {
 				//Current rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentTier]));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentTier]));
 			}
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
@@ -540,6 +541,8 @@ namespace WeaponEnchantments.Items
 					return MyDisplayName.AddSpaces();
 				case "Damage":
 					return "Damage bonus is applied after defenses (Not visible in weapon tooltip)";
+				case "mana":
+					return "Mana Cost";
 				default:
 					return name.CapitalizeFirst().AddSpaces();
 			}
@@ -562,7 +565,7 @@ namespace WeaponEnchantments.Items
 						}
 					}
 
-					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
+					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name) {
 						if (checkBoolOnly) {
 							return field.FieldType == typeof(bool);
@@ -606,7 +609,7 @@ namespace WeaponEnchantments.Items
 			foreach (FieldInfo field in player.GetType().GetFields()) {
 				string fieldName = field.Name;
 				if (fieldName.Length <= checkName.Length) {
-					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
+					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name) {
 						if (checkBoolOnly) {
 							return field.FieldType == typeof(bool);
@@ -775,7 +778,7 @@ namespace WeaponEnchantments.Items
 				string limmitationToolTip = "";
 				if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
 					//Unique (Specific Item)
-					limmitationToolTip += $"\n   *{UtilityMethods.AddSpaces(EnchantmentTypeName)} Only*";
+					limmitationToolTip += $"\n   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*";
 				}
 				else if (DamageClassSpecific > 0) {
 					//DamageClassSpecific

@@ -620,12 +620,16 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
             bool enchantmentsToolTipAdded = false;
 
-            //Common Tooltips
-            if (Enchanted || inEnchantingTable) {
+            //Stack0
+            if(Modified || inEnchantingTable) {
                 if (Stack0) {
                     string tooltip = $"!!!OUT OF AMMO!!!";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
+            }
+
+            //Xp and level Tooltips
+            if (Enchanted || inEnchantingTable) {
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
@@ -740,7 +744,7 @@ namespace WeaponEnchantments.Common.Globals
             int currentLevel = levelBeforeBooster;
 
             //xp < 0 return
-            if(xpInt < 0) {
+            if (xpInt < 0) {
                 $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT();
 
                 return;
@@ -755,13 +759,13 @@ namespace WeaponEnchantments.Common.Globals
                 Experience = int.MaxValue;
             }
 
-            //Already max level return
-            if (levelBeforeBooster >= MAX_LEVEL)
-                return;
-
             //UpdateLevelAndValue();
 
             if (noMessage)
+                return;
+
+            //Already max level return
+            if (currentLevel >= MAX_LEVEL)
                 return;
 
             //Level up message
@@ -1041,8 +1045,8 @@ namespace WeaponEnchantments.Common.Globals
 			}
 		}
 		public override void OnCreate(Item item, ItemCreationContext context) {
-			if(context is RecipeCreationContext) {
-                item.CombineEnchantedItems(ref WEMod.consumedItems);
+			if(context is RecipeCreationContext recipeCreationContext) {
+                item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
             }
 		}
 		public override bool CanStack(Item item1, Item item2) {
@@ -1466,18 +1470,21 @@ namespace WeaponEnchantments.Common.Globals
                     Item consumedItem = consumedItems[c];
                     if (!consumedItem.IsAir) {
                         if (consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal)) {
-                            if (cGlobal.Experience > 0 || cGlobal.PowerBoosterInstalled) {
+                            if (cGlobal.Modified) {
                                 if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
                                     item.CheckConvertExcessExperience(consumedItem);
-                                    if (iGlobal.infusionPower < cGlobal.infusionPower && item.GetWeaponInfusionPower() < cGlobal.infusionPower)
+                                    if (iGlobal.infusionPower < cGlobal.infusionPower && item.GetWeaponInfusionPower() < cGlobal.infusionPower) {
                                         item.TryInfuseItem(consumedItem);
+                                        item.TryInfuseItem(consumedItem, false, true);
+                                    }
+
                                     if (cGlobal.PowerBoosterInstalled) {
                                         if (!iGlobal.PowerBoosterInstalled)
                                             iGlobal.PowerBoosterInstalled = true;
                                         else
                                             Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
                                     }
-                                    //iGlobal.UpdateLevelAndValue();
+                                    
                                     int j;
                                     for (j = 0; j <= EnchantingTable.maxEnchantments; j++) {
                                         if (j > 4)

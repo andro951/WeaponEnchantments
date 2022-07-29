@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Items
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 			Tooltip.SetDefault(Enchantment.displayRarity[essenceRarity].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 			if (!WEMod.clientConfig.UseOldRarityNames)
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
 
 			LogModSystem.UpdateContributorsList(this);
 		}

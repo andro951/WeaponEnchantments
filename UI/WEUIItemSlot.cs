@@ -15,6 +15,7 @@ using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.UI
 {
@@ -79,8 +80,6 @@ namespace WeaponEnchantments.UI
 										continueCheck = false;
 									if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
 										continueCheck = false;
-									if (newEnchantment.Unique && !newEnchantment.Max1)
-										continueCheck = false;
 									if(!CheckAllowedList(newEnchantment))
 										continueCheck = false;
 									if(newEnchantment.ArmorSlotSpecific > -1)
@@ -102,7 +101,9 @@ namespace WeaponEnchantments.UI
 											continueCheck = false;
 									}
 									int currentEnchantmentLevelCost = 0;
-                                    if (!Item.IsAir) { currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetLevelCost(); }
+                                    if (!Item.IsAir)
+										currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetLevelCost();
+
 									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
 								}
                                 else

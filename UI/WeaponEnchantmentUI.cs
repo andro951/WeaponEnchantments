@@ -11,6 +11,7 @@ using WeaponEnchantments.Common.Globals;
 using System;
 using WeaponEnchantments.Common;
 using Microsoft.Xna.Framework.Graphics;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.UI
 {

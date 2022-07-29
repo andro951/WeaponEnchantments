@@ -291,11 +291,13 @@ namespace WeaponEnchantments.Common.Globals
             return chance;
         }
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+            GetLoot(npcLoot, npc);
+        }
+        public static void GetLoot(ILoot loot, NPC npc, bool bossBag = false) {
             if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue)
                 return;
 
             GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
-
 
             if (total <= 0f)
                 return;
@@ -303,6 +305,9 @@ namespace WeaponEnchantments.Common.Globals
             IItemDropRule dropRule;
 
             bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.type);
+            float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.type);
+            if (multipleSegmentBoss && bossBag)
+                total *= multipleSegmentBossMultiplier;
 
             //Essence
             for (int i = 0; i < essenceValues.Length; ++i) {
@@ -311,8 +316,9 @@ namespace WeaponEnchantments.Common.Globals
                 if (thisDropRate <= 0f)
                     continue;
 
-                //Multi-segment boss
-                float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.type);
+                //Multi-segment boss bag
+                if(multipleSegmentBoss && bossBag)
+                    thisDropRate *= multipleSegmentBossMultiplier;
 
                 //Denom
                 //float denom = multipleSegmentBossMultiplier / thisDropRate;
@@ -321,27 +327,27 @@ namespace WeaponEnchantments.Common.Globals
                 int denominator;
                 int minDropped;
                 int maxDropped;
-                if(denom < 1f) {
+                if (denom < 1f) {
                     //100% chance or higher to drop essence
                     denominator = 1;
                     minDropped = (int)Math.Round(thisDropRate);
                     maxDropped = minDropped + 1;
                 }
-				else {
+                else {
                     //Less than 100% chance to drop essence
                     denominator = (int)Math.Round(denom);
                     minDropped = 1;
                     maxDropped = 1;
                 }
-                
+
                 dropRule = ItemDropRule.Common(baseID + i, denominator, minDropped, maxDropped);
 
-                if(npc.boss || multipleSegmentBoss) {
+                if (npc.boss || multipleSegmentBoss) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
-                    npcLoot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
                 }
-				else {
-                    npcLoot.Add(dropRule);
+                else {
+                    loot.Add(dropRule);
                 }
             }
 
@@ -354,7 +360,7 @@ namespace WeaponEnchantments.Common.Globals
                     denominator = 1;
 
                 dropRule = ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), denominator, 1, 1);
-                npcLoot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
 
                 //Power Booster
                 bool preHardModeBoss = preHardModeBossTypes.Contains(npc.type) || preHardModeModBossNames.Contains(npc.FullName);
@@ -364,11 +370,11 @@ namespace WeaponEnchantments.Common.Globals
                         denominator = 1;
 
                     dropRule = ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
-                    npcLoot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
                 }
 
                 //Enchantment drop chance
-                float chance = GetEnchantmentDropChance(npc.type);
+                float chance = GetEnchantmentDropChance(npc.type, bossBag);
 
                 //Enchantment Drop List
                 List<int> itemTypes = GetEnchantmentDropList(npc.type);
@@ -391,7 +397,7 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                     }
 
-                    npcLoot.Add(dropRule);
+                    loot.Add(dropRule);
                 }
                 else if (itemTypes.Count > 0) {
                     //One drop option
@@ -405,7 +411,7 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                     }
 
-                    npcLoot.Add(dropRule);
+                    loot.Add(dropRule);
                 }
             }
             else {
@@ -423,7 +429,7 @@ namespace WeaponEnchantments.Common.Globals
                     return;
 
                 int defaultDenom = (int)((5000f + hp * 5f) / (total * mult));
-                if (defaultDenom < 1) 
+                if (defaultDenom < 1)
                     defaultDenom = 1;
 
                 int denom100 = (int)Math.Round(1f / mult);
@@ -431,43 +437,43 @@ namespace WeaponEnchantments.Common.Globals
                 //Ai Style
                 switch (npc.aiStyle) {
                     case 1://Slime
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 2://Demon Eye
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 3://Fighter
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 5://Flying
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 6://Worm
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 8://Caster
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 10://Cursed Skull
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 13://Plant
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 14://Bat
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 16://Swimming
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 17://Vulture
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 18://Jellyfish
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 19://Antlion
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 22://Hovering
 
@@ -482,13 +488,13 @@ namespace WeaponEnchantments.Common.Globals
                             ModContent.ItemType<HunterEnchantmentUltraRare>(),
                             ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>()
                         };
-                        npcLoot.Add(ItemDropRule.OneFromOptions(denom100, options));
+                        loot.Add(ItemDropRule.OneFromOptions(denom100, options));
                         break;
                     case 26://Unicorn
 
                         break;
                     case 29://The Hungry - Wall of flesh plant minions
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 38://Snowman
 
@@ -497,7 +503,7 @@ namespace WeaponEnchantments.Common.Globals
 
                         break;
                     case 40://Spider
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MaxMinionsEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MaxMinionsEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 41://Derpling - Blue jungle bug
 
@@ -509,7 +515,7 @@ namespace WeaponEnchantments.Common.Globals
 
                         break;
                     case 55://Creeper Brain of Cthulhu minions
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 56://Dungeon Guardians
 
@@ -549,7 +555,7 @@ namespace WeaponEnchantments.Common.Globals
                             ModContent.ItemType<GodSlayerEnchantmentBasic>(),
                             ModContent.ItemType<MultishotEnchantmentBasic>()
                         };
-                        npcLoot.Add(ItemDropRule.OneFromOptions(denom100, optionsBiomeMimic));
+                        loot.Add(ItemDropRule.OneFromOptions(denom100, optionsBiomeMimic));
                         break;
                     case 88://Mothron - Solar Eclipse
 
@@ -573,7 +579,7 @@ namespace WeaponEnchantments.Common.Globals
 
                         break;
                     case 102://Sand Elemental
-                                //High
+                             //High
                         break;
                     case 103://Sand Shark
 
@@ -601,20 +607,20 @@ namespace WeaponEnchantments.Common.Globals
                 //Npc type
                 switch (npc.type) {
                     case NPCID.Pixie://75
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.Mothron://477
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), defaultDenom, 1, 1));
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.PirateShip://491
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.GiantWalkingAntlion://508
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.WalkingAntlion://580
-                        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                 }
             }
@@ -647,7 +653,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Hp reduction factor
-            float hpReductionFactor = UtilityMethods.GetReductionFactor((int)hp);
+            float hpReductionFactor = EnchantedItemStaticMethods.GetReductionFactor((int)hp);
             total /= hpReductionFactor;
 
             //NPC Characteristics Factors
@@ -665,6 +671,11 @@ namespace WeaponEnchantments.Common.Globals
             switch (npc.type) {
                 case NPCID.DungeonGuardian:
                     total /= 50f;
+                    break;
+                case NPCID.EaterofWorldsHead:
+                case NPCID.EaterofWorldsBody:
+                case NPCID.EaterofWorldsTail:
+                    total /= 8f;
                     break;
             }
 

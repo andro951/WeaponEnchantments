@@ -563,9 +563,9 @@ namespace WeaponEnchantments
                 {
                     if(LogMethods.debugging) ($"\\/Start hoverItem check").Log();
                     Item newItem = null;
-                    if (usingEnchantingTable && UtilityMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
+                    if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
                         newItem = enchantingTableUI.itemSlotUI[0].Item;
-                    if (newItem != null && UtilityMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
+                    if (newItem != null && EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
                         newItem = Player.inventory[hoverItemIndex];
                     if (newItem != null && Player.chest != -1)
                     {
@@ -588,7 +588,7 @@ namespace WeaponEnchantments
                                 inventory = Player.bank4.item;
                                 break;
                         }
-                        if (UtilityMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
+                        if (EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
                             newItem = inventory[hoverItemIndex];
                     }
                     if (newItem == null)
@@ -597,7 +597,7 @@ namespace WeaponEnchantments
                         {
                             if (WEMod.IsWeaponItem(Player.inventory[i]))
                             {
-                                if (UtilityMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem))
+                                if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem))
                                 {
                                     hoverItemIndex = i;
                                     newItem = Player.inventory[i];
@@ -632,7 +632,7 @@ namespace WeaponEnchantments
                             Item chestItem = inventory[i];
                             if (WEMod.IsWeaponItem(chestItem))
                             {
-                                if (UtilityMethods.IsSameEnchantedItem(chestItem, Main.HoverItem))
+                                if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem))
                                 {
                                     hoverItemIndex = i;
                                     newItem = chestItem;
@@ -1003,7 +1003,8 @@ namespace WeaponEnchantments
             {
                 if(LogMethods.debugging) ($"\\/UpdateItemStats(" + item.S() + ")").Log();
 
-                if (item.GetEnchantedItem().prefix != item.prefix)
+                int trackedPrefix = item.GetEnchantedItem().prefix;
+                if (trackedPrefix != item.prefix)
                 {
                     item.GetEnchantedItem().appliedStatModifiers.Clear();
                     item.GetEnchantedItem().appliedEStats.Clear();

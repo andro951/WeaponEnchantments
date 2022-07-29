@@ -2,6 +2,7 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common.Globals

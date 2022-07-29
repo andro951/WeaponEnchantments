@@ -9,6 +9,7 @@ using Terraria;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.ModIntegration
 {
