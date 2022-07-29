@@ -78,7 +78,7 @@ namespace WeaponEnchantments.Items
 				new Vector2
 				(
 					texture.Width,
-					texture.Width
+					texture.Height / animationFrames
 				) * 0.5f,
 				scale,
 				SpriteEffects.None,
@@ -137,22 +137,22 @@ namespace WeaponEnchantments.Items
     }
 	public class EnchantmentEssenceBasic: EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0xA9, 0x37, 0x65);  // #18A937
-    }
+		public override Color glowColor => Color.FromNonPremultiplied(0x2E, 0x7F, 0x4C, 0x80);  // #2e7f4c
+	}
 	public class EnchantmentEssenceCommon : EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0x44, 0xA9, 0x69);  // #1844A9
+		public override Color glowColor => Color.FromNonPremultiplied(0x1F, 0xD4, 0xDA, 0x84);  // #1fd4da
 	}
 	public class EnchantmentEssenceRare : EnchantmentEssence {
 		public override int animationFrames => 6;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x18, 0x88, 0x6C);  // #A91888
+		public override Color glowColor => Color.FromNonPremultiplied(0x67, 0x26, 0xA1, 0x87);  // #6726a1
 	}
 	public class EnchantmentEssenceSuperRare : EnchantmentEssence {
 		public override int animationFrames => 10;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x21, 0x18, 0x6E);   // #A92118
+		public override Color glowColor => Color.FromNonPremultiplied(0xF9, 0x00, 0x23, 0x89);  // #f90023
 	}
 	public class EnchantmentEssenceUltraRare : EnchantmentEssence {
 		public override int animationFrames => 16;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x68, 0x18, 0x6F);  // #A96818
+		public override Color glowColor => Color.FromNonPremultiplied(0xD7, 0x54, 0x09, 0x8a);  // #d75409
 	}
 }
