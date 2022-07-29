@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,10 +25,10 @@ namespace WeaponEnchantments.Items
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
+		private int entitySize = 24;					// The entity's hitbox size in the world
 
-		public abstract Color glowColor { get; }		// The color of the essence's glow. Alpha is brightness (Exponentially brighter with each point).
-		public abstract int animationFrames { get; }	// The amount of frames of the essence animation
-		public abstract int entitySize { get; }         // The entity's hitbox size in the world
+		public abstract Color glowColor { get; }
+		public abstract int animationFrames { get; }    // The amount of frames of the essence animation
 
 		public override void SetStaticDefaults()
         {
@@ -50,11 +52,38 @@ namespace WeaponEnchantments.Items
 			LogUtilities.UpdateContributorsList(this);
 		}
 
-		public override void PostUpdate()
+        public override void PostUpdate()
 		{
-			// Makes this item glow when thrown out of inventory
-			float glowIntensity = glowColor.A / 255f;												// Turn the alpha of the color into it's brightness
-			Lighting.AddLight(Item.Center, glowColor.ToVector3() * glowIntensity * Main.essScale);	
+			float intensity = glowColor.A / 255f;		// Turn the alpha of the color into it's brightness (0-1)
+			Lighting.AddLight(Item.Center, glowColor.ToVector3() * intensity * Main.essScale);	
+		}
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			// Add glow mask
+			Texture2D texture = TextureAssets.Item[Item.type].Value;
+			int currentFrame = Main.itemFrameCounter[whoAmI];
+			Rectangle frame = Main.itemAnimations[Item.type] is not null ? Main.itemAnimations[Item.type].GetFrame(texture, currentFrame) : texture.Frame();
+			spriteBatch.Draw
+			(
+				texture,
+				new Vector2
+				(
+					Item.position.X - Main.screenPosition.X + Item.width * 0.5f,
+					Item.position.Y - Main.screenPosition.Y + Item.height * 0.5f
+				),
+				frame,
+				Color.White,
+				rotation,
+				new Vector2
+				(
+					texture.Width,
+					texture.Width
+				) * 0.5f,
+				scale,
+				SpriteEffects.None,
+				0f
+			);
 		}
 
 		private void GetDefaults()
@@ -108,27 +137,22 @@ namespace WeaponEnchantments.Items
     }
 	public class EnchantmentEssenceBasic: EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0xA9, 0x37, 0x56);	// #18A937
-		public override int entitySize => 12;
+		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0xA9, 0x37, 0x65);  // #18A937
     }
 	public class EnchantmentEssenceCommon : EnchantmentEssence {
 		public override int animationFrames => 8;
-		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0x44, 0xA9, 0x5E);	// #1844A9
-		public override int entitySize => 16;
+		public override Color glowColor => Color.FromNonPremultiplied(0x18, 0x44, 0xA9, 0x69);  // #1844A9
 	}
 	public class EnchantmentEssenceRare : EnchantmentEssence {
-		public override int animationFrames => 4;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x18, 0x88, 0x66);	// #A91888
-		public override int entitySize => 20;
+		public override int animationFrames => 6;
+		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x18, 0x88, 0x6C);  // #A91888
 	}
 	public class EnchantmentEssenceSuperRare : EnchantmentEssence {
-		public override int animationFrames => 8;
+		public override int animationFrames => 10;
 		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x21, 0x18, 0x6E);   // #A92118
-		public override int entitySize => 24;
 	}
 	public class EnchantmentEssenceUltraRare : EnchantmentEssence {
-		public override int animationFrames => 4;
-		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x68, 0x18, 0x76);	// #A96818
-		public override int entitySize => 28;
+		public override int animationFrames => 16;
+		public override Color glowColor => Color.FromNonPremultiplied(0xA9, 0x68, 0x18, 0x6F);  // #A96818
 	}
 }
