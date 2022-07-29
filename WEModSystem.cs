@@ -730,6 +730,28 @@ namespace WeaponEnchantments
                 );
             }
         }
+        public override void AddRecipeGroups() {
+            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
+            {
+                ItemID.Sapphire, ItemID.Ruby, ItemID.Emerald, ItemID.Topaz, ItemID.Amethyst
+            });
+            RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
+            group = new RecipeGroup(() => "Any Rare Gem", new int[]
+            {
+                ItemID.Amber, ItemID.Diamond
+            });
+            RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
+            group = new RecipeGroup(() => "Workbenches", new int[]
+            {
+                ItemID.WorkBench, ItemID.BambooWorkbench, ItemID.BlueDungeonWorkBench, ItemID.BoneWorkBench, ItemID.BorealWoodWorkBench, ItemID.CactusWorkBench, ItemID.CrystalWorkbench, ItemID.DynastyWorkBench, ItemID.EbonwoodWorkBench, ItemID.FleshWorkBench, ItemID.FrozenWorkBench, ItemID.GlassWorkBench, ItemID.GoldenWorkbench, ItemID.GothicWorkBench, ItemID.GraniteWorkBench, ItemID.GreenDungeonWorkBench, ItemID.HoneyWorkBench, ItemID.LesionWorkbench, ItemID.LihzahrdWorkBench, ItemID.LivingWoodWorkBench, ItemID.MarbleWorkBench, ItemID.MartianWorkBench, ItemID.MeteoriteWorkBench, ItemID.MushroomWorkBench, ItemID.NebulaWorkbench, ItemID.ObsidianWorkBench, ItemID.PalmWoodWorkBench, ItemID.PearlwoodWorkBench, ItemID.PinkDungeonWorkBench, ItemID.PumpkinWorkBench, ItemID.RichMahoganyWorkBench, ItemID.SandstoneWorkbench, ItemID.ShadewoodWorkBench, ItemID.SkywareWorkbench, ItemID.SlimeWorkBench, ItemID.SolarWorkbench, ItemID.SpiderWorkbench, ItemID.SpookyWorkBench, ItemID.StardustWorkbench, ItemID.SteampunkWorkBench, ItemID.VortexWorkbench
+            });
+            RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
+            group = new RecipeGroup(() => "Any Aligned Soul", new int[]
+            {
+                ItemID.SoulofLight, ItemID.SoulofNight
+            });
+            RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
+        }
         public override void PostWorldGen()
         {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
