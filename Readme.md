@@ -257,15 +257,15 @@ andro951:
 Kiroto: 
 
 ![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
-![EnchantmentEssenceBasicCB](/Items/Sprites/EnchantmentEssenceBasicCB.png)
+![EnchantmentEssenceBasicCB](/Items/Sprites/EnchantmentEssenceBasicAlt.png)
 ![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
-![EnchantmentEssenceCommonCB](/Items/Sprites/EnchantmentEssenceCommonCB.png)
+![EnchantmentEssenceCommonCB](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
 ![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
-![EnchantmentEssenceRareCB](/Items/Sprites/EnchantmentEssenceRareCB.png)
+![EnchantmentEssenceRareCB](/Items/Sprites/EnchantmentEssenceRareAlt.png)
 ![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
-![EnchantmentEssenceSuperRareCB](/Items/Sprites/EnchantmentEssenceSuperRareCB.png)
+![EnchantmentEssenceSuperRareCB](/Items/Sprites/EnchantmentEssenceSuperRareAlt.png)
 ![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
-![EnchantmentEssenceUltraRareCB](/Items/Sprites/EnchantmentEssenceUltraRareCB.png)
+![EnchantmentEssenceUltraRareCB](/Items/Sprites/EnchantmentEssenceUltraRareAlt.png)
 
 Sir Bumpleton: 
 
