@@ -49,7 +49,7 @@ namespace WeaponEnchantments.ModIntegration
 
             }//Will be done by magic storage next update
             
-            //WEMod.consumedItems.Add(item.Clone());
+            WEMod.consumedItems.Add(item.Clone());
         }
 	}
 }

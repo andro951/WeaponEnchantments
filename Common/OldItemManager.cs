@@ -129,7 +129,7 @@ namespace WeaponEnchantments.Common
                 }
 
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                    item.GetEnchantedItem().needsUpdateOldItems = player == null;
+                    iGlobal.needsUpdateOldItems = player == null;
 
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = iGlobal.enchantments[i];

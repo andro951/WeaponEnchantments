@@ -1046,7 +1046,15 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		public override void OnCreate(Item item, ItemCreationContext context) {
 			if(context is RecipeCreationContext recipeCreationContext) {
-                item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
+                if(recipeCreationContext.ConsumedItems?.Count > 0) {
+                    item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
+                }
+				else {
+                    //Temporary for Magic storage
+                    item.CombineEnchantedItems(ref WEMod.consumedItems);
+				}
+                //Temporary for Magic storage
+                WEMod.consumedItems.Clear();
             }
 		}
 		public override bool CanStack(Item item1, Item item2) {

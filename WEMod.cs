@@ -27,6 +27,7 @@ namespace WeaponEnchantments
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamity = false;
+		public static List<Item> consumedItems = new List<Item>();
 		internal static bool IsEnchantable(Item item)
         {
 			if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))

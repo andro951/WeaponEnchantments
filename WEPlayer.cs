@@ -550,6 +550,84 @@ namespace WeaponEnchantments
         {
             //if (Main.netMode < NetmodeID.Server)
             {
+                int vanillaArmorLength = Player.armor.Length / 2;
+                var loader = LoaderManager.Get<AccessorySlotLoader>();
+                for (int j = 0; j < equipArmor.Length; j++) {
+                    Item armor;
+                    if (j < vanillaArmorLength)
+                        armor = Player.armor[j];
+                    else {
+                        int num = j - vanillaArmorLength;
+                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
+                            armor = loader.Get(num).FunctionalItem;
+                        else
+                            armor = new Item();
+                    }
+                    if (!armor.vanity) {
+                        equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
+                    }
+                }//Check if armor changed
+                /*for (int k = 0; k < Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount; k++)
+                {
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(k, Player))
+                    {
+                        Item accessory = loader.Get(k).FunctionalItem;
+                        if (!accessory.vanity)
+                        {
+                            modAccessoryStatsUpdated[k] = !ItemChanged(accessory, modAccessorys[k]);
+                        };
+                    }
+                }*/
+                for (int j = 0; j < equipArmor.Length; j++) {
+                    Item armor;
+                    if (j < vanillaArmorLength)
+                        armor = Player.armor[j];
+                    else {
+                        int num = j - vanillaArmorLength;
+                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
+                            armor = loader.Get(num).FunctionalItem;
+                        else
+                            armor = new Item();
+                    }
+                    bool armorStatsUpdated = equipArmorStatsUpdated[j];
+                    if (!armorStatsUpdated) {
+                        if (!armor.vanity && !armor.IsAir) {
+                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                                if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
+                                    if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor)) {
+                                        armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
+                                        if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
+                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
+                                            armor.GetEnchantedItem().enchantments[i] = new Item();
+                                            if (WEMod.IsArmorItem(armor)) {
+                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
+                                            }
+                                            else {
+                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
+                                            }
+                                        }
+                                    }//Move to Removewhileuntil below
+                                }
+                            }//Pop off excess
+                        }
+                        //if (Main.netMode < NetmodeID.Server)
+                        {
+                            UpdatePotionBuffs(ref armor, ref equipArmor[j]);
+                            UpdatePlayerStats(ref armor, ref equipArmor[j]);
+                            //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, armor, equipArmor[j], true, (byte)j);
+                        }
+                        if (!equipArmor[j].IsAir) {
+                            Item temp = equipArmor[j];
+                            temp.GetEnchantedItem().equippedInArmorSlot = false;
+                        }
+                        if (!armor.IsAir) {
+                            armor.GetEnchantedItem().equippedInArmorSlot = true;
+                        }
+                        equipArmor[j] = armor;
+                    }
+                }
+
+
                 if (Main.mouseItem.IsAir)
                 {
                     Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
@@ -673,97 +751,7 @@ namespace WeaponEnchantments
                         hoverItem = null;
                     }*/
                 }
-                int vanillaArmorLength = Player.armor.Length / 2;
-                var loader = LoaderManager.Get<AccessorySlotLoader>();
-                for (int j = 0; j < equipArmor.Length; j++)
-                {
-                    Item armor;
-                    if(j < vanillaArmorLength)
-                        armor = Player.armor[j];
-					else
-					{
-                        int num = j - vanillaArmorLength;
-                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
-                            armor = loader.Get(num).FunctionalItem;
-                        else
-                            armor = new Item();
-					}
-                    if (!armor.vanity)
-                    {
-                        equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-                    }
-                }//Check if armor changed
-                /*for (int k = 0; k < Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount; k++)
-                {
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(k, Player))
-                    {
-                        Item accessory = loader.Get(k).FunctionalItem;
-                        if (!accessory.vanity)
-                        {
-                            modAccessoryStatsUpdated[k] = !ItemChanged(accessory, modAccessorys[k]);
-                        };
-                    }
-                }*/
-                for (int j = 0; j < equipArmor.Length; j++)
-                {
-                    Item armor;
-                    if (j < vanillaArmorLength)
-                        armor = Player.armor[j];
-                    else
-                    {
-                        int num = j - vanillaArmorLength;
-                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
-                            armor = loader.Get(num).FunctionalItem;
-                        else
-                            armor = new Item();
-                    }
-                    bool armorStatsUpdated = equipArmorStatsUpdated[j];
-                    if (!armorStatsUpdated)
-                    {
-                        if (!armor.vanity && !armor.IsAir)
-                        {
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
-                            {
-                                if (!armor.GetEnchantedItem().enchantments[i].IsAir)
-                                {
-                                    if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor))
-                                    {
-                                        armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetEnchantedItem().enchantments[i].IsAir)
-                                        {
-                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
-                                            armor.GetEnchantedItem().enchantments[i] = new Item();
-                                            if (WEMod.IsArmorItem(armor))
-                                            {
-                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
-                                            }
-                                            else
-                                            {
-                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
-                                            }
-                                        }
-                                    }//Move to Removewhileuntil below
-                                }
-                            }//Pop off excess
-                        }
-                        //if (Main.netMode < NetmodeID.Server)
-                        {
-                            UpdatePotionBuffs(ref armor, ref equipArmor[j]);
-                            UpdatePlayerStats(ref armor, ref equipArmor[j]);
-                            //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, armor, equipArmor[j], true, (byte)j);
-                        }
-                        if (!equipArmor[j].IsAir)
-                        {
-                            Item temp = equipArmor[j];
-                            temp.GetEnchantedItem().equippedInArmorSlot = false;
-                        }
-                        if (!armor.IsAir)
-                        {
-                            armor.GetEnchantedItem().equippedInArmorSlot = true;
-                        }
-                        equipArmor[j] = armor;
-                    }
-                }
+                
             }
             foreach (int key in buffs.Keys)
             {
