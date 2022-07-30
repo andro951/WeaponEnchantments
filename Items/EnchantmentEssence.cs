@@ -25,17 +25,17 @@ namespace WeaponEnchantments.Items
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
-		private int entitySize = 20;					// The entity's hitbox size in the world
+		private int entitySize = 20;
 
 		public abstract Color glowColor { get; }
-		public abstract int animationFrames { get; }    // The amount of frames of the essence animation
+		public abstract int animationFrames { get; }
 
 		public override void SetStaticDefaults()
         {
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, animationFrames));
-			ItemID.Sets.AnimatesAsSoul[Item.type] = true; // Makes the item have an animation while in world (not held.).
-			ItemID.Sets.ItemIconPulse[Item.type] = true; // The item pulses while in the player's inventory
-			ItemID.Sets.ItemNoGravity[Item.type] = true; // Makes the item have no gravity
+			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+			ItemID.Sets.ItemIconPulse[Item.type] = true;
+			ItemID.Sets.ItemNoGravity[Item.type] = true;
 
 			for (int i = 0; i < rarity.Length; i++)
             {
@@ -47,14 +47,15 @@ namespace WeaponEnchantments.Items
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 			Tooltip.SetDefault(Enchantment.displayRarity[essenceRarity].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 			if (!WEMod.clientConfig.UseOldRarityNames)
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
 
-			LogUtilities.UpdateContributorsList(this);
+			LogModSystem.UpdateContributorsList(this);
 		}
 
         public override void PostUpdate()
 		{
-			float intensity = glowColor.A / 255f;		// Turn the alpha of the color into it's brightness (0-1)
+			// Turn the alpha of the color into it's brightness (0-1)
+			float intensity = glowColor.A / 255f;
 			Lighting.AddLight(Item.Center, glowColor.ToVector3() * intensity * Main.essScale);	
 		}
 

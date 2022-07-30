@@ -201,7 +201,7 @@ namespace WeaponEnchantments.Common.Configs
         public bool UsePointsAsTooltip;
 
         [Label("Colorblind friendly colors")]
-        [Tooltip("Use an alternative color palette for some items. Currenlty affects enchantinig essence.")]
+        [Tooltip("Use an alternative color palette for some items. Currenlty affects enchantment essence only.")]
         [DefaultValue(false)]
         [ReloadRequired]
         public bool ColorBlindMode;

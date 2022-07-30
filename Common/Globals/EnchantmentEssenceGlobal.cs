@@ -11,17 +11,15 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantmentEssenceGlobal : GlobalItem
     {
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
-        {
-            return entity.ModItem != null && entity.ModItem is EnchantmentEssence; // The item to which this script applies will always be an enchantment essence
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
+            // The item to which this script applies will always be an enchantment essence
+            return entity.ModItem != null && entity.ModItem is EnchantmentEssence;
         }
 
-        public override bool OnPickup(Item item, Player player)
-        {
+        public override bool OnPickup(Item item, Player player) {
             EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
-            WEPlayer wePlayer = player.G();
-            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
-            {
+            WEPlayer wePlayer = player.GetWEPlayer();
+            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
                 List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
                 int rarity = essence.essenceRarity;
                 int tableStack = essenceSlots[rarity].stack;
@@ -39,13 +37,15 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);
+                SoundEngine.PlaySound(SoundID.Grab);
                 if (item.stack < 1)
                 {
-                    SoundEngine.PlaySound(SoundID.Grab);
                     item.TurnToAir();
+
                     return false;
                 }
             }
+
             return true;
         }
     }

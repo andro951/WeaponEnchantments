@@ -637,7 +637,7 @@ namespace WeaponEnchantments.UI
                     essence.stack--;
                     //ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
                     //Main.NewText(wePlayer.Player.name + " applied " + essence.Name + " to their " + item.Name + " gaining " + ConfirmationUI.xpTiers[tier].ToString() + " xp.");
-                    item.G().GainXP(item, (int)EnchantmentEssence.xpPerEssence[tier]);
+                    item.GetEnchantedItem().GainXP(item, (int)EnchantmentEssence.xpPerEssence[tier]);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
                 else
@@ -795,7 +795,7 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
             {
-                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.G();
+                EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem();
                 if(iGlobal.Experience < WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssence.xpPerEssence[0])
                 {
                     Main.NewText("You can only Syphon an item if it is max level and over " + (WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1] + EnchantmentEssence.xpPerEssence[0]).ToString() + " experience.");
