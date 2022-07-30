@@ -49,7 +49,12 @@ namespace WeaponEnchantments.Items
 			if (!WEMod.clientConfig.UseOldRarityNames)
 				DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(rarity[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
 
-			LogModSystem.UpdateContributorsList(this);
+			if (LogModSystem.printListOfContributors) {
+				LogModSystem.UpdateContributorsList(this);
+				WEMod.clientConfig.ColorBlindMode = !WEMod.clientConfig.ColorBlindMode;
+				LogModSystem.UpdateContributorsList(this);
+				WEMod.clientConfig.ColorBlindMode = !WEMod.clientConfig.ColorBlindMode;
+			}
 		}
 
         public override void PostUpdate()

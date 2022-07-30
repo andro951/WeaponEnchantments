@@ -257,10 +257,15 @@ andro951:
 Kiroto: 
 
 ![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
+![EnchantmentEssenceBasicCB](/Items/Sprites/EnchantmentEssenceBasicCB.png)
 ![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
+![EnchantmentEssenceCommonCB](/Items/Sprites/EnchantmentEssenceCommonCB.png)
 ![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
+![EnchantmentEssenceRareCB](/Items/Sprites/EnchantmentEssenceRareCB.png)
 ![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
+![EnchantmentEssenceSuperRareCB](/Items/Sprites/EnchantmentEssenceSuperRareCB.png)
 ![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
+![EnchantmentEssenceUltraRareCB](/Items/Sprites/EnchantmentEssenceUltraRareCB.png)
 
 Sir Bumpleton: 
 
