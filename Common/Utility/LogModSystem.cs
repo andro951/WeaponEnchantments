@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Common.Utility
             public static byte Accessory = 2;
         }
         public static Dictionary<int, bool> PrintListOfItems = new Dictionary<int, bool>() {
-            { Weapon, true },
+            { Weapon, false },
             { Armor, false },
             { Accessory, false }
         };

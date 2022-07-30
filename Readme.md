@@ -254,6 +254,14 @@ andro951:
 ![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
 ![PowerBooster](/Items/Sprites/PowerBooster.png)
 
+Kiroto: 
+
+![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
+![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
+![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
+![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
+![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
+
 Sir Bumpleton: 
 
 ![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
@@ -272,11 +280,6 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![CriticalStrikeChanceEnchantmentCommon](/Items/Sprites/CriticalStrikeChanceEnchantmentCommon.png)
 ![DamageEnchantmentCommon](/Items/Sprites/DamageEnchantmentCommon.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
-![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
-![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
-![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
-![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
-![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
 ![GodSlayerEnchantmentCommon](/Items/Sprites/GodSlayerEnchantmentCommon.png)
 ![HellishEnchantingTable](/Items/Sprites/HellishEnchantingTable.png)
 ![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)

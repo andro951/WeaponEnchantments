@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Items
 		public static float valuePerXP;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.ColorBlindMode ? "CB" : "")).Replace('.', '/');
 
-		public virtual string Artist { private set; get; } = "Zorutan";
+		public virtual string Artist { private set; get; } = "Kiroto";
 		public virtual string Designer { private set; get; } = "andro951";
 		private int entitySize = 20;
 
