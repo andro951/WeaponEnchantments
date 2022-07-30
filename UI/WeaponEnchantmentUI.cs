@@ -693,7 +693,7 @@ namespace WeaponEnchantments.UI
                         }
                         else
                         {
-                            int maxStack = EnchantmentEssence.maxStack;
+                            int maxStack = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack;
                             if (wePlayer.enchantingTable.essenceItem[tier].stack + numberEssenceRecieved > maxStack)
                             {
                                 int ammountToTransfer = maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
