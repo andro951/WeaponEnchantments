@@ -14,17 +14,64 @@ namespace WeaponEnchantments.Common.Utility
 
         #region S() Methods
 
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this StatModifier statModifier) => "<A: " + statModifier.Additive + ", M: " + statModifier.Multiplicative + ", B: " + statModifier.Base + ", F: " + statModifier.Flat + ">";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Item item) => item != null ? !item.IsAir ? item.Name : "<Air>" : "null";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Projectile projectile) => projectile != null ? projectile.Name : "null";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Player player) => player != null ? player.name : "null";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this NPC npc, bool stats = false) => npc != null ? $"name: {npc.FullName} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeMax}, life: {npc.life}" : "")}" : "null";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Enchantment enchantment) => enchantment != null ? enchantment.Name : "null";
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
+
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
         public static string S(this bool b) => b ? "True" : "False";
 
         #endregion
@@ -34,6 +81,7 @@ namespace WeaponEnchantments.Common.Utility
                 if (upper == c)
                     return true;
             }
+
             return false;
         }
         public static bool IsLower(this char c) {
@@ -41,6 +89,7 @@ namespace WeaponEnchantments.Common.Utility
                 if (lower == c)
                     return true;
             }
+
             return false;
         }
         public static bool IsNumber(this char c) {
@@ -48,12 +97,20 @@ namespace WeaponEnchantments.Common.Utility
                 if (number == c)
                     return true;
             }
+
             return false;
         }
+
+        /// <summary>
+        /// Create a list of words from a string, splitting them when encountering capital letters<br/>
+        /// (multiple capatials in a row will split only the last one.  It assumes there is an abriviation.)<br/>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>list of words</returns>
         public static List<string> SplitString(this string s) {
             List<string> list = new List<string>();
             int start = 0;
-            int end = 0;
+            int end;
             for (int i = 1; i < s.Length; i++) {
                 if (s[i].IsUpper()) {
                     end = i - 1;
@@ -65,12 +122,21 @@ namespace WeaponEnchantments.Common.Utility
                     list.Add(s.Substring(start, end - start + 1));
                 }
             }
+
             return list;
         }
-        public static string GetNameFolderName(this string s, int numberOfFolders = 1) {
+
+        /// <summary>
+        /// Gets a folder name from a string, s.
+        /// </summary>
+        /// <param name="s">File path</param>
+        /// <param name="numberOfFolders">How many times to find the searchChar and remove everything before it.  1 will find the folder of the file.</param>
+        /// <param name="searchChar">The character that seperates the folders and files in the path.  Default '.'</param>
+        /// <returns>New file path after removing the file name (and folders if numberOfFolders > 1)</returns>
+        public static string GetFolderName(this string s, int numberOfFolders = 1, char searchChar = '.') {
             int i = s.Length - 1;
             for (int j = 0; j < numberOfFolders; j++) {
-                i = s.FindChar('.', false);
+                i = s.FindChar(searchChar, false);
 
                 //Not last time loop will run
                 if (j != numberOfFolders - 1) {
@@ -107,7 +173,16 @@ namespace WeaponEnchantments.Common.Utility
             }
             return -1;
         }
-        public static string RemoveNameSpace(this string s, char searchChar = '.', bool removeSearchChar = true) {
+
+        /// <summary>
+        /// Used only to first part of a file path.<br/>
+        /// Example: WeaponEnchantments.Common.Utility -> Common.Utility
+        /// </summary>
+        /// <param name="s">File path or namespace</param>
+        /// <param name="searchChar">Charachter that seperates the folders and file.  Default '.'</param>
+        /// <param name="removeSearchChar">Wether to remove the sperating char.  .Common.Utility vs Common.Utility</param>
+        /// <returns>New file path after removing the first part of the file path.</returns>
+        public static string RemoveFirstFolder(this string s, char searchChar = '.', bool removeSearchChar = true) {
             int i = s.FindChar(searchChar);
 
             if (removeSearchChar)

@@ -23,9 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 	}
-	public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment { }
+	/*public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentCommon : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentRare : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentSuperRare : CatastrophicReleaseEnchantment { }
-	public class CatastrophicReleaseEnchantmentUltraRare : CatastrophicReleaseEnchantment { }
+	public class CatastrophicReleaseEnchantmentUltraRare : CatastrophicReleaseEnchantment { }*/
 }

@@ -382,7 +382,7 @@ namespace WeaponEnchantments.Items
 			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
 
 			//Enchantment Size
-			EnchantmentTier = GetEnchantmentSize(Name);
+			EnchantmentTier = GetEnchantmentTier(Name);
 
 			//Item rarity
 			Item.rare = EnchantmentTier;
@@ -424,11 +424,11 @@ namespace WeaponEnchantments.Items
 			}
 
 			//Check Utility
-			if (GetType().Namespace.GetNameFolderName() == "Utility")
+			if (GetType().Namespace.GetFolderName() == "Utility")
 				Utility = true;
 
 			//Check Unique
-			if (GetType().Namespace.GetNameFolderName() == "Unique")
+			if (GetType().Namespace.GetFolderName() == "Unique")
 				Unique = true;
 
 			//Check Unique (Vanilla Items)
@@ -947,7 +947,7 @@ namespace WeaponEnchantments.Items
 		private int GetBuffDuration() {
 			return defaultBuffDuration * (EnchantmentTier + 1);
 		}
-		public static int GetEnchantmentSize(string name) {
+		public static int GetEnchantmentTier(string name) {
 			for (int i = 0; i < rarity.Length; i++) {
 				if (rarity[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
 					return i;

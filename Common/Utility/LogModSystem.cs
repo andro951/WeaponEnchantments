@@ -108,7 +108,7 @@ namespace WeaponEnchantments.Common.Utility
 
                 artistsMessage += "\n\n";
                 foreach (string texture in artistCredits[artistName]) {
-                    artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveNameSpace('/', false)}.png)\n";
+                    artistsMessage += $"![{texture.GetFileName('/')}]({texture.RemoveFirstFolder('/', false)}.png)\n";
                 }
             }
             artistsMessage.Log();

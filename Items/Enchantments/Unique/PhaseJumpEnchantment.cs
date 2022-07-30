@@ -20,10 +20,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "andro951";
 		public override string Designer => "andro951";
 	}
-	public class PhaseJumpEnchantmentBasic : PhaseJumpEnchantment { }
+	/*public class PhaseJumpEnchantmentBasic : PhaseJumpEnchantment { }
 	public class PhaseJumpEnchantmentCommon : PhaseJumpEnchantment { }
 	public class PhaseJumpEnchantmentRare : PhaseJumpEnchantment { }
 	public class PhaseJumpEnchantmentSuperRare : PhaseJumpEnchantment { }
-	public class PhaseJumpEnchantmentUltraRare : PhaseJumpEnchantment { }
-
+	public class PhaseJumpEnchantmentUltraRare : PhaseJumpEnchantment { }*/
 }

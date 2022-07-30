@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.Deerclops when !bossBag:
                 case ItemID.DeerclopsBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<PhaseJumpEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<PhaseJumpEnchantmentBasic>());
                     break;
                 case NPCID.WallofFlesh when !bossBag:
                 case ItemID.WallOfFleshBossBag when bossBag:
@@ -606,6 +606,11 @@ namespace WeaponEnchantments.Common.Globals
 
                 //Npc type
                 switch (npc.type) {
+                    case NPCID.Harpy://48
+                    case NPCID.SnowmanGangsta://143
+                    case NPCID.SnowBalla://145
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ShootSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        break;
                     case NPCID.Pixie://75
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;

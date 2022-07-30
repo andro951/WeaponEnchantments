@@ -17,5 +17,4 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class ShootSpeedEnchantmentRare : ShootSpeedEnchantment { }
 	public class ShootSpeedEnchantmentSuperRare : ShootSpeedEnchantment { }
 	public class ShootSpeedEnchantmentUltraRare : ShootSpeedEnchantment { }
-
 }
