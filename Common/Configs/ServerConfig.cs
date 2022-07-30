@@ -191,20 +191,17 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Use Original Rarity Names")]
         [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
         [DefaultValue(false)]
-        [ReloadRequired]
         public bool UseOldRarityNames;
 
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
         [DefaultValue(false)]
-        [ReloadRequired]
         public bool UsePointsAsTooltip;
 
-        [Label("Colorblind friendly colors")]
-        [Tooltip("Use an alternative color palette for some items. Currenlty affects enchantment essence only.")]
+        [Label("Use Alternate Enchantment Essence Textures")]
+        [Tooltip("The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept.")]
         [DefaultValue(false)]
-        [ReloadRequired]
-        public bool ColorBlindMode;
+        public bool UseAlternateEnchantmentEssenceTextures;
     }
     public class Pair
     {

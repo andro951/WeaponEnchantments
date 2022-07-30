@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Items
 		public static float[] values = new float[rarity.Length];
 		public static float[] xpPerEssence = new float[rarity.Length];
 		public static float valuePerXP;
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.ColorBlindMode ? "CB" : "")).Replace('.', '/');
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? "Alt" : "")).Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Kiroto";
 		public virtual string Designer { private set; get; } = "andro951";
@@ -51,9 +51,9 @@ namespace WeaponEnchantments.Items
 
 			if (LogModSystem.printListOfContributors) {
 				LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.ColorBlindMode = !WEMod.clientConfig.ColorBlindMode;
+				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
 				LogModSystem.UpdateContributorsList(this);
-				WEMod.clientConfig.ColorBlindMode = !WEMod.clientConfig.ColorBlindMode;
+				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
 			}
 		}
 
