@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,43 +13,39 @@ namespace WeaponEnchantments.Common.Globals
     {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
-            if(entity.ModItem != null)
-            {
-                if (entity.ModItem is EnchantmentEssenceBasic)
-                    return true;
-            }
-
-            return false;
+            return entity.ModItem != null && entity.ModItem is EnchantmentEssence; // The item to which this script applies will always be an enchantment essence
         }
+
         public override bool OnPickup(Item item, Player player)
         {
-            WEPlayer wePlayer = player.GetWEPlayer();
-            EnchantmentEssenceBasic essence = (EnchantmentEssenceBasic)item.ModItem;
+            EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+            WEPlayer wePlayer = player.G();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable)
             {
+                List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
                 int rarity = essence.essenceRarity;
-                int tableStack = wePlayer.enchantingTable.essenceItem[rarity].stack;
+                int tableStack = essenceSlots[rarity].stack;
+                int toStore = Math.Min(item.maxStack - tableStack, item.stack);
+                item.stack -= toStore;
                 //Less than max stack when combined
-                if (item.stack + tableStack <= item.maxStack)
+
+                if (essenceSlots[rarity].stack < 1) {
+                    //Table is empty
+                    essenceSlots[rarity] = new Item(item.type, toStore);
+                }
+				else {
+                    //Table not empty
+                    essenceSlots[rarity].stack += toStore;
+                }
+
+                PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);
+                if (item.stack < 1)
                 {
-                    if (wePlayer.enchantingTable.essenceItem[rarity].stack < 1) {
-                        //Table is empty
-                        int basicEssenceType = ModContent.ItemType<EnchantmentEssenceBasic>();
-                        wePlayer.enchantingTable.essenceItem[rarity] = new Item(basicEssenceType + rarity, item.stack);
-                    }
-					else {
-                        //Table not empty
-                        wePlayer.enchantingTable.essenceItem[rarity].stack += item.stack;
-                    }
-                    
-                    PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
                     SoundEngine.PlaySound(SoundID.Grab);
                     item.TurnToAir();
-
                     return false;
                 }
             }
-
             return true;
         }
     }

@@ -42,7 +42,7 @@ namespace WeaponEnchantments.ModIntegration
 		}
 		public override void OnConsumeItemForRecipe(EnvironmentSandbox sandbox, Item item, int stack)
         {
-			if (item.ModItem != null && item.ModItem is EnchantmentEssenceBasic)
+			if (item.ModItem != null && item.ModItem is EnchantmentEssence)
             {
                 int type0 = ModContent.ItemType<EnchantmentEssenceBasic>();
                 Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem[item.type - type0].stack -= stack;

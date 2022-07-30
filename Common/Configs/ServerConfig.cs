@@ -194,11 +194,17 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool UseOldRarityNames;
 
-        [Label("\"Points\" insted of \"Enchantment Capacity\"")]
+        [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
         [DefaultValue(false)]
         [ReloadRequired]
         public bool UsePointsAsTooltip;
+
+        [Label("Colorblind friendly colors")]
+        [Tooltip("Use an alternative color palette for some items. Currenlty affects enchantinig essence.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool ColorBlindMode;
     }
     public class Pair
     {
