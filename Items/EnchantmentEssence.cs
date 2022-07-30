@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Items
 		public static float[] values = new float[rarity.Length];
 		public static float[] xpPerEssence = new float[rarity.Length];
 		public static float valuePerXP;
-		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.ColorBlindMode ? "CB" : "")).Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
