@@ -36,11 +36,11 @@ They can be used to...
 * Infuse it's XP value into items.
 
 There are 5 Essence types, each worth more than the last:
-0. Basic
-1. Common
-2. Rare
-3. Super Rare
-4. Ultra Rare
+1. Basic
+2. Common
+3. Rare
+4. Super Rare
+5. Ultra Rare
 
 ## Containments
 ![Containment](/Items/Sprites/Containment.png)
