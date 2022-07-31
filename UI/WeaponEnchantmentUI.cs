@@ -388,7 +388,7 @@ namespace WeaponEnchantments.UI
                         Top = { Pixels = nextElementY + 50 },
                         HAlign = 0.5f
                     };
-                    string type = EnchantmentEssence.rarity[i];
+                    string type = EnchantmentEssence.rarityNames[i];
                     wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) =>
                     {
                         Main.hoverItemName = "                      Place " + type + " Essence here.                ";

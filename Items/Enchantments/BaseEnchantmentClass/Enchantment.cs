@@ -970,7 +970,7 @@ namespace WeaponEnchantments.Items
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
 						int essenceNumber = Utility ? 5 : 10;
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarity[k], essenceNumber);
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarityNames[k], essenceNumber);
 					}
 
 					//Enchantment
