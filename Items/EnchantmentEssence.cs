@@ -187,6 +187,6 @@ namespace WeaponEnchantments.Items
 		public override int itemRarity => ModContent.RarityType<EnchantingRarityUltraRare>();
 		public override int animationFrames => 16;
 		public override Color glowColor => EssenceColor;
-		public override int glowBrightness => 0x89;
+		public override int glowBrightness => 0x8a;
 	}
 }
