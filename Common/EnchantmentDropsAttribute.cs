@@ -23,17 +23,17 @@ namespace WeaponEnchantments.Common
                 var method = methodInfo.MakeGenericMethod(type);
 
                 int[] validNPCS = ((EnchantmentDropsAttribute)GetCustomAttribute(type, typeof(EnchantmentDropsAttribute))).validNPCs;
-                foreach (int validNPC in validNPCS)
-                {
-                    if (!dict.ContainsKey(validNPC))
-                        dict.Add(validNPC, new HashSet<int>());
-                    int itemID = (int)method.Invoke(null, null);
-                    dict[validNPC].Add(itemID);
-                }
+                if (validNPCS != null)
+                    foreach (int validNPC in validNPCS)
+                    {
+                        if (!dict.ContainsKey(validNPC))
+                            dict.Add(validNPC, new HashSet<int>());
+                        int itemID = (int)method.Invoke(null, null);
+                        dict[validNPC].Add(itemID);
+                    }
             }
             return dict;
         }
-
         static Dictionary<int, ICollection<int>> GetAIDropsDict() // Returns the drops for any specific AI
         {
             MethodInfo methodInfo = typeof(ModContent).GetMethod("ItemType");
@@ -43,13 +43,15 @@ namespace WeaponEnchantments.Common
                 var method = methodInfo.MakeGenericMethod(type);
 
                 int[] validAIs = ((EnchantmentDropsAttribute)GetCustomAttribute(type, typeof(EnchantmentDropsAttribute))).validAIs;
-                foreach (int validAI in validAIs)
-                {
-                    if (!dict.ContainsKey(validAI))
-                        dict.Add(validAI, new HashSet<int>());
-                    int itemID = (int)method.Invoke(null, null);
-                    dict[validAI].Add(itemID);
-                }
+                if (validAIs != null)
+                    foreach (int validAI in validAIs)
+                    {
+                        if (!dict.ContainsKey(validAI))
+                            dict.Add(validAI, new HashSet<int>());
+                        int itemID = (int)method.Invoke(null, null);
+                        dict[validAI].Add(itemID);
+                    }
+                
             }
             return dict;
         }
