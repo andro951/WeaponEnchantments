@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Common.Configs
         [OnDeserialized]
         internal void OnDeserializedMethod(StreamingContext context) {
             // If you change ModConfig fields between versions, your users might notice their configuration is lost when they update their mod.
-            // We can use [JsonExtensionData] to capture un-de-serialized data and manually restore them to new fields.
+            // We can use [JsonExtensionData] to capture serialized data and manually restore them to new fields.
             // Imagine in a previous version of this mod, we had a field "OldmodifiedEnchantmentStrengths" and we want to preserve that data in "modifiedEnchantmentStrengths".
             // To test this, insert the following into ExampleMod_ModConfigShowcase.json: "OldmodifiedEnchantmentStrengths": [ 99, 999],
             /*if (_additionalData.TryGetValue("OldmodifiedEnchantmentStrengths", out var token))
