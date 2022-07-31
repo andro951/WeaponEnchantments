@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Items
 		public virtual string Designer { private set; get; } = "andro951";
 		private int entitySize = 20;
 
+		public abstract int itemRarity { get; }
 		public abstract Color glowColor { get; }
 		public abstract int glowBrightness { get; }
 		public abstract int animationFrames { get; }
@@ -49,8 +50,7 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault(Enchantment.displayRarity[essenceRarity].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceRarity] + " experience in an enchanting table.");
 			if (!WEMod.clientConfig.UseOldRarityNames)
 			{
-				Color textColor = glowColor;
-				DisplayName.SetDefault($"[c/{textColor.Hex3()}:" + StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(rarityNames[essenceRarity])) + Enchantment.displayRarity[essenceRarity]) + "]");
+				DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(rarityNames[essenceRarity])) + Enchantment.displayRarity[essenceRarity]));
 			}
 			if (LogModSystem.printListOfContributors)
 			{
@@ -72,8 +72,10 @@ namespace WeaponEnchantments.Items
 		{
 			// Add glow mask
 			Texture2D texture = TextureAssets.Item[Item.type].Value;
+			// Calculate the animation's current frame
 			int currentFrame = Main.itemFrameCounter[whoAmI];
 			Rectangle frame = Main.itemAnimations[Item.type] is not null ? Main.itemAnimations[Item.type].GetFrame(texture, currentFrame) : texture.Frame();
+			// Draw over the sprite
 			spriteBatch.Draw
 			(
 				texture,
@@ -114,6 +116,7 @@ namespace WeaponEnchantments.Items
 			Item.maxStack = maxStack;
 			Item.width = entitySize;
 			Item.height = entitySize;
+			Item.rare = itemRarity;
 		}
 
 		public override void AddRecipes()
@@ -147,34 +150,43 @@ namespace WeaponEnchantments.Items
 	}
 	public class EnchantmentEssenceBasic : EnchantmentEssence
 	{
+		public static Color EssenceColor = WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x3C, 0xA4, 0x62) : new Color(0x2E, 0x7F, 0x4C);  // #3ca462 : #2e7f4c
+		public override int itemRarity => ModContent.RarityType<EnchantingRarityBasic>();
 		public override int animationFrames => 8;
-		public override Color glowColor => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x3C, 0xA4, 0x62) : new Color(0x2E, 0x7F, 0x4C);  // #3ca462 : #2e7f4c
-
+		public override Color glowColor => EssenceColor;
 		public override int glowBrightness => 0x80;
 	}
 	public class EnchantmentEssenceCommon : EnchantmentEssence
 	{
+		public static Color EssenceColor = WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x3A, 0x4C, 0xBF) : new Color(0x1F, 0xD4, 0xDA);  // #3a4cbf : #1fd4da
+		public override int itemRarity => ModContent.RarityType<EnchantingRarityCommon>();
 		public override int animationFrames => 8;
-		public override Color glowColor => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x3A, 0x4C, 0xBF) : new Color(0x1F, 0xD4, 0xDA);  // #3a4cbf : #1fd4da
+		public override Color glowColor => EssenceColor;
 		public override int glowBrightness => 0x84;
 
 	}
 	public class EnchantmentEssenceRare : EnchantmentEssence
 	{
+		public static Color EssenceColor = WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x81, 0x30, 0xC9) : new Color(0x67, 0x26, 0xA1);  // #8130c9 : #6726a1
+		public override int itemRarity => ModContent.RarityType<EnchantingRarityRare>();
 		public override int animationFrames => 6;
-		public override Color glowColor => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0x81, 0x30, 0xC9) : new Color(0x67, 0x26, 0xA1);  // #8130c9 : #6726a1
+		public override Color glowColor => EssenceColor;
 		public override int glowBrightness => 0x87;
 	}
 	public class EnchantmentEssenceSuperRare : EnchantmentEssence
 	{
+		public static Color EssenceColor = WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0xCE, 0x2B, 0x42) : new Color(0xF9, 0x00, 0x23);  // #ce2b42 : #f90023
+		public override int itemRarity => ModContent.RarityType<EnchantingRaritySuperRare>();
 		public override int animationFrames => 10;
-		public override Color glowColor => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0xCE, 0x2B, 0x42) : new Color(0xF9, 0x00, 0x23);  // #ce2b42 : #f90023
+		public override Color glowColor => EssenceColor;
 		public override int glowBrightness => 0x89;
 	}
 	public class EnchantmentEssenceUltraRare : EnchantmentEssence
 	{
+		public static Color EssenceColor = WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0xEF, 0x5D, 0x0A) : new Color(0xD7, 0x54, 0x09);  // #ef5d0a : #d75409
+		public override int itemRarity => ModContent.RarityType<EnchantingRarityUltraRare>();
 		public override int animationFrames => 16;
-		public override Color glowColor => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? new Color(0xEF, 0x5D, 0x0A) : new Color(0xD7, 0x54, 0x09);  // #ef5d0a : #d75409
+		public override Color glowColor => EssenceColor;
 		public override int glowBrightness => 0x89;
 	}
 }
