@@ -12,12 +12,14 @@ namespace WeaponEnchantments.Common.Configs
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
+        //Server Config
         [Header("Server Config")]
         [Label("Presets and Multipliers")]
         [ReloadRequired]
         public PresetData presetData;
 
         [Header("Individual Enchantment Strengths")]
+
         [Label("Individual Strengths Enabled")]
         [Tooltip("Enabling this will cause the Indvidual strength values selected below to overite all other settings.")]
         [ReloadRequired]
@@ -28,6 +30,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Modify individual enchantment strengths by value\n(NOT PERCENTAGE!)\n(Overrides all other options)")]
         public List<Pair> individualStrengths = new List<Pair>();
 
+        //Enchantment Settings
         [Header("Enchantment Settings")]
         [Label("Damage type converting enchantments always override.")]
         [Tooltip("Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.\n" +
@@ -35,6 +38,20 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool AlwaysOverrideDamageType;
 
+        [Label("Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)")]
+        [Tooltip("Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.\n" +
+            "Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)\n" +
+            "It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.\n" +
+            "The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.\n" +
+            "This config value changes how much the life you heal from lifesteal enchantments affects this limit.\n" +
+            "Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.\n" +
+            "It will take 320/36(330/30) seconds -> 8.9(11) seconds for the pool to be positive again so you can gain life from lifesteal again.\n" +
+            "Note: the mechanic does not have a cap on how much you can gain at once.  It will just take longer to recover the more you gain.")]
+        [DefaultValue(100)]
+        [Range(0, 10000)]
+        public int AffectOnVanillaLifeStealLimmit;
+
+        //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
         [Tooltip("Modify the ammount of essence recieved by bosses.")]
@@ -68,6 +85,7 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(100)]
         public int GatheringExperienceMultiplier;
 
+        //Enchantment Drop Rates(%)
         [Header("Enchantment Drop Rates(%)")]
         [Label("Boss Enchantment Drop Rate")]
         [Tooltip("Adjust the drop rate of enchantments from bosses.\n(Default is 50%)")]
@@ -83,6 +101,7 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
+        //Other Drop Rates
         [Header("Other Drop Rates")]
         [Label("Prevent pre-hard mode bosses from dropping power boosters.")]
         [Tooltip("Does not include wall of flesh.")]
@@ -90,9 +109,10 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool PreventPowerBoosterFromPreHardMode;
 
+        //Enchanting Table Options
         [Header("Enchanting Table Options")]
         [Label("Recieve ores up to Chlorophyte from Offering items.")]
-        [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold.\n" +
+        [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).\n" +
 			"(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
         [DefaultValue(true)]
         public bool AllowHighTierOres;
@@ -102,6 +122,7 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 100)]
         public int PercentOfferEssence;
 
+        //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n" +
@@ -142,6 +163,7 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 100)]
         public int MinionLifeStealMultiplier;
 
+        //Random Extra Stuff
         [Header("Random Extra Stuff")]
         [Label("Start with a Drill Containment Unit")]
         [Tooltip("All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough.")]
@@ -171,6 +193,7 @@ namespace WeaponEnchantments.Common.Configs
     public class ClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
+        //Enchanting Table Options
         [Header("Enchanting Table Options")]
         [Label("Automatically send essence to UI")]
         [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
@@ -187,7 +210,8 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool AlwaysDisplayInfusionPower;
 
-        [Header("Display Names")]
+        //Display Settings
+        [Header("Display Settings")]
         [Label("Use Original Rarity Names")]
         [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
         [DefaultValue(false)]
@@ -242,6 +266,7 @@ namespace WeaponEnchantments.Common.Configs
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
+        //Presets
         [Header("Presets")]
         [DrawTicks]
         [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
@@ -258,6 +283,7 @@ namespace WeaponEnchantments.Common.Configs
             }
         }
 
+        //Multipliers
         [Header("Multipliers")]
         [Label("Recomended Strength Multiplier(%)")]
         [Range(1, 250)]

@@ -146,6 +146,7 @@ namespace WeaponEnchantments.Common
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     iGlobal.needsUpdateOldItems = player == null;
 
+                    List<string> enchantmentTypeNames = new List<string>();
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = iGlobal.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
@@ -169,8 +170,14 @@ namespace WeaponEnchantments.Common
 
                             if(enchantment.RestrictedClass > -1 && item.DamageType.Type == enchantment.RestrictedClass)
                                 RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
+
+                            if(enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
+                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+
+                            enchantmentTypeNames.Add(enchantment.EnchantmentTypeName);
                         }
                     }
+
                     if (player != null) {
                         item.RemoveUntilPositive(player);
 
@@ -361,7 +368,8 @@ namespace WeaponEnchantments.Common
                 if (sellPrice)
                     total /= 5;
 
-                UtilityMethods.SpawnCoins(total, true);//type is coins when replaceWithCoins is true
+                //type is coins when replaceWithCoins is true
+                UtilityMethods.SpawnCoins(total);
 
                 Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.");
             }

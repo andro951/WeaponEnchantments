@@ -964,7 +964,8 @@ namespace WeaponEnchantments.Common.Globals
                         //Player hp less than max
                         if (heal > 0 && player.lifeSteal > 0f) {
                             //Vanilla lifesteal mitigation
-                            player.lifeSteal -= heal;
+                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimmit);
+                            player.lifeSteal -= vanillaLifeStealValue;
 
                             Vector2 speed = new Vector2(0, 0);
                             Projectile.NewProjectile(SourceItem.GetSource_ItemUse(SourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);

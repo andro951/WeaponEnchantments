@@ -9,10 +9,11 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class WorldAblazeEnchantment : Enchantment
 	{
 		public override string CustomTooltip =>
+			$"(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)" +
 			$"(None shall survive the unstopable flames of Amaterasu)\n" +
 			$"(Inflict a unique fire debuff to enemies that never stops)\n" +
 			$"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
-			$"(Spreads to nearby enemies)";
+			$"(Spreads to nearby enemies and prevents enemies from being immune from other WorldAblaze debuffs.)";
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
 		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {

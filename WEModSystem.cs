@@ -752,7 +752,7 @@ namespace WeaponEnchantments
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
         }
-        public override void PostWorldGen()
+		public override void PostWorldGen()
         {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {

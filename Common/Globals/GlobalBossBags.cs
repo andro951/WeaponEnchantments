@@ -15,28 +15,38 @@ namespace WeaponEnchantments.Common.Globals
     {
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
             int type = item.type;
-            if (ItemID.Sets.BossBag[type]) {
+            NPC npc = GetNPCFromBossBagType(type);
 
-				#region Debug
-
-				if (LogMethods.debugging && item.ModItem != null) {
-                    string bagName = item.ModItem.Name;
-                    bagName.Log();
-                }
-
-				#endregion
-
-				//IEntitySource src = player.GetSource_OpenItem(type);
-
+            /*if (!ItemID.Sets.BossBag[type]) {
                 //Check if the bag has an associated npc setup
-                NPC npc = GetNPCFromBossBagType(type);
-
-                //If npc is setup, spawn items
+                npc = ;
                 if (npc == null)
                     return;
+			}*/
 
-                GetLoot(itemLoot, npc, true);
+			#region Debug
+
+			if (LogMethods.debugging && item.ModItem != null) {
+                string bagName = item.ModItem.Name;
+                bagName.Log();
             }
+
+			#endregion
+
+            //If npc is setup, spawn items
+            if (npc == null)
+                return;
+
+            GetLoot(itemLoot, npc, true);
+        }
+        private bool CheckQuertyBagNames(string bagName) {
+            switch (bagName) {
+                case "":
+
+                    break;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -123,7 +133,7 @@ namespace WeaponEnchantments.Common.Globals
 
                     if(bossName != null) {
                         //Match the bossName from GetModdedBossNameFromBag to an actual loaded boss.
-                        for (int i = 0; i < NPCLoader.NPCCount; i++) {
+                        for (int i = NPCID.Count; i < NPCLoader.NPCCount; i++) {
                             NPC sampleNPC = ContentSamples.NpcsByNetId[i];
                             if (sampleNPC.FullName == bossName) {
                                 //Found
@@ -155,8 +165,7 @@ namespace WeaponEnchantments.Common.Globals
         /// <param name="bagID"></param>
         /// <returns>Boss NPCID of the associated boss bag.</returns>
         public static int GetBossTypeFromBag(int bagID) {
-            switch (bagID)
-            {
+            switch (bagID) {
                 case ItemID.KingSlimeBossBag:
                     return NPCID.KingSlime;
                 case ItemID.EyeOfCthulhuBossBag:
@@ -209,10 +218,8 @@ namespace WeaponEnchantments.Common.Globals
         /// </summary>
         /// <param name="bagName"></param>
         /// <returns>Name of boss npc that drops the boss bag.</returns>
-        public static string GetModdedBossNameFromBag(string bagName)
-        {
-            switch (bagName)
-            {
+        public static string GetModdedBossNameFromBag(string bagName) {
+            switch (bagName) {
                 // \/Calamity contributed by SnarkyEspresso
                 case "AquaticScourgeBag":
                     return "Aquatic Scourge";
@@ -294,18 +301,47 @@ namespace WeaponEnchantments.Common.Globals
                     return "Tsukiyomi, the First Starfarer";//No drops?
                 // /\Stars Above
 
-                /* Extras for later
-                case "":
-                    return "";
-                case "":
-                    return "";
-                case "":
-                    return "";
-                case "":
-                    return "";
-                case "":
-                    return "";
-                case "":
+                // \/Vitality
+                case "AnarchulesBeetleBossBag":
+                    return "Anarchules Beetle";
+                case "ChaosbringerBossBag":
+                    return "Chaosbringer";
+                case "DreadnaughtBossBag":
+                    return "Dreadnaught";
+                case "GemstoneElementalBossBag":
+                    return "Gemstone Elemental";
+                case "GrandAntlionBossBag":
+                    return "The Grand Antlion";
+                case "MoonlightDragonflyBossBag":
+                    return "Moonlight Dragonfly";
+                case "PaladinSpiritBossBag":
+                    return "Paladin Spirit";
+                case "StormCloudBossBag":
+                    return "The Storm Cloud";
+                // /\Vitality
+
+                // \/ Querty's Bosses and Items 2
+                case "AncientMachineBag":
+                    return "Ancient Machine";
+                case "B4Bag":
+                    return "OLORDv2";//Use Moon lord instead
+                case "BladeBossBag":
+                    return "Imperious";
+                case "FortressBossBag":
+                    return "The Divine Light";
+                case "HydraBag":
+                    return "Hydra Head";
+                case "NoehtnapBag":
+                    return "Noehtnap";
+                case "RuneGhostBag":
+                    return "Rune Ghost";
+                case "TundraBossBag":
+                    return "Polar Exterminator";
+                // /\ Querty's Bosses and Items 2
+
+
+                //Extras for later
+                /*case "":
                     return "";
                 case "":
                     return "";

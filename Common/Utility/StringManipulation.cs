@@ -103,7 +103,6 @@ namespace WeaponEnchantments.Common.Utility
 
         /// <summary>
         /// Create a list of words from a string, splitting them when encountering capital letters<br/>
-        /// (multiple capatials in a row will split only the last one.  It assumes there is an abriviation.)<br/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns>list of words</returns>
@@ -190,26 +189,36 @@ namespace WeaponEnchantments.Common.Utility
 
             return s.Substring(i);
         }
+
+        /// <summary>
+        /// Add spaces before capitals and numbers.<br/>
+        /// (multiple capatials or numbers in a row will split only the last one.  It assumes there is an abriviation.)<br/>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>String with spaces added.</returns>
         public static string AddSpaces(this string s) {
             int start = 0;
-            int end = 0;
+            int end;
             string finalString = "";
             for (int i = 1; i < s.Length; i++) {
-                if (s[i].IsUpper() || s[i].IsNumber()) {
-                    if (s[i - 1].IsUpper()) {
+                char c = s[i];
+                char cm1 = s[i - 1];
+                if (c.IsUpper() || c.IsNumber()) {
+                    if (cm1.IsUpper()) {
                         int j = 0;
                         while (i + j < s.Length - 1 && s[i + j].IsUpper()) {
                             j++;
                         }
                         i += j - 1;
                     }
-                    else if (s[i - 1].IsNumber()) {
+                    else if (cm1.IsNumber()) {
                         int j = 0;
                         while (i + j < s.Length - 1 && s[i + j].IsNumber()) {
                             j++;
                         }
                         i += j - 1;
                     }
+
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = end + 1;
@@ -222,23 +231,29 @@ namespace WeaponEnchantments.Common.Utility
             }
             if (start != -1)
                 finalString += s.Substring(start);
+
             return finalString;
         }
+
+        /// <summary>
+        /// Remove all spaces from a string.
+        /// </summary>
         public static string RemoveSpaces(this string s) {
             bool started = false;
             int start = 0;
-            int end = 0;
+            int end;
             string finalString = "";
             for (int i = 0; i < s.Length; i++) {
+                char c = s[i];
                 if (started) {
-                    if (s[i] == ' ') {
+                    if (c == ' ') {
                         started = false;
                         end = i;
                         finalString += s.Substring(start, end - start);
                     }
                 }
                 else {
-                    if (s[i] != ' ') {
+                    if (c != ' ') {
                         started = true;
                         start = i;
                     }
@@ -246,8 +261,13 @@ namespace WeaponEnchantments.Common.Utility
             }
             if (started)
                 finalString += s.Substring(start, s.Length - start);
+
             return finalString;
         }
+
+        /// <summary>
+        /// Capitalize the first character in a string.
+        /// </summary>
         public static string CapitalizeFirst(this string s) {
             if (s.Length > 0) {
                 if (s[0].IsLower())
@@ -260,6 +280,10 @@ namespace WeaponEnchantments.Common.Utility
             }
             return s;
         }
+
+        /// <summary>
+        /// Set the first character in the string to lowercase.
+        /// </summary>
         public static string ToFieldName(this string s) {
             if (s.Length > 0) {
                 if (s[0].IsUpper())
@@ -270,12 +294,22 @@ namespace WeaponEnchantments.Common.Utility
                         }
                     }
             }
+
             return s;
         }
+
+        /// <summary>
+        /// Removes "ProjectileName." from the start of the string.
+        /// </summary>
         public static string RemoveProjectileName(this string s) {
             int i = s.IndexOf("ProjectileName.");
             return i == 0 ? s.Substring(15) : s;
         }
+
+        /// <summary>
+        /// Counts the number of list L2 strings that are contained in L1 strings.
+        /// </summary>
+        /// <returns>Number of matches.</returns>
         public static int CheckMatches(this List<string> l1, List<string> l2) {
             int matches = 0;
             foreach (string s in l1) {
@@ -285,6 +319,7 @@ namespace WeaponEnchantments.Common.Utility
                     }
                 }
             }
+
             return matches;
         }
     }

@@ -1,6 +1,6 @@
 displayName = Weapon Enchantments (Beta)
 author = andro951
-version = 0.2.1.27
+version = 0.2.1.28
 weakReferences = MagicStorage@0.5.6.2
 includeSource = true
 sortAfter = RecursiveCraft

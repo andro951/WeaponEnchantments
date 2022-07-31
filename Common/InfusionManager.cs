@@ -81,25 +81,20 @@ namespace WeaponEnchantments.Common
                 msg.Log();
             }
         }
-        private static Dictionary<string, List<int[]>> GetItemDict(byte mode)
-        {
+        private static Dictionary<string, List<int[]>> GetItemDict(byte mode) {
             bool printList = PrintListOfItems[mode];
 
             Dictionary<string, List<int[]>> itemsDict = new Dictionary<string, List<int[]>>();
             string msg = "";
-            for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++)
-            {
+            for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
                 Item item = ContentSamples.ItemsByType[itemType];
-                if (item != null)
-                {
-                    if (!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1)
-                    {
+                if (item != null) {
+                    if (!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1) {
                         string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
                         bool weaponList = mode == GetItemDictModeID.Weapon && WEMod.IsWeaponItem(item);
                         bool armorList = mode == GetItemDictModeID.Armor && WEMod.IsArmorItem(item);
                         bool accessory = mode == GetItemDictModeID.Accessory && WEMod.IsAccessoryItem(item);
-                        if ( weaponList || armorList || accessory)
-                        {
+                        if ( weaponList || armorList || accessory) {
                             if(printList)
                                 msg += item.Name;
 
@@ -110,8 +105,7 @@ namespace WeaponEnchantments.Common
                             itemsDict[modName].Add(itemStats);
 
 							if (printList) {
-                                for (int i = 0; i < itemStats.Length; i++)
-                                {
+                                for (int i = 0; i < itemStats.Length; i++) {
                                     msg += $",{itemStats[i]}";
                                 }
                                 msg += "\n";
@@ -129,7 +123,7 @@ namespace WeaponEnchantments.Common
         }
         public static float GetWeaponRarity(this Item item)
         {
-            bool valueOnly = false;
+            bool useCalamiryValuesOnly = false;
             Item sampleItem = ContentSamples.ItemsByType[item.type];
             int rarity = sampleItem.rare;
             int sampleValue = sampleItem.value;
@@ -137,8 +131,9 @@ namespace WeaponEnchantments.Common
 
             //If from calamity, calculate just from value
             if(item.ModItem?.Mod.Name == "CalamityMod")
-                valueOnly = true;
+                useCalamiryValuesOnly = true;
 
+            //Manually set rarity of an item
             switch (item.Name) {
                 case "Primary Zenith":
                     rarity = 0;
@@ -160,7 +155,7 @@ namespace WeaponEnchantments.Common
                     rarity = 9;
                     break;
                 default:
-                    if (valueOnly) {
+                    if (useCalamiryValuesOnly) {
                         int i;
                         for (i = 0; i < numRarities; i++) {
                             float max = calamityMaxValues[i];
@@ -199,10 +194,10 @@ namespace WeaponEnchantments.Common
                 rarity = 0;
             }
 
-            float averageValue = valueOnly ? calamityAverageValues[rarity] : averageValues[rarity];
+            float averageValue = useCalamiryValuesOnly ? calamityAverageValues[rarity] : averageValues[rarity];
             int maxOrMin;
             if(sampleValue < averageValue) {
-				if (valueOnly) {
+				if (useCalamiryValuesOnly) {
                     maxOrMin = calamityMinValues[rarity];
                 }
 				else {
@@ -210,7 +205,7 @@ namespace WeaponEnchantments.Common
                 }
 			}
 			else {
-				if (valueOnly) {
+				if (useCalamiryValuesOnly) {
                     maxOrMin = calamityMaxValues[rarity];
                 }
 				else {
@@ -231,8 +226,7 @@ namespace WeaponEnchantments.Common
 
             return combinedRarity > 0 ? combinedRarity : 0;
         }
-        public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower)
-        {
+        public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower) {
             if (consumedItem.IsAir) {
                 infusedPower = 0;
                 return 1f;
@@ -245,8 +239,7 @@ namespace WeaponEnchantments.Common
 
             return multiplier > 1f ? multiplier : 1f;
         }
-        public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower)
-		{
+        public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower) {
             float itemRarity = GetWeaponRarity(item);
             float consumedRarity = (float)consumedItemInfusionPower / 100f;
             float multiplier = (float)Math.Pow(InfusionDamageMultiplier, consumedRarity - itemRarity);
@@ -392,11 +385,11 @@ namespace WeaponEnchantments.Common
                 infusedArmorSlot = infusedItem.GetInfusionArmorSlot();
             }
         }
-        public static bool TryGetGlotalItemStats(this Item item) {
+        public static bool TryGetInfusionStats(this Item item) {
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return false;
 
-            bool returnValue = TryGetGlotalItemStats(item, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
+            bool returnValue = TryGetInfusionStats(item, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
             if (returnValue) {
                 iGlobal.infusionPower = infusedPower;
                 iGlobal.damageMultiplier = damageMultiplier;
@@ -405,7 +398,7 @@ namespace WeaponEnchantments.Common
 
             return returnValue;
         }
-        public static bool TryGetGlotalItemStats(this Item item, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
+        public static bool TryGetInfusionStats(this Item item, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
             if (infusedItemName != "") {
                 int type = 0;
                 for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {

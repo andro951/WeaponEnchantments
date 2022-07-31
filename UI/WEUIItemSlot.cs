@@ -102,9 +102,9 @@ namespace WeaponEnchantments.UI
 									}
 									int currentEnchantmentLevelCost = 0;
                                     if (!Item.IsAir)
-										currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetLevelCost();
+										currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetCapacityCost();
 
-									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().GetLevelsAvailable() >= newEnchantment.GetLevelCost() - currentEnchantmentLevelCost : false;
+									return continueCheck ? wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().GetLevelsAvailable() >= newEnchantment.GetCapacityCost() - currentEnchantmentLevelCost : false;
 								}
                                 else
                                 {

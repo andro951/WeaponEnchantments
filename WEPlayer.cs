@@ -546,10 +546,16 @@ namespace WeaponEnchantments
         {
             lastFocusRecipe = Main.availableRecipe[Main.focusRecipe];
         }
-        public override void PostUpdate()
-        {
+        public override void PostUpdate() {
             //if (Main.netMode < NetmodeID.Server)
             {
+                string n;
+				if (!Main.HoverItem.IsAir) {
+                    if(Main.HoverItem.ModItem != null) {
+                        n = Main.HoverItem.ModItem.Name;
+                    }
+				}
+
                 int vanillaArmorLength = Player.armor.Length / 2;
                 var loader = LoaderManager.Get<AccessorySlotLoader>();
                 for (int j = 0; j < equipArmor.Length; j++) {

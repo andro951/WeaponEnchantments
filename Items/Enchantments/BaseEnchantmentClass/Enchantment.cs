@@ -124,6 +124,16 @@ namespace WeaponEnchantments.Items
 		/// </para>
 		/// </summary>
 		public virtual float ScalePercent { private set; get; } = 1f;
+
+		/// <summary>
+		/// Allows you to manually adjust affect the cost of enchantments.
+		/// Utility are 1f by default -> 1, 2, 3, 4, 5
+		/// Normal are 2f by defualt -> 2, 4, 6, 8, 10
+		/// Unique and Max1 are 3f by default -> 3, 6, 9, 12, 15
+		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
+		/// </summary>
+		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
+
 		/// <summary>
 		/// Default is { "Weapon", 1f }, { "Armor", 0.25f }, { "Accessory", 0.25f }<br/>
 		/// (100% effective on weapons, 25% effective on armor and accessories)<br/>
@@ -413,13 +423,13 @@ namespace WeaponEnchantments.Items
 			//Value - Containment/SuperiorStaibalizers
 			switch (EnchantmentTier) {
 				case 3:
-					Item.value += Containment.Values[2];
+					Item.value += ContainmentItem.Values[2];
 					break;
 				case 4:
 					Item.value += ContentSamples.ItemsByType[999].value;
 					break;
 				default:
-					Item.value += Containment.Values[EnchantmentTier];
+					Item.value += ContainmentItem.Values[EnchantmentTier];
 					break;
 			}
 
@@ -771,7 +781,7 @@ namespace WeaponEnchantments.Items
 			}
 
 			//Level Cost
-			toolTip += $"\nLevel cost: { GetLevelCost()}";
+			toolTip += $"\nLevel cost: { GetCapacityCost()}";
 
 			//Unique, DamageClassSpecific, RestrictedClass, ArmorSlotSpecific
 			if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1) {
@@ -980,10 +990,10 @@ namespace WeaponEnchantments.Items
 						
 					//Containment
 					if (EnchantmentTier < 3) {
-						recipe.AddIngredient(Mod, Containment.sizes[EnchantmentTier] + "Containment", 1);
+						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
 					}
 					else if (j < 3) {
-						recipe.AddIngredient(Mod, Containment.sizes[2] + "Containment", 1);
+						recipe.AddIngredient(Mod, ContainmentItem.sizes[2] + "Containment", 1);
 					}
 
 					//Gems
@@ -1001,7 +1011,12 @@ namespace WeaponEnchantments.Items
 				}
 			}
 		}
-		public int GetLevelCost() {
+		public int GetCapacityCost() {
+			if (CapacityCostMultiplier != -13.13f) {
+				//multiplier is being manually set by this enchantment
+				return (int)Math.Round((1 + EnchantmentTier) * CapacityCostMultiplier);
+			}
+
 			int multiplier = 2;
 
 			if (Utility)

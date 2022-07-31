@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using WeaponEnchantments.Common.Globals;
-using WeaponEnchantments;
 using WeaponEnchantments.Items;
-using System.Reflection;
-using System;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common.Utility
@@ -105,38 +101,32 @@ namespace WeaponEnchantments.Common.Utility
 
 		#region General
 
-		public static void SpawnCoins(int coins, bool delay = false)
-        {
+		public static void SpawnCoins(int coins) {
             int coinType = ItemID.PlatinumCoin;
             int coinValue = 1000000;
-            while (coins > 0)
-            {
+            while (coins > 0) {
                 int numCoinsToSpawn = coins / coinValue;
                 if (numCoinsToSpawn > 0)
                     Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), coinType, numCoinsToSpawn);
+
                 coins %= coinValue;
                 coinType--;
                 coinValue /= 100;
             }
         }
-        public static void CheckConvertExcessExperience(this Item item, Item consumedItem)
-		{
-            if(item.TryGetGlobalItem(out EnchantedItem iGlobal) && consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal))
-			{
+        public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
+            if(item.TryGetGlobalItem(out EnchantedItem iGlobal) && consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal)) {
                 long xp = (long)iGlobal.Experience + (long)cGlobal.Experience;
-                if (xp <= (long)int.MaxValue)
+                if (xp <= (long)int.MaxValue) {
                     iGlobal.Experience += cGlobal.Experience;
-                else
-                {
+                }
+                else {
                     iGlobal.Experience = int.MaxValue;
-                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (double)int.MaxValue), true);
+                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true);
                 }
             }
-			else
-			{
-                string error = $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()}) Please inform andro951(Weapon Enchantments) and give a description of what you were doing.";
-                Main.NewText(error);
-                error.Log();
+			else {
+                $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT();
             }
         }
 
@@ -157,6 +147,7 @@ namespace WeaponEnchantments.Common.Utility
                 float count = options.Count;// = 4f
                 float chancePerItem = chance / count;// chancePerItem = 0.4f / 4f = 0.1f.  (10% chance each item)  
                 int chosenItemNum = (int)(randFloat / chancePerItem);// chosenItemNum = (int)(0.24f / 0.1f) = (int)(2.4f) = 2.
+
                 return options[chosenItemNum];// items[2] being the 3rd item in the list.
             }
             else {

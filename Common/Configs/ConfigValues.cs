@@ -15,5 +15,8 @@ namespace WeaponEnchantments.Common.Configs
 		public static bool MultiplicativeCriticalHits = serverConfig.MultiplicativeCriticalHits;
 		public static bool AlwaysOverrideDamageType = serverConfig.AlwaysOverrideDamageType;
 		public static float InfusionDamageMultiplier = serverConfig.InfusionDamageMultiplier / 1000f;
+		public static float BossXPMultiplier = serverConfig.BossExperienceMultiplier / 100f;
+		public static float NormalXPMultiplier = serverConfig.ExperienceMultiplier / 100f;
+		public static float AffectOnVanillaLifeStealLimmit = serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
 	}
 }

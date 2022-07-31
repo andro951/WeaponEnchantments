@@ -169,9 +169,10 @@ namespace WeaponEnchantments.UI
                         int oresValue = (int)Math.Round(value - (float)essenceValue);
                         if (oresValue > 0)
 						{
-                            int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.CobaltOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
+                            int[] ores = { ItemID.ChlorophyteOre, WorldDataManager.AdamantiteOre, WorldDataManager.MythrilOre, WorldDataManager.CobaltOre, WorldDataManager.GoldOre, WorldDataManager.SilverOre, WorldDataManager.IronOre };
                             int refNum = ores.Length - 3;
-                            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? NPC.downedMechBossAny ? 0 : 1 : refNum; i < ores.Length; i++)
+                            bool canGetChlorophyte = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
+                            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? canGetChlorophyte ? 0 : 1 : refNum; i < ores.Length; i++)
                             {
                                 int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                                 int stack;
