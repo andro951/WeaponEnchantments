@@ -18,5 +18,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float BossXPMultiplier = serverConfig.BossExperienceMultiplier / 100f;
 		public static float NormalXPMultiplier = serverConfig.ExperienceMultiplier / 100f;
 		public static float AffectOnVanillaLifeStealLimmit = serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
+		public static float SpeedEnchantmentAutoReuseSetpoint = serverConfig.SpeedEnchantmentAutoReuseSetpoint / 100f;
 	}
 }

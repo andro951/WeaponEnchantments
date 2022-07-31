@@ -1,10 +1,6 @@
-﻿using System;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WeaponEnchantments.Items;
-using static WeaponEnchantments.Common.Utility.UtilityMethods;
 using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using System.Collections.Generic;
 using WeaponEnchantments.Common.Utility;
@@ -13,40 +9,102 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
-		public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
+        static bool modBossBagIntegrationSetup = false;
+        static SortedDictionary<int, int> bossBagNPCIDs = new SortedDictionary<int, int>() {
+                { ItemID.KingSlimeBossBag, NPCID.KingSlime },
+                { ItemID.EyeOfCthulhuBossBag, NPCID.EyeofCthulhu },
+                { ItemID.EaterOfWorldsBossBag, NPCID.EaterofWorldsHead },
+                { ItemID.BrainOfCthulhuBossBag, NPCID.BrainofCthulhu },
+                { ItemID.QueenBeeBossBag, NPCID.QueenBee },
+                { ItemID.SkeletronBossBag, NPCID.SkeletronHead },
+                { ItemID.DeerclopsBossBag, NPCID.Deerclops },
+                { ItemID.WallOfFleshBossBag, NPCID.WallofFlesh },
+                { ItemID.QueenSlimeBossBag, NPCID.QueenSlimeBoss },
+                { ItemID.TwinsBossBag, NPCID.Retinazer },
+                { ItemID.DestroyerBossBag, NPCID.TheDestroyer },
+                { ItemID.SkeletronPrimeBossBag, NPCID.SkeletronPrime },
+                { ItemID.PlanteraBossBag, NPCID.Plantera },
+                { ItemID.GolemBossBag, NPCID.Golem },
+                { ItemID.FishronBossBag, NPCID.DukeFishron },
+                { ItemID.FairyQueenBossBag, NPCID.HallowBoss },
+                { ItemID.CultistBossBag/*Unobtainable*/, NPCID.CultistBoss },
+                { ItemID.MoonLordBossBag, NPCID.MoonLordCore },
+                { ItemID.BossBagDarkMage/*Unobtainable*/, NPCID.DD2DarkMageT1 },
+                { ItemID.BossBagOgre/*Unobtainable*/, NPCID.DD2OgreT2 },
+                { ItemID.BossBagBetsy, NPCID.DD2Betsy }
+		};
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
+            //Setup mod boss bag support
+            if (!modBossBagIntegrationSetup) {
+                SetupModBossBagIntegration();
+                modBossBagIntegrationSetup = true;
+            }
+
             int type = item.type;
-            NPC npc = GetNPCFromBossBagType(type);
 
-            /*if (!ItemID.Sets.BossBag[type]) {
-                //Check if the bag has an associated npc setup
-                npc = ;
-                if (npc == null)
-                    return;
-			}*/
+            if (!bossBagNPCIDs.ContainsKey(type))
+                return;
 
-			#region Debug
+            int npcType = bossBagNPCIDs[type];
+            NPC npc = ContentSamples.NpcsByNetId[npcType];
 
-			if (LogMethods.debugging && item.ModItem != null) {
+            #region Debug
+
+            if (LogMethods.debugging && item.ModItem != null) {
                 string bagName = item.ModItem.Name;
                 bagName.Log();
             }
 
-			#endregion
-
-            //If npc is setup, spawn items
-            if (npc == null)
-                return;
+            #endregion
 
             GetLoot(itemLoot, npc, true);
         }
-        private bool CheckQuertyBagNames(string bagName) {
-            switch (bagName) {
-                case "":
+        private static void SetupModBossBagIntegration() {
+            SortedDictionary<string, int> supportedNPCsThatDropBags = new SortedDictionary<string, int>();
+            //Check if each modded item has a boss bag set up in GetModdedBossNameFromBag()
+            for(int i = ItemID.Count; i < ItemLoader.ItemCount; i++) {
+                Item sampleItem = ContentSamples.ItemsByType[i];
+                bool itemIsBossBag = ItemID.Sets.BossBag[i];
 
-                    break;
+                /* Normal code for after Querty's is fixed
+                if (!itemIsBossBag)
+                    continue;
+
+                string bossName = GetModdedBossNameFromBag(item.ModItem.Name);
+                if(bossName == null) {
+                    $"Support for this boss bag: {item.S()} has not yet been added.".Log();
+                    continue;
+                }
+                */
+
+                // \/ Fix for Querty's bags not included in BossBag item sets
+                string bossName = GetModdedBossNameFromBag(sampleItem.ModItem.Name);
+
+                if (itemIsBossBag) {
+                    if(bossName == null) {
+                        $"Support for this boss bag: {sampleItem.S()} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT();
+                        continue;
+                    }
+                }
+                else {
+                    if (bossName == null)
+                        continue;
+				}
+                // /\ Fix for Querty's bags not included in BossBag item sets
+
+                supportedNPCsThatDropBags.Add(bossName, sampleItem.type);
             }
 
-            return false;
+            //Find the modded boss that drops the modded boss bag
+            for (int i = NPCID.Count; i < NPCLoader.NPCCount; i++) {
+                NPC sampleNPC = ContentSamples.NpcsByNetId[i];
+                string sampleNPCName = sampleNPC.FullName;
+                if (supportedNPCsThatDropBags.ContainsKey(sampleNPCName)) {
+                    int bagType = supportedNPCsThatDropBags[sampleNPCName];
+                    if(!bossBagNPCIDs.ContainsKey(bagType))
+                        bossBagNPCIDs.Add(bagType, sampleNPC.type);
+                }
+            }
         }
 
         /// <summary>
@@ -54,7 +112,7 @@ namespace WeaponEnchantments.Common.Globals
         /// </summary>
         /// <param name="bossBagType"></param>
         /// <returns>new NPC of the associated boss bag.</returns>
-        public static NPC GetNPCFromBossBagType(int bossBagType) {
+        public static NPC GetVanillaNPCFromBossBagType(int bossBagType) {
             int npcID;
             switch (bossBagType) {
                 case ItemID.KingSlimeBossBag:
@@ -122,41 +180,10 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 default:
                     //Modded bag
-                    npcID = -1000;
-                    string bossName = null;
-
-                    //Check if moddedModded bag has been setup in GetModdedBossNameFromBag.
-                    if (ContentSamples.ItemsByType[bossBagType].ModItem != null) {
-                        string bagName = ContentSamples.ItemsByType[bossBagType].ModItem.Name;
-                        bossName = GetModdedBossNameFromBag(bagName);
-                    }
-
-                    if(bossName != null) {
-                        //Match the bossName from GetModdedBossNameFromBag to an actual loaded boss.
-                        for (int i = NPCID.Count; i < NPCLoader.NPCCount; i++) {
-                            NPC sampleNPC = ContentSamples.NpcsByNetId[i];
-                            if (sampleNPC.FullName == bossName) {
-                                //Found
-                                npcID = sampleNPC.netID;
-                                break;
-                            }
-                        }
-
-                        //Not found
-                        if(npcID == -1000)
-                            $"Failed to find this boss name: {(bossName != null ? bossName : "Null")} that dropps this boss bag type: {bossBagType}.".LogNT();
-                    }
-                    break;
+                    return null;
             }
 
-            if (npcID != -1000) {
-                //Return the npc that drops the bag.
-                NPC tempNpc = (NPC)ContentSamples.NpcsByNetId[npcID].Clone();
-
-                return tempNpc;
-            }
-
-            return null;
+            return (NPC)ContentSamples.NpcsByNetId[npcID].Clone();
         }
 
         /// <summary>
@@ -324,7 +351,7 @@ namespace WeaponEnchantments.Common.Globals
                 case "AncientMachineBag":
                     return "Ancient Machine";
                 case "B4Bag":
-                    return "OLORDv2";//Use Moon lord instead
+                    return "Oversized Laser-emitting Obliteration Radiation-emitting Destroyer";
                 case "BladeBossBag":
                     return "Imperious";
                 case "FortressBossBag":
@@ -356,8 +383,6 @@ namespace WeaponEnchantments.Common.Globals
                 case "":
                     return "";*/
                 default:
-                    $"Support for this boss bag: {bagName} has not yet been added.".LogNT();
-
                     return null;
             }
         }

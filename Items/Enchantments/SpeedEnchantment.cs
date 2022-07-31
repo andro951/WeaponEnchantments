@@ -1,4 +1,4 @@
-﻿using WeaponEnchantments.Common;
+﻿using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddEStat("I_NPCHitCooldown", EnchantmentStrength);
 			AddStaticStat("I_useTime", EnchantmentStrength);
 			AddStaticStat("I_useAnimation", EnchantmentStrength);
-			if (EnchantmentStrength >= 0.1f)
+			if (EnchantmentStrength >= SpeedEnchantmentAutoReuseSetpoint)
 				AddStaticStat("autoReuse", EnchantmentStrength);
 		}
 
