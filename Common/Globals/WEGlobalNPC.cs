@@ -16,6 +16,7 @@ using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Common.Utility;
+using System.Reflection;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -373,7 +374,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Enchantment drop chance
                 float chance = GetEnchantmentDropChance(npc.type, bossBag);
 
-                //Enchantment Drop List
+                //Enchantment Drop List                
                 List<int> itemTypes = GetEnchantmentDropList(npc.type);
 
                 denominator = (int)Math.Round(1f / chance);
@@ -752,9 +753,9 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (LogMethods.debugging) ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
-			#endregion
+            #endregion
 
-			HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
+            HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
 
             #region Debug
 
