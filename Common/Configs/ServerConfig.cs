@@ -51,6 +51,13 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 10000)]
         public int AffectOnVanillaLifeStealLimmit;
 
+        [Label("Speed Enchantment Auto Reuse Enabled (%)")]
+        [Tooltip("The strength that a Speed Enchantment will start giving the Auto Reuse stat.\n" +
+			"Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
+        [Range(0, 10000)]
+        [DefaultValue(10)]
+        public int SpeedEnchantmentAutoReuseSetpoint;
+
         //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
