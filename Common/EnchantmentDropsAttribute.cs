@@ -34,13 +34,36 @@ namespace WeaponEnchantments.Common
             return dict;
         }
 
-        public static Dictionary<int, ICollection<int>> mobDrops = GetMobDropDict();
+        static Dictionary<int, ICollection<int>> GetAIDropsDict() // Returns the drops for any specific AI
+        {
+            MethodInfo methodInfo = typeof(ModContent).GetMethod("ItemType");
+            var dict = new Dictionary<int, ICollection<int>>();
+            foreach (var type in types)
+            {
+                var method = methodInfo.MakeGenericMethod(type);
+
+                int[] validAIs = ((EnchantmentDropsAttribute)GetCustomAttribute(type, typeof(EnchantmentDropsAttribute))).validAIs;
+                foreach (int validAI in validAIs)
+                {
+                    if (!dict.ContainsKey(validAI))
+                        dict.Add(validAI, new HashSet<int>());
+                    int itemID = (int)method.Invoke(null, null);
+                    dict[validAI].Add(itemID);
+                }
+            }
+            return dict;
+        }
+
+        public static Dictionary<int, ICollection<int>> mobDrops = GetMobDropDict(); // 
+        public static Dictionary<int, ICollection<int>> aiDrops = GetAIDropsDict();
 
         public int[] validNPCs;
+        public int[] validAIs;
 
-        public EnchantmentDropsAttribute(int[] npcs)
+        public EnchantmentDropsAttribute(int[] npcs = null, int[] AIs = null)
         {
             this.validNPCs = npcs;
+            this.validAIs = AIs;
         }
     }
 }
