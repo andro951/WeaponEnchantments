@@ -72,8 +72,8 @@ namespace WeaponEnchantments.UI
 									bool continueCheck = true;
 									int damageClassSpecific = 0;
 									Enchantment newEnchantment = ((Enchantment)item.ModItem);
-									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
-                                    {
+									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)//Make this look at content sample damage type ContentSamples.ItemsByType[item.type].DamageType.Type
+									{
 										damageClassSpecific = Enchantment.GetDamageClass(ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type);
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)

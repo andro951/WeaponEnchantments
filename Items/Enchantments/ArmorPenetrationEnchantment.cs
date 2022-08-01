@@ -19,8 +19,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-
-	[EnchantmentDrops(new int[] { NPCID.Zombie })]
 	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentCommon : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentRare : ArmorPenetrationEnchantment { }

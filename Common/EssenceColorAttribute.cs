@@ -13,10 +13,9 @@ namespace WeaponEnchantments.Common
         public Color altColor;
         public Color color { get => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? altColor : trueColor; }
 
-        public EssenceColorAttribute(int r, int g, int b, int ra, int ga, int ba)
-        {
+        public EssenceColorAttribute(int r, int g, int b, int rAlt, int gAlt, int bAlt) {
             this.trueColor = new Color(r, g, b);
-            this.altColor = new Color(ra, ga, ba);
+            this.altColor = new Color(rAlt, gAlt, bAlt);
         }
     }
 }
