@@ -432,23 +432,22 @@ namespace WeaponEnchantments.Common.Globals
 
                 int denom100 = (int)Math.Round(1f / mult);
 
-                EnchantmentDropsAttribute.aiDrops.TryGetValue(npc.aiStyle, out ICollection<int> aiBasedDrops);
-                EnchantmentDropsAttribute.mobDrops.TryGetValue(npc.type, out ICollection<int> mobBasedDrops);
-                if (aiBasedDrops != null)
-                {
-                    foreach (int dropID in aiBasedDrops)
-                    {
+                //Ai style drops from attibutes
+                DropRulesAttribute.npcAiStyleDrops.TryGetValue(npc.aiStyle, out ICollection<int> aiBasedDrops);
+                if (aiBasedDrops != null) {
+                    foreach (int dropID in aiBasedDrops) {
                         loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
                     }
                 }
 
-                if (mobBasedDrops != null)
-                {
-                    foreach (int dropID in mobBasedDrops)
-                    {
+                //npc type drops from attributes
+                DropRulesAttribute.npcTypeDrops.TryGetValue(npc.type, out ICollection<int> mobBasedDrops);
+                if (mobBasedDrops != null) {
+                    foreach (int dropID in mobBasedDrops) {
                         loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
                     }
                 }
+
                 //Ai Style
                 switch (npc.aiStyle) {
                     case 1://Slime

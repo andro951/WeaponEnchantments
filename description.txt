@@ -39,10 +39,12 @@ Tips:
 All other info for the mod on the github: 
 https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
-
 Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
+
+Patreon:
+https://www.patreon.com/andro951
 
 Contributors:
 See github for contributors list
