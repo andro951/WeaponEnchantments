@@ -10,9 +10,9 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common
 {
-    public class EnchantmentDropsAttribute : Attribute
+    public class DropRulesAttribute : Attribute
     {
-        static IEnumerable<Type> types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(EnchantmentDropsAttribute))); // Get all enchantment drops
+        static IEnumerable<Type> types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(DropRulesAttribute))); // Get all enchantment drops
         
         static Dictionary<int, ICollection<int>> GetMobDropDict() // Returns the drops for any specific mob
         {
@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Common
             {
                 var method = methodInfo.MakeGenericMethod(type);
 
-                int[] validNPCS = ((EnchantmentDropsAttribute)GetCustomAttribute(type, typeof(EnchantmentDropsAttribute))).validNPCs;
+                int[] validNPCS = ((DropRulesAttribute)GetCustomAttribute(type, typeof(DropRulesAttribute))).validNPCs;
                 if (validNPCS != null)
                     foreach (int validNPC in validNPCS)
                     {
@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Common
             {
                 var method = methodInfo.MakeGenericMethod(type);
 
-                int[] validAIs = ((EnchantmentDropsAttribute)GetCustomAttribute(type, typeof(EnchantmentDropsAttribute))).validAIs;
+                int[] validAIs = ((DropRulesAttribute)GetCustomAttribute(type, typeof(DropRulesAttribute))).validAIs;
                 if (validAIs != null)
                     foreach (int validAI in validAIs)
                     {
@@ -62,7 +62,7 @@ namespace WeaponEnchantments.Common
         public int[] validNPCs;
         public int[] validAIs;
 
-        public EnchantmentDropsAttribute(int[] npcs = null, int[] AIs = null)
+        public DropRulesAttribute(int[] npcs = null, int[] AIs = null)
         {
             this.validNPCs = npcs;
             this.validAIs = AIs;
