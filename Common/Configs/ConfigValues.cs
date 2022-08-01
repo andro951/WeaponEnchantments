@@ -4,8 +4,7 @@ namespace WeaponEnchantments.Common.Configs
 {
 	internal class ConfigValues
 	{
-		public static float LinearStrengthMultiplier = serverConfig.presetData.linearStrengthMultiplier / 100f;
-		public static float RecomendedStrengthMultiplier = serverConfig.presetData.recomendedStrengthMultiplier / 100f;
+		public static float RecomendedStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float EnchantmentDropChance = serverConfig.EnchantmentDropChance / 100f;
 		public static float BossEnchantmentDropChance = serverConfig.BossEnchantmentDropChance / 100f;
 		public static float EssenceMultiplier = serverConfig.EssenceMultiplier / 100f;
@@ -19,5 +18,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float NormalXPMultiplier = serverConfig.ExperienceMultiplier / 100f;
 		public static float AffectOnVanillaLifeStealLimmit = serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
 		public static float SpeedEnchantmentAutoReuseSetpoint = serverConfig.SpeedEnchantmentAutoReuseSetpoint / 100f;
+		public static float GlobalEnchantmentStrengthMultiplier => serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 	}
 }

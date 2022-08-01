@@ -40,13 +40,6 @@ namespace WeaponEnchantments.Common.Globals
 
         #endregion
 
-        #region Properties (static)
-
-        public static float LinearMultiplier => WEMod.serverConfig.presetData.linearStrengthMultiplier / 100f;
-        public static float RecomendedMultiplier => WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
-
-        #endregion
-
 
         #region Stats
 
@@ -724,16 +717,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 		public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
 			if (!WEMod.serverConfig.CritPerLevelDisabled) {
-                float multiplier;
-                float linearMultiplier = LinearMultiplier;
-
-                if (linearMultiplier != 1f) {
-                    multiplier = linearMultiplier;
-                }
-				else {
-                    multiplier = RecomendedMultiplier;
-                }
-                
+                float multiplier = GlobalEnchantmentStrengthMultiplier;
                 crit += levelBeforeBooster * multiplier;
             }
 		}

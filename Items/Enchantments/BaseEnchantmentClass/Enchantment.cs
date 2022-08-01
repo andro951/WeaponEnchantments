@@ -460,28 +460,19 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
-			//Config - Linear and Recomended Strength Multipliers
+			//Config - Global Enchantment Strength Multipliers
 			if (!foundIndividualStrength) {
-				float multiplier = LinearStrengthMultiplier; ;
-				bool usingLinearStrengthMultiplier = multiplier != 1f;
+				//Recomended
+				float multiplier = RecomendedStrengthMultiplier;
+				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+				float scale = Math.Abs(ScalePercent);
 
-				if(usingLinearStrengthMultiplier) {
-					//Linear
-					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+				//Apply Scale Percent
+				if (ScalePercent < 0f && multiplier < 1f) {
+					EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
 				}
 				else {
-					//Recomended
-					multiplier = RecomendedStrengthMultiplier;
-					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-					float scale = Math.Abs(ScalePercent);
-
-					//Apply Scale Percent
-					if (ScalePercent < 0f && multiplier < 1f) {
-						EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
-					}
-					else {
-						EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
-					}
+					EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
 				}
 			}
 

@@ -362,7 +362,11 @@ namespace WeaponEnchantments
                     if(item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.trashItem)
                         hoveringOverTrash = true;
                 }
-                if (!hoveringOverTrash)
+
+                bool allowShiftClick = WEMod.clientConfig.AllowShiftClickMoveFavoritedItems;
+                bool canMoveItem = !item.favorited || allowShiftClick;
+
+                if (!hoveringOverTrash && canMoveItem)
                 {
                     Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
                     if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.IsAir && !enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled)

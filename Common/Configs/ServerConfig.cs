@@ -212,6 +212,10 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool OfferAll;
 
+        [Label("Allow shift click to move favorited items into the enchanting table.")]
+        [DefaultValue(false)]
+        public bool AllowShiftClickMoveFavoritedItems;
+
         [Label("Always display Infusion Power")]
         [Tooltip("Enable to display item's Infusion Power always instead of just when the enchanting table is open.")]
         [DefaultValue(false)]
@@ -281,32 +285,24 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset {
-            get => presetValues.Contains(recomendedStrengthMultiplier) ? presetNames[presetValues.IndexOf(recomendedStrengthMultiplier)] : "Custom";
+            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
             set {
                 if (presetNames.Contains(value)) {
-                    recomendedStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
-                    linearStrengthMultiplier = 100;
+                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
                 }
             }
         }
 
         //Multipliers
         [Header("Multipliers")]
-        [Label("Recomended Strength Multiplier(%)")]
+        [Label("Global Enchantment Strength Multiplier (%)")]
         [Range(1, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int recomendedStrengthMultiplier { get; set; }
-
-        [Label("Linear Strength Multiplier(%)")]
-        [Range(1, 250)]
-        [DefaultValue(100)]
-        [Tooltip("Adjusts all enchantment strengths linearly\n(Overides Recomended Strength Multiplier and above)")]
-        [ReloadRequired]
-        public int linearStrengthMultiplier { get; set; }
+        public int GlobalEnchantmentStrengthMultiplier { get; set; }
 
         public PresetData() {
             Preset = "Normal";
@@ -314,13 +310,13 @@ namespace WeaponEnchantments.Common.Configs
 
         public override bool Equals(object obj) {
             if (obj is PresetData other)
-                return Preset == other.Preset && recomendedStrengthMultiplier == other.recomendedStrengthMultiplier && linearStrengthMultiplier == other.linearStrengthMultiplier;
+                return Preset == other.Preset && GlobalEnchantmentStrengthMultiplier == other.GlobalEnchantmentStrengthMultiplier;
             
             return base.Equals(obj);
         }
 
         public override int GetHashCode() {
-            return new { Preset, recomendedStrengthMultiplier, linearStrengthMultiplier }.GetHashCode();
+            return new { Preset, GlobalEnchantmentStrengthMultiplier }.GetHashCode();
         }
     }
 
