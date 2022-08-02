@@ -13,6 +13,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using System.Reflection;
 
 namespace WeaponEnchantments.UI
 {
@@ -31,8 +32,8 @@ namespace WeaponEnchantments.UI
             public const int Syphon = 8;
             public const int Infusion = 9;
             public const int Count = 10;
-            public static int[] xps = new int[] { xp0, xp1, xp2, xp3, xp4 };
         }
+
         public class ItemSlotContext
         {
             public const int Item = 0;
@@ -99,10 +100,10 @@ namespace WeaponEnchantments.UI
                     Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
                     if (timer > 60) {
                         Main.hoverItemName =
-                        "       Place a weapon, piece of armor or accessory here.       " +
-						"\nUpgrading Enchanting Table Tier unlocks more Enchantment slots." +
-						"\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          ";
+                            "       Place a weapon, piece of armor or accessory here.       \n" +
+                            "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
+                            "       Using weapon Enchantments on armor or accessories       \n" +
+                            "          provides diminished bonuses and vice versa.          ";
                     }
                 };
 
@@ -127,10 +128,10 @@ namespace WeaponEnchantments.UI
                         Main.hoverItemName = "                   Place Enchantments here.                    ";
                         if (timer > 60) {
                             Main.hoverItemName =
-                        "                   Place Enchantments here.                    "
-                    + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                    + "\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          " + extraStr;
+                                "                   Place Enchantments here.                    \n" +
+						        "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
+						        "       Using weapon Enchantments on armor or accessories       \n" +
+						        "          provides diminished bonuses and vice versa.          " + extraStr;
                         }
                     };
                 }
@@ -146,10 +147,10 @@ namespace WeaponEnchantments.UI
                         Main.hoverItemName = "            Only utility Enchantments can go here.             ";
                         if (timer > 60) {
                             Main.hoverItemName =
-                        "            Only utility Enchantments can go here.             "
-                    + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                    + "\n       Using weapon Enchantments on armor or accessories       " +
-                        "\n          provides diminished bonuses and vice versa.          ";
+                                "            Only utility Enchantments can go here.             \n" +
+                                "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
+                                "       Using weapon Enchantments on armor or accessories       \n" +
+						        "          provides diminished bonuses and vice versa.          ";
                         }
                     };
                 }
@@ -170,10 +171,10 @@ namespace WeaponEnchantments.UI
                     Main.hoverItemName = "                      Place " + type + " Essence here.                ";
                     if (timer > 60) {
                         Main.hoverItemName =
-                    "                      Place " + type + " Essence here.                "
-                + "\nUpgrading Enchanting Table Tier unlocks more Enchantment slots."
-                + "\n       Using weapon Enchantments on armor or accessories       " +
-                    "\n          provides diminished bonuses and vice versa.          ";
+                    "                      Place " + type + " Essence here.                \n" +
+                    "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
+                    "       Using weapon Enchantments on armor or accessories       \n" +
+					"          provides diminished bonuses and vice versa.          ";
                     }
                 };
 
@@ -188,7 +189,7 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f,
                     BackgroundColor = bgColor
                 };
-
+                
                 switch (i) {
                     case 0:
                         button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(0);
@@ -333,6 +334,17 @@ namespace WeaponEnchantments.UI
             Append(button[ButtonID.Offer]);
             panels.Add(button[ButtonID.Offer]);
         }
+
+        private static int GetButtonID(string buttonName) {
+            ButtonID buttonID = new ButtonID();
+            foreach (PropertyInfo property in buttonID.GetType().GetProperties()) {
+                if(property.Name == buttonName)
+                    return (int)property.GetValue(property);
+			}
+
+            return -1;
+		}
+
         public override void OnActivate() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             //Get item(s) left in enchanting table

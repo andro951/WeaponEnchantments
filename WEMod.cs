@@ -369,6 +369,7 @@ namespace WeaponEnchantments
         {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
+			IL.Terraria.Recipe.Create += HookCreate;
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag)
         {
@@ -382,6 +383,83 @@ namespace WeaponEnchantments
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;
+		private const bool debuggingHookCreate = false;
+		private static void HookCreate(ILContext il) {
+			counter = 0;
+			var c = new ILCursor(il);
+
+			if (debuggingHookCreate) {
+				while (c.Next != null) {
+					bool catchingExceptions = true;
+					ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString());
+					while (catchingExceptions) {
+						c.Index++;
+						try {
+							if (c.Next != null) {
+								string tempString = c.Next.ToString();
+							}
+							catchingExceptions = false;
+						}
+						catch (Exception e) {
+							ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString().Substring(0, 20));
+						}
+					}
+				}
+				c.Index = 0;
+
+
+
+				bool searching = true;
+				int line = 0;
+				int j = 0;
+				int jNext = c.Context.ToString().Substring(0).IndexOf("IL_");
+				while (searching) {
+					j = jNext;
+					//Debug.WriteLine("length: " + c.Context.ToString().Length.ToString() + " jNext + 1: " + (jNext + 1).ToString());
+					jNext = c.Context.ToString().Substring(jNext + 1).IndexOf("IL_") + j + 1;
+					//Debug.WriteLine("substring: " + c.Context.ToString().Substring(j, jNext - j - 2) + ", length: " + c.Context.ToString().Substring(j, jNext - j - 2).Length.ToString());
+					if (jNext == j) {
+						ModContent.GetInstance<WEMod>().Logger.Info(line + " " + c.Context.ToString().Substring(j));
+						//Debug.WriteLine(line + " " + c.Context.ToString().Substring(j));
+						searching = false;
+					}
+					else {
+						ModContent.GetInstance<WEMod>().Logger.Info(line + " " + c.Context.ToString().Substring(j, jNext - j - 2));
+						//Debug.WriteLine(line + " " + c.Context.ToString().Substring(j, jNext - j - 2));
+					}
+					line++;
+				}
+			}
+
+			if (!c.TryGotoNext(MoveType.Before,
+				i => i.MatchLdsfld(out _),
+				i => i.MatchLdsfld(out _),
+				i => i.MatchLdelemRef(),
+				i => i.MatchLdfld(out _),
+				i => i.MatchLdcI4(-1),
+				i => i.MatchBeq(out _)
+
+			)) { throw new Exception("Failed to find instructions HookCreate 3"); }
+
+			var incomingLabels = c.IncomingLabels;
+			foreach (ILLabel cursorIncomingLabel in incomingLabels)
+				c.MarkLabel(cursorIncomingLabel);
+
+			c.Emit(OpCodes.Ldloc, 3);
+			c.Emit(OpCodes.Ldloc, 4);
+
+			c.EmitDelegate((Item item, int num) => {
+				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+				if (wePlayer.usingEnchantingTable) {
+					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+						if (item.type == slotItem.type) {
+							slotItem.stack -= num;
+						}
+					}
+				}
+			});
+		}
 		private static void HookFindRecipes(ILContext il)
 		{
 			var c = new ILCursor(il);

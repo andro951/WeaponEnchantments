@@ -148,7 +148,7 @@ namespace WeaponEnchantments.UI
 
             int type = item.type;
             bool stop = false;
-            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return -1;
 
             //Enchantments
