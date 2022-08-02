@@ -523,7 +523,7 @@ namespace WeaponEnchantments
                 {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if(((EnchantmentEssence)wePlayer.Player.inventory[j].ModItem).essenceRarity == wePlayer.enchantingTableUI.essenceSlotUI[i]._slotTier)
+                        if(((EnchantmentEssence)wePlayer.Player.inventory[j].ModItem).essenceTier == wePlayer.enchantingTableUI.essenceSlotUI[i]._slotTier)
                         {
                             int ammountToTransfer = 0;
                             int startingStack = wePlayer.Player.inventory[j].stack;

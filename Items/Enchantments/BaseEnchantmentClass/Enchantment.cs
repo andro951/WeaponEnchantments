@@ -12,6 +12,7 @@ using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
@@ -37,15 +38,11 @@ namespace WeaponEnchantments.Items
 	public abstract class Enchantment : ModItem
 	{
 		# region Static
-
-		public static readonly string[] rarity = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
-		public static readonly string[] displayRarity = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
-		public static readonly Color[] rarityColors = new Color[] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public struct EnchantmentStrengths {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
 			}
-			public float[] enchantmentTierStrength = new float[rarity.Length];
+			public float[] enchantmentTierStrength = new float[tierNames.Length];
 		}
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
@@ -226,8 +223,8 @@ namespace WeaponEnchantments.Items
 		public string FullToolTip { private set; get; }
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
 
-		public virtual string Artist { private set; get; } = null;
-		public virtual string Designer { private set; get; } = null;
+		public abstract string Artist { get; }
+		public abstract string Designer { get; }
 
 		#endregion
 
@@ -367,13 +364,13 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault(GenerateFullTooltip(CustomTooltip));
 
 			//DisplayName
-			if (WEMod.clientConfig.UseOldRarityNames) {
+			if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
 			}
 			else {
 				//Current rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
-				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentTier]));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
 			}
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
@@ -392,10 +389,10 @@ namespace WeaponEnchantments.Items
 			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
 
 			//Enchantment Size
-			EnchantmentTier = GetEnchantmentTier(Name);
+			EnchantmentTier = GetTierNumberFromName(Name);
 
 			//Item rarity
-			Item.rare = EnchantmentTier;
+			Item.rare = GetRarityFromTier(EnchantmentTier);
 
 			//Width and Height
 			switch (EnchantmentTier) {
@@ -948,17 +945,8 @@ namespace WeaponEnchantments.Items
 		private int GetBuffDuration() {
 			return defaultBuffDuration * (EnchantmentTier + 1);
 		}
-		public static int GetEnchantmentTier(string name) {
-			for (int i = 0; i < rarity.Length; i++) {
-				if (rarity[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
-					return i;
-				}
-			}//Get EnchantmentSize
-
-			return -1;
-		}
 		public override void AddRecipes() {
-			for (int i = EnchantmentTier; i < rarity.Length; i++) {
+			for (int i = EnchantmentTier; i < tierNames.Length; i++) {
 				//Lowest Craftable Tier
 				if (EnchantmentTier < LowestCraftableTier)
 					continue;
@@ -971,12 +959,12 @@ namespace WeaponEnchantments.Items
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
 						int essenceNumber = Utility ? 5 : 10;
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssence.rarityNames[k], essenceNumber);
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
 					}
 
 					//Enchantment
 					if (j > 0) {
-						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + rarity[j - 1], 1);
+						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
 					}
 						
 					//Containment

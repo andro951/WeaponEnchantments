@@ -1,8 +1,4 @@
-﻿using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +7,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Common
 {
@@ -210,7 +207,7 @@ namespace WeaponEnchantments.Common
                         int index = name.IndexOf(k);
                         if (index > -1) {
                             key = k;
-                            name = name.Substring(0, index - 1) + Enchantment.rarity[dict[key]] + name.Substring(index);
+                            name = name.Substring(0, index - 1) + tierNames[dict[key]] + name.Substring(index);
                         }
 
                         break;
@@ -280,7 +277,7 @@ namespace WeaponEnchantments.Common
                         foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>()) {
                             if (modItem is Enchantment enchantment) {
                                 if (enchantment.EnchantmentTypeName == dict[key]) {
-                                    int typeOffset = Enchantment.GetEnchantmentTier(name);
+                                    int typeOffset = GetTierNumberFromName(name);
                                     ReplaceItem(ref item, enchantment.Item.type + typeOffset);
 
                                     return true;
@@ -379,7 +376,7 @@ namespace WeaponEnchantments.Common
             }
         }
         private static int GetEnchantmentValueByName(string name) {
-            int tier = Enchantment.GetEnchantmentTier(name);
+            int tier = GetTierNumberFromName(name);
             int damageEnchantmentBasicType = ModContent.ItemType<DamageEnchantmentBasic>();
             int value = ContentSamples.ItemsByType[damageEnchantmentBasicType + tier].value;
 

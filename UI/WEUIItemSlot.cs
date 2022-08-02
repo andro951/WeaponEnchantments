@@ -123,7 +123,7 @@ namespace WeaponEnchantments.UI
 					case ItemSlotContext.Essence:
                         if (WEMod.IsEssenceItem(item))
                         {
-							return ((EnchantmentEssence)item.ModItem).essenceRarity == _slotTier;
+							return ((EnchantmentEssence)item.ModItem).essenceTier == _slotTier;
 						}//check essence is valid
                         else
                         {

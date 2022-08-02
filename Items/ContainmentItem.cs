@@ -4,6 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
@@ -29,7 +30,7 @@ namespace WeaponEnchantments.Items
             if (size == 2)
                 Values[size] += ContentSamples.ItemsByType[180].value * 4;
 
-            Tooltip.SetDefault("Used to store " + Enchantment.rarity[size] + " enchantments");
+            Tooltip.SetDefault("Used to store " + tierNames[size] + " enchantments");
             
             LogModSystem.UpdateContributorsList(this);
         }

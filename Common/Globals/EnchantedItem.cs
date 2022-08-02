@@ -12,6 +12,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -710,7 +711,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     string tooltip = enchantment.AllowedListTooltips[itemType]; 
-                    Color color = Enchantment.rarityColors[enchantment.EnchantmentTier];
+                    Color color = TierColors[enchantment.EnchantmentTier];
                     tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), tooltip) { OverrideColor = color });
                 }
             }

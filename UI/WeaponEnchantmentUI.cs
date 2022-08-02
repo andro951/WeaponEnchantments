@@ -10,8 +10,8 @@ using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Globals;
 using System;
 using WeaponEnchantments.Common;
-using Microsoft.Xna.Framework.Graphics;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.UI
 {
@@ -389,7 +389,7 @@ namespace WeaponEnchantments.UI
                         Top = { Pixels = nextElementY + 50 },
                         HAlign = 0.5f
                     };
-                    string type = EnchantmentEssence.rarityNames[i];
+                    string type = tierNames[i];
                     wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) =>
                     {
                         Main.hoverItemName = "                      Place " + type + " Essence here.                ";

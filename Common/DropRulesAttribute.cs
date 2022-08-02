@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common
 {
-    public class DropRulesAttribute : Attribute
+    /*public class DropRulesAttribute : Attribute
     {
         /// <summary>
         /// All enchantment drops
@@ -67,5 +67,5 @@ namespace WeaponEnchantments.Common
 
             return dict;
         }
-    }
+    }*/
 }

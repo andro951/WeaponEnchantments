@@ -21,19 +21,19 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
                 List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
-                int rarity = essence.essenceRarity;
-                int tableStack = essenceSlots[rarity].stack;
+                int tier = essence.essenceTier;
+                int tableStack = essenceSlots[tier].stack;
                 int toStore = Math.Min(item.maxStack - tableStack, item.stack);
                 item.stack -= toStore;
                 //Less than max stack when combined
 
-                if (essenceSlots[rarity].stack < 1) {
+                if (essenceSlots[tier].stack < 1) {
                     //Table is empty
-                    essenceSlots[rarity] = new Item(item.type, toStore);
+                    essenceSlots[tier] = new Item(item.type, toStore);
                 }
 				else {
                     //Table not empty
-                    essenceSlots[rarity].stack += toStore;
+                    essenceSlots[tier].stack += toStore;
                 }
 
                 PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);

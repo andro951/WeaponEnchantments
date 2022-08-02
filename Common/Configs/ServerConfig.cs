@@ -223,11 +223,11 @@ namespace WeaponEnchantments.Common.Configs
 
         //Display Settings
         [Header("Display Settings")]
-        [Label("Use Original Rarity Names")]
-        [Tooltip("Use Original Rarity Names: Rare, Super Rare, Ultra Rare")]
+        [Label("Use Original Tier Names")]
+        [Tooltip("Use Original Tier Names: Rare, Super Rare, Ultra Rare")]
         [DefaultValue(false)]
         [ReloadRequired]
-        public bool UseOldRarityNames;
+        public bool UseOldTierNames;
 
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
