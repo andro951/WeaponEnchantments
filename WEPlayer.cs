@@ -333,10 +333,13 @@ namespace WeaponEnchantments {
             EnchantedItem heldItem = Player.HeldItem.GetEnchantedItem();
             if (heldItem != null) {
                 foreach (Item slottedItem in heldItem.enchantments) {
-                    Enchantment enchantment = (Enchantment)slottedItem.ModItem;
-                    if (enchantment != null) {
-                        foreach (EnchantmentEffect effect in enchantment.Effects) {
-                            effect.PostUpdateMiscEffects(this);
+                    ModItem slottedModItem = slottedItem.ModItem;
+                    if (slottedModItem is Enchantment && slottedModItem != null) {
+                        Enchantment enchantment = (Enchantment)slottedModItem;
+                        if (enchantment != null) {
+                            foreach (EnchantmentEffect effect in enchantment.Effects) {
+                                effect.PostUpdateMiscEffects(this);
+                            }
                         }
                     }
                 }
