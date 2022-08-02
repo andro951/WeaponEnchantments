@@ -17,7 +17,6 @@ using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Common.Utility;
 using System.Reflection;
-using WeaponEnchantments.Items.Enchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -978,7 +977,7 @@ namespace WeaponEnchantments.Common.Globals
                         //Player hp less than max
                         if (heal > 0 && player.lifeSteal > 0f) {
                             //Vanilla lifesteal mitigation
-                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimmit);
+                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimit);
                             player.lifeSteal -= vanillaLifeStealValue;
 
                             Vector2 speed = new Vector2(0, 0);

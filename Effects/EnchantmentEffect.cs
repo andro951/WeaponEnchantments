@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
 
-namespace WeaponEnchantments.Items.Enchantments.EnchantmentEffects {
+namespace WeaponEnchantments.EnchantmentEffects {
     public abstract class EnchantmentEffect {
+
+
         public EnchantmentEffect(float enchantmentPower = 1f) {
             this.enchantmentPower = enchantmentPower;
         }
+
+        public virtual Dictionary<DamageClass, float> EnchantmentDamageEfficiency => new Dictionary<DamageClass, float>();
 
         public float enchantmentPower { get; set; }
 

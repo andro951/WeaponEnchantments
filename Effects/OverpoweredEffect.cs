@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace WeaponEnchantments.Items.Enchantments.EnchantmentEffects {
+namespace WeaponEnchantments.EnchantmentEffects {
     public class OverpoweredEffect : EnchantmentEffect {
         public OverpoweredEffect(float enchantmentPower) : base(enchantmentPower) { }
 

@@ -12,7 +12,7 @@ using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.Items.Enchantments.EnchantmentEffects;
+using WeaponEnchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Items {
     public enum DamageTypeSpecificID

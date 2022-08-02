@@ -14,8 +14,8 @@ using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.EnchantmentEffects;
 using WeaponEnchantments.Items;
-using WeaponEnchantments.Items.Enchantments.EnchantmentEffects;
 using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments {
