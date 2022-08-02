@@ -11,7 +11,7 @@ namespace WeaponEnchantments.EnchantmentEffects {
         public OverpoweredEffect(float enchantmentPower) : base(enchantmentPower) { }
 
         public override void PostUpdateMiscEffects(WEPlayer player) {
-            player.Player.GetDamage(DamageClass.Generic) += enchantmentPower;
+            player.Player.GetDamage(DamageClass.Generic) += EnchantmentPower;
         }
     }
 }

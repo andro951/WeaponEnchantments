@@ -146,9 +146,8 @@ namespace WeaponEnchantments.Common
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     iGlobal.needsUpdateOldItems = player == null;
 
-                    List<string> enchantmentTypeNames = new List<string>();
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                        Item enchantmentItem = iGlobal.enchantments[i];
+                        Item enchantmentItem = iGlobal.slottedItems[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
                             ReplaceOldItem(ref enchantmentItem, player);
                         }
@@ -156,28 +155,22 @@ namespace WeaponEnchantments.Common
                         if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                             Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                             if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                             }
                             else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                             }
 
                             if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+                                RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
-                            if(enchantment.RestrictedClass > -1 && ContentSamples.ItemsByType[item.type].DamageType.Type == enchantment.RestrictedClass)
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
-
-                            if(enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
-                                RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
-
-                            enchantmentTypeNames.Add(enchantment.EnchantmentTypeName);
+                            if(enchantment.RestrictedClass > -1 && item.DamageType.Type == enchantment.RestrictedClass)
+                                RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
                         }
                     }
-
                     if (player != null) {
                         item.RemoveUntilPositive(player);
 

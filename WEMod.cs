@@ -202,8 +202,8 @@ namespace WeaponEnchantments
 					{
 						if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
 						{
-							item.GetEnchantedItem().enchantments[enchantmentSlotNumber] = new Item(itemType);
-							Enchantment enchantment = (Enchantment)item.GetEnchantedItem().enchantments[enchantmentSlotNumber].ModItem;
+							item.GetEnchantedItem().slottedItems[enchantmentSlotNumber] = new Item(itemType);
+							Enchantment enchantment = (Enchantment)item.GetEnchantedItem().slottedItems[enchantmentSlotNumber].ModItem;
 							item.UpdateEnchantment(ref enchantment, enchantmentSlotNumber);
 						}
 						else
@@ -304,7 +304,7 @@ namespace WeaponEnchantments
 				iGlobal.PowerBoosterInstalled = reader.ReadBoolean();
 				for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
 				{
-					iGlobal.enchantments[i] = new Item(reader.ReadUInt16());
+					iGlobal.slottedItems[i] = new Item(reader.ReadUInt16());
 				}
 				iGlobal.eStats.Clear();
 				int count = reader.ReadUInt16();
@@ -337,7 +337,7 @@ namespace WeaponEnchantments
 			packet.Write(iGlobal.PowerBoosterInstalled);
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
 			{
-				packet.Write((short)iGlobal.enchantments[i].type);
+				packet.Write((short)iGlobal.slottedItems[i].type);
 			}
 			short count = (short)iGlobal.eStats.Count;
 			packet.Write(count);

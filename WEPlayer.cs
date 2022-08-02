@@ -2,6 +2,7 @@
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
@@ -91,6 +92,9 @@ namespace WeaponEnchantments {
         public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
+
+        // Currently just a function that gets the current player equipment state.
+        public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player); 
 
         public override void Load()
         {
@@ -330,19 +334,8 @@ namespace WeaponEnchantments {
         }
 
         public override void PostUpdateMiscEffects() {
-            EnchantedItem heldItem = Player.HeldItem.GetEnchantedItem();
-            if (heldItem != null) {
-                foreach (Item slottedItem in heldItem.enchantments) {
-                    ModItem slottedModItem = slottedItem.ModItem;
-                    if (slottedModItem is Enchantment && slottedModItem != null) {
-                        Enchantment enchantment = (Enchantment)slottedModItem;
-                        if (enchantment != null) {
-                            foreach (EnchantmentEffect effect in enchantment.Effects) {
-                                effect.PostUpdateMiscEffects(this);
-                            }
-                        }
-                    }
-                }
+            foreach (EnchantmentEffect effect in PlayerEquipment.GetAllEnchantmentEffects()) {
+                effect.PostUpdateMiscEffects(this);
             }
         }
 
@@ -392,12 +385,12 @@ namespace WeaponEnchantments {
                     if (!armorStatsUpdated) {
                         if (!armor.vanity && !armor.IsAir) {
                             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                                if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
+                                if (!armor.GetEnchantedItem().slottedItems[i].IsAir) {
                                     if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor)) {
-                                        armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
-                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
-                                            armor.GetEnchantedItem().enchantments[i] = new Item();
+                                        armor.GetEnchantedItem().slottedItems[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().slottedItems[i], GetItemSettings.LootAllSettings);
+                                        if (!armor.GetEnchantedItem().slottedItems[i].IsAir) {
+                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().slottedItems[i]);
+                                            armor.GetEnchantedItem().slottedItems[i] = new Item();
                                             if (WEMod.IsArmorItem(armor)) {
                                                 Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
                                             }
@@ -589,15 +582,10 @@ namespace WeaponEnchantments {
 
         // Not using hitDirection yet.
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
-            EnchantedItem enchItem = item.GetEnchantedItem();
+            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
 
-            foreach (Item slottedItem in enchItem.enchantments) {
-                Enchantment ench = (Enchantment)slottedItem.ModItem;
-                if (ench != null) {
-                    foreach (EnchantmentEffect effect in ench.Effects) {
-                        effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
-                    }
-                }
+            foreach (EnchantmentEffect effect in effects) {
+                effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
             }
         }
 
@@ -616,15 +604,10 @@ namespace WeaponEnchantments {
         }
 
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
-            EnchantedItem enchItem = item.GetEnchantedItem();
+            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
 
-            foreach (Item slottedItem in enchItem.enchantments) {
-                Enchantment ench = (Enchantment)slottedItem.ModItem;
-                if (ench != null) {
-                    foreach (EnchantmentEffect effect in ench.Effects) {
-                        effect.OnAfterHit(target, this, item, ref damage, ref knockback, ref crit, proj);
-                    }
-                }
+            foreach (EnchantmentEffect effect in effects) {
+                effect.OnAfterHit(target, this, item, ref damage, ref knockback, ref crit, proj);
             }
         }
         #endregion

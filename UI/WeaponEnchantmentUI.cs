@@ -152,8 +152,8 @@ namespace WeaponEnchantments.UI
                     {
                         if (!nonTableItem && !wePlayer.Enchantments(i).IsAir)
                                 wePlayer.EnchantmentsInUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.Enchantments(i), GetItemSettings.LootAllSettings);
-                        else if (!iGlobal.enchantments[i].IsAir)
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
+                        else if (!iGlobal.slottedItems[i].IsAir)
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.slottedItems[i]);
                     }
                     if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                         stop = true;//Player didn't have enough space in their inventory to take all enchantments
@@ -169,10 +169,9 @@ namespace WeaponEnchantments.UI
                         int oresValue = (int)Math.Round(value - (float)essenceValue);
                         if (oresValue > 0)
 						{
-                            int[] ores = { ItemID.ChlorophyteOre, WorldDataManager.AdamantiteOre, WorldDataManager.MythrilOre, WorldDataManager.CobaltOre, WorldDataManager.GoldOre, WorldDataManager.SilverOre, WorldDataManager.IronOre };
+                            int[] ores = { ItemID.ChlorophyteOre, ItemID.AdamantiteOre, ItemID.MythrilOre, ItemID.CobaltOre, ItemID.GoldOre, ItemID.SilverOre, ItemID.IronOre };
                             int refNum = ores.Length - 3;
-                            bool canGetChlorophyte = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
-                            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? canGetChlorophyte ? 0 : 1 : refNum; i < ores.Length; i++)
+                            for (int i = WEMod.serverConfig.AllowHighTierOres && Main.hardMode ? NPC.downedMechBossAny ? 0 : 1 : refNum; i < ores.Length; i++)
                             {
                                 int orevalue = ContentSamples.ItemsByType[ores[i]].value;
                                 int stack;
@@ -826,7 +825,7 @@ namespace WeaponEnchantments.UI
                             //Enchantment enchantment = (Enchantment)wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
                             //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = new Item();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = new Item();
                         }
                     }
                 }//Take all enchantments first

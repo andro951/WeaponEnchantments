@@ -72,8 +72,8 @@ namespace WeaponEnchantments.UI
 									bool continueCheck = true;
 									int damageClassSpecific = 0;
 									Enchantment newEnchantment = ((Enchantment)item.ModItem);
-									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)//Make this look at content sample damage type ContentSamples.ItemsByType[item.type].DamageType.Type
-									{
+									if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.DamageType != null)
+                                    {
 										damageClassSpecific = Enchantment.GetDamageClass(ContentSamples.ItemsByType[wePlayer.enchantingTableUI.itemSlotUI[0].Item.type].DamageType.Type);
 									}
 									if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
@@ -237,9 +237,9 @@ namespace WeaponEnchantments.UI
 			{
 				if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
-					if (!iGlobal.enchantments[i].IsAir)
+					if (!iGlobal.slottedItems[i].IsAir)
 					{
-						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
+						Enchantment appliedEnchantment = (Enchantment)iGlobal.slottedItems[i].ModItem;
 						if (appliedEnchantment != null && (
 							(enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName))
 						{

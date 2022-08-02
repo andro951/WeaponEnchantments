@@ -12,7 +12,7 @@ using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.EnchantmentEffects {
     public class LifeSteal : EnchantmentEffect {
-        public override Dictionary<DamageClass, float> EnchantmentDamageEfficiency => new Dictionary<DamageClass, float>() {
+        protected override Dictionary<DamageClass, float> EnchantmentDamageEfficiency => new Dictionary<DamageClass, float>() {
             { DamageClass.Melee, 1f },
             { DamageClass.Magic, 0.5f}
         };
@@ -29,7 +29,7 @@ namespace WeaponEnchantments.EnchantmentEffects {
 
             Player player = wePlayer.Player;
 
-            float lifeSteal = enchantmentPower;
+            float lifeSteal = EnchantmentPower;
             // TODO: Make stack with one for all
             float healTotal = (damage) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
 
