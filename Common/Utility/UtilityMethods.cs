@@ -13,8 +13,7 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            iGlobal.Item = item;
+            item.TryGetGlobalItem(out EnchantedItem iGlobal);
             return iGlobal;
         }
         public static WEPlayer GetWEPlayer(this Player player) => player.GetModPlayer<WEPlayer>();

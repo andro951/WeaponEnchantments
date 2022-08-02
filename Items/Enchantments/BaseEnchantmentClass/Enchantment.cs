@@ -12,10 +12,10 @@ using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Items.Enchantments.EnchantmentEffects;
 
-namespace WeaponEnchantments.Items
-{
-	public enum DamageTypeSpecificID
+namespace WeaponEnchantments.Items {
+    public enum DamageTypeSpecificID
 	{
 		Default,
 		Generic,
@@ -27,7 +27,8 @@ namespace WeaponEnchantments.Items
 		SummonMeleeSpeed,
 		MagicSummonHybrid,
 		Throwing
-	}//Located in DamageClassLoader.cs
+	} // Located in DamageClassLoader.cs
+
 	public enum ArmorSlotSpecificID
 	{
 		Head,
@@ -36,6 +37,8 @@ namespace WeaponEnchantments.Items
 	}
 	public abstract class Enchantment : ModItem
 	{
+		public virtual EnchantmentEffect[] Effects { get; set; }
+
 		# region Static
 
 		public static readonly string[] rarity = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };

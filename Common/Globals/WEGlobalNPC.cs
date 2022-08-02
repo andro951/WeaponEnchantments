@@ -17,6 +17,7 @@ using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Common.Utility;
 using System.Reflection;
+using WeaponEnchantments.Items.Enchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -801,7 +802,6 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
-
             #region Debug
 
             if (LogMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
@@ -809,7 +809,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
 
             //Minion damage reduction from war enchantment
-            if(projectile != null) {
+            if (projectile != null) {
                 bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.GetWEProjectile().parent != null && projectile.GetWEProjectile().parent.minion;
                 if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
                     damage = (int)Math.Round(damage / myWarReduction);
@@ -1080,7 +1080,9 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!SourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            EnchantedItem enchItem = item.GetEnchantedItem();
+
+            if (enchItem == null)
                 return;
 
             //If projectile/npc doesn't use npc.immune, return
