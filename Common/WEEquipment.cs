@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.EnchantmentEffects;
@@ -11,23 +13,39 @@ using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common {
     public class PlayerEquipment {
-        private static int relevantArmorSlots = 10;
+        private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
+        private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
 
         public PlayerEquipment(Player player) {
+            ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
+            AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
+
+            int moddedSlotCount = alp.SlotCount;
+
+            Main.NewText(moddedSlotCount);
+
             HeldItem = player.HeldItem;
-            for (int i = 0; i < relevantArmorSlots; i++) {
-                Item item = player.armor[i];
-                if (i < 3) {
-                    Armor[i] = item;
-                }
-                else {
-                    Accesories[i - 3] = item;
+            Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
+
+            for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
+                Armor[i] = player.armor[i];
+            }
+
+            for (int i = 0; i < vanillaAccesorySlots; i++) {    // Set all vanilla accesory slots
+                Accesories[i] = player.armor[i + 3];
+            }
+
+            for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
+                var slot = loader.Get(i, player);
+                if (slot.IsEnabled() && !slot.IsEmpty) {
+                    Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
                 }
             }
         }
 
         public static IEnumerable<EnchantedItem> FilterEnchantedItems(IEnumerable<Item> items) {
             IEnumerable<EnchantedItem> enchantedItems = items
+                .Where(i => i != null)
                 .Select(i => i.GetEnchantedItem())
                 .Where(i => i != null);
             return enchantedItems;
@@ -55,8 +73,8 @@ namespace WeaponEnchantments.Common {
         }
 
         private Item HeldItem;
-        private Item[] Armor = new Item[3];
-        private Item[] Accesories = new Item[7]; // 5 normal, 1 demon heart, 1 master
+        private Item[] Armor = new Item[vanillaArmorSlots];
+        private Item[] Accesories; 
 
         private IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];

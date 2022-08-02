@@ -94,19 +94,17 @@ namespace WeaponEnchantments {
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
 
         // Currently just a function that gets the current player equipment state.
-        public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player); 
+        public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player);
 
-        public override void Load()
-        {
+        #region Default Hooks
+        public override void Load() {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
 
-        public override void OnEnterWorld(Player player)
-        {
+        public override void OnEnterWorld(Player player) {
             if (LogMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
             InfusionManager.SetUpVanillaWeaponInfusionPowers();
-            if (!OldWorldItemsReplaced)
-            {
+            if (!OldWorldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
                 OldWorldItemsReplaced = true;
             }
@@ -131,9 +129,8 @@ namespace WeaponEnchantments {
             }*/
             if (LogMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
         }
-        
-        public static void HookItemCheck_MeleeHitNPCs(ILContext il)
-        {
+
+        public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
             var c = new ILCursor(il);
 
             if (!c.TryGotoNext(MoveType.After,
@@ -148,9 +145,8 @@ namespace WeaponEnchantments {
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
         }
-        
-        public override void Initialize()
-        {
+
+        public override void Initialize() {
             enchantingTable = new EnchantingTable();
             enchantingTableUI = new WeaponEnchantmentUI();
             int armorCount = Player.armor.Length / 2 + Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
@@ -159,8 +155,7 @@ namespace WeaponEnchantments {
             trackedWeapon = new Item();
             confirmationUI = new ConfirmationUI();
             inventoryItemRecord = new Item[102];
-            for (int i = 0; i < equipArmor.Length; i++)
-            {
+            for (int i = 0; i < equipArmor.Length; i++) {
                 equipArmor[i] = new Item();
             }
             //vanillaPlayerBuffsWeapon = new bool[Enum.GetNames(typeof(VanillaBoolBuffs)).Length];
@@ -171,9 +166,8 @@ namespace WeaponEnchantments {
                 staticStats[i] = new EStat();
             }*/
         }
-        
-        public override void SaveData(TagCompound tag)
-        {
+
+        public override void SaveData(TagCompound tag) {
             /*
             string name = Player.name;
             if(enchantingTable.item != null)
@@ -187,9 +181,8 @@ namespace WeaponEnchantments {
             */
             //tag["enchantingTableItems"] = enchantingTable.item;
             //tag["enchantingTableEssenceItem"] = enchantingTable.essenceItem;
-            
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
-            {
+
+            for (int i = 0; i < EnchantingTable.maxItems; i++) {
                 //if (!enchantingTable.item[i].IsAir)
                 {
                     string name = Player.name;
@@ -210,8 +203,7 @@ namespace WeaponEnchantments {
                     }
                 }//enchantments in the enchantmentSlots are saved by global items.  This is just in case enchantment items are left in after Offering items.
             }*///Not used
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-            {
+            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
                 string name = Player.name;
                 int tempInt = enchantingTable.essenceItem[i].stack;
                 tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
@@ -219,9 +211,8 @@ namespace WeaponEnchantments {
             tag["infusionConsumeItem"] = infusionConsumeItem;
             tag["highestTableTierUsed"] = highestTableTierUsed;
         }
-        
-        public override void LoadData(TagCompound tag)
-        {
+
+        public override void LoadData(TagCompound tag) {
             /*
             string name = Player.name;
             if (tag.Get<Item[]>("enchantingTableItems") != null)
@@ -229,15 +220,12 @@ namespace WeaponEnchantments {
             if (tag.Get<Item[]>("enchantingTableEssenceItems") != null)
                 enchantingTable.essenceItem = tag.Get<List<Item>>("enchantingTableEssenceItems");
             */
-            
-            for (int i = 0; i < EnchantingTable.maxItems; i++)
-            {
-                if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir)
-                {
+
+            for (int i = 0; i < EnchantingTable.maxItems; i++) {
+                if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir) {
                     enchantingTable.item[i] = new Item();
                 }
-                else
-                {
+                else {
                     enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
                 }
                 string name = Player.name;
@@ -259,15 +247,12 @@ namespace WeaponEnchantments {
                 }
             }
             *///Not used
-            
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-            {
-                if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir)
-                {
+
+            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+                if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir) {
                     enchantingTable.essenceItem[i] = new Item();
                 }
-                else
-                {
+                else {
                     enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
                 }
                 string name = Player.name;
@@ -278,54 +263,41 @@ namespace WeaponEnchantments {
                 infusionConsumeItem = null;
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
         }
-        
-        public override bool ShiftClickSlot(Item[] inventory, int context, int slot)
-        {
-            if (usingEnchantingTable)
-            {
+
+        public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
+            if (usingEnchantingTable) {
                 bool stop = false;
                 Item enchantingTableSlotItem = null;
-                for (int j = 0; j < EnchantingTable.maxItems; j++)
-                {
-                    if (enchantingTableUI.itemSlotUI[j].contains)
-                    {
+                for (int j = 0; j < EnchantingTable.maxItems; j++) {
+                    if (enchantingTableUI.itemSlotUI[j].contains) {
                         stop = true;
                         enchantingTableSlotItem = enchantingTableUI.itemSlotUI[j].Item;
                     }
                 }//Check itemSlot(s)
-                for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++)
-                {
-                    if (enchantingTableUI.enchantmentSlotUI[j].contains)
-                    {
+                for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++) {
+                    if (enchantingTableUI.enchantmentSlotUI[j].contains) {
                         stop = true;
                         enchantingTableSlotItem = enchantingTableUI.enchantmentSlotUI[j].Item;
                     }
                 }//Check enchantmentSlots
-                for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++)
-                {
-                    if (enchantingTableUI.essenceSlotUI[j].contains)
-                    {
+                for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++) {
+                    if (enchantingTableUI.essenceSlotUI[j].contains) {
                         stop = true;
                         enchantingTableSlotItem = enchantingTableUI.essenceSlotUI[j].Item;
                     }
                 }//Check essenceSlots
-                if (stop)
-                {
+                if (stop) {
                     bool itemWillBeTrashed = true;
-                    for(int i = 49; i >= 0 && itemWillBeTrashed; i--)
-                    {
-                        if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack < Player.inventory[i].maxStack))
-                        {
+                    for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
+                        if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack < Player.inventory[i].maxStack)) {
                             itemWillBeTrashed = false;
                         }
                     }
-                    if (itemWillBeTrashed)
-                    {
+                    if (itemWillBeTrashed) {
                         return true;
                     }
                 }//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
-                if (!stop)
-                {
+                if (!stop) {
                     CheckShiftClickValid(ref inventory[slot], true);
                     return true;
                 }//Move Item
@@ -334,9 +306,7 @@ namespace WeaponEnchantments {
         }
 
         public override void PostUpdateMiscEffects() {
-            foreach (EnchantmentEffect effect in PlayerEquipment.GetAllEnchantmentEffects()) {
-                effect.PostUpdateMiscEffects(this);
-            }
+            ApplyPostMiscEnchants();
         }
 
         public override void PostUpdate() {
@@ -568,7 +538,6 @@ namespace WeaponEnchantments {
             bool autoReuseGlove = Player.autoReuseGlove;
         }
 
-        #region Modify Damage Enchantment Hooks
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
         }
@@ -580,18 +549,6 @@ namespace WeaponEnchantments {
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
         }
 
-        // Not using hitDirection yet.
-        public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
-            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
-
-            foreach (EnchantmentEffect effect in effects) {
-                effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
-            }
-        }
-
-        #endregion
-
-        #region After Hit Enchantment Hooks
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) {
             ApplyOnHitEnchants(item, target, damage, knockback, crit);
         }
@@ -603,13 +560,42 @@ namespace WeaponEnchantments {
             ApplyOnHitEnchants(item, target, damage, knockback, crit, proj);
         }
 
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
+            List<Item> items = new List<Item>();
+            if (WEMod.serverConfig.DCUStart) {
+                Item item = new Item(ItemID.DrillContainmentUnit);
+                items.Add(item);
+            }
+            return items;
+        }
+
+        #endregion
+
+        #region Enchantment hooks
+
+        public void ApplyPostMiscEnchants() {
+            foreach (EnchantmentEffect effect in PlayerEquipment.GetAllEnchantmentEffects()) {
+                effect.PostUpdateMiscEffects(this);
+            }
+        }
+
+        // Not using hitDirection yet.
+        public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
+            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
+
+            foreach (EnchantmentEffect effect in effects) {
+                effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
+            }
+        }
+
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
             IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
 
             foreach (EnchantmentEffect effect in effects) {
-                effect.OnAfterHit(target, this, item, ref damage, ref knockback, ref crit, proj);
+                effect.OnAfterHit(target, this, item, ref damage, ref knockback, ref crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
         }
+        
         #endregion
 
         public void CheckShiftClickValid(ref Item item, bool moveItem = false)
@@ -925,7 +911,7 @@ namespace WeaponEnchantments {
             }
             if(LogMethods.debugging) ($"/\\TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
         }
-        
+
         public void UpdatePlayerStats(ref Item newItem, ref Item oldItem)
         {
             if(LogMethods.debugging) ($"\\/UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
@@ -1245,15 +1231,5 @@ namespace WeaponEnchantments {
             }
         }
         
-        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-        {
-            List<Item> items = new List<Item>();
-            if (WEMod.serverConfig.DCUStart)
-            {
-                Item item = new Item(ItemID.DrillContainmentUnit);
-                items.Add(item);
-            }
-            return items;
-        }
 	}
 }
