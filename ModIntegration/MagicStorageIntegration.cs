@@ -25,7 +25,7 @@ namespace WeaponEnchantments.ModIntegration
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (Enabled)
-                	HandleOnTickEvents();
+                HandleOnTickEvents();
         }
 	
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -38,7 +38,7 @@ namespace WeaponEnchantments.ModIntegration
                         if (lastHoverItem.TryGetGlobalItem(out EnchantedItem hiGlobal) && (hiGlobal.Experience > 0 || hiGlobal.PowerBoosterInstalled || hiGlobal.infusedItemName != "")) {
                             if (mouseItem.stack == 1) {
                                 Main.mouseItem = new Item(mouseItem.type);
-			}
+			                }
                             else if (lastHoverItem.stack == 1 && hoverItem.stack == 0) {
                                 Main.mouseItem = lastHoverItem.Clone();
                                 Main.mouseItem.stack = mouseItem.stack;

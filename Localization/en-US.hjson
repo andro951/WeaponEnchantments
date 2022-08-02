@@ -1,9 +1,8 @@
-﻿Mods: {
+﻿#Comment to prevent bug?
+Mods: {
 	WeaponEnchantments: {
-		Buttons: {
-			Enchant: Enchant
-			Disenchant: Disenchant
-			Offer: Offer
+		ItemName: {
+			SuperiorContainment : Superior Containment
 		}
 	}
 }

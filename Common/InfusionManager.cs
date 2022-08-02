@@ -278,7 +278,7 @@ namespace WeaponEnchantments.Common
             }
 
             if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT();
+                $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT(ChatMessagesIDs.FailedInfuseItem);
                 return false;
 			}
             
@@ -443,7 +443,7 @@ namespace WeaponEnchantments.Common
                     if (iGlobal.statModifiers.ContainsKey("damage")) {
                         iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);//This is being hit.  It's never supposed to be.  Just a precaution.
 
-                        $"Updated the infusion damage multiplier again for item: {item.S()}.  This shouldn't ever happen".LogNT();
+                        $"Updated the infusion damage multiplier again for item: {item.S()}.  This shouldn't ever happen".LogNT(ChatMessagesIDs.UpdatedInfusionDamageAgain);
                     }
                     else {
                         iGlobal.statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
@@ -454,12 +454,12 @@ namespace WeaponEnchantments.Common
                             wePlayer.UpdateItemStats(ref item);
                         }
 						else {
-                            $"Failed to UpdateItemStats on item: {item.S()} due to Main.LocalPlayer being null.".LogNT();
+                            $"Failed to UpdateItemStats on item: {item.S()} due to Main.LocalPlayer being null.".LogNT(ChatMessagesIDs.FailedUpdateItemStats);
 						}
                     }
                 }
                 else {
-                    $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.".LogNT();
+                    $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.".LogNT(ChatMessagesIDs.PreventInfusionDamageMultLessThan0);
                 }
             }
         }

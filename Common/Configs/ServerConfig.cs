@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Terraria.ModLoader.Config;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Configs
 {
@@ -240,6 +241,51 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool UseAlternateEnchantmentEssenceTextures;
+
+        //Error messages
+        [Header("Error Messages")]
+        [Label("Disable All Error Messages In Chat")]
+        [Tooltip("Prevents messages showing up in your chat that ask you to: \n" +
+            "\"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.\"")]
+        [DefaultValue(false)]
+        public bool DisableAllErrorMessagesInChat { 
+            set {
+				if (value) {
+                    OnlyShowErrorMessagesInChatOnce = false;
+                }
+				else {
+                    LogMethods.LoggedChatMessagesIDs.Clear();
+                }
+
+                _disableAllErrorMessagesInChat = value;
+            }
+
+            get => _disableAllErrorMessagesInChat; 
+        }
+
+        [JsonIgnore]
+        private bool _disableAllErrorMessagesInChat;
+
+        [Label("OnlyShowErrorMessagesInChatOnce")]
+        [Tooltip("Messages will continue to show up in your chat, but only once during a game session.\n" +
+			"(The error message must be the exact same as a previous message to be prevented.)")]
+        [DefaultValue(true)]
+        public bool OnlyShowErrorMessagesInChatOnce {
+            set {
+                if (value) {
+                    DisableAllErrorMessagesInChat = false;
+                }
+                else {
+                    LogMethods.LoggedChatMessagesIDs.Clear();
+                }
+
+                _onlyShowErrorMessagesInChatOnce = value;
+            }
+
+            get => _onlyShowErrorMessagesInChatOnce;
+        }
+
+        private bool _onlyShowErrorMessagesInChatOnce;
     }
     public class Pair
     {
@@ -286,6 +332,7 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public string Preset {
             get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
+
             set {
                 if (presetNames.Contains(value)) {
                     GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];

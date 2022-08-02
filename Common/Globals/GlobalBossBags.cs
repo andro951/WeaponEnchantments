@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (itemIsBossBag) {
                     if(bossName == null) {
-                        $"Support for this boss bag: {sampleItem.S()} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT();
+                        $"Support for this boss bag: {sampleItem.S()} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT(ChatMessagesIDs.BossBagNameNull);
                         continue;
                     }
                 }

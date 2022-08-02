@@ -291,7 +291,7 @@ namespace WeaponEnchantments.Common.Globals
 							dropItem = ItemID.Amber;
 							break;
 						default:
-							$"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, tileCache.TileFrameY: {tileCache.TileFrameY}.".LogNT();
+							$"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, tileCache.TileFrameY: {tileCache.TileFrameY}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 							break;
 					}
 					break;

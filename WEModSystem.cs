@@ -485,12 +485,8 @@ namespace WeaponEnchantments
                 if (!noSound) SoundEngine.PlaySound(SoundID.MenuClose);
             }
             wePlayer.enchantingTable.Close();
-            //wePlayer.enchantingTableUI.OnDeactivate();//Store items left in enchanting table to player
-            if (WeaponEnchantmentUI.PR)
-            {
-                weModSystemUI.SetState(null);
-                promptInterface.SetState(null);
-            }//PR
+            weModSystemUI.SetState(null);
+            promptInterface.SetState(null);
             ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
         }
         internal static void OpenWeaponEnchantmentUI(bool noSound = false)
@@ -499,12 +495,9 @@ namespace WeaponEnchantments
             wePlayer.usingEnchantingTable = true;
             if(!noSound) SoundEngine.PlaySound(SoundID.MenuOpen);
 
-            if (WeaponEnchantmentUI.PR)
-            {
-                UIState state = new UIState();
-                state.Append(wePlayer.enchantingTableUI);
-                weModSystemUI.SetState(state);
-            }
+            UIState state = new UIState();
+            state.Append(wePlayer.enchantingTableUI);
+            weModSystemUI.SetState(state);
 
             wePlayer.enchantingTable.Open();
             //wePlayer.enchantingTableUI.OnActivate();

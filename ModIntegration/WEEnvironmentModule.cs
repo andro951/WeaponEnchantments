@@ -25,10 +25,11 @@ namespace WeaponEnchantments.ModIntegration
             int tableTier;
             if (highestTableTierUsed == 0) {
                 tableTier = baseTableTier;
-	}
+	        }
             else {
                 tableTier = baseTableTier - 5 + highestTableTierUsed;
             }
+
             if (tableTier > -1)
                 information.adjTiles[tableTier] = true;
 		}

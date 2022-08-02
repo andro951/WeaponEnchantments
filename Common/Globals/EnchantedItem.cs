@@ -204,7 +204,7 @@ namespace WeaponEnchantments.Common.Globals
                     clone = iGlobal;
                 }
 				else {
-                    $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT();
+                    $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT(ChatMessagesIDs.CloneFailGetEnchantedItem);
                     return this;
 				}
 
@@ -730,7 +730,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //xp < 0 return
             if (xpInt < 0) {
-                $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT();
+                $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT(ChatMessagesIDs.GainXPPreventedLoosingExperience);
 
                 return;
             }
@@ -1348,7 +1348,7 @@ namespace WeaponEnchantments.Common.Globals
             //XP Damage <= 0 check
             if (xpDamage <= 0) {
                 ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT();
+                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP);
                 return;
             }
 
@@ -1381,7 +1381,7 @@ namespace WeaponEnchantments.Common.Globals
             else if (xpInt < 0) {
                 ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, effectiveDamagePerHit: {effectiveDamagePerHit}, " +
-                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT();
+                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 

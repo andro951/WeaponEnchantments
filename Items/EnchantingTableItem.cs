@@ -6,7 +6,7 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-	public class EnchantingTableItem : ModItem
+	public abstract class EnchantingTableItem : ModItem
 	{
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };

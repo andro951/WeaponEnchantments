@@ -347,7 +347,7 @@ namespace WeaponEnchantments.Common
                 ReplaceItem(ref item, value, true);
             }
 			else {
-                $"Failed to replace item: {item.S()} with coins".LogNT();
+                $"Failed to replace item: {item.S()} with coins".LogNT(ChatMessagesIDs.FailedGetEnchantmentValueByName);
 			}
 
             return true;
