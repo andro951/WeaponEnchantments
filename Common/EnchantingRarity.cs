@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria.ModLoader;
-using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common
 {

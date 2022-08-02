@@ -38,6 +38,7 @@ namespace WeaponEnchantments.Items
 	public abstract class Enchantment : ModItem
 	{
 		# region Static
+
 		public struct EnchantmentStrengths {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
@@ -984,7 +985,7 @@ namespace WeaponEnchantments.Items
 					}
 
 					//Enchanting Table
-					recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable");
+					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 
 					recipe.Register();
 				}

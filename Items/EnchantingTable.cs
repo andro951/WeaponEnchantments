@@ -6,7 +6,7 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-	public class WoodEnchantingTable : ModItem
+	public class EnchantingTableItem : ModItem
 	{
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
@@ -15,8 +15,7 @@ namespace WeaponEnchantments.Items
 
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
-		public override void SetStaticDefaults()
-		{
+		public override void SetStaticDefaults() {
 			GetDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
@@ -24,13 +23,11 @@ namespace WeaponEnchantments.Items
 
 			LogModSystem.UpdateContributorsList(this);
 		}
-		private void GetDefaults()
-        {
-			for (int i = 0; i < enchantingTableNames.Length; i++)
-			{
-				if (enchantingTableNames[i] == Name.Substring(0, enchantingTableNames[i].Length))
-				{
+		private void GetDefaults() {
+			for (int i = 0; i < enchantingTableNames.Length; i++) {
+				if (enchantingTableNames[i] == Name.Substring(0, enchantingTableNames[i].Length)) {
 					enchantingTableTier = i;
+
 					break;
 				}
 			}
@@ -38,8 +35,8 @@ namespace WeaponEnchantments.Items
 		public override void SetDefaults()
 		{
 			GetDefaults();
-			switch (enchantingTableTier)
-			{
+
+			switch (enchantingTableTier) {
 				case 0:
 					Item.createTile = ModContent.TileType<Tiles.WoodEnchantingTable>();
 					break;
@@ -56,6 +53,7 @@ namespace WeaponEnchantments.Items
 					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
 					break;
 			}
+
 			Item.maxStack = 99;
 			Item.width = 28;
 			Item.height = 14;
@@ -68,25 +66,21 @@ namespace WeaponEnchantments.Items
 			Item.value = 150;
 		}
 
-		private string GetPreviousTierItemName()
-        {
-			return WoodEnchantingTable.enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
+		private string GetPreviousTierTableName() {
+			return enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
 		}
 
-		public override void AddRecipes()
-		{
+		public override void AddRecipes() {
 			Recipe recipe = CreateRecipe();
-			if (enchantingTableTier > -1)
-			{
+			if (enchantingTableTier > -1) {
 				string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
-				if (enchantingTableTier > 0)
-				{
+				if (enchantingTableTier > 0) {
 					//recipe.AddTile(TileID.WorkBenches);
-					previousTierName = GetPreviousTierItemName();
+					previousTierName = GetPreviousTierTableName();
 					recipe.AddIngredient(Mod, previousTierName, 1);
 				}
-				switch (enchantingTableTier)
-				{
+
+				switch (enchantingTableTier) {
 					case 0:
 						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches");
 						recipe.AddIngredient(ItemID.Torch, 4); //Torches
@@ -108,13 +102,16 @@ namespace WeaponEnchantments.Items
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
 						break;
 				}
+
 				recipe.Register();
-				IDs[enchantingTableTier] = this.Type;
+
+				IDs[enchantingTableTier] = Type;
 			}
 		}
 	}
-	public class DustyEnchantingTable : WoodEnchantingTable { }
-	public class HellishEnchantingTable : WoodEnchantingTable { }
-	public class SoulEnchantingTable : WoodEnchantingTable { }
-	public class UltimateEnchantingTable : WoodEnchantingTable { }
+	public class WoodEnchantingTable : EnchantingTableItem { }
+	public class DustyEnchantingTable : EnchantingTableItem { }
+	public class HellishEnchantingTable : EnchantingTableItem { }
+	public class SoulEnchantingTable : EnchantingTableItem { }
+	public class UltimateEnchantingTable : EnchantingTableItem { }
 }
