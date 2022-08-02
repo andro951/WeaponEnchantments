@@ -37,7 +37,7 @@ namespace WeaponEnchantments.Items {
 	}
 	public abstract class Enchantment : ModItem
 	{
-		public virtual EnchantmentEffect[] Effects { get; set; }
+		public virtual EnchantmentEffect[] Effects => new EnchantmentEffect[] { };
 
 		# region Static
 
