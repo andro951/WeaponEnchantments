@@ -1,15 +1,15 @@
 ﻿# Weapon Enchantments
 
 # Features
-*Item Customization (Enchantments)
-*Progression System (Item Experience)
-*Item Upgrading (Infusion)
+* Item Customization (Enchantments)
+* Progression System (Item Experience)
+* Item Upgrading (Infusion)
 
 Terraria has you frequently swapping old gear for new. The enchanting system allows you to customize your weapons and armor, and keep your progress as you change or upgrade your gear.
 
 # Wiki
 
-#Config (Most options on the 2nd page!)
+## Config (Most options on the 2nd page!)
 Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
 > You have an extreme ammount of control over the power level of this mod via the config.
 
