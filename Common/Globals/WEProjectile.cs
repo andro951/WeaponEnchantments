@@ -6,44 +6,49 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
     public class WEProjectile : GlobalProjectile
     {
+        //Sources
         public Item sourceItem;
+        private bool itemSourceSet;
         public Player playerSource;
-        private bool sourceSet;
-        private bool playerSourceSet;
-        public int lastInventoryLocation = -1;
-        private bool updated = false;
-        public float damageBonus = 1f;
-        public double cooldownEnd = 0;
-        public float[] lastAIValue = new float[] { 0f, 0f };
         public Projectile parent = null;
-        public bool skipOnHitEffects = false;
+
+        //Stat changes
+        public double hitCooldownEnd = 0;
         float speed;
-        //float speedAdd;
-        float[] speedCarryover = new float[] { 0f, 0f };
         bool firstScaleCheck = true;
-        bool secondScaleCheck = true;
         bool reApplyScale = false;
-        float firstAIScale = 1f;
         float initialScale = 1f;
         float referenceScale = 1f;
         float lastScaleBonus = 1f;
+
+        //Attack speed tracking
+        public float[] lastAIValue = new float[] { 0f, 0f };
+        float[] speedCarryover = new float[] { 0f, 0f };
         public bool[] spawnedChild = { false, false };
         float[] spawnChildValue = { 0f, 0f };
         float[] nextValueAfterChild = { 0f, 0f };
         long[] lastChildSpawnTime = { 0, 0 };
-        public bool[] finishedObservationPeriod = { false, false };
-        int[] cyclesObserver = { 0, 0 };
         bool[] positive = { true, true };
-        bool[] positiveSet = { false, false };
+        bool[] completedChildSpawnSpeedSetup = { false, false };
+
+        //Tracking
+        private bool updated = false;
+        public bool skipOnHitEffects = false;
+        public int lastInventoryLocation = -1;
+        bool weaponProjectile = false;
+
         public override bool InstancePerEntity => true;
-        public override void OnSpawn(Projectile projectile, IEntitySource source)
-        {
-            if (UtilityMethods.debugging)
+        public override void OnSpawn(Projectile projectile, IEntitySource source) {
+
+			#region Debug
+
+			if (LogMethods.debugging)
             {
                 for (int i = 0; i < projectile.ai.Length; i++)
                 {
@@ -51,578 +56,515 @@ namespace WeaponEnchantments.Common.Globals
                     ($"OnSpawn projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
                 }
             }
-            if (source is EntitySource_ItemUse_WithAmmo vbSource && (vbSource.Item.type == ItemID.VortexBeater && projectile.type != ProjectileID.VortexBeater || vbSource.Item.type == ItemID.Celeb2 && projectile.type != ProjectileID.Celeb2Weapon || vbSource.Item.type == ItemID.Phantasm && projectile.type != ProjectileID.Phantasm))
-            {
-                if (vbSource.Item.G().masterProjectile != null)
-                    source = vbSource.Item.G().masterProjectile.GetSource_FromThis();
-            }
-            if (source is EntitySource_ItemUse uSource)
-            {
-                if (uSource.Item != null && WEMod.IsEnchantable(uSource.Item))
-                {
-                    sourceItem = uSource.Item;
-                    if (sourceItem.DamageType == DamageClass.Melee)
-                    {
-                        projectile.velocity /= (sourceItem.A("velocity", 1f));
-                    }
-                    if (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
-                        sourceItem.G().masterProjectile = projectile;
-                    sourceSet = true;
 
+            #endregion
+
+            //VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
+            weaponProjectile = projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm;
+            if (source is EntitySource_ItemUse_WithAmmo vbSource) {
+                //These weapons shoot the weapon sprite instead of shooting bullest/arrows etc.  This causes many challenges with changing attackspeed.
+                bool projectileFromVortexBeater = vbSource.Item.type == ItemID.VortexBeater;
+                bool projectileFromCeleb2 = vbSource.Item.type == ItemID.Celeb2;
+                bool prjectileFromPhantasm = vbSource.Item.type == ItemID.Phantasm;
+                if (!weaponProjectile && ( projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm)) {
+                    //Try get source projectile from the weapon.
+                    if (vbSource.Item.GetEnchantedItem().masterProjectile != null)
+                        source = vbSource.Item.GetEnchantedItem().masterProjectile.GetSource_FromThis();
                 }
             }
-            else if (source is EntitySource_ItemUse_WithAmmo wSource)
-            {
-                if (wSource.Item != null && WEMod.IsEnchantable(wSource.Item))
-                {
+            
+            //All other sources
+            if (source is EntitySource_ItemUse uSource) {
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem()) {
+                    sourceItem = uSource.Item;
+                    itemSourceSet = true;
+                    //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
+                    if (weaponProjectile)
+                        sourceItem.GetEnchantedItem().masterProjectile = projectile;
+                }
+            }
+            else if (source is EntitySource_ItemUse_WithAmmo wSource) {
+                if (wSource.Item != null && wSource.Item.TryGetEnchantedItem()) {
                     sourceItem = wSource.Item;
-                    sourceSet = true;
+                    itemSourceSet = true;
                 }
             }
-            else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar)
-            {
+            else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar) {
                 parent = parentProjectile;
                 TryUpdateFromParent();
             }
-            else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar")
-            {
+            else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
                 sourceItem = FindMiscSourceItem(projectile, eSource.Context);
-                sourceSet = sourceItem.TG();
+                itemSourceSet = sourceItem.TryGetEnchantedItem();
             }
-            else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player player)
-            {
-                playerSource = player;
-                playerSourceSet = true;
+            else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player pSource) {
+                //Projectiles such as stardust guardian.
+                playerSource = pSource;
             }
-            projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            if (UtilityMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
-            if (sourceSet) {
-                float tempx = projectile.velocity.X;
-                float tempY = projectile.velocity.Y;
-                float tempL = projectile.velocity.Length();
-                float tempss = sourceItem.shootSpeed;
 
-                Player player = Main.player[projectile.owner];
-                if (player.C("Splitting", sourceItem) && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.Celeb2Weapon && projectile.type != ProjectileID.Phantasm)
-                {
-                    if (sourceItem.Name == "Shadethrower")
-                    {
-                        projectile.usesLocalNPCImmunity = true;
-                        projectile.localNPCHitCooldown = (int)(10f / sourceItem.AEI("Splitting", 1f));
-                    }
-                    if (!(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type)
-                    {
-                        float projectileChance = sourceItem.AEI("Splitting", 0f);
-                        int projectiles = (int)projectileChance;
-                        float chance = Main.rand.NextFloat();
-                        projectiles += (chance <= projectileChance - (float)projectiles ? 1 : 0);
-                        if (projectiles > 0)
-                        {
-                            float spread = (float)Math.PI / 200f;
-                            bool invert = false;
-                            int rotationCount = 0;
-                            for (int i = 1; i <= projectiles; i++)
-                            {
-                                if (!invert)
-                                    rotationCount++;
-                                float rotation = (float)rotationCount - ((float)projectiles - 2f) / 2f;
-                                if (invert)
-                                    rotation *= -1f;
-                                //Vector2 position = projectile.position.RotatedBy(spread * rotation);
-                                Vector2 position = projectile.position;
-                                Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
-                                Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
-                                invert = !invert;
-                            }
-                        }
-                    }
+            //Update Projectile
+            projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
+
+			#region Debug
+
+			if (LogMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
+
+            #endregion
+
+            if (!itemSourceSet)
+                return;
+
+			//Multishot
+            Player player = Main.player[projectile.owner];
+            float sultishotChance = sourceItem.ApplyEStat("Multishot", 0f);
+            if (sultishotChance != 0f && !weaponProjectile) {
+                //Shadethrower fix
+                if (sourceItem.Name == "Shadethrower") {
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = (int)Math.Round(10f / (1f + sultishotChance));
                 }
-                if (player.C("InfinitePenetration", sourceItem))
-                {
-                    projectile.penetrate = -1;
-                }
-            }
-        }
-        private void TryUpdateFromParent()
-        {
-            playerSource = parent.G().playerSource;
-            if (parent.GetGlobalProjectile<WEProjectile>()?.sourceItem != null)
-            {
-                WEProjectile pGlobal = parent.G();
-                sourceItem = pGlobal.sourceItem;
-                sourceSet = true;
-                cooldownEnd = pGlobal.cooldownEnd;
-                //if(pGlobal.speedAdd != 0f)
-                {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (pGlobal.positiveSet[i])
-                        {
-                            float ai = parent.ai[i];
-                            double lastspawntime = pGlobal.lastChildSpawnTime[i];
-                            if (Main.GameUpdateCount - 1 > pGlobal.lastChildSpawnTime[i])
-                            {
-                                pGlobal.spawnedChild[i] = true;
-                                if (Math.Abs(ai) < Math.Abs(pGlobal.nextValueAfterChild[i]))
-                                    pGlobal.nextValueAfterChild[i] = ai;
-                            }
-                            else
-                                pGlobal.positiveSet[i] = false;//Just used to force a recalculate of nextValueAfterChild.
-                        }
-                        else
-                        {
-                            float lastAIValue = pGlobal.lastAIValue[i];
-                            float ai = parent.ai[i];
-                            double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
-                            if (difference > 3)
-                            {
-                                pGlobal.spawnedChild[i] = true;
-                                pGlobal.spawnChildValue[i] = lastAIValue;
-                                pGlobal.nextValueAfterChild[i] = ai;
-                            }
-                        }
-                        if (UtilityMethods.debugging)
-                        {
-                            string txt = $"parent: {parent.S()} spanedChild at ai values:";
-                            txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
-                            txt.Log();
+
+                //Multishot
+                bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
+                if (notAMultishotProjectile) {
+                    int projectiles = (int)sultishotChance;
+                    float randFloat = Main.rand.NextFloat();
+                    projectiles += randFloat <= sultishotChance - projectiles ? 1 : 0;
+                    if (projectiles > 0) {
+                        float spread = (float)Math.PI / 200f;
+                        bool invert = false;
+                        int rotationCount = 0;
+                        for (int i = 1; i <= projectiles; i++) {
+                            if (!invert)
+                                rotationCount++;
+
+                            float rotation = (float)rotationCount - ((float)projectiles - 2f) / 2f;
+                            if (invert)
+                                rotation *= -1f;
+
+                            //Vector2 position = projectile.position.RotatedBy(spread * rotation);
+                            Vector2 position = projectile.position;
+                            Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                            invert = !invert;
                         }
                     }
                 }
             }
+
+            //Infinite Penetration
+            if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
+                projectile.penetrate = -1;
+            }
         }
-        public static Item FindMiscSourceItem(Projectile projectile, string context = "")
-        {
+        public void UpdateProjectile(Projectile projectile) {
+            if (updated)
+                return;
+
+            if (!itemSourceSet) {
+                if (parent != null)
+                    TryUpdateFromParent();
+
+                return;
+            }
+
+            if (!sourceItem.TryGetEnchantedItem())
+                return;
+
+            //Initial scale
+            initialScale = projectile.scale;
+            bool projectileScaleNotModified = projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale;
+            if (sourceItem.scale >= 1f && projectileScaleNotModified) {
+                projectile.scale *= sourceItem.scale;
+                lastScaleBonus = sourceItem.scale;
+            }
+
+            //Reference scale (after applying sourceItem.scale if needed)
+            referenceScale = projectile.scale;
+
+            //NPC Hit Cooldown
+            float NPCHitCooldownMultiplier = sourceItem.ApplyEStat("NPCHitCooldown", 1f);
+            if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
+                Item sampleItem = ContentSamples.ItemsByType[sourceItem.type];
+                float sampleUseTime = sampleItem.useTime;
+                float useTime = sourceItem.useTime;
+                float sampleUseAnimation = sampleItem.useAnimation;
+                float useAnimation = sourceItem.useAnimation;
+                float allForOne = sourceItem.ContainsEStat("AllForOne") ? 4f : 1f;
+                float speedMult = (sampleUseTime / useTime + sampleUseAnimation / useAnimation) / (2f * allForOne);
+                speed = 1f - 1f / speedMult;
+            }
+
+            //Immunities
+            if (projectile.usesLocalNPCImmunity) {
+                if (NPCHitCooldownMultiplier > 1f) {
+                    projectile.usesIDStaticNPCImmunity = true;
+                    projectile.usesLocalNPCImmunity = false;
+                    projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                }
+                else if (projectile.localNPCHitCooldown > 0) {
+                        projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                }
+            }
+            if (projectile.usesIDStaticNPCImmunity) {
+                if (projectile.idStaticNPCHitCooldown > 0)
+                    projectile.idStaticNPCHitCooldown = (int)Math.Round((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
+            }
+            updated = true;
+        }
+        private void TryUpdateFromParent() {
+            //Player source
+            playerSource = parent.GetWEProjectile().playerSource;
+            
+            if (!parent.TryGetWEProjectile(out WEProjectile pGlobal))
+                return;
+
+            //Source Item
+            sourceItem = pGlobal.sourceItem;
+            itemSourceSet = true;
+
+            //Hit cooldown end
+            hitCooldownEnd = pGlobal.hitCooldownEnd;
+
+
+            for (int i = 0; i < 2; i++) {
+                if (pGlobal.completedChildSpawnSpeedSetup[i]) {
+                    //Parent has spawned a child before
+                    float ai = parent.ai[i];
+                    double lastspawntime = pGlobal.lastChildSpawnTime[i];
+                    float nextAfterChild = pGlobal.nextValueAfterChild[i];
+                    if (Main.GameUpdateCount - 1 > lastspawntime) {
+                        pGlobal.spawnedChild[i] = true;
+                        if (Math.Abs(ai) < Math.Abs(nextAfterChild))
+                            pGlobal.nextValueAfterChild[i] = ai;
+                    }
+					else {
+                        //Force recalculate nextValueAfterChild if triggering every tick. (Fixes an infinite loop of shooting every tick)
+                        pGlobal.completedChildSpawnSpeedSetup[i] = false;
+                    }
+                }
+                else {
+                    //Parent has not spwned a child before
+                    float lastAIValue = pGlobal.lastAIValue[i];
+                    float ai = parent.ai[i];
+                    double difference = Math.Abs(Math.Abs(ai) - Math.Abs(lastAIValue));
+                    if (difference > 3) {
+                        pGlobal.spawnedChild[i] = true;
+                        pGlobal.spawnChildValue[i] = lastAIValue;
+                        pGlobal.nextValueAfterChild[i] = ai;
+                    }
+                }
+
+				#region Debug
+
+				if (LogMethods.debugging) {
+                    string txt = $"parent: {parent.S()} spanedChild at ai values:";
+                    txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
+                    txt.Log();
+                }
+
+				#endregion
+			}
+		}
+
+        /// <summary>
+        /// Usually used for projectiles spawned by ai behavior of itself creating a new projectile. (Example Desert Tiger Staff)
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static Item FindMiscSourceItem(Projectile projectile, string context = "") {
             int matchs = 0;
             int bestMatch = -1;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            //for (int i = 0; i < wePlayer.inventoryItemRecord.Length; i++)
-            {
-                //Item item = wePlayer.inventoryItemRecord[i];
-                //if (!item.IsAir && item.shoot > ProjectileID.None && (item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid))
-                {
-                    //string name = ContentSamples.ProjectilesByType[item.shoot].Name;
+            List<string> projectileNames = context == "" ? projectile.Name.RemoveProjectileName().SplitString() : context.SplitString();
+            for (int i = 0; i < Main.projectile.Length; i++) {
+                //Find main projectile i
+                Projectile mainProjectile = Main.projectile[i];
+                if (mainProjectile.type == ProjectileID.None)
+                    continue;
 
-                }
-            }
-            List<string> projectileNames;
-            List<string> projNames = context == "" ? projectile.Name.RemoveProjectileName().SplitString() : context.SplitString();
-            int checkMatches = 0;
-            for (int i = 0; i < Main.projectile.Length; i++)
-            {
-                Projectile proj = Main.projectile[i];
-                if (proj.type == ProjectileID.None)
-                    break;
-                if (proj.owner == wePlayer.Player.whoAmI && proj.type != projectile.type)
-                {
-                    if (proj.GetGlobalProjectile<WEProjectile>().sourceItem.TG())
-                    {
-                        projectileNames = proj.Name.RemoveProjectileName().SplitString();
-                        checkMatches = projNames.CheckMatches(projectileNames);
-                        if (checkMatches > matchs)
-                        {
+                //Find the best other projectile that matches.
+                if (mainProjectile.owner == wePlayer.Player.whoAmI && mainProjectile.type != projectile.type) {
+                    if (mainProjectile.GetGlobalProjectile<WEProjectile>().sourceItem.TryGetEnchantedItem()) {
+                        List<string> mainProjectileNames = mainProjectile.Name.RemoveProjectileName().SplitString();
+                        int checkMatches = projectileNames.CheckMatches(mainProjectileNames);
+                        if (checkMatches > matchs) {
                             matchs = checkMatches;
                             bestMatch = i;
                         }
                     }
                 }
             }
+
             return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<WEProjectile>().sourceItem : null;
         }
-        public override bool PreDraw(Projectile projectile, ref Color lightColor)
-        {
+        public override bool PreDraw(Projectile projectile, ref Color lightColor) {
             if (!updated)
-                projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            if (sourceItem.TG())
-            {
-                if (sourceItem.scale != lastScaleBonus)
-                {
-                    projectile.scale /= lastScaleBonus;
-                    referenceScale /= lastScaleBonus;
-                    projectile.scale *= sourceItem.scale;
-                    referenceScale *= sourceItem.scale;
-                    lastScaleBonus = sourceItem.scale;
-                }
-            }
+                UpdateProjectile(projectile);
+
+            if (!sourceItem.TryGetEnchantedItem())
+                return true;
+
+            //If source item scale changed, update the projectile scale.
+            if (sourceItem.scale == lastScaleBonus)
+                return true;
+
+            //Update the prjoectile scale.
+            projectile.scale /= lastScaleBonus;
+            referenceScale /= lastScaleBonus;
+            projectile.scale *= sourceItem.scale;
+            referenceScale *= sourceItem.scale;
+            lastScaleBonus = sourceItem.scale;
+
             return true;
         }
-        public override bool ShouldUpdatePosition(Projectile projectile)
-        {
-            if (sourceItem != null)
-            {
-                if (speed != 0)
-                {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        float aiValue = projectile.ai[i];
-                        if (spawnedChild[i])
-                        {
-                            lastChildSpawnTime[i] = Main.GameUpdateCount;
-                            float thisSpawnChildValue = spawnChildValue[i];
-                            float thisNextValueAfterChild = nextValueAfterChild[i];
-                            if (!positiveSet[i])
-                            {
-                                positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
-                                positiveSet[i] = true;
-                            }
-                            bool thisPositive = positive[i];
-                            float speedAddValue;
-                            speedAddValue = (thisPositive ? 1f : -1f) * ((thisPositive ? thisSpawnChildValue : thisNextValueAfterChild) * speed) + speedCarryover[i];
-                            int valueToAdd = (int)speedAddValue;
-                            speedCarryover[i] = speedAddValue % 1f;
-                            projectile.ai[i] += valueToAdd;
-                            if (i == 1 && (projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm))
-                            {
-                                projectile.ai[0] -= valueToAdd;
-                            }
-                            float newValue = projectile.ai[i];
-                            spawnedChild[i] = false;
-                        }
+        public override bool ShouldUpdatePosition(Projectile projectile) {
+            if (!itemSourceSet)
+                return true;
 
+            if (speed <= 0)
+                return true;
 
-                        /*if (speed < 1f)
-                        {
-                            projectile.ai[i] += (positive[i] ? 1 : -1) * (int)(spawnChildValue[i] * (1f - 1f / speed));
-                            /*if (positive[i])
-                                projectile.ai[i] += ;
-                            else
-                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);*//*
-                        }
-                        else
-                        {
-                            if (positive[i])
-                            {
+            //If the parent projectile spawned this child and conditions are met, apply the parent's speed multiplier to the parent's ai values.
+            for (int i = 0; i < 2; i++) {
+                float aiValue = projectile.ai[i];
+                if (spawnedChild[i]) {
+                    lastChildSpawnTime[i] = Main.GameUpdateCount;
+                    float thisSpawnChildValue = spawnChildValue[i];
+                    float thisNextValueAfterChild = nextValueAfterChild[i];
 
-                                projectile.ai[i] += (int)(spawnChildValue[i] * speedAdd);
-                            }
-                            else
-                            {
-                                projectile.ai[i] -= (int)(nextValueAfterChild[i] * speedAdd);
-                            }
-                        }*/
-
-                        /*speedCarryover += speedAdd;
-                        //if (aiValue > controlValue)
-                        {
-                            if (speedCarryover > 1f)
-                            {
-                                float value = (float)(int)speedCarryover;
-                                speedCarryover -= value;
-                                projectile.ai[i] += value * (positive[i] ? 1f : -1f);
-                            }
-                            else if (speedCarryover < -1f)
-                            {
-                                speedCarryover += 1f;
-                                projectile.ai[i] -= 1f * (positive[i] ? 1f : -1f);
-                            }
-
-                        }
-                        //projectile.ai[0] = 61f;
-                        //projectile.ai[1] = 0f;
-                        ;*/
-                        if (UtilityMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
-                        /*else if(projectile.type == ProjectileID.VortexBeater)
-						{
-                            if(i == 0)
-                            {
-                                speedCarryover += speedAdd;
-                                //if (aiValue > controlValue)
-                                {
-                                    if (speedCarryover > 1f)
-                                    {
-                                        float value = (float)(int)speedCarryover;
-                                        speedCarryover -= value;
-                                        projectile.ai[i] += value;
-                                    }
-                                    else if (speedCarryover < -1f)
-                                    {
-                                        speedCarryover += 1f;
-                                        projectile.ai[i] -= 1f;
-                                    }
-                                }
-                            }
-							else
-							{
-
-							}
-                        }*/
-                        /*if(aiValue != 0 || lastAIValue[i] != 0)
-                            ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();*/
-                        /*if (i == 0 && (sourceItem.type == ItemID.VortexBeater || sourceItem.type == ItemID.Celeb2 || sourceItem.type == ItemID.Phantasm))
-						{
-                            speedCarryover[i] += speed;
-                            int speedToAdd = (int)speedCarryover[i];
-							speedCarryover[i] -= speedToAdd;
-                            projectile.ai[0] += speedToAdd;
-                        }*/
-                        lastAIValue[i] = aiValue;
+                    //Setup
+                    if (!completedChildSpawnSpeedSetup[i]) {
+                        //Set positive (If ai value counts up or down to spawn a projectile)
+                        positive[i] = thisSpawnChildValue > thisNextValueAfterChild;
+                        completedChildSpawnSpeedSetup[i] = true;
                     }
+
+                    bool thisPositive = positive[i];
+                    float inverting = thisPositive ? 1f : -1f;
+                    float sizeOfAiRange = thisPositive ? thisSpawnChildValue : thisNextValueAfterChild;
+                    float carryOver = speedCarryover[i];
+                    float speedAddValue = inverting * (sizeOfAiRange * speed) + carryOver;
+                    int valueToAdd = (int)speedAddValue;
+                    speedCarryover[i] = speedAddValue % 1f;
+                    projectile.ai[i] += valueToAdd;
+
+                    //The 3 weaponProjectile weapons from vanilla spawn projectiles basid on the ai[0], but don't reset it ever.
+                    //The ai[1] does reset when they are spawned, so we want to affect both.
+                    if (i == 1 && weaponProjectile) {
+                        projectile.ai[0] -= valueToAdd;
+                    }
+
+                    spawnedChild[i] = false;
                 }
+
+				#region Debug
+
+				if (LogMethods.debugging) ($"PreDraw projectile: {projectile.S()} aiValue: {aiValue} lastAIValue[{i}]: {lastAIValue[i]} ai[{i}]: {projectile.ai[i]}").Log();
+
+				#endregion
+
+				lastAIValue[i] = aiValue;
             }
+
             return true;
         }
-        public void UpdateProjectile(Projectile projectile)
-        {
-            if (!updated)
-            {
-                if (sourceItem.TG())
-                {
-                    for (int i = 0; i < 2; i++)
-                        lastAIValue[i] = projectile.ai[i];
-                    if (sourceItem.TG())
-                    {
-                        initialScale = projectile.scale;
-                        if (sourceItem.scale >= 1f && projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale)
-                        {
-                            projectile.scale *= sourceItem.scale;
-                            lastScaleBonus = sourceItem.scale;
-                        }
-                        referenceScale = projectile.scale;
-                        float NPCHitCooldownMultiplier = sourceItem.AEI("NPCHitCooldown", 1f);
-                        if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm)
-                        {
-                            float speedMult = ((float)ContentSamples.ItemsByType[sourceItem.type].useTime / (float)sourceItem.useTime + (float)ContentSamples.ItemsByType[sourceItem.type].useAnimation / (float)sourceItem.useAnimation) / (2f * (sourceItem.C("AllForOne") ? 4f : 1f));
-                            speed = 1f - 1f / speedMult;
-                            //speedAdd = speedMult - 1f;
-                        }
-                        if (projectile.usesLocalNPCImmunity)
-                        {
-                            if (NPCHitCooldownMultiplier > 1f)
-                            {
-                                projectile.usesIDStaticNPCImmunity = true;
-                                projectile.usesLocalNPCImmunity = false;
-                                projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
-                            }
-                            else
-                            {
-                                if (projectile.localNPCHitCooldown > 0)
-                                    projectile.localNPCHitCooldown = (int)((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
-                            }
-                        }
-                        if (projectile.usesIDStaticNPCImmunity)
-                        {
-                            if (projectile.idStaticNPCHitCooldown > 0)
-                                projectile.idStaticNPCHitCooldown = (int)((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
-                        }
-                        updated = true;
-                    }
-                }
-                else if (parent != null)
-                {
-                    TryUpdateFromParent();
-                }
-            }
-        }
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
-        {
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
             projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            //if (target.life <= 0)//If NPC died
-            {
-                if (sourceItem.TG())
-                {
-                    if (sourceItem.G().eStats.ContainsKey("OneForAll"))
-                    {
-                        if (parent is Projectile)
-                            parent.active = false;
+            if (sourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                if (iGlobal.eStats.ContainsKey("OneForAll")) {
+                    //One For All kill its parent
+                    if (parent is Projectile)
+                        parent.active = false;
+                }
+
+                bool summonDamage = sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid;
+
+                //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
+                //If the item is cloned, it will be lost, so we need to find its location.
+                if (summonDamage) {
+                    bool found;
+                    WEPlayer wePlayer = Main.player[projectile.owner].GetWEPlayer();
+                    //lastInventoryLocation default is -1 indicating the location is unknown
+                    if (lastInventoryLocation < 0) {
+                        //If item location is unknown(lastInventoryLocation == -1), found = false
+                        found = false;
                     }
-                    //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
-                    //If the item is cloned, it will be lost, so we need to verify its location.
-                    if (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid)//If item is a summoner weapon
-                    {
-                        bool found;
-                        WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-                        if (lastInventoryLocation < 0)//lastInventoryLocation default is -1 indicating the location is unknown
-                        {
-                            found = false;
-                        }//If item location is unknown(lastInventoryLocation == -1), found = false
-                        else//If there is a previous known location, check that location in the player's inventory or banks
-                        {
-                            Item[] inventory;
-                            int inventoryLocation;
-                            switch (lastInventoryLocation)
-                            {
-                                case < 50://Player Inventory
-                                    inventory = wePlayer.Player.inventory;
-                                    inventoryLocation = lastInventoryLocation;
-                                    break;
-                                case < 90://Bank 1, Piggy bank
-                                    inventory = wePlayer.Player.bank.item;
-                                    inventoryLocation = lastInventoryLocation - 50;
-                                    break;
-                                case < 130://Bank 2, Vault
-                                    inventory = wePlayer.Player.bank2.item;
-                                    inventoryLocation = lastInventoryLocation - 90;
-                                    break;
-                                case < 170://Bank 3, Defender's Forge
-                                    inventory = wePlayer.Player.bank3.item;
-                                    inventoryLocation = lastInventoryLocation - 130;
-                                    break;
-                                case < 210://Bank 4, Void Vault
-                                    inventory = wePlayer.Player.bank4.item;
-                                    inventoryLocation = lastInventoryLocation - 170;
-                                    break;
-                                default://enchantingTable itemSlot
-                                    inventory = new Item[1];
-                                    inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-                                    inventoryLocation = 0;
-                                    break;
-                            }//Determine which player inventory to look in
-                            found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
-                            sourceItem = found ? inventory[inventoryLocation] : sourceItem;
-                            /*if (inventory[inventoryLocation].type != sourceItem.type || wePlayer.Player.inventory[inventoryLocation].value != sourceItem.value || inventory[inventoryLocation].G().powerBoosterInstalled != sourceItem.G().powerBoosterInstalled)
-                            {
-                                found = false;
-                            }
-                            else
-                            {
-                                found = true;
-                                sourceItem = inventory[inventoryLocation];//If itemSlot item matches sourceItem, Re-set sourceItem to the itemSlot it's in just in case
-                            }*/
+                    else {
+                        //If there is a previous known location, check that location in the player's inventory or banks
+                        Item[] inventory;
+                        int inventoryLocation;
+                        //Determine which player inventory to look in
+                        switch (lastInventoryLocation) {
+                            case < 50://Player Inventory
+                                inventory = wePlayer.Player.inventory;
+                                inventoryLocation = lastInventoryLocation;
+                                break;
+                            case < 90://Bank 1, Piggy bank
+                                inventory = wePlayer.Player.bank.item;
+                                inventoryLocation = lastInventoryLocation - 50;
+                                break;
+                            case < 130://Bank 2, Vault
+                                inventory = wePlayer.Player.bank2.item;
+                                inventoryLocation = lastInventoryLocation - 90;
+                                break;
+                            case < 170://Bank 3, Defender's Forge
+                                inventory = wePlayer.Player.bank3.item;
+                                inventoryLocation = lastInventoryLocation - 130;
+                                break;
+                            case < 210://Bank 4, Void Vault
+                                inventory = wePlayer.Player.bank4.item;
+                                inventoryLocation = lastInventoryLocation - 170;
+                                break;
+                            default://enchantingTable itemSlot
+                                inventory = new Item[1];
+                                inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+                                inventoryLocation = 0;
+                                break;
                         }
-                        if (!found)
-                        {
-                            Item[] inventory = wePlayer.Player.inventory;
-                            int inventoryLocation = 0;
-                            for (int i = 0; i < 211; i++)
-                            {
-                                if (inventoryLocation > 39)//Only check inventory if > size of bank inventory
-                                {
-                                    switch (i)
-                                    {
-                                        case < 50://Player inventory
-                                            inventory = wePlayer.Player.inventory;
-                                            inventoryLocation = i;
-                                            break;
-                                        case < 90://Bank 1, Piggy bank
-                                            inventory = wePlayer.Player.bank.item;
-                                            inventoryLocation = i - 50;
-                                            break;
-                                        case < 130://Bank 2, Vault
-                                            inventory = wePlayer.Player.bank2.item;
-                                            inventoryLocation = i - 90;
-                                            break;
-                                        case < 170://Bank 3, Defender's Forge
-                                            inventory = wePlayer.Player.bank3.item;
-                                            inventoryLocation = i - 130;
-                                            break;
-                                        case < 210://Bank 4, Void Vault
-                                            inventory = wePlayer.Player.bank4.item;
-                                            inventoryLocation = i - 170;
-                                            break;
-                                        default://enchantingTable itemSlot
-                                            inventory = new Item[1];
-                                            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
-                                            {
-                                                inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-                                            }
-                                            else
-                                            {
-                                                inventory = null;
-                                            }
-                                            inventoryLocation = 0;
-                                            break;
-                                    }//Determine which player inventory to look in
-                                }
-                                /*if (inventory?[inventoryLocation] != null)
-                                {
-                                    if (!inventory[inventoryLocation].IsAir)
-                                    {
-                                        if (inventory[inventoryLocation].type == sourceItem.type)
-                                        {
-                                            if (inventory[inventoryLocation].G().powerBoosterInstalled == sourceItem.G().powerBoosterInstalled)
-                                            {
-                                                if (inventory[inventoryLocation].value == sourceItem.value)
-                                                {
-                                                    lastInventoryLocation = i;
-                                                    sourceItem = inventory[inventoryLocation];
-                                                    found = true;
-                                                    break;
-                                                }
-                                            }
+
+                        found = inventory[inventoryLocation].IsSameEnchantedItem(sourceItem);
+                        if(found)
+                            sourceItem = inventory[inventoryLocation];
+                    }
+
+                    //Look through the players inventory and banks for the item
+                    if (!found) {
+                        Item[] inventory = wePlayer.Player.inventory;
+                        int inventoryLocation = 0;
+                        for (int i = 0; i < 211; i++) {
+                            //Whole inventory searched
+                            if (inventoryLocation >= 40 && i >= 50) {
+                                //Select the next inventory.
+                                switch (i) {
+                                    case < 50://Player inventory
+                                        inventory = wePlayer.Player.inventory;
+                                        inventoryLocation = i;
+                                        break;
+                                    case 50://Bank 1, Piggy bank
+                                        inventory = wePlayer.Player.bank.item;
+                                        inventoryLocation = i - 50;
+                                        break;
+                                    case 90://Bank 2, Vault
+                                        inventory = wePlayer.Player.bank2.item;
+                                        inventoryLocation = i - 90;
+                                        break;
+                                    case 130://Bank 3, Defender's Forge
+                                        inventory = wePlayer.Player.bank3.item;
+                                        inventoryLocation = i - 130;
+                                        break;
+                                    case 170://Bank 4, Void Vault
+                                        inventory = wePlayer.Player.bank4.item;
+                                        inventoryLocation = i - 170;
+                                        break;
+                                    case 210:
+                                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null) {
+                                            inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
                                         }
-                                    }
-                                }*/
-                                found = UtilityMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
-                                if (found)
-                                {
-                                    sourceItem = inventory[inventoryLocation];
-                                    lastInventoryLocation = inventoryLocation;
-                                    break;
+                                        else {
+                                            inventory = null;
+                                        }
+                                        inventoryLocation = 0;
+                                        break;
+                                    default://enchantingTable itemSlot
+                                        inventory = null;
+                                        break;
                                 }
-                                inventoryLocation++;
                             }
-                        }//Look through the players inventory and banks for the item
-                        if (found)//If found the item
-                        {
-                            //sourceItem.G().KillNPC(sourceItem, target);//Have item gain xp
+
+                            found = EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
+                            if (found) {
+                                sourceItem = inventory[inventoryLocation];
+                                lastInventoryLocation = inventoryLocation;
+                                break;
+                            }
+
+                            inventoryLocation++;
                         }
-                        else
-                        {
-                            lastInventoryLocation = -1;//Item not found
-                        }
-                    }//If summoner weapon, verify it's location or search for it
-                    sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
+                    }
+
+                    if (!found) {
+                        //Item not found
+                        lastInventoryLocation = -1;
+                    }
                 }
-                else if (playerSource != null)
-                {
-                    EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
-                }
-                if (sourceItem.TG() && sourceItem.G().eStats.ContainsKey("AllForOne") && (sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid))
-                {
-                    cooldownEnd = Main.GameUpdateCount + (projectile.usesIDStaticNPCImmunity ? (int)((float)projectile.idStaticNPCHitCooldown) : projectile.usesLocalNPCImmunity ? (int)((float)projectile.localNPCHitCooldown) : sourceItem.useTime);
+
+
+                if (summonDamage && iGlobal.eStats.ContainsKey("AllForOne")) {
+                    int cooldown;
+					if (projectile.usesIDStaticNPCImmunity) {
+                        cooldown = projectile.idStaticNPCHitCooldown;
+                    }
+					else if (projectile.usesLocalNPCImmunity) {
+                        cooldown = projectile.localNPCHitCooldown;
+                    }
+					else {
+                        cooldown = sourceItem.useTime;
+                    }
+
+                    hitCooldownEnd = Main.GameUpdateCount + cooldown;
                     if (parent != null)
-                        parent.G().cooldownEnd = cooldownEnd;
+                        parent.GetWEProjectile().hitCooldownEnd = hitCooldownEnd;
                 }
+
+                //Gain xp
+                sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
+            }
+            else if (playerSource != null) {
+                //Non item based projectile like the Stardust Guardian
+                EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
             }
         }
-        public override bool? CanHitNPC(Projectile projectile, NPC target)
-        {
-            if (sourceItem.TG() && Main.GameUpdateCount < cooldownEnd)
+        public override bool? CanHitNPC(Projectile projectile, NPC target) {
+            if (sourceItem.TryGetEnchantedItem() && Main.GameUpdateCount < hitCooldownEnd)
                 return false;
+
             return null;
         }
-        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox)
-        {
-            if (sourceItem.TG())
-            {
-                if (firstScaleCheck)
-                {
-                    firstScaleCheck = false;
-                    switch (projectile.type)
-                    {
-                        case ProjectileID.LastPrismLaser:
-                        case ProjectileID.StardustDragon1:
-                        case ProjectileID.StardustDragon2:
-                        case ProjectileID.StardustDragon3:
-                        case ProjectileID.StardustDragon4:
-                            reApplyScale = true;
-                            break;
-                    }
-                    if (Math.Abs(projectile.scale - initialScale) < Math.Abs(projectile.scale - referenceScale))
-                        initialScale = projectile.scale;
-                }
-                if (reApplyScale || sourceItem.scale > 1f && projectile.scale == initialScale)
-                {
-                    if (projectile.scale / lastScaleBonus >= 1f)
-                    {
-                        projectile.scale /= lastScaleBonus;
-                    }
-                    projectile.scale *= sourceItem.scale;
-                }
+        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox) {
+            if (!itemSourceSet)
+                return;
 
+            if (firstScaleCheck) {
+                firstScaleCheck = false;
                 switch (projectile.type) {
                     case ProjectileID.LastPrismLaser:
-                        return;
-                }//Excluded Projectiles
+                    case ProjectileID.StardustDragon1:
+                    case ProjectileID.StardustDragon2:
+                    case ProjectileID.StardustDragon3:
+                    case ProjectileID.StardustDragon4:
+                        //Re-apply scale each draw tick
+                        reApplyScale = true;
+                        break;
+                }
 
-                hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
-                hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
-                float scaleShift = (projectile.scale - 1f) / (2f * projectile.scale);
-                hitbox.Y -= (int)(scaleShift * hitbox.Height);
-                hitbox.X -= (int)(scaleShift * hitbox.Width);
-                //hitbox.Y -= hitbox.Height / 2;
-                //hitbox.X -= hitbox.Width / 2;
+                //Update initialScale if source item scale changed.
+                if (Math.Abs(projectile.scale - initialScale) < Math.Abs(projectile.scale - referenceScale))
+                    initialScale = projectile.scale;
             }
+
+            //Adjust or re-adjust the projectile to the item scale
+            if (reApplyScale || sourceItem.scale > 1f && projectile.scale == initialScale) {
+                if (projectile.scale / lastScaleBonus >= 1f) {
+                    projectile.scale /= lastScaleBonus;
+                }
+
+                projectile.scale *= sourceItem.scale;
+            }
+
+            //Excluded Projectiles from hitbox change
+            switch (projectile.type) {
+                case ProjectileID.LastPrismLaser:
+                    return;
+            }
+
+            //Modify hitbox
+            hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
+            hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
+            float scaleShift = (projectile.scale - 1f) / (2f * projectile.scale);
+            hitbox.Y -= (int)(scaleShift * hitbox.Height);
+            hitbox.X -= (int)(scaleShift * hitbox.Width);
         }
     }
 }

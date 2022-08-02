@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -18,7 +14,7 @@ namespace WeaponEnchantments.Common.Globals
             return entity.useStyle == ItemUseStyleID.HoldUp && entity.consumable && entity.useAnimation == 45 && entity.useTime == 45;
         }
         public override bool? UseItem(Item item, Player player) {
-            float spawnRateFromEnchantments = player.AEP(player.G().trackedWeapon, "spawnRate", 1f);
+            float spawnRateFromEnchantments = player.ApplyEStatFromPlayer(player.GetWEPlayer().trackedWeapon, "spawnRate", 1f);
             if (spawnRateFromEnchantments > 1.6f)
                 item.stack++;
 

@@ -19,10 +19,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			//AddStaticStat("useTime", 0f, 1000f);
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
 		}
+
+		public override string Artist => "andro951";
+		public override string Designer => "andro951";
 	}
-	public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment { }
+	/*public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentCommon : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentRare : CatastrophicReleaseEnchantment { }
 	public class CatastrophicReleaseEnchantmentSuperRare : CatastrophicReleaseEnchantment { }
-	public class CatastrophicReleaseEnchantmentUltraRare : CatastrophicReleaseEnchantment { }
+	public class CatastrophicReleaseEnchantmentUltraRare : CatastrophicReleaseEnchantment { }*/
 }

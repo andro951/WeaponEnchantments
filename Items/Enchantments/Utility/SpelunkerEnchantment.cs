@@ -14,6 +14,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override void GetMyStats() {
 			CheckBuffByName();
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class SpelunkerEnchantmentUltraRare : SpelunkerEnchantment { }
 

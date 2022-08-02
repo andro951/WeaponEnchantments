@@ -9,6 +9,7 @@ using Terraria;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -72,7 +73,7 @@ namespace WeaponEnchantments.ModIntegration
 			if (Main.mouseLeft && Main.mouseLeftRelease) {
 				if (Main.mouseItem.IsAir) {
 					//Put item down
-					if (lastMouseItem.TG()) {
+					if (lastMouseItem.TryGetEnchantedItem()) {
 						//Check if last mouse item is already in the list
 						bool addToList = true;
 						foreach (Item clone in mouseItemClones) {
@@ -94,7 +95,7 @@ namespace WeaponEnchantments.ModIntegration
 						Item clone = mouseItemClones[i];
 						if (mouseItem.IsSameEnchantedItem(clone) && mouseItem.HoverName != clone.HoverName) {
 							//Force recalculate UpdateItemStats()
-							mouseItem.G().prefix = -1;
+							mouseItem.GetEnchantedItem().prefix = -1;
 
 							//Remove from list
 							mouseItemClones.RemoveAt(i);
@@ -146,7 +147,7 @@ namespace WeaponEnchantments.ModIntegration
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()
-				item.G().prefix = -1;
+				item.GetEnchantedItem().prefix = -1;
 				return true;
 			}
 

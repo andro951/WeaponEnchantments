@@ -8,8 +8,11 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -35,13 +38,6 @@ namespace WeaponEnchantments.Common.Globals
 
         public static bool resetGlobals = false;
         public static bool skipUpdateValue = false;
-
-        #endregion
-
-        #region Properties (static)
-
-        public static float LinearMultiplier => WEMod.serverConfig.presetData.linearStrengthMultiplier / 100f;
-        public static float RecomendedMultiplier => WEMod.serverConfig.presetData.recomendedStrengthMultiplier / 100f;
 
         #endregion
 
@@ -204,11 +200,11 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if (cloneReforgedItem || resetGlobals) {
-                if(itemClone.TG(out EnchantedItem iGlobal)) {
+                if(itemClone.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     clone = iGlobal;
                 }
 				else {
-                    Main.NewText($"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}." + UtilityMethods.reporteMessage);
+                    $"In EnchantedItem, Failed to Clone(item: {item.S()}, itemClone: {itemClone.S()}), cloneReforgedItem: {cloneReforgedItem.S()}, resetGlobals: {resetGlobals.S()}.".LogNT(ChatMessagesIDs.CloneFailGetEnchantedItem);
                     return this;
 				}
 
@@ -299,7 +295,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
+			if (LogMethods.debugging) ($"\\/LoadData(" + item.Name + ")").Log();
 
 			#endregion
 
@@ -339,7 +335,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log();
+            if (LogMethods.debugging) ($"/\\LoadData(" + item.Name + ")").Log();
 
 			#endregion
 		}
@@ -379,7 +375,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) {
+            if (LogMethods.debugging) {
                 ($"\\/NetSend(" + item.Name + ")").Log();
                 ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
             }
@@ -398,7 +394,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 #region Debug
 
-                if (UtilityMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
 				#endregion
 			}
@@ -431,7 +427,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) {
+            if (LogMethods.debugging) {
                 ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 ($"/\\NetSend(" + item.Name + ")").Log();
             }
@@ -443,7 +439,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) {
+			if (LogMethods.debugging) {
                 ($"\\/NetRecieve(" + item.Name + ")").Log();
                 ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
             }
@@ -462,7 +458,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Debug
 
-				if (UtilityMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
+				if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
 				#endregion
 			}
@@ -496,7 +492,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) {
+			if (LogMethods.debugging) {
                 ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 ($"/\\NetRecieve(" + item.Name + ")").Log();
             }
@@ -510,7 +506,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (baseDamageType == -1)
                         baseDamageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
 
-                    if (item.DamageType.Type == baseDamageType)
+                    if (AlwaysOverrideDamageType || item.DamageType.Type == baseDamageType)
                         item.UpdateDamageType(damageType);
                 }
 
@@ -542,7 +538,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Fix for swapping an equipped armor/accessory with one in the enchanting table.
-            if (player.G().I().TG()) {
+            if (player.GetWEPlayer().ItemInUI().TryGetEnchantedItem()) {
                 inEnchantingTable = false;
                 if (item.GetInfusionArmorSlot() != infusedArmorSlot) {
                     infusedArmorSlot = -1;
@@ -551,7 +547,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public override bool OnPickup(Item item, Player player) {
-            player.G().UpdateItemStats(ref item);
+            player.GetWEPlayer().UpdateItemStats(ref item);
 
             return true;
         }
@@ -565,7 +561,7 @@ namespace WeaponEnchantments.Common.Globals
                 enchantmentsValue += enchantments[i].value;
             }
             int powerBoosterValue = PowerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
-            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssenceBasic.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
+            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
             valueToAdd /= Item.stack;
 
             if (Stack0)
@@ -608,22 +604,26 @@ namespace WeaponEnchantments.Common.Globals
             for (int i = 0; i < enchantments.Length; i++) {
                 if (enchantments[i] != null && !enchantments[i].IsAir) {
                     Enchantment enchantment = (Enchantment)enchantments[i].ModItem;
-                    totalEnchantmentLevelCost += enchantment.GetLevelCost();
+                    totalEnchantmentLevelCost += enchantment.GetCapacityCost();
                 }
             }
 
             return level - totalEnchantmentLevelCost;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-            WEPlayer wePlayer = Main.LocalPlayer.G();
+            WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
             bool enchantmentsToolTipAdded = false;
 
-            //Common Tooltips
-            if (Enchanted || inEnchantingTable) {
+            //Stack0
+            if(Modified || inEnchantingTable) {
                 if (Stack0) {
                     string tooltip = $"!!!OUT OF AMMO!!!";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
+            }
+
+            //Xp and level Tooltips
+            if (Enchanted || inEnchantingTable) {
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
@@ -711,23 +711,14 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     string tooltip = enchantment.AllowedListTooltips[itemType]; 
-                    Color color = Enchantment.rarityColors[enchantment.EnchantmentTier];
+                    Color color = TierColors[enchantment.EnchantmentTier];
                     tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), tooltip) { OverrideColor = color });
                 }
             }
         }
 		public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
 			if (!WEMod.serverConfig.CritPerLevelDisabled) {
-                float multiplier;
-                float linearMultiplier = LinearMultiplier;
-
-                if (linearMultiplier != 1f) {
-                    multiplier = linearMultiplier;
-                }
-				else {
-                    multiplier = RecomendedMultiplier;
-                }
-                
+                float multiplier = GlobalEnchantmentStrengthMultiplier;
                 crit += levelBeforeBooster * multiplier;
             }
 		}
@@ -738,8 +729,8 @@ namespace WeaponEnchantments.Common.Globals
             int currentLevel = levelBeforeBooster;
 
             //xp < 0 return
-            if(xpInt < 0) {
-                $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT();
+            if (xpInt < 0) {
+                $"Prevented your {item.S()} from loosing experience due to a calculation error.".LogNT(ChatMessagesIDs.GainXPPreventedLoosingExperience);
 
                 return;
             }
@@ -753,13 +744,13 @@ namespace WeaponEnchantments.Common.Globals
                 Experience = int.MaxValue;
             }
 
-            //Already max level return
-            if (levelBeforeBooster >= MAX_LEVEL)
-                return;
-
             //UpdateLevelAndValue();
 
             if (noMessage)
+                return;
+
+            //Already max level return
+            if (currentLevel >= MAX_LEVEL)
                 return;
 
             //Level up message
@@ -776,7 +767,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
             float rand = Main.rand.NextFloat();
-            float ammoSaveChance = -1f * weapon.AEI("AmmoCost", 0f);
+            float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);
 
             return rand >= ammoSaveChance;
         }
@@ -797,7 +788,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (inventoryItem.type != item.type)
                     continue;
 
-                if (!inventoryItem.TG(out EnchantedItem invGlobal))
+                if (!inventoryItem.TryGetEnchantedItem(out EnchantedItem invGlobal))
                     continue;
 
                 if (invGlobal.Modified)
@@ -826,7 +817,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //AllForOne use cooldown
             if (eStats.ContainsKey("AllForOne")) {
-                int timer = (int)((float)item.useTime * item.AEI("NPCHitCooldown", 0.5f));
+                int timer = (int)((float)item.useTime * item.ApplyEStat("NPCHitCooldown", 0.5f));
                 wePlayer.allForOneTimer = timer;
             }
 
@@ -921,7 +912,7 @@ namespace WeaponEnchantments.Common.Globals
                 Main.mouseItem.stack++;
             }
 
-            if(Main.mouseItem.TG(out EnchantedItem mGlobal))
+            if(Main.mouseItem.TryGetEnchantedItem(out EnchantedItem mGlobal))
                 mGlobal.Stack = Main.mouseItem.stack;
 
             //Update Item Value if stack changed.
@@ -934,7 +925,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
+			if (LogMethods.debugging) ($"\\/PreReforge({item.S()})").Log();
 
             #endregion
 
@@ -943,9 +934,9 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) {
+			if (LogMethods.debugging) {
                 string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
-                foreach (Item enchantment in reforgeItem.G().enchantments) {
+                foreach (Item enchantment in reforgeItem.GetEnchantedItem().enchantments) {
                     s += enchantment.S();
                 }
                 s.Log();
@@ -961,7 +952,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
+            if (LogMethods.debugging) ($"\\/PostReforge({item.S()})").Log();
 
             #endregion
 
@@ -989,14 +980,14 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
+            if (LogMethods.debugging) ($"/\\PostReforge({item.S()})").Log();
 
             #endregion
         }
         public static void ReforgeItem(ref Item item, Player player, bool needCloneGlobals = false) {
-            if (item.TG(out EnchantedItem iGlobal)) {
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 //Calamity
-                if (needCloneGlobals && reforgeItem.TG(out EnchantedItem rGlobal)) {
+                if (needCloneGlobals && reforgeItem.TryGetEnchantedItem(out EnchantedItem rGlobal)) {
                     cloneReforgedItem = true;
                     rGlobal.Clone(reforgeItem, item);
                     cloneReforgedItem = false;
@@ -1011,7 +1002,7 @@ namespace WeaponEnchantments.Common.Globals
             reforgeItem = null;
 
             //Vanilla
-            player.G().UpdateItemStats(ref item);
+            player.GetWEPlayer().UpdateItemStats(ref item);
 
             //Calamity
             calamityReforged = false;
@@ -1039,17 +1030,25 @@ namespace WeaponEnchantments.Common.Globals
 			}
 		}
 		public override void OnCreate(Item item, ItemCreationContext context) {
-			if(context is RecipeCreationContext) {
-                item.CombineEnchantedItems(ref WEMod.consumedItems);
+			if(context is RecipeCreationContext recipeCreationContext) {
+                if(recipeCreationContext.ConsumedItems?.Count > 0) {
+                    item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
+                }
+				else {
+                    //Temporary for Magic storage
+                    item.CombineEnchantedItems(ref WEMod.consumedItems);
+				}
+                //Temporary for Magic storage
+                WEMod.consumedItems.Clear();
             }
 		}
 		public override bool CanStack(Item item1, Item item2) {
             //Check max stack and always allow combining in the 
-            if (!item1.TG(out EnchantedItem i1Global) || item1.maxStack < 2)
+            if (!item1.TryGetEnchantedItem(out EnchantedItem i1Global) || item1.maxStack < 2)
                 return true;
 
             //item1 already tested for try.
-            EnchantedItem i2Global = item2.G();
+            EnchantedItem i2Global = item2.GetEnchantedItem();
 
             bool modified1 = i1Global.Modified;
             bool modified2 = i2Global.Modified;
@@ -1088,7 +1087,7 @@ namespace WeaponEnchantments.Common.Globals
             if (i1Global.infusedArmorSlot > -1 && i2Global.infusedArmorSlot < -1)
                 return false;
 
-            //Splitting stack with right click
+            //Multishot stack with right click
             if (item1.type == Main.mouseItem.type && item1.stack == Main.mouseItem.stack && Main.mouseRight && item2.stack > 1)
                 return true;
 
@@ -1105,7 +1104,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Clear enchantments in enchanting table if item2 is in it (Will only have cleared off of the player tracked enchantments from combining)
                 if (i2Global.inEnchantingTable) {
                     for (int i = 0; i < enchantments.Length; i++) {
-                        Main.LocalPlayer.G().enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
+                        Main.LocalPlayer.GetWEPlayer().enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
                     }
                         
                 }
@@ -1113,7 +1112,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Reset item2 globals
                 Item tempItem = new Item(item1.type);
                 resetGlobals = true;
-                tempItem.G().Clone(tempItem, item2);
+                tempItem.GetEnchantedItem().Clone(tempItem, item2);
                 resetGlobals = false;
             }
             
@@ -1123,17 +1122,9 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedItemStaticMethods
     {
-
-        #region Properties (static)
-
-        public static float BossXPMultiplier => WEMod.serverConfig.BossExperienceMultiplier / 400f;
-        public static float NormalXPMultiplier => WEMod.serverConfig.ExperienceMultiplier / 100f;
-
-        #endregion
-
         public static void SetupGlobals(this Item item) {
             //Not EnchantedItem return
-            if (!item.TG(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
             //Update Enchantments
@@ -1144,21 +1135,11 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Get Global Item Stats
-            bool obtainedGlobalItemStats = item.TryGetGlotalItemStats();
+            bool obtainedGlobalItemStats = item.TryGetInfusionStats();
 
             //Damage Multiplier (If failed to Get Global Item Stats)
             if(!obtainedGlobalItemStats)
                 iGlobal.damageMultiplier = item.GetWeaponMultiplier(iGlobal.infusionPower);
-
-            //Infusion
-            if (iGlobal.infusedItemName != "") {
-                if (!item.TryInfuseItem(iGlobal.infusedItemName) || !item.TryInfuseItem(iGlobal.infusedItemName, false, true)) {
-                    item.UpdateInfusionDamage(iGlobal.damageMultiplier);
-                }
-            }
-
-            //Update Level
-            //itemEI.UpdateLevelAndValue();
         }
         public static void UpdateEnchantment(this Item item, ref Enchantment enchantment, int slotNum, bool remove = false) {
             //enchantment null return
@@ -1166,19 +1147,19 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Not EnchantedItem return
-            if (!item.TG(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+			if (LogMethods.debugging) ($"\\/UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
 
             #endregion
 
             //Buffs
             if (enchantment.Buff.Count > 0) {
                 foreach (int buff in enchantment.Buff) {
-                    if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
+                    if (LogMethods.debugging) (iGlobal.buffs.S(buff)).Log();
 
                     if (iGlobal.buffs.ContainsKey(buff)) {
                         iGlobal.buffs[buff] += (remove ? -1 : 1);
@@ -1190,14 +1171,14 @@ namespace WeaponEnchantments.Common.Globals
                         iGlobal.buffs.Add(buff, 1);
                     }
 
-                    if (UtilityMethods.debugging) (iGlobal.buffs.S(buff)).Log();
+                    if (LogMethods.debugging) (iGlobal.buffs.S(buff)).Log();
                 }
             }
 
             //Debuffs
             if (enchantment.Debuff.Count > 0) {
                 foreach (int debuff in enchantment.Debuff.Keys) {
-                    if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
 
                     int duration = enchantment.Debuff[debuff];
 
@@ -1211,14 +1192,14 @@ namespace WeaponEnchantments.Common.Globals
                         iGlobal.debuffs.Add(debuff, duration);
                     }
 
-                    if (UtilityMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
                 }
             }
 
             //OnHitBuffs
             if (enchantment.OnHitBuff.Count > 0) {
                 foreach (int onHitBuff in enchantment.OnHitBuff.Keys) {
-                    if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
 
                     int duration = enchantment.OnHitBuff[onHitBuff];
                     if (iGlobal.onHitBuffs.ContainsKey(onHitBuff)) {
@@ -1231,13 +1212,13 @@ namespace WeaponEnchantments.Common.Globals
                         iGlobal.onHitBuffs.Add(onHitBuff, duration);
                     }
 
-                    if (UtilityMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
                 }
             }
 
             //Estats
             foreach (EStat eStat in enchantment.EStats) {
-                if (UtilityMethods.debugging) ($"eStat: " + eStat.S()).Log();
+                if (LogMethods.debugging) ($"eStat: " + eStat.S()).Log();
 
                 float add = eStat.Additive * (remove ? -1f : 1f);
                 float mult = remove ? 1 / eStat.Multiplicative : eStat.Multiplicative;
@@ -1258,7 +1239,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //StaticStats (StatModifiers)
             foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats) {
-                if (UtilityMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
+                if (LogMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
 
                 float add = staticStat.Additive * (remove ? -1f : 1f);
                 float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
@@ -1270,7 +1251,7 @@ namespace WeaponEnchantments.Common.Globals
                 StatModifier statModifier = new StatModifier(1f + add, mult, flat, @base);
 
                 if (!iGlobal.statModifiers.ContainsKey(staticStat.Name)) {
-                    item.G().statModifiers.Add(staticStat.Name, statModifier);
+                    item.GetEnchantedItem().statModifiers.Add(staticStat.Name, statModifier);
                 }
                 else {
                     iGlobal.statModifiers[staticStat.Name] = iGlobal.statModifiers[staticStat.Name].CombineWith(statModifier);
@@ -1282,10 +1263,10 @@ namespace WeaponEnchantments.Common.Globals
                 if (remove) {
                     item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
 
-                    item.G().damageType = -1;
+                    item.GetEnchantedItem().damageType = -1;
                 }
                 else {
-                    item.G().damageType = enchantment.NewDamageType;
+                    item.GetEnchantedItem().damageType = enchantment.NewDamageType;
 
                     item.UpdateDamageType(enchantment.NewDamageType);
                 }
@@ -1296,7 +1277,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
+            if (LogMethods.debugging) ($"/\\UpdateEnchantment(" + item.S() + ", " + enchantment.S() + ", slotNum: " + slotNum + ", remove: " + remove).Log();
 
 			#endregion
 		}
@@ -1304,14 +1285,12 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (UtilityMethods.debugging) ($"\\/DamageNPC").Log();
+            if (LogMethods.debugging) ($"\\/DamageNPC").Log();
 
             #endregion
-
-            target.GetGlobalNPC<WEGlobalNPC>().xpCalculated = true;
             
             //dummy return
-            if (target.type == NPCID.TargetDummy || target.FullName != "Super Dummy")
+            if (target.type == NPCID.TargetDummy || target.FullName == "Super Dummy")
                 return;
 
             //friendly return
@@ -1340,8 +1319,10 @@ namespace WeaponEnchantments.Common.Globals
             //Config Multiplier
             float configMultiplier = target.boss ? BossXPMultiplier : NormalXPMultiplier;
 
+            float balanceMultiplier = target.boss ? 0.25f : 1f;
+
             //Experience Multiplier
-            float experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier;
+            float experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
 
             //Armor Penetration
             float armorPenetration = 0;
@@ -1367,7 +1348,7 @@ namespace WeaponEnchantments.Common.Globals
             //XP Damage <= 0 check
             if (xpDamage <= 0) {
                 ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT();
+                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP);
                 return;
             }
 
@@ -1389,7 +1370,7 @@ namespace WeaponEnchantments.Common.Globals
                 xp /= effDamageDenom;
 
             //Reduction Factor (Life Max)
-            float reductionFactor = UtilityMethods.GetReductionFactor(target.lifeMax);
+            float reductionFactor = GetReductionFactor(target.lifeMax);
             xp /= reductionFactor;
 
             //XP <= 0 check
@@ -1400,12 +1381,12 @@ namespace WeaponEnchantments.Common.Globals
             else if (xpInt < 0) {
                 ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, effectiveDamagePerHit: {effectiveDamagePerHit}, " +
-                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT();
+                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 
             //Gain XP (Item)
-            if (item.TG(out EnchantedItem iGlobal))
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 iGlobal.GainXP(item, xpInt);
 
             //Gain XP (Armor)
@@ -1413,14 +1394,18 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Debug
 
-			if (UtilityMethods.debugging) ($"/\\DamageNPC").Log();
+			if (LogMethods.debugging) ($"/\\DamageNPC").Log();
 
             #endregion
+        }
+        public static float GetReductionFactor(int hp) {
+            float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
+            return factor;
         }
         public static void AllArmorGainXp(this Player player, int xp) {
             int vanillaArmorLength = player.armor.Length / 2;
             var loader = LoaderManager.Get<AccessorySlotLoader>();
-            for (int j = 0; j < player.G().equipArmor.Length; j++) {
+            for (int j = 0; j < player.GetWEPlayer().equipArmor.Length; j++) {
                 Item armor;
 
                 //Check if armorslot is functional
@@ -1438,7 +1423,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Gain xp on each armor
-                if (!armor.vanity && armor.TG(out EnchantedItem aGlobal)) {
+                if (!armor.vanity && armor.TryGetEnchantedItem(out EnchantedItem aGlobal)) {
                     float reductionFactor;
                     if (WEMod.IsArmorItem(armor)) {
                         reductionFactor = 2f;
@@ -1453,6 +1438,248 @@ namespace WeaponEnchantments.Common.Globals
                         xpInt = 1;
 
                     aGlobal.GainXP(armor, xpInt);
+                }
+            }
+        }
+        public static void CombineEnchantedItems(this Item item, ref List<Item> consumedItems) {
+            if (consumedItems.Count <= 0)
+                return;
+
+            for (int c = 0; c < consumedItems.Count; c++) {
+                Item consumedItem = consumedItems[c];
+                if (consumedItem.IsAir)
+                    continue;
+
+                if (!consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal))
+                    continue;
+
+                if (!cGlobal.Modified)
+                    continue;
+
+                if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+                    item.CheckConvertExcessExperience(consumedItem);
+                    if (iGlobal.infusionPower < cGlobal.infusionPower && item.GetWeaponInfusionPower() < cGlobal.infusionPower) {
+                        item.TryInfuseItem(consumedItem);
+                        item.TryInfuseItem(consumedItem, false, true);
+                    }
+
+                    if (cGlobal.PowerBoosterInstalled) {
+                        if (!iGlobal.PowerBoosterInstalled)
+                            iGlobal.PowerBoosterInstalled = true;
+                        else
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                    }
+                                    
+                    int j;
+                    for (j = 0; j <= EnchantingTable.maxEnchantments; j++) {
+                        if (j > 4)
+                            break;
+                        if (iGlobal.enchantments[j].IsAir)
+                            break;
+                    }
+                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
+                        if (!cGlobal.enchantments[k].IsAir) {
+                            Enchantment enchantment = ((Enchantment)cGlobal.enchantments[k].ModItem);
+                            int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
+                            bool cantFit = false;
+                            if (enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
+                                if (uniqueItemSlot == -1) {
+                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))) {
+                                        iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
+                                        item.ApplyEnchantment(j);
+                                    }
+                                    else if (j < 4) {
+                                        iGlobal.enchantments[j] = cGlobal.enchantments[k].Clone();
+                                        item.ApplyEnchantment(j);
+                                        j++;
+                                    }
+                                    else {
+                                        cantFit = true;
+                                    }
+                                }
+                                else {
+                                    cantFit = true;
+                                }
+                            }
+                            else {
+                                cantFit = true;
+                            }
+                            if (cantFit) {
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                            }
+                        }
+                        cGlobal.enchantments[k] = new Item();
+                    }
+                }
+                else {
+                    item.CheckConvertExcessExperience(consumedItem);
+                    int numberEssenceRecieved;
+                    int xpCounter = iGlobal.Experience;
+                    for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--) {
+                        numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
+                        xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
+                        if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0) {
+                            xpCounter = 0;
+                            numberEssenceRecieved += 1;
+                        }
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
+                    }
+                    if (cGlobal.PowerBoosterInstalled) {
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                    }
+                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
+                        if (!cGlobal.enchantments[k].IsAir) {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                        }
+                    }
+                }
+            }
+
+            consumedItems.Clear();
+        }
+        public static void RemoveUntilPositive(this Item item, Player player) {
+            int netMode = Main.netMode;
+            int gameMode = Main.GameMode;
+            if (!item.IsAir) {
+                if (WEMod.IsEnchantable(item)) {
+                    if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+                        if (iGlobal.GetLevelsAvailable() < 0) {
+                            for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--) {
+                                if (!iGlobal.enchantments[k].IsAir) {
+                                    item.GetEnchantedItem().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
+                                }
+                                if (!iGlobal.enchantments[k].IsAir) {
+                                    player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
+                                    iGlobal.enchantments[k] = new Item();
+                                }
+                            }
+                            Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
+                        }//Check too many enchantments on item
+                    }
+                }
+            }
+        }
+        public static bool IsSameEnchantedItem(this Item item1, Item item2) {
+            if (!item1.TryGetEnchantedItem(out EnchantedItem global1) || !item2.TryGetEnchantedItem(out EnchantedItem global2))
+                return false;
+
+            if (item1.type != item2.type || item1.prefix != item2.prefix)
+                return false;
+
+            if (global1.PowerBoosterInstalled != global2.PowerBoosterInstalled || global1.infusedItemName != global2.infusedItemName)
+                return false;
+
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                if (global1.enchantments[i].type != global2.enchantments[i].type)
+                    return false;
+            }
+
+            return true;
+        }
+        public static void RoundCheck(this StatModifier statModifier, ref float value, int baseValue, StatModifier appliedStatModifier, int contentSample) {
+            if (LogMethods.debugging) ($"\\/RoundCheck").Log();
+            if (value > baseValue) {
+                float checkValue = (float)((int)value + 1) * 1f / statModifier.ApplyTo(1f);
+                if ((int)Math.Round(checkValue) == baseValue) {
+                    float sampleValue = WEPlayer.CombineStatModifier(appliedStatModifier, statModifier, true).ApplyTo(contentSample);
+                    if ((int)Math.Round(sampleValue) == baseValue)
+                        value += 0.5f;
+                }
+            }
+            if (LogMethods.debugging) ($"/\\RoundCheck").Log();
+        }
+        public static int DamageBeforeArmor(this Item item, bool crit) {
+            return (int)Math.Round(item.ApplyEStat("Damage", (float)item.damage * (crit ? 2f : 1f)));
+        }
+        public static void ApplyEnchantment(this Item item, int i) {
+            if (LogMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!item.IsAir) {
+                EnchantedItem iGlobal = item.GetEnchantedItem();
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            if (LogMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
+        }
+        public static void UpdateDamageType(this Item item, int type) {
+            switch ((DamageTypeSpecificID)type) {
+                case DamageTypeSpecificID.Default:
+                    item.DamageType = DamageClass.Default;
+                    break;
+                case DamageTypeSpecificID.Generic:
+                    item.DamageType = DamageClass.Generic;
+                    break;
+                case DamageTypeSpecificID.Melee:
+                    item.DamageType = DamageClass.Melee;
+                    break;
+                case DamageTypeSpecificID.MeleeNoSpeed:
+                    item.DamageType = DamageClass.MeleeNoSpeed;
+                    break;
+                case DamageTypeSpecificID.Ranged:
+                    item.DamageType = DamageClass.Ranged;
+                    break;
+                case DamageTypeSpecificID.Magic:
+                    item.DamageType = DamageClass.Magic;
+                    break;
+                case DamageTypeSpecificID.Summon:
+                    item.DamageType = DamageClass.Summon;
+                    break;
+                case DamageTypeSpecificID.SummonMeleeSpeed:
+                    item.DamageType = DamageClass.SummonMeleeSpeed;
+                    break;
+                case DamageTypeSpecificID.MagicSummonHybrid:
+                    item.DamageType = DamageClass.MagicSummonHybrid;
+                    break;
+                case DamageTypeSpecificID.Throwing:
+                    item.DamageType = DamageClass.Throwing;
+                    break;
+            }
+        }
+        public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
+            if (WEMod.IsWeaponItem(item)) {
+                if (enchantment.AllowedList.ContainsKey("Weapon")) {
+                    add *= enchantment.AllowedList["Weapon"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Weapon"];
+                    flat *= enchantment.AllowedList["Weapon"];
+                    @base *= enchantment.AllowedList["Weapon"];
+                    return;
+                }
+                else {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
+                }
+            }
+            if (WEMod.IsArmorItem(item)) {
+                if (enchantment.AllowedList.ContainsKey("Armor")) {
+                    add *= enchantment.AllowedList["Armor"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Armor"];
+                    flat *= enchantment.AllowedList["Armor"];
+                    @base *= enchantment.AllowedList["Armor"];
+                    return;
+                }
+                else {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
+                }
+            }
+            if (WEMod.IsAccessoryItem(item)) {
+                if (enchantment.AllowedList.ContainsKey("Accessory")) {
+                    add *= enchantment.AllowedList["Accessory"];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Accessory"];
+                    flat *= enchantment.AllowedList["Accessory"];
+                    @base *= enchantment.AllowedList["Accessory"];
+                    return;
+                }
+                else {
+                    add = 1f;
+                    mult = 1f;
+                    flat = 0f;
+                    @base = 0f;
                 }
             }
         }

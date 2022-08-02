@@ -1,5 +1,5 @@
-Easier to read on Github:
-https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
+More detailed description on Github:
+https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
 Weapon Enchantments adds
      -Item customization
@@ -31,19 +31,20 @@ First 5 minutes:
 
 Tips:
     -DONT SELL weapons/armor/accessories. Offer them instead.  
-        The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp. 
+        The value from ore and essence recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp. 
         Offering items returns all Enchantments/Power Booster applied to the consumed item.
     -Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
-    -Make a gem tree farm (especially for diamond/amber).  They are in crafting high tier Containments.
+    -Make a gem tree farm (especially for diamond/amber).  They are used in crafting high tier Containments.
 
-All other info for the mod moved here: 
-https://github.com/andro951/WeaponEnchantments/blob/master/Wiki.txt
+All other info for the mod on the github: 
+https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
 
-
-Please give me your feedback!!!!!!
+Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
 https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
-https://github.com/andro951/WeaponEnchantments/blob/master/description.txt
+
+Patreon:
+https://www.patreon.com/andro951
 
 Contributors:
-Sprites made by Zorutan: https://twitter.com/ZorutanMesuta
+See github for contributors list

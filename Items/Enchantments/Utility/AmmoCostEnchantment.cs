@@ -7,6 +7,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class AmmoCostEnchantmentBasic : AmmoCostEnchantment { }
 	public class AmmoCostEnchantmentCommon : AmmoCostEnchantment { }

@@ -10,6 +10,9 @@ using System.Reflection;
 using Terraria.GameContent.Creative;
 using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.Utility.LogModSystem;
+using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
@@ -36,14 +39,11 @@ namespace WeaponEnchantments.Items
 	{
 		# region Static
 
-		public static readonly string[] rarity = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
-		public static readonly string[] displayRarity = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
-		public static readonly Color[] rarityColors = new Color[] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public struct EnchantmentStrengths {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
 			}
-			public float[] enchantmentTierStrength = new float[rarity.Length];
+			public float[] enchantmentTierStrength = new float[tierNames.Length];
 		}
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
@@ -61,10 +61,6 @@ namespace WeaponEnchantments.Items
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly int defaultBuffDuration = 60;
-
-		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
-		public static string listOfAllEnchantmentTooltips = "";
-		public static bool printListOfEnchantmentTooltips = false;
 
 		#endregion
 
@@ -126,6 +122,16 @@ namespace WeaponEnchantments.Items
 		/// </para>
 		/// </summary>
 		public virtual float ScalePercent { private set; get; } = 1f;
+
+		/// <summary>
+		/// Allows you to manually adjust affect the cost of enchantments.
+		/// Utility are 1f by default -> 1, 2, 3, 4, 5
+		/// Normal are 2f by defualt -> 2, 4, 6, 8, 10
+		/// Unique and Max1 are 3f by default -> 3, 6, 9, 12, 15
+		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
+		/// </summary>
+		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
+
 		/// <summary>
 		/// Default is { "Weapon", 1f }, { "Armor", 0.25f }, { "Accessory", 0.25f }<br/>
 		/// (100% effective on weapons, 25% effective on armor and accessories)<br/>
@@ -217,6 +223,9 @@ namespace WeaponEnchantments.Items
 		public virtual bool? ShowPlusSignInTooltip { private set; get; } = null;
 		public string FullToolTip { private set; get; }
 		public Dictionary<string, string> AllowedListTooltips { private set; get; } = new Dictionary<string, string>();
+
+		public abstract string Artist { get; }
+		public abstract string Designer { get; }
 
 		#endregion
 
@@ -342,9 +351,9 @@ namespace WeaponEnchantments.Items
 		/// CheckStaticStatByName()<br/>
 		/// CheckBuffByName()<br/>
 		/// </summary>
-		public virtual void GetMyStats() {
-			//Meant to be overriden in the specific Enchantment class.
-		}
+		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
+
+
 		public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
 			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
@@ -356,28 +365,35 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault(GenerateFullTooltip(CustomTooltip));
 
 			//DisplayName
-			if (WEMod.clientConfig.UseOldRarityNames) {
+			if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
 			}
 			else {
 				//Current rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
-				DisplayName.SetDefault(UtilityMethods.AddSpaces(MyDisplayName + "Enchantment" + displayRarity[EnchantmentTier]));
+				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
 			}
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
+
+			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+				//All for one is allowed to pass every sprite
+				bool allForOne = EnchantmentTypeName == "AllForOne";
+
+				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
+			}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//EnchantmentTypeName
 			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
 
 			//Enchantment Size
-			EnchantmentTier = GetEnchantmentSize(Name);
+			EnchantmentTier = GetTierNumberFromName(Name);
 
 			//Item rarity
-			Item.rare = EnchantmentTier;
+			Item.rare = GetRarityFromTier(EnchantmentTier);
 
 			//Width and Height
 			switch (EnchantmentTier) {
@@ -398,29 +414,29 @@ namespace WeaponEnchantments.Items
 			//Value - Essence
 			for (int i = 0; i <= EnchantmentTier + EnchantmentValueTierReduction; i++) {
 				int quantity = Utility ? 5 : 10;
-				int value = (int)EnchantmentEssenceBasic.values[i];
+				int value = (int)EnchantmentEssence.values[i];
 				Item.value += value * quantity;
 			}
 
 			//Value - Containment/SuperiorStaibalizers
 			switch (EnchantmentTier) {
 				case 3:
-					Item.value += Containment.Values[2];
+					Item.value += ContainmentItem.Values[2];
 					break;
 				case 4:
 					Item.value += ContentSamples.ItemsByType[999].value;
 					break;
 				default:
-					Item.value += Containment.Values[EnchantmentTier];
+					Item.value += ContainmentItem.Values[EnchantmentTier];
 					break;
 			}
 
 			//Check Utility
-			if (GetType().Namespace.GetNameFolderName() == "Utility")
+			if (GetType().Namespace.GetFolderName() == "Utility")
 				Utility = true;
 
 			//Check Unique
-			if (GetType().Namespace.GetNameFolderName() == "Unique")
+			if (GetType().Namespace.GetFolderName() == "Unique")
 				Unique = true;
 
 			//Check Unique (Vanilla Items)
@@ -442,28 +458,19 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
-			//Config - Linear and Recomended Strength Multipliers
+			//Config - Global Enchantment Strength Multipliers
 			if (!foundIndividualStrength) {
-				float multiplier = LinearStrengthMultiplier; ;
-				bool usingLinearStrengthMultiplier = multiplier != 1f;
+				//Recomended
+				float multiplier = RecomendedStrengthMultiplier;
+				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+				float scale = Math.Abs(ScalePercent);
 
-				if(usingLinearStrengthMultiplier) {
-					//Linear
-					EnchantmentStrength = multiplier * defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+				//Apply Scale Percent
+				if (ScalePercent < 0f && multiplier < 1f) {
+					EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
 				}
 				else {
-					//Recomended
-					multiplier = RecomendedStrengthMultiplier;
-					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-					float scale = Math.Abs(ScalePercent);
-
-					//Apply Scale Percent
-					if (ScalePercent < 0f && multiplier < 1f) {
-						EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
-					}
-					else {
-						EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
-					}
+					EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
 				}
 			}
 
@@ -532,7 +539,9 @@ namespace WeaponEnchantments.Items
 				case "scale":
 					return MyDisplayName.AddSpaces();
 				case "Damage":
-					return "Damage dealt(Not visible in weapon stats applied at damage calculation)";
+					return "Damage bonus is applied after defenses (Not visible in weapon tooltip)";
+				case "mana":
+					return "Mana Cost";
 				default:
 					return name.CapitalizeFirst().AddSpaces();
 			}
@@ -555,7 +564,7 @@ namespace WeaponEnchantments.Items
 						}
 					}
 
-					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
+					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name) {
 						if (checkBoolOnly) {
 							return field.FieldType == typeof(bool);
@@ -599,7 +608,7 @@ namespace WeaponEnchantments.Items
 			foreach (FieldInfo field in player.GetType().GetFields()) {
 				string fieldName = field.Name;
 				if (fieldName.Length <= checkName.Length) {
-					string name = UtilityMethods.ToFieldName(checkName.Substring(0, fieldName.Length));
+					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
 					if (fieldName == name) {
 						if (checkBoolOnly) {
 							return field.FieldType == typeof(bool);
@@ -761,14 +770,14 @@ namespace WeaponEnchantments.Items
 			}
 
 			//Level Cost
-			toolTip += $"\nLevel cost: { GetLevelCost()}";
+			toolTip += $"\nLevel cost: { GetCapacityCost()}";
 
 			//Unique, DamageClassSpecific, RestrictedClass, ArmorSlotSpecific
 			if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1) {
 				string limmitationToolTip = "";
 				if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
 					//Unique (Specific Item)
-					limmitationToolTip += $"\n   *{UtilityMethods.AddSpaces(EnchantmentTypeName)} Only*";
+					limmitationToolTip += $"\n   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*";
 				}
 				else if (DamageClassSpecific > 0) {
 					//DamageClassSpecific
@@ -937,17 +946,8 @@ namespace WeaponEnchantments.Items
 		private int GetBuffDuration() {
 			return defaultBuffDuration * (EnchantmentTier + 1);
 		}
-		public static int GetEnchantmentSize(string name) {
-			for (int i = 0; i < rarity.Length; i++) {
-				if (rarity[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
-					return i;
-				}
-			}//Get EnchantmentSize
-
-			return -1;
-		}
 		public override void AddRecipes() {
-			for (int i = EnchantmentTier; i < rarity.Length; i++) {
+			for (int i = EnchantmentTier; i < tierNames.Length; i++) {
 				//Lowest Craftable Tier
 				if (EnchantmentTier < LowestCraftableTier)
 					continue;
@@ -960,20 +960,20 @@ namespace WeaponEnchantments.Items
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
 						int essenceNumber = Utility ? 5 : 10;
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + EnchantmentEssenceBasic.rarity[k], essenceNumber);
+						recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
 					}
 
 					//Enchantment
 					if (j > 0) {
-						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + rarity[j - 1], 1);
+						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
 					}
 						
 					//Containment
 					if (EnchantmentTier < 3) {
-						recipe.AddIngredient(Mod, Containment.sizes[EnchantmentTier] + "Containment", 1);
+						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
 					}
 					else if (j < 3) {
-						recipe.AddIngredient(Mod, Containment.sizes[2] + "Containment", 1);
+						recipe.AddIngredient(Mod, ContainmentItem.sizes[2] + "Containment", 1);
 					}
 
 					//Gems
@@ -985,13 +985,18 @@ namespace WeaponEnchantments.Items
 					}
 
 					//Enchanting Table
-					recipe.AddTile(Mod, WoodEnchantingTable.enchantingTableNames[i] + "EnchantingTable");
+					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 
 					recipe.Register();
 				}
 			}
 		}
-		public int GetLevelCost() {
+		public int GetCapacityCost() {
+			if (CapacityCostMultiplier != -13.13f) {
+				//multiplier is being manually set by this enchantment
+				return (int)Math.Round((1 + EnchantmentTier) * CapacityCostMultiplier);
+			}
+
 			int multiplier = 2;
 
 			if (Utility)

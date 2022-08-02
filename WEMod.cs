@@ -18,6 +18,7 @@ using MonoMod.Cil;
 using System;
 using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments
 {
@@ -26,8 +27,7 @@ namespace WeaponEnchantments
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamity = false;
-
-		public static List<Item> consumedItems = new(); 
+		public static List<Item> consumedItems = new List<Item>();
 		internal static bool IsEnchantable(Item item)
         {
 			if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item))
@@ -78,7 +78,7 @@ namespace WeaponEnchantments
         }
 		internal static bool IsEssenceItem(Item item)
         {
-			if (item.ModItem is EnchantmentEssenceBasic)
+			if (item.ModItem is EnchantmentEssence)
 			{
 				return true;
 			}
@@ -135,7 +135,7 @@ namespace WeaponEnchantments
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
 			byte type = reader.ReadByte();
-			if(UtilityMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(LogMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 			switch (type)
 			{
 				case PacketIDs.TransferGlobalItemFields:
@@ -202,8 +202,8 @@ namespace WeaponEnchantments
 					{
 						if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
 						{
-							item.G().enchantments[enchantmentSlotNumber] = new Item(itemType);
-							Enchantment enchantment = (Enchantment)item.G().enchantments[enchantmentSlotNumber].ModItem;
+							item.GetEnchantedItem().enchantments[enchantmentSlotNumber] = new Item(itemType);
+							Enchantment enchantment = (Enchantment)item.GetEnchantedItem().enchantments[enchantmentSlotNumber].ModItem;
 							item.UpdateEnchantment(ref enchantment, enchantmentSlotNumber);
 						}
 						else
@@ -230,7 +230,7 @@ namespace WeaponEnchantments
 					int npcWhoAmI = reader.ReadInt32();
 					int damage = reader.ReadInt32();
 					bool crit = reader.ReadBoolean();
-					if(UtilityMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
+					if(LogMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					for (int i = 0; i < OnHitEffectID.Count; i++)
                     {
 						bool applyEffect = reader.ReadBoolean();
@@ -253,9 +253,9 @@ namespace WeaponEnchantments
 									break;
 								case OnHitEffectID.Amaterasu:
 									float amaterasuItemStrength = reader.ReadSingle();
-									if (Main.npc[npcWhoAmI].G().amaterasuStrength == 0f)
-										Main.npc[npcWhoAmI].G().amaterasuStrength = amaterasuItemStrength;
-									Main.npc[npcWhoAmI].G().amaterasuDamage += damage * (crit ? 2 : 1);
+									if (Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength == 0f)
+										Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuItemStrength;
+									Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuDamage += damage * (crit ? 2 : 1);
 									/*int debuffsCount = reader.ReadInt32();
 									;
 									for (int j = 0; j < debuffsCount; j++)
@@ -274,7 +274,7 @@ namespace WeaponEnchantments
 							}
                         }
 					}
-					if (UtilityMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
+					if (LogMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
 					break;
 				/*case PacketIDs.TeleportItemSetting:
 					string name = reader.ReadString();
@@ -293,13 +293,13 @@ namespace WeaponEnchantments
 					ModContent.GetInstance<WEMod>().Logger.Debug("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*");
 					break;
 			}
-			if(UtilityMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
+			if(LogMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
 		}
 		private void ReadItem(Item item, BinaryReader reader)
         {
             if (IsEnchantable(item))
             {
-				EnchantedItem iGlobal = item.G();
+				EnchantedItem iGlobal = item.GetEnchantedItem();
 				iGlobal.Experience = reader.ReadInt32();
 				iGlobal.PowerBoosterInstalled = reader.ReadBoolean();
 				for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -332,7 +332,7 @@ namespace WeaponEnchantments
 		}
 		private void WriteItem(Item item, ModPacket packet)
         {
-			EnchantedItem iGlobal = item.G();
+			EnchantedItem iGlobal = item.GetEnchantedItem();
 			packet.Write(iGlobal.Experience);
 			packet.Write(iGlobal.PowerBoosterInstalled);
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
@@ -360,40 +360,8 @@ namespace WeaponEnchantments
 				packet.Write(iGlobal.statModifiers[key].Base);
 			}
 		}
-		public override void AddRecipeGroups()
-		{
-			RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[]
-			{
-				180, 181, 178, 179, 177
-			});
-			RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
-			group = new RecipeGroup(() => "Any Rare Gem", new int[]
-			{
-				999, 182
-			});
-			RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
-			group = new RecipeGroup(() => "Workbenches", new int[]
-			{
-				ItemID.WorkBench, ItemID.BambooWorkbench, ItemID.BlueDungeonWorkBench, ItemID.BoneWorkBench, ItemID.BorealWoodWorkBench, ItemID.CactusWorkBench, ItemID.CrystalWorkbench, ItemID.DynastyWorkBench, ItemID.EbonwoodWorkBench, ItemID.FleshWorkBench, ItemID.FrozenWorkBench, ItemID.GlassWorkBench, ItemID.GoldenWorkbench, ItemID.GothicWorkBench, ItemID.GraniteWorkBench, ItemID.GreenDungeonWorkBench, ItemID.HoneyWorkBench, ItemID.LesionWorkbench, ItemID.LihzahrdWorkBench, ItemID.LivingWoodWorkBench, ItemID.MarbleWorkBench, ItemID.MartianWorkBench, ItemID.MeteoriteWorkBench, ItemID.MushroomWorkBench, ItemID.NebulaWorkbench, ItemID.ObsidianWorkBench, ItemID.PalmWoodWorkBench, ItemID.PearlwoodWorkBench, ItemID.PinkDungeonWorkBench, ItemID.PumpkinWorkBench, ItemID.RichMahoganyWorkBench, ItemID.SandstoneWorkbench, ItemID.ShadewoodWorkBench, ItemID.SkywareWorkbench, ItemID.SlimeWorkBench, ItemID.SolarWorkbench, ItemID.SpiderWorkbench, ItemID.SpookyWorkBench, ItemID.StardustWorkbench, ItemID.SteampunkWorkBench, ItemID.VortexWorkbench
-			}) ;
-			RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
-		}
-		/*public override void PostSetupContent()
-		{
-			if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
-			{
-				for (int i = 0; i < ItemLoader.ItemCount; i++)
-				{
-					if (IsEnchantable(new Item(i)))
-					{
-						magicStorage.Call("Register Sorting", i, (Func<Item, Item, bool>)((item1, item2) =>
-							!(item1.G().experience > 0 || item1.G().powerBoosterInstalled || item2.G().experience > 0 || item2.G().powerBoosterInstalled)
-						));
-					}
-				}
-			}
-		}*/
 
+		
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
@@ -401,7 +369,6 @@ namespace WeaponEnchantments
         {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
-			IL.Terraria.Recipe.Create += HookCreate;
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag)
         {
@@ -414,267 +381,7 @@ namespace WeaponEnchantments
         }
 
 		public static int counter = 0;
-		private const bool debuggingHookCreate = false;
 		private const bool debuggingHookFindRecipes = false;
-		private static Item OnUseItemAsIngredient(Item arrItem)
-		{
-			if (!arrItem.IsAir)
-			{
-				WEMod.consumedItems.Add(arrItem.Clone());
-				/*
-				if (arrItem.TryGetGlobalItem(out EnchantedItem i2Global) && Main.mouseItem.TryGetGlobalItem(out EnchantedItem miGlobal))
-				{
-					if (i2Global.experience > 0 || i2Global.powerBoosterInstalled)
-					{
-						if (WEMod.IsEnchantable(Main.mouseItem))
-						{
-							miGlobal.experience += i2Global.experience;
-							if (i2Global.powerBoosterInstalled)
-							{
-								if (!miGlobal.powerBoosterInstalled)
-								{
-									miGlobal.powerBoosterInstalled = true;
-								}
-								else
-								{
-									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
-								}
-							}
-							miGlobal.UpdateLevel();
-							int j;
-							for (j = 0; j <= EnchantingTable.maxEnchantments; j++)
-							{
-								if (j > 4)
-									break;
-								if (miGlobal.enchantments[j].IsAir)
-									break;
-							}
-							for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
-							{
-								if (!i2Global.enchantments[k].IsAir)
-								{
-									Enchantment enchantment = ((Enchantment)i2Global.enchantments[k].ModItem);
-									int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, Main.mouseItem);
-									bool cantFit = false;
-									if (enchantment.GetLevelCost() < miGlobal.GetLevelsAvailable())
-									{
-										if (uniqueItemSlot == -1)
-										{
-											if (enchantment.Utility && miGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(Main.mouseItem) || WEMod.IsArmorItem(Main.mouseItem)))
-											{
-												miGlobal.enchantments[4] = i2Global.enchantments[k].Clone();
-											}
-											else if (j < 4)
-											{
-												miGlobal.enchantments[j] = i2Global.enchantments[k].Clone();
-												j++;
-											}
-											else
-											{
-												cantFit = true;
-											}
-										}
-										else
-										{
-											cantFit = true;
-										}
-									}
-									else
-									{
-										cantFit = true;
-									}
-									if (cantFit)
-									{
-										Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), i2Global.enchantments[k].type, 1);
-									}
-								}
-							}
-						}
-						else
-						{
-							miGlobal.experience += i2Global.experience;
-							int numberEssenceRecieved;
-							int xpCounter = miGlobal.experience;
-							for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--)
-							{
-								numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
-								xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
-								if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0)
-								{
-									xpCounter = 0;
-									numberEssenceRecieved += 1;
-								}
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
-							}
-							if (i2Global.powerBoosterInstalled)
-							{
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
-							}
-							for (int k = 0; k < EnchantingTable.maxEnchantments; k++)
-							{
-								if (!i2Global.enchantments[k].IsAir)
-								{
-									Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), i2Global.enchantments[k].type, 1);
-								}
-							}
-						}
-					}
-					else
-					{
-						if (arrItem.ModItem is Enchantment)
-						{
-							int size = ((Enchantment)arrItem.ModItem).EnchantmentSize;
-							if (size < 2)
-							{
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), Containment.IDs[size], 1);
-							}
-							else if (size == 3)
-							{
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 2);
-							}
-						}
-						else if (arrItem.ModItem is Containment containment)
-						{
-							if (containment.size == 2 && Main.mouseItem.type == Containment.barIDs[0, 2])
-								Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), 180, 4);
-						}
-					}
-				}
-				*/
-			}
-			if (debuggingHookCreate)
-			{
-				counter++;
-				Main.NewText("counter: " + counter.ToString() + " item2.name: " + arrItem.Name);
-				ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString() + " item2.name: " + arrItem.Name);
-			}
-			return arrItem;
-		}
-		private static void HookCreate(ILContext il)
-		{
-			counter = 0;
-			var c = new ILCursor(il);
-
-			if (debuggingHookCreate)
-			{
-				while (c.Next != null)
-				{
-					bool catchingExceptions = true;
-					ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString());
-					while (catchingExceptions)
-					{
-						c.Index++;
-						try
-						{
-							if (c.Next != null)
-							{
-								string tempString = c.Next.ToString();
-							}
-							catchingExceptions = false;
-						}
-						catch (Exception e)
-						{
-							ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString().Substring(0, 20));
-						}
-					}
-				}
-				c.Index = 0;
-
-
-
-				bool searching = true;
-				int line = 0;
-				int j = 0;
-				int jNext = c.Context.ToString().Substring(0).IndexOf("IL_");
-				while (searching)
-				{
-					j = jNext;
-					//Debug.WriteLine("length: " + c.Context.ToString().Length.ToString() + " jNext + 1: " + (jNext + 1).ToString());
-					jNext = c.Context.ToString().Substring(jNext + 1).IndexOf("IL_") + j + 1;
-					//Debug.WriteLine("substring: " + c.Context.ToString().Substring(j, jNext - j - 2) + ", length: " + c.Context.ToString().Substring(j, jNext - j - 2).Length.ToString());
-					if (jNext == j)
-					{
-						ModContent.GetInstance<WEMod>().Logger.Info(line + " " + c.Context.ToString().Substring(j));
-						//Debug.WriteLine(line + " " + c.Context.ToString().Substring(j));
-						searching = false;
-					}
-					else
-					{
-						ModContent.GetInstance<WEMod>().Logger.Info(line + " " + c.Context.ToString().Substring(j, jNext - j - 2));
-						//Debug.WriteLine(line + " " + c.Context.ToString().Substring(j, jNext - j - 2));
-					}
-					line++;
-				}
-			}
-
-			if (!c.TryGotoNext(MoveType.After,
-				i => i.MatchLdarg(0),
-				i => i.MatchLdloc(1),
-				i => i.MatchLdfld(out _),
-				i => i.MatchLdloc(3),
-				i => i.MatchLdfld(out _),
-				i => i.MatchCall(out _),
-				i => i.MatchBrfalse(out _),
-
-				i => i.MatchLdloc(1)
-			)) { throw new Exception("Failed to find instructions HookCreate 1"); }
-
-			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
-
-			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
-
-			c.EmitDelegate((Item arrItem) => OnUseItemAsIngredient(arrItem));
-
-			if (!c.TryGotoNext(MoveType.Before,
-				i => i.MatchLdsfld(out _),
-				i => i.MatchLdsfld(out _),
-				i => i.MatchLdelemRef(),
-				i => i.MatchLdfld(out _),
-				i => i.MatchLdcI4(-1),
-				i => i.MatchBeq(out _)
-
-			)) { throw new Exception("Failed to find instructions HookCreate 3"); }
-
-			var incomingLabels = c.IncomingLabels;
-			foreach (ILLabel cursorIncomingLabel in incomingLabels)
-				c.MarkLabel(cursorIncomingLabel);
-
-			c.Emit(OpCodes.Ldloc, 3);
-			c.Emit(OpCodes.Ldloc, 4);
-
-			c.EmitDelegate((Item item, int num) =>
-			{
-				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				if (wePlayer.usingEnchantingTable)
-				{
-					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++)
-					{
-						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-						if (item.type == slotItem.type)
-						{
-							slotItem.stack -= num;
-						}
-					}
-				}
-			});
-
-			if (!c.TryGotoNext(MoveType.After,
-				i => i.MatchLdarg(0),
-				i => i.MatchLdloc(1),
-				i => i.MatchLdfld(out _),
-				i => i.MatchLdloc(3),
-				i => i.MatchLdfld(out _),
-				i => i.MatchCall(out _),
-				i => i.MatchBrfalse(out _),
-
-				i => i.MatchLdloc(1)
-			)) { throw new Exception("Failed to find instructions HookCreate 2"); }
-
-			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
-
-			if (debuggingHookCreate) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
-			c.EmitDelegate((Item arrItem) => OnUseItemAsIngredient(arrItem));
-		}
 		private static void HookFindRecipes(ILContext il)
 		{
 			var c = new ILCursor(il);
@@ -775,56 +482,5 @@ namespace WeaponEnchantments
 				}
 			});
 		}
-
-		/*private delegate void orig_ItemIOLoad(Item item, TagCompound tag);
-		private delegate void hook_ItemIOLoad(orig_ItemIOLoad orig, Item item, TagCompound tag);
-		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = 
-			typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(Item), typeof(TagCompound) })!;
-
-		public override void Load()
-        {
-			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-        }
-		public override void Unload()
-		{
-			return;
-		}
-		private void ItemIOLoadDetour(orig_ItemIOLoad orig, Item item, TagCompound tag)
-        {
-			orig(item, tag);
-			if(item.ModItem is UnloadedItem)
-            {
-				OldItemManager.ReplaceOldItem(ref item);
-				//orig(item, tag);
-			 }
-        }*/
-
-		/*private delegate void orig_ItemIOLoad(Item item, TagCompound tag);
-		private delegate void hook_ItemIOLoad(orig_ItemIOLoad orig, Item item, TagCompound tag);
-		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = 
-			typeof(Main).Assembly.GetType("Terraria.ModLoader.Default.UnloadedGlobalItem")!.GetMethod("LoadData", BindingFlags.Public, new System.Type[] { typeof(Item), typeof(TagCompound) })!;
-		public override void Load()
-        {
-			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-        }
-		public override void Unload()
-		{
-			return;
-		}
-		private void ItemIOLoadDetour(orig_ItemIOLoad orig, Item item, TagCompound tag)
-        {
-			orig(item, tag);
-			if(item.ModItem is UnloadedItem)
-            {
-				OldItemManager.ReplaceOldItem(ref item);
-				//orig(item, tag);
-			}
-        }*/
-
-
-
-		/*OldItemManager.ReplaceOldItem(ref item);
-            if(item.Name == "Unloaded Item")
-                base.LoadData(item, tag);*/
 	}
 }

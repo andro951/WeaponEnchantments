@@ -3,6 +3,9 @@ using Terraria;
 using Terraria.ID;
 using System;
 using WeaponEnchantments.Tiles;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static Terraria.ID.TileID;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -10,366 +13,406 @@ namespace WeaponEnchantments.Common.Globals
     {
 		public static int tileType = -1;
 		public static Item dropItem = new Item();
-        public override bool Drop(int i, int j, int type)
-        {
-			return true;
-        }
-		public override bool CanPlace(int i, int j, int type)
-		{
+		public override bool CanPlace(int i, int j, int type) {
 			int mainTile = Main.tile[i, j].TileType;
-			for (int k = 0; k < Items.WoodEnchantingTable.enchantingTableNames.Length; k++)
-			{
+			for (int k = 0; k < Items.EnchantingTableItem.enchantingTableNames.Length; k++) {
 				int tableType = ModContent.TileType<WoodEnchantingTable>() - k;
 				Item heldItem = Main.LocalPlayer.HeldItem;
-				if (type == tableType && !(mainTile == 0 || mainTile == 3 || mainTile == 185 || mainTile == 187 || mainTile == 233) || mainTile == tableType && heldItem.pick == 0)
+
+				//Prevent block swapping on top of the table (fix that was causing a crash)
+				if (mainTile == tableType && heldItem.pick == 0)
 					return false;
+
+				//Prevent block swapping the table onto other items except ones that won't crash the game.
+				if(type == tableType) {
+					switch (mainTile) {
+						case 0:
+						case 3:
+						case 24:
+						case 185:
+						case 187:
+						case 233:
+							//Allow placing the table
+							break;
+						default:
+							return false;
+					}
+				}
 			}
+
 			return true;
 		}
-		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged)
-        {
+		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged) {
 			Tile tileTarget = Main.tile[i, j];
-			if (tileTarget.TileType != 504)
-			{
-				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
-				int damageAmount = 0;
-				if (Main.tileAxe[tileTarget.TileType])
-                {
-					if (tileTarget.TileType == 80)
-						damageAmount += (int)(wePlayer.Player.HeldItem.axe * 3 * 1.2f);
-					else
-						TileLoader.MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
+			if (tileTarget.TileType == TileID.MysticSnakeRope)
+				return true;
+
+			//Hammer (Don't calculate a dropItem)
+			if (Main.tileHammer[tileTarget.TileType]) {
+				dropItem = new Item();
+				return true;
+			}
+
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			
+			//Calculate damage done to the tile  (Copied vanilla code)
+			int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
+			int damageAmount = 0;
+			if (Main.tileAxe[tileTarget.TileType]) {
+				//Axe
+				if (tileTarget.TileType == TileID.Cactus) {
+					//Cactus
+					damageAmount += (int)(wePlayer.Player.HeldItem.axe * 3 * 1.2f);
 				}
-                else
-                {
-					damageAmount = GetPickaxeDamage(i, j, wePlayer.Player.inventory[wePlayer.Player.selectedItem].pick, hitBufferIndex, tileTarget);
-				}
-				int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
-				if (damage >= 100)
-				{
-					tileType = tileTarget.TileType;
-					ModTile modTile = TileLoader.GetTile(type);
-					if (modTile != null && TileID.Sets.Ore[tileType])
-					{
-						dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item;
-					}
-					else
-					{
-						dropItem = new Item(GetDroppedItems(tileTarget));
-					}
+				else {
+					//Wood and other axable things
+					TileLoader.MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
 				}
 			}
+            else {
+				//Pickaxe
+				damageAmount = GetPickaxeDamage(i, j, wePlayer.Player.inventory[wePlayer.Player.selectedItem].pick, hitBufferIndex, tileTarget);
+			}
+
+			//Get actual damage dealt
+			int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
+			if (damage >= 100) {
+				tileType = tileTarget.TileType;
+				ModTile modTile = TileLoader.GetTile(type);
+				//Get item dropped by the tile
+				if (modTile != null && TileID.Sets.Ore[tileType]) {
+					//Modded ore
+					dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item;
+				}
+				else {
+					//Vanilla tile
+					dropItem = new Item(GetDroppedItems(tileTarget));
+				}
+			}
+
 			return true;
         }
-        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.Player.HeldItem.pick > 0 || wePlayer.Player.HeldItem.axe > 0 || wePlayer.Player.HeldItem.hammer > 0)
-            {
+			Item heldItem = wePlayer.Player.HeldItem;
+
+			if (heldItem.pick <= 0 && heldItem.axe <= 0 && heldItem.hammer <= 0)
+				return;
+
+			if (tileType < 0 || tileType == TileID.MysticSnakeRope)
+				return;
+
                 int xp = 1;
-				if(tileType != 504)
-                {
-					if(tileType >= 0)
-                    {
-						xp += GetTileStrengthXP(tileType);
-						if (Main.tileAxe[tileType])
-						{
-							int tiles = 0;
-							int y = j;
-							while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType])
-							{
-								y--;
-								tiles++;
-							}
-							xp = tileType >= TileID.TreeTopaz && tileType <= TileID.TreeAmber ? tiles  * 50 : tiles * 10;
-							//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
-							//ModContent.GetInstance<WEMod>().Logger.Info(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from cutting down a tree.");
-						}
-                        else
-                        {
-							if (dropItem.type != ItemID.None)
-							{
-								xp += dropItem.value / 100;
-							}
-						}
-						//Main.NewText(wePlayer.Player.name + " recieved " + xp.ToString() + " xp from mining" + dropItem.Name + ".");
-						float configMultiplier = (float)WEMod.serverConfig.GatheringExperienceMultiplier / 100f;
-						if (configMultiplier > 1f)
-						{
-							xp = (int)Math.Round((float)xp * configMultiplier);
-							if (xp < 1)
-								xp = 1;
-						}
-						wePlayer.Player.HeldItem.G().GainXP(wePlayer.Player.HeldItem, xp);
-						EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
-						tileType = -1;
-						dropItem = new Item();
-					}
+			
+			xp += GetTileStrengthXP(tileType);
+			if (Main.tileAxe[tileType]) {
+				//Axe
+				int tiles = 0;
+				int y = j;
+				while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType]) {
+					y--;
+					tiles++;
 				}
-            }
+
+				xp = tileType >= TileID.TreeTopaz && tileType <= TileID.TreeAmber ? tiles  * 50 : tiles * 10;
+			}
+			else if (Main.tileHammer[tileType]) {
+				//Hammer
+				xp += 4;
+			}
+            else {
+				//Pickaxe
+				if (dropItem.type != ItemID.None) {
+					xp += dropItem.value / 100;
+				}
+			}
+
+			//Config multiplier
+			if (GatheringExperienceMultiplier > 1f) {
+				xp = (int)Math.Round((float)xp * GatheringExperienceMultiplier);
+				if (xp < 1)
+					xp = 1;
+			}
+			
+			//Gain xp
+			wePlayer.Player.HeldItem.GetEnchantedItem().GainXP(wePlayer.Player.HeldItem, xp);
+			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
+			
+			//Reset static tile info
+			tileType = -1;
+			dropItem = new Item();
         }
-		public static int GetDroppedItems(Tile tileCache)
-		{
+		public static int GetDroppedItems(Tile tileCache) {
 			int dropItem = 0;
-			switch (tileCache.TileType)
-			{
-				case 330:
-					dropItem = 71;
+			switch (tileCache.TileType) {
+				//Coin Piles
+				case TileID.CopperCoinPile:
+					dropItem = ItemID.CopperCoin;
 					break;
-				case 331:
-					dropItem = 72;
+				case TileID.SilverCoinPile:
+					dropItem = ItemID.SilverCoin;
 					break;
-				case 332:
-					dropItem = 73;
+				case TileID.GoldCoinPile:
+					dropItem = ItemID.GoldCoin;
 					break;
-				case 333:
-					dropItem = 74;
+				case TileID.PlatinumCoinPile:
+					dropItem = ItemID.PlatinumCoin;
 					break;
-				case 408://Luminite
-					dropItem = 3460;
+
+				//Ores
+				case TileID.Iron:
+					dropItem = ItemID.IronOre;
 					break;
-				case 404:
-					dropItem = 3347;
+				case TileID.Copper:
+					dropItem = ItemID.CopperOre;
 					break;
-				case 407:
-					dropItem = 3380;
+				case TileID.Gold:
+					dropItem = ItemID.GoldOre;
 					break;
-				case 211:
-					dropItem = 947;
+				case TileID.Silver:
+					dropItem = ItemID.SilverOre;
 					break;
-				case 6:
-					dropItem = 11;
+				case TileID.Palladium:
+					dropItem = ItemID.PalladiumOre;
 					break;
-				case 7:
-					dropItem = 12;
+				case TileID.Orichalcum:
+					dropItem = ItemID.OrichalcumOre;
 					break;
-				case 8:
-					dropItem = 13;
+				case TileID.Titanium:
+					dropItem = ItemID.TitaniumOre;
 					break;
-				case 9:
-					dropItem = 14;
+				case TileID.Demonite:
+					dropItem = ItemID.DemoniteOre;
 					break;
-				case 221:
-					dropItem = 1104;
+				case TileID.Meteorite:
+					dropItem = ItemID.Meteorite;
 					break;
-				case 222:
-					dropItem = 1105;
+				case TileID.Hellstone:
+					dropItem = ItemID.Hellstone;
 					break;
-				case 223:
-					dropItem = 1106;
+				case TileID.Tin:
+					dropItem = ItemID.TinOre;
 					break;
-				case 204:
-					dropItem = 880;
+				case TileID.Lead:
+					dropItem = ItemID.LeadOre;
 					break;
-				case 166:
-					dropItem = 699;
+				case TileID.Tungsten:
+					dropItem = ItemID.TungstenOre;
 					break;
-				case 167:
-					dropItem = 700;
+				case TileID.Platinum:
+					dropItem = ItemID.PlatinumOre;
 					break;
-				case 168:
-					dropItem = 701;
+				case TileID.Crimtane:
+					dropItem = ItemID.CrimtaneOre;
 					break;
-				case 169:
-					dropItem = 702;
+				case TileID.Cobalt:
+					dropItem = ItemID.CobaltOre;
 					break;
-				case 22:
-					dropItem = 56;
+				case TileID.Mythril:
+					dropItem = ItemID.MythrilOre;
 					break;
-				case 37:
-					dropItem = 116;
+				case TileID.Adamantite:
+					dropItem = ItemID.AdamantiteOre;
 					break;
-				case 58:
-					dropItem = 174;
+				case TileID.Chlorophyte:
+					dropItem = ItemID.ChlorophyteOre;
 					break;
-				case 107:
-					dropItem = 364;
+				case TileID.LunarOre:
+					dropItem = ItemID.LunarOre;
 					break;
-				case 108:
-					dropItem = 365;
+				case TileID.DesertFossil:
+					dropItem = ItemID.DesertFossil;
 					break;
-				case 111:
-					dropItem = 366;
+				case TileID.FossilOre:
+					dropItem = ItemID.FossilOre;
 					break;
-				case 63:
-				case 64:
-				case 65:
-				case 66:
-				case 67:
-				case 68:
-					dropItem = tileType - 63 + 177;
-					break;
-				case 566:
-					dropItem = 999;
-					break;
-				case 129:
+
+				//Gems and crystals
+				case TileID.Crystals:
 					if (tileCache.TileFrameX >= 324)
-						dropItem = 4988;
+						dropItem = ItemID.QueenSlimeCrystal;
 					else
-						dropItem = 502;
+						dropItem = ItemID.CrystalShard;
 					break;
-				
-				case 589:
-					dropItem = 999;
+				case TileID.Sapphire:
+				case TileID.Ruby:
+				case TileID.Emerald:
+				case TileID.Topaz:
+				case TileID.Amethyst:
+				case TileID.Diamond:
+					dropItem = tileType - TileID.Sapphire + ItemID.Sapphire;
 					break;
-				case 584:
-					dropItem = 181;
+				case TileID.AmberStoneBlock:
+					dropItem = ItemID.Amber;
 					break;
-				case 583:
-					dropItem = 180;
+				case TileID.TreeTopaz:
+					dropItem = ItemID.Topaz;
 					break;
-				case 586:
-					dropItem = 179;
+				case TileID.TreeAmethyst:
+					dropItem = ItemID.Amethyst;
 					break;
-				case 585:
-					dropItem = 177;
+				case TileID.TreeSapphire:
+					dropItem = ItemID.Sapphire;
 					break;
-				case 587:
-					dropItem = 178;
+				case TileID.TreeEmerald:
+					dropItem = ItemID.Emerald;
 					break;
-				case 588:
-					dropItem = 182;
+				case TileID.TreeRuby:
+					dropItem = ItemID.Ruby;
+					break;
+				case TileID.TreeDiamond:
+					dropItem = ItemID.Diamond;
+					break;
+				case TileID.TreeAmber:
+					dropItem = ItemID.Amber;
+					break;
+				case TileID.ExposedGems:
+					int frame = tileCache.TileFrameX / 18;
+					switch (frame) {
+						case 0:
+							dropItem = ItemID.Amethyst;
+							break;
+						case 1:
+							dropItem = ItemID.Topaz;
+							break;
+						case 2:
+							dropItem = ItemID.Sapphire;
+							break;
+						case 3:
+							dropItem = ItemID.Emerald;
+							break;
+						case 4:
+							dropItem = ItemID.Ruby;
+							break;
+						case 5:
+							dropItem = ItemID.Diamond;
+							break;
+						case 6:
+							dropItem = ItemID.Amber;
+							break;
+						default:
+							$"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, tileCache.TileFrameY: {tileCache.TileFrameY}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+							break;
+					}
 					break;
 			}
+
 			return dropItem;
 		}
-		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget)
-		{
+		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget) {
+
+			//All copied from Vanilla souce code.
 			Player player = Main.LocalPlayer;
 			int num = 0;
 			if (Main.tileNoFail[tileTarget.TileType])
 				num = 100;
 
-			if (Main.tileDungeon[tileTarget.TileType] || tileTarget.TileType == 25 || tileTarget.TileType == 58 || tileTarget.TileType == 117 || tileTarget.TileType == 203)
+			if (Main.tileDungeon[tileTarget.TileType] || tileTarget.TileType == Ebonstone || tileTarget.TileType == Hellstone || tileTarget.TileType == Pearlstone || tileTarget.TileType == Crimstone)
 				num += pickPower / 2;
-			else if (tileTarget.TileType == 85)
+			else if (tileTarget.TileType == Tombstones)
 				num += pickPower / 3;
-			else if (tileTarget.TileType == 48 || tileTarget.TileType == 232)
+			else if (tileTarget.TileType == Spikes || tileTarget.TileType == WoodenSpikes)
 				num += pickPower * 2;
-			else if (tileTarget.TileType == 226)
+			else if (tileTarget.TileType == LihzahrdBrick)
 				num += pickPower / 4;
-			else if (tileTarget.TileType == 107 || tileTarget.TileType == 221)
+			else if (tileTarget.TileType == Cobalt || tileTarget.TileType == Palladium)
 				num += pickPower / 2;
-			else if (tileTarget.TileType == 108 || tileTarget.TileType == 222)
+			else if (tileTarget.TileType == Mythril || tileTarget.TileType == Orichalcum)
 				num += pickPower / 3;
-			else if (tileTarget.TileType == 111 || tileTarget.TileType == 223)
+			else if (tileTarget.TileType == Adamantite || tileTarget.TileType == Titanium)
 				num += pickPower / 4;
-			else if (tileTarget.TileType == 211)
+			else if (tileTarget.TileType == Chlorophyte)
 				num += pickPower / 5;
 			else
 				TileLoader.MineDamage(pickPower, ref num);
-			if (tileTarget.TileType == 211 && pickPower < 200)
+			if (tileTarget.TileType == Chlorophyte && pickPower < 200)
 				num = 0;
-
-			if ((tileTarget.TileType == 25 || tileTarget.TileType == 203) && pickPower < 65)
-			{
-				num = 0;
-			}
-			else if (tileTarget.TileType == 117 && pickPower < 65)
-			{
+			
+			if ((tileTarget.TileType == Ebonstone || tileTarget.TileType == Crimstone) && pickPower < 65) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 37 && pickPower < 50)
-			{
+			else if (tileTarget.TileType == Pearlstone && pickPower < 65) {
 				num = 0;
 			}
-			else if ((tileTarget.TileType == 22 || tileTarget.TileType == 204) && (double)y > Main.worldSurface && pickPower < 55)
-			{
+			else if (tileTarget.TileType == Meteorite && pickPower < 50) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 56 && pickPower < 55)
-			{
+			else if ((tileTarget.TileType == Demonite || tileTarget.TileType == Crimtane) && (double)y > Main.worldSurface && pickPower < 55) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 77 && pickPower < 65 && y >= Main.UnderworldLayer)
-			{
+			else if (tileTarget.TileType == Obsidian && pickPower < 55) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 58 && pickPower < 65)
-			{
+			else if (tileTarget.TileType == Hellforge && pickPower < 65 && y >= Main.UnderworldLayer) {
 				num = 0;
 			}
-			else if ((tileTarget.TileType == 226 || tileTarget.TileType == 237) && pickPower < 210)
-			{
+			else if (tileTarget.TileType == Hellstone && pickPower < 65) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 137 && pickPower < 210)
-			{
+			else if ((tileTarget.TileType == LihzahrdBrick || tileTarget.TileType == LihzahrdAltar) && pickPower < 210) {
+				num = 0;
+			}
+			else if (tileTarget.TileType == Traps && pickPower < 210) {
 				int num2 = tileTarget.TileFrameY / 18;
 				if ((uint)(num2 - 1) <= 3u)
 					num = 0;
 			}
-			else if (Main.tileDungeon[tileTarget.TileType] && pickPower < 100 && (double)y > Main.worldSurface)
-			{
+			else if (Main.tileDungeon[tileTarget.TileType] && pickPower < 100 && (double)y > Main.worldSurface) {
 				if ((double)x < (double)Main.maxTilesX * 0.35 || (double)x > (double)Main.maxTilesX * 0.65)
 					num = 0;
 			}
-			else if (tileTarget.TileType == 107 && pickPower < 100)
-			{
+			else if (tileTarget.TileType == Cobalt && pickPower < 100) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 108 && pickPower < 110)
-			{
+			else if (tileTarget.TileType == Mythril && pickPower < 110) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 111 && pickPower < 150)
-			{
+			else if (tileTarget.TileType == Adamantite && pickPower < 150) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 221 && pickPower < 100)
-			{
+			else if (tileTarget.TileType == Palladium && pickPower < 100) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 222 && pickPower < 110)
-			{
+			else if (tileTarget.TileType == Orichalcum && pickPower < 110) {
 				num = 0;
 			}
-			else if (tileTarget.TileType == 223 && pickPower < 150)
-			{
+			else if (tileTarget.TileType == Titanium && pickPower < 150) {
 				num = 0;
 			}
-			else
-			{
+			else {
 				TileLoader.PickPowerCheck(tileTarget, pickPower, ref num);
 			}
 
-			if (tileTarget.TileType == 147 || tileTarget.TileType == 0 || tileTarget.TileType == 40 || tileTarget.TileType == 53 || tileTarget.TileType == 57 || tileTarget.TileType == 59 || tileTarget.TileType == 123 || tileTarget.TileType == 224 || tileTarget.TileType == 397)
+			if (tileTarget.TileType == SnowBlock || tileTarget.TileType == Dirt || tileTarget.TileType == ClayBlock || tileTarget.TileType == Sand || tileTarget.TileType == Ash || tileTarget.TileType == Mud || tileTarget.TileType == Silt || tileTarget.TileType == Slush || tileTarget.TileType == HardenedSand)
 				num += pickPower;
 
-			if (tileTarget.TileType == 404)
+			if (tileTarget.TileType == DesertFossil)
 				num += 5;
 
-			if (tileTarget.TileType == 165 || Main.tileRope[tileTarget.TileType] || tileTarget.TileType == 199)
+			if (tileTarget.TileType == Stalactite || Main.tileRope[tileTarget.TileType] || tileTarget.TileType == CrimsonGrass)
 				num = 100;
 
-			if (tileTarget.TileType == 128 || tileTarget.TileType == 269)
-			{
-				if (tileTarget.TileFrameX == 18 || tileTarget.TileFrameX == 54)
-				{
+			if (tileTarget.TileType == Mannequin || tileTarget.TileType == Womannequin) {
+				if (tileTarget.TileFrameX == 18 || tileTarget.TileFrameX == 54) {
 					x--;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
 				}
 
-				if (tileTarget.TileFrameX >= 100)
-				{
+				if (tileTarget.TileFrameX >= 100) {
 					num = 0;
 					Main.blockMouse = true;
 				}
 			}
 
-			if (tileTarget.TileType == 334)
-			{
-				if (tileTarget.TileFrameY == 0)
-				{
+			if (tileTarget.TileType == WeaponsRack) {
+				if (tileTarget.TileFrameY == 0) {
 					y++;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
 				}
 
-				if (tileTarget.TileFrameY == 36)
-				{
+				if (tileTarget.TileFrameY == 36) {
 					y--;
 					tileTarget = Main.tile[x, y];
 					player.hitTile.UpdatePosition(hitBufferIndex, x, y);
@@ -378,8 +421,7 @@ namespace WeaponEnchantments.Common.Globals
 				int frameX = tileTarget.TileFrameX;
 				bool flag = frameX >= 5000;
 				bool flag2 = false;
-				if (!flag)
-				{
+				if (!flag) {
 					int num3 = frameX / 18;
 					num3 %= 3;
 					x -= num3;
@@ -388,8 +430,7 @@ namespace WeaponEnchantments.Common.Globals
 						flag = true;
 				}
 
-				if (flag)
-				{
+				if (flag) {
 					frameX = tileTarget.TileFrameX;
 					int num4 = 0;
 					while (frameX >= 5000)
@@ -402,53 +443,51 @@ namespace WeaponEnchantments.Common.Globals
 						flag2 = true;
 				}
 
-				if (flag2)
-				{
+				if (flag2) {
 					num = 0;
-					Main.blockMouse = true;
+					//Main.blockMouse = true;
 				}
 			}
-
+			
 			return num;
 		}
-		private int GetTileStrengthXP(int tileType)
-        {
+		private int GetTileStrengthXP(int tileType) {
 			int xp = 10;
-            switch (tileType)
-            {
-				case 25:
-				case 58:
-				case 107:
-				case 117:
-				case 203:
-				case 221:
+			//Values based on GetPickaxeDamage values from Vanilla source code
+            switch (tileType) {
+				case Ebonstone:
+				case Hellstone:
+				case Cobalt:
+				case Pearlstone:
+				case Crimstone:
+				case Palladium:
 					xp *= 2;
 					break;
-				case 85:
-				case 108:
-				case 222:
+				case Tombstones:
+				case Mythril:
+				case Orichalcum:
 					xp *= 3;
 					break;
-				case 111:
-				case 223:
-				case 226:
+				case Adamantite:
+				case Titanium:
+				case LihzahrdBrick:
 					xp *= 4;
 					break;
-				case 211:
+				case Chlorophyte:
 					xp *= 5;
 					break;
 				default:
-					if (Main.tileDungeon[tileType])
-                    {
+					if (Main.tileDungeon[tileType]) {
 						xp *= 2;
                     }
-                    else
-                    {
+                    else {
+						//Modded Tile
 						ModTile modTile = TileLoader.GetTile(tileType);
 						xp = modTile != null ? (int)(xp * modTile.MineResist) : xp;
                     }
 					break;
             }
+
 			return xp;
         }
 	}

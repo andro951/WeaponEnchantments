@@ -23,6 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
 			AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class AllForOneEnchantmentBasic : AllForOneEnchantment { }
 	public class AllForOneEnchantmentCommon : AllForOneEnchantment { }

@@ -10,6 +10,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			CheckStaticStatByName();
 			AddStaticStat("whipRangeMultiplier", EnchantmentStrength);
 		}
+
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 	}
 	public class ScaleEnchantmentBasic : ScaleEnchantment { }
 	public class ScaleEnchantmentCommon : ScaleEnchantment { }
