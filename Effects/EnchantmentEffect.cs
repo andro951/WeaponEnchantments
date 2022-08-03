@@ -47,7 +47,7 @@ namespace WeaponEnchantments.EnchantmentEffects {
 
         public virtual string DisplayName => "Default";
 
-        public virtual string Tooltip => $"{DisplayName}: {EnchantmentPower*100}%";
+        public virtual string Tooltip => $"{DisplayName}: {Math.Round(EnchantmentPower * 100, 1)}%";
 
         /// <summary>
         /// <para>

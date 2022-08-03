@@ -960,38 +960,6 @@ namespace WeaponEnchantments.Common.Globals
                     if (makingPacket && oneForAllWhoAmIs.Count > 0)
                         onHitEffects[OnHitEffectID.OneForAll] = true;
                 }
-
-                //LifeSteal
-                if (ItemEStats.ContainsKey("LifeSteal")) {
-                    float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
-                    float healTotal = (damage + oneForAllDamageDealt) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
-
-                    //Summon damage reduction
-                    bool summonDamage = SourceItem.DamageType == DamageClass.Summon || SourceItem.DamageType == DamageClass.MagicSummonHybrid;
-                    if (summonDamage)
-                        healTotal *= 0.5f;
-
-                    int heal = (int)healTotal;
-
-                    if (player.statLife < player.statLifeMax2) {
-                        //Player hp less than max
-                        if (heal > 0 && player.lifeSteal > 0f) {
-                            //Vanilla lifesteal mitigation
-                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimit);
-                            player.lifeSteal -= vanillaLifeStealValue;
-
-                            Vector2 speed = new Vector2(0, 0);
-                            Projectile.NewProjectile(SourceItem.GetSource_ItemUse(SourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
-                        }
-
-                        //Life Steal Rollover
-                        wePlayer.lifeStealRollover = healTotal - heal;
-                    }
-                    else {
-                        //Player hp is max
-                        wePlayer.lifeStealRollover = 0f;
-                    }
-                }
             }
 
             //GodSlayer

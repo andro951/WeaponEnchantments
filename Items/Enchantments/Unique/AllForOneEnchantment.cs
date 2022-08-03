@@ -10,8 +10,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f }
 		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, EnchantmentStrength);

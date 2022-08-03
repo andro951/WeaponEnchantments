@@ -22,8 +22,6 @@ namespace WeaponEnchantments.Common {
 
             int moddedSlotCount = alp.SlotCount;
 
-            Main.NewText(moddedSlotCount);
-
             HeldItem = player.HeldItem;
             Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
 

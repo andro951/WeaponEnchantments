@@ -11,6 +11,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
+using static WeaponEnchantments.Items.Enchantment;
 
 namespace WeaponEnchantments.Common
 {
@@ -154,13 +155,13 @@ namespace WeaponEnchantments.Common
 
                         if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                             Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
-                            if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
+                            if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                             }
-                            else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
+                            else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                             }
-                            else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
+                            else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.slottedItems[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                             }
 

@@ -16,6 +16,7 @@ using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Items.Enchantment;
 
 namespace WeaponEnchantments.UI
 {
@@ -137,9 +138,9 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment)
         {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			return enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(wePlayer.ItemInUI())
-				|| enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(wePlayer.ItemInUI())
-				|| enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(wePlayer.ItemInUI());
+			return enchantment.AllowedList.ContainsKey(EItemType.Weapon) && WEMod.IsWeaponItem(wePlayer.ItemInUI())
+				|| enchantment.AllowedList.ContainsKey(EItemType.Armor) && WEMod.IsArmorItem(wePlayer.ItemInUI())
+				|| enchantment.AllowedList.ContainsKey(EItemType.Accesory) && WEMod.IsAccessoryItem(wePlayer.ItemInUI());
 		}
 		private bool UseEnchantmentSlot()
         {
