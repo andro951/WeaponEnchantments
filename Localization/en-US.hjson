@@ -2,7 +2,7 @@
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			Containment: Containmentz
+			Containment: Containment
 			MediumContainment: Medium Containment
 			SuperiorContainment: Superior Containment
 			WoodEnchantingTable: Wood Enchanting Table

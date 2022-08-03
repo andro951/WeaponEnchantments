@@ -36,7 +36,7 @@ namespace WeaponEnchantments.Common.Utility
         /// </summary>
         /// <param name="s">Message that will be printed</param>
         public static void LogNT(this string s, int messageID) {
-            s += reportMessage;
+            s += $"Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
 
             if (Main.netMode < NetmodeID.Server) {
                 bool doChatMessage = false;
