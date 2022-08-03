@@ -1351,11 +1351,8 @@ namespace WeaponEnchantments.Common.Globals
                 xpDamage += target.life;
 
             //XP Damage <= 0 check
-            if (xpDamage <= 0) {
-                ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP);
+            if (xpDamage <= 0)
                 return;
-            }
 
             //Crit Multiplier
             float effectiveDamagePerHit;
