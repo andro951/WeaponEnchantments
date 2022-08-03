@@ -574,7 +574,14 @@ namespace WeaponEnchantments {
         #region Enchantment hooks
 
         public void ApplyPostMiscEnchants() {
-            foreach (EnchantmentEffect effect in PlayerEquipment.GetAllEnchantmentEffects()) {
+            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects();
+
+            // Only apply held item effects if they're weapons!
+            if (WEMod.IsWeaponItem(Player.HeldItem)) {
+                effects = effects.Concat(PlayerEquipment.ExtractEnchantmentEffects(Player.HeldItem.GetEnchantedItem()));
+            }
+
+            foreach (EnchantmentEffect effect in effects) {
                 effect.PostUpdateMiscEffects(this);
             }
         }

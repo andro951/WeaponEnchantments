@@ -14,7 +14,7 @@ using WeaponEnchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Effects {
     public class DebuffEffect : EnchantmentEffect {
-        internal static string GetBuffName(int id) {
+        public static string GetBuffName(int id) {
             if (id < BuffID.Count) {
                 BuffID buffID = new();
                 return buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;
