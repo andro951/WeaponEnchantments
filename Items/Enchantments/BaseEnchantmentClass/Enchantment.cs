@@ -366,18 +366,18 @@ namespace WeaponEnchantments.Items
 			//DisplayName
 			string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;
 			typeNameString.Log();
-			string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+			string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
 			if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
 				string rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
 				rarityString.Log();
-				DisplayName.SetDefault(displayName + Language.GetTextValue(rarityString));
+				DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));
 			}
 			else {
 				//Current rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
 				string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[EnchantmentTier];
 				rarityString.Log();
-				DisplayName.SetDefault(displayName + Language.GetTextValue(rarityString));
+				DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));
 			}
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
