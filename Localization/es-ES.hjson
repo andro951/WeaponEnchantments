@@ -1,0 +1,56 @@
+﻿#Contributors: JoeDolca and Mizky_Noust
+Mods: {
+    WeaponEnchantments: {
+        ItemName: {
+            Containment: Contenedor
+            MediumContainment: Contenedor Mediano
+            SuperiorContainment: Contenedor Superior
+            WoodEnchantingTable: Mesa de Encantamiento de Madera
+            DustyEnchantingTable: Mesa de Encantamiento Polvorienta
+            HellishEnchantingTable: Mesa de Encantamiento Infernal
+            SoulEnchantingTable: Mesa de Encantamiento Espiritual
+            UltimateEnchantingTable: Mesa de Encantamiento Definitiva
+        }
+        EnchantmentEssence: Esencia de Encantamiento
+        Enchantment: Encantamiento
+        EnchantmentTypeNames: {
+            ArmorPenetration: Penetración de Armadura
+            CriticalStrikeChance: Golpe Crítico
+            Damage: Daño
+            LifeSteal: Robo de Vida
+            MaxMinions: Súbditos Máximos
+            Multishot: Multidisparo
+            OneForAll: Uno Para Todos
+            Speed: Velocidad de Ataque
+            StatDefense: Defensa
+            AllForOne: Todos Para Uno
+            ColdSteel: Hierro Gélido
+            GodSlayer: Matadioses
+            HellsWrath: Furia del Infierno
+            JunglesFury: Ira de la Jungla
+            Moonlight: Luz de Luna
+            AmmoCost: Costo de Munición
+            Mana: Costo de Mana
+            MoveSpeed: Velocidad de Movimiento
+            Peace: Paz
+            Scale: Tamaño
+            ShootSpeed: Velocidad de Proyectil
+            War: Guerra
+            WorldAblaze: Mundo en Llamas
+        }
+        TierNames: {
+            Basic: Básico
+            Common: Común
+            Rare: Raro
+            SuperRare: Súper Raro
+            UltraRare: Ultra Raro
+        }
+        DisplayTierNames: {
+            Basic: Básico
+            Common: Común
+            Rare: Raro
+            Epic: Épico
+            Legendary: Legendario
+        }
+    }
+}

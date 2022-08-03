@@ -1,0 +1,56 @@
+﻿#Contributed by Soluna#1422
+Mods: {
+    WeaponEnchantments: {
+        ItemName: {
+            Containment: Conteneur
+            MediumContainment: Conteneur moyen
+            SuperiorContainment: Conteneur supérieur
+            WoodEnchantingTable: Table d'enchantement en bois
+            DustyEnchantingTable: Table d'enchantement poussiéreuse
+            HellishEnchantingTable: Table d'enchantement infernale
+            SoulEnchantingTable: Table d'enchantement d'âme
+            UltimateEnchantingTable: Table d'enchantement ultime
+        }
+        EnchantmentEssence: Essence d'enchantment
+        Enchantment: Enchantement
+        EnchantmentTypeNames: {
+            ArmorPenetration: Pénétration d'armure
+            CriticalStrikeChance: Chance de coup critique
+            Damage: Dégat
+            LifeSteal: Vol de vie
+            MaxMinions: Sbires max
+            Multishot: Multi-tir
+            OneForAll: Un pour tous
+            Speed: Vitesse
+            StatDefense: Défense
+            AllForOne: Tous pour un
+            ColdSteel: Acier froid
+            GodSlayer: Tueur de dieu
+            HellsWrath: Colère infernale
+            JunglesFury: Fureur de la jungle
+            Moonlight: Clair de lune
+            AmmoCost: Coût en munition
+            Mana: Côut en magie
+            MoveSpeed: Vitesse de mouvement
+            Peace: Paix
+            Scale: Taille
+            ShootSpeed: Vitesse de tir
+            War: Guerre
+            WorldAblaze: Monde enflammé
+        }
+        TierNames: {
+            Basic: basique
+            Common: Commun
+            Rare: Rare
+            SuperRare: Super rare
+            UltraRare: Ultra rare
+        }
+        DisplayTierNames: {
+            Basic: basique
+            Common: Commun
+            Rare: Rare
+            Epic: Epique
+            Legendary: Legendaire
+        }
+    }
+}

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WeaponEnchantments.Items.Enchantments
+namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class PhaseJumpEnchantment : Enchantment
 	{

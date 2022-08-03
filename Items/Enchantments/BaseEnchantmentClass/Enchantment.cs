@@ -13,6 +13,7 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using Terraria.Localization;
 
 namespace WeaponEnchantments.Items
 {
@@ -363,13 +364,20 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault(GenerateFullTooltip(CustomTooltip));
 
 			//DisplayName
+			string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;
+			typeNameString.Log();
+			string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
 			if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
-				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + Name.Substring(Name.IndexOf("Enchantment"))));
+				string rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
+				rarityString.Log();
+				DisplayName.SetDefault(displayName + Language.GetTextValue(rarityString));
 			}
 			else {
 				//Current rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
-				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
+				string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[EnchantmentTier];
+				rarityString.Log();
+				DisplayName.SetDefault(displayName + Language.GetTextValue(rarityString));
 			}
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
@@ -381,6 +389,10 @@ namespace WeaponEnchantments.Items
 				bool allForOne = EnchantmentTypeName == "AllForOne";
 
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
+			}
+
+			if(printLocalization && EnchantmentTier == 1) {
+				UpdateEnchantmentLocalization(this);
 			}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {

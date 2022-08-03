@@ -808,12 +808,17 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
+            bool multiShotConvertedToDamage = false;
+
             //Minion damage reduction from war enchantment
-            if(projectile != null) {
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.GetWEProjectile().parent != null && projectile.GetWEProjectile().parent.minion;
+            if (projectile != null) {
+                WEProjectile wEProjectile = projectile.GetWEProjectile();
+                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetWEProjectile().parent.minion;
                 if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
                     damage = (int)Math.Round(damage / myWarReduction);
                 }
+
+                multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
             }
 
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
@@ -856,7 +861,13 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Damage Enchantment
-            damage = (int)Math.Round(item.ApplyEStat("Damage", (float)damage));
+            float damageMultiplier = item.ApplyEStat("Damage", 1f);
+
+            //Multishot converted to damage
+            if (multiShotConvertedToDamage)
+                damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
+            
+            damage = (int)Math.Round((float)damage * damageMultiplier);
 
             //Critical strike
             if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
@@ -1087,10 +1098,7 @@ namespace WeaponEnchantments.Common.Globals
             if (npc.immune[player.whoAmI] <= 0)
                 return;
 
-            //Fix for Multishot not improving damage on flamethrowers
             float NPCHitCooldownMultiplier = SourceItem.ApplyEStat("NPCHitCooldown", 1f);
-            if(SourceItem.useAmmo == ItemID.Gel && SourceItem.Name != "Shadethrower")
-                NPCHitCooldownMultiplier *= 1f / (SourceItem.ApplyEStat("Multishot", 1f));
 
             //npc.immune
             int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);

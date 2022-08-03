@@ -1,0 +1,56 @@
+﻿#Contributed by 4sent4
+Mods: {
+    WeaponEnchantments: {
+        ItemName: {
+            Containment: Контейнер
+            MediumContainment: Средний контейнер
+            SuperiorContainment: Превосходный контейнер
+            WoodEnchantingTable: Деревянный стол зачарования
+            DustyEnchantingTable: Пыльный стол зачарования
+            HellishEnchantingTable: Адский стол зачарования
+            SoulEnchantingTable: Стол зачарования души
+            UltimateEnchantingTable: Ультимативный стол зачарования
+        }
+        EnchantmentEssence: Эссенция зачарования
+        Enchantment: Зачарование
+        EnchantmentTypeNames: {
+            ArmorPenetration: Пробивание брони
+            CriticalStrikeChance: Шанс критического удара
+            Damage: Урон
+            LifeSteal: Похищение жизни
+            MaxMinions: Максимум прислужников
+            Multishot: Множественный выстрел
+            OneForAll: Один за всех
+            Speed: Скорость
+            StatDefense: Защита
+            AllForOne: Все за одного
+            ColdSteel: Холодная сталь
+            GodSlayer: Убийца Богов
+            HellsWrath: Гнев Ада
+            JunglesFury: Ярость джунглей
+            Moonlight: Лунный свет
+            AmmoCost: Использование аммуниции
+            Mana: Использование маны
+            MoveSpeed: Скорость передвижения
+            Peace: Мир
+            Scale: Размер
+            ShootSpeed: Скорость выстрела
+            War: Война
+            WorldAblaze: Мир в огне
+        }
+        TierNames: {
+            Basic: Базовое
+            Common: Обычное
+            Rare: Редкое
+            SuperRare: Супер редкое
+            UltraRare: Ультра редкое
+        }
+        DisplayTierNames: {
+            Basic: Базовое
+            Common: Обычное
+            Rare: Редкое
+            Epic: Эпическое
+            Legendary: Легендарное
+        }
+    }
+}

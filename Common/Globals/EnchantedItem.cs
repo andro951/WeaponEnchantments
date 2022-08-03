@@ -222,15 +222,6 @@ namespace WeaponEnchantments.Common.Globals
 
 				#region Enchantments
 
-				if (resetGlobals) {
-                    for (int i = 0; i < enchantments.Length; i++)
-                        clone.enchantments[i] = new Item();
-                }
-                else if (cloneReforgedItem) {
-                    for (int i = 0; i < enchantments.Length; i++)
-                        clone.enchantments[i] = enchantments[i];
-                }
-                
                 clone.damageType = damageType;
                 clone.baseDamageType = baseDamageType;
 
@@ -283,7 +274,21 @@ namespace WeaponEnchantments.Common.Globals
                 clone = (EnchantedItem)base.Clone(item, itemClone);
             }
 
-            clone.equippedInArmorSlot = false;
+            #region Enchantments
+
+            if (resetGlobals) {
+                for (int i = 0; i < enchantments.Length; i++)
+                    clone.enchantments[i] = new Item();
+            }
+            else {
+                //fixes enchantments being applied to all of an item instead of just the instance
+                for (int i = 0; i < enchantments.Length; i++)
+                    clone.enchantments[i] = enchantments[i].Clone();
+            }
+
+			#endregion
+
+			clone.equippedInArmorSlot = false;
 
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;

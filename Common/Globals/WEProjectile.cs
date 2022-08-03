@@ -26,6 +26,7 @@ namespace WeaponEnchantments.Common.Globals
         float initialScale = 1f;
         float referenceScale = 1f;
         float lastScaleBonus = 1f;
+        public bool multiShotConvertedToDamage = false;
 
         //Attack speed tracking
         public float[] lastAIValue = new float[] { 0f, 0f };
@@ -61,6 +62,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
             weaponProjectile = projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm;
+
             if (source is EntitySource_ItemUse_WithAmmo vbSource) {
                 //These weapons shoot the weapon sprite instead of shooting bullest/arrows etc.  This causes many challenges with changing attackspeed.
                 bool projectileFromVortexBeater = vbSource.Item.type == ItemID.VortexBeater;
@@ -117,12 +119,21 @@ namespace WeaponEnchantments.Common.Globals
 			//Multishot
             Player player = Main.player[projectile.owner];
             float sultishotChance = sourceItem.ApplyEStat("Multishot", 0f);
-            if (sultishotChance != 0f && !weaponProjectile) {
-                //Shadethrower fix
-                if (sourceItem.Name == "Shadethrower") {
-                    projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = (int)Math.Round(10f / (1f + sultishotChance));
-                }
+
+			//Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
+			switch (sourceItem.Name) {
+                //Fix issues with weapons and multishot
+                case "Titanium Railgun":
+                    multiShotConvertedToDamage = true;
+                    break;
+            }
+
+            //Flamethrowers fix
+			if (!multiShotConvertedToDamage) {
+                multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
+			}
+
+            if (sultishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
 
                 //Multishot
                 bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;

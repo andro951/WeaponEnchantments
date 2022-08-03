@@ -1,8 +1,56 @@
-﻿#Comment to prevent bug?
+﻿
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			SuperiorContainment : Superior Containment
+			Containment: Containmentz
+			MediumContainment: Medium Containment
+			SuperiorContainment: Superior Containment
+			WoodEnchantingTable: Wood Enchanting Table
+			DustyEnchantingTable: Dusty Enchanting Table
+			HellishEnchantingTable: Hellish Enchanting Table
+			SoulEnchantingTable: Soul Enchanting Table
+			UltimateEnchantingTable: Ultimate Enchanting Table
+		}
+		EnchantmentEssence: Enchantment Essence
+		Enchantment: Enchantment
+		EnchantmentTypeNames: {
+			ArmorPenetration: Armor Penetration
+			CriticalStrikeChance: Critical Strike Chance
+			Damage: Damage
+			LifeSteal: Life Steal
+			MaxMinions: Max Minions
+			Multishot: Multishot
+			OneForAll: One For All
+			Speed: Speed
+			StatDefense: Defense
+			AllForOne: All For One
+			ColdSteel: Cold Steel
+			GodSlayer: God Slayer
+			HellsWrath: Hells Wrath
+			JunglesFury: Jungles Fury
+			Moonlight: Moonlight
+			AmmoCost: Ammo Cost
+			Mana: Mana Cost
+			MoveSpeed: Move Speed
+			Peace: Peace
+			Scale: Size
+			ShootSpeed: Shoot Speed
+			War: War
+			WorldAblaze: World Ablaze
+		}
+		TierNames: {
+			Basic: Basic
+			Common: Common
+			Rare: Rare
+			SuperRare: Super Rare
+			UltraRare: Ultra Rare
+		}
+		DisplayTierNames: {
+			Basic: Basic
+			Common: Common
+			Rare: Rare
+			Epic: Epic
+			Legendary: Legendary
 		}
 	}
 }

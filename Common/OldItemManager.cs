@@ -144,6 +144,7 @@ namespace WeaponEnchantments.Common
                     iGlobal.needsUpdateOldItems = player == null;
 
                     List<string> enchantmentTypeNames = new List<string>();
+                    bool unique = false;
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = iGlobal.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
@@ -170,6 +171,15 @@ namespace WeaponEnchantments.Common
 
                             if(enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
                                 RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+
+							if (enchantment.Unique) {
+								if (unique) {
+                                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                                }
+								else {
+                                    unique = true;
+								}
+							}
 
                             enchantmentTypeNames.Add(enchantment.EnchantmentTypeName);
                         }

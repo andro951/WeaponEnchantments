@@ -43,10 +43,11 @@ namespace WeaponEnchantments.Common.Utility
         public static Item Enchantments(this Item item, int i) => item.GetEnchantedItem().enchantments[i];
         public static Enchantment EnchantmentsModItem(this Item item, int i) => (Enchantment)item.GetEnchantedItem().enchantments[i].ModItem;
         public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
-        public static WEUIItemSlot EnchantmentsInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
-        public static Item Enchantments(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+        public static WEUIItemSlot ItemUISlot(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i];
+        public static WEUIItemSlot EnchantmentUISlot(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
+        public static Item EnchantmentInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
         public static Enchantment EnchantmentsModItem(this WEPlayer wePlayer, int i) => (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
-        public static Item EnchantmentEssence(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+        public static Item EssenceInTable(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
 
 		#endregion
 
@@ -76,7 +77,7 @@ namespace WeaponEnchantments.Common.Utility
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon != null && !weapon.IsAir && weapon.GetEnchantedItem().eStats.ContainsKey(key))
+            if (weapon.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(weapon.GetEnchantedItem().eStats[key]);
             return combinedStatModifier.ApplyTo(value);
         }

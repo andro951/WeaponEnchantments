@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
@@ -16,6 +17,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments
 {
@@ -553,6 +555,18 @@ namespace WeaponEnchantments
         public override void PostUpdate() {
             //if (Main.netMode < NetmodeID.Server)
             {
+                /*Troubleshooting Localization
+                ModItem modItem = Main.HoverItem.ModItem;
+                if (modItem != null) {
+                    if(modItem is Enchantment enchantment) {
+                        string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + enchantment.EnchantmentTypeName;
+                        typeNameString.Log();
+                        string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+                        string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
+                        Main.NewText(displayName + Language.GetTextValue(rarityString));
+                    }
+				}*/
+
                 int vanillaArmorLength = Player.armor.Length / 2;
                 var loader = LoaderManager.Get<AccessorySlotLoader>();
                 for (int j = 0; j < equipArmor.Length; j++) {

@@ -153,8 +153,8 @@ namespace WeaponEnchantments.UI
 
             //Enchantments
             for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++) {
-                if (!nonTableItem && !wePlayer.Enchantments(i).IsAir) {
-                    wePlayer.EnchantmentsInUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.Enchantments(i), GetItemSettings.LootAllSettings);
+                if (!nonTableItem && !wePlayer.EnchantmentInUI(i).IsAir) {
+                    wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                 }
                 else if (!iGlobal.enchantments[i].IsAir) {
                     Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
