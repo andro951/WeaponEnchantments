@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Effects;
 using WeaponEnchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Items.Enchantments

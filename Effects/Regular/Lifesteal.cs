@@ -9,8 +9,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
+using WeaponEnchantments.EnchantmentEffects;
 
-namespace WeaponEnchantments.EnchantmentEffects {
+namespace WeaponEnchantments.Effects {
     public class LifeSteal : EnchantmentEffect {
         public LifeSteal(float power) : base(power) { }
         protected override Dictionary<DamageClass, float> EnchantmentDamageEfficiency => new Dictionary<DamageClass, float>() {
@@ -27,7 +28,7 @@ namespace WeaponEnchantments.EnchantmentEffects {
 
             float lifeSteal = EnchantmentPower;
             // TODO: Make stack with one for all
-            float healTotal = (damage) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
+            float healTotal = damage * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
 
             //Summon damage reduction
             healTotal *= efficiency;

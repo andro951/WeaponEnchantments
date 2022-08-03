@@ -165,6 +165,9 @@ namespace WeaponEnchantments.Items {
 		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
 		/// </summary>
 		public virtual string CustomTooltip { private set; get; } = "";
+		/// <summary>
+		/// A value 0 - 4 representing the enchantment's tier.
+		/// </summary>
 		public virtual int EnchantmentTier => GetEnchantmentTier(Name);
 		public string EnchantmentTypeName { get => Name.Substring(0, Name.IndexOf("Enchantment")); }
 
@@ -677,21 +680,6 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 			return false;
-		}
-		private string GetBuffName(int id) {
-			if (id < BuffID.Count) {
-				BuffID buffID = new();
-				foreach (FieldInfo field in buffID.GetType().GetFields()) {
-					if (field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id) {
-						return field.Name;
-					}
-				}
-			}
-			else {
-				if (id == ModContent.BuffType<AmaterasuDebuff>())
-					return "Amaterasu";
-			}
-			return "";
 		}
 
 		public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
