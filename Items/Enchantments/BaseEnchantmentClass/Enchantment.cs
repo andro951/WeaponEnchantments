@@ -692,9 +692,13 @@ namespace WeaponEnchantments.Items {
 			return AllowedList.Keys.Select(i => new Tuple<string, Color>($"{i} ({Math.Round(AllowedList[i] * 100, 1)}%)", Color.Gray));
 		}
 
-		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
+		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips(float efficiency = 1f) {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-			return Effects.Select(i => new Tuple<string, Color>(i.Tooltip, new Color(0xaa, 0xaa, 0xaa)));
+			foreach (var effect in Effects) {
+				effect.EquipmentEfficiency = 1f;
+				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));
+			}
+			return tooltips;
 		}
 
 		private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {

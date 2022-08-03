@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -50,8 +51,9 @@ namespace WeaponEnchantments.EnchantmentEffects {
         /// </summary>
         public float EquipmentEfficiency { get; set; } = 0f;
         
-        public virtual string DisplayName => "Default";
+        public virtual string DisplayName { get; set; } = "Default";
         public virtual string Tooltip => $"{DisplayName}: {Math.Round(EnchantmentPower * 100, 1)}%";
+        public virtual Color TooltipColor { get; set; } = new Color(0xaa, 0xaa, 0xaa);
 
         /// <summary>
         /// <para>
@@ -69,13 +71,34 @@ namespace WeaponEnchantments.EnchantmentEffects {
         /// The part of the enchantment that runs after hitting an NPC, before the damage has been applied.
         /// </para>
         /// <para>
-        /// Damage here is a reference, and as such can be modified as convenient.
+        /// Stats here are by reference, and as such can be modified as convenient.
         /// </para>
         /// </summary>
+        /// <param name="npc">The npc that was just hit</param>
         /// <param name="player">The player for which this enchantment applies</param>
+        /// <param name="item">The item that applied the hit</param>
+        /// <param name="damage">The damage about to be dealt to the npc</param>
+        /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
+        /// <param name="crit">Whether or not the damage is from a critical strike</param>
+        /// <param name="hitDirection">The direction from which the attack was done (left or right)</param>
+        /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
         public virtual void OnModifyHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) { }
 
-        // Happens after the damage has been applied. The NPC might as well be dead here.
-        public virtual void OnAfterHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) { }    
+        /// <summary>
+        /// <para>
+        /// The part of the enchantment that runs after hitting an NPC, after the damage and knockback has been applied.
+        /// </para>
+        /// <para>
+        /// Stats here are not by reference and modifying them will have no consequence.
+        /// </para>
+        /// </summary>
+        /// <param name="npc">The npc that was just hit</param>
+        /// <param name="player">The player for which this enchantment applies</param>
+        /// <param name="item">The item that applied the hit</param>
+        /// <param name="damage">The damage about to be dealt to the npc</param>
+        /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
+        /// <param name="crit">Whether or not the damage is from a critical strike</param>
+        /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
+        public virtual void OnAfterHit(NPC npc, WEPlayer player, Item item, int damage, float knockback, bool crit, Projectile projectile = null) { }    
     }
 }

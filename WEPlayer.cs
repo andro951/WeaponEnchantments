@@ -592,7 +592,7 @@ namespace WeaponEnchantments {
             IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
 
             foreach (EnchantmentEffect effect in effects) {
-                effect.OnAfterHit(target, this, item, ref damage, ref knockback, ref crit, proj); // Doesnt have to be reference damage, but it is for now.
+                effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
         }
         

@@ -632,12 +632,11 @@ namespace WeaponEnchantments.Common.Globals
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
-            bool enchantmentsToolTipAdded = false;
 
             //Stack0
             if(Modified || inEnchantingTable) {
                 if (Stack0) {
-                    string tooltip = $"!!!OUT OF AMMO!!!";
+                    string tooltip = $"♦ OUT OF AMMO ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
             }
@@ -647,24 +646,22 @@ namespace WeaponEnchantments.Common.Globals
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
+                string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
                 if (PowerBoosterInstalled) {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()} (Booster Installed)";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
-                }
-				else {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
+                    levelTooltip += " (Booster Installed)";
                 }
 
-                string levelString;
+                tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
+
+
+                string experienceTooltip = $"Experience: {Experience}";
                 if(levelBeforeBooster < MAX_LEVEL) {
-                    levelString = $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
+                    experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
                 }
 				else {
-                    levelString = " (Max Level)";
+                    experienceTooltip += " (Max Level)";
                 }
-                string levelTooltip = $"Experience: {Experience}{levelString}";
-                tooltips.Add(new TooltipLine(Mod, "experience", levelTooltip) { OverrideColor = Color.White });
+                tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
             }
 
             //infusionTooltip
@@ -716,8 +713,9 @@ namespace WeaponEnchantments.Common.Globals
             EItemType itemType = GetEItemType();
 
             foreach (Enchantment enchantment in enchantments) {
+                float effectiveness = enchantment.AllowedList[itemType];
                 var effectTooltips = enchantment.GetEffectsTooltips();
-                tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({Math.Round(enchantment.AllowedList[itemType]*100, 1)}%):") { OverrideColor = Color.Violet });
+                tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
                 foreach (var tooltipTuple in effectTooltips) {
                     tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });
                 }

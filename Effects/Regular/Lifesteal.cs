@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Effects {
             { DamageClass.Magic, 0.5f}
         };
         public override string DisplayName => "Life Steal";
-        public override void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
+        public override void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
             float damageEfficiency;
             if (!EnchantmentDamageEfficiency.TryGetValue(item.DamageType, out damageEfficiency))
                 return;
