@@ -24,20 +24,27 @@ namespace WeaponEnchantments.Effects {
 
         public DebuffEffect(int debuffID, Time debuffTime, float applicationChance = 1f, bool isQuiet = false) : base(applicationChance) {
             AppliedDebuffID = debuffID;
-            ApplicationTime = debuffTime;
+            BaseApplicationTime = debuffTime;
             IsQuiet = isQuiet;
         }
 
         private int AppliedDebuffID { get; set; }
-        private Time ApplicationTime { get; set; }
+        private Time BaseApplicationTime { get; set; }
         private bool IsQuiet { get; set; }
 
         public override sealed string DisplayName => $"On-Hit {GetBuffName(AppliedDebuffID)}";
-        public override sealed string Tooltip => $"{DisplayName} ({EnchantmentPower.Percent()}% for {ApplicationTime})";
+        public override sealed string Tooltip => $"{DisplayName} ({EnchantmentPower.Percent()}% for {BaseApplicationTime})";
 
         public override sealed void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!npc.buffImmune[AppliedDebuffID] && Main.rand.NextFloat(0f, 1f) <= EnchantmentPower) {
-                npc.AddBuff(AppliedDebuffID, ApplicationTime, IsQuiet);
+            // Can do: Apply damage type efficiency
+
+            // Apply Equipment efficiency
+            float applyChance = EnchantmentPower * EquipmentEfficiency;
+            int applyTime = BaseApplicationTime * EquipmentEfficiency;
+
+            Main.NewText($"EFF {EquipmentEfficiency}, AC: {applyChance}, AT: {applyTime}");
+            if (!npc.buffImmune[AppliedDebuffID] && Main.rand.NextFloat(0f, 1f) <= applyChance) {
+                npc.AddBuff(AppliedDebuffID, applyTime, IsQuiet);
             }
         }
     }

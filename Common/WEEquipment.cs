@@ -64,7 +64,10 @@ namespace WeaponEnchantments.Common {
                     .Select(i => (Enchantment)i.ModItem);
                 // For each enchantment get its effects
                 foreach (Enchantment enchantment in enchantments) {
-                    effects.AddRange(enchantment.Effects);
+                    foreach (EnchantmentEffect effect in enchantment.Effects) {
+                        effect.EquipmentEfficiency = enchantment.AllowedList[enchantedItem.GetEItemType()];
+                        effects.Add(effect);
+                    }
                 }
             }
             return effects;

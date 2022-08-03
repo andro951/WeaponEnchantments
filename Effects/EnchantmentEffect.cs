@@ -44,9 +44,13 @@ namespace WeaponEnchantments.EnchantmentEffects {
         /// </para>
         /// </summary>
         protected float EnchantmentPower { get; set; }
-
+        
+        /// <summary>
+        /// How effective the enchantment is on the current gear (Armor, Weapon, Accesory)
+        /// </summary>
+        public float EquipmentEfficiency { get; set; } = 0f;
+        
         public virtual string DisplayName => "Default";
-
         public virtual string Tooltip => $"{DisplayName}: {Math.Round(EnchantmentPower * 100, 1)}%";
 
         /// <summary>
@@ -72,6 +76,6 @@ namespace WeaponEnchantments.EnchantmentEffects {
         public virtual void OnModifyHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) { }
 
         // Happens after the damage has been applied. The NPC might as well be dead here.
-        public virtual void OnAfterHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) { }
+        public virtual void OnAfterHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) { }    
     }
 }

@@ -611,6 +611,25 @@ namespace WeaponEnchantments.Common.Globals
 
             return level - totalEnchantmentLevelCost;
         }
+
+        public static EItemType GetEItemType(Item item) {
+            EItemType itemType = EItemType.None;
+            if (WEMod.IsWeaponItem(item)) {
+                itemType = EItemType.Weapon;
+            }
+            else if (WEMod.IsArmorItem(item)) {
+                itemType = EItemType.Armor;
+            }
+            else if (WEMod.IsAccessoryItem(item)) {
+                itemType = EItemType.Accesory;
+            }
+            return itemType;
+        }
+
+        public EItemType GetEItemType() {
+            return GetEItemType(Item);
+        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
             bool enchantmentsToolTipAdded = false;
@@ -694,16 +713,7 @@ namespace WeaponEnchantments.Common.Globals
                 .Where(i => !i.IsAir && i.ModItem is Enchantment)
                 .Select(i => (Enchantment)i.ModItem);
 
-            EItemType itemType = EItemType.None;
-            if (WEMod.IsWeaponItem(item)) {
-                itemType = EItemType.Weapon;
-            }
-            else if (WEMod.IsArmorItem(item)) {
-                itemType = EItemType.Armor;
-            }
-            else if (WEMod.IsAccessoryItem(item)) {
-                itemType = EItemType.Accesory;
-            }
+            EItemType itemType = GetEItemType();
 
             foreach (Enchantment enchantment in enchantments) {
                 var effectTooltips = enchantment.GetEffectsTooltips();

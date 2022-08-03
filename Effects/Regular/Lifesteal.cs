@@ -20,8 +20,8 @@ namespace WeaponEnchantments.Effects {
         };
         public override string DisplayName => "Life Steal";
         public override void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            float efficiency;
-            if (!EnchantmentDamageEfficiency.TryGetValue(item.DamageType, out efficiency))
+            float damageEfficiency;
+            if (!EnchantmentDamageEfficiency.TryGetValue(item.DamageType, out damageEfficiency))
                 return;
 
             Player player = wePlayer.Player;
@@ -30,8 +30,8 @@ namespace WeaponEnchantments.Effects {
             // TODO: Make stack with one for all
             float healTotal = damage * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
 
-            //Summon damage reduction
-            healTotal *= efficiency;
+            // Applying damage type and item efficiency
+            healTotal *= damageEfficiency * EquipmentEfficiency;
 
             int heal = (int)healTotal;
 

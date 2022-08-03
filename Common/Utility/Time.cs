@@ -104,7 +104,8 @@ namespace WeaponEnchantments.Common.Utility {
         }
 
         public static Time operator *(Time t, float value) {
-            return new Time((int)(t.Value * value), t.Mag);
+            int newFrames = (int)((int)t * value);
+            return new Time(newFrames, Magnitude.Frames);
         }
 
         #endregion
