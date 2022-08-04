@@ -48,15 +48,37 @@ namespace WeaponEnchantments.Common.Utility
         public static Item EnchantmentInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
         public static Enchantment EnchantmentsModItem(this WEPlayer wePlayer, int i) => (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
         public static Item EssenceInTable(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+        public static bool TryGetEnchantmentEssence(this Item item, out EnchantmentEssence enchantmentEssence) {
+            ModItem modItem = item.ModItem;
 
-		#endregion
+            if(modItem != null && modItem is EnchantmentEssence essence) {
+                enchantmentEssence = essence;
+                return true;
+			}
 
-		#region Stats
+            enchantmentEssence = null;
 
-		public static float ApplyStatModifier(this Item item, string key, float value) => item.GetEnchantedItem().appliedStatModifiers.ContainsKey(key) ? item.GetEnchantedItem().appliedStatModifiers[key].ApplyTo(value) : value;
+            return false;
+		}
+
+        #endregion
+
+        #region Stats
+
+        public static float ApplyStatModifier(this Item item, string key, float value) {
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return value;
+            if (iGlobal.appliedStatModifiers.ContainsKey(key))
+                return iGlobal.appliedStatModifiers[key].ApplyTo(value);
+
+            return value;
+        }
         public static float ApplyEStat(this Item item, string key, float value) {
-            if (item.GetEnchantedItem().appliedEStats.ContainsKey(key))
-                return item.GetEnchantedItem().appliedEStats[key].ApplyTo(value);
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return value;
+
+            if (iGlobal.appliedEStats.ContainsKey(key))
+                return iGlobal.appliedEStats[key].ApplyTo(value);
 
             return value;
             //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.G().eStats[key].ApplyTo(value) : value;
@@ -66,7 +88,7 @@ namespace WeaponEnchantments.Common.Utility
             if (wePlayer.eStats.ContainsKey(key))
                 return true;
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon != null && WEMod.IsWeaponItem(weapon) && weapon.GetEnchantedItem().eStats.ContainsKey(key))
+            if (weapon != null && EnchantedItemStaticMethods.IsWeaponItem(weapon) && weapon.GetEnchantedItem().eStats.ContainsKey(key))
                 return true;
             return false;
         }
@@ -87,13 +109,13 @@ namespace WeaponEnchantments.Common.Utility
             StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
-            if (item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key))
+            if (item != null && !item.IsAir && EnchantedItemStaticMethods.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(item.GetEnchantedItem().eStats[key]);
             return combinedStatModifier.ApplyTo(value);
         }
         public static bool ContainsEStat(this Item item, string key) => item.GetEnchantedItem().eStats.ContainsKey(key);
         public static bool ContainsEStat(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
-        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item != null && !item.IsAir && WEMod.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key);
+        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item != null && !item.IsAir && EnchantedItemStaticMethods.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key);
         public static string RemoveInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
         public static string RemovePrevent(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool ContainsInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
@@ -141,7 +163,16 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="options">Posible items to be selected.</param>
 		/// <param name="chance">Chance to select an item from the list.</param>
 		/// <returns>Item selected or null if chance was less than the generated float.</returns>
-		public static T GetOneFromList<T>(List<T> options, float chance) where T : new() {
+		public static T GetOneFromList<T>(this List<T> options, float chance) where T : new() {
+            if (options.Count == 0)
+                return new T();
+
+            if (chance <= 0f)
+                return new T();
+            
+            if(chance > 1f)
+                chance = 1f;
+
             //Example: items contains 4 items and chance = 0.4f (40%)
             float randFloat = Main.rand.NextFloat();//Example randFloat = 0.24f
             if (randFloat < chance) {
@@ -152,7 +183,7 @@ namespace WeaponEnchantments.Common.Utility
                 return options[chosenItemNum];// items[2] being the 3rd item in the list.
             }
             else {
-                //If the chance is less than the generated float, return null.
+                //If the chance is less than the generated float, return new.
                 return new T();
             }
         }

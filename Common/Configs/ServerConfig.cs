@@ -109,6 +109,12 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
+        [Label("Chest Enchantment Spawn Chance(%)")]
+        [Tooltip("Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)")]
+        [Range(0, 4000)]
+        [DefaultValue(50)]
+        public int ChestSpawnChance;
+
         //Other Drop Rates
         [Header("Other Drop Rates")]
         [Label("Prevent pre-hard mode bosses from dropping power boosters.")]

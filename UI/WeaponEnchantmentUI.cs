@@ -499,7 +499,7 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (tableItem.TryGetEnchantedItem()) {
-                if (!WEMod.IsWeaponItem(tableItem) && !WEMod.IsArmorItem(tableItem))
+                if (!EnchantedItemStaticMethods.IsWeaponItem(tableItem) && !EnchantedItemStaticMethods.IsArmorItem(tableItem))
                     return;
 
                 if (wePlayer.infusionConsumeItem == null) {
@@ -594,7 +594,7 @@ namespace WeaponEnchantments.UI
                     wePlayer.EnchantmentInUI(i).position = wePlayer.Player.Center;
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                     if (wePlayer.EnchantmentInUI(i).stack < 1) {
-                        WEModSystem.RemoveEnchantment(i);
+                        EnchantedItemStaticMethods.RemoveEnchantment(i);
                         if(iGlobal != null)
                             iGlobal.enchantments[i] = new Item();
                     }

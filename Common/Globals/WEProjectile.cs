@@ -125,7 +125,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			//Multishot
             Player player = Main.player[projectile.owner];
-            float sultishotChance = sourceItem.ApplyEStat("Multishot", 0f);
+            float multishotChance = sourceItem.ApplyEStat("Multishot", 0f);
 
 			//Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
 			switch (sourceItem.Name) {
@@ -140,14 +140,14 @@ namespace WeaponEnchantments.Common.Globals
                 multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
 			}
 
-            if (sultishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
+            if (multishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
 
                 //Multishot
                 bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
                 if (notAMultishotProjectile) {
-                    int projectiles = (int)sultishotChance;
+                    int projectiles = (int)multishotChance;
                     float randFloat = Main.rand.NextFloat();
-                    projectiles += randFloat <= sultishotChance - projectiles ? 1 : 0;
+                    projectiles += randFloat <= multishotChance - projectiles ? 1 : 0;
                     if (projectiles > 0) {
                         float spread = (float)Math.PI / 200f;
                         bool invert = false;

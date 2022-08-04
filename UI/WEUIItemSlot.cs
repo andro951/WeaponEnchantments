@@ -69,7 +69,7 @@ namespace WeaponEnchantments.UI
 					if (!useEnchantmentSlot)
 						return false;
 
-					bool isEnchantmentItem = WEMod.IsValidEnchantmentForSlot(item, _utilitySlot);
+					bool isEnchantmentItem = IsValidEnchantmentForSlot(item, _utilitySlot);
 					if (!isEnchantmentItem)
 						return false;
 
@@ -111,8 +111,8 @@ namespace WeaponEnchantments.UI
 					return iGlobal.GetLevelsAvailable() >= newEnchantment.GetCapacityCost() - currentEnchantmentLevelCost;
 
 				case ItemSlotContext.Essence:
-                    if (WEMod.IsEssenceItem(item)) {
-						return ((EnchantmentEssence)item.ModItem).essenceTier == _slotTier;
+                    if (item.TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
+						return essence.essenceTier == _slotTier;
 					}//check essence is valid
                     else {
 						return false;
@@ -124,9 +124,9 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey("Weapon") && WEMod.IsWeaponItem(itemInUI);
-			bool allowedArmor = enchantment.AllowedList.ContainsKey("Armor") && WEMod.IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey("Accessory") && WEMod.IsAccessoryItem(itemInUI);
+			bool allowedWeapon = enchantment.AllowedList.ContainsKey("Weapon") && EnchantedItemStaticMethods.IsWeaponItem(itemInUI);
+			bool allowedArmor = enchantment.AllowedList.ContainsKey("Armor") && EnchantedItemStaticMethods.IsArmorItem(itemInUI);
+			bool allowedAccessory = enchantment.AllowedList.ContainsKey("Accessory") && EnchantedItemStaticMethods.IsAccessoryItem(itemInUI);
 
 			return allowedWeapon || allowedArmor || allowedAccessory;
 		}
@@ -144,11 +144,11 @@ namespace WeaponEnchantments.UI
 					return true;
 				case 1:
 				case 4:
-					if(WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))
+					if(EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))
 						return true;
 					break;
 				default:
-					if(WEMod.IsWeaponItem(item))
+					if(EnchantedItemStaticMethods.IsWeaponItem(item))
 						return true;
 					break;
 			}
@@ -196,6 +196,19 @@ namespace WeaponEnchantments.UI
 					//Handles all the click and hover actions based on the context
 					ItemSlot.Handle(ref Item, ItemSlot.Context.BankItem);
 				}
+			}
+		}
+		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
+			if (item.ModItem is Enchantment enchantment) {
+				if (utility) {
+					return enchantment.Utility;
+				}
+				else {
+					return true;
+				}
+			}
+			else {
+				return false;
 			}
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot) {
