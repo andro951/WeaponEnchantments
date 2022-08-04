@@ -51,7 +51,7 @@ namespace WeaponEnchantments
 		{
 			return item != null && !item.IsAir && item.accessory && !IsArmorItem(item);
 		}
-		internal static bool IsEnchantmentItem(Item item, bool utility)
+		internal static bool IsValidEnchantmentForSlot(Item item, bool utility)
         {
 			if(item.ModItem is Enchantment)
             {
