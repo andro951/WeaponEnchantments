@@ -135,7 +135,8 @@ namespace WeaponEnchantments.UI
 			if (_slotTier > wePlayer.enchantingTableTier && !_utilitySlot)
 				return false;
 
-			if (!Item.TryGetEnchantedItem())
+			Item itemInUI = wePlayer.ItemInUI();
+			if (itemInUI == null || itemInUI.IsAir)
 				return true;
 
 			Item item = wePlayer.ItemInUI();

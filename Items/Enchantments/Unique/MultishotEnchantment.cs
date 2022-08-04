@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections.Generic;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -7,6 +7,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => "(Chance to produce an extra projectile.  Applies to each projectile created.)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Ranged;
+		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
+			{ "Weapon", 1f }
+		};
 
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
