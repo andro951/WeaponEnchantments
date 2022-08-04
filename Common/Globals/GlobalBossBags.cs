@@ -9,8 +9,8 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
-        static bool modBossBagIntegrationSetup = false;
-        static SortedDictionary<int, int> bossBagNPCIDs = new SortedDictionary<int, int>() {
+        public static bool modBossBagIntegrationSetup = false;
+        public static SortedDictionary<int, int> bossBagNPCIDs = new SortedDictionary<int, int>() {
                 { ItemID.KingSlimeBossBag, NPCID.KingSlime },
                 { ItemID.EyeOfCthulhuBossBag, NPCID.EyeofCthulhu },
                 { ItemID.EaterOfWorldsBossBag, NPCID.EaterofWorldsHead },
@@ -34,11 +34,6 @@ namespace WeaponEnchantments.Common.Globals
                 { ItemID.BossBagBetsy, NPCID.DD2Betsy }
 		};
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
-            //Setup mod boss bag support
-            if (!modBossBagIntegrationSetup) {
-                SetupModBossBagIntegration();
-                modBossBagIntegrationSetup = true;
-            }
 
             int type = item.type;
 
@@ -59,7 +54,7 @@ namespace WeaponEnchantments.Common.Globals
 
             GetLoot(itemLoot, npc, true);
         }
-        private static void SetupModBossBagIntegration() {
+        public static void SetupModBossBagIntegration() {
             SortedDictionary<string, int> supportedNPCsThatDropBags = new SortedDictionary<string, int>();
             //Check if each modded item has a boss bag set up in GetModdedBossNameFromBag()
             for(int i = ItemID.Count; i < ItemLoader.ItemCount; i++) {
