@@ -2,9 +2,9 @@
 Mods: {
     WeaponEnchantments: {
         ItemName: {
-            Containment: container
-            MediumContainment: Container Médio
-            SuperiorContainment: Container Superior
+            Containment: contenção
+            MediumContainment: Contenção Média
+            SuperiorContainment: Contenção Superior
             WoodEnchantingTable: Mesa de Encantamento de Madeira
             DustyEnchantingTable: Mesa de Encantamento Empoeirada
             HellishEnchantingTable: Mesa de Encantamento Infernal

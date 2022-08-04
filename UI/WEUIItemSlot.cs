@@ -15,6 +15,9 @@ using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using static Terraria.UI.ItemSlot;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using WeaponEnchantments.Common.Configs;
+using System.Linq;
 
 namespace WeaponEnchantments.UI
 {
@@ -124,37 +127,54 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey("Weapon") && EnchantedItemStaticMethods.IsWeaponItem(itemInUI);
-			bool allowedArmor = enchantment.AllowedList.ContainsKey("Armor") && EnchantedItemStaticMethods.IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey("Accessory") && EnchantedItemStaticMethods.IsAccessoryItem(itemInUI);
+			bool allowedWeapon = enchantment.AllowedList.ContainsKey("Weapon") && IsWeaponItem(itemInUI);
+			bool allowedArmor = enchantment.AllowedList.ContainsKey("Armor") && IsArmorItem(itemInUI);
+			bool allowedAccessory = enchantment.AllowedList.ContainsKey("Accessory") && IsAccessoryItem(itemInUI);
 
 			return allowedWeapon || allowedArmor || allowedAccessory;
 		}
 		private bool UseEnchantmentSlot() {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+
 			if (_slotTier > wePlayer.enchantingTableTier && !_utilitySlot)
 				return false;
 
 			Item itemInUI = wePlayer.ItemInUI();
-			if (itemInUI == null || itemInUI.IsAir)
-				return true;
 
-			Item item = wePlayer.ItemInUI();
-			switch (_slotTier) {
-				case 0:
-					return true;
-				case 1:
-				case 4:
-					if(EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))
-						return true;
-					break;
-				default:
-					if(EnchantedItemStaticMethods.IsWeaponItem(item))
-						return true;
-					break;
+			return SlotAllowedByConfig(itemInUI, _slotTier);
+		}
+		public static bool SlotAllowedByConfig(Item item, int slot) {
+			int configSlots;
+			int[] configSlotSettings = new int[] { 
+				WEMod.serverConfig.EnchantmentSlotsOnWeapons,
+				WEMod.serverConfig.EnchantmentSlotsOnArmor,
+				WEMod.serverConfig.EnchantmentSlotsOnAccessories
+			};
+
+			if(item == null || item.IsAir) {
+				configSlots = configSlotSettings.Max();
+			}
+			else if (IsWeaponItem(item)) {
+				configSlots = configSlotSettings[0];
+			}
+			else if (IsArmorItem(item)) {
+				configSlots = configSlotSettings[1];
+			}
+			else if (IsAccessoryItem(item)) {
+				configSlots = configSlotSettings[2];
+			}
+			else {
+				configSlots = 0;
 			}
 
-			return false;
+			if(configSlots <= 0)
+				return false;
+
+			if (configSlots == 1)
+				return slot == 0;
+
+			int maxIndex = EnchantingTable.maxEnchantments - 1;
+			return slot == maxIndex || slot <= configSlots - 2;
 		}
 		internal void HandleMouseItem() {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

@@ -469,7 +469,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Experience
 
-			_experience = reader.ReadInt32();
+			Experience = reader.ReadInt32();
             PowerBoosterInstalled = reader.ReadBoolean();
 
             #endregion
@@ -1601,27 +1601,91 @@ namespace WeaponEnchantments.Common.Globals
 
             consumedItems.Clear();
         }
-        public static void RemoveUntilPositive(this Item item, Player player) {
-            int netMode = Main.netMode;
-            int gameMode = Main.GameMode;
-            if (!item.IsAir) {
-                if (IsEnchantable(item)) {
-                    if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
-                        if (iGlobal.GetLevelsAvailable() < 0) {
-                            for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--) {
-                                if (!iGlobal.enchantments[k].IsAir) {
-                                    item.GetEnchantedItem().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
-                                }
-                                if (!iGlobal.enchantments[k].IsAir) {
-                                    player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
-                                    iGlobal.enchantments[k] = new Item();
-                                }
-                            }
-                            Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
-                        }//Check too many enchantments on item
-                    }
+        public static void CheckRemoveEnchantments(this Item item, Player player) {
+            if (!item.TryGetGlobalItem(out EnchantedItem iGlobal))
+                return;
+
+            //Check config
+            for (int i = EnchantingTable.maxEnchantments - 1; i >= 0 ; i--) {
+                Item enchantment = iGlobal.enchantments[i];
+                if (enchantment.IsAir)
+                    continue;
+
+                bool slotAllowedByConfig = WEUIItemSlot.SlotAllowedByConfig(item, i);
+                if (!slotAllowedByConfig) {
+                    RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.");
                 }
             }
+
+            //Check enchantment limitations
+            List<string> enchantmentTypeNames = new List<string>();
+            bool unique = false;
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                Item enchantmentItem = iGlobal.enchantments[i];
+
+                if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
+                    Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
+                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
+                    }
+                    else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
+                    }
+                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
+                    }
+
+                    if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
+
+                    if (enchantment.RestrictedClass > -1 && ContentSamples.ItemsByType[item.type].DamageType.Type == enchantment.RestrictedClass)
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
+
+                    if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Enchantments are now limmited to 1 per item.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+
+                    if (enchantment.Unique) {
+                        if (unique) {
+                            RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantment.EnchantmentTypeName + $" Detected multiple uniques on your {item.Name}.  {enchantmentItem.Name} has been removed from your " + item.Name + ".");
+                        }
+                        else {
+                            unique = true;
+                        }
+                    }
+
+                    enchantmentTypeNames.Add(enchantment.EnchantmentTypeName);
+                }
+            }
+
+            //Check too many enchantments on item
+            if (iGlobal.GetLevelsAvailable() < 0) {
+                for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--) {
+                    if (!iGlobal.enchantments[k].IsAir) {
+                        item.GetEnchantedItem().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
+                    }
+                    if (!iGlobal.enchantments[k].IsAir) {
+                        player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
+                        iGlobal.enchantments[k] = new Item();
+                    }
+                }
+
+                Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
+            }
+
+            
+            
+
+
+
+
+        }
+        private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg) {
+            enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
+            if (!enchantmentItem.IsAir)
+                player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem);
+
+            enchantmentItem = new Item();
+            Main.NewText(msg);
         }
         public static bool IsSameEnchantedItem(this Item item1, Item item2) {
             if (!item1.TryGetEnchantedItem(out EnchantedItem global1) || !item2.TryGetEnchantedItem(out EnchantedItem global2))

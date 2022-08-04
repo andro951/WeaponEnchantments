@@ -136,6 +136,33 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 100)]
         public int PercentOfferEssence;
 
+        [Label("Enchantment Slots On Weapons")]
+        [Tooltip("1st slot is a normal slot.\n" +
+			"2nd slot is the utility slot.\n" +
+			"3rd-5th are normal slots.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnWeapons;
+
+        [Label("Enchantment Slots On Armor")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(3)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnArmor;
+
+        [Label("Enchantment Slots On Accissories")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(1)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnAccessories;
+
         //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
