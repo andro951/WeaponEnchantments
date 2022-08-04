@@ -163,7 +163,16 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="options">Posible items to be selected.</param>
 		/// <param name="chance">Chance to select an item from the list.</param>
 		/// <returns>Item selected or null if chance was less than the generated float.</returns>
-		public static T GetOneFromList<T>(List<T> options, float chance) where T : new() {
+		public static T GetOneFromList<T>(this List<T> options, float chance) where T : new() {
+            if (options.Count == 0)
+                return new T();
+
+            if (chance <= 0f)
+                return new T();
+            
+            if(chance > 1f)
+                chance = 1f;
+
             //Example: items contains 4 items and chance = 0.4f (40%)
             float randFloat = Main.rand.NextFloat();//Example randFloat = 0.24f
             if (randFloat < chance) {
@@ -174,7 +183,7 @@ namespace WeaponEnchantments.Common.Utility
                 return options[chosenItemNum];// items[2] being the 3rd item in the list.
             }
             else {
-                //If the chance is less than the generated float, return null.
+                //If the chance is less than the generated float, return new.
                 return new T();
             }
         }
