@@ -1,9 +1,9 @@
-﻿using static WeaponEnchantments.WEMod;
+﻿using System.Linq;
+using static WeaponEnchantments.WEMod;
 
 namespace WeaponEnchantments.Common.Configs
 {
-	internal class ConfigValues
-	{
+	internal class ConfigValues {
 		public static float RecomendedStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float EnchantmentDropChance = serverConfig.EnchantmentDropChance / 100f;
 		public static float BossEnchantmentDropChance = serverConfig.BossEnchantmentDropChance / 100f;
@@ -21,5 +21,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float GlobalEnchantmentStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float PercentOfferEssence = serverConfig.PercentOfferEssence / 100f;
 		public static float ChestSpawnChance = serverConfig.ChestSpawnChance / 100f;
+		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
 	}
 }
