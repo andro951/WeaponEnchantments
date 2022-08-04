@@ -15,6 +15,7 @@ using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 using WeaponEnchantments.EnchantmentEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;

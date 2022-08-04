@@ -8,12 +8,11 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using System.Reflection;
 using Terraria.GameContent.Creative;
-using WeaponEnchantments.Debuffs;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.EnchantmentEffects;
 using System.Linq;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
     public enum DamageTypeSpecificID

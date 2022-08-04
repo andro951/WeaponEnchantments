@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.EnchantmentEffects;
+using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common {

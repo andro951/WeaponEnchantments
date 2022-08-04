@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace WeaponEnchantments.EnchantmentEffects {
+namespace WeaponEnchantments.Effects {
     public abstract class EnchantmentEffect {
         public EnchantmentEffect(float enchantmentPower = 1f) {
             this.EnchantmentPower = enchantmentPower;
