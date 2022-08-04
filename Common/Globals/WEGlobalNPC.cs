@@ -342,13 +342,14 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (npc.boss || multipleSegmentBoss) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
-                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
                 else {
                     loot.Add(dropRule);
                 }
             }
 
+            //Enchantments and other boss drops
             if (npc.boss || multipleSegmentBoss) {
                 //Boss Drops
 
@@ -358,7 +359,7 @@ namespace WeaponEnchantments.Common.Globals
                     denominator = 1;
 
                 dropRule = ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), denominator, 1, 1);
-                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
                 bool preHardModeBoss = preHardModeBossTypes.Contains(npc.type) || preHardModeModBossNames.Contains(npc.FullName);
@@ -368,7 +369,7 @@ namespace WeaponEnchantments.Common.Globals
                         denominator = 1;
 
                     dropRule = ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
-                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
 
                 //Enchantment drop chance
@@ -384,32 +385,15 @@ namespace WeaponEnchantments.Common.Globals
                 //Enchantments
                 if (itemTypes.Count > 1) {
                     //More than 1 drop option
+                    dropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
 
-                    switch (npc.type) {
-                        case NPCID.CultistBoss:
-                            dropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
-                            break;
-                        default:
-                            IItemDropRule expertDropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
-                            dropRule = new DropBasedOnExpertMode(expertDropRule, ItemDropRule.DropNothing());
-                            break;
-                    }
-
-                    loot.Add(dropRule);
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
                 else if (itemTypes.Count > 0) {
                     //One drop option
-                    switch (npc.type) {
-                        case NPCID.CultistBoss:
-                            dropRule = ItemDropRule.Common(itemTypes[0], denominator);
-                            break;
-                        default:
-                            IItemDropRule expertDropRule = ItemDropRule.Common(itemTypes[0], denominator);
-                            dropRule = new DropBasedOnExpertMode(expertDropRule, ItemDropRule.DropNothing());
-                            break;
-                    }
+                    dropRule = ItemDropRule.Common(itemTypes[0], denominator);
 
-                    loot.Add(dropRule);
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
             }
             else {
@@ -642,6 +626,34 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                 }
+            }
+        }
+        private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
+            //Setup mod boss bag support (Relies on NPC loot being set up before boss bag loot)
+            if (!GlobalBossBags.modBossBagIntegrationSetup) {
+                GlobalBossBags.SetupModBossBagIntegration();
+                GlobalBossBags.modBossBagIntegrationSetup = true;
+            }
+
+            bool npcCantDropBossBags;
+
+            switch (npc.type) {
+                //UnobtainableBossBags
+                case NPCID.CultistBoss:
+                case NPCID.DD2DarkMageT1:
+                case NPCID.DD2OgreT2:
+                    npcCantDropBossBags = true;
+                    break;
+                default:
+                    npcCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.type);
+                    break;
+            }
+
+            if (bossBag || npcCantDropBossBags) {
+                loot.Add(dropRule);
+			}
+			else {
+                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
             }
         }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total) {

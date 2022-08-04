@@ -15,6 +15,13 @@ namespace WeaponEnchantments.Common.Globals
         //Sources
         public Item sourceItem;
         private bool itemSourceSet;
+        private bool ItemSourceSet {
+            get => itemSourceSet;
+            set {
+                if(sourceItem != null)
+                    itemSourceSet = value;
+			}
+        }
         public Player playerSource;
         public Projectile parent = null;
 
@@ -79,7 +86,7 @@ namespace WeaponEnchantments.Common.Globals
             if (source is EntitySource_ItemUse uSource) {
                 if (uSource.Item != null && uSource.Item.TryGetEnchantedItem()) {
                     sourceItem = uSource.Item;
-                    itemSourceSet = true;
+                    ItemSourceSet = true;
                     //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
                     if (weaponProjectile)
                         sourceItem.GetEnchantedItem().masterProjectile = projectile;
@@ -88,7 +95,7 @@ namespace WeaponEnchantments.Common.Globals
             else if (source is EntitySource_ItemUse_WithAmmo wSource) {
                 if (wSource.Item != null && wSource.Item.TryGetEnchantedItem()) {
                     sourceItem = wSource.Item;
-                    itemSourceSet = true;
+                    ItemSourceSet = true;
                 }
             }
             else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar) {
@@ -97,7 +104,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
                 sourceItem = FindMiscSourceItem(projectile, eSource.Context);
-                itemSourceSet = sourceItem.TryGetEnchantedItem();
+                ItemSourceSet = sourceItem.TryGetEnchantedItem();
             }
             else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player pSource) {
                 //Projectiles such as stardust guardian.
@@ -113,7 +120,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            if (!itemSourceSet)
+            if (!ItemSourceSet)
                 return;
 
 			//Multishot
@@ -172,7 +179,7 @@ namespace WeaponEnchantments.Common.Globals
             if (updated)
                 return;
 
-            if (!itemSourceSet) {
+            if (!ItemSourceSet) {
                 if (parent != null)
                     TryUpdateFromParent();
 
@@ -232,7 +239,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Source Item
             sourceItem = pGlobal.sourceItem;
-            itemSourceSet = true;
+            ItemSourceSet = true;
 
             //Hit cooldown end
             hitCooldownEnd = pGlobal.hitCooldownEnd;
@@ -331,7 +338,7 @@ namespace WeaponEnchantments.Common.Globals
             return true;
         }
         public override bool ShouldUpdatePosition(Projectile projectile) {
-            if (!itemSourceSet)
+            if (!ItemSourceSet)
                 return true;
 
             if (speed <= 0)
@@ -534,7 +541,7 @@ namespace WeaponEnchantments.Common.Globals
             return null;
         }
         public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox) {
-            if (!itemSourceSet)
+            if (!ItemSourceSet)
                 return;
 
             if (firstScaleCheck) {
