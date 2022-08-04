@@ -21,41 +21,8 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments
 {
-    public static class PlayerFunctions
-    {
-        public static void CheckWeapon(this Item newItem, ref Item oldItem, Player player, int slot)
-        {
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            bool checkWeapon = wePlayer.ItemChanged(newItem, oldItem, true);
-            if (checkWeapon)
-            {
-                if(LogMethods.debugging) ($"\\/CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
-                if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem newGlobal))
-                {
-                    newGlobal.trackedWeapon = true;
-                    //newItem.RemoveUntilPositive();
-                    //CheckUpdateEnchantmentsOnItem(newItem);
-                }
-                if (!oldItem.IsAir && oldItem.TryGetGlobalItem(out EnchantedItem oldGlobal))
-                {
-                    oldGlobal.trackedWeapon = false;
-                }
-                //if (Main.netMode < NetmodeID.Server)
-                {
-                    Item newCheckItem = EnchantedItemStaticMethods.IsWeaponItem(newItem) ? newItem : new Item();
-                    Item oldCheckItem = EnchantedItemStaticMethods.IsWeaponItem(oldItem) ? oldItem : new Item();
-                    wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
-                    wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
-                    //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, newCheckItem, oldCheckItem, true, (byte)slot);
-                }
-                oldItem = newItem;
-                if(LogMethods.debugging) ($"/\\CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
-            }//Check HeldItem
-        }
-    }
     public class WEPlayer : ModPlayer
     {
-    	private string name = "";
         public static bool OldWorldItemsReplaced = false;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
@@ -1232,5 +1199,39 @@ namespace WeaponEnchantments
             }
             return items;
         }
-	}
+    }
+    public static class PlayerFunctions
+    {
+        public static void CheckWeapon(this Item newItem, ref Item oldItem, Player player, int slot) {
+            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
+            bool checkWeapon = wePlayer.ItemChanged(newItem, oldItem, true);
+            if (checkWeapon) {
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"\\/CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
+
+                #endregion
+
+                if (!newItem.IsAir && newItem.TryGetGlobalItem(out EnchantedItem newGlobal))
+                    newGlobal.trackedWeapon = true;
+
+                if (!oldItem.IsAir && oldItem.TryGetGlobalItem(out EnchantedItem oldGlobal))
+                    oldGlobal.trackedWeapon = false;
+
+                Item newCheckItem = EnchantedItemStaticMethods.IsWeaponItem(newItem) ? newItem : new Item();
+                Item oldCheckItem = EnchantedItemStaticMethods.IsWeaponItem(oldItem) ? oldItem : new Item();
+                wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
+                wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
+
+                oldItem = newItem;
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"/\\CheckWeapon({newItem.S()}, {oldItem.S()}, player: {player.S()}, slot: {slot}) ").Log();
+
+                #endregion
+            }//Check HeldItem
+        }
+    }
 }
