@@ -13,6 +13,7 @@ using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -166,7 +167,6 @@ namespace WeaponEnchantments.Common.Globals
                     UpdateItemValue();
             }
 		}
-        public bool needsUpdateOldItems = false;
 
         #endregion
 
@@ -184,10 +184,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation)
-        {
-            return WEMod.IsEnchantable(entity);
-        }
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsEnchantable(entity);
         public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedItem clone;
 
@@ -655,10 +652,10 @@ namespace WeaponEnchantments.Common.Globals
             //infusionTooltip
             if (infusedItemName != "") {
                 string tooltip = "";
-                if (WEMod.IsWeaponItem(item)) {
+                if (IsWeaponItem(item)) {
                     tooltip = $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
                 } 
-                else if (WEMod.IsArmorItem(item)) {
+                else if (IsArmorItem(item)) {
                     tooltip = $"Infused Armor ID: {item.GetInfusionArmorSlot()}   Infused Item: {infusedItemName}";
                 }
 
@@ -667,10 +664,10 @@ namespace WeaponEnchantments.Common.Globals
             }
             else if (wePlayer.usingEnchantingTable || WEMod.clientConfig.AlwaysDisplayInfusionPower) {
                 string tooltip = "";
-                if (WEMod.IsWeaponItem(item)) {
+                if (IsWeaponItem(item)) {
                     tooltip = $"Infusion Power: {item.GetWeaponInfusionPower()}";
                 }
-                else if (WEMod.IsArmorItem(item)) {
+                else if (IsArmorItem(item)) {
                     tooltip = $"Set Bonus ID: {item.GetInfusionArmorSlot(true)}";
                 }
 
@@ -680,13 +677,13 @@ namespace WeaponEnchantments.Common.Globals
 
             //newInfusionTooltip
             if (inEnchantingTable && wePlayer.infusionConsumeItem != null) {
-                if(WEMod.IsWeaponItem(item) && WEMod.IsWeaponItem(wePlayer.infusionConsumeItem)) {
+                if(IsWeaponItem(item) && IsWeaponItem(wePlayer.infusionConsumeItem)) {
                     string tooltip = $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
 						             $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 
                     tooltips.Add(new TooltipLine(Mod, "newInfusionTooltip", tooltip) { OverrideColor = Color.DarkRed });
                 }
-                else if (WEMod.IsArmorItem(item) && WEMod.IsArmorItem(wePlayer.infusionConsumeItem)) {
+                else if (IsArmorItem(item) && IsArmorItem(wePlayer.infusionConsumeItem)) {
                     string tooltip = $"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 						             $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 
@@ -705,13 +702,13 @@ namespace WeaponEnchantments.Common.Globals
                     }//Enchantmenst: tooltip
 
                     string itemType = "";
-                    if (WEMod.IsWeaponItem(item)) {
+                    if (IsWeaponItem(item)) {
                         itemType = "Weapon";
                     }
-                    else if (WEMod.IsArmorItem(item)) {
+                    else if (IsArmorItem(item)) {
                         itemType = "Armor";
                     }
-                    else if (WEMod.IsAccessoryItem(item)) {
+                    else if (IsAccessoryItem(item)) {
                         itemType = "Accessory";
                     }
 
@@ -970,11 +967,11 @@ namespace WeaponEnchantments.Common.Globals
             resetLastValueBonus = true;
 
             //Calamity
-            if (WEMod.calamity)
+            if (WEMod.calamityEnabled)
                 calamityReforged = true;
 
 			//Calamity deletes global data after reforge, so it is handled on the next tick in WEModSystem.
-			if (!WEMod.calamity) {
+			if (!WEMod.calamityEnabled) {
                 //Vanilla and AutoReforge (No Calamity)
                 ReforgeItem(ref item, Main.LocalPlayer);
             }
@@ -1127,6 +1124,43 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedItemStaticMethods
     {
+        public static bool IsEnchantable(Item item) {
+            if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        public static bool IsWeaponItem(Item item) {
+            if (item == null || item.IsAir)
+                return false;
+
+            bool isWeapon;
+            switch (item.type) {
+                case ItemID.CoinGun:
+                    isWeapon = true;
+                    break;
+                default:
+                    isWeapon = item.damage > 0 && item.ammo == 0;
+                    break;
+            }
+
+            return isWeapon && !item.accessory;
+        }
+        public static bool IsArmorItem(Item item) {
+            if (item == null || item.IsAir)
+                return false;
+
+            return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
+        }
+        public static bool IsAccessoryItem(Item item) {
+            if (item == null || item.IsAir)
+                return false;
+
+            //Check for armor item is a fix for Reforgable armor mod setting armor to accessories
+            return item.accessory && !IsArmorItem(item);
+        }
         public static void SetupGlobals(this Item item) {
             //Not EnchantedItem return
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
@@ -1145,6 +1179,34 @@ namespace WeaponEnchantments.Common.Globals
             //Damage Multiplier (If failed to Get Global Item Stats)
             if(!obtainedGlobalItemStats)
                 iGlobal.damageMultiplier = item.GetWeaponMultiplier(iGlobal.infusionPower);
+        }
+        public static void ApplyEnchantment(int i) {
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            item.ApplyEnchantment(i);
+        }
+        public static void ApplyEnchantment(this Item item, int i) {
+            if (LogMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!item.IsAir) {
+                EnchantedItem iGlobal = item.GetEnchantedItem();
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            if (LogMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
+        }
+        public static void RemoveEnchantment(int i) {
+            if (LogMethods.debugging) ($"\\/RemoveEnchantment(i: " + i + ")").Log();
+            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+            if (!item.IsAir) {
+                EnchantedItem iGlobal = item.GetEnchantedItem();
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+                item.UpdateEnchantment(ref enchantment, i, true);
+                wePlayer.UpdateItemStats(ref item);
+            }
+            if (LogMethods.debugging) ($"/\\RemoveEnchantment(i: " + i + ")").Log();
         }
         public static void UpdateEnchantment(this Item item, ref Enchantment enchantment, int slotNum, bool remove = false) {
             //enchantment null return
@@ -1427,7 +1489,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Gain xp on each armor
                 if (!armor.vanity && armor.TryGetEnchantedItem(out EnchantedItem aGlobal)) {
                     float reductionFactor;
-                    if (WEMod.IsArmorItem(armor)) {
+                    if (IsArmorItem(armor)) {
                         reductionFactor = 2f;
                     }
                     else {
@@ -1486,7 +1548,7 @@ namespace WeaponEnchantments.Common.Globals
                             bool cantFit = false;
                             if (enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))) {
+                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (IsWeaponItem(item) || IsArmorItem(item))) {
                                         iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
                                         item.ApplyEnchantment(j);
                                     }
@@ -1543,7 +1605,7 @@ namespace WeaponEnchantments.Common.Globals
             int netMode = Main.netMode;
             int gameMode = Main.GameMode;
             if (!item.IsAir) {
-                if (WEMod.IsEnchantable(item)) {
+                if (IsEnchantable(item)) {
                     if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
                         if (iGlobal.GetLevelsAvailable() < 0) {
                             for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--) {
@@ -1593,17 +1655,6 @@ namespace WeaponEnchantments.Common.Globals
         public static int DamageBeforeArmor(this Item item, bool crit) {
             return (int)Math.Round(item.ApplyEStat("Damage", (float)item.damage * (crit ? 2f : 1f)));
         }
-        public static void ApplyEnchantment(this Item item, int i) {
-            if (LogMethods.debugging) ($"\\/ApplyEnchantment(i: " + i + ")").Log();
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (!item.IsAir) {
-                EnchantedItem iGlobal = item.GetEnchantedItem();
-                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
-                item.UpdateEnchantment(ref enchantment, i);
-                wePlayer.UpdateItemStats(ref item);
-            }
-            if (LogMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
-        }
         public static void UpdateDamageType(this Item item, int type) {
             switch ((DamageTypeSpecificID)type) {
                 case DamageTypeSpecificID.Default:
@@ -1639,7 +1690,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
-            if (WEMod.IsWeaponItem(item)) {
+            if (IsWeaponItem(item)) {
                 if (enchantment.AllowedList.ContainsKey("Weapon")) {
                     add *= enchantment.AllowedList["Weapon"];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList["Weapon"];
@@ -1654,7 +1705,7 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (WEMod.IsArmorItem(item)) {
+            if (IsArmorItem(item)) {
                 if (enchantment.AllowedList.ContainsKey("Armor")) {
                     add *= enchantment.AllowedList["Armor"];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList["Armor"];
@@ -1669,7 +1720,7 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (WEMod.IsAccessoryItem(item)) {
+            if (IsAccessoryItem(item)) {
                 if (enchantment.AllowedList.ContainsKey("Accessory")) {
                     add *= enchantment.AllowedList["Accessory"];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList["Accessory"];

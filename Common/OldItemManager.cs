@@ -141,8 +141,6 @@ namespace WeaponEnchantments.Common
                 }
 
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                    iGlobal.needsUpdateOldItems = player == null;
-
                     List<string> enchantmentTypeNames = new List<string>();
                     bool unique = false;
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
@@ -153,13 +151,13 @@ namespace WeaponEnchantments.Common
 
                         if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                             Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
-                            if (WEMod.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
+                            if (EnchantedItemStaticMethods.IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                             }
-                            else if (WEMod.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
+                            else if (EnchantedItemStaticMethods.IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                             }
-                            else if (WEMod.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
+                            else if (EnchantedItemStaticMethods.IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
                                 RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                             }
 

@@ -25,7 +25,7 @@ namespace WeaponEnchantments.ModIntegration
 
 		public override void Load() {
 			Enabled = ModLoader.HasMod(calamityName);
-			WEMod.calamity = Enabled;
+			WEMod.calamityEnabled = Enabled;
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (Enabled) {
