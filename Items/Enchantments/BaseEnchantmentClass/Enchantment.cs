@@ -133,6 +133,13 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
 
+		public enum EItemType {
+			Weapon,
+			Armor,
+			Accessory,
+			None
+		}
+
 		/// <summary>
 		/// Default is { "Weapon", 1f }, { "Armor", 0.25f }, { "Accessory", 0.25f }<br/>
 		/// (100% effective on weapons, 25% effective on armor and accessories)<br/>

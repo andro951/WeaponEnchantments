@@ -625,6 +625,22 @@ namespace WeaponEnchantments.Common.Globals
 
             return level - totalEnchantmentLevelCost;
         }
+        public static EItemType GetEItemType(Item item) {
+            EItemType itemType = EItemType.None;
+            if (IsWeaponItem(item)) {
+                itemType = EItemType.Weapon;
+            }
+            else if (IsArmorItem(item)) {
+                itemType = EItemType.Armor;
+            }
+            else if (IsAccessoryItem(item)) {
+                itemType = EItemType.Accessory;
+            }
+            return itemType;
+        }
+        public EItemType GetEItemType() {
+            return GetEItemType(Item);
+        }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
