@@ -1089,16 +1089,10 @@ namespace WeaponEnchantments
                     statsNeedUpdate = statModifiers[key] != appliedStatModifiers[key];
 
                 if (statsNeedUpdate) {
-                    FieldInfo field = Player.GetType().GetField(statName);
-                    PropertyInfo property = Player.GetType().GetProperty(statName);
-                    if(field != null || property != null) {
-                if (statsNeedUpdate)
-                {
                     Type playerType = Player.GetType();
                     FieldInfo field = playerType.GetField(statName);
                     PropertyInfo property = playerType.GetProperty(statName);
-                    if(field != null || property != null)
-                    {
+                    if(field != null || property != null) {
                         if (!appliedStatModifiers.ContainsKey(key))
                             appliedStatModifiers.Add(key, StatModifier.Default);
 
