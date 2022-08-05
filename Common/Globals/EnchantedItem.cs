@@ -627,12 +627,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
-            bool enchantmentsToolTipAdded = false;
 
             //Stack0
             if (Modified || inEnchantingTable) {
                 if (Stack0) {
-                    string tooltip = $"!!!OUT OF AMMO!!!";
+                    string tooltip = $"♦ OUT OF AMMO ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
             }
@@ -715,6 +714,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
+            bool enchantmentsToolTipAdded = false;
             //Enchantment Stat tooltips
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                 if (!enchantments[i].IsAir) {
