@@ -864,10 +864,6 @@ namespace WeaponEnchantments.Common.Globals
             if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
                 return false;
 
-            //Prevent using items when hoving over enchanting table ui
-            if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
-                return false;
-
             //AllForOne
             if (eStats.ContainsKey("AllForOne")) {
                 return wePlayer.allForOneTimer <= 0;
@@ -1063,7 +1059,7 @@ namespace WeaponEnchantments.Common.Globals
                 return true;
 
             //item1 already tested for try.
-            EnchantedItem i2Global = item2.GetEnchantedItem();
+            item2.TryGetEnchantedItem(out EnchantedItem i2Global);
 
             bool modified1 = i1Global.Modified;
             bool modified2 = i2Global.Modified;
@@ -1136,7 +1132,9 @@ namespace WeaponEnchantments.Common.Globals
                 //Reset item2 globals
                 Item tempItem = new Item(item1.type);
                 resetGlobals = true;
-                tempItem.GetEnchantedItem().Clone(tempItem, item2);
+                if(tempItem.TryGetEnchantedItem(out EnchantedItem tempGlobal))
+                    tempGlobal.Clone(tempItem, item2);
+
                 resetGlobals = false;
             }
 

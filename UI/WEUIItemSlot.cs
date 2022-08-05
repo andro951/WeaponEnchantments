@@ -180,7 +180,8 @@ namespace WeaponEnchantments.UI
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			if (Valid(Main.mouseItem)) {
 				if (Main.mouseItem.type == PowerBooster.ID) {
-					if (_itemContext == ItemSlotContext.Item && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir && !wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
+					Item itemInUI = wePlayer.ItemInUI();
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && !iGlobal.PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
 						if (Main.mouseItem.stack > 1) {
 							Main.mouseItem.stack--;
 						}
@@ -189,7 +190,7 @@ namespace WeaponEnchantments.UI
 						}
 
 						SoundEngine.PlaySound(SoundID.Grab);
-						wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().PowerBoosterInstalled = true;
+						iGlobal.PowerBoosterInstalled = true;
 					}
 				}
 				else if (Main.mouseItem.ModItem is Enchantment enchantment) {
@@ -288,12 +289,13 @@ namespace WeaponEnchantments.UI
 							if (Main.mouseItem.IsAir) {
 								Main.mouseItem = Item.Clone();
 							}
-							else if (Main.mouseItem.GetEnchantedItem().CanStack(Main.mouseItem, Item)) {
+							else if (Main.mouseItem.TryGetEnchantedItem(out EnchantedItem mGlobal) && mGlobal.CanStack(Main.mouseItem, Item)) {
 								Main.mouseItem.stack++;
 							}
 
 							Item = new Item();
 						}
+
 						SoundEngine.PlaySound(SoundID.MenuTick);
 					}
 				}

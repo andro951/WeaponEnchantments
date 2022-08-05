@@ -1132,6 +1132,9 @@ namespace WeaponEnchantments.Common.Globals
             whoAmIs = new List<int>();
             damages = new List<int>();
 
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return 0;
+
             //Range
             float oneForAllRange = baseOneForAllRange * item.scale;
 
@@ -1154,7 +1157,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                 target.GetGlobalNPC<WEGlobalNPC>().SourceItem = SourceItem;
-                float allForOneMultiplier = item.GetEnchantedItem().eStats["OneForAll"].ApplyTo(0f);
+                float allForOneMultiplier = iGlobal.eStats["OneForAll"].ApplyTo(0f);
                 float baseAllForOneDamage = damage * allForOneMultiplier;
 
                 float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
@@ -1217,7 +1220,10 @@ namespace WeaponEnchantments.Common.Globals
 
 			#endregion
 			
-			float godSlayerBonus = item.GetEnchantedItem().eStats["GodSlayer"].ApplyTo(0f);
+            if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return 0;
+
+			float godSlayerBonus = iGlobal.eStats["GodSlayer"].ApplyTo(0f);
             
             float actualDamageDealt = damage - damageReduction;
             float godSlayerDamage = actualDamageDealt * godSlayerBonus * npc.lifeMax / 100f;

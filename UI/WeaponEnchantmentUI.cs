@@ -564,10 +564,14 @@ namespace WeaponEnchantments.UI
         }
         public static void Syphon() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.IsAir)
+            Item itemInUI = wePlayer.ItemInUI();
+
+            if (itemInUI.IsAir)
                 return;
 
-            EnchantedItem iGlobal = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem();
+            if (!itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return;
+
             int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1];
             int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
             int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
