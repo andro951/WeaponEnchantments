@@ -138,7 +138,7 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
-            if(item.TryGetGlobalItem(out EnchantedItem iGlobal) && consumedItem.TryGetGlobalItem(out EnchantedItem cGlobal)) {
+            if(item.TryGetEnchantedItem(out EnchantedItem iGlobal) && consumedItem.TryGetEnchantedItem(out EnchantedItem cGlobal)) {
                 long xp = (long)iGlobal.Experience + (long)cGlobal.Experience;
                 if (xp <= (long)int.MaxValue) {
                     iGlobal.Experience += cGlobal.Experience;

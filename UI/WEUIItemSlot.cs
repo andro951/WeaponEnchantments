@@ -238,7 +238,7 @@ namespace WeaponEnchantments.UI
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-				if(item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
 					if (!iGlobal.enchantments[i].IsAir) {
 						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
 						if (appliedEnchantment != null && ((enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
@@ -267,7 +267,7 @@ namespace WeaponEnchantments.UI
 						SoundEngine.PlaySound(SoundID.MenuTick);
 					}
 				}
-				else if (Item.favorited && Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift)) {
+				else if (Item.favorited && WEModSystem.ShiftDown) {
 					Main.cursorOverride = 9;
 					if (!Item.IsAir && Main.mouseLeft && Main.mouseLeftRelease)
 						Item = wePlayer.Player.GetItem(wePlayer.Player.whoAmI, Item, GetItemSettings.LootAllSettings);

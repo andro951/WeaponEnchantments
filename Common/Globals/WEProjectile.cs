@@ -77,23 +77,26 @@ namespace WeaponEnchantments.Common.Globals
                 bool prjectileFromPhantasm = vbSource.Item.type == ItemID.Phantasm;
                 if (!weaponProjectile && ( projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm)) {
                     //Try get source projectile from the weapon.
-                    if (vbSource.Item.GetEnchantedItem().masterProjectile != null)
-                        source = vbSource.Item.GetEnchantedItem().masterProjectile.GetSource_FromThis();
+                    if(vbSource.Item.TryGetEnchantedItem(out EnchantedItem vbSourceGlobal)) {
+                        if (vbSourceGlobal.masterProjectile != null)
+                            source = vbSourceGlobal.masterProjectile.GetSource_FromThis();
+                    }
                 }
             }
             
             //All other sources
             if (source is EntitySource_ItemUse uSource) {
-                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem()) {
-                    sourceItem = uSource.Item;
-                    ItemSourceSet = true;
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
                     //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
                     if (weaponProjectile)
-                        sourceItem.GetEnchantedItem().masterProjectile = projectile;
+                        uSourceGlobal.masterProjectile = projectile;
+
+                    sourceItem = uSource.Item;
+                    ItemSourceSet = true;
                 }
             }
             else if (source is EntitySource_ItemUse_WithAmmo wSource) {
-                if (wSource.Item != null && wSource.Item.TryGetEnchantedItem()) {
+                if (wSource.Item.TryGetEnchantedItem()) {
                     sourceItem = wSource.Item;
                     ItemSourceSet = true;
                 }

@@ -20,6 +20,7 @@ namespace WeaponEnchantments
     public class WEModSystem : ModSystem
     {
         public static bool AltDown => Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt);
+        public static bool ShiftDown => Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
@@ -89,8 +90,11 @@ namespace WeaponEnchantments
                 if (removedItem || swappedItem) {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
-                        if (enchantmentInUI != null)//For each enchantment in the enchantmentSlots,
-                            wePlayer.itemBeingEnchanted.GetEnchantedItem().enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
+                        //For each enchantment in the enchantmentSlots,
+                        if (enchantmentInUI != null) {
+                            if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                                iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
+                        }
                         
                         wePlayer.EnchantmentUISlot(i).Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
@@ -103,7 +107,9 @@ namespace WeaponEnchantments
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
                     }
 
-                    wePlayer.itemBeingEnchanted.GetEnchantedItem().inEnchantingTable = false;
+                    if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
+                        iBEGlobal.inEnchantingTable = false;
+
                     wePlayer.itemBeingEnchanted.favorited = favorited;
                     wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
                 }
@@ -138,7 +144,7 @@ namespace WeaponEnchantments
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                     Item tableEnchantment = wePlayer.EnchantmentInUI(i);
                     Item itemEnchantment = new Item();
-                    if (itemInUI.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                         itemEnchantment = iGlobal.enchantments[i];
                     }
 
@@ -219,7 +225,7 @@ namespace WeaponEnchantments
             //Fargos pirates that steal items
             if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
-                if (itemToClear != null && itemToClear.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+                if (itemToClear != null && itemToClear.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     iGlobal.lastValueBonus = 0;
                     iGlobal.prefix = -1;
                 }
