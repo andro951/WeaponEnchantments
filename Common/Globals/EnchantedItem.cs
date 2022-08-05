@@ -652,24 +652,22 @@ namespace WeaponEnchantments.Common.Globals
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
+                string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
                 if (PowerBoosterInstalled) {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()} (Booster Installed)";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
-                }
-				else {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
+                    levelTooltip += " (Booster Installed)";
                 }
 
-                string levelString;
-                if(levelBeforeBooster < MAX_LEVEL) {
-                    levelString = $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
+                tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
+
+                string experienceTooltip = $"Experience: {Experience}";
+                if (levelBeforeBooster < MAX_LEVEL) {
+                    experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
                 }
-				else {
-                    levelString = " (Max Level)";
+                else {
+                    experienceTooltip += " (Max Level)";
                 }
-                string levelTooltip = $"Experience: {Experience}{levelString}";
-                tooltips.Add(new TooltipLine(Mod, "experience", levelTooltip) { OverrideColor = Color.White });
+
+                tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
             }
 
             //infusionTooltip
