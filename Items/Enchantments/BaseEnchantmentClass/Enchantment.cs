@@ -13,6 +13,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using Terraria.Localization;
+using System.Linq;
 
 namespace WeaponEnchantments.Items {
     public enum DamageTypeSpecificID

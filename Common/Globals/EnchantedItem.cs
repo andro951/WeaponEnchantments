@@ -628,13 +628,13 @@ namespace WeaponEnchantments.Common.Globals
 
         public static EItemType GetEItemType(Item item) {
             EItemType itemType = EItemType.None;
-            if (WEMod.IsWeaponItem(item)) {
+            if (IsWeaponItem(item)) {
                 itemType = EItemType.Weapon;
             }
-            else if (WEMod.IsArmorItem(item)) {
+            else if (IsArmorItem(item)) {
                 itemType = EItemType.Armor;
             }
-            else if (WEMod.IsAccessoryItem(item)) {
+            else if (IsAccessoryItem(item)) {
                 itemType = EItemType.Accesory;
             }
             return itemType;
@@ -1684,13 +1684,13 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                     Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
-                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey("Weapon")) {
+                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
-                    else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey("Armor")) {
+                    else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                     }
-                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey("Accessory")) {
+                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                     }
 
@@ -1813,7 +1813,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
-            if (WEMod.IsWeaponItem(item)) {
+            if (IsWeaponItem(item)) {
                 if (enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
                     add *= enchantment.AllowedList[EItemType.Weapon];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Weapon];
@@ -1828,7 +1828,7 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (WEMod.IsArmorItem(item)) {
+            if (IsArmorItem(item)) {
                 if (enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                     add *= enchantment.AllowedList[EItemType.Armor];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Armor];
@@ -1843,7 +1843,7 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (WEMod.IsAccessoryItem(item)) {
+            if (IsAccessoryItem(item)) {
                 if (enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
                     add *= enchantment.AllowedList[EItemType.Accesory];
                     mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accesory];
