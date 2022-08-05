@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class MaxFallSpeed : StatEffect {
         public MaxFallSpeed(StatModifier statModifier) : base(statModifier) { }
 
-        public override bool isVanilla { get; } = true;
-        public override string statName { get; } = "maxFallSpeed";
-        public override string DisplayName { get; } = "Jump Speed";
+        public override EditableStat statName => EditableStat.MaxFallSpeed;
+        public override string DisplayName { get; } = "Max Fall Speed";
     }
 }

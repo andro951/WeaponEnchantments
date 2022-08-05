@@ -99,7 +99,25 @@ namespace WeaponEnchantments {
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
 
         // Currently just a function that gets the current player equipment state.
+        public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player);
+
+        public enum EditableStat {
+            ArmorPenetration,
+            BonusManaRegen,
+            Damage,
+            Defense,
+            JumpSpeedBoost,
+            LifeRegen,
+            LifeSteal,
+            ManaRegen,
+            MaxFallSpeed,
+            MaxHP,
+            MaxMP,
+            MoveAcceleration,
+            MoveSpeed,
+            WingTime
+        }
 
         #region Default Hooks
         public override void Load() {
@@ -599,73 +617,87 @@ namespace WeaponEnchantments {
             return allEffects;
         }
 
-        public void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
+        private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
+            switch (es) {
+                case EditableStat.ArmorPenetration:
+                    if (dc == null) return;
+                    Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
+                    break;
+                case EditableStat.BonusManaRegen:
+                    Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
+                    break;
+                case EditableStat.Damage:
+                    if (dc == null) return;
+                    Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
+                    break;
+                case EditableStat.Defense:
+                    Player.statDefense = (int)sm.ApplyTo(Player.statDefense);
+                    break;
+                case EditableStat.JumpSpeedBoost:
+                    Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
+                    break;
+                case EditableStat.LifeRegen:
+                    Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
+                    break;
+                case EditableStat.LifeSteal:
+                    canLifeSteal = true;
+                    lifeSteal = sm.ApplyTo(lifeSteal);
+                    break;
+                case EditableStat.ManaRegen:
+                    Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
+                    break;
+                case EditableStat.MaxHP:
+                    Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
+                    break;
+                case EditableStat.MaxMP:
+                    Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
+                    break;
+                case EditableStat.MoveAcceleration:
+                    Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
+                    break;
+                case EditableStat.MoveSpeed:
+                    Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
+                    break;
+                case EditableStat.WingTime:
+                    Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
+                    break;
+            }
+        }
+
+        private struct StatDC {
+            public StatDC(EditableStat es, DamageClass dc) {
+                ES = es;
+                DC = dc;
+            }
+                public EditableStat ES;
+                public DamageClass DC;
+        }
+
+        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
-            Dictionary<string, Tuple<bool, StatModifier>> statModifiers = new Dictionary<string, Tuple<bool, StatModifier>>();
+            Dictionary<StatDC, StatModifier> statModifiers = new Dictionary<StatDC, StatModifier>();
+            Dictionary<StatDC, int> statCounts = new Dictionary<StatDC, int>();
 
             foreach (StatEffect statEffect in StatEffects) {
-                StatModifier finalModifier = statEffect.statModifier * statEffect.EfficiencyMultiplier;
-                finalModifier.Flat *= statEffect.EfficiencyMultiplier;
-
-                if (!statModifiers.ContainsKey(statEffect.statName)) {
+                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;
+                StatDC statDC = new StatDC(statEffect.statName, dc);
+                if (!statModifiers.ContainsKey(statDC)) {
                     // If the stat name isn't on the dictionary add it
-                    statModifiers.Add(statEffect.statName, new Tuple<bool, StatModifier>(statEffect.isVanilla, finalModifier));
+                    statModifiers.Add(statDC, statEffect.statModifier);
+                    statCounts.Add(statDC, 1);
                 }
                 else {
                     // If the stat name is on the dictionary, combine it's modifiers
-                    statModifiers[statEffect.statName].Item2.CombineWith(finalModifier);
+                    statModifiers[statDC] = statModifiers[statDC].CombineWith(statEffect.statModifier);
+                    statCounts[statDC] += 1;
                 }
             }
 
-            // Initialize types
-            Type playerType = typeof(Player);
-            Type wePlayerType = typeof(WEPlayer);
-            foreach (var item in statModifiers) {
-                // Get all the info we need
-                bool isVanilla = item.Value.Item1;
-                string statName = item.Key;
-                StatModifier statModifier = item.Value.Item2;
+            // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
 
-                // Determine which value we're changing, and from who
-                Type iterationType = isVanilla ? playerType : wePlayerType;
-                object play = isVanilla ? Player : this;
-
-                // Get the property to change
-                PropertyInfo prop = iterationType.GetProperty(statName);
-                FieldInfo field = iterationType.GetField(statName);
-
-                Func<object, object> GetValue;
-                Action<object, object> SetValue;
-                Type type;
-
-                if (prop != null) {
-                    GetValue = prop.GetValue;
-                    SetValue = prop.SetValue;
-                    type = prop.PropertyType;
-                } else if (field != null) {
-                    GetValue = field.GetValue;
-                    SetValue = field.SetValue;
-                    type = field.FieldType;
-                } else {
-                    continue;
-                }
-
-                // Get the value
-
-                // If we can somehow alter it, do so
-                if (type == typeof(int)) {
-                    int editingValue = (int)GetValue(play);
-                    editingValue = (int)statModifier.ApplyTo((int)editingValue);
-                    SetValue(play, editingValue);
-                }
-                else if (type == typeof(float)) {
-                    float editingValue = (float)GetValue(play);
-                    editingValue = statModifier.ApplyTo((float)editingValue);
-                    SetValue(play, editingValue);
-                } else if (type == typeof(bool)) { // If it exists just set it to true
-                    SetValue(play, true);
-                }
+            foreach (StatDC eb in statModifiers.Keys) {
+                ModifyStat(eb.ES, statModifiers[eb], eb.DC);
             }
         }
 
@@ -687,7 +719,10 @@ namespace WeaponEnchantments {
             foreach (IPassiveEffect effect in passiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
-
+            PlayerEquipment newEquipment = PlayerEquipment;
+            if (newEquipment != LastPlayerEquipment) {
+                LastPlayerEquipment = newEquipment;
+            }
             // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
             if (statEffects.Any()) ApplyStatEffects(statEffects);
 
@@ -1387,6 +1422,6 @@ namespace WeaponEnchantments {
                 if (LogMethods.debugging) ($"/\\UpdateItemStats(" + item.S() + ")").Log();
             }
         }
-        
-	}
+
+    }
 }

@@ -41,6 +41,14 @@ namespace WeaponEnchantments.Common {
             }
         }
 
+        public static bool operator ==(PlayerEquipment pe, PlayerEquipment other) {
+            return pe.Equals(other);
+        }
+
+        public static bool operator !=(PlayerEquipment pe, PlayerEquipment other) {
+            return !pe.Equals(other);
+        }
+
         public static IEnumerable<EnchantedItem> FilterEnchantedItems(IEnumerable<Item> items) {
             IEnumerable<EnchantedItem> enchantedItems = items
                 .Where(i => i != null)
@@ -106,6 +114,34 @@ namespace WeaponEnchantments.Common {
 
         public IEnumerable<EnchantmentEffect> GetArmorEnchantmentEffects() {
             return ExtractEnchantmentEffects(GetEnchantedArmor());
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+
+            if (ReferenceEquals(obj, null)) {
+                return false;
+            }
+
+            if (obj is not PlayerEquipment) {
+                return false;
+            }
+
+            PlayerEquipment other = (PlayerEquipment)obj;
+
+            IEnumerable<Item> myItems = GetAllItems();
+            IEnumerable<Item> otherItems = other.GetAllItems();
+            int count = myItems.Count();
+            if (count != otherItems.Count()) return false;
+            for (int i = 0; i < count; i++) {
+                Item ci = myItems.ElementAt(i);
+                Item ci2 = otherItems.ElementAt(i);
+                if (ci == ci2) continue;
+                if (ci.netID != ci2.netID) return false;
+            }
+            return true;
         }
     }
 }
