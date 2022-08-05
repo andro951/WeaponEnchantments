@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Common.Utility {
             { Magnitude.Minutes, 60 },
         }.ToImmutableDictionary();
         private static string IndefiniteString = "Indefinite";
+        private static string NoTimeString = "An Instant";
         #endregion
 
         #region Properties
@@ -49,6 +50,9 @@ namespace WeaponEnchantments.Common.Utility {
         public override string ToString() {
             if (Value < 0) {
                 return IndefiniteString;
+            }
+            else if (Value == 0) {
+                return NoTimeString;
             }
             var maxReducedSelf = MaxReducedSelf();
             return $"{Math.Round(maxReducedSelf.Item1, 1)} {MagnitudeStrings[maxReducedSelf.Item2]}";

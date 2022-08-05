@@ -10,10 +10,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Effects {
-    public class DebuffEffect : EnchantmentEffect {
+    public class DebuffEffect : EnchantmentEffect, IOnHitEffect {
         public static string GetBuffName(int id) {
             if (id < BuffID.Count) {
                 BuffID buffID = new();
@@ -33,13 +32,13 @@ namespace WeaponEnchantments.Effects {
         private bool IsQuiet { get; set; }
 
         // Apply Equipment efficiency (Doing it here allows tooltips to update)
-        private float applyChance => EnchantmentPower * EquipmentEfficiency;
-        private Time applyTime => BaseApplicationTime * EquipmentEfficiency;
+        private float applyChance => EnchantmentPower * EfficiencyMultiplier;
+        private Time applyTime => BaseApplicationTime * EfficiencyMultiplier;
 
         public override sealed string DisplayName => $"On-Hit {GetBuffName(AppliedDebuffID)}";
         public override sealed string Tooltip => $"{DisplayName} ({applyChance.Percent()}% for {applyTime})";
 
-        public override sealed void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
+        public void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
             // Can do: Apply damage type efficiency
             if (!npc.buffImmune[AppliedDebuffID] && Main.rand.NextFloat(0f, 1f) <= applyChance) {
                 npc.AddBuff(AppliedDebuffID, applyTime, IsQuiet);

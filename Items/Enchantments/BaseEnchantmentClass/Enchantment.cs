@@ -694,7 +694,7 @@ namespace WeaponEnchantments.Items {
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips(float efficiency = 1f) {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 			foreach (var effect in Effects) {
-				effect.EquipmentEfficiency = 1f;
+				effect.EfficiencyMultiplier = 1f;
 				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));
 			}
 			return tooltips;

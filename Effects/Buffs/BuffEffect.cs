@@ -10,10 +10,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.EnchantmentEffects;
 
 namespace WeaponEnchantments.Effects {
-    public class BuffEffect : EnchantmentEffect {
+    public class BuffEffect : EnchantmentEffect, IPassiveEffect {
         public static string GetBuffName(int id) { // C# is crying
             if (id < BuffID.Count) {
                 BuffID buffID = new();
@@ -25,16 +24,18 @@ namespace WeaponEnchantments.Effects {
         public BuffEffect(int debuffID, bool isQuiet = true) : base() {
             AppliedBuffID = debuffID;
             IsQuiet = isQuiet;
+            BuffName = GetBuffName(AppliedBuffID);
         }
 
         private int AppliedBuffID { get; set; }
         private bool IsQuiet { get; set; }
+        private string BuffName;
 
         // Could move into constructor?
         public override sealed string DisplayName => $"Passive {GetBuffName(AppliedBuffID)}";
         public override sealed string Tooltip => $"Passively grants {GetBuffName(AppliedBuffID)}";
 
-        public override void PostUpdateMiscEffects(WEPlayer player) {
+        public void PostUpdateMiscEffects(WEPlayer player) {
             player.Player.AddBuff(AppliedBuffID, 1, IsQuiet);
         }
     }

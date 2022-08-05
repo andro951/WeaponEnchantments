@@ -7,9 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class EnchantmentEffect {
+        internal static char s(float f) {
+            return f > 0 ? '+' : '\0';
+        }
+
         public EnchantmentEffect(float enchantmentPower = 1f) {
             this.EnchantmentPower = enchantmentPower;
         }
@@ -38,7 +43,8 @@ namespace WeaponEnchantments.Effects {
         /// It represents how strong the effect should be in the given instance, usually set in the constructor.
         /// </para>
         /// <para>
-        /// For example, if LifeSteal is mapped to an EnchantmentPower of 1f, LifeSteal would heal 100% of the damage done (if used with an effective damage class).
+        /// For example, if LifeSteal is mapped to an EnchantmentPower of 1f, LifeSteal would heal 100% of the damage done (if used with an effective damage class).<br \>
+        /// Another example is if Defense is mapped to an enchantment power of 5.5f, the defense would increase by 5 (it is floored for integers)
         /// </para>
         /// <para>
         /// This can be used on the enchantment implementation, but is not required.
@@ -47,58 +53,15 @@ namespace WeaponEnchantments.Effects {
         protected float EnchantmentPower { get; set; }
         
         /// <summary>
-        /// How effective the enchantment is on the current gear (Armor, Weapon, Accesory)
+        /// How effective the enchantment is.
+        /// Affected by armor efficiency (Armor, Weapon, Accesory)
         /// </summary>
-        public float EquipmentEfficiency { get; set; } = 0f;
+        public float EfficiencyMultiplier { get; set; } = 1f;
         
-        public virtual string DisplayName { get; set; } = "Default";
-        public virtual string Tooltip => $"{DisplayName}: {Math.Round(EnchantmentPower * 100, 1)}%";
-        public virtual Color TooltipColor { get; set; } = new Color(0xaa, 0xaa, 0xaa);
+        public abstract string DisplayName { get; }
+        public virtual string Tooltip => $"{DisplayName}: {s(EnchantmentPower)}{EnchantmentPower.Percent()}%";
+        public virtual Color TooltipColor { get; } = new Color(0xaa, 0xaa, 0xaa);
 
-        /// <summary>
-        /// <para>
-        /// The part of the enchantment that runs every frame after all misc effects have triggered.
-        /// </para>
-        /// <para>
-        /// This happens before health regeneration and gravity and such.
-        /// </para>
-        /// </summary>
-        /// <param name="player">The player for which this enchantment applies</param>
-        public virtual void PostUpdateMiscEffects(WEPlayer player) { }
-
-        /// <summary>
-        /// <para>
-        /// The part of the enchantment that runs after hitting an NPC, before the damage has been applied.
-        /// </para>
-        /// <para>
-        /// Stats here are by reference, and as such can be modified as convenient.
-        /// </para>
-        /// </summary>
-        /// <param name="npc">The npc that was just hit</param>
-        /// <param name="player">The player for which this enchantment applies</param>
-        /// <param name="item">The item that applied the hit</param>
-        /// <param name="damage">The damage about to be dealt to the npc</param>
-        /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
-        /// <param name="crit">Whether or not the damage is from a critical strike</param>
-        /// <param name="hitDirection">The direction from which the attack was done (left or right)</param>
-        /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
-        public virtual void OnModifyHit(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) { }
-
-        /// <summary>
-        /// <para>
-        /// The part of the enchantment that runs after hitting an NPC, after the damage and knockback has been applied.
-        /// </para>
-        /// <para>
-        /// Stats here are not by reference and modifying them will have no consequence.
-        /// </para>
-        /// </summary>
-        /// <param name="npc">The npc that was just hit</param>
-        /// <param name="player">The player for which this enchantment applies</param>
-        /// <param name="item">The item that applied the hit</param>
-        /// <param name="damage">The damage about to be dealt to the npc</param>
-        /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
-        /// <param name="crit">Whether or not the damage is from a critical strike</param>
-        /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
-        public virtual void OnAfterHit(NPC npc, WEPlayer player, Item item, int damage, float knockback, bool crit, Projectile projectile = null) { }    
+        public virtual float SelfStackingPenalty { get; set; } = 1f;
     }
 }

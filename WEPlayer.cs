@@ -1,4 +1,5 @@
-﻿using Mono.Cecil.Cil;
+﻿using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,10 @@ using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
-using WeaponEnchantments.EnchantmentEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 
@@ -573,37 +574,171 @@ namespace WeaponEnchantments {
         #endregion
 
         #region Enchantment hooks
+        
+        private IEnumerable<EnchantmentEffect> GetRelevantEffects(Item heldItem = null) {
+            // Always use all equipment effects
+            IEnumerable<EnchantmentEffect> allEffects = PlayerEquipment.GetArmorEnchantmentEffects();
+
+            // If a held item isn't specified and the currently held item is a weapon, use that as the currently held item.
+            if (heldItem == null && WEMod.IsWeaponItem(Player.HeldItem)) { 
+                heldItem = Player.HeldItem;
+            }
+            // If a held item has been set
+            if (heldItem != null) { 
+                // Use that item's enchantments too
+                EnchantedItem enchantedHeldItem = heldItem.GetEnchantedItem();
+                IEnumerable<EnchantmentEffect> heldItemEffects = PlayerEquipment.ExtractEnchantmentEffects(enchantedHeldItem);
+                allEffects = allEffects.Concat(heldItemEffects);
+            }
+
+            return allEffects;
+        }
+
+        public void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
+
+            // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
+            Dictionary<string, Tuple<bool, StatModifier>> statModifiers = new Dictionary<string, Tuple<bool, StatModifier>>();
+
+            foreach (StatEffect statEffect in StatEffects) {
+                if (!statModifiers.ContainsKey(statEffect.statName)) {
+                    // If the stat name isn't on the dictionary add it
+                    statModifiers.Add(statEffect.statName, new Tuple<bool, StatModifier>(statEffect.isVanilla, statEffect.statModifier));
+                }
+                else {
+                    // If the stat name is on the dictionary, combine it's modifiers
+                    statModifiers[statEffect.statName].Item2.CombineWith(statEffect.statModifier);
+                }
+            }
+
+            // Initialize types
+            Type playerType = typeof(Player);
+            Type wePlayerType = typeof(WEPlayer);
+            foreach (var item in statModifiers) {
+                // Get all the info we need
+                bool isVanilla = item.Value.Item1;
+                string statName = item.Key;
+                StatModifier statModifier = item.Value.Item2;
+
+                // Determine which value we're changing, and from who
+                Type iterationType = isVanilla ? playerType : wePlayerType;
+                object play = isVanilla ? Player : this;
+
+                // Get the property to change
+                PropertyInfo prop = iterationType.GetProperty(statName);
+                FieldInfo field = iterationType.GetField(statName);
+
+                Func<object, object> GetValue;
+                Action<object, object> SetValue;
+                Type type;
+
+                if (prop != null) {
+                    GetValue = prop.GetValue;
+                    SetValue = prop.SetValue;
+                    type = prop.PropertyType;
+                } else if (field != null) {
+                    GetValue = field.GetValue;
+                    SetValue = field.SetValue;
+                    type = field.FieldType;
+                } else {
+                    continue;
+                }
+
+                // Get the value
+
+                // If we can somehow alter it, do so
+                if (type == typeof(int)) {
+                    int editingValue = (int)GetValue(play);
+                    editingValue = (int)statModifier.ApplyTo((int)editingValue);
+                    SetValue(play, editingValue);
+                }
+                else if (type == typeof(float)) {
+                    float editingValue = (float)GetValue(play);
+                    editingValue = statModifier.ApplyTo((float)editingValue);
+                    SetValue(play, editingValue);
+                }
+
+                // Then set it back
+            }
+        }
 
         public void ApplyPostMiscEnchants() {
-            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects();
+            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
-            // Only apply held item effects if they're weapons!
-            if (WEMod.IsWeaponItem(Player.HeldItem)) {
-                effects = effects.Concat(PlayerEquipment.ExtractEnchantmentEffects(Player.HeldItem.GetEnchantedItem()));
-            }
+            // Make sure they implement IPassiveEffect
+            IEnumerable<EnchantmentEffect> PostUpdateEffects = allEffects.Where(it => it.GetType().GetInterface(nameof(IPassiveEffect)) != null);
 
-            foreach (EnchantmentEffect effect in effects) {
+            // Apply all PostUpdateMiscEffects
+            foreach (IPassiveEffect effect in PostUpdateEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
+
+            // Get all stat effects
+            IEnumerable<StatEffect> StatEffects = allEffects.Where(it => it is StatEffect).Select(it => (StatEffect)it);
+            // Apply them if there's any
+            if (StatEffects.Any()) ApplyStatEffects(StatEffects);
+
         }
 
         // Not using hitDirection yet.
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
-            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
+            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects(item);
 
-            foreach (EnchantmentEffect effect in effects) {
+            // Make sure they implement IOnHitEffects
+            IEnumerable<EnchantmentEffect> relevantEffects = allEffects.Where(it => it.GetType().GetInterface(nameof(IModifyHitEffect)) != null);
+
+            foreach (IModifyHitEffect effect in relevantEffects) {
                 effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
             }
         }
 
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
-            IEnumerable<EnchantmentEffect> effects = PlayerEquipment.GetArmorEnchantmentEffects().Concat(PlayerEquipment.ExtractEnchantmentEffects(item.GetEnchantedItem()));
+            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects(item);
 
-            foreach (EnchantmentEffect effect in effects) {
+            // Make sure they implement IOnHitEffects
+            IEnumerable<EnchantmentEffect> relevantEffects = allEffects.Where(it => it.GetType().GetInterface(nameof(IOnHitEffect)) != null);
+
+            foreach (IOnHitEffect effect in relevantEffects) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
+
+            ApplyLifeSteal(item, target, damage);
         }
-        
+
+        #endregion
+
+        #region Enchantment Stat effect definitions
+        public void ApplyLifeSteal(Item item, NPC npc, int damage) {
+            if (!(lifeSteal > 0))
+                return;
+
+            Player player = Player;
+
+            // TODO: Make stack with one for all
+            float healTotal = damage * lifeSteal * (player.moonLeech ? 0.5f : 1f) + lifeStealRollover;
+
+            int heal = (int)healTotal;
+
+            if (player.statLife < player.statLifeMax2) {
+
+                //Player hp less than max
+                if (heal > 0 && player.lifeSteal > 0f) {
+                    //Vanilla lifesteal mitigation
+                    int vanillaLifeStealValue = (int)Math.Round(heal * ConfigValues.AffectOnVanillaLifeStealLimit);
+                    player.lifeSteal -= vanillaLifeStealValue;
+
+                    Projectile.NewProjectile(item.GetSource_ItemUse(item), npc.Center, new Vector2(0, 0), ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+
+                }
+
+                //Life Steal Rollover
+                lifeStealRollover = healTotal - heal;
+            }
+            else {
+                //Player hp is max
+                lifeStealRollover = 0f;
+            }
+        }
+
         #endregion
 
         public void CheckShiftClickValid(ref Item item, bool moveItem = false)
