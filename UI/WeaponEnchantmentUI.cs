@@ -152,8 +152,8 @@ namespace WeaponEnchantments.UI
                     {
                         if (!nonTableItem && !wePlayer.Enchantments(i).IsAir)
                                 wePlayer.EnchantmentsInUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.Enchantments(i), GetItemSettings.LootAllSettings);
-                        else if (!iGlobal.slottedItems[i].IsAir)
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.slottedItems[i]);
+                        else if (!iGlobal.enchantments[i].IsAir)
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
                     }
                     if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                         stop = true;//Player didn't have enough space in their inventory to take all enchantments
@@ -825,7 +825,7 @@ namespace WeaponEnchantments.UI
                             //Enchantment enchantment = (Enchantment)wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().enchantments[i].ModItem;
                             //enchantment.statsSet = false;
                             //wePlayer.enchantingTableUI.itemSlotUI[0].Item.UpdateEnchantment(ref enchantment, i, true);
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = new Item();
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = new Item();
                         }
                     }
                 }//Take all enchantments first

@@ -59,7 +59,7 @@ namespace WeaponEnchantments.Common {
             // Get all non null enchanted items
             foreach (EnchantedItem enchantedItem in enchantedItems) {
                 // For each enchanted item, get its enchantments
-                IEnumerable<Enchantment> enchantments = enchantedItem.slottedItems
+                IEnumerable<Enchantment> enchantments = enchantedItem.enchantments
                     .Where(i => i != null && i.ModItem is Enchantment)
                     .Select(i => (Enchantment)i.ModItem);
                 // For each enchantment get its effects

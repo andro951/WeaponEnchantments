@@ -40,8 +40,8 @@ namespace WeaponEnchantments.Common.Utility
                 return false;
 			}
         }
-        public static Item Enchantments(this Item item, int i) => item.GetEnchantedItem().slottedItems[i];
-        public static Enchantment EnchantmentsModItem(this Item item, int i) => (Enchantment)item.GetEnchantedItem().slottedItems[i].ModItem;
+        public static Item Enchantments(this Item item, int i) => item.GetEnchantedItem().enchantments[i];
+        public static Enchantment EnchantmentsModItem(this Item item, int i) => (Enchantment)item.GetEnchantedItem().enchantments[i].ModItem;
         public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
         public static WEUIItemSlot EnchantmentsInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
         public static Item Enchantments(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;

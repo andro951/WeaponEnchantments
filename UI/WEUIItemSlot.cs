@@ -238,9 +238,9 @@ namespace WeaponEnchantments.UI
 			{
 				if(item.TryGetGlobalItem(out EnchantedItem iGlobal))
                 {
-					if (!iGlobal.slottedItems[i].IsAir)
+					if (!iGlobal.enchantments[i].IsAir)
 					{
-						Enchantment appliedEnchantment = (Enchantment)iGlobal.slottedItems[i].ModItem;
+						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
 						if (appliedEnchantment != null && (
 							(enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName))
 						{

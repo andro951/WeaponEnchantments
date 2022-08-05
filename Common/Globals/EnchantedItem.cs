@@ -57,7 +57,7 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Enchantment
 
-        public Item[] slottedItems = new Item[EnchantingTable.maxEnchantments];
+        public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];
         public int damageType = -1;
         public int baseDamageType = -1;
 
@@ -181,7 +181,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public EnchantedItem() {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                slottedItems[i] = new Item();
+                enchantments[i] = new Item();
             }
         }
         public override bool InstancePerEntity => true;
@@ -224,12 +224,12 @@ namespace WeaponEnchantments.Common.Globals
 				#region Enchantments
 
 				if (resetGlobals) {
-                    for (int i = 0; i < slottedItems.Length; i++)
-                        clone.slottedItems[i] = new Item();
+                    for (int i = 0; i < enchantments.Length; i++)
+                        clone.enchantments[i] = new Item();
                 }
                 else if (cloneReforgedItem) {
-                    for (int i = 0; i < slottedItems.Length; i++)
-                        clone.slottedItems[i] = slottedItems[i];
+                    for (int i = 0; i < enchantments.Length; i++)
+                        clone.enchantments[i] = enchantments[i];
                 }
                 
                 clone.damageType = damageType;
@@ -304,8 +304,8 @@ namespace WeaponEnchantments.Common.Globals
 
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                 if (tag.Get<Item>("enchantments" + i.ToString()) != null) {
-                    slottedItems[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
-                    OldItemManager.ReplaceOldItem(ref slottedItems[i]);
+                    enchantments[i] = tag.Get<Item>("enchantments" + i.ToString()).Clone();
+                    OldItemManager.ReplaceOldItem(ref enchantments[i]);
                 }
             }
 
@@ -345,8 +345,8 @@ namespace WeaponEnchantments.Common.Globals
 			#region Enchantment
 
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                if (!slottedItems[i].IsAir) {
-                    tag["enchantments" + i.ToString()] = slottedItems[i].Clone();
+                if (!enchantments[i].IsAir) {
+                    tag["enchantments" + i.ToString()] = enchantments[i].Clone();
                 }
             }
 
@@ -391,11 +391,11 @@ namespace WeaponEnchantments.Common.Globals
             #region Enchantment
 
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                writer.Write((short)slottedItems[i].type);
+                writer.Write((short)enchantments[i].type);
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"e " + i + ": " + slottedItems[i].Name).Log();
+                if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
 				#endregion
 			}
@@ -455,11 +455,11 @@ namespace WeaponEnchantments.Common.Globals
             #region Enchantment
 
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                slottedItems[i] = new Item(reader.ReadUInt16());
+                enchantments[i] = new Item(reader.ReadUInt16());
 
 				#region Debug
 
-				if (LogMethods.debugging) ($"e " + i + ": " + slottedItems[i].Name).Log();
+				if (LogMethods.debugging) ($"e " + i + ": " + enchantments[i].Name).Log();
 
 				#endregion
 			}
@@ -559,7 +559,7 @@ namespace WeaponEnchantments.Common.Globals
 
             int enchantmentsValue = 0;
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                enchantmentsValue += slottedItems[i].value;
+                enchantmentsValue += enchantments[i].value;
             }
             int powerBoosterValue = PowerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
             int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
@@ -602,9 +602,9 @@ namespace WeaponEnchantments.Common.Globals
         }
         public int GetLevelsAvailable() {
             int totalEnchantmentLevelCost = 0;
-            for (int i = 0; i < slottedItems.Length; i++) {
-                if (slottedItems[i] != null && !slottedItems[i].IsAir) {
-                    Enchantment enchantment = (Enchantment)slottedItems[i].ModItem;
+            for (int i = 0; i < enchantments.Length; i++) {
+                if (enchantments[i] != null && !enchantments[i].IsAir) {
+                    Enchantment enchantment = (Enchantment)enchantments[i].ModItem;
                     totalEnchantmentLevelCost += enchantment.GetCapacityCost();
                 }
             }
@@ -706,13 +706,13 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            IEnumerable<Enchantment> enchantments = slottedItems
+            IEnumerable<Enchantment> enchantmentModItems = enchantments
                 .Where(i => !i.IsAir && i.ModItem is Enchantment)
                 .Select(i => (Enchantment)i.ModItem);
 
             EItemType itemType = GetEItemType();
 
-            foreach (Enchantment enchantment in enchantments) {
+            foreach (Enchantment enchantment in enchantmentModItems) {
                 float effectiveness = enchantment.AllowedList[itemType];
                 var effectTooltips = enchantment.GetEffectsTooltips();
                 tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
@@ -941,7 +941,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (LogMethods.debugging) {
                 string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
-                foreach (Item enchantment in reforgeItem.GetEnchantedItem().slottedItems) {
+                foreach (Item enchantment in reforgeItem.GetEnchantedItem().enchantments) {
                     s += enchantment.S();
                 }
                 s.Log();
@@ -1108,7 +1108,7 @@ namespace WeaponEnchantments.Common.Globals
             if (stackTotal > maxStack) {
                 //Clear enchantments in enchanting table if item2 is in it (Will only have cleared off of the player tracked enchantments from combining)
                 if (i2Global.inEnchantingTable) {
-                    for (int i = 0; i < slottedItems.Length; i++) {
+                    for (int i = 0; i < enchantments.Length; i++) {
                         Main.LocalPlayer.GetWEPlayer().enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
                     }
                         
@@ -1134,7 +1134,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Update Enchantments
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                Item enchantmentItem = iGlobal.slottedItems[i];
+                Item enchantmentItem = iGlobal.enchantments[i];
                 Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
             }
@@ -1479,22 +1479,22 @@ namespace WeaponEnchantments.Common.Globals
                     for (j = 0; j <= EnchantingTable.maxEnchantments; j++) {
                         if (j > 4)
                             break;
-                        if (iGlobal.slottedItems[j].IsAir)
+                        if (iGlobal.enchantments[j].IsAir)
                             break;
                     }
                     for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
-                        if (!cGlobal.slottedItems[k].IsAir) {
-                            Enchantment enchantment = ((Enchantment)cGlobal.slottedItems[k].ModItem);
+                        if (!cGlobal.enchantments[k].IsAir) {
+                            Enchantment enchantment = ((Enchantment)cGlobal.enchantments[k].ModItem);
                             int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
                             if (enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if (enchantment.Utility && iGlobal.slottedItems[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))) {
-                                        iGlobal.slottedItems[4] = cGlobal.slottedItems[k].Clone();
+                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))) {
+                                        iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
                                         item.ApplyEnchantment(j);
                                     }
                                     else if (j < 4) {
-                                        iGlobal.slottedItems[j] = cGlobal.slottedItems[k].Clone();
+                                        iGlobal.enchantments[j] = cGlobal.enchantments[k].Clone();
                                         item.ApplyEnchantment(j);
                                         j++;
                                     }
@@ -1510,10 +1510,10 @@ namespace WeaponEnchantments.Common.Globals
                                 cantFit = true;
                             }
                             if (cantFit) {
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.slottedItems[k].type, 1);
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
                             }
                         }
-                        cGlobal.slottedItems[k] = new Item();
+                        cGlobal.enchantments[k] = new Item();
                     }
                 }
                 else {
@@ -1533,8 +1533,8 @@ namespace WeaponEnchantments.Common.Globals
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
                     }
                     for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
-                        if (!cGlobal.slottedItems[k].IsAir) {
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.slottedItems[k].type, 1);
+                        if (!cGlobal.enchantments[k].IsAir) {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
                         }
                     }
                 }
@@ -1550,12 +1550,12 @@ namespace WeaponEnchantments.Common.Globals
                     if (item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
                         if (iGlobal.GetLevelsAvailable() < 0) {
                             for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && iGlobal.GetLevelsAvailable() < 0; k--) {
-                                if (!iGlobal.slottedItems[k].IsAir) {
-                                    item.GetEnchantedItem().slottedItems[k] = player.GetItem(player.whoAmI, iGlobal.slottedItems[k], GetItemSettings.LootAllSettings);
+                                if (!iGlobal.enchantments[k].IsAir) {
+                                    item.GetEnchantedItem().enchantments[k] = player.GetItem(player.whoAmI, iGlobal.enchantments[k], GetItemSettings.LootAllSettings);
                                 }
-                                if (!iGlobal.slottedItems[k].IsAir) {
-                                    player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.slottedItems[k]);
-                                    iGlobal.slottedItems[k] = new Item();
+                                if (!iGlobal.enchantments[k].IsAir) {
+                                    player.QuickSpawnItem(player.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[k]);
+                                    iGlobal.enchantments[k] = new Item();
                                 }
                             }
                             Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
@@ -1575,7 +1575,7 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
 
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                if (global1.slottedItems[i].type != global2.slottedItems[i].type)
+                if (global1.enchantments[i].type != global2.enchantments[i].type)
                     return false;
             }
 
@@ -1601,7 +1601,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (!item.IsAir) {
                 EnchantedItem iGlobal = item.GetEnchantedItem();
-                Enchantment enchantment = (Enchantment)(iGlobal.slottedItems[i].ModItem);
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
             }

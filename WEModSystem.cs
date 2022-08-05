@@ -92,7 +92,7 @@ namespace WeaponEnchantments
             if (!item.IsAir)
             {
                 EnchantedItem iGlobal = item.GetEnchantedItem();
-                Enchantment enchantment = (Enchantment)(iGlobal.slottedItems[i].ModItem);
+                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
@@ -166,7 +166,7 @@ namespace WeaponEnchantments
                         if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item != null)//For each enchantment in the enchantmentSlots,
                         //if(wePlayer.itemBeingEnchanted != null && !wePlayer.itemBeingEnchanted.IsAir)
                         {
-                            wePlayer.itemBeingEnchanted.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
+                            wePlayer.itemBeingEnchanted.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.Clone();//copy enchantments to the global item
                         }
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
                         wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
@@ -198,13 +198,13 @@ namespace WeaponEnchantments
                     }
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++)
                     {
-                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] != null)//For each enchantment in the global item,
+                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] != null)//For each enchantment in the global item,
                         {
-                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i].Clone();//copy enchantments to the enchantmentSlots
+                            wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i].Clone();//copy enchantments to the enchantmentSlots
                             wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EnchantmentsModItem(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         }
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Link global item to the enchantmentSlots
                     }
                     //TryToggleAutoPauseOff();
                 }
@@ -214,7 +214,7 @@ namespace WeaponEnchantments
                     Item itemEnchantment = new Item();
                     if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetGlobalItem(out EnchantedItem ieGlobal))
                     {
-                        itemEnchantment = ieGlobal.slottedItems[i];
+                        itemEnchantment = ieGlobal.enchantments[i];
                     }
                     if (wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
                     {
@@ -223,20 +223,20 @@ namespace WeaponEnchantments
                             //Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                             RemoveEnchantment(i);
                             //((Enchantment)itemEnchantment.ModItem).statsSet = false;
-                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                            wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         }
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
                     else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment)
                     {
                         RemoveEnchantment(i);
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
                         ApplyEnchantment(i);
                     }//If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                     else if (!wePlayer.enchantmentInEnchantingTable[i])
                     {
                         wePlayer.enchantmentInEnchantingTable[i] = true;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().slottedItems[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
+                        wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().enchantments[i] = wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;//Force link to enchantmentSlot just in case
                         //if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.G().statsSet[i])
                         //if(!wePlayer.I().E(i).statsSet)
                         ApplyEnchantment(i);

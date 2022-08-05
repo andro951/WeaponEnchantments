@@ -360,12 +360,12 @@ namespace WeaponEnchantments {
                     if (!armorStatsUpdated) {
                         if (!armor.vanity && !armor.IsAir) {
                             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                                if (!armor.GetEnchantedItem().slottedItems[i].IsAir) {
+                                if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
                                     if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor)) {
-                                        armor.GetEnchantedItem().slottedItems[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().slottedItems[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetEnchantedItem().slottedItems[i].IsAir) {
-                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().slottedItems[i]);
-                                            armor.GetEnchantedItem().slottedItems[i] = new Item();
+                                        armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
+                                        if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
+                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
+                                            armor.GetEnchantedItem().enchantments[i] = new Item();
                                             if (WEMod.IsArmorItem(armor)) {
                                                 Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
                                             }
