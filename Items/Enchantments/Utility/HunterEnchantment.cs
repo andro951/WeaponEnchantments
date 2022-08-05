@@ -6,10 +6,10 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	{
 		public override int EnchantmentValueTierReduction => -2;
 		public override int LowestCraftableTier => 5;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f },
-			{ "Armor", 1f },
-			{ "Accessory", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f },
+			{ EItemType.Armor, 1f },
+			{ EItemType.Accesory, 1f }
 		};
 		public override void GetMyStats() {
 			CheckBuffByName();

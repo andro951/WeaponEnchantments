@@ -8,8 +8,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => "(Does not work, Not finished)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Magic;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f }
 		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength);

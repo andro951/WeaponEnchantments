@@ -5,6 +5,7 @@ using WeaponEnchantments.Items;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
+using System;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -13,8 +14,7 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
-            iGlobal.Item = item;
+            item.TryGetGlobalItem(out EnchantedItem iGlobal);
             return iGlobal;
         }
         public static WEPlayer GetWEPlayer(this Player player) => player.GetModPlayer<WEPlayer>();
@@ -200,6 +200,10 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
 
-		#endregion
-	}
+        public static float Percent(this float value) {
+            return (float)Math.Round(value * 100, 1);
+        }
+
+        #endregion
+    }
 }

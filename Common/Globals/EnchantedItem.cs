@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -624,14 +625,32 @@ namespace WeaponEnchantments.Common.Globals
 
             return level - totalEnchantmentLevelCost;
         }
+
+        public static EItemType GetEItemType(Item item) {
+            EItemType itemType = EItemType.None;
+            if (WEMod.IsWeaponItem(item)) {
+                itemType = EItemType.Weapon;
+            }
+            else if (WEMod.IsArmorItem(item)) {
+                itemType = EItemType.Armor;
+            }
+            else if (WEMod.IsAccessoryItem(item)) {
+                itemType = EItemType.Accesory;
+            }
+            return itemType;
+        }
+
+        public EItemType GetEItemType() {
+            return GetEItemType(Item);
+        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
-            bool enchantmentsToolTipAdded = false;
 
             //Stack0
             if (Modified || inEnchantingTable) {
                 if (Stack0) {
-                    string tooltip = $"!!!OUT OF AMMO!!!";
+                    string tooltip = $"♦ OUT OF AMMO ♦";
                     tooltips.Add(new TooltipLine(Mod, "stack0", tooltip) { OverrideColor = Color.Yellow });
                 }
             }
@@ -641,24 +660,22 @@ namespace WeaponEnchantments.Common.Globals
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
+                string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
                 if (PowerBoosterInstalled) {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()} (Booster Installed)";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
-                }
-				else {
-                    string tooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
-                    tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.LightGreen });
+                    levelTooltip += " (Booster Installed)";
                 }
 
-                string levelString;
+                tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
+
+
+                string experienceTooltip = $"Experience: {Experience}";
                 if(levelBeforeBooster < MAX_LEVEL) {
-                    levelString = $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
+                    experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
                 }
 				else {
-                    levelString = " (Max Level)";
+                    experienceTooltip += " (Max Level)";
                 }
-                string levelTooltip = $"Experience: {Experience}{levelString}";
-                tooltips.Add(new TooltipLine(Mod, "experience", levelTooltip) { OverrideColor = Color.White });
+                tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
             }
 
             //infusionTooltip
@@ -703,30 +720,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            //Enchantment Stat tooltips
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                if (!enchantments[i].IsAir) {
-                    Enchantment enchantment = (Enchantment)enchantments[i].ModItem;
+            IEnumerable<Enchantment> enchantmentModItems = enchantments
+                .Where(i => !i.IsAir && i.ModItem is Enchantment)
+                .Select(i => (Enchantment)i.ModItem);
 
-                    if (!enchantmentsToolTipAdded) {
-                        tooltips.Add(new TooltipLine(Mod, "enchantmentsToolTip", "Enchantments:") { OverrideColor = Color.Violet });
-                        enchantmentsToolTipAdded = true;
-                    }//Enchantmenst: tooltip
+            EItemType itemType = GetEItemType();
 
-                    string itemType = "";
-                    if (IsWeaponItem(item)) {
-                        itemType = "Weapon";
-                    }
-                    else if (IsArmorItem(item)) {
-                        itemType = "Armor";
-                    }
-                    else if (IsAccessoryItem(item)) {
-                        itemType = "Accessory";
-                    }
-
-                    string tooltip = enchantment.AllowedListTooltips[itemType]; 
-                    Color color = TierColors[enchantment.EnchantmentTier];
-                    tooltips.Add(new TooltipLine(Mod, "enchantment" + i.ToString(), tooltip) { OverrideColor = color });
+            foreach (Enchantment enchantment in enchantmentModItems) {
+                float effectiveness = enchantment.AllowedList[itemType];
+                var effectTooltips = enchantment.GetEffectsTooltips();
+                tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
+                foreach (var tooltipTuple in effectTooltips) {
+                    tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });
                 }
             }
         }
@@ -1808,12 +1813,12 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
-            if (IsWeaponItem(item)) {
-                if (enchantment.AllowedList.ContainsKey("Weapon")) {
-                    add *= enchantment.AllowedList["Weapon"];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Weapon"];
-                    flat *= enchantment.AllowedList["Weapon"];
-                    @base *= enchantment.AllowedList["Weapon"];
+            if (WEMod.IsWeaponItem(item)) {
+                if (enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
+                    add *= enchantment.AllowedList[EItemType.Weapon];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Weapon];
+                    flat *= enchantment.AllowedList[EItemType.Weapon];
+                    @base *= enchantment.AllowedList[EItemType.Weapon];
                     return;
                 }
                 else {
@@ -1823,12 +1828,12 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (IsArmorItem(item)) {
-                if (enchantment.AllowedList.ContainsKey("Armor")) {
-                    add *= enchantment.AllowedList["Armor"];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Armor"];
-                    flat *= enchantment.AllowedList["Armor"];
-                    @base *= enchantment.AllowedList["Armor"];
+            if (WEMod.IsArmorItem(item)) {
+                if (enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
+                    add *= enchantment.AllowedList[EItemType.Armor];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Armor];
+                    flat *= enchantment.AllowedList[EItemType.Armor];
+                    @base *= enchantment.AllowedList[EItemType.Armor];
                     return;
                 }
                 else {
@@ -1838,12 +1843,12 @@ namespace WeaponEnchantments.Common.Globals
                     @base = 0f;
                 }
             }
-            if (IsAccessoryItem(item)) {
-                if (enchantment.AllowedList.ContainsKey("Accessory")) {
-                    add *= enchantment.AllowedList["Accessory"];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList["Accessory"];
-                    flat *= enchantment.AllowedList["Accessory"];
-                    @base *= enchantment.AllowedList["Accessory"];
+            if (WEMod.IsAccessoryItem(item)) {
+                if (enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
+                    add *= enchantment.AllowedList[EItemType.Accesory];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accesory];
+                    flat *= enchantment.AllowedList[EItemType.Accesory];
+                    @base *= enchantment.AllowedList[EItemType.Accesory];
                     return;
                 }
                 else {

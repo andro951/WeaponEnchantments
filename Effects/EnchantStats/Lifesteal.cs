@@ -1,0 +1,37 @@
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
+using WeaponEnchantments.Common.Utility;
+
+namespace WeaponEnchantments.Effects {
+    public class LifeSteal : StatEffect {
+        public LifeSteal(StatModifier statModifier) : base(statModifier) { }
+
+        public override bool isVanilla { get; } = false;
+        public override string statName { get; } = "lifeSteal";
+        public override string DisplayName { get; } = "Life Steal";
+
+        protected override string modifierToString() {
+            string final = "";
+            float mult = statModifier.Multiplicative + statModifier.Additive - 2;
+            float flats = (statModifier.Base * mult + statModifier.Flat).Percent();
+
+            if (flats > 0) {
+                final += $"{s(flats)}{flats}%";
+            }
+            if (mult > 0) {
+                if (final != "") final += ' ';
+                final += $"{s(mult)}{mult.Percent()}%";
+            }
+            return final;
+        }
+    }
+}
