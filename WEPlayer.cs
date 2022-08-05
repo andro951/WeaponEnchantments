@@ -46,6 +46,7 @@ namespace WeaponEnchantments
         public Item trackedHoverItem;
         public Item infusionConsumeItem = null;
         public string previousInfusedItemName = "";
+        
         int hoverItemIndex = 0;
         int hoverItemChest = 0;
         public Item trackedTrashItem = new Item();
@@ -256,12 +257,12 @@ namespace WeaponEnchantments
                         if (!armor.vanity && !armor.IsAir) {
                             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                                 if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
-                                    if (i > 1 && i < 4 || i > 0 && !WEMod.IsArmorItem(armor)) {
+                                    if (i > 1 && i < 4 || i > 0 && !IsArmorItem(armor)) {
                                         armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
                                         if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
                                             Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
                                             armor.GetEnchantedItem().enchantments[i] = new Item();
-                                            if (WEMod.IsArmorItem(armor)) {
+                                            if (IsArmorItem(armor)) {
                                                 Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
                                             }
                                             else {
@@ -293,11 +294,11 @@ namespace WeaponEnchantments
                 if (Main.mouseItem.IsAir) {
                     Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
                 }
-                else if (WEMod.IsEnchantable(Main.mouseItem)) {
+                else if (IsEnchantable(Main.mouseItem)) {
                     Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
                 }//Check too many enchantments on mouseItem
                 //(Main.HoverItem.Name + " Main.HoverItem != null: " + (Main.HoverItem != null) + " && WEMod.IsWeaponItem(Main.HoverItem): " + WEMod.IsWeaponItem(Main.HoverItem) + " && !Main.HoverItem.G().trackedWeapon: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon) + " && !Main.HoverItem.G().hoverItem: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)).LogT();
-                if (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.GetEnchantedItem().trackedWeapon && !Main.HoverItem.GetEnchantedItem().hoverItem) {
+                if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.GetEnchantedItem().trackedWeapon && !Main.HoverItem.GetEnchantedItem().hoverItem) {
                     if (LogMethods.debugging) ($"\\/Start hoverItem check").Log();
                     Item newItem = null;
                     if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
@@ -328,7 +329,7 @@ namespace WeaponEnchantments
                     }
                     if (newItem == null) {
                         for (int i = 0; i < Player.inventory.Length; i++) {
-                            if (WEMod.IsWeaponItem(Player.inventory[i])) {
+                            if (IsWeaponItem(Player.inventory[i])) {
                                 if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem)) {
                                     hoverItemIndex = i;
                                     newItem = Player.inventory[i];
@@ -358,7 +359,7 @@ namespace WeaponEnchantments
                         }
                         for (int i = 0; i < inventory.Length; i++) {
                             Item chestItem = inventory[i];
-                            if (WEMod.IsWeaponItem(chestItem)) {
+                            if (IsWeaponItem(chestItem)) {
                                 if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem)) {
                                     hoverItemIndex = i;
                                     newItem = chestItem;
@@ -372,9 +373,9 @@ namespace WeaponEnchantments
                     bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
                     if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
                     if (checkWeapon) {
-                        if (newItem != null && WEMod.IsEnchantable(newItem))
+                        if (newItem != null && IsEnchantable(newItem))
                             newItem.GetEnchantedItem().hoverItem = true;
-                        if (trackedHoverItem != null && WEMod.IsEnchantable(trackedHoverItem)) {
+                        if (trackedHoverItem != null && IsEnchantable(trackedHoverItem)) {
                             trackedHoverItem.GetEnchantedItem().hoverItem = false;
                         }
                         trackedHoverItem = newItem;
@@ -411,12 +412,12 @@ namespace WeaponEnchantments
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (Player.difficulty == 1 || Player.difficulty == 2) {
                 for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (WEMod.IsEnchantable(Player.inventory[i])) {
+                    if (IsEnchantable(Player.inventory[i])) {
                         Player.inventory[i].GetEnchantedItem().appliedStatModifiers.Clear();
                     }
                 }
                 for (int i = 0; i < Player.armor.Length; i++) {
-                    if (WEMod.IsEnchantable(Player.armor[i])) {
+                    if (IsEnchantable(Player.armor[i])) {
                         Player.armor[i].GetEnchantedItem().appliedStatModifiers.Clear();
                     }
                 }
@@ -424,7 +425,6 @@ namespace WeaponEnchantments
         }
 
         public override void ResetEffects() {
-            int temp1 = Player.maxMinions;
             lifeSteal = 0f;
             canLifeSteal = false;
             bool updatePlayerStat = false;
@@ -437,7 +437,6 @@ namespace WeaponEnchantments
             }
             if (updatePlayerStat)
                 UpdatePlayerStat();
-            bool autoReuseGlove = Player.autoReuseGlove;
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {

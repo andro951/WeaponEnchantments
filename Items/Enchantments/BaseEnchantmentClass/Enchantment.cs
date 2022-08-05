@@ -14,6 +14,7 @@ using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using Terraria.Localization;
 using System.Linq;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
     public enum DamageTypeSpecificID
@@ -972,6 +973,15 @@ namespace WeaponEnchantments.Items {
 		}
 		private int GetBuffDuration() {
 			return defaultBuffDuration * (EnchantmentTier + 1);
+		}
+		public static int GetEnchantmentTier(string name) {
+			for (int i = 0; i < rarity.Length; i++) {
+				if (rarity[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
+					return i;
+				}
+			}//Get EnchantmentSize
+
+			return -1;
 		}
 		public override void AddRecipes() {
 			for (int i = EnchantmentTier; i < tierNames.Length; i++) {

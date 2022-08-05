@@ -12,6 +12,9 @@ namespace WeaponEnchantments.Items.Enchantments {
 			new DebuffEffect(BuffID.OnFire, new Time(5), 0.10f + 0.5f * EnchantmentTier),
 			new MaxMP(new StatModifier(1,1, 500))
 		}; }
+
+		public override string Artist => "Kiroto";
+		public override string Designer => "Kiroto";
 	}
 
 	public class EmptyTestEnchantmentBasic : EmptyTestEnchantment { }
