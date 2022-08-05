@@ -642,7 +642,7 @@ namespace WeaponEnchantments.Common.Globals
                 //~Damage tooltip
                 if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
                     float damageMultiplier = item.ApplyEStat("Damage", 1f);
-                    if(damageMultiplier > 1f) {
+                    if (damageMultiplier > 1f) {
                         int damage = (int)Math.Round(item.damage * damageMultiplier);
                         string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
                         tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
