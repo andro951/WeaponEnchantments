@@ -62,6 +62,7 @@ namespace WeaponEnchantments.Effects {
         public virtual string Tooltip => $"{DisplayName}: {s(EnchantmentPower)}{EnchantmentPower.Percent()}%";
         public virtual Color TooltipColor { get; } = new Color(0xaa, 0xaa, 0xaa);
 
+        public virtual bool showTooltip { get; } = true;
         public virtual float SelfStackingPenalty { get; set; } = 1f;
     }
 }

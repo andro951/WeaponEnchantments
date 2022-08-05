@@ -72,8 +72,11 @@ namespace WeaponEnchantments {
         public float itemScale = 0f;
         public float manaCost = 0f;
         public float ammoCost = 0f;
+
+        public bool canLifeSteal = false;
         public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
+
         public bool allForOneCooldown = false;
         public int allForOneTimer = 0;
         public Item[] equipArmor;
@@ -527,6 +530,8 @@ namespace WeaponEnchantments {
 
         public override void ResetEffects() {
             int temp1 = Player.maxMinions;
+            lifeSteal = 0f;
+            canLifeSteal = false;
             bool updatePlayerStat = false;
             foreach (string key in statModifiers.Keys) {
                 string name = key.RemoveInvert().RemovePrevent();
@@ -658,9 +663,9 @@ namespace WeaponEnchantments {
                     float editingValue = (float)GetValue(play);
                     editingValue = statModifier.ApplyTo((float)editingValue);
                     SetValue(play, editingValue);
+                } else if (type == typeof(bool)) { // If it exists just set it to true
+                    SetValue(play, true);
                 }
-
-                // Then set it back
             }
         }
 
@@ -711,7 +716,7 @@ namespace WeaponEnchantments {
 
         #region Enchantment Stat effect definitions
         public void ApplyLifeSteal(Item item, NPC npc, int damage) {
-            if (!(lifeSteal > 0))
+            if (!canLifeSteal)
                 return;
 
             Player player = Player;
