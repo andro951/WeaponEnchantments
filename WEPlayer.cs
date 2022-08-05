@@ -1087,6 +1087,11 @@ namespace WeaponEnchantments
                 bool statsNeedUpdate = true;
                 if(appliedStatModifiers.ContainsKey(key))
                     statsNeedUpdate = statModifiers[key] != appliedStatModifiers[key];
+
+                if (statsNeedUpdate) {
+                    FieldInfo field = Player.GetType().GetField(statName);
+                    PropertyInfo property = Player.GetType().GetProperty(statName);
+                    if(field != null || property != null) {
                 if (statsNeedUpdate)
                 {
                     Type playerType = Player.GetType();
@@ -1154,7 +1159,7 @@ namespace WeaponEnchantments
 			#endregion
 		}
 		private void UpdatePlayerDictionaries(Item item, bool remove = false) {
-            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
 			#region Debug
@@ -1276,7 +1281,7 @@ namespace WeaponEnchantments
 				if (statsNeedUpdate) {
                     FieldInfo field = item.GetType().GetField(key);
                     PropertyInfo property = item.GetType().GetProperty(key);
-                    if (item.GetType().GetField(key) != null || item.GetType().GetProperty(key) != null) {
+                    if (field != null || property != null) {
                         if (!iGlobal.appliedStatModifiers.ContainsKey(key))
                             iGlobal.appliedStatModifiers.Add(key, StatModifier.Default);
 

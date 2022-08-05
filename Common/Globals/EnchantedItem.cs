@@ -658,6 +658,17 @@ namespace WeaponEnchantments.Common.Globals
             //Xp and level Tooltips
             if (Enchanted || inEnchantingTable) {
 
+                //~Damage tooltip
+                if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
+                    float damageMultiplier = item.ApplyEStat("Damage", 1f);
+                    if(damageMultiplier > 1f) {
+                        int damage = (int)Math.Round(item.damage * damageMultiplier);
+                        string tooltip = $"Item Damage ~ {damage} (Against a 0 armor enemy)";
+                        tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
+                    }
+				}
+
+
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
                 string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
@@ -1219,7 +1230,7 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
@@ -1241,7 +1252,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
                 item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
@@ -1443,8 +1454,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Actual Defense
-            
-            float actualDefence = target.defense / 2 - armorPenetration;
+            float actualDefence = target.defense / 2f - armorPenetration;
             float actualDamage = damage;
             if (!melee) {
                 actualDamage -= actualDefence;
@@ -1490,7 +1500,7 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
             //Low Damage help multiplier
-            float xp = xpDamage * lowDamagePerHitXPBoost;
+            float xp = xpDamage * lowDamagePerHitXPBoost * experienceMultiplier;
 
             //Reduction Factor (Life Max)
             float reductionFactor = GetReductionFactor(target.lifeMax);
