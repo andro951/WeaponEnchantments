@@ -275,6 +275,12 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool UseAlternateEnchantmentEssenceTextures;
 
+        [Label("Display approximate weapon damage in the tooltip")]
+        [Tooltip("Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
+            "This displays the damage against a 0 armor enemy.")]
+        [DefaultValue(false)]
+        public bool DisplayApproximateWeaponDamageTooltip;
+
         //Error messages
         [Header("Error Messages")]
         [Label("Disable All Error Messages In Chat")]
