@@ -659,6 +659,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
 
+                //Experience tooltip
                 string experienceTooltip = $"Experience: {Experience}";
                 if (levelBeforeBooster < MAX_LEVEL) {
                     experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
