@@ -600,13 +600,16 @@ namespace WeaponEnchantments {
             Dictionary<string, Tuple<bool, StatModifier>> statModifiers = new Dictionary<string, Tuple<bool, StatModifier>>();
 
             foreach (StatEffect statEffect in StatEffects) {
+                StatModifier finalModifier = statEffect.statModifier * statEffect.EfficiencyMultiplier;
+                finalModifier.Flat *= statEffect.EfficiencyMultiplier;
+
                 if (!statModifiers.ContainsKey(statEffect.statName)) {
                     // If the stat name isn't on the dictionary add it
-                    statModifiers.Add(statEffect.statName, new Tuple<bool, StatModifier>(statEffect.isVanilla, statEffect.statModifier));
+                    statModifiers.Add(statEffect.statName, new Tuple<bool, StatModifier>(statEffect.isVanilla, finalModifier));
                 }
                 else {
                     // If the stat name is on the dictionary, combine it's modifiers
-                    statModifiers[statEffect.statName].Item2.CombineWith(statEffect.statModifier);
+                    statModifiers[statEffect.statName].Item2.CombineWith(finalModifier);
                 }
             }
 
