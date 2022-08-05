@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -35,7 +36,7 @@ namespace WeaponEnchantments.ModIntegration
                 Item hoverItem = Main.HoverItem;
                 if (Main.mouseRight) {
                     if (lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1)) {
-                        if (lastHoverItem.TryGetGlobalItem(out EnchantedItem hiGlobal) && (hiGlobal.Experience > 0 || hiGlobal.PowerBoosterInstalled || hiGlobal.infusedItemName != "")) {
+                        if (lastHoverItem.TryGetEnchantedItem(out EnchantedItem hiGlobal) && (hiGlobal.Experience > 0 || hiGlobal.PowerBoosterInstalled || hiGlobal.infusedItemName != "")) {
                             if (mouseItem.stack == 1) {
                                 Main.mouseItem = new Item(mouseItem.type);
 			                }

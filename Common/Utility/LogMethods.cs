@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Common.Utility
         public const int PreventInfusionDamageMultLessThan0 = 9;
         public const int FailedGetEnchantmentValueByName = 10;
         public const int FailedCheckConvertExcessExperience = 11;
+        public const int LowDamagePerHitXPBoost = 12;
     }
     public static class LogMethods
     {
@@ -36,7 +37,7 @@ namespace WeaponEnchantments.Common.Utility
         /// </summary>
         /// <param name="s">Message that will be printed</param>
         public static void LogNT(this string s, int messageID) {
-            s += $"Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
+            s += $" Main.GameUpdateCount: {Main.GameUpdateCount}" + reportMessage;
 
             if (Main.netMode < NetmodeID.Server) {
                 bool doChatMessage = false;

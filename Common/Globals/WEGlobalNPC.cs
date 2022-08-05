@@ -926,12 +926,12 @@ namespace WeaponEnchantments.Common.Globals
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
-            Dictionary<string, StatModifier> ItemEStats = item.GetEnchantedItem().eStats;
+            Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
             //Buffs and debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
-                foreach (int debuff in item.GetEnchantedItem().debuffs.Keys) {
+                foreach (int debuff in iGlobal.debuffs.Keys) {
                     //Amaterasu
                     if(debuff == ModContent.BuffType<AmaterasuDebuff>()) {
                         onHitEffects[OnHitEffectID.Amaterasu] = true;
@@ -941,7 +941,7 @@ namespace WeaponEnchantments.Common.Globals
                         amaterasuDamage += damage * (crit ? 2 : 1);
                     }
 
-                    npc.AddBuff(debuff, item.GetEnchantedItem().debuffs[debuff]);
+                    npc.AddBuff(debuff, iGlobal.debuffs[debuff]);
                 }
 
                 //Sets Minion Attack target
@@ -956,7 +956,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Buffs and Debuffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
-                    foreach (int onHitBuff in item.GetEnchantedItem().onHitBuffs.Keys) {
+                    foreach (int onHitBuff in iGlobal.onHitBuffs.Keys) {
                         switch (onHitBuff) {
                             case BuffID.CoolWhipPlayerBuff:
                                 //CoolWhip Snowflake
@@ -967,7 +967,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                         }
 
-                        player.AddBuff(onHitBuff, item.GetEnchantedItem().onHitBuffs[onHitBuff]);
+                        player.AddBuff(onHitBuff, iGlobal.onHitBuffs[onHitBuff]);
                     }
                 }
 

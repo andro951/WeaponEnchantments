@@ -412,7 +412,7 @@ namespace WeaponEnchantments.Common
                 if (type > 0) {
                     GetGlotalItemStats(item, new Item(type), out infusedPower, out damageMultiplier, out infusedArmorSlot);
                     if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
-                        item.UpdateInfusionDamage(damageMultiplier, false);
+                        item.UpdateInfusionDamage(damageMultiplier);
                     }
                     else if (EnchantedItemStaticMethods.IsArmorItem(item)) {
                         item.UpdateArmorSlot(infusedArmorSlot);
@@ -441,9 +441,8 @@ namespace WeaponEnchantments.Common
             if(damageMultiplier != 1f || iGlobal.statModifiers.ContainsKey("damage")) {
                 if(damageMultiplier > 0f) {
                     if (iGlobal.statModifiers.ContainsKey("damage")) {
-                        iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);//This is being hit.  It's never supposed to be.  Just a precaution.
-
-                        $"Updated the infusion damage multiplier again for item: {item.S()}.  This shouldn't ever happen".LogNT(ChatMessagesIDs.UpdatedInfusionDamageAgain);
+                        //Used for resetting non-finalized items and upgrading items that already have an infused item
+                        iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
                     }
                     else {
                         iGlobal.statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
@@ -481,7 +480,7 @@ namespace WeaponEnchantments.Common
             }
 		}
         public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false) {
-            if (!getCurrent && item.TryGetGlobalItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1) {
+            if (!getCurrent && item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1) {
                 return iGlobal.infusedArmorSlot;
             }
 			else

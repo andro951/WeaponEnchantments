@@ -135,8 +135,10 @@ namespace WeaponEnchantments.Common.Globals
 			}
 			
 			//Gain xp
-			wePlayer.Player.HeldItem.GetEnchantedItem().GainXP(wePlayer.Player.HeldItem, xp);
-			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
+			if(wePlayer.Player.HeldItem.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+				iGlobal.GainXP(wePlayer.Player.HeldItem, xp);
+				EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
+			}
 			
 			//Reset static tile info
 			tileType = -1;
