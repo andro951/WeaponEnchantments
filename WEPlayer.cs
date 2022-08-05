@@ -38,6 +38,8 @@ namespace WeaponEnchantments
         public EnchantingTable enchantingTable;
         public WeaponEnchantmentUI enchantingTableUI;
         public ConfirmationUI confirmationUI;
+        public bool canLifeSteal = false;
+        public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
         public Item[] equipArmor;
@@ -205,202 +207,220 @@ namespace WeaponEnchantments
 
             return false;
         }
-
         public override void PostUpdateMiscEffects() {
             ApplyPostMiscEnchants();
         }
-
         public override void PostUpdate() {
-            //if (Main.netMode < NetmodeID.Server)
-            {
-                int vanillaArmorLength = Player.armor.Length / 2;
-                var loader = LoaderManager.Get<AccessorySlotLoader>();
-                for (int j = 0; j < equipArmor.Length; j++) {
-                    Item armor;
-                    if (j < vanillaArmorLength)
-                        armor = Player.armor[j];
-                    else {
-                        int num = j - vanillaArmorLength;
-                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
-                            armor = loader.Get(num).FunctionalItem;
-                        else
-                            armor = new Item();
-                    }
-                    if (!armor.vanity) {
-                        equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-                    }
-                }//Check if armor changed
-                /*for (int k = 0; k < Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount; k++)
-                {
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(k, Player))
-                    {
-                        Item accessory = loader.Get(k).FunctionalItem;
-                        if (!accessory.vanity)
-                        {
-                            modAccessoryStatsUpdated[k] = !ItemChanged(accessory, modAccessorys[k]);
-                        };
-                    }
-                }*/
-                for (int j = 0; j < equipArmor.Length; j++) {
-                    Item armor;
-                    if (j < vanillaArmorLength)
-                        armor = Player.armor[j];
-                    else {
-                        int num = j - vanillaArmorLength;
-                        if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
-                            armor = loader.Get(num).FunctionalItem;
-                        else
-                            armor = new Item();
-                    }
-                    bool armorStatsUpdated = equipArmorStatsUpdated[j];
-                    if (!armorStatsUpdated) {
-                        if (!armor.vanity && !armor.IsAir) {
-                            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                                if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
-                                    if (i > 1 && i < 4 || i > 0 && !IsArmorItem(armor)) {
-                                        armor.GetEnchantedItem().enchantments[i] = Player.GetItem(Main.myPlayer, armor.GetEnchantedItem().enchantments[i], GetItemSettings.LootAllSettings);
-                                        if (!armor.GetEnchantedItem().enchantments[i].IsAir) {
-                                            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), armor.GetEnchantedItem().enchantments[i]);
-                                            armor.GetEnchantedItem().enchantments[i] = new Item();
-                                            if (IsArmorItem(armor)) {
-                                                Main.NewText("Armor can only equip enchantments in the first 2 slots and the utility slot");
-                                            }
-                                            else {
-                                                Main.NewText("Accessories can only equip an enchantment in the first slot");
-                                            }
-                                        }
-                                    }//Move to Removewhileuntil below
-                                }
-                            }//Pop off excess
-                        }
-                        //if (Main.netMode < NetmodeID.Server)
-                        {
-                            UpdatePotionBuffs(ref armor, ref equipArmor[j]);
-                            UpdatePlayerStats(ref armor, ref equipArmor[j]);
-                            //if (Main.netMode == NetmodeID.MultiplayerClient) ModContent.GetInstance<WEMod>().SendPacket(WEMod.PacketIDs.TransferGlobalItemFields, armor, equipArmor[j], true, (byte)j);
-                        }
-                        if (!equipArmor[j].IsAir) {
-                            Item temp = equipArmor[j];
-                            temp.GetEnchantedItem().equippedInArmorSlot = false;
-                        }
-                        if (!armor.IsAir) {
-                            armor.GetEnchantedItem().equippedInArmorSlot = true;
-                        }
-                        equipArmor[j] = armor;
-                    }
+            /*Troubleshooting Localization
+            ModItem modItem = Main.HoverItem.ModItem;
+            if (modItem != null) {
+                if(modItem is Enchantment enchantment) {
+                    string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + enchantment.EnchantmentTypeName;
+                    typeNameString.Log();
+                    string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+                    string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
+                    Main.NewText(displayName + Language.GetTextValue(rarityString));
                 }
+			}*/
 
-
-                if (Main.mouseItem.IsAir) {
-                    Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
-                }
-                else if (IsEnchantable(Main.mouseItem)) {
-                    Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
-                }//Check too many enchantments on mouseItem
-                //(Main.HoverItem.Name + " Main.HoverItem != null: " + (Main.HoverItem != null) + " && WEMod.IsWeaponItem(Main.HoverItem): " + WEMod.IsWeaponItem(Main.HoverItem) + " && !Main.HoverItem.G().trackedWeapon: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon) + " && !Main.HoverItem.G().hoverItem: " + (Main.HoverItem != null && WEMod.IsWeaponItem(Main.HoverItem) && !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem)).LogT();
-                if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.GetEnchantedItem().trackedWeapon && !Main.HoverItem.GetEnchantedItem().hoverItem) {
-                    if (LogMethods.debugging) ($"\\/Start hoverItem check").Log();
-                    Item newItem = null;
-                    if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
-                        newItem = enchantingTableUI.itemSlotUI[0].Item;
-                    if (newItem != null && EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
-                        newItem = Player.inventory[hoverItemIndex];
-                    if (newItem != null && Player.chest != -1) {
-                        Item[] inventory = null;
-                        switch (hoverItemChest) {
-                            case > -1:
-                                inventory = Main.chest[hoverItemChest].item;
-                                break;
-                            case -2:
-                                inventory = Player.bank.item;
-                                break;
-                            case -3:
-                                inventory = Player.bank2.item;
-                                break;
-                            case -4:
-                                inventory = Player.bank3.item;
-                                break;
-                            case -5:
-                                inventory = Player.bank4.item;
-                                break;
-                        }
-                        if (EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
-                            newItem = inventory[hoverItemIndex];
-                    }
-                    if (newItem == null) {
-                        for (int i = 0; i < Player.inventory.Length; i++) {
-                            if (IsWeaponItem(Player.inventory[i])) {
-                                if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem)) {
-                                    hoverItemIndex = i;
-                                    newItem = Player.inventory[i];
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (Player.chest != -1 && newItem == null) {
-                        Item[] inventory = null;
-                        switch (Player.chest) {
-                            case > -1:
-                                inventory = Main.chest[Player.chest].item;
-                                break;
-                            case -2:
-                                inventory = Player.bank.item;
-                                break;
-                            case -3:
-                                inventory = Player.bank2.item;
-                                break;
-                            case -4:
-                                inventory = Player.bank3.item;
-                                break;
-                            case -5:
-                                inventory = Player.bank4.item;
-                                break;
-                        }
-                        for (int i = 0; i < inventory.Length; i++) {
-                            Item chestItem = inventory[i];
-                            if (IsWeaponItem(chestItem)) {
-                                if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem)) {
-                                    hoverItemIndex = i;
-                                    newItem = chestItem;
-                                    hoverItemChest = Player.chest;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (LogMethods.debugging) ($"newItem: " + newItem.S()).Log();
-                    bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
-                    if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
-                    if (checkWeapon) {
-                        if (newItem != null && IsEnchantable(newItem))
-                            newItem.GetEnchantedItem().hoverItem = true;
-                        if (trackedHoverItem != null && IsEnchantable(trackedHoverItem)) {
-                            trackedHoverItem.GetEnchantedItem().hoverItem = false;
-                        }
-                        trackedHoverItem = newItem;
-                        UpdateItemStats(ref newItem);
-                    }//Check HeldItem
-                    if (LogMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
+            int vanillaArmorLength = Player.armor.Length / 2;
+            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            //Check if armor changed
+            for (int j = 0; j < equipArmor.Length; j++) {
+                Item armor;
+                if (j < vanillaArmorLength) {
+                    armor = Player.armor[j];
                 }
                 else {
-                    if (trackedHoverItem.TryGetEnchantedItem(out EnchantedItem trackedHoverItemEI) && (Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hoverItemEI) && (hoverItemEI != null && hoverItemEI.hoverItem == false) || (Main.HoverItem == null || Main.HoverItem.IsAir))) {
-                        if (LogMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
-                        trackedHoverItemEI.hoverItem = false;
-                        trackedHoverItem = null;
+                    int num = j - vanillaArmorLength;
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player)) {
+                        armor = loader.Get(num).FunctionalItem;
                     }
-                    /*if (hoverItem != null && !hoverItem.IsAir && (!WEMod.IsWeaponItem(Main.HoverItem) || !Main.HoverItem.G().trackedWeapon && !Main.HoverItem.G().hoverItem))
-                    {
-                        ("remove hoverItem: " + hoverItem.Name).Log();
-                        hoverItem.G().hoverItem = false;
-                        hoverItem = null;
-                    }*/
+                    else {
+                        armor = new Item();
+                    }
                 }
 
+                if (!armor.vanity)
+                    equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
             }
+
+            for (int j = 0; j < equipArmor.Length; j++) {
+                Item armor;
+                if (j < vanillaArmorLength) {
+                    armor = Player.armor[j];
+                }
+                else {
+                    int num = j - vanillaArmorLength;
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
+                        armor = loader.Get(num).FunctionalItem;
+                    else
+                        armor = new Item();
+                }
+
+                bool armorStatsUpdated = equipArmorStatsUpdated[j];
+                if (!armorStatsUpdated) {
+                    armor.CheckRemoveEnchantments(Player);
+                    UpdatePotionBuffs(ref armor, ref equipArmor[j]);
+                    UpdatePlayerStats(ref armor, ref equipArmor[j]);
+                    if (equipArmor[j].TryGetEnchantedItem(out EnchantedItem eaGlobal)) {
+                        eaGlobal.equippedInArmorSlot = false;
+                    }
+
+                    if (armor.TryGetEnchantedItem(out EnchantedItem aGlobal)) {
+                        aGlobal.equippedInArmorSlot = true;
+                    }
+
+                    equipArmor[j] = armor;
+                }
+            }
+
+            if (Main.mouseItem.IsAir) {
+                Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
+            }
+            else if (IsEnchantable(Main.mouseItem)) {
+                Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
+            }
+
+            if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && hGlobal.trackedWeapon && !hGlobal.hoverItem) {
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"\\/Start hoverItem check").Log();
+
+                #endregion
+
+                Item newItem = null;
+                if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
+                    newItem = enchantingTableUI.itemSlotUI[0].Item;
+
+                if (newItem != null && EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
+                    newItem = Player.inventory[hoverItemIndex];
+
+                if (newItem != null && Player.chest != -1) {
+                    Item[] inventory = null;
+                    switch (hoverItemChest) {
+                        case > -1:
+                            inventory = Main.chest[hoverItemChest].item;
+                            break;
+                        case -2:
+                            inventory = Player.bank.item;
+                            break;
+                        case -3:
+                            inventory = Player.bank2.item;
+                            break;
+                        case -4:
+                            inventory = Player.bank3.item;
+                            break;
+                        case -5:
+                            inventory = Player.bank4.item;
+                            break;
+                    }
+
+                    if (EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
+                        newItem = inventory[hoverItemIndex];
+                }
+
+                if (newItem == null) {
+                    for (int i = 0; i < Player.inventory.Length; i++) {
+                        if (IsWeaponItem(Player.inventory[i])) {
+                            if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem)) {
+                                hoverItemIndex = i;
+                                newItem = Player.inventory[i];
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (Player.chest != -1 && newItem == null) {
+                    Item[] inventory = null;
+                    switch (Player.chest) {
+                        case > -1:
+                            inventory = Main.chest[Player.chest].item;
+                            break;
+                        case -2:
+                            inventory = Player.bank.item;
+                            break;
+                        case -3:
+                            inventory = Player.bank2.item;
+                            break;
+                        case -4:
+                            inventory = Player.bank3.item;
+                            break;
+                        case -5:
+                            inventory = Player.bank4.item;
+                            break;
+                    }
+
+                    for (int i = 0; i < inventory.Length; i++) {
+                        Item chestItem = inventory[i];
+                        if (IsWeaponItem(chestItem)) {
+                            if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem)) {
+                                hoverItemIndex = i;
+                                newItem = chestItem;
+                                hoverItemChest = Player.chest;
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"newItem: " + newItem.S()).Log();
+
+                #endregion
+
+                bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
+
+                #endregion
+
+                //Check HeldItem
+                if (checkWeapon) {
+                    if (newItem.TryGetEnchantedItem(out EnchantedItem nGlobal))
+                        nGlobal.hoverItem = true;
+
+                    if (trackedHoverItem.TryGetEnchantedItem(out EnchantedItem tGlobal)) {
+                        tGlobal.hoverItem = false;
+                    }
+
+                    trackedHoverItem = newItem;
+                    UpdateItemStats(ref newItem);
+                }
+
+                #region Debug
+
+                if (LogMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
+
+                #endregion
+            }
+            else {
+                bool trackedHoverItemGlobalExists = trackedHoverItem.TryGetEnchantedItem(out EnchantedItem trackedHoverItemEI);
+                bool newHoverItemExists = Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hoverItemEI) && hoverItemEI.hoverItem == false || Main.HoverItem == null || Main.HoverItem.IsAir;
+                if (trackedHoverItemGlobalExists && newHoverItemExists) {
+
+                    #region Debug
+
+                    if (LogMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
+
+                    #endregion
+
+                    trackedHoverItemEI.hoverItem = false;
+                    trackedHoverItem = null;
+                }
+            }
+
             foreach (int key in buffs.Keys) {
                 Player.AddBuff(key, 1);
             }
+
             if (allForOneTimer > 0) {
                 allForOneTimer--;
                 if (allForOneTimer == 0) {
@@ -408,22 +428,20 @@ namespace WeaponEnchantments
                 }
             }
         }
-
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (Player.difficulty == 1 || Player.difficulty == 2) {
                 for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (IsEnchantable(Player.inventory[i])) {
-                        Player.inventory[i].GetEnchantedItem().appliedStatModifiers.Clear();
+                    if (Player.inventory[i].TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                        iGlobal.appliedStatModifiers.Clear();
                     }
                 }
                 for (int i = 0; i < Player.armor.Length; i++) {
-                    if (IsEnchantable(Player.armor[i])) {
-                        Player.armor[i].GetEnchantedItem().appliedStatModifiers.Clear();
+                    if (Player.armor[i].TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                        iGlobal.appliedStatModifiers.Clear();
                     }
                 }
             }
         }
-
         public override void ResetEffects() {
             lifeSteal = 0f;
             canLifeSteal = false;
@@ -438,48 +456,44 @@ namespace WeaponEnchantments
             if (updatePlayerStat)
                 UpdatePlayerStat();
         }
-
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
         }
-
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
             proj.TryGetGlobalProjectile(out WEProjectile weProj); // Try not using a global for this maybe
             Item item = weProj.sourceItem;
 
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
         }
-
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) {
             ApplyOnHitEnchants(item, target, damage, knockback, crit);
         }
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) {
             proj.TryGetGlobalProjectile(out WEProjectile weProj);
             Item item = weProj.sourceItem;
 
             ApplyOnHitEnchants(item, target, damage, knockback, crit, proj);
         }
-
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
             List<Item> items = new List<Item>();
             if (WEMod.serverConfig.DCUStart) {
                 Item item = new Item(ItemID.DrillContainmentUnit);
                 items.Add(item);
             }
+
             return items;
         }
 
         #endregion
 
         #region Enchantment hooks
-        
+
         private IEnumerable<EnchantmentEffect> GetRelevantEffects(Item heldItem = null) {
             // Always use all equipment effects
             IEnumerable<EnchantmentEffect> allEffects = PlayerEquipment.GetArmorEnchantmentEffects();
 
             // If a held item isn't specified and the currently held item is a weapon, use that as the currently held item.
-            if (heldItem == null && WEMod.IsWeaponItem(Player.HeldItem)) { 
+            if (heldItem == null && IsWeaponItem(Player.HeldItem)) { 
                 heldItem = Player.HeldItem;
             }
             // If a held item has been set
@@ -492,7 +506,6 @@ namespace WeaponEnchantments
 
             return allEffects;
         }
-
         public void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
@@ -562,7 +575,6 @@ namespace WeaponEnchantments
                 }
             }
         }
-
         public void ApplyPostMiscEnchants() {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
@@ -598,7 +610,6 @@ namespace WeaponEnchantments
                 effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
             }
         }
-
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects(item);
 
@@ -861,224 +872,6 @@ namespace WeaponEnchantments
                 //Put item down
                 item = Main.mouseItem.Clone();
                 Main.mouseItem = new Item();
-            }
-        }
-        public override void PostUpdate() {
-            /*Troubleshooting Localization
-            ModItem modItem = Main.HoverItem.ModItem;
-            if (modItem != null) {
-                if(modItem is Enchantment enchantment) {
-                    string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + enchantment.EnchantmentTypeName;
-                    typeNameString.Log();
-                    string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
-                    string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
-                    Main.NewText(displayName + Language.GetTextValue(rarityString));
-                }
-			}*/
-
-            int vanillaArmorLength = Player.armor.Length / 2;
-            var loader = LoaderManager.Get<AccessorySlotLoader>();
-            //Check if armor changed
-            for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
-                    armor = Player.armor[j];
-                }
-                else {
-                    int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player)) {
-                        armor = loader.Get(num).FunctionalItem;
-                    }
-                    else {
-                        armor = new Item();
-                    }
-                }
-
-                if (!armor.vanity)
-                    equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-            }
-            
-            for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
-                    armor = Player.armor[j];
-                }
-                else {
-                    int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player))
-                        armor = loader.Get(num).FunctionalItem;
-                    else
-                        armor = new Item();
-                }
-
-                bool armorStatsUpdated = equipArmorStatsUpdated[j];
-                if (!armorStatsUpdated) {
-                    armor.CheckRemoveEnchantments(Player);
-                    UpdatePotionBuffs(ref armor, ref equipArmor[j]);
-                    UpdatePlayerStats(ref armor, ref equipArmor[j]);
-                    if (equipArmor[j].TryGetEnchantedItem(out EnchantedItem eaGlobal)) {
-                        eaGlobal.equippedInArmorSlot = false;
-                    }
-
-                    if (armor.TryGetEnchantedItem(out EnchantedItem aGlobal)) {
-                        aGlobal.equippedInArmorSlot = true;
-                    }
-
-                    equipArmor[j] = armor;
-                }
-            }
-
-            if (Main.mouseItem.IsAir) {
-                Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
-            }
-            else if (IsEnchantable(Main.mouseItem)) {
-                Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
-            }
-
-			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && hGlobal.trackedWeapon && !hGlobal.hoverItem) {
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"\\/Start hoverItem check").Log();
-
-                #endregion
-
-                Item newItem = null;
-                if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
-                    newItem = enchantingTableUI.itemSlotUI[0].Item;
-
-                if (newItem != null && EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
-                    newItem = Player.inventory[hoverItemIndex];
-
-                if (newItem != null && Player.chest != -1) {
-                    Item[] inventory = null;
-                    switch (hoverItemChest) {
-                        case > -1:
-                            inventory = Main.chest[hoverItemChest].item;
-                            break;
-                        case -2:
-                            inventory = Player.bank.item;
-                            break;
-                        case -3:
-                            inventory = Player.bank2.item;
-                            break;
-                        case -4:
-                            inventory = Player.bank3.item;
-                            break;
-                        case -5:
-                            inventory = Player.bank4.item;
-                            break;
-                    }
-
-                    if (EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
-                        newItem = inventory[hoverItemIndex];
-                }
-
-                if (newItem == null) {
-                    for (int i = 0; i < Player.inventory.Length; i++) {
-                        if (IsWeaponItem(Player.inventory[i])) {
-                            if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem)) {
-                                hoverItemIndex = i;
-                                newItem = Player.inventory[i];
-
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (Player.chest != -1 && newItem == null) {
-                    Item[] inventory = null;
-                    switch (Player.chest) {
-                        case > -1:
-                            inventory = Main.chest[Player.chest].item;
-                            break;
-                        case -2:
-                            inventory = Player.bank.item;
-                            break;
-                        case -3:
-                            inventory = Player.bank2.item;
-                            break;
-                        case -4:
-                            inventory = Player.bank3.item;
-                            break;
-                        case -5:
-                            inventory = Player.bank4.item;
-                            break;
-                    }
-
-                    for (int i = 0; i < inventory.Length; i++) {
-                        Item chestItem = inventory[i];
-                        if (IsWeaponItem(chestItem)) {
-                            if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem)) {
-                                hoverItemIndex = i;
-                                newItem = chestItem;
-                                hoverItemChest = Player.chest;
-
-                                break;
-                            }
-                        }
-                    }
-                }
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"newItem: " + newItem.S()).Log();
-
-                #endregion
-
-                bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
-
-                #endregion
-
-                //Check HeldItem
-                if (checkWeapon) {
-                    if (newItem.TryGetEnchantedItem(out EnchantedItem nGlobal))
-                        nGlobal.hoverItem = true;
-
-                    if (trackedHoverItem.TryGetEnchantedItem(out EnchantedItem tGlobal)) {
-                        tGlobal.hoverItem = false;
-                    }
-
-                    trackedHoverItem = newItem;
-                    UpdateItemStats(ref newItem);
-                }
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
-
-				#endregion
-			}
-			else {
-                bool trackedHoverItemGlobalExists = trackedHoverItem.TryGetEnchantedItem(out EnchantedItem trackedHoverItemEI);
-                bool newHoverItemExists = Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hoverItemEI) && hoverItemEI.hoverItem == false || Main.HoverItem == null || Main.HoverItem.IsAir;
-                if (trackedHoverItemGlobalExists && newHoverItemExists) {
-
-					#region Debug
-
-					if (LogMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
-
-					#endregion
-
-					trackedHoverItemEI.hoverItem = false;
-                    trackedHoverItem = null;
-                }
-            }
-
-            foreach (int key in buffs.Keys) {
-                Player.AddBuff(key, 1);
-            }
-
-            if (allForOneTimer > 0) {
-                allForOneTimer--;
-                if (allForOneTimer == 0) {
-                    SoundEngine.PlaySound(SoundID.Unlock);
-                }
             }
         }
         public bool ItemChanged(Item current, Item previous, bool weapon = false) {
@@ -1617,42 +1410,6 @@ namespace WeaponEnchantments
 
 			#endregion
 		}
-		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
-            if(Player.difficulty == 1 || Player.difficulty == 2) {
-                for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (Player.inventory[i].TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                        iGlobal.appliedStatModifiers.Clear();
-                    }
-                }
-                for (int i = 0; i < Player.armor.Length; i++) {
-                    if (Player.armor[i].TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                        iGlobal.appliedStatModifiers.Clear();
-                    }
-                }
-            }
-        }
-        public override void ResetEffects() {
-            bool updatePlayerStat = false;
-            foreach (string key in statModifiers.Keys) {
-                string name = key.RemoveInvert().RemovePrevent();
-                if (Player.GetType().GetField(name) != null) {
-                    appliedStatModifiers.Remove(key);
-                    updatePlayerStat = true;
-                }
-            }
-
-            if (updatePlayerStat)
-                UpdatePlayerStat();
-        }
-        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-            List<Item> items = new List<Item>();
-            if (WEMod.serverConfig.DCUStart) {
-                Item item = new Item(ItemID.DrillContainmentUnit);
-                items.Add(item);
-            }
-
-            return items;
-        }
     }
     public static class PlayerFunctions
     {

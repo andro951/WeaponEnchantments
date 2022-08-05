@@ -635,7 +635,7 @@ namespace WeaponEnchantments.Common.Globals
                 itemType = EItemType.Armor;
             }
             else if (IsAccessoryItem(item)) {
-                itemType = EItemType.Accesory;
+                itemType = EItemType.Accessory;
             }
             return itemType;
         }
@@ -1690,7 +1690,7 @@ namespace WeaponEnchantments.Common.Globals
                     else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                     }
-                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
+                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accessory)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                     }
 
@@ -1844,11 +1844,11 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
             if (IsAccessoryItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Accesory)) {
-                    add *= enchantment.AllowedList[EItemType.Accesory];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accesory];
-                    flat *= enchantment.AllowedList[EItemType.Accesory];
-                    @base *= enchantment.AllowedList[EItemType.Accesory];
+                if (enchantment.AllowedList.ContainsKey(EItemType.Accessory)) {
+                    add *= enchantment.AllowedList[EItemType.Accessory];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accessory];
+                    flat *= enchantment.AllowedList[EItemType.Accessory];
+                    @base *= enchantment.AllowedList[EItemType.Accessory];
                     return;
                 }
                 else {

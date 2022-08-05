@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 0.5f },
 			{ EItemType.Armor, 1f },
-			{ EItemType.Accesory, 1f }
+			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
 			CheckStaticStatByName();

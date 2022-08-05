@@ -141,7 +141,7 @@ namespace WeaponEnchantments.Items {
 		public enum EItemType {
 			Weapon,
 			Armor,
-			Accesory,
+			Accessory,
 			None
 		}
 
@@ -154,7 +154,7 @@ namespace WeaponEnchantments.Items {
 		public virtual Dictionary<EItemType, float> AllowedList { private set; get; } = new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 1f },
 			{ EItemType.Armor, 0.33f },
-			{ EItemType.Accesory, 0.2f }
+			{ EItemType.Accessory, 0.2f }
 		};
 
 		#endregion

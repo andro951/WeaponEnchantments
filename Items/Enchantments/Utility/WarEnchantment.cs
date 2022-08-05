@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 1f },
 			{ EItemType.Armor, 1f },
-			{ EItemType.Accesory, 1f }
+			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
 			AddEStat("spawnRate", 0f, EnchantmentStrength);
