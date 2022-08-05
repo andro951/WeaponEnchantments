@@ -672,18 +672,24 @@ namespace WeaponEnchantments {
         public void ApplyPostMiscEnchants() {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
-            // Make sure they implement IPassiveEffect
-            IEnumerable<EnchantmentEffect> PostUpdateEffects = allEffects.Where(it => it.GetType().GetInterface(nameof(IPassiveEffect)) != null);
+            List<IPassiveEffect> passiveEffects = new List<IPassiveEffect>();
+            List<StatEffect> statEffects = new List<StatEffect>();
+
+            // Divide effects based on what is needed.
+            foreach (EnchantmentEffect effect in allEffects) {
+                if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
+                    passiveEffects.Add((IPassiveEffect)effect);
+                if (effect is StatEffect)
+                    statEffects.Add((StatEffect)effect);
+            }
 
             // Apply all PostUpdateMiscEffects
-            foreach (IPassiveEffect effect in PostUpdateEffects) {
+            foreach (IPassiveEffect effect in passiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
 
-            // Get all stat effects
-            IEnumerable<StatEffect> StatEffects = allEffects.Where(it => it is StatEffect).Select(it => (StatEffect)it);
-            // Apply them if there's any
-            if (StatEffects.Any()) ApplyStatEffects(StatEffects);
+            // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
+            if (statEffects.Any()) ApplyStatEffects(statEffects);
 
         }
 
