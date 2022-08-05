@@ -40,8 +40,18 @@ namespace WeaponEnchantments.Common.Utility
                 return false;
 			}
         }
-        public static Item Enchantments(this Item item, int i) => item.GetEnchantedItem().enchantments[i];
-        public static Enchantment EnchantmentsModItem(this Item item, int i) => (Enchantment)item.GetEnchantedItem().enchantments[i].ModItem;
+        public static Item Enchantments(this Item item, int i) {
+            if(item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return iGlobal.enchantments[i];
+
+            return null;
+        }
+        public static Enchantment EnchantmentsModItem(this Item item, int i) {
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return (Enchantment)iGlobal.enchantments[i].ModItem;
+
+            return null;
+        }
         public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
         public static WEUIItemSlot ItemUISlot(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i];
         public static WEUIItemSlot EnchantmentUISlot(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
@@ -88,34 +98,36 @@ namespace WeaponEnchantments.Common.Utility
             if (wePlayer.eStats.ContainsKey(key))
                 return true;
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon != null && EnchantedItemStaticMethods.IsWeaponItem(weapon) && weapon.GetEnchantedItem().eStats.ContainsKey(key))
+            if (weapon.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key))
                 return true;
             return false;
         }
-        public static float ApplyEStatFromPlayer(this Player player, string key, float value)
-        {
+        public static float ApplyEStatFromPlayer(this Player player, string key, float value) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
+
             Item weapon = wePlayer.trackedWeapon;
             if (weapon.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key))
-                combinedStatModifier = combinedStatModifier.CombineWith(weapon.GetEnchantedItem().eStats[key]);
+                combinedStatModifier = combinedStatModifier.CombineWith(iGlobal.eStats[key]);
+
             return combinedStatModifier.ApplyTo(value);
         }
-        public static float ApplyEStatFromPlayer(this Player player, Item item, string key, float value)
-        {
+        public static float ApplyEStatFromPlayer(this Player player, Item item, string key, float value) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
             StatModifier combinedStatModifier = StatModifier.Default;
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
-            if (item != null && !item.IsAir && EnchantedItemStaticMethods.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key))
-                combinedStatModifier = combinedStatModifier.CombineWith(item.GetEnchantedItem().eStats[key]);
+
+            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key))
+                combinedStatModifier = combinedStatModifier.CombineWith(iGlobal.eStats[key]);
+
             return combinedStatModifier.ApplyTo(value);
         }
-        public static bool ContainsEStat(this Item item, string key) => item.GetEnchantedItem().eStats.ContainsKey(key);
+        public static bool ContainsEStat(this Item item, string key) => item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key);
         public static bool ContainsEStat(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
-        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item != null && !item.IsAir && EnchantedItemStaticMethods.IsEnchantable(item) && item.GetEnchantedItem().eStats.ContainsKey(key);
+        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.eStats.ContainsKey(key);
         public static string RemoveInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
         public static string RemovePrevent(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool ContainsInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
