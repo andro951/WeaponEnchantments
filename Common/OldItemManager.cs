@@ -73,7 +73,7 @@ namespace WeaponEnchantments.Common
 
             #endregion
 
-            //"armor".Log();
+            //EItemType.Armor.Log();
             ReplaceOldItems(player.armor, player, 91);
             //"inventory".Log();
             ReplaceOldItems(player.inventory, player);

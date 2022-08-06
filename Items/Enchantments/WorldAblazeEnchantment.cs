@@ -16,8 +16,8 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"(Spreads to nearby enemies and prevents enemies from being immune from other WorldAblaze debuffs.)";
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f }
 		};
 		public override void GetMyStats() {
 			if (EnchantmentTier == 4) {
