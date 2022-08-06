@@ -861,8 +861,9 @@ namespace WeaponEnchantments.Common.Globals
             damage -= damageReduction;
 
             //Armor penetration bonus damage
-            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > npc.defDamage) {
-                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
+            int defenseNoNegative = npc.defense > 0 ? npc.defense : 0;
+            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
+                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
                 if (armorPenetrationBonusDamage > 50) {
                     int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
                     if (armorPenetrationBonusDamage > maxArmorPenetration)

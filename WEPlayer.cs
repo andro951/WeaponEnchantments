@@ -225,8 +225,246 @@ namespace WeaponEnchantments
 
             return false;
         }
-        public override void PostUpdateMiscEffects() {
-            ApplyPostMiscEnchants();
+        public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
+            bool valid = false;
+            if (Main.mouseItem.IsAir) {
+                //Trash Item
+                if (!Player.trashItem.IsAir) {
+                    if (Player.trashItem.TryGetEnchantedItem(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
+                        if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal))
+                            trackedTrashGlobal.trashItem = false;
+
+                        tGlobal.trashItem = true;
+                    }
+                }
+                else if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal)) {
+                    trackedTrashGlobal.trashItem = false;
+                }
+
+                bool hoveringOverTrash = false;
+                if (!item.IsAir) {
+                    if(item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.trashItem)
+                        hoveringOverTrash = true;
+                }
+
+                bool allowShiftClick = WEMod.clientConfig.AllowShiftClickMoveFavoritedItems;
+                bool canMoveItem = !item.favorited || allowShiftClick;
+
+                if (!hoveringOverTrash && canMoveItem) {
+                    Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
+
+                    if (item.type == PowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
+                        //Power Booster
+                        if (moveItem) {
+                            tableItemGlobal.PowerBoosterInstalled = true;
+                            if (item.stack > 1) {
+                                item.stack--;
+                            }
+							else {
+                                item = new Item();
+                            }
+
+                            SoundEngine.PlaySound(SoundID.Grab);
+                        }
+
+                        valid = true;
+                    }
+                    else {
+                        //Check/Move item
+                        for (int i = 0; i < EnchantingTable.maxItems; i++) {
+                            if (enchantingTableUI.itemSlotUI[i].Valid(item)) {
+                                if (!item.IsAir) {
+                                    bool doNotSwap = false;
+                                    if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                                        if (iGlobal.equippedInArmorSlot && !tableItem.IsAir) {
+                                            bool tryingToSwapArmor = IsAccessoryItem(item) && !IsArmorItem(item) && (IsAccessoryItem(tableItem) || IsArmorItem(tableItem));
+                                            bool armorTypeDoesntMatch = item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1;
+                                            if (tryingToSwapArmor || armorTypeDoesntMatch)
+                                                doNotSwap = true;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
+                                        }
+                                    }
+                                    
+                                    if (!doNotSwap) {
+                                        if (moveItem) {
+                                            enchantingTableUI.itemSlotUI[i].Item = item.Clone();
+                                            item = itemInEnchantingTable ? itemBeingEnchanted : new Item();
+                                            SoundEngine.PlaySound(SoundID.Grab);
+                                        }
+
+                                        valid = true;
+
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!valid) {
+                            //Check/Move Enchantment
+                            if (item.ModItem is Enchantment enchantment) {
+                                int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].Item);
+                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                                    if (!enchantingTableUI.enchantmentSlotUI[i].Valid(item))
+                                        continue;
+
+                                    if (item.IsAir)
+                                        continue;
+
+                                    if (enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && uniqueItemSlot == -1) {
+                                        //Empty slot or not a unique enchantment
+                                        if (moveItem) {
+                                            int s = i;
+                                            //Utility
+                                            int maxIndex = EnchantingTable.maxEnchantments - 1;
+                                            if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[maxIndex].Item.IsAir) {
+                                                bool utilitySlotAllowedOnItem = WEUIItemSlot.SlotAllowedByConfig(tableItem, 1);
+                                                if (utilitySlotAllowedOnItem)
+                                                    s = maxIndex;
+                                            }
+
+                                            enchantingTableUI.enchantmentSlotUI[s].Item = item.Clone();
+                                            enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
+                                            if (item.stack > 1) {
+                                                item.stack--;
+                                            }
+                                            else {
+                                                item = new Item();
+                                            }
+
+                                            SoundEngine.PlaySound(SoundID.Grab);
+                                        }
+
+                                        valid = true;
+
+                                        break;
+                                    }
+                                    else {
+                                        bool uniqueEnchantmentOnItem = enchantingTableUI.enchantmentSlotUI[i].CheckUniqueSlot(enchantment, uniqueItemSlot);
+                                        if (uniqueItemSlot != -1 && uniqueEnchantmentOnItem && item.type != enchantingTableUI.enchantmentSlotUI[i].Item.type) {
+                                            //Check unique can swap
+                                            if (moveItem) {
+                                                Item returnItem = enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
+                                                enchantingTableUI.enchantmentSlotUI[i].Item = item.Clone();
+                                                enchantingTableUI.enchantmentSlotUI[i].Item.stack = 1;
+                                                if (!returnItem.IsAir) {
+                                                    if (item.stack > 1) {
+                                                        Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), returnItem);
+                                                        item.stack--;
+                                                    }
+                                                    else {
+                                                        item = returnItem;
+                                                    }
+                                                }
+                                                else {
+                                                    item = new Item();
+                                                }
+
+                                                SoundEngine.PlaySound(SoundID.Grab);
+                                            }
+
+                                            valid = true;
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //Check/Move Essence
+                        if (!valid) {
+                            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+                                if (enchantingTableUI.essenceSlotUI[i].Valid(item)) {
+                                    if (!item.IsAir) {
+                                        bool canTransfer = false;
+                                        if (enchantingTableUI.essenceSlotUI[i].Item.IsAir) {
+                                            //essence slot empty
+                                            if (moveItem) {
+                                                enchantingTableUI.essenceSlotUI[i].Item = item.Clone();
+                                                item = new Item();
+                                            }
+
+                                            canTransfer = true;
+                                        }
+                                        else {
+                                            //Essence slot not empty
+                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                                                if (moveItem) {
+                                                    int ammountToTransfer;
+                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack) {
+                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                        item.stack -= ammountToTransfer;
+                                                    }
+                                                    else {
+                                                        ammountToTransfer = item.stack;
+                                                        item.stack = 0;
+                                                    }
+
+                                                    enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
+                                                }
+
+                                                canTransfer = true;
+                                            }
+                                        }
+
+                                        //Common to all essence transfer
+                                        if (canTransfer) {
+                                            if (moveItem)
+                                                SoundEngine.PlaySound(SoundID.Grab);
+
+                                            valid = true;
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!valid && moveItem) {
+                    //Pick up item
+                    Main.mouseItem = item.Clone();
+                    item = new Item();
+                }
+                else if (valid && !moveItem && !hoveringOverTrash) {
+                    Main.cursorOverride = 9;
+                }
+            }
+            else if(item.IsAir && moveItem) {
+                //Put item down
+                item = Main.mouseItem.Clone();
+                Main.mouseItem = new Item();
+            }
+
+            return valid;
+        }
+        public Item[] GetEquipArmor(bool getArrayOnly = false) {
+            Item[] currentEquipArmor = new Item[equipArmor.Length];
+            int vanillaArmorLength = Player.armor.Length / 2;
+            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            for (int j = 0; j < equipArmor.Length; j++) {
+                bool checkItemChanged = true;
+                if (j < vanillaArmorLength) {
+                    currentEquipArmor[j] = Player.armor[j];
+                }
+                else {
+                    int num = j - vanillaArmorLength;
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player) && !loader.Get(num).FunctionalItem.vanity) {
+                        currentEquipArmor[j] = loader.Get(num).FunctionalItem;
+                    }
+                    else {
+                        checkItemChanged = false;
+                        currentEquipArmor[j] = new Item();
+                    }
+                }
+
+                if(checkItemChanged && !getArrayOnly)
+                    equipArmorStatsUpdated[j] = !ItemChanged(currentEquipArmor[j], equipArmor[j]);
+            }
+
+            return currentEquipArmor;
         }
         public override void PostUpdate() {
             /*Troubleshooting Localization
@@ -241,31 +479,13 @@ namespace WeaponEnchantments
                 }
 			}*/
 
-            int vanillaArmorLength = Player.armor.Length / 2;
-            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            //int vanillaArmorLength = Player.armor.Length / 2;
+            //var loader = LoaderManager.Get<AccessorySlotLoader>();
             //Check if armor changed
+            Item[] currentArmor = GetEquipArmor();
+            
             for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
-                    armor = Player.armor[j];
-                }
-                else {
-                    int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player)) {
-                        armor = loader.Get(num).FunctionalItem;
-                    }
-                    else {
-                        armor = new Item();
-                    }
-                }
-
-                if (!armor.vanity)
-                    equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-            }
-
-            for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
+                /*if (j < vanillaArmorLength) {
                     armor = Player.armor[j];
                 }
                 else {
@@ -274,10 +494,11 @@ namespace WeaponEnchantments
                         armor = loader.Get(num).FunctionalItem;
                     else
                         armor = new Item();
-                }
+                }*/
 
                 bool armorStatsUpdated = equipArmorStatsUpdated[j];
                 if (!armorStatsUpdated) {
+                    Item armor = currentArmor[j];
                     armor.CheckRemoveEnchantments(Player);
                     UpdatePotionBuffs(ref armor, ref equipArmor[j]);
                     UpdatePlayerStats(ref armor, ref equipArmor[j]);

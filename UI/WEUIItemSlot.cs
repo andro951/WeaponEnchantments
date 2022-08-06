@@ -238,7 +238,6 @@ namespace WeaponEnchantments.UI
 			return (!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
 				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
 					if (!iGlobal.enchantments[i].IsAir) {

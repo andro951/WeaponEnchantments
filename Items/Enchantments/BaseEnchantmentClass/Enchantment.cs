@@ -136,17 +136,17 @@ namespace WeaponEnchantments.Items {
 		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
 
 		public enum EItemType {
+			None,
 			Weapon,
 			Armor,
 			Accessory,
-			None
 		}
 
 		/// <summary>
-		/// Default is { "Weapon", 1f }, { "Armor", 0.25f }, { "Accessory", 0.25f }<br/>
+		/// Default is { EItemType.Weapon, 1f }, { EItemType.Armor, 0.25f }, { EItemType.Accessory, 0.25f }<br/>
 		/// (100% effective on weapons, 25% effective on armor and accessories)<br/>
 		/// You must include ALL of the item types the enchantment can be applied on.  The above defaults are only set if you do not set the AllowedList.<br/>
-		/// Example: Having just { "Weapon", 1f } will prevent the item being used on armor and accessories.<br/>
+		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
 		public virtual Dictionary<EItemType, float> AllowedList { private set; get; } = new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 1f },
