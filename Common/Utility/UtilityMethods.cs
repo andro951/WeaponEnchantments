@@ -14,7 +14,8 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            item.TryGetGlobalItem(out EnchantedItem iGlobal);
+            EnchantedItem iGlobal = item.GetGlobalItem<EnchantedItem>();
+            iGlobal.Item = item;
             return iGlobal;
         }
         public static WEPlayer GetWEPlayer(this Player player) => player.GetModPlayer<WEPlayer>();
@@ -199,7 +200,6 @@ namespace WeaponEnchantments.Common.Utility
                 return new T();
             }
         }
-
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
         }

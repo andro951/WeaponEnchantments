@@ -625,7 +625,6 @@ namespace WeaponEnchantments.Common.Globals
 
             return level - totalEnchantmentLevelCost;
         }
-
         public static EItemType GetEItemType(Item item) {
             EItemType itemType = EItemType.None;
             if (IsWeaponItem(item)) {
@@ -639,11 +638,9 @@ namespace WeaponEnchantments.Common.Globals
             }
             return itemType;
         }
-
         public EItemType GetEItemType() {
             return GetEItemType(Item);
         }
-
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
@@ -661,12 +658,12 @@ namespace WeaponEnchantments.Common.Globals
                 //~Damage tooltip
                 if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
                     float damageMultiplier = item.ApplyEStat("Damage", 1f);
-                    if(damageMultiplier > 1f) {
+                    if (damageMultiplier > 1f) {
                         int damage = (int)Math.Round(item.damage * damageMultiplier);
-                        string tooltip = $"Item Damage ~ {damage} (Against a 0 armor enemy)";
+                        string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
                         tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
                     }
-				}
+                }
 
 
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
@@ -678,14 +675,15 @@ namespace WeaponEnchantments.Common.Globals
 
                 tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
 
-
+                //Experience tooltip
                 string experienceTooltip = $"Experience: {Experience}";
-                if(levelBeforeBooster < MAX_LEVEL) {
+                if (levelBeforeBooster < MAX_LEVEL) {
                     experienceTooltip += $" ({WEModSystem.levelXps[levelBeforeBooster] - Experience} to next level)";
                 }
-				else {
+                else {
                     experienceTooltip += " (Max Level)";
                 }
+
                 tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
             }
 
