@@ -10,13 +10,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class LifeSteal : StatEffect {
         public LifeSteal(StatModifier statModifier) : base(statModifier) { }
 
-        public override bool isVanilla { get; } = false;
-        public override string statName { get; } = "lifeSteal";
+        public override EditableStat statName => EditableStat.LifeSteal;
         public override string DisplayName { get; } = "Life Steal";
 
         protected override string modifierToString() {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class WingTime : StatEffect, IPassiveEffect {
@@ -13,9 +14,8 @@ namespace WeaponEnchantments.Effects {
             Infinity = infinity;
         }
 
+        public override EditableStat statName => EditableStat.WingTime;
         public override string DisplayName { get; } = "Wing Time";
-        public override bool isVanilla { get; } = true;
-        public override string statName { get; } = "wingTimeMax";
         private bool Infinity;
 
         protected override string modifierToString() {

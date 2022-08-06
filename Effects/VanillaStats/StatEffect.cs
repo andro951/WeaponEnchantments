@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public abstract class StatEffect : EnchantmentEffect {
@@ -14,8 +15,7 @@ namespace WeaponEnchantments.Effects {
         }
 
         public StatModifier statModifier;
-        public abstract bool isVanilla { get; }
-        public abstract string statName { get; }
+        public abstract EditableStat statName { get; }
 
         protected virtual string modifierToString() {
             string final = "";

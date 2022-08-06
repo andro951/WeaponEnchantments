@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class MaxHP : StatEffect {
         public MaxHP(StatModifier statModifier) : base(statModifier) { }
 
-        public override bool isVanilla { get; } = true;
-        public override string statName { get; } = "statLifeMax2";
+        public override EditableStat statName => EditableStat.MaxHP;
         public override string DisplayName { get; } = "Max Life";
     }
 }
