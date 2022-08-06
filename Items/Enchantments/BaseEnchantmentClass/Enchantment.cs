@@ -42,9 +42,6 @@ namespace WeaponEnchantments.Items {
 
 		#region Static
 
-		public static readonly string[] rarity = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
-		public static readonly string[] displayRarity = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
-		public static readonly Color[] rarityColors = new Color[] { Color.White, Color.Green, Color.Blue, Color.Purple, Color.DarkOrange };
 		public struct EnchantmentStrengths {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
@@ -975,8 +972,8 @@ namespace WeaponEnchantments.Items {
 			return defaultBuffDuration * (EnchantmentTier + 1);
 		}
 		public static int GetEnchantmentTier(string name) {
-			for (int i = 0; i < rarity.Length; i++) {
-				if (rarity[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
+			for (int i = 0; i < tierNames.Length; i++) {
+				if (tierNames[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
 					return i;
 				}
 			}//Get EnchantmentSize
