@@ -18,6 +18,7 @@ using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Common.Configs;
 using System.Linq;
+using static WeaponEnchantments.Items.Enchantment;
 
 namespace WeaponEnchantments.UI
 {
@@ -127,9 +128,9 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey("Weapon") && IsWeaponItem(itemInUI);
-			bool allowedArmor = enchantment.AllowedList.ContainsKey("Armor") && IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey("Accessory") && IsAccessoryItem(itemInUI);
+			bool allowedWeapon = enchantment.AllowedList.ContainsKey(EItemType.Weapon) && IsWeaponItem(itemInUI);
+			bool allowedArmor = enchantment.AllowedList.ContainsKey(EItemType.Armor) && IsArmorItem(itemInUI);
+			bool allowedAccessory = enchantment.AllowedList.ContainsKey(EItemType.Accessory) && IsAccessoryItem(itemInUI);
 
 			return allowedWeapon || allowedArmor || allowedAccessory;
 		}
@@ -237,7 +238,6 @@ namespace WeaponEnchantments.UI
 			return (!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
 				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
 					if (!iGlobal.enchantments[i].IsAir) {

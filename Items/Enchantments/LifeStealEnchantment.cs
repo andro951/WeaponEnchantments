@@ -9,8 +9,8 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
 		public override float CapacityCostMultiplier => 2f;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f }
 		};
 
 		public override string Artist => "Zorutan";

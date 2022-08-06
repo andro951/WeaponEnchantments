@@ -5,6 +5,7 @@ using WeaponEnchantments.Items;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
+using System;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -136,13 +137,15 @@ namespace WeaponEnchantments.Common.Utility
 
 		#region General
 
-		public static void SpawnCoins(int coins) {
+		public static void ReplaceItemWithCoins(ref Item item, int coins) {
             int coinType = ItemID.PlatinumCoin;
             int coinValue = 1000000;
             while (coins > 0) {
                 int numCoinsToSpawn = coins / coinValue;
-                if (numCoinsToSpawn > 0)
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), coinType, numCoinsToSpawn);
+                if (numCoinsToSpawn > 0) {
+                    item = new Item(coinType, numCoinsToSpawn + 1);
+                    return;
+				}
 
                 coins %= coinValue;
                 coinType--;
@@ -199,7 +202,10 @@ namespace WeaponEnchantments.Common.Utility
                 return new T();
             }
         }
+        public static float Percent(this float value) {
+            return (float)Math.Round(value * 100, 1);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

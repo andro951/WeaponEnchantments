@@ -74,7 +74,7 @@ namespace WeaponEnchantments.Common
             #endregion
 
             //"armor".Log();
-            ReplaceOldItems(player.armor, player, 91);
+            ReplaceOldItems(player.GetWEPlayer().GetEquipArmor(true), player, 91);
             //"inventory".Log();
             ReplaceOldItems(player.inventory, player);
             //"bank1".Log();
@@ -330,13 +330,13 @@ namespace WeaponEnchantments.Common
                     total /= 5;
 
                 //type is coins when replaceWithCoins is true
-                UtilityMethods.SpawnCoins(total);
+                UtilityMethods.ReplaceItemWithCoins(ref item, total);
 
-                Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.");
+                ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log();
             }
             else {
                 item = new Item(type, stack);
-                Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}");
+                ($"{unloadedItemName} has been removed from Weapon Enchantments.  It has been replaced with {ContentSamples.ItemsByType[type].S()}").Log();
             }
         }
         private static int GetEnchantmentValueByName(string name) {

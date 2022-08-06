@@ -121,6 +121,7 @@ namespace WeaponEnchantments
                     itemBeingEnchanted.favorited = false;
                     if(itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
                         iBEGlobal.inEnchantingTable = true;
+                        iBEGlobal.equippedInArmorSlot = false;
                         wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
                     }
 
@@ -178,37 +179,95 @@ namespace WeaponEnchantments
                 //If player is too far away, close the enchantment table
                 if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
                     CloseWeaponEnchantmentUI();
-            }
-            
-            if (wePlayer.usingEnchantingTable) {
+
                 //Update cursor override
                 if (ItemSlot.ShiftInUse) {
                     bool stop = false;
+                    bool valid = false;
                     if (Main.mouseItem.IsAir && !Main.HoverItem.IsAir) {
-                        for (int j = 0; j < EnchantingTable.maxItems && Main.cursorOverride != 9; j++) {
+                        for (int j = 0; j < EnchantingTable.maxItems; j++) {
                             if (wePlayer.enchantingTableUI.itemSlotUI[j].contains) {
                                 stop = true;
                             }
                         }
 
-                        for (int j = 0; j < EnchantingTable.maxEnchantments && Main.cursorOverride != 9 && !stop; j++) {
+                        for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++) {
                             if (wePlayer.enchantingTableUI.enchantmentSlotUI[j].contains) {
                                 stop = true;
                             }
                         }
 
-                        for (int j = 0; j < EnchantingTable.maxEssenceItems && Main.cursorOverride != 9 && !stop; j++) {
+                        for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++) {
                             if (wePlayer.enchantingTableUI.essenceSlotUI[j].contains) {
                                 stop = true;
                             }
                         }
 
-                        if(!stop)
-                            wePlayer.CheckShiftClickValid(ref Main.HoverItem);
+                        if (!stop)
+                            valid = wePlayer.CheckShiftClickValid(ref Main.HoverItem);
                     }
 
-                    if (Main.cursorOverride != 9 && !stop || Main.cursorOverride == 6) {
-                        Main.cursorOverride = -1;
+                    if(!stop) {
+						if (!valid || Main.cursorOverride == 6) {
+                            Main.cursorOverride = -1;
+                        }
+					}
+                }
+            }
+            
+            //Fix for splitting stack of enchanted items in a chest
+            if (wePlayer.Player.chest != -1) {
+                int chest = wePlayer.Player.chest;
+                if (Main.HoverItem.TryGetEnchantedItem()) {
+                    Player player = wePlayer.Player;
+                    Item[] inventory;
+                    switch (chest) {
+                        case -2:
+                            inventory = player.bank.item;
+                            break;
+                        case -3:
+                            inventory = player.bank2.item;
+                            break;
+                        case -4:
+                            inventory = player.bank3.item;
+                            break;
+                        case -5:
+                            inventory = player.bank4.item;
+                            break;
+                        default:
+                            if (chest > -1) {
+                                //Chest
+                                inventory = Main.chest[chest].item;
+                            }
+                            else {
+                                inventory = new Item[] { };
+                            }
+
+                            break;
+                    }
+
+                    for (int i = 0; i < inventory.Length; i++) {
+                        ref Item item = ref inventory[i];
+                        if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                            if (item.IsSameEnchantedItem(Main.HoverItem) && item.stack == Main.HoverItem.stack) {
+                                int stack = item.stack;
+                                if (Main.mouseRight) {
+                                    Item mouseItem = Main.mouseItem;
+                                    int mouseItemStack = mouseItem.stack;
+                                    int maxStack = mouseItem.maxStack;
+                                    if (stack + mouseItemStack < maxStack) {
+                                        Main.mouseItem.stack += stack;
+                                        item = new Item();
+                                    }
+									else {
+                                        Main.mouseItem.stack = maxStack;
+                                        item.stack = stack + mouseItemStack - maxStack;
+									}
+                                }
+
+                                break;
+                            }
+                        }
                     }
                 }
             }
