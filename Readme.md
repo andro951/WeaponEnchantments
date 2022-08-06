@@ -82,7 +82,8 @@ They're obtained by...
 ## Crafting and Upgrading Enchantments
 
 Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
- > Magic Storage: The environment module lets you access the essence in the enchanting table.  The environment module will also act as the highest tier enchanting table your player has ever ussd.
+ > Magic Storage: The environment simulator lets you access the essence in the enchanting table.
+ The environment simulator will also act as the highest tier enchanting table your character has ever ussd.
 
 Recipies can easily be looked up:
 * You can give items to the vanilla guide to see what it can be crafted into.

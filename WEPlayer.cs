@@ -195,7 +195,7 @@ namespace WeaponEnchantments
 
             return false;
         }
-        public void CheckShiftClickValid(ref Item item, bool moveItem = false) {
+        public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
             bool valid = false;
             if (Main.mouseItem.IsAir) {
                 //Trash Item
@@ -223,7 +223,7 @@ namespace WeaponEnchantments
                 if (!hoveringOverTrash && canMoveItem) {
                     Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
 
-                    if (item.type == PowerBooster.ID && !enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
+                    if (item.type == PowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
                         //Power Booster
                         if (moveItem) {
                             tableItemGlobal.PowerBoosterInstalled = true;
@@ -407,6 +407,34 @@ namespace WeaponEnchantments
                 item = Main.mouseItem.Clone();
                 Main.mouseItem = new Item();
             }
+
+            return valid;
+        }
+        public Item[] GetEquipArmor(bool getArrayOnly = false) {
+            Item[] currentEquipArmor = new Item[equipArmor.Length];
+            int vanillaArmorLength = Player.armor.Length / 2;
+            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            for (int j = 0; j < equipArmor.Length; j++) {
+                bool checkItemChanged = true;
+                if (j < vanillaArmorLength) {
+                    currentEquipArmor[j] = Player.armor[j];
+                }
+                else {
+                    int num = j - vanillaArmorLength;
+                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player) && !loader.Get(num).FunctionalItem.vanity) {
+                        currentEquipArmor[j] = loader.Get(num).FunctionalItem;
+                    }
+                    else {
+                        checkItemChanged = false;
+                        currentEquipArmor[j] = new Item();
+                    }
+                }
+
+                if(checkItemChanged && !getArrayOnly)
+                    equipArmorStatsUpdated[j] = !ItemChanged(currentEquipArmor[j], equipArmor[j]);
+            }
+
+            return currentEquipArmor;
         }
         public override void PostUpdate() {
             /*Troubleshooting Localization
@@ -421,31 +449,13 @@ namespace WeaponEnchantments
                 }
 			}*/
 
-            int vanillaArmorLength = Player.armor.Length / 2;
-            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            //int vanillaArmorLength = Player.armor.Length / 2;
+            //var loader = LoaderManager.Get<AccessorySlotLoader>();
             //Check if armor changed
-            for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
-                    armor = Player.armor[j];
-                }
-                else {
-                    int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player)) {
-                        armor = loader.Get(num).FunctionalItem;
-                    }
-                    else {
-                        armor = new Item();
-                    }
-                }
-
-                if (!armor.vanity)
-                    equipArmorStatsUpdated[j] = !ItemChanged(armor, equipArmor[j]);
-            }
+            Item[] currentArmor = GetEquipArmor();
             
             for (int j = 0; j < equipArmor.Length; j++) {
-                Item armor;
-                if (j < vanillaArmorLength) {
+                /*if (j < vanillaArmorLength) {
                     armor = Player.armor[j];
                 }
                 else {
@@ -454,10 +464,11 @@ namespace WeaponEnchantments
                         armor = loader.Get(num).FunctionalItem;
                     else
                         armor = new Item();
-                }
+                }*/
 
                 bool armorStatsUpdated = equipArmorStatsUpdated[j];
                 if (!armorStatsUpdated) {
+                    Item armor = currentArmor[j];
                     armor.CheckRemoveEnchantments(Player);
                     UpdatePotionBuffs(ref armor, ref equipArmor[j]);
                     UpdatePlayerStats(ref armor, ref equipArmor[j]);

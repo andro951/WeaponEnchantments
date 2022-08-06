@@ -296,9 +296,8 @@ namespace WeaponEnchantments.Common.Globals
                     clone.enchantments[i] = enchantments[i].Clone();
             }
 
-			#endregion
+            #endregion
 
-			clone.equippedInArmorSlot = false;
 
             if(!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
@@ -659,7 +658,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
                     float damageMultiplier = item.ApplyEStat("Damage", 1f);
                     if (damageMultiplier > 1f) {
-                        int damage = (int)Math.Round(item.damage * damageMultiplier);
+                        int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
                         string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
                         tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
                     }
@@ -810,7 +809,7 @@ namespace WeaponEnchantments.Common.Globals
             float rand = Main.rand.NextFloat();
             float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);
 
-            return rand >= ammoSaveChance;
+            return rand <= ammoSaveChance;
         }
 		public override bool? CanAutoReuseItem(Item item, Player player) {
             if (statModifiers.ContainsKey("P_autoReuse")) {
@@ -862,13 +861,26 @@ namespace WeaponEnchantments.Common.Globals
                 wePlayer.allForOneTimer = timer;
             }
 
-            //stack0  (item.placeStyle fix for a placable enchantable item)
-            if(item.consumable && item.stack < 2 && Modified && item.placeStyle == 0) {
-                Restock(item);
+            //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
+            if(item.consumable && Modified && item.placeStyle == 0) {
+                
+                //Ammo Cost
+                if(_stack < 0 || item.stack == Stack) {
+                    float rand = Main.rand.NextFloat();
+                    float ammoSaveChance = -1f * item.ApplyEStat("AmmoCost", 0f);
 
-                if(item.stack < 2) {
-                    Stack0 = true;
-                    item.stack = 2;
+                    if (rand <= ammoSaveChance)
+                        item.stack++;
+                }
+
+                //Restock and Stack0
+                if (item.stack < 2) {
+                    Restock(item);
+
+                    if (item.stack < 2) {
+                        Stack0 = true;
+                        item.stack = 2;
+                    }
                 }
 			}
 
@@ -914,8 +926,7 @@ namespace WeaponEnchantments.Common.Globals
 
             return false;
         }
-        public override void RightClick(Item item, Player player)
-        {
+        public override void RightClick(Item item, Player player) {
             if (item.stack <= 1)
                 return;
 
@@ -1485,7 +1496,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Low damage per hit xp boost
             float lowDamagePerHitXPBoost;
-            if (item != null) {
+            if (item != null && target.defense > 0) {
                 //Remove 2x from crit
                 float effectiveDamagePerHit = actualDamage;
                 if (crit)
@@ -1505,8 +1516,8 @@ namespace WeaponEnchantments.Common.Globals
 
             if(lowDamagePerHitXPBoost < 1f) {
                 ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
-                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, " +
-                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
+                    $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" +
+					$"target.defense: {target.defense}, armorPenetration: {armorPenetration} xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
