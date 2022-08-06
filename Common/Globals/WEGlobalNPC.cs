@@ -813,6 +813,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
+
             #region Debug
 
             if (LogMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
