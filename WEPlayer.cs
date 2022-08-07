@@ -533,6 +533,71 @@ namespace WeaponEnchantments
 
             return allEffects;
         }
+        private struct StatDamageClass {
+            public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
+                EditableStat = editableStat;
+                DamageClass = damageClass;
+            }
+                public EditableStat EditableStat;
+                public DamageClass DamageClass;
+        }
+        public void ApplyPostMiscEnchants() {
+            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
+
+            List<IPassiveEffect> passiveEffects = new List<IPassiveEffect>();
+            List<StatEffect> statEffects = new List<StatEffect>();
+
+            // Divide effects based on what is needed.
+            foreach (EnchantmentEffect effect in allEffects) {
+                if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
+                    passiveEffects.Add((IPassiveEffect)effect);
+
+                if (effect is StatEffect)
+                    statEffects.Add((StatEffect)effect);
+            }
+
+            // Apply all PostUpdateMiscEffects
+            foreach (IPassiveEffect effect in passiveEffects) {
+                effect.PostUpdateMiscEffects(this);
+            }
+
+            PlayerEquipment newEquipment = PlayerEquipment;
+            if (newEquipment != LastPlayerEquipment) {
+                LastPlayerEquipment = newEquipment;
+            }
+
+            // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
+            if (statEffects.Any())
+                ApplyStatEffects(statEffects);
+
+        }
+        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
+
+            // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
+            Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
+            Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
+
+            foreach (StatEffect statEffect in StatEffects) {
+                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;
+                StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
+                if (!statModifiers.ContainsKey(statDC)) {
+                    // If the stat name isn't on the dictionary add it
+                    statModifiers.Add(statDC, statEffect.statModifier);
+                    statCounts.Add(statDC, 1);
+                }
+                else {
+                    // If the stat name is on the dictionary, combine it's modifiers
+                    statModifiers[statDC] = statModifiers[statDC].CombineWith(statEffect.statModifier);
+                    statCounts[statDC] += 1;
+                }
+            }
+
+            // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
+
+            foreach (StatDamageClass eb in statModifiers.Keys) {
+                ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
+            }
+        }
         private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
             switch (es) {
                 case EditableStat.ArmorPenetration:
@@ -582,71 +647,6 @@ namespace WeaponEnchantments
                     Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
                     break;
             }
-        }
-        private struct StatDamageClass {
-            public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
-                EditableStat = editableStat;
-                DamageClass = damageClass;
-            }
-                public EditableStat EditableStat;
-                public DamageClass DamageClass;
-        }
-        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
-
-            // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
-            Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
-            Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
-
-            foreach (StatEffect statEffect in StatEffects) {
-                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;
-                StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
-                if (!statModifiers.ContainsKey(statDC)) {
-                    // If the stat name isn't on the dictionary add it
-                    statModifiers.Add(statDC, statEffect.statModifier);
-                    statCounts.Add(statDC, 1);
-                }
-                else {
-                    // If the stat name is on the dictionary, combine it's modifiers
-                    statModifiers[statDC] = statModifiers[statDC].CombineWith(statEffect.statModifier);
-                    statCounts[statDC] += 1;
-                }
-            }
-
-            // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
-
-            foreach (StatDamageClass eb in statModifiers.Keys) {
-                ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
-            }
-        }
-        public void ApplyPostMiscEnchants() {
-            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
-
-            List<IPassiveEffect> passiveEffects = new List<IPassiveEffect>();
-            List<StatEffect> statEffects = new List<StatEffect>();
-
-            // Divide effects based on what is needed.
-            foreach (EnchantmentEffect effect in allEffects) {
-                if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
-                    passiveEffects.Add((IPassiveEffect)effect);
-
-                if (effect is StatEffect)
-                    statEffects.Add((StatEffect)effect);
-            }
-
-            // Apply all PostUpdateMiscEffects
-            foreach (IPassiveEffect effect in passiveEffects) {
-                effect.PostUpdateMiscEffects(this);
-            }
-
-            PlayerEquipment newEquipment = PlayerEquipment;
-            if (newEquipment != LastPlayerEquipment) {
-                LastPlayerEquipment = newEquipment;
-            }
-
-            // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
-            if (statEffects.Any())
-                ApplyStatEffects(statEffects);
-
         }
 
         // Not using hitDirection yet.
