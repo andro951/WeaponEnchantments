@@ -577,24 +577,24 @@ namespace WeaponEnchantments
             }
         }
 
-        private struct StatDC {
-            public StatDC(EditableStat es, DamageClass dc) {
-                ES = es;
-                DC = dc;
+        private struct StatDamageClass {
+            public StatDamageClass(EditableStat es, DamageClass dc) {
+                EditableStat = es;
+                DamageClass = dc;
             }
-                public EditableStat ES;
-                public DamageClass DC;
+                public EditableStat EditableStat;
+                public DamageClass DamageClass;
         }
 
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
-            Dictionary<StatDC, StatModifier> statModifiers = new Dictionary<StatDC, StatModifier>();
-            Dictionary<StatDC, int> statCounts = new Dictionary<StatDC, int>();
+            Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
+            Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
 
             foreach (StatEffect statEffect in StatEffects) {
                 DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;
-                StatDC statDC = new StatDC(statEffect.statName, dc);
+                StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
                 if (!statModifiers.ContainsKey(statDC)) {
                     // If the stat name isn't on the dictionary add it
                     statModifiers.Add(statDC, statEffect.statModifier);
@@ -609,8 +609,8 @@ namespace WeaponEnchantments
 
             // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
 
-            foreach (StatDC eb in statModifiers.Keys) {
-                ModifyStat(eb.ES, statModifiers[eb], eb.DC);
+            foreach (StatDamageClass eb in statModifiers.Keys) {
+                ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
             }
         }
         public void ApplyPostMiscEnchants() {

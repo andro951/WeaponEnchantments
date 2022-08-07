@@ -7,8 +7,12 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override EnchantmentEffect[] Effects
         {
             get => new EnchantmentEffect[] {
-            new LifeSteal(new StatModifier(1, 1, (EnchantmentTier + 1) * 0.005f))       };
+                new LifeSteal(new StatModifier(1, 1, (EnchantmentTier + 1) * 0.005f))
+            };
         }
+        /*public override EnchantmentEffect[] Effects => new EnchantmentEffect[] {
+            new LifeSteal(new StatModifier(1, 1, (EnchantmentTier + 1) * 0.005f))
+        };*/
 
         public override string CustomTooltip => $"(remainder is saved to prevent always rounding to 0 for low damage weapons)";
         public override float ScalePercent => 0.8f;
