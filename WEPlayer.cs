@@ -664,7 +664,8 @@ namespace WeaponEnchantments
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
 
-            
+            //if (target.type == NPCID.TargetDummy)
+            //    return;
 
             ApplyLifeSteal(item, target, damage);
         }
