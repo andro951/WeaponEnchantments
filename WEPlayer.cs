@@ -536,14 +536,18 @@ namespace WeaponEnchantments
         private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
             switch (es) {
                 case EditableStat.ArmorPenetration:
-                    if (dc == null) return;
+                    if (dc == null)
+                        return;
+
                     Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
                     break;
                 case EditableStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
                 case EditableStat.Damage:
-                    if (dc == null) return;
+                    if (dc == null)
+                        return;
+
                     Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
                 case EditableStat.Defense:
@@ -581,9 +585,9 @@ namespace WeaponEnchantments
         }
 
         private struct StatDamageClass {
-            public StatDamageClass(EditableStat es, DamageClass dc) {
-                EditableStat = es;
-                DamageClass = dc;
+            public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
+                EditableStat = editableStat;
+                DamageClass = damageClass;
             }
                 public EditableStat EditableStat;
                 public DamageClass DamageClass;
