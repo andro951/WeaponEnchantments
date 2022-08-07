@@ -532,7 +532,6 @@ namespace WeaponEnchantments
 
             return allEffects;
         }
-
         private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
             switch (es) {
                 case EditableStat.ArmorPenetration:
@@ -583,7 +582,6 @@ namespace WeaponEnchantments
                     break;
             }
         }
-
         private struct StatDamageClass {
             public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
                 EditableStat = editableStat;
@@ -592,7 +590,6 @@ namespace WeaponEnchantments
                 public EditableStat EditableStat;
                 public DamageClass DamageClass;
         }
-
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.

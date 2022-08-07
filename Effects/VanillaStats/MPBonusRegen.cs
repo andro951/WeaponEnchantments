@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Effects {
     /// This is for constant mana regen
     /// </summary>
     public class MPBonusRegen : StatEffect {
-        public MPBonusRegen(StatModifier statModifier) : base(statModifier) { }
+        public MPBonusRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
         public override EditableStat statName => EditableStat.BonusManaRegen;
         public override string DisplayName { get; } = "Bonus Mana Regeneration";

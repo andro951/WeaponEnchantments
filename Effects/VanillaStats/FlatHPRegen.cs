@@ -8,7 +8,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class FlatHPRegen : StatEffect {
-        public FlatHPRegen(StatModifier statModifier) : base(statModifier) { }
+        public FlatHPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
         public override EditableStat statName => EditableStat.LifeRegen;
         public override string DisplayName => "Life Regeneration";

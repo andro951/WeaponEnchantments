@@ -8,7 +8,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class MaxHP : StatEffect {
-        public MaxHP(StatModifier statModifier) : base(statModifier) { }
+        public MaxHP(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
         public override EditableStat statName => EditableStat.MaxHP;
         public override string DisplayName { get; } = "Max Life";

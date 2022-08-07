@@ -10,7 +10,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class WingTime : StatEffect, IPassiveEffect {
-        public WingTime(StatModifier sm, bool infinity = false) : base(sm) {
+        public WingTime(bool infinity, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) {
             Infinity = infinity;
         }
 
