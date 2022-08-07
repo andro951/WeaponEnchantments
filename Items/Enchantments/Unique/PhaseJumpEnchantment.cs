@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WeaponEnchantments.Items.Enchantments
+namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class PhaseJumpEnchantment : Enchantment
 	{
@@ -10,8 +10,8 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Armor", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Armor, 1f }
 		};
 		public override void GetMyStats() {
 			AddStaticStat("dashType", 0f, 1f, 0f, 3f);

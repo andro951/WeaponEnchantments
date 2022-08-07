@@ -91,9 +91,9 @@ namespace WeaponEnchantments.Common
                 if (item != null) {
                     if (!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1) {
                         string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
-                        bool weaponList = mode == GetItemDictModeID.Weapon && WEMod.IsWeaponItem(item);
-                        bool armorList = mode == GetItemDictModeID.Armor && WEMod.IsArmorItem(item);
-                        bool accessory = mode == GetItemDictModeID.Accessory && WEMod.IsAccessoryItem(item);
+                        bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
+                        bool armorList = mode == GetItemDictModeID.Armor && EnchantedItemStaticMethods.IsArmorItem(item);
+                        bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
                         if ( weaponList || armorList || accessory) {
                             if(printList)
                                 msg += item.Name;
@@ -286,7 +286,7 @@ namespace WeaponEnchantments.Common
             float damageMultiplier = 1f;
             string consumedItemName = "";
             int infusedArmorSlot = -1;
-            if (WEMod.IsWeaponItem(item) && (WEMod.IsWeaponItem(consumedItem) || consumedItem.IsAir)) {
+            if (EnchantedItemStaticMethods.IsWeaponItem(item) && (EnchantedItemStaticMethods.IsWeaponItem(consumedItem) || consumedItem.IsAir)) {
                 //Weapon
                 if (item.GetWeaponInfusionPower() < consumedItem.GetWeaponInfusionPower() || reset) {
                     if (failedItemFind) {
@@ -323,7 +323,7 @@ namespace WeaponEnchantments.Common
 
                 return false;
             }
-            else if (WEMod.IsArmorItem(item) && ((WEMod.IsArmorItem(consumedItem) || consumedItem.IsAir))) {
+            else if (EnchantedItemStaticMethods.IsArmorItem(item) && ((EnchantedItemStaticMethods.IsArmorItem(consumedItem) || consumedItem.IsAir))) {
                 //Armor
                 if (item.GetSlotIndex() == consumedItem.GetSlotIndex()) {
                     if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot()) {
@@ -359,7 +359,7 @@ namespace WeaponEnchantments.Common
 
                 return false;
             }
-            if (finalize && !failedItemFind && (WEMod.IsWeaponItem(item) || WEMod.IsArmorItem(item))) {
+            if (finalize && !failedItemFind && (EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))) {
                 Main.NewText($"Infusion is only possitle between items of the same type (Weapon/Armor)");
             }
 
@@ -375,7 +375,7 @@ namespace WeaponEnchantments.Common
             return TryInfuseItem(item, new Item(), reset, finalize);
         }
         public static void GetGlotalItemStats(this Item item, Item infusedItem, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
-			if (WEMod.IsWeaponItem(item)) {
+			if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
                 damageMultiplier = GetWeaponMultiplier(item, infusedItem, out infusedPower);
                 infusedArmorSlot = -1;
             }
@@ -411,10 +411,10 @@ namespace WeaponEnchantments.Common
 
                 if (type > 0) {
                     GetGlotalItemStats(item, new Item(type), out infusedPower, out damageMultiplier, out infusedArmorSlot);
-                    if (WEMod.IsWeaponItem(item)) {
-                        item.UpdateInfusionDamage(damageMultiplier, false);
+                    if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
+                        item.UpdateInfusionDamage(damageMultiplier);
                     }
-                    else if (WEMod.IsArmorItem(item)) {
+                    else if (EnchantedItemStaticMethods.IsArmorItem(item)) {
                         item.UpdateArmorSlot(infusedArmorSlot);
                     }
 
@@ -425,10 +425,10 @@ namespace WeaponEnchantments.Common
             infusedPower = 0;
             damageMultiplier = 1f;
             infusedArmorSlot = -1;
-            if (WEMod.IsWeaponItem(item)) {
+            if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
                 item.UpdateInfusionDamage(damageMultiplier, false);
             }
-            else if (WEMod.IsArmorItem(item)) {
+            else if (EnchantedItemStaticMethods.IsArmorItem(item)) {
                 item.UpdateArmorSlot(infusedArmorSlot);
             }
             
@@ -441,9 +441,8 @@ namespace WeaponEnchantments.Common
             if(damageMultiplier != 1f || iGlobal.statModifiers.ContainsKey("damage")) {
                 if(damageMultiplier > 0f) {
                     if (iGlobal.statModifiers.ContainsKey("damage")) {
-                        iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);//This is being hit.  It's never supposed to be.  Just a precaution.
-
-                        $"Updated the infusion damage multiplier again for item: {item.S()}.  This shouldn't ever happen".LogNT(ChatMessagesIDs.UpdatedInfusionDamageAgain);
+                        //Used for resetting non-finalized items and upgrading items that already have an infused item
+                        iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
                     }
                     else {
                         iGlobal.statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
@@ -481,7 +480,7 @@ namespace WeaponEnchantments.Common
             }
 		}
         public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false) {
-            if (!getCurrent && item.TryGetGlobalItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1) {
+            if (!getCurrent && item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1) {
                 return iGlobal.infusedArmorSlot;
             }
 			else

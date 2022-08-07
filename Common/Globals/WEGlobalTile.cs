@@ -44,14 +44,8 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		public override bool CanKillTile(int i, int j, int type, ref bool blockDamaged) {
 			Tile tileTarget = Main.tile[i, j];
-			if (tileTarget.TileType == TileID.MysticSnakeRope)
+			if (tileTarget.TileType == MysticSnakeRope)
 				return true;
-
-			//Hammer (Don't calculate a dropItem)
-			if (Main.tileHammer[tileTarget.TileType]) {
-				dropItem = new Item();
-				return true;
-			}
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			
@@ -60,7 +54,7 @@ namespace WeaponEnchantments.Common.Globals
 			int damageAmount = 0;
 			if (Main.tileAxe[tileTarget.TileType]) {
 				//Axe
-				if (tileTarget.TileType == TileID.Cactus) {
+				if (tileTarget.TileType == Cactus) {
 					//Cactus
 					damageAmount += (int)(wePlayer.Player.HeldItem.axe * 3 * 1.2f);
 				}
@@ -78,16 +72,7 @@ namespace WeaponEnchantments.Common.Globals
 			int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
 			if (damage >= 100) {
 				tileType = tileTarget.TileType;
-				ModTile modTile = TileLoader.GetTile(type);
-				//Get item dropped by the tile
-				if (modTile != null && TileID.Sets.Ore[tileType]) {
-					//Modded ore
-					dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item;
-				}
-				else {
-					//Vanilla tile
-					dropItem = new Item(GetDroppedItems(tileTarget));
-				}
+				dropItem = new Item(GetDroppedItem(tileTarget, type));
 			}
 
 			return true;
@@ -96,31 +81,30 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item heldItem = wePlayer.Player.HeldItem;
 
+			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
+				return;
+
 			if (heldItem.pick <= 0 && heldItem.axe <= 0 && heldItem.hammer <= 0)
 				return;
 
-			if (tileType < 0 || tileType == TileID.MysticSnakeRope)
+			if (tileType < 0 || tileType == MysticSnakeRope)
 				return;
 
-                int xp = 1;
+            int xp = 1;
 			
 			xp += GetTileStrengthXP(tileType);
 			if (Main.tileAxe[tileType]) {
 				//Axe
 				int tiles = 0;
 				int y = j;
-				while (y > 10 && Main.tile[i, y].HasTile && TileID.Sets.IsShakeable[Main.tile[i, y].TileType]) {
+				while (y > 10 && Main.tile[i, y].HasTile && Sets.IsShakeable[Main.tile[i, y].TileType]) {
 					y--;
 					tiles++;
 				}
 
-				xp = tileType >= TileID.TreeTopaz && tileType <= TileID.TreeAmber ? tiles  * 50 : tiles * 10;
+				xp = tileType >= TreeTopaz && tileType <= TreeAmber ? tiles  * 50 : tiles * 10;
 			}
-			else if (Main.tileHammer[tileType]) {
-				//Hammer
-				xp += 4;
-			}
-            else {
+			else {
 				//Pickaxe
 				if (dropItem.type != ItemID.None) {
 					xp += dropItem.value / 100;
@@ -128,21 +112,21 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
 			//Config multiplier
-			if (GatheringExperienceMultiplier > 1f) {
+			if (GatheringExperienceMultiplier != 1f) {
 				xp = (int)Math.Round((float)xp * GatheringExperienceMultiplier);
 				if (xp < 1)
 					xp = 1;
 			}
 			
 			//Gain xp
-			wePlayer.Player.HeldItem.GetEnchantedItem().GainXP(wePlayer.Player.HeldItem, xp);
+			hGlobal.GainXP(wePlayer.Player.HeldItem, xp);
 			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
 			
 			//Reset static tile info
 			tileType = -1;
 			dropItem = new Item();
         }
-		public static int GetDroppedItems(Tile tileCache) {
+		public static int GetDroppedItem(Tile tileCache, int type) {
 			int dropItem = 0;
 			switch (tileCache.TileType) {
 				//Coin Piles
@@ -291,7 +275,18 @@ namespace WeaponEnchantments.Common.Globals
 							dropItem = ItemID.Amber;
 							break;
 						default:
-							$"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, tileCache.TileFrameY: {tileCache.TileFrameY}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+
+							ModTile modTile = TileLoader.GetTile(type);
+							//Get item dropped by the tile
+							if (modTile != null && TileID.Sets.Ore[tileType]) {
+								//Modded ore
+								dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item.type;
+							}
+							else {
+								($"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, " +
+									$"tileCache.TileFrameY: {tileCache.TileFrameY}.").LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+							}
+
 							break;
 					}
 					break;

@@ -103,7 +103,7 @@ namespace WeaponEnchantments.Tiles
 
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable) {
-				WEModSystem.CloseWeaponEnchantmentUI();//Move to on tick check
+				WEModSystem.CloseWeaponEnchantmentUI();
 				Recipe.FindRecipes();
 			}
 			else {
@@ -122,7 +122,6 @@ namespace WeaponEnchantments.Tiles
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();
-				wePlayer.StoreLastFocusRecipe();
 			}
 
 			Main.mouseRightRelease = false;

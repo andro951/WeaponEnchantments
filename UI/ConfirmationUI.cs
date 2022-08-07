@@ -148,13 +148,13 @@ namespace WeaponEnchantments.UI
 
             int type = item.type;
             bool stop = false;
-            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return -1;
 
             //Enchantments
             for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++) {
-                if (!nonTableItem && !wePlayer.Enchantments(i).IsAir) {
-                    wePlayer.EnchantmentsInUI(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.Enchantments(i), GetItemSettings.LootAllSettings);
+                if (!nonTableItem && !wePlayer.EnchantmentInUI(i).IsAir) {
+                    wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                 }
                 else if (!iGlobal.enchantments[i].IsAir) {
                     Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
@@ -172,7 +172,7 @@ namespace WeaponEnchantments.UI
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
             }
 
-            int xp = item.GetEnchantedItem().Experience;
+            int xp = iGlobal.Experience;
             float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
 
             //Xp -> Essence
@@ -259,8 +259,16 @@ namespace WeaponEnchantments.UI
                 }
             }
             if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
+
+            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                promptText.SetText($"Non-Enchantable item detected in table.\n" +
+					$"WARNING, DO NOT PRESS CONFIRM.\n" +
+					$"Please report this issue to andro951(Weapon Enchantments)");
+                return;
+            }
+
             promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\n" +
-				$"level {wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\n" +
+				$"level {iGlobal.level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\n" +
 				$"In exchange for Iron, Silver and Gold ore and Essence?\n" +
 				$"(Based on item value/experience.  Enchantments will be returned.)"
             );

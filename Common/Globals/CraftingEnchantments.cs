@@ -30,6 +30,9 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override void OnCreate(Item item, ItemCreationContext context) {
             if(context is RecipeCreationContext recipeCreationContext) {
+                if (recipeCreationContext.ConsumedItems == null)
+                    return;
+
                 foreach (Item consumedItem in recipeCreationContext.ConsumedItems) {
                     if (consumedItem.ModItem is Enchantment) {
                         int size = ((Enchantment)consumedItem.ModItem).EnchantmentTier;

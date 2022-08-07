@@ -342,13 +342,14 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (npc.boss || multipleSegmentBoss) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
-                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
                 else {
                     loot.Add(dropRule);
                 }
             }
 
+            //Enchantments and other boss drops
             if (npc.boss || multipleSegmentBoss) {
                 //Boss Drops
 
@@ -358,7 +359,7 @@ namespace WeaponEnchantments.Common.Globals
                     denominator = 1;
 
                 dropRule = ItemDropRule.Common(ModContent.ItemType<SuperiorContainment>(), denominator, 1, 1);
-                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
                 bool preHardModeBoss = preHardModeBossTypes.Contains(npc.type) || preHardModeModBossNames.Contains(npc.FullName);
@@ -368,7 +369,7 @@ namespace WeaponEnchantments.Common.Globals
                         denominator = 1;
 
                     dropRule = ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
-                    loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
 
                 //Enchantment drop chance
@@ -384,32 +385,15 @@ namespace WeaponEnchantments.Common.Globals
                 //Enchantments
                 if (itemTypes.Count > 1) {
                     //More than 1 drop option
+                    dropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
 
-                    switch (npc.type) {
-                        case NPCID.CultistBoss:
-                            dropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
-                            break;
-                        default:
-                            IItemDropRule expertDropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
-                            dropRule = new DropBasedOnExpertMode(expertDropRule, ItemDropRule.DropNothing());
-                            break;
-                    }
-
-                    loot.Add(dropRule);
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
                 else if (itemTypes.Count > 0) {
                     //One drop option
-                    switch (npc.type) {
-                        case NPCID.CultistBoss:
-                            dropRule = ItemDropRule.Common(itemTypes[0], denominator);
-                            break;
-                        default:
-                            IItemDropRule expertDropRule = ItemDropRule.Common(itemTypes[0], denominator);
-                            dropRule = new DropBasedOnExpertMode(expertDropRule, ItemDropRule.DropNothing());
-                            break;
-                    }
+                    dropRule = ItemDropRule.Common(itemTypes[0], denominator);
 
-                    loot.Add(dropRule);
+                    AddBossLoot(loot, npc, dropRule, bossBag);
                 }
             }
             else {
@@ -644,6 +628,34 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
+        private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
+            //Setup mod boss bag support (Relies on NPC loot being set up before boss bag loot)
+            if (!GlobalBossBags.modBossBagIntegrationSetup) {
+                GlobalBossBags.SetupModBossBagIntegration();
+                GlobalBossBags.modBossBagIntegrationSetup = true;
+            }
+
+            bool npcCantDropBossBags;
+
+            switch (npc.type) {
+                //UnobtainableBossBags
+                case NPCID.CultistBoss:
+                case NPCID.DD2DarkMageT1:
+                case NPCID.DD2OgreT2:
+                    npcCantDropBossBags = true;
+                    break;
+                default:
+                    npcCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.type);
+                    break;
+            }
+
+            if (bossBag || npcCantDropBossBags) {
+                loot.Add(dropRule);
+			}
+			else {
+                loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
+            }
+        }
         public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total) {
             //Defense
             float defenseMultiplier = 1f + (float)npc.defDefense / 40f;
@@ -808,12 +820,17 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
+            bool multiShotConvertedToDamage = false;
+
             //Minion damage reduction from war enchantment
-            if(projectile != null) {
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || projectile.GetWEProjectile().parent != null && projectile.GetWEProjectile().parent.minion;
+            if (projectile != null) {
+                WEProjectile wEProjectile = projectile.GetWEProjectile();
+                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetWEProjectile().parent.minion;
                 if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
                     damage = (int)Math.Round(damage / myWarReduction);
                 }
+
+                multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
             }
 
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
@@ -844,8 +861,9 @@ namespace WeaponEnchantments.Common.Globals
             damage -= damageReduction;
 
             //Armor penetration bonus damage
-            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > npc.defDamage) {
-                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - npc.defDamage) / 2f);
+            int defenseNoNegative = npc.defense > 0 ? npc.defense : 0;
+            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
+                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
                 if (armorPenetrationBonusDamage > 50) {
                     int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
                     if (armorPenetrationBonusDamage > maxArmorPenetration)
@@ -856,7 +874,13 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Damage Enchantment
-            damage = (int)Math.Round(item.ApplyEStat("Damage", (float)damage));
+            float damageMultiplier = item.ApplyEStat("Damage", 1f);
+
+            //Multishot converted to damage
+            if (multiShotConvertedToDamage)
+                damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
+            
+            damage = (int)Math.Round((float)damage * damageMultiplier);
 
             //Critical strike
             if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
@@ -903,12 +927,12 @@ namespace WeaponEnchantments.Common.Globals
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
-            Dictionary<string, StatModifier> ItemEStats = item.GetEnchantedItem().eStats;
+            Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
             //Buffs and debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
-                foreach (int debuff in item.GetEnchantedItem().debuffs.Keys) {
+                foreach (int debuff in iGlobal.debuffs.Keys) {
                     //Amaterasu
                     if(debuff == ModContent.BuffType<AmaterasuDebuff>()) {
                         onHitEffects[OnHitEffectID.Amaterasu] = true;
@@ -918,7 +942,7 @@ namespace WeaponEnchantments.Common.Globals
                         amaterasuDamage += damage * (crit ? 2 : 1);
                     }
 
-                    npc.AddBuff(debuff, item.GetEnchantedItem().debuffs[debuff]);
+                    npc.AddBuff(debuff, iGlobal.debuffs[debuff]);
                 }
 
                 //Sets Minion Attack target
@@ -933,7 +957,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Buffs and Debuffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
-                    foreach (int onHitBuff in item.GetEnchantedItem().onHitBuffs.Keys) {
+                    foreach (int onHitBuff in iGlobal.onHitBuffs.Keys) {
                         switch (onHitBuff) {
                             case BuffID.CoolWhipPlayerBuff:
                                 //CoolWhip Snowflake
@@ -944,7 +968,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                         }
 
-                        player.AddBuff(onHitBuff, item.GetEnchantedItem().onHitBuffs[onHitBuff]);
+                        player.AddBuff(onHitBuff, iGlobal.onHitBuffs[onHitBuff]);
                     }
                 }
 
@@ -960,38 +984,6 @@ namespace WeaponEnchantments.Common.Globals
 
                     if (makingPacket && oneForAllWhoAmIs.Count > 0)
                         onHitEffects[OnHitEffectID.OneForAll] = true;
-                }
-
-                //LifeSteal
-                if (ItemEStats.ContainsKey("LifeSteal")) {
-                    float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
-                    float healTotal = (damage + oneForAllDamageDealt) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
-
-                    //Summon damage reduction
-                    bool summonDamage = SourceItem.DamageType == DamageClass.Summon || SourceItem.DamageType == DamageClass.MagicSummonHybrid;
-                    if (summonDamage)
-                        healTotal *= 0.5f;
-
-                    int heal = (int)healTotal;
-
-                    if (player.statLife < player.statLifeMax2) {
-                        //Player hp less than max
-                        if (heal > 0 && player.lifeSteal > 0f) {
-                            //Vanilla lifesteal mitigation
-                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimmit);
-                            player.lifeSteal -= vanillaLifeStealValue;
-
-                            Vector2 speed = new Vector2(0, 0);
-                            Projectile.NewProjectile(SourceItem.GetSource_ItemUse(SourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
-                        }
-
-                        //Life Steal Rollover
-                        wePlayer.lifeStealRollover = healTotal - heal;
-                    }
-                    else {
-                        //Player hp is max
-                        wePlayer.lifeStealRollover = 0f;
-                    }
                 }
             }
 
@@ -1087,10 +1079,7 @@ namespace WeaponEnchantments.Common.Globals
             if (npc.immune[player.whoAmI] <= 0)
                 return;
 
-            //Fix for Multishot not improving damage on flamethrowers
             float NPCHitCooldownMultiplier = SourceItem.ApplyEStat("NPCHitCooldown", 1f);
-            if(SourceItem.useAmmo == ItemID.Gel && SourceItem.Name != "Shadethrower")
-                NPCHitCooldownMultiplier *= 1f / (SourceItem.ApplyEStat("Multishot", 1f));
 
             //npc.immune
             int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
@@ -1111,6 +1100,9 @@ namespace WeaponEnchantments.Common.Globals
             int wormCounter = 0;
             whoAmIs = new List<int>();
             damages = new List<int>();
+
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return 0;
 
             //Range
             float oneForAllRange = baseOneForAllRange * item.scale;
@@ -1134,7 +1126,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
                 target.GetGlobalNPC<WEGlobalNPC>().SourceItem = SourceItem;
-                float allForOneMultiplier = item.GetEnchantedItem().eStats["OneForAll"].ApplyTo(0f);
+                float allForOneMultiplier = iGlobal.eStats["OneForAll"].ApplyTo(0f);
                 float baseAllForOneDamage = damage * allForOneMultiplier;
 
                 float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
@@ -1197,7 +1189,10 @@ namespace WeaponEnchantments.Common.Globals
 
 			#endregion
 			
-			float godSlayerBonus = item.GetEnchantedItem().eStats["GodSlayer"].ApplyTo(0f);
+            if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                return 0;
+
+			float godSlayerBonus = iGlobal.eStats["GodSlayer"].ApplyTo(0f);
             
             float actualDamageDealt = damage - damageReduction;
             float godSlayerDamage = actualDamageDealt * godSlayerBonus * npc.lifeMax / 100f;

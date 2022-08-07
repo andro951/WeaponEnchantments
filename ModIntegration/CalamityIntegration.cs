@@ -25,7 +25,7 @@ namespace WeaponEnchantments.ModIntegration
 
 		public override void Load() {
 			Enabled = ModLoader.HasMod(calamityName);
-			WEMod.calamity = Enabled;
+			WEMod.calamityEnabled = Enabled;
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (Enabled) {
@@ -95,7 +95,8 @@ namespace WeaponEnchantments.ModIntegration
 						Item clone = mouseItemClones[i];
 						if (mouseItem.IsSameEnchantedItem(clone) && mouseItem.HoverName != clone.HoverName) {
 							//Force recalculate UpdateItemStats()
-							mouseItem.GetEnchantedItem().prefix = -1;
+							if(mouseItem.TryGetEnchantedItem(out EnchantedItem miGlobal))
+								miGlobal.prefix = -1;
 
 							//Remove from list
 							mouseItemClones.RemoveAt(i);
@@ -147,8 +148,10 @@ namespace WeaponEnchantments.ModIntegration
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()
-				item.GetEnchantedItem().prefix = -1;
-				return true;
+				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+					iGlobal.prefix = -1;
+					return true;
+				}
 			}
 
 			return false;

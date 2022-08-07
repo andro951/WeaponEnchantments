@@ -1,0 +1,56 @@
+﻿#Contributed by "Dex?"
+Mods: {
+    WeaponEnchantments: {
+        ItemName: {
+            Containment: contenção
+            MediumContainment: Contenção Média
+            SuperiorContainment: Contenção Superior
+            WoodEnchantingTable: Mesa de Encantamento de Madeira
+            DustyEnchantingTable: Mesa de Encantamento Empoeirada
+            HellishEnchantingTable: Mesa de Encantamento Infernal
+            SoulEnchantingTable: Mesa de Encantamento Espiritual
+            UltimateEnchantingTable: Mesa de Encantamento Suprema
+        }
+        EnchantmentEssence: Essência de Encantamento
+        Enchantment: Encantamento
+        EnchantmentTypeNames: {
+            ArmorPenetration: Penetração de Armadura
+            CriticalStrikeChance: Chance de Acerto Crítico
+            Damage: Dano
+            LifeSteal: Roubo de Vida
+            MaxMinions: Máximo de Minions
+            Multishot: Tiro Múltiplo
+            OneForAll: Um Por Todos
+            Speed: Velocidade
+            StatDefense: Defesa
+            AllForOne: Todos Por Um
+            ColdSteel: Aço Frio
+            GodSlayer: Matador de Deuses
+            HellsWrath: Ira do Inferno
+            JunglesFury: Fúria da Selva
+            Moonlight: Luar
+            AmmoCost: Custo de Munição
+            Mana: Custo de Mana
+            MoveSpeed: Velocidade de Movimento
+            Peace: Paz
+            Scale: Tamanho
+            ShootSpeed: Velocidade de disparo
+            War: Guerra
+            WorldAblaze: Mundo Em Chamas
+        }
+        TierNames: {
+            Basic: Básico
+            Common: Comum
+            Rare: Raro
+            SuperRare: Super Raro
+            UltraRare: Ultra Raro
+        }
+        DisplayTierNames: {
+            Basic: Básico
+            Common: Comum
+            Rare: Raro
+            Epic: Épico
+            Legendary: Legendário
+        }
+    }
+}

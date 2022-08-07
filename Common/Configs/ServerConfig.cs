@@ -109,6 +109,12 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentDropChance;
 
+        [Label("Chest Enchantment Spawn Chance(%)")]
+        [Tooltip("Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)")]
+        [Range(0, 4000)]
+        [DefaultValue(50)]
+        public int ChestSpawnChance;
+
         //Other Drop Rates
         [Header("Other Drop Rates")]
         [Label("Prevent pre-hard mode bosses from dropping power boosters.")]
@@ -129,6 +135,33 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(50)]
         [Range(0, 100)]
         public int PercentOfferEssence;
+
+        [Label("Enchantment Slots On Weapons")]
+        [Tooltip("1st slot is a normal slot.\n" +
+			"2nd slot is the utility slot.\n" +
+			"3rd-5th are normal slots.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnWeapons;
+
+        [Label("Enchantment Slots On Armor")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(3)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnArmor;
+
+        [Label("Enchantment Slots On Accissories")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(1)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnAccessories;
 
         //General Game Changes
         [Header("General Game Changes")]
@@ -241,6 +274,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool UseAlternateEnchantmentEssenceTextures;
+
+        [Label("Display approximate weapon damage in the tooltip")]
+        [Tooltip("Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
+            "This displays the damage against a 0 armor enemy.")]
+        [DefaultValue(false)]
+        public bool DisplayApproximateWeaponDamageTooltip;
 
         //Error messages
         [Header("Error Messages")]

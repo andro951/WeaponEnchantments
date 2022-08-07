@@ -9,8 +9,8 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override bool? ShowPercentSignInTooltip => false;
 		public override bool? MultiplyBy100InTooltip => false;
 		public override int StrengthGroup => 4;
-		public override Dictionary<string, float> AllowedList => new Dictionary<string, float>() {
-			{ "Weapon", 1f }
+		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
+			{ EItemType.Weapon, 1f }
 		};
 		public override void GetMyStats() {
 			CheckStaticStatByName();
