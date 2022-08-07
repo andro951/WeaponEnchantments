@@ -523,8 +523,9 @@ namespace WeaponEnchantments
             if (heldItem == null && IsWeaponItem(Player.HeldItem)) { 
                 heldItem = Player.HeldItem;
             }
+
             // If a held item has been set
-            if (heldItem != null && heldItem.TryGetEnchantedItem(out EnchantedItem enchantedHeldItem)) { 
+            if (heldItem.TryGetEnchantedItem(out EnchantedItem enchantedHeldItem)) {
                 // Use that item's enchantments too
                 IEnumerable<EnchantmentEffect> heldItemEffects = PlayerEquipment.ExtractEnchantmentEffects(enchantedHeldItem);
                 allEffects = allEffects.Concat(heldItemEffects);

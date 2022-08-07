@@ -796,7 +796,8 @@ namespace WeaponEnchantments.Common.Globals
             float rand = Main.rand.NextFloat();
             float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);
 
-            return rand <= ammoSaveChance;
+            //True means it will consume ammo
+            return rand > ammoSaveChance;
         }
 		public override bool? CanAutoReuseItem(Item item, Player player) {
             if (statModifiers.ContainsKey("P_autoReuse")) {
