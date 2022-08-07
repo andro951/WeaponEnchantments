@@ -35,9 +35,8 @@ namespace WeaponEnchantments.Common {
 
             for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
                 var slot = loader.Get(i, player);
-                if (slot.IsEnabled() && !slot.IsEmpty) {
+                if (slot.IsEnabled() && !slot.IsEmpty)
                     Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
-                }
             }
         }
 
@@ -54,6 +53,7 @@ namespace WeaponEnchantments.Common {
                 .Where(i => i != null)
                 .Select(i => i.GetEnchantedItem())
                 .Where(i => i != null);
+
             return enchantedItems;
         }
 
@@ -78,6 +78,7 @@ namespace WeaponEnchantments.Common {
                     }
                 }
             }
+
             return effects;
         }
 
@@ -89,6 +90,7 @@ namespace WeaponEnchantments.Common {
             Item[] items = new Item[Armor.Length + Accesories.Length];
             Armor.CopyTo(items, 0);
             Accesories.CopyTo(items, Armor.Length);
+
             return items;
         }
 
@@ -97,6 +99,7 @@ namespace WeaponEnchantments.Common {
             items[0] = HeldItem;
             Armor.CopyTo(items, 1);
             Accesories.CopyTo(items, 1 + Armor.Length);
+
             return items;
         }
 
@@ -117,30 +120,33 @@ namespace WeaponEnchantments.Common {
         }
 
         public override bool Equals(object obj) {
-            if (ReferenceEquals(this, obj)) {
+            if (ReferenceEquals(this, obj))
                 return true;
-            }
 
-            if (ReferenceEquals(obj, null)) {
+            if (ReferenceEquals(obj, null))
                 return false;
-            }
 
-            if (obj is not PlayerEquipment) {
+            if (obj is not PlayerEquipment)
                 return false;
-            }
 
             PlayerEquipment other = (PlayerEquipment)obj;
 
             IEnumerable<Item> myItems = GetAllItems();
             IEnumerable<Item> otherItems = other.GetAllItems();
             int count = myItems.Count();
-            if (count != otherItems.Count()) return false;
+            if (count != otherItems.Count())
+                return false;
+
             for (int i = 0; i < count; i++) {
                 Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
-                if (ci == ci2) continue;
-                if (ci.netID != ci2.netID) return false;
+                if (ci == ci2)
+                    continue;
+
+                if (ci.netID != ci2.netID)
+                    return false;
             }
+
             return true;
         }
     }
