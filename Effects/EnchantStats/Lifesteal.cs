@@ -27,10 +27,12 @@ namespace WeaponEnchantments.Effects {
             if (flats > 0) {
                 final += $"{s(flats)}{flats}%";
             }
+
             if (mult > 0) {
                 if (final != "") final += ' ';
                 final += $"{s(mult)}{mult.Percent()}%";
             }
+
             return final;
         }
     }
