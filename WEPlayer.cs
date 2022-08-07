@@ -601,16 +601,6 @@ namespace WeaponEnchantments {
                 ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
             }
         }
-
-        //Moved to StatEffect.cs
-        /*private StatModifier ApplyEfficiencyMultiplier(StatModifier original, float efficiencyMultiplier) {
-            float additive = 1f + (original.Additive - 1f) * efficiencyMultiplier;
-            float multiplicative = 1f + (original.Multiplicative - 1f) * efficiencyMultiplier;
-            float flat = original.Flat * efficiencyMultiplier;
-            float @base = original.Base * efficiencyMultiplier;
-
-            return new StatModifier(additive, multiplicative, flat, @base);
-        }*/
         private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
             switch (es) {
                 case EditableStat.ArmorPenetration:
