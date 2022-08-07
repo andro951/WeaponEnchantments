@@ -76,6 +76,7 @@ namespace WeaponEnchantments {
             MaxHP,
             MaxMP,
             MoveAcceleration,
+            MoveSlowdown,
             MoveSpeed,
             Size,
             Speed,
@@ -658,8 +659,14 @@ namespace WeaponEnchantments {
                 case EditableStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
                     break;
+                case EditableStat.MaxFallSpeed:
+                    Player.maxFallSpeed = sm.ApplyTo(Player.maxFallSpeed);
+                    break;
                 case EditableStat.MoveAcceleration:
                     Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
+                    break;
+                case EditableStat.MoveSlowdown:
+                    Player.runSlowdown = sm.ApplyTo(Player.runSlowdown);
                     break;
                 case EditableStat.MoveSpeed:
                     Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
