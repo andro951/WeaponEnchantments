@@ -251,6 +251,9 @@ namespace WeaponEnchantments
 
             return currentEquipArmor;
         }
+        public override void PostUpdateMiscEffects() {
+            ApplyPostMiscEnchants();
+        }
         public override void PostUpdate() {
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
@@ -660,6 +663,8 @@ namespace WeaponEnchantments
             foreach (IOnHitEffect effect in relevantEffects) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
+
+            
 
             ApplyLifeSteal(item, target, damage);
         }
