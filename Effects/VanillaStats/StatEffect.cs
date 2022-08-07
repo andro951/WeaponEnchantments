@@ -14,6 +14,10 @@ namespace WeaponEnchantments.Effects {
             statModifier = sm;
         }
 
+        protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
+            statModifier = new StatModifier(1f + additive, multiplicative, flat, @base);
+		}
+
         public StatModifier statModifier;
         public abstract EditableStat statName { get; }
 

@@ -667,20 +667,22 @@ namespace WeaponEnchantments
             //if (target.type == NPCID.TargetDummy)
             //    return;
 
-            ApplyLifeSteal(item, target, damage);
+            int oneForAllDamage = 0;// ActivateOneForAll();
+
+            ApplyLifeSteal(item, target, damage, oneForAllDamage);
         }
 
         #endregion
 
         #region Enchantment Stat effect definitions
-        public void ApplyLifeSteal(Item item, NPC npc, int damage) {
+        public void ApplyLifeSteal(Item item, NPC npc, int damage, int oneForAllDamage) {
             if (!canLifeSteal)
                 return;
 
             Player player = Player;
 
             // TODO: Make stack with one for all
-            float healTotal = damage * lifeSteal * (player.moonLeech ? 0.5f : 1f) + lifeStealRollover;
+            float healTotal = (damage + oneForAllDamage) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + lifeStealRollover;
 
             int heal = (int)healTotal;
 
