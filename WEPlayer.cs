@@ -626,6 +626,7 @@ namespace WeaponEnchantments
             foreach (EnchantmentEffect effect in allEffects) {
                 if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
                     passiveEffects.Add((IPassiveEffect)effect);
+
                 if (effect is StatEffect)
                     statEffects.Add((StatEffect)effect);
             }
@@ -634,10 +635,12 @@ namespace WeaponEnchantments
             foreach (IPassiveEffect effect in passiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
+
             PlayerEquipment newEquipment = PlayerEquipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
             }
+
             // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
             if (statEffects.Any()) ApplyStatEffects(statEffects);
 
