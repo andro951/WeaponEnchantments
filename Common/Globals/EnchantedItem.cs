@@ -733,7 +733,7 @@ namespace WeaponEnchantments.Common.Globals
                 .Select(i => (Enchantment)i.ModItem);
 
             EItemType itemType = GetEItemType();
-
+            
             foreach (Enchantment enchantment in enchantmentModItems) {
                 float effectiveness = enchantment.AllowedList[itemType];
                 var effectTooltips = enchantment.GetEffectsTooltips(effectiveness);
