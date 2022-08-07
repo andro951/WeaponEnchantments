@@ -21,8 +21,8 @@ namespace WeaponEnchantments.Effects {
 
         protected override string modifierToString() {
             string final = "";
-            float mult = statModifier.Multiplicative + statModifier.Additive - 2;
-            float flats = (statModifier.Base * mult + statModifier.Flat).Percent();
+            float mult = StatModifier.Multiplicative + StatModifier.Additive - 2;
+            float flats = (StatModifier.Base * mult + StatModifier.Flat).Percent();
 
             if (flats > 0) {
                 final += $"{s(flats)}{flats}%";

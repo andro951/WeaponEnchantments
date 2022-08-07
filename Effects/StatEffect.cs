@@ -18,23 +18,36 @@ namespace WeaponEnchantments.Effects {
             statModifier = new StatModifier(1f + additive, multiplicative, flat, @base);
 		}
 
-        public StatModifier statModifier;
+        protected StatModifier statModifier;
+        public StatModifier StatModifier { 
+            get {
+                float additive = 1f + (statModifier.Additive - 1f) * EfficiencyMultiplier;
+                float multiplicative = 1f + (statModifier.Multiplicative - 1f) * EfficiencyMultiplier;
+                float flat = statModifier.Flat * EfficiencyMultiplier;
+                float @base = statModifier.Base * EfficiencyMultiplier;
+
+                return new StatModifier(additive, multiplicative, flat, @base);
+            }
+        }
         public abstract EditableStat statName { get; }
 
         protected virtual string modifierToString() {
             string final = "";
-            float mult = statModifier.Multiplicative + statModifier.Additive - 2;
-            float flats = statModifier.Base * mult + statModifier.Flat;
+            float mult = StatModifier.Multiplicative + StatModifier.Additive - 2;
+            float flats = StatModifier.Base * mult + StatModifier.Flat;
 
-            if (flats > 0) {
+            if (flats > 0f) {
                 final += $"{s(flats)}{flats}";
             }
-            if (mult > 0) {
+
+            if (mult > 0f) {
                 if (final != "") final += ' ';
                 final += $"{s(mult)}{mult.Percent()}%";
             }
+
             return final;
         }
+
         public override string Tooltip => $"{DisplayName}: {modifierToString()}";
     }
 }
