@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
+using Terraria.ID;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class ObsidianSkinEnchantment : Enchantment
 	{
+		public override EnchantmentEffect[] Effects => new EnchantmentEffect[] {
+			new BuffEffect(BuffID.ObsidianSkin)
+		};
 		public override int EnchantmentValueTierReduction => -2;
 		public override int LowestCraftableTier => 5;
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
@@ -11,9 +16,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			{ EItemType.Armor, 1f },
 			{ EItemType.Accessory, 1f }
 		};
-		public override void GetMyStats() {
-			CheckBuffByName();
-		}
 
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
