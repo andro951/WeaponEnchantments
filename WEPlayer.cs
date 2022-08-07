@@ -643,7 +643,8 @@ namespace WeaponEnchantments
             }
 
             // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
-            if (statEffects.Any()) ApplyStatEffects(statEffects);
+            if (statEffects.Any())
+                ApplyStatEffects(statEffects);
 
         }
 
