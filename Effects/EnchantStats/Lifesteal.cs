@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects {
         protected override string modifierToString() {
             string final = "";
             float mult = StatModifier.Multiplicative + StatModifier.Additive - 2;
-            float flats = (StatModifier.Base * mult + StatModifier.Flat).Percent();
+            float flats = (StatModifier.Base * mult + StatModifier.Flat).Percent() * EfficiencyMultiplier;
 
             if (flats > 0) {
                 final += $"{s(flats)}{flats}%";

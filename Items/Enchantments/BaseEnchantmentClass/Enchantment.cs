@@ -709,7 +709,7 @@ namespace WeaponEnchantments.Items {
 				if (!effect.showTooltip)
 					continue;
 
-				effect.EfficiencyMultiplier = 1f;
+				effect.EfficiencyMultiplier *= efficiency;
 				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));
 			}
 
