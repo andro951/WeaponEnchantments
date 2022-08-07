@@ -65,17 +65,22 @@ namespace WeaponEnchantments
         public enum EditableStat {
             ArmorPenetration,
             BonusManaRegen,
+            CriticalStrikeChance,
             Damage,
             Defense,
             JumpSpeedBoost,
+            Knockback,
             LifeRegen,
             LifeSteal,
+            ManaCost,
             ManaRegen,
             MaxFallSpeed,
             MaxHP,
             MaxMP,
             MoveAcceleration,
             MoveSpeed,
+            Size,
+            Speed,
             WingTime
         }
 
@@ -603,16 +608,22 @@ namespace WeaponEnchantments
                 case EditableStat.ArmorPenetration:
                     if (dc == null)
                         return;
-
+                    
                     Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
                     break;
                 case EditableStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
-                case EditableStat.Damage:
+                /*case EditableStat.CriticalStrikeChance:
                     if (dc == null)
                         return;
 
+                    Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
+                    break;*/
+                case EditableStat.Damage:
+                    if (dc == null)
+                        return;
+                    
                     Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
                 case EditableStat.Defense:
@@ -621,6 +632,12 @@ namespace WeaponEnchantments
                 case EditableStat.JumpSpeedBoost:
                     Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
                     break;
+                /*case EditableStat.Knockback:
+                    if (dc == null)
+                        return;
+
+                    Player.GetKnockback(dc) = sm.CombineWith(Player.GetKnockback(dc));
+                    break;*/
                 case EditableStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
                     break;
@@ -628,6 +645,12 @@ namespace WeaponEnchantments
                     canLifeSteal = true;
                     lifeSteal = sm.ApplyTo(lifeSteal);
                     break;
+                /*case EditableStat.ManaCost:
+                    if (dc == null)
+                        return;
+
+                    Player.GetManaCost(item) = (int)sm.ApplyTo(Player.GetManaCost(item));
+                    break;*/
                 case EditableStat.ManaRegen:
                     Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
                     break;
@@ -643,6 +666,15 @@ namespace WeaponEnchantments
                 case EditableStat.MoveSpeed:
                     Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
                     break;
+                /*case EditableStat.Size:
+                    Player.GetAdjustedItemScale(item) = sm.ApplyTo(GetAdjustedItemScale(item))
+                    break;*/
+                /*case EditableStat.Speed:
+                    if (dc == null)
+                        return;
+
+                    Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));
+                    break;*/
                 case EditableStat.WingTime:
                     Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
                     break;
