@@ -659,6 +659,9 @@ namespace WeaponEnchantments {
                 case EditableStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
                     break;
+                case EditableStat.MaxFallSpeed:
+                    Player.maxFallSpeed = sm.ApplyTo(Player.maxFallSpeed);
+                    break;
                 case EditableStat.MoveAcceleration:
                     Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
                     break;

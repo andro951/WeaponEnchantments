@@ -3,12 +3,12 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments {
-    public abstract class MobilityControl : Enchantment {
+    public abstract class ControlEnchantEnchantment : Enchantment {
         public override EnchantmentEffect[] Effects => new EnchantmentEffect[] {
-            new MaxFallSpeed(EnchantmentStrength),
-            new MoveSlowDown(EnchantmentStrength),
-            new MoveAcceleration(EnchantmentStrength),
-            new JumpSpeed(EnchantmentStrength),
+            new MaxFallSpeed(EnchantmentStrength * 100),
+            new MoveSlowDown(EnchantmentStrength * 100),
+            new MoveAcceleration(EnchantmentStrength * 100),
+            new JumpSpeed(@base: 5f),
         };
 
         public override bool Max1 => true;
@@ -16,10 +16,10 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override string Artist => "Sir Bumpleton ✿";
         public override string Designer => "Sir Bumpleton ✿";
     }
-    public class MobilityControlEnchantmentBasic : MobilityControl { }
-    public class MobilityControlEnchantmentCommon : MobilityControl { }
-    public class MobilityControlEnchantmentRare : MobilityControl { }
-    public class MobilityControlEnchantmentSuperRare : MobilityControl { }
-    public class MobilityControlEnchantmentUltraRare : MobilityControl { }
+    public class ControlEnchantEnchantmentBasic : ControlEnchantEnchantment { }
+    public class ControlEnchantEnchantmentCommon : ControlEnchantEnchantment { }
+    public class ControlEnchantEnchantmentRare : ControlEnchantEnchantment { }
+    public class ControlEnchantEnchantmentSuperRare : ControlEnchantEnchantment { }
+    public class ControlEnchantEnchantmentUltraRare : ControlEnchantEnchantment { }
 
 }

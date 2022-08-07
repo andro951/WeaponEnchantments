@@ -11,6 +11,6 @@ namespace WeaponEnchantments.Effects {
         public MoveAcceleration(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
         public override EditableStat statName => EditableStat.MoveAcceleration;
-        public override string DisplayName { get; } = "Movement Slowdown";
+        public override string DisplayName { get; } = "Movement Acceleration";
     }
 }
