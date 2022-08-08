@@ -38,7 +38,6 @@ namespace WeaponEnchantments.Items {
 		Legs
 	}
 	public abstract class Enchantment : ModItem {
-		public virtual EnchantmentEffect[] Effects => new EnchantmentEffect[] { };
 
 		#region Static
 
@@ -351,6 +350,7 @@ namespace WeaponEnchantments.Items {
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
+		public List<EnchantmentEffect> Effects = new List<EnchantmentEffect>();
 
 		#endregion
 

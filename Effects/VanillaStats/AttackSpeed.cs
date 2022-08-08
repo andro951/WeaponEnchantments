@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Effects {
         public bool? CanAutoReuseItem(Item item) {
             if (statModifier.Additive >= 1.1f)
                 return true;
+
             return null;
         }
     }
