@@ -588,7 +588,7 @@ namespace WeaponEnchantments {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
             // Divide effects based on what is needed.
-            bool takeEnchantment = false ;
+            bool takeEnchantment = false;
             foreach (EnchantmentEffect effect in allEffects) {
                 if (effect.GetType().GetInterface(nameof(ICanAutoReuseItem)) != null) {
                     bool? result = ((ICanAutoReuseItem)effect).CanAutoReuseItem(item);
@@ -601,7 +601,7 @@ namespace WeaponEnchantments {
                     }
                 }
             }
-            return takeEnchantment ? null : true;
+            return takeEnchantment ? true : null;
         }
 
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
