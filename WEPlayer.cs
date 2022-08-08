@@ -491,7 +491,7 @@ namespace WeaponEnchantments
                 Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
             }
 
-			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && hGlobal.trackedWeapon && !hGlobal.hoverItem) {
+			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && !hGlobal.trackedWeapon && !hGlobal.hoverItem) {
 
                 #region Debug
 
@@ -1027,10 +1027,9 @@ namespace WeaponEnchantments
                 bool statsNeedUpdate = true;
                 if (iGlobal.appliedStatModifiers.ContainsKey(key))
                     statsNeedUpdate = combinedStatModifiers[key] != iGlobal.appliedStatModifiers[key];
+                #region Debug
 
-				#region Debug
-
-				if (LogMethods.debugging) ($"statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + iGlobal.appliedStatModifiers.S(key)).Log();
+                if (LogMethods.debugging) ($"statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + iGlobal.appliedStatModifiers.S(key)).Log();
 
 				#endregion
 
