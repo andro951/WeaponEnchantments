@@ -61,6 +61,7 @@ namespace WeaponEnchantments {
         public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player);
 
         public enum EditableStat {
+            AttackSpeed,
             ArmorPenetration,
             BonusManaRegen,
             CriticalStrikeChance,
@@ -514,6 +515,13 @@ namespace WeaponEnchantments {
 
             return items;
         }
+        public override bool? CanAutoReuseItem(Item item) {
+            bool? result = ApplyAutoReuseEnchants(item);
+            if (result.HasValue) {
+                return result.Value;
+            }
+            return base.CanAutoReuseItem(item);
+        }
 
         #endregion
 
@@ -575,6 +583,27 @@ namespace WeaponEnchantments {
                 ApplyStatEffects(statEffects);
 
         }
+        
+        public bool? ApplyAutoReuseEnchants(Item item) {
+            IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
+
+            // Divide effects based on what is needed.
+            bool takeEnchantment = false ;
+            foreach (EnchantmentEffect effect in allEffects) {
+                if (effect.GetType().GetInterface(nameof(ICanAutoReuseItem)) != null) {
+                    bool? result = ((ICanAutoReuseItem)effect).CanAutoReuseItem(item);
+                    if (result == null) {
+                        continue;
+                    } else if (result == true) {
+                        takeEnchantment = true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return takeEnchantment ? null : true;
+        }
+
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
@@ -674,12 +703,11 @@ namespace WeaponEnchantments {
                 /*case EditableStat.Size:
                     Player.GetAdjustedItemScale(item) = sm.ApplyTo(GetAdjustedItemScale(item))
                     break;*/
-                /*case EditableStat.Speed:
+                case EditableStat.AttackSpeed:
                     if (dc == null)
                         return;
-
                     Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));
-                    break;*/
+                    break;
                 case EditableStat.WingTime:
                     Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
                     break;

@@ -8,6 +8,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Effects\Buffs\**" />
+    <EmbeddedResource Remove="Effects\Buffs\**" />
+    <None Remove="Effects\Buffs\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
@@ -19,7 +24,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Effects\Buffs\" />
     <Folder Include="ModIntegration\" />
   </ItemGroup>
 </Project>

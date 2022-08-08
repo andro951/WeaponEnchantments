@@ -5,11 +5,13 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class ControlEnchantEnchantment : Enchantment {
         public override EnchantmentEffect[] Effects => new EnchantmentEffect[] {
-            new MaxFallSpeed(EnchantmentStrength * 100),
-            new MoveSlowDown(EnchantmentStrength * 100),
-            new MoveAcceleration(EnchantmentStrength * 100),
+            new MaxFallSpeed(0.1f + 0.04f * EnchantmentTier),
+            new MoveSlowDown(0.1f + 0.04f * EnchantmentTier),
+            new MoveAcceleration(0.1f + 0.04f * EnchantmentTier),
             new JumpSpeed(@base: 5f),
         };
+
+        public override int StrengthGroup => base.StrengthGroup;
 
         public override bool Max1 => true;
 

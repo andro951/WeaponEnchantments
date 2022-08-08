@@ -32,8 +32,8 @@ namespace WeaponEnchantments.Effects {
         private string BuffName;
 
         // Could move into constructor?
-        public override sealed string DisplayName => $"Passive {GetBuffName(AppliedBuffID)}";
-        public override sealed string Tooltip => $"Passively grants {GetBuffName(AppliedBuffID)}";
+        public override sealed string DisplayName => $"Passive {BuffName}";
+        public override sealed string Tooltip => $"Passively grants {BuffName}";
 
         public void PostUpdateMiscEffects(WEPlayer player) {
             player.Player.AddBuff(AppliedBuffID, 1, IsQuiet);
