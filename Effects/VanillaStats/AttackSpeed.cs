@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Effects {
         public override EditableStat statName => EditableStat.AttackSpeed;
 
         public bool? CanAutoReuseItem(Item item) {
-            if (statModifier.Additive >= 1.1f)
+            if (EStatModifier.Additive >= 1.1f)
                 return true;
 
             return null;

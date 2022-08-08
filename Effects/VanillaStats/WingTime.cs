@@ -23,11 +23,11 @@ namespace WeaponEnchantments.Effects {
                 return "Permanent";
             }
             string final = "";
-            float ad = StatModifier.Flat;
+            float ad = EStatModifier.Flat;
             if (ad > 0) {
                 final += $"{s(ad)}{new Time((int)ad, Time.Magnitude.Frames)}";
             }
-            float mp = StatModifier.Multiplicative + StatModifier.Additive - 2;
+            float mp = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
             if (mp > 0) {
                 if (final != "") final += ' ';
                 final += $"{s(mp)}{mp.Percent()}";

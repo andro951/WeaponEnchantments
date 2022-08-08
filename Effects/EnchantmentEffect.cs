@@ -56,7 +56,7 @@ namespace WeaponEnchantments.Effects {
         /// How effective the enchantment is.
         /// Affected by armor efficiency (Armor, Weapon, Accesory)
         /// </summary>
-        public float EfficiencyMultiplier { get; set; } = 1f;
+        public virtual float EfficiencyMultiplier { get; set; } = 1f;
         
         public abstract string DisplayName { get; }
         public virtual string Tooltip => $"{DisplayName}: {s(EnchantmentPower)}{EnchantmentPower.Percent()}%";

@@ -350,7 +350,7 @@ namespace WeaponEnchantments.Items {
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
-		public List<EnchantmentEffect> Effects = new List<EnchantmentEffect>();
+		public EnchantmentEffect[] Effects { protected set; get; } = new EnchantmentEffect[] { };
 
 		#endregion
 
@@ -705,13 +705,12 @@ namespace WeaponEnchantments.Items {
 			return AllowedList.Keys.Select(i => new Tuple<string, Color>($"{i} ({Math.Round(AllowedList[i] * 100, 1)}%)", Color.Gray));
 		}
 
-		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips(float efficiency = 1f) {
+		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 			foreach (var effect in Effects) {
 				if (!effect.showTooltip)
 					continue;
 
-				effect.EfficiencyMultiplier *= efficiency;
 				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));
 			}
 

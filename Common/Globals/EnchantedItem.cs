@@ -736,7 +736,7 @@ namespace WeaponEnchantments.Common.Globals
             
             foreach (Enchantment enchantment in enchantmentModItems) {
                 float effectiveness = enchantment.AllowedList[itemType];
-                var effectTooltips = enchantment.GetEffectsTooltips(effectiveness);
+                var effectTooltips = enchantment.GetEffectsTooltips();
                 tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
                 foreach (var tooltipTuple in effectTooltips) {
                     tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });

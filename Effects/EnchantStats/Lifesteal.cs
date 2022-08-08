@@ -20,20 +20,7 @@ namespace WeaponEnchantments.Effects {
         public override string DisplayName { get; } = "Life Steal";
 
         protected override string modifierToString() {
-            string final = "";
-            float mult = StatModifier.Multiplicative + StatModifier.Additive - 2;
-            float flats = (StatModifier.Base * mult + StatModifier.Flat).Percent() * EfficiencyMultiplier;
-
-            if (flats > 0) {
-                final += $"{s(flats)}{flats}%";
-            }
-
-            if (mult > 0) {
-                if (final != "") final += ' ';
-                final += $"{s(mult)}{mult.Percent()}%";
-            }
-
-            return final;
+            return EStatModifier.Tooltip;
         }
     }
 }

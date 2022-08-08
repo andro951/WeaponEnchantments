@@ -5,11 +5,13 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class SpeedEnchantment : Enchantment
 	{
-		public override EnchantmentEffect[] Effects => new EnchantmentEffect[] {
-			new AttackSpeed(EnchantmentStrength)
-		};
 
 		public override int StrengthGroup => 12;
+		public override void GetMyStats() {
+			Effects = new EnchantmentEffect[] {
+				new AttackSpeed(EnchantmentStrength)
+			};
+		}
 
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";

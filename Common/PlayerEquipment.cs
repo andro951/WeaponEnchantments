@@ -73,7 +73,7 @@ namespace WeaponEnchantments.Common {
                 // For each enchantment get its effects
                 foreach (Enchantment enchantment in enchantments) {
                     foreach (EnchantmentEffect effect in enchantment.Effects) {
-                        effect.EfficiencyMultiplier *= enchantment.AllowedList[enchantedItem.GetEItemType()];
+                        effect.EfficiencyMultiplier = enchantment.AllowedList[enchantedItem.GetEItemType()];
                         effects.Add(effect);
                     }
                 }

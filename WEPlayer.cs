@@ -526,7 +526,14 @@ namespace WeaponEnchantments {
         #endregion
 
         #region Enchantment hooks
-
+        private struct StatDamageClass {
+            public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
+                EditableStat = editableStat;
+                DamageClass = damageClass;
+            }
+            public EditableStat EditableStat;
+            public DamageClass DamageClass;
+        }
         private IEnumerable<EnchantmentEffect> GetRelevantEffects(Item heldItem = null) {
             // Always use all equipment effects
             IEnumerable<EnchantmentEffect> allEffects = PlayerEquipment.GetArmorEnchantmentEffects();
@@ -544,14 +551,6 @@ namespace WeaponEnchantments {
             }
 
             return allEffects;
-        }
-        private struct StatDamageClass {
-            public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
-                EditableStat = editableStat;
-                DamageClass = damageClass;
-            }
-            public EditableStat EditableStat;
-            public DamageClass DamageClass;
         }
         public void ApplyPostMiscEnchants() {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
@@ -583,7 +582,6 @@ namespace WeaponEnchantments {
                 ApplyStatEffects(statEffects);
 
         }
-        
         public bool? ApplyAutoReuseEnchants(Item item) {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
@@ -603,7 +601,6 @@ namespace WeaponEnchantments {
             }
             return takeEnchantment ? true : null;
         }
-
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
@@ -620,7 +617,7 @@ namespace WeaponEnchantments {
                 }
                 else {
                     // If the stat name is on the dictionary, combine it's modifiers
-                    statModifiers[statDC] = statModifiers[statDC].CombineWith(statEffect.StatModifier);
+                    statModifiers[statDC] = statEffect.EStatModifier.CombineWith(statModifiers[statDC]);
                     statCounts[statDC] += 1;
                 }
             }
@@ -713,9 +710,9 @@ namespace WeaponEnchantments {
                     break;
             }
         }
-
-        // Not using hitDirection yet.
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
+            // Not using hitDirection yet.
+
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects(item);
 
             // Make sure they implement IOnHitEffects
@@ -766,7 +763,6 @@ namespace WeaponEnchantments {
                     player.lifeSteal -= vanillaLifeStealValue;
 
                     Projectile.NewProjectile(item.GetSource_ItemUse(item), npc.Center, new Vector2(0, 0), ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
-
                 }
 
                 //Life Steal Rollover
