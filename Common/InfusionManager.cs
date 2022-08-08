@@ -412,7 +412,7 @@ namespace WeaponEnchantments.Common
                 if (type > 0) {
                     GetGlotalItemStats(item, new Item(type), out infusedPower, out damageMultiplier, out infusedArmorSlot);
                     if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
-                        item.UpdateInfusionDamage(damageMultiplier);
+                        item.UpdateInfusionDamage(damageMultiplier, false);
                     }
                     else if (EnchantedItemStaticMethods.IsArmorItem(item)) {
                         item.UpdateArmorSlot(infusedArmorSlot);
