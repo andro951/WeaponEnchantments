@@ -196,6 +196,9 @@ namespace WeaponEnchantments
             return false;
         }
         public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
+            if (WEModSystem.PromptInterfaceActive)
+                return false;
+
             bool valid = false;
             if (Main.mouseItem.IsAir) {
                 //Trash Item
