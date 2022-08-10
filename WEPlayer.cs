@@ -314,7 +314,7 @@ namespace WeaponEnchantments {
                 Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
             }
 
-            if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && hGlobal.trackedWeapon && !hGlobal.hoverItem) {
+			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && !hGlobal.trackedWeapon && !hGlobal.hoverItem) {
 
                 #region Debug
 

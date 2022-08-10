@@ -1187,6 +1187,9 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.CoinGun:
                     isWeapon = true;
                     break;
+                case ItemID.ExplosiveBunny:
+                    isWeapon = false;
+                    break;
                 default:
                     isWeapon = item.damage > 0 && item.ammo == 0;
                     break;
@@ -1225,6 +1228,9 @@ namespace WeaponEnchantments.Common.Globals
             //Damage Multiplier (If failed to Get Global Item Stats)
             if(!obtainedGlobalItemStats)
                 iGlobal.damageMultiplier = item.GetWeaponMultiplier(iGlobal.infusionPower);
+
+            //Update Stats
+            Main.LocalPlayer.GetWEPlayer().UpdateItemStats(ref item);
         }
         public static void ApplyEnchantment(int i) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

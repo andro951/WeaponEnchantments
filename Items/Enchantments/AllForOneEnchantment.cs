@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WeaponEnchantments.Common;
 
-namespace WeaponEnchantments.Items.Enchantments.Unique
+namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AllForOneEnchantment : Enchantment
 	{
