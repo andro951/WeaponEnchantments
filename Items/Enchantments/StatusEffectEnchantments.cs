@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using static WeaponEnchantments.Common.EnchantingRarity;
 
-namespace WeaponEnchantments.Items.Enchantments.Unique
+namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class StatusEffectEnchantment : Enchantment
 	{
@@ -14,6 +14,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		};
 		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => 1;
+        public override bool Max1 => true;
 
 		public virtual int StatusEffect => BuffID.OnFire;
 
@@ -24,7 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
 
-		public abstract Recipe AddToRecipe(Recipe recipe);
+		public abstract Recipe AddToRecipe(Recipe recipe, bool newCraft);
 
 		// Dumbest way to do this, but it works.
 		public override void AddRecipes() {
@@ -36,7 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				Recipe recipe;
 
 				for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
-					recipe = AddToRecipe(CreateRecipe());
+					recipe = AddToRecipe(CreateRecipe(), j == 0);
 					
 					//Essence
 					for (int k = j; k <= EnchantmentTier; k++) {
@@ -81,9 +82,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class OnFireEnchantment : StatusEffectEnchantment
 	{
 		public override int StatusEffect => BuffID.OnFire;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.Gel, 33);
+			if (newCraft) recipe.AddIngredient(ItemID.Gel, 33);
 			return recipe;
 		}
 	}
@@ -96,9 +97,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class FrostburnEnchantment : StatusEffectEnchantment
 	{
 		public override int StatusEffect => BuffID.Frostburn;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.IceBlock, 33);
+			if (newCraft) recipe.AddIngredient(ItemID.IceBlock, 33);
 			return recipe;
 		}
 	}
@@ -112,9 +113,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class CursedInfernoEnchantment : StatusEffectEnchantment
 	{
 		public override int StatusEffect => BuffID.CursedInferno;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.CursedFlames, 3);
+			if (newCraft) recipe.AddIngredient(ItemID.CursedFlame, 3);
 			return recipe;
 		}
 	}
@@ -127,9 +128,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class IchorEnchantment : StatusEffectEnchantment
 	{
 		public override int StatusEffect => BuffID.Ichor;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.Ichor, 3);
+			if (newCraft) recipe.AddIngredient(ItemID.Ichor, 3);
 			return recipe;
 		}
 	}
@@ -142,9 +143,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class VenomEnchantment : StatusEffectEnchantment
 	{
 		public override int StatusEffect => BuffID.Venom;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.VialofVenom, 3);
+			if (newCraft) recipe.AddIngredient(ItemID.VialofVenom, 3);
 			return recipe;
 		}
 	}
@@ -160,9 +161,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float CapacityCostMultiplier => 2;
 
 		public override int StatusEffect => BuffID.Daybreak;
-		public override Recipe AddToRecipe(Recipe recipe)
+		public override Recipe AddToRecipe(Recipe recipe, bool newCraft)
 		{
-			recipe.AddIngredient(ItemID.FragmentSolar, 6);
+			if (newCraft) recipe.AddIngredient(ItemID.FragmentSolar, 6);
 			return recipe;
 		}
 	}
