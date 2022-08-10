@@ -802,7 +802,7 @@ namespace WeaponEnchantments.Common.Globals
             //True means it will consume ammo
             return rand > ammoSaveChance;
         }
-		public override bool? CanAutoReuseItem(Item item, Player player) {
+        public override bool? CanAutoReuseItem(Item item, Player player) {
             if (statModifiers.ContainsKey("P_autoReuse")) {
                 return false;
             }
