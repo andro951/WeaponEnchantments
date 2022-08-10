@@ -69,7 +69,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public string infusedItemName = "";
         public int infusionPower = 0;
-        public float damageMultiplier = 1f;
+        public float infusionDamageMultiplier = 1f;
         public int infusedArmorSlot = -1;
         private int _infusionValueAdded = 0;
         public int InfusionValueAdded {
@@ -241,7 +241,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 clone.infusedItemName = infusedItemName;
                 clone.infusionPower = infusionPower;
-                clone.damageMultiplier = damageMultiplier;
+                clone.infusionDamageMultiplier = infusionDamageMultiplier;
                 clone.InfusionValueAdded = InfusionValueAdded;
 
                 #endregion
@@ -749,7 +749,10 @@ namespace WeaponEnchantments.Common.Globals
                 crit += levelBeforeBooster * multiplier;
             }
 		}
-        public void GainXP(Item item, int xpInt, bool noMessage = false)
+		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
+            damage *= infusionDamageMultiplier;
+		}
+		public void GainXP(Item item, int xpInt, bool noMessage = false)
         {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
@@ -1227,7 +1230,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Damage Multiplier (If failed to Get Global Item Stats)
             if(!obtainedGlobalItemStats)
-                iGlobal.damageMultiplier = item.GetWeaponMultiplier(iGlobal.infusionPower);
+                iGlobal.infusionDamageMultiplier = item.GetWeaponMultiplier(iGlobal.infusionPower);
 
             //Update Stats
             Main.LocalPlayer.GetWEPlayer().UpdateItemStats(ref item);
