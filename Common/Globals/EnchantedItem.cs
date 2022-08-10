@@ -1199,6 +1199,9 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.CoinGun:
                     isWeapon = true;
                     break;
+                case ItemID.ExplosiveBunny:
+                    isWeapon = false;
+                    break;
                 default:
                     isWeapon = item.damage > 0 && item.ammo == 0;
                     break;

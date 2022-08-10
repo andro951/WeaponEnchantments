@@ -44,8 +44,14 @@ namespace WeaponEnchantments.Common
                     maxValues[rarity] = value;
             }
 
+            //Rarity 0-10 averages
+            for (int i = 0; i < numRarities; i++) {
+                if (i < numVanillaWeaponRarities)
+                    averageValues[i] = (float)total[i] / (float)count[i];
+            }
+
             //Rarities 11-17
-            for(int i = numVanillaWeaponRarities; i < numRarities; i++) {
+            for (int i = numVanillaWeaponRarities; i < numRarities; i++) {
                 if (i >= 16) {
                     maxValues[i] = 2000000 + 500000 * (i - 16);
                 }
@@ -69,163 +75,581 @@ namespace WeaponEnchantments.Common
                 calamityAverageValues[i] = (calamityMinValues[i] + calamityMaxValues[i]) / 2;
 			}
 
+
+
             //Print list of items
 			if (PrintListOfItems[GetItemDictModeID.Weapon]) {
-                string msg = "";
+                GetItemDict(GetItemDictModeID.Weapon, postSetupPrintList: true);
+
+                string msg = "\nRarity, Average, Min, Max";
                 for (int i = 0; i < numRarities; i++) {
-                    if (i < numVanillaWeaponRarities)
-                        averageValues[i] = (float)total[i] / (float)count[i];
-                    msg += $"rarity: {i} average: {averageValues[i]} min: {minValues[i]} max: {maxValues[i]}\n";
+                    msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
                 }
 
                 msg.Log();
             }
         }
-        private static Dictionary<string, List<int[]>> GetItemDict(byte mode) {
+        private struct ItemDetails {
+            public Item Item;
+            public float Rarity;
+            public float ValueRarity;
+            public ItemDetails(Item item, float rarity, float valueRarity) {
+                Item = item;
+                Rarity = rarity;
+                ValueRarity = valueRarity;
+			}
+		}
+        private static Dictionary<string, List<int[]>> GetItemDict(byte mode, bool postSetupPrintList = false) {
             bool printList = PrintListOfItems[mode];
 
             Dictionary<string, List<int[]>> itemsDict = new Dictionary<string, List<int[]>>();
+            SortedDictionary<int, SortedDictionary<string, ItemDetails>> infusionPowers = new SortedDictionary<int, SortedDictionary<string, ItemDetails>>();
             string msg = "";
             for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
                 Item item = ContentSamples.ItemsByType[itemType];
                 if (item != null) {
-                    if (!item.consumable && item.axe < 1 && item.pick < 1 && item.hammer < 1) {
-                        string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
-                        bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
-                        bool armorList = mode == GetItemDictModeID.Armor && EnchantedItemStaticMethods.IsArmorItem(item);
-                        bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
-                        if ( weaponList || armorList || accessory) {
-                            if(printList)
-                                msg += item.Name;
+                    string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
+                    bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
+                    bool armorList = mode == GetItemDictModeID.Armor && EnchantedItemStaticMethods.IsArmorItem(item);
+                    bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
+                    if ( weaponList || armorList || accessory) {
+                        int[] itemStats = { item.rare, item.value, item.damage };
+                        if (!itemsDict.ContainsKey(modName))
+                            itemsDict.Add(modName, new List<int[]>());
 
-                            int[] itemStats = { item.rare, item.value, item.damage };
-                            if (!itemsDict.ContainsKey(modName))
-                                itemsDict.Add(modName, new List<int[]>());
+                        itemsDict[modName].Add(itemStats);
 
-                            itemsDict[modName].Add(itemStats);
-
-							if (printList) {
-                                for (int i = 0; i < itemStats.Length; i++) {
-                                    msg += $",{itemStats[i]}";
-                                }
-                                msg += "\n";
+						if (printList && postSetupPrintList) {
+                            Item clone = item.Clone();
+                            int infusionPower = GetWeaponInfusionPower(clone, out float rarity, out float valueRarity);
+                            ItemDetails itemDetails = new ItemDetails(clone, rarity, valueRarity);
+                            if (!infusionPowers.ContainsKey(infusionPower)) {
+                                infusionPowers.Add(infusionPower, new SortedDictionary<string, ItemDetails>() { { clone.Name, itemDetails } });
                             }
+							else {
+                                infusionPowers[infusionPower].Add(clone.Name, itemDetails);
+							}
                         }
                     }
                 }
+            }
+
+            if(printList && postSetupPrintList) {
+                if (mode == GetItemDictModeID.Weapon) {
+                    msg += "\nWeapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS";
+                    foreach (int infusionPower in infusionPowers.Keys) {
+                        foreach(string name in infusionPowers[infusionPower].Keys) {
+                            int damage = infusionPowers[infusionPower][name].Item.damage;
+                            int useTime = infusionPowers[infusionPower][name].Item.useTime;
+                            float dps = (float)damage * 60f / (float)useTime;
+                            msg += $"\n{name}, {infusionPower}, {infusionPowers[infusionPower][name].ValueRarity}, {infusionPowers[infusionPower][name].Rarity}, {infusionPowers[infusionPower][name].Item.rare}, {infusionPowers[infusionPower][name].Item.value}, {infusionPowers[infusionPower][name].Item.type}, {damage}, {useTime}, {dps}";
+                        }
+                    }
+                }
+                    //Print list of items
+                    msg.Log();
             }
             
-            //Print list of items
-            if(printList)
-                msg.Log();
-
             return itemsDict;
         }
-        public static float GetWeaponRarity(this Item item)
-        {
-            bool useCalamiryValuesOnly = false;
+        public static float GetWeaponRarity(this Item item) {
+            return GetWeaponRarity(item, out float rarity, out float valueRarity);
+        }
+        public static float GetWeaponRarity(this Item item, out float rarity, out float valueRarity) {
             Item sampleItem = ContentSamples.ItemsByType[item.type];
-            int rarity = sampleItem.rare;
-            int sampleValue = sampleItem.value;
-            float valueMultiplier = 0.5f;
 
-            //If from calamity, calculate just from value
-            if(item.ModItem?.Mod.Name == "CalamityMod")
-                useCalamiryValuesOnly = true;
+            rarity = GetAdjustedItemRarity(sampleItem, out bool useCalamiryValuesOnly);
 
-            //Manually set rarity of an item
-            switch (item.Name) {
-                case "Primary Zenith":
-                    rarity = 0;
-                    break;
-                case "Slime Staff":
-                    rarity = 2;
-                    break;
-                case "Terragrim":
-                    rarity = 3;
-                    break;
-                case "Arkhalis":
-                    rarity = 5;
-                    break;
-                case "Nullification Pistol":
-                case "Atomic Annie":
-                    rarity = 3;
-                    break;
-                case "The Only Thing I Know For Real":
-                    rarity = 9;
-                    break;
-                default:
-                    if (useCalamiryValuesOnly) {
-                        int i;
-                        for (i = 0; i < numRarities; i++) {
-                            float max = calamityMaxValues[i];
-                            if (max >= sampleValue) {
-                                float min = calamityMinValues[i];
-                                if (min >= sampleValue)
-                                    i--;
-
-                                break;
-                            }
-                        }
-
-                        rarity = i;
-                    }
-                    else if (rarity >= 11 && sampleItem.value > maxValues[11]) {
-                        int i;
-                        for (i = 12; i < numRarities; i++) {
-                            float min = minValues[i];
-                            if (min >= sampleItem.value) {
-                                i--;
-
-                                break;
-                            }
-                        }
-
-                        rarity = i;
-                    }
-
-                    break;
-            }
-
-            if (rarity > numRarities - 1) {
-                rarity = numRarities - 1;
-            }
-            else if (rarity < 0) {
-                rarity = 0;
-            }
-
-            float averageValue = useCalamiryValuesOnly ? calamityAverageValues[rarity] : averageValues[rarity];
-            int maxOrMin;
-            if(sampleValue < averageValue) {
-				if (useCalamiryValuesOnly) {
-                    maxOrMin = calamityMinValues[rarity];
-                }
-				else {
-                    maxOrMin = minValues[rarity];
-                }
-			}
-			else {
-				if (useCalamiryValuesOnly) {
-                    maxOrMin = calamityMaxValues[rarity];
-                }
-				else {
-                    maxOrMin = maxValues[rarity];
-                }
-			}
-
-            float denom = Math.Abs(averageValue - maxOrMin);
-            float valueRarity = valueMultiplier + valueMultiplier * (sampleValue - averageValue) / denom;
-            if (valueRarity < 0f) {
-                valueRarity = 0f;
-            }
-            else if(valueRarity > 1f) {
-                valueRarity = 1f;
-            }
+            valueRarity = GetValueRarity(sampleItem, rarity, useCalamiryValuesOnly);
 
             float combinedRarity = rarity + valueRarity;
 
             return combinedRarity > 0 ? combinedRarity : 0;
         }
+        public static float GetAdjustedItemRarity(Item sampleItem, out bool useCalamiryValuesOnly) {
+            useCalamiryValuesOnly = false;
+            float rarity = sampleItem.rare;
+            int sampleValue = sampleItem.value;
+
+            //If from calamity, calculate just from value
+            if (sampleItem.ModItem?.Mod.Name == "CalamityMod")
+                useCalamiryValuesOnly = true;
+
+            switch (sampleItem.type) {
+                case ItemID.Count://April Fools Joke
+                    rarity = -0.9999f;
+                    break;
+                case ItemID.GravediggerShovel:
+                    rarity = -0.3f;
+                    break;
+                case ItemID.FlamingMace:
+                case ItemID.FlareGun:
+                case ItemID.FlintlockPistol:
+                case ItemID.Katana:
+                case ItemID.BlandWhip:
+                case ItemID.Mace:
+                case ItemID.PurpleClubberfish:
+                case ItemID.RedRyder:
+                case ItemID.SnowballCannon:
+                case ItemID.StaffofRegrowth:
+                    rarity = 0f;
+                    break;
+                case ItemID.ThrowingKnife:
+                case ItemID.Shuriken:
+                case ItemID.StarAnise:
+                case ItemID.PoisonedKnife:
+                    rarity = 0.2f;
+                    break;
+                case ItemID.BallOHurt:
+                case ItemID.CrimsonRod:
+                case ItemID.Musket:
+                case ItemID.TheRottedFork:
+                case ItemID.TheUndertaker:
+                case ItemID.Vilethorn:
+                    rarity = 0.4f;
+                    break;
+                case ItemID.AbigailsFlower:
+                case ItemID.Grenade:
+                case ItemID.StickyGrenade:
+                    rarity = 0.5f;
+                    break;
+                case ItemID.BouncyGrenade:
+                    rarity = 0.7f;
+                    break;
+                case ItemID.JungleYoyo:
+                case ItemID.BatBat:
+                case ItemID.BladeofGrass:
+                case ItemID.BladedGlove:
+                case ItemID.BloodyMachete:
+                case ItemID.BoneSword:
+                case ItemID.Boomstick:
+                case ItemID.TaxCollectorsStickOfDoom:
+                case ItemID.CombatWrench:
+                case ItemID.DyeTradersScimitar:
+                case ItemID.FalconBlade:
+                case ItemID.FlinxStaff:
+                case ItemID.AntlionClaw:
+                case ItemID.PainterPaintballGun:
+                case ItemID.PartyGirlGrenade:
+                case ItemID.Rally:
+                case ItemID.ReaverShark:
+                case ItemID.Revolver:
+                case ItemID.Rockfish:
+                case ItemID.Sandgun:
+                case ItemID.SawtoothShark:
+                case ItemID.SlimeStaff:
+                case ItemID.StylistKilLaKillScissorsIWish:
+                case ItemID.Swordfish:
+                case ItemID.TentacleSpike:
+                case ItemID.TragicUmbrella:
+                    rarity = 0.8f;
+                    break;
+                case ItemID.Code1:
+                case ItemID.DiamondStaff:
+                case ItemID.ZapinatorGray:
+                case ItemID.Javelin:
+                case ItemID.Minishark:
+                case ItemID.ThornWhip:
+                case ItemID.StarCannon:
+                case ItemID.Starfury:
+                case ItemID.ThornChakram:
+                    rarity = 1f;
+                    break;
+                case ItemID.BloodWater:
+                case ItemID.HolyWater:
+                case ItemID.UnholyWater:
+                    rarity = 1.2f;
+                    break;
+                case ItemID.BloodRainBow:
+                case ItemID.VampireFrogStaff:
+                    rarity = 1.5f;
+                    break;
+                case ItemID.BeeKeeper:
+                case ItemID.Blowgun:
+                case ItemID.Bone:
+                case ItemID.DemonScythe:
+                case ItemID.QuadBarrelShotgun:
+                case ItemID.Ruler:
+                case ItemID.SpikyBall:
+                case ItemID.BeesKnees:
+                case ItemID.Valor:
+                case ItemID.DD2FlameburstTowerT1Popper:
+                case ItemID.DD2BallistraTowerT1Popper:
+                case ItemID.DD2ExplosiveTrapT1Popper:
+                case ItemID.DD2LightningAuraT1Popper:
+                    rarity = 2f;
+                    break;
+                case ItemID.Beenade:
+                    rarity = 2.4f;
+                    break;
+                case ItemID.Cascade:
+                case ItemID.HornetStaff:
+                    rarity = 2.5f;
+                    break;
+                case ItemID.Terragrim:
+                    rarity = 3f;
+                    break;
+                case ItemID.FormatC:
+                case ItemID.Gradient:
+                    rarity = 3.5f;
+                    break;
+                case ItemID.ClockworkAssaultRifle:
+                case ItemID.LaserRifle:
+                case ItemID.BreakerBlade:
+                case ItemID.FireWhip:
+                    rarity = 3.6f;
+                    break;
+                case ItemID.Bananarang:
+                case ItemID.DD2BallistraTowerT2Popper:
+                case ItemID.Bladetongue:
+                case ItemID.CrystalSerpent:
+                case ItemID.DaoofPow:
+                case ItemID.DD2ExplosiveTrapT2Popper:
+                case ItemID.DD2FlameburstTowerT2Popper:
+                case ItemID.FlowerofFrost:
+                case ItemID.FrostStaff:
+                case ItemID.Frostbrand:
+                case ItemID.Gatligator:
+                case ItemID.IceBow:
+                case ItemID.IceRod:
+                case ItemID.IceSickle:
+                case ItemID.DD2LightningAuraT2Popper:
+                case ItemID.MeteorStaff:
+                case ItemID.NimbusRod:
+                case ItemID.ObsidianSwordfish:
+                case ItemID.ZapinatorOrange:
+                case ItemID.PoisonStaff:
+                case ItemID.BouncingShield:
+                case ItemID.Shotgun:
+                case ItemID.SkyFracture:
+                case ItemID.SlapHand:
+                case ItemID.Toxikarp:
+                case ItemID.Uzi:
+                    rarity = 4f;
+                    break;
+                case ItemID.ChainGuillotines:
+                case ItemID.ClingerStaff:
+                case ItemID.CrystalVileShard:
+                case ItemID.DaedalusStormbow:
+                case ItemID.DartPistol:
+                case ItemID.DartRifle:
+                case ItemID.FetidBaghnakhs:
+                case ItemID.FlyingKnife:
+                case ItemID.SoulDrain:
+                case ItemID.Marrow:
+                    rarity = 4.1f;
+                    break;
+                case ItemID.SanguineStaff:
+                    rarity = 4.2f;
+                    break;
+                case ItemID.ShadowFlameBow:
+                case ItemID.ShadowFlameHexDoll:
+                case ItemID.ShadowFlameKnife:
+                    rarity = 4.5f;
+                    break;
+                case ItemID.Cannonball:
+                case ItemID.Cutlass:
+                    rarity = 4.8f;
+                    break;
+                case ItemID.CoinGun:
+                case ItemID.Arkhalis:
+                case ItemID.DeathSickle:
+                case ItemID.Hammush:
+                case ItemID.MushroomSpear:
+                case ItemID.UnholyTrident:
+                    rarity = 5f;
+                    break;
+                case ItemID.SuperStarCannon:
+                case ItemID.PirateStaff:
+                case ItemID.ValkyrieYoyo:
+                    rarity = 5.4f;
+                    break;
+                case ItemID.Flamethrower:
+                case ItemID.Megashark:
+                case ItemID.LightDisc:
+                case ItemID.Code2:
+                case ItemID.Yelets:
+                case ItemID.RedsYoyo:
+                    rarity = 5.5f;
+                    break;
+                case ItemID.HallowedRepeater:
+                case ItemID.SwordWhip:
+                case ItemID.Excalibur:
+                case ItemID.Gungnir:
+                case ItemID.HallowJoustingLance:
+                    rarity = 5.6f;
+                    break;
+                case ItemID.Smolstar:
+                    rarity = 5.7f;
+                    break;
+                case ItemID.BookStaff:
+                case ItemID.DD2PhoenixBow:
+                case ItemID.DD2SquireDemonSword:
+                case ItemID.MonkStaffT1:
+                case ItemID.MonkStaffT2:
+                    rarity = 6f;
+                    break;
+                case ItemID.TrueNightsEdge:
+                    rarity = 6.05f;
+                    break;
+                case ItemID.OpticStaff:
+                    rarity = 6.12f;
+                    break;
+                case ItemID.RainbowRod:
+                case ItemID.MagicalHarp:
+                    rarity = 6.2f;
+                    break;
+                case ItemID.VenomStaff:
+                    rarity = 6.2f;
+                    break;
+                case ItemID.TrueExcalibur:
+                    rarity = 6.25f;
+                    break;
+                case ItemID.Drax:
+                case ItemID.PickaxeAxe:
+                    rarity = 6.35f;
+                    break;
+                case ItemID.ChlorophyteChainsaw:
+                case ItemID.ChlorophyteClaymore:
+                case ItemID.ChlorophyteDrill:
+                case ItemID.ChlorophyteGreataxe:
+                case ItemID.ChlorophyteJackhammer:
+                case ItemID.ChlorophytePickaxe:
+                case ItemID.ChlorophyteSaber:
+                case ItemID.ChlorophyteShotbow:
+                case ItemID.ChlorophyteWarhammer:
+                    rarity = 6.4f;
+                    break;
+                case ItemID.ChlorophytePartisan:
+                    rarity = 6.6f;
+                    break;
+                case ItemID.Seedler:
+                    rarity = 6.6f;
+                    break;
+                case ItemID.TacticalShotgun:
+                case ItemID.TheAxe:
+                case ItemID.WaspGun:
+                case ItemID.GrenadeLauncher:
+                case ItemID.PygmyStaff:
+                case ItemID.DD2BallistraTowerT3Popper:
+                case ItemID.DD2ExplosiveTrapT3Popper:
+                case ItemID.DD2FlameburstTowerT3Popper:
+                case ItemID.DD2LightningAuraT3Popper:
+                case ItemID.InfernoFork:
+                case ItemID.PrincessWeapon:
+                case ItemID.PulseBow:
+                case ItemID.ProximityMineLauncher:
+                case ItemID.ShroomiteDiggingClaw:
+                    rarity = 6.7f;
+                    break;
+                case ItemID.LeafBlower:
+                case ItemID.FlowerPow:
+                case ItemID.Kraken:
+                    rarity = 6.8f;
+                    break;
+                case ItemID.VenusMagnum:
+                case ItemID.NettleBurst:
+                    rarity = 6.9f;
+                    break;
+                case ItemID.Keybrand:
+                case ItemID.MagnetSphere:
+                case ItemID.MaceWhip:
+                case ItemID.PaladinsHammer:
+                case ItemID.RocketLauncher:
+                case ItemID.ShadowJoustingLance:
+                case ItemID.ShadowbeamStaff:
+                case ItemID.SniperRifle:
+                case ItemID.SpectreHamaxe:
+                case ItemID.SpectrePickaxe:
+                case ItemID.SpectreStaff:
+
+                case ItemID.StormTigerStaff:
+                case ItemID.PiranhaGun:
+                case ItemID.RainbowGun:
+                case ItemID.ScourgeoftheCorruptor:
+                case ItemID.StaffoftheFrostHydra:
+                case ItemID.VampireKnives:
+                    rarity = 7f;
+                    break;
+                case ItemID.ButchersChainsaw:
+                case ItemID.DeadlySphereStaff:
+                case ItemID.NailGun:
+                case ItemID.PsychoKnife:
+                case ItemID.ToxicFlask:
+                    rarity = 7.2f;
+                    break;
+                case ItemID.TerraBlade:
+                case ItemID.TheEyeOfCthulhu:
+                    rarity = 7.1f;
+                    break;
+                case ItemID.BatScepter:
+                case ItemID.BlizzardStaff:
+                case ItemID.CandyCornRifle:
+                case ItemID.ChainGun:
+                case ItemID.ChristmasTreeSword:
+                case ItemID.ScytheWhip:
+                case ItemID.EldMelter:
+                case ItemID.JackOLanternLauncher:
+                case ItemID.NorthPole:
+                case ItemID.RavenStaff:
+                case ItemID.Razorpine:
+                case ItemID.SnowmanCannon:
+                case ItemID.StakeLauncher:
+                case ItemID.TheHorsemansBlade:
+                    rarity = 7.5f;
+                    break;
+                case ItemID.GolemFist:
+                case ItemID.HeatRay:
+                case ItemID.PossessedHatchet:
+                case ItemID.StaffofEarth:
+                case ItemID.Stynger:
+                case ItemID.FireworksLauncher:
+                    rarity = 7.9f;
+                    break;
+                case ItemID.ChargedBlasterCannon:
+                case ItemID.LaserDrill:
+                    rarity = 8.1f;
+                    break;
+                case ItemID.ElectrosphereLauncher:
+                case ItemID.InfluxWaver:
+                case ItemID.LaserMachinegun:
+                case ItemID.XenoStaff:
+                case ItemID.Xenopopper:
+                    rarity = 8.3f;
+                    break;
+                case ItemID.Picksaw:
+                    rarity = 8.4f;
+                    break;
+                case ItemID.SparkleGuitar:
+                case ItemID.EmpressBlade:
+                    rarity = 8.7f;
+                    break;
+                case ItemID.FairyQueenRangedItem:
+                case ItemID.RainbowWhip:
+                case ItemID.PiercingStarlight:
+                case ItemID.FairyQueenMagicItem:
+                    rarity = 9f;
+                    break;
+                case ItemID.BubbleGun:
+                case ItemID.Flairon:
+                case ItemID.RazorbladeTyphoon:
+                case ItemID.TempestStaff:
+                case ItemID.Tsunami:
+                    rarity = 9.3f;
+                    break;
+                case ItemID.StardustCellStaff:
+                case ItemID.StardustDragonStaff:
+                case ItemID.VortexBeater:
+                case ItemID.Phantasm:
+                case ItemID.NebulaArcanum:
+                case ItemID.NebulaBlaze:
+                case ItemID.SolarEruption:
+                case ItemID.DayBreak:
+                    rarity = 9.5f;
+                    break;
+                case ItemID.StarWrath:
+                    rarity = 10f;
+                    break;
+                case > ItemID.Count:
+                    //Manually set rarity of an item
+                    switch (sampleItem.Name) {
+                        case "Primary Zenith":
+                            rarity = 0f;
+                            break;
+                        case "Nullification Pistol":
+                        case "Atomic Annie":
+                            rarity = 3f;
+                            break;
+                        case "The Only Thing I Know For Real":
+                            rarity = 9f;
+                            break;
+                        default:
+                            if (useCalamiryValuesOnly) {
+                                int i;
+                                for (i = 0; i < numRarities; i++) {
+                                    float max = calamityMaxValues[i];
+                                    if (max >= sampleValue) {
+                                        float min = calamityMinValues[i];
+                                        if (min >= sampleValue)
+                                            i--;
+
+                                        break;
+                                    }
+                                }
+
+                                rarity = i;
+                            }
+                            else if (rarity >= 11 && sampleItem.value > maxValues[11]) {
+                                int i;
+                                for (i = 12; i < numRarities; i++) {
+                                    float min = minValues[i];
+                                    if (min >= sampleItem.value) {
+                                        i--;
+
+                                        break;
+                                    }
+                                }
+
+                                rarity = i;
+                            }
+
+                            break;
+                    }
+                    break;
+                default:
+
+                    if (rarity > numRarities - 1) {
+                        rarity = numRarities - 1;
+                    }
+                    else if (rarity < 0) {
+                        rarity = 0;
+                    }
+                    break;
+            }
+
+            return rarity;
+        }
+        public static float GetValueRarity(Item sampleItem, float rarity, bool useCalamiryValuesOnly, bool usingBaseRarity = false) {
+            int sampleValue = sampleItem.value;
+            float valueMultiplier = 0.5f;
+
+            int rarityInt = (int)rarity;
+
+            float averageValue = useCalamiryValuesOnly ? calamityAverageValues[rarityInt] : averageValues[rarityInt];
+            int maxOrMin;
+            if (sampleValue < averageValue) {
+                if (useCalamiryValuesOnly) {
+                    maxOrMin = calamityMinValues[rarityInt];
+                }
+                else {
+                    maxOrMin = minValues[rarityInt];
+                }
+            }
+            else {
+                if (useCalamiryValuesOnly) {
+                    maxOrMin = calamityMaxValues[rarityInt];
+                }
+                else {
+                    maxOrMin = maxValues[rarityInt];
+                }
+            }
+
+            float denom = Math.Abs(averageValue - maxOrMin);
+            float valueRarity = valueMultiplier + valueMultiplier * (sampleValue - averageValue) / denom;
+            if((valueRarity >= 1f || valueRarity <= 0f) && !usingBaseRarity && !useCalamiryValuesOnly && rarity != (float)sampleItem.rare) {
+                //Get it's base valueRarity
+                valueRarity = GetValueRarity(sampleItem, sampleItem.rare, useCalamiryValuesOnly, true);
+            }
+            else if (valueRarity < 0f) {
+                valueRarity = 0f;
+            }
+            else if (valueRarity > 1f) {
+                valueRarity = 1f;
+            }
+
+            return valueRarity;
+        }
+
         public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower) {
             if (consumedItem.IsAir) {
                 infusedPower = 0;
@@ -247,14 +671,20 @@ namespace WeaponEnchantments.Common
             return multiplier > 1f ? multiplier : 1f;
         }
         public static int GetWeaponInfusionPower(this Item item) {
+            return GetWeaponInfusionPower(item, out float rarity, out float valueRarity);
+        }
+        public static int GetWeaponInfusionPower(this Item item, out float rarity, out float valueRarity) {
+            rarity = float.MinValue;
+            valueRarity = float.MinValue;
+
             if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return 0;
 
             if (iGlobal.infusedItemName != "")
                 return iGlobal.infusionPower;
 
-            float rarity = GetWeaponRarity(item);
-            int infusedPower = (int)Math.Round(rarity * 100f);
+            float combinedRarity = GetWeaponRarity(item, out rarity, out valueRarity);
+            int infusedPower = (int)Math.Round(combinedRarity * 100f);
 
             return infusedPower;
         }
