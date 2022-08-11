@@ -214,7 +214,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>False</term><description> +40</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual bool? ShowPercentSignInTooltip { private set; get; } = null;
+		//public virtual bool? ShowPercentSignInTooltip { private set; get; } = null;
 
 		/// <summary>
 		/// Default true<br/>
@@ -226,7 +226,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>False</term><description> x0.4%</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual bool? MultiplyBy100InTooltip { private set; get; } = null;
+		//public virtual bool? MultiplyBy100InTooltip { private set; get; } = null;
 
 		/// <summary>
 		/// Default true for Static Stats and false for all others.<br/>
@@ -238,9 +238,9 @@ namespace WeaponEnchantments.Items {
 		/// <term>False</term><description> 40x</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual bool? ShowPlusSignInTooltip { private set; get; } = null;
-		public string FullToolTip { private set; get; }
-		public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
+		//public virtual bool? ShowPlusSignInTooltip { private set; get; } = null;
+		//public string FullToolTip { private set; get; }
+		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
 		public abstract string Artist { get; }
 		public abstract string Designer { get; }
@@ -264,6 +264,7 @@ namespace WeaponEnchantments.Items {
 		/// Manually changing the namespace will prevent this from being set.<br/>
 		/// </summary>
 		public bool Unique { private set; get; } = false;
+
 		/// <summary>
 		/// Default false<br/>
 		/// True will prevent more than 1 of this enchantment from being applied to an item.<br/>
@@ -326,6 +327,7 @@ namespace WeaponEnchantments.Items {
 		#region Stats and buffs
 
 		private bool finishedOneTimeSetup = false;
+
 		/// <summary>
 		/// Default -1<br/>
 		/// Converts a weapon's damage type to the specified type.<br/>
@@ -469,14 +471,6 @@ namespace WeaponEnchantments.Items {
 			if (GetType().Namespace.GetFolderName() == "Unique")
 				Unique = true;
 
-			//Check Unique (Vanilla Items)
-			/*for (int i = 0; i < ItemID.Count; i++) {
-				if (ContentSamples.ItemsByType[i].Name.RemoveSpaces() == EnchantmentTypeName) {
-					Unique = true;
-					break;
-				}
-			}*/
-
 			//Config - Individual Strength
 			bool foundIndividualStrength = false;
 			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
@@ -528,13 +522,13 @@ namespace WeaponEnchantments.Items {
 			Item.maxStack = 99;
 			GetDefaults();
 		}
-		private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false) {
+		/*private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false) {
 			percentage = ShowPercentSignInTooltip != null ? (bool)ShowPercentSignInTooltip : true;
 			multiply100 = MultiplyBy100InTooltip != null ? (bool)MultiplyBy100InTooltip : true;
 			plus = ShowPlusSignInTooltip != null ? (bool)ShowPlusSignInTooltip : staticStat;
 			switch (s) {
 				//case "ArmorPenetration":
-				//case "statDefense":
+				//case "Defense":
 				//case "maxMinions":
 				//	percentage = false;
 				//	multiply100 = false;
@@ -549,11 +543,11 @@ namespace WeaponEnchantments.Items {
 					plus = true;
 					break;
 			}//percentage, multiply100
-		}
-		private string CheckStatAlteredName(string name) {
+		}*/
+		/*private string CheckStatAlteredName(string name) {
 			switch (name) {
 				case "crit":
-				case "statDefense":
+				case "Defense":
 				case "scale":
 					return MyDisplayName.AddSpaces();
 				case "Damage":
@@ -563,7 +557,7 @@ namespace WeaponEnchantments.Items {
 				default:
 					return name.CapitalizeFirst().AddSpaces();
 			}
-		}
+		}*/
 		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
 			if (checkName == "")
 				checkName = EnchantmentTypeName;
@@ -633,7 +627,7 @@ namespace WeaponEnchantments.Items {
 						}
 						else {
 							switch (name) {
-								case "statDefense":
+								case "Defense":
 								case "maxMinions":
 									AddStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength);
 									break;
@@ -672,7 +666,7 @@ namespace WeaponEnchantments.Items {
 
 			return true;
 		}
-		protected bool CheckBuffByName(bool debuff = false, string baseName = "") {
+		/*protected bool CheckBuffByName(bool debuff = false, string baseName = "") {
 			if (baseName == "")
 				baseName = Name;
 
@@ -693,7 +687,7 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 			return false;
-		}
+		}*/
 
 		public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
@@ -858,7 +852,7 @@ namespace WeaponEnchantments.Items {
 
 			return fullTooltip;
 		}
-		private string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, EItemType allowedListKey = EItemType.None) {
+		/*private string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, EItemType allowedListKey = EItemType.None) {
 			string toolTip = "";
 
 			//percentage, multiply100, plus
@@ -952,7 +946,7 @@ namespace WeaponEnchantments.Items {
 			}
 
 			return toolTip;
-		}
+		}*/
 		public static int GetDamageClass(int damageType) {
 			switch ((DamageTypeSpecificID)damageType) {
 				case DamageTypeSpecificID.Melee:

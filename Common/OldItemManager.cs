@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Common
             { "Critical", "CriticalStrikeChance" }, 
             { "Size", "Scale" }, 
             { "ManaCost", "Mana" }, 
-            { "Defence", "StatDefense" }, 
+            { "StatDefense", "Defense" }, 
             { "Splitting", "Multishot"} };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
             { "SuperRare", 3 }, 

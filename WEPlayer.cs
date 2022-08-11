@@ -640,12 +640,12 @@ namespace WeaponEnchantments {
                 case EditableStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
-                /*case EditableStat.CriticalStrikeChance:
+                case EditableStat.CriticalStrikeChance:
                     if (dc == null)
                         return;
 
                     Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
-                    break;*/
+                    break;
                 case EditableStat.Damage:
                     if (dc == null)
                         return;

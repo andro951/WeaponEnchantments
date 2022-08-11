@@ -585,7 +585,7 @@ namespace WeaponEnchantments
                         switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
                             case 0://Chest
                                 chance *= 0.7f;
-                                itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());

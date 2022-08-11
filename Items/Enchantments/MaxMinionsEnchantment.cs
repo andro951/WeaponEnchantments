@@ -4,8 +4,6 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class MaxMinionsEnchantment : Enchantment
 	{
-		public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {

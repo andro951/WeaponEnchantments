@@ -57,7 +57,7 @@ There are 3 containment levels:
     *Ingredients - 16 Demonite/Crimtane Bars, 4 common gems (any except diamond/amber)
 
 ## Enchantments
-![Defense Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
+![Defense Enchantment](/Items/Sprites/DefenseEnchantmentBasic.png)
 ![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
 
 Enchantments allow customization of your items:
@@ -303,7 +303,7 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![ScaleEnchantmentCommon](/Items/Sprites/ScaleEnchantmentCommon.png)
 ![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
 ![SpeedEnchantmentCommon](/Items/Sprites/SpeedEnchantmentCommon.png)
-![StatDefenseEnchantmentCommon](/Items/Sprites/StatDefenseEnchantmentCommon.png)
+![DefenseEnchantmentCommon](/Items/Sprites/DefenseEnchantmentCommon.png)
 ![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
 ![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)
 ![WarEnchantmentCommon](/Items/Sprites/WarEnchantmentCommon.png)

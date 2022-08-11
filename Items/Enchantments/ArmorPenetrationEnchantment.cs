@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class ArmorPenetrationEnchantment : Enchantment
 	{
-		public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override int StrengthGroup => 4;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new EnchantmentEffect[] {
+				new ArmorPenetration(@base: EnchantmentStrength),
+			};
 		}
 
 		public override string Artist => "Zorutan";
