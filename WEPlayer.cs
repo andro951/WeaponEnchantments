@@ -75,6 +75,7 @@ namespace WeaponEnchantments {
             ManaRegen,
             MaxFallSpeed,
             MaxHP,
+            MaxMinions,
             MaxMP,
             MoveAcceleration,
             MoveSlowdown,
@@ -682,6 +683,9 @@ namespace WeaponEnchantments {
                     break;
                 case EditableStat.MaxHP:
                     Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
+                    break;
+                case EditableStat.MaxMinions:
+                    Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);
                     break;
                 case EditableStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
