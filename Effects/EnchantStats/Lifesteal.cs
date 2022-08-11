@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Effects {
         public override string DisplayName { get; } = "Life Steal";
 
         protected override string modifierToString() {
-            return EStatModifier.BaseTooltip;
+            return EStatModifier.SmartTooltip;
         }
     }
 }

@@ -60,7 +60,8 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
 			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }),
-			new EnchantmentStrengths(new float[] { 0.14f, 0.18f, 0.22f, 0.26f, 0.30f })
+			new EnchantmentStrengths(new float[] { 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }),
+			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly int defaultBuffDuration = 60;
@@ -89,6 +90,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>10</term><description>{ 0.2f, 0.4f, 0.6f, 0.8f, 1f }</description><br/>
 		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }</description><br/>
 		/// <term>12</term><description>{ 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }</description><br/>
+		/// <term>13</term><description>{ 0.8f, 0.85f, 0.90f, 0.95f, 1f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -1019,10 +1021,26 @@ namespace WeaponEnchantments.Items {
 					//Enchanting Table
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 
+					if(j == 0)
+						EditTier0Recipies(recipe);
+
+					EditRecipe(recipe);
+
 					recipe.Register();
 				}
 			}
 		}
+		/// <summary>
+		/// Allows for editing recipies in any way.  Called for every recipe.
+		/// </summary>
+		/// <param name="recipe"></param>
+		protected virtual void EditRecipe(Recipe recipe) { }
+
+		/// <summary>
+		/// Edits all recipies that include the requirements for creating the tier 0 enchantment.
+		/// </summary>
+		/// <param name="recipe"></param>
+		protected virtual void EditTier0Recipies(Recipe recipe) { }
 		public int GetCapacityCost() {
 			if (CapacityCostMultiplier != -13.13f) {
 				//multiplier is being manually set by this enchantment
