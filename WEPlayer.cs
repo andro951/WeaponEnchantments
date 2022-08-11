@@ -1001,7 +1001,7 @@ namespace WeaponEnchantments
         }
         public bool ItemChanged(Item current, Item previous, bool weapon = false) {
             if (current != null && !current.IsAir) {
-                if (previous == null) {
+                if (previous == null)
                     return true;
 
                 if (previous.IsAir) {
