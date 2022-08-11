@@ -1,15 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using WeaponEnchantments.Common.Configs;
-using WeaponEnchantments.Common.Utility;
+﻿using Terraria.ModLoader;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
