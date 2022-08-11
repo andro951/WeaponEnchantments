@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -15,7 +16,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new EnchantmentEffect[] {
+				new DefenseEffect(EnchantmentStrength),
+			};
 		}
 
 		public override string Artist => "Zorutan";

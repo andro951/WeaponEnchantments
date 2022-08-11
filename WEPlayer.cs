@@ -599,6 +599,7 @@ namespace WeaponEnchantments {
                     }
                 }
             }
+
             return takeEnchantment ? true : null;
         }
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
