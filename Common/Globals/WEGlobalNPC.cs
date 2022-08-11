@@ -834,7 +834,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return;
+                goto debugBeforeReturn;
 
             SourceItem = item;
 
@@ -1028,9 +1028,10 @@ namespace WeaponEnchantments.Common.Globals
                 onHitEffectsPacket.Send();
             }
 
-			#region Debug
+            #region Debug
 
-			if (LogMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            debugBeforeReturn:
+            if (LogMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
 
 			#endregion
 		}

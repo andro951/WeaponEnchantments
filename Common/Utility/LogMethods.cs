@@ -24,6 +24,7 @@ namespace WeaponEnchantments.Common.Utility
     public static class LogMethods
     {
         public readonly static bool debugging = false;
+        public readonly static bool debuggingOnTick = false;
         private static int charNum = 0;
         private static Dictionary<string, double> logsT = new Dictionary<string, double>();
         public static string reportMessage = "\nPlease report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.";
