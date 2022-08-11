@@ -24,6 +24,7 @@ namespace WeaponEnchantments
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
+        public static bool PromptInterfaceActive => promptInterface?.CurrentState != null;
         public static int[] levelXps = new int[EnchantedItem.MAX_LEVEL];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
@@ -88,30 +89,7 @@ namespace WeaponEnchantments
                 }
 
                 if (removedItem || swappedItem) {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                        Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
-                        //For each enchantment in the enchantmentSlots,
-                        if (enchantmentInUI != null) {
-                            if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                                iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
-                        }
-                        
-                        wePlayer.EnchantmentUISlot(i).Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
-                        wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
-                    }
-
-                    if (wePlayer.infusionConsumeItem != null) {
-                        if(!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
-                            wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
-
-                        wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
-                    }
-
-                    if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
-                        iBEGlobal.inEnchantingTable = false;
-
-                    wePlayer.itemBeingEnchanted.favorited = favorited;
-                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+                    RemoveTableItem(wePlayer);
                 }
 
                 if (addedItem || swappedItem) {
@@ -304,6 +282,32 @@ namespace WeaponEnchantments
                 }
             }
         }
+        public static void RemoveTableItem(WEPlayer wePlayer) {
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
+                //For each enchantment in the enchantmentSlots,
+                if (enchantmentInUI != null) {
+                    if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                        iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
+                }
+
+                wePlayer.EnchantmentUISlot(i).Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
+                wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
+            }
+
+            if (wePlayer.infusionConsumeItem != null) {
+                if (!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
+                    wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
+
+                wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
+            }
+
+            if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
+                iBEGlobal.inEnchantingTable = false;
+
+            wePlayer.itemBeingEnchanted.favorited = favorited;
+            wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+        }
         public static void CloseWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item itemInUI = wePlayer.ItemInUI();
@@ -314,6 +318,8 @@ namespace WeaponEnchantments
                 //Clear item and enchantments from table
                 itemInUI = wePlayer.ItemInUI();
                 if (itemInUI.IsAir) {
+                    RemoveTableItem(wePlayer);
+
                     wePlayer.enchantingTable.item[0] = new Item();
                     for(int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
@@ -441,7 +447,7 @@ namespace WeaponEnchantments
                 weModSystemUI.Update(gameTime);
             }
 
-            if(promptInterface?.CurrentState != null)
+            if(PromptInterfaceActive)
                 promptInterface.Update(gameTime);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
@@ -485,7 +491,7 @@ namespace WeaponEnchantments
                 layers.Insert(index, new LegacyGameInterfaceLayer(
                     "WeaponEnchantments: PromptUI",
                     delegate {
-                        if (_lastUpdateUiGameTime != null && promptInterface?.CurrentState != null)
+                        if (_lastUpdateUiGameTime != null && PromptInterfaceActive)
                             promptInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
 
                         return true;
@@ -579,7 +585,7 @@ namespace WeaponEnchantments
                         switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
                             case 0://Chest
                                 chance *= 0.7f;
-                                itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());

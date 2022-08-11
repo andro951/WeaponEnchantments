@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class MaxMinionsEnchantment : Enchantment
 	{
-		public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
@@ -13,7 +12,9 @@ namespace WeaponEnchantments.Items.Enchantments
 			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new EnchantmentEffect[] {
+				new MaxMinions(@base: EnchantmentStrength)
+			};
 		}
 
 		public override string Artist => "andro951";

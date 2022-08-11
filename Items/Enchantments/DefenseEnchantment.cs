@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
-	public abstract class StatDefenseEnchantment : Enchantment
+	public abstract class DefenseEnchantment : Enchantment
 	{
-		public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override int StrengthGroup => 3;
 		public override string MyDisplayName => "Defence";
 		public override int LowestCraftableTier => 0;
@@ -15,16 +14,18 @@ namespace WeaponEnchantments.Items.Enchantments
 			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new EnchantmentEffect[] {
+				new DefenseEffect(@base: EnchantmentStrength),
+			};
 		}
 
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class StatDefenseEnchantmentBasic : StatDefenseEnchantment { }
-	public class StatDefenseEnchantmentCommon : StatDefenseEnchantment { }
-	public class StatDefenseEnchantmentRare : StatDefenseEnchantment { }
-	public class StatDefenseEnchantmentSuperRare : StatDefenseEnchantment { }
-	public class StatDefenseEnchantmentUltraRare : StatDefenseEnchantment { }
+	public class DefenseEnchantmentBasic : DefenseEnchantment { }
+	public class DefenseEnchantmentCommon : DefenseEnchantment { }
+	public class DefenseEnchantmentRare : DefenseEnchantment { }
+	public class DefenseEnchantmentSuperRare : DefenseEnchantment { }
+	public class DefenseEnchantmentUltraRare : DefenseEnchantment { }
 
 }

@@ -93,7 +93,7 @@ namespace Terraria.ModLoader
 		/// </summary>
 		public float Strength {
 			get {
-				if(_strength != 0f)
+				if (_strength != 0f)
 					return _strength;
 
 				if (_base > 0f || _flat > 0f) {
@@ -108,20 +108,94 @@ namespace Terraria.ModLoader
 			private set {
 				_strength = value;
 				tooltip = null;
-			} 
+			}
 		}
 		private float _strength;
 
-		public string Tooltip {
+		private float BaseTooltip => Strength - _flat;
+		public string SmartTooltip {
 			get {
-				if(tooltip == null) {
-					tooltip = $"{Strength.Percent()}%";//Needs a lot of work
+				if(_base <= 0f && _multiplicative != 1f) {
+					return SignTooltip;
 				}
 
-				return tooltip;
+				/*if (_base > 0f) {
+					return SignPercentMult100Tooltip;
+				}
+				else {
+					if (_additive > 0f) {
+						if (_multiplicative != 1f) {
+							return SignTooltip;
+						}
+						else {
+							return SignPercentMult100Tooltip;
+						}
+					}
+					else if (_multiplicative != 1f) {
+						return SignTooltip;
+					}
+				}*/
+
+				return SignPercentMult100Tooltip;
 			}
 		}
+
+		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{_flat}" : "";
+
 		private string tooltip;
+		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
+		public string SignPercentTooltip => GetTootlip(true, true, false);
+		public string SignMult100Tooltip => GetTootlip(true, false, true);
+		public string SignTooltip => GetTootlip(true, false, false);
+		public string PercentMult100Tooltip => GetTootlip(false, true, true);
+		public string PercentTooltip => GetTootlip(false, true, false);
+		public string Mult100Tooltip => GetTootlip(false, false, true);
+		public string NoneTooltip => GetTootlip(false, false, false);
+
+		private string GetTootlip(bool percent, bool sign, bool multiply100) {
+
+			if (tooltip == null) {
+				float baseTooltip = BaseTooltip;
+				tooltip = "";
+				if (baseTooltip > 0f) {
+					if (_base > 0f) {
+						if (sign)
+							tooltip += "+";
+
+						tooltip += $"{(multiply100 ? baseTooltip.Percent() : baseTooltip)}";
+
+					}
+					else {
+						tooltip += $"{baseTooltip}";
+						if (sign)
+							tooltip += "x";
+					}
+
+					if (percent)
+						tooltip += "%";
+				}
+
+				tooltip += FlatTooltip;
+			}
+
+			return tooltip;
+		}
+		/*
+		string final = "";
+        float mult = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
+        float flats = EStatModifier.Base * mult + EStatModifier.Flat;
+
+        if (flats > 0f) {
+            final += $"{s(flats)}{flats}";
+        }
+
+        if (mult > 0f) {
+            if (final != "") final += ' ';
+            final += $"{s(mult)}{mult.Percent()}%";
+        }
+
+        return final;
+		*/
 
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
 

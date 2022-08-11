@@ -10,7 +10,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 1f }
 		};
-
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

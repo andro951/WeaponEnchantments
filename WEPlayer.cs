@@ -75,6 +75,7 @@ namespace WeaponEnchantments {
             ManaRegen,
             MaxFallSpeed,
             MaxHP,
+            MaxMinions,
             MaxMP,
             MoveAcceleration,
             MoveSlowdown,
@@ -314,7 +315,7 @@ namespace WeaponEnchantments {
                 Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
             }
 
-            if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && !Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && hGlobal.trackedWeapon && !hGlobal.hoverItem) {
+			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && !hGlobal.trackedWeapon && !hGlobal.hoverItem) {
 
                 #region Debug
 
@@ -599,6 +600,7 @@ namespace WeaponEnchantments {
                     }
                 }
             }
+
             return takeEnchantment ? true : null;
         }
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
@@ -639,12 +641,12 @@ namespace WeaponEnchantments {
                 case EditableStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
-                /*case EditableStat.CriticalStrikeChance:
+                case EditableStat.CriticalStrikeChance:
                     if (dc == null)
                         return;
 
                     Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
-                    break;*/
+                    break;
                 case EditableStat.Damage:
                     if (dc == null)
                         return;
@@ -681,6 +683,9 @@ namespace WeaponEnchantments {
                     break;
                 case EditableStat.MaxHP:
                     Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
+                    break;
+                case EditableStat.MaxMinions:
+                    Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);
                     break;
                 case EditableStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
@@ -777,6 +782,9 @@ namespace WeaponEnchantments {
         #endregion
 
         public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
+            if (WEModSystem.PromptInterfaceActive)
+                return false;
+
             bool valid = false;
             if (Main.mouseItem.IsAir) {
                 //Trash Item

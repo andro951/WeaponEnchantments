@@ -47,6 +47,13 @@ namespace WeaponEnchantments.Common.Globals
 			if (tileTarget.TileType == MysticSnakeRope)
 				return true;
 
+			//Hammer (Don't calculate a dropItem)
+			if (Main.tileHammer[tileTarget.TileType]) {
+				tileType = tileTarget.TileType;
+				dropItem = new Item();
+				return true;
+			}
+
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			
 			//Calculate damage done to the tile  (Copied vanilla code)
@@ -103,6 +110,10 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
 				xp = tileType >= TreeTopaz && tileType <= TreeAmber ? tiles  * 50 : tiles * 10;
+			}
+			else if (Main.tileHammer[tileType]) {
+				//Hammer
+				xp += 9;
 			}
 			else {
 				//Pickaxe

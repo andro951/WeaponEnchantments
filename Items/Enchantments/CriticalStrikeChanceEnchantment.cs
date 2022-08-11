@@ -1,13 +1,16 @@
 ﻿
 
+using Terraria.ModLoader;
+using WeaponEnchantments.Effects;
+
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class CriticalStrikeChanceEnchantment : Enchantment
 	{
-		//public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new EnchantmentEffect[] {
+				new CriticalStrikeChance(@base: EnchantmentStrength * 100f),
+			};
 		}
 
 		public override string Artist => "Zorutan";

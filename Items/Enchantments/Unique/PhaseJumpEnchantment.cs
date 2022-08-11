@@ -4,8 +4,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class PhaseJumpEnchantment : Enchantment
 	{
-		public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override string CustomTooltip => $"(Dash)";
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;

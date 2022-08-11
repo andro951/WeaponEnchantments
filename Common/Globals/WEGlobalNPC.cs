@@ -441,7 +441,7 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 3://Fighter
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<DefenseEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 5://Flying
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));

@@ -266,7 +266,6 @@ namespace WeaponEnchantments.Common.Configs
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
         [DefaultValue(false)]
-        [ReloadRequired]
         public bool UsePointsAsTooltip;
 
         [Label("Use Alternate Enchantment Essence Textures")]
