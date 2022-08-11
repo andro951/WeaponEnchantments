@@ -614,6 +614,12 @@ namespace WeaponEnchantments.Common
             float valueMultiplier = 0.5f;
 
             int rarityInt = (int)rarity;
+            if (rarityInt < 0) {
+                rarityInt = 0;
+			}
+			else if (rarityInt >= numRarities) {
+                rarityInt = numRarities - 1;
+			}
 
             float averageValue = useCalamiryValuesOnly ? calamityAverageValues[rarityInt] : averageValues[rarityInt];
             int maxOrMin;
