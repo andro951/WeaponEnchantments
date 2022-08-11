@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Effects {
         public EStatModifier EStatModifier = EStatModifier.Default;
         public StatModifier StatModifier => EStatModifier.StatModifier;
         public float EffectStrength => EStatModifier.Strength;
-		public override float EfficiencyMultiplier { 
+		public override float EfficiencyMultiplier {
             get => EStatModifier.EfficiencyMultiplier; 
             set => EStatModifier.EfficiencyMultiplier = value; 
         }

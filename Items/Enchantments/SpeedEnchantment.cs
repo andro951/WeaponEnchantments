@@ -12,14 +12,14 @@ namespace WeaponEnchantments.Items.Enchantments
 				new AttackSpeed(EnchantmentStrength)
 			};
 
-			if(EnchantmentStrength >-0.1f) {
+			/*if(EnchantmentStrength >-0.1f) {
 				EnchantmentEffect[] temp = (EnchantmentEffect[])Effects.Clone();
 				Effects = new EnchantmentEffect[temp.Length + 1];
 				for(int i = 0; i < temp.Length - 1; i++) {
 					Effects[i] = temp[i];
 				}
 				Effects[temp.Length - 1] = new AutoReuse();
-			}
+			}*/
 		}
 
 		public override string Artist => "Zorutan";
