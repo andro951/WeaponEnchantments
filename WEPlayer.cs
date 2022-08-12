@@ -63,6 +63,7 @@ namespace WeaponEnchantments
         public enum EditableStat {
             AttackSpeed,
             ArmorPenetration,
+            AutoReuse,
             BonusManaRegen,
             CriticalStrikeChance,
             Damage,
@@ -517,11 +518,7 @@ namespace WeaponEnchantments
             return items;
         }
         public override bool? CanAutoReuseItem(Item item) {
-            bool? result = ApplyAutoReuseEnchants(item);
-            if (result.HasValue) {
-                return result.Value;
-            }
-            return base.CanAutoReuseItem(item);
+            return ApplyAutoReuseEnchants(item);
         }
 
         #endregion
@@ -587,21 +584,17 @@ namespace WeaponEnchantments
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
             // Divide effects based on what is needed.
-            bool takeEnchantment = false;
-            foreach (EnchantmentEffect effect in allEffects) {
-                if (effect.GetType().GetInterface(nameof(ICanAutoReuseItem)) != null) {
-                    bool? result = ((ICanAutoReuseItem)effect).CanAutoReuseItem(item);
-                    if (result == null) {
-                        continue;
-                    } else if (result == true) {
-                        takeEnchantment = true;
-                    } else {
-                        return false;
-                    }
-                }
+            bool? enableAutoReuse = null;
+            foreach (AutoReuse effect in allEffects.Where(e => e is AutoReuse).Select(e => (AutoReuse)e)) {
+                if (effect.EnableStat) {
+                    enableAutoReuse = true;
+				}
+				else if (!effect.EnableStat) {
+                    return false;
+				}
             }
 
-            return takeEnchantment ? true : null;
+            return enableAutoReuse;
         }
         private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
 

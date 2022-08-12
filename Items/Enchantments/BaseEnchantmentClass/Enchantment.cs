@@ -17,8 +17,7 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
-    public enum DamageTypeSpecificID
-	{
+    public enum DamageTypeSpecificID {
 		Default,
 		Generic,
 		Melee,
@@ -31,8 +30,7 @@ namespace WeaponEnchantments.Items {
 		Throwing
 	} // Located in DamageClassLoader.cs
 
-	public enum ArmorSlotSpecificID
-	{
+	public enum ArmorSlotSpecificID {
 		Head,
 		Body,
 		Legs
@@ -45,8 +43,10 @@ namespace WeaponEnchantments.Items {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
 			}
+
 			public float[] enchantmentTierStrength = new float[tierNames.Length];
 		}
+
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
 			new EnchantmentStrengths(new float[] { 0.4f, 0.8f, 1.2f, 1.6f, 2f }),//Not used yet
@@ -354,7 +354,7 @@ namespace WeaponEnchantments.Items {
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
-		public EnchantmentEffect[] Effects { protected set; get; } = new EnchantmentEffect[] { };
+		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
 

@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 4;
 		public override void GetMyStats() {
-			Effects = new EnchantmentEffect[] {
+			Effects = new() {
 				new ArmorPenetration(@base: EnchantmentStrength),
 			};
 		}

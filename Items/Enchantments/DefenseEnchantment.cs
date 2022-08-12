@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
-			Effects = new EnchantmentEffect[] {
+			Effects = new() {
 				new DefenseEffect(@base: EnchantmentStrength),
 			};
 		}
