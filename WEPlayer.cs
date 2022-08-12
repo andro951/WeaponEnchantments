@@ -2,11 +2,13 @@
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
@@ -17,6 +19,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments
 {
@@ -67,21 +70,43 @@ namespace WeaponEnchantments
             }
 
             OldItemManager.ReplaceAllPlayerOldItems(player);
-	    
-	    IEnumerable<Enchantment> enchantments = Mod.GetContent().Where(i => i.ModItem is Enchantment).Select(i => (Enchantment)i.ModItem);
-	    foreach(Enchantment enchantment in enchantments) {
-	    	string typeNameString = "$Mods.WeaponEnchantments.EnchantmentTypeNames.{enchantment.EnchantmentTypeName}";
-		string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
-		string rarityString;
-		if (WEMod.clientConfig.UseOldTierNames) {
-			rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
-		}
-		else {
-			rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[EnchantmentTier];
-		}
-		
-	    	enchantment.DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));;
-	    }
+
+            /*IEnumerable<ModItem> modItems = Mod.GetContent<ModItem>();
+
+            foreach(ModItem modItem in modItems) {
+                if(modItem is Enchantment enchantment) {
+                    string typeNameString = $"Mods.WeaponEnchantments.EnchantmentTypeNames.{enchantment.EnchantmentTypeName}";
+                    string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+                    string rarityString;
+                    if (WEMod.clientConfig.UseOldTierNames) {
+                        rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[enchantment.EnchantmentTier];
+                    }
+                    else {
+                        rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
+                    }
+
+                    string enchantmentName = displayName + " " + Language.GetTextValue(rarityString);
+                    enchantmentName.Log();
+                    enchantment.DisplayName.SetDefault(enchantmentName);
+                }
+			}*/
+
+            /*IEnumerable<Enchantment> enchantments = modItems.Where(i => i is Enchantment).Select(i => (Enchantment)i);
+            
+	        foreach(Enchantment enchantment in enchantments) {
+	    	    string typeNameString = "$Mods.WeaponEnchantments.EnchantmentTypeNames.{enchantment.EnchantmentTypeName}";
+		        string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+		        string rarityString;
+		        if (WEMod.clientConfig.UseOldTierNames) {
+			        rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[enchantment.EnchantmentTier];
+		        }
+		        else {
+			        rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
+		        }
+
+                string enchantmentName = displayName + " " + Language.GetTextValue(rarityString);
+                enchantment.DisplayName.SetDefault(enchantmentName);
+	        }*/
 
             #region Debug
 

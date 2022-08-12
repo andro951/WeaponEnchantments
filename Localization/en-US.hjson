@@ -1,56 +1,139 @@
-﻿
-Mods: {
+﻿Mods: {
 	WeaponEnchantments: {
 		ItemName: {
 			Containment: Containment
 			MediumContainment: Medium Containment
 			SuperiorContainment: Superior Containment
-			WoodEnchantingTable: Wood Enchanting Table
 			DustyEnchantingTable: Dusty Enchanting Table
 			HellishEnchantingTable: Hellish Enchanting Table
 			SoulEnchantingTable: Soul Enchanting Table
 			UltimateEnchantingTable: Ultimate Enchanting Table
-		}
-		EnchantmentEssence: Enchantment Essence
-		Enchantment: Enchantment
-		EnchantmentTypeNames: {
-			ArmorPenetration: Armor Penetration
-			CriticalStrikeChance: Critical Strike Chance
-			Damage: Damage
-			LifeSteal: Life Steal
-			MaxMinions: Max Minions
-			Multishot: Multishot
-			OneForAll: One For All
-			Speed: Speed
-			StatDefense: Defense
-			AllForOne: All For One
-			ColdSteel: Cold Steel
-			GodSlayer: God Slayer
-			HellsWrath: Hells Wrath
-			JunglesFury: Jungles Fury
-			Moonlight: Moonlight
-			AmmoCost: Ammo Cost
-			Mana: Mana Cost
-			MoveSpeed: Move Speed
-			Peace: Peace
-			Scale: Size
-			ShootSpeed: Shoot Speed
-			War: War
-			WorldAblaze: World Ablaze
-		}
-		TierNames: {
-			Basic: Basic
-			Common: Common
-			Rare: Rare
-			SuperRare: Super Rare
-			UltraRare: Ultra Rare
-		}
-		DisplayTierNames: {
-			Basic: Basic
-			Common: Common
-			Rare: Rare
-			Epic: Epic
-			Legendary: Legendary
+			WoodEnchantingTable: Wood Enchanting Table
+			EnchantmentEssenceBasic: Enchantment Essence Basic
+			EnchantmentEssenceCommon: Enchantment Essence Common
+			EnchantmentEssenceRare: Enchantment Essence Rare
+			EnchantmentEssenceSuperRare: Enchantment Essence Super Rare
+			EnchantmentEssenceUltraRare: Enchantment Essence Ultra Rare
+			AllForOneEnchantmentBasic: All For One Enchantment Basic
+			AllForOneEnchantmentCommon: All For One Enchantment Common
+			AllForOneEnchantmentRare: All For One Enchantment Rare
+			AllForOneEnchantmentSuperRare: All For One Enchantment Super Rare
+			AllForOneEnchantmentUltraRare: All For One Enchantment Ultra Rare
+			ArmorPenetrationEnchantmentBasic: Armor Penetration Enchantment Basic
+			ArmorPenetrationEnchantmentCommon: Armor Penetration Enchantment Common
+			ArmorPenetrationEnchantmentRare: Armor Penetration Enchantment Rare
+			ArmorPenetrationEnchantmentSuperRare: Armor Penetration Enchantment Super Rare
+			ArmorPenetrationEnchantmentUltraRare: Armor Penetration Enchantment Ultra Rare
+			CriticalStrikeChanceEnchantmentBasic: Critical Strike Chance Enchantment Basic
+			CriticalStrikeChanceEnchantmentCommon: Critical Strike Chance Enchantment Common
+			CriticalStrikeChanceEnchantmentRare: Critical Strike Chance Enchantment Rare
+			CriticalStrikeChanceEnchantmentSuperRare: Critical Strike Chance Enchantment Super Rare
+			CriticalStrikeChanceEnchantmentUltraRare: Critical Strike Chance Enchantment Ultra Rare
+			DamageEnchantmentBasic: Damage Enchantment Basic
+			DamageEnchantmentCommon: Damage Enchantment Common
+			DamageEnchantmentRare: Damage Enchantment Rare
+			DamageEnchantmentSuperRare: Damage Enchantment Super Rare
+			DamageEnchantmentUltraRare: Damage Enchantment Ultra Rare
+			LifeStealEnchantmentBasic: Life Steal Enchantment Basic
+			LifeStealEnchantmentCommon: Life Steal Enchantment Common
+			LifeStealEnchantmentRare: Life Steal Enchantment Rare
+			LifeStealEnchantmentSuperRare: Life Steal Enchantment Super Rare
+			LifeStealEnchantmentUltraRare: Life Steal Enchantment Ultra Rare
+			MaxMinionsEnchantmentBasic: Max Minions Enchantment Basic
+			MaxMinionsEnchantmentCommon: Max Minions Enchantment Common
+			MaxMinionsEnchantmentRare: Max Minions Enchantment Rare
+			MaxMinionsEnchantmentSuperRare: Max Minions Enchantment Super Rare
+			MaxMinionsEnchantmentUltraRare: Max Minions Enchantment Ultra Rare
+			OneForAllEnchantmentBasic: One For All Enchantment Basic
+			OneForAllEnchantmentCommon: One For All Enchantment Common
+			OneForAllEnchantmentRare: One For All Enchantment Rare
+			OneForAllEnchantmentSuperRare: One For All Enchantment Super Rare
+			OneForAllEnchantmentUltraRare: One For All Enchantment Ultra Rare
+			SpeedEnchantmentBasic: Speed Enchantment Basic
+			SpeedEnchantmentCommon: Speed Enchantment Common
+			SpeedEnchantmentRare: Speed Enchantment Rare
+			SpeedEnchantmentSuperRare: Speed Enchantment Super Rare
+			SpeedEnchantmentUltraRare: Speed Enchantment Ultra Rare
+			StatDefenseEnchantmentBasic: Stat Defense Enchantment Basic
+			StatDefenseEnchantmentCommon: Stat Defense Enchantment Common
+			StatDefenseEnchantmentRare: Stat Defense Enchantment Rare
+			StatDefenseEnchantmentSuperRare: Stat Defense Enchantment Super Rare
+			StatDefenseEnchantmentUltraRare: Stat Defense Enchantment Ultra Rare
+			ColdSteelEnchantmentBasic: Cold Steel Enchantment Basic
+			ColdSteelEnchantmentCommon: Cold Steel Enchantment Common
+			ColdSteelEnchantmentRare: Cold Steel Enchantment Rare
+			ColdSteelEnchantmentSuperRare: Cold Steel Enchantment Super Rare
+			ColdSteelEnchantmentUltraRare: Cold Steel Enchantment Ultra Rare
+			GodSlayerEnchantmentBasic: God Slayer Enchantment Basic
+			GodSlayerEnchantmentCommon: God Slayer Enchantment Common
+			GodSlayerEnchantmentRare: God Slayer Enchantment Rare
+			GodSlayerEnchantmentSuperRare: God Slayer Enchantment Super Rare
+			GodSlayerEnchantmentUltraRare: God Slayer Enchantment Ultra Rare
+			HellsWrathEnchantmentBasic: Hells Wrath Enchantment Basic
+			HellsWrathEnchantmentCommon: Hells Wrath Enchantment Common
+			HellsWrathEnchantmentRare: Hells Wrath Enchantment Rare
+			HellsWrathEnchantmentSuperRare: Hells Wrath Enchantment Super Rare
+			HellsWrathEnchantmentUltraRare: Hells Wrath Enchantment Ultra Rare
+			JunglesFuryEnchantmentBasic: Jungles Fury Enchantment Basic
+			JunglesFuryEnchantmentCommon: Jungles Fury Enchantment Common
+			JunglesFuryEnchantmentRare: Jungles Fury Enchantment Rare
+			JunglesFuryEnchantmentSuperRare: Jungles Fury Enchantment Super Rare
+			JunglesFuryEnchantmentUltraRare: Jungles Fury Enchantment Ultra Rare
+			MoonlightEnchantmentBasic: Moonlight Enchantment Basic
+			MoonlightEnchantmentCommon: Moonlight Enchantment Common
+			MoonlightEnchantmentRare: Moonlight Enchantment Rare
+			MoonlightEnchantmentSuperRare: Moonlight Enchantment Super Rare
+			MoonlightEnchantmentUltraRare: Moonlight Enchantment Ultra Rare
+			MultishotEnchantmentBasic: Multishot Enchantment Basic
+			MultishotEnchantmentCommon: Multishot Enchantment Common
+			MultishotEnchantmentRare: Multishot Enchantment Rare
+			MultishotEnchantmentSuperRare: Multishot Enchantment Super Rare
+			MultishotEnchantmentUltraRare: Multishot Enchantment Ultra Rare
+			AmmoCostEnchantmentBasic: Ammo Cost Enchantment Basic
+			AmmoCostEnchantmentCommon: Ammo Cost Enchantment Common
+			AmmoCostEnchantmentRare: Ammo Cost Enchantment Rare
+			AmmoCostEnchantmentSuperRare: Ammo Cost Enchantment Super Rare
+			AmmoCostEnchantmentUltraRare: Ammo Cost Enchantment Ultra Rare
+			DangerSenseEnchantmentUltraRare: Danger Sense Enchantment Ultra Rare
+			HunterEnchantmentUltraRare: Hunter Enchantment Ultra Rare
+			ManaEnchantmentBasic: Mana Enchantment Basic
+			ManaEnchantmentCommon: Mana Enchantment Common
+			ManaEnchantmentRare: Mana Enchantment Rare
+			ManaEnchantmentSuperRare: Mana Enchantment Super Rare
+			ManaEnchantmentUltraRare: Mana Enchantment Ultra Rare
+			MoveSpeedEnchantmentBasic: Move Speed Enchantment Basic
+			MoveSpeedEnchantmentCommon: Move Speed Enchantment Common
+			MoveSpeedEnchantmentRare: Move Speed Enchantment Rare
+			MoveSpeedEnchantmentSuperRare: Move Speed Enchantment Super Rare
+			MoveSpeedEnchantmentUltraRare: Move Speed Enchantment Ultra Rare
+			ObsidianSkinEnchantmentUltraRare: Obsidian Skin Enchantment Ultra Rare
+			PeaceEnchantmentBasic: Peace Enchantment Basic
+			PeaceEnchantmentCommon: Peace Enchantment Common
+			PeaceEnchantmentRare: Peace Enchantment Rare
+			PeaceEnchantmentSuperRare: Peace Enchantment Super Rare
+			PeaceEnchantmentUltraRare: Peace Enchantment Ultra Rare
+			ScaleEnchantmentBasic: Scale Enchantment Basic
+			ScaleEnchantmentCommon: Scale Enchantment Common
+			ScaleEnchantmentRare: Scale Enchantment Rare
+			ScaleEnchantmentSuperRare: Scale Enchantment Super Rare
+			ScaleEnchantmentUltraRare: Scale Enchantment Ultra Rare
+			ShootSpeedEnchantmentBasic: Shoot Speed Enchantment Basic
+			ShootSpeedEnchantmentCommon: Shoot Speed Enchantment Common
+			ShootSpeedEnchantmentRare: Shoot Speed Enchantment Rare
+			ShootSpeedEnchantmentSuperRare: Shoot Speed Enchantment Super Rare
+			ShootSpeedEnchantmentUltraRare: Shoot Speed Enchantment Ultra Rare
+			SpelunkerEnchantmentUltraRare: Spelunker Enchantment Ultra Rare
+			WarEnchantmentBasic: War Enchantment Basic
+			WarEnchantmentCommon: War Enchantment Common
+			WarEnchantmentRare: War Enchantment Rare
+			WarEnchantmentSuperRare: War Enchantment Super Rare
+			WarEnchantmentUltraRare: War Enchantment Ultra Rare
+			WorldAblazeEnchantmentBasic: World Ablaze Enchantment Basic
+			WorldAblazeEnchantmentCommon: World Ablaze Enchantment Common
+			WorldAblazeEnchantmentRare: World Ablaze Enchantment Rare
+			WorldAblazeEnchantmentSuperRare: World Ablaze Enchantment Super Rare
+			WorldAblazeEnchantmentUltraRare: World Ablaze Enchantment Ultra Rare
+			PowerBooster: Power Booster
 		}
 	}
 }
