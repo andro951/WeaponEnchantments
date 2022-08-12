@@ -610,7 +610,7 @@ namespace WeaponEnchantments
             Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
 
             foreach (StatEffect statEffect in StatEffects) {
-                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;
+                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;//DamageClass dc = (statEffect as IClassedEffect)?.damageClass;
                 StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
                 if (!statModifiers.ContainsKey(statDC)) {
                     // If the stat name isn't on the dictionary add it
