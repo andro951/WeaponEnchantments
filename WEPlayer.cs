@@ -524,7 +524,7 @@ namespace WeaponEnchantments
         #endregion
 
         #region Enchantment hooks
-        private struct StatDamageClass {
+        public struct StatDamageClass {
             public StatDamageClass(EditableStat editableStat, DamageClass damageClass) {
                 EditableStat = editableStat;
                 DamageClass = damageClass;
@@ -557,6 +557,7 @@ namespace WeaponEnchantments
             List<StatEffect> statEffects = new List<StatEffect>();
 
             // Divide effects based on what is needed.
+
             foreach (EnchantmentEffect effect in allEffects) {
                 if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
                     passiveEffects.Add((IPassiveEffect)effect);
@@ -600,21 +601,13 @@ namespace WeaponEnchantments
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
             Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
-            Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
+            //Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
 
             foreach (StatEffect statEffect in StatEffects) {
-                DamageClass dc = statEffect.GetType().GetInterface(nameof(IClassedEffect)) != null ? ((IClassedEffect)statEffect).damageClass : null;//DamageClass dc = (statEffect as IClassedEffect)?.damageClass;
+                DamageClass dc = (statEffect as IClassedEffect)?.damageClass;
                 StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
-                if (!statModifiers.ContainsKey(statDC)) {
-                    // If the stat name isn't on the dictionary add it
-                    statModifiers.Add(statDC, statEffect.StatModifier);
-                    statCounts.Add(statDC, 1);
-                }
-                else {
-                    // If the stat name is on the dictionary, combine it's modifiers
-                    statModifiers[statDC] = statEffect.EStatModifier.CombineWith(statModifiers[statDC]);
-                    statCounts[statDC] += 1;
-                }
+                statModifiers.AddOrCombine(statDC, statEffect.StatModifier);
+                //statCounts.AddOrCombine(statDC, 1);
             }
 
             // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.

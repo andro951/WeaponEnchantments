@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
 using System;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -208,6 +209,38 @@ namespace WeaponEnchantments.Common.Utility
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
         }
+        public static void AddOrCombine<TKey>(this Dictionary<TKey, StatModifier> dictionary, TKey key, StatModifier newValue) {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key] = newValue.CombineWith(dictionary[key]);
+			}
+			else {
+                dictionary.Add(key, newValue);
+			}
+		}
+        public static void AddOrCombine<TKey>(this Dictionary<TKey, int> dictionary, TKey key, int newValue) {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key] = newValue + dictionary[key];
+            }
+            else {
+                dictionary.Add(key, newValue);
+            }
+        }
+        public static void AddOrCombine<TKey>(this Dictionary<TKey, float> dictionary, TKey key, int newValue) {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key] = newValue + dictionary[key];
+            }
+            else {
+                dictionary.Add(key, newValue);
+            }
+        }
+        /*public static void AddOrCombine(this Dictionary<StatDamageClass, float> dictionary, StatDamageClass dc, int newValue) {
+            if (dictionary.ContainsKey(dc)) {
+                dictionary[dc] = newValue + dictionary[dc];
+            }
+            else {
+                dictionary.Add(dc, newValue);
+            }
+        }*/
 
         #endregion
     }
