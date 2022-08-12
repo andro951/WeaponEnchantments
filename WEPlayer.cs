@@ -557,13 +557,12 @@ namespace WeaponEnchantments
             List<StatEffect> statEffects = new List<StatEffect>();
 
             // Divide effects based on what is needed.
-
             foreach (EnchantmentEffect effect in allEffects) {
-                if (effect.GetType().GetInterface(nameof(IPassiveEffect)) != null)
-                    passiveEffects.Add((IPassiveEffect)effect);
+                if (effect is IPassiveEffect passiveEffect)
+                    passiveEffects.Add(passiveEffect);
 
-                if (effect is StatEffect)
-                    statEffects.Add((StatEffect)effect);
+                if (effect is StatEffect statEffect)
+                    statEffects.Add(statEffect);
             }
 
             // Apply all PostUpdateMiscEffects
