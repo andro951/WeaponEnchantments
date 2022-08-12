@@ -329,25 +329,6 @@ namespace WeaponEnchantments.Items {
 		#region Stats and buffs
 
 		private bool finishedOneTimeSetup = false;
-
-		/// <summary>
-		/// Default -1<br/>
-		/// Converts a weapon's damage type to the specified type.<br/>
-		/// Please use the DamageTypeSpecificID enum for this.<br/>
-		/// Example: NewDamageType => (int)DamageTypeSpecificID.Melee<br/><br/>
-		/// <list>
-		/// <term>0</term><description>Generic</description><br/>
-		/// <term>1</term><description>Melee</description><br/>
-		/// <term>2</term><description>MeleeNoSpeed</description><br/>
-		/// <term>3</term><description>Ranged</description><br/>
-		/// <term>4</term><description>Magic</description><br/>
-		/// <term>5</term><description>Summon</description><br/>
-		/// <term>6</term><description>SummonMeleeSpeed</description><br/>
-		/// <term>7</term><description>MagicSummonHybrid</description><br/>
-		/// <term>8</term><description>Throwing</description><br/>
-		/// </list>
-		/// </summary>
-		public virtual int NewDamageType { private set; get; } = -1;
 		public int BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
@@ -514,7 +495,7 @@ namespace WeaponEnchantments.Items {
 			GetMyStats();
 
 			//Default Stat
-			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1 && NewDamageType == -1) {
+			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
 				AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
 			}
 

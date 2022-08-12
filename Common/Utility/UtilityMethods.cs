@@ -233,14 +233,9 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        /*public static void AddOrCombine(this Dictionary<StatDamageClass, float> dictionary, StatDamageClass dc, int newValue) {
-            if (dictionary.ContainsKey(dc)) {
-                dictionary[dc] = newValue + dictionary[dc];
-            }
-            else {
-                dictionary.Add(dc, newValue);
-            }
-        }*/
+        public static void ApplyTo(this StatModifier statModifier, ref float value) {
+            value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
+		}
 
         #endregion
     }

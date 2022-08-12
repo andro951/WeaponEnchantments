@@ -518,7 +518,7 @@ namespace WeaponEnchantments
             return items;
         }
         public override bool? CanAutoReuseItem(Item item) {
-            return ApplyAutoReuseEnchants(item);
+            return ApplyAutoReuseEnchants();
         }
 
         #endregion
@@ -563,6 +563,7 @@ namespace WeaponEnchantments
 
                 if (effect is StatEffect statEffect)
                     statEffects.Add(statEffect);
+
             }
 
             // Apply all PostUpdateMiscEffects
@@ -577,10 +578,10 @@ namespace WeaponEnchantments
 
             // Apply them if there's any. TODO: Make sure changes _actually_ have to be made to save on time.
             if (statEffects.Any())
-                ApplyStatEffects(statEffects);
+                ApplyStatEffects(statEffects, ref newEquipment.HeldItem);
 
         }
-        public bool? ApplyAutoReuseEnchants(Item item) {
+        public bool? ApplyAutoReuseEnchants() {
             IEnumerable<EnchantmentEffect> allEffects = GetRelevantEffects();
 
             // Divide effects based on what is needed.
@@ -596,7 +597,7 @@ namespace WeaponEnchantments
 
             return enableAutoReuse;
         }
-        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
+        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects, ref Item heldItem) {
 
             // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
             Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
@@ -612,10 +613,11 @@ namespace WeaponEnchantments
             // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
 
             foreach (StatDamageClass eb in statModifiers.Keys) {
-                ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
+                ModifyStat(eb.EditableStat, statModifiers[eb], ref heldItem, eb.DamageClass);
             }
         }
-        private void ModifyStat(EditableStat es, StatModifier sm, DamageClass dc = null) {
+        //TODO: Find a way to change the if (dc == null) return; to just 1 check.
+        private void ModifyStat(EditableStat es, StatModifier sm, ref Item heldItem, DamageClass dc = null) {
             switch (es) {
                 case EditableStat.ArmorPenetration:
                     if (dc == null)
@@ -1313,9 +1315,7 @@ namespace WeaponEnchantments
                 iGlobal.appliedStatModifiers.Clear();
                 iGlobal.appliedEStats.Clear();
                 iGlobal.prefix = item.prefix;
-                int damageType = iGlobal.damageType;
-                if (damageType > -1)
-                    item.UpdateDamageType(damageType);
+                item.DamageType = iGlobal.damageType;
             }
 
             int infusedArmorSlot = iGlobal.infusedArmorSlot;

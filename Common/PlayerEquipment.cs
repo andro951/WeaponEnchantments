@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Common {
             return effects;
         }
 
-        private Item HeldItem;
+        public Item HeldItem;
         private Item[] Armor = new Item[vanillaArmorSlots];
         private Item[] Accesories; 
 
