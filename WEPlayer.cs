@@ -67,6 +67,7 @@ namespace WeaponEnchantments
             BonusManaRegen,
             CriticalStrikeChance,
             Damage,
+            DamageAfterDefenses,
             Defense,
             JumpSpeedBoost,
             Knockback,
@@ -491,11 +492,41 @@ namespace WeaponEnchantments
                 UpdatePlayerStat();
         }
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
-            ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
+            ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref Player.direction);
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-            proj.TryGetGlobalProjectile(out WEProjectile weProj); // Try not using a global for this maybe
-            Item item = weProj.sourceItem;
+            Item item = null;
+            if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
+                item = weProj.sourceItem;
+
+            ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
+        }
+        private void ModifyHitNPCWithAny(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Projectile proj = null) {
+            //Defense (damage reduction)
+            int armorPenetration = Player.GetWeaponArmorPenetration(item);
+            int damageReduction = target.defense / 2 - target.checkArmorPenetration(armorPenetration);
+
+            //Prevent damage from being less than 1
+            if (damageReduction >= damage)
+                damageReduction = damage - 1;
+
+            damage -= damageReduction;
+
+            //Armor penetration bonus damage
+            int defenseNoNegative = target.defense > 0 ? target.defense : 0;
+            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
+                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
+                if (armorPenetrationBonusDamage > 50) {
+                    int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
+                    if (armorPenetrationBonusDamage > maxArmorPenetration)
+                        armorPenetrationBonusDamage = maxArmorPenetration;
+                }
+
+                damage += armorPenetrationBonusDamage;
+            }
+
+            //Damage Enchantment
+            float damageMultiplier = item.ApplyEStat("Damage", 1f);
 
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit);
         }

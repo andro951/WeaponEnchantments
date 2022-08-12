@@ -1,4 +1,5 @@
-﻿using WeaponEnchantments.Common.Utility;
+﻿using System;
+using WeaponEnchantments.Common.Utility;
 
 namespace Terraria.ModLoader
 {
@@ -273,6 +274,13 @@ namespace Terraria.ModLoader
 
 		public float ApplyTo(float baseValue) =>
 			(baseValue + _base) * _additive * _multiplicative + _flat;
+
+		public void ApplyTo(ref float baseValue) {
+			baseValue = (baseValue + _base) * _additive * _multiplicative + _flat;
+		}
+		public void ApplyTo(ref int baseValue) {
+			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive * _multiplicative + _flat);
+		}
 
 		public StatModifier CombineWith(EStatModifier m) 
 			=> new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);

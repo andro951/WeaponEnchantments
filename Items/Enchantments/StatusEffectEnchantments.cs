@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using WeaponEnchantments.Effects;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -24,6 +26,10 @@ namespace WeaponEnchantments.Items.Enchantments
 			//TODO: Update to new system
 			Debuff.Add(StatusEffect, BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
+			Effects = new() {
+				new DebuffEffect(StatusEffect, new Time(BuffDuration)),
+				new DamageEffect()
+			};
 		}
 
 		protected override void EditTier0Recipies(Recipe recipe) {
