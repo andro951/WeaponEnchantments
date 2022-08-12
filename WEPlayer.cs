@@ -67,6 +67,21 @@ namespace WeaponEnchantments
             }
 
             OldItemManager.ReplaceAllPlayerOldItems(player);
+	    
+	    IEnumerable<Enchantment> enchantments = Mod.GetContent().Where(i.ModItem => i.ModItem is Enchantment);
+	    foreach(Enchantment enchantment in enchantments) {
+	    	string typeNameString = "$Mods.WeaponEnchantments.EnchantmentTypeNames.{enchantment.EnchantmentTypeName}";
+		string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
+		string rarityString;
+		if (WEMod.clientConfig.UseOldTierNames) {
+			rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
+		}
+		else {
+			rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[EnchantmentTier];
+		}
+		
+	    	enchantment.DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));;
+	    }
 
             #region Debug
 
