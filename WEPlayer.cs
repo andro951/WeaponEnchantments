@@ -68,7 +68,7 @@ namespace WeaponEnchantments
 
             OldItemManager.ReplaceAllPlayerOldItems(player);
 	    
-	    IEnumerable<Enchantment> enchantments = Mod.GetContent().Where(i.ModItem => i.ModItem is Enchantment);
+	    IEnumerable<Enchantment> enchantments = Mod.GetContent().Where(i => i.ModItem is Enchantment).Select(i => (Enchantment)i.ModItem);
 	    foreach(Enchantment enchantment in enchantments) {
 	    	string typeNameString = "$Mods.WeaponEnchantments.EnchantmentTypeNames.{enchantment.EnchantmentTypeName}";
 		string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
