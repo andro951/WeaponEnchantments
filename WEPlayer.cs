@@ -477,7 +477,7 @@ namespace WeaponEnchantments
 
             return currentEquipArmor;
         }
-        public override void PostUpdate() {
+		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
             if (modItem != null) {
@@ -494,7 +494,7 @@ namespace WeaponEnchantments
             //var loader = LoaderManager.Get<AccessorySlotLoader>();
             //Check if armor changed
             Item[] currentArmor = GetEquipArmor();
-            
+
             for (int j = 0; j < equipArmor.Length; j++) {
                 /*if (j < vanillaArmorLength) {
                     armor = Player.armor[j];
@@ -532,7 +532,7 @@ namespace WeaponEnchantments
                 Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
             }
 
-			if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && !hGlobal.trackedWeapon && !hGlobal.hoverItem) {
+            if (Main.HoverItem != null && IsWeaponItem(Main.HoverItem) && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hGlobal) && !hGlobal.trackedWeapon && !hGlobal.hoverItem) {
 
                 #region Debug
 
@@ -618,17 +618,17 @@ namespace WeaponEnchantments
                     }
                 }
 
-				#region Debug
+                #region Debug
 
-				if (LogMethods.debugging) ($"newItem: " + newItem.S()).Log();
+                if (LogMethods.debugging) ($"newItem: " + newItem.S()).Log();
 
                 #endregion
 
                 bool checkWeapon = ItemChanged(newItem, trackedHoverItem, true);
 
-				#region Debug
+                #region Debug
 
-				if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
+                if (LogMethods.debugging) ($"checkWeapon: " + ItemChanged(newItem, trackedHoverItem, true)).Log();
 
                 #endregion
 
@@ -645,24 +645,24 @@ namespace WeaponEnchantments
                     UpdateItemStats(ref newItem);
                 }
 
-				#region Debug
+                #region Debug
 
-				if (LogMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
+                if (LogMethods.debugging) ($"/\\End hoverItem check Item: " + (newItem != null ? newItem.Name : "null ")).Log();
 
-				#endregion
-			}
-			else {
+                #endregion
+            }
+            else {
                 bool trackedHoverItemGlobalExists = trackedHoverItem.TryGetEnchantedItem(out EnchantedItem trackedHoverItemEI);
                 bool newHoverItemExists = Main.HoverItem.TryGetEnchantedItem(out EnchantedItem hoverItemEI) && hoverItemEI.hoverItem == false || Main.HoverItem == null || Main.HoverItem.IsAir;
                 if (trackedHoverItemGlobalExists && newHoverItemExists) {
 
-					#region Debug
+                    #region Debug
 
-					if (LogMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
+                    if (LogMethods.debugging) ($"remove hoverItem: {trackedHoverItem.S()}").Log();
 
-					#endregion
+                    #endregion
 
-					trackedHoverItemEI.hoverItem = false;
+                    trackedHoverItemEI.hoverItem = false;
                     trackedHoverItem = null;
                 }
             }
