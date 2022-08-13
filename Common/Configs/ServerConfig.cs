@@ -57,11 +57,13 @@ namespace WeaponEnchantments.Common.Configs
 			"Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
         [Range(0, 10000)]
         [DefaultValue(10)]
+        [ReloadRequired]
         public int SpeedEnchantmentAutoReuseSetpoint;
 
         [Label("Auto Reuse Disabled on Magic Missile type weapons")]
         [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool AutoReuseDisabledOnMagicMissile;
 
         //Essence and Experience
@@ -201,6 +203,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +
 			"Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.\n" +
 			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
+        [ReloadRequired]
         public int InfusionDamageMultiplier;
 
         [Label("Minion Life Steal Multiplier (%)")]
