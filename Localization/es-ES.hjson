@@ -1,56 +1,140 @@
-﻿#Contributors: JoeDolca and Mizky_Noust
+﻿#Contributors: JoeDolca, Mizky_Noust, @Haturok#8191
 Mods: {
-    WeaponEnchantments: {
-        ItemName: {
-            Containment: Contenedor
-            MediumContainment: Contenedor Mediano
-            SuperiorContainment: Contenedor Superior
-            WoodEnchantingTable: Mesa de Encantamiento de Madera
-            DustyEnchantingTable: Mesa de Encantamiento Polvorienta
-            HellishEnchantingTable: Mesa de Encantamiento Infernal
-            SoulEnchantingTable: Mesa de Encantamiento Espiritual
-            UltimateEnchantingTable: Mesa de Encantamiento Definitiva
-        }
-        EnchantmentEssence: Esencia de Encantamiento
-        Enchantment: Encantamiento
-        EnchantmentTypeNames: {
-            ArmorPenetration: Penetración de Armadura
-            CriticalStrikeChance: Golpe Crítico
-            Damage: Daño
-            LifeSteal: Robo de Vida
-            MaxMinions: Subditos Máximos
-            Multishot: Multidisparo
-            OneForAll: Uno Para Todos
-            Speed: Velocidad
-            Defense: Defensa
-            AllForOne: Todos Para Uno
-            ColdSteel: Acero Gélido
-            GodSlayer: Matadioses
-            HellsWrath: Furia del Infierno
-            JunglesFury: Ira de la Jungla
-            Moonlight: Luz de Luna
-            AmmoCost: Coste de Munición
-            Mana: Costo de Mana
-            MoveSpeed: Velocidad de Movimiento
-            Peace: Paz
-            Scale: Tamaño
-            ShootSpeed: Velocidad de Proyectil
-            War: Guerra
-            WorldAblaze: Mundo en Llamas
-        }
-        TierNames: {
-            Basic: Básico
-            Common: Común
-            Rare: Raro
-            SuperRare: Súper Raro
-            UltraRare: Ultra Raro
-        }
-        DisplayTierNames: {
-            Basic: Básico
-            Common: Común
-            Rare: Raro
-            Epic: Épico
-            Legendary: Legendario
-        }
-    }
+	WeaponEnchantments: {
+		ItemName: {
+			Containment: Contención
+			MediumContainment: Contención Media
+			SuperiorContainment: Contención Superior
+			DustyEnchantingTable: Mesa de encantamiento polvorienta
+			HellishEnchantingTable: Mesa de encantamiento infernal
+			SoulEnchantingTable: Mesa de encantamiento de almas
+			UltimateEnchantingTable: Mesa de encantamiento definitiva
+			WoodEnchantingTable: Mesa de madera encantada
+			EnchantmentEssenceBasic: Esencia de encantamiento básica
+			EnchantmentEssenceCommon: Esencia de encantamiento Común
+			EnchantmentEssenceRare: Esencia de encantamiento rara
+			EnchantmentEssenceSuperRare: Esencia de encantamiento Súper rara
+			EnchantmentEssenceUltraRare: Esencia de encantamiento ultra rara
+			AllForOneEnchantmentBasic: Todo para uno Encantamiento básico
+			AllForOneEnchantmentCommon: Todos para uno Encantamiento Común
+			AllForOneEnchantmentRare: Todos para uno Encantamiento Raro
+			AllForOneEnchantmentSuperRare: All For One Encantamiento Súper Raro
+			AllForOneEnchantmentUltraRare: All For One Encantamiento Ultra Raro
+			ArmorPenetrationEnchantmentBasic: Encantamiento de Penetración de Armadura Básico
+			ArmorPenetrationEnchantmentCommon: Penetración de armadura Encantamiento Común
+			ArmorPenetrationEnchantmentRare: Penetración de armadura Encantamiento Raro
+			ArmorPenetrationEnchantmentSuperRare: Encantamiento de penetración de armadura Súper raro
+			ArmorPenetrationEnchantmentUltraRare: Encantamiento de penetración de armadura Ultra raro
+			CriticalStrikeChanceEnchantmentBasic: Probabilidad de Golpe Crítico Encantamiento Básico
+			CriticalStrikeChanceEnchantmentCommon: Probabilidad de Golpe Crítico Encantamiento Común
+			CriticalStrikeChanceEnchantmentRare: Probabilidad de Golpe Crítico Encantamiento Raro
+			CriticalStrikeChanceEnchantmentSuperRare: Encantamiento de probabilidad de golpe crítico Súper raro
+			CriticalStrikeChanceEnchantmentUltraRare: Encantamiento de Probabilidad de Golpe Crítico Ultra Raro
+			DamageEnchantmentBasic: Daño Encantamiento Básico
+			DamageEnchantmentCommon: Daño Encantamiento Común
+			DamageEnchantmentRare: Daño Encantamiento Raro
+			DamageEnchantmentSuperRare: Daño Encantamiento Súper Raro
+			DamageEnchantmentUltraRare: Daño Encantamiento Ultra Raro
+			LifeStealEnchantmentBasic: Encantamiento de robo de vida básico
+			LifeStealEnchantmentCommon: Encantamiento de robo de vida común
+			LifeStealEnchantmentRare: Encantamiento de robo de vida raro
+			LifeStealEnchantmentSuperRare: Encantamiento de Robo de Vida Súper Raro
+			LifeStealEnchantmentUltraRare: Encantamiento de Robo de Vida Ultra Raro
+			MaxMinionsEnchantmentBasic: Max Minions Encantamiento Básico
+			MaxMinionsEnchantmentCommon: Max Minions Encantamiento Común
+			MaxMinionsEnchantmentRare: Max Minions Encantamiento Raro
+			MaxMinionsEnchantmentSuperRare: Max Minions Encantamiento Súper Raro
+			MaxMinionsEnchantmentUltraRare: Max Minions Encantamiento Ultra Raro
+			OneForAllEnchantmentBasic: Uno para todos Encantamiento básico
+			OneForAllEnchantmentCommon: Uno para todos Encantamiento Común
+			OneForAllEnchantmentRare: Uno para todos Encantamiento raro
+			OneForAllEnchantmentSuperRare: Uno para todos Encantamiento Súper raro
+			OneForAllEnchantmentUltraRare: Uno para todos Encantamiento ultra raro
+			SpeedEnchantmentBasic: Encantamiento de velocidad básico
+			SpeedEnchantmentCommon: Encantamiento de velocidad Común
+			SpeedEnchantmentRare: Velocidad Encantamiento Raro
+			SpeedEnchantmentSuperRare: Encantamiento de velocidad Súper raro
+			SpeedEnchantmentUltraRare: Encantamiento de velocidad ultra raro
+			StatDefenseEnchantmentBasic: Encantamiento de defensa estadística básico
+			StatDefenseEnchantmentCommon: Encantamiento de defensa estadística común
+			StatDefenseEnchantmentRare: Stat Defense Encantamiento Raro
+			StatDefenseEnchantmentSuperRare: Encantamiento de defensa estadística Súper raro
+			StatDefenseEnchantmentUltraRare: Encantamiento de defensa estadística ultra raro
+			ColdSteelEnchantmentBasic: Encantamiento de acero frío básico
+			ColdSteelEnchantmentCommon: Encantamiento de acero frío común
+			ColdSteelEnchantmentRare: Encantamiento de acero frío raro
+			ColdSteelEnchantmentSuperRare: Encantamiento de acero frío Súper raro
+			ColdSteelEnchantmentUltraRare: Encantamiento de acero frío ultra raro
+			GodSlayerEnchantmentBasic: God Slayer Encantamiento Básico
+			GodSlayerEnchantmentCommon: God Slayer Encantamiento Común
+			GodSlayerEnchantmentRare: God Slayer Encantamiento Raro
+			GodSlayerEnchantmentSuperRare: God Slayer Encantamiento Súper Raro
+			GodSlayerEnchantmentUltraRare: Encantamiento God Slayer Ultra Raro
+			HellsWrathEnchantmentBasic: Encantamiento de Ira del Infierno Básico
+			HellsWrathEnchantmentCommon: Ira del Infierno Encantamiento Común
+			HellsWrathEnchantmentRare: Encantamiento de la Ira del Infierno Raro
+			HellsWrathEnchantmentSuperRare: Encantamiento de la Ira del Infierno Súper Raro
+			HellsWrathEnchantmentUltraRare: Encantamiento de la Ira del Infierno Ultra Raro
+			JunglesFuryEnchantmentBasic: Jungles Fury Encantamiento Básico
+			JunglesFuryEnchantmentCommon: Jungles Fury Encantamiento Común
+			JunglesFuryEnchantmentRare: Jungles Fury Encantamiento Raro
+			JunglesFuryEnchantmentSuperRare: Jungles Fury Encantamiento Súper Raro
+			JunglesFuryEnchantmentUltraRare: Jungles Fury Encantamiento Ultra Raro
+			MoonlightEnchantmentBasic: Encantamiento de luz de luna básico
+			MoonlightEnchantmentCommon: Encantamiento de luz de luna común
+			MoonlightEnchantmentRare: Encantamiento de luz de luna raro
+			MoonlightEnchantmentSuperRare: Encantamiento de luz de luna Súper raro
+			MoonlightEnchantmentUltraRare: Encantamiento de luz de luna ultra raro
+			MultishotEnchantmentBasic: Encantamiento multidisparo básico
+			MultishotEnchantmentCommon: Encantamiento multidisparo común
+			MultishotEnchantmentRare: Encantamiento multidisparo raro
+			MultishotEnchantmentSuperRare: Encantamiento multidisparo Súper raro
+			MultishotEnchantmentUltraRare: Encantamiento multidisparo ultra raro
+			AmmoCostEnchantmentBasic: Costo de munición Encantamiento básico
+			AmmoCostEnchantmentCommon: Costo de munición Encantamiento Común
+			AmmoCostEnchantmentRare: Costo de munición Encantamiento Raro
+			AmmoCostEnchantmentSuperRare: Encantamiento de costo de munición Súper raro
+			AmmoCostEnchantmentUltraRare: Encantamiento de costo de munición ultra raro
+			DangerSenseEnchantmentUltraRare: Encantamiento del sentido del peligro Ultra raro
+			HunterEnchantmentUltraRare: Encantamiento de cazador ultra raro
+			ManaEnchantmentBasic: Encantamiento de maná básico
+			ManaEnchantmentCommon: Encantamiento de maná común
+			ManaEnchantmentRare: Encantamiento de maná raro
+			ManaEnchantmentSuperRare: Encantamiento de maná Súper raro
+			ManaEnchantmentUltraRare: Encantamiento de maná ultra raro
+			MoveSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
+			MoveSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
+			MoveSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
+			MoveSpeedEnchantmentSuperRare: Encantamiento de velocidad de movimiento Súper raro
+			MoveSpeedEnchantmentUltraRare: Encantamiento de velocidad de movimiento ultra raro
+			ObsidianSkinEnchantmentUltraRare: Encantamiento de piel de obsidiana Ultra raro
+			PeaceEnchantmentBasic: Encantamiento de paz básico
+			PeaceEnchantmentCommon: Paz Encantamiento Común
+			PeaceEnchantmentRare: Encantamiento de paz Raro
+			PeaceEnchantmentSuperRare: Encantamiento de paz Súper raro
+			PeaceEnchantmentUltraRare: Encantamiento de paz ultra raro
+			ScaleEnchantmentBasic: Escala Encantamiento Básico
+			ScaleEnchantmentCommon: Escama Encantamiento Común
+			ScaleEnchantmentRare: Escama Encantamiento Raro
+			ScaleEnchantmentSuperRare: Escala Encantamiento Súper Raro
+			ScaleEnchantmentUltraRare: Escala Encantamiento Ultra Raro
+			ShootSpeedEnchantmentBasic: Velocidad de disparo Encantamiento básico
+			ShootSpeedEnchantmentCommon: Velocidad de disparo Encantamiento Común
+			ShootSpeedEnchantmentRare: Velocidad de disparo Encantamiento Raro
+			ShootSpeedEnchantmentSuperRare: Shoot Speed ​​Encantamiento Súper Raro
+			ShootSpeedEnchantmentUltraRare: Encantamiento de velocidad de disparo ultra raro
+			SpelunkerEnchantmentUltraRare: Encantamiento de espeleólogo ultra raro
+			WarEnchantmentBasic: Encantamiento de guerra básico
+			WarEnchantmentCommon: Encantamiento de guerra común
+			WarEnchantmentRare: Encantamiento de guerra raro
+			WarEnchantmentSuperRare: Encantamiento de guerra Súper raro
+			WarEnchantmentUltraRare: Encantamiento de guerra ultra raro
+			WorldAblazeEnchantmentBasic: Mundo En Llamas Encantamiento Básico
+			WorldAblazeEnchantmentCommon: Mundo En Llamas Encantamiento Común
+			WorldAblazeEnchantmentRare: Mundo En Llamas Encantamiento Raro
+			WorldAblazeEnchantmentSuperRare: Mundo en llamas Encantamiento Súper raro
+			WorldAblazeEnchantmentUltraRare: Encantamiento del mundo en llamas ultra raro
+			PowerBooster: Ampliación de potencia
+		}
+	}
 }

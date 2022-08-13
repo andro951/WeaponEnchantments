@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Effects {
         public AutoReuse(bool prevent = false) {
             EnableStat = !prevent;
 		}
-        public override EditableStat statName => EditableStat.AutoReuse;
+        public override PlayerStat statName => PlayerStat.AutoReuse;
         public override string DisplayName { get; } = "Auto Reuse";
     }
 }

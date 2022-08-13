@@ -18,6 +18,6 @@ namespace WeaponEnchantments.Effects {
 
         public DamageClass damageClass { get; set; }
         public override string DisplayName { get; }
-        public override EditableStat statName => EditableStat.AttackSpeed;
+        public override PlayerStat statName => PlayerStat.AttackSpeed;
     }
 }

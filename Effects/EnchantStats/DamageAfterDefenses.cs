@@ -20,10 +20,10 @@ namespace WeaponEnchantments.Effects.EnchantStats
 
         public DamageClass damageClass { get; set; }
         public override string DisplayName { get; }
-        public override EditableStat statName => EditableStat.DamageAfterDefenses;
+        public override PlayerStat statName => PlayerStat.DamageAfterDefenses;
 
-		public void ModifyHitDamage(NPC npc, WEPlayer player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
-            EStatModifier.ApplyTo(damage);
+		public void ModifyHitDamage(ref float damageMultiplier, Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile) {
+            EStatModifier.ApplyTo(ref damageMultiplier);
 		}
 	}
 }

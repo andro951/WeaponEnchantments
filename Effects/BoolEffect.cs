@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects {
             set => EStatModifier.EfficiencyMultiplier = value; 
         }
 
-		public abstract EditableStat statName { get; }
+		public abstract PlayerStat statName { get; }
 
         protected virtual string modifierToString() {
             string final = "";

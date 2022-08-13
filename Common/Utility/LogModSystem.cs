@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
@@ -10,6 +11,8 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips = false;
         public static bool printLocalization = false;
+        public static bool printLocalizationMaster = false;
+        public static bool printListForDocumentConversion = false;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -68,47 +71,83 @@ namespace WeaponEnchantments.Common.Utility
 
         public static void UpdateEnchantmentLocalization(Enchantment enchantment) {
             enchantmentsLocalization.Add(enchantment.EnchantmentTypeName);
-		}
+        }
         public static void PrintLocalization() {
-            List<List<string>> itemsLists = new List<List<string>>() {
+            /*List<List<string>> itemsLists = new List<List<string>>() {
                 ListAddToEnd(Containment.sizes, "Containment"),
                 ListAddToEnd(EnchantingTableItem.enchantingTableNames, "EnchantingTable"),
-                //ListAddToEnd(EnchantingRarity.tierNames, "EnchantmentEssence")
-            };
+                ListAddToEnd(EnchantingRarity.tierNames, "EnchantmentEssence")
+            };*/
 
             int tabs = 3;
             string localization = "\n" +
                 "Mods: {\n" +
                 "\tWeaponEnchantments: {\n" +
-				"\t\tItemName: {\n";
-            foreach(List<string> itemList in itemsLists) {
+				"\t\tItemName: {";
+            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+            var modItemLists = modItems.GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name).Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi}).OrderBy(group => group.Key);
+            //IEnumerable <IEnumerable<ModItem>> modItemLists = modItems.GroupBy(mi => mi.GetType().BaseType.Name, mi => new {Key = mi.GetType().BaseType.Name, ModItem = mi}).OrderBy(obj => obj.Key);
+            foreach (var list in modItemLists) {
+                localization += GetLocalizationFromList(null, list.ModItemList, tabs);
+            }
+            /*foreach(List<string> itemList in itemsLists) {
                 localization += GetLocalizationFromList(null, itemList, tabs, true);
             }
             localization += "\t\t}\n" +
                 "\t\tEnchantmentEssence: Enchantment Essence\n" +
-				"\t\tEnchantment: Enchantment\n";
+				"\t\tEnchantment: Enchantment\n";*/
 
-            localization += GetLocalizationFromList("EnchantmentTypeNames", enchantmentsLocalization, tabs);
+            //localization += GetLocalizationFromList("EnchantmentTypeNames", enchantmentsLocalization, tabs);
             //localization += GetLocalizationFromListAddToEnd("Containments", Containment.sizes, "Containment", tabs);
-            localization += GetLocalizationFromList("TierNames", EnchantingRarity.tierNames, tabs);
-            localization += GetLocalizationFromList("DisplayTierNames", EnchantingRarity.displayTierNames, tabs);
+            //localization += GetLocalizationFromList("TierNames", EnchantingRarity.tierNames, tabs);
+            //localization += GetLocalizationFromList("DisplayTierNames", EnchantingRarity.displayTierNames, tabs);
             //localization += GetLocalizationFromListAddToEnd("EnchantingTables", EnchantingTableItem.enchantingTableNames, "EnchantingTable", tabs);
             //localization += GetLocalizationFromListAddToEnd("EnchantmentEssence", EnchantingRarity.tierNames, "EnchantmentEssence", tabs);
-            localization +=
+            localization += "\n" +
+                "\t\t}\n" +
                 "\t}\n" +
 				"}";
 
-            localization.Log();
-        }
-        private static string GetLocalizationFromList(string label, IEnumerable<string> list, int tabsNum, bool ignoreLabel = false) {
-            
-            string localization = ignoreLabel ? "" : Tabs(tabsNum -1) + label + ": {\n";
-            string tabs = Tabs(tabsNum);
-            foreach (string s in list) {
-                localization += tabs + s + $": {s.AddSpaces()}\n";
+			if (printLocalizationMaster) {
+                localization += "\n\n";
+                localization += "\n" +
+                    "Mods: {\n" +
+                    "\tWeaponEnchantments: {\n" +
+                    "\t\tItemName: {";
+                foreach (var list in modItemLists) {
+                    localization += GetLocalizationFromList(null, list.ModItemList, tabs, true, true);
+                }
+
+                localization += "\n" +
+                    "\t\t}\n" +
+                    "\t}\n" +
+                    "}";
             }
 
-            localization += ignoreLabel ? "" : Tabs(tabsNum - 1) + "}\n";
+			if (printListForDocumentConversion) {
+                localization += "\n\n";
+                foreach (var list in modItemLists) {
+                    foreach(ModItem modItem in list.ModItemList) {
+                        localization += modItem.Name.AddSpaces() + "\n";
+					}
+                }
+            }
+
+            localization.Log();
+        }
+        private static string GetLocalizationFromList(string label, IEnumerable<ModType> list, int tabsNum, bool ignoreLabel = false, bool printMaster = false) {
+            IEnumerable<string> listNames = list.Select(l => l.Name);
+            return GetLocalizationFromList(label, listNames, tabsNum, ignoreLabel, printMaster);
+        }
+        private static string GetLocalizationFromList(string label, IEnumerable<string> list, int tabsNum, bool ignoreLabel = false, bool printMaster = false) {
+            ignoreLabel = ignoreLabel || label == null || label == "";
+            string localization = ignoreLabel ? "" : Tabs(tabsNum -1) + label + "\n: {";
+            string tabs = Tabs(tabsNum);
+            foreach (string s in list) {
+                localization += "\n" + tabs + s + ": " + (printMaster ? "" : s.AddSpaces());
+            }
+
+            localization += ignoreLabel ? "" : "\n" + Tabs(tabsNum - 1) + "}";
 
             return localization;
         }

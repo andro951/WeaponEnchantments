@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Effects {
     public class FlatMPRegen : StatEffect {
         public FlatMPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
-        public override EditableStat statName => EditableStat.ManaRegen;
+        public override PlayerStat statName => PlayerStat.ManaRegen;
         public override string DisplayName { get; } = "Mana Regeneration";
     }
 }

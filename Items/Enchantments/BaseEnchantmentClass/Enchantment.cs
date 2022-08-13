@@ -376,7 +376,7 @@ namespace WeaponEnchantments.Items {
 			//string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;
 			//typeNameString.Log();
 			//string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
-			if (WEMod.clientConfig.UseOldTierNames) {
+			/*if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
 				//string rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
 				//rarityString.Log();
@@ -389,22 +389,22 @@ namespace WeaponEnchantments.Items {
 				//rarityString.Log();
 				//DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
-			}
+			}*/
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 
-			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+			if(printListOfContributors && (EnchantmentTier == 4 || EnchantmentTypeName == "AllForOne")) {
 				//All for one is allowed to pass every sprite
 				bool allForOne = EnchantmentTypeName == "AllForOne";
 
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
 			}
 
-			if(printLocalization && EnchantmentTier == 1) {
+			/*if(printLocalization) {
 				UpdateEnchantmentLocalization(this);
-			}
+			}*/
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//Item rarity

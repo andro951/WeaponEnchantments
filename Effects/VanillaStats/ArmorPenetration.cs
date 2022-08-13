@@ -17,6 +17,6 @@ namespace WeaponEnchantments.Effects {
 
         public DamageClass damageClass { get; set; }
         public override string DisplayName { get; }
-        public override EditableStat statName => EditableStat.ArmorPenetration;
+        public override PlayerStat statName => PlayerStat.ArmorPenetration;
     }
 }

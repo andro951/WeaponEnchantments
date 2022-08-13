@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override void GetMyStats() {
 			Effects = new() {
-				new CriticalStrikeChance(@base: EnchantmentStrength * 100f),
+				new CriticalStrikeChance(@base: EnchantmentStrength),
 			};
 		}
 

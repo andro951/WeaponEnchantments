@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            if(item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+            if(item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
                 iGlobal.Item = item;
                 return iGlobal;
             }

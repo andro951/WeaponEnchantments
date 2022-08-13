@@ -53,13 +53,12 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			}
         }
-        private bool oneForAllOrigin = true;
-        float baseOneForAllRange = 240f;
+        public bool oneForAllOrigin = true;
         float baseAmaterasuSpreadRange = 60f;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
         public float amaterasuStrength = 0f;
-        float myWarReduction = 1f;
+        public float myWarReduction = 1f;
         public override bool InstancePerEntity => true;
         public override void Load() {
             IL.Terraria.Projectile.Damage += HookDamage;
@@ -814,226 +813,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
 
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
-
-            #endregion
-
-            bool multiShotConvertedToDamage = false;
-
-            //Minion damage reduction from war enchantment
-            if (projectile != null) {
-                WEProjectile wEProjectile = projectile.GetWEProjectile();
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetWEProjectile().parent.minion;
-                if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
-                    damage = (int)Math.Round(damage / myWarReduction);
-                }
-
-                multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
-            }
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                goto debugBeforeReturn;
-
-            SourceItem = item;
-
-            //Stardust dragon scale damage multiplier correction//Stardust Dragon
-            if (projectile != null && ProjectileID.Sets.StardustDragon[projectile.type]) {
-                float enchantmentScaleMultiplier = SourceItem.ApplyStatModifier("scale", 1f);
-                if(enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f) {
-                    float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
-                    float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
-                    float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
-                    float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
-                    damage = (int)Math.Round((float)damage * combinedMultiplier);
-                }
-            }
-
-            //Defense (damage reduction)
-            int armorPenetration = player.GetWeaponArmorPenetration(item);
-            int damageReduction = npc.defense / 2 - npc.checkArmorPenetration(armorPenetration);
-
-            //Prevent damage from being less than 1
-            if (damageReduction >= damage)
-                damageReduction = damage - 1;
-
-            damage -= damageReduction;
-
-            //Armor penetration bonus damage
-            int defenseNoNegative = npc.defense > 0 ? npc.defense : 0;
-            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
-                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
-                if (armorPenetrationBonusDamage > 50) {
-                    int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
-                    if (armorPenetrationBonusDamage > maxArmorPenetration)
-                        armorPenetrationBonusDamage = maxArmorPenetration;
-                }
-
-                damage += armorPenetrationBonusDamage;
-            }
-
-            //Damage Enchantment
-            float damageMultiplier = item.ApplyEStat("Damage", 1f);
-
-            //Multishot converted to damage
-            if (multiShotConvertedToDamage)
-                damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
             
-            damage = (int)Math.Round((float)damage * damageMultiplier);
-
-            //Critical strike
-            if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
-                crit = false;
-                int critLevel = critChance / 100;
-                critChance %= 100;
-                if (Main.rand.Next(0, 100) < critChance)
-                    critLevel++;
-
-                if (critLevel > 0) {
-                    crit = true;
-                    critLevel--;
-
-                    if (MultiplicativeCriticalHits) {
-                        //Multiplicative
-                        damage *= (int)Math.Pow(2, critLevel);
-                    }
-				    else {
-                        //Additive
-                        float additiveCritMultiplier = 1f + 0.5f * critLevel;
-                        damage = (int)(damage * additiveCritMultiplier);
-				    }
-                }//MultipleCritlevels
-            }
-
-            damage += damageReduction;
-
-            bool makingPacket = false;
-
-            //Setup packet
-            ModPacket onHitEffectsPacket = null;
-            bool[] onHitEffects = new bool[OnHitEffectID.Count];
-            if (Main.netMode == NetmodeID.MultiplayerClient) {
-                onHitEffectsPacket = ModContent.GetInstance<WEMod>().GetPacket();
-                makingPacket = true;
-                onHitEffectsPacket.Write(WEMod.PacketIDs.OnHitEffects);
-                onHitEffectsPacket.Write(npc.whoAmI);
-                onHitEffectsPacket.Write(damage);
-                onHitEffectsPacket.Write(crit);
-            }
-
-            bool skipOnHitEffects = projectile != null ? projectile.GetWEProjectile().skipOnHitEffects : false;
-
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-
-            Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
-
-            //Buffs and debuffs
-            if (!skipOnHitEffects) {
-                //Debuffs
-                foreach (int debuff in iGlobal.debuffs.Keys) {
-                    //Amaterasu
-                    if(debuff == ModContent.BuffType<AmaterasuDebuff>()) {
-                        onHitEffects[OnHitEffectID.Amaterasu] = true;
-                        if (amaterasuStrength == 0)
-                            amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
-
-                        amaterasuDamage += damage * (crit ? 2 : 1);
-                    }
-
-                    npc.AddBuff(debuff, iGlobal.debuffs[debuff]);
-                }
-
-                //Sets Minion Attack target
-                if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
-                    player.MinionAttackTargetNPC = npc.whoAmI;
-            }
-
-            List<int> oneForAllWhoAmIs = new List<int>();
-            List<int> oneForAllDamages = new List<int>();
-            if (npc.type != NPCID.TargetDummy) {
-                int oneForAllDamageDealt = 0;
-                //Buffs and Debuffs
-                if (!skipOnHitEffects) {
-                    //On Hit Player buffs
-                    foreach (int onHitBuff in iGlobal.onHitBuffs.Keys) {
-                        switch (onHitBuff) {
-                            case BuffID.CoolWhipPlayerBuff:
-                                //CoolWhip Snowflake
-                                if (player.FindBuffIndex(onHitBuff) == -1) {
-                                    int newProjectileWhoAmI = Projectile.NewProjectile(projectile != null ? projectile.GetSource_FromThis() : item.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.CoolWhipProj, 10, 0f, player.whoAmI);
-                                    Main.projectile[newProjectileWhoAmI].GetWEProjectile().skipOnHitEffects = true;
-                                }
-                                break;
-                        }
-
-                        player.AddBuff(onHitBuff, iGlobal.onHitBuffs[onHitBuff]);
-                    }
-                }
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"sourceItem: {SourceItem.S()} {ItemEStats.S("OneForAll")}").Log();
-
-				#endregion
-
-                //One For All
-				if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin) {
-                    oneForAllDamageDealt = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, out oneForAllWhoAmIs, out oneForAllDamages, projectile);
-
-                    if (makingPacket && oneForAllWhoAmIs.Count > 0)
-                        onHitEffects[OnHitEffectID.OneForAll] = true;
-                }
-            }
-
-            //GodSlayer
-            int godSlayerDamage = 0;
-            if (ItemEStats.ContainsKey("GodSlayer")) {
-                godSlayerDamage = ActivateGodSlayer(npc, player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
-
-                if (makingPacket)
-                    onHitEffects[OnHitEffectID.GodSlayer] = true;
-            }
-
-            //One for all kill projectile on hit.
-            if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null) {
-                if(projectile.penetrate != 1)
-                    projectile.active = false;
-            }
-
-            //Finish and send packet
-            if (makingPacket) {
-                for(int i = 0; i < onHitEffects.Length; i++) {
-                    onHitEffectsPacket.Write(onHitEffects[i]);
-                    if (onHitEffects[i]) {
-                        switch (i) {
-                            case OnHitEffectID.GodSlayer:
-                                onHitEffectsPacket.Write(godSlayerDamage);
-                                break;
-                            case OnHitEffectID.OneForAll:
-                                onHitEffectsPacket.Write(oneForAllWhoAmIs.Count);
-                                for(int j = 0; j < oneForAllWhoAmIs.Count; j++) {
-                                    onHitEffectsPacket.Write(oneForAllWhoAmIs[j]);
-                                    onHitEffectsPacket.Write(oneForAllDamages[j]);
-                                }
-                                break;
-                            case OnHitEffectID.Amaterasu:
-                                onHitEffectsPacket.Write(item.ApplyEStat("Amaterasu", 0f));
-                                break;
-                        }
-                    }
-                }
-
-                onHitEffectsPacket.Send();
-            }
-
-            #region Debug
-
-            debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
-
-			#endregion
 		}
 		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
 
@@ -1089,143 +869,6 @@ namespace WeaponEnchantments.Common.Globals
 
             npc.immune[player.whoAmI] = newImmune;
         }
-        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, out List<int> whoAmIs, out List<int> damages, Projectile projectile = null) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()})").Log();
-
-            #endregion
-
-            int total = 0;
-            int wormCounter = 0;
-            whoAmIs = new List<int>();
-            damages = new List<int>();
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return 0;
-
-            //Range
-            float oneForAllRange = baseOneForAllRange * item.scale;
-
-            //Sorted List by range
-            Dictionary<int, float> npcs = SortNPCsByRange(npc, oneForAllRange);
-
-            foreach(KeyValuePair<int, float> npcDataPair in npcs.OrderBy(key => key.Value)) {
-                if (!npc.active)
-                    continue;
-
-                whoAmIs.Add(npcDataPair.Key);
-                float distanceFromOrigin = npcDataPair.Value;
-                int whoAmI = npcDataPair.Key;
-                NPC target = Main.npc[whoAmI];
-
-                //Worms
-                bool isWorm = npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
-                if (isWorm)
-                    wormCounter++;
-
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                target.GetGlobalNPC<WEGlobalNPC>().SourceItem = SourceItem;
-                float allForOneMultiplier = iGlobal.eStats["OneForAll"].ApplyTo(0f);
-                float baseAllForOneDamage = damage * allForOneMultiplier;
-
-                float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
-
-                //Worm damage reduction
-				if (isWorm) {
-                    float wormReductionFactor = 1f;
-                    if (wormCounter > 10) {
-                        if (wormCounter <= 20) {
-                            wormReductionFactor = 1f - (float)(wormCounter - 10f) / 10f;
-                        }
-                        else {
-                            wormReductionFactor = 0f;
-                        }
-                    }
-                    allForOneDamage *= wormReductionFactor;
-                }
-
-                int allForOneDamageInt = (int)Math.Round(allForOneDamage);
-
-                if(allForOneDamageInt > 0) {
-                    //Hit target
-                    total += (int)target.StrikeNPC(allForOneDamageInt, knockback, direction);
-                }
-                damages.Add(allForOneDamageInt);
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
-            }
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
-
-			#endregion
-
-			return total;
-        }
-        private Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
-            Dictionary<int, float> npcs = new Dictionary<int, float>();
-            foreach (NPC target in Main.npc) {
-                if (target.whoAmI != npc.whoAmI) {
-                    if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
-                        continue;
-
-                    Vector2 vector2 = target.Center - npc.Center;
-                    float distanceFromOrigin = vector2.Length();
-                    if (distanceFromOrigin <= range)
-                        npcs.Add(target.whoAmI, distanceFromOrigin);
-                }
-            }
-
-            return npcs;
-        }
-        public int ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, int damageReduction, ref float knockback, ref bool crit, int direction, Projectile projectile = null) {
-            if(npc.friendly || npc.townNPC || !npc.active || npc.type == NPCID.DD2LanePortal)
-                return 0;
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log();
-
-			#endregion
-			
-            if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return 0;
-
-			float godSlayerBonus = iGlobal.eStats["GodSlayer"].ApplyTo(0f);
-            
-            float actualDamageDealt = damage - damageReduction;
-            float godSlayerDamage = actualDamageDealt * godSlayerBonus * npc.lifeMax / 100f;
-
-            //Projectile damage reduction
-            float projectileMultiplier = projectile != null ? 0.5f : 1f;
-            godSlayerDamage *= projectileMultiplier;
-
-            //Max life reduction factor
-            float denominator = 1f + npc.lifeMax * 49f / 150000f;
-            godSlayerDamage /= denominator;
-
-            //Bypass armor
-            godSlayerDamage += damageReduction;
-
-            int godSlayerDamageInt = (int)Math.Round(godSlayerDamage);
-
-            //Hit npc
-            npc.StrikeNPC(godSlayerDamageInt, knockback, direction, crit);
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log();
-
-			#endregion
-
-			return godSlayerDamageInt;
-        }
-        public static void StrikeNPC(int npcWhoAmI, int damage, bool crit) {
-            if(Main.npc[npcWhoAmI].active)
-                Main.npc[npcWhoAmI].StrikeNPC(damage, 0, 0, crit, false, true);
-        }
         public override void OnSpawn(NPC npc, IEntitySource source) {
             if (npc.ModNPC != null) {
                 string n = npc.FullName;
@@ -1277,9 +920,25 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
-			#endregion
-		}
-		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
+            #endregion
+        }
+        public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
+            Dictionary<int, float> npcs = new Dictionary<int, float>();
+            foreach (NPC target in Main.npc) {
+                if (target.whoAmI != npc.whoAmI) {
+                    if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
+                        continue;
+
+                    Vector2 vector2 = target.Center - npc.Center;
+                    float distanceFromOrigin = vector2.Length();
+                    if (distanceFromOrigin <= range)
+                        npcs.Add(target.whoAmI, distanceFromOrigin);
+                }
+            }
+
+            return npcs;
+        }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
 
             #region Debug
 

@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects.EnchantStats;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -28,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddEStat("Damage", 0f, EnchantmentStrength);
 			Effects = new() {
 				new DebuffEffect(StatusEffect, new Time(BuffDuration)),
-				new DamageEffect()
+				new DamageAfterDefenses()
 			};
 		}
 
