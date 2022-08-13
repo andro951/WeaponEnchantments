@@ -173,7 +173,7 @@ namespace WeaponEnchantments.UI
             }
 
             int xp = iGlobal.Experience;
-            float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
+            float value = item.value - iGlobal.lastValueBonus;
 
             //Xp -> Essence
             WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
