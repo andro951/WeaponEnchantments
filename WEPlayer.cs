@@ -51,6 +51,7 @@ namespace WeaponEnchantments
         public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
+        public bool enteredWorld = false;
         public override void Load() {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
@@ -107,6 +108,8 @@ namespace WeaponEnchantments
                 string enchantmentName = displayName + " " + Language.GetTextValue(rarityString);
                 enchantment.DisplayName.SetDefault(enchantmentName);
 	        }*/
+
+            enteredWorld = true;
 
             #region Debug
 
@@ -424,7 +427,7 @@ namespace WeaponEnchantments
                                                 SoundEngine.PlaySound(SoundID.Grab);
 
                                             valid = true;
-
+                                            
                                             break;
                                         }
                                     }
@@ -478,6 +481,8 @@ namespace WeaponEnchantments
             return currentEquipArmor;
         }
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
+            if (!enteredWorld)
+                return;
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
             if (modItem != null) {
