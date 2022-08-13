@@ -2,139 +2,139 @@
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			Containment: 遏制
-			MediumContainment: 中等遏制
-			SuperiorContainment: 高级遏制
-			DustyEnchantingTable: 尘土飞扬的附魔台
-			HellishEnchantingTable: 地狱附魔桌
-			SoulEnchantingTable: 附魂台
+			Containment: 容器
+			MediumContainment: 中级容器
+			SuperiorContainment: 高级容器
+			DustyEnchantingTable: 尘封附魔台
+			HellishEnchantingTable: 地狱附魔台
+			SoulEnchantingTable: 灵魂附魔台
 			UltimateEnchantingTable: 终极附魔台
-			WoodEnchantingTable: 木质附魔桌
-			EnchantmentEssenceBasic: 附魔精华基础
-			EnchantmentEssenceCommon: 附魔精华 普通
-			EnchantmentEssenceRare: 附魔精华 稀有
-			EnchantmentEssenceSuperRare: 附魔精华超稀有
-			EnchantmentEssenceUltraRare: 附魔精华超稀有
-			AllForOneEnchantmentBasic: 全部为一个附魔基础
-			AllForOneEnchantmentCommon: 全部为一 常见的附魔
-			AllForOneEnchantmentRare: 全部为一的附魔稀有
-			AllForOneEnchantmentSuperRare: 全部为一的附魔超级稀有
-			AllForOneEnchantmentUltraRare: 多合一的附魔超稀有
-			ArmorPenetrationEnchantmentBasic: 护甲穿透附魔基础
-			ArmorPenetrationEnchantmentCommon: 护甲穿透附魔 普通
-			ArmorPenetrationEnchantmentRare: 护甲穿透附魔稀有
-			ArmorPenetrationEnchantmentSuperRare: 护甲穿透附魔超稀有
-			ArmorPenetrationEnchantmentUltraRare: 护甲穿透附魔超稀有
-			CriticalStrikeChanceEnchantmentBasic: 暴击几率附魔基础
-			CriticalStrikeChanceEnchantmentCommon: 暴击几率 附魔 普通
-			CriticalStrikeChanceEnchantmentRare: 暴击几率附魔稀有
-			CriticalStrikeChanceEnchantmentSuperRare: 暴击几率附魔超级稀有
-			CriticalStrikeChanceEnchantmentUltraRare: 暴击几率附魔超稀有
-			DamageEnchantmentBasic: 伤害附魔基础
-			DamageEnchantmentCommon: 伤害附魔 普通
-			DamageEnchantmentRare: 伤害附魔 稀有
-			DamageEnchantmentSuperRare: 伤害附魔超稀有
-			DamageEnchantmentUltraRare: 伤害附魔超稀有
-			LifeStealEnchantmentBasic: 生命窃取附魔基础
-			LifeStealEnchantmentCommon: 吸血附魔 普通
-			LifeStealEnchantmentRare: 生命窃取附魔稀有
-			LifeStealEnchantmentSuperRare: 生命窃取附魔超级稀有
-			LifeStealEnchantmentUltraRare: 生命窃取附魔超稀有
-			MaxMinionsEnchantmentBasic: 最大奴才附魔基础
-			MaxMinionsEnchantmentCommon: 最大奴才附魔常见
-			MaxMinionsEnchantmentRare: 最大奴才附魔稀有
-			MaxMinionsEnchantmentSuperRare: 最大奴才附魔超级稀有
-			MaxMinionsEnchantmentUltraRare: 最大奴才附魔超稀有
-			OneForAllEnchantmentBasic: 一应俱全的附魔基础
-			OneForAllEnchantmentCommon: 一个为所有的附魔共同
-			OneForAllEnchantmentRare: 一种为所有附魔稀有
-			OneForAllEnchantmentSuperRare: 一应俱全的附魔超级稀有
-			OneForAllEnchantmentUltraRare: 一应俱全的附魔超稀有
-			SpeedEnchantmentBasic: 速度附魔基础
-			SpeedEnchantmentCommon: 速度附魔 普通
-			SpeedEnchantmentRare: 速度附魔 稀有
-			SpeedEnchantmentSuperRare: 速度附魔超稀有
-			SpeedEnchantmentUltraRare: 速度附魔超稀有
-			StatDefenseEnchantmentBasic: 统计防御附魔基础
-			StatDefenseEnchantmentCommon: 统计防御附魔常见
-			StatDefenseEnchantmentRare: 统计防御附魔稀有
-			StatDefenseEnchantmentSuperRare: 统计防御结界超级稀有
-			StatDefenseEnchantmentUltraRare: 统计防御结界超稀有
-			ColdSteelEnchantmentBasic: 冷钢附魔基础
-			ColdSteelEnchantmentCommon: 冷钢附魔 普通
-			ColdSteelEnchantmentRare: 冷钢附魔稀有
-			ColdSteelEnchantmentSuperRare: 冷钢附魔超稀有
-			ColdSteelEnchantmentUltraRare: 冷钢附魔超稀有
-			GodSlayerEnchantmentBasic: 弑神者附魔基础
-			GodSlayerEnchantmentCommon: 弑神者附魔 普通
-			GodSlayerEnchantmentRare: 弑神者结界稀有
-			GodSlayerEnchantmentSuperRare: 弑神者结界超稀有
-			GodSlayerEnchantmentUltraRare: 弑神者结界超稀有
-			HellsWrathEnchantmentBasic: 地狱之怒附魔基础
-			HellsWrathEnchantmentCommon: 地狱之怒附魔常见
-			HellsWrathEnchantmentRare: 地狱之怒附魔稀有
-			HellsWrathEnchantmentSuperRare: 地狱之怒附魔超级稀有
-			HellsWrathEnchantmentUltraRare: 地狱之怒附魔超稀有
-			JunglesFuryEnchantmentBasic: 丛林之怒附魔基础
-			JunglesFuryEnchantmentCommon: 丛林之怒附魔常见
-			JunglesFuryEnchantmentRare: 丛林之怒附魔稀有
-			JunglesFuryEnchantmentSuperRare: 丛林之怒附魔超级稀有
-			JunglesFuryEnchantmentUltraRare: 丛林之怒附魔超稀有
-			MoonlightEnchantmentBasic: 月光附魔基础
-			MoonlightEnchantmentCommon: 月光附魔 普通
-			MoonlightEnchantmentRare: 月光结界 稀有
-			MoonlightEnchantmentSuperRare: 月光结界超稀有
-			MoonlightEnchantmentUltraRare: 月光结界超稀有
-			MultishotEnchantmentBasic: 多发附魔基础
-			MultishotEnchantmentCommon: 多发附魔 通用
-			MultishotEnchantmentRare: 多发附魔 稀有
-			MultishotEnchantmentSuperRare: 多重附魔超级稀有
-			MultishotEnchantmentUltraRare: 多发附魔超稀有
-			AmmoCostEnchantmentBasic: 弹药消耗附魔基础
-			AmmoCostEnchantmentCommon: 弹药消耗附魔常见
-			AmmoCostEnchantmentRare: 弹药成本附魔稀有
-			AmmoCostEnchantmentSuperRare: 弹药成本附魔超级稀有
-			AmmoCostEnchantmentUltraRare: 弹药成本附魔超稀有
-			DangerSenseEnchantmentUltraRare: 危险感附魔超稀有
-			HunterEnchantmentUltraRare: 猎人附魔超稀有
-			ManaEnchantmentBasic: 法力附魔基础
-			ManaEnchantmentCommon: 法力附魔 普通
-			ManaEnchantmentRare: 法力附魔 稀有
-			ManaEnchantmentSuperRare: 法力附魔超稀有
-			ManaEnchantmentUltraRare: 法力附魔超稀有
-			MoveSpeedEnchantmentBasic: 移动速度附魔基础
-			MoveSpeedEnchantmentCommon: 移动速度附魔 通用
-			MoveSpeedEnchantmentRare: 移动速度附魔稀有
-			MoveSpeedEnchantmentSuperRare: 移动速度附魔超稀有
-			MoveSpeedEnchantmentUltraRare: 移动速度附魔超稀有
-			ObsidianSkinEnchantmentUltraRare: 黑曜石皮肤附魔超稀有
-			PeaceEnchantmentBasic: 和平魔法基础
-			PeaceEnchantmentCommon: 和平结界 普通
-			PeaceEnchantmentRare: 和平附魔稀有
-			PeaceEnchantmentSuperRare: 和平结界超级稀有
-			PeaceEnchantmentUltraRare: 和平结界超稀有
-			ScaleEnchantmentBasic: 规模附魔基础
-			ScaleEnchantmentCommon: 规模附魔 普通
-			ScaleEnchantmentRare: 鳞片附魔 稀有
-			ScaleEnchantmentSuperRare: 鳞片附魔超稀有
-			ScaleEnchantmentUltraRare: 鳞片附魔超稀有
-			ShootSpeedEnchantmentBasic: 射击速度附魔基础
-			ShootSpeedEnchantmentCommon: 射速附魔 通用
-			ShootSpeedEnchantmentRare: 射击速度附魔稀有
-			ShootSpeedEnchantmentSuperRare: 射击速度附魔超稀有
-			ShootSpeedEnchantmentUltraRare: 射击速度附魔超稀有
-			SpelunkerEnchantmentUltraRare: 洞穴探险者附魔超稀有
-			WarEnchantmentBasic: 战争附魔基础
-			WarEnchantmentCommon: 战争附魔 普通
-			WarEnchantmentRare: 战争附魔稀有
-			WarEnchantmentSuperRare: 战争附魔超级稀有
-			WarEnchantmentUltraRare: 战争附魔超稀有
-			WorldAblazeEnchantmentBasic: 世界闪耀附魔基础
-			WorldAblazeEnchantmentCommon: 世界闪耀附魔 通用
-			WorldAblazeEnchantmentRare: 世界闪耀附魔稀有
-			WorldAblazeEnchantmentSuperRare: 世界闪耀结界超级稀有
-			WorldAblazeEnchantmentUltraRare: World Ablaze Enchantment 超稀有
-			PowerBooster: 功率助推器
+			WoodEnchantingTable: 木质附魔台
+			EnchantmentEssenceBasic: 基础附魔精华
+			EnchantmentEssenceCommon: 普通附魔精华
+			EnchantmentEssenceRare: 稀有附魔精华
+			EnchantmentEssenceSuperRare: 超稀有附魔精华
+			EnchantmentEssenceUltraRare: 极超稀有附魔精华
+			AllForOneEnchantmentBasic: 基础人人为我附魔
+			AllForOneEnchantmentCommon: 普通人人为我附魔
+			AllForOneEnchantmentRare: 稀有人人为我附魔
+			AllForOneEnchantmentSuperRare: 超稀有人人为我附魔
+			AllForOneEnchantmentUltraRare: 极超稀有人人为我附魔
+			ArmorPenetrationEnchantmentBasic: 基础穿甲附魔
+			ArmorPenetrationEnchantmentCommon: 普通穿甲附魔
+			ArmorPenetrationEnchantmentRare: 稀有穿甲附魔
+			ArmorPenetrationEnchantmentSuperRare: 超稀有穿甲附魔
+			ArmorPenetrationEnchantmentUltraRare: 极超稀有穿甲附魔
+			CriticalStrikeChanceEnchantmentBasic: 基础暴击率附魔
+			CriticalStrikeChanceEnchantmentCommon: 普通暴击率附魔
+			CriticalStrikeChanceEnchantmentRare: 稀有暴击率附魔
+			CriticalStrikeChanceEnchantmentSuperRare: 超稀有暴击率附魔
+			CriticalStrikeChanceEnchantmentUltraRare: 极超稀有暴击率附魔
+			DamageEnchantmentBasic: 基础伤害附魔
+			DamageEnchantmentCommon: 普通伤害附魔
+			DamageEnchantmentRare: 稀有伤害附魔
+			DamageEnchantmentSuperRare: 超稀有伤害附魔
+			DamageEnchantmentUltraRare: 极超稀有伤害附魔
+			LifeStealEnchantmentBasic: 基础吸血附魔
+			LifeStealEnchantmentCommon: 普通吸血附魔
+			LifeStealEnchantmentRare: 稀有吸血附魔
+			LifeStealEnchantmentSuperRare: 超稀有吸血附魔
+			LifeStealEnchantmentUltraRare: 极超稀有吸血附魔
+			MaxMinionsEnchantmentBasic: 基础仆从容量附魔
+			MaxMinionsEnchantmentCommon: 普通仆从容量附魔
+			MaxMinionsEnchantmentRare: 稀有仆从容量附魔
+			MaxMinionsEnchantmentSuperRare: 超稀有仆从容量附魔
+			MaxMinionsEnchantmentUltraRare: 极超稀有仆从容量附魔
+			OneForAllEnchantmentBasic: 基础我为人人附魔
+			OneForAllEnchantmentCommon: 普通我为人人附魔
+			OneForAllEnchantmentRare: 稀有我为人人附魔
+			OneForAllEnchantmentSuperRare: 超稀有我为人人附魔
+			OneForAllEnchantmentUltraRare: 极超稀有我为人人附魔
+			SpeedEnchantmentBasic: 基础攻速附魔
+			SpeedEnchantmentCommon: 普通攻速附魔
+			SpeedEnchantmentRare: 稀有攻速附魔
+			SpeedEnchantmentSuperRare: 超稀有攻速附魔
+			SpeedEnchantmentUltraRare: 极超稀有攻速附魔
+			StatDefenseEnchantmentBasic: 基础防御附魔
+			StatDefenseEnchantmentCommon: 普通防御附魔
+			StatDefenseEnchantmentRare: 稀有防御附魔
+			StatDefenseEnchantmentSuperRare: 超稀有防御附魔
+			StatDefenseEnchantmentUltraRare: 极超稀有防御附魔
+			ColdSteelEnchantmentBasic: 基础冰冷之钢附魔
+			ColdSteelEnchantmentCommon: 普通冰冷之钢附魔
+			ColdSteelEnchantmentRare: 稀有冰冷之钢附魔
+			ColdSteelEnchantmentSuperRare: 超稀有冰冷之钢附魔
+			ColdSteelEnchantmentUltraRare: 极超稀有冰冷之钢附魔
+			GodSlayerEnchantmentBasic: 基础屠神者附魔
+			GodSlayerEnchantmentCommon: 普通屠神者附魔
+			GodSlayerEnchantmentRare: 稀有屠神者附魔
+			GodSlayerEnchantmentSuperRare: 超稀有屠神者附魔
+			GodSlayerEnchantmentUltraRare: 极超稀有屠神者附魔
+			HellsWrathEnchantmentBasic: 基础地狱之怒附魔
+			HellsWrathEnchantmentCommon: 普通地狱之怒附魔
+			HellsWrathEnchantmentRare: 稀有地狱之怒附魔
+			HellsWrathEnchantmentSuperRare: 超稀有地狱之怒附魔
+			HellsWrathEnchantmentUltraRare: 极超稀有地狱之怒附魔
+			JunglesFuryEnchantmentBasic: 基础丛林之怒附魔
+			JunglesFuryEnchantmentCommon: 普通丛林之怒附魔
+			JunglesFuryEnchantmentRare: 稀有丛林之怒附魔
+			JunglesFuryEnchantmentSuperRare: 超稀有丛林之怒附魔
+			JunglesFuryEnchantmentUltraRare: 极超稀有丛林之怒附魔
+			MoonlightEnchantmentBasic: 基础月光附魔
+			MoonlightEnchantmentCommon: 普通月光附魔
+			MoonlightEnchantmentRare: 稀有月光附魔
+			MoonlightEnchantmentSuperRare: 超稀有月光附魔
+			MoonlightEnchantmentUltraRare: 极超稀有月光附魔
+			MultishotEnchantmentBasic: 基础散弹附魔
+			MultishotEnchantmentCommon: 普通散弹附魔
+			MultishotEnchantmentRare: 稀有散弹附魔
+			MultishotEnchantmentSuperRare: 超稀有散弹附魔
+			MultishotEnchantmentUltraRare: 极超稀有散弹附魔
+			AmmoCostEnchantmentBasic: 基础弹药消耗附魔
+			AmmoCostEnchantmentCommon: 普通弹药消耗附魔
+			AmmoCostEnchantmentRare: 稀有弹药消耗附魔
+			AmmoCostEnchantmentSuperRare: 超稀有弹药消耗附魔
+			AmmoCostEnchantmentUltraRare: 极超稀有弹药消耗附魔
+			DangerSenseEnchantmentUltraRare: 极超稀有危险感附魔
+			HunterEnchantmentUltraRare: 极超稀有狩猎附魔
+			ManaEnchantmentBasic: 基础魔力消耗附魔
+			ManaEnchantmentCommon: 普通魔力消耗附魔
+			ManaEnchantmentRare: 稀有魔力消耗附魔
+			ManaEnchantmentSuperRare: 超稀有魔力消耗附魔
+			ManaEnchantmentUltraRare: 极超稀有魔力消耗附魔
+			MoveSpeedEnchantmentBasic: 基础移速附魔
+			MoveSpeedEnchantmentCommon: 普通移速附魔
+			MoveSpeedEnchantmentRare: 稀有移速附魔
+			MoveSpeedEnchantmentSuperRare: 超稀有移速附魔
+			MoveSpeedEnchantmentUltraRare: 极超稀有移速附魔
+			ObsidianSkinEnchantmentUltraRare: 极超稀有黑曜石皮附魔
+			PeaceEnchantmentBasic: 基础和平附魔
+			PeaceEnchantmentCommon: 普通和平附魔
+			PeaceEnchantmentRare: 稀有和平附魔
+			PeaceEnchantmentSuperRare: 超稀有和平附魔
+			PeaceEnchantmentUltraRare: 极超稀有和平附魔
+			ScaleEnchantmentBasic: 基础体积附魔
+			ScaleEnchantmentCommon: 普通体积附魔
+			ScaleEnchantmentRare: 稀有体积附魔
+			ScaleEnchantmentSuperRare: 超稀有体积附魔
+			ScaleEnchantmentUltraRare: 极超稀有体积附魔
+			ShootSpeedEnchantmentBasic: 基础射速附魔
+			ShootSpeedEnchantmentCommon: 普通射速附魔
+			ShootSpeedEnchantmentRare: 稀有射速附魔
+			ShootSpeedEnchantmentSuperRare: 超稀有射速附魔
+			ShootSpeedEnchantmentUltraRare: 极超稀有射速附魔
+			SpelunkerEnchantmentUltraRare: 极超稀有洞穴探险附魔
+			WarEnchantmentBasic: 基础战争附魔
+			WarEnchantmentCommon: 普通战争附魔
+			WarEnchantmentRare: 稀有战争附魔
+			WarEnchantmentSuperRare: 超稀有战争附魔
+			WarEnchantmentUltraRare: 极超稀有战争附魔
+			WorldAblazeEnchantmentBasic: 基础焚世附魔
+			WorldAblazeEnchantmentCommon: 普通焚世附魔
+			WorldAblazeEnchantmentRare: 稀有焚世附魔
+			WorldAblazeEnchantmentSuperRare: 超稀有焚世附魔
+			WorldAblazeEnchantmentUltraRare: 极超稀有焚世附魔
+			PowerBooster: 能量强化器
 		}
 	}
 }
