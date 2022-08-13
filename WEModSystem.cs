@@ -440,6 +440,8 @@ namespace WeaponEnchantments
                 CloseWeaponEnchantmentUI();
                 wePlayer.enchantingTableUI.OnDeactivate();
             }
+
+            wePlayer.enteredWorld = false;
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;
