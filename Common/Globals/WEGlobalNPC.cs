@@ -1152,8 +1152,9 @@ namespace WeaponEnchantments.Common.Globals
                 int whoAmI = npcDataPair.Key;
                 NPC target = Main.npc[whoAmI];
 
+                bool isWorm = IsWorm(npc);
+
                 //Worms
-                bool isWorm = npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
                 if (isWorm)
                     wormCounter++;
 
@@ -1282,10 +1283,10 @@ namespace WeaponEnchantments.Common.Globals
             
 			if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
-			#endregion
+            #endregion
 
-            //Amaeterasu damage goes up over time on its own.
-			amaterasuDamage++;
+            bool isWorm = IsWorm(npc);
+            int minSpreadDamage = isWorm ? 8 : 70;
 
             //Controls how fast the damage tick rate is.
             damage += amaterasuDamage / 240;
@@ -1294,15 +1295,33 @@ namespace WeaponEnchantments.Common.Globals
             npc.lifeRegen -=  (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
 
             //Spread to other enemies ever 10 ticks
-            if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 10 <= Main.GameUpdateCount) {
-                Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
-                foreach (int whoAmI in npcs.Keys) {
-                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuDamage += 10;
-                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuStrength;
-                    Main.npc[whoAmI].AddBuff(ModContent.BuffType<AmaterasuDebuff>(), -1);
+            if(lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.type != NPCID.TargetDummy) {
+                if(amaterasuDamage > minSpreadDamage) {
+                    Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
+                    foreach (int whoAmI in npcs.Keys) {
+                        NPC mainNPC = Main.npc[whoAmI];
+                        WEGlobalNPC wEGlobalNPC = Main.npc[whoAmI].GetWEGlobalNPC();
+                        if (IsWorm(mainNPC)) {
+                            if (wEGlobalNPC.amaterasuDamage <= 0)
+                                wEGlobalNPC.amaterasuDamage++;
+                        }
+						else {
+                            wEGlobalNPC.amaterasuDamage += 10;
+                        }
+
+                        wEGlobalNPC.amaterasuStrength = amaterasuStrength;
+                        mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), -1);
+                    }
                 }
 
+                amaterasuDamage++;
+
                 lastAmaterasuTime = Main.GameUpdateCount;
+            }
+			else {
+                //Amaeterasu damage goes up over time on its own.
+                if (!isWorm)
+                    amaterasuDamage++;
             }
 
 			#region Debug
@@ -1374,6 +1393,9 @@ namespace WeaponEnchantments.Common.Globals
 
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
+        }
+        public static bool IsWorm(NPC npc) {
+            return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
     }
 }
