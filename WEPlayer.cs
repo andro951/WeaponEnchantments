@@ -1727,7 +1727,8 @@ namespace WeaponEnchantments
                 iGlobal.appliedStatModifiers.Clear();
                 iGlobal.appliedEStats.Clear();
                 iGlobal.prefix = item.prefix;
-                item.DamageType = iGlobal.damageType;
+                if (iGlobal.damageType != DamageClass.Default)
+                    item.DamageType = iGlobal.damageType;
             }
 
             int infusedArmorSlot = iGlobal.infusedArmorSlot;
