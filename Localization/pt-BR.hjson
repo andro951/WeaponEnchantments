@@ -1,1 +1,140 @@
 ﻿#Contributed by "Dex?"
+Mods: {
+	WeaponEnchantments: {
+		ItemName: {
+			Containment: Contenção
+			MediumContainment: Contenção média
+			SuperiorContainment: Contenção Superior
+			DustyEnchantingTable: Mesa de Encantamento Empoeirada
+			HellishEnchantingTable: Mesa de Encantamento Infernal
+			SoulEnchantingTable: Mesa de Encantamento de Almas
+			UltimateEnchantingTable: Mesa de Encantamento Suprema
+			WoodEnchantingTable: Mesa de Encantamento de Madeira
+			EnchantmentEssenceBasic: Essência de Encantamento Básico
+			EnchantmentEssenceCommon: Essência de Encantamento Comum
+			EnchantmentEssenceRare: Essência de Encantamento Raro
+			EnchantmentEssenceSuperRare: Essência de Encantamento Super Raro
+			EnchantmentEssenceUltraRare: Essência de Encantamento Ultra Raro
+			AllForOneEnchantmentBasic: Encantamento Todos Por um Básico
+			AllForOneEnchantmentCommon: Encantamento Todos Por Um Comum
+			AllForOneEnchantmentRare: Encantamento Tudos Por Um Raro
+			AllForOneEnchantmentSuperRare: Encantamento Todos Por Um Super Raro
+			AllForOneEnchantmentUltraRare: Encantamento Todos Por Um Ultra Raro
+			ArmorPenetrationEnchantmentBasic: Encantamento Penetração de Armadura Básico
+			ArmorPenetrationEnchantmentCommon: Encantamento Penetração de Armadura Comum
+			ArmorPenetrationEnchantmentRare: Encantamento Penetração de Armadura Raro
+			ArmorPenetrationEnchantmentSuperRare: Encantamento Penetração de Armadura Super Raro
+			ArmorPenetrationEnchantmentUltraRare: Encantamento Penetração de Armadura Ultra Raro
+			CriticalStrikeChanceEnchantmentBasic: Encantamento Chance de Acerto Crítico Básico
+			CriticalStrikeChanceEnchantmentCommon: Encantamento Chance de Acerto Crítico Comum
+			CriticalStrikeChanceEnchantmentRare: Encantamento Chance de Acerto Crítico Raro
+			CriticalStrikeChanceEnchantmentSuperRare: Encantamento Chance de Acerto Crítico Super Raro
+			CriticalStrikeChanceEnchantmentUltraRare: Encantamento Chance de Acerto Crítico Ultra Raro
+			DamageEnchantmentBasic: Encantamento Dano Básico
+			DamageEnchantmentCommon: Encantamento Dano Comum
+			DamageEnchantmentRare: Encantamento Dano Raro
+			DamageEnchantmentSuperRare: Encantamento Dano Super Raro
+			DamageEnchantmentUltraRare: Encantamento Dano Ultra Raro
+			LifeStealEnchantmentBasic: Encantamento Roubo de Vida Básico
+			LifeStealEnchantmentCommon: Encantamento Roubo de Vida Comum
+			LifeStealEnchantmentRare: Encantamento Roubo de Vida Raro
+			LifeStealEnchantmentSuperRare: Encantamento Roubo de Vida Super Raro
+			LifeStealEnchantmentUltraRare: Encantamento Roubo de Vida Ultra Raro
+			MaxMinionsEnchantmentBasic: Encantamento Máximo de Minions Básico
+			MaxMinionsEnchantmentCommon: Encantamento Máximo de Minions Comum
+			MaxMinionsEnchantmentRare: Encantamento Máximo de Minions Raro
+			MaxMinionsEnchantmentSuperRare: Encantamente Máximo de Minions Super Raro
+			MaxMinionsEnchantmentUltraRare: Encantamento Máximo de Minions Ultra Raro
+			OneForAllEnchantmentBasic: Encantamento Um Por Todos Básico
+			OneForAllEnchantmentCommon: Encantamento Um Por Todos Comum
+			OneForAllEnchantmentRare: Encantamento Um Por Todos Raro
+			OneForAllEnchantmentSuperRare: Encantamento Um Por Todos Super Raro
+			OneForAllEnchantmentUltraRare: Encantamento Um Por Todos Ultra Raro
+			SpeedEnchantmentBasic: Encantamento Velocidade Básico
+			SpeedEnchantmentCommon: Encantamento Velocidade Comum
+			SpeedEnchantmentRare: Encantamento Velocidade Raro
+			SpeedEnchantmentSuperRare: Encantamento Velocidade Super Raro
+			SpeedEnchantmentUltraRare: Encantamento Velocidade Ultra Raro
+			StatDefenseEnchantmentBasic: Encantamento Defesa Básico
+			StatDefenseEnchantmentCommon: Encantamento Defesa Comum
+			StatDefenseEnchantmentRare: Encantamento Defesa Raro
+			StatDefenseEnchantmentSuperRare: Encantamento Defesa Super Raro
+			StatDefenseEnchantmentUltraRare: Encantamento Defesa Ultra Raro
+			ColdSteelEnchantmentBasic: Encantamento Aço Frio Básico
+			ColdSteelEnchantmentCommon: Encantamento Aço Frio Comum
+			ColdSteelEnchantmentRare: Encantamento Aço Frio Raro
+			ColdSteelEnchantmentSuperRare: Encantamento Aço Frio Super Raro
+			ColdSteelEnchantmentUltraRare: Encantamento Aço Frio Ultra Raro
+			GodSlayerEnchantmentBasic: Encantamento Matador de Deuses Básico
+			GodSlayerEnchantmentCommon: Encantamento Matador de Deuses Comum
+			GodSlayerEnchantmentRare: Encantamento Matador de Deuses Raro
+			GodSlayerEnchantmentSuperRare: Encantamento Matador de Deuses Super Raro
+			GodSlayerEnchantmentUltraRare: Encantamento Matador de Deuses Ultra Raro
+			HellsWrathEnchantmentBasic: Encantamento Ira do Inferno Básico
+			HellsWrathEnchantmentCommon: Encantamento Ira do Inferno Comum
+			HellsWrathEnchantmentRare: Encantamento Ira do Inferno Raro
+			HellsWrathEnchantmentSuperRare: Encantamento Ira do Inferno Super Raro
+			HellsWrathEnchantmentUltraRare: Encantamento Ira do Inferno Ultra Raro
+			JunglesFuryEnchantmentBasic: Encantamento Fúria da Selva Básico
+			JunglesFuryEnchantmentCommon: Encantamento Fúria da Selva Comum
+			JunglesFuryEnchantmentRare: Encantamento Fúria da Selva Raro
+			JunglesFuryEnchantmentSuperRare: Encantamento Fúria da Selva Super Raro
+			JunglesFuryEnchantmentUltraRare: Encantamento Fúria da Selva Ultra Raro
+			MoonlightEnchantmentBasic: Encantamento Luar Básico
+			MoonlightEnchantmentCommon: Encantamento Luar Comum
+			MoonlightEnchantmentRare: Encantamento Luar Raro
+			MoonlightEnchantmentSuperRare: Encantamento Luar Super Raro
+			MoonlightEnchantmentUltraRare: Encantamento Luar Ultra Raro
+			MultishotEnchantmentBasic: Encantamento Tiro Múltiplo Básico
+			MultishotEnchantmentCommon: Encantamento Tiro Múltiplo comum
+			MultishotEnchantmentRare: Encantamento Tiro Múltiplo Raro
+			MultishotEnchantmentSuperRare: Encantamento Tiro Múltiplo Super Raro
+			MultishotEnchantmentUltraRare: Encantamento Tiro Múltiplo Ultra Raro
+			AmmoCostEnchantmentBasic: Encantamento Custo de Munição Básico
+			AmmoCostEnchantmentCommon: Encantamento Custo de munição comum
+			AmmoCostEnchantmentRare: Encantamento Custo de munição raro
+			AmmoCostEnchantmentSuperRare: Encantamento Custo de Munição Super Raro
+			AmmoCostEnchantmentUltraRare: Encantamento Custo de Munição Ultra Raro
+			DangerSenseEnchantmentUltraRare: Encantamento Sentido de Perigo Ultra Raro
+			HunterEnchantmentUltraRare: Encantamento Caçador Ultra Raro
+			ManaEnchantmentBasic: Encantamento Custo de Mana Básico
+			ManaEnchantmentCommon: Encantamento Custo de Mana Comum
+			ManaEnchantmentRare: Encantamento Custo de Mana Raro
+			ManaEnchantmentSuperRare: Encantamento Custo de Mana Super Raro
+			ManaEnchantmentUltraRare: Encantamento Custo de Mana Ultra Raro
+			MoveSpeedEnchantmentBasic: Encantamento Velocidade de Movimento Básico
+			MoveSpeedEnchantmentCommon: Encantamento Velocidade de Movimento Comum
+			MoveSpeedEnchantmentRare: Encantamento Velocidade de Movimento Raro
+			MoveSpeedEnchantmentSuperRare: Encantamento Velocidade de Movimento Super Raro
+			MoveSpeedEnchantmentUltraRare: Encantamento Velocidade de Movimento Ultra Raro
+			ObsidianSkinEnchantmentUltraRare: Encantamento Pele de Obsidiana Ultra Raro
+			PeaceEnchantmentBasic: Encantamento Paz Básico
+			PeaceEnchantmentCommon: Encantamento Paz Comum
+			PeaceEnchantmentRare: Encantamento Paz Raro
+			PeaceEnchantmentSuperRare: Encantamento Paz Super Raro
+			PeaceEnchantmentUltraRare: Encantamento Paz Ultra Raro
+			ScaleEnchantmentBasic: Encantamento Tamanho Básico
+			ScaleEnchantmentCommon: Encantamento Tamanho Comum
+			ScaleEnchantmentRare: Encantamento Tamanho Raro
+			ScaleEnchantmentSuperRare: Encantamento Tamanho Super Raro
+			ScaleEnchantmentUltraRare: Encantamento Tamanho Ultra Raro
+			ShootSpeedEnchantmentBasic: Encantamento velocidade de Disparo básico
+			ShootSpeedEnchantmentCommon: Encantamento Velocidade de Disparo Comum
+			ShootSpeedEnchantmentRare: Encantamento Velocidade de Disparo Raro
+			ShootSpeedEnchantmentSuperRare: Encantamento Velocidade de Disparo Super Raro
+			ShootSpeedEnchantmentUltraRare: Encantamento Velocidade de Disparo Ultra Raro
+			SpelunkerEnchantmentUltraRare: Encantamento Espeleólogo Ultra Raro
+			WarEnchantmentBasic: Encantamento Guerra Básico
+			WarEnchantmentCommon: Encantamento Guerra Comum
+			WarEnchantmentRare: Encantamento Guerra Raro
+			WarEnchantmentSuperRare: Encantamento Guerra Super Raro
+			WarEnchantmentUltraRare: Encantamento Guerra Ultra Raro
+			WorldAblazeEnchantmentBasic: Encantamento Mundo em Chamas Básico
+			WorldAblazeEnchantmentCommon: Encantamento Mundo em Chamas Comum
+			WorldAblazeEnchantmentRare: Encantamento Mundo em Chamas Raro
+			WorldAblazeEnchantmentSuperRare: Encantamento Mundo em Chamas Super Raro
+			WorldAblazeEnchantmentUltraRare: Encantamento Mundo em Chamas Ultra Raro
+			PowerBooster: Impulsionador de potência
+		}
+	}
+}
