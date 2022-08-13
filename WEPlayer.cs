@@ -64,9 +64,9 @@ namespace WeaponEnchantments
 
         //New System
         public Dictionary<PlayerStat, float> enchantmentStats = new Dictionary<PlayerStat, float>();
-        public IEnumerable<EnchantmentEffect> enchantmentEffects;
-        public IEnumerable<IPassiveEffect> passiveEffects;
-        public IEnumerable<StatEffect> statEffects;
+        public IEnumerable<EnchantmentEffect> playerEffects;
+        public IEnumerable<IPassiveEffect> playerPassiveEffects;
+        public IEnumerable<StatEffect> playerStatEffects;
 
         // Currently just a function that gets the current player equipment state.
         public PlayerEquipment LastPlayerEquipment;
@@ -1158,7 +1158,7 @@ namespace WeaponEnchantments
             public PlayerStat EditableStat;
             public DamageClass DamageClass;
         }
-        private IEnumerable<EnchantmentEffect> GetRelevantEffects(Item heldItem = null) {
+        private IEnumerable<EnchantmentEffect> GetPlayerEffects(Item heldItem = null) {
             // Always use all equipment effects
             IEnumerable<EnchantmentEffect> allEffects = PlayerEquipment.GetArmorEnchantmentEffects();
             
@@ -1180,13 +1180,13 @@ namespace WeaponEnchantments
             PlayerEquipment newEquipment = PlayerEquipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
-                enchantmentEffects = GetRelevantEffects();
+                playerEffects = GetPlayerEffects();
 
                 List<IPassiveEffect> newPassiveEffects = new List<IPassiveEffect>();
                 List<StatEffect> newStatEffects = new List<StatEffect>();
 
                 // Divide effects based on what is needed.
-                foreach (EnchantmentEffect effect in enchantmentEffects) {
+                foreach (EnchantmentEffect effect in playerEffects) {
                     if (effect is IPassiveEffect passiveEffect)
                         newPassiveEffects.Add(passiveEffect);
 
@@ -1194,25 +1194,25 @@ namespace WeaponEnchantments
                         newStatEffects.Add(statEffect);
                 }
 
-                passiveEffects = newPassiveEffects.ToArray();
-                statEffects = newStatEffects.ToArray();
+                playerPassiveEffects = newPassiveEffects.ToArray();
+                playerStatEffects = newStatEffects.ToArray();
             }
 
             // Apply all PostUpdateMiscEffects
-            foreach (IPassiveEffect effect in passiveEffects) {
+            foreach (IPassiveEffect effect in playerPassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
 
             // Apply them if there's any.
-            if (statEffects.Any())
-                ApplyStatEffects(statEffects);
+            if (playerStatEffects.Any())
+                ApplyStatEffects(playerStatEffects);
 
         }
         public bool? ApplyAutoReuseEnchants() {
 
             // Divide effects based on what is needed.
             bool? enableAutoReuse = null;
-            foreach (AutoReuse effect in enchantmentEffects.OfType<AutoReuse>()) {
+            foreach (AutoReuse effect in playerEffects.OfType<AutoReuse>()) {
                 if (effect.EnableStat) {
                     enableAutoReuse = true;
 				}
@@ -1335,7 +1335,7 @@ namespace WeaponEnchantments
             float damageMultiplier = 1f;
             //var effects = GetRelevantEffects(item);
             
-            foreach (DamageAfterDefenses effect in enchantmentEffects.OfType<DamageAfterDefenses>()) {
+            foreach (DamageAfterDefenses effect in playerEffects.OfType<DamageAfterDefenses>()) {
                 effect.ModifyHitDamage(ref damageMultiplier, item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
 			}
 
@@ -1344,13 +1344,13 @@ namespace WeaponEnchantments
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
             // Not using hitDirection yet.
 
-            foreach (IModifyHitEffect effect in enchantmentEffects.OfType<IModifyHitEffect>()) {
+            foreach (IModifyHitEffect effect in playerEffects.OfType<IModifyHitEffect>()) {
                 effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
             }
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
 
-            foreach (IOnHitEffect effect in enchantmentEffects.OfType<IOnHitEffect>()) {
+            foreach (IOnHitEffect effect in playerEffects.OfType<IOnHitEffect>()) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
 
