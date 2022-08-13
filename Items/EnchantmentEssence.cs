@@ -53,8 +53,8 @@ namespace WeaponEnchantments.Items
 
 			//Tooltip
 			Tooltip.SetDefault(displayTierNames[essenceTier].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[essenceTier] + " experience in an enchanting table.");
-			if (!WEMod.clientConfig.UseOldTierNames)
-				DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(tierNames[essenceTier])) + displayTierNames[essenceTier]));
+			//if (!WEMod.clientConfig.UseOldTierNames)
+			//	DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(tierNames[essenceTier])) + displayTierNames[essenceTier]));
 
 			//Log contributors for both normal and alternate spritesheets
 			if (LogModSystem.printListOfContributors) {

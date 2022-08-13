@@ -1,4 +1,5 @@
 ﻿using WeaponEnchantments.Common;
+using WeaponEnchantments.Effects.EnchantStats;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -6,7 +7,9 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, EnchantmentStrength);
+			Effects = new() {
+				new DamageAfterDefenses(EnchantmentStrength)
+			};
 		}
 
 		public override string Artist => "Zorutan";

@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Effects {
     public class JumpSpeed : StatEffect {
         public JumpSpeed(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
-        public override EditableStat statName => EditableStat.JumpSpeedBoost;
+        public override PlayerStat statName => PlayerStat.JumpSpeedBoost;
         public override string DisplayName { get; } = "Jump Speed";
     }
 }

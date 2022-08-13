@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
@@ -60,8 +61,8 @@ namespace WeaponEnchantments.Common.Globals
         #region Enchantment
 
         public Item[] enchantments = new Item[EnchantingTable.maxEnchantments];
-        public int damageType = -1;
-        public int baseDamageType = -1;
+        public DamageClass damageType = DamageClass.Default;
+        public DamageClass baseDamageType = DamageClass.Default;
 
         #endregion
 
@@ -517,11 +518,11 @@ namespace WeaponEnchantments.Common.Globals
             if (Modified) {
                 //Stars Above compatibility fix
                 if (baseDamageType != damageType) {
-                    if (baseDamageType == -1)
-                        baseDamageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
+                    if (baseDamageType == DamageClass.Default)
+                        baseDamageType = ContentSamples.ItemsByType[item.type].DamageType;
 
-                    if (AlwaysOverrideDamageType || item.DamageType.Type == baseDamageType)
-                        item.UpdateDamageType(damageType);
+                    if (AlwaysOverrideDamageType || item.DamageType == baseDamageType)
+                        item.DamageType = damageType;
                 }
 
                 //Update Item Value if stack changed.
@@ -728,10 +729,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            IEnumerable<Enchantment> enchantmentModItems = enchantments
-                .Where(i => !i.IsAir && i.ModItem is Enchantment)
-                .Select(i => (Enchantment)i.ModItem);
-
+            IEnumerable<Enchantment> enchantmentModItems = enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+            
             EItemType itemType = GetEItemType();
             
             foreach (Enchantment enchantment in enchantmentModItems) {
@@ -1383,6 +1382,13 @@ namespace WeaponEnchantments.Common.Globals
             foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats) {
                 if (LogMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
 
+                //Magic missile and similar weapon prevent auto reuse
+                if (WEMod.serverConfig.AutoReuseDisabledOnMagicMissile && staticStat.Name == "autoReuse") {
+                    Item sampleItem = ContentSamples.ItemsByType[item.type];
+                    if (sampleItem.mana > 0 && sampleItem.useStyle == 1 && sampleItem.channel)
+                        continue;
+                }
+
                 float add = staticStat.Additive * (remove ? -1f : 1f);
                 float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
                 float flat = staticStat.Flat * (remove ? -1f : 1f);
@@ -1401,18 +1407,9 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //New Damage Type
-            if (enchantment.NewDamageType > -1) {
-                if (remove) {
-                    item.DamageType = ContentSamples.ItemsByType[item.type].DamageType;
-
-                    iGlobal.damageType = -1;
-                }
-                else {
-                    iGlobal.damageType = enchantment.NewDamageType;
-
-                    item.UpdateDamageType(enchantment.NewDamageType);
-                }
-            }
+			foreach (DamageClassChange damageClassChange in enchantment.Effects.Where(e => e is DamageClassChange).Select(e => (DamageClassChange)e)) {
+                damageClassChange.Update(ref item, remove);
+			}
 
             //Update item Value
             iGlobal.UpdateItemValue();

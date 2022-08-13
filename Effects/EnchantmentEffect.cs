@@ -59,7 +59,7 @@ namespace WeaponEnchantments.Effects {
         public virtual float EfficiencyMultiplier { get; set; } = 1f;
         
         public abstract string DisplayName { get; }
-        public virtual string Tooltip => $"{DisplayName}: {s(EnchantmentPower)}{EnchantmentPower.Percent()}%";
+        public virtual string Tooltip => $"{s(EnchantmentPower)}{EnchantmentPower.Percent()}% {DisplayName}";
         public virtual Color TooltipColor { get; } = new Color(0xaa, 0xaa, 0xaa);
 
         public virtual bool showTooltip { get; } = true;

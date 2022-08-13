@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
 		public override void GetMyStats() {
-            Effects = new EnchantmentEffect[] {
+            Effects = new() {
                 new LifeSteal(@base: (EnchantmentTier + 1) * 0.005f)
             };
 		}

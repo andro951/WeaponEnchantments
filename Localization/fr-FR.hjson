@@ -1,56 +1,140 @@
-﻿#Contributed by Soluna#1422
+﻿#Contributed by @Soluna#1422, @Olixx12#5354
 Mods: {
-    WeaponEnchantments: {
-        ItemName: {
-            Containment: Conteneur
-            MediumContainment: Conteneur moyen
-            SuperiorContainment: Conteneur supérieur
-            WoodEnchantingTable: Table d'enchantement en bois
-            DustyEnchantingTable: Table d'enchantement poussiéreuse
-            HellishEnchantingTable: Table d'enchantement infernale
-            SoulEnchantingTable: Table d'enchantement d'âme
-            UltimateEnchantingTable: Table d'enchantement ultime
-        }
-        EnchantmentEssence: Essence d'enchantment
-        Enchantment: Enchantement
-        EnchantmentTypeNames: {
-            ArmorPenetration: Pénétration d'armure
-            CriticalStrikeChance: Chance de coup critique
-            Damage: Dégat
-            LifeSteal: Vol de vie
-            MaxMinions: Sbires max
-            Multishot: Multi-tir
-            OneForAll: Un pour tous
-            Speed: Vitesse
-            Defense: Défense
-            AllForOne: Tous pour un
-            ColdSteel: Acier froid
-            GodSlayer: Tueur de dieu
-            HellsWrath: Colère infernale
-            JunglesFury: Fureur de la jungle
-            Moonlight: Clair de lune
-            AmmoCost: Coût en munition
-            Mana: Côut en magie
-            MoveSpeed: Vitesse de mouvement
-            Peace: Paix
-            Scale: Taille
-            ShootSpeed: Vitesse de tir
-            War: Guerre
-            WorldAblaze: Monde enflammé
-        }
-        TierNames: {
-            Basic: basique
-            Common: Commun
-            Rare: Rare
-            SuperRare: Super rare
-            UltraRare: Ultra rare
-        }
-        DisplayTierNames: {
-            Basic: basique
-            Common: Commun
-            Rare: Rare
-            Epic: Epique
-            Legendary: Legendaire
-        }
-    }
+	WeaponEnchantments: {
+		ItemName: {
+			Containment: Conteneur
+			MediumContainment: Conteneur moyen
+			SuperiorContainment: Conteneur supérieur
+			DustyEnchantingTable: Table d'enchantement poussiéreuse
+			HellishEnchantingTable: Table d'enchantement infernale
+			SoulEnchantingTable: Table d'enchantement d'âme
+			UltimateEnchantingTable: Table d'enchantement ultime
+			WoodEnchantingTable: Table d'enchantement en bois
+			EnchantmentEssenceBasic: Essence d'enchantement de base
+			EnchantmentEssenceCommon: Essence d'enchantement commune
+			EnchantmentEssenceRare: Essence d'enchantement rare
+			EnchantmentEssenceSuperRare: Essence d'enchantement super rare
+			EnchantmentEssenceUltraRare: Essence d'enchantement ultra rare
+			AllForOneEnchantmentBasic: Enchantement Tous pour un de base
+			AllForOneEnchantmentCommon: Enchantement Tous pour un commun
+			AllForOneEnchantmentRare: Enchantement Tous pour un rare
+			AllForOneEnchantmentSuperRare: Enchantement Tous pour un super rare
+			AllForOneEnchantmentUltraRare: Enchantement Tous pour un ultra rare
+			ArmorPenetrationEnchantmentBasic: Enchantement de pénétration d'armure de base
+			ArmorPenetrationEnchantmentCommon: Enchantement de pénétration d'armure Commun
+			ArmorPenetrationEnchantmentRare: Enchantement de pénétration d'armure Rare
+			ArmorPenetrationEnchantmentSuperRare: Enchantement de pénétration d'armure Super rare
+			ArmorPenetrationEnchantmentUltraRare: Enchantement de pénétration d'armure Ultra rare
+			CriticalStrikeChanceEnchantmentBasic: Enchantement de Chance de coup critique de base
+			CriticalStrikeChanceEnchantmentCommon: Enchantement de Chance de coup critique Commun
+			CriticalStrikeChanceEnchantmentRare: Enchantement de Chance de coup critique Rare
+			CriticalStrikeChanceEnchantmentSuperRare: Enchantement de Chance de coup critique Super rare
+			CriticalStrikeChanceEnchantmentUltraRare: Enchantement de Chance de coup critique Ultra rare
+			DamageEnchantmentBasic: Enchantement de dégâts de base
+			DamageEnchantmentCommon: Enchantement de dégâts Commun
+			DamageEnchantmentRare: Enchantement de dégâts Rare
+			DamageEnchantmentSuperRare: Enchantement de dégâts Super Rare
+			DamageEnchantmentUltraRare: Enchantement de dégâts Ultra Rare
+			LifeStealEnchantmentBasic: Enchantement de Vol de vie de base
+			LifeStealEnchantmentCommon: Enchantement de Vol de vie Commun
+			LifeStealEnchantmentRare: Enchantement de Vol de vie Rare
+			LifeStealEnchantmentSuperRare: Enchantement de Vol de vie Super rare
+			LifeStealEnchantmentUltraRare: Enchantement de Vol de vie Ultra Rare
+			MaxMinionsEnchantmentBasic: Enchantement de Sbires max de base
+			MaxMinionsEnchantmentCommon: Enchantement de Sbires max Commun
+			MaxMinionsEnchantmentRare: Enchantement de Sbires max Rare
+			MaxMinionsEnchantmentSuperRare: Enchantement de Sbires max Super Rare
+			MaxMinionsEnchantmentUltraRare: Enchantement de Sbires max Ultra Rare
+			OneForAllEnchantmentBasic: Enchantement Un pour tous de base
+			OneForAllEnchantmentCommon: Enchantement Un pour tous commun
+			OneForAllEnchantmentRare: Enchantement Un pour tous rare
+			OneForAllEnchantmentSuperRare: Enchantement Un pour tous Super rare
+			OneForAllEnchantmentUltraRare: Enchantement Un pour tous Ultra Rare
+			SpeedEnchantmentBasic: Enchantement de vitesse de base
+			SpeedEnchantmentCommon: Enchantement de vitesse Commun
+			SpeedEnchantmentRare: Enchantement de vitesse Rare
+			SpeedEnchantmentSuperRare: Enchantement de vitesse Super Rare
+			SpeedEnchantmentUltraRare: Enchantement de vitesse Ultra Rare
+			StatDefenseEnchantmentBasic: Enchantement de défense de base
+			StatDefenseEnchantmentCommon: Enchantement de défense Commun
+			StatDefenseEnchantmentRare: Enchantement de défense Rare
+			StatDefenseEnchantmentSuperRare: Enchantement de défense Super Rare
+			StatDefenseEnchantmentUltraRare: Enchantement de défense Ultra Rare
+			ColdSteelEnchantmentBasic: Enchantement d'acier froid de base
+			ColdSteelEnchantmentCommon: Enchantement d'acier froid
+			ColdSteelEnchantmentRare: Enchantement d'acier froid rare
+			ColdSteelEnchantmentSuperRare: Enchantement d'acier froid Super rare
+			ColdSteelEnchantmentUltraRare: Enchantement d'acier froid Ultra Rare
+			GodSlayerEnchantmentBasic: Enchantement de Tueur de dieu de base
+			GodSlayerEnchantmentCommon: Enchantement de Tueur de dieu Commun
+			GodSlayerEnchantmentRare: Enchantement de Tueur de dieu Rare
+			GodSlayerEnchantmentSuperRare: Enchantement de Tueur de dieu Super Rare
+			GodSlayerEnchantmentUltraRare: Enchantement de Tueur de dieu Ultra Rare
+			HellsWrathEnchantmentBasic: Enchantement de Colère infernale de base
+			HellsWrathEnchantmentCommon: Enchantement de Colère infernale Commun
+			HellsWrathEnchantmentRare: Enchantement de Colère infernale Rare
+			HellsWrathEnchantmentSuperRare: Enchantement de Colère infernale Super Rare
+			HellsWrathEnchantmentUltraRare: Enchantement de Colère infernale Ultra Rare
+			JunglesFuryEnchantmentBasic: Enchantement de Fureur de la jungle de base
+			JunglesFuryEnchantmentCommon: Enchantement de Fureur de la jungle Commun
+			JunglesFuryEnchantmentRare: Enchantement de Fureur de la jungle Rare
+			JunglesFuryEnchantmentSuperRare: Enchantement de Fureur de la jungle Super Rare
+			JunglesFuryEnchantmentUltraRare: Enchantement de Fureur de la jungle Ultra Rare
+			MoonlightEnchantmentBasic: Enchantement de Clair de lune de base
+			MoonlightEnchantmentCommon: Enchantement de Clair de lune Commun
+			MoonlightEnchantmentRare: Enchantement de Clair de lune rare
+			MoonlightEnchantmentSuperRare: Enchantement de Clair de lune Super rare
+			MoonlightEnchantmentUltraRare: Enchantement de Clair de lune Ultra Rare
+			MultishotEnchantmentBasic: Enchantement de Multi-tir de base
+			MultishotEnchantmentCommon: Enchantement de Multi-tir Commun
+			MultishotEnchantmentRare: Enchantement de Multi-tir Rare
+			MultishotEnchantmentSuperRare: Enchantement de Multi-tir Super Rare
+			MultishotEnchantmentUltraRare: Enchantement de Multi-tir Ultra Rare
+			AmmoCostEnchantmentBasic: Enchantement de coût en munitions de base
+			AmmoCostEnchantmentCommon: Enchantement de coût en munitions Commun
+			AmmoCostEnchantmentRare: Enchantement de coût en munitions Rare
+			AmmoCostEnchantmentSuperRare: Enchantement de coût de munitions Super Rare
+			AmmoCostEnchantmentUltraRare: Enchantement de coût en munitions Ultra Rare
+			DangerSenseEnchantmentUltraRare: Enchantement de danger Ultra Rare
+			HunterEnchantmentUltraRare: Enchantement de chasse Ultra Rare
+			ManaEnchantmentBasic: Enchantement de mana de base
+			ManaEnchantmentCommon: Enchantement de mana Commun
+			ManaEnchantmentRare: Enchantement de mana Rare
+			ManaEnchantmentSuperRare: Enchantement de mana Super Rare
+			ManaEnchantmentUltraRare: Enchantement de mana Ultra Rare
+			MoveSpeedEnchantmentBasic: Enchantement de Vitesse de déplacement de base
+			MoveSpeedEnchantmentCommon: Enchantement de Vitesse de déplacement Commun
+			MoveSpeedEnchantmentRare: Enchantement de Vitesse de déplacement Rare
+			MoveSpeedEnchantmentSuperRare: Enchantement de Vitesse de déplacement Super Rare
+			MoveSpeedEnchantmentUltraRare: Enchantement de Vitesse de déplacement Ultra Rare
+			ObsidianSkinEnchantmentUltraRare: Enchantement D'enveloppe en obsidienne Ultra Rare
+			PeaceEnchantmentBasic: Enchantement de paix de base
+			PeaceEnchantmentCommon: Enchantement de paix Commun
+			PeaceEnchantmentRare: Enchantement de paix Rare
+			PeaceEnchantmentSuperRare: Enchantement de paix Super Rare
+			PeaceEnchantmentUltraRare: Enchantement de paix Ultra Rare
+			ScaleEnchantmentBasic: Enchantement de taille de base
+			ScaleEnchantmentCommon: Enchantement de taille Commun
+			ScaleEnchantmentRare: Enchantement de taille Rare
+			ScaleEnchantmentSuperRare: Enchantement de taille Super Rare
+			ScaleEnchantmentUltraRare: Enchantement de taille Ultra Rare
+			ShootSpeedEnchantmentBasic: Enchantement de vitesse de tir de base
+			ShootSpeedEnchantmentCommon: Enchantement de vitesse de tir Commun
+			ShootSpeedEnchantmentRare: Enchantement de vitesse de tir Rare
+			ShootSpeedEnchantmentSuperRare: Enchantement de vitesse de tir Super Rare
+			ShootSpeedEnchantmentUltraRare: Enchantement de vitesse de tir Ultra Rare
+			SpelunkerEnchantmentUltraRare: Enchantement de spéléologue Ultra Rare
+			WarEnchantmentBasic: Enchantement de guerre de base
+			WarEnchantmentCommon: Enchantement de guerre Commun
+			WarEnchantmentRare: Enchantement de guerre Rare
+			WarEnchantmentSuperRare: Enchantement de guerre Super Rare
+			WarEnchantmentUltraRare: Enchantement de guerre Ultra Rare
+			WorldAblazeEnchantmentBasic: Enchantement du Monde Enflammé de base
+			WorldAblazeEnchantmentCommon: Enchantement du Monde Enflammé Commun
+			WorldAblazeEnchantmentRare: Enchantement du Monde Enflammé Rare
+			WorldAblazeEnchantmentSuperRare: Enchantement du Monde Enflammé Super rare
+			WorldAblazeEnchantmentUltraRare: Enchantement du Monde Enflammé Ultra rare
+			PowerBooster: Amplificateur de puissance
+		}
+	}
 }
