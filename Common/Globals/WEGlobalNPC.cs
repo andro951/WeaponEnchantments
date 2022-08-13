@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         private bool oneForAllOrigin = true;
         float baseOneForAllRange = 240f;
-        float baseAmaterasuSpreadRange = 60f;
+        float baseAmaterasuSpreadRange = 100f;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
         public float amaterasuStrength = 0f;
@@ -1286,7 +1286,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
 
             bool isWorm = IsWorm(npc);
-            int minSpreadDamage = isWorm ? 8 : 70;
+            int minSpreadDamage = isWorm ? 13 : 130;
 
             //Controls how fast the damage tick rate is.
             damage += amaterasuDamage / 240;
