@@ -140,7 +140,7 @@ namespace WeaponEnchantments
 
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
-                    else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment) {
+                    else if (!itemEnchantment.IsAir && itemEnchantment.type != tableEnchantment.type) {
                         //If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                         EnchantedItemStaticMethods.RemoveEnchantment(i);
                         iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;

@@ -1393,6 +1393,13 @@ namespace WeaponEnchantments.Common.Globals
             foreach (EnchantmentStaticStat staticStat in enchantment.StaticStats) {
                 if (LogMethods.debugging) ($"staticStat: " + staticStat.S()).Log();
 
+                //Magic missile and similar weapon prevent auto reuse
+                if (WEMod.serverConfig.AutoReuseDisabledOnMagicMissile && staticStat.Name == "autoReuse") {
+                    Item sampleItem = ContentSamples.ItemsByType[item.type];
+                    if (sampleItem.mana > 0 && sampleItem.useStyle == 1 && sampleItem.channel)
+                        continue;
+                }
+
                 float add = staticStat.Additive * (remove ? -1f : 1f);
                 float mult = remove ? 1 / staticStat.Multiplicative : staticStat.Multiplicative;
                 float flat = staticStat.Flat * (remove ? -1f : 1f);
