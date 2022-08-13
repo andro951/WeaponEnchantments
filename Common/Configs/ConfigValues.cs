@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Common.Configs
 		public static float AffectOnVanillaLifeStealLimit => serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
 		public static float SpeedEnchantmentAutoReuseSetpoint = serverConfig.SpeedEnchantmentAutoReuseSetpoint / 100f;
 		public static float GlobalEnchantmentStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
-		public static float PercentOfferEssence => serverConfig.PercentOfferEssence / 100f;
+		public static float PercentOfferEssence => clientConfig.PercentOfferEssence / 100f;
 		public static float ChestSpawnChance => serverConfig.ChestSpawnChance / 100f;
 		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
 	}
