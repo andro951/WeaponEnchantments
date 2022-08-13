@@ -10,9 +10,9 @@ namespace WeaponEnchantments.Common.Utility
     public class LogModSystem : ModSystem {
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips = false;
-        public static bool printLocalization = true;
-        public static bool printLocalizationMaster = true;
-        public static bool printListForDocumentConversion = true;
+        public static bool printLocalization = false;
+        public static bool printLocalizationMaster = false;
+        public static bool printListForDocumentConversion = false;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
