@@ -138,11 +138,6 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool AllowHighTierOres;
 
-        [Label("Percentage of offered Item value converted to essence.")]
-        [DefaultValue(50)]
-        [Range(0, 100)]
-        public int PercentOfferEssence;
-
         [Label("Enchantment Slots On Weapons")]
         [Tooltip("1st slot is a normal slot.\n" +
 			"2nd slot is the utility slot.\n" +
@@ -262,6 +257,11 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Enable to display item's Infusion Power always instead of just when the enchanting table is open.")]
         [DefaultValue(false)]
         public bool AlwaysDisplayInfusionPower;
+
+        [Label("Percentage of offered Item value converted to essence.")]
+        [DefaultValue(50)]
+        [Range(0, 100)]
+        public int PercentOfferEssence;
 
         //Display Settings
         [Header("Display Settings")]
