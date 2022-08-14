@@ -12,13 +12,13 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
 			{ EItemType.Weapon, 1f }
 		};
-		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => 1;
         public override bool Max1 => true;
+		public override int LowestCraftableTier => 0;
+		public override string Texture => $"WeaponEnchantments/Items/Sprites/StatusEffects/{Name}";
+
 		public abstract int StatusEffect { get; }
 		public virtual Tuple<int, int> CraftingIngredient { get; } = null;
-
-		public override string Texture => $"WeaponEnchantments/Items/Sprites/StatusEffects/{Name}";
 		
 		public override void GetMyStats() {
 			//TODO: Update to new system
@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Princess of Evil";
 	}
 
-	//DODO: Split into seperate files
+	//TODO: Split into seperate files
 	public abstract class OnFireEnchantment : StatusEffectEnchantment {
 		public override int StatusEffect => BuffID.OnFire;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Gel, 33);
