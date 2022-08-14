@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			if (EnchantmentTier == 4)
 				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
 
-			Debuff.Add(EnchantmentTier == 3 ? BuffID.OnFire3 : BuffID.OnFire, BuffDuration);
+			Debuff.Add((short)(EnchantmentTier == 3 ? BuffID.OnFire3 : BuffID.OnFire), BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
 
 			Effects = new() {

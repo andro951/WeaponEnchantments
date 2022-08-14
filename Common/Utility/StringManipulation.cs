@@ -58,6 +58,11 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
+        
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
+        public static string S(this Dictionary<short, int> dictionary, short key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
 
         /// <summary>
         /// Convert to a string

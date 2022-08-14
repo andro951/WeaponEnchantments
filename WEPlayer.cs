@@ -24,8 +24,11 @@ using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Effects.EnchantStats;
+using KokoLib;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
@@ -870,20 +873,6 @@ namespace WeaponEnchantments
 
             damage += damageReduction;
 
-            bool makingPacket = false;
-
-            //Setup packet
-            ModPacket onHitEffectsPacket = null;
-            bool[] onHitEffects = new bool[OnHitEffectID.Count];
-            if (Main.netMode == NetmodeID.MultiplayerClient) {
-                onHitEffectsPacket = ModContent.GetInstance<WEMod>().GetPacket();
-                makingPacket = true;
-                onHitEffectsPacket.Write(WEMod.PacketIDs.OnHitEffects);
-                onHitEffectsPacket.Write(target.whoAmI);
-                onHitEffectsPacket.Write(damage);
-                onHitEffectsPacket.Write(crit);
-            }
-
             bool skipOnHitEffects = projectile != null ? projectile.GetWEProjectile().skipOnHitEffects : false;
 
             WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
@@ -893,17 +882,27 @@ namespace WeaponEnchantments
             //Buffs and debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
-                foreach (int debuff in iGlobal.debuffs.Keys) {
-                    //Amaterasu
-                    if (debuff == ModContent.BuffType<AmaterasuDebuff>()) {
-                        onHitEffects[OnHitEffectID.Amaterasu] = true;
-                        if (weGlobalNPC.amaterasuStrength == 0)
-                            weGlobalNPC.amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
+                int amaterasuDamageAdded = 0;
+                if (iGlobal.debuffs.ContainsKey((short)ModContent.BuffType<AmaterasuDebuff>())) {
+                    if (weGlobalNPC.amaterasuStrength == 0)
+                        weGlobalNPC.amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
 
-                        weGlobalNPC.amaterasuDamage += damage * (crit ? 2 : 1);
+                    amaterasuDamageAdded = damage * (crit ? 2 : 1);
+                    weGlobalNPC.amaterasuDamage += amaterasuDamageAdded;
+                }
+
+                if (Main.netMode != NetmodeID.Server) {
+                    var debuffs = iGlobal.debuffs;
+                    if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.type)) {
+                        foreach (short key in debuffs.Keys) {
+                            debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
+                        }
                     }
 
-                    target.AddBuff(debuff, iGlobal.debuffs[debuff]);
+                    Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs);
+                }
+                else {
+                    $"NetDebuffs called from server.".Log();
                 }
 
                 //Sets Minion Attack target
@@ -911,8 +910,6 @@ namespace WeaponEnchantments
                     Player.MinionAttackTargetNPC = target.whoAmI;
             }
 
-            List<int> oneForAllWhoAmIs = new List<int>();
-            List<int> oneForAllDamages = new List<int>();
             if (target.type != NPCID.TargetDummy) {
                 int oneForAllDamageDealt = 0;
                 //Buffs and Debuffs
@@ -940,53 +937,18 @@ namespace WeaponEnchantments
                 #endregion
 
                 //One For All
-                if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin) {
-                    oneForAllDamageDealt = ActivateOneForAll(target, Player, item, ref damage, ref knockback, ref crit, hitDirection, out oneForAllWhoAmIs, out oneForAllDamages, projectile);
-
-                    if (makingPacket && oneForAllWhoAmIs.Count > 0)
-                        onHitEffects[OnHitEffectID.OneForAll] = true;
-                }
+                if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin)
+                    oneForAllDamageDealt = ActivateOneForAll(target, Player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
             }
 
             //GodSlayer
-            int godSlayerDamage = 0;
-            if (ItemEStats.ContainsKey("GodSlayer")) {
-                godSlayerDamage = ActivateGodSlayer(target, Player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
-
-                if (makingPacket)
-                    onHitEffects[OnHitEffectID.GodSlayer] = true;
-            }
+            if (ItemEStats.ContainsKey("GodSlayer"))
+                ActivateGodSlayer(target, Player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
 
             //One for all kill projectile on hit.
             if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin && projectile != null) {
                 if (projectile.penetrate != 1)
                     projectile.active = false;
-            }
-
-            //Finish and send packet
-            if (makingPacket) {
-                for (int i = 0; i < onHitEffects.Length; i++) {
-                    onHitEffectsPacket.Write(onHitEffects[i]);
-                    if (onHitEffects[i]) {
-                        switch (i) {
-                            case OnHitEffectID.GodSlayer:
-                                onHitEffectsPacket.Write(godSlayerDamage);
-                                break;
-                            case OnHitEffectID.OneForAll:
-                                onHitEffectsPacket.Write(oneForAllWhoAmIs.Count);
-                                for (int j = 0; j < oneForAllWhoAmIs.Count; j++) {
-                                    onHitEffectsPacket.Write(oneForAllWhoAmIs[j]);
-                                    onHitEffectsPacket.Write(oneForAllDamages[j]);
-                                }
-                                break;
-                            case OnHitEffectID.Amaterasu:
-                                onHitEffectsPacket.Write(item.ApplyEStat("Amaterasu", 0f));
-                                break;
-                        }
-                    }
-                }
-
-                onHitEffectsPacket.Send();
             }
 
             #region Debug
@@ -998,7 +960,7 @@ namespace WeaponEnchantments
 
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
         }
-        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, out List<int> whoAmIs, out List<int> damages, Projectile projectile = null) {
+        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null) {
 
             #region Debug
 
@@ -1008,8 +970,7 @@ namespace WeaponEnchantments
 
             int total = 0;
             int wormCounter = 0;
-            whoAmIs = new List<int>();
-            damages = new List<int>();
+            Dictionary<NPC, (int, bool)> oneForAllNPCDictionary = new Dictionary<NPC, (int, bool)>();
 
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return 0;
@@ -1024,13 +985,13 @@ namespace WeaponEnchantments
                 if (!npc.active)
                     continue;
 
-                whoAmIs.Add(npcDataPair.Key);
                 float distanceFromOrigin = npcDataPair.Value;
                 int whoAmI = npcDataPair.Key;
                 NPC target = Main.npc[whoAmI];
 
+                bool isWorm = WEGlobalNPC.IsWorm(npc);
+
                 //Worms
-                bool isWorm = npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
                 if (isWorm)
                     wormCounter++;
 
@@ -1051,6 +1012,7 @@ namespace WeaponEnchantments
                             wormReductionFactor = 0f;
                         }
                     }
+
                     allForOneDamage *= wormReductionFactor;
                 }
 
@@ -1058,11 +1020,15 @@ namespace WeaponEnchantments
 
                 if (allForOneDamageInt > 0) {
                     //Hit target
-                    total += (int)target.StrikeNPC(allForOneDamageInt, knockback, direction);
+                    total += (int)target.StrikeNPC(allForOneDamageInt, knockback, direction, crit);
+                    oneForAllNPCDictionary.Add(target, (allForOneDamageInt, crit));
                 }
-                damages.Add(allForOneDamageInt);
+
                 target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
             }
+
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                Net<INetOnHitEffects>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
 
             #region Debug
 
@@ -1104,7 +1070,12 @@ namespace WeaponEnchantments
             int godSlayerDamageInt = (int)Math.Round(godSlayerDamage);
 
             //Hit npc
-            npc.StrikeNPC(godSlayerDamageInt, knockback, direction, crit);
+            if (Main.netMode is NetmodeID.SinglePlayer or NetmodeID.MultiplayerClient) {
+                Net<INetOnHitEffects>.Proxy.NetStrikeNPC(npc, godSlayerDamageInt, crit);
+            }
+            else {
+                $"ActivateGodSlayer called from server.".Log();
+            }
 
             #region Debug
 

@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
         public Dictionary<string, StatModifier> appliedEStats = new Dictionary<string, StatModifier>();
         public Dictionary<int, int> buffs = new Dictionary<int, int>();
-        public Dictionary<int, int> debuffs = new Dictionary<int, int>();
+        public Dictionary<short, int> debuffs = new Dictionary<short, int>();
         public Dictionary<int, int> onHitBuffs = new Dictionary<int, int>();
 
         #endregion
@@ -226,7 +226,7 @@ namespace WeaponEnchantments.Common.Globals
                 clone.eStats = new Dictionary<string, StatModifier>(eStats);
                 clone.appliedEStats = new Dictionary<string, StatModifier>();
                 clone.buffs = new Dictionary<int, int>(buffs);
-                clone.debuffs = new Dictionary<int, int>(debuffs);
+                clone.debuffs = new Dictionary<short, int>(debuffs);
                 clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
 
 				#endregion
@@ -1318,7 +1318,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Debuffs
             if (enchantment.Debuff.Count > 0) {
-                foreach (int debuff in enchantment.Debuff.Keys) {
+                foreach (short debuff in enchantment.Debuff.Keys) {
                     if (LogMethods.debugging) (iGlobal.debuffs.S(debuff)).Log();
 
                     int duration = enchantment.Debuff[debuff];

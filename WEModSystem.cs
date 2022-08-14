@@ -84,7 +84,7 @@ namespace WeaponEnchantments
                     addedItem = true;
                     wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
                 }
-                else if (wePlayer.itemBeingEnchanted != itemInUI) {
+                else if (!wePlayer.itemBeingEnchanted.IsSameEnchantedItem(itemInUI)) {
                     swappedItem = true;
                 }
 
@@ -440,6 +440,8 @@ namespace WeaponEnchantments
                 CloseWeaponEnchantmentUI();
                 wePlayer.enchantingTableUI.OnDeactivate();
             }
+
+            wePlayer.enteredWorld = false;
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;

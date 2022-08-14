@@ -17,6 +17,8 @@ using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Common.Utility;
 using System.Reflection;
+using WeaponEnchantments.ModLib.KokoLib;
+using KokoLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -38,7 +40,6 @@ namespace WeaponEnchantments.Common.Globals
         static bool war = false;
         static float warReduction = 1f;
 
-
         #endregion
 
         private Item _sourceItem;
@@ -54,10 +55,11 @@ namespace WeaponEnchantments.Common.Globals
 			}
         }
         public bool oneForAllOrigin = true;
-        float baseAmaterasuSpreadRange = 60f;
+        float baseAmaterasuSpreadRange = 160f;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
         public float amaterasuStrength = 0f;
+        private bool amaterasuImmunityUpdated = false;
         public float myWarReduction = 1f;
         public override bool InstancePerEntity => true;
         public override void Load() {
@@ -96,7 +98,10 @@ namespace WeaponEnchantments.Common.Globals
             multipleSegmentBossTypes = new Dictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },
                 { NPCID.EaterofWorldsBody, 100f },
-                { NPCID.EaterofWorldsTail, 100f }
+                { NPCID.EaterofWorldsTail, 100f },
+                { NPCID.TheDestroyer, 1f },
+                { NPCID.TheDestroyerBody, 1f },
+                { NPCID.TheDestroyerTail, 1f },
             };
         }
         private static void HookDamage(ILContext il)
@@ -774,47 +779,6 @@ namespace WeaponEnchantments.Common.Globals
                 dropRate[essenceTier + 1] = 0.06125f * thisDropRate;
             }
         }
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            
-            #endregion
-        }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            bool weProjectileIsNull = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null;
-
-            //Projectile SourceItem
-            Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
-
-            HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
-
-            
-		}
 		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
 
             #region Debug
@@ -869,6 +833,30 @@ namespace WeaponEnchantments.Common.Globals
 
             npc.immune[player.whoAmI] = newImmune;
         }
+        public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
+            Dictionary<int, float> npcs = new Dictionary<int, float>();
+            foreach (NPC target in Main.npc) {
+                if (!npc.active)
+                    continue;
+
+                if (target.whoAmI != npc.whoAmI) {
+                    if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
+                        continue;
+
+                    Vector2 vector2 = target.Center - npc.Center;
+                    float distanceFromOrigin = vector2.Length();
+                    if (distanceFromOrigin <= range) {
+                        npcs.Add(target.whoAmI, distanceFromOrigin);
+                    }
+                }
+            }
+
+            return npcs;
+        }
+        public static void StrikeNPC(NPC npc, int damage, bool crit) {
+            if(npc.active && npc.life > 0)
+                npc.StrikeNPC(damage, 0, 0, crit, false, true);
+        }
         public override void OnSpawn(NPC npc, IEntitySource source) {
             if (npc.ModNPC != null) {
                 string n = npc.FullName;
@@ -886,57 +874,70 @@ namespace WeaponEnchantments.Common.Globals
             npc.trapImmune = true;
     }
         public override void UpdateLifeRegen(NPC npc, ref int damage) {
-            if (amaterasuDamage <= 0)
+            if (!npc.HasBuff<AmaterasuDebuff>())
                 return;
 
 			#region Debug
             
 			if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
-			#endregion
-
-            //Amaeterasu damage goes up over time on its own.
-			amaterasuDamage++;
+            #endregion
+            
+            bool isWorm = IsWorm(npc);
+            int minSpreadDamage = isWorm ? 13 : 100;
 
             //Controls how fast the damage tick rate is.
             damage += amaterasuDamage / 240;
 
             //Set damage over time (amaterasuStrength is the EnchantmentStrength affected by config values.)
-            npc.lifeRegen -=  (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
+            int lifeRegen = (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
+            npc.lifeRegen -= lifeRegen;
+
+            //Fix for bosses not dying from Amaterasu
+            if (npc.boss || multipleSegmentBossTypes.ContainsKey(npc.type)) {
+                if (npc.life + npc.lifeRegen < 1 && npc.lifeRegen < 0)
+                    npc.lifeRegen = 0;
+            }
 
             //Spread to other enemies ever 10 ticks
-            if(npc.type != NPCID.TargetDummy && lastAmaterasuTime + 10 <= Main.GameUpdateCount) {
-                Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
-                foreach (int whoAmI in npcs.Keys) {
-                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuDamage += 10;
-                    Main.npc[whoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuStrength;
-                    Main.npc[whoAmI].AddBuff(ModContent.BuffType<AmaterasuDebuff>(), -1);
+            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.type != NPCID.TargetDummy) {
+                if(amaterasuDamage > minSpreadDamage) {
+                    Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
+                    foreach (int whoAmI in npcs.Keys) {
+                        NPC mainNPC = Main.npc[whoAmI];
+                        WEGlobalNPC wEGlobalNPC = Main.npc[whoAmI].GetWEGlobalNPC();
+                        if (IsWorm(mainNPC)) {
+                            if (wEGlobalNPC.amaterasuDamage <= 0)
+                                wEGlobalNPC.amaterasuDamage++;
+                        }
+						else {
+                            wEGlobalNPC.amaterasuDamage += 5;
+                        }
+
+                        if (!wEGlobalNPC.amaterasuImmunityUpdated) {
+                            AmaterasuDebuff.ForceUpdate(mainNPC);
+                            wEGlobalNPC.amaterasuStrength = amaterasuStrength;
+                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue);
+                            wEGlobalNPC.amaterasuImmunityUpdated = true;
+                        }
+                    }
                 }
 
+                amaterasuDamage++;
+                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue, true);
                 lastAmaterasuTime = Main.GameUpdateCount;
             }
+			else {
+                //Amaeterasu damage goes up over time on its own.
+                if (!isWorm)
+                    amaterasuDamage++;
+            }
+            
+            #region Debug
 
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+            if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
             #endregion
-        }
-        public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
-            Dictionary<int, float> npcs = new Dictionary<int, float>();
-            foreach (NPC target in Main.npc) {
-                if (target.whoAmI != npc.whoAmI) {
-                    if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
-                        continue;
-
-                    Vector2 vector2 = target.Center - npc.Center;
-                    float distanceFromOrigin = vector2.Length();
-                    if (distanceFromOrigin <= range)
-                        npcs.Add(target.whoAmI, distanceFromOrigin);
-                }
-            }
-
-            return npcs;
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
 
@@ -986,7 +987,7 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 		}
 		public override void DrawEffects(NPC npc, ref Color drawColor) {
-            if(amaterasuDamage > 0) {
+            if(npc.HasBuff<AmaterasuDebuff>()) {
                 //Black On fire dust
                 if (Main.rand.Next(4) < 3) {
                     Dust dust4 = Dust.NewDustDirect(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.WhiteTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 3.5f);
@@ -1001,6 +1002,9 @@ namespace WeaponEnchantments.Common.Globals
 
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
+        }
+        public static bool IsWorm(NPC npc) {
+            return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
     }
 }
