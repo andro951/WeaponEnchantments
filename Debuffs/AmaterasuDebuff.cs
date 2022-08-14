@@ -11,15 +11,19 @@ namespace WeaponEnchantments.Debuffs
 {
     public class AmaterasuDebuff : ModBuff
     {
-        int[] notImmuneBuffs = new int[] {BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
+        static int[] notImmuneBuffs = new int[] { ModContent.BuffType<AmaterasuDebuff>(), BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
         public override void SetStaticDefaults() {
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
         public override void Update(NPC npc, ref int buffIndex) {
-            //Make not immune to the other buffs that WorldAblaze applies
-            foreach (int notImmuneBuff in notImmuneBuffs)
-                npc.buffImmune[notImmuneBuff] = false;
+            ForceUpdate(npc);
         }
-    }
+        public static void ForceUpdate(NPC npc) {
+            //Make not immune to the other buffs that WorldAblaze applies
+            foreach (int notImmuneBuff in notImmuneBuffs) {
+                npc.buffImmune[notImmuneBuff] = false;
+            }
+        }
+	}
 }

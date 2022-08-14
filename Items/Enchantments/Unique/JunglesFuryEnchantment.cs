@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			if (EnchantmentTier == 4)
 				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
 
-			Debuff.Add(EnchantmentTier == 3 ? BuffID.Venom : BuffID.Poisoned, BuffDuration);
+			Debuff.Add((short)(EnchantmentTier == 3 ? BuffID.Venom : BuffID.Poisoned), BuffDuration);
 			AddEStat("Damage", 0f, EnchantmentStrength);
 		}
 

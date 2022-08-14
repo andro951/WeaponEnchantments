@@ -337,7 +337,7 @@ namespace WeaponEnchantments.Items
 		public int BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
-		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
+		public Dictionary<short, int> Debuff { private set; get; } = new Dictionary<short, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 
@@ -684,7 +684,7 @@ namespace WeaponEnchantments.Items
 					string name = baseName.Substring(0, fieldName.Length);
 					if (fieldName.ToLower() == name.ToLower()) {
 						if (debuff) {
-							Debuff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID), GetBuffDuration());
+							Debuff.Add((short)buffID.GetType().GetField(fieldName).GetValue(buffID), GetBuffDuration());
 						}
 						else {
 							Buff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID));

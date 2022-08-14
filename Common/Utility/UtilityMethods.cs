@@ -160,6 +160,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
                 else {
                     iGlobal.Experience = int.MaxValue;
+                    if (WEMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log();
                     WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true);
                 }
             }

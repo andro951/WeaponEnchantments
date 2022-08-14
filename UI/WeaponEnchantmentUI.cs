@@ -415,6 +415,8 @@ namespace WeaponEnchantments.UI
             if(xp <= 0)
                 return 0;
 
+            if (WEMod.magicStorageEnabled) $"Converted xp to essence. xp: {xp}, consumeAll: {consumeAll.S()}".Log();
+
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             //Force player essence data to sync with the ui
@@ -580,6 +582,7 @@ namespace WeaponEnchantments.UI
             }
             else {
                 int xp = iGlobal.Experience - maxLevelXP;
+                if (WEMod.magicStorageEnabled) $"Syphon(), itemInUI: {itemInUI.S()}".Log();
                 iGlobal.Experience -= ConvertXPToEssence(xp);
             }
         }

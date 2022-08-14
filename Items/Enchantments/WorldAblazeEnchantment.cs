@@ -22,8 +22,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			if (EnchantmentTier == 4) {
 				AddEStat("Amaterasu", 0f, 1f, 0f, EnchantmentStrength);
-				Debuff.Add(ModContent.BuffType<AmaterasuDebuff>(), -1);
+				Debuff.Add((short)ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue);
 			}
+
 			Debuff.Add(BuffID.OnFire, (int)((float)BuffDuration * EnchantmentStrength));
 			Debuff.Add(BuffID.Oiled, (int)((float)BuffDuration * 0.8f * EnchantmentStrength));
 			

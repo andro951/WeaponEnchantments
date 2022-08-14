@@ -248,6 +248,11 @@ Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode b
 
 ## Contributors
 
+### Supporting Mod Library
+
+KokoLib by Tabizzz - For managing the sending and recieving of packets for multiplayer servers.
+https://github.com/Tabizzz/KokoLib
+
 ### Art
 
 andro951: 
