@@ -4,6 +4,8 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public abstract class BoolEffect : EnchantmentEffect {
+
+        public bool EnableStat = true;
         protected BoolEffect(EStatModifier sm) {
             EStatModifier = sm;
         }
@@ -20,7 +22,7 @@ namespace WeaponEnchantments.Effects {
             set => EStatModifier.EfficiencyMultiplier = value; 
         }
 
-		public abstract EditableStat statName { get; }
+		public abstract PlayerStat statName { get; }
 
         protected virtual string modifierToString() {
             string final = "";

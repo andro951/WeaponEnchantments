@@ -7,7 +7,7 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override int StrengthGroup => 12;
         public override bool Max1 => true;
 		public override void GetMyStats() {
-            Effects = new EnchantmentEffect[] {
+            Effects = new() {
                 new MaxFallSpeed(EnchantmentStrength),
                 new MoveSlowDown(EnchantmentStrength),
                 new MoveAcceleration(EnchantmentStrength),

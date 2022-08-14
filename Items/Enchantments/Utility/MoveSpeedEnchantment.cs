@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			{ EItemType.Accessory, 1f }
 		};
 		public override void GetMyStats() {
-			Effects = new EnchantmentEffect[] {
+			Effects = new() {
 				new MoveSpeed(EnchantmentStrength)
 			};
 		}

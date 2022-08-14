@@ -62,7 +62,7 @@ namespace WeaponEnchantments
                         switch (i) {
 							case OnHitEffectID.GodSlayer:
 								int godSlayerDamage = reader.ReadInt32();
-								WEGlobalNPC.StrikeNPC(npcWhoAmI, godSlayerDamage, crit);
+								WEPlayer.StrikeNPC(npcWhoAmI, godSlayerDamage, crit);
 								break;
 
 							case OnHitEffectID.OneForAll:
@@ -70,7 +70,7 @@ namespace WeaponEnchantments
 								for (int j = 0; j < oneForAllWhoAmIsCount; j++) {
 									int oneForAllWhoAmI = reader.ReadInt32();
 									int oneForAllDamages = reader.ReadInt32();
-									WEGlobalNPC.StrikeNPC(oneForAllWhoAmI, oneForAllDamages, crit);
+									WEPlayer.StrikeNPC(oneForAllWhoAmI, oneForAllDamages, crit);
 								}
 
 								break;

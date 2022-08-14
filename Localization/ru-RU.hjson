@@ -1,56 +1,140 @@
 ﻿#Contributed by 4sent4
 Mods: {
-    WeaponEnchantments: {
-        ItemName: {
-            Containment: Контейнер
-            MediumContainment: Средний контейнер
-            SuperiorContainment: Превосходный контейнер
-            WoodEnchantingTable: Деревянный стол зачарования
-            DustyEnchantingTable: Пыльный стол зачарования
-            HellishEnchantingTable: Адский стол зачарования
-            SoulEnchantingTable: Стол зачарования души
-            UltimateEnchantingTable: Ультимативный стол зачарования
-        }
-        EnchantmentEssence: Эссенция зачарования
-        Enchantment: Зачарование
-        EnchantmentTypeNames: {
-            ArmorPenetration: Пробивание брони
-            CriticalStrikeChance: Шанс критического удара
-            Damage: Урон
-            LifeSteal: Похищение жизни
-            MaxMinions: Максимум прислужников
-            Multishot: Множественный выстрел
-            OneForAll: Один за всех
-            Speed: Скорость
-            Defense: Защита
-            AllForOne: Все за одного
-            ColdSteel: Холодная сталь
-            GodSlayer: Убийца Богов
-            HellsWrath: Гнев Ада
-            JunglesFury: Ярость джунглей
-            Moonlight: Лунный свет
-            AmmoCost: Использование аммуниции
-            Mana: Использование маны
-            MoveSpeed: Скорость передвижения
-            Peace: Мир
-            Scale: Размер
-            ShootSpeed: Скорость выстрела
-            War: Война
-            WorldAblaze: Мир в огне
-        }
-        TierNames: {
-            Basic: Базовое
-            Common: Обычное
-            Rare: Редкое
-            SuperRare: Супер редкое
-            UltraRare: Ультра редкое
-        }
-        DisplayTierNames: {
-            Basic: Базовое
-            Common: Обычное
-            Rare: Редкое
-            Epic: Эпическое
-            Legendary: Легендарное
-        }
-    }
+	WeaponEnchantments: {
+		ItemName: {
+			Containment: Контейнер
+			MediumContainment: Средний контейнер
+			SuperiorContainment: Превосходный контейнер
+			DustyEnchantingTable: Пыльный стол зачарования
+			HellishEnchantingTable: Адский стол зачарования
+			SoulEnchantingTable: Стол зачарования души
+			UltimateEnchantingTable: Абсолютный стол зачарования
+			WoodEnchantingTable: Деревянный стол зачарования
+			EnchantmentEssenceBasic: Базовая эссенция зачарования
+			EnchantmentEssenceCommon: Обычная эссенция зачарования
+			EnchantmentEssenceRare: Редкая эссенция зачарования
+			EnchantmentEssenceSuperRare: Супер редкая эссенция зачарования
+			EnchantmentEssenceUltraRare: Ультра редкая эссенция зачарования
+			AllForOneEnchantmentBasic: Зачарование "Все за одного" (Базовое)
+			AllForOneEnchantmentCommon: Зачарование "Все за одного" (Обычное)
+			AllForOneEnchantmentRare: Зачарование "Все за одного" (Редкое)
+			AllForOneEnchantmentSuperRare: Зачарование "Все за одного" (Супер редкое)
+			AllForOneEnchantmentUltraRare: Зачарование "Все за одного" (Ультра редкое)
+			ArmorPenetrationEnchantmentBasic: Зачарование "Пробивание брони" (Базовое)
+			ArmorPenetrationEnchantmentCommon: Зачарование "Пробивание брони" (Обычное)
+			ArmorPenetrationEnchantmentRare: Зачарование "Пробивание брони" (Редкое)
+			ArmorPenetrationEnchantmentSuperRare: Зачарование "Пробивание брони" (Супер редкое)
+			ArmorPenetrationEnchantmentUltraRare: Зачарование "Пробивание брони" (Ультра редкое)
+			CriticalStrikeChanceEnchantmentBasic: Зачарование "Критический удар" (Базовое)
+			CriticalStrikeChanceEnchantmentCommon: Зачарование "Критический удар" (Обычное)
+			CriticalStrikeChanceEnchantmentRare: Зачарование "Критический удар" (Редкое)
+			CriticalStrikeChanceEnchantmentSuperRare: Зачарование "Критический удар" (Супер редкое)
+			CriticalStrikeChanceEnchantmentUltraRare: Зачарование "Критический удар" (Ультра редкое)
+			DamageEnchantmentBasic: Зачарование "Урон" (Базовое)
+			DamageEnchantmentCommon: Зачарование "Урон" (Обычное)
+			DamageEnchantmentRare: Зачарование "Урон" (Редкое)
+			DamageEnchantmentSuperRare: Зачарование "Урон" (Супер редкое)
+			DamageEnchantmentUltraRare: Зачарование "Урон" (Ультра редкое)
+			LifeStealEnchantmentBasic: Зачарование "Похищение жизни" (Базовое)
+			LifeStealEnchantmentCommon: Зачарование "Похищение жизни" (Обычное)
+			LifeStealEnchantmentRare: Зачарование "Похищение жизни" (Редкое)
+			LifeStealEnchantmentSuperRare: Зачарование "Похищение жизни" (Супер редкое)
+			LifeStealEnchantmentUltraRare: Зачарование "Похищение жизни" (Ультра редкое)
+			MaxMinionsEnchantmentBasic: Зачарование "Максимум прислужников" (Базовое)
+			MaxMinionsEnchantmentCommon: Зачарование "Максимум прислужников" (Обычное)
+			MaxMinionsEnchantmentRare: Зачарование "Максимум прислужников" (Редкое)
+			MaxMinionsEnchantmentSuperRare: Зачарование "Максимум прислужников" (Супер редкое)
+			MaxMinionsEnchantmentUltraRare: Зачарование "Максимум прислужников" (Ультра редкое)
+			OneForAllEnchantmentBasic: Зачарование "Один за всех" (Базовое)
+			OneForAllEnchantmentCommon: Зачарование "Один за всех" (Обычное)
+			OneForAllEnchantmentRare: Зачарование "Один за всех" (Редкое)
+			OneForAllEnchantmentSuperRare: Зачарование "Один за всех" (Супер редкое)
+			OneForAllEnchantmentUltraRare: Зачарование "Один за всех" (Ультра редкое)
+			SpeedEnchantmentBasic: Зачарование "Скорость" (Базовое)
+			SpeedEnchantmentCommon: Зачарование "Скорость" (Обычное)
+			SpeedEnchantmentRare: Зачарование "Скорость" (Редкое)
+			SpeedEnchantmentSuperRare: Зачарование "Скорость" (Супер редкое)
+			SpeedEnchantmentUltraRare: Зачарование "Скорость" (Ультра редкое)
+			StatDefenseEnchantmentBasic: Зачарование "Защита" (Базовое)
+			StatDefenseEnchantmentCommon: Зачарование "Защита" (Обычное)
+			StatDefenseEnchantmentRare: Зачарование "Защита" (Редкое)
+			StatDefenseEnchantmentSuperRare: Зачарование "Защита" (Супер редкое)
+			StatDefenseEnchantmentUltraRare: Зачарование "Защита" (Ультра редкое)
+			ColdSteelEnchantmentBasic: Зачарование "Хладная сталь" (Базовое)
+			ColdSteelEnchantmentCommon: Зачарование "Хладная сталь" (Обычное)
+			ColdSteelEnchantmentRare: Зачарование "Хладная сталь" (Редкое)
+			ColdSteelEnchantmentSuperRare: Зачарование "Хладная сталь" (Супер редкое)
+			ColdSteelEnchantmentUltraRare: Зачарование "Хладная сталь" (Ультра редкое)
+			GodSlayerEnchantmentBasic: Зачарование "Убийца Богов" (Базовое)
+			GodSlayerEnchantmentCommon: Зачарование "Убийца Богов" (Обычное)
+			GodSlayerEnchantmentRare: Зачарование "Убийца Богов" (Редкое)
+			GodSlayerEnchantmentSuperRare: Зачарование "Убийца Богов" (Супер редкое)
+			GodSlayerEnchantmentUltraRare: Зачарование "Убийца Богов" (Ультра редкое)
+			HellsWrathEnchantmentBasic: Зачарование "Гнев Ада" (Базовое)
+			HellsWrathEnchantmentCommon: Зачарование "Гнев Ада" (Обычное)
+			HellsWrathEnchantmentRare: Зачарование "Гнев Ада" (Редкое)
+			HellsWrathEnchantmentSuperRare: Зачарование "Гнев Ада" (Супер редкое)
+			HellsWrathEnchantmentUltraRare: Зачарование "Гнев Ада" (Ультра редкое)
+			JunglesFuryEnchantmentBasic: Зачарование "Ярость джунглей" (Базовое)
+			JunglesFuryEnchantmentCommon: Зачарование "Ярость джунглей" (Обычное)
+			JunglesFuryEnchantmentRare: Зачарование "Ярость джунглей" (Редкое)
+			JunglesFuryEnchantmentSuperRare: Зачарование "Ярость джунглей" (Супер редкое)
+			JunglesFuryEnchantmentUltraRare: Зачарование "Ярость джунглей" (Ультра редкое)
+			MoonlightEnchantmentBasic: Зачарование "Лунный свет" (Базовое)
+			MoonlightEnchantmentCommon: Зачарование "Лунный свет" (Обычное)
+			MoonlightEnchantmentRare: Зачарование "Лунный свет" (Редкое)
+			MoonlightEnchantmentSuperRare: Зачарование "Лунный свет" (Супер редкое)
+			MoonlightEnchantmentUltraRare: Зачарование "Лунный свет" (Ультра редкое)
+			MultishotEnchantmentBasic: Зачарование "Многократный выстрел" (Базовое)
+			MultishotEnchantmentCommon: Зачарование "Многократный выстрел" (Обычное)
+			MultishotEnchantmentRare: Зачарование "Многократный выстрел" (Редкое)
+			MultishotEnchantmentSuperRare: Зачарование "Многократный выстрел" (Супер редкое)
+			MultishotEnchantmentUltraRare: Зачарование "Многократный выстрел" (Ультра редкое)
+			AmmoCostEnchantmentBasic: Зачарование "Расход боеприпасов" (Базовое)
+			AmmoCostEnchantmentCommon: Зачарование "Расход боеприпасов" (Обычное)
+			AmmoCostEnchantmentRare: Зачарование "Расход боеприпасов" (Редкое)
+			AmmoCostEnchantmentSuperRare: Зачарование "Расход боеприпасов" (Супер редкое)
+			AmmoCostEnchantmentUltraRare: Зачарование "Расход боеприпасов" (Ультра редкое)
+			DangerSenseEnchantmentUltraRare: Зачарование "Предчувствие" (Ультра редкое)
+			HunterEnchantmentUltraRare: Зачарование "Охотник" (Ультра редкое)
+			ManaEnchantmentBasic: Зачарование "Расход маны" (Базовое)
+			ManaEnchantmentCommon: Зачарование "Расход маны" (Обычное)
+			ManaEnchantmentRare: Зачарование "Расход маны" (Редкое)
+			ManaEnchantmentSuperRare: Зачарование "Расход маны" (Супер редкое)
+			ManaEnchantmentUltraRare: Зачарование "Расход маны" (Ультра редкое)
+			MoveSpeedEnchantmentBasic: Зачарование "Скорость передвижения" (Базовое)
+			MoveSpeedEnchantmentCommon: Зачарование "Скорость передвижения" (Обычное)
+			MoveSpeedEnchantmentRare: Зачарование "Скорость передвижения" (Редкое)
+			MoveSpeedEnchantmentSuperRare: Зачарование "Скорость передвижения" (Супер редкое)
+			MoveSpeedEnchantmentUltraRare: Зачарование "Скорость передвижения" (Ультра редкое)
+			ObsidianSkinEnchantmentUltraRare: Зачарование "Обсидиановая кожа" (Ультра редкое)
+			PeaceEnchantmentBasic: Зачарование "Мир" (Базовое)
+			PeaceEnchantmentCommon: Зачарование "Мир" (Обычное)
+			PeaceEnchantmentRare: Зачарование "Мир" (Редкое)
+			PeaceEnchantmentSuperRare: Зачарование "Мир" (Супер редкое)
+			PeaceEnchantmentUltraRare: Зачарование "Мир" (Ультра редкое)
+			ScaleEnchantmentBasic: Зачарование "Размер" (Базовое)
+			ScaleEnchantmentCommon: Зачарование "Размер" (Обычное)
+			ScaleEnchantmentRare: Зачарование "Размер" (Редкое)
+			ScaleEnchantmentSuperRare: Зачарование "Размер" (Супер редкое)
+			ScaleEnchantmentUltraRare: Зачарование "Размер" (Ультра редкое)
+			ShootSpeedEnchantmentBasic: Зачарование "Скорость стрельбы" (Базовое)
+			ShootSpeedEnchantmentCommon: Зачарование "Скорость стрельбы" (Обычное)
+			ShootSpeedEnchantmentRare: Зачарование "Скорость стрельбы" (Редкое)
+			ShootSpeedEnchantmentSuperRare: Зачарование "Скорость стрельбы" (Супер редкое)
+			ShootSpeedEnchantmentUltraRare: Зачарование "Скорость стрельбы" (Ультра редкое)
+			SpelunkerEnchantmentUltraRare: Зачарование "Спелеолог" (Ультра редкое)
+			WarEnchantmentBasic: Зачарование "Война" (Базовое)
+			WarEnchantmentCommon: Зачарование "Война" (Обычное)
+			WarEnchantmentRare: Зачарование "Война" (Редкое)
+			WarEnchantmentSuperRare: Зачарование "Война" (Супер редкое)
+			WarEnchantmentUltraRare: Зачарование "Война" (Ультра редкое)
+			WorldAblazeEnchantmentBasic: Зачарование "Мир в огне" (Базовое)
+			WorldAblazeEnchantmentCommon: Зачарование "Мир в огне" (Обычное)
+			WorldAblazeEnchantmentRare: Зачарование "Мир в огне" (Редкое)
+			WorldAblazeEnchantmentSuperRare: Зачарование "Мир в огне" (Супер редкое)
+			WorldAblazeEnchantmentUltraRare: Зачарование "Мир в огне" (Ультра редкое)
+			PowerBooster: Усилитель мощности
+		}
+	}
 }

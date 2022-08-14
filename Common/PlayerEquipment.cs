@@ -49,10 +49,7 @@ namespace WeaponEnchantments.Common {
         }
 
         public static IEnumerable<EnchantedItem> FilterEnchantedItems(IEnumerable<Item> items) {
-            IEnumerable<EnchantedItem> enchantedItems = items
-                .Where(i => i != null)
-                .Select(i => i.GetEnchantedItem())
-                .Where(i => i != null);
+            IEnumerable<EnchantedItem> enchantedItems = items.Select(i => i.GetEnchantedItem()).OfType<EnchantedItem>();
 
             return enchantedItems;
         }
@@ -67,9 +64,8 @@ namespace WeaponEnchantments.Common {
             // Get all non null enchanted items
             foreach (EnchantedItem enchantedItem in enchantedItems) {
                 // For each enchanted item, get its enchantments
-                IEnumerable<Enchantment> enchantments = enchantedItem.enchantments
-                    .Where(i => i != null && i.ModItem is Enchantment)
-                    .Select(i => (Enchantment)i.ModItem);
+                IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+
                 // For each enchantment get its effects
                 foreach (Enchantment enchantment in enchantments) {
                     foreach (EnchantmentEffect effect in enchantment.Effects) {
@@ -82,7 +78,7 @@ namespace WeaponEnchantments.Common {
             return effects;
         }
 
-        private Item HeldItem;
+        public Item HeldItem;
         private Item[] Armor = new Item[vanillaArmorSlots];
         private Item[] Accesories; 
 
@@ -103,17 +99,17 @@ namespace WeaponEnchantments.Common {
             return items;
         }
 
-        private IEnumerable<EnchantedItem> GetEnchantedItems() {
-            return FilterEnchantedItems(GetAllItems());
-        }
+        //private IEnumerable<EnchantedItem> GetEnchantedItems() {
+        //    return FilterEnchantedItems(GetAllItems());
+        //}
 
         private IEnumerable<EnchantedItem> GetEnchantedArmor() {
             return FilterEnchantedItems(GetAllArmor());
         }
 
-        public IEnumerable<EnchantmentEffect> GetAllEnchantmentEffects() {
-            return ExtractEnchantmentEffects(GetEnchantedItems());
-        }
+        //public IEnumerable<EnchantmentEffect> GetAllEnchantmentEffects() {
+        //    return ExtractEnchantmentEffects(GetEnchantedItems());
+        //}
 
         public IEnumerable<EnchantmentEffect> GetArmorEnchantmentEffects() {
             return ExtractEnchantmentEffects(GetEnchantedArmor());
@@ -126,10 +122,8 @@ namespace WeaponEnchantments.Common {
             if (ReferenceEquals(obj, null))
                 return false;
 
-            if (obj is not PlayerEquipment)
+            if (obj is not PlayerEquipment other)
                 return false;
-
-            PlayerEquipment other = (PlayerEquipment)obj;
 
             IEnumerable<Item> myItems = GetAllItems();
             IEnumerable<Item> otherItems = other.GetAllItems();
@@ -140,10 +134,8 @@ namespace WeaponEnchantments.Common {
             for (int i = 0; i < count; i++) {
                 Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
-                if (ci == ci2)
-                    continue;
 
-                if (ci.netID != ci2.netID)
+                if (!ci.IsSameEnchantedItem(ci2))
                     return false;
             }
 

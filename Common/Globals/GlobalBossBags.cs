@@ -72,6 +72,10 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 */
 
+                //Fix for a mod by bsicaly im a cat (aka FoxXD_) causing old boss bags to turn into other items -> no mod item
+                if (sampleItem.ModItem == null)
+                    continue;
+
                 // \/ Fix for Querty's bags not included in BossBag item sets
                 string bossName = GetModdedBossNameFromBag(sampleItem.ModItem.Name);
 

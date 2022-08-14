@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Effects {
     public class MoveSlowDown : StatEffect {
         public MoveSlowDown(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
-        public override EditableStat statName => EditableStat.MoveSlowdown;
+        public override PlayerStat statName => PlayerStat.MoveSlowdown;
         public override string DisplayName { get; } = "Movement Slowdown";
     }
 }

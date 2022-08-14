@@ -59,6 +59,11 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(10)]
         public int SpeedEnchantmentAutoReuseSetpoint;
 
+        [Label("Auto Reuse Disabled on Magic Missile type weapons")]
+        [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]
+        [DefaultValue(true)]
+        public bool AutoReuseDisabledOnMagicMissile;
+
         //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]

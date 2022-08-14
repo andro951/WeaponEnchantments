@@ -8,8 +8,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class CriticalStrikeChanceEnchantment : Enchantment
 	{
 		public override void GetMyStats() {
-			Effects = new EnchantmentEffect[] {
-				new CriticalStrikeChance(@base: EnchantmentStrength * 100f),
+			Effects = new() {
+				new CriticalStrikeChance(@base: EnchantmentStrength),
 			};
 		}
 

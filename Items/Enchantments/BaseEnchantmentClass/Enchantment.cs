@@ -17,8 +17,7 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
-    public enum DamageTypeSpecificID
-	{
+    public enum DamageTypeSpecificID {
 		Default,
 		Generic,
 		Melee,
@@ -31,8 +30,7 @@ namespace WeaponEnchantments.Items {
 		Throwing
 	} // Located in DamageClassLoader.cs
 
-	public enum ArmorSlotSpecificID
-	{
+	public enum ArmorSlotSpecificID {
 		Head,
 		Body,
 		Legs
@@ -45,8 +43,10 @@ namespace WeaponEnchantments.Items {
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
 			}
+
 			public float[] enchantmentTierStrength = new float[tierNames.Length];
 		}
+
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
 			new EnchantmentStrengths(new float[] { 0.4f, 0.8f, 1.2f, 1.6f, 2f }),//Not used yet
@@ -329,32 +329,13 @@ namespace WeaponEnchantments.Items {
 		#region Stats and buffs
 
 		private bool finishedOneTimeSetup = false;
-
-		/// <summary>
-		/// Default -1<br/>
-		/// Converts a weapon's damage type to the specified type.<br/>
-		/// Please use the DamageTypeSpecificID enum for this.<br/>
-		/// Example: NewDamageType => (int)DamageTypeSpecificID.Melee<br/><br/>
-		/// <list>
-		/// <term>0</term><description>Generic</description><br/>
-		/// <term>1</term><description>Melee</description><br/>
-		/// <term>2</term><description>MeleeNoSpeed</description><br/>
-		/// <term>3</term><description>Ranged</description><br/>
-		/// <term>4</term><description>Magic</description><br/>
-		/// <term>5</term><description>Summon</description><br/>
-		/// <term>6</term><description>SummonMeleeSpeed</description><br/>
-		/// <term>7</term><description>MagicSummonHybrid</description><br/>
-		/// <term>8</term><description>Throwing</description><br/>
-		/// </list>
-		/// </summary>
-		public virtual int NewDamageType { private set; get; } = -1;
 		public int BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
 		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
-		public EnchantmentEffect[] Effects { protected set; get; } = new EnchantmentEffect[] { };
+		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
 
@@ -395,7 +376,7 @@ namespace WeaponEnchantments.Items {
 			//string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;
 			//typeNameString.Log();
 			//string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
-			if (WEMod.clientConfig.UseOldTierNames) {
+			/*if (WEMod.clientConfig.UseOldTierNames) {
 				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
 				//string rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
 				//rarityString.Log();
@@ -408,22 +389,22 @@ namespace WeaponEnchantments.Items {
 				//rarityString.Log();
 				//DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
-			}
+			}*/
 
 			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
 			if(printListOfEnchantmentTooltips)
 				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
 
-			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+			if(printListOfContributors && (EnchantmentTier == 4 || EnchantmentTypeName == "AllForOne")) {
 				//All for one is allowed to pass every sprite
 				bool allForOne = EnchantmentTypeName == "AllForOne";
 
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
 			}
 
-			if(printLocalization && EnchantmentTier == 1) {
+			/*if(printLocalization) {
 				UpdateEnchantmentLocalization(this);
-			}
+			}*/
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			//Item rarity
@@ -514,7 +495,7 @@ namespace WeaponEnchantments.Items {
 			GetMyStats();
 
 			//Default Stat
-			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1 && NewDamageType == -1) {
+			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
 				AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
 			}
 

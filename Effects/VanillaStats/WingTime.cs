@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Effects {
             Infinity = infinity;
         }
 
-        public override EditableStat statName => EditableStat.WingTime;
+        public override PlayerStat statName => PlayerStat.WingTime;
         public override string DisplayName { get; } = "Wing Time";
         private bool Infinity;
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Effects {
-    internal interface IPassiveEffect {
+    public interface IPassiveEffect {
         /// <summary>
         /// <para>
         /// The part of the enchantment that runs every frame after all misc effects have triggered.
