@@ -8,21 +8,20 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class BuffEffect : EnchantmentEffect {
-        protected int AppliedBuffID { get; set; }
-        protected Time Duration;
-        protected string BuffName;
-        
+        public BuffStats BuffStats { get; protected set; }
+        public string BuffName => BuffStats.BuffName;
+
         protected BuffEffect(int buffID, Time duration, float chance) : base() {
-            AppliedBuffID = buffID;
-            Duration = duration;
-            BuffName = GetBuffName(AppliedBuffID);
+            string buffName = GetBuffName(buffID);
+            BuffStats = new BuffStats(buffName, buffID, duration, chance);
         }
-        
+
         public static string GetBuffName(int id) { // C# is crying
             if (id < BuffID.Count) {
                 BuffID buffID = new();
@@ -34,9 +33,10 @@ namespace WeaponEnchantments.Effects {
     }
     public abstract class OnTickPlayerBuffEffectGeneral : BuffEffect {
         protected OnTickPlayerBuffEffectGeneral(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
-        public void PostUpdateMiscEffects(WEPlayer player) {
-            player.Player.AddBuff(AppliedBuffID, 5);
-        }
+        /*public void PostUpdateMiscEffects(WEPlayer player) {
+            player.Player
+            //player.Player.AddBuff(BuffStats.BuffID, 5);
+        }*/
     }
     public class OnTickPlayerBuffEffect : OnTickPlayerBuffEffectGeneral {
         public OnTickPlayerBuffEffect(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
@@ -51,15 +51,15 @@ namespace WeaponEnchantments.Effects {
     
     public abstract class OnTickAreaBuff : BuffEffect {
         protected OnTickAreaBuff(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
-        public abstract void PostUpdateMiscEffects(WEPlayer player);
+        //public abstract void PostUpdateMiscEffects(WEPlayer player);
     }
     
     public abstract class OnTickTeamBuffEffectGeneral : OnTickAreaBuff {
         protected OnTickTeamBuffEffectGeneral(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
-        public override void PostUpdateMiscEffects(WEPlayer player) {
+        /*public override void PostUpdateMiscEffects(WEPlayer player) {
             //Apply to all nearby players and self.  Only call once per second? and apply for some duration
             //player.Player.AddBuff(AppliedBuffID, 5, IsQuiet);
-        }
+        }*/
     }
     public class OnTickTeamBuffEffect : OnTickPlayerBuffEffectGeneral {
         public OnTickTeamBuffEffect(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
@@ -74,10 +74,10 @@ namespace WeaponEnchantments.Effects {
     
     public abstract class OnTickTargetBuffEffectGeneral : OnTickAreaBuff {
         protected OnTickTargetBuffEffectGeneral(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }
-        public override void PostUpdateMiscEffects(WEPlayer player) {
+        /*public override void PostUpdateMiscEffects(WEPlayer player) {
             //Apply to all nearby enemy npcs.
             //player.Player.AddBuff(AppliedBuffID, 5, IsQuiet);
-        }
+        }*/
     }
     public class OnTickTargetBuffEffect : OnTickTargetBuffEffectGeneral {
         public OnTickTargetBuffEffect(int buffID, Time duration, float chance) : base(buffID, duration, chance) { }

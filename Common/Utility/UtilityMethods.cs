@@ -340,7 +340,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void AddOrCombine(this SortedDictionary<byte, BuffStats> dictionary, BuffEffectOld buffEffect) {
+        public static void AddOrCombine(this SortedDictionary<byte, BuffStats> dictionary, BuffEffect buffEffect) {
             short key = buffEffect.
 		}
         public static void ApplyTo(this StatModifier statModifier, ref float value) {
