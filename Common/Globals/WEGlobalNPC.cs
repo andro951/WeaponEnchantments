@@ -984,12 +984,14 @@ namespace WeaponEnchantments.Common.Globals
                 //LifeSteal
                 if (ItemEStats.ContainsKey("LifeSteal")) {
                     float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
-                    float healTotal = (damage + oneForAllDamageDealt) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + wePlayer.lifeStealRollover;
+                    float healTotal = (damage + oneForAllDamageDealt) * lifeSteal * (player.moonLeech ? 0.5f : 1f);
 
                     //Summon damage reduction
                     bool summonDamage = SourceItem.DamageType == DamageClass.Summon || SourceItem.DamageType == DamageClass.MagicSummonHybrid;
                     if (summonDamage)
                         healTotal *= 0.5f;
+
+                    healTotal += wePlayer.lifeStealRollover;
 
                     int heal = (int)healTotal;
 

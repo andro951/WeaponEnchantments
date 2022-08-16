@@ -480,7 +480,7 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null) {
+                                        if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null) {
                                             inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
                                         }
                                         else {
