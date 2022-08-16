@@ -98,16 +98,25 @@ namespace WeaponEnchantments.Common {
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>();
             entity.VanillaStats = GetStatEffectDictionary<IVanillaStat>(entity.StatEffects);
             entity.EnchantmentStats = GetStatEffectDictionary<INonVanillaStat>(entity.StatEffects);
-            entity.OnHitDebuffs = ;
-            entity.OnHitBuffs = ;
-            entity.OnTickBuffs = ;
+		IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
+            entity.OnHitDebuffs = GetBuffEffects<OnHitTargetBuffEffectGeneral>(buffEffects);
+            entity.OnHitBuffs = GetBuffEffects<OnHitPlayerBuffEffectGeneral>(buffEffects);
+            entity.OnTickBuffs = GetBuffEffects<OnTickPlayerBuffEffectGeneral>(buffEffects);
 		}
-        public SortedDictionary<byte, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<StatEffect> statEffects) where T : IApplyStats {
+        private SortedDictionary<byte, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<StatEffect> statEffects) where T : IApplyStats {
             SortedDictionary<byte, EStatModifier> result = new SortedDictionary<byte, EStatModifier>();
             foreach (T statEffect in statEffects.OfType<T>()) {
-                result.AdOrCombine(statEffect.EStatModifier);
+                result.AddOrCombine(statEffect.EStatModifier);
             }
         }
+	private SortedDictionary<short, BuffEffect> GetBuffEffects<T>(IEnumerable<BuffEffect> buffEffects) where T : BuffEffect {
+		SortedDictionary<short, T> result = new SortedDictionary<short, T>();
+		foreach	(T buffEffect in buffEffects) {
+			result.AddOrCombine(buffEffect);
+		}
+		
+		return result;
+	}
 
         private IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];
