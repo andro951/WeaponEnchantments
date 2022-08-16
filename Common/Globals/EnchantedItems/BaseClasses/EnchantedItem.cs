@@ -57,7 +57,7 @@ namespace WeaponEnchantments.Common.Globals
         public Dictionary<string, StatModifier> appliedEStats = new Dictionary<string, StatModifier>();
         public Dictionary<int, int> buffs = new Dictionary<int, int>();
         public Dictionary<short, int> debuffs = new Dictionary<short, int>();
-        public Dictionary<int, int> onHitBuffs = new Dictionary<int, int>();
+        public Dictionary<int, int> onHitBuffsOld = new Dictionary<int, int>();
 
         #endregion
 
@@ -201,7 +201,7 @@ namespace WeaponEnchantments.Common.Globals
                 clone.appliedEStats = new Dictionary<string, StatModifier>();
                 clone.buffs = new Dictionary<int, int>(buffs);
                 clone.debuffs = new Dictionary<short, int>(debuffs);
-                clone.onHitBuffs = new Dictionary<int, int>(onHitBuffs);
+                clone.onHitBuffsOld = new Dictionary<int, int>(onHitBuffsOld);
 
                 #endregion
 
@@ -1099,20 +1099,20 @@ namespace WeaponEnchantments.Common.Globals
             //OnHitBuffs
             if (enchantment.OnHitBuff.Count > 0) {
                 foreach (int onHitBuff in enchantment.OnHitBuff.Keys) {
-                    if (LogMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.onHitBuffsOld.S(onHitBuff)).Log();
 
                     int duration = enchantment.OnHitBuff[onHitBuff];
-                    if (iGlobal.onHitBuffs.ContainsKey(onHitBuff)) {
-                        iGlobal.onHitBuffs[onHitBuff] += (remove ? -duration : duration);
+                    if (iGlobal.onHitBuffsOld.ContainsKey(onHitBuff)) {
+                        iGlobal.onHitBuffsOld[onHitBuff] += (remove ? -duration : duration);
 
-                        if (iGlobal.onHitBuffs[onHitBuff] < 1)
-                            iGlobal.onHitBuffs.Remove(onHitBuff);
+                        if (iGlobal.onHitBuffsOld[onHitBuff] < 1)
+                            iGlobal.onHitBuffsOld.Remove(onHitBuff);
                     }
                     else {
-                        iGlobal.onHitBuffs.Add(onHitBuff, duration);
+                        iGlobal.onHitBuffsOld.Add(onHitBuff, duration);
                     }
 
-                    if (LogMethods.debugging) (iGlobal.onHitBuffs.S(onHitBuff)).Log();
+                    if (LogMethods.debugging) (iGlobal.onHitBuffsOld.S(onHitBuff)).Log();
                 }
             }
 

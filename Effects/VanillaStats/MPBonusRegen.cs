@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Effects {
     /// <summary>
     /// This is for constant mana regen
     /// </summary>
-    public class MPBonusRegen : StatEffect {
+    public class MPBonusRegen : StatEffect, IVanillaStat {
         public MPBonusRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
         public override PlayerStat statName => PlayerStat.BonusManaRegen;

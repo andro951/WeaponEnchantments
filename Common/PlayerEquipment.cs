@@ -16,13 +16,21 @@ namespace WeaponEnchantments.Common {
         private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
         private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
 
+        public Item HeldItem => owner.HeldItem;
+        private Item[] heldItem = new Item[1];
+        private Item[] Armor = new Item[vanillaArmorSlots];
+        private Item[] Accesories;
+        Player owner;
+        WEPlayer wePlayer;
+
         public PlayerEquipment(Player player) {
+            owner = player;
+            wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
 
             int moddedSlotCount = alp.SlotCount;
 
-            HeldItem = player.HeldItem;
             Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
 
             for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
@@ -53,34 +61,52 @@ namespace WeaponEnchantments.Common {
 
             return enchantedItems;
         }
-
-        public static IEnumerable<EnchantmentEffect> ExtractEnchantmentEffects(EnchantedItem enchantedItem) {
-            return ExtractEnchantmentEffects(new EnchantedItem[] { enchantedItem });
-        }
         
-        public static IEnumerable<EnchantmentEffect> ExtractEnchantmentEffects(IEnumerable<EnchantedItem> enchantedItems) {
-            List<EnchantmentEffect> effects = new List<EnchantmentEffect>();
+        public void UpdateEnchantedEquipItemEffects(IEnumerable<EnchantedEquipItem> enchantedItems) {
+            List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
 
             // Get all non null enchanted items
-            foreach (EnchantedItem enchantedItem in enchantedItems) {
+            foreach (EnchantedEquipItem enchantedItem in enchantedItems) {
                 // For each enchanted item, get its enchantments
-                IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
-
-                // For each enchantment get its effects
-                foreach (Enchantment enchantment in enchantments) {
-                    foreach (EnchantmentEffect effect in enchantment.Effects) {
-                        effect.EfficiencyMultiplier = enchantment.AllowedList[enchantedItem.ItemType];
-                        effects.Add(effect);
-                    }
-                }
+                GetEnchantmentEffects(enchantedItem, enchantmentEffects);
             }
 
-            return effects;
+            wePlayer.EnchantmentEffects = enchantmentEffects;
+            SortEnchantmentEffects(wePlayer);
+        }
+        public void UpdateEnchantedWeaponEffects(EnchantedWeapon enchantedWeapon) {
+            List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
+            GetEnchantmentEffects(enchantedWeapon, enchantmentEffects);
+            enchantedWeapon.EnchantmentEffects = enchantmentEffects;
+            SortEnchantmentEffects(enchantedWeapon);
         }
 
-        public Item HeldItem;
-        private Item[] Armor = new Item[vanillaArmorSlots];
-        private Item[] Accesories; 
+        public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
+            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+
+            // For each enchantment get its effects
+            foreach (Enchantment enchantment in enchantments) {
+                foreach (EnchantmentEffect enchantmentEffects in enchantment.Effects) {
+                    enchantmentEffects.EfficiencyMultiplier = enchantment.AllowedList[enchantedItem.ItemType];
+                    effects.Add(enchantmentEffects);
+                }
+            }
+        }
+        public void SortEnchantmentEffects(ISortEnchantmentEffects entity) {
+            IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
+            entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>();
+            entity.StatEffects = enchantmentEffects.OfType<StatEffect>();
+            entity.VanillaStats = GetStatEffectDictionary<IVanillaStat>(entity.StatEffects);
+            entity.EnchantmentStats = GetStatEffectDictionary<INonVanillaStat>(entity.StatEffects);
+            entity.OnHitDebuffs = ;
+            entity.OnHitBuffs = ;
+            entity.OnTickBuffs = ;
+		}
+        public SortedDictionary<byte, CalcStatModifier> GetStatEffectDictionary<T>(IEnumerable<StatEffect> statEffects) where T : IApplyStats {
+            foreach (T statEffect in statEffects.OfType<T>()) {
+
+            }
+        }
 
         private IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];
@@ -103,17 +129,30 @@ namespace WeaponEnchantments.Common {
         //    return FilterEnchantedItems(GetAllItems());
         //}
 
-        private IEnumerable<EnchantedItem> GetEnchantedArmor() {
-            return FilterEnchantedItems(GetAllArmor());
+        private IEnumerable<EnchantedEquipItem> GetEnchantedEquipItems() {
+            return FilterEnchantedItems(GetAllArmor()).OfType<EnchantedEquipItem>();
         }
+
+        private EnchantedWeapon GetEnchantedWeapon() {
+            if (HeldItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
+                return enchantedWeapon;
+
+            return null;
+		}
 
         //public IEnumerable<EnchantmentEffect> GetAllEnchantmentEffects() {
         //    return ExtractEnchantmentEffects(GetEnchantedItems());
         //}
 
-        public IEnumerable<EnchantmentEffect> GetArmorEnchantmentEffects() {
-            return ExtractEnchantmentEffects(GetEnchantedArmor());
+        public void GetArmorEnchantmentEffects() {
+            UpdateEnchantedEquipItemEffects(GetEnchantedEquipItems());
         }
+
+        public void UpdateWeaponEnchantmentEffects() {
+            EnchantedWeapon enchantedWeapon = GetEnchantedWeapon();
+            if (enchantedWeapon != null)
+                UpdateEnchantedWeaponEffects(enchantedWeapon);
+		}
 
         public override bool Equals(object obj) {
             if (ReferenceEquals(this, obj))

@@ -21,15 +21,16 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	public class EnchantedWeapon : EnchantedItem
-	{
+	public class EnchantedWeapon : EnchantedItem, ISortEnchantmentEffects
+    {
         #region Constants
 
-        public enum WeaponStat
-        {
+        public SortedDictionary<byte, WeaponStat> WeaponStatDict = new SortedDictionary<byte, WeaponStat>(Enum.GetValues(typeof(WeaponStat)).Cast<WeaponStat>().ToDictionary(t => (byte)t, t => t));
+        public enum WeaponStat : byte {
             AttackSpeed,
             ArmorPenetration,
             AutoReuse,
@@ -47,13 +48,22 @@ namespace WeaponEnchantments.Common.Globals
         #region Stats
 
         //New system
-        public Dictionary<WeaponStat, float> enchantmentStats = new Dictionary<WeaponStat, float>();
+        public DamageClassChange DamageTypeEffect;
+        public SortedDictionary<byte, CalcStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<byte, CalcStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();
 
-        #endregion
+        public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
+        public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
+        public IEnumerable<StatEffect> StatEffects { set; get; }
 
-        #region Enchantment
+    #endregion
 
-        public DamageClass damageType = DamageClass.Default;
+    #region Enchantment
+
+    public DamageClass damageType = DamageClass.Default;
         public DamageClass baseDamageType = DamageClass.Default;
 
         #endregion
@@ -93,6 +103,10 @@ namespace WeaponEnchantments.Common.Globals
 
         #endregion
 
+        public EnchantedWeapon() : base() {
+            DamageTypeEffect = DamageClassChange.Default;
+        }
+
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapon;
@@ -102,6 +116,16 @@ namespace WeaponEnchantments.Common.Globals
             if (cloneReforgedItem || resetGlobals) {
 
                 #region Enchantments
+
+                clone.DamageTypeEffect = DamageTypeEffect;
+                clone.EnchantmentStats = new SortedDictionary<WeaponStat, CalcStatModifier>(EnchantmentStats);
+                clone.VanillaStats = new SortedDictionary<WeaponStat, CalcStatModifier>(VanillaStats);
+                clone.OnHitDebuffs = new SortedDictionary<short, int>(OnHitDebuffs);
+                clone.OnHitBuffs = new SortedDictionary<short, int>(OnHitBuffs);
+                clone.OnTickBuffs = new SortedDictionary<short, int>(OnTickBuffs);
+                clone.EnchantmentEffects = EnchantmentEffects;
+                clone.PassiveEffects = PassiveEffects;
+                clone.StatEffects = StatEffects;
 
                 clone.damageType = damageType;
                 clone.baseDamageType = baseDamageType;

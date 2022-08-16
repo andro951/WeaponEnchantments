@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Effects {
                 BuffID buffID = new();
                 return buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;
             }
+
             return ModContent.GetModBuff(id).Name;
         }
 
@@ -36,7 +37,7 @@ namespace WeaponEnchantments.Effects {
         public override sealed string Tooltip => $"Passively grants {BuffName}";
 
         public void PostUpdateMiscEffects(WEPlayer player) {
-            player.Player.AddBuff(AppliedBuffID, 1, IsQuiet);
+            player.Player.AddBuff(AppliedBuffID, 5, IsQuiet);
         }
     }
 }

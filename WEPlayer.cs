@@ -32,7 +32,7 @@ using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
-	public class WEPlayer : ModPlayer
+	public class WEPlayer : ModPlayer, ISortEnchantmentEffects
     {
         public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
@@ -69,16 +69,22 @@ namespace WeaponEnchantments
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
 
         //New System
-        public Dictionary<PlayerStat, float> enchantmentStats = new Dictionary<PlayerStat, float>();
-        public IEnumerable<EnchantmentEffect> playerEffects;
-        public IEnumerable<IPassiveEffect> playerPassiveEffects;
-        public IEnumerable<StatEffect> playerStatEffects;
+        public SortedDictionary<byte, CalcStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<byte, CalcStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();
+
+        public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
+        public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
+        public IEnumerable<StatEffect> StatEffects { set; get; }
 
         // Currently just a function that gets the current player equipment state.
         public PlayerEquipment LastPlayerEquipment;
-        public PlayerEquipment PlayerEquipment => new PlayerEquipment(this.Player);
+        public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
 
-        public enum PlayerStat {
+        public SortedDictionary<byte, PlayerStat> WeaponStatDict = new SortedDictionary<byte, PlayerStat>(Enum.GetValues(typeof(PlayerStat)).Cast<PlayerStat>().ToDictionary(t => (byte)t, t => t));
+        public enum PlayerStat : byte {
             None,
             AttackSpeed,
             ArmorPenetration,
@@ -888,7 +894,7 @@ namespace WeaponEnchantments
                 //Buffs and Debuffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
-                    foreach (int onHitBuff in iGlobal.onHitBuffs.Keys) {
+                    foreach (int onHitBuff in iGlobal.onHitBuffsOld.Keys) {
                         switch (onHitBuff) {
                             case BuffID.CoolWhipPlayerBuff:
                                 //CoolWhip Snowflake
@@ -899,7 +905,7 @@ namespace WeaponEnchantments
                                 break;
                         }
 
-                        Player.AddBuff(onHitBuff, iGlobal.onHitBuffs[onHitBuff]);
+                        Player.AddBuff(onHitBuff, iGlobal.onHitBuffsOld[onHitBuff]);
                     }
                 }
 
@@ -1102,10 +1108,12 @@ namespace WeaponEnchantments
             public PlayerStat EditableStat;
             public DamageClass DamageClass;
         }
-        private IEnumerable<EnchantmentEffect> GetPlayerEffects(Item heldItem = null) {
+        private void GetEnchantmentEffects() {
             // Always use all equipment effects
-            IEnumerable<EnchantmentEffect> allEffects = PlayerEquipment.GetArmorEnchantmentEffects();
-            
+            Equipment.GetArmorEnchantmentEffects();
+
+            Equipment.GetWeaponEnchantmentEffects();
+
             // If a held item isn't specified and the currently held item is a weapon, use that as the currently held item.
             if (heldItem == null && IsWeaponItem(Player.HeldItem)) {
                 heldItem = Player.HeldItem;
@@ -1117,20 +1125,18 @@ namespace WeaponEnchantments
                 IEnumerable<EnchantmentEffect> heldItemEffects = PlayerEquipment.ExtractEnchantmentEffects(enchantedHeldItem);
                 allEffects = allEffects.Concat(heldItemEffects);
             }
-
-            return allEffects;
         }
         public void ApplyPostMiscEnchants() {
-            PlayerEquipment newEquipment = PlayerEquipment;
+            PlayerEquipment newEquipment = Equipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
-                playerEffects = GetPlayerEffects();
+                GetEnchantmentEffects();
 
                 List<IPassiveEffect> newPassiveEffects = new List<IPassiveEffect>();
                 List<StatEffect> newStatEffects = new List<StatEffect>();
 
                 // Divide effects based on what is needed.
-                foreach (EnchantmentEffect effect in playerEffects) {
+                foreach (EnchantmentEffect effect in EnchantmentEffects) {
                     if (effect is IPassiveEffect passiveEffect)
                         newPassiveEffects.Add(passiveEffect);
 
@@ -1138,25 +1144,25 @@ namespace WeaponEnchantments
                         newStatEffects.Add(statEffect);
                 }
 
-                playerPassiveEffects = newPassiveEffects.ToArray();
-                playerStatEffects = newStatEffects.ToArray();
+                PassiveEffects = newPassiveEffects.ToArray();
+                StatEffects = newStatEffects.ToArray();
             }
 
             // Apply all PostUpdateMiscEffects
-            foreach (IPassiveEffect effect in playerPassiveEffects) {
+            foreach (IPassiveEffect effect in PassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
 
             // Apply them if there's any.
-            if (playerStatEffects.Any())
-                ApplyStatEffects(playerStatEffects);
+            if (StatEffects.Any())
+                ApplyStatEffects(StatEffects);
 
         }
         public bool? ApplyAutoReuseEnchants() {
 
             // Divide effects based on what is needed.
             bool? enableAutoReuse = null;
-            foreach (AutoReuse effect in playerEffects.OfType<AutoReuse>()) {
+            foreach (AutoReuse effect in EnchantmentEffects.OfType<AutoReuse>()) {
                 if (effect.EnableStat) {
                     enableAutoReuse = true;
 				}
@@ -1279,7 +1285,7 @@ namespace WeaponEnchantments
             float damageMultiplier = 1f;
             //var effects = GetRelevantEffects(item);
             
-            foreach (DamageAfterDefenses effect in playerEffects.OfType<DamageAfterDefenses>()) {
+            foreach (DamageAfterDefenses effect in EnchantmentEffects.OfType<DamageAfterDefenses>()) {
                 effect.ModifyHitDamage(ref damageMultiplier, item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
 			}
 
@@ -1288,13 +1294,13 @@ namespace WeaponEnchantments
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
             // Not using hitDirection yet.
 
-            foreach (IModifyHitEffect effect in playerEffects.OfType<IModifyHitEffect>()) {
+            foreach (IModifyHitEffect effect in EnchantmentEffects.OfType<IModifyHitEffect>()) {
                 effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
             }
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
 
-            foreach (IOnHitEffect effect in playerEffects.OfType<IOnHitEffect>()) {
+            foreach (IOnHitEffect effect in EnchantmentEffects.OfType<IOnHitEffect>()) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
 

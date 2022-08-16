@@ -13,6 +13,7 @@ namespace WeaponEnchantments.Effects
 {
 	public class DamageClassChange : EnchantmentEffect
 	{
+		public static DamageClassChange Default => new DamageClassChange(DamageClass.Generic);
 		public DamageClassChange(DamageClass damageClass) {
 			NewDamageClass = damageClass;
 		}
