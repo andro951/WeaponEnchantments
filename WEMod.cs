@@ -42,9 +42,9 @@ namespace WeaponEnchantments
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
-			if(item.ModItem is UnloadedItem) {
+			if(item.ModItem is UnloadedItem)
 				OldItemManager.ReplaceOldItem(ref item);
-			}
+
 			return item;
         }
 
@@ -262,7 +262,6 @@ namespace WeaponEnchantments
 			Handlers.Clear();
 			Handlers = null;
 		}
-
 		public override void HandlePacket(BinaryReader reader, int whoAmI) {
 			var index = reader.ReadByte();
 			var method = reader.ReadByte();

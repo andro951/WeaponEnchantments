@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
+using Terraria.ModLoader.IO;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
 namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
+        public static byte versionUpdate;
         private enum OldItemContext {
             firstWordNames,
             searchWordNames,
@@ -138,6 +143,61 @@ namespace WeaponEnchantments.Common
 
                     if (!replaced)
                         TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins);
+                }
+
+                //Transfer and delete EnchantedItem data
+                if (versionUpdate < 1) {
+                    FieldInfo fieldInfo = typeof(Item).GetField("globalItems", BindingFlags.NonPublic | BindingFlags.Instance);
+                    FieldInfo dataFieldInfo = typeof(UnloadedGlobalItem).GetField("data", BindingFlags.NonPublic | BindingFlags.Instance);
+                    string modName = "WeaponEnchantments";
+                    string className = "EnchantedItem";
+
+                    if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] globalItems && globalItems.Length != 0) {
+                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+                            foreach (GlobalItem g in globalItems.Select(i => i.Instance).Where(i => i is UnloadedGlobalItem)) {
+                                if (dataFieldInfo.GetValue(g) is IList<TagCompound> tagList) {
+                                    foreach (TagCompound tagCompound in tagList) {
+                                        string mod = tagCompound.Get<string>("mod");
+                                        if (mod == modName) {
+                                            string name = tagCompound.Get<string>("name");
+                                            if (name == className) {
+                                                TagCompound dataTag = tagCompound.Get<TagCompound>("data");
+                                                enchantedItem.LoadData(item, dataTag);
+                                                enchantedItem.SaveData(item, dataTag);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] newGlobalItemsArray) {
+                            List<Instanced<GlobalItem>> newGlobalItems = newGlobalItemsArray.ToList();
+                            int count = newGlobalItems.Count;
+                            for (int i = newGlobalItems.Count - 1; i >= 0; i--) {
+                                if (newGlobalItems[i].Instance is UnloadedGlobalItem unloadedGlobalItem) {
+                                    if (dataFieldInfo.GetValue(unloadedGlobalItem) is IList<TagCompound> unloadedTagList) {
+                                        foreach (TagCompound tagCompound in unloadedTagList) {
+                                            $"item: {item.S()}, tagCompound: {tagCompound}".Log();
+                                            string mod = tagCompound.Get<string>("mod");
+                                            if (mod == modName) {
+                                                string name = tagCompound.Get<string>("name");
+                                                if (name == className) {
+                                                    newGlobalItems.RemoveAt(i);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (newGlobalItems.Count < count) {
+                                fieldInfo.SetValue(item, newGlobalItems.ToArray());
+                                $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log();
+                            }
+                        }
+                    }
                 }
 
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {

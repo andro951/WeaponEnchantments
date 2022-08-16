@@ -722,36 +722,35 @@ namespace WeaponEnchantments.Common
             float damageMultiplier = 1f;
             string consumedItemName = "";
             int infusedArmorSlot = -1;
-            if (EnchantedItemStaticMethods.IsWeaponItem(item) && (EnchantedItemStaticMethods.IsWeaponItem(consumedItem) || consumedItem.IsAir)) {
+            if (iGlobal is EnchantedWeapon enchantedWeapon && (cGlobal is EnchantedWeapon || consumedItem.IsAir)) {
                 //Weapon
                 if (item.GetWeaponInfusionPower() < consumedItem.GetWeaponInfusionPower() || reset) {
                     if (failedItemFind) {
                         infusedPower = cGlobal.infusionPower;
-                        damageMultiplier = cGlobal.infusionDamageMultiplier;
                         consumedItemName = cGlobal.infusedItemName;
+                        damageMultiplier = enchantedWeapon.infusionDamageMultiplier;
                     }
                     else {
                         consumedItemName = consumedItem.Name;
                         damageMultiplier = GetWeaponMultiplier(item, consumedItem, out infusedPower);
                     }
 
-                    if (iGlobal.infusionPower < infusedPower || reset) {
+                    if (enchantedWeapon.infusionPower < infusedPower || reset) {
                         if (!finalize) {
-                            //item.UpdateInfusionDamage(damageMultiplier);
-                            iGlobal.infusionDamageMultiplier = damageMultiplier;
+                            enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
                         }
                         else {
-                            iGlobal.infusionPower = infusedPower;
-                            iGlobal.infusionDamageMultiplier = damageMultiplier;
-                            iGlobal.infusedItemName = consumedItemName;
+                            enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
+                            enchantedWeapon.infusionPower = infusedPower;
+                            enchantedWeapon.infusedItemName = consumedItemName;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                            iGlobal.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                            enchantedWeapon.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
 
                         return true;
                     }
                     else if (finalize) {
-                        Main.NewText($"Your {item.Name}({iGlobal.infusionPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
+                        Main.NewText($"Your {item.Name}({enchantedWeapon.infusionPower}) cannot gain additional power from the offered {consumedItem.Name}({infusedPower}).");
                     }
                 }
                 else if (finalize) {
@@ -760,12 +759,12 @@ namespace WeaponEnchantments.Common
 
                 return false;
             }
-            else if (EnchantedItemStaticMethods.IsArmorItem(item) && ((EnchantedItemStaticMethods.IsArmorItem(consumedItem) || consumedItem.IsAir))) {
+            else if (iGlobal is EnchantedArmor enchantedArmor && (cGlobal is EnchantedArmor || consumedItem.IsAir)) {
                 //Armor
                 if (item.GetSlotIndex() == consumedItem.GetSlotIndex()) {
                     if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot()) {
                         if (failedItemFind) {
-                            consumedItemName = iGlobal.infusedItemName;
+                            consumedItemName = enchantedArmor.infusedItemName;
                             infusedArmorSlot = ContentSamples.ItemsByType[item.type].GetInfusionArmorSlot();
                         }
                         else {
@@ -776,10 +775,10 @@ namespace WeaponEnchantments.Common
                             item.UpdateArmorSlot(infusedArmorSlot);
                         }
                         else {
-                            iGlobal.infusedItemName = consumedItemName;
-                            iGlobal.infusedArmorSlot = infusedArmorSlot;
+                            enchantedArmor.infusedItemName = consumedItemName;
+                            enchantedArmor.infusedArmorSlot = infusedArmorSlot;
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
-                            iGlobal.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
+                            enchantedArmor.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
 
                         return true;
@@ -822,26 +821,32 @@ namespace WeaponEnchantments.Common
                 infusedArmorSlot = infusedItem.GetInfusionArmorSlot();
             }
         }
-        public static bool TryGetInfusionStats(this Item item) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+        public static bool TryGetInfusionStats(this EnchantedItem iGlobal) {
+            if (iGlobal == null)
                 return false;
 
-            bool returnValue = TryGetInfusionStats(item, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
-            if (returnValue) {
+            bool succededGettingStats = TryGetInfusionStats(iGlobal, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
+            if (succededGettingStats) {
                 iGlobal.infusionPower = infusedPower;
-                iGlobal.infusionDamageMultiplier = damageMultiplier;
-                iGlobal.infusedArmorSlot = infusedArmorSlot;
+                if (iGlobal is EnchantedWeapon enchantedWeapon) {
+                    enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
+                }
+                else if (iGlobal is EnchantedArmor enchantedArmor) {
+                    enchantedArmor.infusedArmorSlot = infusedArmorSlot;
+                }
             }
+            else if (iGlobal is EnchantedWeapon enchantedWeapon) {
+                //Damage Multiplier (If failed to Get Global Item Stats)
+                enchantedWeapon.infusionDamageMultiplier = iGlobal.Item.GetWeaponMultiplier(iGlobal.infusionPower);
+            }
+                
 
-            return returnValue;
+            return succededGettingStats;
         }
-        public static bool TryGetInfusionStats(this Item item, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
+        public static bool TryGetInfusionStats(this EnchantedItem iGlobal, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
             infusedPower = 0;
             damageMultiplier = 1f;
             infusedArmorSlot = -1;
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return false;
 
             if (infusedItemName != "") {
                 int type = 0;
@@ -854,57 +859,25 @@ namespace WeaponEnchantments.Common
                 }
 
                 if (type > 0) {
-                    GetGlotalItemStats(item, new Item(type), out infusedPower, out damageMultiplier, out infusedArmorSlot);
-                    if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
+                    GetGlotalItemStats(iGlobal.Item, new Item(type), out infusedPower, out damageMultiplier, out infusedArmorSlot);
+                    if (iGlobal is EnchantedWeapon enchantedWeapon) {
                         //item.UpdateInfusionDamage(damageMultiplier, false);
-                        iGlobal.infusionDamageMultiplier = damageMultiplier;
+                        enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
                     }
-                    else if (EnchantedItemStaticMethods.IsArmorItem(item)) {
-                        item.UpdateArmorSlot(infusedArmorSlot);
+                    else if (iGlobal is EnchantedArmor enchantedArmor2) {
+                        enchantedArmor2.Item.UpdateArmorSlot(infusedArmorSlot);
                     }
 
                     return true;
                 }
             }
 
-            /*
-            if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
-                item.UpdateInfusionDamage(damageMultiplier, false);
-            }
-            else*/ if (EnchantedItemStaticMethods.IsArmorItem(item)) {
-                item.UpdateArmorSlot(infusedArmorSlot);
+            if (iGlobal is EnchantedArmor enchantedArmor) {
+                enchantedArmor.Item.UpdateArmorSlot(infusedArmorSlot);
             }
             
             return false;
         }
-        /*public static void UpdateInfusionDamage(this Item item, float damageMultiplier, bool updateStats = true) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return;
-
-            if(damageMultiplier != 1f || iGlobal.statModifiers.ContainsKey("damage")) {
-                if(damageMultiplier > 0f) {
-                    if (iGlobal.statModifiers.ContainsKey("damage")) {
-                        //Used for resetting non-finalized items and upgrading items that already have an infused item
-                        iGlobal.statModifiers["damage"] = new StatModifier(1f, damageMultiplier);
-                    }
-                    else {
-                        iGlobal.statModifiers.Add("damage", new StatModifier(1f, damageMultiplier));
-                    }
-
-                    if (updateStats && Main.netMode < NetmodeID.Server) {
-                        if(Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer)) {
-                            wePlayer.UpdateItemStats(ref item);
-                        }
-						else {
-                            $"Failed to UpdateInfusionDamage on item: {item.S()} due to Main.LocalPlayer being null.".LogNT(ChatMessagesIDs.FailedUpdateItemStats);
-						}
-                    }
-                }
-                else {
-                    $"Prevented an issue that would cause your item: {item.S()} to be set to 0 damage.".LogNT(ChatMessagesIDs.PreventInfusionDamageMultLessThan0);
-                }
-            }
-        }*/
         public static void UpdateArmorSlot(this Item item, int infusedArmorSlot) {
             Item sampleItem = ContentSamples.ItemsByType[item.type];
             item.headSlot = sampleItem.headSlot;
@@ -923,7 +896,7 @@ namespace WeaponEnchantments.Common
             }
 		}
         public static int GetInfusionArmorSlot(this Item item, bool checkBase = false, bool getCurrent = false) {
-            if (!getCurrent && item.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.infusedArmorSlot != -1) {
+            if (!getCurrent && item.TryGetEnchantedArmor(out EnchantedArmor iGlobal) && iGlobal.infusedArmorSlot != -1) {
                 return iGlobal.infusedArmorSlot;
             }
 			else

@@ -688,7 +688,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Hp reduction factor
-            float hpReductionFactor = EnchantedItemStaticMethods.GetReductionFactor((int)hp);
+            float hpReductionFactor = EnchantedWeaponStaticMethods.GetReductionFactor((int)hp);
             total /= hpReductionFactor;
 
             //NPC Characteristics Factors

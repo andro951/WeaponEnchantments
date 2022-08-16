@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
@@ -24,8 +25,9 @@ namespace WeaponEnchantments
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
+        internal static byte versionUpdate = 0;
         public static bool PromptInterfaceActive => promptInterface?.CurrentState != null;
-        public static int[] levelXps = new int[EnchantedItem.MAX_LEVEL];
+        public static int[] levelXps = new int[EnchantedItem.MAX_Level];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
@@ -42,7 +44,7 @@ namespace WeaponEnchantments
             double previous = 0;
             double current;
             int l;
-            for (l = 0; l < EnchantedItem.MAX_LEVEL; l++) {
+            for (l = 0; l < EnchantedItem.MAX_Level; l++) {
                 current = previous * 1.23356622200537 + (l + 1) * 1000;
                 previous = current;
                 levelXps[l] = (int)current;
@@ -99,8 +101,9 @@ namespace WeaponEnchantments
                     itemBeingEnchanted.favorited = false;
                     if(itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
                         iBEGlobal.inEnchantingTable = true;
-                        iBEGlobal.equippedInArmorSlot = false;
                         wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
+                        if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
+                            enchantedEquipItem.equippedInArmorSlot = false;
                     }
 
                     if (wePlayer.infusionConsumeItem != null && (EnchantedItemStaticMethods.IsWeaponItem(itemBeingEnchanted) || EnchantedItemStaticMethods.IsArmorItem(itemBeingEnchanted))) {
@@ -716,5 +719,12 @@ namespace WeaponEnchantments
                 }
             }
         }
-    }
+		public override void LoadWorldData(TagCompound tag) {
+            versionUpdate = tag.Get<byte>("versionUpdate");
+            OldItemManager.versionUpdate = versionUpdate;
+        }
+		public override void SaveWorldData(TagCompound tag) {
+			tag["versionUpdate"] = versionUpdate;
+		}
+	}
 }

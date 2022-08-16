@@ -6,7 +6,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
 using System;
+using System.Linq;
 using static WeaponEnchantments.WEPlayer;
+using System.Reflection;
+using Terraria.ModLoader.Default;
+using Terraria.ModLoader.IO;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -15,7 +20,7 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            if(item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+            if(item != null && item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 iGlobal.Item = item;
                 return iGlobal;
             }
@@ -34,8 +39,9 @@ namespace WeaponEnchantments.Common.Utility
 			}
         }
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
-        public static bool TryGetEnchantedItem(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
-        public static bool TryGetEnchantedItem(this Item item, out EnchantedItem iGlobal) {
+        //public static bool TryGetEnchantedItem(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
+        public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory c));
+        /*public static bool TryGetEnchantedItem(this Item item, out EnchantedItem iGlobal) {
             if (item != null && item.TryGetGlobalItem(out iGlobal)) {
                 iGlobal.Item = item;
                 return true;
@@ -44,7 +50,97 @@ namespace WeaponEnchantments.Common.Utility
                 iGlobal = null;
                 return false;
 			}
+        }*/
+        public static bool TryGetEnchantedItemSearchAll(this Item item, out EnchantedItem iGlobal) {
+            iGlobal = null;
+            if (item == null)
+                return false;
+
+            if (item.TryGetGlobalItem(out EnchantedWeapon enchantedWeapon)) {
+                iGlobal = enchantedWeapon;
+            }
+            else if (item.TryGetGlobalItem(out EnchantedArmor enchantedArmor)){
+                iGlobal = enchantedArmor;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedAccessory enchantedAccessory)) {
+                iGlobal = enchantedAccessory;
+			}
+
+            if (iGlobal != null) {
+                iGlobal.Item = item;
+                return true;
+            }
+
+            return false;
         }
+        public static bool TryGetEnchantedEquipItem(this Item item, out EnchantedEquipItem iGlobal) {
+            iGlobal = null;
+            if (item == null)
+                return false;
+            
+            if (item.TryGetGlobalItem(out EnchantedArmor enchantedArmor)){
+                iGlobal = enchantedArmor;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedAccessory enchantedAccessory)) {
+                iGlobal = enchantedAccessory;
+			}
+
+            if (iGlobal != null) {
+                iGlobal.Item = item;
+                return true;
+            }
+
+            return false;
+        }
+        public static bool TryGetEnchantedWeapon(this Item item, out EnchantedWeapon w) {
+            if (item != null && item.TryGetGlobalItem(out w)) {
+                w.Item = item;
+                return true;
+            }
+			else {
+                w = null;
+                return false;
+			}
+        }
+        public static bool TryGetEnchantedArmor(this Item item, out EnchantedArmor a) {
+            if (item != null && item.TryGetGlobalItem(out a)) {
+                a.Item = item;
+                return true;
+            }
+            else {
+                a = null;
+                return false;
+            }
+        }
+        public static bool TryGetEnchantedAccessory(this Item item, out EnchantedAccessory a) {
+            if (item != null && item.TryGetGlobalItem(out a)) {
+                a.Item = item;
+                return true;
+            }
+            else {
+                a = null;
+                return false;
+            }
+        }
+        public static bool TryGetEnchantedItem <T>(this Item item, out T enchantedWeapon) where T : EnchantedItem {
+            enchantedWeapon = null;
+            if (item == null || item.IsAir)
+                return false;
+            
+            item.TryGetGlobalItem(out enchantedWeapon);
+            if (enchantedWeapon == null) {
+                item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem);
+                enchantedWeapon = enchantedItem as T;
+            }
+
+            if (enchantedWeapon != null) {
+                enchantedWeapon.Item = item;
+                return true;
+            }
+
+            return false;
+        }
+        
         public static Item Enchantments(this Item item, int i) {
             if(item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return iGlobal.enchantments[i];

@@ -30,13 +30,13 @@ namespace WeaponEnchantments.Effects
 			}
 		}
 		public void ApplyTo(ref Item item) {
-			item.DamageType = NewDamageClass;
-			if (BaseDamageClass == null)
-				BaseDamageClass = ContentSamples.ItemsByType[item.type].DamageType;
+			if (item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon)) {
+				item.DamageType = NewDamageClass;
+				if (BaseDamageClass == null)
+					BaseDamageClass = ContentSamples.ItemsByType[item.type].DamageType;
 
-			if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-				iGlobal.damageType = NewDamageClass;
-				iGlobal.baseDamageType = BaseDamageClass;
+				enchantedWeapon.damageType = NewDamageClass;
+				enchantedWeapon.baseDamageType = BaseDamageClass;
 			}
 		}
 		public void Reset(ref Item item) {
