@@ -1322,7 +1322,14 @@ namespace WeaponEnchantments
             Player player = Player;
 
             // TODO: Make stack with one for all
-            float healTotal = (damage + oneForAllDamage) * lifeSteal * (player.moonLeech ? 0.5f : 1f) + lifeStealRollover;
+            float healTotal = (damage + oneForAllDamage) * lifeSteal * (player.moonLeech ? 0.5f : 1f);
+
+            //Temporary until system for damage type checking is implemented
+            bool summonDamage = item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid;
+            if (summonDamage)
+                healTotal *= 0.5f;
+
+            healTotal += lifeStealRollover;
 
             int heal = (int)healTotal;
 

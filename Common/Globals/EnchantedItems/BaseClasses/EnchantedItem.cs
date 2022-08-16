@@ -45,6 +45,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public static bool resetGlobals = false;
         public static bool skipUpdateValue = false;
+        public static bool skipCanStack = false;
 
         #endregion
 
@@ -814,6 +815,9 @@ namespace WeaponEnchantments.Common.Globals
             }
 		}
 		public override bool CanStack(Item item1, Item item2) {
+            if (skipCanStack)
+                return true;
+
             //Check max stack and always allow combining in the 
             if (!item1.TryGetEnchantedItem(out EnchantedItem i1Global) || item1.maxStack < 2)
                 return true;
@@ -850,6 +854,13 @@ namespace WeaponEnchantments.Common.Globals
             //Splitting stack with right click
             if (item1.type == Main.mouseItem.type && item1.stack == Main.mouseItem.stack && Main.mouseRight && item2.stack > 1)
                 return true;
+
+            skipCanStack = true;
+            bool canStack = CanStack(item1, item2);
+            skipCanStack = false;
+
+            if (!canStack)
+                return false;
 
             //Combine item2 into item1
             List<Item> list = new List<Item>();
