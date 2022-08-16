@@ -12,6 +12,7 @@ using System.Reflection;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -339,6 +340,9 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
+        public static void AddOrCombine(this SortedDictionary<byte, BuffStats> dictionary, BuffEffectOld buffEffect) {
+            short key = buffEffect.
+		}
         public static void ApplyTo(this StatModifier statModifier, ref float value) {
             value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
 		}

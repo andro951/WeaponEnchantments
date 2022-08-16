@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		};
 		public override void GetMyStats() {
 			Effects = new() {
-				new BuffEffect(BuffID.ObsidianSkin)
+				new BuffEffectOld(BuffID.ObsidianSkin)
 			};
 		}
 

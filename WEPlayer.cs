@@ -32,7 +32,7 @@ using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
-	public class WEPlayer : ModPlayer, ISortEnchantmentEffects
+	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects
     {
         public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
@@ -71,9 +71,9 @@ namespace WeaponEnchantments
         //New System
         public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
         public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
-        public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
-        public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
-        public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
         public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
         public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }

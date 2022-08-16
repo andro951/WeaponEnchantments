@@ -1,7 +1,7 @@
 ﻿using System;
 using WeaponEnchantments.Common.Utility;
 
-namespace Terraria.ModLoader
+namespace WeaponEnchantments.Common
 {
 	public struct EStatModifier {
 		//public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);

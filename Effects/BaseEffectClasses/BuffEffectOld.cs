@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
-    public class BuffEffect : EnchantmentEffect, IPassiveEffect {
+    public class BuffEffectOld : EnchantmentEffect, IPassiveEffect {
         public static string GetBuffName(int id) { // C# is crying
             if (id < BuffID.Count) {
                 BuffID buffID = new();
@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects {
             return ModContent.GetModBuff(id).Name;
         }
 
-        public BuffEffect(int debuffID, bool isQuiet = true) : base() {
+        public BuffEffectOld(int debuffID, bool isQuiet = true) : base() {
             AppliedBuffID = debuffID;
             IsQuiet = isQuiet;
             BuffName = GetBuffName(AppliedBuffID);
@@ -40,4 +40,4 @@ namespace WeaponEnchantments.Effects {
             player.Player.AddBuff(AppliedBuffID, 5, IsQuiet);
         }
     }
-}
+}*/

@@ -92,13 +92,13 @@ namespace WeaponEnchantments.Common {
                 }
             }
         }
-        public void SortEnchantmentEffects(ISortEnchantmentEffects entity) {
+        public void SortEnchantmentEffects(ISortedEnchantmentEffects entity) {
             IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
             entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>();
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>();
             entity.VanillaStats = GetStatEffectDictionary<IVanillaStat>(entity.StatEffects);
             entity.EnchantmentStats = GetStatEffectDictionary<INonVanillaStat>(entity.StatEffects);
-		IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
+		    IEnumerable<BuffEffectOld> buffEffects = enchantmentEffects.OfType<BuffEffectOld>();
             entity.OnHitDebuffs = GetBuffEffects<OnHitTargetBuffEffectGeneral>(buffEffects);
             entity.OnHitBuffs = GetBuffEffects<OnHitPlayerBuffEffectGeneral>(buffEffects);
             entity.OnTickBuffs = GetBuffEffects<OnTickPlayerBuffEffectGeneral>(buffEffects);
@@ -108,15 +108,17 @@ namespace WeaponEnchantments.Common {
             foreach (T statEffect in statEffects.OfType<T>()) {
                 result.AddOrCombine(statEffect.EStatModifier);
             }
+
+            return result;
         }
-	private SortedDictionary<short, BuffEffect> GetBuffEffects<T>(IEnumerable<BuffEffect> buffEffects) where T : BuffEffect {
-		SortedDictionary<short, T> result = new SortedDictionary<short, T>();
-		foreach	(T buffEffect in buffEffects) {
-			result.AddOrCombine(buffEffect);
-		}
+	    private SortedDictionary<short, BuffEffectOld> GetBuffEffects<T>(IEnumerable<BuffEffectOld> buffEffects) where T : BuffEffectOld {
+		    SortedDictionary<short, T> result = new SortedDictionary<short, T>();
+		    foreach	(T buffEffect in buffEffects) {
+			    result.AddOrCombine(buffEffect);
+		    }
 		
-		return result;
-	}
+		    return result;
+	    }
 
         private IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];

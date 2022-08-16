@@ -25,7 +25,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	public class EnchantedWeapon : EnchantedItem, ISortEnchantmentEffects
+	public class EnchantedWeapon : EnchantedItem, ISortedEnchantmentEffects
     {
         #region Constants
 
@@ -51,9 +51,9 @@ namespace WeaponEnchantments.Common.Globals
         public DamageClassChange DamageTypeEffect;
         public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
         public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
-        public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
-        public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
-        public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();
+        public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
         public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
         public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }

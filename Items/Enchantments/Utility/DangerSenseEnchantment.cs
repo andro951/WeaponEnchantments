@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		};
 		public override void GetMyStats() {
 			Effects = new() {
-				new BuffEffect(BuffID.Dangersense)
+				new BuffEffectOld(BuffID.Dangersense)
 			};
 		}
 
