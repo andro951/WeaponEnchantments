@@ -239,7 +239,7 @@ namespace Terraria.ModLoader
 		/// <param name="add">The additive modifier to add, where 0.01f is equivalent to 1%</param>
 		/// <returns></returns>
 		public static EStatModifier operator +(EStatModifier m, float add)
-			=> new EStatModifier(m._additive + add, m._multiplicative, m._flat, m._base);
+			=> new EStatModifier(StatType, m._additive + add, m._multiplicative, m._flat, m._base);
 
 		/// <summary>
 		/// By using the subtract operator, the supplied subtractive modifier is combined with the existing modifiers. For example, subtracting 0.12f would be equivalent to a typical 12% damage decrease. For 99% of effects used in the game, this approach is used.
@@ -248,7 +248,7 @@ namespace Terraria.ModLoader
 		/// <param name="sub">The additive modifier to subtract, where 0.01f is equivalent to 1%</param>
 		/// <returns></returns>
 		public static EStatModifier operator -(EStatModifier m, float sub)
-			=> new EStatModifier(m._additive - sub, m._multiplicative, m._flat, m._base);
+			=> new EStatModifier(StatType, m._additive - sub, m._multiplicative, m._flat, m._base);
 
 		/// <summary>
 		/// The multiply operator applies a multiplicative effect to the resulting multiplicative modifier. This effect is very rarely used, typical effects use the add operator.
@@ -257,10 +257,10 @@ namespace Terraria.ModLoader
 		/// <param name="mul">The factor by which the multiplicative modifier is scaled</param>
 		/// <returns></returns>
 		public static EStatModifier operator *(EStatModifier m, float mul)
-			=> new EStatModifier(m._additive, m._multiplicative * mul, m._flat, m._base);
+			=> new EStatModifier(StatType, m._additive, m._multiplicative * mul, m._flat, m._base);
 
 		public static EStatModifier operator /(EStatModifier m, float div)
-			=> new EStatModifier(m._additive, m._multiplicative / div, m._flat, m._base);
+			=> new EStatModifier(StatType, m._additive, m._multiplicative / div, m._flat, m._base);
 
 		public static EStatModifier operator +(float add, EStatModifier m)
 			=> m + add;
