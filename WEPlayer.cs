@@ -673,7 +673,7 @@ namespace WeaponEnchantments
             }
 
             foreach (int key in buffs.Keys) {
-                Player.AddBuff(key, 1);
+                Player.AddBuff(key, 60);
             }
 
             if (allForOneTimer > 0) {
