@@ -14,6 +14,7 @@ namespace WeaponEnchantments.Effects {
 
 	}
     public interface IApplyStats {
+        public EStatModifier EStatModifier { set; get; }
         public void ApplyTo(ref float stat) {
 
         }

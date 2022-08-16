@@ -11,8 +11,8 @@ namespace WeaponEnchantments.Effects
     public enum BaseEnum { }
 	public interface ISortEnchantmentEffects
 	{
-        public SortedDictionary<byte, CalcStatModifier> EnchantmentStats { set; get; }
-        public SortedDictionary<byte, CalcStatModifier> VanillaStats { set; get; }
+        public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; }
+        public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; }
         public SortedDictionary<short, int> OnHitDebuffs { set; get; }
         public SortedDictionary<short, int> OnHitBuffs { set; get; }
         public SortedDictionary<short, int> OnTickBuffs { set; get; }

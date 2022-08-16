@@ -102,9 +102,10 @@ namespace WeaponEnchantments.Common {
             entity.OnHitBuffs = ;
             entity.OnTickBuffs = ;
 		}
-        public SortedDictionary<byte, CalcStatModifier> GetStatEffectDictionary<T>(IEnumerable<StatEffect> statEffects) where T : IApplyStats {
+        public SortedDictionary<byte, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<StatEffect> statEffects) where T : IApplyStats {
+            SortedDictionary<byte, EStatModifier> result = new SortedDictionary<byte, EStatModifier>();
             foreach (T statEffect in statEffects.OfType<T>()) {
-
+                result.AdOrCombine(statEffect.EStatModifier);
             }
         }
 

@@ -49,8 +49,8 @@ namespace WeaponEnchantments.Common.Globals
 
         //New system
         public DamageClassChange DamageTypeEffect;
-        public SortedDictionary<byte, CalcStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
-        public SortedDictionary<byte, CalcStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
+        public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
         public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
         public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
         public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();
@@ -118,8 +118,8 @@ namespace WeaponEnchantments.Common.Globals
                 #region Enchantments
 
                 clone.DamageTypeEffect = DamageTypeEffect;
-                clone.EnchantmentStats = new SortedDictionary<WeaponStat, CalcStatModifier>(EnchantmentStats);
-                clone.VanillaStats = new SortedDictionary<WeaponStat, CalcStatModifier>(VanillaStats);
+                clone.EnchantmentStats = new SortedDictionary<WeaponStat, EStatModifier>(EnchantmentStats);
+                clone.VanillaStats = new SortedDictionary<WeaponStat, EStatModifier>(VanillaStats);
                 clone.OnHitDebuffs = new SortedDictionary<short, int>(OnHitDebuffs);
                 clone.OnHitBuffs = new SortedDictionary<short, int>(OnHitBuffs);
                 clone.OnTickBuffs = new SortedDictionary<short, int>(OnTickBuffs);

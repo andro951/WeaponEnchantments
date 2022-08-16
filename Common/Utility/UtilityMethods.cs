@@ -306,7 +306,7 @@ namespace WeaponEnchantments.Common.Utility
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
         }
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, StatModifier> dictionary, TKey key, StatModifier newValue) {
+        public static void AddOrCombine(this Dictionary<byte, StatModifier> dictionary, byte key, StatModifier newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue.CombineWith(dictionary[key]);
 			}
@@ -314,7 +314,16 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
 			}
 		}
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, int> dictionary, TKey key, int newValue) {
+        public static void AddOrCombine(this SortedDictionary<byte, EStatModifier> dictionary, EStatModifier newValue) {
+            byte key = newValue.StatType;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineWith(dictionary[key]);
+            }
+            else {
+                dictionary.Add(key, newValue);
+            }
+        }
+        public static void AddOrCombine(this Dictionary<byte, int> dictionary, byte key, int newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue + dictionary[key];
             }
@@ -322,7 +331,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, float> dictionary, TKey key, int newValue) {
+        public static void AddOrCombine(this Dictionary<byte, float> dictionary, byte key, int newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue + dictionary[key];
             }

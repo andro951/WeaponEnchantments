@@ -69,8 +69,8 @@ namespace WeaponEnchantments
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
 
         //New System
-        public SortedDictionary<byte, CalcStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
-        public SortedDictionary<byte, CalcStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, CalcStatModifier>();
+        public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
+        public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
         public SortedDictionary<short, int> OnHitDebuffs { set; get; } = new SortedDictionary<short, int>();
         public SortedDictionary<short, int> OnHitBuffs { set; get; } = new SortedDictionary<short, int>();
         public SortedDictionary<short, int> OnTickBuffs { set; get; } = new SortedDictionary<short, int>();

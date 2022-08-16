@@ -4,7 +4,8 @@ using WeaponEnchantments.Common.Utility;
 namespace Terraria.ModLoader
 {
 	public struct EStatModifier {
-		public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);
+		//public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);
+		public byte StatType { get; private set; }
 
 		/// <summary>
 		/// Increase to the base value of the stat. Directly added to the stat before multipliers are applied.
@@ -155,7 +156,7 @@ namespace Terraria.ModLoader
 
 		private string GetTootlip(bool percent, bool sign, bool multiply100) {
 
-			if (tooltip == null) {
+			if (tooltip == null || _strength == 0) {
 				float baseTooltip = BaseTooltip;
 				tooltip = "";
 				if (baseTooltip > 0f) {
@@ -200,7 +201,8 @@ namespace Terraria.ModLoader
 
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
 
-		public EStatModifier(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+		public EStatModifier(byte statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+			StatType = statType; 
 			originalAdditive = additive;
 			originalMultiplicative = multiplicative;
 			originalFlat = flat;
@@ -282,13 +284,22 @@ namespace Terraria.ModLoader
 			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive * _multiplicative + _flat);
 		}
 
-		public StatModifier CombineWith(EStatModifier m) 
-			=> new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
+		public void CombineWith(EStatModifier m) {
+			_additive += m.Additive - 1f;
+			_multiplicative *= m.Multiplicative;
+			_flat += m.Flat;
+			_base += m.Base;
+			_strength = 0f;
+			tooltip = null;
+		}
 
 		public StatModifier CombineWith(StatModifier m) 
 			=> new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
 
 		public StatModifier Scale(float scale)
 			=> new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
+
+		public EStatModifier Clone()
+			=> new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base);
 	}
 }
