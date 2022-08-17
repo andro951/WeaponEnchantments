@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 
 namespace WeaponEnchantments.Effects {
     //Maybe replace these with statmodifier combinewith type methods instead?

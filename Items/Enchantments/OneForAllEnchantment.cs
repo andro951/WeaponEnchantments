@@ -9,14 +9,15 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
 			AddEStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f);
 			AddStaticStat("useTime", 0f, 1.5f - EnchantmentStrength * 0.2f);
 			AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapon, 1f }
+			};
 		}
 
 		public override string Artist => "Zorutan";

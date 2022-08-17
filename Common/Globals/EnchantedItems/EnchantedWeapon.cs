@@ -31,16 +31,17 @@ namespace WeaponEnchantments.Common.Globals
 
         public SortedDictionary<byte, WeaponStat> WeaponStatDict = new SortedDictionary<byte, WeaponStat>(Enum.GetValues(typeof(WeaponStat)).Cast<WeaponStat>().ToDictionary(t => (byte)t, t => t));
         public enum WeaponStat : byte {
-            AttackSpeed,
-            ArmorPenetration,
-            AutoReuse,
-            CriticalStrikeChance,
-            Damage,
-            DamageAfterDefenses,
-            Knockback,
-            LifeSteal,
-            ManaCost,
-            Size,
+            None = 0,
+            AttackSpeed = 1,
+            ArmorPenetration = 2,
+            AutoReuse = 3,
+            CriticalStrikeChance = 5,
+            Damage = 6,
+            DamageAfterDefenses = 7,
+            Knockback = 10,
+            LifeSteal = 23,
+            ManaCost = 13,
+            Size = 21,
         }
 
         #endregion
@@ -118,11 +119,11 @@ namespace WeaponEnchantments.Common.Globals
                 #region Enchantments
 
                 clone.DamageTypeEffect = DamageTypeEffect;
-                clone.EnchantmentStats = new SortedDictionary<WeaponStat, EStatModifier>(EnchantmentStats);
-                clone.VanillaStats = new SortedDictionary<WeaponStat, EStatModifier>(VanillaStats);
-                clone.OnHitDebuffs = new SortedDictionary<short, int>(OnHitDebuffs);
-                clone.OnHitBuffs = new SortedDictionary<short, int>(OnHitBuffs);
-                clone.OnTickBuffs = new SortedDictionary<short, int>(OnTickBuffs);
+                clone.EnchantmentStats = new SortedDictionary<byte, EStatModifier>(EnchantmentStats);
+                clone.VanillaStats = new SortedDictionary<byte, EStatModifier>(VanillaStats);
+                clone.OnHitDebuffs = new SortedDictionary<short, BuffStats>(OnHitDebuffs);
+                clone.OnHitBuffs = new SortedDictionary<short, BuffStats>(OnHitBuffs);
+                clone.OnTickBuffs = new SortedDictionary<short, BuffStats>(OnTickBuffs);
                 clone.EnchantmentEffects = EnchantmentEffects;
                 clone.PassiveEffects = PassiveEffects;
                 clone.StatEffects = StatEffects;

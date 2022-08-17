@@ -11,9 +11,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
 			OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, BuffDuration);
@@ -26,6 +23,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 
 			Effects = new() {
 				new DamageClassChange(DamageClass.SummonMeleeSpeed)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapon, 1f }
 			};
 		}
 

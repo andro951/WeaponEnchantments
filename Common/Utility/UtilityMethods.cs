@@ -307,18 +307,18 @@ namespace WeaponEnchantments.Common.Utility
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
         }
-        public static void AddOrCombine(this Dictionary<byte, StatModifier> dictionary, byte key, StatModifier newValue) {
+        public static void AddOrCombine(this Dictionary<byte, EStatModifier> dictionary, byte key, EStatModifier newValue) {
             if (dictionary.ContainsKey(key)) {
-                dictionary[key] = newValue.CombineWith(dictionary[key]);
+                dictionary[key].CombineWith(newValue);
 			}
 			else {
                 dictionary.Add(key, newValue);
 			}
 		}
         public static void AddOrCombine(this SortedDictionary<byte, EStatModifier> dictionary, EStatModifier newValue) {
-            byte key = newValue.StatType;
+            byte key = (byte)newValue.StatType;
             if (dictionary.ContainsKey(key)) {
-                dictionary[key].CombineWith(dictionary[key]);
+                dictionary[key].CombineWith(newValue);
             }
             else {
                 dictionary.Add(key, newValue);
@@ -340,13 +340,19 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void AddOrCombine(this SortedDictionary<byte, BuffStats> dictionary, BuffEffect buffEffect) {
-            short key = buffEffect.
+        public static void AddOrCombine<T>(this SortedDictionary<short, BuffStats> dictionary, T buffEffect) where T : BuffEffect {
+            short key = buffEffect.BuffStats.BuffID;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineNoReturn(buffEffect.BuffStats);
+			}
+			else {
+                dictionary.Add(key, buffEffect.BuffStats.Clone());
+			}
 		}
-        public static void ApplyTo(this StatModifier statModifier, ref float value) {
-            value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
-		}
+        //public static void ApplyTo(this StatModifier statModifier, ref float value) {
+        //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
+		//}
 
-        #endregion
-    }
+		#endregion
+	}
 }

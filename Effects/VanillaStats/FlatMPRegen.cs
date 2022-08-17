@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Effects {
     /// This is for maximum, after charging, mana regen
     /// </summary>
     public class FlatMPRegen : StatEffect, IVanillaStat {
-        public FlatMPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+        public FlatMPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base((byte)PlayerStat.ManaRegen, additive, multiplicative, flat, @base) { }
 
         public override PlayerStat statName => PlayerStat.ManaRegen;
         public override string DisplayName { get; } = "Mana Regeneration";

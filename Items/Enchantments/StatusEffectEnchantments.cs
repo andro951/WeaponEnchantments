@@ -12,9 +12,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 13;
 		public override float ScalePercent => 0.1f;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => 1;
         public override bool Max1 => true;
@@ -25,8 +22,12 @@ namespace WeaponEnchantments.Items.Enchantments
 		
 		public override void GetMyStats() {
 			Effects = new() {
-				new DebuffEffect(StatusEffect, new Time(BuffDuration)),
+				new OnHitTargetDebuffEffect(StatusEffect, new Time(BuffDuration)),
 				new DamageAfterDefenses(0f, EnchantmentStrength)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapon, 1f }
 			};
 		}
 

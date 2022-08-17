@@ -7,13 +7,14 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Armor, 1f },
-			{ EItemType.Accessory, 1f }
-		};
 		public override void GetMyStats() {
 			Effects = new() {
 				new MaxMinions(@base: EnchantmentStrength)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Armor, 1f },
+				{ EItemType.Accessory, 1f }
 			};
 		}
 

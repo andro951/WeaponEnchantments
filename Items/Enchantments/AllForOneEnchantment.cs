@@ -10,9 +10,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, EnchantmentStrength);
 			AddEStat("Damage", 0f, EnchantmentStrength);
@@ -22,6 +19,10 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddStaticStat("mana", 1.5f + EnchantmentStrength * 0.15f);
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
 			AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapon, 1f }
+			};
 		}
 
 		public override string Artist => "Zorutan";

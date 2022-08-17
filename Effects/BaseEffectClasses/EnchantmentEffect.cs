@@ -33,7 +33,7 @@ namespace WeaponEnchantments.Effects {
         /// This can be used on the enchantment implementation, but is not required.
         /// </para>
         /// </summary>
-        protected virtual Dictionary<DamageClass, float> EnchantmentDamageEfficiency => new Dictionary<DamageClass, float>();
+        protected Dictionary<DamageClass, float> EnchantmentDamageEfficiency = new Dictionary<DamageClass, float>();
 
         /// <summary>
         /// <para>
@@ -64,5 +64,11 @@ namespace WeaponEnchantments.Effects {
 
         public virtual bool showTooltip { get; } = true;
         public virtual float SelfStackingPenalty { get; set; } = 1f;
+        public float GetClassEfficiency(DamageClass dc) {
+            if (EnchantmentDamageEfficiency.ContainsKey(dc))
+                return EnchantmentDamageEfficiency[dc];
+
+            return 1f;
+		}
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
@@ -8,15 +9,15 @@ namespace WeaponEnchantments.Effects {
             EStatModifier = sm;
         }
 
-        protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
-            EStatModifier = new EStatModifier(additive, multiplicative, flat, @base);
+        protected StatEffect(byte id, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
+            EStatModifier = new EStatModifier(id, additive, multiplicative, flat, @base);
 		}
 
         public EStatModifier EStatModifier { set; get; }
         public float EffectStrength => EStatModifier.Strength;
 		public override float EfficiencyMultiplier { 
             get => EStatModifier.EfficiencyMultiplier; 
-            set => EStatModifier.EfficiencyMultiplier = value; 
+            set => EStatModifier.EfficiencyMultiplier = value;
         }
 
 		public abstract PlayerStat statName { get; }

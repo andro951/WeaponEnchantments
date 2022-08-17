@@ -8,7 +8,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class MoveAcceleration : StatEffect, IVanillaStat {
-        public MoveAcceleration(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+        public MoveAcceleration(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base((byte)PlayerStat.MoveAcceleration, additive, multiplicative, flat, @base) { }
 
         public override PlayerStat statName => PlayerStat.MoveAcceleration;
         public override string DisplayName { get; } = "Movement Acceleration";

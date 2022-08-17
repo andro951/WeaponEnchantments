@@ -12,14 +12,15 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			"(Enemies spawned will be immune to lava/traps)";
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f },
-			{ EItemType.Armor, 1f },
-			{ EItemType.Accessory, 1f }
-		};
 		public override void GetMyStats() {
 			AddEStat("spawnRate", 0f, EnchantmentStrength);
 			AddEStat("maxSpawns", 0f, EnchantmentStrength);
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapon, 1f },
+				{ EItemType.Armor, 1f },
+				{ EItemType.Accessory, 1f }
+			};
 		}
 
 		public override string Artist => "Zorutan";

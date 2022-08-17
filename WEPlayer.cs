@@ -85,29 +85,30 @@ namespace WeaponEnchantments
 
         public SortedDictionary<byte, PlayerStat> WeaponStatDict = new SortedDictionary<byte, PlayerStat>(Enum.GetValues(typeof(PlayerStat)).Cast<PlayerStat>().ToDictionary(t => (byte)t, t => t));
         public enum PlayerStat : byte {
-            None,
-            AttackSpeed,
-            ArmorPenetration,
-            AutoReuse,
-            BonusManaRegen,
-            CriticalStrikeChance,
-            Damage,
-            DamageAfterDefenses,
-            Defense,
-            JumpSpeedBoost,
-            Knockback,
-            LifeRegen,
-            ManaCost,
-            ManaRegen,
-            MaxFallSpeed,
-            MaxHP,
-            MaxMinions,
-            MaxMP,
-            MoveAcceleration,
-            MoveSlowdown,
-            MoveSpeed,
-            Size,
-            WingTime
+            None = 0,
+            AttackSpeed = 1,
+            ArmorPenetration = 2,
+            AutoReuse = 3,
+            BonusManaRegen = 4,
+            CriticalStrikeChance = 5,
+            Damage = 6,
+            DamageAfterDefenses = 7,
+            Defense = 8,
+            JumpSpeedBoost = 9,
+            Knockback = 10,
+            LifeRegen = 11,
+            ManaCost = 12,
+            ManaRegen = 13,
+            MaxFallSpeed = 14,
+            MaxHP = 15,
+            MaxMinions = 16,
+            MaxMP = 17,
+            MoveAcceleration = 18,
+            MoveSlowdown = 19,
+            MoveSpeed = 20,
+            Size = 21,
+            WingTime = 22,
+            LifeSteal = 23,
         }
 
         #region Default Hooks
@@ -1100,31 +1101,12 @@ namespace WeaponEnchantments
         #endregion
 
         #region Enchantment hooks
-        public struct StatDamageClass {
-            public StatDamageClass(PlayerStat editableStat, DamageClass damageClass) {
-                EditableStat = editableStat;
-                DamageClass = damageClass;
-            }
-            public PlayerStat EditableStat;
-            public DamageClass DamageClass;
-        }
+
         private void GetEnchantmentEffects() {
             // Always use all equipment effects
-            Equipment.GetArmorEnchantmentEffects();
+            Equipment.UpdateArmorEnchantmentEffects();
 
-            Equipment.GetWeaponEnchantmentEffects();
-
-            // If a held item isn't specified and the currently held item is a weapon, use that as the currently held item.
-            if (heldItem == null && IsWeaponItem(Player.HeldItem)) {
-                heldItem = Player.HeldItem;
-            }
-
-            // If a held item has been set
-            if (heldItem.TryGetEnchantedItem(out EnchantedItem enchantedHeldItem)) {
-                // Use that item's enchantments too
-                IEnumerable<EnchantmentEffect> heldItemEffects = PlayerEquipment.ExtractEnchantmentEffects(enchantedHeldItem);
-                allEffects = allEffects.Concat(heldItemEffects);
-            }
+            Equipment.UpdateWeaponEnchantmentEffects();
         }
         public void ApplyPostMiscEnchants() {
             PlayerEquipment newEquipment = Equipment;
@@ -1155,7 +1137,7 @@ namespace WeaponEnchantments
 
             // Apply them if there's any.
             if (StatEffects.Any())
-                ApplyStatEffects(StatEffects);
+                ApplyStatEffects();
 
         }
         public bool? ApplyAutoReuseEnchants() {
@@ -1173,54 +1155,29 @@ namespace WeaponEnchantments
 
             return enableAutoReuse;
         }
-        private void ApplyStatEffects(IEnumerable<StatEffect> StatEffects) {
-
-            // Set up to combine all stat modifiers. We must also keep wether or not it's a vanilla attribute.
-            Dictionary<StatDamageClass, StatModifier> statModifiers = new Dictionary<StatDamageClass, StatModifier>();
-            //Dictionary<StatDamageClass, int> statCounts = new Dictionary<StatDamageClass, int>();
-            
-            foreach (StatEffect statEffect in StatEffects) {
-                DamageClass dc = (statEffect as IClassedEffect)?.damageClass;
-                StatDamageClass statDC = new StatDamageClass(statEffect.statName, dc);
-                statModifiers.AddOrCombine(statDC, statEffect.StatModifier);
-                //statCounts.AddOrCombine(statDC, 1);
-            }
-
-            // TODO use statCounts[eb] and dampening factor to make stats weaker on stacking.
-
-            foreach (StatDamageClass eb in statModifiers.Keys) {
-                ModifyStat(eb.EditableStat, statModifiers[eb], eb.DamageClass);
+        private void ApplyStatEffects() {
+            foreach ( byte key in VanillaStats.Keys) {
+                ModifyStat(VanillaStats[key]);
             }
         }
-        private void ModifyStat(PlayerStat es, StatModifier sm, DamageClass dc = null) {
+        private void ModifyStat(EStatModifier sm) {
             //TODO: Find a way to change the if (dc == null) return; to just 1 check.
-
+            PlayerStat es = sm.StatType;
+            DamageClass dc = DamageClass.Generic;
             switch (es) {
                 case PlayerStat.ArmorPenetration:
-                    if (dc == null)
-                        return;
-
                     Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
                     break;
                 case PlayerStat.AttackSpeed:
-                    if (dc == null)
-                        return;
                     Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));
                     break;
                 case PlayerStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
                 case PlayerStat.CriticalStrikeChance:
-                    if (dc == null)
-                        return;
-                    float crit = Player.GetCritChance(dc);
                     Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
-                    float temp = Player.GetCritChance(dc);
                     break;
                 case PlayerStat.Damage:
-                    if (dc == null)
-                        return;
-
                     Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
                 case PlayerStat.Defense:

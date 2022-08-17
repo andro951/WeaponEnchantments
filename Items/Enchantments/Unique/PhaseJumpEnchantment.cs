@@ -8,11 +8,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Armor, 1f }
-		};
 		public override void GetMyStats() {
 			AddStaticStat("dashType", 0f, 1f, 0f, 3f);
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Armor, 1f }
+			};
 		}
 
 		public override string Artist => "andro951";

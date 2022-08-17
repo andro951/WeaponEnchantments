@@ -151,11 +151,7 @@ namespace WeaponEnchantments.Items {
 		/// You must include ALL of the item types the enchantment can be applied on.  The above defaults are only set if you do not set the AllowedList.<br/>
 		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
-		public virtual Dictionary<EItemType, float> AllowedList { private set; get; } = new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f },
-			{ EItemType.Armor, 0.33f },
-			{ EItemType.Accessory, 0.2f }
-		};
+		public Dictionary<EItemType, float> AllowedList { protected set; get; }
 
 		#endregion
 
@@ -493,6 +489,14 @@ namespace WeaponEnchantments.Items {
 				return;
 
 			GetMyStats();
+
+			if (AllowedList == null || AllowedList.Count == 0) {
+				AllowedList = new Dictionary<EItemType, float>() {
+					{ EItemType.Weapon, 1f },
+					{ EItemType.Armor, 0.25f },
+					{ EItemType.Accessory, 0.25f }
+				};
+			}
 
 			//Default Stat
 			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
