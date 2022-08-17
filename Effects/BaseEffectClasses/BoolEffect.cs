@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Effects {
             EnableStat = !prevent;
         }
 
-		public abstract PlayerStat statName { get; }
+		public abstract EnchantmentStat statName { get; }
 
         protected virtual string modifierToString() {
             return EnableStat ? "Enabled" : "Prevented";

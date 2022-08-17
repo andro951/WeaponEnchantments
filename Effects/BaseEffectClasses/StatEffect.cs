@@ -5,12 +5,12 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public abstract class StatEffect : EnchantmentEffect {
-        protected StatEffect(EStatModifier sm) {
+        protected StatEffect(EStatModifier sm, bool playerStatOnWeapon = false) {
             EStatModifier = sm;
         }
 
-        protected StatEffect(byte id, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
-            EStatModifier = new EStatModifier(id, additive, multiplicative, flat, @base);
+        protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
+            EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
 		}
 
         public EStatModifier EStatModifier { set; get; }
@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Effects {
             set => EStatModifier.EfficiencyMultiplier = value;
         }
 
-		public abstract PlayerStat statName { get; }
+		public abstract EnchantmentStat statType { get; }
 
         protected virtual string modifierToString() {
             string final = "";

@@ -315,8 +315,8 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
 			}
 		}
-        public static void AddOrCombine(this SortedDictionary<byte, EStatModifier> dictionary, EStatModifier newValue) {
-            byte key = (byte)newValue.StatType;
+        public static void AddOrCombine(this SortedDictionary<EnchantmentStat, EStatModifier> dictionary, EStatModifier newValue) {
+            EnchantmentStat key = newValue.StatType;
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].CombineWith(newValue);
             }
@@ -348,7 +348,16 @@ namespace WeaponEnchantments.Common.Utility
 			else {
                 dictionary.Add(key, buffEffect.BuffStats.Clone());
 			}
-		}
+        }
+        public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffStats buffStat) {
+            short key = buffStat.BuffID;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineNoReturn(buffStat);
+            }
+            else {
+                dictionary.Add(key, buffStat.Clone());
+            }
+        }
         //public static void ApplyTo(this StatModifier statModifier, ref float value) {
         //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
         //}

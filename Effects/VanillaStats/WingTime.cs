@@ -10,11 +10,11 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class WingTime : StatEffect, IPassiveEffect, IVanillaStat {
-        public WingTime(bool infinity, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base((byte)PlayerStat.WingTime, additive, multiplicative, flat, @base) {
+        public WingTime(bool infinity, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) {
             Infinity = infinity;
         }
 
-        public override PlayerStat statName => PlayerStat.WingTime;
+        public override EnchantmentStat statType => EnchantmentStat.WingTime;
         public override string DisplayName { get; } = "Wing Time";
         private bool Infinity;
 

@@ -7,7 +7,7 @@ namespace WeaponEnchantments.Common
 {
 	public class EStatModifier {
 		//public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);
-		public PlayerStat StatType { get; private set; }
+		public EnchantmentStat StatType { get; private set; }
 
 		/// <summary>
 		/// Increase to the base value of the stat. Directly added to the stat before multipliers are applied.
@@ -202,22 +202,7 @@ namespace WeaponEnchantments.Common
 		*/
 
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
-
-		public EStatModifier(byte statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
-			StatType = (PlayerStat)statType;
-			originalAdditive = additive;
-			originalMultiplicative = multiplicative;
-			originalFlat = flat;
-			originalBase = @base;
-			_efficiencyMultiplier = baseEfficiencyMultiplier;
-			_additive = 1f + additive * _efficiencyMultiplier;
-			_multiplicative = 1f + (multiplicative - 1f) * _efficiencyMultiplier;
-			_flat = flat * _efficiencyMultiplier;
-			_base = @base * _efficiencyMultiplier;
-			_strength = 0f;
-			tooltip = null;
-		}
-		public EStatModifier(PlayerStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
 			StatType = statType;
 			originalAdditive = additive;
 			originalMultiplicative = multiplicative;

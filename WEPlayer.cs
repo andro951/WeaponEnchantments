@@ -48,8 +48,6 @@ namespace WeaponEnchantments
         public WeaponEnchantmentUI enchantingTableUI;
         public ConfirmationUI confirmationUI;
         static float baseOneForAllRange = 240f;
-        public bool canLifeSteal = false;
-        public float lifeSteal = 0f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
         public Item[] equipArmor;
@@ -69,11 +67,17 @@ namespace WeaponEnchantments
         public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
 
         //New System
-        public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
-        public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
+        public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+
+        public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        public SortedDictionary<EnchantmentStat, EStatModifier> CombinedVanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
         public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
         public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
@@ -83,32 +87,32 @@ namespace WeaponEnchantments
         public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
 
-        public SortedDictionary<byte, PlayerStat> WeaponStatDict = new SortedDictionary<byte, PlayerStat>(Enum.GetValues(typeof(PlayerStat)).Cast<PlayerStat>().ToDictionary(t => (byte)t, t => t));
-        public enum PlayerStat : byte {
-            None = 0,
-            AttackSpeed = 1,
-            ArmorPenetration = 2,
-            AutoReuse = 3,
-            BonusManaRegen = 4,
-            CriticalStrikeChance = 5,
-            Damage = 6,
-            DamageAfterDefenses = 7,
-            Defense = 8,
-            JumpSpeedBoost = 9,
-            Knockback = 10,
-            LifeRegen = 11,
-            ManaCost = 12,
-            ManaRegen = 13,
-            MaxFallSpeed = 14,
-            MaxHP = 15,
-            MaxMinions = 16,
-            MaxMP = 17,
-            MoveAcceleration = 18,
-            MoveSlowdown = 19,
-            MoveSpeed = 20,
-            Size = 21,
-            WingTime = 22,
-            LifeSteal = 23,
+        public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
+        public enum EnchantmentStat : byte {
+            None,
+            AttackSpeed,
+            ArmorPenetration,
+            AutoReuse,
+            BonusManaRegen,
+            CriticalStrikeChance,
+            Damage,
+            DamageAfterDefenses,
+            Defense,
+            JumpSpeedBoost,
+            Knockback,
+            LifeRegen,
+            LifeSteal,
+            ManaCost,
+            ManaRegen,
+            MaxFallSpeed,
+            MaxHP,
+            MaxMinions,
+            MaxMP,
+            MoveAcceleration,
+            MoveSlowdown,
+            MoveSpeed,
+            Size,
+            WingTime,
         }
 
         #region Default Hooks
@@ -733,8 +737,6 @@ namespace WeaponEnchantments
             }
         }
         public override void ResetEffects() {
-            lifeSteal = 0f;
-            canLifeSteal = false;
             bool updatePlayerStat = false;
             foreach (string key in statModifiers.Keys) {
                 string name = key.RemoveInvert().RemovePrevent();
@@ -891,7 +893,6 @@ namespace WeaponEnchantments
             }
 
             if (target.type != NPCID.TargetDummy) {
-                int oneForAllDamageDealt = 0;
                 //Buffs and Debuffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
@@ -917,8 +918,11 @@ namespace WeaponEnchantments
                 #endregion
 
                 //One For All
+                int oneForAllDamageDealt = 0;
                 if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin)
                     oneForAllDamageDealt = ActivateOneForAll(target, Player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
+
+                ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
 
             //GodSlayer
@@ -1130,6 +1134,8 @@ namespace WeaponEnchantments
                 StatEffects = newStatEffects.ToArray();
             }
 
+            LastPlayerEquipment.CombineDictionaries();
+
             // Apply all PostUpdateMiscEffects
             foreach (IPassiveEffect effect in PassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
@@ -1156,34 +1162,34 @@ namespace WeaponEnchantments
             return enableAutoReuse;
         }
         private void ApplyStatEffects() {
-            foreach ( byte key in VanillaStats.Keys) {
+            foreach (EnchantmentStat key in VanillaStats.Keys) {
                 ModifyStat(VanillaStats[key]);
             }
         }
         private void ModifyStat(EStatModifier sm) {
             //TODO: Find a way to change the if (dc == null) return; to just 1 check.
-            PlayerStat es = sm.StatType;
+            EnchantmentStat es = sm.StatType;
             DamageClass dc = DamageClass.Generic;
             switch (es) {
-                case PlayerStat.ArmorPenetration:
+                case EnchantmentStat.ArmorPenetration:
                     Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
                     break;
-                case PlayerStat.AttackSpeed:
+                case EnchantmentStat.AttackSpeed:
                     Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));
                     break;
-                case PlayerStat.BonusManaRegen:
+                case EnchantmentStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;
-                case PlayerStat.CriticalStrikeChance:
+                case EnchantmentStat.CriticalStrikeChance:
                     Player.GetCritChance(dc) = sm.ApplyTo(Player.GetCritChance(dc));
                     break;
-                case PlayerStat.Damage:
+                case EnchantmentStat.Damage:
                     Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
-                case PlayerStat.Defense:
+                case EnchantmentStat.Defense:
                     Player.statDefense = (int)sm.ApplyTo(Player.statDefense);
                     break;
-                case PlayerStat.JumpSpeedBoost:
+                case EnchantmentStat.JumpSpeedBoost:
                     Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
                     break;
                 /*case EditableStat.Knockback:
@@ -1192,10 +1198,10 @@ namespace WeaponEnchantments
 
                     Player.GetKnockback(dc) = sm.CombineWith(Player.GetKnockback(dc));
                     break;*/
-                case PlayerStat.LifeRegen:
+                case EnchantmentStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
                     break;
-                /*case PlayerStat.LifeSteal:
+                /*case EnchantmentStat.LifeSteal:
                     canLifeSteal = true;
                     lifeSteal = sm.ApplyTo(lifeSteal);
                     break;*/
@@ -1205,34 +1211,34 @@ namespace WeaponEnchantments
 
                     Player.GetManaCost(item) = (int)sm.ApplyTo(Player.GetManaCost(item));
                     break;*/
-                case PlayerStat.ManaRegen:
+                case EnchantmentStat.ManaRegen:
                     Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
                     break;
-                case PlayerStat.MaxHP:
+                case EnchantmentStat.MaxHP:
                     Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
                     break;
-                case PlayerStat.MaxMinions:
+                case EnchantmentStat.MaxMinions:
                     Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);
                     break;
-                case PlayerStat.MaxMP:
+                case EnchantmentStat.MaxMP:
                     Player.statManaMax2 = (int)sm.ApplyTo(Player.statManaMax2);
                     break;
-                case PlayerStat.MaxFallSpeed:
+                case EnchantmentStat.MaxFallSpeed:
                     Player.maxFallSpeed = sm.ApplyTo(Player.maxFallSpeed);
                     break;
-                case PlayerStat.MoveAcceleration:
+                case EnchantmentStat.MoveAcceleration:
                     Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
                     break;
-                case PlayerStat.MoveSlowdown:
+                case EnchantmentStat.MoveSlowdown:
                     Player.runSlowdown = sm.ApplyTo(Player.runSlowdown);
                     break;
-                case PlayerStat.MoveSpeed:
+                case EnchantmentStat.MoveSpeed:
                     Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
                     break;
-                case PlayerStat.Size:
+                case EnchantmentStat.Size:
                     //Player.GetAdjustedItemScale(LastPlayerEquipment.HeldItem) = sm.ApplyTo(Player.GetAdjustedItemScale(LastPlayerEquipment.HeldItem));
                     break;
-                case PlayerStat.WingTime:
+                case EnchantmentStat.WingTime:
                     Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
                     break;
             }
@@ -1260,20 +1266,13 @@ namespace WeaponEnchantments
             foreach (IOnHitEffect effect in EnchantmentEffects.OfType<IOnHitEffect>()) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
-
-            //if (target.type == NPCID.TargetDummy)
-            //    return;
-
-            int oneForAllDamage = 0; // ActivateOneForAll(target, Player, item, ref damage, ref knockback, ref crit, hitDirection, out oneForAllWhoAmIs, out oneForAllDamages, projectile);
-
-            ApplyLifeSteal(item, target, damage, oneForAllDamage);
         }
 
         #endregion
 
         #region Enchantment Stat effect definitions
         public void ApplyLifeSteal(Item item, NPC npc, int damage, int oneForAllDamage) {
-            if (!canLifeSteal)
+            if (!CheckEffects(EnchantmentStat.LifeSteal, out float lifeSteal))
                 return;
 
             Player player = Player;
@@ -1337,6 +1336,15 @@ namespace WeaponEnchantments
 
             return false;
         }
+        private bool CheckEffects(EnchantmentStat playerStat, out float value) {
+            value = 0f;
+            if (CombinedEnchantmentStats.ContainsKey(playerStat)) {
+                value = CombinedEnchantmentStats[playerStat].Strength;
+                return true;
+			}
+
+            return false;
+		}
         /*public void UpdatePotionBuffs(ref Item newItem, ref Item oldItem) {
 
             #region Debug

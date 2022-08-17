@@ -29,19 +29,18 @@ namespace WeaponEnchantments.Common.Globals
     {
         #region Constants
 
-        public SortedDictionary<byte, WeaponStat> WeaponStatDict = new SortedDictionary<byte, WeaponStat>(Enum.GetValues(typeof(WeaponStat)).Cast<WeaponStat>().ToDictionary(t => (byte)t, t => t));
+        public static List<EnchantmentStat> WeaponStatDict = Enum.GetValues(typeof(WeaponStat)).Cast<EnchantmentStat>().ToList();
         public enum WeaponStat : byte {
-            None = 0,
             AttackSpeed = 1,
-            ArmorPenetration = 2,
-            AutoReuse = 3,
+            ArmorPenetration,
+            AutoReuse,
             CriticalStrikeChance = 5,
-            Damage = 6,
-            DamageAfterDefenses = 7,
+            Damage,
+            DamageAfterDefenses,
             Knockback = 10,
-            LifeSteal = 23,
-            ManaCost = 13,
-            Size = 21,
+            LifeSteal = 12,
+            ManaCost,
+            Size = 22,
         }
 
         #endregion
@@ -50,8 +49,8 @@ namespace WeaponEnchantments.Common.Globals
 
         //New system
         public DamageClassChange DamageTypeEffect;
-        public SortedDictionary<byte, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
-        public SortedDictionary<byte, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<byte, EStatModifier>();
+        public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
@@ -60,11 +59,11 @@ namespace WeaponEnchantments.Common.Globals
         public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
         public IEnumerable<StatEffect> StatEffects { set; get; }
 
-    #endregion
+        #endregion
 
-    #region Enchantment
+        #region Enchantment
 
-    public DamageClass damageType = DamageClass.Default;
+        public DamageClass damageType = DamageClass.Default;
         public DamageClass baseDamageType = DamageClass.Default;
 
         #endregion
@@ -119,8 +118,8 @@ namespace WeaponEnchantments.Common.Globals
                 #region Enchantments
 
                 clone.DamageTypeEffect = DamageTypeEffect;
-                clone.EnchantmentStats = new SortedDictionary<byte, EStatModifier>(EnchantmentStats);
-                clone.VanillaStats = new SortedDictionary<byte, EStatModifier>(VanillaStats);
+                clone.EnchantmentStats = new SortedDictionary<EnchantmentStat, EStatModifier>(EnchantmentStats);
+                clone.VanillaStats = new SortedDictionary<EnchantmentStat, EStatModifier>(VanillaStats);
                 clone.OnHitDebuffs = new SortedDictionary<short, BuffStats>(OnHitDebuffs);
                 clone.OnHitBuffs = new SortedDictionary<short, BuffStats>(OnHitBuffs);
                 clone.OnTickBuffs = new SortedDictionary<short, BuffStats>(OnTickBuffs);

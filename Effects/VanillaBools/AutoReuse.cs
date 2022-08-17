@@ -10,7 +10,7 @@ using static WeaponEnchantments.WEPlayer;
 namespace WeaponEnchantments.Effects {
     public class AutoReuse : BoolEffect {
         public AutoReuse(bool prevent = false) : base(prevent) { }
-        public override PlayerStat statName => PlayerStat.AutoReuse;
+        public override EnchantmentStat statName => EnchantmentStat.AutoReuse;
         public override string DisplayName { get; } = "Auto Reuse";
     }
 }

@@ -8,9 +8,9 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class FlatHPRegen : StatEffect, IVanillaStat {
-        public FlatHPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base((byte)PlayerStat.LifeRegen, additive, multiplicative, flat, @base) { }
+        public FlatHPRegen(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
 
-        public override PlayerStat statName => PlayerStat.LifeRegen;
+        public override EnchantmentStat statType => EnchantmentStat.LifeRegen;
         public override string DisplayName => "Life Regeneration";
     }
 }
