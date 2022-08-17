@@ -185,6 +185,8 @@ namespace WeaponEnchantments.Common {
             for (int i = 0; i < count; i++) {
                 Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
+                if (ci.NullOrAir() && ci2.NullOrAir())
+                    continue;
 
                 if (!ci.IsSameEnchantedItem(ci2))
                     return false;

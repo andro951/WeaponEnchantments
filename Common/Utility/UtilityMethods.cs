@@ -351,7 +351,8 @@ namespace WeaponEnchantments.Common.Utility
 		}
         //public static void ApplyTo(this StatModifier statModifier, ref float value) {
         //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
-		//}
+        //}
+        public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
 
 		#endregion
 	}
