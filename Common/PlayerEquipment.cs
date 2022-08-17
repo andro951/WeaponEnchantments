@@ -96,8 +96,8 @@ namespace WeaponEnchantments.Common {
         }
         public void SortEnchantmentEffects(ISortedEnchantmentEffects entity, bool weapon = false) {
             IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
-            entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>();
-            entity.StatEffects = enchantmentEffects.OfType<StatEffect>();
+            entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>().ToList();
+            entity.StatEffects = enchantmentEffects.OfType<StatEffect>().ToList();
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();

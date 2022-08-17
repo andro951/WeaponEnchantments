@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
-namespace WeaponEnchantments.Effects.EnchantStats
+namespace WeaponEnchantments.Effects
 {
 	public class DamageAfterDefenses : StatEffect, IClassedEffect, IModifyHitDamage, INonVanillaStat
     {

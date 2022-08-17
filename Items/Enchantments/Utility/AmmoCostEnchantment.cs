@@ -1,11 +1,15 @@
 ﻿using WeaponEnchantments.Common;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
 	public abstract class AmmoCostEnchantment : Enchantment
 	{
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength);
+			//AddEStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength);
+			Effects = new() {
+				new AmmoCost(@base: EnchantmentStrength)
+			};
 		}
 
 		public override string Artist => "Zorutan";

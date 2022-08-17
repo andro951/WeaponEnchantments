@@ -26,7 +26,6 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using WeaponEnchantments.Debuffs;
-using WeaponEnchantments.Effects.EnchantStats;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
 
@@ -79,9 +78,9 @@ namespace WeaponEnchantments
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
-        public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
-        public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
-        public IEnumerable<StatEffect> StatEffects { set; get; }
+        public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
+        public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
+        public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         // Currently just a function that gets the current player equipment state.
         public PlayerEquipment LastPlayerEquipment;
@@ -90,6 +89,7 @@ namespace WeaponEnchantments
         public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
         public enum EnchantmentStat : byte {
             None,
+            AmmoCost,
             AttackSpeed,
             ArmorPenetration,
             AutoReuse,
@@ -1102,11 +1102,11 @@ namespace WeaponEnchantments
             return ApplyAutoReuseEnchants();
         }
 
-        #endregion
+		#endregion
 
-        #region Enchantment hooks
+		#region Enchantment hooks
 
-        private void GetEnchantmentEffects() {
+		private void GetEnchantmentEffects() {
             // Always use all equipment effects
             Equipment.UpdateArmorEnchantmentEffects();
 
@@ -1118,20 +1118,17 @@ namespace WeaponEnchantments
                 LastPlayerEquipment = newEquipment;
                 GetEnchantmentEffects();
 
-                List<IPassiveEffect> newPassiveEffects = new List<IPassiveEffect>();
-                List<StatEffect> newStatEffects = new List<StatEffect>();
+                PassiveEffects = new List<IPassiveEffect>();
+                StatEffects = new List<StatEffect>();
 
                 // Divide effects based on what is needed.
                 foreach (EnchantmentEffect effect in EnchantmentEffects) {
                     if (effect is IPassiveEffect passiveEffect)
-                        newPassiveEffects.Add(passiveEffect);
+                        PassiveEffects.Add(passiveEffect);
 
                     if (effect is StatEffect statEffect)
-                        newStatEffects.Add(statEffect);
+                        StatEffects.Add(statEffect);
                 }
-
-                PassiveEffects = newPassiveEffects.ToArray();
-                StatEffects = newStatEffects.ToArray();
             }
 
             LastPlayerEquipment.CombineDictionaries();
@@ -1147,7 +1144,6 @@ namespace WeaponEnchantments
 
         }
         public bool? ApplyAutoReuseEnchants() {
-
             // Divide effects based on what is needed.
             bool? enableAutoReuse = null;
             foreach (AutoReuse effect in EnchantmentEffects.OfType<AutoReuse>()) {
@@ -1272,7 +1268,7 @@ namespace WeaponEnchantments
 
         #region Enchantment Stat effect definitions
         public void ApplyLifeSteal(Item item, NPC npc, int damage, int oneForAllDamage) {
-            if (!CheckEffects(EnchantmentStat.LifeSteal, out float lifeSteal))
+            if (!CheckEnchantmentStats(EnchantmentStat.LifeSteal, out float lifeSteal))
                 return;
 
             Player player = Player;
@@ -1336,7 +1332,7 @@ namespace WeaponEnchantments
 
             return false;
         }
-        private bool CheckEffects(EnchantmentStat playerStat, out float value) {
+        private bool CheckEnchantmentStats(EnchantmentStat playerStat, out float value) {
             value = 0f;
             if (CombinedEnchantmentStats.ContainsKey(playerStat)) {
                 value = CombinedEnchantmentStats[playerStat].Strength;

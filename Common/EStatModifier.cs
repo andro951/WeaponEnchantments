@@ -1,4 +1,6 @@
 ﻿using System;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
@@ -284,7 +286,15 @@ namespace WeaponEnchantments.Common
 		public void ApplyTo(ref int baseValue) {
 			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive * _multiplicative + _flat);
 		}
+		public void ApplyTo(ref float flat, ref float mult, Item item) {
+			flat += _base;
+			mult *= _additive * _multiplicative;
 
+			if (_flat != 0f) {
+				float sampleMana = (float)ContentSamples.ItemsByType[item.type].mana;
+				mult += _flat / sampleMana;
+			}
+		}
 		public void CombineWith(EStatModifier m) {
 			_additive += m.Additive - 1f;
 			_multiplicative *= m.Multiplicative;

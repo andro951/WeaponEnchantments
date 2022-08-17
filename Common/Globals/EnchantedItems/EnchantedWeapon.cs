@@ -31,16 +31,14 @@ namespace WeaponEnchantments.Common.Globals
 
         public static List<EnchantmentStat> WeaponStatDict = Enum.GetValues(typeof(WeaponStat)).Cast<EnchantmentStat>().ToList();
         public enum WeaponStat : byte {
-            AttackSpeed = 1,
-            ArmorPenetration,
+            AttackSpeed = 2,
+            ArmorPenetration,//Not implemented, no hook
             AutoReuse,
-            CriticalStrikeChance = 5,
+            CriticalStrikeChance = 6,
             Damage,
-            DamageAfterDefenses,
-            Knockback = 10,
-            LifeSteal = 12,
+            Knockback = 11,
             ManaCost,
-            Size = 22,
+            Size = 23,
         }
 
         #endregion
@@ -55,9 +53,9 @@ namespace WeaponEnchantments.Common.Globals
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
-        public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
-        public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
-        public IEnumerable<StatEffect> StatEffects { set; get; }
+        public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
+        public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
+        public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         #endregion
 
@@ -283,24 +281,66 @@ namespace WeaponEnchantments.Common.Globals
                 float multiplier = GlobalEnchantmentStrengthMultiplier;
                 crit += levelBeforeBooster * multiplier;
             }
+
+            CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
             damage *= infusionDamageMultiplier;
+            CheckEnchantmentStatsForModifier(ref damage, EnchantmentStat.Damage);
         }
-        public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
-            float rand = Main.rand.NextFloat();
+		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
+            CheckEnchantmentStatsForModifier(ref knockback, EnchantmentStat.Knockback);
+        }
+		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult) {
+            if (CheckGetModifier(EnchantmentStat.ManaCost, out EStatModifier eStatModifier))
+                eStatModifier.ApplyTo(ref reduce, ref mult, item);
+        }
+		public override float UseSpeedMultiplier(Item item, Player player) {
+            return GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
+        }
+		public override void ModifyItemScale(Item item, Player player, ref float scale) {
+            CheckEnchantmnetStatsApplyTo(ref scale, EnchantmentStat.Size);
+        }
+		public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
+            /*float rand = Main.rand.NextFloat();
             float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);
 
             //True means it will consume ammo
-            return rand > ammoSaveChance;
+            return rand > ammoSaveChance;*/
+            return CheckConsumeAmmoEffect(player);
         }
+        public override bool ConsumeItem(Item item, Player player) {
+            return CheckConsumeAmmoEffect(player);
+        }
+        private bool CheckConsumeAmmoEffect(Player player) {
+            if (GetPlayerModifierStrength(player, EnchantmentStat.AmmoCost, out float strength)) {
+                float rand = Main.rand.NextFloat();
+                return rand > strength;
+            }
+
+            return true;
+		}
         public override bool? CanAutoReuseItem(Item item, Player player) {
-            if (statModifiers.ContainsKey("P_autoReuse")) {
+            //TODO, seperate bool effects into it's own dictionary of bool?
+
+            // Divide effects based on what is needed.
+            bool? enableAutoReuse = null;
+            foreach (AutoReuse effect in EnchantmentEffects.OfType<AutoReuse>()) {
+                if (effect.EnableStat) {
+                    enableAutoReuse = true;
+                }
+                else if (!effect.EnableStat) {
+                    return false;
+                }
+            }
+
+            return enableAutoReuse;
+            /*if (statModifiers.ContainsKey("P_autoReuse")) {
                 return false;
             }
             else {
                 return null;
-            }
+            }*/
         }
         private void Restock(Item item) {
             Player player = Main.LocalPlayer;
@@ -369,7 +409,7 @@ namespace WeaponEnchantments.Common.Globals
 
             return null;
         }
-        public override bool CanUseItem(Item item, Player player) {
+		public override bool CanUseItem(Item item, Player player) {
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
@@ -409,6 +449,39 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
+        protected void CheckEnchantmentStatsForModifier(ref StatModifier statModifier, EnchantmentStat enchantmentStat) {
+            if (VanillaStats.ContainsKey(enchantmentStat))
+                statModifier = statModifier.CombineWith(VanillaStats[enchantmentStat].StatModifier);
+        }
+        protected void CheckEnchantmnetStatsApplyTo(ref float value, EnchantmentStat enchantmentStat) {
+            if (VanillaStats.ContainsKey(enchantmentStat))
+                VanillaStats[enchantmentStat].ApplyTo(ref value);
+		}
+        protected bool CheckGetModifier(EnchantmentStat enchantmentStat, out EStatModifier m) {
+            if (!VanillaStats.ContainsKey(enchantmentStat)) {
+                m = null;
+                return false;
+            }
+
+            m = VanillaStats[enchantmentStat];
+            return true;
+		}
+        protected float GetVanillaModifierStrength(EnchantmentStat enchantmentStat) {
+            if (VanillaStats.ContainsKey(enchantmentStat))
+                return VanillaStats[enchantmentStat].Strength;
+
+            return 1f;
+        }
+        protected bool GetPlayerModifierStrength(Player player, EnchantmentStat enchantmentStat, out float strength) {
+            WEPlayer wePlayer = player.GetWEPlayer();
+            strength = 0f;
+            if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat)) {
+                strength = wePlayer.EnchantmentStats[enchantmentStat].Strength;
+                return true;
+            }
+
+            return false;
+		}
     }
 
     public static class EnchantedWeaponStaticMethods

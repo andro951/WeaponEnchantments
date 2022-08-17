@@ -18,8 +18,8 @@ namespace WeaponEnchantments.Effects
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; }
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; }
 
-        public IEnumerable<EnchantmentEffect> EnchantmentEffects { set; get; }
-        public IEnumerable<IPassiveEffect> PassiveEffects { set; get; }
-        public IEnumerable<StatEffect> StatEffects { set; get; }
+        public List<EnchantmentEffect> EnchantmentEffects { set; get; }
+        public List<IPassiveEffect> PassiveEffects { set; get; }
+        public List<StatEffect> StatEffects { set; get; }
     }
 }

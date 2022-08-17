@@ -1,5 +1,5 @@
 ﻿using WeaponEnchantments.Common;
-using WeaponEnchantments.Effects.EnchantStats;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {

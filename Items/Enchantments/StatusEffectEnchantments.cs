@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.Effects.EnchantStats;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
