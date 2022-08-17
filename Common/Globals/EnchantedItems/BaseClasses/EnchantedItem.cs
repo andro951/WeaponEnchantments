@@ -597,14 +597,17 @@ namespace WeaponEnchantments.Common.Globals
         protected virtual string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) => "";
         protected virtual void GetEnchantementTooltips(List<TooltipLine> tooltips) {
             IEnumerable<Enchantment> enchantmentModItems = enchantments.Select(e => e.ModItem).OfType<Enchantment>();
-
+		int i = 0;
             foreach (Enchantment enchantment in enchantmentModItems) {
-                float effectiveness = enchantment.AllowedList[ItemType];
-                var effectTooltips = enchantment.GetEffectsTooltips();
-                tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
-                foreach (var tooltipTuple in effectTooltips) {
-                    tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });
-                }
+                //float effectiveness = enchantment.AllowedList[ItemType];
+                //var effectTooltips = enchantment.GetEffectsTooltips();
+		string tooltip = enchantment.ShortTooltip;
+		tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = rarityColors[i] });
+                //tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
+                //foreach (var tooltipTuple in effectTooltips) {
+                //    tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });
+                //}
+		i++;
             }
         }
 		public void GainXP(Item item, int xpInt, bool noMessage = false) {
