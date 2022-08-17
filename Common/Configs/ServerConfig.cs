@@ -391,13 +391,12 @@ namespace WeaponEnchantments.Common.Configs
         [JsonIgnore]
         private bool _automaticallyMatchPreseTtoWorldDifficulty;
 
-
         //Presets
         [Header("Presets")]
         [DrawTicks]
         [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
         [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
+        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset {
             get => _preset;
