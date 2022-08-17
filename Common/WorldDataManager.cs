@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
@@ -125,6 +126,12 @@ namespace WeaponEnchantments.Common
 						int stack = recipe.createItem.stack;
 						Main.recipe[i].createItem = new Item(newItemType, stack);
 					}
+				}
+			}
+
+			if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
+				foreach(Enchantment enchantment in Mod.GetContent<ModItem>().OfType<Enchantment>()) {
+					enchantment.SetEnchantmentStrength();
 				}
 			}
 		}

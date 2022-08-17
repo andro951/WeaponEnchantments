@@ -5,6 +5,7 @@ using Terraria.ModLoader.Config;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
+using Terraria;
 
 namespace WeaponEnchantments.Common.Configs
 {
@@ -285,7 +286,7 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Display approximate weapon damage in the tooltip")]
         [Tooltip("Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
             "This displays the damage against a 0 armor enemy.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool DisplayApproximateWeaponDamageTooltip;
 
         //Error messages
@@ -361,45 +362,81 @@ namespace WeaponEnchantments.Common.Configs
             return new { itemDefinition, Strength }.GetHashCode();
         }
     }
-    public class PresetData
-    {
+    public class PresetData {
         [JsonIgnore]
         public static List<int> presetValues = new List<int> { 250, 100, 50, 25 };
 
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
+        //Automatic Preset based on world difficulty
+        [Label("Automatically Match Preset to World Difficulty")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+            get => _automaticallyMatchPreseTtoWorldDifficulty;
+            set {
+                if (value) {
+                    _preset = "Automatic";
+                    _globalEnchantmentStrengthMultiplier = 100;
+                }
+				else {
+                    GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
+                }
+
+                _automaticallyMatchPreseTtoWorldDifficulty = value;
+            }
+        }
+
+        [JsonIgnore]
+        private bool _automaticallyMatchPreseTtoWorldDifficulty;
+
+
         //Presets
         [Header("Presets")]
         [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
         [DefaultValue("Normal")]
         [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset {
-            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
-
+            get => _preset;
             set {
                 if (presetNames.Contains(value)) {
-                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                    _preset = value;
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                    _automaticallyMatchPreseTtoWorldDifficulty = false;
+                }
+				else if (value == "Automatic") {
+                    _preset = value;
+                    _automaticallyMatchPreseTtoWorldDifficulty = true;
                 }
             }
         }
+        private string _preset;
 
         //Multipliers
         [Header("Multipliers")]
         [Label("Global Enchantment Strength Multiplier (%)")]
-        [Range(1, 250)]
+        [Range(0, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int GlobalEnchantmentStrengthMultiplier { get; set; }
-
-        public PresetData() {
-            Preset = "Normal";
+        public int GlobalEnchantmentStrengthMultiplier {
+            get => _globalEnchantmentStrengthMultiplier;
+			set {
+                _globalEnchantmentStrengthMultiplier = value;
+                Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
+                _automaticallyMatchPreseTtoWorldDifficulty = false;
+            }
         }
+        private int _globalEnchantmentStrengthMultiplier;
+
+		public PresetData() {
+            Preset = "Normal";
+		}
 
         public override bool Equals(object obj) {
             if (obj is PresetData other)
