@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {

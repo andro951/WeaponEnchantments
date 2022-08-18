@@ -8,12 +8,12 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Effects {
     public class OverpoweredEffect : EnchantmentEffect, IPassiveEffect {
-        public OverpoweredEffect(float enchantmentPower) : base(enchantmentPower) { }
+        public OverpoweredEffect(float EnchantmentStrength) : base(EnchantmentStrength) { }
 
         public override string DisplayName { get; } = "OP Effect";
 
         public void PostUpdateMiscEffects(WEPlayer player) {
-            player.Player.GetDamage(DamageClass.Generic) += EnchantmentPower;
+            player.Player.GetDamage(DamageClass.Generic) += EffectStrength;
         }
     }
 }

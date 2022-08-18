@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Effects {
         private bool IsQuiet { get; set; }
 
         // Apply Equipment efficiency (Doing it here allows tooltips to update)
-        private float applyChance => EnchantmentPower * EfficiencyMultiplier;
+        private float applyChance => EnchantmentStrength * EfficiencyMultiplier;
         private Time applyTime => BaseApplicationTime * EfficiencyMultiplier;
 
         public override sealed string DisplayName => $"On-Hit {GetBuffName(AppliedDebuffID)}";

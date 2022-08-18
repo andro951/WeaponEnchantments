@@ -15,9 +15,9 @@ namespace WeaponEnchantments.Effects {
         //    return f > 0 ? '+' : '\0';
         //}
 
-        //public EnchantmentEffect(float enchantmentPower = 1f) {
-        //    this.EnchantmentPower = enchantmentPower;
-        //}
+        public EnchantmentEffect(float EnchantmentStrength = 1f) {
+            //this.EnchantmentStrength = EnchantmentStrength;
+        }
 
         /// <summary>
         /// The EnchantmentStrength modifier based on damage type of the weapon.<br/>
@@ -28,20 +28,20 @@ namespace WeaponEnchantments.Effects {
 
         /// <summary>
         /// The strength of the effect.<br/>
-        /// For example, if LifeSteal is mapped to an EnchantmentPower of 1f, LifeSteal would heal 100% of the damage done.<br \>
+        /// For example, if LifeSteal is mapped to an EnchantmentStrength of 1f, LifeSteal would heal 100% of the damage done.<br \>
         /// Another example is if Defense is mapped to an enchantment power of 5.5f, the defense would increase by 5.<br/>
         /// Affected by EnchantmentamageEfficiency and EfficiencyMultiplier<br/>
         /// </summary>
-        public virtual float EnchantmentStrength { get; protected set; }
+        public virtual float EffectStrength { get; protected set; }
         
         /// <summary>
         /// Used to modify the EnchantmentStrength<br/>
         /// Affected by the item type the enchantment is applied on. (Weapon, Armor, Accesory)<br/>
         /// </summary>
-        public virtual float EfficiencyMultiplier { get; protected set; } = 1f;
+        public virtual float EfficiencyMultiplier { get; set; } = 1f;
         
-        public abstract string DisplayName { get; protected set; } = Name.AddSpaces();
-        public virtual string Tooltip { get; protected set; } = DisplayName;
+        public virtual string DisplayName => GetType().Name.AddSpaces();
+        public virtual string Tooltip => DisplayName;
         public virtual Color TooltipColor { get; protected set; } = new Color(0xaa, 0xaa, 0xaa);
         public virtual bool showTooltip => true;
 	    

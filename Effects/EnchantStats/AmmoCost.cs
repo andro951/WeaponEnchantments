@@ -14,19 +14,19 @@ namespace WeaponEnchantments.Effects
 	public class AmmoCost : StatEffect, INonVanillaStat
     {
         public AmmoCost(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) {
-            DisplayName = $"Ammo Cost Reduction";
+            
         }
 
         public override string DisplayName => EffectStrength >= 0f ? "Ammo Cost Reduction" : "Increased Ammo Cost";
         public override EnchantmentStat statType => EnchantmentStat.AmmoCost;
-	public override string Tooltip => ;
+		public override string Tooltip => ModifierToString();
 	
-	private string modifierToString() {
-		float strength = EffectStrength;
-		if (strength < 0f)
-			strength *= -1f;
+		private string ModifierToString() {
+			float strength = EffectStrength;
+			if (strength < 0f)
+				strength *= -1f;
 			
-		return $"{strengh.Percent()}% {DisplayName}";
-	}
+			return $"{strength.Percent()}% {DisplayName}";
+		}
     }
 }

@@ -3,6 +3,7 @@ using Terraria.ID;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {

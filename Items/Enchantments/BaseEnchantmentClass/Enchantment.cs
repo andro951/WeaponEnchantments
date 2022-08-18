@@ -142,8 +142,8 @@ namespace WeaponEnchantments.Items {
 		/// <summary>
 		/// A value 0 - 4 representing the enchantment's tier.
 		/// </summary>
-		public virtual int EnchantmentTier { protected set; get; } = GetEnchantmentTier(Name);
-		public string EnchantmentTypeName { get => Name.Substring(0, Name.IndexOf("Enchantment")); }
+		public virtual int EnchantmentTier { protected set; get; }
+		public string EnchantmentTypeName { protected set; get; }
 
 		/// <summary>
 		/// DO NOT CHANGE THIS UNLESS YOU ARE POSITIVE YOU ARE SUPPOSED TO!!!<br/>
@@ -345,6 +345,10 @@ namespace WeaponEnchantments.Items {
 			}*/
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
+			EnchantmentTier = GetEnchantmentTier(Name);
+
+			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+
 			//Item rarity
 			Item.rare = GetRarityFromTier(EnchantmentTier);
 
@@ -640,24 +644,25 @@ namespace WeaponEnchantments.Items {
 				bool first = true;
 				foreach (EItemType key in AllowedList.Keys) {
 					if (first) {
-						toolTip += "\n   *Allowed on ";
+						tooltip += "\n   *Allowed on ";
 						first = false;
 					}
 					else if (i == count - 1) {
-						toolTip += " and";	
+						tooltip += " and";	
 					}
 					else {
-						toolTip += ", ";	
+						tooltip += ", ";	
 					}
 					
-					toolTip += $"{key}: {AllowedList[key].Percent()}%";
+					tooltip += $"{key}: {AllowedList[key].Percent()}%";
 					
 					i++;
 					if (i == count && count <= 2)
-						toolTip += " Only*";
+						tooltip += " Only*";
 				}
 			}
-			return new List<Tuple<tooltip, Color.White>>()
+
+			return new List<Tuple<string, Color>>() { new Tuple<string, Color>(tooltip, Color.White) };
 		}
 
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {

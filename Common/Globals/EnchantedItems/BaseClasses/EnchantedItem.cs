@@ -602,7 +602,7 @@ namespace WeaponEnchantments.Common.Globals
                 //float effectiveness = enchantment.AllowedList[ItemType];
                 //var effectTooltips = enchantment.GetEffectsTooltips();
 		string tooltip = enchantment.ShortTooltip;
-		tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = rarityColors[i] });
+		tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = TierColors[i] });
                 //tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
                 //foreach (var tooltipTuple in effectTooltips) {
                 //    tooltips.Add(new TooltipLine(Mod, $"effects:{enchantment.Name}", $"• {tooltipTuple.Item1}") { OverrideColor = tooltipTuple.Item2 });

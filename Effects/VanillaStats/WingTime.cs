@@ -18,23 +18,6 @@ namespace WeaponEnchantments.Effects {
         public override string DisplayName { get; } = "Wing Time";
         private bool Infinity;
 
-        protected override string modifierToString() {
-            if (Infinity) {
-                return "Permanent";
-            }
-            string final = "";
-            float ad = EStatModifier.Flat;
-            if (ad > 0) {
-                final += $"{s(ad)}{new Time((int)ad, Time.Magnitude.Frames)}";
-            }
-            float mp = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
-            if (mp > 0) {
-                if (final != "") final += ' ';
-                final += $"{s(mp)}{mp.Percent()}";
-            }
-            return final;
-        }
-
         public void PostUpdateMiscEffects(WEPlayer player) {
             if (Infinity && player.Player.wingTime != 0f) { // Exactly how soaring insignia does it
                 player.Player.wingTime = player.Player.wingTimeMax;
