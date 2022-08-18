@@ -128,12 +128,6 @@ namespace WeaponEnchantments.Common
 					}
 				}
 			}
-
-			if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
-				foreach(Enchantment enchantment in Mod.GetContent<ModItem>().OfType<Enchantment>()) {
-					enchantment.SetEnchantmentStrength();
-				}
-			}
 		}
 	}
 }

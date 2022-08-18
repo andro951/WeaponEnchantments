@@ -376,19 +376,16 @@ namespace WeaponEnchantments.Common.Configs
         public bool AutomaticallyMatchPreseTtoWorldDifficulty {
             get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
+                _automaticallyMatchPreseTtoWorldDifficulty = !_automaticallyMatchPreseTtoWorldDifficulty;
                 if (value) {
                     _preset = "Automatic";
-                    _globalEnchantmentStrengthMultiplier = 100;
                 }
 				else {
                     GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
                 }
-
-                _automaticallyMatchPreseTtoWorldDifficulty = value;
             }
         }
 
-        [JsonIgnore]
         private bool _automaticallyMatchPreseTtoWorldDifficulty;
 
 
