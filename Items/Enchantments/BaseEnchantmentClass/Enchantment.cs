@@ -67,16 +67,7 @@ namespace WeaponEnchantments.Items
 
 		#region Strength
 
-		public float EnchantmentStrength { 
-			protected set => _enchantmentStrengths[0] = value;
-			get {
-				if (_enchantmentStrengths.Count > 1)
-					return _enchantmentStrenghts[Main.GameMode];
-				
-				return _enchantmentStrengths[0];
-			}
-		}
-		protected float[] _enchantmentStrengths;
+		public float EnchantmentStrength;
 
 		/// <summary>
 		/// Default 0<br/>
@@ -489,7 +480,7 @@ namespace WeaponEnchantments.Items
 			//Config - Global Enchantment Strength Multipliers
 			if (!foundIndividualStrength) {
 				//Recomended
-				float multiplier = RecomendedStrengthMultiplier;
+				float multiplier = GlobalStrengthMultiplier;
 				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 				float scale = Math.Abs(ScalePercent);
 

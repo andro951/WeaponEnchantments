@@ -4,8 +4,6 @@ using static WeaponEnchantments.WEMod;
 namespace WeaponEnchantments.Common.Configs
 {
 	internal class ConfigValues {
-		public static readonly float[] PresetMultipliers = { 1f, 0.5f, 0.25f, 2.5f };
-
 		public static float GlobalStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float EnchantmentDropChance = serverConfig.EnchantmentDropChance / 100f;
 		public static float BossEnchantmentDropChance = serverConfig.BossEnchantmentDropChance / 100f;
