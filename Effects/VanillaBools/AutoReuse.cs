@@ -11,6 +11,5 @@ namespace WeaponEnchantments.Effects {
     public class AutoReuse : BoolEffect {
         public AutoReuse(bool prevent = false) : base(prevent) { }
         public override EnchantmentStat statName => EnchantmentStat.AutoReuse;
-        public override string DisplayName { get; } = "Auto Reuse";
     }
 }
