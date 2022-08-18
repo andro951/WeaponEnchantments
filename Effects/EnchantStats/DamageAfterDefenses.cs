@@ -11,9 +11,9 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects
 {
-	public class DamageAfterDefenses : StatEffect, IClassedEffect, IModifyHitDamage, INonVanillaStat
+	public class DamageAfterDefenses : ClassedStatEffect, IModifyHitDamage, INonVanillaStat
     {
-        public DamageAfterDefenses(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, DamageClass dc = null) : base(additive, multiplicative, flat, @base) {
+        public DamageAfterDefenses(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
             damageClass = dc != null ? dc : DamageClass.Generic;
         }
 
