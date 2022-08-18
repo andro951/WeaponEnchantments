@@ -369,33 +369,66 @@ namespace WeaponEnchantments.Common.Configs
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
-        //Presets
-        [Header("Presets")]
-        [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
-        [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
+        //Automatic Preset based on world difficulty
+        [Label("Automatically Match Preset to World Difficulty")]
+        [DefaultValue(true)]
         [ReloadRequired]
-        public string Preset {
-            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
-
+        public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+            get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
-                if (presetNames.Contains(value)) {
-                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                _automaticallyMatchPreseTtoWorldDifficulty = !_automaticallyMatchPreseTtoWorldDifficulty;
+                if (value) {
+                    _preset = "Automatic";
+                }
+                else {
+                    GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
                 }
             }
         }
 
+        private bool _automaticallyMatchPreseTtoWorldDifficulty;
+
+        //Presets
+        [Header("Presets")]
+        [DrawTicks]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
+        [DefaultValue("Normal")]
+        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        [ReloadRequired]
+        public string Preset {
+            get => _preset;
+            set {
+                if (presetNames.Contains(value)) {
+                    _preset = value;
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                    _automaticallyMatchPreseTtoWorldDifficulty = false;
+                }
+                else if (value == "Automatic") {
+                    _preset = value;
+                    _automaticallyMatchPreseTtoWorldDifficulty = true;
+                }
+            }
+        }
+        private string _preset;
+
         //Multipliers
         [Header("Multipliers")]
         [Label("Global Enchantment Strength Multiplier (%)")]
-        [Range(1, 250)]
+        [Range(0, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int GlobalEnchantmentStrengthMultiplier { get; set; }
+        public int GlobalEnchantmentStrengthMultiplier {
+            get => _globalEnchantmentStrengthMultiplier;
+            set {
+                _globalEnchantmentStrengthMultiplier = value;
+                Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
+                _automaticallyMatchPreseTtoWorldDifficulty = false;
+            }
+        }
+        private int _globalEnchantmentStrengthMultiplier;
 
         public PresetData() {
             Preset = "Normal";
