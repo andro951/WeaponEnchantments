@@ -671,8 +671,7 @@ namespace WeaponEnchantments
                     trackedHoverItem = null;
                 }
             }
-        }
-		public override void PostUpdate() {
+
             foreach (int key in buffs.Keys) {
                 Player.AddBuff(key, 60);
             }
@@ -684,10 +683,7 @@ namespace WeaponEnchantments
                 }
             }
         }
-		public override void UpdateAutopause() {
-			base.UpdateAutopause();
-		}
-		public bool ItemChanged(Item current, Item previous, bool weapon = false) {
+        public bool ItemChanged(Item current, Item previous, bool weapon = false) {
             if (current != null && !current.IsAir) {
                 if(previous == null)
                     return true;

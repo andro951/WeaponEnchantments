@@ -475,7 +475,35 @@ namespace WeaponEnchantments.Items
 				}
 			}*/
 
-			SetEnchantmentStrength();
+			//Config - Individual Strength
+			bool foundIndividualStrength = false;
+			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
+				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
+					if (pair.itemDefinition.Name == Name) {
+						EnchantmentStrength = ((float)pair.Strength / 1000f);
+						foundIndividualStrength = true;
+					}
+				}
+			}
+
+			//Config - Global Enchantment Strength Multipliers
+			if (!foundIndividualStrength) {
+				//Recomended
+				float multiplier = RecomendedStrengthMultiplier;
+				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+				float scale = Math.Abs(ScalePercent);
+
+				//Apply Scale Percent
+				if (ScalePercent < 0f && multiplier < 1f) {
+					EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
+				}
+				else {
+					EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
+				}
+			}
+
+			//Round Enchantment Strength
+			EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 4);
 
 			//Default My Display Name
 			if (MyDisplayName == "")
@@ -509,45 +537,6 @@ namespace WeaponEnchantments.Items
 		public override void SetDefaults() {
 			Item.maxStack = 99;
 			GetDefaults();
-		}
-		public void SetEnchantmentStrength() {//Config - Individual Strength
-			bool foundIndividualStrength = false;
-			_enchantmentStrengths = new int[1];
-			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
-				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
-					if (pair.itemDefinition.Name == Name) {
-						EnchantmentStrength = { (float)pair.Strength / 1000f }
-						foundIndividualStrength = true;
-						//Round Enchantment Strength
-						EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 4);
-					}
-				}
-			}
-			//Config - Global Enchantment Strength Multipliers
-			if (!foundIndividualStrength) {
-				int count = 1;
-				if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty)
-					count = 4;
-				for (int i = 0; i < count; i++) {
-					//Global
-					float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
-					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-					float scale = Math.Abs(ScalePercent);
-
-					//Apply Scale Percent
-					if (ScalePercent< 0f && multiplier< 1f) {
-						_enchantmentStrength[i] = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier* scale;
-					}
-					else {
-						_enchantmentStrength[i] = (1f - scale) * defaultStrength + defaultStrength* multiplier * scale;
-					}
-
-					//Round Enchantment Strength
-					_enchantmentStrength[i] = (float)Math.Round(_enchantmentStrength[i], 4);
-				}
-			}
-
-			
 		}
 		private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false) {
 			percentage = ShowPercentSignInTooltip != null ? (bool)ShowPercentSignInTooltip : true;
