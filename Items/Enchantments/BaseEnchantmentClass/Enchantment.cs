@@ -17,24 +17,6 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
-    public enum DamageTypeSpecificID {
-		Default,
-		Generic,
-		Melee,
-		MeleeNoSpeed,
-		Ranged,
-		Magic,
-		Summon,
-		SummonMeleeSpeed,
-		MagicSummonHybrid,
-		Throwing
-	} // Located in DamageClassLoader.cs
-
-	public enum ArmorSlotSpecificID {
-		Head,
-		Body,
-		Legs
-	}
 	public abstract class Enchantment : ModItem {
 
 		#region Static
