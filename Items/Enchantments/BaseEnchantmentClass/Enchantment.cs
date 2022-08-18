@@ -67,7 +67,7 @@ namespace WeaponEnchantments.Items
 
 		#region Strength
 
-		public float EnchantmentStrength;
+		public float EnchantmentStrength { private set; get; }
 
 		/// <summary>
 		/// Default 0<br/>

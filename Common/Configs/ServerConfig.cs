@@ -374,7 +374,7 @@ namespace WeaponEnchantments.Common.Configs
         [DrawTicks]
         [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
         [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset {
             get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
