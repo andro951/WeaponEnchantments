@@ -6,7 +6,7 @@ using static WeaponEnchantments.WEPlayer;
 namespace WeaponEnchantments.Effects {
     public abstract class BoolEffect : EnchantmentEffect {
 
-        public bool EnableStat = true;
+        public bool EnableStat { get; protected set; }
         protected BoolEffect(bool prevent = false) {
             EnableStat = !prevent;
         }
