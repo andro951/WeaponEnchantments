@@ -156,16 +156,11 @@ namespace WeaponEnchantments.Items {
 		#endregion
 
 		#region Identifiers and names
-
-		/// <summary>
-		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
-		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
-		/// </summary>
-		public virtual string CustomTooltip { private set; get; } = "";
+			
 		/// <summary>
 		/// A value 0 - 4 representing the enchantment's tier.
 		/// </summary>
-		public virtual int EnchantmentTier => GetEnchantmentTier(Name);
+		public virtual int EnchantmentTier { protected set; get; } = GetEnchantmentTier(Name);
 		public string EnchantmentTypeName { get => Name.Substring(0, Name.IndexOf("Enchantment")); }
 
 		/// <summary>
@@ -177,7 +172,7 @@ namespace WeaponEnchantments.Items {
 		/// Acceptable Range -4 to 0 (Potion buffs set to -2).<br/>
 		/// -4 would cause the value of the enchantment to be almost zero.<br/>
 		/// </summary>
-		public virtual int EnchantmentValueTierReduction { private set; get; } = 0;
+		public virtual int EnchantmentValueTierReduction { protected set; get; } = 0;
 
 		/// <summary>
 		/// Default 1<br/>
@@ -191,7 +186,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>5</term><description>No tiers are craftable.</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int LowestCraftableTier { private set; get; } = 1;
+		public virtual int LowestCraftableTier { protected set; get; } = 1;
 
 		/// <summary>
 		/// Default value will the the class name with spaces added.<br/>
@@ -200,43 +195,16 @@ namespace WeaponEnchantments.Items {
 		/// Example: class name - ScaleEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
 		///	MyDisplayName => "Size"<br/>
 		/// </summary>
-		public virtual string MyDisplayName { private set; get; } = "";
+		public virtual string MyDisplayName { protected set; get; } = "";
+		
 
 		/// <summary>
-		/// Default true<br/>
-		/// Set to false to prevent showing a "%" after the EnchantmentStrength in the tooltip.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> +40%</description><br/>
-		/// <term>False</term><description> +40</description><br/>
-		/// </list>
+		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
+		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
 		/// </summary>
-		//public virtual bool? ShowPercentSignInTooltip { private set; get; } = null;
-
-		/// <summary>
-		/// Default true<br/>
-		/// Set to false to prevent multiplying the EnchantmentStrength by 100 in the tooltip.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> x40%</description><br/>
-		/// <term>False</term><description> x0.4%</description><br/>
-		/// </list>
-		/// </summary>
-		//public virtual bool? MultiplyBy100InTooltip { private set; get; } = null;
-
-		/// <summary>
-		/// Default true for Static Stats and false for all others.<br/>
-		/// Set to true to show a "x" in the tooltip after the EnchantmentStrength.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> +40%</description><br/>
-		/// <term>False</term><description> 40x</description><br/>
-		/// </list>
-		/// </summary>
-		//public virtual bool? ShowPlusSignInTooltip { private set; get; } = null;
+		public virtual string CustomTooltip { protected set; get; } = "";
+		
+		public virtual string ShortTooltip { protected set; get; } = "";
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
@@ -352,14 +320,6 @@ namespace WeaponEnchantments.Items {
 		/// CheckBuffByName()<br/>
 		/// </summary>
 		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
-
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips) {
-			var tooltipTuples = GenerateFullTooltip();
-            foreach (var tooltipTuple in tooltipTuples) {
-				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
-			}
-		}
 
         public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
@@ -676,14 +636,46 @@ namespace WeaponEnchantments.Items {
 			return false;
 		}*/
 
-		public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
-			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-			return tooltips;
-        }
+
+
+        	public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			var tooltipTuples = GenerateFullTooltip();
+            		foreach (var tooltipTuple in tooltipTuples) {
+				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
+			}
+		}
+	//	public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
+	//		List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
+	//		
+	//		return tooltips;
+        //}
 
 		public IEnumerable<Tuple<string, Color>> GetAllowedListTooltips() {
-			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-			return AllowedList.Keys.Select(i => new Tuple<string, Color>($"{i} ({Math.Round(AllowedList[i] * 100, 1)}%)", Color.Gray));
+			string tooltip = "";
+			int count = AllowedList.Count;
+			if (AllowedList.Count > 0) {
+				int i = 0;
+				bool first = true;
+				foreach (EItemType key in AllowedList.Keys) {
+					if (first) {
+						toolTip += "\n   *Allowed on ";
+						first = false;
+					}
+					else if (i == count - 1) {
+						toolTip += " and";	
+					}
+					else {
+						toolTip += ", ";	
+					}
+					
+					toolTip += $"{key}: {AllowedList[key].Percent()}%";
+					
+					i++;
+					if (i == count && count <= 2)
+						toolTip += " Only*";
+				}
+			}
+			return new List<Tuple<tooltip, Color.White>>()
 		}
 
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
@@ -698,30 +690,59 @@ namespace WeaponEnchantments.Items {
 			return tooltips;
 		}
 
-		private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {
-			return string.Join("\nAllowed on ", itemTypes.Select(i => $"{i} ({Math.Round(AllowedList[i]*100, 1)})"));
-		}
+		//private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {
+		//	return string.Join("\nAllowed on ", itemTypes.Select(i => $"{i} ({Math.Round(AllowedList[i]*100, 1)})"));
+		//}
 
 		private IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
 			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
 
 			if (CustomTooltip != "") 
-				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.DarkGray));
-			
-			fullTooltip.Add(new Tuple<string, Color>("Effectiveness:", Color.Violet));
-			fullTooltip.AddRange(GetAllowedListTooltips());
+				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.White));//, Color.DarkGray));
 
-			fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
+			//fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
 			fullTooltip.AddRange(GetEffectsTooltips());
 
 
 			fullTooltip.Add(new Tuple<string, Color>($"Level cost: {GetCapacityCost()}", Color.Blue));
+			if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
+				//Unique (Specific Item)
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*",
+					Color.White
+				));
+			}
+			else if (DamageClassSpecific > 0) {
+				//DamageClassSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*",
+					Color.White
+				));
+			}
+			else if (ArmorSlotSpecific > -1) {
+				//ArmorSlotSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*",
+					Color.White
+				));
+			}
+
+			//RestrictedClass
+			if (RestrictedClass > -1) {
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*",
+					Color.White
+				));
+			}
 
 			if (Max1)
-				fullTooltip.Add(new Tuple<string, Color>($"♦ Max of 1 per item", Color.DarkRed));
+				fullTooltip.Add(new Tuple<string, Color>($"   *Max of 1 per item*", Color.DarkRed));
 
 			if (Utility)
 				fullTooltip.Add(new Tuple<string, Color>($"♪ Utility", Color.DarkGreen));
+			
+			//fullTooltip.Add(new Tuple<string, Color>("Effectiveness:", Color.Violet));
+			fullTooltip.AddRange(GetAllowedListTooltips());
 
 			//string shortTooltip = GenerateShortTooltip();
 
