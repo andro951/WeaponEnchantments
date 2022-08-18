@@ -58,7 +58,7 @@ namespace WeaponEnchantments.Effects {
         /// </summary>
         public virtual float EfficiencyMultiplier { get; protected set; } = 1f;
         
-        public abstract string DisplayName { get; protected set; }
+        public abstract string DisplayName { get; protected set; } = Name.AddSpaces();
         public virtual string Tooltip { get; protected set; } = DisplayName;
         public virtual Color TooltipColor { get; protected set; } = new Color(0xaa, 0xaa, 0xaa);
 
