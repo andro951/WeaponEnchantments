@@ -17,7 +17,16 @@ namespace WeaponEnchantments.Effects
             DisplayName = $"Ammo Cost Reduction";
         }
 
-        public override string DisplayName { get; }
+        public override string DisplayName => EffectStrength >= 0f ? "Ammo Cost Reduction" : "Increased Ammo Cost";
         public override EnchantmentStat statType => EnchantmentStat.AmmoCost;
+	public override string Tooltip => ;
+	
+	private string modifierToString() {
+		float strength = EffectStrength;
+		if (strength < 0f)
+			strength *= -1f;
+			
+		return $"{strengh}% {DisplayName}";
 	}
+    }
 }
