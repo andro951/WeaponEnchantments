@@ -11,9 +11,9 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class EnchantmentEffect {
-        internal static char s(float f) {
-            return f > 0 ? '+' : '\0';
-        }
+        //internal static char s(float f) {
+        //    return f > 0 ? '+' : '\0';
+        //}
 
         public EnchantmentEffect(float enchantmentPower = 1f) {
             this.EnchantmentPower = enchantmentPower;
@@ -50,20 +50,20 @@ namespace WeaponEnchantments.Effects {
         /// This can be used on the enchantment implementation, but is not required.
         /// </para>
         /// </summary>
-        protected float EnchantmentPower { get; set; }
+        protected float EnchantmentPower { get; protected set; }
         
         /// <summary>
         /// How effective the enchantment is.
         /// Affected by armor efficiency (Armor, Weapon, Accesory)
         /// </summary>
-        public virtual float EfficiencyMultiplier { get; set; } = 1f;
+        public virtual float EfficiencyMultiplier { get; protected set; } = 1f;
         
-        public abstract string DisplayName { get; }
-        public virtual string Tooltip { get; set; } = $"{s(EnchantmentPower)}{EnchantmentPower.Percent()}% {DisplayName}";
-        public virtual Color TooltipColor { get; } = new Color(0xaa, 0xaa, 0xaa);
+        public abstract string DisplayName { get; protected set; }
+        public virtual string Tooltip { get; protected set; } = DisplayName;
+        public virtual Color TooltipColor { get; protected set; } = new Color(0xaa, 0xaa, 0xaa);
 
-        public virtual bool showTooltip { get; } = true;
-        public virtual float SelfStackingPenalty { get; set; } = 1f;
+        public virtual bool showTooltip => true;
+        public virtual float SelfStackingPenalty { get; protected set; } = 0f;
         public float GetClassEfficiency(DamageClass dc) {
             if (EnchantmentDamageEfficiency.ContainsKey(dc))
                 return EnchantmentDamageEfficiency[dc];
