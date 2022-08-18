@@ -248,9 +248,7 @@ namespace WeaponEnchantments.Common
                 case ItemID.DiamondStaff:
                 case ItemID.ZapinatorGray:
                 case ItemID.Javelin:
-                case ItemID.Minishark:
                 case ItemID.ThornWhip:
-                case ItemID.StarCannon:
                 case ItemID.Starfury:
                 case ItemID.ThornChakram:
                     rarity = 1f;
@@ -260,6 +258,10 @@ namespace WeaponEnchantments.Common
                 case ItemID.UnholyWater:
                     rarity = 1.2f;
                     break;
+                case ItemID.Minishark:
+                case ItemID.StarCannon:
+		    rarity = 1.4f;
+		    break;
                 case ItemID.BloodRainBow:
                 case ItemID.VampireFrogStaff:
                     rarity = 1.5f;
