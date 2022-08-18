@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Effects {
 		}
 
         public EStatModifier EStatModifier { set; get; }
-        public float EffectStrength => EStatModifier.Strength;
+        public override float EffectStrength => EStatModifier.Strength;
 		public override float EfficiencyMultiplier { 
             get => EStatModifier.EfficiencyMultiplier; 
             set => EStatModifier.EfficiencyMultiplier = value;
@@ -22,23 +22,23 @@ namespace WeaponEnchantments.Effects {
 
 		public abstract EnchantmentStat statType { get; }
 
-        protected virtual string modifierToString() {
-            string final = "";
-            float mult = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
-            float flats = EStatModifier.Base * mult + EStatModifier.Flat;
+        //protected virtual string modifierToString() {
+        //    string final = "";
+        //    float mult = EStatModifier.Multiplicative + EStatModifier.Additive - 2;
+        //    float flats = EStatModifier.Base * mult + EStatModifier.Flat;
 
-            if (flats > 0f) {
-                final += $"{s(flats)}{flats}";
-            }
+        //    if (flats > 0f) {
+        //        final += $"{s(flats)}{flats}";
+        //    }
 
-            if (mult > 0f) {
-                if (final != "") final += ' ';
-                final += $"{s(mult)}{mult.Percent()}%";
-            }
+        //    if (mult > 0f) {
+        //        if (final != "") final += ' ';
+        //        final += $"{s(mult)}{mult.Percent()}%";
+        //    }
 
-            return final;
-        }
+        //    return final;
+        //}
 
-        public override string Tooltip => $"{modifierToString()} {DisplayName}";
+        public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName}";
     }
 }
