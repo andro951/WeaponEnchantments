@@ -14,9 +14,9 @@ namespace WeaponEnchantments.Effects {
 		public abstract EnchantmentStat statName { get; }
 
         protected virtual string modifierToString() {
-            return EnableStat ? "Enabled" : "Prevented";
+            return ": " + (EnableStat ? "Enabled" : "Prevented");
         }
 
-        public override string Tooltip => $"{DisplayName}: {modifierToString()}";
+        public override string Tooltip => $"{DisplayName}{modifierToString()}";
     }
 }
