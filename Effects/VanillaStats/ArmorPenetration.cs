@@ -17,6 +17,6 @@ namespace WeaponEnchantments.Effects {
         
         public DamageClass damageClass { get; set; }
         public override EnchantmentStat statType => EnchantmentStat.ArmorPenetration;
-        public override DisplayName { get; } = $"{damageClass.S()} Armor Penetration";
+        public override DisplayName { get; } = $"{damageClass.S()}Armor Penetration";
     }
 }
