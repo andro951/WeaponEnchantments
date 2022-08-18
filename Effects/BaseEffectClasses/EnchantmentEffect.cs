@@ -50,7 +50,7 @@ namespace WeaponEnchantments.Effects {
         /// This can be used on the enchantment implementation, but is not required.
         /// </para>
         /// </summary>
-        protected float EnchantmentPower { get; protected set; }
+        public virtual float EnchantmentStrength { get; protected set; }
         
         /// <summary>
         /// How effective the enchantment is.
