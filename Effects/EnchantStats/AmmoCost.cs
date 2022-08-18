@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Effects
 		if (strength < 0f)
 			strength *= -1f;
 			
-		return $"{strengh}% {DisplayName}";
+		return $"{strengh.Percent()}% {DisplayName}";
 	}
     }
 }
