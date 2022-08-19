@@ -18,4 +18,33 @@ namespace WeaponEnchantments.Common.Utility
 		Body,
 		Legs
 	}
+
+    public enum EnchantmentStat : byte
+    {
+        None,
+        AmmoCost,
+        AttackSpeed,
+        ArmorPenetration,
+        AutoReuse,
+        BonusManaRegen,
+        CriticalStrikeChance,
+        Damage,
+        DamageAfterDefenses,
+        Defense,
+        JumpSpeedBoost,
+        Knockback,
+        LifeRegen,
+        LifeSteal,
+        ManaCost,
+        ManaRegen,
+        MaxFallSpeed,
+        MaxHP,
+        MaxMinions,
+        MaxMP,
+        MoveAcceleration,
+        MoveSlowdown,
+        MoveSpeed,
+        Size,
+        WingTime,
+    }
 }

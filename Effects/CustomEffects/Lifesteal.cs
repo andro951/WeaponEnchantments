@@ -1,5 +1,6 @@
 ﻿using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
 using static WeaponEnchantments.WEPlayer;
 
