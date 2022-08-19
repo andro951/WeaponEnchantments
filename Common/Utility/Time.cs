@@ -9,39 +9,40 @@ namespace WeaponEnchantments.Common.Utility {
     public class Time {
         #region Statics
         public enum Magnitude {
-            Frames,
+            Ticks,
             Seconds,
             Minutes,
             Hours,
         }
         private static IDictionary<Magnitude, string> MagnitudeStrings = new Dictionary<Magnitude, string>() {
-            { Magnitude.Frames, "Frames" },
+            { Magnitude.Ticks, "Ticks" },
             { Magnitude.Seconds, "Seconds" },
             { Magnitude.Minutes, "Minutes" },
             { Magnitude.Hours, "Hours" },
         }.ToImmutableDictionary();
         
         private static IDictionary<Magnitude, int> Conversions = new Dictionary<Magnitude, int>() {
-            { Magnitude.Frames, 60 },
+            { Magnitude.Ticks, 60 },
             { Magnitude.Seconds, 60 },
             { Magnitude.Minutes, 60 },
         }.ToImmutableDictionary();
         private static string IndefiniteString = "Indefinite";
-        private static string NoTimeString = "An Instant";
         #endregion
 
         #region Properties
 
-        public int Value;
+        public float Value;
+        public int Ticks = 0;
         public Magnitude Mag;
 
         #endregion
 
         #region Constructors
-        public Time(int value, Magnitude mag = Magnitude.Seconds) {
-            Value = value;
+        public Time(float value, Magnitude mag = Magnitude.Ticks) {
+            Value = (float)value;
             Mag = mag;
             ReduceSelf();
+            Ticks = CalculateTicks();
         }
         #endregion
 
@@ -51,9 +52,7 @@ namespace WeaponEnchantments.Common.Utility {
             if (Value < 0) {
                 return IndefiniteString;
             }
-            else if (Value == 0) {
-                return NoTimeString;
-            }
+
             var maxReducedSelf = MaxReducedSelf();
             return $"{Math.Round(maxReducedSelf.Item1, 1)} {MagnitudeStrings[maxReducedSelf.Item2]}";
         }
@@ -64,7 +63,7 @@ namespace WeaponEnchantments.Common.Utility {
             if (Value < 0) {
                 return;
             }
-            while (Conversions.ContainsKey(Mag) && Value > Conversions[Mag] && Value % Conversions[Mag] == 0) {
+            while (Conversions.ContainsKey(Mag) && Value >= Conversions[Mag] && Value % Conversions[Mag] == 0) {
                 Value /= Conversions[Mag];
                 Mag += 1;
             }
@@ -86,22 +85,23 @@ namespace WeaponEnchantments.Common.Utility {
         }
       
         // Returns the amount of frames this value represents
-        protected int ToFrames() {
+        private int CalculateTicks() {
             if (Value < 0) {
-                return Value;
+                return (int)Value;
             }
-            int newValue = Value;
+            float newValue = Value;
             Magnitude newMag = Mag;
             while (newMag != 0 && Conversions.ContainsKey(newMag - 1)) {
                 newMag -= 1;
                 newValue *= Conversions[newMag];
             }
-            return newValue;
+
+            return (int)newValue;
         }
         #endregion
 
         #region Operator Functions
-        public static implicit operator int(Time t) { return t.ToFrames(); }
+        public static implicit operator int(Time t) { return t.Ticks; }
         
         public static Time operator *(Time t, int value) {
             return new Time(t.Value * value, t.Mag);
@@ -109,7 +109,7 @@ namespace WeaponEnchantments.Common.Utility {
 
         public static Time operator *(Time t, float value) {
             int newFrames = (int)((int)t * value);
-            return new Time(newFrames, Magnitude.Frames);
+            return new Time(newFrames, Magnitude.Ticks);
         }
 
         #endregion

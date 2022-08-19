@@ -107,7 +107,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
-        public override EItemType ItemType => EItemType.Weapon;
+        public override EItemType ItemType => EItemType.Weapons;
         public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 

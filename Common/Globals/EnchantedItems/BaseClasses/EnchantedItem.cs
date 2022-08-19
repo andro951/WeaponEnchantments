@@ -135,7 +135,7 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Tracking (instance)
 
-        public virtual EItemType ItemType { get; } = EItemType.Weapon;
+        public virtual EItemType ItemType { get; } = EItemType.Weapons;
         public bool inEnchantingTable = false;
         public bool trashItem = false;
         public bool favorited = false;
@@ -1480,13 +1480,13 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
                     Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
-                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
+                    if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
                     else if (IsArmorItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Armor)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on armor and has been removed from your " + item.Name + ".");
                     }
-                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accessory)) {
+                    else if (IsAccessoryItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                     }
 
@@ -1573,11 +1573,11 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void ApplyAllowedList(this Item item, Enchantment enchantment, ref float add, ref float mult, ref float flat, ref float @base) {
             if (IsWeaponItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Weapon)) {
-                    add *= enchantment.AllowedList[EItemType.Weapon];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Weapon];
-                    flat *= enchantment.AllowedList[EItemType.Weapon];
-                    @base *= enchantment.AllowedList[EItemType.Weapon];
+                if (enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
+                    add *= enchantment.AllowedList[EItemType.Weapons];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Weapons];
+                    flat *= enchantment.AllowedList[EItemType.Weapons];
+                    @base *= enchantment.AllowedList[EItemType.Weapons];
                     return;
                 }
                 else {
@@ -1603,11 +1603,11 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
             if (IsAccessoryItem(item)) {
-                if (enchantment.AllowedList.ContainsKey(EItemType.Accessory)) {
-                    add *= enchantment.AllowedList[EItemType.Accessory];
-                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accessory];
-                    flat *= enchantment.AllowedList[EItemType.Accessory];
-                    @base *= enchantment.AllowedList[EItemType.Accessory];
+                if (enchantment.AllowedList.ContainsKey(EItemType.Accessories)) {
+                    add *= enchantment.AllowedList[EItemType.Accessories];
+                    mult = 1f + (mult - 1f) * enchantment.AllowedList[EItemType.Accessories];
+                    flat *= enchantment.AllowedList[EItemType.Accessories];
+                    @base *= enchantment.AllowedList[EItemType.Accessories];
                     return;
                 }
                 else {

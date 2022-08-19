@@ -860,11 +860,9 @@ namespace WeaponEnchantments
 
             bool skipOnHitEffects = projectile != null ? projectile.GetWEProjectile().skipOnHitEffects : false;
 
-            WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
-
             Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
-            //Buffs and debuffs
+            //Enemy debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
                 int amaterasuDamageAdded = 0;
@@ -877,26 +875,36 @@ namespace WeaponEnchantments
                 }
 
                 if (Main.netMode != NetmodeID.Server) {
-                    var debuffs = iGlobal.debuffs;
+                    HashSet<short> dontDissableImmunitiy = new HashSet<short>();
+                    Dictionary<short, int> debuffs = new Dictionary<short, int>();
+                    foreach (var pair in CombinedOnHitDebuffs) {
+                        float chance = pair.Value.Chance;
+                        if (chance >= 1f || chance >= Main.rand.NextFloat()) {
+                            debuffs.Add(pair.Key, pair.Value.Duration.Ticks);
+                            if (!pair.Value.DisableImmunity)
+                                dontDissableImmunitiy.Add(pair.Value.BuffID);
+						}
+					}
+
                     if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.type)) {
                         foreach (short key in debuffs.Keys) {
                             debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
                         }
                     }
 
-                    Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs);
+                    Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
                 }
                 else {
                     $"NetDebuffs called from server.".Log();
                 }
 
                 //Sets Minion Attack target
-                if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
-                    Player.MinionAttackTargetNPC = target.whoAmI;
+                //if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
+                //    Player.MinionAttackTargetNPC = target.whoAmI;
             }
 
             if (target.type != NPCID.TargetDummy) {
-                //Buffs and Debuffs
+                //Player buffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
                     foreach (int onHitBuff in iGlobal.onHitBuffsOld.Keys) {
@@ -1255,7 +1263,6 @@ namespace WeaponEnchantments
             }
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
-
             foreach (IOnHitEffect effect in EnchantmentEffects.OfType<IOnHitEffect>()) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }

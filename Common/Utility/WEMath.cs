@@ -87,6 +87,34 @@ namespace WeaponEnchantments.Common.Utility
 		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
+		public static void AddCheckOverflow(this ref int n1, float n2) {
+			try {
+				checked {
+					n1 += (int)n2;
+				}
+			}
+			catch {
+				n1 = int.MaxValue;
+			}
+		}
+
+		/// <summary>
+		/// Multiplies n1 by n2 and caps n1 at int.MaxValue.
+		/// </summary>
+		public static void MultiplyCheckOverflow(this ref int n1, float n2) {
+			try {
+				checked {
+					n1 = (int)Math.Round((float)n1 * n2);
+				}
+			}
+			catch {
+				n1 = int.MaxValue;
+			}
+		}
+
+		/// <summary>
+		/// Adds n2 to n1 and caps n1 at int.MaxValue.
+		/// </summary>
 		public static void AddCheckOverflow(this ref float n1, float n2) {
 			try {
 				checked {

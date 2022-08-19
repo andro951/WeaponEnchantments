@@ -125,7 +125,7 @@ namespace WeaponEnchantments.Common
 		}
 		private float _strength;
 
-		private float BaseTooltip => Strength - _flat;
+		private float BaseTooltip => (float)Math.Round(Strength - _flat, 3);
 		public string SmartTooltip {
 			get {
 				if(_base <= 0f && _multiplicative != 1f) {
@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Common
 						if (sign)
 							tooltip += "+";
 
-						tooltip += $"{(multiply100 ? baseTooltip.Percent() : baseTooltip)}";
+						tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
 
 					}
 					else {

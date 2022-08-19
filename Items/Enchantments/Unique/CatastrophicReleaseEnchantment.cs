@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
 
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

@@ -21,12 +21,12 @@ namespace WeaponEnchantments.Items.Enchantments
 		
 		public override void GetMyStats() {
 			Effects = new() {
-				new OnHitTargetDebuffEffect(StatusEffect, new Time(BuffDuration)),
+				new OnHitTargetDebuffEffect(StatusEffect, BuffDuration),
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

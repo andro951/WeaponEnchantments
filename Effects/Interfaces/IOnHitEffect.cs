@@ -17,12 +17,12 @@ namespace WeaponEnchantments.Effects {
         /// </para>
         /// </summary>
         /// <param name="npc">The npc that was just hit</param>
-        /// <param name="player">The player for which this enchantment applies</param>
+        /// <param name="wePlayer">The player for which this enchantment applies</param>
         /// <param name="item">The item that applied the hit</param>
         /// <param name="damage">The damage about to be dealt to the npc</param>
         /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
         /// <param name="crit">Whether or not the damage is from a critical strike</param>
         /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
-        public void OnAfterHit(NPC npc, WEPlayer player, Item item, int damage, float knockback, bool crit, Projectile projectile = null);
+        public void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null);
     }
 }

@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Melee;
 		public override void GetMyStats() {
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 		public override string Artist => "Zorutan";

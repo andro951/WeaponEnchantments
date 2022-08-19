@@ -128,9 +128,9 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey(EItemType.Weapon) && IsWeaponItem(itemInUI);
+			bool allowedWeapon = enchantment.AllowedList.ContainsKey(EItemType.Weapons) && IsWeaponItem(itemInUI);
 			bool allowedArmor = enchantment.AllowedList.ContainsKey(EItemType.Armor) && IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey(EItemType.Accessory) && IsAccessoryItem(itemInUI);
+			bool allowedAccessory = enchantment.AllowedList.ContainsKey(EItemType.Accessories) && IsAccessoryItem(itemInUI);
 
 			return allowedWeapon || allowedArmor || allowedAccessory;
 		}

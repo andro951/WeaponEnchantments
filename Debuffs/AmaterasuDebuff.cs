@@ -16,10 +16,10 @@ namespace WeaponEnchantments.Debuffs
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
-        public override void Update(NPC npc, ref int buffIndex) {
-            ForceUpdate(npc);
-        }
-        public static void ForceUpdate(NPC npc) {
+        //public override void Update(NPC npc, ref int buffIndex) {
+        //    RemoveImmunities(npc);
+        //}
+        public static void RemoveImmunities(NPC npc) {
             //Make not immune to the other buffs that WorldAblaze applies
             foreach (int notImmuneBuff in notImmuneBuffs) {
                 npc.buffImmune[notImmuneBuff] = false;

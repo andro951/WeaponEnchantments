@@ -52,6 +52,8 @@ namespace WeaponEnchantments.Items {
 
 		#region Strength
 
+		public DifficultyStrength TierStrengthData;
+		protected virtual bool UsesTierStrengthData => false;
 		public DifficultyStrength EnchantmentStrengthData;
 		public float EnchantmentStrength => EnchantmentStrengthData.Value;
 
@@ -123,9 +125,9 @@ namespace WeaponEnchantments.Items {
 
 		public enum EItemType {
 			None,
-			Weapon,
+			Weapons,
 			Armor,
-			Accessory,
+			Accessories,
 		}
 
 		/// <summary>
@@ -199,9 +201,9 @@ namespace WeaponEnchantments.Items {
 		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true) {
 			string s = "";
 			if (showValue) {
-				float strength = EnchantmentStrength;
+				float strength = (float)Math.Round(EnchantmentStrength, 3);
 				if (multiply100)
-					strength.Percent();
+					strength *= 100f;
 
 				if (sign) {
 					s += strength < 0f ? "-" : "+";
@@ -441,9 +443,9 @@ namespace WeaponEnchantments.Items {
 
 			if (AllowedList == null || AllowedList.Count == 0) {
 				AllowedList = new Dictionary<EItemType, float>() {
-					{ EItemType.Weapon, 1f },
+					{ EItemType.Weapons, 1f },
 					{ EItemType.Armor, 0.25f },
-					{ EItemType.Accessory, 0.25f }
+					{ EItemType.Accessories, 0.25f }
 				};
 			}
 
@@ -461,10 +463,14 @@ namespace WeaponEnchantments.Items {
 		public void SetEnchantmentStrength() {//Config - Individual Strength
 			bool foundIndividualStrength = false;
 			float[] strengths = new float[1];
+			float[] tierStrengths = new float[1];
+			float tierStrengthPercentage = ((float)EnchantmentTier + 1f) / (float)defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength.Length;
 			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
 				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
 					if (pair.itemDefinition.Name == Name) {
 						strengths[0] = (float)pair.Strength / 1000f;
+						if (UsesTierStrengthData)
+							tierStrengths[0] = tierStrengthPercentage * strengths[0] / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 						foundIndividualStrength = true;
 						//Round Enchantment Strength
 						strengths[0] = (float)Math.Round(strengths[0], 4);
@@ -476,6 +482,7 @@ namespace WeaponEnchantments.Items {
 			if (!foundIndividualStrength) {
 				if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
 					strengths = new float[4];
+					tierStrengths = new float[4];
 				}
 
 				int count = strengths.Length;
@@ -494,11 +501,15 @@ namespace WeaponEnchantments.Items {
 						strengths[i] = strength;
 					}
 
+					if (UsesTierStrengthData)
+						tierStrengths[i] = tierStrengthPercentage * multiplier;
+
 					//Round Enchantment Strength
 					strengths[i] = (float)Math.Round(strengths[i], 4);
 				}
 			}
 
+			TierStrengthData = new DifficultyStrength(tierStrengths);
 			EnchantmentStrengthData = new DifficultyStrength(strengths);
 		}
 		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
@@ -795,7 +806,12 @@ namespace WeaponEnchantments.Items {
 				bool first = true;
 				foreach (EItemType key in AllowedList.Keys) {
 					if (first) {
-						tooltip += "   *Allowed on ";
+						if (count < 3) {
+							tooltip += "   *Onley allowed on ";
+						}
+						else {
+							tooltip += "   *Allowed on ";
+						}
 						first = false;
 					}
 					else if (i == count - 1) {
@@ -809,12 +825,7 @@ namespace WeaponEnchantments.Items {
 					
 					i++;
 					if (i == count) {
-						if (count <= 2) {
-							tooltip += " Only*";
-						}
-						else {
-							tooltip += "*";
-						}
+						tooltip += "*";
 					}
 				}
 			}

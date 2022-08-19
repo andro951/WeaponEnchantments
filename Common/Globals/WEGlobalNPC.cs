@@ -915,7 +915,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
 
                         if (!wEGlobalNPC.amaterasuImmunityUpdated) {
-                            AmaterasuDebuff.ForceUpdate(mainNPC);
+                            AmaterasuDebuff.RemoveImmunities(mainNPC);
                             wEGlobalNPC.amaterasuStrength = amaterasuStrength;
                             mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue);
                             wEGlobalNPC.amaterasuImmunityUpdated = true;

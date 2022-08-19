@@ -13,22 +13,30 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			if (EnchantmentTier == 3)
-				OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, BuffDuration);
-
-			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
-
-			Debuff.Add(BuffID.Frostburn, BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
-
 			Effects = new() {
-				new DamageClassChange(DamageClass.SummonMeleeSpeed)
+				new DamageClassChange(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget(),
+				new OnHitTargetDebuffEffect(BuffID.Frostburn, BuffDuration)
 			};
 
+			if (EnchantmentTier >= 3)
+				Effects.Add(new OnHitPlayerBuffEffect(BuffID.CoolWhipPlayerBuff, BuffDuration));
+
+			if (EnchantmentTier == 4)
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
+
+			//AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
+			//Debuff.Add(BuffID.Frostburn, BuffDuration);
+			//AddEStat("Damage", 0f, EnchantmentStrength);
+			//if (EnchantmentTier == 3)
+			//	OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, BuffDuration);
+
+			//if (EnchantmentTier == 4)
+			//	Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
+
+
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

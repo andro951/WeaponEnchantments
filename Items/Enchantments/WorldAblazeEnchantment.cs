@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments
 				Debuff.Add(BuffID.OnFire3, (int)((float)BuffDuration * 0.2f * EnchantmentStrength));
 
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

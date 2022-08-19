@@ -24,6 +24,6 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsAccessoryItem(entity);
-		public override EItemType ItemType => EItemType.Accessory;
+		public override EItemType ItemType => EItemType.Accessories;
 	}
 }

@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
 
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

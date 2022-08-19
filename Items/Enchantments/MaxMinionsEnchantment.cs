@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Armor, 1f },
-				{ EItemType.Accessory, 1f }
+				{ EItemType.Accessories, 1f }
 			};
 		}
 

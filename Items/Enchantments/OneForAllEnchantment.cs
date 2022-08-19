@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
 
 			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapon, 1f }
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

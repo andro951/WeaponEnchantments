@@ -47,6 +47,17 @@ namespace WeaponEnchantments.Common
 
 			return new DifficultyStrength(arr);
 		}
+		public static DifficultyStrength operator ^(DifficultyStrength es, int mult) {
+			if (es == null)
+				return null;
+
+			float[] arr = es._values;
+			for (int i = 0; i < arr.Length; i++) {
+				arr[i] = (float)Math.Pow(arr[i], mult);
+			}
+
+			return new DifficultyStrength(arr);
+		}
 		public override string ToString() {
 			string s = "";
 			int length = _values.Length;
@@ -59,5 +70,6 @@ namespace WeaponEnchantments.Common
 
 			return s;
 		}
+		public DifficultyStrength Clone() => new DifficultyStrength(_values);
 	}
 }
