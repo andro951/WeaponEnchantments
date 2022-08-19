@@ -312,7 +312,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary[key].CombineWith(newValue);
 			}
 			else {
-                dictionary.Add(key, newValue);
+                dictionary.Add(key, newValue.Clone());
 			}
 		}
         public static void AddOrCombine(this SortedDictionary<EnchantmentStat, EStatModifier> dictionary, EStatModifier newValue) {
@@ -321,7 +321,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary[key].CombineWith(newValue);
             }
             else {
-                dictionary.Add(key, newValue);
+                dictionary.Add(key, newValue.Clone());
             }
         }
         public static void AddOrCombine(this Dictionary<byte, int> dictionary, byte key, int newValue) {

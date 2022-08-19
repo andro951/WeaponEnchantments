@@ -12,5 +12,6 @@ namespace WeaponEnchantments.Effects {
 
         public override EnchantmentStat statType => EnchantmentStat.Defense;
         public override string DisplayName => "Defense";
+        public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
     }
 }

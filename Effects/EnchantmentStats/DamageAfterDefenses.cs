@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
@@ -13,8 +14,8 @@ namespace WeaponEnchantments.Effects
 {
 	public class DamageAfterDefenses : ClassedStatEffect, IModifyHitDamage, INonVanillaStat
     {
-        public DamageAfterDefenses(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
-            
+        public DamageAfterDefenses(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+
         }
 
         public override string DisplayName { get; } = $"Damage (Bonus is applied after defenses. Not visible in weapon tooltip)";

@@ -278,8 +278,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             if (!WEMod.serverConfig.CritPerLevelDisabled) {
-                float multiplier = GlobalEnchantmentStrengthMultiplier;
-                crit += levelBeforeBooster * multiplier;
+                crit += levelBeforeBooster * GlobalStrengthMultiplier;
             }
 
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
@@ -475,8 +474,8 @@ namespace WeaponEnchantments.Common.Globals
         protected bool GetPlayerModifierStrength(Player player, EnchantmentStat enchantmentStat, out float strength) {
             WEPlayer wePlayer = player.GetWEPlayer();
             strength = 0f;
-            if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat)) {
-                strength = wePlayer.EnchantmentStats[enchantmentStat].Strength;
+            if (wePlayer.CombinedEnchantmentStats.ContainsKey(enchantmentStat)) {
+                strength = wePlayer.CombinedEnchantmentStats[enchantmentStat].Strength;
                 return true;
             }
 

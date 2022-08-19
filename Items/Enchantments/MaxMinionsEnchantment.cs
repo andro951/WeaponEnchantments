@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override float ScalePercent => 0.6f;
 		public override void GetMyStats() {
 			Effects = new() {
-				new MaxMinions(@base: EnchantmentStrength)
+				new MaxMinions(@base: EnchantmentStrengthData)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

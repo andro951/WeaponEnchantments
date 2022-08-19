@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
@@ -13,9 +14,9 @@ namespace WeaponEnchantments.Effects
 {
 	public class AmmoCost : StatEffect, INonVanillaStat
     {
-        public AmmoCost(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) {
-            
-        }
+        public AmmoCost(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
+
+		}
 
         public override string DisplayName => EffectStrength >= 0f ? "Ammo Cost Reduction" : "Increased Ammo Cost";
         public override EnchantmentStat statType => EnchantmentStat.AmmoCost;

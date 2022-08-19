@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class MaxMinions : StatEffect, IVanillaStat {
-        public MaxMinions(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+        public MaxMinions(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
+        }
         public override EnchantmentStat statType => EnchantmentStat.MaxMinions;
         public override string DisplayName => "Max Minions";
     }

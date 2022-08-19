@@ -26,6 +26,7 @@ namespace WeaponEnchantments.Common {
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
+            heldItem[0] = player.HeldItem;
             owner = player;
             wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
@@ -80,7 +81,7 @@ namespace WeaponEnchantments.Common {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
             GetEnchantmentEffects(enchantedWeapon, enchantmentEffects);
             enchantedWeapon.EnchantmentEffects = enchantmentEffects;
-            SortEnchantmentEffects(enchantedWeapon, true);
+            SortEnchantmentEffects(enchantedWeapon);
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
@@ -94,7 +95,7 @@ namespace WeaponEnchantments.Common {
                 }
             }
         }
-        public void SortEnchantmentEffects(ISortedEnchantmentEffects entity, bool weapon = false) {
+        public void SortEnchantmentEffects(ISortedEnchantmentEffects entity) {
             IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
             entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>().ToList();
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>().ToList();
@@ -128,7 +129,8 @@ namespace WeaponEnchantments.Common {
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedWeapon.VanillaStats, true);
             wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedWeapon.OnTickBuffs);
         }
-        public void CombineOnHitDictionaries(Item item) {
+        public void CombineOnHitDictionaries(Item item = null) {
+            item ??= heldItem[0];
             if (!item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
                 enchantedWeapon = new EnchantedWeapon();
 
@@ -163,7 +165,7 @@ namespace WeaponEnchantments.Common {
 
         private IEnumerable<Item> GetAllItems() {
             Item[] items = new Item[1 + Armor.Length + Accesories.Length];
-            items[0] = HeldItem;
+            items[0] = heldItem[0];
             Armor.CopyTo(items, 1);
             Accesories.CopyTo(items, 1 + Armor.Length);
 

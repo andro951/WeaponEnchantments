@@ -8,9 +8,10 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
+		public override int StrengthGroup => 5;
 		public override void GetMyStats() {
             Effects = new() {
-                new LifeSteal(@base: (EnchantmentTier + 1) * 0.005f)
+                new LifeSteal(@base: EnchantmentStrengthData)
             };
 		}
 		public override string Artist => "Zorutan";

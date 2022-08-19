@@ -12,8 +12,8 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class AttackSpeed : ClassedStatEffect, IVanillaStat {
-        public AttackSpeed(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
-            
+        public AttackSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+
         }
         
         public override EnchantmentStat statType => EnchantmentStat.AttackSpeed;

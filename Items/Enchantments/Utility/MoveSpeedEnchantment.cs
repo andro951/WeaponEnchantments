@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 11;
 		public override void GetMyStats() {
 			Effects = new() {
-				new MoveSpeed(EnchantmentStrength)
+				new MoveSpeed(EnchantmentStrengthData)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

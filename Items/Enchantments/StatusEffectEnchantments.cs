@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			Effects = new() {
 				new OnHitTargetDebuffEffect(StatusEffect, new Time(BuffDuration)),
-				new DamageAfterDefenses(0f, EnchantmentStrength)
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

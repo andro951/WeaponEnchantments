@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
@@ -26,6 +27,7 @@ namespace WeaponEnchantments.Effects {
         /// </summary>
         protected Dictionary<DamageClass, float> EnchantmentDamageEfficiency = new Dictionary<DamageClass, float>();
 
+        protected DifficultyStrength EnchantmentStrengthData;
         /// <summary>
         /// The strength of the effect.<br/>
         /// For example, if LifeSteal is mapped to an EnchantmentStrength of 1f, LifeSteal would heal 100% of the damage done.<br \>
@@ -42,7 +44,7 @@ namespace WeaponEnchantments.Effects {
         
         public virtual string DisplayName => GetType().Name.AddSpaces();
         public virtual string Tooltip => DisplayName;
-        public virtual Color TooltipColor { get; protected set; } = new Color(0xaa, 0xaa, 0xaa);
+        public virtual Color TooltipColor { get; protected set; } = Color.White;
         public virtual bool showTooltip => true;
 	    
         public virtual float SelfStackingPenalty { get; protected set; } = 0f;

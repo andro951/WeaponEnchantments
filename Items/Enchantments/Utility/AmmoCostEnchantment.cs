@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override void GetMyStats() {
 			//AddEStat(EnchantmentTypeName, 0f, 1f, 0f, -EnchantmentStrength);
 			Effects = new() {
-				new AmmoCost(@base: EnchantmentStrength)
+				new AmmoCost(@base: EnchantmentStrengthData)
 			};
 		}
 

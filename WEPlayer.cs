@@ -767,6 +767,8 @@ namespace WeaponEnchantments
 
             WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
 
+            LastPlayerEquipment.CombineOnHitDictionaries(item);
+
             bool multiShotConvertedToDamage = false;
 
             //Minion damage reduction from war enchantment
@@ -820,11 +822,12 @@ namespace WeaponEnchantments
 
             //Damage Enchantment
             //float damageMultiplier = item.ApplyEStat("Damage", 1f);
-            float damageMultiplier = ApplyModifyDamageEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
+            //float damageMultiplier = ApplyModifyDamageEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
+            GetPlayerModifierStrength(EnchantmentStat.DamageAfterDefenses, out float damageMultiplier, 1f);
 
             //Multishot converted to damage
             if (multiShotConvertedToDamage)
-                damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
+                GetPlayerModifierStrength(EnchantmentStat.DamageAfterDefenses, out damageMultiplier, damageMultiplier);//damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
 
             damage = (int)Math.Round((float)damage * damageMultiplier);
 
@@ -943,6 +946,15 @@ namespace WeaponEnchantments
             #endregion
 
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
+        }
+        protected bool GetPlayerModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseValue = 0f) {
+            strength = baseValue;
+            if (CombinedEnchantmentStats.ContainsKey(enchantmentStat)) {
+                strength = CombinedEnchantmentStats[enchantmentStat].Strength;
+                return true;
+            }
+
+            return false;
         }
         private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null) {
 
@@ -1106,17 +1118,11 @@ namespace WeaponEnchantments
 
 		#region Enchantment hooks
 
-		private void GetEnchantmentEffects() {
-            // Always use all equipment effects
-            Equipment.UpdateArmorEnchantmentEffects();
-
-            Equipment.UpdateWeaponEnchantmentEffects();
-        }
         public void ApplyPostMiscEnchants() {
             PlayerEquipment newEquipment = Equipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
-                GetEnchantmentEffects();
+                UpdateEnchantmentEffects();
 
                 PassiveEffects = new List<IPassiveEffect>();
                 StatEffects = new List<StatEffect>();
@@ -1132,6 +1138,7 @@ namespace WeaponEnchantments
             }
 
             LastPlayerEquipment.CombineDictionaries();
+            LastPlayerEquipment.CombineOnHitDictionaries();
 
             // Apply all PostUpdateMiscEffects
             foreach (IPassiveEffect effect in PassiveEffects) {
@@ -1143,19 +1150,9 @@ namespace WeaponEnchantments
                 ApplyStatEffects();
 
         }
-        public bool? ApplyAutoReuseEnchants() {
-            // Divide effects based on what is needed.
-            bool? enableAutoReuse = null;
-            foreach (AutoReuse effect in EnchantmentEffects.OfType<AutoReuse>()) {
-                if (effect.EnableStat) {
-                    enableAutoReuse = true;
-				}
-				else if (!effect.EnableStat) {
-                    return false;
-				}
-            }
-
-            return enableAutoReuse;
+        private void UpdateEnchantmentEffects() {
+            Equipment.UpdateArmorEnchantmentEffects();
+            Equipment.UpdateWeaponEnchantmentEffects();
         }
         private void ApplyStatEffects() {
             foreach (EnchantmentStat key in VanillaStats.Keys) {
@@ -1262,6 +1259,20 @@ namespace WeaponEnchantments
             foreach (IOnHitEffect effect in EnchantmentEffects.OfType<IOnHitEffect>()) {
                 effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
             }
+        }
+        public bool? ApplyAutoReuseEnchants() {
+            // Divide effects based on what is needed.
+            bool? enableAutoReuse = null;
+            foreach (AutoReuse effect in EnchantmentEffects.OfType<AutoReuse>()) {
+                if (effect.EnableStat) {
+                    enableAutoReuse = true;
+                }
+                else if (!effect.EnableStat) {
+                    return false;
+                }
+            }
+
+            return enableAutoReuse;
         }
 
         #endregion

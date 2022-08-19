@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {
-				new DamageAfterDefenses(EnchantmentStrength)
+				new DamageAfterDefenses(EnchantmentStrengthData)
 			};
 		}
 

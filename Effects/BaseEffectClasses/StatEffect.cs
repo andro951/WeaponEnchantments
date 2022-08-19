@@ -12,7 +12,12 @@ namespace WeaponEnchantments.Effects {
         protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
             EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
 		}
-
+        /*protected StatEffect(float[] additive = null, float[] multiplicative = null, float[] flat = null, float[] @base = null) {
+            EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
+        }*/
+        public StatEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) {
+            EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
+        }
         public EStatModifier EStatModifier { set; get; }
         public override float EffectStrength => EStatModifier.Strength;
 		public override float EfficiencyMultiplier { 

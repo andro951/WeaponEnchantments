@@ -8,10 +8,10 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override bool Max1 => true;
 		public override void GetMyStats() {
             Effects = new() {
-                new MaxFallSpeed(EnchantmentStrength),
-                new MoveSlowDown(EnchantmentStrength),
-                new MoveAcceleration(EnchantmentStrength),
-                new JumpSpeed(@base: 5f),
+                new MaxFallSpeed(EnchantmentStrengthData),
+                new MoveSlowDown(EnchantmentStrengthData),
+                new MoveAcceleration(EnchantmentStrengthData),
+                new JumpSpeed(@base: EnchantmentStrengthData * (50f / 3f)),
             };
 		}
 

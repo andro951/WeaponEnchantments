@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 12;
 		public override void GetMyStats() {
 			Effects = new() {
-				new AttackSpeed(EnchantmentStrength)
+				new AttackSpeed(EnchantmentStrengthData)
 			};
 
 			if(EnchantmentStrength >= 0.1f)

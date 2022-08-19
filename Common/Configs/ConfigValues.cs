@@ -1,10 +1,21 @@
 ﻿using System.Linq;
+using Terraria;
 using static WeaponEnchantments.WEMod;
 
 namespace WeaponEnchantments.Common.Configs
 {
 	internal class ConfigValues {
-		public static float RecomendedStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
+		public static readonly float[] PresetMultipliers = { 1f, 0.5f, 0.25f, 2.5f };
+
+		private static float _globalStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
+		public static float GlobalStrengthMultiplier {
+			get {
+				if (serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty)
+					return PresetMultipliers[Main.GameMode];
+
+				return _globalStrengthMultiplier;
+			}
+		}
 		public static float EnchantmentDropChance = serverConfig.EnchantmentDropChance / 100f;
 		public static float BossEnchantmentDropChance = serverConfig.BossEnchantmentDropChance / 100f;
 		public static float EssenceMultiplier = serverConfig.EssenceMultiplier / 100f;
@@ -18,7 +29,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float NormalXPMultiplier => serverConfig.ExperienceMultiplier / 100f;
 		public static float AffectOnVanillaLifeStealLimit => serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
 		public static float SpeedEnchantmentAutoReuseSetpoint = serverConfig.SpeedEnchantmentAutoReuseSetpoint / 100f;
-		public static float GlobalEnchantmentStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;
 		public static float PercentOfferEssence => clientConfig.PercentOfferEssence / 100f;
 		public static float ChestSpawnChance => serverConfig.ChestSpawnChance / 100f;
 		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
