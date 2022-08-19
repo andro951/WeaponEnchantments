@@ -20,6 +20,7 @@ namespace WeaponEnchantments.Effects
 
         public List<EnchantmentEffect> EnchantmentEffects { set; get; }
         public List<IPassiveEffect> PassiveEffects { set; get; }
+        public List<IOnHitEffect> OnHitEffects { set; get; }
         public List<StatEffect> StatEffects { set; get; }
     }
 }

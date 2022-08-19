@@ -81,7 +81,7 @@ namespace WeaponEnchantments.Common
 			DisableImmunity = disableImmunity;
 		}
 		private void SetUpChanceDifficultyStrength() {
-			if (Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer) && wePlayer.enteredWorld) {
+			if (!Main.gameMenu) {
 				Chance = _chanceDifficultyStrengths.AllValues[Main.GameMode];
 				_waitingForEnterWorld = false;
 			}

@@ -252,7 +252,7 @@ namespace WeaponEnchantments.Common
 		}
 
 		private void SetUpAutomaticStrengthFromWorldDificulty() {
-			if (Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer) && wePlayer.enteredWorld) {
+			if (!Main.gameMenu) {
 				switch (statTypeID) {
 					case 0:
 						originalAdditive = _automaticStrengthData.AllValues[Main.GameMode];

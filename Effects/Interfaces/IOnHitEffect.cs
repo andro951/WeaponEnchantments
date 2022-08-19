@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 
 namespace WeaponEnchantments.Effects {
-    internal interface IOnHitEffect {
+    public interface IOnHitEffect {
 
         /// <summary>
         /// <para>

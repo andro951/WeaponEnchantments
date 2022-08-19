@@ -55,6 +55,7 @@ namespace WeaponEnchantments.Common.Globals
 
         public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
         public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
+        public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
         public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         #endregion
@@ -252,8 +253,7 @@ namespace WeaponEnchantments.Common.Globals
             if (Enchanted) {
                 //~Damage tooltip
                 if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
-                    float damageMultiplier = item.ApplyEStat("Damage", 1f);
-                    if (damageMultiplier > 1f) {
+                    if (GetPlayerModifierStrength(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
                         int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
                         string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
                         tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });

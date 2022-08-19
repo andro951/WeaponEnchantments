@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Common {
         private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
         private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
 
-        public Item HeldItem => owner.HeldItem;
+        public Item HeldItem => heldItem[0];
         private Item[] heldItem = new Item[1];
         private Item[] Armor = new Item[vanillaArmorSlots];
         private Item[] Accesories;
@@ -26,7 +26,13 @@ namespace WeaponEnchantments.Common {
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
-            heldItem[0] = player.HeldItem;
+            if (!Main.HoverItem.NullOrAir()) {
+                heldItem[0] = Main.HoverItem;
+            }
+			else {
+                heldItem[0] = player.HeldItem;
+            }
+
             owner = player;
             wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
@@ -99,6 +105,7 @@ namespace WeaponEnchantments.Common {
             IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
             entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>().ToList();
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>().ToList();
+            entity.OnHitEffects = enchantmentEffects.OfType<IOnHitEffect>().ToList();
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
@@ -134,6 +141,7 @@ namespace WeaponEnchantments.Common {
             if (!item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
                 enchantedWeapon = new EnchantedWeapon();
 
+            wePlayer.CombinedOnHitEffects = wePlayer.OnHitEffects.Concat(enchantedWeapon.OnHitEffects).ToList();
             wePlayer.CombinedEnchantmentStats = CombineStatEffectDictionaries(wePlayer.EnchantmentStats, enchantedWeapon.EnchantmentStats);
             wePlayer.CombinedOnHitDebuffs = CombineBuffEffectDictionaries(wePlayer.OnHitDebuffs, enchantedWeapon.OnHitDebuffs);
             wePlayer.CombinedOnHitBuffs = CombineBuffEffectDictionaries(wePlayer.OnHitBuffs, enchantedWeapon.OnHitBuffs);

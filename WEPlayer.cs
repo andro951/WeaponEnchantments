@@ -71,16 +71,17 @@ namespace WeaponEnchantments
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
+        public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
+        public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
+        public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedVanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-
-        public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
-        public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
-        public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
+        public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
 
         // Currently just a function that gets the current player equipment state.
         public PlayerEquipment LastPlayerEquipment;
@@ -116,7 +117,6 @@ namespace WeaponEnchantments
         }
 
         #region Default Hooks
-        public bool enteredWorld = false;
         public override void Load() {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
         }
@@ -142,8 +142,6 @@ namespace WeaponEnchantments
             OldItemManager.ReplaceAllPlayerOldItems(player);
             if (versionUpdate < 1)
                 versionUpdate = 1;
-
-            enteredWorld = true;
 
             #region Debug
 
@@ -520,7 +518,7 @@ namespace WeaponEnchantments
             ApplyPostMiscEnchants();
         }
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
-            if (!enteredWorld)
+            if (Main.gameMenu)
                 return;
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
@@ -1244,17 +1242,6 @@ namespace WeaponEnchantments
                     break;
             }
         }
-        private float ApplyModifyDamageEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile) {
-            //IEnumerable<DamageAfterDefenses> damageAfterDefenses = GetRelevantEffects(item).Where(e => e is DamageAfterDefenses).Select(e => (DamageAfterDefenses)e);
-            float damageMultiplier = 1f;
-            //var effects = GetRelevantEffects(item);
-            
-            foreach (DamageAfterDefenses effect in EnchantmentEffects.OfType<DamageAfterDefenses>()) {
-                effect.ModifyHitDamage(ref damageMultiplier, item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
-			}
-
-            return damageMultiplier;
-		}
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
             // Not using hitDirection yet.
 
@@ -1263,8 +1250,8 @@ namespace WeaponEnchantments
             }
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
-            foreach (IOnHitEffect effect in EnchantmentEffects.OfType<IOnHitEffect>()) {
-                effect.OnAfterHit(target, this, item, damage, knockback, crit, proj); // Doesnt have to be reference damage, but it is for now.
+            foreach (IOnHitEffect effect in CombinedOnHitEffects) {
+                effect.OnAfterHit(target, this, item, damage, knockback, crit, proj);
             }
         }
         public bool? ApplyAutoReuseEnchants() {

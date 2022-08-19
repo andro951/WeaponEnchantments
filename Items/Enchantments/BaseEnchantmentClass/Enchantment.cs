@@ -807,7 +807,7 @@ namespace WeaponEnchantments.Items {
 				foreach (EItemType key in AllowedList.Keys) {
 					if (first) {
 						if (count < 3) {
-							tooltip += "   *Onley allowed on ";
+							tooltip += "   *Only allowed on ";
 						}
 						else {
 							tooltip += "   *Allowed on ";

@@ -14,13 +14,16 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
 		public override void GetMyStats() {
 			Effects = new() {
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new DamageClassChange(DamageClass.SummonMeleeSpeed),
 				new MinionAttackTarget(),
 				new OnHitTargetDebuffEffect(BuffID.Frostburn, BuffDuration)
 			};
 
-			if (EnchantmentTier >= 3)
+			if (EnchantmentTier >= 3) {
 				Effects.Add(new OnHitPlayerBuffEffect(BuffID.CoolWhipPlayerBuff, BuffDuration));
+				Effects.Add(new OnHitSpawnProjectile(ProjectileID.CoolWhipProj, 10));
+			}
 
 			if (EnchantmentTier == 4)
 				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
@@ -33,7 +36,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 
 			//if (EnchantmentTier == 4)
 			//	Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
-
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }
