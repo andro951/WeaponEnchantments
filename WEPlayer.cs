@@ -492,9 +492,13 @@ namespace WeaponEnchantments
         public override void PostUpdateMiscEffects() {
             ApplyPostMiscEnchants();
         }
-		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
-            if (Main.gameMenu)
-                return;
+        public override void PostUpdate() {
+            Update();
+        }
+        public override void UpdateAutopause() {
+            Update();
+        }
+        private void Update() {
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
             if (modItem != null) {
