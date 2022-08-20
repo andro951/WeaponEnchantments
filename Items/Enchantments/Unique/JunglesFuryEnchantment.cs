@@ -13,18 +13,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			OnHitBuff.Add(BuffID.SwordWhipPlayerBuff, BuffDuration);
-			Debuff.Add(BuffID.SwordWhipNPCDebuff, BuffDuration);
-			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
-
-			Debuff.Add((short)(EnchantmentTier == 3 ? BuffID.Venom : BuffID.Poisoned), BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
-
 			Effects = new() {
-				new DamageClassChange(DamageClass.SummonMeleeSpeed)
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new DamageClassChange(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget(),
+				new OnHitTargetDebuffEffect(EnchantmentTier >= 2 ? BuffID.Venom : BuffID.Poisoned, BuffDuration)
 			};
+
+			if (EnchantmentTier >= 3) {
+				Effects.Add(new OnHitPlayerBuffEffect(BuffID.SwordWhipPlayerBuff, BuffDuration));
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.SwordWhipNPCDebuff, BuffDuration));
+			}
+
+			if (EnchantmentTier == 4)
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

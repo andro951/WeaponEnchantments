@@ -28,15 +28,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			if (EnchantmentTier == 4)
 				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
 
-			//AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			//Debuff.Add(BuffID.Frostburn, BuffDuration);
-			//AddEStat("Damage", 0f, EnchantmentStrength);
-			//if (EnchantmentTier == 3)
-			//	OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, BuffDuration);
-
-			//if (EnchantmentTier == 4)
-			//	Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
-
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }
 			};

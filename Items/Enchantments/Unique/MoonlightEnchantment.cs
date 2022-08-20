@@ -13,19 +13,20 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			OnHitBuff.Add(BuffID.ScytheWhipPlayerBuff, BuffDuration);
-			if (EnchantmentTier == 3)
-				Debuff.Add(BuffID.ScytheWhipEnemyDebuff, BuffDuration);
+			Effects = new() {
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new DamageClassChange(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget()
+			};
+
+			if (EnchantmentTier >= 2)
+				Effects.Add(new OnHitPlayerBuffEffect(BuffID.ScytheWhipPlayerBuff, BuffDuration));
+
+			if (EnchantmentTier >= 3)
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.ScytheWhipEnemyDebuff, BuffDuration));
 
 			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
-
-			AddEStat("Damage", 0f, EnchantmentStrength);
-
-			Effects = new() {
-				new DamageClassChange(DamageClass.SummonMeleeSpeed)
-			};
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }
