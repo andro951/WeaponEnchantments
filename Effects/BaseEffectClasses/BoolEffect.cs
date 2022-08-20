@@ -7,16 +7,23 @@ namespace WeaponEnchantments.Effects {
     public abstract class BoolEffect : EnchantmentEffect {
 
         public bool EnableStat { get; protected set; }
-        protected BoolEffect(bool prevent = false) {
+        protected BoolEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) {
+            MinimumStrength = minimumStrength;
             EnableStat = !prevent;
+            StrengthData = strengthData;
         }
 
+        public DifficultyStrength StrengthData;
+        public float MinimumStrength;
 		public abstract EnchantmentStat statName { get; }
 
-        protected virtual string modifierToString() {
-            return ": " + (EnableStat ? "Enabled" : "Prevented");
-        }
+        public override string Tooltip {
+            get {
+                if (StrengthData != null && MinimumStrength > StrengthData.Value)
+                    return "";
 
-        public override string Tooltip => $"{DisplayName}{modifierToString()}";
+                return $"{DisplayName}{": " + (EnableStat ? "Enabled" : "Prevented")}";
+            }
+		}
     }
 }

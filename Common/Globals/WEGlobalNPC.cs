@@ -884,10 +884,10 @@ namespace WeaponEnchantments.Common.Globals
             int minSpreadDamage = isWorm ? 13 : 100;
 
             //Controls how fast the damage tick rate is.
-            damage += amaterasuDamage / 240;
+            damage += (int)((float)amaterasuDamage / 240f * amaterasuStrength);
 
             //Set damage over time (amaterasuStrength is the EnchantmentStrength affected by config values.)
-            int lifeRegen = (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
+            int lifeRegen = (int)((float)amaterasuDamage / 30f * amaterasuStrength);
             npc.lifeRegen -= lifeRegen;
 
             //Fix for bosses not dying from Amaterasu

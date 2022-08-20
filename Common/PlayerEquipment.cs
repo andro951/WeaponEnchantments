@@ -17,6 +17,8 @@ namespace WeaponEnchantments.Common {
     public class PlayerEquipment {
         private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
         private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
+        public static uint lastWeaponUpdateTime;
+        private static bool updatingHoverItem;
 
         public Item HeldItem => heldItem[0];
         private Item[] heldItem = new Item[1];
@@ -28,9 +30,11 @@ namespace WeaponEnchantments.Common {
         public PlayerEquipment(Player player) {
             if (!Main.HoverItem.NullOrAir()) {
                 heldItem[0] = Main.HoverItem;
+                updatingHoverItem = true;
             }
 			else {
                 heldItem[0] = player.HeldItem;
+                updatingHoverItem = false;
             }
 
             owner = player;
@@ -88,6 +92,8 @@ namespace WeaponEnchantments.Common {
             GetEnchantmentEffects(enchantedWeapon, enchantmentEffects);
             enchantedWeapon.EnchantmentEffects = enchantmentEffects;
             SortEnchantmentEffects(enchantedWeapon);
+            enchantedWeapon.lastWeaponUpdateTime = Main.GameUpdateCount;
+            lastWeaponUpdateTime = Main.GameUpdateCount;
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
@@ -95,6 +101,9 @@ namespace WeaponEnchantments.Common {
             // For each enchantment get its effects
             foreach (Enchantment enchantment in enchantments) {
                 foreach (EnchantmentEffect enchantmentEffect in enchantment.Effects) {
+                    if (enchantmentEffect is BoolEffect boolEffect && boolEffect.StrengthData != null && boolEffect.MinimumStrength > boolEffect.StrengthData.Value)
+                        continue;
+
                     DamageClass dc = enchantedItem.Item.DamageType;
                     enchantmentEffect.EfficiencyMultiplier = enchantment.AllowedList[enchantedItem.ItemType] * enchantmentEffect.GetClassEfficiency(dc);
                     effects.Add(enchantmentEffect);
@@ -225,8 +234,14 @@ namespace WeaponEnchantments.Common {
             if (count != otherItems.Count())
                 return false;
 
+            if (!updatingHoverItem && myItems.ElementAt(0).TryGetEnchantedItem(out EnchantedWeapon myEnchantedWeapon) && otherItems.ElementAt(0).TryGetEnchantedItem(out EnchantedWeapon otherEnchantedWeapon)) {
+                uint lastUpdate = myEnchantedWeapon.lastWeaponUpdateTime;
+                if (lastUpdate != otherEnchantedWeapon.lastWeaponUpdateTime || lastUpdate != lastWeaponUpdateTime)
+                    return false;
+            }
+
             for (int i = 0; i < count; i++) {
-                Item ci = myItems.ElementAt(i);
+                    Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
                 if (ci.NullOrAir() && ci2.NullOrAir())
                     continue;

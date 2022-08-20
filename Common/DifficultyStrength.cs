@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Common
 			if (es == null)
 				return null;
 
-			float[] arr = es._values;
+			float[] arr = (float[])es._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] *= mult;
 			}
@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Common
 			if (es == null)
 				return null;
 
-			float[] arr = es._values;
+			float[] arr = (float[])es._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] += mult;
 			}
@@ -51,7 +51,7 @@ namespace WeaponEnchantments.Common
 			if (es == null)
 				return null;
 
-			float[] arr = es._values;
+			float[] arr = (float[])es._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] = (float)Math.Pow(arr[i], mult);
 			}

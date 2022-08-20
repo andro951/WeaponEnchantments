@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Effects
         }
 
         public override string DisplayName { get; } = $"Damage (Bonus is applied after defenses. Not visible in weapon tooltip)";
-        public override EnchantmentStat statType => EnchantmentStat.DamageAfterDefenses;
+		public override EnchantmentStat statType => EnchantmentStat.DamageAfterDefenses;
 
 		public void ModifyHitDamage(ref float damageMultiplier, Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile) {
             EStatModifier.ApplyTo(ref damageMultiplier);

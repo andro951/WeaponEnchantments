@@ -49,40 +49,66 @@ namespace WeaponEnchantments.Common
 		private float weightedDuration = 0f;
 
 		public bool DisableImmunity { get; protected set; }
+		public float BuffStrength { 
+			get {
+				if (_waitingForEnterWorld)
+					SetUpChanceDifficultyStrength();
 
-		public BuffStats(string buffName, short buffID, Time duration, float chance, bool disableImmunity) {
+				return buffStrength;
+			}
+			protected set => buffStrength = value;
+		}
+		private float buffStrength;
+		private DifficultyStrength buffStrengths;
+
+		public BuffStats(string buffName, short buffID, Time duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
+			if (buffStrength != null)
+				_waitingForEnterWorld = true;
+
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = duration;
 			Chance = chance;
 			DisableImmunity = disableImmunity;
+			buffStrengths = buffStrength;
 		}
-		public BuffStats(string buffName, short buffID, int duration, float chance, bool disableImmunity) {
+		public BuffStats(string buffName, short buffID, int duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
+			if (buffStrength != null)
+				_waitingForEnterWorld = true;
+
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = new Time(duration);
 			Chance = chance;
 			DisableImmunity = disableImmunity;
+			buffStrengths = buffStrength;
 		}
-		public BuffStats(string buffName, short buffID, Time duration, DifficultyStrength chance, bool disableImmunity) {
+		public BuffStats(string buffName, short buffID, Time duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			_waitingForEnterWorld = true;
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = duration;
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
+			buffStrengths = buffStrength;
 		}
-		public BuffStats(string buffName, short buffID, int duration, DifficultyStrength chance, bool disableImmunity) {
+		public BuffStats(string buffName, short buffID, int duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			_waitingForEnterWorld = true;
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = new Time(duration);
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
+			buffStrengths = buffStrength;
 		}
 		private void SetUpChanceDifficultyStrength() {
 			if (!Main.gameMenu) {
-				Chance = _chanceDifficultyStrengths.AllValues[Main.GameMode];
+				if (_chanceDifficultyStrengths != null)
+					Chance = _chanceDifficultyStrengths.AllValues[Main.GameMode];
+				
+				if (buffStrengths != null)
+					BuffStrength = buffStrengths.AllValues[Main.GameMode];
+
 				_waitingForEnterWorld = false;
 			}
 		}
@@ -92,7 +118,7 @@ namespace WeaponEnchantments.Common
 			float newChance = combinedWeightedDuration / _duration;
 			Chance = newChance;
 		}
-		public BuffStats Clone() => new BuffStats(BuffName, BuffID, Duration, Chance, DisableImmunity);
+		public BuffStats Clone() => new BuffStats(BuffName, BuffID, Duration, Chance, DisableImmunity, buffStrengths);
 		public void AddBuff(Player player) {
 			if (Chance == 1f || Chance >= Main.rand.NextFloat())
 				player.AddBuff(BuffID, Duration);

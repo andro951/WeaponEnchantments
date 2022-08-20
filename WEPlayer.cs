@@ -1000,9 +1000,10 @@ namespace WeaponEnchantments
             if (!skipOnHitEffects) {
                 //Debuffs
                 int amaterasuDamageAdded = 0;
-                if (iGlobal.debuffs.ContainsKey((short)ModContent.BuffType<AmaterasuDebuff>())) {
+                short amaterasuID = (short)ModContent.BuffType<AmaterasuDebuff>();
+                if (CombinedOnHitDebuffs.ContainsKey(amaterasuID)) {
                     if (weGlobalNPC.amaterasuStrength == 0)
-                        weGlobalNPC.amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
+                        weGlobalNPC.amaterasuStrength = CombinedOnHitDebuffs[amaterasuID].BuffStrength;
 
                     amaterasuDamageAdded = damage * (crit ? 2 : 1);
                     weGlobalNPC.amaterasuDamage += amaterasuDamageAdded;

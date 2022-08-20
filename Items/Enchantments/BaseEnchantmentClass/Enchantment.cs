@@ -836,7 +836,7 @@ namespace WeaponEnchantments.Items {
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 			foreach (var effect in Effects) {
-				if (!effect.showTooltip)
+				if (!effect.showTooltip || effect.Tooltip == "")
 					continue;
 
 				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));

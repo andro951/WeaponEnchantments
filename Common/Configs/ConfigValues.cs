@@ -21,7 +21,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float EssenceMultiplier = serverConfig.EssenceMultiplier / 100f;
 		public static float BossEssenceMultiplier = serverConfig.BossEssenceMultiplier / 100f;
 		public static float GatheringExperienceMultiplier => serverConfig.GatheringExperienceMultiplier / 100f;
-
 		public static bool MultiplicativeCriticalHits => serverConfig.MultiplicativeCriticalHits;
 		public static bool AlwaysOverrideDamageType => serverConfig.AlwaysOverrideDamageType;
 		public static float InfusionDamageMultiplier = serverConfig.InfusionDamageMultiplier / 1000f;

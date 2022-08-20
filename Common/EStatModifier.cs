@@ -125,13 +125,11 @@ namespace WeaponEnchantments.Common
 		}
 		private float _strength;
 
-		private float BaseTooltip => (float)Math.Round(Strength - _flat, 3);
 		public string SmartTooltip {
 			get {
 				if(_base <= 0f && _multiplicative != 1f) {
 					return SignTooltip;
 				}
-
 				/*if (_base > 0f) {
 					return SignPercentMult100Tooltip;
 				}
@@ -149,11 +147,11 @@ namespace WeaponEnchantments.Common
 					}
 				}*/
 
-				return SignPercentMult100Tooltip;
+				return SignPercentMult100Minus1Tooltip;
 			}
 		}
 
-		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{_flat}" : "";
+		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
 
 		private string tooltip;
 		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
@@ -164,21 +162,35 @@ namespace WeaponEnchantments.Common
 		public string PercentTooltip => GetTootlip(false, true, false);
 		public string Mult100Tooltip => GetTootlip(false, false, true);
 		public string NoneTooltip => GetTootlip(false, false, false);
+		public string SignPercentMult100Minus1Tooltip => GetTootlip(true, true, true, true);
+		public string SignPercentMinus1Tooltip => GetTootlip(true, true, false, true);
+		public string SignMult100Minus1Tooltip => GetTootlip(true, false, true, true);
+		public string SignMinus1Tooltip => GetTootlip(true, false, false, true);
+		public string PercentMult100Minus1Tooltip => GetTootlip(false, true, true, true);
+		public string PercentMinus1Tooltip => GetTootlip(false, true, false, true);
+		public string Mult100Minus1Tooltip => GetTootlip(false, false, true, true);
+		public string Minus1Tooltip => GetTootlip(false, false, false, true);
 
-		private string GetTootlip(bool percent, bool sign, bool multiply100) {
+		private string GetTootlip(bool percent, bool sign, bool multiply100, bool minusOne = false) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
 			if (tooltip == null || _strength == 0) {
-				float baseTooltip = BaseTooltip;
+				float baseTooltip;
+				if (minusOne && _base == 0f && _additive != 1f) {
+					baseTooltip = (float)Math.Round(_additive * _multiplicative - 1f, 3);
+				}
+				else {
+					baseTooltip = (float)Math.Round(Strength - _flat, 3);
+				}
+
 				tooltip = "";
 				if (baseTooltip > 0f) {
-					if (_base > 0f) {
+					if (_base > 0f || _additive != 1f && minusOne) {
 						if (sign)
 							tooltip += "+";
 
 						tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
-
 					}
 					else {
 						tooltip += $"{baseTooltip}";

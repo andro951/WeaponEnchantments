@@ -9,37 +9,39 @@ namespace WeaponEnchantments.Common.Utility {
     public class Time {
         #region Statics
         public enum Magnitude {
-            Ticks,
-            Seconds,
-            Minutes,
-            Hours,
+            ticks,
+            seconds,
+            minutes,
+            hours,
         }
         private static IDictionary<Magnitude, string> MagnitudeStrings = new Dictionary<Magnitude, string>() {
-            { Magnitude.Ticks, "Ticks" },
-            { Magnitude.Seconds, "Seconds" },
-            { Magnitude.Minutes, "Minutes" },
-            { Magnitude.Hours, "Hours" },
+            { Magnitude.ticks, "ticks" },
+            { Magnitude.seconds, "seconds" },
+            { Magnitude.minutes, "minutes" },
+            { Magnitude.hours, "hours" },
         }.ToImmutableDictionary();
         
         private static IDictionary<Magnitude, int> Conversions = new Dictionary<Magnitude, int>() {
-            { Magnitude.Ticks, 60 },
-            { Magnitude.Seconds, 60 },
-            { Magnitude.Minutes, 60 },
+            { Magnitude.ticks, 60 },
+            { Magnitude.seconds, 60 },
+            { Magnitude.minutes, 60 },
         }.ToImmutableDictionary();
-        private static string IndefiniteString = "Indefinite";
+        private static string IndefiniteString = "indefinite";
+        private static string MaxIntString = "ever";
         #endregion
 
         #region Properties
 
-        public float Value;
+        public double Value;
         public int Ticks = 0;
         public Magnitude Mag;
 
         #endregion
 
         #region Constructors
-        public Time(float value, Magnitude mag = Magnitude.Ticks) {
-            Value = (float)value;
+        public Time(double value, Magnitude mag = Magnitude.ticks) {
+            Value = value;
+            double temp = value * 10000;
             Mag = mag;
             ReduceSelf();
             Ticks = CalculateTicks();
@@ -52,6 +54,9 @@ namespace WeaponEnchantments.Common.Utility {
             if (Value < 0) {
                 return IndefiniteString;
             }
+            else if (Ticks == int.MaxValue) {
+                return MaxIntString;
+			}
 
             var maxReducedSelf = MaxReducedSelf();
             return $"{Math.Round(maxReducedSelf.Item1, 1)} {MagnitudeStrings[maxReducedSelf.Item2]}";
@@ -70,18 +75,18 @@ namespace WeaponEnchantments.Common.Utility {
         }
 
         // Returns a lossy max simplification
-        private Tuple<float, Magnitude> MaxReducedSelf() {
+        private Tuple<double, Magnitude> MaxReducedSelf() {
             if (Value < 0) {
-                return new Tuple<float, Magnitude>(Value, Mag);
+                return new Tuple<double, Magnitude>(Value, Mag);
             }
             
-            float newValue = Value;
+            double newValue = Value;
             Magnitude newMag = Mag;
             while (Conversions.ContainsKey(newMag) && newValue > Conversions[newMag] && newValue % Conversions[newMag] == 0) {
                 newValue /= Conversions[newMag];
                 newMag += 1;
             }
-            return new Tuple<float, Magnitude>(newValue, newMag);
+            return new Tuple<double, Magnitude>(newValue, newMag);
         }
       
         // Returns the amount of frames this value represents
@@ -89,12 +94,14 @@ namespace WeaponEnchantments.Common.Utility {
             if (Value < 0) {
                 return (int)Value;
             }
-            float newValue = Value;
+            double newValue = Value;
             Magnitude newMag = Mag;
             while (newMag != 0 && Conversions.ContainsKey(newMag - 1)) {
                 newMag -= 1;
                 newValue *= Conversions[newMag];
             }
+
+            double temp = newValue * 10000;
 
             return (int)newValue;
         }
@@ -109,7 +116,7 @@ namespace WeaponEnchantments.Common.Utility {
 
         public static Time operator *(Time t, float value) {
             int newFrames = (int)((int)t * value);
-            return new Time(newFrames, Magnitude.Ticks);
+            return new Time(newFrames, Magnitude.ticks);
         }
 
         #endregion

@@ -78,6 +78,7 @@ namespace WeaponEnchantments.Common.Globals
         public bool trackedWeapon = false;
         public bool hoverItem = false;
         private bool _stack0 = false;
+        public uint lastWeaponUpdateTime;
         public bool Stack0 {
             get {
                 if (_stack0) {
@@ -276,7 +277,13 @@ namespace WeaponEnchantments.Common.Globals
                 $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
-        public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+            WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
+            wePlayer.LastPlayerEquipment.CombineOnHitDictionaries();
+
+            base.ModifyTooltips(item, tooltips);
+		}
+		public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             if (!WEMod.serverConfig.CritPerLevelDisabled) {
                 crit += levelBeforeBooster * GlobalStrengthMultiplier;
             }

@@ -5,14 +5,11 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class SpeedEnchantment : Enchantment
 	{
-		public override int StrengthGroup => 12;
 		public override void GetMyStats() {
 			Effects = new() {
-				new AttackSpeed(EnchantmentStrengthData)
+				new AttackSpeed(EnchantmentStrengthData),
+				new AutoReuse(SpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData)
 			};
-
-			if(EnchantmentStrength >= 0.1f)
-				Effects.Add(new AutoReuse());
 		}
 
 		public override string Artist => "Zorutan";
