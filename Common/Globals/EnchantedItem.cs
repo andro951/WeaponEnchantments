@@ -1749,7 +1749,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     if (modItem is not Enchantment enchantment) {
-                        $"Detected a non-enchantment item: {enchantmentItem.S()} in your {item.S()} enchantments".LogNT(ChatMessagesIDs.DetectedNonEnchantmentItem);
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
                         continue;
                     }
 
