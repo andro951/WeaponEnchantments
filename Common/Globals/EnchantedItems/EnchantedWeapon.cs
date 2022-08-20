@@ -370,6 +370,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (player.ThrownCost33)
                         weaponChance *= 1f / 3f;
 				}
+
                 float combinedStrength = strength / weaponChance;
                 float rand = Main.rand.NextFloat();
                 return rand > combinedStrength;

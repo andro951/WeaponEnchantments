@@ -15,7 +15,12 @@ namespace WeaponEnchantments.Common
 		/// Increase to the base value of the stat. Directly added to the stat before multipliers are applied.
 		/// </summary>
 		public float Base {
-			get => _base;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _base;
+			}
 			set {
 				if (value != originalBase) {
 					originalBase = value;
@@ -31,7 +36,12 @@ namespace WeaponEnchantments.Common
 		/// The combination of all additive multipliers. Starts at 1
 		/// </summary>
 		public float Additive {
-			get => _additive;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _additive;
+			}
 			set {
 				if (value != originalAdditive) {
 					originalAdditive = value;
@@ -47,7 +57,12 @@ namespace WeaponEnchantments.Common
 		/// The combination of all multiplicative multipliers. Starts at 1. Applies 'after' all additive bonuses have been accumulated.
 		/// </summary>
 		public float Multiplicative {
-			get => _multiplicative;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _multiplicative;
+			}
 			set {
 				if (value != originalMultiplicative) {
 					originalMultiplicative = value;
@@ -63,7 +78,12 @@ namespace WeaponEnchantments.Common
 		/// Increase to the final value of the stat. Directly added to the stat after multipliers are applied.
 		/// </summary>
 		public float Flat {
-			get => _flat;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _flat;
+			}
 			set {
 				if (value != originalFlat) {
 					originalFlat = value;
@@ -274,7 +294,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 
-		public override bool Equals(object obj) {
+		/*public override bool Equals(object obj) {
 			if (obj is not EStatModifier m)
 				return false;
 
@@ -330,7 +350,7 @@ namespace WeaponEnchantments.Common
 			=> m1.Additive == m2.Additive && m1.Multiplicative == m2.Multiplicative && m1.Flat == m2.Flat && m1.Base == m2.Base;
 
 		public static bool operator !=(EStatModifier m1, EStatModifier m2)
-			=> m1.Additive != m2.Additive || m1.Multiplicative != m2.Multiplicative || m1.Flat != m2.Flat || m1.Base != m2.Base;
+			=> m1.Additive != m2.Additive || m1.Multiplicative != m2.Multiplicative || m1.Flat != m2.Flat || m1.Base != m2.Base;*/
 
 		public float ApplyTo(float baseValue) {
 			if (_waitingForEnterWorld)
