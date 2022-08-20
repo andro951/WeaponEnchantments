@@ -480,8 +480,14 @@ namespace WeaponEnchantments
 
             return currentEquipArmor;
         }
-		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo) {
-            if (!enteredWorld)
+		public override void PostUpdate() {
+            Update();
+		}
+		public override void UpdateAutopause() {
+            Update();
+		}
+        private void Update() {
+            if (Main.gameMenu)
                 return;
             /*Troubleshooting Localization
             ModItem modItem = Main.HoverItem.ModItem;
@@ -683,7 +689,7 @@ namespace WeaponEnchantments
                 }
             }
         }
-        public bool ItemChanged(Item current, Item previous, bool weapon = false) {
+		public bool ItemChanged(Item current, Item previous, bool weapon = false) {
             if (current != null && !current.IsAir) {
                 if(previous == null)
                     return true;
