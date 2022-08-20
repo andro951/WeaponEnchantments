@@ -313,15 +313,66 @@ namespace WeaponEnchantments.Common.Globals
 
             //True means it will consume ammo
             return rand > ammoSaveChance;*/
-            return CheckConsumeAmmoEffect(player);
+            return CheckConsumeAmmoEffect(weapon, ammo, player);
         }
         public override bool ConsumeItem(Item item, Player player) {
-            return CheckConsumeAmmoEffect(player);
+            return CheckConsumeAmmoEffect(item, item, player);
         }
-        private bool CheckConsumeAmmoEffect(Player player) {
+        private bool CheckConsumeAmmoEffect(Item weapon, Item ammo, Player player) {
             if (GetPlayerModifierStrength(player, EnchantmentStat.AmmoCost, out float strength)) {
+                float weaponChance;
+                switch (weapon.type) {
+                    case ItemID.VortexBeater:
+                    case ItemID.Phantasm:
+                    case ItemID.SDMG:
+                        weaponChance = 1f / 3f;
+                        break;
+                    case ItemID.Celeb2:
+                    case ItemID.Gatligator:
+                    case ItemID.Megashark:
+                    case ItemID.ChainGun:
+                        weaponChance = 0.5f;
+                        break;
+                    case ItemID.CandyCornRifle:
+                    case ItemID.Minishark:
+                        weaponChance = 2f / 3f;
+                        break;
+                    default:
+                        weaponChance = 1f;
+                        break;
+                }
+
+                if (player.magicQuiver && AmmoID.Sets.IsArrow[weapon.useAmmo])
+                    weaponChance *= 0.8f;
+
+                if (player.ammoBox)
+                    weaponChance *= 0.8f;
+
+                if (player.ammoPotion)
+                    weaponChance *= 0.8f;
+
+                if (player.huntressAmmoCost90)
+                    weaponChance *= 0.9f;
+
+                if (player.chloroAmmoCost80)
+                    weaponChance *= 0.8f;
+
+                if (player.ammoCost80)
+                    weaponChance *= 0.8f;
+
+                if (player.ammoCost75)
+                    weaponChance *= 0.75f;
+
+                if (weapon.CountsAsClass(DamageClass.Throwing)) {
+                    if (player.ThrownCost50)
+                        weaponChance *= 0.5f;
+
+                    if (player.ThrownCost33)
+                        weaponChance *= 1f / 3f;
+				}
+                float combinedStrength = strength / weaponChance;
                 float rand = Main.rand.NextFloat();
-                return rand > strength;
+                return rand > combinedStrength;
             }
 
             return true;

@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Effects
 
 		}
 
-        public override string DisplayName => EffectStrength >= 0f ? "Ammo Cost Reduction" : "Increased Ammo Cost";
+        public override string DisplayName => EffectStrength >= 0f ? "Chance To Not Consume Ammo" : "Increased Ammo Cost";
         public override EnchantmentStat statType => EnchantmentStat.AmmoCost;
 		public override string Tooltip => ModifierToString();
 	

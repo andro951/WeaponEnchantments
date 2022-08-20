@@ -224,7 +224,7 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
                 }
                 else if (projectile.localNPCHitCooldown > 0) {
-                        projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                    projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
             if (projectile.usesIDStaticNPCImmunity) {
