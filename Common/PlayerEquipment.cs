@@ -197,8 +197,11 @@ namespace WeaponEnchantments.Common {
             return FilterEnchantedItems(GetAllArmor()).OfType<EnchantedEquipItem>();
         }
 
-        private EnchantedWeapon GetEnchantedWeapon() {
-            if (HeldItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
+        private EnchantedWeapon GetEnchantedWeapon(Item item) {
+            if (item != null && item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
+                return enchantedWeapon;
+
+            if (HeldItem.TryGetEnchantedItem(out enchantedWeapon))
                 return enchantedWeapon;
 
             return null;
@@ -212,8 +215,8 @@ namespace WeaponEnchantments.Common {
             UpdateEnchantedEquipItemEffects(GetEnchantedEquipItems());
         }
 
-        public void UpdateWeaponEnchantmentEffects() {
-            EnchantedWeapon enchantedWeapon = GetEnchantedWeapon();
+        public void UpdateWeaponEnchantmentEffects(Item item = null) {
+            EnchantedWeapon enchantedWeapon = GetEnchantedWeapon(item);
             if (enchantedWeapon != null)
                 UpdateEnchantedWeaponEffects(enchantedWeapon);
 		}

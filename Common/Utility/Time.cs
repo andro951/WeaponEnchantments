@@ -14,11 +14,11 @@ namespace WeaponEnchantments.Common.Utility {
             minutes,
             hours,
         }
-        private static IDictionary<Magnitude, string> MagnitudeStrings = new Dictionary<Magnitude, string>() {
-            { Magnitude.ticks, "ticks" },
-            { Magnitude.seconds, "seconds" },
-            { Magnitude.minutes, "minutes" },
-            { Magnitude.hours, "hours" },
+        private static IDictionary<Magnitude, (string, string)> MagnitudeStrings = new Dictionary<Magnitude, (string, string)>() {
+            { Magnitude.ticks, ("tick", "ticks") },
+            { Magnitude.seconds, ("second", "seconds") },
+            { Magnitude.minutes, ("minute", "minutes") },
+            { Magnitude.hours, ("hour", "hours") },
         }.ToImmutableDictionary();
         
         private static IDictionary<Magnitude, int> Conversions = new Dictionary<Magnitude, int>() {
@@ -58,8 +58,9 @@ namespace WeaponEnchantments.Common.Utility {
                 return MaxIntString;
 			}
 
-            var maxReducedSelf = MaxReducedSelf();
-            return $"{Math.Round(maxReducedSelf.Item1, 1)} {MagnitudeStrings[maxReducedSelf.Item2]}";
+            Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
+
+            return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
         }
         #endregion
 

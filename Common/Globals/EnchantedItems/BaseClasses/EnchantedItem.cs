@@ -1045,6 +1045,7 @@ namespace WeaponEnchantments.Common.Globals
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+                iGlobal.enchantments[i] = new Item();
                 item.UpdateEnchantment(ref enchantment, i, true);
                 wePlayer.UpdateItemStats(ref item);
             }
@@ -1186,6 +1187,9 @@ namespace WeaponEnchantments.Common.Globals
 
             //Update item Value
             iGlobal.UpdateItemValue();
+
+            if (iGlobal is EnchantedWeapon)
+                Main.LocalPlayer.GetWEPlayer().Equipment.UpdateWeaponEnchantmentEffects(item);
 
             #region Debug
 

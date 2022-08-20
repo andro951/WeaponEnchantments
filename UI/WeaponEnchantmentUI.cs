@@ -601,8 +601,8 @@ namespace WeaponEnchantments.UI
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                     if (wePlayer.EnchantmentInUI(i).stack < 1) {
                         EnchantedItemStaticMethods.RemoveEnchantment(i);
-                        if(iGlobal != null)
-                            iGlobal.enchantments[i] = new Item();
+                        //if(iGlobal != null)
+                        //    iGlobal.enchantments[i] = new Item();
                     }
                 }
             }

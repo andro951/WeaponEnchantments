@@ -127,27 +127,13 @@ namespace WeaponEnchantments.Common
 
 		public string SmartTooltip {
 			get {
-				if(_base <= 0f && _multiplicative != 1f) {
-					return SignTooltip;
-				}
-				/*if (_base > 0f) {
-					return SignPercentMult100Tooltip;
-				}
-				else {
-					if (_additive > 0f) {
-						if (_multiplicative != 1f) {
-							return SignTooltip;
-						}
-						else {
-							return SignPercentMult100Tooltip;
-						}
-					}
-					else if (_multiplicative != 1f) {
-						return SignTooltip;
-					}
-				}*/
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
 
-				return SignPercentMult100Minus1Tooltip;
+				if (_additive != 1f)
+					return SignPercentMult100Minus1Tooltip;
+
+				return SignTooltip;
 			}
 		}
 
@@ -171,7 +157,7 @@ namespace WeaponEnchantments.Common
 		public string Mult100Minus1Tooltip => GetTootlip(false, false, true, true);
 		public string Minus1Tooltip => GetTootlip(false, false, false, true);
 
-		private string GetTootlip(bool percent, bool sign, bool multiply100, bool minusOne = false) {
+		private string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
