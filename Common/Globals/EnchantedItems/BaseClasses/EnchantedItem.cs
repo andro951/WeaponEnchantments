@@ -1493,7 +1493,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     if (modItem is not Enchantment enchantment) {
-                        $"Detected a non-enchantment item: {enchantmentItem.S()} in your {item.S()} enchantments".LogNT(ChatMessagesIDs.DetectedNonEnchantmentItem);
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, $"Detected a non-enchantment item:{enchantmentItem.S()} on your {item.S()}.  It has been returned to your inventory.");
                         continue;
                     }
 
@@ -1543,13 +1543,6 @@ namespace WeaponEnchantments.Common.Globals
 
                 Main.NewText("Your " + item.Name + "' level is too low to use that many enchantments.");
             }
-
-            
-            
-
-
-
-
         }
         private static void RemoveEnchantmentNoUpdate(ref Item enchantmentItem, Player player, string msg) {
             enchantmentItem = player.GetItem(player.whoAmI, enchantmentItem, GetItemSettings.LootAllSettings);
