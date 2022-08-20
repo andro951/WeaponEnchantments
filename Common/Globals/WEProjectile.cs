@@ -53,6 +53,8 @@ namespace WeaponEnchantments.Common.Globals
 
         public override bool InstancePerEntity => true;
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
+            if (projectile.owner < 0 || projectile.owner >= Main.player.Length)
+                return;
 
 			#region Debug
 
