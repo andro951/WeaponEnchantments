@@ -20,6 +20,7 @@ namespace WeaponEnchantments.Common.Utility
         public const int FailedGetEnchantmentValueByName = 10;
         public const int FailedCheckConvertExcessExperience = 11;
         public const int LowDamagePerHitXPBoost = 12;
+        public const int DetectedNonEnchantmentItem = 13;
     }
     public static class LogMethods
     {
