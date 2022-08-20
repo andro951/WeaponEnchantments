@@ -1127,8 +1127,7 @@ namespace WeaponEnchantments
             }
 
             // Apply them if there's any.
-            if (StatEffects.Any())
-                ApplyStatEffects();
+            ApplyStatEffects();
 
         }
         private void UpdateEnchantmentEffects() {

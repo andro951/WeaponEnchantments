@@ -18,7 +18,6 @@ namespace WeaponEnchantments.Common {
         private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
         private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
         public static uint lastWeaponUpdateTime;
-        private static bool updatingHoverItem;
 
         public Item HeldItem => heldItem[0];
         private Item[] heldItem = new Item[1];
@@ -28,14 +27,7 @@ namespace WeaponEnchantments.Common {
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
-            if (!Main.HoverItem.NullOrAir()) {
-                heldItem[0] = Main.HoverItem;
-                updatingHoverItem = true;
-            }
-			else {
-                heldItem[0] = player.HeldItem;
-                updatingHoverItem = false;
-            }
+            heldItem[0] = player.HeldItem;
 
             owner = player;
             wePlayer = player.GetWEPlayer();
@@ -236,12 +228,6 @@ namespace WeaponEnchantments.Common {
             int count = myItems.Count();
             if (count != otherItems.Count())
                 return false;
-
-            if (!updatingHoverItem && myItems.ElementAt(0).TryGetEnchantedItem(out EnchantedWeapon myEnchantedWeapon) && otherItems.ElementAt(0).TryGetEnchantedItem(out EnchantedWeapon otherEnchantedWeapon)) {
-                uint lastUpdate = myEnchantedWeapon.lastWeaponUpdateTime;
-                if (lastUpdate != otherEnchantedWeapon.lastWeaponUpdateTime || lastUpdate != lastWeaponUpdateTime)
-                    return false;
-            }
 
             for (int i = 0; i < count; i++) {
                     Item ci = myItems.ElementAt(i);

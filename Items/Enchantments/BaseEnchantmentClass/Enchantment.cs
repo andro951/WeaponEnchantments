@@ -130,14 +130,10 @@ namespace WeaponEnchantments.Items {
 		public EItemType ItemTypeAppliedOn {
 			get => itemTypeAppliedOn;
 			set {
-				if (AllowedList.ContainsKey(value)) {
-					AllowedListMultiplier = AllowedList[value];
-					foreach (EnchantmentEffect effect in Effects) {
-						effect.AllowedListMultiplier = AllowedListMultiplier;
-					}
-				}
-				else {
-					AllowedListMultiplier = 1f;
+				AllowedListMultiplier = AllowedList.ContainsKey(value) ? AllowedList[value] : 1f;
+
+				foreach (EnchantmentEffect effect in Effects) {
+					effect.AllowedListMultiplier = AllowedListMultiplier;
 				}
 			}
 		}

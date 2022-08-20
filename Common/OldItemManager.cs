@@ -35,8 +35,8 @@ namespace WeaponEnchantments.Common
             { "Control", "MobilityControl" }
         };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
-            { "SuperRare", 3 }, 
-            { "UltraRare", 4 }, 
+            { "SuperRare", 3 },
+            { "UltraRare", 4 },
             { "Rare", 2 } 
         };
         private static List<string> firstWordReplaceEnchantmentWithCoins = new List<string>() {

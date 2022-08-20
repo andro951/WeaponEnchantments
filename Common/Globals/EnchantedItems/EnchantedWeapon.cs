@@ -245,7 +245,7 @@ namespace WeaponEnchantments.Common.Globals
             if (Enchanted) {
                 //~Damage tooltip
                 if (WEMod.clientConfig.DisplayApproximateWeaponDamageTooltip) {
-                    if (GetPlayerModifierStrength(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
+                    if (GetPlayerModifierStrengthForTooltip(wePlayer.Player, EnchantmentStat.DamageAfterDefenses, out float damageMultiplier) && damageMultiplier != 1f) {
                         int damage = (int)Math.Round(wePlayer.Player.GetWeaponDamage(item, true) * damageMultiplier);
                         string tooltip = $"Item Damage ~ {damage} (Against 0 armor enemy)";
                         tooltips.Add(new TooltipLine(Mod, "level", tooltip) { OverrideColor = Color.DarkRed });
@@ -268,12 +268,6 @@ namespace WeaponEnchantments.Common.Globals
                 $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-            WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
-            wePlayer.LastPlayerEquipment.CombineOnHitDictionaries();
-
-            base.ModifyTooltips(item, tooltips);
-		}
 		public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             if (!WEMod.serverConfig.CritPerLevelDisabled) {
                 crit += levelBeforeBooster * GlobalStrengthMultiplier;
@@ -531,6 +525,17 @@ namespace WeaponEnchantments.Common.Globals
 
             return false;
 		}
+        protected bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
+            WEPlayer wePlayer = player.GetWEPlayer();
+            strength = 1f;
+            if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat))
+                wePlayer.EnchantmentStats[enchantmentStat].ApplyTo(ref strength);
+
+            if (EnchantmentStats.ContainsKey(enchantmentStat))
+                EnchantmentStats[enchantmentStat].ApplyTo(ref strength);
+
+            return strength != 1f;
+        }
     }
 
     public static class EnchantedWeaponStaticMethods

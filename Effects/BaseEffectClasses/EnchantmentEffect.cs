@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Effects {
             get => allowedListMultiplier;
             set {
                 allowedListMultiplier = value;
-                combinedMultiplier = allowedListMultiplier * damageClassMultiplier;
+                CombinedMultiplier = allowedListMultiplier * damageClassMultiplier;
             }
         }
         protected float allowedListMultiplier = 1f;
@@ -57,7 +57,7 @@ namespace WeaponEnchantments.Effects {
             get => damageClassMultiplier;
             set {
                 damageClassMultiplier = value;
-                combinedMultiplier = allowedListMultiplier * damageClassMultiplier;
+                CombinedMultiplier = allowedListMultiplier * damageClassMultiplier;
             }
         }
         protected float damageClassMultiplier = 1f;
@@ -71,12 +71,7 @@ namespace WeaponEnchantments.Effects {
         public virtual float SelfStackingPenalty { get; protected set; } = 0f;
 
         public void SetDamageClassMultiplier(DamageClass dc) {
-            if (EnchantmentDamageEfficiency.ContainsKey(dc)) {
-                DamageClassMultiplier = EnchantmentDamageEfficiency[dc];
-            }
-			else {
-                DamageClassMultiplier = 1f;
-            }
+            DamageClassMultiplier = EnchantmentDamageEfficiency.ContainsKey(dc) ? EnchantmentDamageEfficiency[dc] : 1f;
         }
     }
 }
