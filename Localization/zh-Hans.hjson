@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: 稀有我为人人附魔
 			OneForAllEnchantmentSuperRare: 超稀有我为人人附魔
 			OneForAllEnchantmentUltraRare: 极超稀有我为人人附魔
-			SpeedEnchantmentBasic: 基础攻速附魔
-			SpeedEnchantmentCommon: 普通攻速附魔
-			SpeedEnchantmentRare: 稀有攻速附魔
-			SpeedEnchantmentSuperRare: 超稀有攻速附魔
-			SpeedEnchantmentUltraRare: 极超稀有攻速附魔
+			AttackSpeedEnchantmentBasic: 基础攻速附魔
+			AttackSpeedEnchantmentCommon: 普通攻速附魔
+			AttackSpeedEnchantmentRare: 稀有攻速附魔
+			AttackSpeedEnchantmentSuperRare: 超稀有攻速附魔
+			AttackSpeedEnchantmentUltraRare: 极超稀有攻速附魔
 			StatDefenseEnchantmentBasic: 基础防御附魔
 			StatDefenseEnchantmentCommon: 普通防御附魔
 			StatDefenseEnchantmentRare: 稀有防御附魔
@@ -118,11 +118,11 @@ Mods: {
 			ScaleEnchantmentRare: 稀有体积附魔
 			ScaleEnchantmentSuperRare: 超稀有体积附魔
 			ScaleEnchantmentUltraRare: 极超稀有体积附魔
-			ShootSpeedEnchantmentBasic: 基础射速附魔
-			ShootSpeedEnchantmentCommon: 普通射速附魔
-			ShootSpeedEnchantmentRare: 稀有射速附魔
-			ShootSpeedEnchantmentSuperRare: 超稀有射速附魔
-			ShootSpeedEnchantmentUltraRare: 极超稀有射速附魔
+			ProjectileVelocityEnchantmentBasic: 基础射速附魔
+			ProjectileVelocityEnchantmentCommon: 普通射速附魔
+			ProjectileVelocityEnchantmentRare: 稀有射速附魔
+			ProjectileVelocityEnchantmentSuperRare: 超稀有射速附魔
+			ProjectileVelocityEnchantmentUltraRare: 极超稀有射速附魔
 			SpelunkerEnchantmentUltraRare: 极超稀有洞穴探险附魔
 			WarEnchantmentBasic: 基础战争附魔
 			WarEnchantmentCommon: 普通战争附魔

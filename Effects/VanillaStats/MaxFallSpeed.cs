@@ -14,6 +14,5 @@ namespace WeaponEnchantments.Effects {
 
         }
         public override EnchantmentStat statType => EnchantmentStat.MaxFallSpeed;
-        public override string DisplayName { get; } = "Max Fall Speed";
     }
 }

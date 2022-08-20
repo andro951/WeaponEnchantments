@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
@@ -8,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 11;
 		public override void GetMyStats() {
 			Effects = new() {
-				new MoveSpeed(EnchantmentStrengthData)
+				new MovementSpeed(EnchantmentStrengthData)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

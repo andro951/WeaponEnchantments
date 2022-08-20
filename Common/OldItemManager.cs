@@ -28,12 +28,17 @@ namespace WeaponEnchantments.Common
             { "Critical", "CriticalStrikeChance" }, 
             { "Size", "Scale" }, 
             { "ManaCost", "Mana" }, 
-            { "StatDefense", "Defense" }, 
-            { "Splitting", "Multishot"} };
+            { "StatDefense", "Defense" },
+            { "Splitting", "Multishot"},
+            { "ShootSpeed", "ProjectileVelocity"},
+            { "Speed", "AttackSpeed" },
+            { "Control", "MobilityControl" }
+        };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
             { "SuperRare", 3 }, 
             { "UltraRare", 4 }, 
-            { "Rare", 2 } };
+            { "Rare", 2 } 
+        };
         private static List<string> firstWordReplaceEnchantmentWithCoins = new List<string>() {
             { "PhaseJump" }
 		};
@@ -115,7 +120,7 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 		}
-		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1) {
+		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1, bool removeToInventory = false) {
             if(item != null && !item.IsAir) {
 
                 #region Debug
@@ -124,7 +129,7 @@ namespace WeaponEnchantments.Common
 
 				#endregion
 
-				if (item.ModItem is UnloadedItem) {
+				if (item.ModItem is UnloadedItem unloadedItem) {
                     bool replaced = false;
                     if (!replaced)
                         replaced = TryReplaceEnchantmentWithItem(ref item);
@@ -204,7 +209,7 @@ namespace WeaponEnchantments.Common
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = iGlobal.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
-                            ReplaceOldItem(ref enchantmentItem, player);
+                            ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);
                         }
                     }
 

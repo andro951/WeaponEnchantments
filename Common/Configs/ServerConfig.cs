@@ -58,7 +58,7 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 10000)]
         [DefaultValue(10)]
         [ReloadRequired]
-        public int SpeedEnchantmentAutoReuseSetpoint;
+        public int AttackSpeedEnchantmentAutoReuseSetpoint;
 
         [Label("Auto Reuse Disabled on Magic Missile type weapons")]
         [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]

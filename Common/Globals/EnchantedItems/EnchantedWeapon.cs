@@ -30,16 +30,6 @@ namespace WeaponEnchantments.Common.Globals
         #region Constants
 
         public static List<EnchantmentStat> WeaponStatDict = Enum.GetValues(typeof(WeaponStat)).Cast<EnchantmentStat>().ToList();
-        public enum WeaponStat : byte {
-            AttackSpeed = 2,
-            ArmorPenetration,//Not implemented, no hook
-            AutoReuse,
-            CriticalStrikeChance = 6,
-            Damage,
-            Knockback = 11,
-            ManaCost,
-            Size = 23,
-        }
 
         #endregion
 
@@ -56,6 +46,7 @@ namespace WeaponEnchantments.Common.Globals
         public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
         public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
         public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
+        public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
         public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         #endregion

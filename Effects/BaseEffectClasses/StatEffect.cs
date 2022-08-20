@@ -15,17 +15,17 @@ namespace WeaponEnchantments.Effects {
         /*protected StatEffect(float[] additive = null, float[] multiplicative = null, float[] flat = null, float[] @base = null) {
             EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
         }*/
-        public StatEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) {
+        public StatEffect(DifficultyStrength additive, DifficultyStrength multiplicative, DifficultyStrength flat, DifficultyStrength @base) {
             EStatModifier = new EStatModifier(statType, additive, multiplicative, flat, @base);
         }
         public EStatModifier EStatModifier { set; get; }
         public override float EffectStrength => EStatModifier.Strength;
-		public override float EfficiencyMultiplier { 
+		public override float CombinedMultiplier {
             get => EStatModifier.EfficiencyMultiplier; 
-            set => EStatModifier.EfficiencyMultiplier = value;
+            protected set => EStatModifier.EfficiencyMultiplier = value;
         }
 
-		public abstract EnchantmentStat statType { get; }
+        public abstract EnchantmentStat statType { get; }
 
         //protected virtual string modifierToString() {
         //    string final = "";

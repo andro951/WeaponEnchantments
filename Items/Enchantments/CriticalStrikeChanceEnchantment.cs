@@ -13,6 +13,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

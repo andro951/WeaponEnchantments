@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
@@ -10,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {
-				new DefenseEffect(@base: EnchantmentStrength),
+				new DefenseEffect(@base: EnchantmentStrengthData),
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -20,6 +21,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

@@ -594,7 +594,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
                                 break;
                             case 1://Gold Chest
@@ -603,7 +603,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                 itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
                                 itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 break;
                             case 2://Gold Chest (Locked)
                                 itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
@@ -629,7 +629,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
                                 break;
                             case 13://Skyware Chest
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 break;
                             case 15://Web Covered Chest
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
@@ -668,7 +668,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                 break;
                             case 40://Granite Chest
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 break;
                             case 41://Marble Chest
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
@@ -685,7 +685,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
                                 itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
                                 itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 break;
                             case 10://SandStone Chest
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());

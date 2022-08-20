@@ -104,8 +104,6 @@ namespace WeaponEnchantments.Common {
                     if (enchantmentEffect is BoolEffect boolEffect && boolEffect.StrengthData != null && boolEffect.MinimumStrength > boolEffect.StrengthData.Value)
                         continue;
 
-                    DamageClass dc = enchantedItem.Item.DamageType;
-                    enchantmentEffect.EfficiencyMultiplier = enchantment.AllowedList[enchantedItem.ItemType] * enchantmentEffect.GetClassEfficiency(dc);
                     effects.Add(enchantmentEffect);
                 }
             }
@@ -115,6 +113,7 @@ namespace WeaponEnchantments.Common {
             entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>().ToList();
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>().ToList();
             entity.OnHitEffects = enchantmentEffects.OfType<IOnHitEffect>().ToList();
+            entity.ModifyShootStatEffects = enchantmentEffects.OfType<IModifyShootStats>().ToList();
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
@@ -151,12 +150,13 @@ namespace WeaponEnchantments.Common {
                 enchantedWeapon = new EnchantedWeapon();
 
             wePlayer.CombinedOnHitEffects = wePlayer.OnHitEffects.Concat(enchantedWeapon.OnHitEffects).ToList();
+            wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedWeapon.ModifyShootStatEffects).ToList();
             wePlayer.CombinedEnchantmentStats = CombineStatEffectDictionaries(wePlayer.EnchantmentStats, enchantedWeapon.EnchantmentStats);
             wePlayer.CombinedOnHitDebuffs = CombineBuffEffectDictionaries(wePlayer.OnHitDebuffs, enchantedWeapon.OnHitDebuffs);
             wePlayer.CombinedOnHitBuffs = CombineBuffEffectDictionaries(wePlayer.OnHitBuffs, enchantedWeapon.OnHitBuffs);
         }
         private SortedDictionary<EnchantmentStat, EStatModifier> CombineStatEffectDictionaries(SortedDictionary<EnchantmentStat, EStatModifier> playerDictionary, SortedDictionary<EnchantmentStat, EStatModifier> weaponDictionary, bool vallinllaStatCheck = false) {
-            SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>();
+            SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
             foreach (EnchantmentStat key in weaponDictionary.Keys) {
                 if (!vallinllaStatCheck || !WeaponStatDict.Contains(key))
                     result.AddOrCombine(weaponDictionary[key]);
@@ -165,7 +165,7 @@ namespace WeaponEnchantments.Common {
             return result;
 		}
         private SortedDictionary<short, BuffStats> CombineBuffEffectDictionaries(SortedDictionary<short, BuffStats> playerDictionary, SortedDictionary<short, BuffStats> weaponDictionary) {
-            SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>(playerDictionary);
+            SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
             foreach (short buffID in weaponDictionary.Keys) {
                 result.AddOrCombine(weaponDictionary[buffID]);
             }

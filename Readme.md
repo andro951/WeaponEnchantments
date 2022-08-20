@@ -277,7 +277,7 @@ Kiroto:
 
 Sir Bumpleton: 
 
-![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
+![ProjectileVelocityEnchantmentCommon](/Items/Sprites/ProjectileVelocityEnchantmentCommon.png)
 
 Zorutan: https://twitter.com/ZorutanMesuta
 
@@ -307,7 +307,7 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![PeaceEnchantmentCommon](/Items/Sprites/PeaceEnchantmentCommon.png)
 ![ScaleEnchantmentCommon](/Items/Sprites/ScaleEnchantmentCommon.png)
 ![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
-![SpeedEnchantmentCommon](/Items/Sprites/SpeedEnchantmentCommon.png)
+![AttackSpeedEnchantmentCommon](/Items/Sprites/AttackSpeedEnchantmentCommon.png)
 ![DefenseEnchantmentCommon](/Items/Sprites/DefenseEnchantmentCommon.png)
 ![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
 ![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)

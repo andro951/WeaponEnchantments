@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Debuffs;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments
 {

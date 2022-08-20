@@ -13,7 +13,6 @@ namespace WeaponEnchantments.Effects {
         public JumpSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.JumpSpeedBoost;
-        public override string DisplayName { get; } = "Jump Speed";
+        public override EnchantmentStat statType => EnchantmentStat.JumpSpeed;
     }
 }

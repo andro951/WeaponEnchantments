@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: Einer für alle Verzauberung Selten
 			OneForAllEnchantmentSuperRare: Einer für alle Verzauberung Super Selten
 			OneForAllEnchantmentUltraRare: Einer für alle Verzauberung Ultra Selten
-			SpeedEnchantmentBasic: Geschwindigkeit Verzauberung Basic
-			SpeedEnchantmentCommon: Geschwindigkeit Verzauberung Gewöhnlich
-			SpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
-			SpeedEnchantmentSuperRare: Geschwindigkeit Verzauberung Super Selten
-			SpeedEnchantmentUltraRare: Geschwindigkeit Verzauberung Ultra Selten
+			AttackSpeedEnchantmentBasic: Geschwindigkeit Verzauberung Basic
+			AttackSpeedEnchantmentCommon: Geschwindigkeit Verzauberung Gewöhnlich
+			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
+			AttackSpeedEnchantmentSuperRare: Geschwindigkeit Verzauberung Super Selten
+			AttackSpeedEnchantmentUltraRare: Geschwindigkeit Verzauberung Ultra Selten
 			StatDefenseEnchantmentBasic: Verteidigung Verzauberung Basic
 			StatDefenseEnchantmentCommon: Verteidigung Verzauberung Gewöhnlich
 			StatDefenseEnchantmentRare: Verteidigung Verzauberung Selten
@@ -118,11 +118,11 @@ Mods: {
 			ScaleEnchantmentRare: Skalierung Verzauberung Selten
 			ScaleEnchantmentSuperRare: Skalierung Verzauberung Super Selten
 			ScaleEnchantmentUltraRare: Skalierung Verzauberung Ultra Selten
-			ShootSpeedEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
-			ShootSpeedEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
-			ShootSpeedEnchantmentRare: Schussgeschwindigkeit ​​Verzauberung Selten
-			ShootSpeedEnchantmentSuperRare: Schussgeschwindigkeit ​​Verzauberung Sehr Selten
-			ShootSpeedEnchantmentUltraRare: Schussgeschwindigkeit ​​Verzauberung Ultra Selten
+			ProjectileVelocityEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
+			ProjectileVelocityEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
+			ProjectileVelocityEnchantmentRare: Schussgeschwindigkeit ​​Verzauberung Selten
+			ProjectileVelocityEnchantmentSuperRare: Schussgeschwindigkeit ​​Verzauberung Sehr Selten
+			ProjectileVelocityEnchantmentUltraRare: Schussgeschwindigkeit ​​Verzauberung Ultra Selten
 			SpelunkerEnchantmentUltraRare: Höhlenforscher-Verzauberung Ultra Selten
 			WarEnchantmentBasic: Krieg Verzauberung Basic
 			WarEnchantmentCommon: Krieg Verzauberung Gewöhnlich

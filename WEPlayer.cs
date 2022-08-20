@@ -74,6 +74,7 @@ namespace WeaponEnchantments
         public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
         public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
         public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
+        public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
         public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
@@ -82,6 +83,7 @@ namespace WeaponEnchantments
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
+        public List<IModifyShootStats> CombinedModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
 
         // Currently just a function that gets the current player equipment state.
         public PlayerEquipment LastPlayerEquipment;
@@ -837,7 +839,12 @@ namespace WeaponEnchantments
 
             ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
         }
-        protected bool GetPlayerModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseValue = 0f) {
+		public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
+			foreach(var e in CombinedModifyShootStatEffects) {
+                e.ModifyShootStats(item, ref position, ref velocity, ref type, ref damage, ref knockback);
+			}
+		}
+		protected bool GetPlayerModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseValue = 0f) {
             strength = baseValue;
             if (CombinedEnchantmentStats.ContainsKey(enchantmentStat)) {
                 strength = CombinedEnchantmentStats[enchantmentStat].Strength;
@@ -1129,8 +1136,8 @@ namespace WeaponEnchantments
             Equipment.UpdateWeaponEnchantmentEffects();
         }
         private void ApplyStatEffects() {
-            foreach (EnchantmentStat key in VanillaStats.Keys) {
-                ModifyStat(VanillaStats[key]);
+            foreach (EnchantmentStat key in CombinedVanillaStats.Keys) {
+                ModifyStat(CombinedVanillaStats[key]);
             }
         }
         private void ModifyStat(EStatModifier sm) {
@@ -1156,7 +1163,7 @@ namespace WeaponEnchantments
                 case EnchantmentStat.Defense:
                     Player.statDefense = (int)sm.ApplyTo(Player.statDefense);
                     break;
-                case EnchantmentStat.JumpSpeedBoost:
+                case EnchantmentStat.JumpSpeed:
                     Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
                     break;
                 /*case EditableStat.Knockback:
@@ -1193,13 +1200,13 @@ namespace WeaponEnchantments
                 case EnchantmentStat.MaxFallSpeed:
                     Player.maxFallSpeed = sm.ApplyTo(Player.maxFallSpeed);
                     break;
-                case EnchantmentStat.MoveAcceleration:
+                case EnchantmentStat.MovementAcceleration:
                     Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
                     break;
-                case EnchantmentStat.MoveSlowdown:
+                case EnchantmentStat.MovementSlowdown:
                     Player.runSlowdown = sm.ApplyTo(Player.runSlowdown);
                     break;
-                case EnchantmentStat.MoveSpeed:
+                case EnchantmentStat.MovementSpeed:
                     Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
                     break;
                 case EnchantmentStat.Size:

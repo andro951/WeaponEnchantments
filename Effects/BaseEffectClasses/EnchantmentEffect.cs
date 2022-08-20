@@ -40,20 +40,43 @@ namespace WeaponEnchantments.Effects {
         /// Used to modify the EnchantmentStrength<br/>
         /// Affected by the item type the enchantment is applied on. (Weapon, Armor, Accesory)<br/>
         /// </summary>
-        public virtual float EfficiencyMultiplier { get; set; } = 1f;
-        
+        public virtual float CombinedMultiplier {
+            get => combinedMultiplier;
+            protected set => combinedMultiplier = value;
+        }
+        protected float combinedMultiplier = 1f;
+        public virtual float AllowedListMultiplier {
+            get => allowedListMultiplier;
+            set {
+                allowedListMultiplier = value;
+                combinedMultiplier = allowedListMultiplier * damageClassMultiplier;
+            }
+        }
+        protected float allowedListMultiplier = 1f;
+        protected virtual float DamageClassMultiplier {
+            get => damageClassMultiplier;
+            set {
+                damageClassMultiplier = value;
+                combinedMultiplier = allowedListMultiplier * damageClassMultiplier;
+            }
+        }
+        protected float damageClassMultiplier = 1f;
+
+
         public virtual string DisplayName => GetType().Name.AddSpaces();
         public virtual string Tooltip => DisplayName;
         public virtual Color TooltipColor { get; protected set; } = Color.White;
         public virtual bool showTooltip => true;
 	    
         public virtual float SelfStackingPenalty { get; protected set; } = 0f;
-	    
-        public float GetClassEfficiency(DamageClass dc) {
-            if (EnchantmentDamageEfficiency.ContainsKey(dc))
-                return EnchantmentDamageEfficiency[dc];
 
-            return 1f;
+        public void SetDamageClassMultiplier(DamageClass dc) {
+            if (EnchantmentDamageEfficiency.ContainsKey(dc)) {
+                DamageClassMultiplier = EnchantmentDamageEfficiency[dc];
+            }
+			else {
+                DamageClassMultiplier = 1f;
+            }
         }
     }
 }

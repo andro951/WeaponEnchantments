@@ -145,7 +145,7 @@ namespace WeaponEnchantments.Common.Globals
                 case NPCID.EaterofWorldsBody when !bossBag:
                 case NPCID.EaterofWorldsTail when !bossBag:
                 case ItemID.EaterOfWorldsBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
                 case NPCID.BrainofCthulhu when !bossBag:
                 case ItemID.BrainOfCthulhuBossBag when bossBag:
@@ -460,10 +460,10 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 14://Bat
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AttackSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 16://Swimming
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AttackSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 17://Vulture
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
@@ -608,7 +608,7 @@ namespace WeaponEnchantments.Common.Globals
                     case NPCID.Harpy://48
                     case NPCID.SnowmanGangsta://143
                     case NPCID.SnowBalla://145
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ShootSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ProjectileVelocityEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.Pixie://75
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));

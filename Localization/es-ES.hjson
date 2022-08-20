@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: Uno para todos Encantamiento raro
 			OneForAllEnchantmentSuperRare: Uno para todos Encantamiento Súper raro
 			OneForAllEnchantmentUltraRare: Uno para todos Encantamiento ultra raro
-			SpeedEnchantmentBasic: Encantamiento de velocidad básico
-			SpeedEnchantmentCommon: Encantamiento de velocidad Común
-			SpeedEnchantmentRare: Velocidad Encantamiento Raro
-			SpeedEnchantmentSuperRare: Encantamiento de velocidad Súper raro
-			SpeedEnchantmentUltraRare: Encantamiento de velocidad ultra raro
+			AttackSpeedEnchantmentBasic: Encantamiento de velocidad básico
+			AttackSpeedEnchantmentCommon: Encantamiento de velocidad Común
+			AttackSpeedEnchantmentRare: Velocidad Encantamiento Raro
+			AttackSpeedEnchantmentSuperRare: Encantamiento de velocidad Súper raro
+			AttackSpeedEnchantmentUltraRare: Encantamiento de velocidad ultra raro
 			StatDefenseEnchantmentBasic: Encantamiento de defensa estadística básico
 			StatDefenseEnchantmentCommon: Encantamiento de defensa estadística común
 			StatDefenseEnchantmentRare: Stat Defense Encantamiento Raro
@@ -118,11 +118,11 @@ Mods: {
 			ScaleEnchantmentRare: Escama Encantamiento Raro
 			ScaleEnchantmentSuperRare: Escala Encantamiento Súper Raro
 			ScaleEnchantmentUltraRare: Escala Encantamiento Ultra Raro
-			ShootSpeedEnchantmentBasic: Velocidad de disparo Encantamiento básico
-			ShootSpeedEnchantmentCommon: Velocidad de disparo Encantamiento Común
-			ShootSpeedEnchantmentRare: Velocidad de disparo Encantamiento Raro
-			ShootSpeedEnchantmentSuperRare: Shoot Speed ​​Encantamiento Súper Raro
-			ShootSpeedEnchantmentUltraRare: Encantamiento de velocidad de disparo ultra raro
+			ProjectileVelocityEnchantmentBasic: Velocidad de disparo Encantamiento básico
+			ProjectileVelocityEnchantmentCommon: Velocidad de disparo Encantamiento Común
+			ProjectileVelocityEnchantmentRare: Velocidad de disparo Encantamiento Raro
+			ProjectileVelocityEnchantmentSuperRare: Shoot Speed ​​Encantamiento Súper Raro
+			ProjectileVelocityEnchantmentUltraRare: Encantamiento de velocidad de disparo ultra raro
 			SpelunkerEnchantmentUltraRare: Encantamiento de espeleólogo ultra raro
 			WarEnchantmentBasic: Encantamiento de guerra básico
 			WarEnchantmentCommon: Encantamiento de guerra común

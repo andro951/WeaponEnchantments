@@ -12,8 +12,14 @@ namespace WeaponEnchantments.Common.Utility
 		MagicSummonHybrid,
 		Throwing
 	} //Located in DamageClassLoader.cs
-
-	public enum ArmorSlotSpecificID {
+    public enum EItemType
+    {
+        None,
+        Weapons,
+        Armor,
+        Accessories,
+    }
+    public enum ArmorSlotSpecificID {
 		Head,
 		Body,
 		Legs
@@ -31,7 +37,7 @@ namespace WeaponEnchantments.Common.Utility
         Damage,
         DamageAfterDefenses,
         Defense,
-        JumpSpeedBoost,
+        JumpSpeed,
         Knockback,
         LifeRegen,
         LifeSteal,
@@ -41,10 +47,22 @@ namespace WeaponEnchantments.Common.Utility
         MaxHP,
         MaxMinions,
         MaxMP,
-        MoveAcceleration,
-        MoveSlowdown,
-        MoveSpeed,
+        MovementAcceleration,
+        MovementSlowdown,
+        MovementSpeed,
+        ProjectileVelocity,
         Size,
         WingTime,
+    }
+    public enum WeaponStat : byte
+    {
+        AttackSpeed = 2,
+        ArmorPenetration,//Not implemented, no hook
+        AutoReuse,
+        CriticalStrikeChance = 6,
+        Damage,
+        Knockback = 11,
+        ManaCost = 14,
+        Size = 24,
     }
 }

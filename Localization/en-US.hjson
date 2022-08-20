@@ -49,11 +49,11 @@
 			OneForAllEnchantmentRare: One For All Enchantment Rare
 			OneForAllEnchantmentSuperRare: One For All Enchantment Super Rare
 			OneForAllEnchantmentUltraRare: One For All Enchantment Ultra Rare
-			SpeedEnchantmentBasic: Speed Enchantment Basic
-			SpeedEnchantmentCommon: Speed Enchantment Common
-			SpeedEnchantmentRare: Speed Enchantment Rare
-			SpeedEnchantmentSuperRare: Speed Enchantment Super Rare
-			SpeedEnchantmentUltraRare: Speed Enchantment Ultra Rare
+			AttackSpeedEnchantmentBasic: Speed Enchantment Basic
+			AttackSpeedEnchantmentCommon: Speed Enchantment Common
+			AttackSpeedEnchantmentRare: Speed Enchantment Rare
+			AttackSpeedEnchantmentSuperRare: Speed Enchantment Super Rare
+			AttackSpeedEnchantmentUltraRare: Speed Enchantment Ultra Rare
 			StatDefenseEnchantmentBasic: Stat Defense Enchantment Basic
 			StatDefenseEnchantmentCommon: Stat Defense Enchantment Common
 			StatDefenseEnchantmentRare: Stat Defense Enchantment Rare
@@ -117,11 +117,11 @@
 			ScaleEnchantmentRare: Scale Enchantment Rare
 			ScaleEnchantmentSuperRare: Scale Enchantment Super Rare
 			ScaleEnchantmentUltraRare: Scale Enchantment Ultra Rare
-			ShootSpeedEnchantmentBasic: Shoot Speed Enchantment Basic
-			ShootSpeedEnchantmentCommon: Shoot Speed Enchantment Common
-			ShootSpeedEnchantmentRare: Shoot Speed Enchantment Rare
-			ShootSpeedEnchantmentSuperRare: Shoot Speed Enchantment Super Rare
-			ShootSpeedEnchantmentUltraRare: Shoot Speed Enchantment Ultra Rare
+			ProjectileVelocityEnchantmentBasic: Shoot Speed Enchantment Basic
+			ProjectileVelocityEnchantmentCommon: Shoot Speed Enchantment Common
+			ProjectileVelocityEnchantmentRare: Shoot Speed Enchantment Rare
+			ProjectileVelocityEnchantmentSuperRare: Shoot Speed Enchantment Super Rare
+			ProjectileVelocityEnchantmentUltraRare: Shoot Speed Enchantment Ultra Rare
 			SpelunkerEnchantmentUltraRare: Spelunker Enchantment Ultra Rare
 			WarEnchantmentBasic: War Enchantment Basic
 			WarEnchantmentCommon: War Enchantment Common

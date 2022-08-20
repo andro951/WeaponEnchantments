@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility

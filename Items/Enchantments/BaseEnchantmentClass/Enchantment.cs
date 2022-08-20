@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
 			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }),
-			new EnchantmentStrengths(new float[] { 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }),
+			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.25f, 0.32f }),
 			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
@@ -54,7 +54,11 @@ namespace WeaponEnchantments.Items {
 
 		public DifficultyStrength TierStrengthData;
 		protected virtual bool UsesTierStrengthData => false;
-		public DifficultyStrength EnchantmentStrengthData;
+		private DifficultyStrength _enchantmentStrengthData;
+		public DifficultyStrength EnchantmentStrengthData { 
+			get => _enchantmentStrengthData;
+			set => _enchantmentStrengthData = value;
+		}
 		public float EnchantmentStrength => EnchantmentStrengthData.Value;
 
 		/// <summary>
@@ -122,13 +126,33 @@ namespace WeaponEnchantments.Items {
 		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
 		/// </summary>
 		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
-
-		public enum EItemType {
-			None,
-			Weapons,
-			Armor,
-			Accessories,
+		private EItemType itemTypeAppliedOn = EItemType.None;
+		public EItemType ItemTypeAppliedOn {
+			get => itemTypeAppliedOn;
+			set {
+				if (AllowedList.ContainsKey(value)) {
+					AllowedListMultiplier = AllowedList[value];
+					foreach (EnchantmentEffect effect in Effects) {
+						effect.AllowedListMultiplier = AllowedListMultiplier;
+					}
+				}
+				else {
+					AllowedListMultiplier = 1f;
+				}
+			}
 		}
+		private DamageClass damageClassAppliedOn = DamageClass.Default;
+		public DamageClass DamageClassAppliedOn {
+			get => damageClassAppliedOn;
+			set {
+				foreach(EnchantmentEffect effect in Effects) {
+					effect.SetDamageClassMultiplier(value);
+				}
+
+				damageClassAppliedOn = value;
+			}
+		}
+		public virtual float AllowedListMultiplier { protected set; get; }
 
 		/// <summary>
 		/// Default is { EItemType.Weapon, 1f }, { EItemType.Armor, 0.25f }, { EItemType.Accessory, 0.25f }<br/>
@@ -198,27 +222,6 @@ namespace WeaponEnchantments.Items {
 			}
 		}
 		private string shortTooltip;
-		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true) {
-			string s = "";
-			if (showValue) {
-				float strength = (float)Math.Round(EnchantmentStrength, 3);
-				if (multiply100)
-					strength *= 100f;
-
-				if (sign) {
-					s += strength < 0f ? "-" : "+";
-				}
-
-				s += $"{strength}";
-				if (percent)
-					s += "%";
-
-				s += " ";
-			}
-
-			s += EnchantmentTypeName;
-			return s;
-		}
 
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
@@ -317,7 +320,6 @@ namespace WeaponEnchantments.Items {
 		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
-
 		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
 
 		/// <summary>
@@ -620,7 +622,28 @@ namespace WeaponEnchantments.Items {
 
 			return true;
 		}
-        public override void ModifyTooltips(List<TooltipLine> tooltips) {
+		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true) {
+			string s = "";
+			if (showValue) {
+				float strength = (float)Math.Round(EnchantmentStrength * AllowedListMultiplier, 3);
+				if (multiply100)
+					strength *= 100f;
+
+				if (sign) {
+					s += strength < 0f ? "-" : "+";
+				}
+
+				s += $"{strength}";
+				if (percent)
+					s += "%";
+
+				s += " ";
+			}
+
+			s += EnchantmentTypeName.AddSpaces();
+			return s;
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			var tooltipTuples = GenerateFullTooltip();
             foreach (var tooltipTuple in tooltipTuples) {
 				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});

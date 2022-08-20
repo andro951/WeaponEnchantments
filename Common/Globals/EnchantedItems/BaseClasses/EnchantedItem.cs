@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using Terraria.Social;
 using Terraria.Utilities;
@@ -1188,6 +1189,8 @@ namespace WeaponEnchantments.Common.Globals
             //Update item Value
             iGlobal.UpdateItemValue();
 
+            enchantment.ItemTypeAppliedOn = remove ? EItemType.None : iGlobal.ItemType;
+
             if (iGlobal is EnchantedWeapon)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateWeaponEnchantmentEffects(item);
 
@@ -1483,7 +1486,17 @@ namespace WeaponEnchantments.Common.Globals
                 Item enchantmentItem = iGlobal.enchantments[i];
 
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
-                    Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
+                    ModItem modItem = enchantmentItem.ModItem;
+                    if (modItem is UnloadedItem unloadedItem) {
+                        RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, $"Removed Unloaded Item:{unloadedItem.ItemName} from your {item.S()}.  Please inform andro951(WeaponEnchantments).");
+                        continue;
+                    }
+
+                    if (modItem is not Enchantment enchantment) {
+                        $"Detected a non-enchantment item: {enchantmentItem.S()} in your {item.S()} enchantments".LogNT(ChatMessagesIDs.DetectedNonEnchantmentItem);
+                        continue;
+                    }
+
                     if (IsWeaponItem(item) && !enchantment.AllowedList.ContainsKey(EItemType.Weapons)) {
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer allowed on weapons and has been removed from your " + item.Name + ".");
                     }
