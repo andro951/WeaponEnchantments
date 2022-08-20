@@ -455,7 +455,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool CanUseItem(Item item, Player player) {
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-
+            
             //stack0
             if (Stack0) {
                 Restock(item);

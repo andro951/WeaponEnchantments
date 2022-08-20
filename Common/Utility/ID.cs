@@ -65,4 +65,12 @@ namespace WeaponEnchantments.Common.Utility
         ManaCost = 14,
         Size = 24,
     }
+    public enum PermenantItemFields : short
+	{
+        
+    }
+    public enum PermenantItemProperties : short
+	{
+        ArmorPenetration
+    }
 }
