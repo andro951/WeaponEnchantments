@@ -97,27 +97,27 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: 极超稀有弹药消耗附魔
 			DangerSenseEnchantmentUltraRare: 极超稀有危险感附魔
 			HunterEnchantmentUltraRare: 极超稀有狩猎附魔
-			ManaEnchantmentBasic: 基础魔力消耗附魔
-			ManaEnchantmentCommon: 普通魔力消耗附魔
-			ManaEnchantmentRare: 稀有魔力消耗附魔
-			ManaEnchantmentSuperRare: 超稀有魔力消耗附魔
-			ManaEnchantmentUltraRare: 极超稀有魔力消耗附魔
-			MoveSpeedEnchantmentBasic: 基础移速附魔
-			MoveSpeedEnchantmentCommon: 普通移速附魔
-			MoveSpeedEnchantmentRare: 稀有移速附魔
-			MoveSpeedEnchantmentSuperRare: 超稀有移速附魔
-			MoveSpeedEnchantmentUltraRare: 极超稀有移速附魔
+			ManaUsageEnchantmentBasic: 基础魔力消耗附魔
+			ManaUsageEnchantmentCommon: 普通魔力消耗附魔
+			ManaUsageEnchantmentRare: 稀有魔力消耗附魔
+			ManaUsageEnchantmentSuperRare: 超稀有魔力消耗附魔
+			ManaUsageEnchantmentUltraRare: 极超稀有魔力消耗附魔
+			MovementSpeedEnchantmentBasic: 基础移速附魔
+			MovementSpeedEnchantmentCommon: 普通移速附魔
+			MovementSpeedEnchantmentRare: 稀有移速附魔
+			MovementSpeedEnchantmentSuperRare: 超稀有移速附魔
+			MovementSpeedEnchantmentUltraRare: 极超稀有移速附魔
 			ObsidianSkinEnchantmentUltraRare: 极超稀有黑曜石皮附魔
 			PeaceEnchantmentBasic: 基础和平附魔
 			PeaceEnchantmentCommon: 普通和平附魔
 			PeaceEnchantmentRare: 稀有和平附魔
 			PeaceEnchantmentSuperRare: 超稀有和平附魔
 			PeaceEnchantmentUltraRare: 极超稀有和平附魔
-			ScaleEnchantmentBasic: 基础体积附魔
-			ScaleEnchantmentCommon: 普通体积附魔
-			ScaleEnchantmentRare: 稀有体积附魔
-			ScaleEnchantmentSuperRare: 超稀有体积附魔
-			ScaleEnchantmentUltraRare: 极超稀有体积附魔
+			SizeEnchantmentBasic: 基础体积附魔
+			SizeEnchantmentCommon: 普通体积附魔
+			SizeEnchantmentRare: 稀有体积附魔
+			SizeEnchantmentSuperRare: 超稀有体积附魔
+			SizeEnchantmentUltraRare: 极超稀有体积附魔
 			ProjectileVelocityEnchantmentBasic: 基础射速附魔
 			ProjectileVelocityEnchantmentCommon: 普通射速附魔
 			ProjectileVelocityEnchantmentRare: 稀有射速附魔

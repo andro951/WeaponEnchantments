@@ -9,7 +9,8 @@ namespace WeaponEnchantments.Effects {
         public LifeSteal(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
             
         }
-
+		
+        public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
         public override EnchantmentStat statType => EnchantmentStat.LifeSteal;
     }
 }

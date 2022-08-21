@@ -197,7 +197,7 @@ namespace WeaponEnchantments.Items {
 		/// Default value will the the class name with spaces added.<br/>
 		/// Not required.  Only override this if the class name is different than the desired in game name.<br/>
 		/// Do not include the word "Enchantment" or the rarity words.  They are added automatically.<br/>
-		/// Example: class name - ScaleEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
+		/// Example: class name - SizeEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
 		///	MyDisplayName => "Size"<br/>
 		/// </summary>
 		public virtual string MyDisplayName { protected set; get; } = "";

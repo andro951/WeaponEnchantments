@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Common.Utility
         Knockback,
         LifeRegen,
         LifeSteal,
-        ManaCost,
+        ManaUsage,
         ManaRegen,
         MaxFallSpeed,
         MaxHP,
@@ -50,20 +50,22 @@ namespace WeaponEnchantments.Common.Utility
         MovementAcceleration,
         MovementSlowdown,
         MovementSpeed,
+        OneForAll,
         ProjectileVelocity,
         Size,
         WingTime,
+        WhipRange
     }
     public enum WeaponStat : byte
     {
         AttackSpeed = 2,
-        ArmorPenetration,//Not implemented, no hook
+        ArmorPenetration,
         AutoReuse,
         CriticalStrikeChance = 6,
         Damage,
         Knockback = 11,
-        ManaCost = 14,
-        Size = 24,
+        ManaUsage = 14,
+        Size = 25,
     }
     public enum PermenantItemFields : short
 	{
@@ -71,6 +73,7 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum PermenantItemProperties : short
 	{
-        ArmorPenetration
+        ArmorPenetration,
+        DamageType
     }
 }

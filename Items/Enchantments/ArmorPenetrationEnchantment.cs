@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
@@ -11,6 +12,10 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			Effects = new() {
 				new ArmorPenetration(@base: EnchantmentStrengthData),
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

@@ -4,7 +4,7 @@ using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class MoveSpeedEnchantment : Enchantment
+	public abstract class MovementSpeedEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 11;
 		public override void GetMyStats() {
@@ -19,12 +19,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class MoveSpeedEnchantmentBasic : MoveSpeedEnchantment { }
-	public class MoveSpeedEnchantmentCommon : MoveSpeedEnchantment { }
-	public class MoveSpeedEnchantmentRare : MoveSpeedEnchantment { }
-	public class MoveSpeedEnchantmentSuperRare : MoveSpeedEnchantment { }
-	public class MoveSpeedEnchantmentUltraRare : MoveSpeedEnchantment { }
+	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentCommon : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentRare : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentSuperRare : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentUltraRare : MovementSpeedEnchantment { }
 }

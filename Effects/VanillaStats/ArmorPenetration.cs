@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,4 +18,4 @@ namespace WeaponEnchantments.Effects {
         public override EnchantmentStat statType => EnchantmentStat.ArmorPenetration;
         public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
     }
-}
+}*/

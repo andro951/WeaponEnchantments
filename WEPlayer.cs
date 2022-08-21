@@ -858,6 +858,8 @@ namespace WeaponEnchantments
             return false;
         }
         private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit) {
+            if (!CheckEnchantmentStats(EnchantmentStat.OneForAll, out float oneForAll))
+                return 0;
 
             #region Debug
 
@@ -1060,7 +1062,7 @@ namespace WeaponEnchantments
 
                 //One For All
                 int oneForAllDamageDealt = 0;
-                if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin)
+                if (weGlobalNPC.oneForAllOrigin)
                     oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit);
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
@@ -1098,10 +1100,27 @@ namespace WeaponEnchantments
 
             return ApplyAutoReuseEnchants();
         }
+		public override void ModifyItemScale(Item item, ref float scale) {
+            GetPlayerModifierStrength(EnchantmentStat.Size, out float strength, 1f);
+            scale *= strength;
+		}
+		public override void ModifyManaCost(Item item, ref float reduce, ref float mult) {
+            if (CheckGetModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
+                eStatModifier.ApplyTo(ref reduce, ref mult, item);
+        }
+        protected bool CheckGetModifier(EnchantmentStat enchantmentStat, out EStatModifier m) {
+            if (!VanillaStats.ContainsKey(enchantmentStat)) {
+                m = null;
+                return false;
+            }
 
-		#endregion
+            m = VanillaStats[enchantmentStat];
+            return true;
+        }
 
-		#region Enchantment hooks
+        #endregion
+
+        #region Enchantment hooks
 
         public void ApplyPostMiscEnchants() {
             PlayerEquipment newEquipment = Equipment;
@@ -1182,12 +1201,6 @@ namespace WeaponEnchantments
                     canLifeSteal = true;
                     lifeSteal = sm.ApplyTo(lifeSteal);
                     break;*/
-                /*case EditableStat.ManaCost:
-                    if (dc == null)
-                        return;
-
-                    Player.GetManaCost(item) = (int)sm.ApplyTo(Player.GetManaCost(item));
-                    break;*/
                 case EnchantmentStat.ManaRegen:
                     Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
                     break;
@@ -1212,11 +1225,11 @@ namespace WeaponEnchantments
                 case EnchantmentStat.MovementSpeed:
                     Player.moveSpeed = sm.ApplyTo(Player.moveSpeed);
                     break;
-                case EnchantmentStat.Size:
-                    //Player.GetAdjustedItemScale(LastPlayerEquipment.HeldItem) = sm.ApplyTo(Player.GetAdjustedItemScale(LastPlayerEquipment.HeldItem));
-                    break;
                 case EnchantmentStat.WingTime:
                     Player.wingTimeMax = (int)sm.ApplyTo(Player.wingTimeMax);
+                    break;
+                case EnchantmentStat.WhipRange:
+                    Player.whipRangeMultiplier = sm.ApplyTo(Player.whipRangeMultiplier);
                     break;
             }
         }

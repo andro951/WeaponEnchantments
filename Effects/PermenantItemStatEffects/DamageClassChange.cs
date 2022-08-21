@@ -11,7 +11,7 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects
 {
-	public class DamageClassChange : EnchantmentEffect
+	public class DamageClassChange : EnchantmentEffect, IPermenantStat
 	{
 		public static DamageClassChange Default => new DamageClassChange(DamageClass.Generic);
 		public DamageClassChange(DamageClass damageClass) {

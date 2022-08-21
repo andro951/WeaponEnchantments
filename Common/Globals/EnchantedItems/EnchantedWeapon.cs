@@ -36,7 +36,10 @@ namespace WeaponEnchantments.Common.Globals
         #region Stats
 
         //New system
+        public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
+        public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
         public DamageClassChange DamageTypeEffect;
+
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
@@ -283,7 +286,7 @@ namespace WeaponEnchantments.Common.Globals
             CheckEnchantmentStatsForModifier(ref knockback, EnchantmentStat.Knockback);
         }
 		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult) {
-            if (CheckGetModifier(EnchantmentStat.ManaCost, out EStatModifier eStatModifier))
+            if (CheckGetModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
                 eStatModifier.ApplyTo(ref reduce, ref mult, item);
         }
 		public override float UseSpeedMultiplier(Item item, Player player) {

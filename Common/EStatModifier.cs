@@ -358,6 +358,21 @@ namespace WeaponEnchantments.Common
 			
 			return (baseValue + _base) * _additive * _multiplicative + _flat;
 		}
+		/*public int ApplyTo(int baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
+			float finalValue = ((float)baseValue + _base) * _additive * _multiplicative + _flat;
+
+
+			//int (field)
+			if (fieldType == typeof(int)) {
+				float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
+				staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), iGlobal.appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
+				field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
+				//$"{key}: {(int)Math.Round(finalValue + 5E-6)}".Log();
+			}
+		}*/
 
 		public void ApplyTo(ref float baseValue) {
 			if (_waitingForEnterWorld)

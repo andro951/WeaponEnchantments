@@ -26,13 +26,15 @@ namespace WeaponEnchantments.Common
         }
         private static Dictionary<string, string> firstWordNames = new Dictionary<string, string> { 
             { "Critical", "CriticalStrikeChance" }, 
-            { "Size", "Scale" }, 
-            { "ManaCost", "Mana" }, 
+            { "Scale", "Size" }, 
+            { "ManaCost", "ManaUsage" },
+            { "Mana", "ManaUsage" }, 
             { "StatDefense", "Defense" },
             { "Splitting", "Multishot"},
             { "ShootSpeed", "ProjectileVelocity"},
             { "Speed", "AttackSpeed" },
-            { "Control", "MobilityControl" }
+            { "Control", "MobilityControl" },
+            { "MoveSpeed", "MovementSpeed" }
         };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
             { "SuperRare", 3 },

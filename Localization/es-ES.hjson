@@ -97,27 +97,27 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Encantamiento de costo de munición ultra raro
 			DangerSenseEnchantmentUltraRare: Encantamiento del sentido del peligro Ultra raro
 			HunterEnchantmentUltraRare: Encantamiento de cazador ultra raro
-			ManaEnchantmentBasic: Encantamiento de maná básico
-			ManaEnchantmentCommon: Encantamiento de maná común
-			ManaEnchantmentRare: Encantamiento de maná raro
-			ManaEnchantmentSuperRare: Encantamiento de maná Súper raro
-			ManaEnchantmentUltraRare: Encantamiento de maná ultra raro
-			MoveSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
-			MoveSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
-			MoveSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
-			MoveSpeedEnchantmentSuperRare: Encantamiento de velocidad de movimiento Súper raro
-			MoveSpeedEnchantmentUltraRare: Encantamiento de velocidad de movimiento ultra raro
+			ManaUsageEnchantmentBasic: Encantamiento de maná básico
+			ManaUsageEnchantmentCommon: Encantamiento de maná común
+			ManaUsageEnchantmentRare: Encantamiento de maná raro
+			ManaUsageEnchantmentSuperRare: Encantamiento de maná Súper raro
+			ManaUsageEnchantmentUltraRare: Encantamiento de maná ultra raro
+			MovementSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
+			MovementSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
+			MovementSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
+			MovementSpeedEnchantmentSuperRare: Encantamiento de velocidad de movimiento Súper raro
+			MovementSpeedEnchantmentUltraRare: Encantamiento de velocidad de movimiento ultra raro
 			ObsidianSkinEnchantmentUltraRare: Encantamiento de piel de obsidiana Ultra raro
 			PeaceEnchantmentBasic: Encantamiento de paz básico
 			PeaceEnchantmentCommon: Paz Encantamiento Común
 			PeaceEnchantmentRare: Encantamiento de paz Raro
 			PeaceEnchantmentSuperRare: Encantamiento de paz Súper raro
 			PeaceEnchantmentUltraRare: Encantamiento de paz ultra raro
-			ScaleEnchantmentBasic: Escala Encantamiento Básico
-			ScaleEnchantmentCommon: Escama Encantamiento Común
-			ScaleEnchantmentRare: Escama Encantamiento Raro
-			ScaleEnchantmentSuperRare: Escala Encantamiento Súper Raro
-			ScaleEnchantmentUltraRare: Escala Encantamiento Ultra Raro
+			SizeEnchantmentBasic: Escala Encantamiento Básico
+			SizeEnchantmentCommon: Escama Encantamiento Común
+			SizeEnchantmentRare: Escama Encantamiento Raro
+			SizeEnchantmentSuperRare: Escala Encantamiento Súper Raro
+			SizeEnchantmentUltraRare: Escala Encantamiento Ultra Raro
 			ProjectileVelocityEnchantmentBasic: Velocidad de disparo Encantamiento básico
 			ProjectileVelocityEnchantmentCommon: Velocidad de disparo Encantamiento Común
 			ProjectileVelocityEnchantmentRare: Velocidad de disparo Encantamiento Raro

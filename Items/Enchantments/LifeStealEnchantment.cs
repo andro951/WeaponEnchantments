@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments {
@@ -13,7 +14,11 @@ namespace WeaponEnchantments.Items.Enchantments {
             Effects = new() {
                 new LifeSteal(@base: EnchantmentStrengthData)
             };
-		}
+
+            AllowedList = new Dictionary<EItemType, float>() {
+                { EItemType.Weapons, 1f }
+            };
+        }
 		public override string Artist => "Zorutan";
         public override string Designer => "andro951";
     }

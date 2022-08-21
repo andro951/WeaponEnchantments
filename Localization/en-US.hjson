@@ -96,27 +96,27 @@
 			AmmoCostEnchantmentUltraRare: Ammo Cost Enchantment Ultra Rare
 			DangerSenseEnchantmentUltraRare: Danger Sense Enchantment Ultra Rare
 			HunterEnchantmentUltraRare: Hunter Enchantment Ultra Rare
-			ManaEnchantmentBasic: Mana Enchantment Basic
-			ManaEnchantmentCommon: Mana Enchantment Common
-			ManaEnchantmentRare: Mana Enchantment Rare
-			ManaEnchantmentSuperRare: Mana Enchantment Super Rare
-			ManaEnchantmentUltraRare: Mana Enchantment Ultra Rare
-			MoveSpeedEnchantmentBasic: Move Speed Enchantment Basic
-			MoveSpeedEnchantmentCommon: Move Speed Enchantment Common
-			MoveSpeedEnchantmentRare: Move Speed Enchantment Rare
-			MoveSpeedEnchantmentSuperRare: Move Speed Enchantment Super Rare
-			MoveSpeedEnchantmentUltraRare: Move Speed Enchantment Ultra Rare
+			ManaUsageEnchantmentBasic: Mana Enchantment Basic
+			ManaUsageEnchantmentCommon: Mana Enchantment Common
+			ManaUsageEnchantmentRare: Mana Enchantment Rare
+			ManaUsageEnchantmentSuperRare: Mana Enchantment Super Rare
+			ManaUsageEnchantmentUltraRare: Mana Enchantment Ultra Rare
+			MovementSpeedEnchantmentBasic: Move Speed Enchantment Basic
+			MovementSpeedEnchantmentCommon: Move Speed Enchantment Common
+			MovementSpeedEnchantmentRare: Move Speed Enchantment Rare
+			MovementSpeedEnchantmentSuperRare: Move Speed Enchantment Super Rare
+			MovementSpeedEnchantmentUltraRare: Move Speed Enchantment Ultra Rare
 			ObsidianSkinEnchantmentUltraRare: Obsidian Skin Enchantment Ultra Rare
 			PeaceEnchantmentBasic: Peace Enchantment Basic
 			PeaceEnchantmentCommon: Peace Enchantment Common
 			PeaceEnchantmentRare: Peace Enchantment Rare
 			PeaceEnchantmentSuperRare: Peace Enchantment Super Rare
 			PeaceEnchantmentUltraRare: Peace Enchantment Ultra Rare
-			ScaleEnchantmentBasic: Scale Enchantment Basic
-			ScaleEnchantmentCommon: Scale Enchantment Common
-			ScaleEnchantmentRare: Scale Enchantment Rare
-			ScaleEnchantmentSuperRare: Scale Enchantment Super Rare
-			ScaleEnchantmentUltraRare: Scale Enchantment Ultra Rare
+			SizeEnchantmentBasic: Scale Enchantment Basic
+			SizeEnchantmentCommon: Scale Enchantment Common
+			SizeEnchantmentRare: Scale Enchantment Rare
+			SizeEnchantmentSuperRare: Scale Enchantment Super Rare
+			SizeEnchantmentUltraRare: Scale Enchantment Ultra Rare
 			ProjectileVelocityEnchantmentBasic: Shoot Speed Enchantment Basic
 			ProjectileVelocityEnchantmentCommon: Shoot Speed Enchantment Common
 			ProjectileVelocityEnchantmentRare: Shoot Speed Enchantment Rare

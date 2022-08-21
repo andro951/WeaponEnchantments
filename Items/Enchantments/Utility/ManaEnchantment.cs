@@ -1,20 +1,24 @@
 ﻿using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class ManaEnchantment : Enchantment
+	public abstract class ManaUsageEnchantment : Enchantment
 	{
 		public override void GetMyStats() {
-			AddStaticStat(EnchantmentTypeName.ToFieldName(), -EnchantmentStrength);
+			Effects = new() {
+				new ManaUsage(@base: EnchantmentStrengthData * -1f)
+			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class ManaEnchantmentBasic : ManaEnchantment { }
-	public class ManaEnchantmentCommon : ManaEnchantment { }
-	public class ManaEnchantmentRare : ManaEnchantment { }
-	public class ManaEnchantmentSuperRare : ManaEnchantment { }
-	public class ManaEnchantmentUltraRare : ManaEnchantment { }
+	public class ManaUsageEnchantmentBasic : ManaUsageEnchantment { }
+	public class ManaUsageEnchantmentCommon : ManaUsageEnchantment { }
+	public class ManaUsageEnchantmentRare : ManaUsageEnchantment { }
+	public class ManaUsageEnchantmentSuperRare : ManaUsageEnchantment { }
+	public class ManaUsageEnchantmentUltraRare : ManaUsageEnchantment { }
 
 }

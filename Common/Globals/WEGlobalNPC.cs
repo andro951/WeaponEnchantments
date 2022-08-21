@@ -139,7 +139,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<MoveSpeedEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<MovementSpeedEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
@@ -149,7 +149,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.BrainofCthulhu when !bossBag:
                 case ItemID.BrainOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ManaUsageEnchantmentBasic>());
                     break;
                 case NPCID.QueenBee when !bossBag:
                 case ItemID.QueenBeeBossBag when bossBag:
@@ -439,7 +439,7 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 2://Demon Eye
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SizeEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 3://Fighter
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<DefenseEnchantmentBasic>(), defaultDenom, 1, 1));
@@ -448,13 +448,13 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 6://Worm
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 8://Caster
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 10://Cursed Skull
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 13://Plant
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
@@ -621,10 +621,10 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.GiantWalkingAntlion://508
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MovementSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case NPCID.WalkingAntlion://580
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MovementSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                 }
             }

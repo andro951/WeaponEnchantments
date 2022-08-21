@@ -591,8 +591,8 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<ManaUsageEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                                 itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
@@ -623,10 +623,10 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                                 break;
                             case 11://Frozen Chest
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<ManaUsageEnchantmentBasic>());
                                 break;
                             case 12://Living Wood Chest
-                                itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
                                 break;
                             case 13://Skyware Chest
                                 itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
@@ -642,7 +642,7 @@ namespace WeaponEnchantments
                                 itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
                                 break;
                             case 17://Water Chest
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
+                                itemTypes.Add(ModContent.ItemType<ManaUsageEnchantmentBasic>());
                                 break;
                             case 23://Jungle Chest
                                     chance = 1f;

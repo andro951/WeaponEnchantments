@@ -97,27 +97,27 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Munitionskosten Verzauberung Ultra Selten
 			DangerSenseEnchantmentUltraRare: Gefahrensinn Verzauberung Ultra Selten
 			HunterEnchantmentUltraRare: Jäger Verzauberung Ultra Selten
-			ManaEnchantmentBasic: Mana Verzauberung Basic
-			ManaEnchantmentCommon: Mana Verzauberung Gewöhnlich
-			ManaEnchantmentRare: Mana Verzauberung Selten
-			ManaEnchantmentSuperRare: Mana Verzauberung Super Selten
-			ManaEnchantmentUltraRare: Mana Verzauberung Ultra Selten
-			MoveSpeedEnchantmentBasic: Bewegungsgeschwindigkeit Verzauberung Basic
-			MoveSpeedEnchantmentCommon: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
-			MoveSpeedEnchantmentRare: Bewegungsgeschwindigkeit Verzauberung Selten
-			MoveSpeedEnchantmentSuperRare: Bewegungsgeschwindigkeit Verzauberung Super Selten
-			MoveSpeedEnchantmentUltraRare: Bewegungsgeschwindigkeit Verzauberung Ultra Selten
+			ManaUsageEnchantmentBasic: Mana Verzauberung Basic
+			ManaUsageEnchantmentCommon: Mana Verzauberung Gewöhnlich
+			ManaUsageEnchantmentRare: Mana Verzauberung Selten
+			ManaUsageEnchantmentSuperRare: Mana Verzauberung Super Selten
+			ManaUsageEnchantmentUltraRare: Mana Verzauberung Ultra Selten
+			MovementSpeedEnchantmentBasic: Bewegungsgeschwindigkeit Verzauberung Basic
+			MovementSpeedEnchantmentCommon: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
+			MovementSpeedEnchantmentRare: Bewegungsgeschwindigkeit Verzauberung Selten
+			MovementSpeedEnchantmentSuperRare: Bewegungsgeschwindigkeit Verzauberung Super Selten
+			MovementSpeedEnchantmentUltraRare: Bewegungsgeschwindigkeit Verzauberung Ultra Selten
 			ObsidianSkinEnchantmentUltraRare: Obsidian Haut Verzauberung Ultra Selten
 			PeaceEnchantmentBasic: Frieden Verzauberung Basic
 			PeaceEnchantmentCommon: Frieden Verzauberung Gewöhnlich
 			PeaceEnchantmentRare: Frieden Verzauberung Selten
 			PeaceEnchantmentSuperRare: Frieden Verzauberung Super Rare
 			PeaceEnchantmentUltraRare: Frieden Verzauberung Ultra Rare
-			ScaleEnchantmentBasic: Skalierung Verzauberung Basic
-			ScaleEnchantmentCommon: Skalierung Verzauberung Gewöhnlich
-			ScaleEnchantmentRare: Skalierung Verzauberung Selten
-			ScaleEnchantmentSuperRare: Skalierung Verzauberung Super Selten
-			ScaleEnchantmentUltraRare: Skalierung Verzauberung Ultra Selten
+			SizeEnchantmentBasic: Skalierung Verzauberung Basic
+			SizeEnchantmentCommon: Skalierung Verzauberung Gewöhnlich
+			SizeEnchantmentRare: Skalierung Verzauberung Selten
+			SizeEnchantmentSuperRare: Skalierung Verzauberung Super Selten
+			SizeEnchantmentUltraRare: Skalierung Verzauberung Ultra Selten
 			ProjectileVelocityEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
 			ProjectileVelocityEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
 			ProjectileVelocityEnchantmentRare: Schussgeschwindigkeit ​​Verzauberung Selten

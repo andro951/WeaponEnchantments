@@ -1182,14 +1182,14 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //New Damage Type
-			foreach (DamageClassChange damageClassChange in enchantment.Effects.Where(e => e is DamageClassChange).Select(e => (DamageClassChange)e)) {
-                damageClassChange.Update(ref item, remove);
+			foreach (IPermenantStat effect in enchantment.Effects.Where(e => e is IPermenantStat).Select(e => (IPermenantStat)e)) {
+                effect.Update(ref item, remove);
 			}
+
+            enchantment.ItemTypeAppliedOn = remove ? EItemType.None : iGlobal.ItemType;
 
             //Update item Value
             iGlobal.UpdateItemValue();
-
-            enchantment.ItemTypeAppliedOn = remove ? EItemType.None : iGlobal.ItemType;
 
             if (iGlobal is EnchantedWeapon)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateWeaponEnchantmentEffects(item);
