@@ -271,21 +271,22 @@ namespace WeaponEnchantments.Common
 
 		private void SetUpAutomaticStrengthFromWorldDificulty() {
 			if (!Main.gameMenu) {
+				int index = _automaticStrengthData.AllValues.Length == 4 ? Main.GameMode : 0;
 				switch (statTypeID) {
 					case 0:
-						originalAdditive = _automaticStrengthData.AllValues[Main.GameMode];
+						originalAdditive = _automaticStrengthData.AllValues[index];
 						_additive = 1f + originalAdditive * _efficiencyMultiplier;
 						break;
 					case 1:
-						originalMultiplicative = _automaticStrengthData.AllValues[Main.GameMode];
+						originalMultiplicative = _automaticStrengthData.AllValues[index];
 						_multiplicative = 1f + (originalMultiplicative - 1f) * _efficiencyMultiplier;
 						break;
 					case 2:
-						originalFlat = _automaticStrengthData.AllValues[Main.GameMode];
+						originalFlat = _automaticStrengthData.AllValues[index];
 						_flat = originalFlat * _efficiencyMultiplier;
 						break;
 					case 3:
-						originalBase = _automaticStrengthData.AllValues[Main.GameMode];
+						originalBase = _automaticStrengthData.AllValues[index];
 						_base = originalBase * _efficiencyMultiplier;
 						break;
 				}

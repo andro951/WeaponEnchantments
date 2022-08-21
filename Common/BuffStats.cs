@@ -103,11 +103,15 @@ namespace WeaponEnchantments.Common
 		}
 		private void SetUpChanceDifficultyStrength() {
 			if (!Main.gameMenu) {
-				if (_chanceDifficultyStrengths != null)
-					Chance = _chanceDifficultyStrengths.AllValues[Main.GameMode];
+				if (_chanceDifficultyStrengths != null) {
+					int index = _chanceDifficultyStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
+					Chance = _chanceDifficultyStrengths.AllValues[index];
+				}
 				
-				if (buffStrengths != null)
-					BuffStrength = buffStrengths.AllValues[Main.GameMode];
+				if (buffStrengths != null) {
+					int index = buffStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
+					BuffStrength = buffStrengths.AllValues[index];
+				}
 
 				_waitingForEnterWorld = false;
 			}

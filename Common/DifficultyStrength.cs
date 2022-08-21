@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Common
 		public float Value {
 			set => _values[0] = value;
 			get {
-				if (_values.Length > 1)
+				if (_values.Length == 4)
 					return _values[Main.GameMode];
 
 				return _values[0];
@@ -33,7 +33,6 @@ namespace WeaponEnchantments.Common
 			float[] arr = (float[])ds._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] *= mult;
-				$"arr[i]:{arr[i]}, mult: {mult}".Log();
 			}
 
 			return new DifficultyStrength(arr);
