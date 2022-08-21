@@ -112,14 +112,14 @@ namespace WeaponEnchantments.Common.Globals
                 #region Enchantments
 
                 clone.DamageTypeEffect = DamageTypeEffect;
-                clone.EnchantmentStats = new SortedDictionary<EnchantmentStat, EStatModifier>(EnchantmentStats);
-                clone.VanillaStats = new SortedDictionary<EnchantmentStat, EStatModifier>(VanillaStats);
-                clone.OnHitDebuffs = new SortedDictionary<short, BuffStats>(OnHitDebuffs);
-                clone.OnHitBuffs = new SortedDictionary<short, BuffStats>(OnHitBuffs);
-                clone.OnTickBuffs = new SortedDictionary<short, BuffStats>(OnTickBuffs);
-                clone.EnchantmentEffects = EnchantmentEffects;
-                clone.PassiveEffects = PassiveEffects;
-                clone.StatEffects = StatEffects;
+                clone.EnchantmentStats = new SortedDictionary<EnchantmentStat, EStatModifier>(EnchantmentStats.ToDictionary(k => k.Key, k => k.Value.Clone()));
+                clone.VanillaStats = new SortedDictionary<EnchantmentStat, EStatModifier>(VanillaStats.ToDictionary(k => k.Key, k => k.Value.Clone()));
+                clone.OnHitDebuffs = new SortedDictionary<short, BuffStats>(OnHitDebuffs.ToDictionary(k => k.Key, k => k.Value.Clone()));
+                clone.OnHitBuffs = new SortedDictionary<short, BuffStats>(OnHitBuffs.ToDictionary(k => k.Key, k => k.Value.Clone()));
+                clone.OnTickBuffs = new SortedDictionary<short, BuffStats>(OnTickBuffs.ToDictionary(k => k.Key, k => k.Value.Clone()));
+                clone.EnchantmentEffects = EnchantmentEffects.GetRange(0, EnchantmentEffects.Count);
+                clone.PassiveEffects = PassiveEffects.GetRange(0, PassiveEffects.Count);
+                clone.StatEffects = StatEffects.GetRange(0, StatEffects.Count);
 
                 clone.damageType = damageType;
                 clone.baseDamageType = baseDamageType;
@@ -425,8 +425,8 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //AllForOne use cooldown
-            if (eStats.ContainsKey("AllForOne")) {
-                int timer = (int)((float)item.useTime * item.ApplyEStat("NPCHitCooldown", 0.5f));
+            if (eStats.ContainsKey("AllForOne") && wePlayer.CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float npcHitCooldown)) {
+                int timer = (int)((float)item.useTime * npcHitCooldown);
                 wePlayer.allForOneTimer = timer;
             }
 

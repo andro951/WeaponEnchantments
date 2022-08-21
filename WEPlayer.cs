@@ -858,7 +858,7 @@ namespace WeaponEnchantments
             return false;
         }
         private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit) {
-            if (!CheckEnchantmentStats(EnchantmentStat.OneForAll, out float oneForAll))
+            if (!CheckEnchantmentStats(EnchantmentStat.OneForAll, out float allForOneMultiplier))
                 return 0;
 
             #region Debug
@@ -880,6 +880,7 @@ namespace WeaponEnchantments
             //Sorted List by range
             Dictionary<int, float> npcs = SortNPCsByRange(target, oneForAllRange);
 
+            float baseAllForOneDamage = damage * allForOneMultiplier;
             foreach (KeyValuePair<int, float> npcDataPair in npcs.OrderBy(key => key.Value)) {
                 if (!target.active)
                     continue;
@@ -895,8 +896,6 @@ namespace WeaponEnchantments
                     wormCounter++;
 
                 ofaTarget.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                float allForOneMultiplier = iGlobal.eStats["OneForAll"].ApplyTo(0f);
-                float baseAllForOneDamage = damage * allForOneMultiplier;
 
                 float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
 
@@ -919,7 +918,7 @@ namespace WeaponEnchantments
 
                 if (allForOneDamageInt > 0) {
                     //Hit target
-                    total += (int)ofaTarget.StrikeNPC(allForOneDamageInt, knockback, Player.direction, crit);
+                    total += (int)ofaTarget.StrikeNPC(allForOneDamageInt, knockback * allForOneDamage / damage, Player.direction, crit);
                     oneForAllNPCDictionary.Add(ofaTarget, (allForOneDamageInt, crit));
                 }
 
@@ -1073,13 +1072,29 @@ namespace WeaponEnchantments
                 ActivateGodSlayer(target, item, damage, damageReduction, crit, fromProjectile);
 
             //One for all kill projectile on hit.
-            if (ItemEStats.ContainsKey("OneForAll") && weGlobalNPC.oneForAllOrigin && fromProjectile) {
+            if (CombinedEnchantmentStats.ContainsKey(EnchantmentStat.OneForAll) && weGlobalNPC.oneForAllOrigin && fromProjectile) {
                 if (projectile.penetrate != 1)
                     projectile.active = false;
             }
 
+            UpdateNPCImmunity(target);
+
             if (!skipOnHitEffects)
                 ApplyOnHitEnchants(item, target, damage, knockback, crit, projectile);
+        }
+		private void UpdateNPCImmunity(NPC target) {
+            //If projectile/npc doesn't use npc.immune, return
+            if (target.immune[Player.whoAmI] <= 0)
+                return;
+
+            if (Player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier)) {
+                //npc.immune
+                int newImmune = (int)((float)target.immune[Player.whoAmI] * NPCHitCooldownMultiplier);
+                if (newImmune < 1)
+                    newImmune = 1;
+
+                target.immune[Player.whoAmI] = newImmune;
+            }
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
             List<Item> items = new List<Item>();
@@ -1328,7 +1343,7 @@ namespace WeaponEnchantments
 
             return false;
         }
-        private bool CheckEnchantmentStats(EnchantmentStat playerStat, out float value) {
+        public bool CheckEnchantmentStats(EnchantmentStat playerStat, out float value) {
             value = 0f;
             if (CombinedEnchantmentStats.ContainsKey(playerStat)) {
                 value = CombinedEnchantmentStats[playerStat].Strength;

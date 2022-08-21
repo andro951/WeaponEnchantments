@@ -14,10 +14,10 @@ namespace WeaponEnchantments.Effects
 {
 	public class NPCHitCooldown : StatEffect, INonVanillaStat
     {
-        public NPCHitCooldown(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+        public NPCHitCooldown(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
 
-		public override EnchantmentStat statType => EnchantmentStat.OneForAll;
+		public override EnchantmentStat statType => EnchantmentStat.NPCHitCooldown;
 	}
 }

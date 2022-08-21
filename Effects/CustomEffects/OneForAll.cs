@@ -14,10 +14,11 @@ namespace WeaponEnchantments.Effects
 {
 	public class OneForAll : StatEffect, INonVanillaStat
     {
-        public OneForAll(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+        public OneForAll(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
 
+		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
 		public override EnchantmentStat statType => EnchantmentStat.OneForAll;
 	}
 }

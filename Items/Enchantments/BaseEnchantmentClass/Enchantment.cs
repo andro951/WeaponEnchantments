@@ -626,7 +626,7 @@ namespace WeaponEnchantments.Items {
 					strength *= 100f;
 
 				if (sign) {
-					s += strength < 0f ? "-" : "+";
+					s += strength < 0f ? "" : "+";
 				}
 
 				s += $"{strength}";

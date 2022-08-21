@@ -50,6 +50,7 @@ namespace WeaponEnchantments.Common.Utility
         MovementAcceleration,
         MovementSlowdown,
         MovementSpeed,
+        NPCHitCooldown,
         OneForAll,
         ProjectileVelocity,
         Size,
@@ -65,7 +66,7 @@ namespace WeaponEnchantments.Common.Utility
         Damage,
         Knockback = 11,
         ManaUsage = 14,
-        Size = 25,
+        Size = 26,
     }
     public enum PermenantItemFields : short
 	{

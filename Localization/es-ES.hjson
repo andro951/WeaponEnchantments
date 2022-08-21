@@ -97,11 +97,11 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Encantamiento de costo de munición ultra raro
 			DangerSenseEnchantmentUltraRare: Encantamiento del sentido del peligro Ultra raro
 			HunterEnchantmentUltraRare: Encantamiento de cazador ultra raro
-			ManaUsageEnchantmentBasic: Encantamiento de maná básico
-			ManaUsageEnchantmentCommon: Encantamiento de maná común
-			ManaUsageEnchantmentRare: Encantamiento de maná raro
-			ManaUsageEnchantmentSuperRare: Encantamiento de maná Súper raro
-			ManaUsageEnchantmentUltraRare: Encantamiento de maná ultra raro
+			ReducedManaUsageEnchantmentBasic: Encantamiento de maná básico
+			ReducedManaUsageEnchantmentCommon: Encantamiento de maná común
+			ReducedManaUsageEnchantmentRare: Encantamiento de maná raro
+			ReducedManaUsageEnchantmentSuperRare: Encantamiento de maná Súper raro
+			ReducedManaUsageEnchantmentUltraRare: Encantamiento de maná ultra raro
 			MovementSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
 			MovementSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
 			MovementSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro

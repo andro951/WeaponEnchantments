@@ -204,7 +204,6 @@ namespace WeaponEnchantments.Common.Globals
             referenceScale = projectile.scale;
 
             //NPC Hit Cooldown
-            float NPCHitCooldownMultiplier = sourceItem.ApplyEStat("NPCHitCooldown", 1f);
             if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
                 Item sampleItem = ContentSamples.ItemsByType[sourceItem.type];
                 float sampleUseTime = sampleItem.useTime;
@@ -216,6 +215,7 @@ namespace WeaponEnchantments.Common.Globals
                 speed = 1f - 1f / speedMult;
             }
 
+            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier);
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
                 if (NPCHitCooldownMultiplier > 1f) {
@@ -227,10 +227,12 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
+
             if (projectile.usesIDStaticNPCImmunity) {
                 if (projectile.idStaticNPCHitCooldown > 0)
                     projectile.idStaticNPCHitCooldown = (int)Math.Round((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
             }
+
             updated = true;
         }
         private void TryUpdateFromParent() {

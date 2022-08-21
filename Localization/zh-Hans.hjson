@@ -97,11 +97,11 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: 极超稀有弹药消耗附魔
 			DangerSenseEnchantmentUltraRare: 极超稀有危险感附魔
 			HunterEnchantmentUltraRare: 极超稀有狩猎附魔
-			ManaUsageEnchantmentBasic: 基础魔力消耗附魔
-			ManaUsageEnchantmentCommon: 普通魔力消耗附魔
-			ManaUsageEnchantmentRare: 稀有魔力消耗附魔
-			ManaUsageEnchantmentSuperRare: 超稀有魔力消耗附魔
-			ManaUsageEnchantmentUltraRare: 极超稀有魔力消耗附魔
+			ReducedManaUsageEnchantmentBasic: 基础魔力消耗附魔
+			ReducedManaUsageEnchantmentCommon: 普通魔力消耗附魔
+			ReducedManaUsageEnchantmentRare: 稀有魔力消耗附魔
+			ReducedManaUsageEnchantmentSuperRare: 超稀有魔力消耗附魔
+			ReducedManaUsageEnchantmentUltraRare: 极超稀有魔力消耗附魔
 			MovementSpeedEnchantmentBasic: 基础移速附魔
 			MovementSpeedEnchantmentCommon: 普通移速附魔
 			MovementSpeedEnchantmentRare: 稀有移速附魔

@@ -27,8 +27,8 @@ namespace WeaponEnchantments.Common
         private static Dictionary<string, string> firstWordNames = new Dictionary<string, string> { 
             { "Critical", "CriticalStrikeChance" }, 
             { "Scale", "Size" }, 
-            { "ManaCost", "ManaUsage" },
-            { "Mana", "ManaUsage" }, 
+            { "ManaCost", "ReducedManaUsage" },
+            { "Mana", "ReducedManaUsage" }, 
             { "StatDefense", "Defense" },
             { "Splitting", "Multishot"},
             { "ShootSpeed", "ProjectileVelocity"},

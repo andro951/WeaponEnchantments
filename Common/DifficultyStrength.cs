@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common
 {
@@ -32,6 +33,7 @@ namespace WeaponEnchantments.Common
 			float[] arr = (float[])es._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] *= mult;
+				$"arr[i]:{arr[i]}, mult: {mult}".Log();
 			}
 
 			return new DifficultyStrength(arr);

@@ -96,11 +96,11 @@
 			AmmoCostEnchantmentUltraRare: Ammo Cost Enchantment Ultra Rare
 			DangerSenseEnchantmentUltraRare: Danger Sense Enchantment Ultra Rare
 			HunterEnchantmentUltraRare: Hunter Enchantment Ultra Rare
-			ManaUsageEnchantmentBasic: Mana Enchantment Basic
-			ManaUsageEnchantmentCommon: Mana Enchantment Common
-			ManaUsageEnchantmentRare: Mana Enchantment Rare
-			ManaUsageEnchantmentSuperRare: Mana Enchantment Super Rare
-			ManaUsageEnchantmentUltraRare: Mana Enchantment Ultra Rare
+			ReducedManaUsageEnchantmentBasic: Mana Enchantment Basic
+			ReducedManaUsageEnchantmentCommon: Mana Enchantment Common
+			ReducedManaUsageEnchantmentRare: Mana Enchantment Rare
+			ReducedManaUsageEnchantmentSuperRare: Mana Enchantment Super Rare
+			ReducedManaUsageEnchantmentUltraRare: Mana Enchantment Ultra Rare
 			MovementSpeedEnchantmentBasic: Move Speed Enchantment Basic
 			MovementSpeedEnchantmentCommon: Move Speed Enchantment Common
 			MovementSpeedEnchantmentRare: Move Speed Enchantment Rare

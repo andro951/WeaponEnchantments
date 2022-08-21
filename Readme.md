@@ -298,7 +298,7 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)
 ![JunglesFuryEnchantmentCommon](/Items/Sprites/JunglesFuryEnchantmentCommon.png)
 ![LifeStealEnchantmentCommon](/Items/Sprites/LifeStealEnchantmentCommon.png)
-![ManaUsageEnchantmentCommon](/Items/Sprites/ManaUsageEnchantmentCommon.png)
+![ReducedManaUsageEnchantmentCommon](/Items/Sprites/ReducedManaUsageEnchantmentCommon.png)
 ![MediumContainment](/Items/Sprites/MediumContainment.png)
 ![MoonlightEnchantmentCommon](/Items/Sprites/MoonlightEnchantmentCommon.png)
 ![MovementSpeedEnchantmentCommon](/Items/Sprites/MovementSpeedEnchantmentCommon.png)

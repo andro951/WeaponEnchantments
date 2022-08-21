@@ -149,7 +149,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.BrainofCthulhu when !bossBag:
                 case ItemID.BrainOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ManaUsageEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
                     break;
                 case NPCID.QueenBee when !bossBag:
                 case ItemID.QueenBeeBossBag when bossBag:
@@ -448,13 +448,13 @@ namespace WeaponEnchantments.Common.Globals
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 6://Worm
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 8://Caster
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 10://Cursed Skull
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
+                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>(), defaultDenom, 1, 1));
                         break;
                     case 13://Plant
                         loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
@@ -775,60 +775,6 @@ namespace WeaponEnchantments.Common.Globals
             if (essenceTier < 4) {
                 dropRate[essenceTier + 1] = 0.06125f * thisDropRate;
             }
-        }
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            bool weProjectileIsNull = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null;
-
-            //Projectile SourceItem
-            Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
-
-            OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!SourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return;
-
-            //If projectile/npc doesn't use npc.immune, return
-            if (npc.immune[player.whoAmI] <= 0)
-                return;
-
-            float NPCHitCooldownMultiplier = SourceItem.ApplyEStat("NPCHitCooldown", 1f);
-
-            //npc.immune
-            int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
-            if (newImmune < 1)
-                newImmune = 1;
-
-            npc.immune[player.whoAmI] = newImmune;
         }
         public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
             Dictionary<int, float> npcs = new Dictionary<int, float>();

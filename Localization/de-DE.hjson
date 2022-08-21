@@ -97,11 +97,11 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Munitionskosten Verzauberung Ultra Selten
 			DangerSenseEnchantmentUltraRare: Gefahrensinn Verzauberung Ultra Selten
 			HunterEnchantmentUltraRare: Jäger Verzauberung Ultra Selten
-			ManaUsageEnchantmentBasic: Mana Verzauberung Basic
-			ManaUsageEnchantmentCommon: Mana Verzauberung Gewöhnlich
-			ManaUsageEnchantmentRare: Mana Verzauberung Selten
-			ManaUsageEnchantmentSuperRare: Mana Verzauberung Super Selten
-			ManaUsageEnchantmentUltraRare: Mana Verzauberung Ultra Selten
+			ReducedManaUsageEnchantmentBasic: Mana Verzauberung Basic
+			ReducedManaUsageEnchantmentCommon: Mana Verzauberung Gewöhnlich
+			ReducedManaUsageEnchantmentRare: Mana Verzauberung Selten
+			ReducedManaUsageEnchantmentSuperRare: Mana Verzauberung Super Selten
+			ReducedManaUsageEnchantmentUltraRare: Mana Verzauberung Ultra Selten
 			MovementSpeedEnchantmentBasic: Bewegungsgeschwindigkeit Verzauberung Basic
 			MovementSpeedEnchantmentCommon: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
 			MovementSpeedEnchantmentRare: Bewegungsgeschwindigkeit Verzauberung Selten
