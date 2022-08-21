@@ -26,11 +26,11 @@ namespace WeaponEnchantments.Common
 			_values = values;
 		}
 
-		public static DifficultyStrength operator *(DifficultyStrength es, float mult) {
-			if (es == null)
+		public static DifficultyStrength operator *(DifficultyStrength ds, float mult) {
+			if (ds == null)
 				return null;
 
-			float[] arr = (float[])es._values.Clone();
+			float[] arr = (float[])ds._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] *= mult;
 				$"arr[i]:{arr[i]}, mult: {mult}".Log();
@@ -38,24 +38,32 @@ namespace WeaponEnchantments.Common
 
 			return new DifficultyStrength(arr);
 		}
-		public static DifficultyStrength operator +(DifficultyStrength es, float mult) {
-			if (es == null)
+		public static DifficultyStrength operator +(DifficultyStrength ds, float mult) {
+			if (ds == null)
 				return null;
 
-			float[] arr = (float[])es._values.Clone();
+			float[] arr = (float[])ds._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] += mult;
 			}
 
 			return new DifficultyStrength(arr);
 		}
-		public static DifficultyStrength operator ^(DifficultyStrength es, int mult) {
-			if (es == null)
+		public static DifficultyStrength operator ^(DifficultyStrength ds, int mult) {
+			if (ds == null)
 				return null;
 
-			float[] arr = (float[])es._values.Clone();
+			float[] arr = (float[])ds._values.Clone();
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] = (float)Math.Pow(arr[i], mult);
+			}
+
+			return new DifficultyStrength(arr);
+		}
+		public DifficultyStrength Invert() {
+			float[] arr = (float[])_values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				arr[i] = 1f / arr[i];
 			}
 
 			return new DifficultyStrength(arr);

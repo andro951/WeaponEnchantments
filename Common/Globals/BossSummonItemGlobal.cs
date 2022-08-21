@@ -17,7 +17,9 @@ namespace WeaponEnchantments.Common.Globals
             return entity.useStyle == ItemUseStyleID.HoldUp && entity.consumable && entity.useAnimation == 45 && entity.useTime == 45;
         }
         public override bool? UseItem(Item item, Player player) {
-            float spawnRateFromEnchantments = player.ApplyEStatFromPlayer(player.GetWEPlayer().trackedWeapon, "spawnRate", 1f);
+            if (!player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.EnemySpawnRate, out float spawnRateFromEnchantments, 1f))
+                return null;
+
             if (spawnRateFromEnchantments > 1.6f) {
                 consumable = item.consumable;
                 item.consumable = false;

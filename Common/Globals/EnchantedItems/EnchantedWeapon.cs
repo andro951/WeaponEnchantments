@@ -512,7 +512,7 @@ namespace WeaponEnchantments.Common.Globals
             m = VanillaStats[enchantmentStat];
             return true;
 		}
-        protected float GetVanillaModifierStrength(EnchantmentStat enchantmentStat) {
+        public float GetVanillaModifierStrength(EnchantmentStat enchantmentStat) {
             if (VanillaStats.ContainsKey(enchantmentStat))
                 return VanillaStats[enchantmentStat].Strength;
 

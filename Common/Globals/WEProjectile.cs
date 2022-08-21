@@ -126,12 +126,20 @@ namespace WeaponEnchantments.Common.Globals
             if (!ItemSourceSet)
                 return;
 
-			//Multishot
-            Player player = Main.player[projectile.owner];
-            float multishotChance = sourceItem.ApplyEStat("Multishot", 0f);
+            ActivateMultishot(projectile, source);
 
-			//Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
-			switch (sourceItem.Name) {
+            //Player player = Main.player[projectile.owner];
+            //Infinite Penetration
+            //if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
+            //    projectile.penetrate = -1;
+            //}
+        }
+		private void ActivateMultishot(Projectile projectile, IEntitySource source) {
+            if (!projectile.TryGetWEPlayer(out WEPlayer wePlayer) || !wePlayer.CheckEnchantmentStats(EnchantmentStat.Multishot, out float multishotChance))
+                return;
+
+            //Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
+            switch (sourceItem.Name) {
                 //Fix issues with weapons and multishot
                 case "Titanium Railgun":
                     multiShotConvertedToDamage = true;
@@ -139,9 +147,9 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Flamethrowers fix
-			if (!multiShotConvertedToDamage) {
+            if (!multiShotConvertedToDamage) {
                 multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
-			}
+            }
 
             if (multishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
 
@@ -171,11 +179,6 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
                 }
-            }
-
-            //Infinite Penetration
-            if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
-                projectile.penetrate = -1;
             }
         }
         public void UpdateProjectile(Projectile projectile) {

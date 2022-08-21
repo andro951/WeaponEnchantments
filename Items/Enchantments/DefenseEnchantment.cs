@@ -7,7 +7,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class DefenseEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 3;
-		public override string MyDisplayName => "Defence";
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {

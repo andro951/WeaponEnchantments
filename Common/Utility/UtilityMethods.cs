@@ -29,6 +29,16 @@ namespace WeaponEnchantments.Common.Utility
             return null;
         }
         public static WEPlayer GetWEPlayer(this Player player) => player.GetModPlayer<WEPlayer>();
+        public static bool TryGetWEPlayer(this Projectile projectile, out WEPlayer wePlayer) {
+            int owner = projectile.owner;
+            if (owner >= 0 && owner < Main.player.Length) {
+                Main.player[owner].TryGetModPlayer(out wePlayer);
+                return wePlayer != null;
+			}
+
+            wePlayer = null;
+            return false;
+        }
         public static WEProjectile GetWEProjectile(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
         public static bool TryGetWEProjectile(this Projectile projectile, out WEProjectile pGlobal) {
             if(projectile != null && projectile.TryGetGlobalProjectile(out pGlobal)) {

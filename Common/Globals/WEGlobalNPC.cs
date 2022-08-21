@@ -19,6 +19,7 @@ using WeaponEnchantments.Common.Utility;
 using System.Reflection;
 using WeaponEnchantments.ModLib.KokoLib;
 using KokoLib;
+using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -801,13 +802,6 @@ namespace WeaponEnchantments.Common.Globals
                 npc.StrikeNPC(damage, 0, 0, crit, false, true);
         }
         public override void OnSpawn(NPC npc, IEntitySource source) {
-            if (npc.ModNPC != null) {
-                string n = npc.FullName;
-                string n2 = npc.ModNPC.Name;
-                string n3 = npc.GivenName;
-                float v = npc.value;
-                int l = npc.lifeMax;
-            }
             if (!war || npc.friendly || npc.townNPC || npc.boss)
                 return;
 
@@ -886,16 +880,12 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) {
-                ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
-                (player.GetWEPlayer().eStats.S("spawnRate")).LogT();
-            }
+            if (LogMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
             #endregion
 
             //Spawn Rate
-            if (player.ContainsEStatOnPlayer("spawnRate")) {
-                float enemySpawnRateBonus = player.ApplyEStatFromPlayer("spawnRate", 1f);
+            if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.EnemySpawnRate, out float enemySpawnRateBonus, 1f)) {
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 if (enemySpawnRateBonus > 1f) {
                     warReduction = enemySpawnRateBonus;
@@ -913,8 +903,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Max Spawns
-            if (player.ContainsEStatOnPlayer("maxSpawns")) {
-                float enemyMaxSpawnBonus = player.ApplyEStatFromPlayer("maxSpawns", 1f);
+            if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.EnemyMaxSpawns, out float enemyMaxSpawnBonus, 1f)) {
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
 
                 if (spawns < 0)
@@ -946,13 +935,13 @@ namespace WeaponEnchantments.Common.Globals
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
         }
-        public static bool IsWorm(NPC npc) {
-            return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
-        }
     }
 
     public static class NPCStaticMethods
     {
+        public static bool IsWorm(NPC npc) {
+            return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
+        }
         public static void RemoveNPCBuffImunities(this NPC target, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
             HashSet<short> debuffIDs = new HashSet<short>(debuffs.Keys);
             if (dontDissableImmunitiy.Count > 0) {

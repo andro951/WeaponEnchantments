@@ -14,13 +14,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			Effects = new() {
 				new OneForAll(@base: EnchantmentStrengthData),
-				new AttackSpeed(multiplicative: EnchantmentStrengthData * (0.4f / 3f) + (2f / 3f)),
+				new AttackSpeed(multiplicative: (EnchantmentStrengthData * -0.2f + 1.5f).Invert()),
 				new NPCHitCooldown(multiplicative: EnchantmentStrengthData * -0.2f + 1.5f)
 			};
-			//AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			//AddEStat("NPCHitCooldown", 0f, 1.5f - EnchantmentStrength * 0.2f);
-			//AddStaticStat("useTime", 0f, 1.5f - EnchantmentStrength * 0.2f);
-			//AddStaticStat("useAnimation", 0f, 1.5f - EnchantmentStrength * 0.2f);
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

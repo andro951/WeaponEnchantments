@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -9,6 +10,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Ranged;
 		public override void GetMyStats() {
+			Effects = new() {
+				new Multishot(@base: EnchantmentStrengthData)
+			};
+
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }
 			};

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
@@ -8,8 +10,10 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
 		public override void GetMyStats() {
-			AddEStat("spawnRate", 0f, 1f / EnchantmentStrength);
-			AddEStat("maxSpawns", 0f, 1f / EnchantmentStrength);
+			Effects = new() {
+				new EnemyMaxSpawns(multiplicative: EnchantmentStrengthData.Invert()),
+				new EnemySpawnRate(multiplicative: EnchantmentStrengthData.Invert())
+			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },
@@ -18,6 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			};
 		}
 
+		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {EnchantmentTypeName.AddSpaces()}";
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

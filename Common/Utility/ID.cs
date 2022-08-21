@@ -37,6 +37,9 @@ namespace WeaponEnchantments.Common.Utility
         Damage,
         DamageAfterDefenses,
         Defense,
+        EnemyMaxSpawns,
+        EnemySpawnRate,
+        GodSlayer,
         JumpSpeed,
         Knockback,
         LifeRegen,
@@ -50,6 +53,7 @@ namespace WeaponEnchantments.Common.Utility
         MovementAcceleration,
         MovementSlowdown,
         MovementSpeed,
+        Multishot,
         NPCHitCooldown,
         OneForAll,
         ProjectileVelocity,
@@ -64,9 +68,9 @@ namespace WeaponEnchantments.Common.Utility
         AutoReuse,
         CriticalStrikeChance = 6,
         Damage,
-        Knockback = 11,
-        ManaUsage = 14,
-        Size = 26,
+        Knockback = 14,
+        ManaUsage = 17,
+        Size = 30,
     }
     public enum PermenantItemFields : short
 	{

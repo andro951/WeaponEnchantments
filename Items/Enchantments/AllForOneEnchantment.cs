@@ -17,18 +17,10 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new NPCHitCooldown(multiplicative: EnchantmentStrengthData * 0.4f + 4f),
-				new AttackSpeed(multiplicative: EnchantmentStrengthData * -0.05f + 1f),
+				new AttackSpeed(multiplicative: (EnchantmentStrengthData * 0.1f + 1f).Invert()),
 				new ManaUsage(@base: EnchantmentStrengthData * 0.15f + 1.5f),
 				new AutoReuse(prevent: true)
 			};
-			AddEStat(EnchantmentTypeName, 0f, EnchantmentStrength);
-			//AddEStat("Damage", 0f, EnchantmentStrength);
-			//AddEStat("NPCHitCooldown", 0f, 4f + EnchantmentStrength * 0.4f);
-			AddStaticStat("useTime", 0f, 1f + EnchantmentStrength * 0.1f);
-			AddStaticStat("useAnimation", 0f, 1f + EnchantmentStrength * 0.1f);
-			//AddStaticStat("mana", 1.5f + EnchantmentStrength * 0.15f);
-			//AddStaticStat("P_autoReuse", EnchantmentStrength);
-			//AddStaticStat("P_autoReuseGlove", EnchantmentStrength);
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

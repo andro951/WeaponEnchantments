@@ -5,7 +5,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public abstract class SizeEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 10;
-		public override string MyDisplayName => "Size";
 		public override void GetMyStats() {
 			Effects = new() {
 				new Size(EnchantmentStrengthData),

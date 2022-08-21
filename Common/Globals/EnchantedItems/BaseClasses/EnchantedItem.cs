@@ -1250,10 +1250,10 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Actual Defense
-            float actualDefence = target.defense / 2f - armorPenetration;
+            float actualDefense = target.defense / 2f - armorPenetration;
             float actualDamage = damage;
             if (!melee) {
-                actualDamage -= actualDefence;
+                actualDamage -= actualDefense;
 
                 if (crit)
                     actualDamage *= 2f;
@@ -1280,7 +1280,7 @@ namespace WeaponEnchantments.Common.Globals
                 float critMultiplier = 1f + (player.GetWeaponCrit(item) % 100) / 100f;
                 effectiveDamagePerHit *= critMultiplier;
 
-                float effectiveBaseDamagePerHit = effectiveDamagePerHit + actualDefence;
+                float effectiveBaseDamagePerHit = effectiveDamagePerHit + actualDefense;
 
                 lowDamagePerHitXPBoost = effectiveBaseDamagePerHit / effectiveDamagePerHit;
             }
@@ -1291,7 +1291,7 @@ namespace WeaponEnchantments.Common.Globals
             if(lowDamagePerHitXPBoost < 1f) {
                 ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" +
-					$"target.defense: {target.defense}, armorPenetration: {armorPenetration} xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
+					$"target.defense: {target.defense}, armorPenetration: {armorPenetration} xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, actualDefense: {actualDefense}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
@@ -1310,7 +1310,7 @@ namespace WeaponEnchantments.Common.Globals
             else if (xpInt < 0) {
                 ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, " +
-                    $"actualDefence: {actualDefence}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
+                    $"actualDefense: {actualDefense}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 

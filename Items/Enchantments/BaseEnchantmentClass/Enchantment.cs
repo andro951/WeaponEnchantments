@@ -656,6 +656,12 @@ namespace WeaponEnchantments.Items {
 
 			fullTooltip.Add(new Tuple<string, Color>($"Level cost: {GetCapacityCost()}", Color.LightGreen));
 
+			//Unique
+			if (Unique)
+				fullTooltip.Add(new Tuple<string, Color>("   *Unique* (Limited to 1 Unique Enchantment)", Color.White));
+
+			fullTooltip.AddRange(GetAllowedListTooltips());
+
 			if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
@@ -691,123 +697,6 @@ namespace WeaponEnchantments.Items {
 
 			if (Utility)
 				fullTooltip.Add(new Tuple<string, Color>($"   *Utility*", Color.White));
-
-			//fullTooltip.Add(new Tuple<string, Color>("Effectiveness:", Color.Violet));
-			fullTooltip.AddRange(GetAllowedListTooltips());
-
-			//string shortTooltip = GenerateShortTooltip();
-
-			//string toolTip = $"{shortTooltip}{(uniqueTooltip != "" ? "\n" : "")}{uniqueTooltip}";
-			//if (NewDamageType > -1)
-			//	toolTip += $"\nConverts weapon damage type to {((DamageTypeSpecificID)GetDamageClass(NewDamageType)).ToString().AddSpaces()}";
-
-			////Estats
-			//if (EStats.Count > 0) {
-			//	foreach (EStat eStat in EStats) {
-			//		string eStatToolTip = GetEStatToolTip(eStat, true);
-			//		if (eStatToolTip != shortTooltip)
-			//			toolTip += $"\n{eStatToolTip}";
-			//	}
-			//}
-
-			////StaticStats
-			//if (StaticStats.Count > 0) {
-			//	foreach (EnchantmentStaticStat staticStat in StaticStats) {
-			//		string staticStatToolTip = GetStaticStatToolTip(staticStat, true);
-			//		if (staticStatToolTip != shortTooltip)
-			//			toolTip += $"\n{staticStatToolTip}";
-			//	}
-			//}
-
-			////OnHitBuffs
-			//if (OnHitBuff.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (int onHitBuff in OnHitBuff.Keys) {
-			//		string buffName = GetBuffName(onHitBuff).AddSpaces();
-			//		if (first) {
-			//			toolTip += $"\nOn Hit Buffs: {buffName}";
-			//			first = false;
-			//		}
-			//		else if (i == OnHitBuff.Count - 1) {
-			//			toolTip += $" and {buffName}";
-			//		}
-			//		else {
-			//			toolTip += $", {buffName}";
-			//		}
-			//		i++;
-			//	}
-			//}
-
-			////Debuffs
-			//if (Debuff.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (int debuff in Debuff.Keys) {
-			//		string buffName = GetBuffName(debuff).AddSpaces();
-			//		if (first) {
-			//			toolTip += $"\nOn Hit Debuffs: {buffName}";
-			//			first = false;
-			//		}
-			//		else if (i == Debuff.Count - 1) {
-			//			toolTip += $" and {buffName}";
-			//		}
-			//		else {
-			//			toolTip += $", {buffName}";
-			//		}
-			//		i++;
-			//	}
-			//}
-
-			//Level Cost
-
-			//Unique, DamageClassSpecific, RestrictedClass, ArmorSlotSpecific
-			//if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1) {
-			//	string limmitationToolTip = "";
-			//	if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
-			//		//Unique (Specific Item)
-			//		limmitationToolTip += $"\n   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*";
-			//	}
-			//	else if (DamageClassSpecific > 0) {
-			//		//DamageClassSpecific
-			//		limmitationToolTip += $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
-			//	}
-			//	else if (ArmorSlotSpecific > -1) {
-			//		//ArmorSlotSpecific
-			//		limmitationToolTip += $"\n   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*";
-			//	}
-
-			//	//RestrictedClass
-			//	if (RestrictedClass > -1) {
-			//		limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
-			//	}
-
-			//	//Unique
-			//	if(Unique)
-			//		limmitationToolTip += "\n   *Unique* (Limited to 1 Unique Enchantment)";
-
-
-			//	toolTip += limmitationToolTip;
-			//}
-
-			////AllowedList
-			//if (AllowedList.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (string key in AllowedList.Keys) {
-			//		if (first) {
-			//			toolTip += $"\n   *Allowed on {key}: {AllowedList[key] * 100}%{(AllowedList.Count == 1 ? " Only*" : "")}";
-			//			first = false;
-			//		}
-			//		else if (i == AllowedList.Count - 1) {
-			//			toolTip += $" and {key}: {AllowedList[key] * 100}%{(AllowedList.Count < 3 ? " Only*" : "")}";
-			//		}
-			//		else {
-			//			toolTip += $", {key}: {AllowedList[key] * 100}%";
-			//		}
-			//		i++;
-			//	}
-			//}
 
 			return fullTooltip;
 		}
@@ -851,7 +740,6 @@ namespace WeaponEnchantments.Items {
 
 			return new List<Tuple<string, Color>>() { new Tuple<string, Color>(tooltip, Color.White) };
 		}
-
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 			foreach (var effect in Effects) {
