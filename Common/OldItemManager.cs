@@ -130,8 +130,8 @@ namespace WeaponEnchantments.Common
                     if (!replaced)
                         replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
 
-                    if (!replaced)
-                        replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
+                    //if (!replaced)
+                    //    replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
 
                     if (!replaced)
                         replaced = TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem);
