@@ -108,6 +108,7 @@ namespace WeaponEnchantments.Common {
             entity.ModifyShootStatEffects = enchantmentEffects.OfType<IModifyShootStats>().ToList();
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
+	    entity.PlayerSetEffects = new SortedList<EnchantmentStat, PlayerSetEffect>(entity.StatEffects.OfType<PlayerSetEffect>().ToSortedList(e => e.statName, e => e));
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
             entity.OnHitDebuffs = GetBuffEffects(buffEffects.OfType<OnHitTargetBuffEffectGeneral>());
             entity.OnHitBuffs = GetBuffEffects(buffEffects.OfType<OnHitPlayerBuffEffectGeneral>());
@@ -143,6 +144,7 @@ namespace WeaponEnchantments.Common {
 
             wePlayer.CombinedOnHitEffects = wePlayer.OnHitEffects.Concat(enchantedWeapon.OnHitEffects).ToList();
             wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedWeapon.ModifyShootStatEffects).ToList();
+	    wePlayer.CombinedPlayerSetEffects = wePlayer.PlayerSetEffects.Concat(enchangetdWeapon.PlayerSetEffects).ToSortedList();
             wePlayer.CombinedEnchantmentStats = CombineStatEffectDictionaries(wePlayer.EnchantmentStats, enchantedWeapon.EnchantmentStats);
             wePlayer.CombinedOnHitDebuffs = CombineBuffEffectDictionaries(wePlayer.OnHitDebuffs, enchantedWeapon.OnHitDebuffs);
             wePlayer.CombinedOnHitBuffs = CombineBuffEffectDictionaries(wePlayer.OnHitBuffs, enchantedWeapon.OnHitBuffs);
