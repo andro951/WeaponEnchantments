@@ -75,10 +75,12 @@ namespace WeaponEnchantments
         #endregion
 
         #region Enchantment Effects
+	
         public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
-        public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
-
+        public SortedDictionary<EnchantmentStat, double> EffectTimers = new SortedDictionary<EnchantmentStat, double>();
+	public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
+	
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedDictionary<EnchantmentStat, PlayerSetEffect>();
@@ -95,9 +97,10 @@ namespace WeaponEnchantments
 
 		#region Combined Enchanmtent Effects
 
-		public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+	public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedVanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<EnchantmentStat, PlayerSetEffect> CombinedPlayerSetEffects { set; get; } = new SortedDictionary<EnchantmentStat, PlayerSetEffect>();
+	public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
@@ -1228,7 +1231,22 @@ namespace WeaponEnchantments
 
             return false;
         }
-
+	public double CheckTimer(IUseTimer effect) {
+		if (EffectTimers.ContainsKey(effect.statName))
+			return EffectTimers[effect.statName];
+			
+		return -1;
+	}
+	public void SetEffectTimer(IUseTimer) {
+		double endTime = Main.GameUpdateCount + effect.TimerDuration.Ticks;
+		if (EffectTimers.ContainsKey(effect.statName)) {
+			EffectTimers[effect.statName] = endTime;
+		}
+		else {
+			EffectTimers.Add(effect.statName, endTime);
+		}
+	}
+	
         #endregion
 
         #region Enchantment Effect Managment
@@ -1237,6 +1255,8 @@ namespace WeaponEnchantments
             ApplyPostMiscEnchants();
         }
         public void ApplyPostMiscEnchants() {
+	    CheckTimers();
+	    
             PlayerEquipment newEquipment = Equipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
@@ -1267,6 +1287,18 @@ namespace WeaponEnchantments
             ApplyStatEffects();
 
         }
+	private void CheckTimers() {
+		double updateCount = Main.GameUpdateCount;
+		foreach(KeyValuePair<EnchantmentStat, double> timer in EffectTimers) {
+			if (updateCount >= timer.Value) {
+				statName = timer.Key;
+				EnchantmentTimers.Remove(timer);
+				foreach(var effect in EnchantmentEffects.OfType<IUseTimer>.Where(e => e.statName == statName)) {
+					effect.ResetTimer(this);
+				}
+			}
+		}
+	}
         private void UpdateEnchantmentEffects() {
             Equipment.UpdateArmorEnchantmentEffects();
             Equipment.UpdateWeaponEnchantmentEffects();
