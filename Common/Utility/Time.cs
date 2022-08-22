@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
 
 namespace WeaponEnchantments.Common.Utility {
     public class Time {
@@ -32,71 +33,71 @@ namespace WeaponEnchantments.Common.Utility {
 
         #region Properties
 	
-	private double _value = 0;
-        public double Value { 
-		set => _value = value;
-		get {
-			if (_waitingForEnterWorld)
-				SetUpAutomaticStrengthFromWorldDificulty();
+	    private double _value = 0;
+            public double Value { 
+		    set => _value = value;
+		    get {
+			    if (_waitingForEnterWorld)
+				    SetUpAutomaticStrengthFromWorldDificulty();
 			
-			return _value;
-		}
-	}
+			    return _value;
+		    }
+	    }
 	
-	private int _ticks = 0;
-        public int Ticks {
-		set => _ticks = value;
-		get {
-			if (_waitingForEnterWorld)
-				SetUpAutomaticStrengthFromWorldDificulty();
-			
-			return _value
-		}
-	}
+	    private int _ticks = 0;
+            public int Ticks {
+		    set => _ticks = value;
+		    get {
+			    if (_waitingForEnterWorld)
+				    SetUpAutomaticStrengthFromWorldDificulty();
+
+                    return _ticks;
+		    }
+	    }
         public Magnitude Mag;
-	private _waitingForEnterWorld = false;
-	private _difficultyStrength = null;
+	    private bool _waitingForEnterWorld = false;
+	    private DifficultyStrength _difficultyStrength = null;
 
-        #endregion
+            #endregion
 
-        #region Constructors
+            #region Constructors
 		
-        public Time(double value, Magnitude mag = Magnitude.ticks) {
-            Value = value;
-            Mag = mag;
-            ReduceSelf();
-            Ticks = CalculateTicks();
-        }
-	    
-	public Time(DifficultyStrength difficultyStrength, Magnitude mag = Magnitude.ticks) {
-	    _waitingForEnterWorld = true;
-	    _difficultyStrength = difficultyStrength;
-            Mag = mag;
-        }
-        #endregion
-
-        #region Methods
-        #region Overwritten Methods
-        public override string ToString() {
-            if (Value < 0) {
-                return IndefiniteString;
+            public Time(double value, Magnitude mag = Magnitude.ticks) {
+                Value = value;
+                Mag = mag;
+                ReduceSelf();
+                Ticks = CalculateTicks();
             }
-            else if (Ticks == int.MaxValue) {
-                return MaxIntString;
-			}
+	    
+	    public Time(DifficultyStrength difficultyStrength, Magnitude mag = Magnitude.ticks) {
+	        _waitingForEnterWorld = true;
+	        _difficultyStrength = difficultyStrength;
+                Mag = mag;
+            }
+            #endregion
 
-            Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
+            #region Methods
+            #region Overwritten Methods
+            public override string ToString() {
+                if (Value < 0) {
+                    return IndefiniteString;
+                }
+                else if (Ticks == int.MaxValue) {
+                    return MaxIntString;
+			    }
 
-            return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
-        }
-        #endregion
+                Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
 
-	private void SetUpAutomaticStrengthFromWorldDificulty() {
-	    int index = _difficultyStrength.Length == 4 ? Main.GameMode : 0;
-	    _value = _difficultyStrength[index];
-            ReduceSelf();
-            Ticks = CalculateTicks();	
-	}
+                return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
+            }
+            #endregion
+
+	    private void SetUpAutomaticStrengthFromWorldDificulty() {
+	        int index = _difficultyStrength.AllValues.Length == 4 ? Main.GameMode : 0;
+	        _value = _difficultyStrength.AllValues[index];
+                ReduceSelf();
+                Ticks = CalculateTicks();	
+	    }
 	
         // Simplifies the time as much as possible while lossless. 
         private void ReduceSelf() {

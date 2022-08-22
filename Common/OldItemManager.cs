@@ -50,8 +50,9 @@ namespace WeaponEnchantments.Common
         };
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { 
             { "ContainmentFragment", ItemID.GoldBar }, 
-            {"Stabilizer", 177}, 
-            {"SuperiorStabilizer", 999} };
+            { "Stabilizer", 177 }, 
+            { "SuperiorStabilizer", 999 }
+        };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>() {
             
 		};

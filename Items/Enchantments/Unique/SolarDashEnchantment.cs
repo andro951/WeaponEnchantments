@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -10,8 +11,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
 		public override void GetMyStats() {
 			Effects = new() {
-				
-			}
+				new VanillaDash(3, EnchantmentStrengthData)
+			};
 			//AddStaticStat("dashType", 0f, 1f, 0f, 3f);
 
 			AllowedList = new Dictionary<EItemType, float>() {

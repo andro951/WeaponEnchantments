@@ -12,9 +12,10 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public class VanillaDash : PlayerSetTimerEffect {
-        protected VanillaDash(int dashType, DifficultyStrength strengthData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
+        public VanillaDash(int dashType, DifficultyStrength strengthData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
             _dashType = dashType;
         }
+
         private int _dashType;
         public DifficultyStrength StrengthData;
         public float MinimumStrength;
@@ -54,5 +55,9 @@ namespace WeaponEnchantments.Effects {
             if (CheckTimer())
             wePlayer.Player.dashType = _dashType;
         }
-    }
+
+		public override void SetEffect() {
+			throw new NotImplementedException();
+		}
+	}
 }

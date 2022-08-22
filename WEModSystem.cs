@@ -569,6 +569,32 @@ namespace WeaponEnchantments
                 ItemID.SoulofNight
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
+		}
+		public enum ChestID { 
+            Chest,
+            GoldChest,
+            GoldChestLocked,
+            ShadowChest,
+            ShadowChestLocked,
+            RichMahoganyChest = 8,
+            IvyChest = 10,
+            FrozenChest,
+            LivingWoodChest,
+            SkywareChest,
+            WebCoveredChest = 15,
+            LihzahrdChest,
+            WaterChest,
+            DungeonJungleChest = 23,
+            DungeonCorruptionChest,
+            DungeonCrimsonChest,
+            DungeonHallowedChest,
+            DungeonIceChest,
+            MushroomChest = 32,
+            GraniteChest = 40,
+            MarbleChest,
+            GoldDeadMansChest = 104,
+            SandStoneChest = 110,
+            DungeonDesertChest = 113
         }
 		public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
