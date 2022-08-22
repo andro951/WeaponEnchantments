@@ -15,12 +15,12 @@ namespace WeaponEnchantments.Effects {
         protected PlayerSetEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) {
             MinimumStrength = minimumStrength;
             EnableStat = !prevent;
-            StrengthData = strengthData;
+	    TimerDuration = new Time(strengthData);
         }
 
-        public DifficultyStrength StrengthData;
         public float MinimumStrength;
 		    public abstract EnchantmentStat statName { get; }
+	
         public virtual Time TimerDuration { set; get; };
 
         public override string Tooltip {
