@@ -34,7 +34,8 @@ namespace WeaponEnchantments.Common
             { "ShootSpeed", "ProjectileVelocity"},
             { "Speed", "AttackSpeed" },
             { "Control", "MobilityControl" },
-            { "MoveSpeed", "MovementSpeed" }
+            { "MoveSpeed", "MovementSpeed" },
+	    { "PhaseJump", "SolarDash" }
         };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
             { "SuperRare", 3 },
@@ -42,7 +43,7 @@ namespace WeaponEnchantments.Common
             { "Rare", 2 } 
         };
         private static List<string> firstWordReplaceEnchantmentWithCoins = new List<string>() {
-            { "PhaseJump" }
+            
 		};
         private static Dictionary<string, int> firstWordReplaceEnchantmentWithItem = new Dictionary<string, int>() {
             { "CatastrophicRelease", ItemID.None }
