@@ -31,20 +31,47 @@ namespace WeaponEnchantments.Common.Utility {
         #endregion
 
         #region Properties
-
-        public double Value;
-        public int Ticks = 0;
+	
+	private double _value = 0;
+        public double Value { 
+		set => _value = value;
+		get {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+			
+			return _value;
+		}
+	}
+	
+	private int _ticks = 0;
+        public int Ticks {
+		set => _ticks = value;
+		get {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+			
+			return _value
+		}
+	}
         public Magnitude Mag;
+	private _waitingForEnterWorld = false;
+	private _difficultyStrength = null;
 
         #endregion
 
         #region Constructors
+		
         public Time(double value, Magnitude mag = Magnitude.ticks) {
             Value = value;
-            double temp = value * 10000;
             Mag = mag;
             ReduceSelf();
             Ticks = CalculateTicks();
+        }
+	    
+	public Time(DifficultyStrength difficultyStrength, Magnitude mag = Magnitude.ticks) {
+	    _waitingForEnterWorld = true;
+	    _difficultyStrength = difficultyStrength;
+            Mag = mag;
         }
         #endregion
 
@@ -64,6 +91,13 @@ namespace WeaponEnchantments.Common.Utility {
         }
         #endregion
 
+	private void SetUpAutomaticStrengthFromWorldDificulty() {
+	    int index = _difficultyStrength.Length == 4 ? Main.GameMode : 0;
+	    _value = _difficultyStrength[index];
+            ReduceSelf();
+            Ticks = CalculateTicks();	
+	}
+	
         // Simplifies the time as much as possible while lossless. 
         private void ReduceSelf() {
             if (Value < 0) {
