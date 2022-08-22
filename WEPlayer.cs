@@ -1231,21 +1231,21 @@ namespace WeaponEnchantments
 
             return false;
         }
-	public double CheckTimer(IUseTimer effect) {
-		if (EffectTimers.ContainsKey(effect.statName))
-			return EffectTimers[effect.statName];
+	    public bool CheckTimer(IUseTimer effect) {
+		    if (EffectTimers.ContainsKey(effect.statName))
+			    return EffectTimers[effect.statName] <= Main.GameUpdateCount;
 			
-		return -1;
-	}
-	public void SetEffectTimer(IUseTimer) {
-		double endTime = Main.GameUpdateCount + effect.TimerDuration.Ticks;
-		if (EffectTimers.ContainsKey(effect.statName)) {
-			EffectTimers[effect.statName] = endTime;
-		}
-		else {
-			EffectTimers.Add(effect.statName, endTime);
-		}
-	}
+		    return true;
+	    }
+	    public void SetEffectTimer(IUseTimer effect) {
+		    double endTime = Main.GameUpdateCount + effect.TimerDuration.Ticks;
+		    if (EffectTimers.ContainsKey(effect.statName)) {
+			    EffectTimers[effect.statName] = endTime;
+		    }
+		    else {
+			    EffectTimers.Add(effect.statName, endTime);
+		    }
+	    }
 	
         #endregion
 

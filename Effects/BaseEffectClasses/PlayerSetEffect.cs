@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Effects {
             StrengthData = strengthData;
         }
 
+        public bool EnableStat { get; protected set; }
         public DifficultyStrength StrengthData;
         public float MinimumStrength;
 		public abstract EnchantmentStat statName { get; }
