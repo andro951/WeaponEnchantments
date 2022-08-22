@@ -78,7 +78,7 @@ namespace WeaponEnchantments
 	
         public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
-        public SortedDictionary<EnchantmentStat, double> EffectTimers = new SortedDictionary<EnchantmentStat, double>();
+        public SortedList<EnchantmentStat, double> EffectTimers = new SortedList<EnchantmentStat, double>();
 	public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
 	
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
