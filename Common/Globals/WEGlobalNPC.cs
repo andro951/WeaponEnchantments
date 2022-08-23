@@ -419,7 +419,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 int denom100 = (int)Math.Round(1f / mult);
 
-                /*//Ai style drops from attibutes
+                //Ai style drops from attibutes
                 DropRulesAttribute.npcAiStyleDrops.TryGetValue(npc.aiStyle, out ICollection<int> aiBasedDrops);
                 if (aiBasedDrops != null) {
                     foreach (int dropID in aiBasedDrops) {
@@ -433,7 +433,7 @@ namespace WeaponEnchantments.Common.Globals
                     foreach (int dropID in mobBasedDrops) {
                         loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
                     }
-                }*/
+                }
 
                 //Ai Style
                 switch (npc.aiStyle) {
