@@ -34,7 +34,9 @@ namespace WeaponEnchantments.Common
 			private set {
 				if (value > 1f) {
 					_chance = 1f;
-					 _duration.Ticks.MultiplyCheckOverflow(value);
+					int ticks = _duration.Ticks;
+					ticks.MultiplyCheckOverflow(value);
+					_duration.Ticks = ticks;
 				}
 				else {
 					_chance = value;
@@ -72,13 +74,13 @@ namespace WeaponEnchantments.Common
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
 		}
-		public BuffStats(string buffName, short buffID, int duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
+		public BuffStats(string buffName, short buffID, uint duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			if (buffStrength != null)
 				_waitingForEnterWorld = true;
 
 			BuffName = buffName;
 			BuffID = buffID;
-			_duration = new Time(duration);
+			_duration = new Time((uint)duration);
 			Chance = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
@@ -92,11 +94,11 @@ namespace WeaponEnchantments.Common
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
 		}
-		public BuffStats(string buffName, short buffID, int duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
+		public BuffStats(string buffName, short buffID, uint duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			_waitingForEnterWorld = true;
 			BuffName = buffName;
 			BuffID = buffID;
-			_duration = new Time(duration);
+			_duration = new Time((uint)duration);
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;

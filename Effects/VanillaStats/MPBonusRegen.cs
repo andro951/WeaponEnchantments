@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Effects {
         public MPBonusRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.BonusManaRegen;
+        public override EnchantmentStat statName => EnchantmentStat.BonusManaRegen;
         public override string DisplayName { get; } = "Bonus Mana Regeneration";
     }
 }

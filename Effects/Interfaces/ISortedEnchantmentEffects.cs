@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Effects
 	{
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; }
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; }
-	public SortedDictionary<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; }
+	    public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; }
         public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; }
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; }
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; }

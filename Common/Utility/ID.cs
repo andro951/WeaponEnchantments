@@ -28,6 +28,7 @@ namespace WeaponEnchantments.Common.Utility
     public enum EnchantmentStat : byte
     {
         None,
+        AllForOne,
         AmmoCost,
         AttackSpeed,
         ArmorPenetration,
@@ -63,14 +64,14 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum WeaponStat : byte
     {
-        AttackSpeed = 2,
+        AttackSpeed = 3,
         ArmorPenetration,
         AutoReuse,
-        CriticalStrikeChance = 6,
+        CriticalStrikeChance = 7,
         Damage,
-        Knockback = 14,
-        ManaUsage = 17,
-        Size = 30,
+        Knockback = 15,
+        ManaUsage = 18,
+        Size = 31,
     }
     public enum PermenantItemFields : short
 	{
@@ -80,5 +81,41 @@ namespace WeaponEnchantments.Common.Utility
 	{
         ArmorPenetration,
         DamageType
+    }
+
+    public enum ChestID
+    {
+        None = -1,
+        Chest,
+        GoldChest,
+        GoldChestLocked,
+        ShadowChest,
+        ShadowChestLocked,
+        RichMahoganyChest = 8,
+        IvyChest = 10,
+        FrozenChest,
+        LivingWoodChest,
+        SkywareChest,
+        WebCoveredChest = 15,
+        LihzahrdChest,
+        WaterChest,
+        DungeonJungleChest = 23,
+        DungeonCorruptionChest,
+        DungeonCrimsonChest,
+        DungeonHallowedChest,
+        DungeonIceChest,
+        MushroomChest = 32,
+        GraniteChest = 40,
+        MarbleChest,
+        GoldDeadMansChest = 104,
+        SandStoneChest = 110,
+        DungeonDesertChest = 113
+    }
+    public enum DashID : byte
+	{
+        NinjaTabiDash = 1,
+        EyeOfCthulhuShieldDash,
+        SolarDash,
+        CrystalNinjaDash = 5
     }
 }

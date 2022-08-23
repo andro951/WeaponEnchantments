@@ -19,6 +19,6 @@ namespace WeaponEnchantments.Effects
         }
 
         public override string DisplayName { get; } = $"Damage (Applied after defenses. Not visible in weapon tooltip)";
-		public override EnchantmentStat statType => EnchantmentStat.DamageAfterDefenses;
+		public override EnchantmentStat statName => EnchantmentStat.DamageAfterDefenses;
 	}
 }

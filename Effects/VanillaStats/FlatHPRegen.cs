@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Effects {
         public FlatHPRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.LifeRegen;
+        public override EnchantmentStat statName => EnchantmentStat.LifeRegen;
         public override string DisplayName => "Life Regeneration";
     }
 }

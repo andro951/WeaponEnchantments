@@ -12,15 +12,13 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class PlayerSetTimerEffect : PlayerSetEffect, IUseTimer {
-        protected PlayerSetTimerEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) : base(minimumStrength, strengthData, prevent) {
+        protected PlayerSetTimerEffect(float minimumStrength, DifficultyStrength timerData, bool prevent) : base(minimumStrength, timerData, prevent) {
             MinimumStrength = minimumStrength;
             EnableStat = !prevent;
-	        TimerDuration = new Time(strengthData);
+	        TimerDuration = new Time(timerData);
         }
 
-        //public float MinimumStrength;
-		public override EnchantmentStat statName { get; }
-	
+        public EnchantmentStat TimerStatName => statName;
         public virtual Time TimerDuration { set; get; }
 
         public override string Tooltip {
@@ -31,32 +29,5 @@ namespace WeaponEnchantments.Effects {
                 return $"{(EnableStat ? "Grants" : "Prevents")} {DisplayName} ({TimerDuration} cooldown)";
             }
 	    }
-
-
-
-		//public abstract void SetEffect();
-
-		public virtual void SetTimer(WEPlayer wePlayer) {
-            wePlayer.SetEffectTimer(this);
-        }
-        public virtual bool CheckTimer() {
-            return Main.LocalPlayer.GetWEPlayer().CheckTimer(this);
-        }
-        public virtual void TimerEnd() { }
-        public virtual void ActivateEffect(WEPlayer wePlayer) {
-          SetTimer(wePlayer);
-        }
-
-		public void SetTimer() {
-			throw new NotImplementedException();
-		}
-
-		void IUseTimer.CheckTimer() {
-			throw new NotImplementedException();
-		}
-
-		public void ActivateEffect() {
-			throw new NotImplementedException();
-		}
 	}
 }

@@ -16,6 +16,6 @@ namespace WeaponEnchantments.Effects {
 
         }
         
-        public override EnchantmentStat statType => EnchantmentStat.AttackSpeed;
+        public override EnchantmentStat statName => EnchantmentStat.AttackSpeed;
     }
 }

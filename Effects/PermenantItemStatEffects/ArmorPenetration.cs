@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Effects
 
 		}
 
-		public override EnchantmentStat statType => EnchantmentStat.ArmorPenetration;
+		public override EnchantmentStat statName => EnchantmentStat.ArmorPenetration;
 		public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
 
 

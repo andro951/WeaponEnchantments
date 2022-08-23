@@ -19,6 +19,6 @@ namespace WeaponEnchantments.Effects
         }
 
 		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
-		public override EnchantmentStat statType => EnchantmentStat.OneForAll;
+		public override EnchantmentStat statName => EnchantmentStat.OneForAll;
 	}
 }

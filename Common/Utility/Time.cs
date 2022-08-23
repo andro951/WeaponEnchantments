@@ -27,15 +27,14 @@ namespace WeaponEnchantments.Common.Utility {
             { Magnitude.seconds, 60 },
             { Magnitude.minutes, 60 },
         }.ToImmutableDictionary();
-        private static string IndefiniteString = "indefinite";
         private static string MaxIntString = "ever";
         #endregion
 
         #region Properties
 	
 	    private double _value = 0;
-            public double Value { 
-		    set => _value = value;
+        public double Value { 
+		set => _value = value;
 		    get {
 			    if (_waitingForEnterWorld)
 				    SetUpAutomaticStrengthFromWorldDificulty();
@@ -43,10 +42,10 @@ namespace WeaponEnchantments.Common.Utility {
 			    return _value;
 		    }
 	    }
-	
+	    
 	    private int _ticks = 0;
-            public int Ticks {
-		    set => _ticks = value;
+        public int Ticks {
+		set => _ticks = value;
 		    get {
 			    if (_waitingForEnterWorld)
 				    SetUpAutomaticStrengthFromWorldDificulty();
@@ -58,65 +57,62 @@ namespace WeaponEnchantments.Common.Utility {
 	    private bool _waitingForEnterWorld = false;
 	    private DifficultyStrength _difficultyStrength = null;
 
-            #endregion
+        #endregion
 
-            #region Constructors
+        #region Constructors
 		
-            public Time(double value, Magnitude mag = Magnitude.ticks) {
-                Value = value;
-                Mag = mag;
-                ReduceSelf();
-                Ticks = CalculateTicks();
-            }
+        public Time(uint value, Magnitude mag = Magnitude.ticks) {
+            Value = value;
+            Mag = mag;
+            ReduceSelf();
+            Ticks = CalculateTicks();
+        }
 	    
 	    public Time(DifficultyStrength difficultyStrength, Magnitude mag = Magnitude.ticks) {
 	        _waitingForEnterWorld = true;
 	        _difficultyStrength = difficultyStrength;
                 Mag = mag;
-            }
-            #endregion
+        }
+        #endregion
 
-            #region Methods
-            #region Overwritten Methods
-            public override string ToString() {
-                if (Value < 0) {
-                    return IndefiniteString;
-                }
-                else if (Ticks == int.MaxValue) {
-                    return MaxIntString;
-			    }
+        #region Methods
+        #region Overwritten Methods
+        public override string ToString() {
+            if (Ticks >= int.MaxValue) {
+                return MaxIntString;
+			}
 
-                Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
+            Tuple<double, Magnitude> maxReducedSelf = MaxReducedSelf();
 
-                return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
-            }
-            #endregion
+            return $"{Math.Round(maxReducedSelf.Item1, 1)} {(Value >= 2 ? MagnitudeStrings[maxReducedSelf.Item2].Item2 : MagnitudeStrings[maxReducedSelf.Item2].Item1)}";
+        }
+        #endregion
 
 	    private void SetUpAutomaticStrengthFromWorldDificulty() {
 	        int index = _difficultyStrength.AllValues.Length == 4 ? Main.GameMode : 0;
 	        _value = _difficultyStrength.AllValues[index];
-                ReduceSelf();
-                Ticks = CalculateTicks();	
+            ReduceSelf();
+            Ticks = CalculateTicks();	
 	    }
 	
         // Simplifies the time as much as possible while lossless. 
         private void ReduceSelf() {
-            if (Value < 0) {
+            if (_value < 0) {
                 return;
             }
-            while (Conversions.ContainsKey(Mag) && Value >= Conversions[Mag] && Value % Conversions[Mag] == 0) {
-                Value /= Conversions[Mag];
+            while (Conversions.ContainsKey(Mag) && _value >= Conversions[Mag] && _value % Conversions[Mag] == 0) {
+                _value /= Conversions[Mag];
                 Mag += 1;
             }
         }
 
         // Returns a lossy max simplification
         private Tuple<double, Magnitude> MaxReducedSelf() {
-            if (Value < 0) {
-                return new Tuple<double, Magnitude>(Value, Mag);
+            if (_value < 0) {
+                return new Tuple<double, Magnitude>(_value, Mag);
             }
             
-            double newValue = Value;
+            double newValue = _value;
             Magnitude newMag = Mag;
             while (Conversions.ContainsKey(newMag) && newValue > Conversions[newMag] && newValue % Conversions[newMag] == 0) {
                 newValue /= Conversions[newMag];
@@ -127,17 +123,15 @@ namespace WeaponEnchantments.Common.Utility {
       
         // Returns the amount of frames this value represents
         private int CalculateTicks() {
-            if (Value < 0) {
-                return (int)Value;
+            if (_value < 0) {
+                return 0;
             }
-            double newValue = Value;
+            double newValue = _value;
             Magnitude newMag = Mag;
             while (newMag != 0 && Conversions.ContainsKey(newMag - 1)) {
                 newMag -= 1;
                 newValue *= Conversions[newMag];
             }
-
-            double temp = newValue * 10000;
 
             return (int)newValue;
         }
@@ -147,11 +141,11 @@ namespace WeaponEnchantments.Common.Utility {
         public static implicit operator int(Time t) { return t.Ticks; }
         
         public static Time operator *(Time t, int value) {
-            return new Time(t.Value * value, t.Mag);
+            return new Time((uint)(t.Value * value), t.Mag);
         }
 
         public static Time operator *(Time t, float value) {
-            int newFrames = (int)((int)t * value);
+            uint newFrames = (uint)((float)t * value);
             return new Time(newFrames, Magnitude.ticks);
         }
 

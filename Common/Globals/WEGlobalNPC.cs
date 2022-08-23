@@ -162,7 +162,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.Deerclops when !bossBag:
                 case ItemID.DeerclopsBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<PhaseJumpEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<SolarDashEnchantmentBasic>());
                     break;
                 case NPCID.WallofFlesh when !bossBag:
                 case ItemID.WallOfFleshBossBag when bossBag:

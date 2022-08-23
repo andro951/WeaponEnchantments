@@ -4,7 +4,7 @@ using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
-    public abstract class BoolEffect : EnchantmentEffect {
+    public abstract class BoolEffect : EnchantmentEffect, IEnchantmentStat {
 
         public bool EnableStat { get; protected set; }
         protected BoolEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) {

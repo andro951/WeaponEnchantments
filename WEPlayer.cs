@@ -78,13 +78,13 @@ namespace WeaponEnchantments
 	
         public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
-        public SortedList<EnchantmentStat, double> EffectTimers = new SortedList<EnchantmentStat, double>();
-	public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
+        public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
+	    public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
 	
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        public SortedDictionary<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedDictionary<EnchantmentStat, PlayerSetEffect>();
-	public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
+	    public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
@@ -97,10 +97,10 @@ namespace WeaponEnchantments
 
 		#region Combined Enchanmtent Effects
 
-	public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+	    public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedVanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        public SortedDictionary<EnchantmentStat, PlayerSetEffect> CombinedPlayerSetEffects { set; get; } = new SortedDictionary<EnchantmentStat, PlayerSetEffect>();
-	public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedList<EnchantmentStat, PlayerSetEffect> CombinedPlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
+	    public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
@@ -706,13 +706,6 @@ namespace WeaponEnchantments
             foreach (int key in buffs.Keys) {
                 Player.AddBuff(key, 60);
             }
-
-            if (allForOneTimer > 0) {
-                allForOneTimer--;
-                if (allForOneTimer == 0) {
-                    SoundEngine.PlaySound(SoundID.Unlock);
-                }
-            }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (Player.difficulty == 1 || Player.difficulty == 2) {
@@ -762,9 +755,13 @@ namespace WeaponEnchantments
             if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
                 item = weProj.sourceItem;
 
+            if (item == null)
+                return;
+
             ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
         }
         private void ModifyHitNPCWithAny(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Projectile projectile = null) {
+
             #region Debug
 
             if (LogMethods.debugging) ($"\\/HitNPC(target: {target.FullName}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
@@ -1147,7 +1144,7 @@ namespace WeaponEnchantments
             if (target.immune[Player.whoAmI] <= 0)
                 return;
 
-            if (Player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier)) {
+            if (Player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f)) {
                 //npc.immune
                 int newImmune = (int)((float)target.immune[Player.whoAmI] * NPCHitCooldownMultiplier);
                 if (newImmune < 1)
@@ -1232,19 +1229,23 @@ namespace WeaponEnchantments
             return false;
         }
 	    public bool CheckTimer(IUseTimer effect) {
-		    if (EffectTimers.ContainsKey(effect.statName))
-			    return EffectTimers[effect.statName] <= Main.GameUpdateCount;
+            EnchantmentStat statName = effect.TimerStatName;
+            foreach (var e in EffectTimers) {
+                if (e.Value.TimerStatName == statName)
+                    return false;
+			}
 			
 		    return true;
 	    }
-	    public void SetEffectTimer(IUseTimer effect) {
-		    double endTime = Main.GameUpdateCount + effect.TimerDuration.Ticks;
-		    if (EffectTimers.ContainsKey(effect.statName)) {
-			    EffectTimers[effect.statName] = endTime;
-		    }
-		    else {
-			    EffectTimers.Add(effect.statName, endTime);
-		    }
+	    public void SetEffectTimer(IUseTimer effect, int duration = -1) {
+            if (!effect.MultipleAllowed && EffectTimers.Select(e => e.Value.TimerStatName).Contains(effect.TimerStatName))
+                return;
+
+            if (duration == -1)
+                duration = effect.TimerDuration.Ticks;
+
+            uint endTime = Main.GameUpdateCount + (uint)duration;
+            EffectTimers.Add(endTime, effect);
 	    }
 	
         #endregion
@@ -1255,7 +1256,7 @@ namespace WeaponEnchantments
             ApplyPostMiscEnchants();
         }
         public void ApplyPostMiscEnchants() {
-	    CheckTimers();
+	        CheckClearTimers();
 	    
             PlayerEquipment newEquipment = Equipment;
             if (newEquipment != LastPlayerEquipment) {
@@ -1286,19 +1287,30 @@ namespace WeaponEnchantments
             // Apply them if there's any.
             ApplyStatEffects();
 
+            ApplyPlayerSetEffects();
         }
-	private void CheckTimers() {
-		double updateCount = Main.GameUpdateCount;
-		foreach(KeyValuePair<EnchantmentStat, double> timer in EffectTimers) {
-			if (updateCount >= timer.Value) {
-				statName = timer.Key;
-				EnchantmentTimers.Remove(timer);
-				foreach(var effect in EnchantmentEffects.OfType<IUseTimer>.Where(e => e.statName == statName)) {
-					effect.ResetTimer(this);
+	    private void CheckClearTimers() {
+		    uint updateCount = Main.GameUpdateCount;
+            List<uint> toRemove = new List<uint>();
+		    foreach(KeyValuePair<uint, IUseTimer> timer in EffectTimers) {
+			    if (updateCount >= timer.Key) {
+                    toRemove.Add(timer.Key);
+                    timer.Value.TimerEnd(this);
+			    }
+				else {
+                    break;
 				}
-			}
+		    }
+
+            foreach(uint timer in toRemove) {
+                EffectTimers.Remove(timer);
+            }
+	    }
+        private void ApplyPlayerSetEffects() {
+            foreach(KeyValuePair<EnchantmentStat, PlayerSetEffect> effect in CombinedPlayerSetEffects) {
+                effect.Value.SetEffect(Player);
+            }
 		}
-	}
         private void UpdateEnchantmentEffects() {
             Equipment.UpdateArmorEnchantmentEffects();
             Equipment.UpdateWeaponEnchantmentEffects();
@@ -1988,7 +2000,7 @@ namespace WeaponEnchantments
             foreach (var buff in buffs) {
                 float chance = buff.Value.Chance;
                 if (chance >= 1f || chance >= Main.rand.NextFloat()) {
-                    player.AddBuff(buff.Key, buff.Value.Duration.Ticks);
+                    player.AddBuff(buff.Key, (int)buff.Value.Duration.Ticks);
                 }
             }
         }

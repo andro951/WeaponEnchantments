@@ -16,6 +16,6 @@ namespace WeaponEnchantments.Effects {
 
         }
         
-        public override EnchantmentStat statType => EnchantmentStat.Size;
+        public override EnchantmentStat statName => EnchantmentStat.Size;
     }
 }

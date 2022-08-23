@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Common.Globals
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
-	public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+	    public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
@@ -420,15 +420,19 @@ namespace WeaponEnchantments.Common.Globals
             if (!Modified)
                 return null;
 
+            bool? returnValue = null;
+            foreach(IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
+                bool? useItem = effect.UseItem(item, player);
+                if (useItem != null) {
+                    if (returnValue == false) {
+                        returnValue = useItem;
+					}
+				}
+			}
+
             //CatastrophicRelease
             if (eStats.ContainsKey("CatastrophicRelease")) {
                 player.statMana = 0;
-            }
-
-            //AllForOne use cooldown
-            if (eStats.ContainsKey("AllForOne") && wePlayer.CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float npcHitCooldown)) {
-                int timer = (int)((float)item.useTime * npcHitCooldown);
-                wePlayer.allForOneTimer = timer;
             }
 
             //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
@@ -454,7 +458,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            return null;
+            return returnValue;
         }
 		public override bool CanUseItem(Item item, Player player) {
 
@@ -468,6 +472,11 @@ namespace WeaponEnchantments.Common.Globals
                     //Restock failed
                     return false;
                 }
+            }
+
+            foreach (ICanUseItem effect in EnchantmentEffects.OfType<ICanUseItem>()) {
+                if (!effect.CanUseItem(item, player))
+                    return false;
             }
 
             //CatastrophicRelease

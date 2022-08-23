@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Effects {
         public ProjectileVelocity(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.ProjectileVelocity;
+        public override EnchantmentStat statName => EnchantmentStat.ProjectileVelocity;
 
 		public void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
             velocity *= EffectStrength;

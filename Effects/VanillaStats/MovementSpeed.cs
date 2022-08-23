@@ -13,6 +13,6 @@ namespace WeaponEnchantments.Effects {
         public MovementSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.MovementSpeed;
+        public override EnchantmentStat statName => EnchantmentStat.MovementSpeed;
     }
 }

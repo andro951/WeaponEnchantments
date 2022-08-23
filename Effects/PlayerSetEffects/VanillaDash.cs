@@ -11,53 +11,25 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
-    public class VanillaDash : PlayerSetTimerEffect {
-        public VanillaDash(int dashType, DifficultyStrength strengthData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
+    public class VanillaDash : PlayerSetEffect {
+        public VanillaDash(DashID dashType, DifficultyStrength timerData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, timerData, prevent) {
             _dashType = dashType;
         }
 
-        private int _dashType;
-        public DifficultyStrength StrengthData;
-        public float MinimumStrength;
-		public EnchantmentStat statName { get; }
-        public virtual Time TimerDuration { set; get; }
+        private DashID _dashType;
 
-        public override string DisplayName {
-            get {
-                switch (_dashType) {
-                    case 0:
-                        return "";
-                    case 1:
-                        return "";
-                    case 2:
-                        return "";
-                    case 3:
-                        return "";
-                    case 4:
-                        return "";
-                    case 5:
-                        return "";
-                    case 6:
-                        return "";
-                    case 7:
-                        return "";
-                    case 8:
-                        return "";
-                    case 9:
-                        return "";
-                    default:
-                        return "";
-                }
-            }
-        }
-	    
-	    public void SetEffect(WEPlayer wePlayer) {
-            if (CheckTimer())
-            wePlayer.Player.dashType = _dashType;
-        }
+        public override string DisplayName => _dashType.ToString().AddSpaces();
 
-		public override void SetEffect() {
-			throw new NotImplementedException();
-		}
+		public override void SetEffect(Player player) {
+            int playerDashType = player.dashType;
+            switch (_dashType) {
+                case DashID.NinjaTabiDash when playerDashType < 3:
+                case DashID.EyeOfCthulhuShieldDash when playerDashType == 0:
+                case DashID.SolarDash:
+                case DashID.CrystalNinjaDash when playerDashType < 3:
+                    player.dashType = (int)_dashType;
+                    break;
+			}
+        }
 	}
 }

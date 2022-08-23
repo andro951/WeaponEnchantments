@@ -31,7 +31,7 @@ namespace WeaponEnchantments.Items {
 
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
-			new EnchantmentStrengths(new float[] { 0.4f, 0.8f, 1.2f, 1.6f, 2f }),//Not used yet
+			new EnchantmentStrengths(new float[] { 0.00f, 0.04f, 0.04f, 0.04f, 0.24f }),
 			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f }),
 			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
 			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f }),
@@ -46,7 +46,7 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
-		public static readonly int defaultBuffDuration = 60;
+		public static readonly uint defaultBuffDuration = 60;
 
 		#endregion
 
@@ -67,7 +67,7 @@ namespace WeaponEnchantments.Items {
 		/// Example: LifeSteal is StrengthGroup 5.  Tier 1 Lifesteal's Enchantment strength is 0.01f.<br/><br/>
 		/// <list>
 		/// <term>0</term><description>{ 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }</description><br/>
-		/// <term>1</term><description>{ 0.4f, 0.8f, 1.2f, 1.6f, 2f } Not used Yet</description><br/>
+		/// <term>1</term><description>{ 0.00f, 0.04f, 0.06f, 0.06f, 0.15f }</description><br/>
 		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f }</description><br/>
 		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f }</description><br/>
 		/// <term>4</term><description>{ 2f, 4f, 6f, 10f, 20f }</description><br/>
@@ -307,7 +307,7 @@ namespace WeaponEnchantments.Items {
 		#region Stats and buffs
 
 		private bool finishedOneTimeSetup = false;
-		public int BuffDuration => GetBuffDuration();
+		public uint BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
 		public Dictionary<short, int> Debuff { private set; get; } = new Dictionary<short, int>();
@@ -637,6 +637,10 @@ namespace WeaponEnchantments.Items {
 			}
 
 			s += EnchantmentTypeName.AddSpaces();
+
+			if (!showValue)
+				s += $" {EnchantmentTier}";
+
 			return s;
 		}
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
@@ -870,8 +874,8 @@ namespace WeaponEnchantments.Items {
 					return (int)DamageTypeSpecificID.Generic;
 			}
 		}
-		private int GetBuffDuration() {
-			return defaultBuffDuration * (EnchantmentTier + 1);
+		private uint GetBuffDuration() {
+			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
 		}
 		public static int GetEnchantmentTier(string name) {
 			for (int i = 0; i < tierNames.Length; i++) {

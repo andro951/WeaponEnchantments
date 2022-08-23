@@ -11,6 +11,6 @@ namespace WeaponEnchantments.Effects {
         }
 		
         public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
-        public override EnchantmentStat statType => EnchantmentStat.LifeSteal;
+        public override EnchantmentStat statName => EnchantmentStat.LifeSteal;
     }
 }

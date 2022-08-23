@@ -11,7 +11,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
-    public abstract class PlayerSetEffect : EnchantmentEffect {
+    public abstract class PlayerSetEffect : EnchantmentEffect, IEnchantmentStat {
         protected PlayerSetEffect(float minimumStrength, DifficultyStrength strengthData, bool prevent) {
             MinimumStrength = minimumStrength;
             EnableStat = !prevent;
@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Effects {
         public bool EnableStat { get; protected set; }
         public DifficultyStrength StrengthData;
         public float MinimumStrength;
-		public abstract EnchantmentStat statName { get; }
+		public virtual EnchantmentStat statName { get; }
 
         public override string Tooltip {
             get {
@@ -32,6 +32,6 @@ namespace WeaponEnchantments.Effects {
             }
 	}
 	    
-	public abstract void SetEffect();
+	public abstract void SetEffect(Player player);
     }
 }

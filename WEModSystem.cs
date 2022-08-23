@@ -570,163 +570,31 @@ namespace WeaponEnchantments
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
 		}
-		public enum ChestID { 
-            Chest,
-            GoldChest,
-            GoldChestLocked,
-            ShadowChest,
-            ShadowChestLocked,
-            RichMahoganyChest = 8,
-            IvyChest = 10,
-            FrozenChest,
-            LivingWoodChest,
-            SkywareChest,
-            WebCoveredChest = 15,
-            LihzahrdChest,
-            WaterChest,
-            DungeonJungleChest = 23,
-            DungeonCorruptionChest,
-            DungeonCrimsonChest,
-            DungeonHallowedChest,
-            DungeonIceChest,
-            MushroomChest = 32,
-            GraniteChest = 40,
-            MarbleChest,
-            GoldDeadMansChest = 104,
-            SandStoneChest = 110,
-            DungeonDesertChest = 113
-        }
 		public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
                 Chest chest = Main.chest[chestIndex];
                 if(chest == null)
                     continue;
 
-                float chance = ChestSpawnChance;
                 int itemsPlaced = 0;
-                List<int> itemTypes = new List<int>();
-
+                int chestID;
                 // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
                 // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
                 switch (Main.tile[chest.x, chest.y].TileType) {
                     case 21:
                     case 441:
-                        switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
-                            case 0://Chest
-                                chance *= 0.7f;
-                                itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
-                                break;
-                            case 1://Gold Chest
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                                break;
-                            case 2://Gold Chest (Locked)
-                                itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
-                                break;
-                            case 3://Shadow Chest
-                            case 4://Shadow Chest (Locked)
-                                chance *= 2f;
-                                itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
-                                break;
-                            case 8://Rich Mahogany Chest (Jungle)
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                break;
-                            case 10://Ivy Chest (Jungle)
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                break;
-                            case 11://Frozen Chest
-                                itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
-                                break;
-                            case 12://Living Wood Chest
-                                itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
-                                break;
-                            case 13://Skyware Chest
-                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                                break;
-                            case 15://Web Covered Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 16://Lihzahrd Chest
-                                chance *= 2f;
-                                itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
-                                break;
-                            case 17://Water Chest
-                                itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
-                                break;
-                            case 23://Jungle Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 24://Corruption Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 25://Crimson Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 26://Hallowed Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 27://Ice Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 32://Mushroom Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 40://Granite Chest
-                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                                break;
-                            case 41://Marble Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                        }
-
+                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36;
                         break;
                     case 467:
                     case 468:
-                        switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
-                            case 4://Gold Dead man's chest
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                                break;
-                            case 10://SandStone Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 13://Desert Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                        }
-
+                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36 + 100;
                         break;
                     default:
-                        chance = 0f;
+                        chestID = -1;
                         break;
                 }
+
+                GetChestLoot((ChestID)chestID, out List<int> itemTypes, out float chance);
 
                 if (chance <= 0f)
                     continue;
@@ -741,6 +609,115 @@ namespace WeaponEnchantments
 
                     itemsPlaced++;
                 }
+            }
+        }
+        public void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
+            //TODO: replace the case numbers with the CestIDs
+            chance = ChestSpawnChance;
+            itemTypes = new List<int>();
+            switch ((int)chestID) {
+                case 0://Chest
+                    chance *= 0.7f;
+                    itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
+                    break;
+                case 1://Gold Chest
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case 2://Gold Chest (Locked)
+                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                    break;
+                case 3://Shadow Chest
+                case 4://Shadow Chest (Locked)
+                    chance *= 2f;
+                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
+                    break;
+                case 8://Rich Mahogany Chest (Jungle)
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    break;
+                case 10://Ivy Chest (Jungle)
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    break;
+                case 11://Frozen Chest
+                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    break;
+                case 12://Living Wood Chest
+                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    break;
+                case 13://Skyware Chest
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case 15://Web Covered Chest
+                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case 16://Lihzahrd Chest
+                    chance *= 2f;
+                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                    break;
+                case 17://Water Chest
+                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    break;
+                case 23://Jungle Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case 24://Corruption Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case 25://Crimson Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case 26://Hallowed Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case 27://Ice Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case 32://Mushroom Chest
+                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case 40://Granite Chest
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case 41://Marble Chest
+                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case 104://Gold Dead man's chest
+                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case 110://SandStone Chest
+                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case 113://Desert Chest
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
             }
         }
 		public override void LoadWorldData(TagCompound tag) {

@@ -18,6 +18,6 @@ namespace WeaponEnchantments.Effects
 
         }
 
-		public override EnchantmentStat statType => EnchantmentStat.EnemySpawnRate;
+		public override EnchantmentStat statName => EnchantmentStat.EnemySpawnRate;
 	}
 }

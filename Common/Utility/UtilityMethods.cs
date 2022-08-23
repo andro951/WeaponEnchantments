@@ -372,7 +372,27 @@ namespace WeaponEnchantments.Common.Utility
         //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
         //}
         public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
+        public static SortedList<TKey, TValue> CombineSortedLists<TKey, TValue>(this SortedList<TKey, TValue> list1, SortedList<TKey, TValue> list2) {
+            SortedList <TKey, TValue> newList = new SortedList <TKey, TValue>();
+            foreach (KeyValuePair<TKey, TValue> pair in list1) {
+                newList.Add(pair.Key, pair.Value);
+			}
 
-		#endregion
-	}
+            foreach (KeyValuePair<TKey, TValue> pair in list2) {
+                newList.Add(pair.Key, pair.Value);
+            }
+
+            return newList;
+        }
+        public static SortedList<EnchantmentStat, T> ToSortedList<T>(this IEnumerable<T> list) where T : class, IEnchantmentStat {
+            SortedList<EnchantmentStat, T> newList = new SortedList<EnchantmentStat, T>();
+            foreach (T i in list) {
+                newList.Add(i.statName, i);
+			}
+            
+            return newList;
+		}
+
+        #endregion
+    }
 }

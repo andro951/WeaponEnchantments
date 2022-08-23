@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Effects {
     public class DefenseEffect : StatEffect, IVanillaStat {
         public DefenseEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) { }
 
-        public override EnchantmentStat statType => EnchantmentStat.Defense;
+        public override EnchantmentStat statName => EnchantmentStat.Defense;
         public override string DisplayName => "Defense";
         public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
     }

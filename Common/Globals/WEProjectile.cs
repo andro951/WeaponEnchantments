@@ -218,7 +218,7 @@ namespace WeaponEnchantments.Common.Globals
                 speed = 1f - 1f / speedMult;
             }
 
-            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier);
+            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f);
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
                 if (NPCHitCooldownMultiplier > 1f) {

@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Effects
 		}
 
         public override string DisplayName => EffectStrength - 1f <= 0f ? "Reduced Mana Usage" : "Increased Mana Usage";
-        public override EnchantmentStat statType => EnchantmentStat.ManaUsage;
+        public override EnchantmentStat statName => EnchantmentStat.ManaUsage;
 		public override string Tooltip => ModifierToString();
 		
 		private string ModifierToString() {

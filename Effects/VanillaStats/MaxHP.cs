@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Effects {
         public MaxHP(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
-        public override EnchantmentStat statType => EnchantmentStat.MaxHP;
+        public override EnchantmentStat statName => EnchantmentStat.MaxHP;
         public override string DisplayName { get; } = "Max Life";
     }
 }
