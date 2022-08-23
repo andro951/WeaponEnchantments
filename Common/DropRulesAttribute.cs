@@ -6,12 +6,27 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common
 {
-    /*public class DropRulesAttribute : Attribute
-    {
+    public class DropRulesAttribute : Attribute {
         /// <summary>
         /// All enchantment drops
         /// </summary>
-        static IEnumerable<Type> typesThatContainADropRullAttribute = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(DropRulesAttribute)));
+        private static IEnumerable<Type> _typesThatContainADropRuleAttribute = null;
+        public static IEnumerable<Type> typesThatContainADropRuleAttribute {
+            get {
+                if (_typesThatContainADropRuleAttribute == null) {
+                    IEnumerable<Type> types = null;
+                    try {
+                        types = Assembly.GetExecutingAssembly().GetTypes();
+                    } catch(ReflectionTypeLoadException e) {
+                        types = e.Types.Where(t => t != null);
+                    }
+                    _typesThatContainADropRuleAttribute = types.Where(t => t.IsDefined(typeof(DropRulesAttribute)));
+                }
+                return _typesThatContainADropRuleAttribute;
+            } set {
+                _typesThatContainADropRuleAttribute = value;
+            }
+        }
 
         public static Dictionary<int, ICollection<int>> npcTypeDrops = GetNPCTypeDropDict();
         public static Dictionary<int, ICollection<int>> npcAiStyleDrops = GetNPCAiStyleDropsDict();
@@ -27,7 +42,7 @@ namespace WeaponEnchantments.Common
         static Dictionary<int, ICollection<int>> GetNPCTypeDropDict() {
             MethodInfo methodInfo = typeof(ModContent).GetMethod("ItemType");
             var dict = new Dictionary<int, ICollection<int>>();
-            foreach (var typeWithDropRuleAttribute in typesThatContainADropRullAttribute) {
+            foreach (var typeWithDropRuleAttribute in typesThatContainADropRuleAttribute) {
                 var method = methodInfo.MakeGenericMethod(typeWithDropRuleAttribute);
 
                 DropRulesAttribute dropRulesAttribute = (DropRulesAttribute)GetCustomAttribute(typeWithDropRuleAttribute, typeof(DropRulesAttribute));
@@ -50,7 +65,7 @@ namespace WeaponEnchantments.Common
         static Dictionary<int, ICollection<int>> GetNPCAiStyleDropsDict() {
             MethodInfo methodInfo = typeof(ModContent).GetMethod("ItemType");
             var dict = new Dictionary<int, ICollection<int>>();
-            foreach (var type in typesThatContainADropRullAttribute) {
+            foreach (var type in typesThatContainADropRuleAttribute) {
                 var method = methodInfo.MakeGenericMethod(type);
 
                 int[] npcAiStyles = ((DropRulesAttribute)GetCustomAttribute(type, typeof(DropRulesAttribute))).npcAiStyles;
@@ -67,5 +82,5 @@ namespace WeaponEnchantments.Common
 
             return dict;
         }
-    }*/
+    }
 }
