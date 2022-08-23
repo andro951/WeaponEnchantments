@@ -20,6 +20,7 @@ using System.Reflection;
 using WeaponEnchantments.ModLib.KokoLib;
 using KokoLib;
 using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
+using WeaponEnchantments.Items.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {

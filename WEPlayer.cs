@@ -1288,6 +1288,8 @@ namespace WeaponEnchantments
             ApplyStatEffects();
 
             ApplyPlayerSetEffects();
+
+            Player.ApplyBuffs(CombinedOnTickBuffs);
         }
 	    private void CheckClearTimers() {
 		    uint updateCount = Main.GameUpdateCount;
