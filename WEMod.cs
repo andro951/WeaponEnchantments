@@ -23,30 +23,50 @@ using KokoLib;
 
 namespace WeaponEnchantments
 {
-    public class WEMod : Mod
-    {
+	public class WEMod : Mod {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamityEnabled = false;
 		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
 		public static List<Item> consumedItems = new List<Item>();
-		
+
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
+			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
-			if(item.ModItem is UnloadedItem)
+			if (item.ModItem is UnloadedItem)
 				OldItemManager.ReplaceOldItem(ref item);
 
 			return item;
-        }
+		}
+
+		private delegate bool orig_CanStack(Item item1, Item item2);
+		private delegate bool hook_CanStack(orig_CanStack orig, Item item1, Item item2);
+		private static readonly MethodInfo ModLoaderCanStackMethodInfo = typeof(ItemLoader).GetMethod("CanStack");
+		private bool CanStackDetour(orig_CanStack orig, Item item1, Item item2) {
+			if (!orig(item1, item2))
+				return false;
+
+			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+				return true;
+			if (magicStorageEnabled) {
+				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
+				string terrariaName = "DMD<Terraria";
+				string subString = name.Substring(0, terrariaName.Length);
+				if (subString != terrariaName)
+					return true;
+			}
+
+			return enchantedItem.OnStack(item1, item2);
+		}
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;
