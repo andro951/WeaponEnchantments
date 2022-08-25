@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.Effects.EnchantStats;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -12,24 +11,22 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 13;
 		public override float ScalePercent => 0.1f;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
+		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => 1;
         public override bool Max1 => true;
-		public override int LowestCraftableTier => 0;
-		public override string Texture => $"WeaponEnchantments/Items/Sprites/StatusEffects/{Name}";
-
-		public abstract int StatusEffect { get; }
+		public abstract short StatusEffect { get; }
 		public virtual Tuple<int, int> CraftingIngredient { get; } = null;
+
+		public override string Texture => $"WeaponEnchantments/Items/Sprites/StatusEffects/{Name}";
 		
 		public override void GetMyStats() {
-			//TODO: Update to new system
-			Debuff.Add(StatusEffect, BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
 			Effects = new() {
-				new DebuffEffect(StatusEffect, new Time(BuffDuration)),
-				new DamageAfterDefenses()
+				new OnHitTargetDebuffEffect(StatusEffect, BuffDuration),
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
 			};
 		}
 
@@ -45,9 +42,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Princess of Evil";
 	}
 
-	//TODO: Split into seperate files
+	//DODO: Split into seperate files
 	public abstract class OnFireEnchantment : StatusEffectEnchantment {
-		public override int StatusEffect => BuffID.OnFire;
+		public override short StatusEffect => BuffID.OnFire;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Gel, 33);
 	}
 	public class OnFireEnchantmentBasic : OnFireEnchantment { }
@@ -58,7 +55,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class FrostburnEnchantment : StatusEffectEnchantment
 	{
-		public override int StatusEffect => BuffID.Frostburn;
+		public override short StatusEffect => BuffID.Frostburn;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.IceBlock, 33);
 	}
 	public class FrostburnEnchantmentBasic : FrostburnEnchantment { }
@@ -70,7 +67,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class CursedInfernoEnchantment : StatusEffectEnchantment
 	{
-		public override int StatusEffect => BuffID.CursedInferno;
+		public override short StatusEffect => BuffID.CursedInferno;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.CursedFlame, 3);
 	}
 	public class CursedInfernoEnchantmentBasic : CursedInfernoEnchantment { }
@@ -81,7 +78,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class IchorEnchantment : StatusEffectEnchantment
 	{
-		public override int StatusEffect => BuffID.Ichor;
+		public override short StatusEffect => BuffID.Ichor;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Ichor, 3);
 	}
 	public class IchorEnchantmentBasic : IchorEnchantment { }
@@ -92,7 +89,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class VenomEnchantment : StatusEffectEnchantment
 	{
-		public override int StatusEffect => BuffID.Venom;
+		public override short StatusEffect => BuffID.Venom;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.VialofVenom, 3);
 	}
 	public class VenomEnchantmentBasic : VenomEnchantment { }
@@ -106,7 +103,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override float CapacityCostMultiplier => 2;
 
-		public override int StatusEffect => BuffID.Daybreak;
+		public override short StatusEffect => BuffID.Daybreak;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.FragmentSolar, 6);
 	}
 	public class DaybreakEnchantmentBasic : DaybreakEnchantment { }

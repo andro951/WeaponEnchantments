@@ -23,6 +23,8 @@ namespace WeaponEnchantments.ModIntegration
         private int lastMouseItemStack = 0;
         public override void Load() {
             Enabled = ModLoader.HasMod(magicStorageName);
+
+            WEMod.magicStorageEnabled = Enabled;
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (Enabled)

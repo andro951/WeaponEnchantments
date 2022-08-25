@@ -19,105 +19,54 @@ using System;
 using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
+using KokoLib;
 
 namespace WeaponEnchantments
 {
-    public class WEMod : Mod
-    {
+	public class WEMod : Mod {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamityEnabled = false;
+		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
 		public static List<Item> consumedItems = new List<Item>();
-		public static class PacketIDs
-		{
-			public const byte OnHitEffects = 0;
-		}
-        public override void HandlePacket(BinaryReader reader, int whoAmI) {
-			byte type = reader.ReadByte();
 
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
-
-			#endregion
-
-			switch (type) {
-				case PacketIDs.OnHitEffects:
-					int npcWhoAmI = reader.ReadInt32();
-					int damage = reader.ReadInt32();
-					bool crit = reader.ReadBoolean();
-
-					#region Debug
-
-					if (LogMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
-
-					#endregion
-
-					for (int i = 0; i < OnHitEffectID.Count; i++) {
-						bool applyEffect = reader.ReadBoolean();
-						if (!applyEffect)
-							continue;
-
-                        switch (i) {
-							case OnHitEffectID.GodSlayer:
-								int godSlayerDamage = reader.ReadInt32();
-								WEPlayer.StrikeNPC(npcWhoAmI, godSlayerDamage, crit);
-								break;
-
-							case OnHitEffectID.OneForAll:
-								int oneForAllWhoAmIsCount = reader.ReadInt32();
-								for (int j = 0; j < oneForAllWhoAmIsCount; j++) {
-									int oneForAllWhoAmI = reader.ReadInt32();
-									int oneForAllDamages = reader.ReadInt32();
-									WEPlayer.StrikeNPC(oneForAllWhoAmI, oneForAllDamages, crit);
-								}
-
-								break;
-
-							case OnHitEffectID.Amaterasu:
-								float amaterasuItemStrength = reader.ReadSingle();
-								if (Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength == 0f)
-									Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuItemStrength;
-								Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuDamage += damage * (crit ? 2 : 1);
-								break;
-						}
-					}
-
-					#region Debug
-
-					if (LogMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
-
-					#endregion
-
-					break;
-				default:
-					("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*").Log();
-					break;
-			}
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
-
-			#endregion
-		}
-		
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
+			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
 		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
-			if(item.ModItem is UnloadedItem) {
+			if (item.ModItem is UnloadedItem)
 				OldItemManager.ReplaceOldItem(ref item);
-			}
+
 			return item;
-        }
+		}
+
+		private delegate bool orig_CanStack(Item item1, Item item2);
+		private delegate bool hook_CanStack(orig_CanStack orig, Item item1, Item item2);
+		private static readonly MethodInfo ModLoaderCanStackMethodInfo = typeof(ItemLoader).GetMethod("CanStack");
+		private bool CanStackDetour(orig_CanStack orig, Item item1, Item item2) {
+			if (!orig(item1, item2))
+				return false;
+
+			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+				return true;
+			if (magicStorageEnabled) {
+				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
+				string terrariaName = "DMD<Terraria";
+				string subString = name.Substring(0, terrariaName.Length);
+				if (subString != terrariaName)
+					return true;
+			}
+
+			return enchantedItem.OnStack(item1, item2);
+		}
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;
@@ -302,5 +251,45 @@ namespace WeaponEnchantments
 				}
 			});
 		}
+
+
+		#region KokoLib Mod
+
+		//KokoLib by Tabizzz
+		//https://github.com/Tabizzz/KokoLib
+
+		public static ModHandler[] ModHandlers;
+		internal static List<ModHandler> Handlers = new();
+
+		public override void PostSetupContent() {
+			foreach (var mod in ModLoader.Mods) {
+				TypeEmitter.EmittersForMod(mod);
+			}
+
+			Handlers.Sort((h, o) => string.Compare(h.Name, o.Name, StringComparison.Ordinal));
+
+			ModHandlers = Handlers.ToArray();
+			byte vid = 0;
+			foreach (var handler in ModHandlers) {
+				handler.Type = vid++;
+			}
+
+			foreach (var handle in Handlers) {
+				handle.CreateMethods();
+				handle.CreateProxy();
+			}
+
+			Handlers.Clear();
+			Handlers = null;
+		}
+		public override void HandlePacket(BinaryReader reader, int whoAmI) {
+			var index = reader.ReadByte();
+			var method = reader.ReadByte();
+			ModHandlers[index].WhoAmI = whoAmI;
+			ModHandlers[index].Handle(reader, method);
+			ModHandlers[index].WhoAmI = -1;
+		}
+
+		#endregion
 	}
 }

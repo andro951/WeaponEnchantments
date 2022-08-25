@@ -248,6 +248,11 @@ Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode b
 
 ## Contributors
 
+### Supporting Mod Library
+
+KokoLib by Tabizzz - For managing the sending and recieving of packets for multiplayer servers.
+https://github.com/Tabizzz/KokoLib
+
 ### Art
 
 andro951: 
@@ -272,7 +277,7 @@ Kiroto:
 
 Sir Bumpleton: 
 
-![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
+![ProjectileVelocityEnchantmentCommon](/Items/Sprites/ProjectileVelocityEnchantmentCommon.png)
 
 Zorutan: https://twitter.com/ZorutanMesuta
 
@@ -293,16 +298,16 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)
 ![JunglesFuryEnchantmentCommon](/Items/Sprites/JunglesFuryEnchantmentCommon.png)
 ![LifeStealEnchantmentCommon](/Items/Sprites/LifeStealEnchantmentCommon.png)
-![ManaEnchantmentCommon](/Items/Sprites/ManaEnchantmentCommon.png)
+![ReducedManaUsageEnchantmentCommon](/Items/Sprites/ReducedManaUsageEnchantmentCommon.png)
 ![MediumContainment](/Items/Sprites/MediumContainment.png)
 ![MoonlightEnchantmentCommon](/Items/Sprites/MoonlightEnchantmentCommon.png)
-![MoveSpeedEnchantmentCommon](/Items/Sprites/MoveSpeedEnchantmentCommon.png)
+![MovementSpeedEnchantmentCommon](/Items/Sprites/MovementSpeedEnchantmentCommon.png)
 ![MultishotEnchantmentCommon](/Items/Sprites/MultishotEnchantmentCommon.png)
 ![OneForAllEnchantmentCommon](/Items/Sprites/OneForAllEnchantmentCommon.png)
 ![PeaceEnchantmentCommon](/Items/Sprites/PeaceEnchantmentCommon.png)
-![ScaleEnchantmentCommon](/Items/Sprites/ScaleEnchantmentCommon.png)
+![SizeEnchantmentCommon](/Items/Sprites/SizeEnchantmentCommon.png)
 ![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
-![SpeedEnchantmentCommon](/Items/Sprites/SpeedEnchantmentCommon.png)
+![AttackSpeedEnchantmentCommon](/Items/Sprites/AttackSpeedEnchantmentCommon.png)
 ![DefenseEnchantmentCommon](/Items/Sprites/DefenseEnchantmentCommon.png)
 ![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
 ![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)

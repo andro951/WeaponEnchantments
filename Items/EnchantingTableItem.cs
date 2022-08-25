@@ -94,6 +94,7 @@ namespace WeaponEnchantments.Items
 						break;
 					case 2:
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
+						recipe.AddIngredient(ItemID.Hellstone, 2); //Hellstone ore
 						break;
 					case 3:
 						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); // Soul of Light or Night

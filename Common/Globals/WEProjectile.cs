@@ -126,12 +126,20 @@ namespace WeaponEnchantments.Common.Globals
             if (!ItemSourceSet)
                 return;
 
-			//Multishot
-            Player player = Main.player[projectile.owner];
-            float multishotChance = sourceItem.ApplyEStat("Multishot", 0f);
+            ActivateMultishot(projectile, source);
 
-			//Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
-			switch (sourceItem.Name) {
+            //Player player = Main.player[projectile.owner];
+            //Infinite Penetration
+            //if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
+            //    projectile.penetrate = -1;
+            //}
+        }
+		private void ActivateMultishot(Projectile projectile, IEntitySource source) {
+            if (!projectile.TryGetWEPlayer(out WEPlayer wePlayer) || !wePlayer.CheckEnchantmentStats(EnchantmentStat.Multishot, out float multishotChance))
+                return;
+
+            //Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
+            switch (sourceItem.Name) {
                 //Fix issues with weapons and multishot
                 case "Titanium Railgun":
                     multiShotConvertedToDamage = true;
@@ -139,9 +147,9 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Flamethrowers fix
-			if (!multiShotConvertedToDamage) {
+            if (!multiShotConvertedToDamage) {
                 multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
-			}
+            }
 
             if (multishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
 
@@ -172,11 +180,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-
-            //Infinite Penetration
-            if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
-                projectile.penetrate = -1;
-            }
         }
         public void UpdateProjectile(Projectile projectile) {
             if (updated)
@@ -204,7 +207,6 @@ namespace WeaponEnchantments.Common.Globals
             referenceScale = projectile.scale;
 
             //NPC Hit Cooldown
-            float NPCHitCooldownMultiplier = sourceItem.ApplyEStat("NPCHitCooldown", 1f);
             if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
                 Item sampleItem = ContentSamples.ItemsByType[sourceItem.type];
                 float sampleUseTime = sampleItem.useTime;
@@ -216,6 +218,7 @@ namespace WeaponEnchantments.Common.Globals
                 speed = 1f - 1f / speedMult;
             }
 
+            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f);
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
                 if (NPCHitCooldownMultiplier > 1f) {
@@ -224,13 +227,15 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
                 }
                 else if (projectile.localNPCHitCooldown > 0) {
-                        projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                    projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
+
             if (projectile.usesIDStaticNPCImmunity) {
                 if (projectile.idStaticNPCHitCooldown > 0)
                     projectile.idStaticNPCHitCooldown = (int)Math.Round((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
             }
+
             updated = true;
         }
         private void TryUpdateFromParent() {
@@ -480,7 +485,7 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableUI.itemSlotUI[0].Item != null) {
+                                        if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null) {
                                             inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
                                         }
                                         else {
@@ -494,7 +499,7 @@ namespace WeaponEnchantments.Common.Globals
                                 }
                             }
 
-                            found = EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
+                            found = inventory != null ? EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem) : false;
                             if (found) {
                                 sourceItem = inventory[inventoryLocation];
                                 lastInventoryLocation = inventoryLocation;

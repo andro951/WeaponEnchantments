@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: Uno para todos Encantamiento raro
 			OneForAllEnchantmentSuperRare: Uno para todos Encantamiento Súper raro
 			OneForAllEnchantmentUltraRare: Uno para todos Encantamiento ultra raro
-			SpeedEnchantmentBasic: Encantamiento de velocidad básico
-			SpeedEnchantmentCommon: Encantamiento de velocidad Común
-			SpeedEnchantmentRare: Velocidad Encantamiento Raro
-			SpeedEnchantmentSuperRare: Encantamiento de velocidad Súper raro
-			SpeedEnchantmentUltraRare: Encantamiento de velocidad ultra raro
+			AttackSpeedEnchantmentBasic: Encantamiento de velocidad básico
+			AttackSpeedEnchantmentCommon: Encantamiento de velocidad Común
+			AttackSpeedEnchantmentRare: Velocidad Encantamiento Raro
+			AttackSpeedEnchantmentSuperRare: Encantamiento de velocidad Súper raro
+			AttackSpeedEnchantmentUltraRare: Encantamiento de velocidad ultra raro
 			StatDefenseEnchantmentBasic: Encantamiento de defensa estadística básico
 			StatDefenseEnchantmentCommon: Encantamiento de defensa estadística común
 			StatDefenseEnchantmentRare: Stat Defense Encantamiento Raro
@@ -97,32 +97,32 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Encantamiento de costo de munición ultra raro
 			DangerSenseEnchantmentUltraRare: Encantamiento del sentido del peligro Ultra raro
 			HunterEnchantmentUltraRare: Encantamiento de cazador ultra raro
-			ManaEnchantmentBasic: Encantamiento de maná básico
-			ManaEnchantmentCommon: Encantamiento de maná común
-			ManaEnchantmentRare: Encantamiento de maná raro
-			ManaEnchantmentSuperRare: Encantamiento de maná Súper raro
-			ManaEnchantmentUltraRare: Encantamiento de maná ultra raro
-			MoveSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
-			MoveSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
-			MoveSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
-			MoveSpeedEnchantmentSuperRare: Encantamiento de velocidad de movimiento Súper raro
-			MoveSpeedEnchantmentUltraRare: Encantamiento de velocidad de movimiento ultra raro
+			ReducedManaUsageEnchantmentBasic: Encantamiento de maná básico
+			ReducedManaUsageEnchantmentCommon: Encantamiento de maná común
+			ReducedManaUsageEnchantmentRare: Encantamiento de maná raro
+			ReducedManaUsageEnchantmentSuperRare: Encantamiento de maná Súper raro
+			ReducedManaUsageEnchantmentUltraRare: Encantamiento de maná ultra raro
+			MovementSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento básico
+			MovementSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
+			MovementSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
+			MovementSpeedEnchantmentSuperRare: Encantamiento de velocidad de movimiento Súper raro
+			MovementSpeedEnchantmentUltraRare: Encantamiento de velocidad de movimiento ultra raro
 			ObsidianSkinEnchantmentUltraRare: Encantamiento de piel de obsidiana Ultra raro
 			PeaceEnchantmentBasic: Encantamiento de paz básico
 			PeaceEnchantmentCommon: Paz Encantamiento Común
 			PeaceEnchantmentRare: Encantamiento de paz Raro
 			PeaceEnchantmentSuperRare: Encantamiento de paz Súper raro
 			PeaceEnchantmentUltraRare: Encantamiento de paz ultra raro
-			ScaleEnchantmentBasic: Escala Encantamiento Básico
-			ScaleEnchantmentCommon: Escama Encantamiento Común
-			ScaleEnchantmentRare: Escama Encantamiento Raro
-			ScaleEnchantmentSuperRare: Escala Encantamiento Súper Raro
-			ScaleEnchantmentUltraRare: Escala Encantamiento Ultra Raro
-			ShootSpeedEnchantmentBasic: Velocidad de disparo Encantamiento básico
-			ShootSpeedEnchantmentCommon: Velocidad de disparo Encantamiento Común
-			ShootSpeedEnchantmentRare: Velocidad de disparo Encantamiento Raro
-			ShootSpeedEnchantmentSuperRare: Shoot Speed ​​Encantamiento Súper Raro
-			ShootSpeedEnchantmentUltraRare: Encantamiento de velocidad de disparo ultra raro
+			SizeEnchantmentBasic: Escala Encantamiento Básico
+			SizeEnchantmentCommon: Escama Encantamiento Común
+			SizeEnchantmentRare: Escama Encantamiento Raro
+			SizeEnchantmentSuperRare: Escala Encantamiento Súper Raro
+			SizeEnchantmentUltraRare: Escala Encantamiento Ultra Raro
+			ProjectileVelocityEnchantmentBasic: Velocidad de disparo Encantamiento básico
+			ProjectileVelocityEnchantmentCommon: Velocidad de disparo Encantamiento Común
+			ProjectileVelocityEnchantmentRare: Velocidad de disparo Encantamiento Raro
+			ProjectileVelocityEnchantmentSuperRare: Shoot Speed ​​Encantamiento Súper Raro
+			ProjectileVelocityEnchantmentUltraRare: Encantamiento de velocidad de disparo ultra raro
 			SpelunkerEnchantmentUltraRare: Encantamiento de espeleólogo ultra raro
 			WarEnchantmentBasic: Encantamiento de guerra básico
 			WarEnchantmentCommon: Encantamiento de guerra común

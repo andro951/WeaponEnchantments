@@ -1,6 +1,4 @@
-﻿
-
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
@@ -9,10 +7,11 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override void GetMyStats() {
 			Effects = new() {
-				new CriticalStrikeChance(@base: EnchantmentStrength),
+				new CriticalStrikeChance(@base: EnchantmentStrengthData),
 			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

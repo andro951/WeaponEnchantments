@@ -57,11 +57,13 @@ namespace WeaponEnchantments.Common.Configs
 			"Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
         [Range(0, 10000)]
         [DefaultValue(10)]
-        public int SpeedEnchantmentAutoReuseSetpoint;
+        [ReloadRequired]
+        public int AttackSpeedEnchantmentAutoReuseSetpoint;
 
         [Label("Auto Reuse Disabled on Magic Missile type weapons")]
         [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool AutoReuseDisabledOnMagicMissile;
 
         //Essence and Experience
@@ -136,11 +138,6 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool AllowHighTierOres;
 
-        [Label("Percentage of offered Item value converted to essence.")]
-        [DefaultValue(50)]
-        [Range(0, 100)]
-        public int PercentOfferEssence;
-
         [Label("Enchantment Slots On Weapons")]
         [Tooltip("1st slot is a normal slot.\n" +
 			"2nd slot is the utility slot.\n" +
@@ -201,6 +198,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +
 			"Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.\n" +
 			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
+        [ReloadRequired]
         public int InfusionDamageMultiplier;
 
         [Label("Minion Life Steal Multiplier (%)")]
@@ -259,6 +257,11 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Enable to display item's Infusion Power always instead of just when the enchanting table is open.")]
         [DefaultValue(false)]
         public bool AlwaysDisplayInfusionPower;
+
+        [Label("Percentage of offered Item value converted to essence.")]
+        [DefaultValue(50)]
+        [Range(0, 100)]
+        public int PercentOfferEssence;
 
         //Display Settings
         [Header("Display Settings")]
@@ -366,33 +369,66 @@ namespace WeaponEnchantments.Common.Configs
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
-        //Presets
-        [Header("Presets")]
-        [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
-        [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
+        //Automatic Preset based on world difficulty
+        [Label("Automatically Match Preset to World Difficulty")]
+        [DefaultValue(true)]
         [ReloadRequired]
-        public string Preset {
-            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
-
+        public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+            get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
-                if (presetNames.Contains(value)) {
-                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                _automaticallyMatchPreseTtoWorldDifficulty = !_automaticallyMatchPreseTtoWorldDifficulty;
+                if (value) {
+                    _preset = "Automatic";
+                }
+                else {
+                    GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
                 }
             }
         }
 
+        private bool _automaticallyMatchPreseTtoWorldDifficulty;
+
+        //Presets
+        [Header("Presets")]
+        [DrawTicks]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
+        [DefaultValue("Normal")]
+        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        [ReloadRequired]
+        public string Preset {
+            get => _preset;
+            set {
+                if (presetNames.Contains(value)) {
+                    _preset = value;
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                    _automaticallyMatchPreseTtoWorldDifficulty = false;
+                }
+                else if (value == "Automatic") {
+                    _preset = value;
+                    _automaticallyMatchPreseTtoWorldDifficulty = true;
+                }
+            }
+        }
+        private string _preset;
+
         //Multipliers
         [Header("Multipliers")]
         [Label("Global Enchantment Strength Multiplier (%)")]
-        [Range(1, 250)]
+        [Range(0, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int GlobalEnchantmentStrengthMultiplier { get; set; }
+        public int GlobalEnchantmentStrengthMultiplier {
+            get => _globalEnchantmentStrengthMultiplier;
+            set {
+                _globalEnchantmentStrengthMultiplier = value;
+                Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
+                _automaticallyMatchPreseTtoWorldDifficulty = false;
+            }
+        }
+        private int _globalEnchantmentStrengthMultiplier;
 
         public PresetData() {
             Preset = "Normal";

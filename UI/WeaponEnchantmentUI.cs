@@ -415,6 +415,7 @@ namespace WeaponEnchantments.UI
             if(xp <= 0)
                 return 0;
 
+            if (WEMod.magicStorageEnabled) $"Converted xp to essence. xp: {xp}, consumeAll: {consumeAll.S()}".Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             //Force player essence data to sync with the ui
@@ -572,7 +573,7 @@ namespace WeaponEnchantments.UI
             if (!itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
-            int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1];
+            int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
             int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
             int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
             if (iGlobal.Experience < minimumXPToSyphon) {
@@ -580,6 +581,7 @@ namespace WeaponEnchantments.UI
             }
             else {
                 int xp = iGlobal.Experience - maxLevelXP;
+                if (WEMod.magicStorageEnabled) $"Syphon(), itemInUI: {itemInUI.S()}".Log();
                 iGlobal.Experience -= ConvertXPToEssence(xp);
             }
         }
@@ -599,8 +601,6 @@ namespace WeaponEnchantments.UI
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                     if (wePlayer.EnchantmentInUI(i).stack < 1) {
                         EnchantedItemStaticMethods.RemoveEnchantment(i);
-                        if(iGlobal != null)
-                            iGlobal.enchantments[i] = new Item();
                     }
                 }
             }
@@ -636,7 +636,7 @@ namespace WeaponEnchantments.UI
 
             int xpAvailable = 0;
 		    int nonFavoriteXpAvailable = 0;
-            if(iGlobal.levelBeforeBooster == EnchantedItem.MAX_LEVEL) {
+            if(iGlobal.levelBeforeBooster == EnchantedItem.MAX_Level) {
                 Main.NewText("Your " + tableItem.Name + " is already max level.");
                 return;
             }

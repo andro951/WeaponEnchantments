@@ -1,16 +1,26 @@
 ﻿using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.WEPlayer;
 
-namespace Terraria.ModLoader
+namespace WeaponEnchantments.Common
 {
-	public struct EStatModifier {
-		public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);
+	public class EStatModifier {
+		//public static readonly EStatModifier Default = new EStatModifier(1f, 1f, 0f, 0f);
+		public EnchantmentStat StatType { get; private set; }
 
 		/// <summary>
 		/// Increase to the base value of the stat. Directly added to the stat before multipliers are applied.
 		/// </summary>
 		public float Base {
-			get => _base;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _base;
+			}
 			set {
 				if (value != originalBase) {
 					originalBase = value;
@@ -26,7 +36,12 @@ namespace Terraria.ModLoader
 		/// The combination of all additive multipliers. Starts at 1
 		/// </summary>
 		public float Additive {
-			get => _additive;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _additive;
+			}
 			set {
 				if (value != originalAdditive) {
 					originalAdditive = value;
@@ -42,7 +57,12 @@ namespace Terraria.ModLoader
 		/// The combination of all multiplicative multipliers. Starts at 1. Applies 'after' all additive bonuses have been accumulated.
 		/// </summary>
 		public float Multiplicative {
-			get => _multiplicative;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _multiplicative;
+			}
 			set {
 				if (value != originalMultiplicative) {
 					originalMultiplicative = value;
@@ -58,7 +78,12 @@ namespace Terraria.ModLoader
 		/// Increase to the final value of the stat. Directly added to the stat after multipliers are applied.
 		/// </summary>
 		public float Flat {
-			get => _flat;
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _flat;
+			}
 			set {
 				if (value != originalFlat) {
 					originalFlat = value;
@@ -89,11 +114,18 @@ namespace Terraria.ModLoader
 		}
 		private float _efficiencyMultiplier;
 
+		private DifficultyStrength _automaticStrengthData;
+		byte statTypeID;
+		private bool _waitingForEnterWorld;
+
 		/// <summary>
 		/// The total of the EStatModifier
 		/// </summary>
 		public float Strength {
 			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
 				if (_strength != 0f)
 					return _strength;
 
@@ -113,35 +145,19 @@ namespace Terraria.ModLoader
 		}
 		private float _strength;
 
-		private float BaseTooltip => Strength - _flat;
 		public string SmartTooltip {
 			get {
-				if(_base <= 0f && _multiplicative != 1f) {
-					return SignTooltip;
-				}
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
 
-				/*if (_base > 0f) {
-					return SignPercentMult100Tooltip;
-				}
-				else {
-					if (_additive > 0f) {
-						if (_multiplicative != 1f) {
-							return SignTooltip;
-						}
-						else {
-							return SignPercentMult100Tooltip;
-						}
-					}
-					else if (_multiplicative != 1f) {
-						return SignTooltip;
-					}
-				}*/
+				if (_additive != 1f)
+					return SignPercentMult100Minus1Tooltip;
 
-				return SignPercentMult100Tooltip;
+				return SignTooltip;
 			}
 		}
 
-		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{_flat}" : "";
+		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
 
 		private string tooltip;
 		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
@@ -152,19 +168,35 @@ namespace Terraria.ModLoader
 		public string PercentTooltip => GetTootlip(false, true, false);
 		public string Mult100Tooltip => GetTootlip(false, false, true);
 		public string NoneTooltip => GetTootlip(false, false, false);
+		public string SignPercentMult100Minus1Tooltip => GetTootlip(true, true, true, true);
+		public string SignPercentMinus1Tooltip => GetTootlip(true, true, false, true);
+		public string SignMult100Minus1Tooltip => GetTootlip(true, false, true, true);
+		public string SignMinus1Tooltip => GetTootlip(true, false, false, true);
+		public string PercentMult100Minus1Tooltip => GetTootlip(false, true, true, true);
+		public string PercentMinus1Tooltip => GetTootlip(false, true, false, true);
+		public string Mult100Minus1Tooltip => GetTootlip(false, false, true, true);
+		public string Minus1Tooltip => GetTootlip(false, false, false, true);
 
-		private string GetTootlip(bool percent, bool sign, bool multiply100) {
+		private string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
 
-			if (tooltip == null) {
-				float baseTooltip = BaseTooltip;
+			if (tooltip == null || _strength == 0) {
+				float baseTooltip;
+				if (minusOne && _base == 0f && _additive != 1f) {
+					baseTooltip = (float)Math.Round(_additive * _multiplicative - 1f, 3);
+				}
+				else {
+					baseTooltip = (float)Math.Round(Strength - _flat, 3);
+				}
+
 				tooltip = "";
 				if (baseTooltip > 0f) {
-					if (_base > 0f) {
+					if (_base > 0f || _additive != 1f && minusOne) {
 						if (sign)
 							tooltip += "+";
 
-						tooltip += $"{(multiply100 ? baseTooltip.Percent() : baseTooltip)}";
-
+						tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
 					}
 					else {
 						tooltip += $"{baseTooltip}";
@@ -199,8 +231,8 @@ namespace Terraria.ModLoader
 		*/
 
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
-
-		public EStatModifier(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+			StatType = statType;
 			originalAdditive = additive;
 			originalMultiplicative = multiplicative;
 			originalFlat = flat;
@@ -213,8 +245,57 @@ namespace Terraria.ModLoader
 			_strength = 0f;
 			tooltip = null;
 		}
+		public EStatModifier(EnchantmentStat statType, DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, float baseEfficiencyMultiplier = 1f) {
+			_waitingForEnterWorld = true;
+			DifficultyStrength[] arr = { additive, multiplicative, flat, @base };
+			for (byte i = 0; i < arr.Length; i++) {
+				if (arr[i] != null) {
+					_automaticStrengthData = arr[i];
+					statTypeID = i;
+					break;
+				}
+			}
+			StatType = statType;
+			originalAdditive = 0f;
+			originalMultiplicative = 1f;
+			originalFlat = 0f;
+			originalBase = 0f;
+			_efficiencyMultiplier = baseEfficiencyMultiplier;
+			_additive = 1f;
+			_multiplicative = 1f;
+			_flat = 0f;
+			_base = 0f;
+			_strength = 0f;
+			tooltip = null;
+		}
 
-		public override bool Equals(object obj) {
+		private void SetUpAutomaticStrengthFromWorldDificulty() {
+			if (!Main.gameMenu) {
+				int index = _automaticStrengthData.AllValues.Length == 4 ? Main.GameMode : 0;
+				switch (statTypeID) {
+					case 0:
+						originalAdditive = _automaticStrengthData.AllValues[index];
+						_additive = 1f + originalAdditive * _efficiencyMultiplier;
+						break;
+					case 1:
+						originalMultiplicative = _automaticStrengthData.AllValues[index];
+						_multiplicative = 1f + (originalMultiplicative - 1f) * _efficiencyMultiplier;
+						break;
+					case 2:
+						originalFlat = _automaticStrengthData.AllValues[index];
+						_flat = originalFlat * _efficiencyMultiplier;
+						break;
+					case 3:
+						originalBase = _automaticStrengthData.AllValues[index];
+						_base = originalBase * _efficiencyMultiplier;
+						break;
+				}
+
+				_waitingForEnterWorld = false;
+			}
+		}
+
+		/*public override bool Equals(object obj) {
 			if (obj is not EStatModifier m)
 				return false;
 
@@ -237,7 +318,7 @@ namespace Terraria.ModLoader
 		/// <param name="add">The additive modifier to add, where 0.01f is equivalent to 1%</param>
 		/// <returns></returns>
 		public static EStatModifier operator +(EStatModifier m, float add)
-			=> new EStatModifier(m._additive + add, m._multiplicative, m._flat, m._base);
+			=> new EStatModifier(m.StatType, m._additive + add, m._multiplicative, m._flat, m._base);
 
 		/// <summary>
 		/// By using the subtract operator, the supplied subtractive modifier is combined with the existing modifiers. For example, subtracting 0.12f would be equivalent to a typical 12% damage decrease. For 99% of effects used in the game, this approach is used.
@@ -246,7 +327,7 @@ namespace Terraria.ModLoader
 		/// <param name="sub">The additive modifier to subtract, where 0.01f is equivalent to 1%</param>
 		/// <returns></returns>
 		public static EStatModifier operator -(EStatModifier m, float sub)
-			=> new EStatModifier(m._additive - sub, m._multiplicative, m._flat, m._base);
+			=> new EStatModifier(m.StatType, m._additive - sub, m._multiplicative, m._flat, m._base);
 
 		/// <summary>
 		/// The multiply operator applies a multiplicative effect to the resulting multiplicative modifier. This effect is very rarely used, typical effects use the add operator.
@@ -255,10 +336,10 @@ namespace Terraria.ModLoader
 		/// <param name="mul">The factor by which the multiplicative modifier is scaled</param>
 		/// <returns></returns>
 		public static EStatModifier operator *(EStatModifier m, float mul)
-			=> new EStatModifier(m._additive, m._multiplicative * mul, m._flat, m._base);
+			=> new EStatModifier(m.StatType, m._additive, m._multiplicative * mul, m._flat, m._base);
 
 		public static EStatModifier operator /(EStatModifier m, float div)
-			=> new EStatModifier(m._additive, m._multiplicative / div, m._flat, m._base);
+			=> new EStatModifier(m.StatType, m._additive, m._multiplicative / div, m._flat, m._base);
 
 		public static EStatModifier operator +(float add, EStatModifier m)
 			=> m + add;
@@ -270,25 +351,84 @@ namespace Terraria.ModLoader
 			=> m1.Additive == m2.Additive && m1.Multiplicative == m2.Multiplicative && m1.Flat == m2.Flat && m1.Base == m2.Base;
 
 		public static bool operator !=(EStatModifier m1, EStatModifier m2)
-			=> m1.Additive != m2.Additive || m1.Multiplicative != m2.Multiplicative || m1.Flat != m2.Flat || m1.Base != m2.Base;
+			=> m1.Additive != m2.Additive || m1.Multiplicative != m2.Multiplicative || m1.Flat != m2.Flat || m1.Base != m2.Base;*/
 
-		public float ApplyTo(float baseValue) =>
-			(baseValue + _base) * _additive * _multiplicative + _flat;
+		public float ApplyTo(float baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+			
+			return (baseValue + _base) * _additive * _multiplicative + _flat;
+		}
+		/*public int ApplyTo(int baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
+			float finalValue = ((float)baseValue + _base) * _additive * _multiplicative + _flat;
+
+
+			//int (field)
+			if (fieldType == typeof(int)) {
+				float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
+				staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), iGlobal.appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
+				field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
+				//$"{key}: {(int)Math.Round(finalValue + 5E-6)}".Log();
+			}
+		}*/
 
 		public void ApplyTo(ref float baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
 			baseValue = (baseValue + _base) * _additive * _multiplicative + _flat;
 		}
 		public void ApplyTo(ref int baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
 			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive * _multiplicative + _flat);
 		}
+		public void ApplyTo(ref float flat, ref float mult, Item item) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
 
-		public StatModifier CombineWith(EStatModifier m) 
-			=> new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
+			flat += _base;
+			mult *= _additive * _multiplicative;
 
-		public StatModifier CombineWith(StatModifier m) 
-			=> new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
+			if (_flat != 0f) {
+				float sampleMana = (float)ContentSamples.ItemsByType[item.type].mana;
+				mult += _flat / sampleMana;
+			}
+		}
+		public void CombineWith(EStatModifier m) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
 
-		public StatModifier Scale(float scale)
-			=> new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
+			_additive += m.Additive - 1f;
+			_multiplicative *= m.Multiplicative;
+			_flat += m.Flat;
+			_base += m.Base;
+			_strength = 0f;
+			tooltip = null;
+		}
+
+		public StatModifier CombineWith(StatModifier m) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
+			return new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
+		}
+
+		public StatModifier Scale(float scale) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+			return new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
+		}
+
+		public EStatModifier Clone() {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
+			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base);
+		}
 	}
 }

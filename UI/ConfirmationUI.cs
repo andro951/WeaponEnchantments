@@ -173,9 +173,10 @@ namespace WeaponEnchantments.UI
             }
 
             int xp = iGlobal.Experience;
-            float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
+            float value = item.value - iGlobal.lastValueBonus;
 
             //Xp -> Essence
+            if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
             WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
 
             //Item value -> ores/essence
@@ -234,8 +235,10 @@ namespace WeaponEnchantments.UI
                 }
 
                 //Essence
-                if (essenceValue > 0)
+                if (essenceValue > 0) {
+                    if (WEMod.magicStorageEnabled) $"essenceValue > 0, OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
                     WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true);
+                }
             }
 
             item = new Item();

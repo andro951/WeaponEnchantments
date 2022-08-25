@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
-    public class MaxMP : StatEffect {
-        public MaxMP(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+    public class MaxMP : StatEffect, IVanillaStat {
+        public MaxMP(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        public override PlayerStat statName => PlayerStat.MaxMP;
+        }
+        public override EnchantmentStat statName => EnchantmentStat.MaxMP;
         public override string DisplayName { get; } = "Max Mana";
     }
 }

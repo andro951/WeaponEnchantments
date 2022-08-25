@@ -10,8 +10,8 @@ namespace WeaponEnchantments.Items.Enchantments {
 	{
 		public override void GetMyStats() {
 			Effects = new() {
-				new DebuffEffect(BuffID.OnFire, new Time(5), 0.10f + 0.5f * EnchantmentTier),
-				new MaxMP(1,1, 100)
+				new OnTickPlayerDebuffEffect(BuffID.OnFire, 300, 0.10f + 0.5f * EnchantmentTier),
+				new MaxMP(@base: EnchantmentStrengthData)
 			};
 		}
 		public override string Artist => "Kiroto";

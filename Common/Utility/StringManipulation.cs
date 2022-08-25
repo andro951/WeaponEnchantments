@@ -58,6 +58,11 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
+        
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
+        public static string S(this Dictionary<short, int> dictionary, short key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
 
         /// <summary>
         /// Convert to a string
@@ -73,6 +78,11 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this bool b) => b ? "True" : "False";
+		
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
+        public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageTypeSpecificID.Generic ? ((DamageTypeSpecificID)dc.Type).ToString() + " " : "" : "";
 
         #endregion
 

@@ -18,9 +18,14 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool OnPickup(Item item, Player player) {
+            if (item == null || item.ModItem == null)
+                return false;
+
             WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
-                EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+                if (item.ModItem is not EnchantmentEssence essence)
+                    return false;
+
                 List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
                 int tier = essence.essenceTier;
                 int tableStack = essenceSlots[tier].stack;

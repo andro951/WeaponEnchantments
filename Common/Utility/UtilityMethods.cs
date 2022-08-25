@@ -6,7 +6,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
 using System;
+using System.Linq;
 using static WeaponEnchantments.WEPlayer;
+using System.Reflection;
+using Terraria.ModLoader.Default;
+using Terraria.ModLoader.IO;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -15,7 +21,7 @@ namespace WeaponEnchantments.Common.Utility
 		#region GetModClasses
 
 		public static EnchantedItem GetEnchantedItem(this Item item) {
-            if(item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal)) {
+            if(item != null && item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                 iGlobal.Item = item;
                 return iGlobal;
             }
@@ -23,6 +29,16 @@ namespace WeaponEnchantments.Common.Utility
             return null;
         }
         public static WEPlayer GetWEPlayer(this Player player) => player.GetModPlayer<WEPlayer>();
+        public static bool TryGetWEPlayer(this Projectile projectile, out WEPlayer wePlayer) {
+            int owner = projectile.owner;
+            if (owner >= 0 && owner < Main.player.Length) {
+                Main.player[owner].TryGetModPlayer(out wePlayer);
+                return wePlayer != null;
+			}
+
+            wePlayer = null;
+            return false;
+        }
         public static WEProjectile GetWEProjectile(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
         public static bool TryGetWEProjectile(this Projectile projectile, out WEProjectile pGlobal) {
             if(projectile != null && projectile.TryGetGlobalProjectile(out pGlobal)) {
@@ -34,8 +50,9 @@ namespace WeaponEnchantments.Common.Utility
 			}
         }
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
-        public static bool TryGetEnchantedItem(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
-        public static bool TryGetEnchantedItem(this Item item, out EnchantedItem iGlobal) {
+        //public static bool TryGetEnchantedItem(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
+        public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory c));
+        /*public static bool TryGetEnchantedItem(this Item item, out EnchantedItem iGlobal) {
             if (item != null && item.TryGetGlobalItem(out iGlobal)) {
                 iGlobal.Item = item;
                 return true;
@@ -44,7 +61,97 @@ namespace WeaponEnchantments.Common.Utility
                 iGlobal = null;
                 return false;
 			}
+        }*/
+        public static bool TryGetEnchantedItemSearchAll(this Item item, out EnchantedItem iGlobal) {
+            iGlobal = null;
+            if (item == null)
+                return false;
+
+            if (item.TryGetGlobalItem(out EnchantedWeapon enchantedWeapon)) {
+                iGlobal = enchantedWeapon;
+            }
+            else if (item.TryGetGlobalItem(out EnchantedArmor enchantedArmor)){
+                iGlobal = enchantedArmor;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedAccessory enchantedAccessory)) {
+                iGlobal = enchantedAccessory;
+			}
+
+            if (iGlobal != null) {
+                iGlobal.Item = item;
+                return true;
+            }
+
+            return false;
         }
+        public static bool TryGetEnchantedEquipItem(this Item item, out EnchantedEquipItem iGlobal) {
+            iGlobal = null;
+            if (item == null)
+                return false;
+            
+            if (item.TryGetGlobalItem(out EnchantedArmor enchantedArmor)){
+                iGlobal = enchantedArmor;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedAccessory enchantedAccessory)) {
+                iGlobal = enchantedAccessory;
+			}
+
+            if (iGlobal != null) {
+                iGlobal.Item = item;
+                return true;
+            }
+
+            return false;
+        }
+        public static bool TryGetEnchantedWeapon(this Item item, out EnchantedWeapon w) {
+            if (item != null && item.TryGetGlobalItem(out w)) {
+                w.Item = item;
+                return true;
+            }
+			else {
+                w = null;
+                return false;
+			}
+        }
+        public static bool TryGetEnchantedArmor(this Item item, out EnchantedArmor a) {
+            if (item != null && item.TryGetGlobalItem(out a)) {
+                a.Item = item;
+                return true;
+            }
+            else {
+                a = null;
+                return false;
+            }
+        }
+        public static bool TryGetEnchantedAccessory(this Item item, out EnchantedAccessory a) {
+            if (item != null && item.TryGetGlobalItem(out a)) {
+                a.Item = item;
+                return true;
+            }
+            else {
+                a = null;
+                return false;
+            }
+        }
+        public static bool TryGetEnchantedItem <T>(this Item item, out T enchantedItem) where T : EnchantedItem {
+            enchantedItem = null;
+            if (item == null || item.IsAir)
+                return false;
+            
+            item.TryGetGlobalItem(out enchantedItem);
+            if (enchantedItem == null) {
+                item.TryGetEnchantedItemSearchAll(out EnchantedItem searchAllEnchantedItem);
+                enchantedItem = searchAllEnchantedItem as T;
+            }
+
+            if (enchantedItem != null) {
+                enchantedItem.Item = item;
+                return true;
+            }
+
+            return false;
+        }
+        
         public static Item Enchantments(this Item item, int i) {
             if(item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return iGlobal.enchantments[i];
@@ -164,6 +271,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
                 else {
                     iGlobal.Experience = int.MaxValue;
+                    if (WEMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log();
                     WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true);
                 }
             }
@@ -209,15 +317,24 @@ namespace WeaponEnchantments.Common.Utility
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
         }
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, StatModifier> dictionary, TKey key, StatModifier newValue) {
+        public static void AddOrCombine(this Dictionary<byte, EStatModifier> dictionary, byte key, EStatModifier newValue) {
             if (dictionary.ContainsKey(key)) {
-                dictionary[key] = newValue.CombineWith(dictionary[key]);
+                dictionary[key].CombineWith(newValue);
 			}
 			else {
-                dictionary.Add(key, newValue);
+                dictionary.Add(key, newValue.Clone());
 			}
 		}
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, int> dictionary, TKey key, int newValue) {
+        public static void AddOrCombine(this SortedDictionary<EnchantmentStat, EStatModifier> dictionary, EStatModifier newValue) {
+            EnchantmentStat key = newValue.StatType;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineWith(newValue);
+            }
+            else {
+                dictionary.Add(key, newValue.Clone());
+            }
+        }
+        public static void AddOrCombine(this Dictionary<byte, int> dictionary, byte key, int newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue + dictionary[key];
             }
@@ -225,7 +342,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void AddOrCombine<TKey>(this Dictionary<TKey, float> dictionary, TKey key, int newValue) {
+        public static void AddOrCombine(this Dictionary<byte, float> dictionary, byte key, int newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue + dictionary[key];
             }
@@ -233,8 +350,47 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void ApplyTo(this StatModifier statModifier, ref float value) {
-            value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
+        public static void AddOrCombine<T>(this SortedDictionary<short, BuffStats> dictionary, T buffEffect) where T : BuffEffect {
+            short key = buffEffect.BuffStats.BuffID;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineNoReturn(buffEffect.BuffStats);
+			}
+			else {
+                dictionary.Add(key, buffEffect.BuffStats.Clone());
+			}
+        }
+        public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffStats buffStat) {
+            short key = buffStat.BuffID;
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].CombineNoReturn(buffStat);
+            }
+            else {
+                dictionary.Add(key, buffStat.Clone());
+            }
+        }
+        //public static void ApplyTo(this StatModifier statModifier, ref float value) {
+        //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
+        //}
+        public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
+        public static SortedList<TKey, TValue> CombineSortedLists<TKey, TValue>(this SortedList<TKey, TValue> list1, SortedList<TKey, TValue> list2) {
+            SortedList <TKey, TValue> newList = new SortedList <TKey, TValue>();
+            foreach (KeyValuePair<TKey, TValue> pair in list1) {
+                newList.Add(pair.Key, pair.Value);
+			}
+
+            foreach (KeyValuePair<TKey, TValue> pair in list2) {
+                newList.Add(pair.Key, pair.Value);
+            }
+
+            return newList;
+        }
+        public static SortedList<EnchantmentStat, T> ToSortedList<T>(this IEnumerable<T> list) where T : class, IEnchantmentStat {
+            SortedList<EnchantmentStat, T> newList = new SortedList<EnchantmentStat, T>();
+            foreach (T i in list) {
+                newList.Add(i.statName, i);
+			}
+            
+            return newList;
 		}
 
         #endregion

@@ -17,24 +17,6 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items {
-    public enum DamageTypeSpecificID {
-		Default,
-		Generic,
-		Melee,
-		MeleeNoSpeed,
-		Ranged,
-		Magic,
-		Summon,
-		SummonMeleeSpeed,
-		MagicSummonHybrid,
-		Throwing
-	} // Located in DamageClassLoader.cs
-
-	public enum ArmorSlotSpecificID {
-		Head,
-		Body,
-		Legs
-	}
 	public abstract class Enchantment : ModItem {
 
 		#region Static
@@ -49,7 +31,7 @@ namespace WeaponEnchantments.Items {
 
 		public static readonly EnchantmentStrengths[] defaultEnchantmentStrengths = new EnchantmentStrengths[] {
 			new EnchantmentStrengths(new float[] { 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }),
-			new EnchantmentStrengths(new float[] { 0.4f, 0.8f, 1.2f, 1.6f, 2f }),//Not used yet
+			new EnchantmentStrengths(new float[] { 0.00f, 0.04f, 0.04f, 0.04f, 0.24f }),
 			new EnchantmentStrengths(new float[] { 1.2f, 1.4f, 1.6f, 1.8f, 2f }),
 			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 5f, 10f }),
 			new EnchantmentStrengths(new float[] { 2f, 4f, 6f, 10f, 20f }),
@@ -60,17 +42,25 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.6f, 0.65f, 0.7f, 0.8f, 0.9f }),
 			new EnchantmentStrengths(new float[] { 0.2f, 0.4f, 0.6f, 0.8f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }),
-			new EnchantmentStrengths(new float[] { 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }),
-			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f })
+			new EnchantmentStrengths(new float[] { 0.12f, 0.16f, 0.20f, 0.25f, 0.32f }),
+			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f }),
+			new EnchantmentStrengths(new float[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
-		public static readonly int defaultBuffDuration = 60;
+		public static readonly uint defaultBuffDuration = 60;
 
 		#endregion
 
 		#region Strength
 
-		public float EnchantmentStrength { private set; get; }
+		public DifficultyStrength TierStrengthData;
+		protected virtual bool UsesTierStrengthData => false;
+		private DifficultyStrength _enchantmentStrengthData;
+		public DifficultyStrength EnchantmentStrengthData { 
+			get => _enchantmentStrengthData;
+			set => _enchantmentStrengthData = value;
+		}
+		public float EnchantmentStrength => EnchantmentStrengthData.Value;
 
 		/// <summary>
 		/// Default 0<br/>
@@ -78,7 +68,7 @@ namespace WeaponEnchantments.Items {
 		/// Example: LifeSteal is StrengthGroup 5.  Tier 1 Lifesteal's Enchantment strength is 0.01f.<br/><br/>
 		/// <list>
 		/// <term>0</term><description>{ 0.03f, 0.08f, 0.16f, 0.25f, 0.40f }</description><br/>
-		/// <term>1</term><description>{ 0.4f, 0.8f, 1.2f, 1.6f, 2f } Not used Yet</description><br/>
+		/// <term>1</term><description>{ 0.00f, 0.04f, 0.06f, 0.06f, 0.15f }</description><br/>
 		/// <term>2</term><description>{ 1.2f, 1.4f, 1.6f, 1.8f, 2f }</description><br/>
 		/// <term>3</term><description>{ 1f, 2f, 3f, 5f, 10f }</description><br/>
 		/// <term>4</term><description>{ 2f, 4f, 6f, 10f, 20f }</description><br/>
@@ -91,6 +81,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>11</term><description>{ 0.04f, 0.08f, 0.12f, 0.16f, 0.20f }</description><br/>
 		/// <term>12</term><description>{ 0.14f, 0.18f, 0.22f, 0.26f, 0.30f }</description><br/>
 		/// <term>13</term><description>{ 0.8f, 0.85f, 0.90f, 0.95f, 1f }</description><br/>
+		/// <term>14</term><description>{ 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -137,13 +128,29 @@ namespace WeaponEnchantments.Items {
 		/// Note: The null value I chose for this is -13.13f  That value will cause the defaults above to occur.
 		/// </summary>
 		public virtual float CapacityCostMultiplier { private set; get; } = -13.13f;
+		private EItemType itemTypeAppliedOn = EItemType.None;
+		public EItemType ItemTypeAppliedOn {
+			get => itemTypeAppliedOn;
+			set {
+				AllowedListMultiplier = AllowedList.ContainsKey(value) ? AllowedList[value] : 1f;
 
-		public enum EItemType {
-			None,
-			Weapon,
-			Armor,
-			Accessory,
+				foreach (EnchantmentEffect effect in Effects) {
+					effect.AllowedListMultiplier = AllowedListMultiplier;
+				}
+			}
 		}
+		private DamageClass damageClassAppliedOn = DamageClass.Default;
+		public DamageClass DamageClassAppliedOn {
+			get => damageClassAppliedOn;
+			set {
+				foreach(EnchantmentEffect effect in Effects) {
+					effect.SetDamageClassMultiplier(value);
+				}
+
+				damageClassAppliedOn = value;
+			}
+		}
+		public virtual float AllowedListMultiplier { protected set; get; }
 
 		/// <summary>
 		/// Default is { EItemType.Weapon, 1f }, { EItemType.Armor, 0.25f }, { EItemType.Accessory, 0.25f }<br/>
@@ -151,26 +158,17 @@ namespace WeaponEnchantments.Items {
 		/// You must include ALL of the item types the enchantment can be applied on.  The above defaults are only set if you do not set the AllowedList.<br/>
 		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
-		public virtual Dictionary<EItemType, float> AllowedList { private set; get; } = new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f },
-			{ EItemType.Armor, 0.33f },
-			{ EItemType.Accessory, 0.2f }
-		};
+		public Dictionary<EItemType, float> AllowedList { protected set; get; }
 
 		#endregion
 
 		#region Identifiers and names
-
-		/// <summary>
-		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
-		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
-		/// </summary>
-		public virtual string CustomTooltip { private set; get; } = "";
+			
 		/// <summary>
 		/// A value 0 - 4 representing the enchantment's tier.
 		/// </summary>
-		public virtual int EnchantmentTier => GetEnchantmentTier(Name);
-		public string EnchantmentTypeName { get => Name.Substring(0, Name.IndexOf("Enchantment")); }
+		public virtual int EnchantmentTier { protected set; get; }
+		public string EnchantmentTypeName { protected set; get; }
 
 		/// <summary>
 		/// DO NOT CHANGE THIS UNLESS YOU ARE POSITIVE YOU ARE SUPPOSED TO!!!<br/>
@@ -181,7 +179,7 @@ namespace WeaponEnchantments.Items {
 		/// Acceptable Range -4 to 0 (Potion buffs set to -2).<br/>
 		/// -4 would cause the value of the enchantment to be almost zero.<br/>
 		/// </summary>
-		public virtual int EnchantmentValueTierReduction { private set; get; } = 0;
+		public virtual int EnchantmentValueTierReduction { protected set; get; } = 0;
 
 		/// <summary>
 		/// Default 1<br/>
@@ -195,52 +193,34 @@ namespace WeaponEnchantments.Items {
 		/// <term>5</term><description>No tiers are craftable.</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int LowestCraftableTier { private set; get; } = 1;
+		public virtual int LowestCraftableTier { protected set; get; } = 1;
 
 		/// <summary>
 		/// Default value will the the class name with spaces added.<br/>
 		/// Not required.  Only override this if the class name is different than the desired in game name.<br/>
 		/// Do not include the word "Enchantment" or the rarity words.  They are added automatically.<br/>
-		/// Example: class name - ScaleEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
+		/// Example: class name - SizeEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
 		///	MyDisplayName => "Size"<br/>
 		/// </summary>
-		public virtual string MyDisplayName { private set; get; } = "";
+		public virtual string MyDisplayName { protected set; get; } = "";
 
 		/// <summary>
-		/// Default true<br/>
-		/// Set to false to prevent showing a "%" after the EnchantmentStrength in the tooltip.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> +40%</description><br/>
-		/// <term>False</term><description> +40</description><br/>
-		/// </list>
+		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
+		/// Static Stat, buff and debuff tooltips are all automatically generated.<br/>
 		/// </summary>
-		//public virtual bool? ShowPercentSignInTooltip { private set; get; } = null;
+		public virtual string CustomTooltip { protected set; get; } = "";
+		public virtual string ShortTooltip => GetShortTooltip();
+		public string StoredShortTooltip {
+			get {
+				if (shortTooltip == null) {
+					shortTooltip = ShortTooltip;
+				}
 
-		/// <summary>
-		/// Default true<br/>
-		/// Set to false to prevent multiplying the EnchantmentStrength by 100 in the tooltip.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> x40%</description><br/>
-		/// <term>False</term><description> x0.4%</description><br/>
-		/// </list>
-		/// </summary>
-		//public virtual bool? MultiplyBy100InTooltip { private set; get; } = null;
+				return shortTooltip;
+			}
+		}
+		private string shortTooltip;
 
-		/// <summary>
-		/// Default true for Static Stats and false for all others.<br/>
-		/// Set to true to show a "x" in the tooltip after the EnchantmentStrength.<br/>
-		/// DO NOT set this if you add more than one stat if they shouldn't all be changed.<br/>
-		/// If you need to change one specifically, do it in the GetPercentageMult100() method.<br/><br/>
-		/// <list>
-		/// <term>True</term><description> +40%</description><br/>
-		/// <term>False</term><description> 40x</description><br/>
-		/// </list>
-		/// </summary>
-		//public virtual bool? ShowPlusSignInTooltip { private set; get; } = null;
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
@@ -329,16 +309,15 @@ namespace WeaponEnchantments.Items {
 		#region Stats and buffs
 
 		private bool finishedOneTimeSetup = false;
-		public int BuffDuration => GetBuffDuration();
+		public uint BuffDuration => GetBuffDuration();
 		public List<int> Buff { private set; get; } = new List<int>();
 		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
-		public Dictionary<int, int> Debuff { private set; get; } = new Dictionary<int, int>();
+		public Dictionary<short, int> Debuff { private set; get; } = new Dictionary<short, int>();
 		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
 		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
-
 		public override string Texture => $"WeaponEnchantments/Items/Sprites/{Name}";
 
 		/// <summary>
@@ -356,14 +335,6 @@ namespace WeaponEnchantments.Items {
 		/// CheckBuffByName()<br/>
 		/// </summary>
 		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
-
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips) {
-			var tooltipTuples = GenerateFullTooltip();
-            foreach (var tooltipTuple in tooltipTuples) {
-				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
-			}
-		}
 
         public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
@@ -407,6 +378,10 @@ namespace WeaponEnchantments.Items {
 			}*/
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
+			EnchantmentTier = GetEnchantmentTier(Name);
+
+			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+
 			//Item rarity
 			Item.rare = GetRarityFromTier(EnchantmentTier);
 
@@ -454,35 +429,7 @@ namespace WeaponEnchantments.Items {
 			if (GetType().Namespace.GetFolderName() == "Unique")
 				Unique = true;
 
-			//Config - Individual Strength
-			bool foundIndividualStrength = false;
-			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
-				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
-					if (pair.itemDefinition.Name == Name) {
-						EnchantmentStrength = ((float)pair.Strength / 1000f);
-						foundIndividualStrength = true;
-					}
-				}
-			}
-
-			//Config - Global Enchantment Strength Multipliers
-			if (!foundIndividualStrength) {
-				//Recomended
-				float multiplier = RecomendedStrengthMultiplier;
-				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-				float scale = Math.Abs(ScalePercent);
-
-				//Apply Scale Percent
-				if (ScalePercent < 0f && multiplier < 1f) {
-					EnchantmentStrength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
-				}
-				else {
-					EnchantmentStrength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
-				}
-			}
-
-			//Round Enchantment Strength
-			EnchantmentStrength = (float)Math.Round(EnchantmentStrength, 4);
+			SetEnchantmentStrength();
 
 			//Default My Display Name
 			if (MyDisplayName == "")
@@ -493,6 +440,14 @@ namespace WeaponEnchantments.Items {
 				return;
 
 			GetMyStats();
+
+			if (AllowedList == null || AllowedList.Count == 0) {
+				AllowedList = new Dictionary<EItemType, float>() {
+					{ EItemType.Weapons, 1f },
+					{ EItemType.Armor, 0.25f },
+					{ EItemType.Accessories, 0.25f }
+				};
+			}
 
 			//Default Stat
 			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
@@ -505,42 +460,58 @@ namespace WeaponEnchantments.Items {
 			Item.maxStack = 99;
 			GetDefaults();
 		}
-		/*private void GetPercentageMult100(string s, out bool percentage, out bool multiply100, out bool plus, bool staticStat = false) {
-			percentage = ShowPercentSignInTooltip != null ? (bool)ShowPercentSignInTooltip : true;
-			multiply100 = MultiplyBy100InTooltip != null ? (bool)MultiplyBy100InTooltip : true;
-			plus = ShowPlusSignInTooltip != null ? (bool)ShowPlusSignInTooltip : staticStat;
-			switch (s) {
-				//case "ArmorPenetration":
-				//case "Defense":
-				//case "maxMinions":
-				//	percentage = false;
-				//	multiply100 = false;
-				//	plus = true;
-				//	break;
-				//case "crit":
-				//	multiply100 = false;
-				//	plus = true;
-				//	break;
-				case "Damage":
-				case "NPCHitCooldown":
-					plus = true;
-					break;
-			}//percentage, multiply100
-		}*/
-		/*private string CheckStatAlteredName(string name) {
-			switch (name) {
-				case "crit":
-				case "Defense":
-				case "scale":
-					return MyDisplayName.AddSpaces();
-				case "Damage":
-					return "Damage bonus is applied after defenses (Not visible in weapon tooltip)";
-				case "mana":
-					return "Mana Cost";
-				default:
-					return name.CapitalizeFirst().AddSpaces();
+		public void SetEnchantmentStrength() {//Config - Individual Strength
+			bool foundIndividualStrength = false;
+			float[] strengths = new float[1];
+			float[] tierStrengths = new float[1];
+			float tierStrengthPercentage = ((float)EnchantmentTier + 1f) / (float)defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength.Length;
+			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
+				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
+					if (pair.itemDefinition.Name == Name) {
+						strengths[0] = (float)pair.Strength / 1000f;
+						if (UsesTierStrengthData)
+							tierStrengths[0] = tierStrengthPercentage * strengths[0] / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+						foundIndividualStrength = true;
+						//Round Enchantment Strength
+						strengths[0] = (float)Math.Round(strengths[0], 4);
+					}
+				}
 			}
-		}*/
+
+			//Config - Global Enchantment Strength Multipliers
+			if (!foundIndividualStrength) {
+				if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
+					strengths = new float[4];
+					tierStrengths = new float[4];
+				}
+
+				int count = strengths.Length;
+				for (int i = 0; i < count; i++) {
+					//Global
+					float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
+					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+					float scale = Math.Abs(ScalePercent);
+
+					//Apply Scale Percent
+					if (ScalePercent < 0f && multiplier < 1f) {
+						strengths[i] = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
+					}
+					else {
+						float strength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
+						strengths[i] = strength;
+					}
+
+					if (UsesTierStrengthData)
+						tierStrengths[i] = tierStrengthPercentage * multiplier;
+
+					//Round Enchantment Strength
+					strengths[i] = (float)Math.Round(strengths[i], 4);
+				}
+			}
+
+			TierStrengthData = new DifficultyStrength(tierStrengths);
+			EnchantmentStrengthData = new DifficultyStrength(strengths);
+		}
 		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
 			if (checkName == "")
 				checkName = EnchantmentTypeName;
@@ -649,43 +620,136 @@ namespace WeaponEnchantments.Items {
 
 			return true;
 		}
-		/*protected bool CheckBuffByName(bool debuff = false, string baseName = "") {
-			if (baseName == "")
-				baseName = Name;
+		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true) {
+			string s = "";
+			if (showValue) {
+				float strength = (float)Math.Round(EnchantmentStrength * AllowedListMultiplier, 3);
+				if (multiply100)
+					strength *= 100f;
 
-			BuffID buffID = new();
-			foreach (FieldInfo field in buffID.GetType().GetFields()) {
-				string fieldName = field.Name;
-				if (fieldName.Length <= baseName.Length) {
-					string name = baseName.Substring(0, fieldName.Length);
-					if (fieldName.ToLower() == name.ToLower()) {
-						if (debuff) {
-							Debuff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID), GetBuffDuration());
+				if (sign) {
+					s += strength < 0f ? "" : "+";
+				}
+
+				s += $"{strength}";
+				if (percent)
+					s += "%";
+
+				s += " ";
+			}
+
+			s += EnchantmentTypeName.AddSpaces();
+
+			if (!showValue)
+				s += $" {EnchantmentTier}";
+
+			return s;
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			var tooltipTuples = GenerateFullTooltip();
+            foreach (var tooltipTuple in tooltipTuples) {
+				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
+			}
+		}
+		private IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
+			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
+
+			if (CustomTooltip != "")
+				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.White));//, Color.DarkGray));
+
+			//fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
+			fullTooltip.AddRange(GetEffectsTooltips());
+
+			fullTooltip.Add(new Tuple<string, Color>($"Level cost: {GetCapacityCost()}", Color.LightGreen));
+
+			//Unique
+			if (Unique)
+				fullTooltip.Add(new Tuple<string, Color>("   *Unique* (Limited to 1 Unique Enchantment)", Color.White));
+
+			fullTooltip.AddRange(GetAllowedListTooltips());
+
+			if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
+				//Unique (Specific Item)
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*",
+					Color.White
+				));
+			}
+			else if (DamageClassSpecific > 0) {
+				//DamageClassSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*",
+					Color.White
+				));
+			}
+			else if (ArmorSlotSpecific > -1) {
+				//ArmorSlotSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*",
+					Color.White
+				));
+			}
+
+			//RestrictedClass
+			if (RestrictedClass > -1) {
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*",
+					Color.White
+				));
+			}
+
+			if (Max1)
+				fullTooltip.Add(new Tuple<string, Color>($"   *Max of 1 per item*", Color.White));
+
+			if (Utility)
+				fullTooltip.Add(new Tuple<string, Color>($"   *Utility*", Color.White));
+
+			return fullTooltip;
+		}
+		//public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
+		//	List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
+		//	
+		//	return tooltips;
+		//}
+
+		public IEnumerable<Tuple<string, Color>> GetAllowedListTooltips() {
+			string tooltip = "";
+			int count = AllowedList.Count;
+			if (AllowedList.Count > 0) {
+				int i = 0;
+				bool first = true;
+				foreach (EItemType key in AllowedList.Keys) {
+					if (first) {
+						if (count < 3) {
+							tooltip += "   *Only allowed on ";
 						}
 						else {
-							Buff.Add((int)buffID.GetType().GetField(fieldName).GetValue(buffID));
+							tooltip += "   *Allowed on ";
 						}
-						return true;
+						first = false;
+					}
+					else if (i == count - 1) {
+						tooltip += " and ";	
+					}
+					else {
+						tooltip += ", ";	
+					}
+					
+					tooltip += $"{key}: {AllowedList[key].Percent()}%";
+					
+					i++;
+					if (i == count) {
+						tooltip += "*";
 					}
 				}
 			}
-			return false;
-		}*/
 
-		public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
-			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-			return tooltips;
-        }
-
-		public IEnumerable<Tuple<string, Color>> GetAllowedListTooltips() {
-			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-			return AllowedList.Keys.Select(i => new Tuple<string, Color>($"{i} ({Math.Round(AllowedList[i] * 100, 1)}%)", Color.Gray));
+			return new List<Tuple<string, Color>>() { new Tuple<string, Color>(tooltip, Color.White) };
 		}
-
 		public IEnumerable<Tuple<string, Color>> GetEffectsTooltips() {
 			List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 			foreach (var effect in Effects) {
-				if (!effect.showTooltip)
+				if (!effect.showTooltip || effect.Tooltip == "")
 					continue;
 
 				tooltips.Add(new Tuple<string, Color>(effect.Tooltip, effect.TooltipColor));
@@ -694,147 +758,10 @@ namespace WeaponEnchantments.Items {
 			return tooltips;
 		}
 
-		private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {
-			return string.Join("\nAllowed on ", itemTypes.Select(i => $"{i} ({Math.Round(AllowedList[i]*100, 1)})"));
-		}
+		//private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {
+		//	return string.Join("\nAllowed on ", itemTypes.Select(i => $"{i} ({Math.Round(AllowedList[i]*100, 1)})"));
+		//}
 
-		private IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
-			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
-
-			if (CustomTooltip != "") 
-				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.DarkGray));
-			
-			fullTooltip.Add(new Tuple<string, Color>("Effectiveness:", Color.Violet));
-			fullTooltip.AddRange(GetAllowedListTooltips());
-
-			fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
-			fullTooltip.AddRange(GetEffectsTooltips());
-
-
-			fullTooltip.Add(new Tuple<string, Color>($"Level cost: {GetCapacityCost()}", Color.Blue));
-
-			if (Max1)
-				fullTooltip.Add(new Tuple<string, Color>($"♦ Max of 1 per item", Color.DarkRed));
-
-			if (Utility)
-				fullTooltip.Add(new Tuple<string, Color>($"♪ Utility", Color.DarkGreen));
-
-			//string shortTooltip = GenerateShortTooltip();
-
-			//string toolTip = $"{shortTooltip}{(uniqueTooltip != "" ? "\n" : "")}{uniqueTooltip}";
-			//if (NewDamageType > -1)
-			//	toolTip += $"\nConverts weapon damage type to {((DamageTypeSpecificID)GetDamageClass(NewDamageType)).ToString().AddSpaces()}";
-
-			////Estats
-			//if (EStats.Count > 0) {
-			//	foreach (EStat eStat in EStats) {
-			//		string eStatToolTip = GetEStatToolTip(eStat, true);
-			//		if (eStatToolTip != shortTooltip)
-			//			toolTip += $"\n{eStatToolTip}";
-			//	}
-			//}
-
-			////StaticStats
-			//if (StaticStats.Count > 0) {
-			//	foreach (EnchantmentStaticStat staticStat in StaticStats) {
-			//		string staticStatToolTip = GetStaticStatToolTip(staticStat, true);
-			//		if (staticStatToolTip != shortTooltip)
-			//			toolTip += $"\n{staticStatToolTip}";
-			//	}
-			//}
-
-			////OnHitBuffs
-			//if (OnHitBuff.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (int onHitBuff in OnHitBuff.Keys) {
-			//		string buffName = GetBuffName(onHitBuff).AddSpaces();
-			//		if (first) {
-			//			toolTip += $"\nOn Hit Buffs: {buffName}";
-			//			first = false;
-			//		}
-			//		else if (i == OnHitBuff.Count - 1) {
-			//			toolTip += $" and {buffName}";
-			//		}
-			//		else {
-			//			toolTip += $", {buffName}";
-			//		}
-			//		i++;
-			//	}
-			//}
-
-			////Debuffs
-			//if (Debuff.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (int debuff in Debuff.Keys) {
-			//		string buffName = GetBuffName(debuff).AddSpaces();
-			//		if (first) {
-			//			toolTip += $"\nOn Hit Debuffs: {buffName}";
-			//			first = false;
-			//		}
-			//		else if (i == Debuff.Count - 1) {
-			//			toolTip += $" and {buffName}";
-			//		}
-			//		else {
-			//			toolTip += $", {buffName}";
-			//		}
-			//		i++;
-			//	}
-			//}
-
-			//Level Cost
-
-			//Unique, DamageClassSpecific, RestrictedClass, ArmorSlotSpecific
-			//if (DamageClassSpecific > 0 || Unique || RestrictedClass > -1 || ArmorSlotSpecific > -1) {
-			//	string limmitationToolTip = "";
-			//	if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1  && Utility == false) {
-			//		//Unique (Specific Item)
-			//		limmitationToolTip += $"\n   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*";
-			//	}
-			//	else if (DamageClassSpecific > 0) {
-			//		//DamageClassSpecific
-			//		limmitationToolTip += $"\n   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*";
-			//	}
-			//	else if (ArmorSlotSpecific > -1) {
-			//		//ArmorSlotSpecific
-			//		limmitationToolTip += $"\n   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*";
-			//	}
-
-			//	//RestrictedClass
-			//	if (RestrictedClass > -1) {
-			//		limmitationToolTip += $"\n   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*";
-			//	}
-
-			//	//Unique
-			//	if(Unique)
-			//		limmitationToolTip += "\n   *Unique* (Limited to 1 Unique Enchantment)";
-
-
-			//	toolTip += limmitationToolTip;
-			//}
-
-			////AllowedList
-			//if (AllowedList.Count > 0) {
-			//	int i = 0;
-			//	bool first = true;
-			//	foreach (string key in AllowedList.Keys) {
-			//		if (first) {
-			//			toolTip += $"\n   *Allowed on {key}: {AllowedList[key] * 100}%{(AllowedList.Count == 1 ? " Only*" : "")}";
-			//			first = false;
-			//		}
-			//		else if (i == AllowedList.Count - 1) {
-			//			toolTip += $" and {key}: {AllowedList[key] * 100}%{(AllowedList.Count < 3 ? " Only*" : "")}";
-			//		}
-			//		else {
-			//			toolTip += $", {key}: {AllowedList[key] * 100}%";
-			//		}
-			//		i++;
-			//	}
-			//}
-
-			return fullTooltip;
-		}
 		/*private string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, EItemType allowedListKey = EItemType.None) {
 			string toolTip = "";
 
@@ -949,8 +876,8 @@ namespace WeaponEnchantments.Items {
 					return (int)DamageTypeSpecificID.Generic;
 			}
 		}
-		private int GetBuffDuration() {
-			return defaultBuffDuration * (EnchantmentTier + 1);
+		private uint GetBuffDuration() {
+			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
 		}
 		public static int GetEnchantmentTier(string name) {
 			for (int i = 0; i < tierNames.Length; i++) {

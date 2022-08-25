@@ -1,5 +1,5 @@
 ﻿using WeaponEnchantments.Common;
-using WeaponEnchantments.Effects.EnchantStats;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -8,10 +8,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {
-				new DamageAfterDefenses(EnchantmentStrength)
+				new DamageAfterDefenses(EnchantmentStrengthData)
 			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}

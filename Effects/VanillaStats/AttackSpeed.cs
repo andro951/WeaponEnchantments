@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
-    public class AttackSpeed : StatEffect, IClassedEffect {
-        public AttackSpeed(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, DamageClass dc = null) : base(additive, multiplicative, flat, @base) {
-            damageClass = dc ?? DamageClass.Generic;
-            DisplayName = $"{(damageClass.Type > DamageClass.Generic.Type ? damageClass.DisplayName : "")} Speed";
-        }
+    public class AttackSpeed : ClassedStatEffect, IVanillaStat {
+        public AttackSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
-        public DamageClass damageClass { get; set; }
-        public override string DisplayName { get; }
-        public override PlayerStat statName => PlayerStat.AttackSpeed;
+        }
+        
+        public override EnchantmentStat statName => EnchantmentStat.AttackSpeed;
     }
 }

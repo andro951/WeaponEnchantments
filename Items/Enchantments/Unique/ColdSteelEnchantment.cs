@@ -3,6 +3,7 @@ using Terraria.ID;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -11,22 +12,24 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			if (EnchantmentTier == 3)
-				OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, BuffDuration);
+			Effects = new() {
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new DamageClassChange(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget(),
+				new OnHitTargetDebuffEffect(BuffID.Frostburn, BuffDuration)
+			};
+
+			if (EnchantmentTier >= 3) {
+				Effects.Add(new OnHitPlayerBuffEffect(BuffID.CoolWhipPlayerBuff, BuffDuration));
+				Effects.Add(new OnHitSpawnProjectile(ProjectileID.CoolWhipProj, 10));
+			}
 
 			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
+				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
 
-			Debuff.Add(BuffID.Frostburn, BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
-
-			Effects = new() {
-				new DamageClassChange(DamageClass.SummonMeleeSpeed)
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
 			};
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -8,9 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => "(Does not work, Not finished)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Magic;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
 		public override void GetMyStats() {
 			AddEStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength);
 			AddEStat("InfinitePenetration", 0f, 1f, 13.13f);
@@ -18,6 +16,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AddStaticStat("shootSpeed", 0f, 1f - 0.8f * EnchantmentStrength);
 			//AddStaticStat("useTime", 0f, 1000f);
 			AddStaticStat("P_autoReuse", EnchantmentStrength);
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
+			};
 		}
 
 		public override string Artist => "andro951";

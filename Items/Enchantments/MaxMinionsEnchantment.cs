@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
@@ -7,17 +8,19 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Armor, 1f },
-			{ EItemType.Accessory, 1f }
-		};
 		public override void GetMyStats() {
 			Effects = new() {
-				new MaxMinions(@base: EnchantmentStrength)
+				new MaxMinions(@base: EnchantmentStrengthData)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Armor, 1f },
+				{ EItemType.Accessories, 1f }
 			};
 		}
 
-		public override string Artist => "andro951";
+		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
+		public override string Artist => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "andro951";
 	}
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment { }
