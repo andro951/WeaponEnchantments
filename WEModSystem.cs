@@ -112,7 +112,7 @@ namespace WeaponEnchantments
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
                     }
 
-					if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                             if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
                                 wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
@@ -190,10 +190,10 @@ namespace WeaponEnchantments
                     }
 
                     if(!stop) {
-						if (!valid || Main.cursorOverride == 6) {
+                        if (!valid || Main.cursorOverride == 6) {
                             Main.cursorOverride = -1;
                         }
-					}
+                    }
                 }
             }
             
@@ -241,10 +241,10 @@ namespace WeaponEnchantments
                                         Main.mouseItem.stack += stack;
                                         item = new Item();
                                     }
-									else {
+                                    else {
                                         Main.mouseItem.stack = maxStack;
                                         item.stack = stack + mouseItemStack - maxStack;
-									}
+                                    }
                                 }
 
                                 break;
@@ -260,7 +260,7 @@ namespace WeaponEnchantments
                     //Calamity only
                     EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player, true);
                 }
-				else {
+                else {
                     //Calamity and AutoReforge
                     EnchantedItem.ReforgeItem(ref EnchantedItem.calamityAndAutoReforgePostReforgeItem, wePlayer.Player, true);
                 }
@@ -570,32 +570,16 @@ namespace WeaponEnchantments
                 ItemID.SoulofNight
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
-		}
-		public override void PostWorldGen() {
+        }
+        public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
                 Chest chest = Main.chest[chestIndex];
                 if(chest == null)
                     continue;
 
                 int itemsPlaced = 0;
-                int chestID;
-                // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
-                // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                switch (Main.tile[chest.x, chest.y].TileType) {
-                    case 21:
-                    case 441:
-                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36;
-                        break;
-                    case 467:
-                    case 468:
-                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36 + 100;
-                        break;
-                    default:
-                        chestID = -1;
-                        break;
-                }
 
-                WEModSystem.GetChestLoot((ChestID)chestID, out List<int> itemTypes, out float chance);
+                WEModSystem.GetChestLoot(WEModSystem.GetChestIDFromTile(Main.tile[chest.x, chest.y].TileType, Main.tile[chest.x, chest.y].TileFrameX), out List<int> itemTypes, out float chance);
 
                 if (chance <= 0f)
                     continue;
@@ -612,6 +596,22 @@ namespace WeaponEnchantments
                 }
             }
         }
+        
+        public static ChestID GetChestIDFromTile(ushort tileType, short tileFrameX) {
+            // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
+            // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
+            switch (tileType) {
+                case TileID.Containers:
+                case TileID.FakeContainers:
+                    return (ChestID)(tileFrameX / 36);
+                case TileID.Containers2:
+                case TileID.FakeContainers2:
+                    return (ChestID)(tileFrameX / 36 + 100);
+                default:
+                    return ChestID.None;
+            }
+        }
+        
         public static void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
             //TODO: replace the case numbers with the CestIDs
             chance = ChestSpawnChance;
@@ -721,12 +721,12 @@ namespace WeaponEnchantments
                     break;
             }
         }
-		public override void LoadWorldData(TagCompound tag) {
+        public override void LoadWorldData(TagCompound tag) {
             versionUpdate = tag.Get<byte>("versionUpdate");
             OldItemManager.versionUpdate = versionUpdate;
         }
-		public override void SaveWorldData(TagCompound tag) {
-			tag["versionUpdate"] = versionUpdate;
-		}
-	}
+        public override void SaveWorldData(TagCompound tag) {
+            tag["versionUpdate"] = versionUpdate;
+        }
+    }
 }
