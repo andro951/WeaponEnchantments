@@ -25,7 +25,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	public class EnchantedWeapon : EnchantedItem, ISortedEnchantmentEffects
+	public class EnchantedWeapon : EnchantedHeldItem, ISortedEnchantmentEffects
     {
         #region Constants
 
@@ -36,22 +36,22 @@ namespace WeaponEnchantments.Common.Globals
         #region Stats
 
         //New system
-        public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
-        public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
+        //public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
+        //public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
         public DamageClassChange DamageTypeEffect;
 
-        public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
-        public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
+        //public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        //public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
+        //public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
 	    public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
-        public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        //public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
-        public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
-        public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
+        //public List<EnchantmentEffect> EnchantmentEffects { set; get; } = new List<EnchantmentEffect>();
+        //public List<IPassiveEffect> PassiveEffects { set; get; } = new List<IPassiveEffect>();
         public List<IOnHitEffect> OnHitEffects { set; get; } = new List<IOnHitEffect>();
-        public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
-        public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
+        //public List<IModifyShootStats> ModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
+        //public List<StatEffect> StatEffects { set; get; } = new List<StatEffect>();
 
         #endregion
 

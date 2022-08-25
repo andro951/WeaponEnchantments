@@ -860,18 +860,25 @@ namespace WeaponEnchantments
                     critLevel++;
 
                 if (critLevel > 0) {
+                    CheckEnchantmentStats(EnchantmentStat.CriticalStrikeDamage, out float critDamageMultiplier, 1f);
                     crit = true;
                     critLevel--;
 
-                    if (MultiplicativeCriticalHits) {
-                        //Multiplicative
-                        damage *= (int)Math.Pow(2, critLevel);
+                    if (critLevel > 0) {
+                        if (MultiplicativeCriticalHits) {
+                            //Multiplicative
+                            float multiplicativeCritMultiplier = (float)Math.Pow(2 * critDamageMultiplier, critLevel);
+                            critDamageMultiplier *= multiplicativeCritMultiplier;
+                        }
+                        else {
+                            //Additive
+                            float additiveCritMultiplier = 1f + 0.5f * critLevel * critDamageMultiplier;
+                            critDamageMultiplier *= additiveCritMultiplier;
+                        }
                     }
-                    else {
-                        //Additive
-                        float additiveCritMultiplier = 1f + 0.5f * critLevel;
-                        damage = (int)(damage * additiveCritMultiplier);
-                    }
+
+                    if (critDamageMultiplier != 1f)
+                        damage.MultiplyCheckOverflow(critDamageMultiplier);
                 }//MultipleCritlevels
             }
         }
@@ -1222,7 +1229,7 @@ namespace WeaponEnchantments
         public bool CheckEnchantmentStats(EnchantmentStat playerStat, out float value, float baseValue = 0f) {
             value = baseValue;
             if (CombinedEnchantmentStats.ContainsKey(playerStat)) {
-                value = CombinedEnchantmentStats[playerStat].Strength;
+                CombinedEnchantmentStats[playerStat].ApplyTo(ref value);
                 return true;
             }
 
@@ -1962,6 +1969,23 @@ namespace WeaponEnchantments
 
             #endregion
         }
+
+		#endregion
+
+		#region Fishing
+
+		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition) {
+			base.CatchFish(attempt, ref itemDrop, ref npcSpawn, ref sonar, ref sonarPosition);
+		}
+		public override void GetFishingLevel(Item fishingRod, Item bait, ref float fishingLevel) {
+			base.GetFishingLevel(fishingRod, bait, ref fishingLevel);
+		}
+		public override void ModifyCaughtFish(Item fish) {
+			base.ModifyCaughtFish(fish);
+		}
+		public override void ModifyFishingAttempt(ref FishingAttempt attempt) {
+			base.ModifyFishingAttempt(ref attempt);
+		}
 
 		#endregion
 	}

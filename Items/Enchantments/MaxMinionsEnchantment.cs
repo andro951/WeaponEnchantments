@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		}
 
 		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
-		public override string Artist => "𝕾𝖔𝖚𝖙𝖍𝕸𝖆𝖓𝖊♱";
+		public override string Artist => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "andro951";
 	}
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment { }

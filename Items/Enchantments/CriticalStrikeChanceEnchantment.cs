@@ -1,6 +1,4 @@
-﻿
-
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments

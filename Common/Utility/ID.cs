@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Common.Utility
         AutoReuse,
         BonusManaRegen,
         CriticalStrikeChance,
+        CriticalStrikeDamage,
         Damage,
         DamageAfterDefenses,
         Defense,
@@ -68,10 +69,10 @@ namespace WeaponEnchantments.Common.Utility
         ArmorPenetration,
         AutoReuse,
         CriticalStrikeChance = 7,
-        Damage,
-        Knockback = 15,
-        ManaUsage = 18,
-        Size = 31,
+        Damage = 9,
+        Knockback = 16,
+        ManaUsage = 19,
+        Size = 32,
     }
     public enum PermenantItemFields : short
 	{

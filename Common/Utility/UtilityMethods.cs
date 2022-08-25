@@ -133,19 +133,19 @@ namespace WeaponEnchantments.Common.Utility
                 return false;
             }
         }
-        public static bool TryGetEnchantedItem <T>(this Item item, out T enchantedWeapon) where T : EnchantedItem {
-            enchantedWeapon = null;
+        public static bool TryGetEnchantedItem <T>(this Item item, out T enchantedItem) where T : EnchantedItem {
+            enchantedItem = null;
             if (item == null || item.IsAir)
                 return false;
             
-            item.TryGetGlobalItem(out enchantedWeapon);
-            if (enchantedWeapon == null) {
-                item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem);
-                enchantedWeapon = enchantedItem as T;
+            item.TryGetGlobalItem(out enchantedItem);
+            if (enchantedItem == null) {
+                item.TryGetEnchantedItemSearchAll(out EnchantedItem searchAllEnchantedItem);
+                enchantedItem = searchAllEnchantedItem as T;
             }
 
-            if (enchantedWeapon != null) {
-                enchantedWeapon.Item = item;
+            if (enchantedItem != null) {
+                enchantedItem.Item = item;
                 return true;
             }
 
