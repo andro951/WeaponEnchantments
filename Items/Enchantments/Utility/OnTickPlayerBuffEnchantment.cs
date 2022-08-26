@@ -14,6 +14,8 @@ namespace WeaponEnchantments.Items.Utility
 		public override int EnchantmentValueTierReduction => -2;
 		public override int LowestCraftableTier => 5;
 		protected abstract int buffID { get; }
+		public override bool Max1 => true;
+		public override float CapacityCostMultiplier => 1;
 		public override void GetMyStats() {
 			Effects = new() {
 				new OnTickPlayerBuffEffect(buffID)
@@ -22,7 +24,9 @@ namespace WeaponEnchantments.Items.Utility
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },
 				{ EItemType.Armor, 1f },
-				{ EItemType.Accessories, 1f }
+				{ EItemType.Accessories, 1f },
+				{ EItemType.FishingPoles, 1f },
+				{ EItemType.Tools, 1f }
 			};
 		}
 
@@ -46,5 +50,20 @@ namespace WeaponEnchantments.Items.Utility
 	public class SpelunkerEnchantmentUltraRare : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Spelunker;
+	}
+	public class FishingEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	{
+		protected override int buffID => BuffID.Fishing;
+		public override string Artist => "andro951";
+	}
+	public class CrateEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	{
+		protected override int buffID => BuffID.Crate;
+		public override string Artist => "andro951";
+	}
+	public class SonarEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	{
+		protected override int buffID => BuffID.Sonar;
+		public override string Artist => "andro951";
 	}
 }

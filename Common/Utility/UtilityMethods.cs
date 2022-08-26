@@ -39,7 +39,15 @@ namespace WeaponEnchantments.Common.Utility
             wePlayer = null;
             return false;
         }
-        public static WEProjectile GetWEProjectile(this Projectile projectile) => projectile.GetGlobalProjectile<WEProjectile>();
+        public static ProjectileWithSourceItem GetMyGlobalProjectile(this Projectile projectile) {
+            if (projectile.TryGetGlobalProjectile(out WEProjectile wEProjectile))
+                return wEProjectile;
+
+            if (projectile.TryGetGlobalProjectile(out BobberProjectile bobberProjectile))
+                return bobberProjectile;
+
+            return null;
+        }
         public static bool TryGetWEProjectile(this Projectile projectile, out WEProjectile pGlobal) {
             if(projectile != null && projectile.TryGetGlobalProjectile(out pGlobal)) {
                 return true;
@@ -50,18 +58,7 @@ namespace WeaponEnchantments.Common.Utility
 			}
         }
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
-        //public static bool TryGetEnchantedItem(this Item item) => item != null && item.TryGetGlobalItem(out EnchantedItem iGlobal);
-        public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory c));
-        /*public static bool TryGetEnchantedItem(this Item item, out EnchantedItem iGlobal) {
-            if (item != null && item.TryGetGlobalItem(out iGlobal)) {
-                iGlobal.Item = item;
-                return true;
-            }
-			else {
-                iGlobal = null;
-                return false;
-			}
-        }*/
+        public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory ac) || item.TryGetGlobalItem(out EnchantedFishingPole fp) || item.TryGetGlobalItem(out EnchantedTool t));
         public static bool TryGetEnchantedItemSearchAll(this Item item, out EnchantedItem iGlobal) {
             iGlobal = null;
             if (item == null)
@@ -75,6 +72,12 @@ namespace WeaponEnchantments.Common.Utility
 			}
             else if (item.TryGetGlobalItem(out EnchantedAccessory enchantedAccessory)) {
                 iGlobal = enchantedAccessory;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedFishingPole enchantedFishingPole)) {
+                iGlobal = enchantedFishingPole;
+			}
+            else if (item.TryGetGlobalItem(out EnchantedTool enchantedTool)) {
+                iGlobal = enchantedTool;
 			}
 
             if (iGlobal != null) {

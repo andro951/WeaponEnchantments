@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "Kokopai";
 	}
+
 	[DropRules(
 		npcs: new int[] {
 			NPCID.Medusa,

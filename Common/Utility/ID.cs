@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace WeaponEnchantments.Common.Utility
 {
     public enum DamageTypeSpecificID {
@@ -18,6 +21,8 @@ namespace WeaponEnchantments.Common.Utility
         Weapons,
         Armor,
         Accessories,
+        FishingPoles,
+        Tools
     }
     public enum ArmorSlotSpecificID {
 		Head,
@@ -34,6 +39,7 @@ namespace WeaponEnchantments.Common.Utility
         ArmorPenetration,
         AutoReuse,
         BonusManaRegen,
+        CrateChance,
         CriticalStrikeChance,
         CriticalStrikeDamage,
         Damage,
@@ -41,6 +47,7 @@ namespace WeaponEnchantments.Common.Utility
         Defense,
         EnemyMaxSpawns,
         EnemySpawnRate,
+        FishingPower,
         GodSlayer,
         JumpSpeed,
         Knockback,
@@ -63,6 +70,19 @@ namespace WeaponEnchantments.Common.Utility
         WingTime,
         WhipRange
     }
+    public static class ID_Dictionaries
+    {
+        public static List<EnchantmentStat> WeaponStatDict = new List<EnchantmentStat>() {
+            EnchantmentStat.AttackSpeed,
+            EnchantmentStat.ArmorPenetration,
+            EnchantmentStat.AutoReuse,
+            EnchantmentStat.CriticalStrikeChance,
+            EnchantmentStat.Damage,
+            EnchantmentStat.Knockback,
+            EnchantmentStat.ManaUsage,
+            EnchantmentStat.Size,
+        };
+    }
     public enum WeaponStat : byte
     {
         AttackSpeed = 3,
@@ -70,9 +90,9 @@ namespace WeaponEnchantments.Common.Utility
         AutoReuse,
         CriticalStrikeChance = 7,
         Damage = 9,
-        Knockback = 16,
-        ManaUsage = 19,
-        Size = 32,
+        Knockback = 17,
+        ManaUsage = 20,
+        Size = 33,
     }
     public enum PermenantItemFields : short
 	{

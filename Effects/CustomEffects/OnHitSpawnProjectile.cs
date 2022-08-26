@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
 using static WeaponEnchantments.WEPlayer;
@@ -34,7 +35,7 @@ namespace WeaponEnchantments.Effects {
         public override string Tooltip => $"Spawns a projectile when hitting an enemy: {_projectilieDisplayName}";
 
 		public void OnAfterHit(NPC target, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
-            if (projectile != null && projectile.GetWEProjectile().skipOnHitEffects || target.type == NPCID.TargetDummy)
+            if (projectile != null && ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects || target.type == NPCID.TargetDummy)
                 return;
 
             if (_unique) {
@@ -45,7 +46,7 @@ namespace WeaponEnchantments.Effects {
 			}
 
             int newProjectileWhoAmI = Projectile.NewProjectile(projectile != null ? projectile.GetSource_FromThis() : item.GetSource_FromThis(), target.Center, Vector2.Zero, _projectileID, _damage, _knockback, wePlayer.Player.whoAmI);
-            Main.projectile[newProjectileWhoAmI].GetWEProjectile().skipOnHitEffects = true;
+            ((WEProjectile)Main.projectile[newProjectileWhoAmI].GetMyGlobalProjectile()).skipOnHitEffects = true;
         }
 	}
 }

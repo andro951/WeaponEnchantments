@@ -165,6 +165,25 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentSlotsOnAccessories;
 
+        [Label("Enchantment Slots On Fishing Poles")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnFishingPoles;
+
+        [Label("Enchantment Slots On Tools")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.\n" +
+			"The Clentaminator is the only tool so far.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnTools;
+
         //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]

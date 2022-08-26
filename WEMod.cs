@@ -20,6 +20,7 @@ using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
 using KokoLib;
+using OnProjectile = On.Terraria.Projectile;
 
 namespace WeaponEnchantments
 {
@@ -37,9 +38,11 @@ namespace WeaponEnchantments
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
+			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
 		}
+
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
 			if (item.ModItem is UnloadedItem)
@@ -66,6 +69,16 @@ namespace WeaponEnchantments
 			}
 
 			return enchantedItem.OnStack(item1, item2);
+		}
+
+		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
+			orig(self, thePlayer, itemType);
+
+			if (!thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole))
+				return;
+
+			int value = ContentSamples.ItemsByType[itemType].value;
+			enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
 		}
 
 		public static int counter = 0;

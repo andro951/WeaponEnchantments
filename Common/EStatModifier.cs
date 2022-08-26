@@ -191,22 +191,20 @@ namespace WeaponEnchantments.Common
 				}
 
 				tooltip = "";
-				if (baseTooltip > 0f) {
-					if (_base > 0f || _additive != 1f && minusOne) {
-						if (sign)
-							tooltip += "+";
+				if (_base > 0f || _additive != 1f && minusOne) {
+					if (sign)
+						tooltip += "+";
 
-						tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
-					}
-					else {
-						tooltip += $"{baseTooltip}";
-						if (sign)
-							tooltip += "x";
-					}
-
-					if (percent)
-						tooltip += "%";
+					tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
 				}
+				else {
+					tooltip += $"{baseTooltip}";
+					if (sign)
+						tooltip += "x";
+				}
+
+				if (percent)
+					tooltip += "%";
 
 				tooltip += FlatTooltip;
 			}

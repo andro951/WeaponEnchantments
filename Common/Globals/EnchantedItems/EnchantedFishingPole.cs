@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using WeaponEnchantments.Common.Utility;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
-namespace WeaponEnchantments.Common.Globals.EnchantedItems
+namespace WeaponEnchantments.Common.Globals
 {
-	public class EnchantedFishingPole : EnchantedItem
+	public class EnchantedFishingPole : EnchantedHeldItem
 	{
 		public override bool InstancePerEntity => true;
 
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return entity.fishingPole > 0;
+			return IsFishingRod(entity);
 		}
-
-		public override void CaughtFishStack(int type, ref int stack) {
-			base.CaughtFishStack(type, ref stack);
-		}
+		public override EItemType ItemType => EItemType.FishingPoles;
 	}
 }

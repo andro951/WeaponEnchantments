@@ -27,7 +27,7 @@ namespace WeaponEnchantments.Effects
 			if (strength < 0f)
 				strength *= -1f;
 			
-			return $"{strength.Percent()}% {DisplayName}";
+			return $"{strength.Percent()}% {DisplayName} (Also Saves Bait When Fishing)";
 		}
     }
 }

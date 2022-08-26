@@ -32,7 +32,7 @@ using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments
 {
-	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects
+	public class WEPlayer : ModPlayer, ISortedEnchantmentEffects, ISortedOnHitEffects
     {
 		#region fields/properties
 
@@ -106,12 +106,34 @@ namespace WeaponEnchantments
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
         public List<IModifyShootStats> CombinedModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
 
-		#endregion
+        #endregion
+
+        #region IL
+
+        public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
+            //Make vanilla crit roll 0
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchCall(out _),
+                i => i.MatchLdcI4(1),
+                i => i.MatchLdcI4(101),
+                i => i.MatchCallvirt(out _),
+                i => i.MatchLdloc(7),
+                i => i.MatchBgt(out _),
+                i => i.MatchLdcI4(1)
+            )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
+            c.Emit(OpCodes.Pop);
+            c.Emit(OpCodes.Ldc_I4_0);
+        }
+
+        #endregion
 
         #region General Override Hooks
 
         public override void Load() {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+            IL.Terraria.Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
         }
         public override void OnEnterWorld(Player player) {
 
@@ -141,22 +163,6 @@ namespace WeaponEnchantments
             if (LogMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
 
             #endregion
-        }
-        public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
-            //Make vanilla crit roll 0
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchCall(out _),
-                i => i.MatchLdcI4(1),
-                i => i.MatchLdcI4(101),
-                i => i.MatchCallvirt(out _),
-                i => i.MatchLdloc(7),
-                i => i.MatchBgt(out _),
-                i => i.MatchLdcI4(1)
-            )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
-            c.Emit(OpCodes.Pop);
-            c.Emit(OpCodes.Ldc_I4_0);
         }
         public override void Initialize() {
             enchantingTable = new EnchantingTable();
@@ -810,8 +816,8 @@ namespace WeaponEnchantments
             //Minion damage reduction from war enchantment
             if (projectile != null) {
                 WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
-                WEProjectile wEProjectile = projectile.GetWEProjectile();
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetWEProjectile().parent.minion;
+                WEProjectile wEProjectile = (WEProjectile)projectile.GetMyGlobalProjectile();
+                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetMyGlobalProjectile().parent.minion;
                 if (weGlobalNPC.myWarReduction > 1f && projectile != null && target.whoAmI != Player.MinionAttackTargetNPC && minionOrMinionChild) {
                     damage = (int)Math.Round(damage / weGlobalNPC.myWarReduction);
                 }
@@ -903,7 +909,7 @@ namespace WeaponEnchantments
             WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;
-            bool skipOnHitEffects = fromProjectile ? projectile.GetWEProjectile().skipOnHitEffects : false;
+            bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
             bool dummyTarget = target.type == NPCID.TargetDummy;
 
             Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
@@ -1187,6 +1193,9 @@ namespace WeaponEnchantments
                     return null;
             }
 
+            if (item.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole))
+                return null;
+
             return ApplyAutoReuseEnchants();
         }
         public bool? ApplyAutoReuseEnchants() {
@@ -1322,7 +1331,7 @@ namespace WeaponEnchantments
 		}
         private void UpdateEnchantmentEffects() {
             Equipment.UpdateArmorEnchantmentEffects();
-            Equipment.UpdateWeaponEnchantmentEffects();
+            Equipment.UpdateHeldItemEnchantmentEffects();
         }
         private void ApplyStatEffects() {
             foreach (EnchantmentStat key in CombinedVanillaStats.Keys) {
@@ -1352,6 +1361,9 @@ namespace WeaponEnchantments
                 case EnchantmentStat.Defense:
                     Player.statDefense = (int)sm.ApplyTo(Player.statDefense);
                     break;
+                case EnchantmentStat.FishingPower:
+                    Player.fishingSkill = (int)sm.ApplyTo(Player.fishingSkill);
+                    break;
                 case EnchantmentStat.JumpSpeed:
                     Player.jumpSpeedBoost = sm.ApplyTo(Player.jumpSpeedBoost);
                     break;
@@ -1364,10 +1376,6 @@ namespace WeaponEnchantments
                 case EnchantmentStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
                     break;
-                /*case EnchantmentStat.LifeSteal:
-                    canLifeSteal = true;
-                    lifeSteal = sm.ApplyTo(lifeSteal);
-                    break;*/
                 case EnchantmentStat.ManaRegen:
                     Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
                     break;
@@ -1974,6 +1982,22 @@ namespace WeaponEnchantments
 
 		#region Fishing
 
+		public override void AnglerQuestReward(float rareMultiplier, List<Item> rewardItems) {
+			base.AnglerQuestReward(rareMultiplier, rewardItems);
+		}
+		public override bool? CanConsumeBait(Item bait) {
+            if (GetPlayerModifierStrength(EnchantmentStat.AmmoCost, out float strength)) {
+                float baitMultiplier = 1f + bait.bait / 50f;
+                if (Player.accTackleBox)
+                    baitMultiplier += 0.5f;
+                
+                float combinedStrength = strength * baitMultiplier;
+                float rand = Main.rand.NextFloat();
+                return rand > combinedStrength;
+            }
+
+            return null;
+        }
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition) {
 			base.CatchFish(attempt, ref itemDrop, ref npcSpawn, ref sonar, ref sonarPosition);
 		}
@@ -1985,10 +2009,29 @@ namespace WeaponEnchantments
 		}
 		public override void ModifyFishingAttempt(ref FishingAttempt attempt) {
 			base.ModifyFishingAttempt(ref attempt);
-		}
+        }
+        public static void HookFishingCheck_RollDropLevels(ILContext il) {
+            var c = new ILCursor(il);
 
-		#endregion
-	}
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchCall(out _),
+                i => i.MatchLdcI4(100),
+                i => i.MatchCallvirt(out _),
+                i => i.MatchLdloc(5)
+            )) { throw new Exception("Failed to find instuctions HookFishingCheck_RollDropLevels"); }
+
+            c.EmitDelegate((int crateChance) => {
+                if (Main.LocalPlayer?.TryGetModPlayer(out WEPlayer wePlayer) == true) {
+                    if (wePlayer.CheckEnchantmentStats(EnchantmentStat.CrateChance, out float mult, 1f))
+                        crateChance = (int)Math.Round((float)crateChance * mult);
+                }
+
+                return crateChance;
+            });
+        }
+
+        #endregion
+    }
 	public static class PlayerFunctions {
         public static void CheckWeapon(this Item newItem, ref Item oldItem, Player player, int slot) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();

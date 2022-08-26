@@ -1,4 +1,5 @@
 ﻿using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility

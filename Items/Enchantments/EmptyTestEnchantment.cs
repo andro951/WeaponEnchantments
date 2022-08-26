@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
@@ -20,3 +20,4 @@ namespace WeaponEnchantments.Items.Enchantments {
 
 	public class EmptyTestEnchantmentBasic : EmptyTestEnchantment { }
 }
+*/

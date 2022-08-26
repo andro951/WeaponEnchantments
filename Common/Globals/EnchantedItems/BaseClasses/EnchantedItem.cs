@@ -135,7 +135,7 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Tracking (instance)
 
-        public virtual EItemType ItemType { get; } = EItemType.Weapons;
+        public virtual EItemType ItemType { get; }
         public bool inEnchantingTable = false;
         public bool trashItem = false;
         public bool favorited = false;
@@ -252,6 +252,8 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             #region Enchantments
+
+            clone.enchantments = new Item[EnchantingTable.maxEnchantments];
 
             if (resetGlobals) {
                 for (int i = 0; i < enchantments.Length; i++)
@@ -611,7 +613,7 @@ namespace WeaponEnchantments.Common.Globals
 		        i++;
             }
         }
-		public void GainXP(Item item, int xpInt, bool noMessage = false) {
+		public void GainXP(Item item, int xpInt) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             int currentLevel = levelBeforeBooster;
@@ -631,11 +633,6 @@ namespace WeaponEnchantments.Common.Globals
                 //Prevent overflow
                 Experience = int.MaxValue;
             }
-
-            //UpdateLevelAndValue();
-
-            if (noMessage)
-                return;
 
             //Already max level return
             if (currentLevel >= MAX_Level)
@@ -911,7 +908,7 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedItemStaticMethods {
         public static bool IsEnchantable(Item item) {
-            if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item)) {
+            if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
                 return true;
             }
             else {
@@ -919,7 +916,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static bool IsWeaponItem(Item item) {
-            if (item == null || item.IsAir)
+            if (item.NullOrAir())
                 return false;
 
             bool isWeapon;
@@ -938,17 +935,37 @@ namespace WeaponEnchantments.Common.Globals
             return isWeapon && !item.accessory;
         }
         public static bool IsArmorItem(Item item) {
-            if (item == null || item.IsAir)
+            if (item.NullOrAir())
                 return false;
 
             return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
         }
         public static bool IsAccessoryItem(Item item) {
-            if (item == null || item.IsAir)
+            if (item.NullOrAir())
                 return false;
 
             //Check for armor item is a fix for Reforgable armor mod setting armor to accessories
             return item.accessory && !IsArmorItem(item);
+        }
+        public static bool IsFishingRod(Item item) {
+            if (item.NullOrAir())
+                return false;
+
+            return item.fishingPole > 0;
+        }
+        public static bool IsTool(Item item) {
+            if (item.NullOrAir())
+                return false;
+
+			switch (item.type) {
+                case ItemID.Clentaminator:
+                case ItemID.BugNet:
+                case ItemID.GoldenBugNet:
+                case ItemID.FireproofBugNet:
+                    return true;
+                default:
+                    return false;
+			}
         }
         public static bool IsSameEnchantedType(this Item item, Item otherItem) {
             if (item == null || otherItem == null)
@@ -1181,8 +1198,8 @@ namespace WeaponEnchantments.Common.Globals
             //Update item Value
             iGlobal.UpdateItemValue();
 
-            if (iGlobal is EnchantedWeapon)
-                Main.LocalPlayer.GetWEPlayer().Equipment.UpdateWeaponEnchantmentEffects(item);
+            if (iGlobal is EnchantedHeldItem)
+                Main.LocalPlayer.GetWEPlayer().Equipment.UpdateHeldItemEnchantmentEffects(item);
 
             #region Debug
 

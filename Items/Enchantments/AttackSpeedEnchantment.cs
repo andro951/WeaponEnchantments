@@ -1,4 +1,6 @@
-﻿using WeaponEnchantments.Effects;
+﻿using System.Collections.Generic;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.Items.Enchantments
@@ -9,6 +11,14 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
 				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f },
+				{ EItemType.Armor, 0.25f },
+				{ EItemType.Accessories, 0.25f },
+				{ EItemType.FishingPoles, 1f },
+				{ EItemType.Tools, 1f }
 			};
 		}
 

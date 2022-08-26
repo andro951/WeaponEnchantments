@@ -17,19 +17,16 @@ namespace WeaponEnchantments.Common {
     public class PlayerEquipment {
         private static int vanillaArmorSlots = 3;       // Head, Chest, Leggings
         private static int vanillaAccesorySlots = 7;    // 5 normal, 1 demon heart, 1 master
-        public static uint lastWeaponUpdateTime;
 
         public Item HeldItem => heldItem[0];
         private Item[] heldItem = new Item[1];
         private Item[] Armor = new Item[vanillaArmorSlots];
         private Item[] Accesories;
-        Player owner;
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
             heldItem[0] = player.HeldItem;
 
-            owner = player;
             wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
@@ -79,13 +76,11 @@ namespace WeaponEnchantments.Common {
             wePlayer.EnchantmentEffects = enchantmentEffects;
             SortEnchantmentEffects(wePlayer);
         }
-        public void UpdateEnchantedWeaponEffects(EnchantedWeapon enchantedWeapon) {
+        public void UpdateEnchantedHeldItemEffects(EnchantedHeldItem enchantedHeldItem) {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
-            GetEnchantmentEffects(enchantedWeapon, enchantmentEffects);
-            enchantedWeapon.EnchantmentEffects = enchantmentEffects;
-            SortEnchantmentEffects(enchantedWeapon);
-            enchantedWeapon.lastWeaponUpdateTime = Main.GameUpdateCount;
-            lastWeaponUpdateTime = Main.GameUpdateCount;
+            GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
+            enchantedHeldItem.EnchantmentEffects = enchantmentEffects;
+            SortEnchantmentEffects(enchantedHeldItem);
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
@@ -104,16 +99,23 @@ namespace WeaponEnchantments.Common {
             IEnumerable<EnchantmentEffect> enchantmentEffects = entity.EnchantmentEffects;
             entity.PassiveEffects = enchantmentEffects.OfType<IPassiveEffect>().ToList();
             entity.StatEffects = enchantmentEffects.OfType<StatEffect>().ToList();
-            entity.OnHitEffects = enchantmentEffects.OfType<IOnHitEffect>().ToList();
             entity.ModifyShootStatEffects = enchantmentEffects.OfType<IModifyShootStats>().ToList();
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
 	        entity.PlayerSetEffects = new SortedList<EnchantmentStat, PlayerSetEffect>(entity.EnchantmentEffects.OfType<PlayerSetEffect>().ToSortedList());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
-            entity.OnHitDebuffs = GetBuffEffects(buffEffects.OfType<OnHitTargetBuffEffectGeneral>());
-            entity.OnHitBuffs = GetBuffEffects(buffEffects.OfType<OnHitPlayerBuffEffectGeneral>());
             entity.OnTickBuffs = GetBuffEffects(buffEffects.OfType<OnTickPlayerBuffEffectGeneral>());
-		}
+
+            SortOnHitEffects(entity, enchantmentEffects, buffEffects);
+        }
+        public void SortOnHitEffects(ISortedEnchantmentEffects entity, IEnumerable<EnchantmentEffect> enchantmentEffects, IEnumerable<BuffEffect> buffEffects) {
+            if (entity is not ISortedOnHitEffects onHitEffectsEntity)
+                return;
+
+            onHitEffectsEntity.OnHitEffects = enchantmentEffects.OfType<IOnHitEffect>().ToList();
+            onHitEffectsEntity.OnHitDebuffs = GetBuffEffects(buffEffects.OfType<OnHitTargetBuffEffectGeneral>());
+            onHitEffectsEntity.OnHitBuffs = GetBuffEffects(buffEffects.OfType<OnHitPlayerBuffEffectGeneral>());
+        }
         private SortedDictionary<EnchantmentStat, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<T> statEffects) where T : IApplyStats {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>();
             foreach (T statEffect in statEffects) {
@@ -131,28 +133,32 @@ namespace WeaponEnchantments.Common {
 		    return result;
 	    }
         public void CombineDictionaries() {
-			if (!HeldItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
-				enchantedWeapon = new EnchantedWeapon();
+			if (!HeldItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+				enchantedHeldItem = new EnchantedWeapon();
 
-			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedWeapon.VanillaStats, true);
-            wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedWeapon.OnTickBuffs);
+			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
+            wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedHeldItem.OnTickBuffs);
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
+            if (!item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+                enchantedHeldItem = new EnchantedWeapon();
+
+            wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedHeldItem.ModifyShootStatEffects).ToList();
+            wePlayer.CombinedPlayerSetEffects = wePlayer.PlayerSetEffects.CombineSortedLists(enchantedHeldItem.PlayerSetEffects);
+            wePlayer.CombinedEnchantmentStats = CombineStatEffectDictionaries(wePlayer.EnchantmentStats, enchantedHeldItem.EnchantmentStats);
+
             if (!item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
                 enchantedWeapon = new EnchantedWeapon();
 
             wePlayer.CombinedOnHitEffects = wePlayer.OnHitEffects.Concat(enchantedWeapon.OnHitEffects).ToList();
-            wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedWeapon.ModifyShootStatEffects).ToList();
-	        wePlayer.CombinedPlayerSetEffects = wePlayer.PlayerSetEffects.CombineSortedLists(enchantedWeapon.PlayerSetEffects);
-            wePlayer.CombinedEnchantmentStats = CombineStatEffectDictionaries(wePlayer.EnchantmentStats, enchantedWeapon.EnchantmentStats);
             wePlayer.CombinedOnHitDebuffs = CombineBuffEffectDictionaries(wePlayer.OnHitDebuffs, enchantedWeapon.OnHitDebuffs);
             wePlayer.CombinedOnHitBuffs = CombineBuffEffectDictionaries(wePlayer.OnHitBuffs, enchantedWeapon.OnHitBuffs);
         }
         private SortedDictionary<EnchantmentStat, EStatModifier> CombineStatEffectDictionaries(SortedDictionary<EnchantmentStat, EStatModifier> playerDictionary, SortedDictionary<EnchantmentStat, EStatModifier> weaponDictionary, bool vallinllaStatCheck = false) {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
             foreach (EnchantmentStat key in weaponDictionary.Keys) {
-                if (!vallinllaStatCheck || !WeaponStatDict.Contains(key))
+                if (!vallinllaStatCheck || !ID_Dictionaries.WeaponStatDict.Contains(key))
                     result.AddOrCombine(weaponDictionary[key]);
 			}
 
@@ -191,12 +197,12 @@ namespace WeaponEnchantments.Common {
             return FilterEnchantedItems(GetAllArmor()).OfType<EnchantedEquipItem>();
         }
 
-        private EnchantedWeapon GetEnchantedWeapon(Item item) {
-            if (item != null && item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
-                return enchantedWeapon;
+        private EnchantedHeldItem GetEnchantedHeldItem(Item item) {
+            if (item != null && item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+                return enchantedHeldItem;
 
-            if (HeldItem.TryGetEnchantedItem(out enchantedWeapon))
-                return enchantedWeapon;
+            if (HeldItem.TryGetEnchantedItem(out enchantedHeldItem))
+                return enchantedHeldItem;
 
             return null;
 		}
@@ -209,10 +215,10 @@ namespace WeaponEnchantments.Common {
             UpdateEnchantedEquipItemEffects(GetEnchantedEquipItems());
         }
 
-        public void UpdateWeaponEnchantmentEffects(Item item = null) {
-            EnchantedWeapon enchantedWeapon = GetEnchantedWeapon(item);
-            if (enchantedWeapon != null)
-                UpdateEnchantedWeaponEffects(enchantedWeapon);
+        public void UpdateHeldItemEnchantmentEffects(Item item = null) {
+            EnchantedHeldItem enchantedHeldItem = GetEnchantedHeldItem(item);
+            if (enchantedHeldItem != null)
+                UpdateEnchantedHeldItemEffects(enchantedHeldItem);
 		}
 
         public override bool Equals(object obj) {
