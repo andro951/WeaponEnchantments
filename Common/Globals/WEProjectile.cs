@@ -108,6 +108,7 @@ namespace WeaponEnchantments.Common.Globals
 
             Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f);
 
+            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f);
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
                 if (NPCHitCooldownMultiplier > 1f) {
