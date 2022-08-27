@@ -578,24 +578,9 @@ namespace WeaponEnchantments
                     continue;
 
                 int itemsPlaced = 0;
-                int chestID;
-                // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
-                // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                switch (Main.tile[chest.x, chest.y].TileType) {
-                    case 21:
-                    case 441:
-                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36;
-                        break;
-                    case 467:
-                    case 468:
-                        chestID = Main.tile[chest.x, chest.y].TileFrameX / 36 + 100;
-                        break;
-                    default:
-                        chestID = -1;
-                        break;
-                }
 
-                GetChestLoot((ChestID)chestID, out List<int> itemTypes, out float chance);
+                ChestID chestID = GetChestIDFromChest(chest);
+                GetChestLoot(chestID, out List<int> itemTypes, out float chance);
 
                 if (chance <= 0f)
                     continue;
@@ -610,6 +595,23 @@ namespace WeaponEnchantments
 
                     itemsPlaced++;
                 }
+            }
+        }
+        public static ChestID GetChestIDFromChest(Chest chest) {
+            Tile tile = Main.tile[chest.x, chest.y];
+            ushort tileType = tile.TileType;
+            short tileFrameX = tile.TileFrameX;
+            // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
+            // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
+            switch (tileType) {
+                case TileID.Containers:
+                case TileID.FakeContainers:
+                    return (ChestID)(tileFrameX / 36);
+                case TileID.Containers2:
+                case TileID.FakeContainers2:
+                    return (ChestID)(tileFrameX / 36 + 100);
+                default:
+                    return ChestID.None;
             }
         }
         public static void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
