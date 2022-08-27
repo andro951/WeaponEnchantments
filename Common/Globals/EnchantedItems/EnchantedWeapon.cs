@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
     {
+
         #region Stats
 
         //New system
