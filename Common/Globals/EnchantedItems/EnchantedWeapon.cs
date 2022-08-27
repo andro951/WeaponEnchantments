@@ -25,7 +25,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
+    public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
     {
         #region Constants
 
@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Common.Globals
         //public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         //public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         //public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
-	    public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         //public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
 
@@ -73,7 +73,6 @@ namespace WeaponEnchantments.Common.Globals
         public bool trackedWeapon = false;
         public bool hoverItem = false;
         private bool _stack0 = false;
-        public uint lastWeaponUpdateTime;
         public bool Stack0 {
             get {
                 if (_stack0) {
@@ -140,52 +139,12 @@ namespace WeaponEnchantments.Common.Globals
                 #endregion
             }
 
-			if (!Main.mouseItem.IsSameEnchantedItem(itemClone))
+            if (!Main.mouseItem.IsSameEnchantedItem(itemClone))
                 clone.trackedWeapon = false;
 
             return clone;
         }
-		public override void LoadData(Item item, TagCompound tag) {
-            /*string name = "EnchantedItem";
-            string mod = "WeaponEnchantments";
-
-
-            bool loadFromCloud = Main.ActiveWorldFileData.IsCloudSave;
-            string path = Main.worldPathName;
-
-            path = Path.ChangeExtension(path, ".twld");
-
-            //if (!FileUtilities.Exists(path, isCloudSave))
-            //    return;
-            bool isCloudSave = loadFromCloud;
-            byte[] buf = FileUtilities.ReadAllBytes(path, isCloudSave);
-
-            if (buf[0] != 0x1F || buf[1] != 0x8B) {
-                //LoadLegacy(buf);
-                return;
-            }
-
-            var tag2 = TagIO.FromStream(new MemoryStream(buf));
-            var list = tag2.GetList<TagCompound>("globalData");
-            foreach (var tag3 in list) {
-                if (ModContent.TryFind(mod, name, out GlobalItem globalItemBase) && item.TryGetGlobalItem(globalItemBase, out var globalItem)) {
-                    try {
-                        globalItem.LoadData(item, tag3.GetCompound("data"));
-                    }
-                    catch (Exception e) {
-                        //throw new CustomModDataException(globalItem.Mod, $"Error in reading custom player data for {globalItem.FullName}", e);
-                    }
-                }
-                else {
-                    //Unloaded GlobalItems and GlobalItems that are no longer valid on an item (e.g. through AppliesToEntity)
-                    //item.GetGlobalItem<UnloadedGlobalItem>().data.Add(tag3);
-                }
-            }*/
-
-            //LoadPlayers()
-            //ItemIO.LoadGlobals(Item item, IList<TagCompound> list)
-            //GlobalItem.LoadData(Item item, TagCompound tag)
-
+        public override void LoadData(Item item, TagCompound tag) {
             base.LoadData(item, tag);
 
             #region Tracking (instance)
@@ -194,11 +153,9 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            _experience = tag.Get<int>("experience");
-
         }
         public override void SaveData(Item item, TagCompound tag) {
-			base.SaveData(item, tag);
+            base.SaveData(item, tag);
 
             #region Tracking (instance)
 
@@ -206,8 +163,8 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
         }
-		public override void NetSend(Item item, BinaryWriter writer) {
-			base.NetSend(item, writer);
+        public override void NetSend(Item item, BinaryWriter writer) {
+            base.NetSend(item, writer);
 
             #region Tracking (instance)
 
@@ -215,8 +172,8 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
         }
-		public override void NetReceive(Item item, BinaryReader reader) {
-			base.NetReceive(item, reader);
+        public override void NetReceive(Item item, BinaryReader reader) {
+            base.NetReceive(item, reader);
 
             #region Tracking (instance)
 
@@ -243,7 +200,7 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-		protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
+        protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
             if (Enchanted) {
@@ -265,14 +222,14 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-		protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
+        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
         protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {item.GetWeaponInfusionPower()}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
             return
                 $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
-		public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
+        public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             if (!WEMod.serverConfig.CritPerLevelDisabled) {
                 crit += levelBeforeBooster * GlobalStrengthMultiplier;
             }
@@ -283,90 +240,9 @@ namespace WeaponEnchantments.Common.Globals
             damage *= infusionDamageMultiplier;
             CheckEnchantmentStatsForModifier(ref damage, EnchantmentStat.Damage);
         }
-		public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
+        public override void ModifyWeaponKnockback(Item item, Player player, ref StatModifier knockback) {
             CheckEnchantmentStatsForModifier(ref knockback, EnchantmentStat.Knockback);
         }
-		public override void ModifyManaCost(Item item, Player player, ref float reduce, ref float mult) {
-            if (CheckGetModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
-                eStatModifier.ApplyTo(ref reduce, ref mult, item);
-        }
-		public override float UseSpeedMultiplier(Item item, Player player) {
-            return GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
-        }
-		public override void ModifyItemScale(Item item, Player player, ref float scale) {
-            CheckEnchantmnetStatsApplyTo(ref scale, EnchantmentStat.Size);
-        }
-		public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
-            /*float rand = Main.rand.NextFloat();
-            float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);
-
-            //True means it will consume ammo
-            return rand > ammoSaveChance;*/
-            return CheckConsumeAmmoEffect(weapon, ammo, player);
-        }
-        public override bool ConsumeItem(Item item, Player player) {
-            return CheckConsumeAmmoEffect(item, item, player);
-        }
-        private bool CheckConsumeAmmoEffect(Item weapon, Item ammo, Player player) {
-            if (GetPlayerModifierStrength(player, EnchantmentStat.AmmoCost, out float strength)) {
-                float weaponChance;
-                switch (weapon.type) {
-                    case ItemID.VortexBeater:
-                    case ItemID.Phantasm:
-                    case ItemID.SDMG:
-                        weaponChance = 1f / 3f;
-                        break;
-                    case ItemID.Celeb2:
-                    case ItemID.Gatligator:
-                    case ItemID.Megashark:
-                    case ItemID.ChainGun:
-                        weaponChance = 0.5f;
-                        break;
-                    case ItemID.CandyCornRifle:
-                    case ItemID.Minishark:
-                        weaponChance = 2f / 3f;
-                        break;
-                    default:
-                        weaponChance = 1f;
-                        break;
-                }
-
-                if (player.magicQuiver && AmmoID.Sets.IsArrow[weapon.useAmmo])
-                    weaponChance *= 0.8f;
-
-                if (player.ammoBox)
-                    weaponChance *= 0.8f;
-
-                if (player.ammoPotion)
-                    weaponChance *= 0.8f;
-
-                if (player.huntressAmmoCost90)
-                    weaponChance *= 0.9f;
-
-                if (player.chloroAmmoCost80)
-                    weaponChance *= 0.8f;
-
-                if (player.ammoCost80)
-                    weaponChance *= 0.8f;
-
-                if (player.ammoCost75)
-                    weaponChance *= 0.75f;
-
-                if (weapon.CountsAsClass(DamageClass.Throwing)) {
-                    if (player.ThrownCost50)
-                        weaponChance *= 0.5f;
-
-                    if (player.ThrownCost33)
-                        weaponChance *= 1f / 3f;
-				}
-
-                float combinedStrength = strength / weaponChance;
-                float rand = Main.rand.NextFloat();
-                return rand > combinedStrength;
-            }
-
-            return true;
-		}
         public override bool? CanAutoReuseItem(Item item, Player player) {
             //TODO, seperate bool effects into it's own dictionary of bool?
 
@@ -421,14 +297,14 @@ namespace WeaponEnchantments.Common.Globals
                 return null;
 
             bool? returnValue = null;
-            foreach(IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
+            foreach (IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
                 bool? useItem = effect.UseItem(item, player);
                 if (useItem != null) {
                     if (returnValue == false) {
                         returnValue = useItem;
-					}
-				}
-			}
+                    }
+                }
+            }
 
             //CatastrophicRelease
             if (eStats.ContainsKey("CatastrophicRelease")) {
@@ -460,10 +336,10 @@ namespace WeaponEnchantments.Common.Globals
 
             return returnValue;
         }
-		public override bool CanUseItem(Item item, Player player) {
+        public override bool CanUseItem(Item item, Player player) {
 
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            
+
             //stack0
             if (Stack0) {
                 Restock(item);
@@ -504,50 +380,6 @@ namespace WeaponEnchantments.Common.Globals
                         WEModSystem.stolenItemToBeCleared = i;
                 }
             }
-        }
-        protected void CheckEnchantmentStatsForModifier(ref StatModifier statModifier, EnchantmentStat enchantmentStat) {
-            if (VanillaStats.ContainsKey(enchantmentStat))
-                statModifier = statModifier.CombineWith(VanillaStats[enchantmentStat].StatModifier);
-        }
-        protected void CheckEnchantmnetStatsApplyTo(ref float value, EnchantmentStat enchantmentStat) {
-            if (VanillaStats.ContainsKey(enchantmentStat))
-                VanillaStats[enchantmentStat].ApplyTo(ref value);
-		}
-        protected bool CheckGetModifier(EnchantmentStat enchantmentStat, out EStatModifier m) {
-            if (!VanillaStats.ContainsKey(enchantmentStat)) {
-                m = null;
-                return false;
-            }
-
-            m = VanillaStats[enchantmentStat];
-            return true;
-		}
-        public float GetVanillaModifierStrength(EnchantmentStat enchantmentStat) {
-            if (VanillaStats.ContainsKey(enchantmentStat))
-                return VanillaStats[enchantmentStat].Strength;
-
-            return 1f;
-        }
-        protected bool GetPlayerModifierStrength(Player player, EnchantmentStat enchantmentStat, out float strength) {
-            WEPlayer wePlayer = player.GetWEPlayer();
-            strength = 0f;
-            if (wePlayer.CombinedEnchantmentStats.ContainsKey(enchantmentStat)) {
-                strength = wePlayer.CombinedEnchantmentStats[enchantmentStat].Strength;
-                return true;
-            }
-
-            return false;
-		}
-        protected bool GetPlayerModifierStrengthForTooltip(Player player, EnchantmentStat enchantmentStat, out float strength) {
-            WEPlayer wePlayer = player.GetWEPlayer();
-            strength = 1f;
-            if (wePlayer.EnchantmentStats.ContainsKey(enchantmentStat))
-                wePlayer.EnchantmentStats[enchantmentStat].ApplyTo(ref strength);
-
-            if (EnchantmentStats.ContainsKey(enchantmentStat))
-                EnchantmentStats[enchantmentStat].ApplyTo(ref strength);
-
-            return strength != 1f;
         }
     }
 
