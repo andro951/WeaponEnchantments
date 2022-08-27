@@ -612,7 +612,7 @@ namespace WeaponEnchantments
                 }
             }
         }
-        public void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
+        public static void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
             //TODO: replace the case numbers with the CestIDs
             chance = ChestSpawnChance;
             itemTypes = new List<int>();
