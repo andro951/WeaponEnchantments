@@ -27,12 +27,6 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
     {
-        #region Constants
-
-        public static List<EnchantmentStat> WeaponStatDict = Enum.GetValues(typeof(WeaponStat)).Cast<EnchantmentStat>().ToList();
-
-        #endregion
-
         #region Stats
 
         //New system
@@ -297,7 +291,7 @@ namespace WeaponEnchantments.Common.Globals
                 return null;
 
             bool? returnValue = null;
-            foreach (IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
+            foreach(IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
                 bool? useItem = effect.UseItem(item, player);
                 if (useItem != null) {
                     if (returnValue == false) {
