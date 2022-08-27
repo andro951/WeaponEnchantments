@@ -103,6 +103,7 @@ namespace WeaponEnchantments.Common {
             entity.VanillaStats = GetStatEffectDictionary(entity.StatEffects.OfType<IVanillaStat>());
             entity.EnchantmentStats = GetStatEffectDictionary(entity.StatEffects.OfType<INonVanillaStat>());
 	        entity.PlayerSetEffects = new SortedList<EnchantmentStat, PlayerSetEffect>(entity.EnchantmentEffects.OfType<PlayerSetEffect>().ToSortedList());
+            entity.BoolEffects = GetBoolEffectDictionary(entity.EnchantmentEffects.OfType<BoolEffect>());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
             entity.OnTickBuffs = GetBuffEffects(buffEffects.OfType<OnTickPlayerBuffEffectGeneral>());
 
@@ -124,7 +125,15 @@ namespace WeaponEnchantments.Common {
 
             return result;
         }
-	    private SortedDictionary<short, BuffStats> GetBuffEffects<T>(IEnumerable<T> buffEffects) where T : BuffEffect {
+        private SortedDictionary<EnchantmentStat, bool> GetBoolEffectDictionary(IEnumerable<BoolEffect> boolEffects) {
+            SortedDictionary<EnchantmentStat, bool> result = new SortedDictionary<EnchantmentStat, bool>();
+            foreach(BoolEffect boolEffect in boolEffects) {
+                result.AddOrCombine(boolEffect);
+			}
+
+            return result;
+		}
+        private SortedDictionary<short, BuffStats> GetBuffEffects<T>(IEnumerable<T> buffEffects) where T : BuffEffect {
 		    SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>();
 		    foreach	(T buffEffect in buffEffects) {
 			    result.AddOrCombine(buffEffect);
@@ -138,6 +147,7 @@ namespace WeaponEnchantments.Common {
 
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
             wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedHeldItem.OnTickBuffs);
+            wePlayer.CombinedBoolEffects = CombineBoolEffectDictionaries(wePlayer.CombinedBoolEffects, enchantedHeldItem.BoolEffects);
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
@@ -155,20 +165,28 @@ namespace WeaponEnchantments.Common {
             wePlayer.CombinedOnHitDebuffs = CombineBuffEffectDictionaries(wePlayer.OnHitDebuffs, enchantedWeapon.OnHitDebuffs);
             wePlayer.CombinedOnHitBuffs = CombineBuffEffectDictionaries(wePlayer.OnHitBuffs, enchantedWeapon.OnHitBuffs);
         }
-        private SortedDictionary<EnchantmentStat, EStatModifier> CombineStatEffectDictionaries(SortedDictionary<EnchantmentStat, EStatModifier> playerDictionary, SortedDictionary<EnchantmentStat, EStatModifier> weaponDictionary, bool vallinllaStatCheck = false) {
+        private SortedDictionary<EnchantmentStat, EStatModifier> CombineStatEffectDictionaries(SortedDictionary<EnchantmentStat, EStatModifier> playerDictionary, SortedDictionary<EnchantmentStat, EStatModifier> heldItemDictionary, bool vallinllaStatCheck = false) {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
-            foreach (EnchantmentStat key in weaponDictionary.Keys) {
+            foreach (EnchantmentStat key in heldItemDictionary.Keys) {
                 if (!vallinllaStatCheck || !ID_Dictionaries.WeaponStatDict.Contains(key))
-                    result.AddOrCombine(weaponDictionary[key]);
+                    result.AddOrCombine(heldItemDictionary[key]);
 			}
 
             return result;
 		}
-        private SortedDictionary<short, BuffStats> CombineBuffEffectDictionaries(SortedDictionary<short, BuffStats> playerDictionary, SortedDictionary<short, BuffStats> weaponDictionary) {
+        private SortedDictionary<short, BuffStats> CombineBuffEffectDictionaries(SortedDictionary<short, BuffStats> playerDictionary, SortedDictionary<short, BuffStats> healdItemDictionary) {
             SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
-            foreach (short buffID in weaponDictionary.Keys) {
-                result.AddOrCombine(weaponDictionary[buffID]);
+            foreach (short buffID in healdItemDictionary.Keys) {
+                result.AddOrCombine(healdItemDictionary[buffID]);
             }
+
+            return result;
+        }
+        private SortedDictionary<EnchantmentStat, bool> CombineBoolEffectDictionaries(SortedDictionary<EnchantmentStat, bool> playerDictionary, SortedDictionary<EnchantmentStat, bool> heldItemDictionary) {
+            SortedDictionary<EnchantmentStat, bool> result = new SortedDictionary<EnchantmentStat, bool>(playerDictionary);
+            foreach(EnchantmentStat key in heldItemDictionary.Keys) {
+                result.AddOrCombine((key, heldItemDictionary[key]));
+			}
 
             return result;
         }

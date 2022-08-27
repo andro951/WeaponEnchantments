@@ -15,6 +15,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Items {
 	public abstract class Enchantment : ModItem {
@@ -161,6 +162,10 @@ namespace WeaponEnchantments.Items {
 		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
 		public Dictionary<EItemType, float> AllowedList { protected set; get; }
+		public virtual List<WeightedPair> NpcDropTypes => null;
+		public virtual List<WeightedPair> NpcAIDrops => null;
+		public virtual Dictionary<ChestID, float> ChestDrops => null;
+		public virtual Dictionary<CrateID, float> CrateDrops => null;
 
 		#endregion
 
@@ -375,6 +380,14 @@ namespace WeaponEnchantments.Items {
 				UpdateContributorsList(this, allForOne ? null : EnchantmentTypeName);
 			}
 
+			if (NpcDropTypes != null) {
+				foreach (var type in NpcDropTypes) {
+					int npcType = type.ID;
+					WeightedPair enchantmentPair = new WeightedPair(Type, type.Weight);
+					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentPair);
+				}
+			}
+
 			/*if(printLocalization) {
 				UpdateEnchantmentLocalization(this);
 			}*/
@@ -457,9 +470,9 @@ namespace WeaponEnchantments.Items {
 			}
 
 			//Default Stat
-			if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
-				AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			}
+			//if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
+			//	AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
+			//}
 
 			finishedOneTimeSetup = true;
 		}
@@ -675,7 +688,7 @@ namespace WeaponEnchantments.Items {
 
 			fullTooltip.AddRange(GetAllowedListTooltips());
 
-			if (Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
+			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*",

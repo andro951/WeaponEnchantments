@@ -84,6 +84,7 @@ namespace WeaponEnchantments
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedList<EnchantmentStat, PlayerSetEffect> PlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
+        public SortedDictionary<EnchantmentStat, bool> BoolEffects { set; get; } = new SortedDictionary<EnchantmentStat, bool>();
 	    public SortedDictionary<short, BuffStats> OnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> OnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
@@ -100,7 +101,8 @@ namespace WeaponEnchantments
 	    public SortedDictionary<EnchantmentStat, EStatModifier> CombinedEnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> CombinedVanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedList<EnchantmentStat, PlayerSetEffect> CombinedPlayerSetEffects { set; get; } = new SortedList<EnchantmentStat, PlayerSetEffect>();
-	    public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
+        public SortedDictionary<EnchantmentStat, bool> CombinedBoolEffects { set; get; } = new SortedDictionary<EnchantmentStat, bool>();
+        public SortedDictionary<short, BuffStats> CombinedOnHitDebuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnHitBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
@@ -1983,7 +1985,7 @@ namespace WeaponEnchantments
 		#region Fishing
 
 		public override void AnglerQuestReward(float rareMultiplier, List<Item> rewardItems) {
-			base.AnglerQuestReward(rareMultiplier, rewardItems);
+			//TODO: make this drop essence
 		}
 		public override bool? CanConsumeBait(Item bait) {
             if (GetPlayerModifierStrength(EnchantmentStat.AmmoCost, out float strength)) {
@@ -1999,16 +2001,195 @@ namespace WeaponEnchantments
             return null;
         }
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition) {
-			base.CatchFish(attempt, ref itemDrop, ref npcSpawn, ref sonar, ref sonarPosition);
-		}
+            if (attempt.crate || npcSpawn > 0 || attempt.veryrare || attempt.legendary || itemDrop != -1 && attempt.questFish == itemDrop)
+                return;
+
+			if (Main.anglerQuest > 0 && attempt.questFish != -1) {
+                if (CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float questFishChance)) {
+                    float weightedChance = .1f;
+                    int questFish = attempt.questFish;
+                    bool correctZone = false;
+                    bool correctHeight = false;
+
+                    //Zones
+                    switch (questFish) {
+                        case ItemID.BumblebeeTuna:
+                            if (attempt.inHoney)
+                                correctZone = true;
+                            break;
+                        case ItemID.Cursedfish:
+                        case ItemID.InfectedScabbardfish:
+                        case ItemID.EaterofPlankton:
+                            if (Player.ZoneCorrupt)
+                                correctZone = true;
+                            break;
+                        case ItemID.BloodyManowar:
+                        case ItemID.Ichorfish:
+                            if (Player.ZoneCrimson)
+                                correctZone = true;
+                            break;
+                        case ItemID.MirageFish:
+                        case ItemID.Pixiefish:
+                        case ItemID.UnicornFish:
+                            if (Player.ZoneHallow)
+                                correctZone = true;
+                            break;
+                        case ItemID.Pengfish:
+                        case ItemID.TundraTrout:
+                        case ItemID.Fishron:
+                        case ItemID.MutantFlinxfin:
+                            if (Player.ZoneSnow)
+                                correctZone = true;
+                            break;
+                        case ItemID.Catfish:
+                        case ItemID.Derpfish:
+                        case ItemID.TropicalBarracuda:
+                        case ItemID.Mudfish:
+                            if (Player.ZoneJungle)
+                                correctZone = true;
+                            break;
+                        case ItemID.AmanitaFungifin:
+                            if (Player.ZoneGlowshroom)
+                                correctZone = true;
+                            break;
+                        case ItemID.CapnTunabeard:
+                        case ItemID.Clownfish:
+                            bool ocean = (attempt.X < 380 || attempt.X > Main.maxTilesX - 380) && attempt.waterTilesCount > 1000;
+                            if (ocean)
+                                correctZone = true;
+                            break;
+                        case ItemID.ScarabFish:
+                        case ItemID.ScorpioFish:
+                            if (Player.ZoneDesert)
+                                correctZone = true;
+                            break;
+                        default:
+                            correctZone = true;
+                            break;
+                    }
+
+                    //heightLevels (Higher number is lower level in the game)
+                    switch (questFish) {
+                        case ItemID.Hungerfish:
+                        case ItemID.DemonicHellfish:
+                        case ItemID.GuideVoodooFish:
+                        case ItemID.Fishotron:
+                            if (attempt.heightLevel > 2)
+                                correctHeight = true;
+                            break;
+                        case ItemID.Fishron:
+                            if (attempt.heightLevel >= 2)
+                                correctHeight = true;
+                            break;
+                        case ItemID.MirageFish:
+                        case ItemID.MutantFlinxfin:
+                        case ItemID.Bonefish:
+                        case ItemID.Batfish:
+                        case ItemID.Jewelfish:
+                        case ItemID.Spiderfish:
+                            if (attempt.heightLevel > 1)
+                                correctHeight = true;
+                            break;
+                        case ItemID.TundraTrout:
+                        case ItemID.Catfish:
+                        case ItemID.Derpfish:
+                        case ItemID.TropicalBarracuda:
+                        case ItemID.Bunnyfish:
+                        case ItemID.DynamiteFish:
+                        case ItemID.ZombieFish:
+                            if (attempt.heightLevel == 1)
+                                correctHeight = true;
+                            break;
+                        case ItemID.Pixiefish:
+                        case ItemID.Pengfish:
+                        case ItemID.Harpyfish:
+                        case ItemID.FallenStarfish:
+                        case ItemID.TheFishofCthulu:
+                            if (attempt.heightLevel < 2)
+                                correctHeight = true;
+                            break;
+                        case ItemID.Mudfish:
+                            if (attempt.heightLevel > 0)
+                                correctHeight = true;
+                            break;
+                        case ItemID.AmanitaFungifin:
+                        case ItemID.Cloudfish:
+                        case ItemID.Wyverntail:
+                        case ItemID.Angelfish:
+                            if (attempt.heightLevel == 0)
+                                correctHeight = true;
+                            break;
+                        case ItemID.Dirtfish:
+                            if (attempt.heightLevel > 0 && attempt.heightLevel < 3)
+                                correctHeight = true;
+                            break;
+                        default:
+                            correctHeight = true;
+                            break;
+                    }
+
+                    if (correctZone)
+                        weightedChance *= 3.16228f;
+
+                    if (correctHeight)
+                        weightedChance *= 3.16228f;
+
+                    questFishChance *= weightedChance;
+
+                    float rand = Main.rand.NextFloat();
+                    if (rand <= questFishChance) {
+                        itemDrop = attempt.questFish;
+                        $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
+                    }
+					else {
+                        $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
+                    }
+                }
+			}
+
+            if (!attempt.inHoney && !attempt.inLava && CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
+                if (attempt.bobberType == ProjectileID.BobberBloody)
+                    spawnChance *= 2f;
+
+                if (Main.dayTime)
+                    spawnChance *= 0.2f;
+
+                float rand = Main.rand.NextFloat();
+                if (rand <= spawnChance) {//TODO: convert to WeightedPair
+                    List<(float, int)> npcs = new List<(float, int)>() {
+                        { (40f, NPCID.Shark) }
+                    };
+                    if (!Main.dayTime) {
+                        npcs.Add((70f, NPCID.ZombieMerman));
+                        npcs.Add((70f, NPCID.EyeballFlyingFish));
+                    }
+
+                    if (Main.hardMode) {
+						if (!Main.dayTime) {
+                            npcs.Add((50f, NPCID.GoblinShark));
+                            npcs.Add((50f, NPCID.BloodEelHead));
+                            npcs.Add((30f, NPCID.BloodNautilus));
+                        }
+
+                        npcs.Add((20f, NPCID.DukeFishron));
+                        npcs.Add((30f, NPCID.Medusa));
+                        npcs.Add((40f, NPCID.WyvernHead));
+                    }
+
+                    npcSpawn = npcs.GetOneFromWeightedList(1f);
+                }
+            }
+        }
 		public override void GetFishingLevel(Item fishingRod, Item bait, ref float fishingLevel) {
-			base.GetFishingLevel(fishingRod, bait, ref fishingLevel);
+            if (fishingRod.TryGetEnchantedItem(out EnchantedFishingPole pole))
+                fishingLevel += pole.levelBeforeBooster / 100f * GlobalStrengthMultiplier;
 		}
 		public override void ModifyCaughtFish(Item fish) {
 			base.ModifyCaughtFish(fish);
 		}
 		public override void ModifyFishingAttempt(ref FishingAttempt attempt) {
-			base.ModifyFishingAttempt(ref attempt);
+            if (!attempt.CanFishInLava && CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult))
+                attempt.CanFishInLava = true;
         }
         public static void HookFishingCheck_RollDropLevels(ILContext il) {
             var c = new ILCursor(il);
@@ -2027,6 +2208,29 @@ namespace WeaponEnchantments
                 }
 
                 return crateChance;
+            });
+        }
+        public static void HookFishingCheck(ILContext il) {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdloc(9),
+                i => i.MatchLdcI4(2)
+            )) { throw new Exception("Failed to find instuctions HookFishingCheck"); }
+
+            c.Index++;
+
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate((int lavaFishingNum, Projectile projectile) => {
+                WEPlayer wePlayer = Main.player[projectile.owner].GetWEPlayer();
+                if (wePlayer.CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult)) {
+                    lavaFishingNum += (int)mult;
+                    mult %= 1f;
+                    if (Main.rand.NextFloat() <= mult)
+                        lavaFishingNum++;
+                }
+
+                return lavaFishingNum;
             });
         }
 

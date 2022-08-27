@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (!base.AppliesToEntity(entity, lateInstantiation))
 				return false;
 
-			return entity.aiStyle == ProjAIStyleID.Bobber;
+			return entity.aiStyle == ProjAIStyleID.Bobber || entity.bobber;
 		}
 
 		public override bool UpdateProjectile(Projectile projectile) {

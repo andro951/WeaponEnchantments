@@ -21,6 +21,7 @@ using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
 using KokoLib;
 using OnProjectile = On.Terraria.Projectile;
+using OnPlayer = On.Terraria.Player;
 
 namespace WeaponEnchantments
 {
@@ -38,9 +39,12 @@ namespace WeaponEnchantments
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
+			//HookEndpointManager.Add<hook_CaughtFishStack>(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour);
 			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
+			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 		}
 
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
@@ -71,15 +75,31 @@ namespace WeaponEnchantments
 			return enchantedItem.OnStack(item1, item2);
 		}
 
+		//private delegate void orig_CaughtFishStack(Item item);
+		//private delegate void hook_CaughtFishStack(orig_CaughtFishStack orig, Item item);
+		//private static readonly MethodInfo ModLoaderCaughtFishStackMethodInfo = typeof(ItemLoader).GetMethod("CaughtFishStack");
+		//private void CaughtFishStackDetour(orig_CaughtFishStack orig, Item item) { orig(item); }
+
 		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
+			if (thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
+				int value = ContentSamples.ItemsByType[itemType].value;
+				enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
+			}
+
 			orig(self, thePlayer, itemType);
-
-			if (!thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole))
-				return;
-
-			int value = ContentSamples.ItemsByType[itemType].value;
-			enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
 		}
+		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
+			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
+				spawnChance /= 10f;
+				float rand = Main.rand.NextFloat();
+				rand = 0f;
+				if (rand <= spawnChance) {
+					baitTypeUsed = ItemID.TruffleWorm;
+				}
+			}
+
+			orig(self, bobber, baitTypeUsed);
+		}*/
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;

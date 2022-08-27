@@ -24,6 +24,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Effects\CustomBoolEffects\" />
     <Folder Include="ModIntegration\" />
+    <Folder Include="UI\InfoDisplays\" />
   </ItemGroup>
 </Project>

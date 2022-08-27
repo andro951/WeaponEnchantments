@@ -22,7 +22,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string Designer => "andro951";
     }
-    public class FishingPowerEnchantmentBasic : FishingPowerEnchantment { }
+    public class FishingPowerEnchantmentBasic : FishingPowerEnchantment { 
+        
+    }
     public class FishingPowerEnchantmentCommon : FishingPowerEnchantment { }
     public class FishingPowerEnchantmentRare : FishingPowerEnchantment { }
     public class FishingPowerEnchantmentSuperRare : FishingPowerEnchantment { }

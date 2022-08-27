@@ -2,6 +2,8 @@
 using Terraria.ModLoader;
 using WeaponEnchantments.Effects;
 using Terraria.ID;
+using WeaponEnchantments.Common.Utility;
+using System.Collections.Generic;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
@@ -20,13 +22,18 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Kokopai";
 	}
 
-	[DropRules(
-		npcs: new int[] {
-			NPCID.Medusa,
-			NPCID.GiantFungiBulb
+	/*[DropRules(
+		npcs: new (float, int)[] {
+			(1f, NPCID.Medusa),
+			(1f, NPCID.GiantFungiBulb)
 		}
-	)]
-	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment { }
+	)]*/
+	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment {
+		public override List<WeightedPair> NpcDropTypes => new List<WeightedPair>() {
+			new(NPCID.Medusa, 1f),
+			new(NPCID.GiantFungiBulb, 1f)
+		};
+	}
 	public class CriticalStrikeDamageEnchantmentCommon : CriticalStrikeDamageEnchantment { }
 	public class CriticalStrikeDamageEnchantmentRare : CriticalStrikeDamageEnchantment { }
 	public class CriticalStrikeDamageEnchantmentSuperRare : CriticalStrikeDamageEnchantment { }

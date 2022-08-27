@@ -7,6 +7,7 @@ namespace WeaponEnchantments.Common.Utility
 {
     public static class ChatMessagesIDs
     {
+        public const int AlwaysShowFailedToLocateAngler = -2;
         public const int AlwaysShowUnloadedItemToInvenory = -1;
         public const int CloneFailGetEnchantedItem = 0;
         public const int GainXPPreventedLoosingExperience = 1;

@@ -24,13 +24,6 @@ using WeaponEnchantments.Items.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public static class OnHitEffectID {
-        public const int GodSlayer = 0;
-        public const int OneForAll = 1;
-        public const int Amaterasu = 2;
-
-        public const int Count = 3;
-    }
     public class WEGlobalNPC : GlobalNPC {
         #region Static
 
@@ -39,6 +32,10 @@ namespace WeaponEnchantments.Common.Globals
         public static Dictionary<int, float> multipleSegmentBossTypes;
         static bool war = false;
         static float warReduction = 1f;
+        public static SortedDictionary<int, List<WeightedPair>> npcDropTypes = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<WeightedPair>> npcAIDrops = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<WeightedPair>> chestDrops = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<WeightedPair>> crateDrops = new SortedDictionary<int, List<WeightedPair>>();
 
         #endregion
 
@@ -413,25 +410,54 @@ namespace WeaponEnchantments.Common.Globals
                 if (EnchantmentDropChance <= 0f)
                     return;
 
-                int defaultDenom = (int)((5000f + hp * 5f) / (total * mult));
+                float defaultDenomF = (5000f + hp * 5f) / (total * mult);
+                int defaultDenom = (int)defaultDenomF;
                 if (defaultDenom < 1)
                     defaultDenom = 1;
 
                 int denom100 = (int)Math.Round(1f / mult);
 
                 //Ai style drops from attibutes
-                DropRulesAttribute.npcAiStyleDrops.TryGetValue(npc.aiStyle, out ICollection<int> aiBasedDrops);
-                if (aiBasedDrops != null) {
-                    foreach (int dropID in aiBasedDrops) {
-                        loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
+                //DropRulesAttribute.npcAiStyleDrops.TryGetValue(npc.aiStyle, out ICollection<WeightedPair> aiBasedDrops);
+                //if (aiBasedDrops != null) {
+                //    foreach (WeightedPair pair in aiBasedDrops) {
+                //        int denom = (int)(defaultDenomF / pair.Weight);
+                //        if (denom < 1)
+                //            denom = 1;
+                //
+                //        loot.Add(ItemDropRule.Common(pair.ID, denom, 1, 1));
+                //    }
+                //}
+
+                //npc type drops from attributes
+                //DropRulesAttribute.npcTypeDrops.TryGetValue(npc.type, out ICollection<WeightedPair> mobBasedDrops);
+                //if (mobBasedDrops != null) {
+                //    foreach (WeightedPair pair in mobBasedDrops) {
+                //        int denom = (int)(defaultDenomF / pair.Weight);
+                //        if (denom < 1)
+                //            denom = 1;
+                //
+                //        loot.Add(ItemDropRule.Common(pair.ID, denom, 1, 1));
+                //    }
+                //}
+
+                if (npcDropTypes.ContainsKey(npc.type)) {
+                    foreach (WeightedPair pair in npcDropTypes[npc.type]) {
+                        int denom = (int)(defaultDenomF / pair.Weight);
+                        if (denom < 1)
+                            denom = 1;
+
+                        loot.Add(ItemDropRule.Common(pair.ID, denom, 1, 1));
                     }
                 }
 
-                //npc type drops from attributes
-                DropRulesAttribute.npcTypeDrops.TryGetValue(npc.type, out ICollection<int> mobBasedDrops);
-                if (mobBasedDrops != null) {
-                    foreach (int dropID in mobBasedDrops) {
-                        loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
+                if (npcAIDrops.ContainsKey(npc.aiStyle)) {
+                    foreach (WeightedPair pair in npcDropTypes[npc.aiStyle]) {
+                        int denom = (int)(defaultDenomF / pair.Weight);
+                        if (denom < 1)
+                            denom = 1;
+
+                        loot.Add(ItemDropRule.Common(pair.ID, denom, 1, 1));
                     }
                 }
 

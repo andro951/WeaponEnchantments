@@ -47,10 +47,12 @@ namespace WeaponEnchantments.Common.Utility
         Defense,
         EnemyMaxSpawns,
         EnemySpawnRate,
+        FishingEnemySpawnChance,
         FishingPower,
         GodSlayer,
         JumpSpeed,
         Knockback,
+        LavaFishing,
         LifeRegen,
         LifeSteal,
         ManaUsage,
@@ -66,6 +68,7 @@ namespace WeaponEnchantments.Common.Utility
         NPCHitCooldown,
         OneForAll,
         ProjectileVelocity,
+        QuestFishChance,
         Size,
         WingTime,
         WhipRange
@@ -132,6 +135,11 @@ namespace WeaponEnchantments.Common.Utility
         SandStoneChest = 110,
         DungeonDesertChest = 113
     }
+    public enum CrateID
+	{
+        None = -1,
+
+	}
     public enum DashID : byte
 	{
         NinjaTabiDash = 1,
