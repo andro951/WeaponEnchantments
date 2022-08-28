@@ -11,7 +11,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 namespace WeaponEnchantments.Common.Utility
 {
     public class LogModSystem : ModSystem {
-        public static bool printListOfContributors = true;
+        public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = false;
         public static bool printLocalizationMaster = false;

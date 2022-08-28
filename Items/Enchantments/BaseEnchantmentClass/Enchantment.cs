@@ -371,7 +371,7 @@ namespace WeaponEnchantments.Items {
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
 			}*/
 
-			if(printListOfContributors && (EnchantmentTier == 4 || EnchantmentTypeName == "AllForOne")) {
+			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
 				//All for one is allowed to pass every sprite
 				bool allForOne = EnchantmentTypeName == "AllForOne";
 
