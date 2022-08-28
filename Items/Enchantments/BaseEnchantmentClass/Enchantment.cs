@@ -371,10 +371,6 @@ namespace WeaponEnchantments.Items {
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
 			}*/
 
-			//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()
-			if(printListOfEnchantmentTooltips)
-				listOfAllEnchantmentTooltips += $"{Name}\n{Tooltip.GetDefault()}\n\n";
-
 			if(printListOfContributors && (EnchantmentTier == 4 || EnchantmentTypeName == "AllForOne")) {
 				//All for one is allowed to pass every sprite
 				bool allForOne = EnchantmentTypeName == "AllForOne";
@@ -414,9 +410,9 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 
-			/*if(printLocalization) {
+			if(printLocalization) {
 				UpdateEnchantmentLocalization(this);
-			}*/
+			}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			EnchantmentTier = GetEnchantmentTier(Name);
@@ -697,7 +693,7 @@ namespace WeaponEnchantments.Items {
 				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
 			}
 		}
-		private IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
+		public IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
 			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
 
 			if (CustomTooltip != "")

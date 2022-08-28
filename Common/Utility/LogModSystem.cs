@@ -11,7 +11,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 namespace WeaponEnchantments.Common.Utility
 {
     public class LogModSystem : ModSystem {
-        public static bool printListOfContributors = false;
+        public static bool printListOfContributors = true;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = false;
         public static bool printLocalizationMaster = false;
@@ -172,17 +172,14 @@ namespace WeaponEnchantments.Common.Utility
 		}
 
         private static string Tabs(int num) => new string('\t', num);
-        public override void OnWorldLoad() {
-            if (printListOfContributors) {
-                //Enchantment tooltips
-                if (printListOfEnchantmentTooltips && listOfAllEnchantmentTooltips != "") {
-                    listOfAllEnchantmentTooltips.Log();
-                    listOfAllEnchantmentTooltips = "";
-                }
-
-                //Contributors  change to give exact file location when added to contributor.
-                PrintContributorsList();
+        public override void OnWorldLoad() {//Enchantment tooltips
+            if (printListOfEnchantmentTooltips) {
+                PrintListOfEnchantmentTooltips();
             }
+
+            //Contributors  change to give exact file location when added to contributor.
+            if (printListOfContributors)
+                PrintContributorsList();
 
             if (printLocalization)
                 PrintLocalization();
@@ -191,6 +188,18 @@ namespace WeaponEnchantments.Common.Utility
                 PrintEnchantmentDrops();
         }
 
+        private static void PrintListOfEnchantmentTooltips() {
+            string tooltipList = "";
+            foreach(Enchantment e in ModContent.GetContent<ModItem>().OfType<Enchantment>()) {
+                tooltipList += $"\n\n{e.Name}";
+                IEnumerable<string> tooltips = e.GenerateFullTooltip().Select(t => t.Item1);
+                foreach(string tooltip in tooltips) {
+                    tooltipList += $"\n{tooltip}";
+                }
+			}
+
+            tooltipList.Log();
+        }
         private static void PrintContributorsList() {
             if (!printListOfContributors)
                 return;

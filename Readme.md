@@ -254,30 +254,52 @@ KokoLib by Tabizzz - For managing the sending and recieving of packets for multi
 https://github.com/Tabizzz/KokoLib
 
 ### Art
-
 andro951: 
-
-![CatastrophicReleaseEnchantmentCommon](/Items/Sprites/CatastrophicReleaseEnchantmentCommon.png)
-![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
-![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
+![CalmWatersEnchantmentUltraRare](/Items/Sprites/CalmWatersEnchantmentUltraRare.png)
+![ChaoticFishingEnchantmentUltraRare](/Items/Sprites/ChaoticFishingEnchantmentUltraRare.png)
+![CrateChanceEnchantmentUltraRare](/Items/Sprites/CrateChanceEnchantmentUltraRare.png)
+![CrateEnchantmentUltraRare](/Items/Sprites/CrateEnchantmentUltraRare.png)
+![ExtraFishingLineEnchantmentUltraRare](/Items/Sprites/ExtraFishingLineEnchantmentUltraRare.png)
+![FishingEnchantmentUltraRare](/Items/Sprites/FishingEnchantmentUltraRare.png)
+![FishingPowerEnchantmentUltraRare](/Items/Sprites/FishingPowerEnchantmentUltraRare.png)
+![LavaFishingEnchantmentUltraRare](/Items/Sprites/LavaFishingEnchantmentUltraRare.png)
+![LuckEnchantmentUltraRare](/Items/Sprites/LuckEnchantmentUltraRare.png)
+![NpcContactAnglerEnchantmentUltraRare](/Items/Sprites/NpcContactAnglerEnchantmentUltraRare.png)
 ![PowerBooster](/Items/Sprites/PowerBooster.png)
+![SonarEnchantmentUltraRare](/Items/Sprites/SonarEnchantmentUltraRare.png)
 
 Kiroto: 
 
 ![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
-![EnchantmentEssenceBasicCB](/Items/Sprites/EnchantmentEssenceBasicAlt.png)
+![EnchantmentEssenceBasicAlt](/Items/Sprites/EnchantmentEssenceBasicAlt.png)
 ![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
-![EnchantmentEssenceCommonCB](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
+![EnchantmentEssenceCommonAlt](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
 ![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
-![EnchantmentEssenceRareCB](/Items/Sprites/EnchantmentEssenceRareAlt.png)
+![EnchantmentEssenceRareAlt](/Items/Sprites/EnchantmentEssenceRareAlt.png)
 ![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
-![EnchantmentEssenceSuperRareCB](/Items/Sprites/EnchantmentEssenceSuperRareAlt.png)
+![EnchantmentEssenceSuperRareAlt](/Items/Sprites/EnchantmentEssenceSuperRareAlt.png)
 ![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
-![EnchantmentEssenceUltraRareCB](/Items/Sprites/EnchantmentEssenceUltraRareAlt.png)
+![EnchantmentEssenceUltraRareAlt](/Items/Sprites/EnchantmentEssenceUltraRareAlt.png)
 
-Sir Bumpleton: 
+𝐍𝐢𝐱𝐲♱: 
 
-![ProjectileVelocityEnchantmentCommon](/Items/Sprites/ProjectileVelocityEnchantmentCommon.png)
+![CriticalStrikeDamageEnchantmentUltraRare](/Items/Sprites/CriticalStrikeDamageEnchantmentUltraRare.png)
+![MaxMinionsEnchantmentUltraRare](/Items/Sprites/MaxMinionsEnchantmentUltraRare.png)
+![SolarDashEnchantmentUltraRare](/Items/Sprites/SolarDashEnchantmentUltraRare.png)
+
+Princess of Evil: 
+
+![CursedInfernoEnchantmentUltraRare](/Items/Sprites/StatusEffects/CursedInfernoEnchantmentUltraRare.png)
+![DaybreakEnchantmentUltraRare](/Items/Sprites/StatusEffects/DaybreakEnchantmentUltraRare.png)
+![FrostburnEnchantmentUltraRare](/Items/Sprites/StatusEffects/FrostburnEnchantmentUltraRare.png)
+![IchorEnchantmentUltraRare](/Items/Sprites/StatusEffects/IchorEnchantmentUltraRare.png)
+![OnFireEnchantmentUltraRare](/Items/Sprites/StatusEffects/OnFireEnchantmentUltraRare.png)
+![VenomEnchantmentUltraRare](/Items/Sprites/StatusEffects/VenomEnchantmentUltraRare.png)
+
+Sir Bumpleton ✿:
+
+![ProjectileVelocityEnchantmentUltraRare](/Items/Sprites/ProjectileVelocityEnchantmentUltraRare.png)
+![MobilityControlEnchantmentUltraRare](/Items/Sprites/MobilityControlEnchantmentUltraRare.png)
 
 Zorutan: https://twitter.com/ZorutanMesuta
 
@@ -286,34 +308,38 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![AllForOneEnchantmentRare](/Items/Sprites/AllForOneEnchantmentRare.png)
 ![AllForOneEnchantmentSuperRare](/Items/Sprites/AllForOneEnchantmentSuperRare.png)
 ![AllForOneEnchantmentUltraRare](/Items/Sprites/AllForOneEnchantmentUltraRare.png)
-![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
-![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
-![ColdSteelEnchantmentCommon](/Items/Sprites/ColdSteelEnchantmentCommon.png)
+![AmmoCostEnchantmentUltraRare](/Items/Sprites/AmmoCostEnchantmentUltraRare.png)
+![ArmorPenetrationEnchantmentUltraRare](/Items/Sprites/ArmorPenetrationEnchantmentUltraRare.png)
+![AttackSpeedEnchantmentUltraRare](/Items/Sprites/AttackSpeedEnchantmentUltraRare.png)
+![ColdSteelEnchantmentUltraRare](/Items/Sprites/ColdSteelEnchantmentUltraRare.png)
 ![Containment](/Items/Sprites/Containment.png)
-![CriticalStrikeChanceEnchantmentCommon](/Items/Sprites/CriticalStrikeChanceEnchantmentCommon.png)
-![DamageEnchantmentCommon](/Items/Sprites/DamageEnchantmentCommon.png)
+![CriticalStrikeChanceEnchantmentUltraRare](/Items/Sprites/CriticalStrikeChanceEnchantmentUltraRare.png)
+![DamageEnchantmentUltraRare](/Items/Sprites/DamageEnchantmentUltraRare.png)
+![DangerSenseEnchantmentUltraRare](/Items/Sprites/DangerSenseEnchantmentUltraRare.png)
+![DefenseEnchantmentUltraRare](/Items/Sprites/DefenseEnchantmentUltraRare.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
-![GodSlayerEnchantmentCommon](/Items/Sprites/GodSlayerEnchantmentCommon.png)
+![GodSlayerEnchantmentUltraRare](/Items/Sprites/GodSlayerEnchantmentUltraRare.png)
 ![HellishEnchantingTable](/Items/Sprites/HellishEnchantingTable.png)
-![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)
-![JunglesFuryEnchantmentCommon](/Items/Sprites/JunglesFuryEnchantmentCommon.png)
-![LifeStealEnchantmentCommon](/Items/Sprites/LifeStealEnchantmentCommon.png)
-![ReducedManaUsageEnchantmentCommon](/Items/Sprites/ReducedManaUsageEnchantmentCommon.png)
+![HellsWrathEnchantmentUltraRare](/Items/Sprites/HellsWrathEnchantmentUltraRare.png)
+![HunterEnchantmentUltraRare](/Items/Sprites/HunterEnchantmentUltraRare.png)
+![JunglesFuryEnchantmentUltraRare](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
+![LifeStealEnchantmentUltraRare](/Items/Sprites/LifeStealEnchantmentUltraRare.png)
 ![MediumContainment](/Items/Sprites/MediumContainment.png)
-![MoonlightEnchantmentCommon](/Items/Sprites/MoonlightEnchantmentCommon.png)
-![MovementSpeedEnchantmentCommon](/Items/Sprites/MovementSpeedEnchantmentCommon.png)
-![MultishotEnchantmentCommon](/Items/Sprites/MultishotEnchantmentCommon.png)
-![OneForAllEnchantmentCommon](/Items/Sprites/OneForAllEnchantmentCommon.png)
-![PeaceEnchantmentCommon](/Items/Sprites/PeaceEnchantmentCommon.png)
-![SizeEnchantmentCommon](/Items/Sprites/SizeEnchantmentCommon.png)
+![MoonlightEnchantmentUltraRare](/Items/Sprites/MoonlightEnchantmentUltraRare.png)
+![MovementSpeedEnchantmentUltraRare](/Items/Sprites/MovementSpeedEnchantmentUltraRare.png)
+![MultishotEnchantmentUltraRare](/Items/Sprites/MultishotEnchantmentUltraRare.png)
+![ObsidianSkinEnchantmentUltraRare](/Items/Sprites/ObsidianSkinEnchantmentUltraRare.png)
+![OneForAllEnchantmentUltraRare](/Items/Sprites/OneForAllEnchantmentUltraRare.png)
+![PeaceEnchantmentUltraRare](/Items/Sprites/PeaceEnchantmentUltraRare.png)
+![ReducedManaUsageEnchantmentUltraRare](/Items/Sprites/ReducedManaUsageEnchantmentUltraRare.png)
+![SizeEnchantmentUltraRare](/Items/Sprites/SizeEnchantmentUltraRare.png)
 ![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
-![AttackSpeedEnchantmentCommon](/Items/Sprites/AttackSpeedEnchantmentCommon.png)
-![DefenseEnchantmentCommon](/Items/Sprites/DefenseEnchantmentCommon.png)
+![SpelunkerEnchantmentUltraRare](/Items/Sprites/SpelunkerEnchantmentUltraRare.png)
 ![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
 ![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)
-![WarEnchantmentCommon](/Items/Sprites/WarEnchantmentCommon.png)
+![WarEnchantmentUltraRare](/Items/Sprites/WarEnchantmentUltraRare.png)
 ![WoodEnchantingTable](/Items/Sprites/WoodEnchantingTable.png)
-![WorldAblazeEnchantmentCommon](/Items/Sprites/WorldAblazeEnchantmentCommon.png)
+![WorldAblazeEnchantmentUltraRare](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)
 ![DustyEnchantingTable](/Tiles/Sprites/DustyEnchantingTable.png)
 ![HellishEnchantingTable](/Tiles/Sprites/HellishEnchantingTable.png)
 ![SoulEnchantingTable](/Tiles/Sprites/SoulEnchantingTable.png)
