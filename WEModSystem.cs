@@ -631,7 +631,15 @@ namespace WeaponEnchantments
             }
         }
         public static void GetChestLoot(ChestID chestID, out List<WeightedPair> itemTypes, out float chance) {
+            chance = 0f;
+            itemTypes = chestDrops.ContainsKey(chestID) ? chestDrops[chestID] : null;
+            if (itemTypes == null)
+                return;
+
             chance = ChestSpawnChance;
+            if (itemTypes.Count == 1)
+                chance *= itemTypes[0].Weight;
+
             switch (chestID) {
                 case ChestID.Chest_Normal:
                     chance *= 0.7f;
@@ -736,8 +744,6 @@ namespace WeaponEnchantments
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
             }
-
-            itemTypes = chestDrops.ContainsKey(chestID) ? chestDrops[chestID] : null;
         }
         public override void LoadWorldData(TagCompound tag) {
             versionUpdate = tag.Get<byte>("versionUpdate");

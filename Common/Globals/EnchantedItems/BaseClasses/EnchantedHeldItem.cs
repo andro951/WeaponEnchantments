@@ -34,7 +34,27 @@ namespace WeaponEnchantments.Common.Globals
 				eStatModifier.ApplyTo(ref reduce, ref mult, item);
 		}
 		public override float UseSpeedMultiplier(Item item, Player player) {
-			return GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
+			float attackSpeed = GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
+			if (GetPlayerModifierStrength(player, EnchantmentStat.CatastrophicRelease, out float catastrophicReleaseMultiplier))
+				attackSpeed *= 0.1f;
+
+			return attackSpeed;
+		}
+		public override bool CanUseItem(Item item, Player player) {
+			return base.CanUseItem(item, player);
+		}
+		public override bool? UseItem(Item item, Player player) {
+			bool? returnValue = null;
+			foreach (IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
+				bool? useItem = effect.UseItem(item, player);
+				if (useItem != null) {
+					if (returnValue is false or null) {
+						returnValue = useItem;
+					}
+				}
+			}
+
+			return returnValue;
 		}
 		public override void ModifyItemScale(Item item, Player player, ref float scale) {
 			CheckEnchantmnetStatsApplyTo(ref scale, EnchantmentStat.Size);

@@ -11,17 +11,17 @@ namespace WeaponEnchantments.Effects {
         public Time TimerDuration { get; }
         public bool MultipleAllowed => false;
         public EnchantmentStat TimerStatName { get; }
-        public virtual void SetTimer(WEPlayer wePlayer) {
+        public void SetTimer(WEPlayer wePlayer) {
             wePlayer.SetEffectTimer(this);
         }
-        public virtual bool CheckTimer(Player player) {
+        public bool TimerOver(Player player) {
             if (player == null)
                 player = Main.LocalPlayer;
 
-            return player.GetWEPlayer().CheckTimer(this);
+            return player.GetWEPlayer().TimerOver(this);
         }
-        public virtual void TimerEnd(WEPlayer wePlayer) { }
-        public virtual void ActivateEffect(WEPlayer wePlayer) {
+        public void TimerEnd(WEPlayer wePlayer) { }
+        public void ActivateEffect(WEPlayer wePlayer) {
             SetTimer(wePlayer);
         }
     }

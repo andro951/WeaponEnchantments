@@ -129,6 +129,11 @@ namespace WeaponEnchantments.Common.Globals
             if (!sourceItem.TryGetEnchantedItem())
                 return false;
 
+            WEPlayer wePlayer = Main.player[projectile.owner].GetWEPlayer();
+            if (wePlayer.BoolEffects.ContainsKey(EnchantmentStat.InfinitePenetration)) {
+                if (wePlayer.BoolEffects[EnchantmentStat.InfinitePenetration])
+                    projectile.penetrate = -1;
+            }
             //Player player = Main.player[projectile.owner];
             //Infinite Penetration
             //if (player.ContainsEStat("InfinitePenetration", sourceItem)) {

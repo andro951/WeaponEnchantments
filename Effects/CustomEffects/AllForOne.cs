@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Effects
 		public EnchantmentStat TimerStatName => EnchantmentStat.AllForOne;
 
 		public bool CanUseItem(Item item, Player player) {
-			return (bool)((IUseTimer)this).CheckTimer(player);
+			return (bool)((IUseTimer)this).TimerOver(player);
 		}
 		public void TimerEnd(WEPlayer wePlyaer) {
 			SoundEngine.PlaySound(SoundID.Unlock);

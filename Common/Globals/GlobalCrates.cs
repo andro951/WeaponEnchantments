@@ -57,9 +57,9 @@ namespace WeaponEnchantments.Common.Globals
 
             //WEModSystem.GetChestLoot(chestID, out List<int> itemDrops, out float chance);
 
-            float chance = GetCrateEnchantmentDropChance(item.type);
-
             if (crateDrops.ContainsKey(item.type)) {
+                float chance = GetCrateEnchantmentDropChance(item.type);
+
                 itemLoot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, crateDrops[item.type]));
             }
             
@@ -98,6 +98,9 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
             chance *= ConfigValues.CrateDropChance;
+
+            if (crateDrops[id].Count == 1)
+                chance *= crateDrops[id][0].Weight;
 
             return chance;
         }

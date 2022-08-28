@@ -379,6 +379,9 @@ namespace WeaponEnchantments.Common.Globals
                 if (npcDropTypes.ContainsKey(npc.type)) {
                     //Enchantment drop chance
                     float chance = GetEnchantmentDropChance(npc.type, bossBag);
+                    if (npcDropTypes[npc.type].Count == 1)
+                        chance *= npcDropTypes[npc.type][0].Weight;
+
                     dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]);
                     AddBossLoot(loot, npc, dropRule, bossBag);
 
@@ -417,6 +420,9 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
                 if (npcDropTypes.ContainsKey(npc.type)) {
+                    if (npcDropTypes[npc.type].Count == 1)
+                        chance *= npcDropTypes[npc.type][0].Weight;
+
                     loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]));
 
                     if (LogModSystem.printEnchantmentDrops)
@@ -424,6 +430,9 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 if (npcAIDrops.ContainsKey(npc.aiStyle)) {
+                    if (npcAIDrops[npc.aiStyle].Count == 1)
+                        chance *= npcAIDrops[npc.aiStyle][0].Weight;
+
                     loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcAIDrops[npc.aiStyle]));
 
                     if (LogModSystem.printEnchantmentDrops)

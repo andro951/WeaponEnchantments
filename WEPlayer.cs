@@ -1246,7 +1246,7 @@ namespace WeaponEnchantments
 
             return false;
         }
-	    public bool CheckTimer(IUseTimer effect) {
+	    public bool TimerOver(IUseTimer effect) {
             EnchantmentStat statName = effect.TimerStatName;
             foreach (var e in EffectTimers) {
                 if (e.Value.TimerStatName == statName)
@@ -1378,11 +1378,17 @@ namespace WeaponEnchantments
                 case EnchantmentStat.LifeRegen:
                     Player.lifeRegen = (int)sm.ApplyTo(Player.lifeRegen);
                     break;
+                case EnchantmentStat.Luck:
+                    Player.luck = sm.ApplyTo(Player.luck);
+                    break;
                 case EnchantmentStat.ManaRegen:
                     Player.manaRegen = (int)sm.ApplyTo(Player.manaRegen);
                     break;
-                case EnchantmentStat.MaxHP:
+                case EnchantmentStat.MaxLife:
                     Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
+                    break;
+                case EnchantmentStat.MaxLuck:
+                    Player.luckMaximumCap = sm.ApplyTo(1f);
                     break;
                 case EnchantmentStat.MaxMinions:
                     Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);

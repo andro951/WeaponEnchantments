@@ -99,7 +99,13 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapons;
-        public override GlobalItem Clone(Item item, Item itemClone) {
+		public override void Load() {
+			
+		}
+		public override void HoldItem(Item item, Player player) {
+			
+		}
+		public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 
             if (cloneReforgedItem || resetGlobals) {
@@ -285,23 +291,23 @@ namespace WeaponEnchantments.Common.Globals
                 return;
             }
         }
-        public override bool? UseItem(Item item, Player player) {
+		public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+            IEnumerable<IUseTimer> useTimers = player.GetWEPlayer().EffectTimers.Where(n => n.Value.TimerStatName == EnchantmentStat.CatastrophicRelease).Select(t => t.Value);
+            foreach(IUseTimer useTimer in useTimers) {
+                if (!useTimer.TimerOver(player))
+                    return false;
+			}
+
+            return true;
+		}
+		public override bool? UseItem(Item item, Player player) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
             if (!Modified)
                 return null;
 
-            bool? returnValue = null;
-            foreach(IUseItem effect in EnchantmentEffects.OfType<IUseItem>()) {
-                bool? useItem = effect.UseItem(item, player);
-                if (useItem != null) {
-                    if (returnValue == false) {
-                        returnValue = useItem;
-                    }
-                }
-            }
+            bool? returnValue = base.UseItem(item, player);
 
-            //CatastrophicRelease
             if (eStats.ContainsKey("CatastrophicRelease")) {
                 player.statMana = 0;
             }
