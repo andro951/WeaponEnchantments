@@ -343,7 +343,7 @@ namespace WeaponEnchantments.Common.Utility
 			}
 
             return new T();
-        }//TODO: convert to WeightedPair
+        }
         public static T GetOneFromWeightedList<T>(this SortedList<int, T> options, float chance) where T : new() {
             List<(float, T)> newList = new List<(float, T)>();
             foreach(KeyValuePair<int, T> pair in options) {
@@ -351,9 +351,40 @@ namespace WeaponEnchantments.Common.Utility
 			}
 
             return newList.GetOneFromWeightedList(chance);
-        }//TODO: convert to WeightedPair
+        }
+        public static int GetOneFromWeightedList(this List<WeightedPair> options, float chance) {
+            if (options.Count == 0)
+                return 0;
+
+            if (chance <= 0f)
+                return 0;
+
+            if (chance > 1f)
+                chance = 1f;
+
+            float randFloat = Main.rand.NextFloat();
+            if (randFloat <= chance) {
+                float total = 0f;
+                foreach (WeightedPair pair in options) {
+                    total += pair.Weight;
+                }
+
+                total *= randFloat;
+
+                foreach (WeightedPair pair in options) {
+                    total -= pair.Weight;
+                    if (total <= 0f)
+                        return pair.ID;
+                }
+            }
+
+            return 0;
+        }
         public static float Percent(this float value) {
             return (float)Math.Round(value * 100, 1);
+        }
+        public static string PercentString(this float value) {
+            return $"{Math.Round(value * 100, 2)}%";
         }
 
         #region AddOrCombine
@@ -431,13 +462,21 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, buffStat.Clone());
             }
         }
-        public static void AddOrCombine(this SortedDictionary<int, List<WeightedPair>> dictionary, int key, WeightedPair newValue) {
+        public static void AddOrCombine<TKey>(this SortedDictionary<TKey, List<WeightedPair>> dictionary, TKey key, WeightedPair newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].Add(newValue);
 			}
 			else {
                 dictionary.Add(key, new List<WeightedPair>() { newValue });
 			}
+		}
+        public static void AddOrCombine<TKey, T>(this SortedDictionary<TKey, List<(T, List<WeightedPair>)>> dictionary, TKey key, (T, List<WeightedPair>) newValue) {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key].Add(newValue);
+			}
+			else {
+                dictionary.Add(key, new List<(T, List<WeightedPair>)>() { newValue });
+            }
 		}
 
 		#endregion

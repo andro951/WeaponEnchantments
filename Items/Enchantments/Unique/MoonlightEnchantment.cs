@@ -36,7 +36,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class MoonlightEnchantmentBasic : MoonlightEnchantment { }
+	public class MoonlightEnchantmentBasic : MoonlightEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.CultistBoss)
+		};
+	}
 	public class MoonlightEnchantmentCommon : MoonlightEnchantment { }
 	public class MoonlightEnchantmentRare : MoonlightEnchantment { }
 	public class MoonlightEnchantmentSuperRare : MoonlightEnchantment { }

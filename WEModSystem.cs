@@ -32,6 +32,7 @@ namespace WeaponEnchantments
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
+        public static SortedDictionary<ChestID, List<WeightedPair>> chestDrops = new SortedDictionary<ChestID, List<WeightedPair>>();
 
         private GameTime _lastUpdateUiGameTime;
 
@@ -580,16 +581,19 @@ namespace WeaponEnchantments
                 int itemsPlaced = 0;
 
                 ChestID chestID = GetChestIDFromChest(chest);
-                GetChestLoot(chestID, out List<int> itemTypes, out float chance);
+                GetChestLoot(chestID, out List<WeightedPair> options, out float chance);
 
                 if (chance <= 0f)
+                    continue;
+
+                if (options == null)
                     continue;
 
                 for (int j = 0; j < 40 && itemsPlaced < chance; j++) {
                     if (chest.item[j].type != ItemID.None)
                         continue;
 
-                    int type = itemTypes.GetOneFromList(chance);
+                    int type = options.GetOneFromWeightedList(chance);
                     if(type > 0)
                         chest.item[j] = new Item(type);
 
@@ -614,113 +618,114 @@ namespace WeaponEnchantments
                     return ChestID.None;
             }
         }
-        public static void GetChestLoot(ChestID chestID, out List<int> itemTypes, out float chance) {
+        public static void GetChestLoot(ChestID chestID, out List<WeightedPair> itemTypes, out float chance) {
             chance = ChestSpawnChance;
-            itemTypes = new List<int>();
             switch (chestID) {
-                case ChestID.Chest:
+                case ChestID.Chest_Normal:
                     chance *= 0.7f;
-                    itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
                     break;
-                case ChestID.GoldChest:
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                case ChestID.Gold:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
-                case ChestID.GoldChestLocked:
-                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                case ChestID.Gold_Locked:
+                    //itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
                     break;
-                case ChestID.ShadowChest:
-                case ChestID.ShadowChestLocked:
+                case ChestID.Shadow:
+                case ChestID.Shadow_Locked:
                     chance *= 2f;
-                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
                     break;
-                case ChestID.RichMahoganyChest:
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                case ChestID.RichMahogany:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                     break;
-                case ChestID.IvyChest:
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                case ChestID.Ivy:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                     break;
-                case ChestID.FrozenChest:
-                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                case ChestID.Frozen:
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
                     break;
-                case ChestID.LivingWoodChest:
-                    itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                case ChestID.LivingWood:
+                    //itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
                     break;
-                case ChestID.SkywareChest:
-                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                case ChestID.Skyware:
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
-                case ChestID.WebCoveredChest:
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                case ChestID.WebCovered:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                     break;
-                case ChestID.LihzahrdChest:
+                case ChestID.Lihzahrd:
                     chance *= 2f;
-                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
                     break;
-                case ChestID.WaterChest:
-                    itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                case ChestID.Water:
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
                     break;
-                case ChestID.DungeonJungleChest:
+                case ChestID.Jungle_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
-                case ChestID.DungeonCorruptionChest:
+                case ChestID.Corruption_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
-                case ChestID.DungeonCrimsonChest:
+                case ChestID.Crimson_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
-                case ChestID.DungeonHallowedChest:
+                case ChestID.Hallowed_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
-                case ChestID.DungeonIceChest:
+                case ChestID.Ice_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
-                case ChestID.MushroomChest:
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                case ChestID.Mushroom:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                     break;
-                case ChestID.GraniteChest:
-                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                case ChestID.Granite:
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
-                case ChestID.MarbleChest:
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                case ChestID.Marble:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                     break;
-                case ChestID.GoldDeadMansChest:
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                    itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                case ChestID.Gold_DeadMans:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
-                case ChestID.SandStoneChest:
-                    itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                case ChestID.SandStone:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
                     break;
-                case ChestID.DungeonDesertChest:
+                case ChestID.Desert_Dungeon:
                     chance = 1f;
                     //itemTypes.Add(ModContent.ItemType<Enchantment>());
                     break;
             }
+
+            itemTypes = chestDrops.ContainsKey(chestID) ? chestDrops[chestID] : null;
         }
         public override void LoadWorldData(TagCompound tag) {
             versionUpdate = tag.Get<byte>("versionUpdate");

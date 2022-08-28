@@ -164,8 +164,8 @@ namespace WeaponEnchantments.Items {
 		public Dictionary<EItemType, float> AllowedList { protected set; get; }
 		public virtual List<WeightedPair> NpcDropTypes => null;
 		public virtual List<WeightedPair> NpcAIDrops => null;
-		public virtual Dictionary<ChestID, float> ChestDrops => null;
-		public virtual Dictionary<CrateID, float> CrateDrops => null;
+		public virtual SortedDictionary<ChestID, float> ChestDrops => null;
+		public virtual List<WeightedPair> CrateDrops => null;
 
 		#endregion
 
@@ -381,10 +381,34 @@ namespace WeaponEnchantments.Items {
 			}
 
 			if (NpcDropTypes != null) {
-				foreach (var type in NpcDropTypes) {
-					int npcType = type.ID;
-					WeightedPair enchantmentPair = new WeightedPair(Type, type.Weight);
+				foreach (WeightedPair pair in NpcDropTypes) {
+					int npcType = pair.ID;
+					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
 					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentPair);
+				}
+			}
+
+			if (NpcAIDrops != null) {
+				foreach (WeightedPair pair in NpcAIDrops) {
+					int npcAIStyle = pair.ID;
+					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
+					WEGlobalNPC.npcAIDrops.AddOrCombine(npcAIStyle, enchantmentPair);
+				}
+			}
+
+			if (ChestDrops != null) {
+				foreach(KeyValuePair<ChestID, float> pair in ChestDrops) {
+					ChestID chestID = pair.Key;
+					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Value);
+					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentPair);
+				}
+			}
+
+			if (CrateDrops != null) {
+				foreach (WeightedPair pair in CrateDrops) {
+					int crateID = pair.ID;
+					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
+					GlobalCrates.crateDrops.AddOrCombine(crateID, enchantmentPair);
 				}
 			}
 

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 
@@ -9,10 +12,11 @@ namespace WeaponEnchantments.Common.Utility
 {
     public class LogModSystem : ModSystem {
         public static bool printListOfContributors = false;
-        public static bool printListOfEnchantmentTooltips = false;
+        public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = false;
         public static bool printLocalizationMaster = false;
         public static bool printListForDocumentConversion = false;
+        public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -43,6 +47,7 @@ namespace WeaponEnchantments.Common.Utility
         public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
+        public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
 
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
@@ -181,6 +186,9 @@ namespace WeaponEnchantments.Common.Utility
 
             if (printLocalization)
                 PrintLocalization();
+
+            if (printEnchantmentDrops)
+                PrintEnchantmentDrops();
         }
 
         private static void PrintContributorsList() {
@@ -221,6 +229,73 @@ namespace WeaponEnchantments.Common.Utility
             namesAddedToContributorDictionary.Clear();
             contributorsData.Clear();
         }
+        private static void PrintEnchantmentDrops() {
+            string log = "\n";
+            foreach(KeyValuePair<int, List<(float, List<WeightedPair>)>> npc in npcEnchantmentDrops) {
+                string name = ContentSamples.NpcsByNetId[npc.Key].TypeName;
+                foreach((float, List<WeightedPair>) enchantmentGroup in npc.Value) {
+                    float total = 0f;
+                    foreach(WeightedPair pair in enchantmentGroup.Item2) {
+                        total += pair.Weight;
+                    }
 
-	}
+                    foreach(WeightedPair pair in enchantmentGroup.Item2) {
+                        Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+                        if (sampleItem.ModItem is not Enchantment enchantment)
+                            continue;
+
+                        log += $"\n{name} ({npc.Key}),";
+                        float chance = enchantmentGroup.Item1 * pair.Weight / total;
+
+                        log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
+                    }
+                }
+			}
+
+            foreach(ChestID chestID in Enum.GetValues(typeof(ChestID)).Cast<ChestID>().ToList().Where(c => c != ChestID.None)) {
+                WEModSystem.GetChestLoot(chestID, out List<WeightedPair> pairs, out float baseChance);
+                if (pairs == null)
+                    continue;
+
+                string name = chestID.ToString() + " Chest";
+                float total = 0f;
+                foreach(WeightedPair pair in pairs) {
+                    total += pair.Weight;
+				}
+
+                foreach(WeightedPair pair in pairs) {
+                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+                    if (sampleItem.ModItem is not Enchantment enchantment)
+                        continue;
+
+                    log += $"\n{name},";
+                    float chance = baseChance * pair.Weight / total;
+
+                    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
+                }
+			}
+
+            foreach(KeyValuePair<int, List<WeightedPair>> crate in GlobalCrates.crateDrops) {
+                string name = ((CrateID)crate.Key).ToString() + " Crate";
+                float total = 0f;
+                foreach(WeightedPair pair in crate.Value) {
+                    total += pair.Weight;
+				}
+
+                foreach(WeightedPair pair in crate.Value) {
+                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+                    if (sampleItem.ModItem is not Enchantment enchantment)
+                        continue;
+
+                    log += $"\n{name} ({crate.Key}),";
+                    float baseChance = GlobalCrates.GetCrateEnchantmentDropChance(crate.Key);
+                    float chance = baseChance * pair.Weight / total;
+
+                    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
+                }
+			}
+
+            log.Log();
+		}
+    }
 }

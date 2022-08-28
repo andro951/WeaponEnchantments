@@ -23,7 +23,19 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment { }
+	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.WallofFlesh)
+		};
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Shadow, 0.1f },
+			{ ChestID.Shadow_Locked, 0.1f }
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Obsidian_LockBox, 0.05f)
+		};
+	}
 	public class ArmorPenetrationEnchantmentCommon : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentRare : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentSuperRare : ArmorPenetrationEnchantment { }

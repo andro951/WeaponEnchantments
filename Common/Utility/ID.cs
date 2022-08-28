@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -110,35 +111,63 @@ namespace WeaponEnchantments.Common.Utility
     public enum ChestID
     {
         None = -1,
-        Chest,
-        GoldChest,
-        GoldChestLocked,
-        ShadowChest,
-        ShadowChestLocked,
-        RichMahoganyChest = 8,
-        IvyChest = 10,
-        FrozenChest,
-        LivingWoodChest,
-        SkywareChest,
-        WebCoveredChest = 15,
-        LihzahrdChest,
-        WaterChest,
-        DungeonJungleChest = 23,
-        DungeonCorruptionChest,
-        DungeonCrimsonChest,
-        DungeonHallowedChest,
-        DungeonIceChest,
-        MushroomChest = 32,
-        GraniteChest = 40,
-        MarbleChest,
-        GoldDeadMansChest = 104,
-        SandStoneChest = 110,
-        DungeonDesertChest = 113
+        Chest_Normal,
+        Gold,
+        Gold_Locked,
+        Shadow,
+        Shadow_Locked,
+        RichMahogany = 8,
+        Ivy = 10,
+        Frozen,
+        LivingWood,
+        Skyware,
+        WebCovered = 15,
+        Lihzahrd,
+        Water,
+        Jungle_Dungeon = 23,
+        Corruption_Dungeon,
+        Crimson_Dungeon,
+        Hallowed_Dungeon,
+        Ice_Dungeon,
+        Mushroom = 32,
+        Granite = 40,
+        Marble,
+        Gold_DeadMans = 104,
+        SandStone = 110,
+        Desert_Dungeon = 113
     }
     public enum CrateID
 	{
         None = -1,
+        Wooden = ItemID.WoodenCrate,
+        Iron = ItemID.IronCrate,
+        Golden = ItemID.GoldenCrate,
+        Jungle = ItemID.JungleFishingCrate,
+        Sky = ItemID.FloatingIslandFishingCrate,
+        Corrupt = ItemID.CorruptFishingCrate,
+        Crimson = ItemID.CrimsonFishingCrate,
+        Hallowed = ItemID.HallowedFishingCrate,
+        Dungeon = ItemID.DungeonFishingCrate,
+        Frozen = ItemID.FrozenCrate,
+        Oasis = ItemID.OasisCrate,
+        Obsidian = ItemID.LavaCrate,
+        Ocean = ItemID.OceanCrate,
+        Pearlwood_WoodenHard = ItemID.WoodenCrateHard,
+        Mythril_IronHard = ItemID.IronCrateHard,
+        Titanium_GoldenHard = ItemID.GoldenCrateHard,
+        Bramble_JungleHard = ItemID.JungleFishingCrateHard,
+        Azure_SkyHard = ItemID.FloatingIslandFishingCrateHard,
+        Defiled_CorruptHard = ItemID.CorruptFishingCrateHard,
+        Hematic_CrimsonHard = ItemID.CrimsonFishingCrateHard,
+        Divine_HallowedHard = ItemID.HallowedFishingCrateHard,
+        Stockade_DungeonHard = ItemID.DungeonFishingCrateHard,
+        Boreal_FrozenHard = ItemID.FrozenCrateHard,
+        Mirage_OasisHard = ItemID.OasisCrateHard,
+        Hellstone_ObsidianHard = ItemID.LavaCrateHard,
+        Seaside_OceanHard = ItemID.OasisCrateHard,
 
+        Golden_LockBox = ItemID.LockBox,
+        Obsidian_LockBox = ItemID.ObsidianLockbox
 	}
     public enum DashID : byte
 	{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -32,7 +33,19 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class AllForOneEnchantmentBasic : AllForOneEnchantment { }
+	public class AllForOneEnchantmentBasic : AllForOneEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.Mothron)
+		};
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Gold_Locked, 1f },
+			{ ChestID.Lihzahrd, 1f }
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Golden_LockBox, 0.45f)
+		};
+	}
 	public class AllForOneEnchantmentCommon : AllForOneEnchantment { }
 	public class AllForOneEnchantmentRare : AllForOneEnchantment { }
 	public class AllForOneEnchantmentSuperRare : AllForOneEnchantment { }

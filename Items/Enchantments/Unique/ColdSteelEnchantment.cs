@@ -36,7 +36,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.SkeletronPrime)
+		};
+	}
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }
 	public class ColdSteelEnchantmentRare : ColdSteelEnchantment { }
 	public class ColdSteelEnchantmentSuperRare : ColdSteelEnchantment { }

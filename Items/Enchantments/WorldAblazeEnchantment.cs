@@ -44,7 +44,13 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment { }
+	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.Retinazer),
+			new(NPCID.Spazmatism)
+		};
+	}
 	public class WorldAblazeEnchantmentCommon : WorldAblazeEnchantment { }
 	public class WorldAblazeEnchantmentRare : WorldAblazeEnchantment { }
 	public class WorldAblazeEnchantmentSuperRare : WorldAblazeEnchantment { }

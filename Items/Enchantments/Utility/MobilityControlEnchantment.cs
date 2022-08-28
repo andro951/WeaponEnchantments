@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -26,7 +27,20 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override string Artist => "Sir Bumpleton ✿";
         public override string Designer => "Sir Bumpleton ✿";
     }
-    public class MobilityControlEnchantmentBasic : MobilityControlEnchantment { }
+    public class MobilityControlEnchantmentBasic : MobilityControlEnchantment
+    {
+		public override List<WeightedPair> NpcDropTypes => new() {
+            new(NPCID.Harpy),
+            new(NPCID.WyvernHead)
+		};
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+            { ChestID.Skyware, 1f }            
+		};
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Sky),
+            new(CrateID.Azure_SkyHard)
+        };
+    }
     public class MobilityControlEnchantmentCommon : MobilityControlEnchantment { }
     public class MobilityControlEnchantmentRare : MobilityControlEnchantment { }
     public class MobilityControlEnchantmentSuperRare : MobilityControlEnchantment { }

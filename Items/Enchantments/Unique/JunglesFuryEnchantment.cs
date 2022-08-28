@@ -36,7 +36,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment { }
+	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.Plantera)
+		};
+	}
 	public class JunglesFuryEnchantmentCommon : JunglesFuryEnchantment { }
 	public class JunglesFuryEnchantmentRare : JunglesFuryEnchantment { }
 	public class JunglesFuryEnchantmentSuperRare : JunglesFuryEnchantment { }

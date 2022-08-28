@@ -11,27 +11,27 @@ namespace WeaponEnchantments.Common.Globals
     {
         public static bool modBossBagIntegrationSetup = false;
         public static SortedDictionary<int, int> bossBagNPCIDs = new SortedDictionary<int, int>() {
-                { ItemID.KingSlimeBossBag, NPCID.KingSlime },
-                { ItemID.EyeOfCthulhuBossBag, NPCID.EyeofCthulhu },
-                { ItemID.EaterOfWorldsBossBag, NPCID.EaterofWorldsHead },
-                { ItemID.BrainOfCthulhuBossBag, NPCID.BrainofCthulhu },
-                { ItemID.QueenBeeBossBag, NPCID.QueenBee },
-                { ItemID.SkeletronBossBag, NPCID.SkeletronHead },
-                { ItemID.DeerclopsBossBag, NPCID.Deerclops },
-                { ItemID.WallOfFleshBossBag, NPCID.WallofFlesh },
-                { ItemID.QueenSlimeBossBag, NPCID.QueenSlimeBoss },
-                { ItemID.TwinsBossBag, NPCID.Retinazer },
-                { ItemID.DestroyerBossBag, NPCID.TheDestroyer },
-                { ItemID.SkeletronPrimeBossBag, NPCID.SkeletronPrime },
-                { ItemID.PlanteraBossBag, NPCID.Plantera },
-                { ItemID.GolemBossBag, NPCID.Golem },
-                { ItemID.FishronBossBag, NPCID.DukeFishron },
-                { ItemID.FairyQueenBossBag, NPCID.HallowBoss },
-                { ItemID.CultistBossBag/*Unobtainable*/, NPCID.CultistBoss },
-                { ItemID.MoonLordBossBag, NPCID.MoonLordCore },
-                { ItemID.BossBagDarkMage/*Unobtainable*/, NPCID.DD2DarkMageT1 },
-                { ItemID.BossBagOgre/*Unobtainable*/, NPCID.DD2OgreT2 },
-                { ItemID.BossBagBetsy, NPCID.DD2Betsy }
+            { ItemID.KingSlimeBossBag, NPCID.KingSlime },
+            { ItemID.EyeOfCthulhuBossBag, NPCID.EyeofCthulhu },
+            { ItemID.EaterOfWorldsBossBag, NPCID.EaterofWorldsHead },
+            { ItemID.BrainOfCthulhuBossBag, NPCID.BrainofCthulhu },
+            { ItemID.QueenBeeBossBag, NPCID.QueenBee },
+            { ItemID.SkeletronBossBag, NPCID.SkeletronHead },
+            { ItemID.DeerclopsBossBag, NPCID.Deerclops },
+            { ItemID.WallOfFleshBossBag, NPCID.WallofFlesh },
+            { ItemID.QueenSlimeBossBag, NPCID.QueenSlimeBoss },
+            { ItemID.TwinsBossBag, NPCID.Retinazer },
+            { ItemID.DestroyerBossBag, NPCID.TheDestroyer },
+            { ItemID.SkeletronPrimeBossBag, NPCID.SkeletronPrime },
+            { ItemID.PlanteraBossBag, NPCID.Plantera },
+            { ItemID.GolemBossBag, NPCID.Golem },
+            { ItemID.FishronBossBag, NPCID.DukeFishron },
+            { ItemID.FairyQueenBossBag, NPCID.HallowBoss },
+            { ItemID.CultistBossBag/*Unobtainable*/, NPCID.CultistBoss },
+            { ItemID.MoonLordBossBag, NPCID.MoonLordCore },
+            { ItemID.BossBagDarkMage/*Unobtainable*/, NPCID.DD2DarkMageT1 },
+            { ItemID.BossBagOgre/*Unobtainable*/, NPCID.DD2OgreT2 },
+            { ItemID.BossBagBetsy, NPCID.DD2Betsy }
 		};
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
 

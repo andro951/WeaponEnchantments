@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -28,7 +29,19 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class PeaceEnchantmentBasic : PeaceEnchantment { }
+	public class PeaceEnchantmentBasic : PeaceEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.Pixie)
+		};
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Chest_Normal, 1f }
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Wooden, 0.5f),
+			new(CrateID.Pearlwood_WoodenHard, 0.5f)
+		};
+	}
 	public class PeaceEnchantmentCommon : PeaceEnchantment { }
 	public class PeaceEnchantmentRare : PeaceEnchantment { }
 	public class PeaceEnchantmentSuperRare : PeaceEnchantment { }

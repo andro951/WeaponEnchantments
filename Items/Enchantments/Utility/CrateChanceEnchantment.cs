@@ -22,7 +22,16 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string Designer => "andro951";
     }
-    public class CrateChanceEnchantmentBasic : CrateChanceEnchantment { }
+    public class CrateChanceEnchantmentBasic : CrateChanceEnchantment
+    {
+        public override SortedDictionary<ChestID, float> ChestDrops => new() {
+            { ChestID.Water, 1f }
+        };
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Iron),
+            new(CrateID.Mythril_IronHard)
+        };
+    }
     public class CrateChanceEnchantmentCommon : CrateChanceEnchantment { }
     public class CrateChanceEnchantmentRare : CrateChanceEnchantment { }
     public class CrateChanceEnchantmentSuperRare : CrateChanceEnchantment { }

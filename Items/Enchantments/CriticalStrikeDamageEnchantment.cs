@@ -22,16 +22,14 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Kokopai";
 	}
 
-	/*[DropRules(
-		npcs: new (float, int)[] {
-			(1f, NPCID.Medusa),
-			(1f, NPCID.GiantFungiBulb)
-		}
-	)]*/
 	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment {
-		public override List<WeightedPair> NpcDropTypes => new List<WeightedPair>() {
+		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Medusa, 1f),
 			new(NPCID.GiantFungiBulb, 1f)
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Stockade_DungeonHard, 0.5f),
+			new(CrateID.Mirage_OasisHard, 0.5f)
 		};
 	}
 	public class CriticalStrikeDamageEnchantmentCommon : CriticalStrikeDamageEnchantment { }

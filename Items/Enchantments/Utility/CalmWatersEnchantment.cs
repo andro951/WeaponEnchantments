@@ -26,7 +26,16 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override string Artist => "andro951";
 		public override string Designer => "Creature";
 	}
-	public class CalmWatersEnchantmentBasic : CalmWatersEnchantment { }
+	public class CalmWatersEnchantmentBasic : CalmWatersEnchantment
+	{
+		public override SortedDictionary<ChestID, float> ChestDrops => new() {
+			{ ChestID.Water, 1f }
+		};
+		public override List<WeightedPair> CrateDrops => new() {
+			new(CrateID.Wooden),
+			new(CrateID.Pearlwood_WoodenHard)
+		};
+	}
 	public class CalmWatersEnchantmentCommon : CalmWatersEnchantment { }
 	public class CalmWatersEnchantmentRare : CalmWatersEnchantment { }
 	public class CalmWatersEnchantmentSuperRare : CalmWatersEnchantment { }

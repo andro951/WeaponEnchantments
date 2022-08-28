@@ -122,6 +122,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(50)]
         public int ChestSpawnChance;
 
+        [Label("Crate Enchantment Drop Chance Multiplier(%)")]
+        [Tooltip("Adjust the chance of finding enchantments in fishing crates.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        public int CrateDropChance;
+
         //Other Drop Rates
         [Header("Other Drop Rates")]
         [Label("Prevent pre-hard mode bosses from dropping power boosters.")]
@@ -351,6 +357,19 @@ namespace WeaponEnchantments.Common.Configs
         }
 
         private bool _onlyShowErrorMessagesInChatOnce;
+
+        [Header("Logging Information")]
+        [Label("Log a List of Enchantment Tooltips")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentTooltips;
+
+        [Label("Log a List of Enchantment Drop sources")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentDrops;
     }
     public class Pair
     {

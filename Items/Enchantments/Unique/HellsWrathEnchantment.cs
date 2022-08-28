@@ -34,7 +34,12 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Zorutan";
 		public override string Designer => "andro951";
 	}
-	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
+	{
+		public override List<WeightedPair> NpcDropTypes => new() {
+			new(NPCID.QueenSlimeBoss)
+		};
+	}
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }
 	public class HellsWrathEnchantmentRare : HellsWrathEnchantment { }
 	public class HellsWrathEnchantmentSuperRare : HellsWrathEnchantment { }

@@ -22,8 +22,15 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string Artist => "andro951";
         public override string Designer => "andro951";
     }
-    public class FishingPowerEnchantmentBasic : FishingPowerEnchantment { 
-        
+    public class FishingPowerEnchantmentBasic : FishingPowerEnchantment
+    {
+        public override SortedDictionary<ChestID, float> ChestDrops => new() {
+            { ChestID.Water, 1f }
+        };
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Wooden),
+            new(CrateID.Pearlwood_WoodenHard)
+        };
     }
     public class FishingPowerEnchantmentCommon : FishingPowerEnchantment { }
     public class FishingPowerEnchantmentRare : FishingPowerEnchantment { }

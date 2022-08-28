@@ -19,7 +19,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string Artist => "andro951";
         public override string Designer => "andro951";
     }
-    public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
+    {
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Golden),
+            new(CrateID.Titanium_GoldenHard)
+        };
+    }
     public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
     public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
     public class NpcContactAnglerEnchantmentSuperRare : NpcContactAnglerEnchantment { }

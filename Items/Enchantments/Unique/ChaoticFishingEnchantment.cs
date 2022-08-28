@@ -22,12 +22,17 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string Designer => "andro951";
     }
     public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment {
-		public override List<WeightedPair> NpcAIDrops => new List<WeightedPair>() {
-            new (NPCID.GoblinShark, 1f),
-            new(NPCID.BloodEelHead, 1f),
-            new(NPCID.BloodNautilus, 1f),
-            new(NPCID.Wraith, 1f)
+        public override List<WeightedPair> NpcDropTypes => new() {
+            new(NPCID.GoblinShark),
+            new(NPCID.BloodEelHead),
+            new(NPCID.BloodNautilus),
+            new(NPCID.Shark)
         };
+
+        public override List<WeightedPair> CrateDrops => new() {
+            new(CrateID.Golden),
+            new(CrateID.Titanium_GoldenHard)
+		};
 	}
     public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
     public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
