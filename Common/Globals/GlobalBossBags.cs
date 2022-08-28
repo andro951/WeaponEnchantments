@@ -81,7 +81,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (itemIsBossBag) {
                     if(bossName == null) {
-                        $"Support for this boss bag: {sampleItem.S()} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT(ChatMessagesIDs.BossBagNameNull);
+                        $"Support for this boss bag: {sampleItem.S()} ({sampleItem.ModItem.Name}) has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT(ChatMessagesIDs.BossBagNameNull);
                         continue;
                     }
                 }
@@ -364,6 +364,12 @@ namespace WeaponEnchantments.Common.Globals
                 case "TundraBossBag":
                     return "Polar Exterminator";
                 // /\ Querty's Bosses and Items 2
+
+
+                // \/ StormDiversMod
+                case "StormBossBag":
+                    return "Overloaded Scandrone";
+                // \/ StormDiversMod
 
 
                 //Extras for later
