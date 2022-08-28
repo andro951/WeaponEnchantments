@@ -17,16 +17,16 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new DamageClassChange(DamageClass.SummonMeleeSpeed),
 				new MinionAttackTarget(),
-				new OnHitTargetDebuffEffect(EnchantmentTier >= 2 ? BuffID.Venom : BuffID.Poisoned, BuffDuration)
+				new BuffEffect(EnchantmentTier >= 2 ? BuffID.Venom : BuffID.Poisoned, BuffStyle.OnHitEnemyDebuff, BuffDuration)
 			};
 
 			if (EnchantmentTier >= 3) {
-				Effects.Add(new OnHitPlayerBuffEffect(BuffID.SwordWhipPlayerBuff, BuffDuration));
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.SwordWhipNPCDebuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.SwordWhipPlayerBuff, BuffStyle.OnHitPlayerBuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.SwordWhipNPCDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
 			}
 
 			if (EnchantmentTier == 4)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.RainbowWhipNPCDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

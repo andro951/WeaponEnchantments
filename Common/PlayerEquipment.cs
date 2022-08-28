@@ -105,7 +105,7 @@ namespace WeaponEnchantments.Common {
 	        entity.PlayerSetEffects = new SortedList<EnchantmentStat, PlayerSetEffect>(entity.EnchantmentEffects.OfType<PlayerSetEffect>().ToSortedList());
             entity.BoolEffects = GetBoolEffectDictionary(entity.EnchantmentEffects.OfType<BoolEffect>());
 		    IEnumerable<BuffEffect> buffEffects = enchantmentEffects.OfType<BuffEffect>();
-            entity.OnTickBuffs = GetBuffEffects(buffEffects.OfType<OnTickPlayerBuffEffectGeneral>());
+            entity.OnTickBuffs = GetBuffEffects(buffEffects.OfType<BuffEffect>().Where(e => e.BuffStyle is BuffStyle.OnTickPlayerBuff or BuffStyle.OnTickPlayerDebuff));
 
             SortOnHitEffects(entity, enchantmentEffects, buffEffects);
         }
@@ -114,8 +114,8 @@ namespace WeaponEnchantments.Common {
                 return;
 
             onHitEffectsEntity.OnHitEffects = enchantmentEffects.OfType<IOnHitEffect>().ToList();
-            onHitEffectsEntity.OnHitDebuffs = GetBuffEffects(buffEffects.OfType<OnHitTargetBuffEffectGeneral>());
-            onHitEffectsEntity.OnHitBuffs = GetBuffEffects(buffEffects.OfType<OnHitPlayerBuffEffectGeneral>());
+            onHitEffectsEntity.OnHitDebuffs = GetBuffEffects(buffEffects.OfType<BuffEffect>().Where(e => e.BuffStyle is BuffStyle.OnHitEnemyBuff or BuffStyle.OnHitEnemyDebuff));
+            onHitEffectsEntity.OnHitBuffs = GetBuffEffects(buffEffects.OfType<BuffEffect>().Where(e => e.BuffStyle is BuffStyle.OnHitPlayerBuff or BuffStyle.OnHitPlayerDebuff));
         }
         private SortedDictionary<EnchantmentStat, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<T> statEffects) where T : IApplyStats {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>();

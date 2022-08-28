@@ -98,6 +98,25 @@ namespace WeaponEnchantments.Common.Utility
         ManaUsage = 20,
         Size = 33,
     }
+    public enum BuffStyle
+	{
+        OnTickPlayerBuff,
+        OnTickPlayerDebuff,
+        OnTickAreaTeamBuff,
+        OnTickAreaTeamDebuff,
+        OnTickEnemyBuff,
+        OnTickEnemyDebuff,
+        OnTickAreaEnemyBuff,
+        OnTickAreaEnemyDebuff,
+        OnHitPlayerBuff,
+        OnHitPlayerDebuff,
+        OnHitEnemyBuff,
+        OnHitEnemyDebuff,
+        OnHitAreaTeamBuff,
+        OnHitAreaTeamDebuff,
+        OnHitAreaEnemyBuff,
+        OnHitAreaEnemyDebuff
+    }
     public enum PermenantItemFields : short
 	{
         

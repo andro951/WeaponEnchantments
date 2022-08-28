@@ -20,21 +20,21 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override bool Max1 => true;
 		public override void GetMyStats() {
 			Effects = new() {
-				new OnHitTargetDebuffEffect(BuffID.OnFire, BuffDuration, EnchantmentStrengthData),
-				new OnHitTargetDebuffEffect(BuffID.Oiled, BuffDuration, EnchantmentStrengthData * 0.8f)
+				new BuffEffect(BuffID.OnFire, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData),
+				new BuffEffect(BuffID.Oiled, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.8f)
 			};
 
 			if (EnchantmentTier >= 1)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.CursedInferno, BuffDuration, EnchantmentStrengthData * 0.6f));
+				Effects.Add(new BuffEffect(BuffID.CursedInferno, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.6f));
 
 			if (EnchantmentTier >= 2)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.ShadowFlame, BuffDuration, EnchantmentStrengthData * 0.4f));
+				Effects.Add(new BuffEffect(BuffID.ShadowFlame, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.4f));
 
 			if (EnchantmentTier >= 3)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.OnFire3, BuffDuration, EnchantmentStrengthData * 0.2f));
+				Effects.Add(new BuffEffect(BuffID.OnFire3, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.2f));
 
 			if (EnchantmentTier == 4)
-				Effects.Add(new OnHitTargetDebuffEffect((short)ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue, buffStrength: EnchantmentStrengthData));
+				Effects.Add(new BuffEffect((short)ModContent.BuffType<AmaterasuDebuff>(), BuffStyle.OnHitEnemyDebuff, int.MaxValue, buffStrength: EnchantmentStrengthData));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

@@ -594,8 +594,20 @@ namespace WeaponEnchantments
                         continue;
 
                     int type = options.GetOneFromWeightedList(chance);
-                    if(type > 0)
-                        chest.item[j] = new Item(type);
+
+                    if(type > 0) {
+                        bool found = false;
+                        for (int k = j; k >= 0; k--) {
+                            if (chest.item[k].type == type && chest.item[k].stack < chest.item[k].maxStack) {
+                                chest.item[k].stack++;
+                                found = true;
+                                j--;
+                            }
+                        }
+
+                        if (!found)
+                            chest.item[j] = new Item(type);
+                    }
 
                     itemsPlaced++;
                 }

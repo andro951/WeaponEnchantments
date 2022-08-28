@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Items.Utility
 		public override float CapacityCostMultiplier => 1;
 		public override void GetMyStats() {
 			Effects = new() {
-				new OnTickPlayerBuffEffect(buffID)
+				new BuffEffect(buffID, BuffStyle.OnTickPlayerBuff)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

@@ -20,13 +20,13 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			};
 
 			if (EnchantmentTier >= 2)
-				Effects.Add(new OnHitPlayerBuffEffect(BuffID.ScytheWhipPlayerBuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.ScytheWhipPlayerBuff, BuffStyle.OnHitPlayerBuff, BuffDuration));
 
 			if (EnchantmentTier >= 3)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.ScytheWhipEnemyDebuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.ScytheWhipEnemyDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
 
 			if (EnchantmentTier == 4)
-				Effects.Add(new OnHitTargetDebuffEffect(BuffID.RainbowWhipNPCDebuff, BuffDuration));
+				Effects.Add(new BuffEffect(BuffID.RainbowWhipNPCDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

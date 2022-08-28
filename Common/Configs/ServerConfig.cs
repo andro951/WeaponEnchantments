@@ -102,7 +102,7 @@ namespace WeaponEnchantments.Common.Configs
 
         //Enchantment Drop Rates(%)
         [Header("Enchantment Drop Rates(%)")]
-        [Label("Boss Enchantment Drop Rate")]
+        [Label("Boss Enchantment Drop Rate(%)")]
         [Tooltip("Adjust the drop rate of enchantments from bosses.\n(Default is 50%)")]
         [Range(0, 100)]
         [DefaultValue(50)]
@@ -118,7 +118,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Chest Enchantment Spawn Chance(%)")]
         [Tooltip("Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)")]
-        [Range(0, 4000)]
+        [Range(0, 100000)]
         [DefaultValue(50)]
         public int ChestSpawnChance;
 
