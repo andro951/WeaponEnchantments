@@ -981,6 +981,52 @@ namespace WeaponEnchantments.Items {
 					recipe.Register();
 				}
 			}
+
+			if (!WEMod.clientConfig.AllowCraftingIntoLowerTier || EnchantmentValueTierReduction != 0)
+				return;
+
+			for (int i = 0; i < tierNames.Length; i++) {
+				if (EnchantmentTier == tierNames.Length)
+					continue;
+
+				Recipe recipe;
+				for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
+					recipe = CreateRecipe();
+
+					//Enchantment
+					recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j], 1);
+
+					//Containment
+					if (EnchantmentTier < 2) {
+						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
+					}
+
+					//Enchanting Table
+					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
+
+					//Gems
+					if (EnchantmentTier == 3) {
+						recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
+					}
+
+					recipe.Register();
+				}
+
+				//Containment Recipe
+				Recipe containmentRecipe = CreateRecipe();
+
+				//Containment
+				containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
+
+				//This enchantment
+				containmentRecipe.AddIngredient(Type);
+
+				//Enchanting Table
+				containmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
+				containmentRecipe.Register();
+			}
+
+			
 		}
 		/// <summary>
 		/// Allows for editing recipies in any way.  Called for every recipe.

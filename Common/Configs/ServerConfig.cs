@@ -288,6 +288,10 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 100)]
         public int PercentOfferEssence;
 
+        [Label("Allow crafting enchantments into lower tier enchantments.")]
+        [DefaultValue(true)]
+        public bool AllowCraftingIntoLowerTier;
+
         //Display Settings
         [Header("Display Settings")]
         [Label("Use Original Tier Names")]
