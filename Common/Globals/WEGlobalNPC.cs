@@ -655,14 +655,14 @@ namespace WeaponEnchantments.Common.Globals
                         if (!wEGlobalNPC.amaterasuImmunityUpdated) {
                             AmaterasuDebuff.RemoveImmunities(mainNPC);
                             wEGlobalNPC.amaterasuStrength = amaterasuStrength;
-                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue);
+                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000);
                             wEGlobalNPC.amaterasuImmunityUpdated = true;
                         }
                     }
                 }
 
                 amaterasuDamage++;
-                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue, true);
+                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000, true);
                 lastAmaterasuTime = Main.GameUpdateCount;
             }
             else {
