@@ -384,7 +384,8 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 
 			if (resetShop || shopEnchantments.Count == 0) {
-				shopEnchantments = GetEnchantmentsForShop();
+				GetEnchantmentsForShop();
+				resetShop = false;
 			}
 
 			foreach(KeyValuePair<int, int> pair in shopEnchantments) {
@@ -394,72 +395,49 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 		}
 
-		private Dictionary<int, int> GetEnchantmentsForShop() {
-			Dictionary<int, int> shopEnchantments = new();
+		private void GetEnchantmentsForShop() {
+			shopEnchantments = new Dictionary<int, int>();
 			IEnumerable<Enchantment> enchantments = ModContent.GetContent<ModItem>().OfType<Enchantment>().Where(e => e.EnchantmentTier == 0 || e.EnchantmentValueTierReduction != 0);
 
 			//Always
-			List<int> always = enchantments.Where(e => e.SellCondition == SellCondition.Always).Select(e => e.Type).ToList();
-			foreach(int type in always) {
-				shopEnchantments.Add(type, 1);
-			}
+			AddEnchantmentsToShop(enchantments, SellCondition.Always, 0, 1);
 
 			//Any Time
-			List<int> anyTime = enchantments.Where(e => e.SellCondition == SellCondition.AnyTime).Select(e => e.Type).ToList();
-			for(int i = 0; i < 4; i++) {
-				int type = anyTime.GetOneFromList();
-				shopEnchantments.Add(type, 2);
-				anyTime.Remove(type);
-			}
+			AddEnchantmentsToShop(enchantments, SellCondition.AnyTime, 4, 2);
 
 			//Any Time Rare
-			List<int> anyTimeRare = enchantments.Where(e => e.SellCondition == SellCondition.AnyTimeRare).Select(e => e.Type).ToList();
-			for (int i = 0; i < 1; i++) {
-				int type = anyTimeRare.GetOneFromList();
-				shopEnchantments.Add(type, 5);
-				anyTimeRare.Remove(type);
-			}
+			AddEnchantmentsToShop(enchantments, SellCondition.AnyTimeRare, 1, 5);
 
 			if (Main.hardMode) {
 				//Hard Mode
-				List<int> hardMode = enchantments.Where(e => e.SellCondition == SellCondition.HardMode).Select(e => e.Type).ToList();
-				for(int i = 0; i < 2; i++) {
-					int type = hardMode.GetOneFromList();
-					shopEnchantments.Add(type, 20);
-					hardMode.Remove(type);
-				}
+				AddEnchantmentsToShop(enchantments, SellCondition.HardMode, 2, 20);
 
 				if (NPC.downedPlantBoss) {
 					//Post Plantera
-					List<int> postPlantera = enchantments.Where(e => e.SellCondition == SellCondition.PostPlantera).Select(e => e.Type).ToList();
-					for (int i = 0; i < 1; i++) {
-						int type = postPlantera.GetOneFromList();
-						shopEnchantments.Add(type, 50);
-						postPlantera.Remove(type);
-					}
+					AddEnchantmentsToShop(enchantments, SellCondition.PostPlantera, 1, 50);
 
 					if (NPC.downedAncientCultist) {
 						//Post Cultist
-						List<int> postCultist = enchantments.Where(e => e.SellCondition == SellCondition.PostCultist).Select(e => e.Type).ToList();
-						for (int i = 0; i < 1; i++) {
-							int type = postCultist.GetOneFromList();
-							shopEnchantments.Add(type, 100);
-							postCultist.Remove(type);
-						}
+						AddEnchantmentsToShop(enchantments, SellCondition.PostCultist, 1, 100);
 					}
 				}
 			}
 
 			if (Main.rand.Next(100) == 0) {
-				List<int> luck = enchantments.Where(e => e.SellCondition == SellCondition.Luck).Select(e => e.Type).ToList();
-				for (int i = 0; i < 1; i++) {
-					int type = luck.GetOneFromList();
-					shopEnchantments.Add(type, 5);
-					luck.Remove(type);
-				}
+				AddEnchantmentsToShop(enchantments, SellCondition.Luck, 1, 5);
 			}
+		}
+		private void AddEnchantmentsToShop(IEnumerable<Enchantment> enchantments, SellCondition condition, int num, int priceMultiplier) {
+			List<int> list = enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type).ToList();
 
-			return shopEnchantments;
+			if (condition == SellCondition.Always)
+				num = list.Count;
+
+			for (int i = 0; i < num; i++) {
+				int type = list.GetOneFromList();
+				shopEnchantments.Add(type, priceMultiplier);
+				list.Remove(type);
+			}
 		}
 	}
 
