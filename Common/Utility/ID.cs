@@ -211,4 +211,46 @@ namespace WeaponEnchantments.Common.Utility
         PostCultist,
         Luck
 	}
+    public enum L_ID1
+	{
+        Tooltip,
+        Dialogue,
+        NPCNames,
+
+	}
+    public enum L_ID2
+	{
+        None,
+        Witch,
+
+	}
+    public enum L_ID_V
+	{
+        Item,
+        Projectile,
+        NPC,
+        Buff,
+        BuffDescription
+	}
+    /*
+    New enchantment names for tier 3/4
+    All EnchantmentTypeNames
+    Enchantment CustomTooltips
+
+    ```
+    text
+    text
+    text
+    ```
+
+    Enchantment.GenerateFullTooltip()
+    Enchantment.GetAllowedListTooltips()
+    EnchantedItem.ModifyTooltips() and children
+    All 3 UI files
+    EnchantmentStat (ID)
+    WorldDataManager.GetOreName()
+
+
+    Try setting up print to do GetText and GetTextValue
+     */
 }

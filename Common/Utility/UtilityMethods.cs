@@ -13,6 +13,7 @@ using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Effects;
+using Terraria.Localization;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -386,6 +387,25 @@ namespace WeaponEnchantments.Common.Utility
         public static string PercentString(this float value) {
             return $"{Math.Round(value * 100, 2)}%";
         }
+        public static string Lang(this string s, string m) => Language.GetTextValue($"Mods.WeaponEnchantments.{m}.{s}");
+        public static string Lang(this string s, L_ID1 id = L_ID1.Tooltip) => Language.GetTextValue($"Mods.WeaponEnchantments.{id}.{s}");
+        public static string Lang(this string s, L_ID1 id, string m) => Language.GetTextValue($"Mods.WeaponEnchantments.{id}.{m}.{s}");
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2) => Language.GetTextValue($"Mods.WeaponEnchantments.{id}.{id2}.{s}");
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2, string m) => Language.GetTextValue($"Mods.WeaponEnchantments.{id}.{id2}.{m}.{s}");
+        public static string Lang(this int i, L_ID_V id) {
+			switch (id) {
+                case L_ID_V.Item:
+                    return Terraria.Lang.GetItemNameValue(i);
+                case L_ID_V.NPC:
+                    return Terraria.Lang.GetNPCNameValue(i);
+                case L_ID_V.Buff:
+                    return Terraria.Lang.GetBuffName(i);
+                case L_ID_V.BuffDescription:
+                    return Terraria.Lang.GetBuffDescription(i);
+			}
+
+            return null;
+		}
 
         #region AddOrCombine
 

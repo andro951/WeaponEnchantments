@@ -715,7 +715,7 @@ namespace WeaponEnchantments.Items {
 			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{StringManipulation.AddSpaces(EnchantmentTypeName)} Only*",
+					$"   *{EnchantmentTypeName.AddSpaces()} Only*",
 					Color.White
 				));
 			}
