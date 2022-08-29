@@ -16,6 +16,7 @@ namespace WeaponEnchantments.Items.Utility
 		protected abstract int buffID { get; }
 		public override bool Max1 => true;
 		public override float CapacityCostMultiplier => 1;
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
 			Effects = new() {
 				new BuffEffect(buffID, BuffStyle.OnTickPlayerBuff)

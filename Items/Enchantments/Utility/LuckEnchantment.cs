@@ -7,7 +7,8 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class LuckEnchantment : Enchantment {
 		public override int StrengthGroup => 16;
-		public override void GetMyStats() {
+        public override SellCondition SellCondition => SellCondition.Luck;
+        public override void GetMyStats() {
             Effects = new() {
                 new Luck(@base: EnchantmentStrengthData),
                 new MaxLuck(@base: EnchantmentStrengthData)

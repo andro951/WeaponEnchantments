@@ -190,7 +190,7 @@ namespace WeaponEnchantments.Common {
 
             return result;
         }
-        private IEnumerable<Item> GetAllArmor() {
+        public IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];
             Armor.CopyTo(items, 0);
             Accesories.CopyTo(items, Armor.Length);

@@ -293,7 +293,7 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="options">Posible items to be selected.</param>
 		/// <param name="chance">Chance to select an item from the list.</param>
 		/// <returns>Item selected or null if chance was less than the generated float.</returns>
-		public static T GetOneFromList<T>(this List<T> options, float chance) where T : new() {
+		public static T GetOneFromList<T>(this List<T> options, float chance = 1f) where T : new() {
             if (options.Count == 0)
                 return new T();
 

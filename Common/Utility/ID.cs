@@ -200,4 +200,15 @@ namespace WeaponEnchantments.Common.Utility
         SolarDash,
         CrystalNinjaDash = 5
     }
+    public enum SellCondition
+	{
+        Never,
+        Always,
+        AnyTime,
+        AnyTimeRare,
+        HardMode,
+        PostPlantera,
+        PostCultist,
+        Luck
+	}
 }

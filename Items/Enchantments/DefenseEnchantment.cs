@@ -9,6 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 3;
 		public override int LowestCraftableTier => 0;
+		public override SellCondition SellCondition => SellCondition.Always;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DefenseEffect(@base: EnchantmentStrengthData),

@@ -233,6 +233,8 @@ namespace WeaponEnchantments.Items {
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
+		public virtual SellCondition SellCondition => SellCondition.AnyTime;
+
 		public abstract string Artist { get; }
 		public abstract string Designer { get; }
 

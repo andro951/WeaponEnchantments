@@ -11,7 +11,8 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
 		public override int StrengthGroup => 5;
-		public override void GetMyStats() {
+        public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+        public override void GetMyStats() {
             Effects = new() {
                 new LifeSteal(@base: EnchantmentStrengthData)
             };

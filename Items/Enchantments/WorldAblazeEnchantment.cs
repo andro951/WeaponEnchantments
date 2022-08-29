@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			$"(Spreads to nearby enemies and prevents enemies from being immune from other WorldAblaze debuffs.)";
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override void GetMyStats() {
 			Effects = new() {
 				new BuffEffect(BuffID.OnFire, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData),

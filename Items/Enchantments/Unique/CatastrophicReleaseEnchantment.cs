@@ -11,6 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string CustomTooltip => "(Does not work, Not finished)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageTypeSpecificID.Magic;
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override void GetMyStats() {
 			//AddEStat(EnchantmentTypeName, 0f, 1f, EnchantmentStrength);
 			//AddEStat("InfinitePenetration", 0f, 1f, 13.13f);

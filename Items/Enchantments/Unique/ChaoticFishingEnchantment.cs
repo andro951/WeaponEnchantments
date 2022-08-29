@@ -8,7 +8,8 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class ChaoticFishingEnchantment : Enchantment {
 		public override int StrengthGroup => 7;
-		public override void GetMyStats() {
+        public override SellCondition SellCondition => SellCondition.HardMode;
+        public override void GetMyStats() {
             Effects = new() {
                 new FishingEnemySpawnChance(@base: EnchantmentStrengthData)
             };

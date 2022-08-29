@@ -67,6 +67,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class CursedInfernoEnchantment : StatusEffectEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.CursedInferno;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.CursedFlame, 3);
 	}
@@ -78,6 +79,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class IchorEnchantment : StatusEffectEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.Ichor;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Ichor, 3);
 	}
@@ -89,6 +91,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class VenomEnchantment : StatusEffectEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.Venom;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.VialofVenom, 3);
 	}
@@ -101,6 +104,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class DaybreakEnchantment : StatusEffectEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostCultist;
 		public override float CapacityCostMultiplier => 2;
 
 		public override short StatusEffect => BuffID.Daybreak;

@@ -16,6 +16,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			"(Enemies spawned will be immune to lava/traps)";
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
 			Effects = new() {
 				new EnemyMaxSpawns(multiplicative: EnchantmentStrengthData),

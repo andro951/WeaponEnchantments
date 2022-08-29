@@ -9,6 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class ArmorPenetrationEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 4;
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
 			Effects = new() {
 				new ArmorPenetration(@base: EnchantmentStrengthData),

@@ -8,7 +8,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class LavaFishingEnchantment : Enchantment {
 		public override int StrengthGroup => 8;
 		public override bool Max1 => true;
-		public override void GetMyStats() {
+        public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+        public override void GetMyStats() {
             Effects = new() {
                 new LavaFishing(@base: EnchantmentStrengthData)
             };
