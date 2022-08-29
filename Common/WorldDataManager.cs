@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
@@ -27,6 +28,75 @@ namespace WeaponEnchantments.Common
 		public static int CobaltBar;
 		public static int MythrilBar;
 		public static int AdamantiteBar;
+
+		public static string GetOreNamesList(int start, int end = 8, bool andAtEnd = false, bool skipDemonite = true) {
+			string list = "";
+			bool first = true;
+			for(int i = start; i < end; i++) {
+				if (i == 4 && skipDemonite)
+					continue;
+
+				if (first) {
+					first = false;
+				}
+				else {
+					if (!andAtEnd && i == end - 1) {
+						list += " and ";
+					}
+					else {
+						list += ", ";
+					}
+				}
+
+				list += $"{GetOreName(ores[i])}";
+
+				if (andAtEnd && i == end - 1)
+					list += " and ";
+			}
+
+			return list;
+		}
+
+		private static List<int> ores;
+
+		private static string GetOreName(int id) {
+			switch (id) {
+				case ItemID.CopperOre:
+					return "copper";
+				case ItemID.TinOre:
+					return "tin";
+				case ItemID.IronOre:
+					return "iron";
+				case ItemID.LeadOre:
+					return "lead";
+				case ItemID.SilverOre:
+					return "silver";
+				case ItemID.TungstenOre:
+					return "tungsten";
+				case ItemID.GoldOre:
+					return "gold";
+				case ItemID.PlatinumOre:
+					return "platinum";
+				case ItemID.DemoniteOre:
+					return "demonite";
+				case ItemID.CrimtaneOre:
+					return "crimtane";
+				case ItemID.CobaltOre:
+					return "cobalt";
+				case ItemID.PalladiumOre:
+					return "palladium";
+				case ItemID.MythrilOre:
+					return "mythril";
+				case ItemID.OrichalcumOre:
+					return "orichalcum";
+				case ItemID.AdamantiteOre:
+					return "adamantite";
+				case ItemID.TitaniumOre:
+					return "titanium";
+				default:
+					return "";
+			}
+		}
 
 		public override void OnWorldLoad() { 
 			//World ores
@@ -127,6 +197,17 @@ namespace WeaponEnchantments.Common
 					}
 				}
 			}
+
+			ores = new() {
+				CopperOre,
+				IronOre,
+				SilverOre,
+				GoldOre,
+				DemoniteOre,
+				CobaltOre,
+				MythrilOre,
+				AdamantiteOre
+			};
 		}
 	}
 }
