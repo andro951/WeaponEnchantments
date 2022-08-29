@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
+using Terraria.ModLoader.IO;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
 namespace WeaponEnchantments.Common
 {
     public class OldItemManager
     {
+        public static byte versionUpdate;
         private enum OldItemContext {
             firstWordNames,
             searchWordNames,
@@ -21,24 +26,33 @@ namespace WeaponEnchantments.Common
         }
         private static Dictionary<string, string> firstWordNames = new Dictionary<string, string> { 
             { "Critical", "CriticalStrikeChance" }, 
-            { "Size", "Scale" }, 
-            { "ManaCost", "Mana" }, 
-            { "Defence", "StatDefense" }, 
-            { "Splitting", "Multishot"} };
+            { "Scale", "Size" }, 
+            { "ManaCost", "ReducedManaUsage" },
+            { "Mana", "ReducedManaUsage" }, 
+            { "StatDefense", "Defense" },
+            { "Splitting", "Multishot"},
+            { "ShootSpeed", "ProjectileVelocity"},
+            { "Speed", "AttackSpeed" },
+            { "Control", "MobilityControl" },
+            { "MoveSpeed", "MovementSpeed" },
+	    { "PhaseJump", "SolarDash" }
+        };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
-            { "SuperRare", 3 }, 
-            { "UltraRare", 4 }, 
-            { "Rare", 2 } };
+            { "SuperRare", 3 },
+            { "UltraRare", 4 },
+            { "Rare", 2 } 
+        };
         private static List<string> firstWordReplaceEnchantmentWithCoins = new List<string>() {
-            { "PhaseJump" }
+            
 		};
         private static Dictionary<string, int> firstWordReplaceEnchantmentWithItem = new Dictionary<string, int>() {
             { "CatastrophicRelease", ItemID.None }
         };
         private static Dictionary<string, int> wholeNameReplaceWithItem = new Dictionary<string, int> { 
             { "ContainmentFragment", ItemID.GoldBar }, 
-            {"Stabilizer", 177}, 
-            {"SuperiorStabilizer", 999} };
+            { "Stabilizer", 177 }, 
+            { "SuperiorStabilizer", 999 }
+        };
         private static Dictionary<string, int> wholeNameReplaceWithCoins = new Dictionary<string, int>() {
             
 		};
@@ -110,7 +124,7 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 		}
-		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1) {
+		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1, bool removeToInventory = false) {
             if(item != null && !item.IsAir) {
 
                 #region Debug
@@ -119,7 +133,7 @@ namespace WeaponEnchantments.Common
 
 				#endregion
 
-				if (item.ModItem is UnloadedItem) {
+				if (item.ModItem is UnloadedItem unloadedItem) {
                     bool replaced = false;
                     if (!replaced)
                         replaced = TryReplaceEnchantmentWithItem(ref item);
@@ -140,11 +154,66 @@ namespace WeaponEnchantments.Common
                         TryReplaceItem(ref item, wholeNameReplaceWithCoins, OldItemContext.wholeNameReplaceWithCoins);
                 }
 
+                //Transfer and delete EnchantedItem data
+                if (versionUpdate < 1) {
+                    FieldInfo fieldInfo = typeof(Item).GetField("globalItems", BindingFlags.NonPublic | BindingFlags.Instance);
+                    FieldInfo dataFieldInfo = typeof(UnloadedGlobalItem).GetField("data", BindingFlags.NonPublic | BindingFlags.Instance);
+                    string modName = "WeaponEnchantments";
+                    string className = "EnchantedItem";
+
+                    if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] globalItems && globalItems.Length != 0) {
+                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+                            foreach (GlobalItem g in globalItems.Select(i => i.Instance).Where(i => i is UnloadedGlobalItem)) {
+                                if (dataFieldInfo.GetValue(g) is IList<TagCompound> tagList) {
+                                    foreach (TagCompound tagCompound in tagList) {
+                                        string mod = tagCompound.Get<string>("mod");
+                                        if (mod == modName) {
+                                            string name = tagCompound.Get<string>("name");
+                                            if (name == className) {
+                                                TagCompound dataTag = tagCompound.Get<TagCompound>("data");
+                                                enchantedItem.LoadData(item, dataTag);
+                                                enchantedItem.SaveData(item, dataTag);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] newGlobalItemsArray) {
+                            List<Instanced<GlobalItem>> newGlobalItems = newGlobalItemsArray.ToList();
+                            int count = newGlobalItems.Count;
+                            for (int i = newGlobalItems.Count - 1; i >= 0; i--) {
+                                if (newGlobalItems[i].Instance is UnloadedGlobalItem unloadedGlobalItem) {
+                                    if (dataFieldInfo.GetValue(unloadedGlobalItem) is IList<TagCompound> unloadedTagList) {
+                                        foreach (TagCompound tagCompound in unloadedTagList) {
+                                            $"item: {item.S()}, tagCompound: {tagCompound}".Log();
+                                            string mod = tagCompound.Get<string>("mod");
+                                            if (mod == modName) {
+                                                string name = tagCompound.Get<string>("name");
+                                                if (name == className) {
+                                                    newGlobalItems.RemoveAt(i);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (newGlobalItems.Count < count) {
+                                fieldInfo.SetValue(item, newGlobalItems.ToArray());
+                                $"Removed EnchantedItem data from item: {item.S()}, count: {count}, newCount: {newGlobalItems.Count}".Log();
+                            }
+                        }
+                    }
+                }
+
                 if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = iGlobal.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
-                            ReplaceOldItem(ref enchantmentItem, player);
+                            ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);
                         }
                     }
 

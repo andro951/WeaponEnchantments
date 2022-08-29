@@ -33,10 +33,11 @@ namespace WeaponEnchantments.UI
         private readonly static Color bgColor = new Color(73, 94, 171);
         private readonly static Color hoverColor = new Color(100, 118, 184);
 
-        internal const int width = 680;
+        //internal const int width = 680;
+        internal const int width = 750;
         internal const int height = 155;
 
-        internal int RelativeLeft => Main.screenWidth / 2 - width / 2;
+        internal int RelativeLeft => Main.screenWidth / 2 - width / 2 + 35;
         internal int RelativeTop => Main.screenHeight / 2 + 42;
         public override void OnInitialize() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -65,7 +66,7 @@ namespace WeaponEnchantments.UI
             //Yes Button
             confirmationButton[ConfirmationButtonID.Yes] = new UIPanel() {
                 Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 - 56 },
+                Left = { Pixels = -66 - 56 - 25 },
                 Width = { Pixels = 100f },
                 Height = { Pixels = 30f },
                 HAlign = 0.5f - ratioFromCenter,
@@ -87,7 +88,7 @@ namespace WeaponEnchantments.UI
             //No Button
             confirmationButton[ConfirmationButtonID.No] = new UIPanel() {
                 Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 - 56 },
+                Left = { Pixels = -66 - 56 - 25 },
                 Width = { Pixels = 100f },
                 Height = { Pixels = 30f },
                 HAlign = 0.5f - ratioFromCenter,
@@ -270,9 +271,24 @@ namespace WeaponEnchantments.UI
                 return;
             }
 
-            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\n" +
-				$"level {iGlobal.level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\n" +
-				$"In exchange for Iron, Silver and Gold ore and Essence?\n" +
+            int oresEnd = !WEMod.serverConfig.AllowHighTierOres || !Main.hardMode ? 3 : 8;
+            bool canGetChlorophyte = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
+            string oreString = $"({WorldDataManager.GetOreNamesList(1, oresEnd, canGetChlorophyte)}{(canGetChlorophyte ? "chlorophyte" : "")})";
+            float percentEss = PercentOfferEssence;
+            string oreAndEssencePercent;
+            if (percentEss == 1f) {
+                oreAndEssencePercent = $"In exchange for essence?";
+			}
+            else if (percentEss == 0f) {
+                oreAndEssencePercent = $"In exchange for ores?";
+            }
+			else {
+                oreAndEssencePercent = $"In exchange for ores({(1f - percentEss).PercentString()}) and essence({percentEss.PercentString()})?";
+            }
+
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your level {iGlobal.level}\n" +
+				$"{wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name} {oreAndEssencePercent}\n" +
+				(percentEss < 1f ? $"{oreString}\n" : "") +
 				$"(Based on item value/experience.  Enchantments will be returned.)"
             );
         }

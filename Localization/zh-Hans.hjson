@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: 稀有我为人人附魔
 			OneForAllEnchantmentSuperRare: 超稀有我为人人附魔
 			OneForAllEnchantmentUltraRare: 极超稀有我为人人附魔
-			SpeedEnchantmentBasic: 基础攻速附魔
-			SpeedEnchantmentCommon: 普通攻速附魔
-			SpeedEnchantmentRare: 稀有攻速附魔
-			SpeedEnchantmentSuperRare: 超稀有攻速附魔
-			SpeedEnchantmentUltraRare: 极超稀有攻速附魔
+			AttackSpeedEnchantmentBasic: 基础攻速附魔
+			AttackSpeedEnchantmentCommon: 普通攻速附魔
+			AttackSpeedEnchantmentRare: 稀有攻速附魔
+			AttackSpeedEnchantmentSuperRare: 超稀有攻速附魔
+			AttackSpeedEnchantmentUltraRare: 极超稀有攻速附魔
 			StatDefenseEnchantmentBasic: 基础防御附魔
 			StatDefenseEnchantmentCommon: 普通防御附魔
 			StatDefenseEnchantmentRare: 稀有防御附魔
@@ -97,32 +97,32 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: 极超稀有弹药消耗附魔
 			DangerSenseEnchantmentUltraRare: 极超稀有危险感附魔
 			HunterEnchantmentUltraRare: 极超稀有狩猎附魔
-			ManaEnchantmentBasic: 基础魔力消耗附魔
-			ManaEnchantmentCommon: 普通魔力消耗附魔
-			ManaEnchantmentRare: 稀有魔力消耗附魔
-			ManaEnchantmentSuperRare: 超稀有魔力消耗附魔
-			ManaEnchantmentUltraRare: 极超稀有魔力消耗附魔
-			MoveSpeedEnchantmentBasic: 基础移速附魔
-			MoveSpeedEnchantmentCommon: 普通移速附魔
-			MoveSpeedEnchantmentRare: 稀有移速附魔
-			MoveSpeedEnchantmentSuperRare: 超稀有移速附魔
-			MoveSpeedEnchantmentUltraRare: 极超稀有移速附魔
+			ReducedManaUsageEnchantmentBasic: 基础魔力消耗附魔
+			ReducedManaUsageEnchantmentCommon: 普通魔力消耗附魔
+			ReducedManaUsageEnchantmentRare: 稀有魔力消耗附魔
+			ReducedManaUsageEnchantmentSuperRare: 超稀有魔力消耗附魔
+			ReducedManaUsageEnchantmentUltraRare: 极超稀有魔力消耗附魔
+			MovementSpeedEnchantmentBasic: 基础移速附魔
+			MovementSpeedEnchantmentCommon: 普通移速附魔
+			MovementSpeedEnchantmentRare: 稀有移速附魔
+			MovementSpeedEnchantmentSuperRare: 超稀有移速附魔
+			MovementSpeedEnchantmentUltraRare: 极超稀有移速附魔
 			ObsidianSkinEnchantmentUltraRare: 极超稀有黑曜石皮附魔
 			PeaceEnchantmentBasic: 基础和平附魔
 			PeaceEnchantmentCommon: 普通和平附魔
 			PeaceEnchantmentRare: 稀有和平附魔
 			PeaceEnchantmentSuperRare: 超稀有和平附魔
 			PeaceEnchantmentUltraRare: 极超稀有和平附魔
-			ScaleEnchantmentBasic: 基础体积附魔
-			ScaleEnchantmentCommon: 普通体积附魔
-			ScaleEnchantmentRare: 稀有体积附魔
-			ScaleEnchantmentSuperRare: 超稀有体积附魔
-			ScaleEnchantmentUltraRare: 极超稀有体积附魔
-			ShootSpeedEnchantmentBasic: 基础射速附魔
-			ShootSpeedEnchantmentCommon: 普通射速附魔
-			ShootSpeedEnchantmentRare: 稀有射速附魔
-			ShootSpeedEnchantmentSuperRare: 超稀有射速附魔
-			ShootSpeedEnchantmentUltraRare: 极超稀有射速附魔
+			SizeEnchantmentBasic: 基础体积附魔
+			SizeEnchantmentCommon: 普通体积附魔
+			SizeEnchantmentRare: 稀有体积附魔
+			SizeEnchantmentSuperRare: 超稀有体积附魔
+			SizeEnchantmentUltraRare: 极超稀有体积附魔
+			ProjectileVelocityEnchantmentBasic: 基础射速附魔
+			ProjectileVelocityEnchantmentCommon: 普通射速附魔
+			ProjectileVelocityEnchantmentRare: 稀有射速附魔
+			ProjectileVelocityEnchantmentSuperRare: 超稀有射速附魔
+			ProjectileVelocityEnchantmentUltraRare: 极超稀有射速附魔
 			SpelunkerEnchantmentUltraRare: 极超稀有洞穴探险附魔
 			WarEnchantmentBasic: 基础战争附魔
 			WarEnchantmentCommon: 普通战争附魔

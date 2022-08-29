@@ -66,47 +66,60 @@ namespace WeaponEnchantments.Items
 			Item.value = 150;
 		}
 
-		private string GetPreviousTierTableName() {
-			return enchantingTableNames[enchantingTableTier - 1] + "EnchantingTable";
+		private string GetTableName(int tier) {
+			return enchantingTableNames[tier] + "EnchantingTable";
 		}
 
 		public override void AddRecipes() {
-			Recipe recipe = CreateRecipe();
-			if (enchantingTableTier > -1) {
-				string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
-				if (enchantingTableTier > 0) {
-					//recipe.AddTile(TileID.WorkBenches);
-					previousTierName = GetPreviousTierTableName();
-					recipe.AddIngredient(Mod, previousTierName, 1);
-				}
+			
+			/*string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
+			if (enchantingTableTier > 0) {
+				//recipe.AddTile(TileID.WorkBenches);
+				previousTierName = GetTableName(enchantingTableTier - 1);
+				recipe.AddIngredient(Mod, previousTierName, 1);
+			}*/
 
-				switch (enchantingTableTier) {
-					case 0:
-						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches");
+			
+			for (int i = -1; i < enchantingTableTier; i++) {
+				for (int d = 0; d <= (i <= 0 && enchantingTableTier >= 1 ? 1 : 0); d++) {
+					Recipe recipe = CreateRecipe();
+
+					if (i == -1) {
+						recipe.AddRecipeGroup("WeaponEnchantments:Workbenches"); //Workbench
+					}
+					else {
+						recipe.AddIngredient(Mod, GetTableName(i), 1); //Enchanting Table
+					}
+
+					if (i < 0 && enchantingTableTier >= 0) {
 						recipe.AddIngredient(ItemID.Torch, 4); //Torches
-						break;
-					case 1:
-						recipe.AddIngredient(ItemID.DesertFossil, 10); //Desert Fossil
-						recipe.Register();
-						recipe = CreateRecipe();
-						recipe.AddIngredient(Mod, previousTierName, 1);
-						recipe.AddIngredient(ItemID.FossilOre, 1);
-						break;
-					case 2:
+					}
+					
+					if (i < 1 && enchantingTableTier >= 1) {
+						if (d == 0) {
+							recipe.AddIngredient(ItemID.DesertFossil, 10); //Desert Fossil
+						}
+						else {
+							recipe.AddIngredient(ItemID.FossilOre, 1);
+						}
+					}
+
+					if (i < 2 && enchantingTableTier >= 2) {
 						recipe.AddIngredient(ItemID.ObsidianSkull, 1); //Obsidian Skull
-						break;
-					case 3:
-						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); // Soul of Light or Night
-						break;
-					case 4:
+						recipe.AddIngredient(ItemID.Hellstone, 2); //Hellstone ore
+					}
+
+					if (i < 3 && enchantingTableTier >= 3)
+						recipe.AddRecipeGroup("WeaponEnchantments:AlignedSoul", 2); //Soul of Light or Night
+
+					if (i < 4 && enchantingTableTier >= 4)
 						recipe.AddIngredient(ItemID.HallowedBar, 2); //Hallowed Bars
-						break;
+
+					recipe.Register();
 				}
-
-				recipe.Register();
-
-				IDs[enchantingTableTier] = Type;
 			}
+
+			IDs[enchantingTableTier] = Type;
 		}
 	}
 	public class WoodEnchantingTable : EnchantingTableItem { }

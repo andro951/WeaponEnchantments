@@ -128,11 +128,13 @@ namespace WeaponEnchantments.UI
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey(EItemType.Weapon) && IsWeaponItem(itemInUI);
-			bool allowedArmor = enchantment.AllowedList.ContainsKey(EItemType.Armor) && IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey(EItemType.Accessory) && IsAccessoryItem(itemInUI);
+			if (itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				bool allowedOnItem = enchantment.AllowedList.ContainsKey(enchantedItem.ItemType);
 
-			return allowedWeapon || allowedArmor || allowedAccessory;
+				return allowedOnItem;
+			}
+
+			return false;
 		}
 		private bool UseEnchantmentSlot() {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -146,23 +148,19 @@ namespace WeaponEnchantments.UI
 		}
 		public static bool SlotAllowedByConfig(Item item, int slot) {
 			int configSlots;
-			int[] configSlotSettings = new int[] { 
+			int[] configSlotSettings = new int[] {
 				WEMod.serverConfig.EnchantmentSlotsOnWeapons,
 				WEMod.serverConfig.EnchantmentSlotsOnArmor,
-				WEMod.serverConfig.EnchantmentSlotsOnAccessories
+				WEMod.serverConfig.EnchantmentSlotsOnAccessories,
+				WEMod.serverConfig.EnchantmentSlotsOnFishingPoles,
+				WEMod.serverConfig.EnchantmentSlotsOnTools
 			};
 
-			if(item == null || item.IsAir) {
+			if (item == null || item.IsAir) {
 				configSlots = configSlotSettings.Max();
 			}
-			else if (IsWeaponItem(item)) {
-				configSlots = configSlotSettings[0];
-			}
-			else if (IsArmorItem(item)) {
-				configSlots = configSlotSettings[1];
-			}
-			else if (IsAccessoryItem(item)) {
-				configSlots = configSlotSettings[2];
+			else if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				configSlots = configSlotSettings[(int)enchantedItem.ItemType - 1];
 			}
 			else {
 				configSlots = 0;

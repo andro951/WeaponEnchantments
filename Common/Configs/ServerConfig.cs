@@ -58,7 +58,7 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 10000)]
         [DefaultValue(10)]
         [ReloadRequired]
-        public int SpeedEnchantmentAutoReuseSetpoint;
+        public int AttackSpeedEnchantmentAutoReuseSetpoint;
 
         [Label("Auto Reuse Disabled on Magic Missile type weapons")]
         [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]
@@ -102,7 +102,7 @@ namespace WeaponEnchantments.Common.Configs
 
         //Enchantment Drop Rates(%)
         [Header("Enchantment Drop Rates(%)")]
-        [Label("Boss Enchantment Drop Rate")]
+        [Label("Boss Enchantment Drop Rate(%)")]
         [Tooltip("Adjust the drop rate of enchantments from bosses.\n(Default is 50%)")]
         [Range(0, 100)]
         [DefaultValue(50)]
@@ -118,9 +118,15 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Chest Enchantment Spawn Chance(%)")]
         [Tooltip("Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)")]
-        [Range(0, 4000)]
+        [Range(0, 100000)]
         [DefaultValue(50)]
         public int ChestSpawnChance;
+
+        [Label("Crate Enchantment Drop Chance Multiplier(%)")]
+        [Tooltip("Adjust the chance of finding enchantments in fishing crates.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        public int CrateDropChance;
 
         //Other Drop Rates
         [Header("Other Drop Rates")]
@@ -164,6 +170,25 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 5)]
         [ReloadRequired]
         public int EnchantmentSlotsOnAccessories;
+
+        [Label("Enchantment Slots On Fishing Poles")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnFishingPoles;
+
+        [Label("Enchantment Slots On Tools")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.\n" +
+			"The Clentaminator is the only tool so far.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnTools;
 
         //General Game Changes
         [Header("General Game Changes")]
@@ -263,6 +288,10 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 100)]
         public int PercentOfferEssence;
 
+        [Label("Allow crafting enchantments into lower tier enchantments.")]
+        [DefaultValue(true)]
+        public bool AllowCraftingIntoLowerTier;
+
         //Display Settings
         [Header("Display Settings")]
         [Label("Use Original Tier Names")]
@@ -332,6 +361,19 @@ namespace WeaponEnchantments.Common.Configs
         }
 
         private bool _onlyShowErrorMessagesInChatOnce;
+
+        [Header("Logging Information")]
+        [Label("Log a List of Enchantment Tooltips")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentTooltips;
+
+        [Label("Log a List of Enchantment Drop sources")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentDrops;
     }
     public class Pair
     {
@@ -369,33 +411,66 @@ namespace WeaponEnchantments.Common.Configs
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
-        //Presets
-        [Header("Presets")]
-        [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
-        [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        //Automatic Preset based on world difficulty
+        [Label("Automatically Match Preset to World Difficulty")]
+        [DefaultValue(true)]
         [ReloadRequired]
-        public string Preset {
-            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
-
+        public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+            get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
-                if (presetNames.Contains(value)) {
-                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                _automaticallyMatchPreseTtoWorldDifficulty = !_automaticallyMatchPreseTtoWorldDifficulty;
+                if (value) {
+                    _preset = "Automatic";
+                }
+                else {
+                    GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
                 }
             }
         }
 
+        private bool _automaticallyMatchPreseTtoWorldDifficulty;
+
+        //Presets
+        [Header("Presets")]
+        [DrawTicks]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
+        [DefaultValue("Normal")]
+        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        [ReloadRequired]
+        public string Preset {
+            get => _preset;
+            set {
+                if (presetNames.Contains(value)) {
+                    _preset = value;
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                    _automaticallyMatchPreseTtoWorldDifficulty = false;
+                }
+                else if (value == "Automatic") {
+                    _preset = value;
+                    _automaticallyMatchPreseTtoWorldDifficulty = true;
+                }
+            }
+        }
+        private string _preset;
+
         //Multipliers
         [Header("Multipliers")]
         [Label("Global Enchantment Strength Multiplier (%)")]
-        [Range(1, 250)]
+        [Range(0, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int GlobalEnchantmentStrengthMultiplier { get; set; }
+        public int GlobalEnchantmentStrengthMultiplier {
+            get => _globalEnchantmentStrengthMultiplier;
+            set {
+                _globalEnchantmentStrengthMultiplier = value;
+                Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
+                _automaticallyMatchPreseTtoWorldDifficulty = false;
+            }
+        }
+        private int _globalEnchantmentStrengthMultiplier;
 
         public PresetData() {
             Preset = "Normal";

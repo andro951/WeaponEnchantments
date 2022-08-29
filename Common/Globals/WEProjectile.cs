@@ -10,29 +10,9 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public class WEProjectile : GlobalProjectile
+    public class WEProjectile : ProjectileWithSourceItem
     {
-        //Sources
-        public Item sourceItem;
-        private bool itemSourceSet;
-        private bool ItemSourceSet {
-            get => itemSourceSet;
-            set {
-                if(sourceItem != null)
-                    itemSourceSet = value;
-			}
-        }
-        public Player playerSource;
-        public Projectile parent = null;
-
         //Stat changes
-        public double hitCooldownEnd = 0;
-        float speed;
-        bool firstScaleCheck = true;
-        bool reApplyScale = false;
-        float initialScale = 1f;
-        float referenceScale = 1f;
-        float lastScaleBonus = 1f;
         public bool multiShotConvertedToDamage = false;
 
         //Attack speed tracking
@@ -46,15 +26,18 @@ namespace WeaponEnchantments.Common.Globals
         bool[] completedChildSpawnSpeedSetup = { false, false };
 
         //Tracking
-        private bool updated = false;
         public bool skipOnHitEffects = false;
         public int lastInventoryLocation = -1;
         bool weaponProjectile = false;
 
         public override bool InstancePerEntity => true;
-        public override void OnSpawn(Projectile projectile, IEntitySource source) {
-            if (projectile.owner < 0 || projectile.owner >= Main.player.Length)
-                return;
+		public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) {
+            if (!base.AppliesToEntity(entity, lateInstantiation))
+                return false;
+
+            return entity.aiStyle != ProjAIStyleID.Bobber;
+		}
+		public override void OnSpawn(Projectile projectile, IEntitySource source) {
 
 			#region Debug
 
@@ -85,35 +68,15 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-            
-            //All other sources
+
+            base.OnSpawn(projectile, source);
+
             if (source is EntitySource_ItemUse uSource) {
                 if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
                     //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
                     if (weaponProjectile)
                         uSourceGlobal.masterProjectile = projectile;
-
-                    sourceItem = uSource.Item;
-                    ItemSourceSet = true;
                 }
-            }
-            else if (source is EntitySource_ItemUse_WithAmmo wSource) {
-                if (wSource.Item.TryGetEnchantedItem()) {
-                    sourceItem = wSource.Item;
-                    ItemSourceSet = true;
-                }
-            }
-            else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar) {
-                parent = parentProjectile;
-                TryUpdateFromParent();
-            }
-            else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
-                sourceItem = FindMiscSourceItem(projectile, eSource.Context);
-                ItemSourceSet = sourceItem.TryGetEnchantedItem();
-            }
-            else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player pSource) {
-                //Projectiles such as stardust guardian.
-                playerSource = pSource;
             }
 
             //Update Projectile
@@ -124,99 +87,26 @@ namespace WeaponEnchantments.Common.Globals
 			if (LogMethods.debugging) ($"OnSpawn(projectile: {projectile.S()}) sourceItem: {sourceItem.S()} playerSource: {playerSource.S()}").Log();
 
             #endregion
-
-            if (!ItemSourceSet)
-                return;
-
-			//Multishot
-            Player player = Main.player[projectile.owner];
-            float multishotChance = sourceItem.ApplyEStat("Multishot", 0f);
-
-			//Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
-			switch (sourceItem.Name) {
-                //Fix issues with weapons and multishot
-                case "Titanium Railgun":
-                    multiShotConvertedToDamage = true;
-                    break;
-            }
-
-            //Flamethrowers fix
-			if (!multiShotConvertedToDamage) {
-                multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
-			}
-
-            if (multishotChance != 0f && !weaponProjectile && !multiShotConvertedToDamage) {
-
-                //Multishot
-                bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
-                if (notAMultishotProjectile) {
-                    int projectiles = (int)multishotChance;
-                    float randFloat = Main.rand.NextFloat();
-                    projectiles += randFloat <= multishotChance - projectiles ? 1 : 0;
-                    if (projectiles > 0) {
-                        float spread = (float)Math.PI / 200f;
-                        bool invert = false;
-                        int rotationCount = 0;
-                        for (int i = 1; i <= projectiles; i++) {
-                            if (!invert)
-                                rotationCount++;
-
-                            float rotation = (float)rotationCount - ((float)projectiles - 2f) / 2f;
-                            if (invert)
-                                rotation *= -1f;
-
-                            //Vector2 position = projectile.position.RotatedBy(spread * rotation);
-                            Vector2 position = projectile.position;
-                            Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
-                            invert = !invert;
-                        }
-                    }
-                }
-            }
-
-            //Infinite Penetration
-            if (player.ContainsEStat("InfinitePenetration", sourceItem)) {
-                projectile.penetrate = -1;
-            }
         }
-        public void UpdateProjectile(Projectile projectile) {
+        public override bool UpdateProjectile(Projectile projectile) {
             if (updated)
-                return;
+                return false;
 
-            if (!ItemSourceSet) {
-                if (parent != null)
-                    TryUpdateFromParent();
-
-                return;
-            }
-
-            if (!sourceItem.TryGetEnchantedItem())
-                return;
-
-            //Initial scale
-            initialScale = projectile.scale;
-            bool projectileScaleNotModified = projectile.scale < sourceItem.scale * ContentSamples.ProjectilesByType[projectile.type].scale;
-            if (sourceItem.scale >= 1f && projectileScaleNotModified) {
-                projectile.scale *= sourceItem.scale;
-                lastScaleBonus = sourceItem.scale;
-            }
-
-            //Reference scale (after applying sourceItem.scale if needed)
-            referenceScale = projectile.scale;
+            if (!base.UpdateProjectile(projectile))
+                return false;
 
             //NPC Hit Cooldown
-            float NPCHitCooldownMultiplier = sourceItem.ApplyEStat("NPCHitCooldown", 1f);
             if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
-                Item sampleItem = ContentSamples.ItemsByType[sourceItem.type];
-                float sampleUseTime = sampleItem.useTime;
-                float useTime = sourceItem.useTime;
-                float sampleUseAnimation = sampleItem.useAnimation;
-                float useAnimation = sourceItem.useAnimation;
-                float allForOne = sourceItem.ContainsEStat("AllForOne") ? 4f : 1f;
-                float speedMult = (sampleUseTime / useTime + sampleUseAnimation / useAnimation) / (2f * allForOne);
-                speed = 1f - 1f / speedMult;
+                GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.AttackSpeed, out float attackSpeedMultiplier);
+
+                if(GetEnchantmentModifierStrength(EnchantmentStat.AllForOne, out float allForOne))
+                    allForOne /= 2.5f;
+
+                float speedMultiplier = attackSpeedMultiplier / allForOne;
+                speed = 1f - 1f / speedMultiplier;
             }
+
+            Main.player[projectile.owner].GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f);
 
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
@@ -226,29 +116,38 @@ namespace WeaponEnchantments.Common.Globals
                     projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
                 }
                 else if (projectile.localNPCHitCooldown > 0) {
-                        projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
+                    projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
                 }
             }
+
             if (projectile.usesIDStaticNPCImmunity) {
                 if (projectile.idStaticNPCHitCooldown > 0)
                     projectile.idStaticNPCHitCooldown = (int)Math.Round((float)projectile.idStaticNPCHitCooldown * NPCHitCooldownMultiplier);
             }
+
             updated = true;
+
+            return true;//Return value not used in overriden methods
         }
-        private void TryUpdateFromParent() {
-            //Player source
-            playerSource = parent.GetWEProjectile().playerSource;
-            
-            if (!parent.TryGetWEProjectile(out WEProjectile pGlobal))
-                return;
+        protected override void ActivateMultishot(Projectile projectile, IEntitySource source) {
+            //Convert multishot to damage multiplier instead (Happens in WEGlobalNPC)
+            switch (sourceItem.Name) {
+                //Fix issues with weapons and multishot
+                case "Titanium Railgun":
+                    multiShotConvertedToDamage = true;
+                    break;
+            }
 
-            //Source Item
-            sourceItem = pGlobal.sourceItem;
-            ItemSourceSet = true;
+            //Flamethrowers fix
+            if (!multiShotConvertedToDamage) {
+                multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
+            }
 
-            //Hit cooldown end
-            hitCooldownEnd = pGlobal.hitCooldownEnd;
-
+            if (!weaponProjectile && !multiShotConvertedToDamage)
+                base.ActivateMultishot(projectile, source);
+        }
+        protected virtual void TryUpdateFromParent() {
+            base.TryUpdateFromParent(out WEProjectile pGlobal);
 
             for (int i = 0; i < 2; i++) {
                 if (pGlobal.completedChildSpawnSpeedSetup[i]) {
@@ -261,7 +160,7 @@ namespace WeaponEnchantments.Common.Globals
                         if (Math.Abs(ai) < Math.Abs(nextAfterChild))
                             pGlobal.nextValueAfterChild[i] = ai;
                     }
-					else {
+                    else {
                         //Force recalculate nextValueAfterChild if triggering every tick. (Fixes an infinite loop of shooting every tick)
                         pGlobal.completedChildSpawnSpeedSetup[i] = false;
                     }
@@ -278,75 +177,19 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
 
-				#region Debug
+                #region Debug
 
-				if (LogMethods.debugging) {
+                if (LogMethods.debugging) {
                     string txt = $"parent: {parent.S()} spanedChild at ai values:";
                     txt += $" parent.ai[{i}]: {parent.ai[i]} pGlobal.lastAIValue[{i}]: {pGlobal.lastAIValue[i]}";
                     txt.Log();
                 }
 
-				#endregion
-			}
-		}
-
-        /// <summary>
-        /// Usually used for projectiles spawned by ai behavior of itself creating a new projectile. (Example Desert Tiger Staff)
-        /// </summary>
-        /// <param name="projectile"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public static Item FindMiscSourceItem(Projectile projectile, string context = "") {
-            int matchs = 0;
-            int bestMatch = -1;
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            List<string> projectileNames = context == "" ? projectile.Name.RemoveProjectileName().SplitString() : context.SplitString();
-            for (int i = 0; i < Main.projectile.Length; i++) {
-                //Find main projectile i
-                Projectile mainProjectile = Main.projectile[i];
-                if (mainProjectile.type == ProjectileID.None)
-                    continue;
-
-                //Find the best other projectile that matches.
-                if (mainProjectile.owner == wePlayer.Player.whoAmI && mainProjectile.type != projectile.type) {
-                    if (mainProjectile.GetGlobalProjectile<WEProjectile>().sourceItem.TryGetEnchantedItem()) {
-                        List<string> mainProjectileNames = mainProjectile.Name.RemoveProjectileName().SplitString();
-                        int checkMatches = projectileNames.CheckMatches(mainProjectileNames);
-                        if (checkMatches > matchs) {
-                            matchs = checkMatches;
-                            bestMatch = i;
-                        }
-                    }
-                }
+                #endregion
             }
-
-            return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<WEProjectile>().sourceItem : null;
-        }
-        public override bool PreDraw(Projectile projectile, ref Color lightColor) {
-            if (!updated)
-                UpdateProjectile(projectile);
-
-            if (!sourceItem.TryGetEnchantedItem())
-                return true;
-
-            //If source item scale changed, update the projectile scale.
-            if (sourceItem.scale == lastScaleBonus)
-                return true;
-
-            //Update the prjoectile scale.
-            projectile.scale /= lastScaleBonus;
-            referenceScale /= lastScaleBonus;
-            projectile.scale *= sourceItem.scale;
-            referenceScale *= sourceItem.scale;
-            lastScaleBonus = sourceItem.scale;
-
-            return true;
         }
         public override bool ShouldUpdatePosition(Projectile projectile) {
-            if (!ItemSourceSet)
-                return true;
-
-            if (speed <= 0)
+            if (!base.ShouldUpdatePosition(projectile))
                 return true;
 
             //If the parent projectile spawned this child and conditions are met, apply the parent's speed multiplier to the parent's ai values.
@@ -442,7 +285,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             default://enchantingTable itemSlot
                                 inventory = new Item[1];
-                                inventory[0] = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
+                                inventory[0] = wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item;
                                 inventoryLocation = 0;
                                 break;
                         }
@@ -496,7 +339,7 @@ namespace WeaponEnchantments.Common.Globals
                                 }
                             }
 
-                            found = EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem);
+                            found = inventory != null ? EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[inventoryLocation], sourceItem) : false;
                             if (found) {
                                 sourceItem = inventory[inventoryLocation];
                                 lastInventoryLocation = inventoryLocation;
@@ -513,24 +356,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
 
-
-                if (summonDamage && iGlobal.eStats.ContainsKey("AllForOne")) {
-                    int cooldown;
-					if (projectile.usesIDStaticNPCImmunity) {
-                        cooldown = projectile.idStaticNPCHitCooldown;
-                    }
-					else if (projectile.usesLocalNPCImmunity) {
-                        cooldown = projectile.localNPCHitCooldown;
-                    }
-					else {
-                        cooldown = sourceItem.useTime;
-                    }
-
-                    hitCooldownEnd = Main.GameUpdateCount + cooldown;
-                    if (parent != null)
-                        parent.GetWEProjectile().hitCooldownEnd = hitCooldownEnd;
-                }
-
                 //Gain xp
                 sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
             }
@@ -538,56 +363,6 @@ namespace WeaponEnchantments.Common.Globals
                 //Non item based projectile like the Stardust Guardian
                 EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
             }
-        }
-        public override bool? CanHitNPC(Projectile projectile, NPC target) {
-            if (sourceItem.TryGetEnchantedItem() && Main.GameUpdateCount < hitCooldownEnd)
-                return false;
-
-            return null;
-        }
-        public override void ModifyDamageHitbox(Projectile projectile, ref Rectangle hitbox) {
-            if (!ItemSourceSet)
-                return;
-
-            if (firstScaleCheck) {
-                firstScaleCheck = false;
-                switch (projectile.type) {
-                    case ProjectileID.LastPrismLaser:
-                    case ProjectileID.StardustDragon1:
-                    case ProjectileID.StardustDragon2:
-                    case ProjectileID.StardustDragon3:
-                    case ProjectileID.StardustDragon4:
-                        //Re-apply scale each draw tick
-                        reApplyScale = true;
-                        break;
-                }
-
-                //Update initialScale if source item scale changed.
-                if (Math.Abs(projectile.scale - initialScale) < Math.Abs(projectile.scale - referenceScale))
-                    initialScale = projectile.scale;
-            }
-
-            //Adjust or re-adjust the projectile to the item scale
-            if (reApplyScale || sourceItem.scale > 1f && projectile.scale == initialScale) {
-                if (projectile.scale / lastScaleBonus >= 1f) {
-                    projectile.scale /= lastScaleBonus;
-                }
-
-                projectile.scale *= sourceItem.scale;
-            }
-
-            //Excluded Projectiles from hitbox change
-            switch (projectile.type) {
-                case ProjectileID.LastPrismLaser:
-                    return;
-            }
-
-            //Modify hitbox
-            hitbox.Height = (int)Math.Round(hitbox.Height * referenceScale / initialScale);
-            hitbox.Width = (int)Math.Round(hitbox.Width * referenceScale / initialScale);
-            float scaleShift = (projectile.scale - 1f) / (2f * projectile.scale);
-            hitbox.Y -= (int)(scaleShift * hitbox.Height);
-            hitbox.X -= (int)(scaleShift * hitbox.Width);
         }
     }
 }

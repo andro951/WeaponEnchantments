@@ -50,11 +50,11 @@ Mods: {
 			OneForAllEnchantmentRare: Enchantement Un pour tous rare
 			OneForAllEnchantmentSuperRare: Enchantement Un pour tous Super rare
 			OneForAllEnchantmentUltraRare: Enchantement Un pour tous Ultra Rare
-			SpeedEnchantmentBasic: Enchantement de vitesse de base
-			SpeedEnchantmentCommon: Enchantement de vitesse Commun
-			SpeedEnchantmentRare: Enchantement de vitesse Rare
-			SpeedEnchantmentSuperRare: Enchantement de vitesse Super Rare
-			SpeedEnchantmentUltraRare: Enchantement de vitesse Ultra Rare
+			AttackSpeedEnchantmentBasic: Enchantement de vitesse de base
+			AttackSpeedEnchantmentCommon: Enchantement de vitesse Commun
+			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
+			AttackSpeedEnchantmentSuperRare: Enchantement de vitesse Super Rare
+			AttackSpeedEnchantmentUltraRare: Enchantement de vitesse Ultra Rare
 			StatDefenseEnchantmentBasic: Enchantement de défense de base
 			StatDefenseEnchantmentCommon: Enchantement de défense Commun
 			StatDefenseEnchantmentRare: Enchantement de défense Rare
@@ -97,32 +97,32 @@ Mods: {
 			AmmoCostEnchantmentUltraRare: Enchantement de coût en munitions Ultra Rare
 			DangerSenseEnchantmentUltraRare: Enchantement de danger Ultra Rare
 			HunterEnchantmentUltraRare: Enchantement de chasse Ultra Rare
-			ManaEnchantmentBasic: Enchantement de mana de base
-			ManaEnchantmentCommon: Enchantement de mana Commun
-			ManaEnchantmentRare: Enchantement de mana Rare
-			ManaEnchantmentSuperRare: Enchantement de mana Super Rare
-			ManaEnchantmentUltraRare: Enchantement de mana Ultra Rare
-			MoveSpeedEnchantmentBasic: Enchantement de Vitesse de déplacement de base
-			MoveSpeedEnchantmentCommon: Enchantement de Vitesse de déplacement Commun
-			MoveSpeedEnchantmentRare: Enchantement de Vitesse de déplacement Rare
-			MoveSpeedEnchantmentSuperRare: Enchantement de Vitesse de déplacement Super Rare
-			MoveSpeedEnchantmentUltraRare: Enchantement de Vitesse de déplacement Ultra Rare
+			ReducedManaUsageEnchantmentBasic: Enchantement de mana de base
+			ReducedManaUsageEnchantmentCommon: Enchantement de mana Commun
+			ReducedManaUsageEnchantmentRare: Enchantement de mana Rare
+			ReducedManaUsageEnchantmentSuperRare: Enchantement de mana Super Rare
+			ReducedManaUsageEnchantmentUltraRare: Enchantement de mana Ultra Rare
+			MovementSpeedEnchantmentBasic: Enchantement de Vitesse de déplacement de base
+			MovementSpeedEnchantmentCommon: Enchantement de Vitesse de déplacement Commun
+			MovementSpeedEnchantmentRare: Enchantement de Vitesse de déplacement Rare
+			MovementSpeedEnchantmentSuperRare: Enchantement de Vitesse de déplacement Super Rare
+			MovementSpeedEnchantmentUltraRare: Enchantement de Vitesse de déplacement Ultra Rare
 			ObsidianSkinEnchantmentUltraRare: Enchantement D'enveloppe en obsidienne Ultra Rare
 			PeaceEnchantmentBasic: Enchantement de paix de base
 			PeaceEnchantmentCommon: Enchantement de paix Commun
 			PeaceEnchantmentRare: Enchantement de paix Rare
 			PeaceEnchantmentSuperRare: Enchantement de paix Super Rare
 			PeaceEnchantmentUltraRare: Enchantement de paix Ultra Rare
-			ScaleEnchantmentBasic: Enchantement de taille de base
-			ScaleEnchantmentCommon: Enchantement de taille Commun
-			ScaleEnchantmentRare: Enchantement de taille Rare
-			ScaleEnchantmentSuperRare: Enchantement de taille Super Rare
-			ScaleEnchantmentUltraRare: Enchantement de taille Ultra Rare
-			ShootSpeedEnchantmentBasic: Enchantement de vitesse de tir de base
-			ShootSpeedEnchantmentCommon: Enchantement de vitesse de tir Commun
-			ShootSpeedEnchantmentRare: Enchantement de vitesse de tir Rare
-			ShootSpeedEnchantmentSuperRare: Enchantement de vitesse de tir Super Rare
-			ShootSpeedEnchantmentUltraRare: Enchantement de vitesse de tir Ultra Rare
+			SizeEnchantmentBasic: Enchantement de taille de base
+			SizeEnchantmentCommon: Enchantement de taille Commun
+			SizeEnchantmentRare: Enchantement de taille Rare
+			SizeEnchantmentSuperRare: Enchantement de taille Super Rare
+			SizeEnchantmentUltraRare: Enchantement de taille Ultra Rare
+			ProjectileVelocityEnchantmentBasic: Enchantement de vitesse de tir de base
+			ProjectileVelocityEnchantmentCommon: Enchantement de vitesse de tir Commun
+			ProjectileVelocityEnchantmentRare: Enchantement de vitesse de tir Rare
+			ProjectileVelocityEnchantmentSuperRare: Enchantement de vitesse de tir Super Rare
+			ProjectileVelocityEnchantmentUltraRare: Enchantement de vitesse de tir Ultra Rare
 			SpelunkerEnchantmentUltraRare: Enchantement de spéléologue Ultra Rare
 			WarEnchantmentBasic: Enchantement de guerre de base
 			WarEnchantmentCommon: Enchantement de guerre Commun

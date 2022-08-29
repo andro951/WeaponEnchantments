@@ -17,7 +17,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 	public interface INetOnHitEffects
 	{
 		public void NetStrikeNPC(NPC npc, int damage, bool crit);
-		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs);
+		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy);
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary);
 	}
 	public class NetManager : ModHandler<INetOnHitEffects>, INetOnHitEffects
@@ -28,19 +28,18 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			if (Main.netMode == NetmodeID.Server)
 				Net<INetOnHitEffects>.Proxy.NetStrikeNPC(npc, damage, crit);
 		}
-		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs) {
-			AmaterasuDebuff.ForceUpdate(npc);
+		public void NetDebuffs(NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
+			//AmaterasuDebuff.ForceUpdate(npc);
+			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
 
-			WEGlobalNPC wEGlobalNPC = npc.GetWEGlobalNPC();
+			WEGlobalNPC wEGlobalNPC = target.GetWEGlobalNPC();
 			wEGlobalNPC.amaterasuDamage += damage;
 			wEGlobalNPC.amaterasuStrength = amaterasuStrength;
 
-			foreach (var debuff in debuffs) {
-				npc.AddBuff(debuff.Key, debuff.Value, true);
-			}
-			
+			target.ApplyBuffs(debuffs);
+
 			if (Main.netMode == NetmodeID.Server)
-				Net<INetOnHitEffects>.Proxy.NetDebuffs(npc, damage, amaterasuStrength, debuffs);
+				Net<INetOnHitEffects>.Proxy.NetDebuffs(target, damage, amaterasuStrength, debuffs, dontDissableImmunitiy);
 		}
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary) {
 			foreach (NPC npc in oneForAllNPCDictionary.Keys) {

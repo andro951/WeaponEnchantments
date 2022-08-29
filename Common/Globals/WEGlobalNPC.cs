@@ -19,49 +19,45 @@ using WeaponEnchantments.Common.Utility;
 using System.Reflection;
 using WeaponEnchantments.ModLib.KokoLib;
 using KokoLib;
+using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
+using WeaponEnchantments.Items.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public static class OnHitEffectID
-    {
-        public const int GodSlayer = 0;
-        public const int OneForAll = 1;
-        public const int Amaterasu = 2;
-
-        public const int Count = 3;
-    }
-    public class WEGlobalNPC : GlobalNPC
-    {
+    public class WEGlobalNPC : GlobalNPC {
         #region Static
 
         public static List<int> preHardModeBossTypes;
         public static List<string> preHardModeModBossNames;
-        public static Dictionary<int, float> multipleSegmentBossTypes;
+        public static SortedDictionary<int, float> multipleSegmentBossTypes;
+        public static List<int> normalNpcsThatDropsBags;
+
         static bool war = false;
         static float warReduction = 1f;
+        public static SortedDictionary<int, List<WeightedPair>> npcDropTypes = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<WeightedPair>> npcAIDrops = new SortedDictionary<int, List<WeightedPair>>();
 
         #endregion
 
         private Item _sourceItem;
         public Item SourceItem {
             get => _sourceItem;
-			set {
+            set {
                 if (value.IsAir) {
                     _sourceItem = null;
                 }
-				else {
+                else {
                     _sourceItem = value;
-				}
-			}
+                }
+            }
         }
-        private bool oneForAllOrigin = true;
-        float baseOneForAllRange = 240f;
+        public bool oneForAllOrigin = true;
         float baseAmaterasuSpreadRange = 160f;
         public int amaterasuDamage = 0;
         private double lastAmaterasuTime = 0;
         public float amaterasuStrength = 0f;
         private bool amaterasuImmunityUpdated = false;
-        float myWarReduction = 1f;
+        public float myWarReduction = 1f;
         public override bool InstancePerEntity => true;
         public override void Load() {
             IL.Terraria.Projectile.Damage += HookDamage;
@@ -96,7 +92,7 @@ namespace WeaponEnchantments.Common.Globals
                 "Noehtnap",//Querty's Bosses and Items 2
             };
 
-            multipleSegmentBossTypes = new Dictionary<int, float>() {
+            multipleSegmentBossTypes = new SortedDictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },
                 { NPCID.EaterofWorldsBody, 100f },
                 { NPCID.EaterofWorldsTail, 100f },
@@ -104,9 +100,12 @@ namespace WeaponEnchantments.Common.Globals
                 { NPCID.TheDestroyerBody, 1f },
                 { NPCID.TheDestroyerTail, 1f },
             };
+
+            normalNpcsThatDropsBags = new List<int>() {
+                NPCID.DD2Betsy
+            };
         }
-        private static void HookDamage(ILContext il)
-        {
+        private static void HookDamage(ILContext il) {
             bool debuggingHookDamage = false;
 
             var c = new ILCursor(il);
@@ -123,7 +122,7 @@ namespace WeaponEnchantments.Common.Globals
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
 
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " Instruction: " + c.Prev.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " exception: " + e.ToString()); }
-            
+
             //Set crit roll to zero.
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
@@ -139,47 +138,47 @@ namespace WeaponEnchantments.Common.Globals
             switch (arg) {
                 case NPCID.KingSlime when !bossBag:
                 case ItemID.KingSlimeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
                     break;
                 case NPCID.EyeofCthulhu when !bossBag:
                 case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<MoveSpeedEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<MovementSpeedEnchantmentBasic>());
                     break;
                 case NPCID.EaterofWorldsHead when !bossBag:
                 case NPCID.EaterofWorldsBody when !bossBag:
                 case NPCID.EaterofWorldsTail when !bossBag:
                 case ItemID.EaterOfWorldsBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
                 case NPCID.BrainofCthulhu when !bossBag:
                 case ItemID.BrainOfCthulhuBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
                     break;
                 case NPCID.QueenBee when !bossBag:
                 case ItemID.QueenBeeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<MaxMinionsEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<MaxMinionsEnchantmentBasic>());
                     break;
                 case NPCID.SkeletronHead when !bossBag:
                 case ItemID.SkeletronBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
                     break;
                 case NPCID.Deerclops when !bossBag:
                 case ItemID.DeerclopsBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<PhaseJumpEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SolarDashEnchantmentBasic>());
                     break;
                 case NPCID.WallofFlesh when !bossBag:
                 case ItemID.WallOfFleshBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                    itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
                     break;
                 case NPCID.QueenSlimeBoss when !bossBag:
                 case ItemID.QueenSlimeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<HellsWrathEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<HellsWrathEnchantmentBasic>());
                     break;
                 case NPCID.Retinazer when !bossBag:
                 case ItemID.TwinsBossBag when bossBag:
                 case NPCID.Spazmatism when !bossBag:
-                    itemTypes.Add(ModContent.ItemType<WorldAblazeEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<WorldAblazeEnchantmentBasic>());
                     break;
                 case NPCID.TheDestroyer when !bossBag:
                 case ItemID.DestroyerBossBag when bossBag:
@@ -187,11 +186,11 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.SkeletronPrime when !bossBag:
                 case ItemID.SkeletronPrimeBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
                     break;
                 case NPCID.Plantera when !bossBag:
                 case ItemID.PlanteraBossBag when bossBag:
-                    itemTypes.Add(ModContent.ItemType<JunglesFuryEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<JunglesFuryEnchantmentBasic>());
                     break;
                 case NPCID.Golem when !bossBag:
                 case ItemID.GolemBossBag when bossBag:
@@ -207,7 +206,7 @@ namespace WeaponEnchantments.Common.Globals
                     break;
                 case NPCID.CultistBoss when !bossBag:
                 case ItemID.CultistBossBag when bossBag://Unobtainable
-                    itemTypes.Add(ModContent.ItemType<MoonlightEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<MoonlightEnchantmentBasic>());
                     break;
                 case NPCID.MoonLordCore when !bossBag:
                 case ItemID.MoonLordBossBag when bossBag:
@@ -270,19 +269,17 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static float GetEnchantmentDropChance(int arg, bool bossBag = false) {
             float chance = BossEnchantmentDropChance;
-            
+
             //Apply boss specific multiplier.
             switch (arg) {
-                case NPCID.WallofFlesh when !bossBag:
-                case ItemID.WallOfFleshBossBag when bossBag:
-                case NPCID.MoonLordCore when !bossBag:
-                case ItemID.MoonLordBossBag when bossBag:
+                case NPCID.WallofFlesh:
+                case NPCID.MoonLordCore:
                     chance *= 2f;
                     break;
             }
 
-			//Multi segment bosses
-			if (!bossBag) {
+            //Multi segment bosses
+            if (!bossBag) {
                 float multiSegmentBossMultiplier = GetMultiSegmentBossMultiplier(arg);
                 chance /= multiSegmentBossMultiplier;
             }
@@ -308,6 +305,7 @@ namespace WeaponEnchantments.Common.Globals
             IItemDropRule dropRule;
 
             bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.type);
+            bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.type);
             float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.type);
             if (multipleSegmentBoss && bossBag)
                 total *= multipleSegmentBossMultiplier;
@@ -320,7 +318,7 @@ namespace WeaponEnchantments.Common.Globals
                     continue;
 
                 //Multi-segment boss bag
-                if(multipleSegmentBoss && bossBag)
+                if (multipleSegmentBoss && bossBag)
                     thisDropRate *= multipleSegmentBossMultiplier;
 
                 //Denom
@@ -345,7 +343,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 dropRule = ItemDropRule.Common(baseID + i, denominator, minDropped, maxDropped);
 
-                if (npc.boss || multipleSegmentBoss) {
+                if (npc.boss || multipleSegmentBoss || normalNpcThatDropsBag) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
                     AddBossLoot(loot, npc, dropRule, bossBag);
                 }
@@ -355,7 +353,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Enchantments and other boss drops
-            if (npc.boss || multipleSegmentBoss) {
+            if (npc.boss || multipleSegmentBoss || normalNpcThatDropsBag) {
                 //Boss Drops
 
                 //Superior Containment
@@ -377,28 +375,18 @@ namespace WeaponEnchantments.Common.Globals
                     AddBossLoot(loot, npc, dropRule, bossBag);
                 }
 
-                //Enchantment drop chance
-                float chance = GetEnchantmentDropChance(npc.type, bossBag);
-
-                //Enchantment Drop List                
-                List<int> itemTypes = GetEnchantmentDropList(npc.type);
-
-                denominator = (int)Math.Round(1f / chance);
-                if (denominator < 1)
-                    denominator = 1;
-
                 //Enchantments
-                if (itemTypes.Count > 1) {
-                    //More than 1 drop option
-                    dropRule = ItemDropRule.OneFromOptions(denominator, itemTypes.ToArray());
+                if (npcDropTypes.ContainsKey(npc.type)) {
+                    //Enchantment drop chance
+                    float chance = GetEnchantmentDropChance(npc.type, bossBag);
+                    if (npcDropTypes[npc.type].Count == 1)
+                        chance *= npcDropTypes[npc.type][0].Weight;
 
+                    dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]);
                     AddBossLoot(loot, npc, dropRule, bossBag);
-                }
-                else if (itemTypes.Count > 0) {
-                    //One drop option
-                    dropRule = ItemDropRule.Common(itemTypes[0], denominator);
 
-                    AddBossLoot(loot, npc, dropRule, bossBag);
+                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.type)))
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcDropTypes[npc.type]));
                 }
             }
             else {
@@ -415,221 +403,40 @@ namespace WeaponEnchantments.Common.Globals
                 if (EnchantmentDropChance <= 0f)
                     return;
 
-                int defaultDenom = (int)((5000f + hp * 5f) / (total * mult));
-                if (defaultDenom < 1)
-                    defaultDenom = 1;
-
-                int denom100 = (int)Math.Round(1f / mult);
-
-                /*//Ai style drops from attibutes
-                DropRulesAttribute.npcAiStyleDrops.TryGetValue(npc.aiStyle, out ICollection<int> aiBasedDrops);
-                if (aiBasedDrops != null) {
-                    foreach (int dropID in aiBasedDrops) {
-                        loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
-                    }
-                }
-
-                //npc type drops from attributes
-                DropRulesAttribute.npcTypeDrops.TryGetValue(npc.type, out ICollection<int> mobBasedDrops);
-                if (mobBasedDrops != null) {
-                    foreach (int dropID in mobBasedDrops) {
-                        loot.Add(ItemDropRule.Common(dropID, defaultDenom, 1, 1));
-                    }
-                }*/
-
-                //Ai Style
+                bool useDefaultChance = true;
                 switch (npc.aiStyle) {
-                    case 1://Slime
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<DamageEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 2://Demon Eye
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ScaleEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 3://Fighter
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<StatDefenseEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 5://Flying
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AmmoCostEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 6://Worm
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 8://Caster
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 10://Cursed Skull
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ManaEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 13://Plant
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 14://Bat
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 16://Swimming
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<SpeedEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 17://Vulture
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 18://Jellyfish
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 19://Antlion
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 22://Hovering
-
-                        break;
-                    case 23://Flying Weapon
-
-                        break;
-                    case 25://Mimic
-                        int[] options = new int[] {
-                            ModContent.ItemType<SpelunkerEnchantmentUltraRare>(),
-                            ModContent.ItemType<DangerSenseEnchantmentUltraRare>(),
-                            ModContent.ItemType<HunterEnchantmentUltraRare>(),
-                            ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>()
-                        };
-                        loot.Add(ItemDropRule.OneFromOptions(denom100, options));
-                        break;
-                    case 26://Unicorn
-
-                        break;
-                    case 29://The Hungry - Wall of flesh plant minions
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 38://Snowman
-
-                        break;
-                    case 39://Tortoise
-
-                        break;
-                    case 40://Spider
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MaxMinionsEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 41://Derpling - Blue jungle bug
-
-                        break;
-                    case 44://Flying Fish
-
-                        break;
-                    case 49://Angry Nimbus
-
-                        break;
-                    case 55://Creeper Brain of Cthulhu minions
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<LifeStealEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case 56://Dungeon Guardians
-
-                        break;
-                    case 62://Elf Copter
-
-                        break;
-                    case 63://Flocko
-
-                        break;
-                    case 71://Sharkron - Duke Fishron minions
-
-                        break;
-                    case 73://Tesla Turret
-
-                        break;
-                    case 74://Corite/Martian Drone
-
-                        break;
-                    case 75://Rider
-
-                        break;
-                    case 80://Martian Probe - Spawns martian invasion
-                            //100% dropchance
-                        break;
-                    case 82://Moon Leach Clot - Moon lord minion
-
-                        break;
-                    case 83://Lunatic Devote - Spawn Lunatic Cultist
-
-                        break;
-                    case 85://Star Cell/Brain Sucker
-
-                        break;
-                    case 87://Biome Mimic - Big Mimics
-                        int[] optionsBiomeMimic = new int[] {
-                            ModContent.ItemType<GodSlayerEnchantmentBasic>(),
-                            ModContent.ItemType<MultishotEnchantmentBasic>()
-                        };
-                        loot.Add(ItemDropRule.OneFromOptions(denom100, optionsBiomeMimic));
-                        break;
-                    case 88://Mothron - Solar Eclipse
-
-                        break;
-                    case 91://Granite Elemental
-
-                        break;
-                    case 94://Celestial Pillar
-                            //High chance unique based on type
-                        break;
-                    case 95://Small Star Cell
-
-                        break;
-                    case 96://Flow Invader
-
-                        break;
-                    case 97://Nebula Floater
-
-                        break;
-                    case 98://Unknown? If the player is far, rolls quickly towards it, else approaches slowly before shooting Solar Flares.
-
-                        break;
-                    case 102://Sand Elemental
-                             //High
-                        break;
-                    case 103://Sand Shark
-
-                        break;
-                    case 107://Attacker - Eternia Crystal event
-
-                        break;
-                    case 108://Flying Attacker
-
-                        break;
-                    case 109://Dark Mage
-
-                        break;
-                    case 111://Etherian Lightning Bug
-
-                        break;
-                    case 119://Angry Dandelion
-
-                        break;
-                    case 120://Pirate's Curse
-
+                    case NPCAIStyleID.Mimic:
+                    case NPCAIStyleID.BiomeMimic:
+                        useDefaultChance = false;
                         break;
                 }
 
-                //Npc type
-                switch (npc.type) {
-                    case NPCID.Harpy://48
-                    case NPCID.SnowmanGangsta://143
-                    case NPCID.SnowBalla://145
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<ShootSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case NPCID.Pixie://75
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<PeaceEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case NPCID.Mothron://477
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<OneForAllEnchantmentBasic>(), defaultDenom, 1, 1));
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<AllForOneEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case NPCID.PirateShip://491
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<WarEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case NPCID.GiantWalkingAntlion://508
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
-                    case NPCID.WalkingAntlion://580
-                        loot.Add(ItemDropRule.Common(ModContent.ItemType<MoveSpeedEnchantmentBasic>(), defaultDenom, 1, 1));
-                        break;
+                float chance;
+                if (useDefaultChance) {
+                    chance = (total * mult) / (5000f + hp * 5f);
+				}
+				else {
+                    chance = 1f;
+				}
+
+                if (npcDropTypes.ContainsKey(npc.type)) {
+                    if (npcDropTypes[npc.type].Count == 1)
+                        chance *= npcDropTypes[npc.type][0].Weight;
+
+                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]));
+
+                    if (LogModSystem.printEnchantmentDrops)
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcDropTypes[npc.type]));
+                }
+
+                if (npcAIDrops.ContainsKey(npc.aiStyle)) {
+                    if (npcAIDrops[npc.aiStyle].Count == 1)
+                        chance *= npcAIDrops[npc.aiStyle][0].Weight;
+
+                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcAIDrops[npc.aiStyle]));
+
+                    if (LogModSystem.printEnchantmentDrops)
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcAIDrops[npc.aiStyle]));
                 }
             }
         }
@@ -656,8 +463,8 @@ namespace WeaponEnchantments.Common.Globals
 
             if (bossBag || npcCantDropBossBags) {
                 loot.Add(dropRule);
-			}
-			else {
+            }
+            else {
                 loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
             }
         }
@@ -667,29 +474,29 @@ namespace WeaponEnchantments.Common.Globals
 
             //HP
             hp = (float)npc.lifeMax * defenseMultiplier;
-            
+
             //Value
             float value = npc.value;
 
             //Prevent low value enemies like critters from dropping essence
-            if(value <= 0 && hp <= 10) {
+            if (value <= 0 && hp <= 10) {
                 total = 0;
                 dropRate = null;
                 baseID = 0;
                 essenceValues = null;
                 return;
-			}
+            }
 
             //Total
-            if(value > 0) {
+            if (value > 0) {
                 total = hp + 0.2f * value;
-			}
-			else {
+            }
+            else {
                 total = hp * 2.6f;
             }
 
             //Hp reduction factor
-            float hpReductionFactor = EnchantedItemStaticMethods.GetReductionFactor((int)hp);
+            float hpReductionFactor = EnchantedWeaponStaticMethods.GetReductionFactor((int)hp);
             total /= hpReductionFactor;
 
             //NPC Characteristics Factors
@@ -780,393 +587,7 @@ namespace WeaponEnchantments.Common.Globals
                 dropRate[essenceTier + 1] = 0.06125f * thisDropRate;
             }
         }
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            HitNPC(npc, player, item, ref damage, ref knockback, ref crit, player.direction);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\ModifyHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-            
-            #endregion
-        }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            bool weProjectileIsNull = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null;
-
-            //Projectile SourceItem
-            Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
-
-            HitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\ModifyHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        private void HitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int hitDirection, Projectile projectile = null) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
-
-            #endregion
-
-            bool multiShotConvertedToDamage = false;
-
-            //Minion damage reduction from war enchantment
-            if (projectile != null) {
-                WEProjectile wEProjectile = projectile.GetWEProjectile();
-                bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetWEProjectile().parent.minion;
-                if (myWarReduction > 1f && projectile != null && npc.whoAmI != player.MinionAttackTargetNPC && minionOrMinionChild) {
-                    damage = (int)Math.Round(damage / myWarReduction);
-                }
-
-                multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
-            }
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                goto debugBeforeReturn;
-
-            SourceItem = item;
-
-            //Stardust dragon scale damage multiplier correction//Stardust Dragon
-            if (projectile != null && ProjectileID.Sets.StardustDragon[projectile.type]) {
-                float enchantmentScaleMultiplier = SourceItem.ApplyStatModifier("scale", 1f);
-                if(enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f) {
-                    float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
-                    float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
-                    float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
-                    float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
-                    damage = (int)Math.Round((float)damage * combinedMultiplier);
-                }
-            }
-
-            //Defense (damage reduction)
-            int armorPenetration = player.GetWeaponArmorPenetration(item);
-            int damageReduction = npc.defense / 2 - npc.checkArmorPenetration(armorPenetration);
-
-            //Prevent damage from being less than 1
-            if (damageReduction >= damage)
-                damageReduction = damage - 1;
-
-            damage -= damageReduction;
-
-            //Armor penetration bonus damage
-            int defenseNoNegative = npc.defense > 0 ? npc.defense : 0;
-            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
-                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
-                if (armorPenetrationBonusDamage > 50) {
-                    int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
-                    if (armorPenetrationBonusDamage > maxArmorPenetration)
-                        armorPenetrationBonusDamage = maxArmorPenetration;
-                }
-
-                damage += armorPenetrationBonusDamage;
-            }
-
-            //Damage Enchantment
-            float damageMultiplier = item.ApplyEStat("Damage", 1f);
-
-            //Multishot converted to damage
-            if (multiShotConvertedToDamage)
-                damageMultiplier = item.ApplyEStat("Multishot", damageMultiplier);
-            
-            damage = (int)Math.Round((float)damage * damageMultiplier);
-
-            //Critical strike
-            if(item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = player.GetWeaponCrit(item) + (crit ? 100 : 0);
-                crit = false;
-                int critLevel = critChance / 100;
-                critChance %= 100;
-                if (Main.rand.Next(0, 100) < critChance)
-                    critLevel++;
-
-                if (critLevel > 0) {
-                    crit = true;
-                    critLevel--;
-
-                    if (MultiplicativeCriticalHits) {
-                        //Multiplicative
-                        damage *= (int)Math.Pow(2, critLevel);
-                    }
-				    else {
-                        //Additive
-                        float additiveCritMultiplier = 1f + 0.5f * critLevel;
-                        damage = (int)(damage * additiveCritMultiplier);
-				    }
-                }//MultipleCritlevels
-            }
-
-            damage += damageReduction;
-
-            bool skipOnHitEffects = projectile != null ? projectile.GetWEProjectile().skipOnHitEffects : false;
-
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-
-            Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
-
-            //Buffs and debuffs
-            if (!skipOnHitEffects) {
-                //Debuffs
-                int amaterasuDamageAdded = 0;
-                if (iGlobal.debuffs.ContainsKey((short)ModContent.BuffType<AmaterasuDebuff>())) {
-                    if (amaterasuStrength == 0)
-                        amaterasuStrength = item.ApplyEStat("Amaterasu", 0f);
-
-                    amaterasuDamageAdded = damage * (crit ? 2 : 1);
-                    amaterasuDamage += amaterasuDamageAdded;
-                }
-
-                if (Main.netMode != NetmodeID.Server) {
-                    var debuffs = iGlobal.debuffs;
-                    if (IsWorm(npc) || multipleSegmentBossTypes.ContainsKey(npc.type)) {
-                        foreach(short key in debuffs.Keys) {
-                            debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
-						}
-					}
-
-                    Net<INetOnHitEffects>.Proxy.NetDebuffs(npc, amaterasuDamageAdded, amaterasuStrength, debuffs);
-                }
-                else {
-                    $"NetDebuffs called from server.".Log();
-                }
-
-                //Sets Minion Attack target
-                if (ItemEStats.ContainsKey("ColdSteel") || ItemEStats.ContainsKey("HellsWrath") || ItemEStats.ContainsKey("JunglesFury") || ItemEStats.ContainsKey("Moonlight"))
-                    player.MinionAttackTargetNPC = npc.whoAmI;
-            }
-
-            if (npc.type != NPCID.TargetDummy) {
-                int oneForAllDamageDealt = 0;
-                //Buffs and Debuffs
-                if (!skipOnHitEffects) {
-                    //On Hit Player buffs
-                    foreach (int onHitBuff in iGlobal.onHitBuffs.Keys) {
-                        switch (onHitBuff) {
-                            case BuffID.CoolWhipPlayerBuff:
-                                //CoolWhip Snowflake
-                                if (player.FindBuffIndex(onHitBuff) == -1) {
-                                    int newProjectileWhoAmI = Projectile.NewProjectile(projectile != null ? projectile.GetSource_FromThis() : item.GetSource_FromThis(), npc.Center, Vector2.Zero, ProjectileID.CoolWhipProj, 10, 0f, player.whoAmI);
-                                    Main.projectile[newProjectileWhoAmI].GetWEProjectile().skipOnHitEffects = true;
-                                }
-                                break;
-                        }
-
-                        player.AddBuff(onHitBuff, iGlobal.onHitBuffs[onHitBuff]);
-                    }
-                }
-
-				#region Debug
-
-				if (LogMethods.debugging) ($"sourceItem: {SourceItem.S()} {ItemEStats.S("OneForAll")}").Log();
-
-				#endregion
-
-                //One For All
-				if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin)
-                    oneForAllDamageDealt = ActivateOneForAll(npc, player, item, ref damage, ref knockback, ref crit, hitDirection, projectile);
-
-                //LifeSteal
-                if (ItemEStats.ContainsKey("LifeSteal")) {
-                    float lifeSteal = ItemEStats["LifeSteal"].ApplyTo(0f);
-                    float healTotal = (damage + oneForAllDamageDealt) * lifeSteal * (player.moonLeech ? 0.5f : 1f);
-
-                    //Summon damage reduction
-                    bool summonDamage = SourceItem.DamageType == DamageClass.Summon || SourceItem.DamageType == DamageClass.MagicSummonHybrid;
-                    if (summonDamage)
-                        healTotal *= 0.5f;
-
-                    healTotal += wePlayer.lifeStealRollover;
-
-                    int heal = (int)healTotal;
-
-                    if (player.statLife < player.statLifeMax2) {
-                        //Player hp less than max
-                        if (heal > 0 && player.lifeSteal > 0f) {
-                            //Vanilla lifesteal mitigation
-                            int vanillaLifeStealValue = (int)Math.Round(heal * AffectOnVanillaLifeStealLimit);
-                            player.lifeSteal -= vanillaLifeStealValue;
-
-                            Vector2 speed = new Vector2(0, 0);
-                            Projectile.NewProjectile(SourceItem.GetSource_ItemUse(SourceItem), npc.Center, speed, ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
-                        }
-
-                        //Life Steal Rollover
-                        wePlayer.lifeStealRollover = healTotal - heal;
-                    }
-                    else {
-                        //Player hp is max
-                        wePlayer.lifeStealRollover = 0f;
-                    }
-                }
-            }
-
-            //GodSlayer
-            if (ItemEStats.ContainsKey("GodSlayer"))
-                ActivateGodSlayer(npc, player, item, ref damage, damageReduction, ref knockback, ref crit, hitDirection, projectile);
-
-            //One for all kill projectile on hit.
-            if (ItemEStats.ContainsKey("OneForAll") && oneForAllOrigin && projectile != null) {
-                if(projectile.penetrate != 1)
-                    projectile.active = false;
-            }
-
-            #region Debug
-
-            debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
-
-			#endregion
-		}
-		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            OnHitNPC(npc, player, item, ref damage, ref knockback, ref crit);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\OnHitByItem(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-
-            bool weProjectileIsNull = projectile.GetGlobalProjectile<WEProjectile>()?.sourceItem == null;
-
-            //Projectile SourceItem
-            Item item = weProjectileIsNull ? null : projectile.GetGlobalProjectile<WEProjectile>().sourceItem;
-
-            OnHitNPC(npc, Main.player[projectile.owner], item, ref damage, ref knockback, ref crit, projectile);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\OnHitByProjectile(npc: {npc.FullName}, projectile: {projectile.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
-
-            #endregion
-        }
-        private void OnHitNPC(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, Projectile projectile = null) {
-            if (!SourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return;
-
-            //If projectile/npc doesn't use npc.immune, return
-            if (npc.immune[player.whoAmI] <= 0)
-                return;
-
-            float NPCHitCooldownMultiplier = SourceItem.ApplyEStat("NPCHitCooldown", 1f);
-
-            //npc.immune
-            int newImmune = (int)((float)npc.immune[player.whoAmI] * NPCHitCooldownMultiplier);
-            if (newImmune < 1)
-                newImmune = 1;
-
-            npc.immune[player.whoAmI] = newImmune;
-        }
-        private int ActivateOneForAll(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit, int direction, Projectile projectile = null) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()})").Log();
-
-            #endregion
-
-            int total = 0;
-            int wormCounter = 0;
-            Dictionary<NPC, (int, bool)> oneForAllNPCDictionary = new Dictionary<NPC, (int, bool)>();
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return 0;
-
-            //Range
-            float oneForAllRange = baseOneForAllRange * item.scale;
-
-            //Sorted List by range
-            Dictionary<int, float> npcs = SortNPCsByRange(npc, oneForAllRange);
-
-            foreach(KeyValuePair<int, float> npcDataPair in npcs.OrderBy(key => key.Value)) {
-                if (!npc.active)
-                    continue;
-
-                float distanceFromOrigin = npcDataPair.Value;
-                int whoAmI = npcDataPair.Key;
-                NPC target = Main.npc[whoAmI];
-
-                bool isWorm = IsWorm(npc);
-
-                //Worms
-                if (isWorm)
-                    wormCounter++;
-
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = false;
-                target.GetGlobalNPC<WEGlobalNPC>().SourceItem = SourceItem;
-                float allForOneMultiplier = iGlobal.eStats["OneForAll"].ApplyTo(0f);
-                float baseAllForOneDamage = damage * allForOneMultiplier;
-
-                float allForOneDamage = baseAllForOneDamage * (oneForAllRange - distanceFromOrigin) / oneForAllRange;
-
-                //Worm damage reduction
-				if (isWorm) {
-                    float wormReductionFactor = 1f;
-                    if (wormCounter > 10) {
-                        if (wormCounter <= 20) {
-                            wormReductionFactor = 1f - (float)(wormCounter - 10f) / 10f;
-                        }
-                        else {
-                            wormReductionFactor = 0f;
-                        }
-                    }
-
-                    allForOneDamage *= wormReductionFactor;
-                }
-
-                int allForOneDamageInt = (int)Math.Round(allForOneDamage);
-
-                if(allForOneDamageInt > 0) {
-                    //Hit target
-                    total += (int)target.StrikeNPC(allForOneDamageInt, knockback, direction, crit);
-                    oneForAllNPCDictionary.Add(target, (allForOneDamageInt, crit));
-                }
-
-                target.GetGlobalNPC<WEGlobalNPC>().oneForAllOrigin = true;
-            }
-
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                Net<INetOnHitEffects>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {npc.FullName}, player: {player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, direction: {direction}, projectile: {projectile.S()}) total: {total}").Log();
-
-			#endregion
-
-			return total;
-        }
-        private Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
+        public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
             Dictionary<int, float> npcs = new Dictionary<int, float>();
             foreach (NPC target in Main.npc) {
                 if (!npc.active)
@@ -1186,65 +607,11 @@ namespace WeaponEnchantments.Common.Globals
 
             return npcs;
         }
-        public int ActivateGodSlayer(NPC npc, Player player, Item item, ref int damage, int damageReduction, ref float knockback, ref bool crit, int direction, Projectile projectile = null) {
-            if(npc.friendly || npc.townNPC || !npc.active || npc.type == NPCID.DD2LanePortal)
-                return 0;
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/ActivateGodSlayer").Log();
-
-			#endregion
-			
-            if(!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                return 0;
-
-			float godSlayerBonus = iGlobal.eStats["GodSlayer"].ApplyTo(0f);
-            
-            float actualDamageDealt = damage - damageReduction;
-            float godSlayerDamage = actualDamageDealt * godSlayerBonus * npc.lifeMax / 100f;
-
-            //Projectile damage reduction
-            float projectileMultiplier = projectile != null ? 0.5f : 1f;
-            godSlayerDamage *= projectileMultiplier;
-
-            //Max life reduction factor
-            float denominator = 1f + npc.lifeMax * 49f / 150000f;
-            godSlayerDamage /= denominator;
-
-            //Bypass armor
-            godSlayerDamage += damageReduction;
-
-            int godSlayerDamageInt = (int)Math.Round(godSlayerDamage);
-
-            //Hit npc
-            if (Main.netMode is NetmodeID.SinglePlayer or NetmodeID.MultiplayerClient) {
-                Net<INetOnHitEffects>.Proxy.NetStrikeNPC(npc, godSlayerDamageInt, crit);
-            }
-			else {
-                $"ActivateGodSlayer called from server.".Log();
-            }
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\ActivateGodSlayer").Log();
-
-			#endregion
-
-			return godSlayerDamageInt;
-        }
         public static void StrikeNPC(NPC npc, int damage, bool crit) {
-            if(npc.active && npc.life > 0)
+            if (npc.active && npc.life > 0)
                 npc.StrikeNPC(damage, 0, 0, crit, false, true);
         }
         public override void OnSpawn(NPC npc, IEntitySource source) {
-            if (npc.ModNPC != null) {
-                string n = npc.FullName;
-                string n2 = npc.ModNPC.Name;
-                string n3 = npc.GivenName;
-                float v = npc.value;
-                int l = npc.lifeMax;
-            }
             if (!war || npc.friendly || npc.townNPC || npc.boss)
                 return;
 
@@ -1252,25 +619,25 @@ namespace WeaponEnchantments.Common.Globals
             myWarReduction = warReduction;
             npc.lavaImmune = true;
             npc.trapImmune = true;
-    }
+        }
         public override void UpdateLifeRegen(NPC npc, ref int damage) {
             if (!npc.HasBuff<AmaterasuDebuff>())
                 return;
 
-			#region Debug
-            
-			if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+            #region Debug
+
+            if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
             #endregion
-            
+
             bool isWorm = IsWorm(npc);
             int minSpreadDamage = isWorm ? 13 : 100;
 
             //Controls how fast the damage tick rate is.
-            damage += amaterasuDamage / 240;
+            damage += (int)((float)amaterasuDamage / 240f * amaterasuStrength);
 
             //Set damage over time (amaterasuStrength is the EnchantmentStrength affected by config values.)
-            int lifeRegen = (int)(((float)amaterasuDamage / 30f) * amaterasuStrength);
+            int lifeRegen = (int)((float)amaterasuDamage / 30f * amaterasuStrength);
             npc.lifeRegen -= lifeRegen;
 
             //Fix for bosses not dying from Amaterasu
@@ -1281,7 +648,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Spread to other enemies ever 10 ticks
             if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.type != NPCID.TargetDummy) {
-                if(amaterasuDamage > minSpreadDamage) {
+                if (amaterasuDamage > minSpreadDamage) {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
                     foreach (int whoAmI in npcs.Keys) {
                         NPC mainNPC = Main.npc[whoAmI];
@@ -1290,49 +657,45 @@ namespace WeaponEnchantments.Common.Globals
                             if (wEGlobalNPC.amaterasuDamage <= 0)
                                 wEGlobalNPC.amaterasuDamage++;
                         }
-						else {
+                        else {
                             wEGlobalNPC.amaterasuDamage += 5;
                         }
 
                         if (!wEGlobalNPC.amaterasuImmunityUpdated) {
-                            AmaterasuDebuff.ForceUpdate(mainNPC);
+                            AmaterasuDebuff.RemoveImmunities(mainNPC);
                             wEGlobalNPC.amaterasuStrength = amaterasuStrength;
-                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue);
+                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000);
                             wEGlobalNPC.amaterasuImmunityUpdated = true;
                         }
                     }
                 }
 
                 amaterasuDamage++;
-                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), int.MaxValue, true);
+                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000, true);
                 lastAmaterasuTime = Main.GameUpdateCount;
             }
-			else {
+            else {
                 //Amaeterasu damage goes up over time on its own.
                 if (!isWorm)
                     amaterasuDamage++;
             }
-            
+
             #region Debug
 
             if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
 
-			#endregion
-		}
-		public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
+            #endregion
+        }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
 
             #region Debug
 
-            if (LogMethods.debugging) {
-                ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
-                (player.GetWEPlayer().eStats.S("spawnRate")).LogT();
-            }
+            if (LogMethods.debugging) ($"\\/EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
-			#endregion
+            #endregion
 
             //Spawn Rate
-			if (player.ContainsEStatOnPlayer("spawnRate")) {
-                float enemySpawnRateBonus = player.ApplyEStatFromPlayer("spawnRate", 1f);
+            if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.EnemySpawnRate, out float enemySpawnRateBonus, 1f)) {
                 int rate = (int)(spawnRate / enemySpawnRateBonus);
                 if (enemySpawnRateBonus > 1f) {
                     warReduction = enemySpawnRateBonus;
@@ -1350,8 +713,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Max Spawns
-            if (player.ContainsEStatOnPlayer("maxSpawns")) {
-                float enemyMaxSpawnBonus = player.ApplyEStatFromPlayer("maxSpawns", 1f);
+            if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.EnemyMaxSpawns, out float enemyMaxSpawnBonus, 1f)) {
                 int spawns = (int)Math.Round(maxSpawns * enemyMaxSpawnBonus);
 
                 if (spawns < 0)
@@ -1360,14 +722,14 @@ namespace WeaponEnchantments.Common.Globals
                 maxSpawns = spawns;
             }
 
-			#region Debug
+            #region Debug
 
-			if (LogMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
+            if (LogMethods.debugging) ($"/\\EditSpawnRate(" + player.name + ", spawnRate: " + spawnRate + ", maxSpawns: " + maxSpawns + ")").LogT();
 
-			#endregion
-		}
-		public override void DrawEffects(NPC npc, ref Color drawColor) {
-            if(npc.HasBuff<AmaterasuDebuff>()) {
+            #endregion
+        }
+        public override void DrawEffects(NPC npc, ref Color drawColor) {
+            if (npc.HasBuff<AmaterasuDebuff>()) {
                 //Black On fire dust
                 if (Main.rand.Next(4) < 3) {
                     Dust dust4 = Dust.NewDustDirect(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.WhiteTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 3.5f);
@@ -1383,8 +745,37 @@ namespace WeaponEnchantments.Common.Globals
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
         }
+    }
+
+    public static class NPCStaticMethods
+    {
         public static bool IsWorm(NPC npc) {
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
+        }
+        public static void RemoveNPCBuffImunities(this NPC target, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
+            HashSet<short> debuffIDs = new HashSet<short>(debuffs.Keys);
+            if (dontDissableImmunitiy.Count > 0) {
+                foreach (short id in dontDissableImmunitiy) {
+                    debuffIDs.Remove(id);
+                }
+            }
+
+            foreach (short id in debuffIDs) {
+                target.buffImmune[id] = false;
+            }
+        }
+        public static void ApplyBuffs(this NPC target, Dictionary<short, int> buffs) {
+            foreach (KeyValuePair<short, int> buff in buffs) {
+                target.AddBuff(buff.Key, buff.Value, true);
+            }
+        }
+        public static void ApplyBuffs(this NPC target, SortedDictionary<short, BuffStats> buffs) {
+            foreach (KeyValuePair<short, BuffStats> buff in buffs) {
+                float chance = buff.Value.Chance;
+                if (chance >= 1f || chance >= Main.rand.NextFloat()) {
+                    target.AddBuff(buff.Key, buff.Value.Duration.Ticks);
+                }
+            }
         }
     }
 }

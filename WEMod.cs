@@ -20,33 +20,86 @@ using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
 using KokoLib;
+using OnProjectile = On.Terraria.Projectile;
+using OnPlayer = On.Terraria.Player;
 
 namespace WeaponEnchantments
 {
-    public class WEMod : Mod
-    {
+	public class WEMod : Mod {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamityEnabled = false;
 		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
 		public static List<Item> consumedItems = new List<Item>();
-		
+
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
+			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
+			//HookEndpointManager.Add<hook_CaughtFishStack>(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour);
+			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
+			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 		}
+
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
-			if(item.ModItem is UnloadedItem) {
+			if (item.ModItem is UnloadedItem)
 				OldItemManager.ReplaceOldItem(ref item);
-			}
+
 			return item;
-        }
+		}
+
+		private delegate bool orig_CanStack(Item item1, Item item2);
+		private delegate bool hook_CanStack(orig_CanStack orig, Item item1, Item item2);
+		private static readonly MethodInfo ModLoaderCanStackMethodInfo = typeof(ItemLoader).GetMethod("CanStack");
+		private bool CanStackDetour(orig_CanStack orig, Item item1, Item item2) {
+			if (!orig(item1, item2))
+				return false;
+
+			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+				return true;
+			if (magicStorageEnabled) {
+				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
+				string terrariaName = "DMD<Terraria";
+				string subString = name.Substring(0, terrariaName.Length);
+				if (subString != terrariaName)
+					return true;
+			}
+
+			return enchantedItem.OnStack(item1, item2);
+		}
+
+		//private delegate void orig_CaughtFishStack(Item item);
+		//private delegate void hook_CaughtFishStack(orig_CaughtFishStack orig, Item item);
+		//private static readonly MethodInfo ModLoaderCaughtFishStackMethodInfo = typeof(ItemLoader).GetMethod("CaughtFishStack");
+		//private void CaughtFishStackDetour(orig_CaughtFishStack orig, Item item) { orig(item); }
+
+		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
+			if (thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
+				int value = ContentSamples.ItemsByType[itemType].value;
+				enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
+			}
+
+			orig(self, thePlayer, itemType);
+		}
+		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
+			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
+				spawnChance /= 10f;
+				float rand = Main.rand.NextFloat();
+				rand = 0f;
+				if (rand <= spawnChance) {
+					baitTypeUsed = ItemID.TruffleWorm;
+				}
+			}
+
+			orig(self, bobber, baitTypeUsed);
+		}*/
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;
@@ -262,7 +315,6 @@ namespace WeaponEnchantments
 			Handlers.Clear();
 			Handlers = null;
 		}
-
 		public override void HandlePacket(BinaryReader reader, int whoAmI) {
 			var index = reader.ReadByte();
 			var method = reader.ReadByte();

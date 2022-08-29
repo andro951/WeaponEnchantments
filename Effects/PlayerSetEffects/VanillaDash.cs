@@ -1,0 +1,35 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
+
+namespace WeaponEnchantments.Effects {
+    public class VanillaDash : PlayerSetEffect {
+        public VanillaDash(DashID dashType, DifficultyStrength timerData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, timerData, prevent) {
+            _dashType = dashType;
+        }
+
+        private DashID _dashType;
+
+        public override string DisplayName => _dashType.ToString().AddSpaces();
+
+		public override void SetEffect(Player player) {
+            int playerDashType = player.dashType;
+            switch (_dashType) {
+                case DashID.NinjaTabiDash when playerDashType < 3:
+                case DashID.EyeOfCthulhuShieldDash when playerDashType == 0:
+                case DashID.SolarDash:
+                case DashID.CrystalNinjaDash when playerDashType < 3:
+                    player.dashType = (int)_dashType;
+                    break;
+			}
+        }
+	}
+}

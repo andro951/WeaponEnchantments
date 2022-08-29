@@ -49,11 +49,11 @@
 			OneForAllEnchantmentRare: One For All Enchantment Rare
 			OneForAllEnchantmentSuperRare: One For All Enchantment Super Rare
 			OneForAllEnchantmentUltraRare: One For All Enchantment Ultra Rare
-			SpeedEnchantmentBasic: Speed Enchantment Basic
-			SpeedEnchantmentCommon: Speed Enchantment Common
-			SpeedEnchantmentRare: Speed Enchantment Rare
-			SpeedEnchantmentSuperRare: Speed Enchantment Super Rare
-			SpeedEnchantmentUltraRare: Speed Enchantment Ultra Rare
+			AttackSpeedEnchantmentBasic: Speed Enchantment Basic
+			AttackSpeedEnchantmentCommon: Speed Enchantment Common
+			AttackSpeedEnchantmentRare: Speed Enchantment Rare
+			AttackSpeedEnchantmentSuperRare: Speed Enchantment Super Rare
+			AttackSpeedEnchantmentUltraRare: Speed Enchantment Ultra Rare
 			StatDefenseEnchantmentBasic: Stat Defense Enchantment Basic
 			StatDefenseEnchantmentCommon: Stat Defense Enchantment Common
 			StatDefenseEnchantmentRare: Stat Defense Enchantment Rare
@@ -96,32 +96,32 @@
 			AmmoCostEnchantmentUltraRare: Ammo Cost Enchantment Ultra Rare
 			DangerSenseEnchantmentUltraRare: Danger Sense Enchantment Ultra Rare
 			HunterEnchantmentUltraRare: Hunter Enchantment Ultra Rare
-			ManaEnchantmentBasic: Mana Enchantment Basic
-			ManaEnchantmentCommon: Mana Enchantment Common
-			ManaEnchantmentRare: Mana Enchantment Rare
-			ManaEnchantmentSuperRare: Mana Enchantment Super Rare
-			ManaEnchantmentUltraRare: Mana Enchantment Ultra Rare
-			MoveSpeedEnchantmentBasic: Move Speed Enchantment Basic
-			MoveSpeedEnchantmentCommon: Move Speed Enchantment Common
-			MoveSpeedEnchantmentRare: Move Speed Enchantment Rare
-			MoveSpeedEnchantmentSuperRare: Move Speed Enchantment Super Rare
-			MoveSpeedEnchantmentUltraRare: Move Speed Enchantment Ultra Rare
+			ReducedManaUsageEnchantmentBasic: Mana Enchantment Basic
+			ReducedManaUsageEnchantmentCommon: Mana Enchantment Common
+			ReducedManaUsageEnchantmentRare: Mana Enchantment Rare
+			ReducedManaUsageEnchantmentSuperRare: Mana Enchantment Super Rare
+			ReducedManaUsageEnchantmentUltraRare: Mana Enchantment Ultra Rare
+			MovementSpeedEnchantmentBasic: Move Speed Enchantment Basic
+			MovementSpeedEnchantmentCommon: Move Speed Enchantment Common
+			MovementSpeedEnchantmentRare: Move Speed Enchantment Rare
+			MovementSpeedEnchantmentSuperRare: Move Speed Enchantment Super Rare
+			MovementSpeedEnchantmentUltraRare: Move Speed Enchantment Ultra Rare
 			ObsidianSkinEnchantmentUltraRare: Obsidian Skin Enchantment Ultra Rare
 			PeaceEnchantmentBasic: Peace Enchantment Basic
 			PeaceEnchantmentCommon: Peace Enchantment Common
 			PeaceEnchantmentRare: Peace Enchantment Rare
 			PeaceEnchantmentSuperRare: Peace Enchantment Super Rare
 			PeaceEnchantmentUltraRare: Peace Enchantment Ultra Rare
-			ScaleEnchantmentBasic: Scale Enchantment Basic
-			ScaleEnchantmentCommon: Scale Enchantment Common
-			ScaleEnchantmentRare: Scale Enchantment Rare
-			ScaleEnchantmentSuperRare: Scale Enchantment Super Rare
-			ScaleEnchantmentUltraRare: Scale Enchantment Ultra Rare
-			ShootSpeedEnchantmentBasic: Shoot Speed Enchantment Basic
-			ShootSpeedEnchantmentCommon: Shoot Speed Enchantment Common
-			ShootSpeedEnchantmentRare: Shoot Speed Enchantment Rare
-			ShootSpeedEnchantmentSuperRare: Shoot Speed Enchantment Super Rare
-			ShootSpeedEnchantmentUltraRare: Shoot Speed Enchantment Ultra Rare
+			SizeEnchantmentBasic: Scale Enchantment Basic
+			SizeEnchantmentCommon: Scale Enchantment Common
+			SizeEnchantmentRare: Scale Enchantment Rare
+			SizeEnchantmentSuperRare: Scale Enchantment Super Rare
+			SizeEnchantmentUltraRare: Scale Enchantment Ultra Rare
+			ProjectileVelocityEnchantmentBasic: Shoot Speed Enchantment Basic
+			ProjectileVelocityEnchantmentCommon: Shoot Speed Enchantment Common
+			ProjectileVelocityEnchantmentRare: Shoot Speed Enchantment Rare
+			ProjectileVelocityEnchantmentSuperRare: Shoot Speed Enchantment Super Rare
+			ProjectileVelocityEnchantmentUltraRare: Shoot Speed Enchantment Ultra Rare
 			SpelunkerEnchantmentUltraRare: Spelunker Enchantment Ultra Rare
 			WarEnchantmentBasic: War Enchantment Basic
 			WarEnchantmentCommon: War Enchantment Common
