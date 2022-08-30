@@ -14,8 +14,6 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = true;
-        public static bool printLocalizationMaster = true;
-	public static bool printLocalizationForTranslation = true;
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
 
@@ -49,8 +47,9 @@ namespace WeaponEnchantments.Common.Utility
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
         public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
-	public static string localization = "";
-	public static int tabs = 0;
+	private static string localization = "";
+	private static int tabs = 0;
+	private static List<string> labels;
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
         //public static string listOfAllEnchantmentTooltips = "";
@@ -75,7 +74,7 @@ namespace WeaponEnchantments.Common.Utility
             if (sharedName != null)
                 namesAddedToContributorDictionary.Add(sharedName);
         }
-        public static void PrintLocalization(bool forTranslation = false, bool master = false) {
+        public static void PrintLocalization() {
 	    Start();
 	    
             IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
@@ -105,21 +104,56 @@ namespace WeaponEnchantments.Common.Utility
 	    
 	    End();
         }
-	private static PrintAllLocalization() {
-		if (printLocalization)
+	private static void FromLocalizationData() {
+		SortedDictionary<string, SData> all = LocalizationData.All;
+		GetFromSDataDict(all);
+	}
+	private static void GetFromSDataDict(SortedDictionary<string, SData> dict) {
+		foreach(KeyValuePair<string, SData> pair in dict) P
+			AddLabel(pair.Key);
+			if (LocalizationData.autoFill.ContainsKey(pair.Key))
+				AutoFill(pair);
+			
+			GetFromSData(pair.Value);
+			Close();
+		{
+	}
+	private static void GetFromSData(SData d) {
+		if (d.Values != null)
+			GetLocalizationFromList(d.Values);
+		
+		if (d.Dict != null)
+			GetLocalizationFromDict(d.Dict);
+		
+		if (d.Children != null)
+			GetFromSDataDict(d.Children);
+	}
+	private static void AutoFill(KeyValuePair<string, SData> pair) {
+		List<string> list = ;//get all non-abstract of this type
+		SortedDictionary<string, string> dict = pair.Value.Dict.
+		foreach(string s in list) {
+			if(!dict.ContainsKey(s))
+				dict.Add(s, s.AddSpaces());
+		}
+	}
+	private static void PrintAllLocalization() {
+		if (!printLocalization)
+			return;
+		
+		foreach(int i in Enum.GetValues(CultureName).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
+			LanguageManager.Instance.SetLanguage(i);
 			PrintLocalization();
+		}
 		
-		if (printLocalizationMaster)
-			PrintLocalization(master: true);
-		
-		if (printLocalizationForTranslation)
-			PrintLocalization(true);
+		LanguageManager.Instance.SetLanguage((int)CultureName.English);
 	}
 	private static string AddLabel(string label) {
 		localization += Tabs(tabs) + label + ": {\n";
 		tabs++;
+		labels.Add(label);
 	}
 	private static void Start() {
+		labels = new();
 		AddLabel("Mods");
 		AddLabel("WeaponEnchantments");
 	}
@@ -128,6 +162,8 @@ namespace WeaponEnchantments.Common.Utility
 		localization += Tabs(tabs) + "}\n";
 		if (newLine)
 			localization += "\n";
+			
+		labels.RemoveAt(labels.Count - 1);
 	}
 	private static string End() {
 		while(tabs >= 0) {
@@ -155,8 +191,13 @@ namespace WeaponEnchantments.Common.Utility
 	    if (!ignoreLabel)
 	    	AddLabel(label);
             string tabString = Tabs(tabs);
+		string key = String.Join(".", labels) += "." + p.Key;
+		string s = Language.GetTextValue(key);
+		if (s == key)
+			s = p[p.Key];
+		
             foreach (KeyValuePair p in dict) {
-                localization += "\n" + tabString + p.Key + ": " + (printMaster ? "" : p[p.Key]);
+                localization += "\n" + tabString + p.Key + ": " + (printMaster ? "" : s);
             }
 
             if (!ignoreLabel)
