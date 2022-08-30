@@ -412,9 +412,9 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 
-			if(printLocalization) {
-				UpdateEnchantmentLocalization(this);
-			}
+			//if(printLocalization) {
+			//	UpdateEnchantmentLocalization(this);
+			//}
 		}
 		private void GetDefaults() { // bool tooltipSetupOnly = false) {
 			EnchantmentTier = GetEnchantmentTier(Name);
