@@ -23,12 +23,6 @@ namespace WeaponEnchantments.Localization
 
 		static LanguageManager languageManager;
 		static CultureName CultureName = CultureName.Unknown;
-		public static GetLanguageManager(CultureName cultureName) {
-			if (cultureName != CultureName)
-				languageManager = new LanguageManager();
-
-
-		}
 		public static bool ContainsTextVAlue(string s, CultureName cultureName) {
 			if (cultureName != CultureName)
 				LanguageManager.Instance.SetLanguage((int)cultureName);
@@ -38,11 +32,11 @@ namespace WeaponEnchantments.Localization
 			LanguageManager.Instance.SetLanguage((int)CultureName.English);
 			return returnValue;
 		}
-		public static bool ContainsText(string s, ) => s == Language.GetText(s).;
+		//public static bool ContainsText(string s, ) => s == Language.GetText(s).;
 		public static List<string> autoFill = new() {
 			"EnchantmentEffects",
 			"Debuffs"
-		}
+		};
 
 		public static SortedDictionary<string, SData> AllData => new() {
 			{ L_ID1.Tooltip.ToString(), new(children: new() {
@@ -51,7 +45,7 @@ namespace WeaponEnchantments.Localization
 					{ "AmmoCost2", "Increased Ammo Cost" },
 					{ "DamageAfterDefenses", "Damage (Applied after defenses. Not visible in weapon tooltip)" },
 					{ "DamageClassChange", "\"Convert damage type to {0}\""}
-				}) }
+				}) },
 				{ L_ID2.EnchantmentEffects.ToString(), new(children: new() { 
 					{ "BoolEfect", new(dict: new() {
 						{ "Enabled", "\"{0} Enabled\"" },

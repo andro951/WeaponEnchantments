@@ -222,8 +222,10 @@ namespace WeaponEnchantments.Common.Utility
 	{
         None,
         Witch,
-
-	}
+        EffectDisplayName,
+        EnchantmentEffects,
+        EnchantmentCustomTooltips
+    }
     public enum L_ID_V
 	{
         Item,

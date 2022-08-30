@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Localization;
+using static Terraria.Localization.GameCulture;
 using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 
 namespace WeaponEnchantments.Common.Utility
@@ -47,9 +51,9 @@ namespace WeaponEnchantments.Common.Utility
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
         public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
-	private static string localization = "";
-	private static int tabs = 0;
-	private static List<string> labels;
+	    private static string localization = "";
+	    private static int tabs = 0;
+	    private static List<string> labels;
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
         //public static string listOfAllEnchantmentTooltips = "";
@@ -75,141 +79,139 @@ namespace WeaponEnchantments.Common.Utility
                 namesAddedToContributorDictionary.Add(sharedName);
         }
         public static void PrintLocalization() {
-	    Start();
+	        Start();
 	    
-	    AddLabel("ItemName");
-            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
-	    List<string> enchantmentNames = new();
-	    foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
-	    	enchantmentNames.Add(enchantment.Name);
-		if (enchantment.EnchantmentTier >= 3)
-			enchantmentNames.Add(enchantment.EnchantmentTypeName + "Enchantment" + EnchantingRarity.displayTierNames[enchantment.EnchantmentTier]);
-	    }
+	        AddLabel("ItemName");
+                IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+	        List<string> enchantmentNames = new();
+	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
+	    	    enchantmentNames.Add(enchantment.Name);
+		    if (enchantment.EnchantmentTier >= 3)
+			    enchantmentNames.Add(enchantment.EnchantmentTypeName + "Enchantment" + EnchantingRarity.displayTierNames[enchantment.EnchantmentTier]);
+	        }
 	    
-	    enchantmentNames.Sort();
-	    GetLocalizationFromList(null, enchantmentNames);
+	        enchantmentNames.Sort();
+	        GetLocalizationFromList(null, enchantmentNames);
 	    
-            var modItemLists = modItems
-	    	.Where(mi => mi is not Enchantment)
-	    	.GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
-		.Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
-		.OrderBy(group => group.Key);
+                var modItemLists = modItems
+	    	    .Where(mi => mi is not Enchantment)
+	    	    .GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
+		    .Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
+		    .OrderBy(group => group.Key);
             
-            foreach (var list in modItemLists) {
-                GetLocalizationFromList(null, list.ModItemList);
-            }
-	    Close();
+                foreach (var list in modItemLists) {
+                    GetLocalizationFromList(null, list.ModItemList);
+                }
+	        Close();
 	    
-	    FromLocalizationData();
+	        FromLocalizationData();
 	    
-	    End();
+	        End();
         }
-	private static void FromLocalizationData() {
-		SortedDictionary<string, SData> all = LocalizationData.All;
-		GetFromSDataDict(all);
-	}
-	private static void GetFromSDataDict(SortedDictionary<string, SData> dict) {
-		foreach(KeyValuePair<string, SData> pair in dict) P
-			AddLabel(pair.Key);
-			if (LocalizationData.autoFill.ContainsKey(pair.Key))
-				AutoFill(pair);
+	    private static void FromLocalizationData() {
+		    SortedDictionary<string, SData> all = LocalizationData.All;
+		    GetFromSDataDict(all);
+	    }
+	    private static void GetFromSDataDict(SortedDictionary<string, SData> dict) {
+            foreach (KeyValuePair<string, SData> pair in dict) {
+                AddLabel(pair.Key);
+                if (LocalizationData.autoFill.Contains(pair.Key))
+                    AutoFill(pair);
+
+                GetFromSData(pair.Value);
+                Close();
+            }
+	    }
+	    private static void GetFromSData(SData d) {
+		    if (d.Values != null)
+			    GetLocalizationFromList(null, d.Values);
+		
+		    if (d.Dict != null)
+			    GetLocalizationFromDict(null, d.Dict);
+		
+		    if (d.Children != null)
+			    GetFromSDataDict(d.Children);
+	    }
+	    private static void AutoFill(KeyValuePair<string, SData> pair) {
+            List<string> list = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetType() == Type.GetType(pair.Key))
+			    .Where(t => !t.IsAbstract)
+			    .Select(t => t.Name)
+			    .ToList();
+            SortedDictionary<string, string> dict = pair.Value.Dict;
+		    foreach(string s in list) {
+			    if(!dict.ContainsKey(s))
+				    dict.Add(s, s.AddSpaces());
+		    }
+	    }
+	    private static void PrintAllLocalization() {
+		    if (!printLocalization)
+			    return;
+		
+		    foreach(int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
+			    LanguageManager.Instance.SetLanguage(i);
+			    PrintLocalization();
+		    }
+		
+		    LanguageManager.Instance.SetLanguage((int)CultureName.English);
+	    }
+	    private static void AddLabel(string label) {
+		    localization += Tabs(tabs) + label + ": {\n";
+		    tabs++;
+		    labels.Add(label);
+	    }
+	    private static void Start() {
+		    labels = new();
+		    AddLabel("Mods");
+		    AddLabel("WeaponEnchantments");
+	    }
+	    private static void Close(bool newLine = true) {
+		    tabs--;
+		    localization += Tabs(tabs) + "}\n";
+		    if (newLine)
+			    localization += "\n";
 			
-			GetFromSData(pair.Value);
-			Close();
-		{
-	}
-	private static void GetFromSData(SData d) {
-		if (d.Values != null)
-			GetLocalizationFromList(d.Values);
+		    labels.RemoveAt(labels.Count - 1);
+	    }
+	    private static void End() {
+		    while(tabs >= 0) {
+			    Close(false);
+		    }
 		
-		if (d.Dict != null)
-			GetLocalizationFromDict(d.Dict);
-		
-		if (d.Children != null)
-			GetFromSDataDict(d.Children);
-	}
-	private static void AutoFill(KeyValuePair<string, SData> pair) {
-		List<string> list = Assembly.GetExecutingAssembly().GetTypes()
-			.OfType(pair.Key)
-			.Where(t => !t.isAbstract)
-			.Select(t => t.Name)
-			.ToList();
-		SortedDictionary<string, string> dict = pair.Value.Dict.
-		foreach(string s in list) {
-			if(!dict.ContainsKey(s))
-				dict.Add(s, s.AddSpaces());
-		}
-	}
-	private static void PrintAllLocalization() {
-		if (!printLocalization)
-			return;
-		
-		foreach(int i in Enum.GetValues(CultureName).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
-			LanguageManager.Instance.SetLanguage(i);
-			PrintLocalization();
-		}
-		
-		LanguageManager.Instance.SetLanguage((int)CultureName.English);
-	}
-	private static string AddLabel(string label) {
-		localization += Tabs(tabs) + label + ": {\n";
-		tabs++;
-		labels.Add(label);
-	}
-	private static void Start() {
-		labels = new();
-		AddLabel("Mods");
-		AddLabel("WeaponEnchantments");
-	}
-	private static string Close(bool newLine = true) {
-		tabs--;
-		localization += Tabs(tabs) + "}\n";
-		if (newLine)
-			localization += "\n";
-			
-		labels.RemoveAt(labels.Count - 1);
-	}
-	private static string End() {
-		while(tabs >= 0) {
-			Close(false);
-		}
-		
-		tabs = 0;
-		localization.log();
-		localization = "";
-	}
+		    tabs = 0;
+		    localization.Log();
+		    localization = "";
+	    }
         private static void GetLocalizationFromList(string label, IEnumerable<ModType> list, bool ignoreLabel = false, bool printMaster = false) {
             IEnumerable<string> listNames = list.Select(l => l.Name);
-            GetLocalizationFromList(label, listNames, tabs, ignoreLabel, printMaster);
+            GetLocalizationFromList(label, listNames, ignoreLabel, printMaster);
         }
         private static void GetLocalizationFromList(string label, IEnumerable<string> list, bool ignoreLabel = false, bool printMaster = false) {
-	    SortedDictionary<string, string> dict = new();
-	    foreach (string s in list) {
-	    	dict.Add(s, s.AddSpaces());
-	    }
-	    
-	    GetLocalizationFromDict(label, dict, ignoreLabel, printMaster);
+            SortedDictionary<string, string> dict = new();
+            foreach (string s in list) {
+                dict.Add(s, s.AddSpaces());
+            }
         }
-	private static void GetLocalizationFromDict(string label, SortedDictionary<string, string> dict, bool ignoreLabel = false, bool printMaster = false) {
+	    private static void GetLocalizationFromDict(string label, SortedDictionary<string, string> dict, bool ignoreLabel = false, bool printMaster = false) {
             ignoreLabel = ignoreLabel || label == null || label == "";
-	    if (!ignoreLabel)
-	    	AddLabel(label);
+	        if (!ignoreLabel)
+	    	    AddLabel(label);
+
             string tabString = Tabs(tabs);
-		string key = String.Join(".", labels) += "." + p.Key;
-		string s = Language.GetTextValue(key);
-		if (s == key)
-			s = p[p.Key];
-		
-            foreach (KeyValuePair p in dict) {
+		    string allLabels = string.Join(".", labels.ToArray());
+            foreach (KeyValuePair<string, string> p in dict) {
+                string key = allLabels += "." + p.Key;
+                string s = Language.GetTextValue(key);
+                if (s == key)
+                    s = p.Value;
                 localization += "\n" + tabString + p.Key + ": " + (printMaster ? "" : s);
             }
 
             if (!ignoreLabel)
 	    	Close();
         }
-        private static string GetLocalizationFromListAddToEnd(string label, IEnumerable<string> list, string addString, int tabsNum) {
+        private static void GetLocalizationFromListAddToEnd(string label, IEnumerable<string> list, string addString, int tabsNum) {
             List<string> newList = ListAddToEnd(list, addString);
-            GetLocalizationFromList(label, newList, tabsNum);
+            GetLocalizationFromList(label, newList);
 		}
 
         private static List<string> ListAddToEnd(IEnumerable<string> iEnumerable, string addString) {
@@ -230,7 +232,7 @@ namespace WeaponEnchantments.Common.Utility
 
             PrintAllLocalization();
 
-	    PrintEnchantmentDrops();
+	        PrintEnchantmentDrops();
         }
 
         private static void PrintListOfEnchantmentTooltips() {
