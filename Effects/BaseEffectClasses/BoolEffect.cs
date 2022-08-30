@@ -21,8 +21,12 @@ namespace WeaponEnchantments.Effects {
             get {
                 if (StrengthData != null && MinimumStrength > StrengthData.Value)
                     return "";
-
-                return $"{DisplayName}{": " + (EnableStat ? "Enabled" : "Prevented")}";
+		if (EnableStat) {
+			return $"{DisplayName} Enabled";
+		}
+		else {
+			    return $"{DisplayName} Prevented";
+		}
             }
 		}
     }
