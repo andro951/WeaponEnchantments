@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Items.Utility
 
 	public class DangerSenseEnchantmentUltraRare : OnTickPlayerBuffEnchantment
 	{
-		protected override int buffID => BuffID.Spelunker;
+		protected override int buffID => BuffID.Dangersense;
 	}
 	public class HunterEnchantmentUltraRare : OnTickPlayerBuffEnchantment
 	{
