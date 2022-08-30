@@ -8,7 +8,6 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class OneForAllEnchantment : Enchantment
 	{
-		public override string CustomTooltip => "(Hitting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.8f;
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
