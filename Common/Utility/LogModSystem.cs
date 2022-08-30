@@ -78,14 +78,26 @@ namespace WeaponEnchantments.Common.Utility
 	    Start();
 	    
             IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+	    var enchantments = modItems.OfType<Enchantment>();
+	    List<string> enchantmentNames = new();
+	    foreach (Enchantment enchantment in enchantments) {
+	    	enchantmentNames.Add(enchantment.Name);
+		if (enchantment.EnchantmentTier >= 3)
+			enchantmentNames.Add(enchantment.EnchantmentTypeName + "Enchantment" + EnchantingRarity.displayTierNames[enchantment.EnchantmentTier]);
+	    }
+	    enchantmentNames.Sort();
+	    GetLocalizationFromList(null, enchantmentNames);
+	    
             var modItemLists = modItems
 	    	.GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
 		.Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
 		.OrderBy(group => group.Key);
             
+	    AddLabel("ItemName");
             foreach (var list in modItemLists) {
-                GetLocalizationFromList("ItemName",, list.ModItemList, tabs);
+                GetLocalizationFromList(null, list.ModItemList);
             }
+	    Close();
 	    
 	    FromLocalizationData();
 	    
