@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Effects
 			_timerStrength = timerStrength;
 		}
 
-		public override string Tooltip => "";
+		public override string Tooltip => $"(Item CD equal to {EffectStrength * 0.8f}x use speed)";
 
 		private DifficultyStrength _timerStrength;
 		public Time TimerDuration => null;
