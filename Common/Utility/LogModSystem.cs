@@ -48,10 +48,11 @@ namespace WeaponEnchantments.Common.Utility
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
         public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
-
+	public static string localization = "";
+	public static int tabs = 0;
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
-        public static string listOfAllEnchantmentTooltips = "";
+        //public static string listOfAllEnchantmentTooltips = "";
 
         //Requires an input type to have properties: Texture
         public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
@@ -74,9 +75,9 @@ namespace WeaponEnchantments.Common.Utility
                 namesAddedToContributorDictionary.Add(sharedName);
         }
 
-        public static void UpdateEnchantmentLocalization(Enchantment enchantment) {
-            enchantmentsLocalization.Add(enchantment.EnchantmentTypeName);
-        }
+        //public static void UpdateEnchantmentLocalization(Enchantment enchantment) {
+        //    enchantmentsLocalization.Add(enchantment.EnchantmentTypeName);
+        //}
         public static void PrintLocalization() {
             /*List<List<string>> itemsLists = new List<List<string>>() {
                 ListAddToEnd(Containment.sizes, "Containment"),
@@ -84,7 +85,7 @@ namespace WeaponEnchantments.Common.Utility
                 ListAddToEnd(EnchantingRarity.tierNames, "EnchantmentEssence")
             };*/
 
-            int tabs = 3;
+            //int tabs = 3;
             string localization = "\n" +
                 "Mods: {\n" +
                 "\tWeaponEnchantments: {\n" +
@@ -108,6 +109,21 @@ namespace WeaponEnchantments.Common.Utility
             //localization += GetLocalizationFromList("DisplayTierNames", EnchantingRarity.displayTierNames, tabs);
             //localization += GetLocalizationFromListAddToEnd("EnchantingTables", EnchantingTableItem.enchantingTableNames, "EnchantingTable", tabs);
             //localization += GetLocalizationFromListAddToEnd("EnchantmentEssence", EnchantingRarity.tierNames, "EnchantmentEssence", tabs);
+	    localization += "\n" + 
+	    	"\t\t}\n" +
+	    	"\t\tTooltips: {\n"
+		SortedDictionary<string, string> combined = new();
+	    foreach(EnchantmentEffect effect in ) {//Check not abstract
+	    	string name = effect.GetType().Name;
+		SortedDictionary<string, string> dict = LocalizationData.AllData["Tooltip"].Children["EnchantmentEffects"].Dict;
+	    	if(dict.ContainsKey(name)) {
+			combined.Add(name, dict[name]);
+		}
+		else {
+			combined.Add(name, name.AddSpaces());
+		}
+	    }
+	    localization += GetLocalizationFromDict("EnchantmentEffects", combined, tabs);
             localization += "\n" +
                 "\t\t}\n" +
                 "\t}\n" +
@@ -115,18 +131,20 @@ namespace WeaponEnchantments.Common.Utility
 
 			if (printLocalizationMaster) {
                 localization += "\n\n";
-                localization += "\n" +
-                    "Mods: {\n" +
-                    "\tWeaponEnchantments: {\n" +
-                    "\t\tItemName: {";
+		localization += AddLabel("Mods", ref tabs);
+		localization += AddLabel("WeaponEnchantments", ref tabs);
+                //localization += "\n" +
+                //    "Mods: {\n" +
+                //    "\tWeaponEnchantments: {\n" +
+                //    "\t\tItemName: {";
                 foreach (var list in modItemLists) {
-                    localization += GetLocalizationFromList(null, list.ModItemList, tabs, true, true);
+                    localization += GetLocalizationFromList("ItemName", list.ModItemList, tabs, true, true);
                 }
-
-                localization += "\n" +
-                    "\t\t}\n" +
-                    "\t}\n" +
-                    "}";
+		localization += CloseAll();
+                //localization += "\n" +
+                //    "\t\t}\n" +
+                //    "\t}\n" +
+                //    "}";
             }
 
 			if (printListForDocumentConversion) {
@@ -140,6 +158,27 @@ namespace WeaponEnchantments.Common.Utility
 
             localization.Log();
         }
+	private static string AddLabel(string label) {
+		localization += Tabs(tabs) + label + ": {\n";
+		tabs++;
+	}
+	private static void Start() {
+		AddLabel("Mods");
+		AddLabel("WeaponEnchantments");
+	}
+	private static string Close() {
+		tabs--;
+		localization += Tabs(tabs) + "}\n";
+	}
+	private static string CloseAll() {
+		while(tabs >= 0) {
+			Close();
+		}
+		
+		tabs = 0;
+		localization.log();
+		localization = "";
+	}
         private static string GetLocalizationFromList(string label, IEnumerable<ModType> list, int tabsNum, bool ignoreLabel = false, bool printMaster = false) {
             IEnumerable<string> listNames = list.Select(l => l.Name);
             return GetLocalizationFromList(label, listNames, tabsNum, ignoreLabel, printMaster);
@@ -152,11 +191,22 @@ namespace WeaponEnchantments.Common.Utility
                 localization += "\n" + tabs + s + ": " + (printMaster ? "" : s.AddSpaces());
             }
 
-            localization += ignoreLabel ? "" : "\n" + Tabs(tabsNum - 1) + "}";
+            localization += ignoreLabel ? "" : "\n" + Tabs(tabsNum - 1) + "}\n";
 
             return localization;
         }
+	private static string GetLocalizationFromDict(string label, SortedDictionary<string, string> dict, int tabsNum, bool ignoreLabel = false, bool printMaster = false) {
+            ignoreLabel = ignoreLabel || label == null || label == "";
+            string localization = ignoreLabel ? "" : Tabs(tabsNum -1) + label + "\n: {";
+            string tabs = Tabs(tabsNum);
+            foreach (KeyValuePair p in dict) {
+                localization += "\n" + tabs + p.Key + ": " + (printMaster ? "" : p[p.Key]);
+            }
 
+            localization += ignoreLabel ? "" : "\n" + Tabs(tabsNum - 1) + "}\n";
+
+            return localization;
+        }
         private static string GetLocalizationFromListAddToEnd(string label, IEnumerable<string> iEnumerable, string addString, int tabsNum) {
             List<string> list = ListAddToEnd(iEnumerable, addString);
             return GetLocalizationFromList(label, list, tabsNum);
