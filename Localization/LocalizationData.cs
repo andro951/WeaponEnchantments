@@ -41,6 +41,11 @@ namespace WeaponEnchantments.Localization
 		public static bool ContainsText(string s, ) => s == Language.GetText(s).;
 
 		public static SortedDictionary<string, SData> AllData => new() {
+			{ L_ID1.Tooltip.ToString(), new(children: new() { 
+				{ L_ID2.EnchantmentEffects.ToString(), new(dict: new() { 
+					{  }
+				}) }
+			}) },
 			{ L_ID1.Dialogue.ToString(), new(children: new() {
 				{ L_ID2.Witch.ToString(), new(dict: new() {
 					{ "StandardDialogue1", "test1" },
