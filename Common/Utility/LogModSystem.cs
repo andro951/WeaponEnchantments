@@ -84,23 +84,10 @@ namespace WeaponEnchantments.Common.Utility
 		.OrderBy(group => group.Key);
             
             foreach (var list in modItemLists) {
-                GetLocalizationFromList("ItemName", list.ModItemList, tabs);
+                GetLocalizationFromList("ItemName",, list.ModItemList, tabs);
             }
 	    
-	    AddLabel("Tooltips");
-	    
-		SortedDictionary<string, string> combined = new();
-	    foreach(EnchantmentEffect effect in ) {//Check not abstract
-	    	string name = effect.GetType().Name;
-		SortedDictionary<string, string> dict = LocalizationData.AllData["Tooltip"].Children["EnchantmentEffects"].Dict;
-	    	if(dict.ContainsKey(name)) {
-			combined.Add(name, dict[name]);
-		}
-		else {
-			combined.Add(name, name.AddSpaces());
-		}
-	    }
-	    localization += GetLocalizationFromDict("EnchantmentEffects", combined, tabs);
+	    FromLocalizationData();
 	    
 	    End();
         }
@@ -129,7 +116,11 @@ namespace WeaponEnchantments.Common.Utility
 			GetFromSDataDict(d.Children);
 	}
 	private static void AutoFill(KeyValuePair<string, SData> pair) {
-		List<string> list = ;//get all non-abstract of this type
+		List<string> list = Assembly.GetExecutingAssembly().GetTypes()
+			.OfType(pair.Key)
+			.Where(t => !t.isAbstract)
+			.Select(t => t.Name)
+			.ToList();
 		SortedDictionary<string, string> dict = pair.Value.Dict.
 		foreach(string s in list) {
 			if(!dict.ContainsKey(s))
