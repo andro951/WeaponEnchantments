@@ -23,12 +23,7 @@ namespace WeaponEnchantments.Localization
 
 		static LanguageManager languageManager;
 		static CultureName CultureName = CultureName.Unknown;
-		public static GetLanguageManager(CultureName cultureName) {
-			if (cultureName != CultureName)
-				languageManager = new LanguageManager();
-
-
-		}
+		
 		public static bool ContainsTextVAlue(string s, CultureName cultureName) {
 			if (cultureName != CultureName)
 				LanguageManager.Instance.SetLanguage((int)cultureName);
@@ -38,7 +33,7 @@ namespace WeaponEnchantments.Localization
 			LanguageManager.Instance.SetLanguage((int)CultureName.English);
 			return returnValue;
 		}
-		public static bool ContainsText(string s, ) => s == Language.GetText(s).;
+		//public static bool ContainsText(string s, ) => s == Language.GetText(s).;
 
 		public static SortedDictionary<string, SData> AllData => new() {
 			{ L_ID1.Dialogue.ToString(), new(children: new() {
