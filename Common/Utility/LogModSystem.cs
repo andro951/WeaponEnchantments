@@ -77,23 +77,24 @@ namespace WeaponEnchantments.Common.Utility
         public static void PrintLocalization() {
 	    Start();
 	    
+	    AddLabel("ItemName");
             IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
-	    var enchantments = modItems.OfType<Enchantment>();
 	    List<string> enchantmentNames = new();
-	    foreach (Enchantment enchantment in enchantments) {
+	    foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	enchantmentNames.Add(enchantment.Name);
 		if (enchantment.EnchantmentTier >= 3)
 			enchantmentNames.Add(enchantment.EnchantmentTypeName + "Enchantment" + EnchantingRarity.displayTierNames[enchantment.EnchantmentTier]);
 	    }
+	    
 	    enchantmentNames.Sort();
 	    GetLocalizationFromList(null, enchantmentNames);
 	    
             var modItemLists = modItems
+	    	.Where(mi => mi is not Enchantment)
 	    	.GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
 		.Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
 		.OrderBy(group => group.Key);
             
-	    AddLabel("ItemName");
             foreach (var list in modItemLists) {
                 GetLocalizationFromList(null, list.ModItemList);
             }
