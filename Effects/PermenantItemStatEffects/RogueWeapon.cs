@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Effects
 	{
 		public static DamageClassChange Default => new DamageClassChange(DamageClass.Generic);
 		public RogueWeapon() {}
-		public override string DisplayName => $"Convert damage type to Rogue. Requires Calamity mod to function.";
+		public override string DisplayName => $"Convert damage type to Throwing. If calamity is installed, it is converted to Rogue.";
 
 		public DamageClass BaseDamageClass = null;
 
@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Effects
 		}
 		public void ApplyTo(ref Item item) {
 			// We check for the Calamity mod first and foremost. 
-			// If the mod is not found, we execute .Reset()
+			// If the mod is not found, the weapon is assigned the Throwing class instead of Rogue.
 			if (ModLoader.HasMod("CalamityMod"))
 			{
 				Mod calamity = ModLoader.GetMod("CalamityMod");
@@ -53,8 +53,16 @@ namespace WeaponEnchantments.Effects
 			}
             else
             {
-				Reset(ref item);
-            }
+				if (item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon))
+				{
+					item.DamageType = DamageClass.Throwing;
+					if (BaseDamageClass == null)
+						BaseDamageClass = ContentSamples.ItemsByType[item.type].DamageType;
+
+					enchantedWeapon.damageType = DamageClass.Throwing;
+					enchantedWeapon.baseDamageType = BaseDamageClass;
+				}
+			}
 			
 		}
 		public void Reset(ref Item item) {

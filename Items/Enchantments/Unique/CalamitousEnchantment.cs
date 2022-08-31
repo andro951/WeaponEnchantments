@@ -32,13 +32,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override List<WeightedPair> NpcDropTypes => new()
 		{
-			new(NPCID.Mimic),
-			new(NPCID.BigMimicCorruption),
-			new(NPCID.BigMimicCrimson),
-			new(NPCID.BigMimicHallow),
-			new(NPCID.BigMimicJungle),
-			new(NPCID.IceMimic),
-			new(NPCID.PresentMimic)
+			new(NPCID.Deerclops)
 		};
 	}
 	public class CalamitousEnchantmentCommon : CalamitousEnchantment { }
