@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override List<WeightedPair> NpcDropTypes => new()
 		{
-			new(NPCID.Deerclops)
+			new(NPCID.KingSlime)
 		};
 	}
 	public class CalamitousEnchantmentCommon : CalamitousEnchantment { }
