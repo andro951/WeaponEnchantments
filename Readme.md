@@ -129,7 +129,7 @@ There are 5 tiers of enchanting tables
        > (TIP - Found in the desert, look for amber while you're there)
     *70% of item experience converted to Essence when offering items.
 2. Hellish:
-    *Ingredients - tier 1 Enchanting Table, obsidian skull
+    *Ingredients - tier 1 Enchanting Table, obsidian skull, 2 hellstone ore
     *80% of item experience converted to Essence when offering items.
 3. Soul:
     *Ingredients - tier 2 Enchanting Table, 2 souls of light/night
