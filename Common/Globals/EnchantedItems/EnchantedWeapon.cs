@@ -197,7 +197,7 @@ namespace WeaponEnchantments.Common.Globals
             base.UpdateInventory(item, player);
         }
         public override bool OnPickup(Item item, Player player) {
-            player.GetWEPlayer().UpdateItemStats(ref item);
+            //player.GetWEPlayer().UpdateItemStats(ref item);
 
             return true;
         }
@@ -313,22 +313,11 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
-            if (item.consumable && Modified && item.placeStyle == 0) {
-
-                //Ammo Cost
-                if (_stack < 0 || item.stack == Stack) {
-                    float rand = Main.rand.NextFloat();
-                    float ammoSaveChance = -1f * item.ApplyEStat("AmmoCost", 0f);
-
-                    if (rand <= ammoSaveChance)
-                        item.stack++;
-                }
-
-                //Restock and Stack0
+            if (item.consumable && Modified && item.placeStyle == 0) {//Restock and Stack0
                 if (item.stack < 2) {
                     Restock(item);
 
-                    if (item.stack < 2) {
+                    if (item.stack < 2  || item.Name == "") {
                         Stack0 = true;
                         item.stack = 2;
                     }

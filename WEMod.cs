@@ -66,9 +66,7 @@ namespace WeaponEnchantments
 				return true;
 			if (magicStorageEnabled) {
 				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
-				string terrariaName = "DMD<Terraria";
-				string subString = name.Substring(0, terrariaName.Length);
-				if (subString != terrariaName)
+				if ("CanCombineItems" == name)
 					return true;
 			}
 

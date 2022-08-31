@@ -860,6 +860,7 @@ namespace WeaponEnchantments.Common.Globals
             item1.CombineEnchantedItems(ref list);
             skipUpdateValue = false;
 
+            /*
             if (i1Global is EnchantedWeapon enchantedWeapon1 && i2Global is EnchantedWeapon enchantedWeapon2) {
                 //Stack0
                 if (enchantedWeapon1.Stack0) {
@@ -881,6 +882,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
+            */
 
             //Clear item2 if stackTotal > max stack
             int stackTotal = item1.stack + item2.stack;
