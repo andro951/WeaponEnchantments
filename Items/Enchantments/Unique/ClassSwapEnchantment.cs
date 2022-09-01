@@ -101,13 +101,14 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		protected override DamageClass MyDamageClass => ModLoader.TryGetMod("CalamityMod", out Mod calamityMod) && calamityMod.TryFind(ModdedDamageClass, out DamageClass moddedDamageClass) ? moddedDamageClass : DamageClass.Throwing;
 		protected override string ModdedDamageClass => "RogueDamageClass";
+		public override string CustomTooltip => "(Calamity Mod Enchantment)";
 		public override string Designer => "Vyklade";
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
-		public override List<WeightedPair> NpcDropTypes => new() {
-			new(NPCID.KingSlime)
-		};
+		public override List<WeightedPair> NpcDropTypes => WEMod.calamityEnabled ? new () {
+			new(NPCID.KingSlime, 9f)
+		} : null;
 	}
 	public class RogueClassSwapEnchantmentCommon : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentRare : RogueClassSwapEnchantment { }

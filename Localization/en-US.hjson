@@ -135,45 +135,5 @@
 			WorldAblazeEnchantmentUltraRare: World Ablaze Enchantment Ultra Rare
 			PowerBooster: Power Booster
 		}
-
-		Dialogue: {
-			Witch: {
-				StandardDialogue1: test1
-				StandardDialogue2: test2
-				StandardDialogue3: test3
-				CommonDialogue: comon
-				RareDialogue: rarity
-				TalkALot: talk Alot
-				PartyGirlDialogue: ugh Party Girl....
-				BigAsMine: "I see your {0} is as big as mine."
-			}
-		}
-
-		NPCNames: {
-			Witch: {
-				Gruntilda: Gruntilda-
-				Brentilda: Brentilda-
-				Blobbelda: Blobbelda-
-				Mingella: Mingella-
-				MissGulch: Miss Gulch-
-				Sabrina: Sabrina-
-				Winifred: Winifred-
-				Sarah: Sarah-
-				Mary: Mary-
-				Maleficient: Maleficient-
-				Salem: Salem-
-				Binx: Binx-
-				Medusa: Medusa-
-				Melusine: Melusine-
-				Ursula: Ursula-
-				Jasminka: Jasminka-
-				Agatha: Agatha-
-				Freyja: Freyja-
-				Hazel: Hazel-
-				Akko: Akko-
-				Kyubey: Kyubey-
-				Morgana: Morgana-
-			}
-		}
 	}
 }
