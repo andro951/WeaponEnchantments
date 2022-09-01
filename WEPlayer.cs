@@ -1181,7 +1181,7 @@ namespace WeaponEnchantments
 		protected bool GetPlayerModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseValue = 0f) {
             strength = baseValue;
             if (CombinedEnchantmentStats.ContainsKey(enchantmentStat)) {
-                strength = CombinedEnchantmentStats[enchantmentStat].Strength;
+                strength = CombinedEnchantmentStats[enchantmentStat].ApplyTo(baseValue);
                 return true;
             }
 
