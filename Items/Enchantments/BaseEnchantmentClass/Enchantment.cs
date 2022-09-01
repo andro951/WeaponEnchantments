@@ -166,10 +166,10 @@ namespace WeaponEnchantments.Items {
 		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
 		public Dictionary<EItemType, float> AllowedList { protected set; get; }
-		public virtual List<WeightedPair> NpcDropTypes => null;
-		public virtual List<WeightedPair> NpcAIDrops => null;
-		public virtual SortedDictionary<ChestID, float> ChestDrops => null;
-		public virtual List<WeightedPair> CrateDrops => null;
+		public virtual List<WeightedPair> NpcDropTypes { protected set; get; } = null;
+		public virtual List<WeightedPair> NpcAIDrops { protected set; get; } = null;
+		public virtual SortedDictionary<ChestID, float> ChestDrops { protected set; get; } = null;
+		public virtual List<WeightedPair> CrateDrops { protected set; get; } = null;
 
 		#endregion
 
