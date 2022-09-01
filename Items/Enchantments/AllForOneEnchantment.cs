@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 6;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
+		public override int RestrictedClass => (int)DamageClassID.Summon;
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
 			Effects = new() {

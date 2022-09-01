@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageTypeSpecificID.Generic ? ((DamageTypeSpecificID)dc.Type).ToString() + " " : "" : "";
+        public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageClassID.Generic ? ((DamageClassID)dc.Type).ToString() + " " : "" : "";
 
         #endregion
 

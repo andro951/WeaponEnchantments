@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Utility
 {
-    public enum DamageTypeSpecificID {
+    public enum DamageClassID {
 		Default,
 		Generic,
 		Melee,

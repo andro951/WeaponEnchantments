@@ -33,7 +33,7 @@ namespace WeaponEnchantments.Common.Globals
         //New system
         //public SortedDictionary<PermenantItemFields, StatModifier> AppliedPermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
         //public SortedDictionary<PermenantItemFields, StatModifier> PermenantStats = new SortedDictionary<PermenantItemFields, StatModifier>();
-        public DamageClassChange DamageTypeEffect;
+        public DamageClassSwap DamageTypeEffect;
 
         //public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         //public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
@@ -93,7 +93,7 @@ namespace WeaponEnchantments.Common.Globals
         #endregion
 
         public EnchantedWeapon() : base() {
-            DamageTypeEffect = DamageClassChange.Default;
+            DamageTypeEffect = DamageClassSwap.Default;
         }
 
         public override bool InstancePerEntity => true;

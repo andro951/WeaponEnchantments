@@ -7,15 +7,16 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
+	/*
 	public abstract class EclipseEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Magic;
+		public override int RestrictedClass => (int)DamageTypeID.Magic;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
-				new DamageClassChange(DamageClass.Magic)
+				new DamageClassSwap(DamageClass.Magic)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -26,6 +27,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override string Artist => "Vyklade";
 		public override string Designer => "Vyklade";
 	}
+	
 	public class EclipseEnchantmentBasic : EclipseEnchantment
 	{
 		public override List<WeightedPair> NpcDropTypes => new() {
@@ -36,4 +38,5 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class EclipseEnchantmentRare : EclipseEnchantment { }
 	public class EclipseEnchantmentSuperRare : EclipseEnchantment { }
 	public class EclipseEnchantmentUltraRare : EclipseEnchantment { }
+	*/
 }

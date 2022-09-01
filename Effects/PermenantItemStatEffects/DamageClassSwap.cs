@@ -11,10 +11,10 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects
 {
-	public class DamageClassChange : EnchantmentEffect, IPermenantStat
+	public class DamageClassSwap : EnchantmentEffect, IPermenantStat
 	{
-		public static DamageClassChange Default => new DamageClassChange(DamageClass.Generic);
-		public DamageClassChange(DamageClass damageClass) {
+		public static DamageClassSwap Default => new DamageClassSwap(DamageClass.Generic);
+		public DamageClassSwap(DamageClass damageClass) {
 			NewDamageClass = damageClass;
 		}
 		public override string DisplayName => $"Convert damage type to {NewDamageClass.DisplayName}";

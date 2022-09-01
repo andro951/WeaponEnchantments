@@ -47,7 +47,8 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.8f, 0.85f, 0.90f, 0.95f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }),
 			new EnchantmentStrengths(new float[] { 0.8f, 0.6f, 0.4f, 0.2f, 0f }),
-			new EnchantmentStrengths(new float[] { 0.05f, 0.1f, 0.15f, 0.2f, 0.25f })
+			new EnchantmentStrengths(new float[] { 0.05f, 0.1f, 0.15f, 0.2f, 0.25f }),
+			new EnchantmentStrengths(new float[] { 0.88f, 0.91f, 0.94f, 0.97f, 1f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly uint defaultBuffDuration = 60;
@@ -87,6 +88,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>14</term><description>{ 0.1f, 0.2f, 0.3f, 0.4f, 0.5f }</description><br/>
 		/// <term>15</term><description>{ 0.8f, 0.6f, 0.4f, 0.2f, 0f }</description><br/>
 		/// <term>16</term><description>{ 0.05f, 0.1f, 0.15f, 0.2f, 0.25f }</description><br/>
+		/// <term>17</term><description>{ 0.88f, 0.91f, 0.94f, 0.97f, 1f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -722,7 +724,7 @@ namespace WeaponEnchantments.Items {
 			else if (DamageClassSpecific > 0) {
 				//DamageClassSpecific
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{((DamageTypeSpecificID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*",
+					$"   *{((DamageClassID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*",
 					Color.White
 				));
 			}
@@ -737,7 +739,7 @@ namespace WeaponEnchantments.Items {
 			//RestrictedClass
 			if (RestrictedClass > -1) {
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *Not allowed on {((DamageTypeSpecificID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*",
+					$"   *Not allowed on {((DamageClassID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*",
 					Color.White
 				));
 			}
@@ -902,22 +904,22 @@ namespace WeaponEnchantments.Items {
 			return toolTip;
 		}*/
 		public static int GetDamageClass(int damageType) {
-			switch ((DamageTypeSpecificID)damageType) {
-				case DamageTypeSpecificID.Melee:
-				case DamageTypeSpecificID.MeleeNoSpeed:
-					return (int)DamageTypeSpecificID.Melee;
-				case DamageTypeSpecificID.Ranged:
-					return (int)DamageTypeSpecificID.Ranged;
-				case DamageTypeSpecificID.Magic:
-					return (int)DamageTypeSpecificID.Magic;
-				case DamageTypeSpecificID.Summon:
-				case DamageTypeSpecificID.MagicSummonHybrid:
-				case DamageTypeSpecificID.SummonMeleeSpeed:
-					return (int)DamageTypeSpecificID.Summon;
-				case DamageTypeSpecificID.Throwing:
-					return (int)DamageTypeSpecificID.Throwing;
+			switch ((DamageClassID)damageType) {
+				case DamageClassID.Melee:
+				case DamageClassID.MeleeNoSpeed:
+					return (int)DamageClassID.Melee;
+				case DamageClassID.Ranged:
+					return (int)DamageClassID.Ranged;
+				case DamageClassID.Magic:
+					return (int)DamageClassID.Magic;
+				case DamageClassID.Summon:
+				case DamageClassID.MagicSummonHybrid:
+				case DamageClassID.SummonMeleeSpeed:
+					return (int)DamageClassID.Summon;
+				case DamageClassID.Throwing:
+					return (int)DamageClassID.Throwing;
 				default:
-					return (int)DamageTypeSpecificID.Generic;
+					return (int)DamageClassID.Generic;
 			}
 		}
 		private uint GetBuffDuration() {
