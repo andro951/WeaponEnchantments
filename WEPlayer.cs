@@ -912,7 +912,7 @@ namespace WeaponEnchantments
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
-            bool dummyTarget = target.type == NPCID.TargetDummy;
+            bool dummyTarget = target.netID == NPCID.TargetDummy;
 
             Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
@@ -941,7 +941,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.type)) {
+                    if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.netID)) {
                         foreach (short key in debuffs.Keys) {
                             debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
                         }
@@ -1109,7 +1109,7 @@ namespace WeaponEnchantments
             if (!CheckEnchantmentStats(EnchantmentStat.GodSlayer, out float godSlayerBonus))
                 return 0;
 
-            if (target.friendly || target.townNPC || !target.active || target.type == NPCID.DD2LanePortal)
+            if (target.friendly || target.townNPC || !target.active || target.netID == NPCID.DD2LanePortal)
                 return 0;
 
             #region Debug

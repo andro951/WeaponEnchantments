@@ -101,7 +101,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (supportedNPCsThatDropBags.ContainsKey(sampleNPCName)) {
                     int bagType = supportedNPCsThatDropBags[sampleNPCName];
                     if(!bossBagNPCIDs.ContainsKey(bagType))
-                        bossBagNPCIDs.Add(bagType, sampleNPC.type);
+                        bossBagNPCIDs.Add(bagType, sampleNPC.netID);
                 }
             }
         }

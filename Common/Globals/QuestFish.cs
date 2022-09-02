@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Common.Globals
 					NPC angler = new();
 					bool foundAngler = false;
 					for (int i = 0; i < Main.npc.Length; i++) {
-						if (Main.npc[i].type == NPCID.Angler) {
+						if (Main.npc[i].netID == NPCID.Angler) {
 							angler = Main.npc[i];
 							foundAngler = true;
 							break;
