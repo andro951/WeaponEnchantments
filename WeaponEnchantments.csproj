@@ -30,6 +30,7 @@
     <Folder Include="Effects\CustomBoolEffects\" />
     <Folder Include="ModIntegration\" />
     <Folder Include="ModLib\KokoLib\KokoLibSourceFiles\Emitters\" />
+	<Folder Include="NPCs\" />
     <Folder Include="UI\InfoDisplays\" />
   </ItemGroup>
 </Project>
