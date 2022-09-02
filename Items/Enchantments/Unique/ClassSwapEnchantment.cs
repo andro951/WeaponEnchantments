@@ -99,8 +99,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
 	{
-		protected override DamageClass MyDamageClass => ModLoader.TryGetMod("CalamityMod", out Mod calamityMod) && calamityMod.TryFind(ModdedDamageClass, out DamageClass moddedDamageClass) ? moddedDamageClass : DamageClass.Throwing;
-		protected override string ModdedDamageClass => "RogueDamageClass";
+		protected override DamageClass MyDamageClass => ModIntegration.CalamityValues.rogue ?? DamageClass.Throwing;
 		public override string CustomTooltip => "(Calamity Mod Enchantment)";
 		public override string Designer => "Vyklade";
 	}
