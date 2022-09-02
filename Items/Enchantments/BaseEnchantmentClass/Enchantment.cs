@@ -919,6 +919,16 @@ namespace WeaponEnchantments.Items {
 				case DamageClassID.Throwing:
 					return (int)DamageClassID.Throwing;
 				default:
+					if (WEMod.calamityEnabled) {
+						int rogue = ModIntegration.CalamityValues.rogue.Type;
+						if (damageType == rogue)
+							return (int)DamageClassID.Ranged;
+
+						int trueMelee = ModIntegration.CalamityValues.trueMelee.Type;
+						if (damageType == trueMelee)
+							return (int)DamageClassID.Melee;
+					}
+
 					return (int)DamageClassID.Generic;
 			}
 		}
