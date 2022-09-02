@@ -180,6 +180,7 @@ namespace WeaponEnchantments.Common.Utility
                     }
                 }
             }
+
             return -1;
         }
 

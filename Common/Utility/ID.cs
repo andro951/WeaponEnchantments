@@ -211,13 +211,49 @@ namespace WeaponEnchantments.Common.Utility
         PostCultist,
         Luck
 	}
+    public enum TownNPCTypeID
+	{
+        Guide = 22,
+        Merchant = 17,
+        Nurse = 18,
+        Demolitionist = 38,
+        Angler = 369,
+        Dryad = 20,
+        ArmsDealer = 19,
+        DyeTrader = 207,
+        Painter = 227,
+        Stylist = 353,
+        Zoologist = 633,
+        Tavernkeep = 550,
+        Golfer = 588,
+        GoblinTinkerer = 107,
+        WitchDoctor = 228,
+        Mechanic = 124,
+        Clothier = 54,
+        Wizard = 108,
+        Steampunker = 178,
+        Pirate = 229,
+        Truffle = 160,
+        TaxCollector = 441,
+        Cyborg = 209,
+        PartyGirl = 208,
+        Princess = 663,
+        SantaClaus = 142,
+        Cat = 637,
+        Dog = 638,
+        Bunny = 656,
+        TravelingMerchant = 368,
+        SkeletonMerchant = 453,
+        OldMan = 37
+    }
     public enum L_ID1
 	{
         Tooltip,
         Dialogue,
         NPCNames,
+        Bestiary,
 
-	}
+    }
     public enum L_ID2
 	{
         None,

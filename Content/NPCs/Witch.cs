@@ -278,28 +278,22 @@ namespace WeaponEnchantments.Content.NPCs
 				list.Remove(type);
 			}
 		}
-
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
+				new FlavorTextBestiaryInfoElement("Mods.WeaponEnchantments.Bestiary.Witch")
+			});
+		}
 
 
 
 		//Not finished methods below here:
-		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
-			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
 
-				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("Hailing from a mysterious greyscale cube world, the Example Person is here to help you understand everything about tModLoader."),
-
-				// You can add multiple elements if you really wanted to
-				// You can also use localization keys (see Localization/en-US.lang)
-				new FlavorTextBestiaryInfoElement("Mods.WeaponEnchantments.Bestiary.Witch")
-			});
-		}
 		// todo: implement
-		 // public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
-		 // 	projType = ProjectileType<SparklingBall>();
-		 // 	attackDelay = 1;
-		 // }
+		// public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+		// 	projType = ProjectileType<SparklingBall>();
+		// 	attackDelay = 1;
+		// }
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
 			multiplier = 12f;
 			randomOffset = 2f;
@@ -370,10 +364,22 @@ namespace WeaponEnchantments.Content.NPCs
 		public override string GetChat() {
 			WeightedRandom<string> chat = new WeightedRandom<string>();
 
-			int partyGirl = NPC.FindFirstNPC(NPCID.PartyGirl);
-			if (partyGirl >= 0 && Main.rand.NextBool(4)) {
-				chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.PartyGirlDialogue", Main.npc[partyGirl].GivenName));
+			for(int i = 0; i < NPCID.Sets.TownNPCBestiaryPriority.Count; i++) {
+				int type = NPCID.Sets.TownNPCBestiaryPriority[i];
+				switch (type) {
+					case NPCID.WitchDoctor:
+					case NPCID.Wizard:
+					case NPCID.DyeTrader:
+					case NPCID.Princess:
+					case NPCID.Dryad:
+					case NPCID.BestiaryGirl:
+						string c = ((TownNPCTypeID)type).ToString().Lang(L_ID1.Dialogue, L_ID2.Witch);
+						chat.Add(c);
+						//chat.Add();
+						break;
+				}
 			}
+
 			// These are things that the NPC has a chance of telling you when you talk to it.
 			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.StandardDialogue1"));
 			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.StandardDialogue2"));

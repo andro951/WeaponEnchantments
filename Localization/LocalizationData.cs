@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Localization
 				{ L_ID2.EnchantmentEffects.ToString(), new(children: new() { 
 					{ "BoolEfect", new(dict: new() {
 						{ "Enabled", "\"{0} Enabled\"" },
-						{ "Enabled", "\"{0} Disabled\"" }
+						{ "Disabled", "\"{0} Disabled\"" }
 					}) },
 					{ "BuffEffect", new(dict: new() {
 						{ BuffStyle.OnTickPlayerBuff.ToString(), "\"Passively grants {0} to you\"" },
@@ -139,6 +139,9 @@ namespace WeaponEnchantments.Localization
 					{ "Kyubey" },
 					{ "Morgana" }
 				}) }
+			}) },
+			{ L_ID1.Bestiary.ToString(), new(dict: new() {
+				{ L_ID2.Witch.ToString(), "The Witch is a ugly and wicked lady and deals in further wicked things. She trades in dubious materials used to improve equipment with mysterious effects." }
 			}) },
 			{ "Ores", new(new() { 
 				{ "copper" },

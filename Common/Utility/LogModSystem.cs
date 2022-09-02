@@ -1,11 +1,16 @@
-﻿using System;
+﻿using Hjson;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Core;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Localization;
@@ -17,7 +22,7 @@ namespace WeaponEnchantments.Common.Utility
     public class LogModSystem : ModSystem {
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
-        public static bool printLocalization = true;
+        public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
 
@@ -54,6 +59,8 @@ namespace WeaponEnchantments.Common.Utility
 	    private static string localization = "";
 	    private static int tabs = 0;
 	    private static List<string> labels;
+        private static Dictionary<string, ModTranslation> translations;
+        private static int culture;
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
         //public static string listOfAllEnchantmentTooltips = "";
@@ -78,11 +85,91 @@ namespace WeaponEnchantments.Common.Utility
             if (sharedName != null)
                 namesAddedToContributorDictionary.Add(sharedName);
         }
-        public static void PrintLocalization() {
-	        Start();
+        private static void PrintAllLocalization() {
+            if (!printLocalization)
+                return;
+
+            Mod mod = ModContent.GetInstance<WEMod>();
+            TmodFile file = (TmodFile)typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mod);
+            translations = new();
+            Autoload(file);
+            /*foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
+                foreach(string key in translations.Keys) {
+                    $"{key}: {translations[key].GetTranslation(i)}".Log();
+				}
+            }*/
+            foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
+                PrintLocalization((CultureName)i);
+            }
+        }
+        private static void Autoload(TmodFile file) {
+            var modTranslationDictionary = new Dictionary<string, ModTranslation>();
+
+            AutoloadTranslations(file, modTranslationDictionary);
+
+            foreach (var value in modTranslationDictionary.Values) {
+                AddTranslation(value);
+            }
+        }
+        public static void AddTranslation(ModTranslation translation) {
+            translations[translation.Key] = translation;
+        }
+        private static void AutoloadTranslations(TmodFile file, Dictionary<string, ModTranslation> modTranslationDictionary) {
+            
+            foreach (var translationFile in file.Where(entry => Path.GetExtension(entry.Name) == ".hjson")) {
+                using var stream = file.GetStream(translationFile);
+                using var streamReader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+
+                string translationFileContents = streamReader.ReadToEnd();
+
+                var culture = GameCulture.FromPath(translationFile.Name);
+
+                // Parse HJSON and convert to standard JSON
+                string jsonString = HjsonValue.Parse(translationFileContents).ToString();
+
+                // Parse JSON
+                var jsonObject = JObject.Parse(jsonString);
+                // Flatten JSON into dot seperated key and value
+                var flattened = new Dictionary<string, string>();
+
+                foreach (JToken t in jsonObject.SelectTokens("$..*")) {
+                    if (t.HasValues) {
+                        continue;
+                    }
+
+                    // Custom implementation of Path to allow "x.y" keys
+                    string path = "";
+                    JToken current = t;
+
+                    for (JToken parent = t.Parent; parent != null; parent = parent.Parent) {
+                        path = parent switch {
+                            JProperty property => property.Name + (path == string.Empty ? string.Empty : "." + path),
+                            JArray array => array.IndexOf(current) + (path == string.Empty ? string.Empty : "." + path),
+                            _ => path
+                        };
+                        current = parent;
+                    }
+
+                    flattened.Add(path, t.ToString());
+                }
+
+                foreach (var (key, value) in flattened) {
+                    string effectiveKey = key.Replace(".$parentVal", "");
+                    if (!modTranslationDictionary.TryGetValue(effectiveKey, out ModTranslation mt)) {
+                        // removing instances of .$parentVal is an easy way to make this special key assign its value
+                        //  to the parent key instead (needed for some cases of .lang -> .hjson auto-conversion)
+                        modTranslationDictionary[effectiveKey] = mt = LocalizationLoader.CreateTranslation(effectiveKey);
+                    }
+
+                    mt.AddTranslation(culture, value);
+                }
+            }
+        }
+        public static void PrintLocalization(CultureName cultureName) {
+	        Start(cultureName);
 	    
 	        AddLabel("ItemName");
-                IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
 	        List<string> enchantmentNames = new();
 	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	    enchantmentNames.Add(enchantment.Name);
@@ -133,7 +220,15 @@ namespace WeaponEnchantments.Common.Utility
 			    GetFromSDataDict(d.Children);
 	    }
 	    private static void AutoFill(KeyValuePair<string, SData> pair) {
-            List<string> list = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetType() == Type.GetType(pair.Key))
+            IEnumerable<Type> types = null;
+            try {
+                types = AssemblyManager.GetLoadableTypes(Assembly.GetExecutingAssembly());
+            }
+            catch (ReflectionTypeLoadException e) {
+                types = e.Types.Where(t => t != null);
+            }
+
+            List<string> list = types.Where(t => t.GetType() == Type.GetType(pair.Key))
 			    .Where(t => !t.IsAbstract)
 			    .Select(t => t.Name)
 			    .ToList();
@@ -143,38 +238,30 @@ namespace WeaponEnchantments.Common.Utility
 				    dict.Add(s, s.AddSpaces());
 		    }
 	    }
-	    private static void PrintAllLocalization() {
-		    if (!printLocalization)
-			    return;
-		
-		    foreach(int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
-			    LanguageManager.Instance.SetLanguage(i);
-			    PrintLocalization();
-		    }
-		
-		    LanguageManager.Instance.SetLanguage((int)CultureName.English);
-	    }
 	    private static void AddLabel(string label) {
 		    localization += Tabs(tabs) + label + ": {\n";
 		    tabs++;
 		    labels.Add(label);
 	    }
-	    private static void Start() {
+	    private static void Start(CultureName cultureName) {
+            culture = (int)cultureName;
+            localization += "\n\n" + cultureName.ToString() + "\n";
 		    labels = new();
 		    AddLabel("Mods");
 		    AddLabel("WeaponEnchantments");
 	    }
-	    private static void Close(bool newLine = true) {
+	    private static void Close() {
 		    tabs--;
+            if (tabs < 0)
+                return;
+
 		    localization += Tabs(tabs) + "}\n";
-		    if (newLine)
-			    localization += "\n";
 			
 		    labels.RemoveAt(labels.Count - 1);
 	    }
 	    private static void End() {
 		    while(tabs >= 0) {
-			    Close(false);
+			    Close();
 		    }
 		
 		    tabs = 0;
@@ -188,9 +275,12 @@ namespace WeaponEnchantments.Common.Utility
         private static void GetLocalizationFromList(string label, IEnumerable<string> list, bool ignoreLabel = false, bool printMaster = false) {
             SortedDictionary<string, string> dict = new();
             foreach (string s in list) {
-                dict.Add(s, s.AddSpaces());
-            }
-        }
+                //$"{s}: {s.AddSpaces()}".Log();
+				dict.Add($"{s}", $"{s.AddSpaces()}");
+			}
+
+            GetLocalizationFromDict(label, dict, ignoreLabel, printMaster);
+		}
 	    private static void GetLocalizationFromDict(string label, SortedDictionary<string, string> dict, bool ignoreLabel = false, bool printMaster = false) {
             ignoreLabel = ignoreLabel || label == null || label == "";
 	        if (!ignoreLabel)
@@ -199,11 +289,16 @@ namespace WeaponEnchantments.Common.Utility
             string tabString = Tabs(tabs);
 		    string allLabels = string.Join(".", labels.ToArray());
             foreach (KeyValuePair<string, string> p in dict) {
-                string key = allLabels += "." + p.Key;
-                string s = Language.GetTextValue(key);
-                if (s == key)
+                string key = allLabels + "." + p.Key;
+                string s = translations.ContainsKey(key) ? translations[key].GetTranslation(culture) : key;
+                //$"{key}: {s}".Log();
+                if (s == key) {
                     s = p.Value;
-                localization += "\n" + tabString + p.Key + ": " + (printMaster ? "" : s);
+                }
+
+                s = CheckTabOutLocalization(s);
+
+                localization += tabString + p.Key + ": " + (printMaster ? "" : s) + "\n";
             }
 
             if (!ignoreLabel)
@@ -213,7 +308,6 @@ namespace WeaponEnchantments.Common.Utility
             List<string> newList = ListAddToEnd(list, addString);
             GetLocalizationFromList(label, newList);
 		}
-
         private static List<string> ListAddToEnd(IEnumerable<string> iEnumerable, string addString) {
             List<string> list = iEnumerable.ToList();
             for(int i = 0; i < list.Count; i++) {
@@ -222,8 +316,34 @@ namespace WeaponEnchantments.Common.Utility
 
             return list;
 		}
+        private static string Tabs(int num) => num > 0 ? new string('\t', num) : "";
+        private static string CheckTabOutLocalization(string s) {
+            if (s.Contains("'''"))
+                return s;
 
-        private static string Tabs(int num) => new string('\t', num);
+            if (!s.Contains('\n'))
+                return s;
+
+            tabs++;
+            string newString = $"\n{Tabs(tabs)}'''\n";
+            int start = 0;
+            int i = 0;
+            for (; i < s.Length; i++) {
+                if (s[i] == '\n') {
+                    newString += Tabs(tabs) + s.Substring(start, i - start + 1);
+                    start = i + 1;
+                }
+            }
+
+            if (s[s.Length - 1] != '\n') {
+                newString += Tabs(tabs) + s.Substring(start, i - start);
+            }
+
+            newString += $"\n{Tabs(tabs)}'''";
+            tabs--;
+
+            return newString;
+		}
         public override void OnWorldLoad() {
             PrintListOfEnchantmentTooltips();
 
@@ -234,7 +354,6 @@ namespace WeaponEnchantments.Common.Utility
 
 	        PrintEnchantmentDrops();
         }
-
         private static void PrintListOfEnchantmentTooltips() {
 		if (!printListOfEnchantmentTooltips)
 			return;
