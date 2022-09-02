@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
@@ -31,6 +32,8 @@ namespace WeaponEnchantments.Common
             //For each vanilla item
             foreach (int[] stats in weaponsDict["Terraria"]) {
                 int rarity = stats[0];
+                rarity.Clamp(0, numRarities - 1);
+
                 int value = stats[1];
                 total[rarity] += value;
                 count[rarity]++;
@@ -114,6 +117,9 @@ namespace WeaponEnchantments.Common
                     bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
                     if ( weaponList || armorList || accessory) {
                         int[] itemStats = { item.rare, item.value, item.damage };
+                        if (item.rare >= numRarities)
+                            $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".Log();
+
                         if (!itemsDict.ContainsKey(modName))
                             itemsDict.Add(modName, new List<int[]>());
 
