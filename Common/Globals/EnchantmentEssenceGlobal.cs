@@ -30,6 +30,10 @@ namespace WeaponEnchantments.Common.Globals
                 int tier = essence.essenceTier;
                 int tableStack = essenceSlots[tier].stack;
                 int toStore = Math.Min(item.maxStack - tableStack, item.stack);
+
+                if (toStore <= 0)
+                    return true;
+
                 item.stack -= toStore;
                 //Less than max stack when combined
 

@@ -304,9 +304,10 @@ namespace WeaponEnchantments.Common.Globals
 
             IItemDropRule dropRule;
 
-            bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.type);
-            bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.type);
-            float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.type);
+            bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
+            bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.netID);
+            float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.netID);
+
             if (multipleSegmentBoss && bossBag)
                 total *= multipleSegmentBossMultiplier;
 
@@ -365,7 +366,7 @@ namespace WeaponEnchantments.Common.Globals
                 AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
-                bool preHardModeBoss = preHardModeBossTypes.Contains(npc.type) || preHardModeModBossNames.Contains(npc.FullName);
+                bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName);
                 if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !preHardModeBoss) {
                     denominator = (int)(1000000 / total);
                     if (denominator < 1)
@@ -376,17 +377,17 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Enchantments
-                if (npcDropTypes.ContainsKey(npc.type)) {
+                if (npcDropTypes.ContainsKey(npc.netID)) {
                     //Enchantment drop chance
-                    float chance = GetEnchantmentDropChance(npc.type, bossBag);
-                    if (npcDropTypes[npc.type].Count == 1)
-                        chance *= npcDropTypes[npc.type][0].Weight;
+                    float chance = GetEnchantmentDropChance(npc.netID, bossBag);
+                    if (npcDropTypes[npc.netID].Count == 1)
+                        chance *= npcDropTypes[npc.netID][0].Weight;
 
-                    dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]);
+                    dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.netID]);
                     AddBossLoot(loot, npc, dropRule, bossBag);
 
-                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.type)))
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcDropTypes[npc.type]));
+                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.netID)))
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
             }
             else {
@@ -413,20 +414,20 @@ namespace WeaponEnchantments.Common.Globals
 
                 float chance;
                 if (useDefaultChance) {
-                    chance = (total * mult) / (5000f + hp * 5f);
+                    chance = (total * mult) / (5000f + hp * 0.5f);
 				}
 				else {
                     chance = 1f;
 				}
 
-                if (npcDropTypes.ContainsKey(npc.type)) {
-                    if (npcDropTypes[npc.type].Count == 1)
-                        chance *= npcDropTypes[npc.type][0].Weight;
+                if (npcDropTypes.ContainsKey(npc.netID)) {
+                    if (npcDropTypes[npc.netID].Count == 1)
+                        chance *= npcDropTypes[npc.netID][0].Weight;
 
-                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.type]));
+                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.netID]));
 
                     if (LogModSystem.printEnchantmentDrops)
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcDropTypes[npc.type]));
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
 
                 if (npcAIDrops.ContainsKey(npc.aiStyle)) {
@@ -436,7 +437,7 @@ namespace WeaponEnchantments.Common.Globals
                     loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcAIDrops[npc.aiStyle]));
 
                     if (LogModSystem.printEnchantmentDrops)
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.type, (chance, npcAIDrops[npc.aiStyle]));
+                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcAIDrops[npc.aiStyle]));
                 }
             }
         }
@@ -449,7 +450,7 @@ namespace WeaponEnchantments.Common.Globals
 
             bool npcCantDropBossBags;
 
-            switch (npc.type) {
+            switch (npc.netID) {
                 //UnobtainableBossBags
                 case NPCID.CultistBoss:
                 case NPCID.DD2DarkMageT1:
@@ -457,7 +458,7 @@ namespace WeaponEnchantments.Common.Globals
                     npcCantDropBossBags = true;
                     break;
                 default:
-                    npcCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.type);
+                    npcCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.netID);
                     break;
             }
 
@@ -500,18 +501,18 @@ namespace WeaponEnchantments.Common.Globals
             total /= hpReductionFactor;
 
             //NPC Characteristics Factors
-            float noGravityFactor = npc.noGravity ? 0.4f : 0f;
-            float noTileCollideFactor = npc.noTileCollide ? 0.4f : 0f;
-            float knockBackResistFactor = 0.4f * (1f - npc.knockBackResist);
-            float npcCharacteristicsFactor = noGravityFactor + noTileCollideFactor + knockBackResistFactor;
+            float noGravityFactor = npc.noGravity ? 0.2f : 0f;
+            float noTileCollideFactor = npc.noTileCollide ? 0.2f : 0f;
+            float knockBackResistFactor = 0.2f * npc.knockBackResist;
+            float npcCharacteristicsFactor = 1f + noGravityFactor + noTileCollideFactor + knockBackResistFactor;
             total *= npcCharacteristicsFactor;
 
             //Balance Multiplier (Extra multiplier for us to control the values manually)
-            float balanceMultiplier = 2f;
+            float balanceMultiplier = 0.2f;
             total *= balanceMultiplier;
 
             //Modify total for specific enemies.
-            switch (npc.type) {
+            switch (npc.netID) {
                 case NPCID.DungeonGuardian:
                     total /= 50f;
                     break;
@@ -523,7 +524,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             float essenceTotal = total;
-            bool multiSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.type);
+            bool multiSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
 
             //Config Multiplier
             if (npc.boss || multiSegmentBoss) {
@@ -594,7 +595,7 @@ namespace WeaponEnchantments.Common.Globals
                     continue;
 
                 if (target.whoAmI != npc.whoAmI) {
-                    if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
+                    if (target.friendly || target.townNPC || target.netID == NPCID.DD2LanePortal)
                         continue;
 
                     Vector2 vector2 = target.Center - npc.Center;
@@ -641,13 +642,13 @@ namespace WeaponEnchantments.Common.Globals
             npc.lifeRegen -= lifeRegen;
 
             //Fix for bosses not dying from Amaterasu
-            if (npc.boss || multipleSegmentBossTypes.ContainsKey(npc.type)) {
+            if (npc.boss || multipleSegmentBossTypes.ContainsKey(npc.netID)) {
                 if (npc.life + npc.lifeRegen < 1 && npc.lifeRegen < 0)
                     npc.lifeRegen = 0;
             }
 
             //Spread to other enemies ever 10 ticks
-            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.type != NPCID.TargetDummy) {
+            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount &&npc.netID != NPCID.TargetDummy) {
                 if (amaterasuDamage > minSpreadDamage) {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
                     foreach (int whoAmI in npcs.Keys) {

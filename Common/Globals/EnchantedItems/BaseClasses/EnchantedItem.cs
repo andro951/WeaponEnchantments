@@ -1218,7 +1218,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
             
             //dummy goto debug
-            if (target.type == NPCID.TargetDummy || target.FullName == "Super Dummy")
+            if (target.netID == NPCID.TargetDummy || target.FullName == "Super Dummy")
                 goto debugBeforeReturn;
 
             //friendly goto debug
@@ -1228,7 +1228,7 @@ namespace WeaponEnchantments.Common.Globals
             //value
             float value;
             if (Main.netMode == NetmodeID.MultiplayerClient) {
-                value = ContentSamples.NpcsByNetId[target.type].value;
+                value = ContentSamples.NpcsByNetId[target.netID].value;
             }
             else {
                 value = target.value;
