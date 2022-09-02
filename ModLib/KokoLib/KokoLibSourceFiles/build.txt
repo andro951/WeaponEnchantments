@@ -1,3 +1,0 @@
-displayName = Koko Lib
-author = Kokopai
-version = 0.1

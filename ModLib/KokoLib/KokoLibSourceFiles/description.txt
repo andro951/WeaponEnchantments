@@ -1,1 +1,0 @@
-WIP net library, for more info read [url=https://github.com/Tabizzz/KokoLib/wiki]the wiki[/url]
