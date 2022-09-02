@@ -576,6 +576,9 @@ namespace WeaponEnchantments.Common.Utility
             
             return newList;
 		}
+        public static void Clamp(this ref int value, int min, int max) {
+            value = value < min ? min : value > max ? max : value;
+		}
 
         #endregion
     }
