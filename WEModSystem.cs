@@ -10,7 +10,6 @@ using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
-using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Unique;
@@ -36,7 +35,6 @@ namespace WeaponEnchantments
         public static SortedDictionary<ChestID, List<WeightedPair>> chestDrops = new SortedDictionary<ChestID, List<WeightedPair>>();
 
         private GameTime _lastUpdateUiGameTime;
-        private bool dayTime = Main.dayTime;
 
         public override void OnModLoad() {
             if (!Main.dedServ) {
@@ -753,12 +751,6 @@ namespace WeaponEnchantments
         }
 		public override void SaveWorldData(TagCompound tag) {
 			tag["versionUpdate"] = versionUpdate;
-		}
-		public override void PostUpdateTime() {
-            if (Main.dayTime && !dayTime)
-                Witch.resetShop = true;
-
-            dayTime = Main.dayTime;
 		}
 	}
 }
