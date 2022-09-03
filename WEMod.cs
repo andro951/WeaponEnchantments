@@ -265,7 +265,6 @@ namespace WeaponEnchantments
 				if (wePlayer.usingEnchantingTable) {
 					if (debuggingHookFindRecipes) {
 						counter++;
-						Main.NewText("counter: " + counter.ToString());
 						ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
 					}
 					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {

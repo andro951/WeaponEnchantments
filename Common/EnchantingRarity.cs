@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 namespace WeaponEnchantments.Common
 {
     public abstract class EnchantingRarity : ModRarity {
-        public static readonly int enchantingRarityBasic = ModContent.RarityType<EnchantingRarityBasic>();
         public static readonly string[] tierNames = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
         public static Color[] TierColors => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? altTierColors : normalTierColors;
         private static readonly Color[] normalTierColors = new Color[] { 
@@ -24,9 +23,22 @@ namespace WeaponEnchantments.Common
         };
 
         public override Color RarityColor => TierColors[GetTierNumberFromName(Name)];
-        public static int GetRarityFromTier(int tier) => enchantingRarityBasic + tier;
+        public static int GetRarityFromTier(int tier) {
+			switch (tier) {
+                case 1:
+                    return ModContent.RarityType<EnchantingRarityCommon>();
+                case 2:
+                    return ModContent.RarityType<EnchantingRarityRare>();
+                case 3:
+                    return ModContent.RarityType<EnchantingRarityEpic>();
+                case 4:
+                    return ModContent.RarityType<EnchantingRarityLegendary>();
+                default:
+                    return ModContent.RarityType<EnchantingRarityBasic>();
+            }
+		}
 
-        public static int GetTierNumberFromName(string name) {
+		public static int GetTierNumberFromName(string name) {
             for (int i = tierNames.Length - 1; i >= 0; i--) {
                 string tierName = tierNames[i];
                 int tierNameIndex = name.IndexOf(tierName);

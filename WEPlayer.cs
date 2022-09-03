@@ -522,21 +522,6 @@ namespace WeaponEnchantments
             Update();
         }
         private void Update() {
-            /*Troubleshooting Localization
-            ModItem modItem = Main.HoverItem.ModItem;
-            if (modItem != null) {
-                if(modItem is Enchantment enchantment) {
-                    string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + enchantment.EnchantmentTypeName;
-                    typeNameString.Log();
-                    string displayName = Language.GetTextValue(typeNameString) + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
-                    string rarityString = "Mods.WeaponEnchantments.DisplayTierNames." + displayTierNames[enchantment.EnchantmentTier];
-                    Main.NewText(displayName + Language.GetTextValue(rarityString));
-                }
-			}*/
-
-            //int vanillaArmorLength = Player.armor.Length / 2;
-            //var loader = LoaderManager.Get<AccessorySlotLoader>();
-            //Check if armor changed
             Item[] currentArmor = GetEquipArmor();
 
             for (int j = 0; j < equipArmor.Length; j++) {

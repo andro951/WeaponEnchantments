@@ -804,7 +804,7 @@ namespace WeaponEnchantments.Common
                 return false;
             }
             if (finalize && !failedItemFind && (EnchantedItemStaticMethods.IsWeaponItem(item) || EnchantedItemStaticMethods.IsArmorItem(item))) {
-                Main.NewText($"Infusion is only possitle between items of the same type (Weapon/Armor)");
+                Main.NewText($"Infusion is only possible between items of the same type (Weapon/Armor)");
             }
 
             return false;

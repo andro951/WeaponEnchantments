@@ -260,9 +260,9 @@ namespace WeaponEnchantments.Common
             if (key != null) {
                 switch (context) {
                     case OldItemContext.searchWordNames:
-                        foreach (Enchantment enchantment in ModContent.GetInstance<WEMod>().GetContent<ModItem>().OfType<Enchantment>()) {
-                            if(enchantment.Name == key) {
-                                ReplaceItem(ref item, enchantment.Item.type);
+                        foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>()) {
+                            if (modItem.Name == key) {
+                                ReplaceItem(ref item, modItem.Item.type);
 
                                 return true;
                             }
