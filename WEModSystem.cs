@@ -94,9 +94,8 @@ namespace WeaponEnchantments
                     swappedItem = true;
                 }
 
-                if (removedItem || swappedItem) {
+                if (removedItem || swappedItem)
                     RemoveTableItem(wePlayer);
-                }
 
                 if (addedItem || swappedItem) {
                     wePlayer.itemBeingEnchanted = wePlayer.ItemInUI();// Link the item in the table to the player so it can be updated after being taken out.
