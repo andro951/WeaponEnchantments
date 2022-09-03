@@ -18,7 +18,16 @@ namespace WeaponEnchantments.Effects
 
 		}
 
-        public override string DisplayName => EffectStrength >= 0f ? "Chance To Not Consume Ammo" : "Increased Ammo Cost";
+        public override string DisplayName { 
+		get {
+			if (EffectStrength >= 0f) {
+				return "Chance To Not Consume Ammo";//1
+			}
+			else {
+				return "Increased Ammo Cost";//2
+			}
+		} 
+	}
         public override EnchantmentStat statName => EnchantmentStat.AmmoCost;
 		public override string Tooltip => ModifierToString();
 	
@@ -27,7 +36,7 @@ namespace WeaponEnchantments.Effects
 			if (strength < 0f)
 				strength *= -1f;
 			
-			return $"{strength.Percent()}% {DisplayName} (Also Saves Bait When Fishing)";
+			return $"{strength.Percent() + "%" + DisplayName} (Also Saves Bait When Fishing)";
 		}
     }
 }

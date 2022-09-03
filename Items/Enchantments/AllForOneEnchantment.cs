@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AllForOneEnchantment : Enchantment
 	{
-		public override string CustomTooltip => $"(Item CD equal to {EnchantmentStrength * 0.8f}x use speed)";
 		public override int StrengthGroup => 6;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;

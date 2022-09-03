@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Effects
 
         }
 
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
+		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will damage all nearby enemies)\n(WARNING - Destroys your projectiles upon hitting an enemy)";
 		public override EnchantmentStat statName => EnchantmentStat.OneForAll;
 	}
 }

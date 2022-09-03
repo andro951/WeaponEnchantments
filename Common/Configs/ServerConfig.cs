@@ -373,7 +373,13 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
         [DefaultValue(false)]
         [ReloadRequired]
-        public bool PrintEnchantmentDrops;
+        public bool PrintEnchantmentDrops; 
+        
+        [Label("Log all translation lists")]
+        [Tooltip("The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintLocalizationLists;
     }
     public class Pair
     {

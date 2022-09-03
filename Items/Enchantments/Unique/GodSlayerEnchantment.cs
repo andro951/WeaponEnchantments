@@ -7,7 +7,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class GodSlayerEnchantment : Enchantment
 	{
-		public override string CustomTooltip => "(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
 		public override int StrengthGroup => 7;
 		public override int DamageClassSpecific => (int)DamageClassID.Melee;
 		public override SellCondition SellCondition => SellCondition.HardMode;
