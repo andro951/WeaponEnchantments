@@ -924,6 +924,7 @@ namespace WeaponEnchantments.Common.Globals
             bool isWeapon;
             switch (item.type) {
                 case ItemID.CoinGun:
+                case ItemID.Snowball:
                     isWeapon = true;
                     break;
                 case ItemID.ExplosiveBunny:

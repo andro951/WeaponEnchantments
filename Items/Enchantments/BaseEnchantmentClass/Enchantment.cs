@@ -178,8 +178,26 @@ namespace WeaponEnchantments.Items {
 		/// <summary>
 		/// A value 0 - 4 representing the enchantment's tier.
 		/// </summary>
-		public virtual int EnchantmentTier { protected set; get; }
-		public string EnchantmentTypeName { protected set; get; }
+		public virtual int EnchantmentTier {
+			get {
+				if (enchantmentTier == -1) {
+					enchantmentTier = GetTierNumberFromName(Name);
+				}
+
+				return enchantmentTier;
+			} 
+		}
+		private int enchantmentTier = -1;
+
+		public string EnchantmentTypeName { 
+			get {
+				if (enchantmentTypeName == null)
+					enchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+
+				return enchantmentTypeName;
+			} 
+		}
+		private string enchantmentTypeName;
 
 		/// <summary>
 		/// DO NOT CHANGE THIS UNLESS YOU ARE POSITIVE YOU ARE SUPPOSED TO!!!<br/>
@@ -205,15 +223,6 @@ namespace WeaponEnchantments.Items {
 		/// </list>
 		/// </summary>
 		public virtual int LowestCraftableTier { protected set; get; } = 1;
-
-		/// <summary>
-		/// Default value will the the class name with spaces added.<br/>
-		/// Not required.  Only override this if the class name is different than the desired in game name.<br/>
-		/// Do not include the word "Enchantment" or the rarity words.  They are added automatically.<br/>
-		/// Example: class name - SizeEnchantmentBasic, desired display name - Size Enchantment Basic.<br/>
-		///	MyDisplayName => "Size"<br/>
-		/// </summary>
-		public virtual string MyDisplayName { protected set; get; } = "";
 
 		/// <summary>
 		/// Not required.  Only include additional information to explain a complex enchantment.<br/>
@@ -361,7 +370,7 @@ namespace WeaponEnchantments.Items {
 			//typeNameString.Log();
 			//string displayName = Language.GetTextValue(typeNameString) + " " + Language.GetTextValue("Mods.WeaponEnchantments.Enchantment");
 			/*if (WEMod.clientConfig.UseOldTierNames) {
-				//Old rarity names, "Basic", "Common", "Rare", "SuperRare", "UltraRare"
+				//Old rarity names, "Basic", "Common", "Rare", "Epic", "Legendary"
 				//string rarityString = "Mods.WeaponEnchantments.TierNames." + displayTierNames[EnchantmentTier];
 				//rarityString.Log();
 				//DisplayName.SetDefault(displayName + " " + Language.GetTextValue(rarityString));
@@ -414,15 +423,11 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 
-			if(printLocalization) {
-				UpdateEnchantmentLocalization(this);
-			}
+			//if(printLocalization) {
+			//	UpdateEnchantmentLocalization(this);
+			//}
 		}
-		private void GetDefaults() { // bool tooltipSetupOnly = false) {
-			EnchantmentTier = GetEnchantmentTier(Name);
-
-			EnchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
-
+		private void GetDefaults() {
 			//Item rarity
 			Item.rare = GetRarityFromTier(EnchantmentTier);
 
@@ -471,10 +476,6 @@ namespace WeaponEnchantments.Items {
 				Unique = true;
 
 			SetEnchantmentStrength();
-
-			//Default My Display Name
-			if (MyDisplayName == "")
-				MyDisplayName = EnchantmentTypeName;
 
 			//Only check once
 			if (finishedOneTimeSetup)
@@ -934,15 +935,6 @@ namespace WeaponEnchantments.Items {
 		}
 		private uint GetBuffDuration() {
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
-		}
-		public static int GetEnchantmentTier(string name) {
-			for (int i = 0; i < tierNames.Length; i++) {
-				if (tierNames[i] == name.Substring(name.IndexOf("Enchantment") + 11)) {
-					return i;
-				}
-			}//Get EnchantmentSize
-
-			return -1;
 		}
 		public override void AddRecipes() {
 			for (int i = EnchantmentTier; i < tierNames.Length; i++) {

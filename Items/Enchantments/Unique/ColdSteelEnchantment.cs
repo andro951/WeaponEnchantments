@@ -45,6 +45,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }
 	public class ColdSteelEnchantmentRare : ColdSteelEnchantment { }
-	public class ColdSteelEnchantmentSuperRare : ColdSteelEnchantment { }
-	public class ColdSteelEnchantmentUltraRare : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
 }

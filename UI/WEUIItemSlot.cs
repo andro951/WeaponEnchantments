@@ -116,7 +116,7 @@ namespace WeaponEnchantments.UI
 
 				case ItemSlotContext.Essence:
                     if (item.TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
-						return essence.essenceTier == _slotTier;
+						return essence.EssenceTier == _slotTier;
 					}//check essence is valid
                     else {
 						return false;

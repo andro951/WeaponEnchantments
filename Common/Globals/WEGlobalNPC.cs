@@ -591,7 +591,7 @@ namespace WeaponEnchantments.Common.Globals
         public static Dictionary<int, float> SortNPCsByRange(NPC npc, float range) {
             Dictionary<int, float> npcs = new Dictionary<int, float>();
             foreach (NPC target in Main.npc) {
-                if (!npc.active)
+                if (!target.active)
                     continue;
 
                 if (target.whoAmI != npc.whoAmI) {

@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Common
 {
     public abstract class EnchantingRarity : ModRarity {
         public static readonly int enchantingRarityBasic = ModContent.RarityType<EnchantingRarityBasic>();
-
-        public static readonly string[] tierNames = new string[] { "Basic", "Common", "Rare", "SuperRare", "UltraRare" };
-        public static readonly string[] displayTierNames = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
+        public static readonly string[] tierNames = new string[] { "Basic", "Common", "Rare", "Epic", "Legendary" };
         public static Color[] TierColors => WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? altTierColors : normalTierColors;
         private static readonly Color[] normalTierColors = new Color[] { 
             new Color(0x2E, 0x7F, 0x4C), 
@@ -28,21 +27,21 @@ namespace WeaponEnchantments.Common
         public static int GetRarityFromTier(int tier) => enchantingRarityBasic + tier;
 
         public static int GetTierNumberFromName(string name) {
-            for (int i = tierNames.Length - 1; i >= 0 ; i--) {
+            for (int i = tierNames.Length - 1; i >= 0; i--) {
                 string tierName = tierNames[i];
                 int tierNameIndex = name.IndexOf(tierName);
                 if (tierNameIndex > -1) {
                     return i;
-				}
-            }//Get EnchantmentSize
-            
+                }
+            }
+
             return -1;
         }
 
         public class EnchantingRarityBasic : EnchantingRarity { }
         public class EnchantingRarityCommon : EnchantingRarity { }
         public class EnchantingRarityRare : EnchantingRarity { }
-        public class EnchantingRaritySuperRare : EnchantingRarity { }
-        public class EnchantingRarityUltraRare : EnchantingRarity { }
+        public class EnchantingRarityEpic : EnchantingRarity { }
+        public class EnchantingRarityLegendary : EnchantingRarity { }
     }
 }

@@ -37,6 +37,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class SolarDashEnchantmentCommon : SolarDashEnchantment { }
 	public class SolarDashEnchantmentRare : SolarDashEnchantment { }
-	public class SolarDashEnchantmentSuperRare : SolarDashEnchantment { }
-	public class SolarDashEnchantmentUltraRare : SolarDashEnchantment { }
+	public class SolarDashEnchantmentEpic : SolarDashEnchantment { }
+	public class SolarDashEnchantmentLegendary : SolarDashEnchantment { }
 }

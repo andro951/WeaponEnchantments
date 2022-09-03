@@ -43,6 +43,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }
 	public class HellsWrathEnchantmentRare : HellsWrathEnchantment { }
-	public class HellsWrathEnchantmentSuperRare : HellsWrathEnchantment { }
-	public class HellsWrathEnchantmentUltraRare : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentEpic : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentLegendary : HellsWrathEnchantment { }
 }

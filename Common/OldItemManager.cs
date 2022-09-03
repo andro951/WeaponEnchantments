@@ -35,12 +35,11 @@ namespace WeaponEnchantments.Common
             { "Speed", "AttackSpeed" },
             { "Control", "MobilityControl" },
             { "MoveSpeed", "MovementSpeed" },
-	    { "PhaseJump", "SolarDash" }
+	        { "PhaseJump", "SolarDash" }
         };
-        private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> { 
+        private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> {
             { "SuperRare", 3 },
-            { "UltraRare", 4 },
-            { "Rare", 2 } 
+            { "UltraRare", 4 }
         };
         private static List<string> firstWordReplaceEnchantmentWithCoins = new List<string>() {
             
@@ -144,8 +143,8 @@ namespace WeaponEnchantments.Common
                     if (!replaced)
                         replaced = TryReplaceItem(ref item, firstWordNames, OldItemContext.firstWordNames);
 
-                    //if (!replaced)
-                    //    replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
+                    if (!replaced)
+                        replaced = TryReplaceItem(ref item, searchWordNames, OldItemContext.searchWordNames);
 
                     if (!replaced)
                         replaced = TryReplaceItem(ref item, wholeNameReplaceWithItem, OldItemContext.wholeNameReplaceWithItem);
@@ -236,11 +235,13 @@ namespace WeaponEnchantments.Common
             string key = null;
             foreach (string k in dict.Keys) {
                 switch (context) {
-                    case OldItemContext.searchWordNames://Not tested
+                    case OldItemContext.searchWordNames:
                         int index = name.IndexOf(k);
                         if (index > -1) {
-                            key = k;
-                            name = name.Substring(0, index - 1) + tierNames[dict[key]] + name.Substring(index);
+                            key = name.Substring(0, index) + tierNames[dict[k]];
+                            int afterIndex = index + k.Length - 1;
+                            if (afterIndex < name.Length - 1)
+                                key += name.Substring(afterIndex);//Not Tested
                         }
 
                         break;
@@ -258,14 +259,12 @@ namespace WeaponEnchantments.Common
             //firstWordNames
             if (key != null) {
                 switch (context) {
-                    case OldItemContext.searchWordNames://Not tested
-                        foreach (ModItem modItem in ModContent.GetInstance<WEMod>().GetContent<ModItem>()) {
-                            if (modItem is Enchantment enchantment) {
-                                if(enchantment.Name == name) {
-                                    ReplaceItem(ref item, enchantment.Item.type);
+                    case OldItemContext.searchWordNames:
+                        foreach (Enchantment enchantment in ModContent.GetInstance<WEMod>().GetContent<ModItem>().OfType<Enchantment>()) {
+                            if(enchantment.Name == key) {
+                                ReplaceItem(ref item, enchantment.Item.type);
 
-                                    return true;
-                                }
+                                return true;
                             }
                         }
 
@@ -311,7 +310,20 @@ namespace WeaponEnchantments.Common
                             if (modItem is Enchantment enchantment) {
                                 if (enchantment.EnchantmentTypeName == dict[key]) {
                                     int typeOffset = GetTierNumberFromName(name);
-                                    ReplaceItem(ref item, enchantment.Item.type + typeOffset);
+                                    if (typeOffset == -1) {
+                                        foreach(string s in searchWordNames.Keys) {
+                                            if (name.IndexOf(s) > -1) {
+                                                typeOffset = searchWordNames[s];
+											}
+										}
+									}
+
+                                    if (typeOffset > -1) {
+                                        ReplaceItem(ref item, enchantment.Item.type + typeOffset);
+                                    }
+									else {
+                                        $"Failed to replace old item: {name}".LogNT(ChatMessagesIDs.FailedToReplaceOldItem);
+									}
 
                                     return true;
                                 }

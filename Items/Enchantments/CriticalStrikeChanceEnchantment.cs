@@ -45,6 +45,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class CriticalStrikeChanceEnchantmentCommon : CriticalStrikeChanceEnchantment { }
 	public class CriticalStrikeChanceEnchantmentRare : CriticalStrikeChanceEnchantment { }
-	public class CriticalStrikeChanceEnchantmentSuperRare : CriticalStrikeChanceEnchantment { }
-	public class CriticalStrikeChanceEnchantmentUltraRare : CriticalStrikeChanceEnchantment { }
+	public class CriticalStrikeChanceEnchantmentEpic : CriticalStrikeChanceEnchantment { }
+	public class CriticalStrikeChanceEnchantmentLegendary : CriticalStrikeChanceEnchantment { }
 }

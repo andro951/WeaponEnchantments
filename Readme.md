@@ -235,7 +235,7 @@ enchantments/experience as essence/power booster back.
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
 ### Where do I get the good Enchantments?
-![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
+![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentLegendary.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentLegendary.png)
 
 Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
@@ -275,10 +275,10 @@ Kiroto:
 ![EnchantmentEssenceCommonAlt](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
 ![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
 ![EnchantmentEssenceRareAlt](/Items/Sprites/EnchantmentEssenceRareAlt.png)
-![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
-![EnchantmentEssenceSuperRareAlt](/Items/Sprites/EnchantmentEssenceSuperRareAlt.png)
-![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
-![EnchantmentEssenceUltraRareAlt](/Items/Sprites/EnchantmentEssenceUltraRareAlt.png)
+![EnchantmentEssenceEpic](/Items/Sprites/EnchantmentEssenceEpic.png)
+![EnchantmentEssenceEpicAlt](/Items/Sprites/EnchantmentEssenceEpicAlt.png)
+![EnchantmentEssenceLegendary](/Items/Sprites/EnchantmentEssenceLegendary.png)
+![EnchantmentEssenceLegendaryAlt](/Items/Sprites/EnchantmentEssenceLegendaryAlt.png)
 
 𝐍𝐢𝐱𝐲♱: 
 
@@ -305,8 +305,8 @@ Zorutan: https://twitter.com/ZorutanMesuta
 ![AllForOneEnchantmentBasic](/Items/Sprites/AllForOneEnchantmentBasic.png)
 ![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![AllForOneEnchantmentRare](/Items/Sprites/AllForOneEnchantmentRare.png)
-![AllForOneEnchantmentSuperRare](/Items/Sprites/AllForOneEnchantmentSuperRare.png)
-![AllForOneEnchantmentUltraRare](/Items/Sprites/AllForOneEnchantmentUltraRare.png)
+![AllForOneEnchantmentEpic](/Items/Sprites/AllForOneEnchantmentEpic.png)
+![AllForOneEnchantmentLegendary](/Items/Sprites/AllForOneEnchantmentLegendary.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
 ![AttackSpeedEnchantmentCommon](/Items/Sprites/AttackSpeedEnchantmentCommon.png)

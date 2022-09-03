@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class ReducedManaUsageEnchantmentCommon : ReducedManaUsageEnchantment { }
 	public class ReducedManaUsageEnchantmentRare : ReducedManaUsageEnchantment { }
-	public class ReducedManaUsageEnchantmentSuperRare : ReducedManaUsageEnchantment { }
-	public class ReducedManaUsageEnchantmentUltraRare : ReducedManaUsageEnchantment { }
+	public class ReducedManaUsageEnchantmentEpic : ReducedManaUsageEnchantment { }
+	public class ReducedManaUsageEnchantmentLegendary : ReducedManaUsageEnchantment { }
 
 }

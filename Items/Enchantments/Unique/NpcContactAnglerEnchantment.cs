@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
     }
     public class NpcContactAnglerEnchantmentCommon : NpcContactAnglerEnchantment { }
     public class NpcContactAnglerEnchantmentRare : NpcContactAnglerEnchantment { }
-    public class NpcContactAnglerEnchantmentSuperRare : NpcContactAnglerEnchantment { }
-    public class NpcContactAnglerEnchantmentUltraRare : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentEpic : NpcContactAnglerEnchantment { }
+    public class NpcContactAnglerEnchantmentLegendary : NpcContactAnglerEnchantment { }
 
 }

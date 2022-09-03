@@ -32,6 +32,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class ProjectileVelocityEnchantmentCommon : ProjectileVelocityEnchantment { }
 	public class ProjectileVelocityEnchantmentRare : ProjectileVelocityEnchantment { }
-	public class ProjectileVelocityEnchantmentSuperRare : ProjectileVelocityEnchantment { }
-	public class ProjectileVelocityEnchantmentUltraRare : ProjectileVelocityEnchantment { }
+	public class ProjectileVelocityEnchantmentEpic : ProjectileVelocityEnchantment { }
+	public class ProjectileVelocityEnchantmentLegendary : ProjectileVelocityEnchantment { }
 }

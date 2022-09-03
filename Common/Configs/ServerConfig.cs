@@ -294,12 +294,6 @@ namespace WeaponEnchantments.Common.Configs
 
         //Display Settings
         [Header("Display Settings")]
-        [Label("Use Original Tier Names")]
-        [Tooltip("Use Original Tier Names: Rare, Super Rare, Ultra Rare")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool UseOldTierNames;
-
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
         [DefaultValue(false)]
@@ -373,7 +367,13 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
         [DefaultValue(false)]
         [ReloadRequired]
-        public bool PrintEnchantmentDrops;
+        public bool PrintEnchantmentDrops; 
+        
+        [Label("Log all translation lists")]
+        [Tooltip("The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintLocalizationLists;
     }
     public class Pair
     {
@@ -418,7 +418,7 @@ namespace WeaponEnchantments.Common.Configs
         public bool AutomaticallyMatchPreseTtoWorldDifficulty {
             get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
-                _automaticallyMatchPreseTtoWorldDifficulty = !_automaticallyMatchPreseTtoWorldDifficulty;
+                _automaticallyMatchPreseTtoWorldDifficulty = value;
                 if (value) {
                     _preset = "Automatic";
                 }
@@ -438,17 +438,10 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
         [ReloadRequired]
         public string Preset {
-            get => _preset;
+            get => _automaticallyMatchPreseTtoWorldDifficulty ? "Automatic" : _preset;
             set {
-                if (presetNames.Contains(value)) {
-                    _preset = value;
-                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
-                    _automaticallyMatchPreseTtoWorldDifficulty = false;
-                }
-                else if (value == "Automatic") {
-                    _preset = value;
-                    _automaticallyMatchPreseTtoWorldDifficulty = true;
-                }
+                _preset = value;
+                _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
             }
         }
         private string _preset;
@@ -467,12 +460,12 @@ namespace WeaponEnchantments.Common.Configs
             set {
                 _globalEnchantmentStrengthMultiplier = value;
                 Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
-                _automaticallyMatchPreseTtoWorldDifficulty = false;
             }
         }
         private int _globalEnchantmentStrengthMultiplier;
 
         public PresetData() {
+            AutomaticallyMatchPreseTtoWorldDifficulty = true;
             Preset = "Normal";
         }
 

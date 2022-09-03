@@ -143,7 +143,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	}
     public class LuckEnchantmentCommon : LuckEnchantment { }
     public class LuckEnchantmentRare : LuckEnchantment { }
-    public class LuckEnchantmentSuperRare : LuckEnchantment { }
-    public class LuckEnchantmentUltraRare : LuckEnchantment { }
+    public class LuckEnchantmentEpic : LuckEnchantment { }
+    public class LuckEnchantmentLegendary : LuckEnchantment { }
 
 }

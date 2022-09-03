@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     }
     public class FishingPowerEnchantmentCommon : FishingPowerEnchantment { }
     public class FishingPowerEnchantmentRare : FishingPowerEnchantment { }
-    public class FishingPowerEnchantmentSuperRare : FishingPowerEnchantment { }
-    public class FishingPowerEnchantmentUltraRare : FishingPowerEnchantment { }
+    public class FishingPowerEnchantmentEpic : FishingPowerEnchantment { }
+    public class FishingPowerEnchantmentLegendary : FishingPowerEnchantment { }
 
 }

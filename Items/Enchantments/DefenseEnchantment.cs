@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class DefenseEnchantmentCommon : DefenseEnchantment { }
 	public class DefenseEnchantmentRare : DefenseEnchantment { }
-	public class DefenseEnchantmentSuperRare : DefenseEnchantment { }
-	public class DefenseEnchantmentUltraRare : DefenseEnchantment { }
+	public class DefenseEnchantmentEpic : DefenseEnchantment { }
+	public class DefenseEnchantmentLegendary : DefenseEnchantment { }
 
 }

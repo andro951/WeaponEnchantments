@@ -388,6 +388,76 @@ namespace WeaponEnchantments.Common.Utility
             return $"{Math.Round(value * 100, 2)}%";
         }
 
+        public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
+        public static bool Lang(this string s, out string result, string m) {
+            string key = $"Mods.WeaponEnchantments.{m}.{s}";
+            result = Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+			}
+
+            return true;
+        }
+        public static string Lang(this string s, L_ID1 id = L_ID1.Tooltip) => s.Lang(out string result, id) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id = L_ID1.Tooltip) {
+            string key = $"Mods.WeaponEnchantments.{id}.{s}";
+            result = Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string Lang(this string s, L_ID1 id, string m) => s.Lang(out string result, id, m) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, string m) {
+            string key = $"Mods.WeaponEnchantments.{id}.{m}.{s}";
+            result = Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2) => s.Lang(out string result, id, id2) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2) {
+            string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
+            result = Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2, string m) => s.Lang(out string result, id, id2, m) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, string m) {
+            string key = $"Mods.WeaponEnchantments.{id}.{id2}.{m}.{s}";
+            result = Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string Lang(this int i, L_ID_V id) {
+			switch (id) {
+                case L_ID_V.Item:
+                    return Terraria.Lang.GetItemNameValue(i);
+                case L_ID_V.NPC:
+                    return Terraria.Lang.GetNPCNameValue(i);
+                case L_ID_V.Buff:
+                    return Terraria.Lang.GetBuffName(i);
+                case L_ID_V.BuffDescription:
+                    return Terraria.Lang.GetBuffDescription(i);
+			}
+
+            return null;
+		}
+
         #region AddOrCombine
 
         public static void AddOrCombine(this Dictionary<byte, EStatModifier> dictionary, byte key, EStatModifier newValue) {

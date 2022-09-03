@@ -31,7 +31,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class MultishotEnchantmentCommon : MultishotEnchantment { }
 	public class MultishotEnchantmentRare : MultishotEnchantment { }
-	public class MultishotEnchantmentSuperRare : MultishotEnchantment { }
-	public class MultishotEnchantmentUltraRare : MultishotEnchantment { }
+	public class MultishotEnchantmentEpic : MultishotEnchantment { }
+	public class MultishotEnchantmentLegendary : MultishotEnchantment { }
 
 }

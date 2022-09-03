@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class CalmWatersEnchantmentCommon : CalmWatersEnchantment { }
 	public class CalmWatersEnchantmentRare : CalmWatersEnchantment { }
-	public class CalmWatersEnchantmentSuperRare : CalmWatersEnchantment { }
-	public class CalmWatersEnchantmentUltraRare : CalmWatersEnchantment { }
+	public class CalmWatersEnchantmentEpic : CalmWatersEnchantment { }
+	public class CalmWatersEnchantmentLegendary : CalmWatersEnchantment { }
 
 }

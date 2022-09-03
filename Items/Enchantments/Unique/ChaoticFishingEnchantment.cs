@@ -37,7 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
 	}
     public class ChaoticFishingEnchantmentCommon : ChaoticFishingEnchantment { }
     public class ChaoticFishingEnchantmentRare : ChaoticFishingEnchantment { }
-    public class ChaoticFishingEnchantmentSuperRare : ChaoticFishingEnchantment { }
-    public class ChaoticFishingEnchantmentUltraRare : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentEpic : ChaoticFishingEnchantment { }
+    public class ChaoticFishingEnchantmentLegendary : ChaoticFishingEnchantment { }
 
 }

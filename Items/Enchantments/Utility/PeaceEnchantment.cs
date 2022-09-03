@@ -44,7 +44,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class PeaceEnchantmentCommon : PeaceEnchantment { }
 	public class PeaceEnchantmentRare : PeaceEnchantment { }
-	public class PeaceEnchantmentSuperRare : PeaceEnchantment { }
-	public class PeaceEnchantmentUltraRare : PeaceEnchantment { }
+	public class PeaceEnchantmentEpic : PeaceEnchantment { }
+	public class PeaceEnchantmentLegendary : PeaceEnchantment { }
 
 }

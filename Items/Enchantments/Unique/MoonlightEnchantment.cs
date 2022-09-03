@@ -45,6 +45,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class MoonlightEnchantmentCommon : MoonlightEnchantment { }
 	public class MoonlightEnchantmentRare : MoonlightEnchantment { }
-	public class MoonlightEnchantmentSuperRare : MoonlightEnchantment { }
-	public class MoonlightEnchantmentUltraRare : MoonlightEnchantment { }
+	public class MoonlightEnchantmentEpic : MoonlightEnchantment { }
+	public class MoonlightEnchantmentLegendary : MoonlightEnchantment { }
 }

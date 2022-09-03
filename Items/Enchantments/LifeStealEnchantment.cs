@@ -6,7 +6,6 @@ using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments {
     public abstract class LifeStealEnchantment : Enchantment {
-        public override string CustomTooltip => $"(remainder is saved to prevent always rounding to 0 for low damage weapons)";
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
@@ -46,7 +45,7 @@ namespace WeaponEnchantments.Items.Enchantments {
     }
     public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
     public class LifeStealEnchantmentRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentSuperRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentUltraRare : LifeStealEnchantment { }
+    public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
+    public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
 
 }

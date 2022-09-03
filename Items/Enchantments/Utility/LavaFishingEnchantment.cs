@@ -37,7 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 	}
     public class LavaFishingEnchantmentCommon : LavaFishingEnchantment { }
     public class LavaFishingEnchantmentRare : LavaFishingEnchantment { }
-    public class LavaFishingEnchantmentSuperRare : LavaFishingEnchantment { }
-    public class LavaFishingEnchantmentUltraRare : LavaFishingEnchantment { }
+    public class LavaFishingEnchantmentEpic : LavaFishingEnchantment { }
+    public class LavaFishingEnchantmentLegendary : LavaFishingEnchantment { }
 
 }

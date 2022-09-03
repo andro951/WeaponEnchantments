@@ -2,7 +2,139 @@
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			Containment: Contenimento			MediumContainment: Contenimento medio			SuperiorContainment: Contenimento superiore			DustyEnchantingTable: Tavolo incantevole polveroso			HellishEnchantingTable: Tavolo incantevole infernale			SoulEnchantingTable: Tavolo incantevole dell'anima			UltimateEnchantingTable: Tavolo incantevole definitivo			WoodEnchantingTable: Tavolo incantevole in legno			EnchantmentEssenceBasic: Essenza incantesimo di base			EnchantmentEssenceCommon: Essenza incantesimo comune			EnchantmentEssenceRare: Essenza incantesimo Raro			EnchantmentEssenceSuperRare: Essenza Incantesimo Super Rara			EnchantmentEssenceUltraRare: Essenza Incantesimo Ultra Rara			AllForOneEnchantmentBasic: Tutto per un incantesimo di base			AllForOneEnchantmentCommon: Tutti per un incantesimo comune			AllForOneEnchantmentRare: Incantesimo All For One Raro			AllForOneEnchantmentSuperRare: All For One Incantesimo Super Raro			AllForOneEnchantmentUltraRare: All For One Incantesimo Ultra Raro			ArmorPenetrationEnchantmentBasic: Incantesimo di penetrazione dell'armatura di base			ArmorPenetrationEnchantmentCommon: Incantesimo di penetrazione dell'armatura Comune			ArmorPenetrationEnchantmentRare: Incantesimo di penetrazione dell'armatura Raro			ArmorPenetrationEnchantmentSuperRare: Incantesimo di penetrazione dell'armatura Super raro			ArmorPenetrationEnchantmentUltraRare: Incantesimo di penetrazione dell'armatura Ultra raro			CriticalStrikeChanceEnchantmentBasic: Probabilità di colpo critico Incantesimo Base			CriticalStrikeChanceEnchantmentCommon: Probabilità di colpo critico Incantesimo Comune			CriticalStrikeChanceEnchantmentRare: Probabilità di colpo critico Incantesimo Raro			CriticalStrikeChanceEnchantmentSuperRare: Probabilità di colpo critico Incantesimo Super Raro			CriticalStrikeChanceEnchantmentUltraRare: Probabilità di colpo critico Incantesimo Ultra raro			DamageEnchantmentBasic: Danno incantesimo di base			DamageEnchantmentCommon: Danno incantesimo Comune			DamageEnchantmentRare: Danno incantesimo Raro			DamageEnchantmentSuperRare: Incantesimo Danno Super Raro			DamageEnchantmentUltraRare: Incantesimo Danno Ultra Raro			LifeStealEnchantmentBasic: Incantesimo ruba vita di base			LifeStealEnchantmentCommon: Incantesimo Ruba Vita Comune			LifeStealEnchantmentRare: Incantesimo ruba vita Raro			LifeStealEnchantmentSuperRare: Incantesimo rubavita super raro			LifeStealEnchantmentUltraRare: Incantesimo rubavita ultra raro			MaxMinionsEnchantmentBasic: Max Minion Incantesimo di base			MaxMinionsEnchantmentCommon: Max Minion Incantesimo Comune			MaxMinionsEnchantmentRare: Incantesimo Max Minion Raro			MaxMinionsEnchantmentSuperRare: Incantesimo Max Minion Super Raro			MaxMinionsEnchantmentUltraRare: Incantesimo Max Minion Ultra raro			OneForAllEnchantmentBasic: Uno per tutti l'incantesimo di base			OneForAllEnchantmentCommon: Uno per tutti incantesimo comune			OneForAllEnchantmentRare: Incantesimo Uno per Tutti Raro			OneForAllEnchantmentSuperRare: Incantesimo Uno per Tutti Super Raro			OneForAllEnchantmentUltraRare: Incantesimo Uno per Tutti Ultra Raro			AttackSpeedEnchantmentBasic: Incantesimo di velocità di base			AttackSpeedEnchantmentCommon: Incantesimo di velocità comune			AttackSpeedEnchantmentRare: Incantesimo di velocità Raro			AttackSpeedEnchantmentSuperRare: Incantesimo di velocità super raro			AttackSpeedEnchantmentUltraRare: Incantesimo di velocità ultra raro			StatDefenseEnchantmentBasic: Incantesimo di difesa delle statistiche di base			StatDefenseEnchantmentCommon: Stat Incantesimo Difesa Comune			StatDefenseEnchantmentRare: Incantesimo di difesa Stat Raro			StatDefenseEnchantmentSuperRare: Incantesimo di difesa delle statistiche super raro			StatDefenseEnchantmentUltraRare: Incantesimo Stat Defense Ultra Raro			ColdSteelEnchantmentBasic: Incantesimo Acciaio Freddo Base			ColdSteelEnchantmentCommon: Incantesimo Acciaio Freddo Comune			ColdSteelEnchantmentRare: Incantesimo Acciaio Freddo Raro			ColdSteelEnchantmentSuperRare: Incantesimo Acciaio Freddo Super Raro			ColdSteelEnchantmentUltraRare: Incantesimo Acciaio Freddo Ultra Raro			GodSlayerEnchantmentBasic: Incantesimo dell'uccisore di dio di base			GodSlayerEnchantmentCommon: Incantesimo dell'uccisore di dio comune			GodSlayerEnchantmentRare: Incantesimo dell'uccisore di dio raro			GodSlayerEnchantmentSuperRare: Incantesimo dell'uccisore di dio super raro			GodSlayerEnchantmentUltraRare: Incantesimo dell'uccisore di dio ultra raro			HellsWrathEnchantmentBasic: Incantesimo di Hells Wrath Basic			HellsWrathEnchantmentCommon: Incantesimo dell'Ira Infernale Comune			HellsWrathEnchantmentRare: Incantesimo dell'ira dell'inferno Raro			HellsWrathEnchantmentSuperRare: Incantesimo di Hells Wrath Super Raro			HellsWrathEnchantmentUltraRare: Incantesimo dell'Ira Infernale Ultra Raro			JunglesFuryEnchantmentBasic: Jungles Fury Incantesimo di base			JunglesFuryEnchantmentCommon: Giungla Furia Incantesimo Comune			JunglesFuryEnchantmentRare: Incantesimo Furia della Giungla Raro			JunglesFuryEnchantmentSuperRare: Incantesimo Furia della Giungla Super Raro			JunglesFuryEnchantmentUltraRare: Incantesimo Furia della Giungla Ultra raro			MoonlightEnchantmentBasic: Incantesimo chiaro di luna di base			MoonlightEnchantmentCommon: Incantesimo al chiaro di luna comune			MoonlightEnchantmentRare: Incantesimo al chiaro di luna Raro			MoonlightEnchantmentSuperRare: Incantesimo al chiaro di luna super raro			MoonlightEnchantmentUltraRare: Incantesimo chiaro di luna ultra raro			MultishotEnchantmentBasic: Incantesimo multicolpo di base			MultishotEnchantmentCommon: Incantesimo Multishot Comune			MultishotEnchantmentRare: Incantesimo Multishot Raro			MultishotEnchantmentSuperRare: Incantesimo Multishot Super Raro			MultishotEnchantmentUltraRare: Incantesimo multicolpo ultra raro			AmmoCostEnchantmentBasic: Costo munizioni incantesimo base			AmmoCostEnchantmentCommon: Costo munizioni incantesimo Comune			AmmoCostEnchantmentRare: Incantesimo costo munizioni raro			AmmoCostEnchantmentSuperRare: Incantesimo costo munizioni super raro			AmmoCostEnchantmentUltraRare: Incantesimo costo munizioni ultra raro			DangerSenseEnchantmentUltraRare: Incantesimo del senso di pericolo ultra raro			HunterEnchantmentUltraRare: Incantesimo del cacciatore ultra raro			ReducedManaUsageEnchantmentBasic: Incantesimo di mana di base			ReducedManaUsageEnchantmentCommon: Incantesimo di mana comune			ReducedManaUsageEnchantmentRare: Incantesimo di mana raro			ReducedManaUsageEnchantmentSuperRare: Incantesimo di mana super raro			ReducedManaUsageEnchantmentUltraRare: Incantesimo di mana ultra raro			MovementSpeedEnchantmentBasic: Incantesimo velocità di movimento base			MovementSpeedEnchantmentCommon: Incantesimo velocità di movimento Comune			MovementSpeedEnchantmentRare: Incantesimo di velocità di movimento Raro			MovementSpeedEnchantmentSuperRare: Incantesimo velocità di movimento super raro			MovementSpeedEnchantmentUltraRare: Incantesimo velocità di movimento ultra raro			ObsidianSkinEnchantmentUltraRare: Incantesimo della pelle di ossidiana ultra raro			PeaceEnchantmentBasic: Incantesimo di pace di base			PeaceEnchantmentCommon: Incantesimo di pace comune			PeaceEnchantmentRare: Incantesimo di pace raro			PeaceEnchantmentSuperRare: Incantesimo della pace super raro			PeaceEnchantmentUltraRare: Incantesimo della pace ultra raro			SizeEnchantmentBasic: Incantesimo di scala di base			SizeEnchantmentCommon: Incantesimo di scala comune			SizeEnchantmentRare: Incantesimo di scala Raro			SizeEnchantmentSuperRare: Incantesimo di scala super raro			SizeEnchantmentUltraRare: Incantesimo di scala ultra raro			ProjectileVelocityEnchantmentBasic: Spara velocità incantesimo di base			ProjectileVelocityEnchantmentCommon: Incantesimo di velocità di tiro Comune			ProjectileVelocityEnchantmentRare: Spara Speed ​​Incantesimo Raro			ProjectileVelocityEnchantmentSuperRare: Spara Speed ​​Enchantment Super Raro			ProjectileVelocityEnchantmentUltraRare: Incantesimo di velocità di tiro ultra raro			SpelunkerEnchantmentUltraRare: Incantesimo Spelunker Ultra Raro			WarEnchantmentBasic: Incantesimo di guerra di base			WarEnchantmentCommon: Incantesimo di guerra comune			WarEnchantmentRare: Incantesimo di guerra raro			WarEnchantmentSuperRare: Incantesimo di guerra super raro			WarEnchantmentUltraRare: Incantesimo di guerra ultra raro			WorldAblazeEnchantmentBasic: Incantesimo World Ablaze Basic			WorldAblazeEnchantmentCommon: Incantesimo del mondo in fiamme comune			WorldAblazeEnchantmentRare: Incantesimo World Ablaze Raro			WorldAblazeEnchantmentSuperRare: Incantesimo World Ablaze Super Raro			WorldAblazeEnchantmentUltraRare: Incantesimo World Ablaze Ultra Raro			PowerBooster: Potenziatore
+			Containment: Contenimento
+			MediumContainment: Contenimento medio
+			SuperiorContainment: Contenimento superiore
+			DustyEnchantingTable: Tavolo incantevole polveroso
+			HellishEnchantingTable: Tavolo incantevole infernale
+			SoulEnchantingTable: Tavolo incantevole dell'anima
+			UltimateEnchantingTable: Tavolo incantevole definitivo
+			WoodEnchantingTable: Tavolo incantevole in legno
+			EnchantmentEssenceBasic: Essenza incantesimo di base
+			EnchantmentEssenceCommon: Essenza incantesimo comune
+			EnchantmentEssenceRare: Essenza incantesimo Raro
+			EnchantmentEssenceEpic: Essenza Incantesimo Super Rara
+			EnchantmentEssenceLegendary: Essenza Incantesimo Ultra Rara
+			AllForOneEnchantmentBasic: Tutto per un incantesimo di base
+			AllForOneEnchantmentCommon: Tutti per un incantesimo comune
+			AllForOneEnchantmentRare: Incantesimo All For One Raro
+			AllForOneEnchantmentEpic: All For One Incantesimo Super Raro
+			AllForOneEnchantmentLegendary: All For One Incantesimo Ultra Raro
+			ArmorPenetrationEnchantmentBasic: Incantesimo di penetrazione dell'armatura di base
+			ArmorPenetrationEnchantmentCommon: Incantesimo di penetrazione dell'armatura Comune
+			ArmorPenetrationEnchantmentRare: Incantesimo di penetrazione dell'armatura Raro
+			ArmorPenetrationEnchantmentEpic: Incantesimo di penetrazione dell'armatura Super raro
+			ArmorPenetrationEnchantmentLegendary: Incantesimo di penetrazione dell'armatura Ultra raro
+			CriticalStrikeChanceEnchantmentBasic: Probabilità di colpo critico Incantesimo Base
+			CriticalStrikeChanceEnchantmentCommon: Probabilità di colpo critico Incantesimo Comune
+			CriticalStrikeChanceEnchantmentRare: Probabilità di colpo critico Incantesimo Raro
+			CriticalStrikeChanceEnchantmentEpic: Probabilità di colpo critico Incantesimo Super Raro
+			CriticalStrikeChanceEnchantmentLegendary: Probabilità di colpo critico Incantesimo Ultra raro
+			DamageEnchantmentBasic: Danno incantesimo di base
+			DamageEnchantmentCommon: Danno incantesimo Comune
+			DamageEnchantmentRare: Danno incantesimo Raro
+			DamageEnchantmentEpic: Incantesimo Danno Super Raro
+			DamageEnchantmentLegendary: Incantesimo Danno Ultra Raro
+			LifeStealEnchantmentBasic: Incantesimo ruba vita di base
+			LifeStealEnchantmentCommon: Incantesimo Ruba Vita Comune
+			LifeStealEnchantmentRare: Incantesimo ruba vita Raro
+			LifeStealEnchantmentEpic: Incantesimo rubavita super raro
+			LifeStealEnchantmentLegendary: Incantesimo rubavita ultra raro
+			MaxMinionsEnchantmentBasic: Max Minion Incantesimo di base
+			MaxMinionsEnchantmentCommon: Max Minion Incantesimo Comune
+			MaxMinionsEnchantmentRare: Incantesimo Max Minion Raro
+			MaxMinionsEnchantmentEpic: Incantesimo Max Minion Super Raro
+			MaxMinionsEnchantmentLegendary: Incantesimo Max Minion Ultra raro
+			OneForAllEnchantmentBasic: Uno per tutti l'incantesimo di base
+			OneForAllEnchantmentCommon: Uno per tutti incantesimo comune
+			OneForAllEnchantmentRare: Incantesimo Uno per Tutti Raro
+			OneForAllEnchantmentEpic: Incantesimo Uno per Tutti Super Raro
+			OneForAllEnchantmentLegendary: Incantesimo Uno per Tutti Ultra Raro
+			AttackSpeedEnchantmentBasic: Incantesimo di velocità di base
+			AttackSpeedEnchantmentCommon: Incantesimo di velocità comune
+			AttackSpeedEnchantmentRare: Incantesimo di velocità Raro
+			AttackSpeedEnchantmentEpic: Incantesimo di velocità super raro
+			AttackSpeedEnchantmentLegendary: Incantesimo di velocità ultra raro
+			StatDefenseEnchantmentBasic: Incantesimo di difesa delle statistiche di base
+			StatDefenseEnchantmentCommon: Stat Incantesimo Difesa Comune
+			StatDefenseEnchantmentRare: Incantesimo di difesa Stat Raro
+			StatDefenseEnchantmentEpic: Incantesimo di difesa delle statistiche super raro
+			StatDefenseEnchantmentLegendary: Incantesimo Stat Defense Ultra Raro
+			ColdSteelEnchantmentBasic: Incantesimo Acciaio Freddo Base
+			ColdSteelEnchantmentCommon: Incantesimo Acciaio Freddo Comune
+			ColdSteelEnchantmentRare: Incantesimo Acciaio Freddo Raro
+			ColdSteelEnchantmentEpic: Incantesimo Acciaio Freddo Super Raro
+			ColdSteelEnchantmentLegendary: Incantesimo Acciaio Freddo Ultra Raro
+			GodSlayerEnchantmentBasic: Incantesimo dell'uccisore di dio di base
+			GodSlayerEnchantmentCommon: Incantesimo dell'uccisore di dio comune
+			GodSlayerEnchantmentRare: Incantesimo dell'uccisore di dio raro
+			GodSlayerEnchantmentEpic: Incantesimo dell'uccisore di dio super raro
+			GodSlayerEnchantmentLegendary: Incantesimo dell'uccisore di dio ultra raro
+			HellsWrathEnchantmentBasic: Incantesimo di Hells Wrath Basic
+			HellsWrathEnchantmentCommon: Incantesimo dell'Ira Infernale Comune
+			HellsWrathEnchantmentRare: Incantesimo dell'ira dell'inferno Raro
+			HellsWrathEnchantmentEpic: Incantesimo di Hells Wrath Super Raro
+			HellsWrathEnchantmentLegendary: Incantesimo dell'Ira Infernale Ultra Raro
+			JunglesFuryEnchantmentBasic: Jungles Fury Incantesimo di base
+			JunglesFuryEnchantmentCommon: Giungla Furia Incantesimo Comune
+			JunglesFuryEnchantmentRare: Incantesimo Furia della Giungla Raro
+			JunglesFuryEnchantmentEpic: Incantesimo Furia della Giungla Super Raro
+			JunglesFuryEnchantmentLegendary: Incantesimo Furia della Giungla Ultra raro
+			MoonlightEnchantmentBasic: Incantesimo chiaro di luna di base
+			MoonlightEnchantmentCommon: Incantesimo al chiaro di luna comune
+			MoonlightEnchantmentRare: Incantesimo al chiaro di luna Raro
+			MoonlightEnchantmentEpic: Incantesimo al chiaro di luna super raro
+			MoonlightEnchantmentLegendary: Incantesimo chiaro di luna ultra raro
+			MultishotEnchantmentBasic: Incantesimo multicolpo di base
+			MultishotEnchantmentCommon: Incantesimo Multishot Comune
+			MultishotEnchantmentRare: Incantesimo Multishot Raro
+			MultishotEnchantmentEpic: Incantesimo Multishot Super Raro
+			MultishotEnchantmentLegendary: Incantesimo multicolpo ultra raro
+			AmmoCostEnchantmentBasic: Costo munizioni incantesimo base
+			AmmoCostEnchantmentCommon: Costo munizioni incantesimo Comune
+			AmmoCostEnchantmentRare: Incantesimo costo munizioni raro
+			AmmoCostEnchantmentEpic: Incantesimo costo munizioni super raro
+			AmmoCostEnchantmentLegendary: Incantesimo costo munizioni ultra raro
+			DangerSenseEnchantmentLegendary: Incantesimo del senso di pericolo ultra raro
+			HunterEnchantmentLegendary: Incantesimo del cacciatore ultra raro
+			ReducedManaUsageEnchantmentBasic: Incantesimo di mana di base
+			ReducedManaUsageEnchantmentCommon: Incantesimo di mana comune
+			ReducedManaUsageEnchantmentRare: Incantesimo di mana raro
+			ReducedManaUsageEnchantmentEpic: Incantesimo di mana super raro
+			ReducedManaUsageEnchantmentLegendary: Incantesimo di mana ultra raro
+			MovementSpeedEnchantmentBasic: Incantesimo velocità di movimento base
+			MovementSpeedEnchantmentCommon: Incantesimo velocità di movimento Comune
+			MovementSpeedEnchantmentRare: Incantesimo di velocità di movimento Raro
+			MovementSpeedEnchantmentEpic: Incantesimo velocità di movimento super raro
+			MovementSpeedEnchantmentLegendary: Incantesimo velocità di movimento ultra raro
+			ObsidianSkinEnchantmentLegendary: Incantesimo della pelle di ossidiana ultra raro
+			PeaceEnchantmentBasic: Incantesimo di pace di base
+			PeaceEnchantmentCommon: Incantesimo di pace comune
+			PeaceEnchantmentRare: Incantesimo di pace raro
+			PeaceEnchantmentEpic: Incantesimo della pace super raro
+			PeaceEnchantmentLegendary: Incantesimo della pace ultra raro
+			SizeEnchantmentBasic: Incantesimo di scala di base
+			SizeEnchantmentCommon: Incantesimo di scala comune
+			SizeEnchantmentRare: Incantesimo di scala Raro
+			SizeEnchantmentEpic: Incantesimo di scala super raro
+			SizeEnchantmentLegendary: Incantesimo di scala ultra raro
+			ProjectileVelocityEnchantmentBasic: Spara velocità incantesimo di base
+			ProjectileVelocityEnchantmentCommon: Incantesimo di velocità di tiro Comune
+			ProjectileVelocityEnchantmentRare: Spara Speed ​​Incantesimo Raro
+			ProjectileVelocityEnchantmentEpic: Spara Speed ​​Enchantment Super Raro
+			ProjectileVelocityEnchantmentLegendary: Incantesimo di velocità di tiro ultra raro
+			SpelunkerEnchantmentLegendary: Incantesimo Spelunker Ultra Raro
+			WarEnchantmentBasic: Incantesimo di guerra di base
+			WarEnchantmentCommon: Incantesimo di guerra comune
+			WarEnchantmentRare: Incantesimo di guerra raro
+			WarEnchantmentEpic: Incantesimo di guerra super raro
+			WarEnchantmentLegendary: Incantesimo di guerra ultra raro
+			WorldAblazeEnchantmentBasic: Incantesimo World Ablaze Basic
+			WorldAblazeEnchantmentCommon: Incantesimo del mondo in fiamme comune
+			WorldAblazeEnchantmentRare: Incantesimo World Ablaze Raro
+			WorldAblazeEnchantmentEpic: Incantesimo World Ablaze Super Raro
+			WorldAblazeEnchantmentLegendary: Incantesimo World Ablaze Ultra Raro
+			PowerBooster: Potenziatore
 		}
 	}
 }

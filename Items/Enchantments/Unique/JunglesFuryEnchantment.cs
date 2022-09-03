@@ -45,6 +45,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class JunglesFuryEnchantmentCommon : JunglesFuryEnchantment { }
 	public class JunglesFuryEnchantmentRare : JunglesFuryEnchantment { }
-	public class JunglesFuryEnchantmentSuperRare : JunglesFuryEnchantment { }
-	public class JunglesFuryEnchantmentUltraRare : JunglesFuryEnchantment { }
+	public class JunglesFuryEnchantmentEpic : JunglesFuryEnchantment { }
+	public class JunglesFuryEnchantmentLegendary : JunglesFuryEnchantment { }
 }

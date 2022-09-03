@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class MaxMinionsEnchantmentCommon : MaxMinionsEnchantment { }
 	public class MaxMinionsEnchantmentRare : MaxMinionsEnchantment { }
-	public class MaxMinionsEnchantmentSuperRare : MaxMinionsEnchantment { }
-	public class MaxMinionsEnchantmentUltraRare : MaxMinionsEnchantment { }
+	public class MaxMinionsEnchantmentEpic : MaxMinionsEnchantment { }
+	public class MaxMinionsEnchantmentLegendary : MaxMinionsEnchantment { }
 
 }
