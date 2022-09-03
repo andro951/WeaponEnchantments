@@ -39,6 +39,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class ArmorPenetrationEnchantmentCommon : ArmorPenetrationEnchantment { }
 	public class ArmorPenetrationEnchantmentRare : ArmorPenetrationEnchantment { }
-	public class ArmorPenetrationEnchantmentSuperRare : ArmorPenetrationEnchantment { }
-	public class ArmorPenetrationEnchantmentUltraRare : ArmorPenetrationEnchantment { }
+	public class ArmorPenetrationEnchantmentEpic : ArmorPenetrationEnchantment { }
+	public class ArmorPenetrationEnchantmentLegendary : ArmorPenetrationEnchantment { }
 }

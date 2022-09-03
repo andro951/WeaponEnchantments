@@ -45,7 +45,7 @@ namespace WeaponEnchantments.Items.Enchantments {
     }
     public class LifeStealEnchantmentCommon : LifeStealEnchantment { }
     public class LifeStealEnchantmentRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentSuperRare : LifeStealEnchantment { }
-    public class LifeStealEnchantmentUltraRare : LifeStealEnchantment { }
+    public class LifeStealEnchantmentEpic : LifeStealEnchantment { }
+    public class LifeStealEnchantmentLegendary : LifeStealEnchantment { }
 
 }

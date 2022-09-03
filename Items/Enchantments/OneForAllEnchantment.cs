@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class OneForAllEnchantmentCommon : OneForAllEnchantment { }
 	public class OneForAllEnchantmentRare : OneForAllEnchantment { }
-	public class OneForAllEnchantmentSuperRare : OneForAllEnchantment { }
-	public class OneForAllEnchantmentUltraRare : OneForAllEnchantment { }
+	public class OneForAllEnchantmentEpic : OneForAllEnchantment { }
+	public class OneForAllEnchantmentLegendary : OneForAllEnchantment { }
 
 }

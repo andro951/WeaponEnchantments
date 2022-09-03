@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     }
     public class MobilityControlEnchantmentCommon : MobilityControlEnchantment { }
     public class MobilityControlEnchantmentRare : MobilityControlEnchantment { }
-    public class MobilityControlEnchantmentSuperRare : MobilityControlEnchantment { }
-    public class MobilityControlEnchantmentUltraRare : MobilityControlEnchantment { }
+    public class MobilityControlEnchantmentEpic : MobilityControlEnchantment { }
+    public class MobilityControlEnchantmentLegendary : MobilityControlEnchantment { }
 
 }

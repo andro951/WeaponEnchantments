@@ -54,7 +54,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class AttackSpeedEnchantmentCommon : AttackSpeedEnchantment { }
 	public class AttackSpeedEnchantmentRare : AttackSpeedEnchantment { }
-	public class AttackSpeedEnchantmentSuperRare : AttackSpeedEnchantment { }
-	public class AttackSpeedEnchantmentUltraRare : AttackSpeedEnchantment { }
+	public class AttackSpeedEnchantmentEpic : AttackSpeedEnchantment { }
+	public class AttackSpeedEnchantmentLegendary : AttackSpeedEnchantment { }
 
 }

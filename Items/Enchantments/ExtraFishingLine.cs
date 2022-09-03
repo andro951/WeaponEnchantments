@@ -35,7 +35,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class ExtraFishingLineEnchantmentCommon : ExtraFishingLineEnchantment { }
 	public class ExtraFishingLineEnchantmentRare : ExtraFishingLineEnchantment { }
-	public class ExtraFishingLineEnchantmentSuperRare : ExtraFishingLineEnchantment { }
-	public class ExtraFishingLineEnchantmentUltraRare : ExtraFishingLineEnchantment { }
+	public class ExtraFishingLineEnchantmentEpic : ExtraFishingLineEnchantment { }
+	public class ExtraFishingLineEnchantmentLegendary : ExtraFishingLineEnchantment { }
 
 }

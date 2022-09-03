@@ -13,127 +13,127 @@ Mods: {
 			EnchantmentEssenceBasic: Podstawowa esencja zaklinania
 			EnchantmentEssenceCommon: Pospolita esencja zaklinania
 			EnchantmentEssenceRare: Rzadka esencja zaklinania
-			EnchantmentEssenceSuperRare: Bardzo Rzadka esencja zaklinania
-			EnchantmentEssenceUltraRare: Ultra Rzadka esencja zaklinania
+			EnchantmentEssenceEpic: Bardzo Rzadka esencja zaklinania
+			EnchantmentEssenceLegendary: Ultra Rzadka esencja zaklinania
 			AllForOneEnchantmentBasic: Podstawowe zaklęcie Wszystko za jednego
 			AllForOneEnchantmentCommon: Pospolite zaklęcie Wszystko za jednego
 			AllForOneEnchantmentRare: Rzadkie zaklęcie Wszystko za jednego
-			AllForOneEnchantmentSuperRare: Bardzo Rzadkie zaklęcie Wszystko za jednego 
-			AllForOneEnchantmentUltraRare: Ultra Rzadkie zaklęcie Wszystko za jednego
+			AllForOneEnchantmentEpic: Bardzo Rzadkie zaklęcie Wszystko za jednego 
+			AllForOneEnchantmentLegendary: Ultra Rzadkie zaklęcie Wszystko za jednego
 			ArmorPenetrationEnchantmentBasic: Podstawowe zaklęcie penetracji pancerza
 			ArmorPenetrationEnchantmentCommon: Pospolite zaklęcie penetracji pancerza 
 			ArmorPenetrationEnchantmentRare: Rzadkie zaklęcie penetracji pancerza 
-			ArmorPenetrationEnchantmentSuperRare: Bardzo Rzadkie zaklęcie penetracji pancerza
-			ArmorPenetrationEnchantmentUltraRare: Ultra Rzadkie zaklęcie penetracji pancerza 
+			ArmorPenetrationEnchantmentEpic: Bardzo Rzadkie zaklęcie penetracji pancerza
+			ArmorPenetrationEnchantmentLegendary: Ultra Rzadkie zaklęcie penetracji pancerza 
 			CriticalStrikeChanceEnchantmentBasic: Podstawowe zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentCommon: Pospolite zaklęcie szansy na trafienie krytyczne
 			CriticalStrikeChanceEnchantmentRare: Rzadkie zaklęcie szansy na trafienie krytyczne
-			CriticalStrikeChanceEnchantmentSuperRare: Bardzo Rzadkie zaklęcie szansy na trafienie krytyczne
-			CriticalStrikeChanceEnchantmentUltraRare: Ultra Rzadkie zaklęcie szansy na trafienie krytyczne
+			CriticalStrikeChanceEnchantmentEpic: Bardzo Rzadkie zaklęcie szansy na trafienie krytyczne
+			CriticalStrikeChanceEnchantmentLegendary: Ultra Rzadkie zaklęcie szansy na trafienie krytyczne
 			DamageEnchantmentBasic: Podstawowe zaklęcie obrażeń
 			DamageEnchantmentCommon: Pospolite zaklęcie obrażeń
 			DamageEnchantmentRare: Rzadkie zaklęcie obrażeń
-			DamageEnchantmentSuperRare: Bardzo Rzadkie zaklęcie obrażeń
-			DamageEnchantmentUltraRare: Ultra Rzadkie zaklęcie obrażeń
+			DamageEnchantmentEpic: Bardzo Rzadkie zaklęcie obrażeń
+			DamageEnchantmentLegendary: Ultra Rzadkie zaklęcie obrażeń
 			LifeStealEnchantmentBasic: Podstawowe zaklęcie kradzieży życia
 			LifeStealEnchantmentCommon: Pospolite zaklęcie kradzieży życia
 			LifeStealEnchantmentRare:  Rzadkie zaklęcie kradzieży życia
-			LifeStealEnchantmentSuperRare: Bardzo Rzadkie zaklęcie kradzieży życia
-			LifeStealEnchantmentUltraRare: Ultra Rzadkie zaklęcie kradzieży życia
+			LifeStealEnchantmentEpic: Bardzo Rzadkie zaklęcie kradzieży życia
+			LifeStealEnchantmentLegendary: Ultra Rzadkie zaklęcie kradzieży życia
 			MaxMinionsEnchantmentBasic: Podstawowe zaklęcie maksymalnych sług
 			MaxMinionsEnchantmentCommon: Pospolite zaklęcie maksymalnych sług
 			MaxMinionsEnchantmentRare: Rzadkie zaklęcie maksymalnych sług
-			MaxMinionsEnchantmentSuperRare: Bardzo Rzadkie zaklęcie maksymalnych sług
-			MaxMinionsEnchantmentUltraRare: Ultra Rzadkie zaklęcie maksymalnych sług
+			MaxMinionsEnchantmentEpic: Bardzo Rzadkie zaklęcie maksymalnych sług
+			MaxMinionsEnchantmentLegendary: Ultra Rzadkie zaklęcie maksymalnych sług
 			OneForAllEnchantmentBasic: Podstawowe zaklęcie Jeden za wszystkich
 			OneForAllEnchantmentCommon: Pospolite zaklęcie Jeden za wszystkich
 			OneForAllEnchantmentRare: Rzadkie zaklęcie Jeden za wszystkich
-			OneForAllEnchantmentSuperRare: Bardzo Rzadkie zaklęcie Jeden za wszystkich
-			OneForAllEnchantmentUltraRare: Ultra Rzadkie zaklęcie Jeden za wszystkich
+			OneForAllEnchantmentEpic: Bardzo Rzadkie zaklęcie Jeden za wszystkich
+			OneForAllEnchantmentLegendary: Ultra Rzadkie zaklęcie Jeden za wszystkich
 			AttackSpeedEnchantmentBasic: Podstawowe zaklęcie szybkości ataku
 			AttackSpeedEnchantmentCommon: Pospolite zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare: Rzadkie zaklęcie szybkości ataku
-			AttackSpeedEnchantmentSuperRare: Bardzo Rzadkie zaklęcie szybkości ataku
-			AttackSpeedEnchantmentUltraRare: Ultra Rzadkie zaklęcie szybkości ataku
+			AttackSpeedEnchantmentEpic: Bardzo Rzadkie zaklęcie szybkości ataku
+			AttackSpeedEnchantmentLegendary: Ultra Rzadkie zaklęcie szybkości ataku
 			StatDefenseEnchantmentBasic: Podstawowe zaklęcie statystyk obrony
 			StatDefenseEnchantmentCommon: Pospolite zaklęcie statystyk obrony
 			StatDefenseEnchantmentRare: Rzadkie zaklęcie statystyk obrony
-			StatDefenseEnchantmentSuperRare: Bardzo Rzadkie zaklęcie statystyk obrony
-			StatDefenseEnchantmentUltraRare: Ultra Rzadkie zaklęcie statystyk obrony
+			StatDefenseEnchantmentEpic: Bardzo Rzadkie zaklęcie statystyk obrony
+			StatDefenseEnchantmentLegendary: Ultra Rzadkie zaklęcie statystyk obrony
 			ColdSteelEnchantmentBasic: Podstawowe zaklęcie zimnej stali
 			ColdSteelEnchantmentCommon: Pospolite zaklęcie zimnej stali
 			ColdSteelEnchantmentRare: Rzadkie zaklęcie zimnej stali
-			ColdSteelEnchantmentSuperRare: Bardzo Rzadkie zaklęcie zimnej stali
-			ColdSteelEnchantmentUltraRare: Ultra Rzadkie zaklęcie zimnej stali
+			ColdSteelEnchantmentEpic: Bardzo Rzadkie zaklęcie zimnej stali
+			ColdSteelEnchantmentLegendary: Ultra Rzadkie zaklęcie zimnej stali
 			GodSlayerEnchantmentBasic: Podstawowe zaklęcie Zabójcy Bogów
 			GodSlayerEnchantmentCommon: Pospolite zaklęcie Zabójcy Bogów
 			GodSlayerEnchantmentRare: Rzadkie zaklęcie Zabójcy Bogów
-			GodSlayerEnchantmentSuperRare: Bardzo Rzadkie zaklęcie Zabójcy Bogów
-			GodSlayerEnchantmentUltraRare: Ultra Rzadkie zaklęcie Zabójcy Bogów
+			GodSlayerEnchantmentEpic: Bardzo Rzadkie zaklęcie Zabójcy Bogów
+			GodSlayerEnchantmentLegendary: Ultra Rzadkie zaklęcie Zabójcy Bogów
 			HellsWrathEnchantmentBasic: Podstawowe zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentCommon: Pospolite zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentRare: Rzadkie zaklęcie piekielnego gniewu
-			HellsWrathEnchantmentSuperRare: Bardzo Rzadkie zaklęcie piekielnego gniewu
-			HellsWrathEnchantmentUltraRare: Ultra Rzadkie zaklęcie piekielnego gniewu
+			HellsWrathEnchantmentEpic: Bardzo Rzadkie zaklęcie piekielnego gniewu
+			HellsWrathEnchantmentLegendary: Ultra Rzadkie zaklęcie piekielnego gniewu
 			JunglesFuryEnchantmentBasic: Podstawowe zaklęcie furii dżungli
 			JunglesFuryEnchantmentCommon: Pospolite zaklęcie furii dżungli
 			JunglesFuryEnchantmentRare: Rzadkie zaklęcie furii dżungli
-			JunglesFuryEnchantmentSuperRare: Bardzo Rzadkie zaklęcie furii dżungli
-			JunglesFuryEnchantmentUltraRare: Ultra Rzadkie zaklęcie furii dżungli
+			JunglesFuryEnchantmentEpic: Bardzo Rzadkie zaklęcie furii dżungli
+			JunglesFuryEnchantmentLegendary: Ultra Rzadkie zaklęcie furii dżungli
 			MoonlightEnchantmentBasic: Podstawowe zaklęcie blasku księżyca
 			MoonlightEnchantmentCommon: Pospolite zaklęcie blasku księżyca
 			MoonlightEnchantmentRare: Rzadkie zaklęcie blasku księżyca
-			MoonlightEnchantmentSuperRare: Bardzo Rzadkie zaklęcie blasku księżyca
-			MoonlightEnchantmentUltraRare: Ultra Rzadkie zaklęcie blasku księżyca
+			MoonlightEnchantmentEpic: Bardzo Rzadkie zaklęcie blasku księżyca
+			MoonlightEnchantmentLegendary: Ultra Rzadkie zaklęcie blasku księżyca
 			MultishotEnchantmentBasic: Podstawowe zaklęcie wielostrzału
 			MultishotEnchantmentCommon: Pospolite zaklęcie wielostrzału
 			MultishotEnchantmentRare: Rzadkie zaklęcie wielostrzału
-			MultishotEnchantmentSuperRare: Bardzo Rzadkie zaklęcie wielostrzału
-			MultishotEnchantmentUltraRare: Ultra Rzadkie zaklęcie wielostrzału
+			MultishotEnchantmentEpic: Bardzo Rzadkie zaklęcie wielostrzału
+			MultishotEnchantmentLegendary: Ultra Rzadkie zaklęcie wielostrzału
 			AmmoCostEnchantmentBasic: Podstawowe zaklęcie kosztu amunicji
 			AmmoCostEnchantmentCommon: Pospolite zaklęcie kosztu amunicji
 			AmmoCostEnchantmentRare: Rzadkie zaklęcie kosztu amunicji
-			AmmoCostEnchantmentSuperRare: Bardzo Rzadkie zaklęcie kosztu amunicji
-			AmmoCostEnchantmentUltraRare: Ultra Rzadkie zaklęcie kosztu amunicji
-			DangerSenseEnchantmentUltraRare: Ultra Rzadkie zaklęcie zmysłu zagrożenia
-			HunterEnchantmentUltraRare: Ultra Rzadkie zaklęcie łowcy
+			AmmoCostEnchantmentEpic: Bardzo Rzadkie zaklęcie kosztu amunicji
+			AmmoCostEnchantmentLegendary: Ultra Rzadkie zaklęcie kosztu amunicji
+			DangerSenseEnchantmentLegendary: Ultra Rzadkie zaklęcie zmysłu zagrożenia
+			HunterEnchantmentLegendary: Ultra Rzadkie zaklęcie łowcy
 			ReducedManaUsageEnchantmentBasic: Podstawowe zaklęcie kosztu many
 			ReducedManaUsageEnchantmentCommon: Pospolite zaklęcie kosztu many
 			ReducedManaUsageEnchantmentRare: Rzadkie zaklęcie kosztu many
-			ReducedManaUsageEnchantmentSuperRare: Bardzo Rzadkie zaklęcie kosztu many
-			ReducedManaUsageEnchantmentUltraRare: Ultra Rzadkie zaklęcie kosztu many
+			ReducedManaUsageEnchantmentEpic: Bardzo Rzadkie zaklęcie kosztu many
+			ReducedManaUsageEnchantmentLegendary: Ultra Rzadkie zaklęcie kosztu many
 			MovementSpeedEnchantmentBasic: Podstawowe zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentCommon: Pospolite zaklęcie szybkości ruchu
 			MovementSpeedEnchantmentRare: Rzadkie zaklęcie szybkości ruchu
-			MovementSpeedEnchantmentSuperRare: Bardzo Rzadkie zaklęcie szybkości ruchu
-			MovementSpeedEnchantmentUltraRare: Ultra Rzadkie zaklęcie szybkości ruchu
-			ObsidianSkinEnchantmentUltraRare: Ultra Rzadkie zaklęcie Obsydianowej skóry
+			MovementSpeedEnchantmentEpic: Bardzo Rzadkie zaklęcie szybkości ruchu
+			MovementSpeedEnchantmentLegendary: Ultra Rzadkie zaklęcie szybkości ruchu
+			ObsidianSkinEnchantmentLegendary: Ultra Rzadkie zaklęcie Obsydianowej skóry
 			PeaceEnchantmentBasic: Podstawowe zaklęcie pokoju
 			PeaceEnchantmentCommon: Pospolite zaklęcie pokoju
 			PeaceEnchantmentRare: Rzadkie zaklęcie pokoju
-			PeaceEnchantmentSuperRare: Bardzo Rzadkie zaklęcie pokoju
-			PeaceEnchantmentUltraRare: Ultra Rzadkie zaklęcie pokoju
+			PeaceEnchantmentEpic: Bardzo Rzadkie zaklęcie pokoju
+			PeaceEnchantmentLegendary: Ultra Rzadkie zaklęcie pokoju
 			SizeEnchantmentBasic: Podstawowe zaklęcie wielkości
 			SizeEnchantmentCommon: Pospolite zaklęcie wielkości
 			SizeEnchantmentRare: Rzadkie zaklęcie wielkości
-			SizeEnchantmentSuperRare: Bardzo Rzadkie zaklęcie wielkości
-			SizeEnchantmentUltraRare: Ultra Rzadkie zaklęcie wielkości
+			SizeEnchantmentEpic: Bardzo Rzadkie zaklęcie wielkości
+			SizeEnchantmentLegendary: Ultra Rzadkie zaklęcie wielkości
 			ProjectileVelocityEnchantmentBasic: Podstawowe zaklęcie szybkości strzału
 			ProjectileVelocityEnchantmentCommon: Pospolite zaklęcie szybkości strzału
 			ProjectileVelocityEnchantmentRare: Rzadkie zaklęcie szybkości strzału
-			ProjectileVelocityEnchantmentSuperRare: Bardzo Rzadkie zaklęcie szybkości strzału
-			ProjectileVelocityEnchantmentUltraRare: Ultra Rzadkie zaklęcie szybkości strzału
-			SpelunkerEnchantmentUltraRare: Ultra Rzadkie zaklęcie grotołaza
+			ProjectileVelocityEnchantmentEpic: Bardzo Rzadkie zaklęcie szybkości strzału
+			ProjectileVelocityEnchantmentLegendary: Ultra Rzadkie zaklęcie szybkości strzału
+			SpelunkerEnchantmentLegendary: Ultra Rzadkie zaklęcie grotołaza
 			WarEnchantmentBasic: Podstawowe zaklęcie wojny
 			WarEnchantmentCommon: Pospolite zaklęcie wojny
 			WarEnchantmentRare: Rzadkie zaklęcie wojny
-			WarEnchantmentSuperRare: Bardzo Rzadkie zaklęcie wojny
-			WarEnchantmentUltraRare: Ultra Rzadkie zaklęcie wojny
+			WarEnchantmentEpic: Bardzo Rzadkie zaklęcie wojny
+			WarEnchantmentLegendary: Ultra Rzadkie zaklęcie wojny
 			WorldAblazeEnchantmentBasic: Podstawowe zaklęcie płonącego świata
 			WorldAblazeEnchantmentCommon: Pospolite zaklęcie płonącego świata
 			WorldAblazeEnchantmentRare: Rzadkie zaklęcie płonącego świata
-			WorldAblazeEnchantmentSuperRare: Bardzo Rzadkie zaklęcie płonącego świata
-			WorldAblazeEnchantmentUltraRare: Ultra Rzadkie zaklęcie płonącego świata
+			WorldAblazeEnchantmentEpic: Bardzo Rzadkie zaklęcie płonącego świata
+			WorldAblazeEnchantmentLegendary: Ultra Rzadkie zaklęcie płonącego świata
 			PowerBooster: Wzmacniacz mocy
 		}
 	}

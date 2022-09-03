@@ -40,6 +40,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class MovementSpeedEnchantmentCommon : MovementSpeedEnchantment { }
 	public class MovementSpeedEnchantmentRare : MovementSpeedEnchantment { }
-	public class MovementSpeedEnchantmentSuperRare : MovementSpeedEnchantment { }
-	public class MovementSpeedEnchantmentUltraRare : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentEpic : MovementSpeedEnchantment { }
+	public class MovementSpeedEnchantmentLegendary : MovementSpeedEnchantment { }
 }

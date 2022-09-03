@@ -47,6 +47,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class WarEnchantmentCommon : WarEnchantment { }
 	public class WarEnchantmentRare : WarEnchantment { }
-	public class WarEnchantmentSuperRare : WarEnchantment { }
-	public class WarEnchantmentUltraRare : WarEnchantment { }
+	public class WarEnchantmentEpic : WarEnchantment { }
+	public class WarEnchantmentLegendary : WarEnchantment { }
 }

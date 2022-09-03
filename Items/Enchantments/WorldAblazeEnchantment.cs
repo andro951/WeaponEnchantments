@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class WorldAblazeEnchantmentCommon : WorldAblazeEnchantment { }
 	public class WorldAblazeEnchantmentRare : WorldAblazeEnchantment { }
-	public class WorldAblazeEnchantmentSuperRare : WorldAblazeEnchantment { }
-	public class WorldAblazeEnchantmentUltraRare : WorldAblazeEnchantment { }
+	public class WorldAblazeEnchantmentEpic : WorldAblazeEnchantment { }
+	public class WorldAblazeEnchantmentLegendary : WorldAblazeEnchantment { }
 
 }

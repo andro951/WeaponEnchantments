@@ -13,127 +13,127 @@ Mods: {
 			EnchantmentEssenceBasic: Verzauberungsessenz Basic
 			EnchantmentEssenceCommon: Verzauberungsessenz Gewöhnlich
 			EnchantmentEssenceRare: Verzauberungsessenz Selten
-			EnchantmentEssenceSuperRare: Verzauberungsessenz Sehr Selten
-			EnchantmentEssenceUltraRare: Verzauberungsessenz Ultra Selten
+			EnchantmentEssenceEpic: Verzauberungsessenz Sehr Selten
+			EnchantmentEssenceLegendary: Verzauberungsessenz Ultra Selten
 			AllForOneEnchantmentBasic: Alle für einen Verzauberung Basic
 			AllForOneEnchantmentCommon: Alle für einen Verzauberung Gewöhnlich
 			AllForOneEnchantmentRare: Alle für einen Verzauberung Selten
-			AllForOneEnchantmentSuperRare: Alle für einen Verzauberung Super Selten
-			AllForOneEnchantmentUltraRare: Alle für einen Verzauberung Ultra Selten
+			AllForOneEnchantmentEpic: Alle für einen Verzauberung Super Selten
+			AllForOneEnchantmentLegendary: Alle für einen Verzauberung Ultra Selten
 			ArmorPenetrationEnchantmentBasic: Rüstungsdurchdringung Verzauberung Basic
 			ArmorPenetrationEnchantmentCommon: Rüstungsdurchdringung Verzauberung Gewöhnlich
 			ArmorPenetrationEnchantmentRare: Rüstungsdurchdringung Verzauberung Selten
-			ArmorPenetrationEnchantmentSuperRare: Rüstungsdurchdringung Verzauberung Super Selten
-			ArmorPenetrationEnchantmentUltraRare: Rüstungsdurchdringung Verzauberung Ultra Selten
+			ArmorPenetrationEnchantmentEpic: Rüstungsdurchdringung Verzauberung Super Selten
+			ArmorPenetrationEnchantmentLegendary: Rüstungsdurchdringung Verzauberung Ultra Selten
 			CriticalStrikeChanceEnchantmentBasic: Kritische Trefferchance Verzauberung Basic
 			CriticalStrikeChanceEnchantmentCommon: Kritische Trefferchance Verzauberung Gewöhnlich
 			CriticalStrikeChanceEnchantmentRare: Kritische Trefferchance Verzauberung Selten
-			CriticalStrikeChanceEnchantmentSuperRare: Kritische Trefferchance Verzauberung Super Selten
-			CriticalStrikeChanceEnchantmentUltraRare: Kritische Trefferchance Verzauberung Ultra Selten
+			CriticalStrikeChanceEnchantmentEpic: Kritische Trefferchance Verzauberung Super Selten
+			CriticalStrikeChanceEnchantmentLegendary: Kritische Trefferchance Verzauberung Ultra Selten
 			DamageEnchantmentBasic: Schaden Verzauberung Basic
 			DamageEnchantmentCommon: Schaden Verzauberung Gewöhnlich
 			DamageEnchantmentRare: Schaden Verzauberung Selten
-			DamageEnchantmentSuperRare: Schaden Verzauberung Super Selten
-			DamageEnchantmentUltraRare: Schaden Verzauberung Ultra Selten
+			DamageEnchantmentEpic: Schaden Verzauberung Super Selten
+			DamageEnchantmentLegendary: Schaden Verzauberung Ultra Selten
 			LifeStealEnchantmentBasic: Lebensraub Verzauberung Basic
 			LifeStealEnchantmentCommon: Lebensraub Verzauberung Gewöhnlich
 			LifeStealEnchantmentRare: Lebensraub Verzauberung Selten
-			LifeStealEnchantmentSuperRare: Lebensraub Verzauberung Super Selten
-			LifeStealEnchantmentUltraRare: Lebensraub Verzauberung Ultra Selten
+			LifeStealEnchantmentEpic: Lebensraub Verzauberung Super Selten
+			LifeStealEnchantmentLegendary: Lebensraub Verzauberung Ultra Selten
 			MaxMinionsEnchantmentBasic: Max Günstlinge Verzauberung Basic
 			MaxMinionsEnchantmentCommon: Max Günstlinge Verzauberung Gewöhnlich
 			MaxMinionsEnchantmentRare: Max Günstlinge Verzauberung Selten
-			MaxMinionsEnchantmentSuperRare: Max Günstlinge Verzauberung Super Selten
-			MaxMinionsEnchantmentUltraRare: Max Günstlinge Verzauberung Ultra Selten
+			MaxMinionsEnchantmentEpic: Max Günstlinge Verzauberung Super Selten
+			MaxMinionsEnchantmentLegendary: Max Günstlinge Verzauberung Ultra Selten
 			OneForAllEnchantmentBasic: Einer für alle Verzauberung Basic
 			OneForAllEnchantmentCommon: Einer für alle Verzauberung Gewöhnlich
 			OneForAllEnchantmentRare: Einer für alle Verzauberung Selten
-			OneForAllEnchantmentSuperRare: Einer für alle Verzauberung Super Selten
-			OneForAllEnchantmentUltraRare: Einer für alle Verzauberung Ultra Selten
+			OneForAllEnchantmentEpic: Einer für alle Verzauberung Super Selten
+			OneForAllEnchantmentLegendary: Einer für alle Verzauberung Ultra Selten
 			AttackSpeedEnchantmentBasic: Geschwindigkeit Verzauberung Basic
 			AttackSpeedEnchantmentCommon: Geschwindigkeit Verzauberung Gewöhnlich
 			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
-			AttackSpeedEnchantmentSuperRare: Geschwindigkeit Verzauberung Super Selten
-			AttackSpeedEnchantmentUltraRare: Geschwindigkeit Verzauberung Ultra Selten
+			AttackSpeedEnchantmentEpic: Geschwindigkeit Verzauberung Super Selten
+			AttackSpeedEnchantmentLegendary: Geschwindigkeit Verzauberung Ultra Selten
 			StatDefenseEnchantmentBasic: Verteidigung Verzauberung Basic
 			StatDefenseEnchantmentCommon: Verteidigung Verzauberung Gewöhnlich
 			StatDefenseEnchantmentRare: Verteidigung Verzauberung Selten
-			StatDefenseEnchantmentSuperRare: Verteidigung Verzauberung Super Selten
-			StatDefenseEnchantmentUltraRare: Verteidigung Verzauberung Ultra Selten
+			StatDefenseEnchantmentEpic: Verteidigung Verzauberung Super Selten
+			StatDefenseEnchantmentLegendary: Verteidigung Verzauberung Ultra Selten
 			ColdSteelEnchantmentBasic: Kalter Stahl Verzauberung Basic
 			ColdSteelEnchantmentCommon: Kalter Stahl Verzauberung Gewöhnlich
 			ColdSteelEnchantmentRare: Kalter Stahl Verzauberung Gewöhnlich
-			ColdSteelEnchantmentSuperRare: Kalter Stahl Verzauberung Super Selten
-			ColdSteelEnchantmentUltraRare: Kalter Stahl Verzauberung Ultra Selten
+			ColdSteelEnchantmentEpic: Kalter Stahl Verzauberung Super Selten
+			ColdSteelEnchantmentLegendary: Kalter Stahl Verzauberung Ultra Selten
 			GodSlayerEnchantmentBasic: Gotttöter Verzauberung Basic
 			GodSlayerEnchantmentCommon: Gotttöter Verzauberung Gewöhnlich
 			GodSlayerEnchantmentRare: Gotttöter Verzauberung Selten
-			GodSlayerEnchantmentSuperRare: Gotttöter Verzauberung Super Selten
-			GodSlayerEnchantmentUltraRare: Gotttöter Verzauberung Ultra Selten
+			GodSlayerEnchantmentEpic: Gotttöter Verzauberung Super Selten
+			GodSlayerEnchantmentLegendary: Gotttöter Verzauberung Ultra Selten
 			HellsWrathEnchantmentBasic: Höllen Zorn Verzauberung Basic
 			HellsWrathEnchantmentCommon: Höllen Zorn Verzauberung Gewöhnlich
 			HellsWrathEnchantmentRare: Höllen Zorn Verzauberung Selten
-			HellsWrathEnchantmentSuperRare: Höllen Zorn Verzauberung Super Selten
-			HellsWrathEnchantmentUltraRare: Höllen Zorn Verzauberung Ultra Selten
+			HellsWrathEnchantmentEpic: Höllen Zorn Verzauberung Super Selten
+			HellsWrathEnchantmentLegendary: Höllen Zorn Verzauberung Ultra Selten
 			JunglesFuryEnchantmentBasic: Jungle Zorn Verzauberung Basic
 			JunglesFuryEnchantmentCommon: Jungle Zorn Verzauberung Gewöhnlich
 			JunglesFuryEnchantmentRare: Jungle Zorn Verzauberung Selten
-			JunglesFuryEnchantmentSuperRare: Jungle Zorn Verzauberung Super Selten
-			JunglesFuryEnchantmentUltraRare: Jungle Zorn Verzauberung Ultra Selten
+			JunglesFuryEnchantmentEpic: Jungle Zorn Verzauberung Super Selten
+			JunglesFuryEnchantmentLegendary: Jungle Zorn Verzauberung Ultra Selten
 			MoonlightEnchantmentBasic: Mondlicht Verzauberung Basic
 			MoonlightEnchantmentCommon: Mondlicht Verzauberung Gewöhnlich
 			MoonlightEnchantmentRare: Mondlicht Verzauberung Selten
-			MoonlightEnchantmentSuperRare: Mondlicht Verzauberung Super Selten
-			MoonlightEnchantmentUltraRare: Mondlicht Verzauberung Ultra Selten
+			MoonlightEnchantmentEpic: Mondlicht Verzauberung Super Selten
+			MoonlightEnchantmentLegendary: Mondlicht Verzauberung Ultra Selten
 			MultishotEnchantmentBasic: Multischuss Verzauberung Basic
 			MultishotEnchantmentCommon: Multischuss Verzauberung Gewöhnlich
 			MultishotEnchantmentRare: Multischuss Verzauberung Selten
-			MultishotEnchantmentSuperRare: Multischuss Verzauberung Super Selten
-			MultishotEnchantmentUltraRare: Multischuss Verzauberung Ultra Selten
+			MultishotEnchantmentEpic: Multischuss Verzauberung Super Selten
+			MultishotEnchantmentLegendary: Multischuss Verzauberung Ultra Selten
 			AmmoCostEnchantmentBasic: Munitionskosten Verzauberung Basic
 			AmmoCostEnchantmentCommon: Munitionskosten Verzauberung Gewöhnlich
 			AmmoCostEnchantmentRare: Munitionskosten Verzauberung Selten
-			AmmoCostEnchantmentSuperRare: Munitionskosten Verzauberung Super Selten
-			AmmoCostEnchantmentUltraRare: Munitionskosten Verzauberung Ultra Selten
-			DangerSenseEnchantmentUltraRare: Gefahrensinn Verzauberung Ultra Selten
-			HunterEnchantmentUltraRare: Jäger Verzauberung Ultra Selten
+			AmmoCostEnchantmentEpic: Munitionskosten Verzauberung Super Selten
+			AmmoCostEnchantmentLegendary: Munitionskosten Verzauberung Ultra Selten
+			DangerSenseEnchantmentLegendary: Gefahrensinn Verzauberung Ultra Selten
+			HunterEnchantmentLegendary: Jäger Verzauberung Ultra Selten
 			ReducedManaUsageEnchantmentBasic: Mana Verzauberung Basic
 			ReducedManaUsageEnchantmentCommon: Mana Verzauberung Gewöhnlich
 			ReducedManaUsageEnchantmentRare: Mana Verzauberung Selten
-			ReducedManaUsageEnchantmentSuperRare: Mana Verzauberung Super Selten
-			ReducedManaUsageEnchantmentUltraRare: Mana Verzauberung Ultra Selten
+			ReducedManaUsageEnchantmentEpic: Mana Verzauberung Super Selten
+			ReducedManaUsageEnchantmentLegendary: Mana Verzauberung Ultra Selten
 			MovementSpeedEnchantmentBasic: Bewegungsgeschwindigkeit Verzauberung Basic
 			MovementSpeedEnchantmentCommon: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
 			MovementSpeedEnchantmentRare: Bewegungsgeschwindigkeit Verzauberung Selten
-			MovementSpeedEnchantmentSuperRare: Bewegungsgeschwindigkeit Verzauberung Super Selten
-			MovementSpeedEnchantmentUltraRare: Bewegungsgeschwindigkeit Verzauberung Ultra Selten
-			ObsidianSkinEnchantmentUltraRare: Obsidian Haut Verzauberung Ultra Selten
+			MovementSpeedEnchantmentEpic: Bewegungsgeschwindigkeit Verzauberung Super Selten
+			MovementSpeedEnchantmentLegendary: Bewegungsgeschwindigkeit Verzauberung Ultra Selten
+			ObsidianSkinEnchantmentLegendary: Obsidian Haut Verzauberung Ultra Selten
 			PeaceEnchantmentBasic: Frieden Verzauberung Basic
 			PeaceEnchantmentCommon: Frieden Verzauberung Gewöhnlich
 			PeaceEnchantmentRare: Frieden Verzauberung Selten
-			PeaceEnchantmentSuperRare: Frieden Verzauberung Super Rare
-			PeaceEnchantmentUltraRare: Frieden Verzauberung Ultra Rare
+			PeaceEnchantmentEpic: Frieden Verzauberung Super Rare
+			PeaceEnchantmentLegendary: Frieden Verzauberung Ultra Rare
 			SizeEnchantmentBasic: Skalierung Verzauberung Basic
 			SizeEnchantmentCommon: Skalierung Verzauberung Gewöhnlich
 			SizeEnchantmentRare: Skalierung Verzauberung Selten
-			SizeEnchantmentSuperRare: Skalierung Verzauberung Super Selten
-			SizeEnchantmentUltraRare: Skalierung Verzauberung Ultra Selten
+			SizeEnchantmentEpic: Skalierung Verzauberung Super Selten
+			SizeEnchantmentLegendary: Skalierung Verzauberung Ultra Selten
 			ProjectileVelocityEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
 			ProjectileVelocityEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
 			ProjectileVelocityEnchantmentRare: Schussgeschwindigkeit ​​Verzauberung Selten
-			ProjectileVelocityEnchantmentSuperRare: Schussgeschwindigkeit ​​Verzauberung Sehr Selten
-			ProjectileVelocityEnchantmentUltraRare: Schussgeschwindigkeit ​​Verzauberung Ultra Selten
-			SpelunkerEnchantmentUltraRare: Höhlenforscher-Verzauberung Ultra Selten
+			ProjectileVelocityEnchantmentEpic: Schussgeschwindigkeit ​​Verzauberung Sehr Selten
+			ProjectileVelocityEnchantmentLegendary: Schussgeschwindigkeit ​​Verzauberung Ultra Selten
+			SpelunkerEnchantmentLegendary: Höhlenforscher-Verzauberung Ultra Selten
 			WarEnchantmentBasic: Krieg Verzauberung Basic
 			WarEnchantmentCommon: Krieg Verzauberung Gewöhnlich
 			WarEnchantmentRare: Krieg Verzauberung Selten
-			WarEnchantmentSuperRare: Krieg Verzauberung Super Selten
-			WarEnchantmentUltraRare: Krieg Verzauberung Ultra Selten
+			WarEnchantmentEpic: Krieg Verzauberung Super Selten
+			WarEnchantmentLegendary: Krieg Verzauberung Ultra Selten
 			WorldAblazeEnchantmentBasic: Welt in Flammen Verzauberung Basic
 			WorldAblazeEnchantmentCommon: Welt in Flammen Verzauberung Gewöhnlich
 			WorldAblazeEnchantmentRare: Welt in Flammen Verzauberung Selten
-			WorldAblazeEnchantmentSuperRare: Welt in Flammen Verzauberung Super Selten
-			WorldAblazeEnchantmentUltraRare: Welt in Flammen Verzauberung Ultra Selten
+			WorldAblazeEnchantmentEpic: Welt in Flammen Verzauberung Super Selten
+			WorldAblazeEnchantmentLegendary: Welt in Flammen Verzauberung Ultra Selten
 			PowerBooster: Leistungsverstärker
 		}
 	}

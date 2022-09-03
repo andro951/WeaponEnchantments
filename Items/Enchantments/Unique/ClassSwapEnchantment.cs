@@ -43,8 +43,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class MeleeClassSwapEnchantmentCommon : MeleeClassSwapEnchantment { }
 	public class MeleeClassSwapEnchantmentRare : MeleeClassSwapEnchantment { }
-	public class MeleeClassSwapEnchantmentSuperRare : MeleeClassSwapEnchantment { }
-	public class MeleeClassSwapEnchantmentUltraRare : MeleeClassSwapEnchantment { }
+	public class MeleeClassSwapEnchantmentEpic : MeleeClassSwapEnchantment { }
+	public class MeleeClassSwapEnchantmentLegendary : MeleeClassSwapEnchantment { }
 
 	public abstract class WhipClassSwapEnchantment : ClassSwapEnchantment
 	{
@@ -59,8 +59,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class WhipClassSwapEnchantmentCommon : WhipClassSwapEnchantment { }
 	public class WhipClassSwapEnchantmentRare : WhipClassSwapEnchantment { }
-	public class WhipClassSwapEnchantmentSuperRare : WhipClassSwapEnchantment { }
-	public class WhipClassSwapEnchantmentUltraRare : WhipClassSwapEnchantment { }
+	public class WhipClassSwapEnchantmentEpic : WhipClassSwapEnchantment { }
+	public class WhipClassSwapEnchantmentLegendary : WhipClassSwapEnchantment { }
 
 
 	public abstract class MagicClassSwapEnchantment : ClassSwapEnchantment
@@ -76,8 +76,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class MagicClassSwapEnchantmentCommon : MagicClassSwapEnchantment { }
 	public class MagicClassSwapEnchantmentRare : MagicClassSwapEnchantment { }
-	public class MagicClassSwapEnchantmentSuperRare : MagicClassSwapEnchantment { }
-	public class MagicClassSwapEnchantmentUltraRare : MagicClassSwapEnchantment { }
+	public class MagicClassSwapEnchantmentEpic : MagicClassSwapEnchantment { }
+	public class MagicClassSwapEnchantmentLegendary : MagicClassSwapEnchantment { }
 
 
 	public abstract class RangedClassSwapEnchantment : ClassSwapEnchantment
@@ -93,8 +93,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RangedClassSwapEnchantmentCommon : RangedClassSwapEnchantment { }
 	public class RangedClassSwapEnchantmentRare : RangedClassSwapEnchantment { }
-	public class RangedClassSwapEnchantmentSuperRare : RangedClassSwapEnchantment { }
-	public class RangedClassSwapEnchantmentUltraRare : RangedClassSwapEnchantment { }
+	public class RangedClassSwapEnchantmentEpic : RangedClassSwapEnchantment { }
+	public class RangedClassSwapEnchantmentLegendary : RangedClassSwapEnchantment { }
 
 	
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
@@ -111,6 +111,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RogueClassSwapEnchantmentCommon : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentRare : RogueClassSwapEnchantment { }
-	public class RogueClassSwapEnchantmentSuperRare : RogueClassSwapEnchantment { }
-	public class RogueClassSwapEnchantmentUltraRare : RogueClassSwapEnchantment { }
+	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
+	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
 }

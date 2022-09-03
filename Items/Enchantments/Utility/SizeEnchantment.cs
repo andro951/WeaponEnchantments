@@ -35,7 +35,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class SizeEnchantmentCommon : SizeEnchantment { }
 	public class SizeEnchantmentRare : SizeEnchantment { }
-	public class SizeEnchantmentSuperRare : SizeEnchantment { }
-	public class SizeEnchantmentUltraRare : SizeEnchantment { }
+	public class SizeEnchantmentEpic : SizeEnchantment { }
+	public class SizeEnchantmentLegendary : SizeEnchantment { }
 
 }

@@ -368,7 +368,7 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int j = 0; j < 50; j++) {
                 if (wePlayer.Player.inventory[j].TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
-                    int tier = essence.essenceTier;
+                    int tier = essence.EssenceTier;
                     int ammountToTransfer;
                     int startingStack = wePlayer.Player.inventory[j].stack;
                     if (wePlayer.enchantingTable.essenceItem[tier].IsAir) {
@@ -656,10 +656,10 @@ namespace WeaponEnchantments
                     break;
                 case ChestID.Gold:
                     //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentLegendary>());
                     //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
                 case ChestID.Gold_Locked:
@@ -732,10 +732,10 @@ namespace WeaponEnchantments
                     break;
                 case ChestID.Gold_DeadMans:
                     //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentLegendary>());
                     //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
                     break;
                 case ChestID.SandStone:

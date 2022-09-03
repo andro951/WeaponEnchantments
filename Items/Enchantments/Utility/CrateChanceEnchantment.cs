@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     }
     public class CrateChanceEnchantmentCommon : CrateChanceEnchantment { }
     public class CrateChanceEnchantmentRare : CrateChanceEnchantment { }
-    public class CrateChanceEnchantmentSuperRare : CrateChanceEnchantment { }
-    public class CrateChanceEnchantmentUltraRare : CrateChanceEnchantment { }
+    public class CrateChanceEnchantmentEpic : CrateChanceEnchantment { }
+    public class CrateChanceEnchantmentLegendary : CrateChanceEnchantment { }
 
 }

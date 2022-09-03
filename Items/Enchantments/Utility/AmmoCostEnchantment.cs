@@ -39,6 +39,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class AmmoCostEnchantmentCommon : AmmoCostEnchantment { }
 	public class AmmoCostEnchantmentRare : AmmoCostEnchantment { }
-	public class AmmoCostEnchantmentSuperRare : AmmoCostEnchantment { }
-	public class AmmoCostEnchantmentUltraRare : AmmoCostEnchantment { }
+	public class AmmoCostEnchantmentEpic : AmmoCostEnchantment { }
+	public class AmmoCostEnchantmentLegendary : AmmoCostEnchantment { }
 }

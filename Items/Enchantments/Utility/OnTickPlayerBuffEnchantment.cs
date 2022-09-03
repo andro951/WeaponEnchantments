@@ -47,23 +47,23 @@ namespace WeaponEnchantments.Items.Utility
 		public override string Designer => "andro951";
 	}
 
-	public class DangerSenseEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class DangerSenseEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Dangersense;
 	}
-	public class HunterEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class HunterEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Hunter;
 	}
-	public class ObsidianSkinEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class ObsidianSkinEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.ObsidianSkin;
 	}
-	public class SpelunkerEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class SpelunkerEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Spelunker;
 	}
-	public class FishingEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class FishingEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Fishing;
 		public override List<WeightedPair> NpcAIDrops => new() {
@@ -79,7 +79,7 @@ namespace WeaponEnchantments.Items.Utility
 		};
 		public override string Artist => "andro951";
 	}
-	public class CrateEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class CrateEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Crate;
 		public override List<WeightedPair> NpcAIDrops => new() {
@@ -95,7 +95,7 @@ namespace WeaponEnchantments.Items.Utility
 		};
 		public override string Artist => "andro951";
 	}
-	public class SonarEnchantmentUltraRare : OnTickPlayerBuffEnchantment
+	public class SonarEnchantmentLegendary : OnTickPlayerBuffEnchantment
 	{
 		protected override int buffID => BuffID.Sonar;
 		public override List<WeightedPair> NpcAIDrops => new() {

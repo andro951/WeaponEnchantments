@@ -156,10 +156,10 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;
 		public override void SetupShop(Chest shop, ref int nextSlot) {
-			int num = EnchantingRarity.displayTierNames.Length;
+			int num = EnchantingRarity.tierNames.Length;
 			nextSlot += num;
 			int slotNum = nextSlot - 1;
-			int essenceType = ModContent.ItemType<EnchantmentEssenceUltraRare>();
+			int essenceType = ModContent.ItemType<EnchantmentEssenceLegendary>();
 			int price = ContentSamples.ItemsByType[essenceType].value * 2;
 			for(int i = 0; i < num; i++) {
 				shop.item[slotNum].SetDefaults(essenceType - i);

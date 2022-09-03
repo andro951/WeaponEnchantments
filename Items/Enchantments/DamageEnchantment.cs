@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class DamageEnchantmentCommon : DamageEnchantment { }
 	public class DamageEnchantmentRare : DamageEnchantment { }
-	public class DamageEnchantmentSuperRare : DamageEnchantment { }
-	public class DamageEnchantmentUltraRare : DamageEnchantment { }
+	public class DamageEnchantmentEpic : DamageEnchantment { }
+	public class DamageEnchantmentLegendary : DamageEnchantment { }
 
 }

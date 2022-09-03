@@ -173,8 +173,6 @@ namespace WeaponEnchantments.Common.Utility
 	        List<string> enchantmentNames = new();
 	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	    enchantmentNames.Add(enchantment.Name);
-		    if (enchantment.EnchantmentTier >= 3)
-			    enchantmentNames.Add(enchantment.EnchantmentTypeName + "Enchantment" + EnchantingRarity.displayTierNames[enchantment.EnchantmentTier]);
 	        }
 	    
 	        enchantmentNames.Sort();

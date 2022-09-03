@@ -7,295 +7,295 @@ Mods: {
 			AllForOneEnchantmentEpic: All For One Enchantment Epic
 			AllForOneEnchantmentLegendary: All For One Enchantment Legendary
 			AllForOneEnchantmentRare: All For One Enchantment Rare
-			AllForOneEnchantmentSuperRare: All For One Enchantment Super Rare
-			AllForOneEnchantmentUltraRare: All For One Enchantment Ultra Rare
+			AllForOneEnchantmentEpic: All For One Enchantment Super Rare
+			AllForOneEnchantmentLegendary: All For One Enchantment Ultra Rare
 			AmmoCostEnchantmentBasic: Ammo Cost Enchantment Basic
 			AmmoCostEnchantmentCommon: Ammo Cost Enchantment Common
 			AmmoCostEnchantmentEpic: Ammo Cost Enchantment Epic
 			AmmoCostEnchantmentLegendary: Ammo Cost Enchantment Legendary
 			AmmoCostEnchantmentRare: Ammo Cost Enchantment Rare
-			AmmoCostEnchantmentSuperRare: Ammo Cost Enchantment Super Rare
-			AmmoCostEnchantmentUltraRare: Ammo Cost Enchantment Ultra Rare
+			AmmoCostEnchantmentEpic: Ammo Cost Enchantment Super Rare
+			AmmoCostEnchantmentLegendary: Ammo Cost Enchantment Ultra Rare
 			ArmorPenetrationEnchantmentBasic: Armor Penetration Enchantment Basic
 			ArmorPenetrationEnchantmentCommon: Armor Penetration Enchantment Common
 			ArmorPenetrationEnchantmentEpic: Armor Penetration Enchantment Epic
 			ArmorPenetrationEnchantmentLegendary: Armor Penetration Enchantment Legendary
 			ArmorPenetrationEnchantmentRare: Armor Penetration Enchantment Rare
-			ArmorPenetrationEnchantmentSuperRare: Armor Penetration Enchantment Super Rare
-			ArmorPenetrationEnchantmentUltraRare: Armor Penetration Enchantment Ultra Rare
+			ArmorPenetrationEnchantmentEpic: Armor Penetration Enchantment Super Rare
+			ArmorPenetrationEnchantmentLegendary: Armor Penetration Enchantment Ultra Rare
 			AttackSpeedEnchantmentBasic: Attack Speed Enchantment Basic
 			AttackSpeedEnchantmentCommon: Attack Speed Enchantment Common
 			AttackSpeedEnchantmentEpic: Attack Speed Enchantment Epic
 			AttackSpeedEnchantmentLegendary: Attack Speed Enchantment Legendary
 			AttackSpeedEnchantmentRare: Attack Speed Enchantment Rare
-			AttackSpeedEnchantmentSuperRare: Attack Speed Enchantment Super Rare
-			AttackSpeedEnchantmentUltraRare: Attack Speed Enchantment Ultra Rare
+			AttackSpeedEnchantmentEpic: Attack Speed Enchantment Super Rare
+			AttackSpeedEnchantmentLegendary: Attack Speed Enchantment Ultra Rare
 			CalmWatersEnchantmentBasic: Calm Waters Enchantment Basic
 			CalmWatersEnchantmentCommon: Calm Waters Enchantment Common
 			CalmWatersEnchantmentEpic: Calm Waters Enchantment Epic
 			CalmWatersEnchantmentLegendary: Calm Waters Enchantment Legendary
 			CalmWatersEnchantmentRare: Calm Waters Enchantment Rare
-			CalmWatersEnchantmentSuperRare: Calm Waters Enchantment Super Rare
-			CalmWatersEnchantmentUltraRare: Calm Waters Enchantment Ultra Rare
+			CalmWatersEnchantmentEpic: Calm Waters Enchantment Super Rare
+			CalmWatersEnchantmentLegendary: Calm Waters Enchantment Ultra Rare
 			ChaoticFishingEnchantmentBasic: Chaotic Fishing Enchantment Basic
 			ChaoticFishingEnchantmentCommon: Chaotic Fishing Enchantment Common
 			ChaoticFishingEnchantmentEpic: Chaotic Fishing Enchantment Epic
 			ChaoticFishingEnchantmentLegendary: Chaotic Fishing Enchantment Legendary
 			ChaoticFishingEnchantmentRare: Chaotic Fishing Enchantment Rare
-			ChaoticFishingEnchantmentSuperRare: Chaotic Fishing Enchantment Super Rare
-			ChaoticFishingEnchantmentUltraRare: Chaotic Fishing Enchantment Ultra Rare
+			ChaoticFishingEnchantmentEpic: Chaotic Fishing Enchantment Super Rare
+			ChaoticFishingEnchantmentLegendary: Chaotic Fishing Enchantment Ultra Rare
 			ColdSteelEnchantmentBasic: Cold Steel Enchantment Basic
 			ColdSteelEnchantmentCommon: Cold Steel Enchantment Common
 			ColdSteelEnchantmentEpic: Cold Steel Enchantment Epic
 			ColdSteelEnchantmentLegendary: Cold Steel Enchantment Legendary
 			ColdSteelEnchantmentRare: Cold Steel Enchantment Rare
-			ColdSteelEnchantmentSuperRare: Cold Steel Enchantment Super Rare
-			ColdSteelEnchantmentUltraRare: Cold Steel Enchantment Ultra Rare
+			ColdSteelEnchantmentEpic: Cold Steel Enchantment Super Rare
+			ColdSteelEnchantmentLegendary: Cold Steel Enchantment Ultra Rare
 			CrateChanceEnchantmentBasic: Crate Chance Enchantment Basic
 			CrateChanceEnchantmentCommon: Crate Chance Enchantment Common
 			CrateChanceEnchantmentEpic: Crate Chance Enchantment Epic
 			CrateChanceEnchantmentLegendary: Crate Chance Enchantment Legendary
 			CrateChanceEnchantmentRare: Crate Chance Enchantment Rare
-			CrateChanceEnchantmentSuperRare: Crate Chance Enchantment Super Rare
-			CrateChanceEnchantmentUltraRare: Crate Chance Enchantment Ultra Rare
+			CrateChanceEnchantmentEpic: Crate Chance Enchantment Super Rare
+			CrateChanceEnchantmentLegendary: Crate Chance Enchantment Ultra Rare
 			CrateEnchantmentLegendary: Crate Enchantment Legendary
-			CrateEnchantmentUltraRare: Crate Enchantment Ultra Rare
+			CrateEnchantmentLegendary: Crate Enchantment Ultra Rare
 			CriticalStrikeChanceEnchantmentBasic: Critical Strike Chance Enchantment Basic
 			CriticalStrikeChanceEnchantmentCommon: Critical Strike Chance Enchantment Common
 			CriticalStrikeChanceEnchantmentEpic: Critical Strike Chance Enchantment Epic
 			CriticalStrikeChanceEnchantmentLegendary: Critical Strike Chance Enchantment Legendary
 			CriticalStrikeChanceEnchantmentRare: Critical Strike Chance Enchantment Rare
-			CriticalStrikeChanceEnchantmentSuperRare: Critical Strike Chance Enchantment Super Rare
-			CriticalStrikeChanceEnchantmentUltraRare: Critical Strike Chance Enchantment Ultra Rare
+			CriticalStrikeChanceEnchantmentEpic: Critical Strike Chance Enchantment Super Rare
+			CriticalStrikeChanceEnchantmentLegendary: Critical Strike Chance Enchantment Ultra Rare
 			CriticalStrikeDamageEnchantmentBasic: Critical Strike Damage Enchantment Basic
 			CriticalStrikeDamageEnchantmentCommon: Critical Strike Damage Enchantment Common
 			CriticalStrikeDamageEnchantmentEpic: Critical Strike Damage Enchantment Epic
 			CriticalStrikeDamageEnchantmentLegendary: Critical Strike Damage Enchantment Legendary
 			CriticalStrikeDamageEnchantmentRare: Critical Strike Damage Enchantment Rare
-			CriticalStrikeDamageEnchantmentSuperRare: Critical Strike Damage Enchantment Super Rare
-			CriticalStrikeDamageEnchantmentUltraRare: Critical Strike Damage Enchantment Ultra Rare
+			CriticalStrikeDamageEnchantmentEpic: Critical Strike Damage Enchantment Super Rare
+			CriticalStrikeDamageEnchantmentLegendary: Critical Strike Damage Enchantment Ultra Rare
 			CursedInfernoEnchantmentBasic: Cursed Inferno Enchantment Basic
 			CursedInfernoEnchantmentCommon: Cursed Inferno Enchantment Common
 			CursedInfernoEnchantmentEpic: Cursed Inferno Enchantment Epic
 			CursedInfernoEnchantmentLegendary: Cursed Inferno Enchantment Legendary
 			CursedInfernoEnchantmentRare: Cursed Inferno Enchantment Rare
-			CursedInfernoEnchantmentSuperRare: Cursed Inferno Enchantment Super Rare
-			CursedInfernoEnchantmentUltraRare: Cursed Inferno Enchantment Ultra Rare
+			CursedInfernoEnchantmentEpic: Cursed Inferno Enchantment Super Rare
+			CursedInfernoEnchantmentLegendary: Cursed Inferno Enchantment Ultra Rare
 			DamageEnchantmentBasic: Damage Enchantment Basic
 			DamageEnchantmentCommon: Damage Enchantment Common
 			DamageEnchantmentEpic: Damage Enchantment Epic
 			DamageEnchantmentLegendary: Damage Enchantment Legendary
 			DamageEnchantmentRare: Damage Enchantment Rare
-			DamageEnchantmentSuperRare: Damage Enchantment Super Rare
-			DamageEnchantmentUltraRare: Damage Enchantment Ultra Rare
+			DamageEnchantmentEpic: Damage Enchantment Super Rare
+			DamageEnchantmentLegendary: Damage Enchantment Ultra Rare
 			DangerSenseEnchantmentLegendary: Danger Sense Enchantment Legendary
-			DangerSenseEnchantmentUltraRare: Danger Sense Enchantment Ultra Rare
+			DangerSenseEnchantmentLegendary: Danger Sense Enchantment Ultra Rare
 			DaybreakEnchantmentBasic: Daybreak Enchantment Basic
 			DaybreakEnchantmentCommon: Daybreak Enchantment Common
 			DaybreakEnchantmentEpic: Daybreak Enchantment Epic
 			DaybreakEnchantmentLegendary: Daybreak Enchantment Legendary
 			DaybreakEnchantmentRare: Daybreak Enchantment Rare
-			DaybreakEnchantmentSuperRare: Daybreak Enchantment Super Rare
-			DaybreakEnchantmentUltraRare: Daybreak Enchantment Ultra Rare
+			DaybreakEnchantmentEpic: Daybreak Enchantment Super Rare
+			DaybreakEnchantmentLegendary: Daybreak Enchantment Ultra Rare
 			DefenseEnchantmentBasic: Defense Enchantment Basic
 			DefenseEnchantmentCommon: Defense Enchantment Common
 			DefenseEnchantmentEpic: Defense Enchantment Epic
 			DefenseEnchantmentLegendary: Defense Enchantment Legendary
 			DefenseEnchantmentRare: Defense Enchantment Rare
-			DefenseEnchantmentSuperRare: Defense Enchantment Super Rare
-			DefenseEnchantmentUltraRare: Defense Enchantment Ultra Rare
+			DefenseEnchantmentEpic: Defense Enchantment Super Rare
+			DefenseEnchantmentLegendary: Defense Enchantment Ultra Rare
 			ExtraFishingLineEnchantmentBasic: Extra Fishing Line Enchantment Basic
 			ExtraFishingLineEnchantmentCommon: Extra Fishing Line Enchantment Common
 			ExtraFishingLineEnchantmentEpic: Extra Fishing Line Enchantment Epic
 			ExtraFishingLineEnchantmentLegendary: Extra Fishing Line Enchantment Legendary
 			ExtraFishingLineEnchantmentRare: Extra Fishing Line Enchantment Rare
-			ExtraFishingLineEnchantmentSuperRare: Extra Fishing Line Enchantment Super Rare
-			ExtraFishingLineEnchantmentUltraRare: Extra Fishing Line Enchantment Ultra Rare
+			ExtraFishingLineEnchantmentEpic: Extra Fishing Line Enchantment Super Rare
+			ExtraFishingLineEnchantmentLegendary: Extra Fishing Line Enchantment Ultra Rare
 			FishingEnchantmentLegendary: Fishing Enchantment Legendary
-			FishingEnchantmentUltraRare: Fishing Enchantment Ultra Rare
+			FishingEnchantmentLegendary: Fishing Enchantment Ultra Rare
 			FishingPowerEnchantmentBasic: Fishing Power Enchantment Basic
 			FishingPowerEnchantmentCommon: Fishing Power Enchantment Common
 			FishingPowerEnchantmentEpic: Fishing Power Enchantment Epic
 			FishingPowerEnchantmentLegendary: Fishing Power Enchantment Legendary
 			FishingPowerEnchantmentRare: Fishing Power Enchantment Rare
-			FishingPowerEnchantmentSuperRare: Fishing Power Enchantment Super Rare
-			FishingPowerEnchantmentUltraRare: Fishing Power Enchantment Ultra Rare
+			FishingPowerEnchantmentEpic: Fishing Power Enchantment Super Rare
+			FishingPowerEnchantmentLegendary: Fishing Power Enchantment Ultra Rare
 			FrostburnEnchantmentBasic: Frostburn Enchantment Basic
 			FrostburnEnchantmentCommon: Frostburn Enchantment Common
 			FrostburnEnchantmentEpic: Frostburn Enchantment Epic
 			FrostburnEnchantmentLegendary: Frostburn Enchantment Legendary
 			FrostburnEnchantmentRare: Frostburn Enchantment Rare
-			FrostburnEnchantmentSuperRare: Frostburn Enchantment Super Rare
-			FrostburnEnchantmentUltraRare: Frostburn Enchantment Ultra Rare
+			FrostburnEnchantmentEpic: Frostburn Enchantment Super Rare
+			FrostburnEnchantmentLegendary: Frostburn Enchantment Ultra Rare
 			GodSlayerEnchantmentBasic: God Slayer Enchantment Basic
 			GodSlayerEnchantmentCommon: God Slayer Enchantment Common
 			GodSlayerEnchantmentEpic: God Slayer Enchantment Epic
 			GodSlayerEnchantmentLegendary: God Slayer Enchantment Legendary
 			GodSlayerEnchantmentRare: God Slayer Enchantment Rare
-			GodSlayerEnchantmentSuperRare: God Slayer Enchantment Super Rare
-			GodSlayerEnchantmentUltraRare: God Slayer Enchantment Ultra Rare
+			GodSlayerEnchantmentEpic: God Slayer Enchantment Super Rare
+			GodSlayerEnchantmentLegendary: God Slayer Enchantment Ultra Rare
 			HellsWrathEnchantmentBasic: Hells Wrath Enchantment Basic
 			HellsWrathEnchantmentCommon: Hells Wrath Enchantment Common
 			HellsWrathEnchantmentEpic: Hells Wrath Enchantment Epic
 			HellsWrathEnchantmentLegendary: Hells Wrath Enchantment Legendary
 			HellsWrathEnchantmentRare: Hells Wrath Enchantment Rare
-			HellsWrathEnchantmentSuperRare: Hells Wrath Enchantment Super Rare
-			HellsWrathEnchantmentUltraRare: Hells Wrath Enchantment Ultra Rare
+			HellsWrathEnchantmentEpic: Hells Wrath Enchantment Super Rare
+			HellsWrathEnchantmentLegendary: Hells Wrath Enchantment Ultra Rare
 			HunterEnchantmentLegendary: Hunter Enchantment Legendary
-			HunterEnchantmentUltraRare: Hunter Enchantment Ultra Rare
+			HunterEnchantmentLegendary: Hunter Enchantment Ultra Rare
 			IchorEnchantmentBasic: Ichor Enchantment Basic
 			IchorEnchantmentCommon: Ichor Enchantment Common
 			IchorEnchantmentEpic: Ichor Enchantment Epic
 			IchorEnchantmentLegendary: Ichor Enchantment Legendary
 			IchorEnchantmentRare: Ichor Enchantment Rare
-			IchorEnchantmentSuperRare: Ichor Enchantment Super Rare
-			IchorEnchantmentUltraRare: Ichor Enchantment Ultra Rare
+			IchorEnchantmentEpic: Ichor Enchantment Super Rare
+			IchorEnchantmentLegendary: Ichor Enchantment Ultra Rare
 			JunglesFuryEnchantmentBasic: Jungles Fury Enchantment Basic
 			JunglesFuryEnchantmentCommon: Jungles Fury Enchantment Common
 			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Epic
 			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Legendary
 			JunglesFuryEnchantmentRare: Jungles Fury Enchantment Rare
-			JunglesFuryEnchantmentSuperRare: Jungles Fury Enchantment Super Rare
-			JunglesFuryEnchantmentUltraRare: Jungles Fury Enchantment Ultra Rare
+			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Super Rare
+			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Ultra Rare
 			LavaFishingEnchantmentBasic: Lava Fishing Enchantment Basic
 			LavaFishingEnchantmentCommon: Lava Fishing Enchantment Common
 			LavaFishingEnchantmentEpic: Lava Fishing Enchantment Epic
 			LavaFishingEnchantmentLegendary: Lava Fishing Enchantment Legendary
 			LavaFishingEnchantmentRare: Lava Fishing Enchantment Rare
-			LavaFishingEnchantmentSuperRare: Lava Fishing Enchantment Super Rare
-			LavaFishingEnchantmentUltraRare: Lava Fishing Enchantment Ultra Rare
+			LavaFishingEnchantmentEpic: Lava Fishing Enchantment Super Rare
+			LavaFishingEnchantmentLegendary: Lava Fishing Enchantment Ultra Rare
 			LifeStealEnchantmentBasic: Life Steal Enchantment Basic
 			LifeStealEnchantmentCommon: Life Steal Enchantment Common
 			LifeStealEnchantmentEpic: Life Steal Enchantment Epic
 			LifeStealEnchantmentLegendary: Life Steal Enchantment Legendary
 			LifeStealEnchantmentRare: Life Steal Enchantment Rare
-			LifeStealEnchantmentSuperRare: Life Steal Enchantment Super Rare
-			LifeStealEnchantmentUltraRare: Life Steal Enchantment Ultra Rare
+			LifeStealEnchantmentEpic: Life Steal Enchantment Super Rare
+			LifeStealEnchantmentLegendary: Life Steal Enchantment Ultra Rare
 			LuckEnchantmentBasic: Luck Enchantment Basic
 			LuckEnchantmentCommon: Luck Enchantment Common
 			LuckEnchantmentEpic: Luck Enchantment Epic
 			LuckEnchantmentLegendary: Luck Enchantment Legendary
 			LuckEnchantmentRare: Luck Enchantment Rare
-			LuckEnchantmentSuperRare: Luck Enchantment Super Rare
-			LuckEnchantmentUltraRare: Luck Enchantment Ultra Rare
+			LuckEnchantmentEpic: Luck Enchantment Super Rare
+			LuckEnchantmentLegendary: Luck Enchantment Ultra Rare
 			MaxMinionsEnchantmentBasic: Max Minions Enchantment Basic
 			MaxMinionsEnchantmentCommon: Max Minions Enchantment Common
 			MaxMinionsEnchantmentEpic: Max Minions Enchantment Epic
 			MaxMinionsEnchantmentLegendary: Max Minions Enchantment Legendary
 			MaxMinionsEnchantmentRare: Max Minions Enchantment Rare
-			MaxMinionsEnchantmentSuperRare: Max Minions Enchantment Super Rare
-			MaxMinionsEnchantmentUltraRare: Max Minions Enchantment Ultra Rare
+			MaxMinionsEnchantmentEpic: Max Minions Enchantment Super Rare
+			MaxMinionsEnchantmentLegendary: Max Minions Enchantment Ultra Rare
 			MobilityControlEnchantmentBasic: Mobility Control Enchantment Basic
 			MobilityControlEnchantmentCommon: Mobility Control Enchantment Common
 			MobilityControlEnchantmentEpic: Mobility Control Enchantment Epic
 			MobilityControlEnchantmentLegendary: Mobility Control Enchantment Legendary
 			MobilityControlEnchantmentRare: Mobility Control Enchantment Rare
-			MobilityControlEnchantmentSuperRare: Mobility Control Enchantment Super Rare
-			MobilityControlEnchantmentUltraRare: Mobility Control Enchantment Ultra Rare
+			MobilityControlEnchantmentEpic: Mobility Control Enchantment Super Rare
+			MobilityControlEnchantmentLegendary: Mobility Control Enchantment Ultra Rare
 			MoonlightEnchantmentBasic: Moonlight Enchantment Basic
 			MoonlightEnchantmentCommon: Moonlight Enchantment Common
 			MoonlightEnchantmentEpic: Moonlight Enchantment Epic
 			MoonlightEnchantmentLegendary: Moonlight Enchantment Legendary
 			MoonlightEnchantmentRare: Moonlight Enchantment Rare
-			MoonlightEnchantmentSuperRare: Moonlight Enchantment Super Rare
-			MoonlightEnchantmentUltraRare: Moonlight Enchantment Ultra Rare
+			MoonlightEnchantmentEpic: Moonlight Enchantment Super Rare
+			MoonlightEnchantmentLegendary: Moonlight Enchantment Ultra Rare
 			MovementSpeedEnchantmentBasic: Movement Speed Enchantment Basic
 			MovementSpeedEnchantmentCommon: Movement Speed Enchantment Common
 			MovementSpeedEnchantmentEpic: Movement Speed Enchantment Epic
 			MovementSpeedEnchantmentLegendary: Movement Speed Enchantment Legendary
 			MovementSpeedEnchantmentRare: Movement Speed Enchantment Rare
-			MovementSpeedEnchantmentSuperRare: Movement Speed Enchantment Super Rare
-			MovementSpeedEnchantmentUltraRare: Movement Speed Enchantment Ultra Rare
+			MovementSpeedEnchantmentEpic: Movement Speed Enchantment Super Rare
+			MovementSpeedEnchantmentLegendary: Movement Speed Enchantment Ultra Rare
 			MultishotEnchantmentBasic: Multishot Enchantment Basic
 			MultishotEnchantmentCommon: Multishot Enchantment Common
 			MultishotEnchantmentEpic: Multishot Enchantment Epic
 			MultishotEnchantmentLegendary: Multishot Enchantment Legendary
 			MultishotEnchantmentRare: Multishot Enchantment Rare
-			MultishotEnchantmentSuperRare: Multishot Enchantment Super Rare
-			MultishotEnchantmentUltraRare: Multishot Enchantment Ultra Rare
+			MultishotEnchantmentEpic: Multishot Enchantment Super Rare
+			MultishotEnchantmentLegendary: Multishot Enchantment Ultra Rare
 			NpcContactAnglerEnchantmentBasic: Npc Contact Angler Enchantment Basic
 			NpcContactAnglerEnchantmentCommon: Npc Contact Angler Enchantment Common
 			NpcContactAnglerEnchantmentEpic: Npc Contact Angler Enchantment Epic
 			NpcContactAnglerEnchantmentLegendary: Npc Contact Angler Enchantment Legendary
 			NpcContactAnglerEnchantmentRare: Npc Contact Angler Enchantment Rare
-			NpcContactAnglerEnchantmentSuperRare: Npc Contact Angler Enchantment Super Rare
-			NpcContactAnglerEnchantmentUltraRare: Npc Contact Angler Enchantment Ultra Rare
+			NpcContactAnglerEnchantmentEpic: Npc Contact Angler Enchantment Super Rare
+			NpcContactAnglerEnchantmentLegendary: Npc Contact Angler Enchantment Ultra Rare
 			ObsidianSkinEnchantmentLegendary: Obsidian Skin Enchantment Legendary
-			ObsidianSkinEnchantmentUltraRare: Obsidian Skin Enchantment Ultra Rare
+			ObsidianSkinEnchantmentLegendary: Obsidian Skin Enchantment Ultra Rare
 			OneForAllEnchantmentBasic: One For All Enchantment Basic
 			OneForAllEnchantmentCommon: One For All Enchantment Common
 			OneForAllEnchantmentEpic: One For All Enchantment Epic
 			OneForAllEnchantmentLegendary: One For All Enchantment Legendary
 			OneForAllEnchantmentRare: One For All Enchantment Rare
-			OneForAllEnchantmentSuperRare: One For All Enchantment Super Rare
-			OneForAllEnchantmentUltraRare: One For All Enchantment Ultra Rare
+			OneForAllEnchantmentEpic: One For All Enchantment Super Rare
+			OneForAllEnchantmentLegendary: One For All Enchantment Ultra Rare
 			OnFireEnchantmentBasic: On Fire Enchantment Basic
 			OnFireEnchantmentCommon: On Fire Enchantment Common
 			OnFireEnchantmentEpic: On Fire Enchantment Epic
 			OnFireEnchantmentLegendary: On Fire Enchantment Legendary
 			OnFireEnchantmentRare: On Fire Enchantment Rare
-			OnFireEnchantmentSuperRare: On Fire Enchantment Super Rare
-			OnFireEnchantmentUltraRare: On Fire Enchantment Ultra Rare
+			OnFireEnchantmentEpic: On Fire Enchantment Super Rare
+			OnFireEnchantmentLegendary: On Fire Enchantment Ultra Rare
 			PeaceEnchantmentBasic: Peace Enchantment Basic
 			PeaceEnchantmentCommon: Peace Enchantment Common
 			PeaceEnchantmentEpic: Peace Enchantment Epic
 			PeaceEnchantmentLegendary: Peace Enchantment Legendary
 			PeaceEnchantmentRare: Peace Enchantment Rare
-			PeaceEnchantmentSuperRare: Peace Enchantment Super Rare
-			PeaceEnchantmentUltraRare: Peace Enchantment Ultra Rare
+			PeaceEnchantmentEpic: Peace Enchantment Super Rare
+			PeaceEnchantmentLegendary: Peace Enchantment Ultra Rare
 			ProjectileVelocityEnchantmentBasic: Projectile Velocity Enchantment Basic
 			ProjectileVelocityEnchantmentCommon: Projectile Velocity Enchantment Common
 			ProjectileVelocityEnchantmentEpic: Projectile Velocity Enchantment Epic
 			ProjectileVelocityEnchantmentLegendary: Projectile Velocity Enchantment Legendary
 			ProjectileVelocityEnchantmentRare: Projectile Velocity Enchantment Rare
-			ProjectileVelocityEnchantmentSuperRare: Projectile Velocity Enchantment Super Rare
-			ProjectileVelocityEnchantmentUltraRare: Projectile Velocity Enchantment Ultra Rare
+			ProjectileVelocityEnchantmentEpic: Projectile Velocity Enchantment Super Rare
+			ProjectileVelocityEnchantmentLegendary: Projectile Velocity Enchantment Ultra Rare
 			ReducedManaUsageEnchantmentBasic: Reduced Mana Usage Enchantment Basic
 			ReducedManaUsageEnchantmentCommon: Reduced Mana Usage Enchantment Common
 			ReducedManaUsageEnchantmentEpic: Reduced Mana Usage Enchantment Epic
 			ReducedManaUsageEnchantmentLegendary: Reduced Mana Usage Enchantment Legendary
 			ReducedManaUsageEnchantmentRare: Reduced Mana Usage Enchantment Rare
-			ReducedManaUsageEnchantmentSuperRare: Reduced Mana Usage Enchantment Super Rare
-			ReducedManaUsageEnchantmentUltraRare: Reduced Mana Usage Enchantment Ultra Rare
+			ReducedManaUsageEnchantmentEpic: Reduced Mana Usage Enchantment Super Rare
+			ReducedManaUsageEnchantmentLegendary: Reduced Mana Usage Enchantment Ultra Rare
 			SizeEnchantmentBasic: Size Enchantment Basic
 			SizeEnchantmentCommon: Size Enchantment Common
 			SizeEnchantmentEpic: Size Enchantment Epic
 			SizeEnchantmentLegendary: Size Enchantment Legendary
 			SizeEnchantmentRare: Size Enchantment Rare
-			SizeEnchantmentSuperRare: Size Enchantment Super Rare
-			SizeEnchantmentUltraRare: Size Enchantment Ultra Rare
+			SizeEnchantmentEpic: Size Enchantment Super Rare
+			SizeEnchantmentLegendary: Size Enchantment Ultra Rare
 			SolarDashEnchantmentBasic: Solar Dash Enchantment Basic
 			SolarDashEnchantmentCommon: Solar Dash Enchantment Common
 			SolarDashEnchantmentEpic: Solar Dash Enchantment Epic
 			SolarDashEnchantmentLegendary: Solar Dash Enchantment Legendary
 			SolarDashEnchantmentRare: Solar Dash Enchantment Rare
-			SolarDashEnchantmentSuperRare: Solar Dash Enchantment Super Rare
-			SolarDashEnchantmentUltraRare: Solar Dash Enchantment Ultra Rare
+			SolarDashEnchantmentEpic: Solar Dash Enchantment Super Rare
+			SolarDashEnchantmentLegendary: Solar Dash Enchantment Ultra Rare
 			SonarEnchantmentLegendary: Sonar Enchantment Legendary
-			SonarEnchantmentUltraRare: Sonar Enchantment Ultra Rare
+			SonarEnchantmentLegendary: Sonar Enchantment Ultra Rare
 			SpelunkerEnchantmentLegendary: Spelunker Enchantment Legendary
-			SpelunkerEnchantmentUltraRare: Spelunker Enchantment Ultra Rare
+			SpelunkerEnchantmentLegendary: Spelunker Enchantment Ultra Rare
 			VenomEnchantmentBasic: Venom Enchantment Basic
 			VenomEnchantmentCommon: Venom Enchantment Common
 			VenomEnchantmentEpic: Venom Enchantment Epic
 			VenomEnchantmentLegendary: Venom Enchantment Legendary
 			VenomEnchantmentRare: Venom Enchantment Rare
-			VenomEnchantmentSuperRare: Venom Enchantment Super Rare
-			VenomEnchantmentUltraRare: Venom Enchantment Ultra Rare
+			VenomEnchantmentEpic: Venom Enchantment Super Rare
+			VenomEnchantmentLegendary: Venom Enchantment Ultra Rare
 			WarEnchantmentBasic: War Enchantment Basic
 			WarEnchantmentCommon: War Enchantment Common
 			WarEnchantmentEpic: War Enchantment Epic
 			WarEnchantmentLegendary: War Enchantment Legendary
 			WarEnchantmentRare: War Enchantment Rare
-			WarEnchantmentSuperRare: War Enchantment Super Rare
-			WarEnchantmentUltraRare: War Enchantment Ultra Rare
+			WarEnchantmentEpic: War Enchantment Super Rare
+			WarEnchantmentLegendary: War Enchantment Ultra Rare
 			WorldAblazeEnchantmentBasic: World Ablaze Enchantment Basic
 			WorldAblazeEnchantmentCommon: World Ablaze Enchantment Common
 			WorldAblazeEnchantmentEpic: World Ablaze Enchantment Epic
 			WorldAblazeEnchantmentLegendary: World Ablaze Enchantment Legendary
 			WorldAblazeEnchantmentRare: World Ablaze Enchantment Rare
-			WorldAblazeEnchantmentSuperRare: World Ablaze Enchantment Super Rare
-			WorldAblazeEnchantmentUltraRare: World Ablaze Enchantment Ultra Rare
+			WorldAblazeEnchantmentEpic: World Ablaze Enchantment Super Rare
+			WorldAblazeEnchantmentLegendary: World Ablaze Enchantment Ultra Rare
 			Containment: Containment
 			MediumContainment: Medium Containment
 			SuperiorContainment: Superior Containment
@@ -307,8 +307,8 @@ Mods: {
 			EnchantmentEssenceBasic: Enchantment Essence Basic
 			EnchantmentEssenceCommon: Enchantment Essence Common
 			EnchantmentEssenceRare: Enchantment Essence Rare
-			EnchantmentEssenceSuperRare: Enchantment Essence Super Rare
-			EnchantmentEssenceUltraRare: Enchantment Essence Ultra Rare
+			EnchantmentEssenceEpic: Enchantment Essence Super Rare
+			EnchantmentEssenceLegendary: Enchantment Essence Ultra Rare
 			PowerBooster: Power Booster
 		}
 		Bestiary: {

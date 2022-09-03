@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class GodSlayerEnchantmentCommon : GodSlayerEnchantment { }
 	public class GodSlayerEnchantmentRare : GodSlayerEnchantment { }
-	public class GodSlayerEnchantmentSuperRare : GodSlayerEnchantment { }
-	public class GodSlayerEnchantmentUltraRare : GodSlayerEnchantment { }
+	public class GodSlayerEnchantmentEpic : GodSlayerEnchantment { }
+	public class GodSlayerEnchantmentLegendary : GodSlayerEnchantment { }
 
 }
