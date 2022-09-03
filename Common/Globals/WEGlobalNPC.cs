@@ -648,7 +648,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Spread to other enemies ever 10 ticks
-            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount &&npc.netID != NPCID.TargetDummy) {
+            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.netID != NPCID.TargetDummy) {
                 if (amaterasuDamage > minSpreadDamage) {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
                     foreach (int whoAmI in npcs.Keys) {
