@@ -104,14 +104,40 @@ namespace WeaponEnchantments.Localization
 			}) },
 			{ L_ID1.Dialogue.ToString(), new(children: new() {
 				{ L_ID2.Witch.ToString(), new(dict: new() {
-					{ "StandardDialogue1", "test1" },
-					{ "StandardDialogue2", "test2" },
-					{ "StandardDialogue3", "test3" },
-					{ "CommonDialogue", "comon" },
-					{ "RareDialogue", "rarity" },
-					{ "TalkALot", "talk Alot" },
-					{ "PartyGirlDialogue", "ugh Party Girl...." },
-					{ "BigAsMine", "\"I see your {0} is as big as mine.\"" }
+					{ $"{DialogueID.StandardDialogue}0", "I've learned this recipe, it's really neat, I'll keep it later for your treat!" },
+					{ $"{DialogueID.StandardDialogue}1", "Why do I talk all the time, it's really hard to make these rhyme!" },
+					{ $"{DialogueID.StandardDialogue}2", "I'm still here, I watch you play, but I can't think of much to say!" },
+					{ $"{DialogueID.BloodMoon}", "I'm truely sorry for my prior behavior. I wasn't at my best back then, and if I came off as rude, I apologize." },
+					{ $"{DialogueID.BirthdayParty}", "WHY AM I FORCED TO DRESS PINK?! THIS LOOKS AWFUL, THIS PARTY STINKS!" },
+					{ $"{DialogueID.Storm}", "Hah! Thunder is the best when it comes to creating new magical nonsense! Let the grand witching hour commence!" },
+					{ $"{DialogueID.QueenBee}", "The jungle has the best ingredients for brewing. Too bad a giant buzzy pest is infesting!" },
+					{ $"{BiomeID.Corrupt}", "Oooh! The grime here is lovely! I can't wait to embrace new discovery!" },
+					{ $"{BiomeID.Crimson}", "Oooh! The gore here is lovely! I can't wait to embrace new discovery!" },
+					{ $"{BiomeID.Graveyard}", "Some people might find the dead creepy, but this 'dead quiet' is actually quite peppy! Nyack nyack nyack!" },
+					{ TownNPCTypeID.WitchDoctor.ToString(), "\"A fellow cauldron user! {0} has so many strange gimmicks, a true seducer!\"" },
+					{ TownNPCTypeID.Wizard.ToString(), "\"While {0} does not venture outside the tried-and-true, his arcane knowledge ranks him of that of a guru!\"" },
+					{ TownNPCTypeID.DyeTrader.ToString(), "\"{0} always hooks me up with the darkest blacks, and the creepiest greens! These colors give me quite the sheen and make me look so lean!\"" },
+					{ TownNPCTypeID.Princess.ToString(), "\"Ugh! {0} is always on my case! I don't know what 'Ethics' or 'Morals' are, but she won't leave my place!\"" },
+					{ TownNPCTypeID.Dryad.ToString(), "\"This... {0} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!\"" },
+					{ TownNPCTypeID.Zoologist.ToString(), "\"{0} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!\"" },
+				}) }
+			}) },
+			{ L_ID1.TownNPCMood.ToString(), new(children: new() {
+				{ L_ID2.Witch.ToString(), new(dict: new() {
+					{ $"{DialogueID.Content}", "Life here is bearable. No strife, no drama, it's not so horrible." },
+					{ DialogueID.NoHome.ToString(), "I can't hold all my wares, these are unstable please beware!" },
+					{ DialogueID.LoveSpace.ToString(), "With everyone now gone, finally my experiments can carry on!" },
+					{ DialogueID.FarFromHome.ToString(), "I had to venture far to find new reagants.While my home is pleasant, I can brew a new concoction with these last ingredients." },
+					{ DialogueID.DislikeCrowded.ToString(), "How am I to consentrate with all this noise!" },
+					{ DialogueID.HateCrouded.ToString(), "I can't deal with this here traffic! Get me out or kick them out, make it quick!" },
+					{ DialogueID.LikeBiome.ToString(), "This place is full of critters and muck, time to make a quick buck!" },
+					{ DialogueID.LoveBiome.ToString(), "This place reminds me of my old lair. Very grim, very magic, what a flair!" },
+					{ DialogueID.DislikeBiome.ToString(), "It's incredible how here is so tame, no evil, no creepies, it's so lame!" },
+					{ DialogueID.HateBiome.ToString(), "Yikes! This place is so bright, that above all I spite!" },
+					{ DialogueID.LikeNPC.ToString(), "\"While {NPCName} does not venture outside the tried-and-true, his arcane knowledge ranks him of that of a guru!\"" },
+					{ DialogueID.LoveNPC.ToString(), "\"A fellow cauldron user! {NPCName} has so many strange gimmicks, a true seducer!\"" },
+					{ DialogueID.DislikeNPC.ToString(), "\"This... {NPCName} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!\"" },
+					{ DialogueID.HateNPC.ToString(), "\"{NPCName} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!\"" }
 				}) }
 			}) },
 			{ L_ID1.NPCNames.ToString(), new(children: new() {

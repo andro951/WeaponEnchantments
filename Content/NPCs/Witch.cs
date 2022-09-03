@@ -21,6 +21,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Common;
+using System.Reflection;
 
 namespace WeaponEnchantments.Content.NPCs
 {
@@ -84,9 +85,9 @@ namespace WeaponEnchantments.Content.NPCs
 		public override void HitEffect(int hitDirection, double damage) {
 			int num = NPC.life > 0 ? 1 : 5;
 
-			//for (int k = 0; k < num; k++) {
-			//	Dust.NewDust(NPC.position, NPC.width, NPC.height, ModContent.DustType<Sparkle>());
-			//}
+			for (int k = 0; k < num; k++) {
+				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
+			}
 		}
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
 			for (int k = 0; k < 255; k++) {
@@ -149,66 +150,10 @@ namespace WeaponEnchantments.Content.NPCs
 				"Morgana".Lang(ext)		//The legend of king Arthur
 			};
 		}
-		public override void SetChatButtons(ref string button, ref string button2) { // What the chat buttons are when you open up the chat UI
+		public override void SetChatButtons(ref string button, ref string button2) {
 			button = Language.GetTextValue("LegacyInterface.28");
-			button2 = "Help";
+			//button2 = "Help";
 		}
-
-		// Not completely finished, but below is what the NPC will sell
-
-		// public override void SetupShop(Chest shop, ref int nextSlot) {
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<ExampleItem>());
-		// 	// shop.item[nextSlot].SetDefaults(ItemType<EquipMaterial>());
-		// 	// nextSlot++;
-		// 	// shop.item[nextSlot].SetDefaults(ItemType<BossItem>());
-		// 	// nextSlot++;
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<Items.Placeable.Furniture.ExampleWorkbench>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<Items.Placeable.Furniture.ExampleChair>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<Items.Placeable.Furniture.ExampleDoor>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<Items.Placeable.Furniture.ExampleBed>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<Items.Placeable.Furniture.ExampleChest>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<ExamplePickaxe>());
-		// 	shop.item[nextSlot++].SetDefaults(ItemType<ExampleHamaxe>());
-		//
-		// 	if (Main.LocalPlayer.HasBuff(BuffID.Lifeforce)) {
-		// 		shop.item[nextSlot++].SetDefaults(ItemType<ExampleHealingPotion>());
-		// 	}
-		//
-		// 	// if (Main.LocalPlayer.GetModPlayer<ExamplePlayer>().ZoneExample && !GetInstance<ExampleConfigServer>().DisableExampleWings) {
-		// 	// 	shop.item[nextSlot].SetDefaults(ItemType<ExampleWings>());
-		// 	// 	nextSlot++;
-		// 	// }
-		//
-		// 	if (Main.moonPhase < 2) {
-		// 		shop.item[nextSlot++].SetDefaults(ItemType<ExampleSword>());
-		// 	}
-		// 	else if (Main.moonPhase < 4) {
-		// 		// shop.item[nextSlot++].SetDefaults(ItemType<ExampleGun>());
-		// 		shop.item[nextSlot].SetDefaults(ItemType<ExampleBullet>());
-		// 	}
-		// 	else if (Main.moonPhase < 6) {
-		// 		// shop.item[nextSlot++].SetDefaults(ItemType<ExampleStaff>());
-		// 	}
-		//
-		// 	// todo: Here is an example of how your npc can sell items from other mods.
-		// 	// var modSummonersAssociation = ModLoader.TryGetMod("SummonersAssociation");
-		// 	// if (ModLoader.TryGetMod("SummonersAssociation", out Mod modSummonersAssociation)) {
-		// 	// 	shop.item[nextSlot].SetDefaults(modSummonersAssociation.ItemType("BloodTalisman"));
-		// 	// 	nextSlot++;
-		// 	// }
-		//
-		// 	// if (!Main.LocalPlayer.GetModPlayer<ExamplePlayer>().WitchGiftReceived && GetInstance<ExampleConfigServer>().WitchFreeGiftList != null) {
-		// 	// 	foreach (var item in GetInstance<ExampleConfigServer>().WitchFreeGiftList) {
-		// 	// 		if (Item.IsUnloaded) continue;
-		// 	// 		shop.item[nextSlot].SetDefaults(Item.Type);
-		// 	// 		shop.item[nextSlot].shopCustomPrice = 0;
-		// 	// 		shop.item[nextSlot].GetGlobalItem<ExampleInstancedGlobalItem>().WitchFreeGift = true;
-		// 	// 		nextSlot++;
-		// 	// 		//TODO: Have tModLoader handle index issues.
-		// 	// 	}
-		// 	// }
-		// }
-
 		public override bool CanGoToStatue(bool toKingStatue) => true;
 		public override void SetupShop(Chest shop, ref int nextSlot) {
 			int num = EnchantingRarity.displayTierNames.Length;
@@ -237,6 +182,7 @@ namespace WeaponEnchantments.Content.NPCs
 		private void GetEnchantmentsForShop() {
 			shopEnchantments = new Dictionary<int, int>();
 			IEnumerable<Enchantment> enchantments = ModContent.GetContent<ModItem>().OfType<Enchantment>().Where(e => e.EnchantmentTier == 0 || e.EnchantmentValueTierReduction != 0);
+			Dictionary<int, int> rareEnchantments = new Dictionary<int, int>();
 
 			//Always
 			AddEnchantmentsToShop(enchantments, SellCondition.Always, 0, 1);
@@ -245,22 +191,24 @@ namespace WeaponEnchantments.Content.NPCs
 			AddEnchantmentsToShop(enchantments, SellCondition.AnyTime, 4, 2);
 
 			//Any Time Rare
-			AddEnchantmentsToShop(enchantments, SellCondition.AnyTimeRare, 1, 5);
+			AddEnchantmentsToDict(enchantments, SellCondition.AnyTimeRare, 5, rareEnchantments);
 
 			if (Main.hardMode) {
 				//Hard Mode
-				AddEnchantmentsToShop(enchantments, SellCondition.HardMode, 2, 20);
+				AddEnchantmentsToDict(enchantments, SellCondition.HardMode, 20, rareEnchantments);
 
 				if (NPC.downedPlantBoss) {
 					//Post Plantera
-					AddEnchantmentsToShop(enchantments, SellCondition.PostPlantera, 1, 50);
+					AddEnchantmentsToDict(enchantments, SellCondition.PostPlantera, 50, rareEnchantments);
 
 					if (NPC.downedAncientCultist) {
 						//Post Cultist
-						AddEnchantmentsToShop(enchantments, SellCondition.PostCultist, 1, 100);
+						AddEnchantmentsToDict(enchantments, SellCondition.PostCultist, 100, rareEnchantments);
 					}
 				}
 			}
+
+			AddEnchantmentsToShop(rareEnchantments, 2);
 
 			if (Main.rand.Next(100) == 0) {
 				AddEnchantmentsToShop(enchantments, SellCondition.Luck, 1, 5);
@@ -278,62 +226,50 @@ namespace WeaponEnchantments.Content.NPCs
 				list.Remove(type);
 			}
 		}
+		private void AddEnchantmentsToDict(IEnumerable<Enchantment> enchantments, SellCondition condition, int priceMultiplier, Dictionary<int, int> dict) {
+			foreach(int id in enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type)) {
+				dict.Add(id, priceMultiplier);
+			}
+		}
+		private void AddEnchantmentsToShop(Dictionary<int, int> options, int num) {
+			for(int i = 0; i < num && options.Count > 0; i++) {
+				int type = options.Keys.ToList().GetOneFromList();
+				shopEnchantments.Add(type, options[type]);
+				options.Remove(type);
+			}
+		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
 				new FlavorTextBestiaryInfoElement("Mods.WeaponEnchantments.Bestiary.Witch")
 			});
 		}
-
-
-
-		//Not finished methods below here:
-
-		// todo: implement
-		// public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
-		// 	projType = ProjectileType<SparklingBall>();
-		// 	attackDelay = 1;
-		// }
+		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+			projType = ProjectileID.ToxicFlask;
+			attackDelay = 1;
+		}
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
 			multiplier = 12f;
 			randomOffset = 2f;
 		}
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
-			damage = 20;
+			damage = 5;
 			knockback = 4f;
 		}
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
 			cooldown = 30;
 			randExtraCooldown = 30;
 		}
-		public void StatueTeleport() {
-			for (int i = 0; i < 30; i++) {
-				Vector2 position = Main.rand.NextVector2Square(-20, 21);
-				if (Math.Abs(position.X) > Math.Abs(position.Y)) {
-					position.X = Math.Sign(position.X) * 20;
-				}
-				else {
-					position.Y = Math.Sign(position.Y) * 20;
-				}
-
-				//Dust.NewDustPerfect(NPC.Center + position, ModContent.DustType<Sparkle>(), Vector2.Zero).noGravity = true;
-			}
-		}
-
-		// Make something happen when the npc teleports to a statue. Since this method only runs server side, any visual effects like dusts or gores have to be synced across all clients manually.
-		public override void OnGoToStatue(bool toKingStatue) {
-			if (Main.netMode == NetmodeID.Server) {
-				//ModPacket packet = Mod.GetPacket();
-				//packet.Write((byte)WeaponEnchantments.MessageType.ExampleTeleportToStatue);
-				//packet.Write((byte)NPC.whoAmI);
-				//packet.Send();
-			}
-			else {
-				StatueTeleport();
-			}
-		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			//npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ExampleCostume>()));
+			int[] loot = {
+				ItemID.WitchHat,
+				ItemID.WitchDress,
+				ItemID.WitchBoots
+			};
+
+			foreach (int id in loot) {
+				npcLoot.Add(ItemDropRule.Common(id));
+			}
 		}
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
 			if (firstButton) {
@@ -358,42 +294,86 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 
 			if (!firstButton) {
-				Main.npcChatText = Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.BigAsMine", Main.LocalPlayer.HeldItem.type.Lang(L_ID_V.Item));
+				Main.npcChatText = "Help not yet implemented";//Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.BigAsMine", Main.LocalPlayer.HeldItem.type.Lang(L_ID_V.Item));
 			}
 		}
 		public override string GetChat() {
 			WeightedRandom<string> chat = new WeightedRandom<string>();
 
-			for(int i = 0; i < NPCID.Sets.TownNPCBestiaryPriority.Count; i++) {
-				int type = NPCID.Sets.TownNPCBestiaryPriority[i];
-				switch (type) {
-					case NPCID.WitchDoctor:
-					case NPCID.Wizard:
-					case NPCID.DyeTrader:
-					case NPCID.Princess:
-					case NPCID.Dryad:
-					case NPCID.BestiaryGirl:
-						string c = ((TownNPCTypeID)type).ToString().Lang(L_ID1.Dialogue, L_ID2.Witch);
+			AddStandardDialogue(chat, L_ID2.Witch);
+
+			AddOtherNPCDialouges(chat, L_ID2.Witch);
+
+			AddBiomeDialogues(chat, L_ID2.Witch);
+
+			if (Main.bloodMoon)
+				chat.Add($"{DialogueID.BloodMoon}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
+
+			if (Terraria.GameContent.Events.BirthdayParty.ManualParty || Terraria.GameContent.Events.BirthdayParty.GenuineParty)
+				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch), 10);
+
+			if (Main.IsItStorming)
+				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
+
+			if (!NPC.downedQueenBee)
+				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch));
+
+			return chat;
+		}
+		public void AddStandardDialogue(WeightedRandom<string> chat, L_ID2 npcID) {
+			for (int i = 0;; i++) {
+				if (!$"{DialogueID.StandardDialogue}{i}".Lang(out string result, L_ID1.Dialogue, npcID))
+					break;
+
+				chat.Add(result);
+			}
+		}
+		public void AddOtherNPCDialouges(WeightedRandom<string> chat, L_ID2 npcID) {
+			foreach(int i in NPCID.Sets.TownNPCBestiaryPriority) {
+				int npcWhoAmI = NPC.FindFirstNPC(i);
+				if (npcWhoAmI >= 0) {
+					if (((TownNPCTypeID)i).ToString().Lang(out string c, L_ID1.Dialogue, npcID))
+						chat.Add(c, 0.5);
+				}
+			}
+		}
+		public void AddBiomeDialogues(WeightedRandom<string> chat, L_ID2 npcID, bool shareCorrupted = true) {
+			Player player = Main.LocalPlayer;
+			foreach(BiomeID biomeName in Enum.GetValues(typeof(BiomeID))) {
+				bool zone = (bool)typeof(Player).GetProperty($"Zone{biomeName}").GetValue(player);
+				if (zone) {
+					if (biomeName.ToString().Lang(out string c, L_ID1.Dialogue, npcID)) {
 						chat.Add(c);
-						//chat.Add();
-						break;
+					}
+					else if (shareCorrupted) {
+						if (biomeName == BiomeID.Corrupt && BiomeID.Crimson.ToString().Lang(out c, L_ID1.Dialogue, npcID) || biomeName == BiomeID.Crimson && BiomeID.Corrupt.ToString().Lang(out c, L_ID1.Dialogue, npcID))
+							chat.Add(c);
+					}
+				}
+			}
+		}
+		public static float DistanceToHome(NPC npc) {
+			return (new Vector2(npc.homeTileX, npc.homeTileY) - npc.Center).Length();
+		}
+		public static Dictionary<int, float> GetTownNPCsInRange(NPC npc, float range) {
+			Dictionary<int, float> npcs = new Dictionary<int, float>();
+			foreach (NPC target in Main.npc) {
+				if (!target.active)
+					continue;
+
+				if (target.whoAmI != npc.whoAmI) {
+					if (target.friendly || target.townNPC || target.type == NPCID.DD2LanePortal)
+						continue;
+
+					Vector2 vector2 = target.Center - npc.Center;
+					float distanceFromOrigin = vector2.Length();
+					if (distanceFromOrigin <= range) {
+						npcs.Add(target.whoAmI, distanceFromOrigin);
+					}
 				}
 			}
 
-			// These are things that the NPC has a chance of telling you when you talk to it.
-			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.StandardDialogue1"));
-			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.StandardDialogue2"));
-			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.StandardDialogue3"));
-			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.CommonDialogue"), 5.0);
-			chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.RareDialogue"), 0.1);
-
-			NumberOfTimesTalkedTo++;
-			if (NumberOfTimesTalkedTo >= 10) {
-				//This counter is linked to a single instance of the NPC, so if Witch is killed, the counter will reset.
-				chat.Add(Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.TalkALot"));
-			}
-
-			return chat; // chat is implicitly cast to a string.
+			return npcs;
 		}
 	}
 
@@ -401,7 +381,6 @@ namespace WeaponEnchantments.Content.NPCs
 	{
 		public int RollVariation() => 0;
 		public string GetNameForVariant(NPC npc) => npc.getNewNPCName();
-
 		public Asset<Texture2D> GetTextureNPCShouldUse(NPC npc) {
 			if (npc.IsABestiaryIconDummy && !npc.ForcePartyHatOn)
 				return ModContent.Request<Texture2D>("WeaponEnchantments/Content/NPCs/Witch");
@@ -411,7 +390,6 @@ namespace WeaponEnchantments.Content.NPCs
 
 			return ModContent.Request<Texture2D>("WeaponEnchantments/Content/NPCs/Witch");
 		}
-
 		public int GetHeadTextureIndex(NPC npc) => ModContent.GetModHeadSlot("WeaponEnchantments/Content/NPCs/Witch_Head");
 	}
 }

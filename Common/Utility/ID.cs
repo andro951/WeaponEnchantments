@@ -252,7 +252,7 @@ namespace WeaponEnchantments.Common.Utility
         Dialogue,
         NPCNames,
         Bestiary,
-
+        TownNPCMood
     }
     public enum L_ID2
 	{
@@ -268,9 +268,67 @@ namespace WeaponEnchantments.Common.Utility
         Projectile,
         NPC,
         Buff,
-        BuffDescription
+		BuffDescription
 	}
-    /*
+	public enum DialogueID {
+        StandardDialogue,
+        BloodMoon,
+        BirthdayParty,
+        Storm,
+        QueenBee,
+
+
+        Content,
+        NoHome,
+        LoveSpace,
+        FarFromHome,
+        DislikeCrowded,
+        HateCrouded,
+        LikeBiome,
+        LoveBiome,
+        DislikeBiome,
+        HateBiome,
+        LikeNPC,
+        LoveNPC,
+        DislikeNPC,
+        HateNPC
+    }
+    public enum BiomeID
+	{
+        Beach,
+        Corrupt,
+        Crimson,
+        Desert,
+        DirtLayerHeight,
+        Dungeon,
+        Forest,
+        GemCave,
+        Glowshroom,
+        Granite,
+        Graveyard,
+        Hallow,
+        Hive,
+        Jungle,
+        LihzhardTemple,
+        Marble,
+        Meteor,
+        OldOneArmy,
+        OverworldHeight,
+        PeaceCandle,
+        Rain,
+        RockLayerHeight,
+        Sandstorm,
+        SkyHeight,
+        Snow,
+        TowerNebula,
+        TowerStardust,
+        TowerSolar,
+        TowerVortex,
+        UndergroundDesert,
+        UnderworldHeight,
+        WaterCandle
+    }
+	/*
     New enchantment names for tier 3/4
     All EnchantmentTypeNames
     Enchantment CustomTooltips

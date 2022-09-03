@@ -220,13 +220,7 @@ namespace WeaponEnchantments.Common.Utility
 			    GetFromSDataDict(d.Children);
 	    }
 	    private static void AutoFill(KeyValuePair<string, SData> pair) {
-            IEnumerable<Type> types = null;
-            try {
-                types = AssemblyManager.GetLoadableTypes(Assembly.GetExecutingAssembly());
-            }
-            catch (ReflectionTypeLoadException e) {
-                types = e.Types.Where(t => t != null);
-            }
+            IEnumerable<Type> types = AssemblyManager.GetLoadableTypes(Assembly.GetExecutingAssembly());
 
             List<string> list = types.Where(t => t.GetType() == Type.GetType(pair.Key))
 			    .Where(t => !t.IsAbstract)
