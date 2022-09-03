@@ -10,6 +10,7 @@ using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Unique;
@@ -35,6 +36,7 @@ namespace WeaponEnchantments
         public static SortedDictionary<ChestID, List<WeightedPair>> chestDrops = new SortedDictionary<ChestID, List<WeightedPair>>();
 
         private GameTime _lastUpdateUiGameTime;
+        private bool dayTime = Main.dayTime;
 
         public override void OnModLoad() {
             if (!Main.dedServ) {
@@ -101,7 +103,7 @@ namespace WeaponEnchantments
                     Item itemBeingEnchanted = wePlayer.itemBeingEnchanted;
                     favorited = itemBeingEnchanted.favorited;
                     itemBeingEnchanted.favorited = false;
-                    if(itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
+                    if (itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
                         iBEGlobal.inEnchantingTable = true;
                         wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
                         if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
@@ -113,7 +115,7 @@ namespace WeaponEnchantments
                         wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
                     }
 
-					if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                             if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
                                 wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
@@ -190,14 +192,14 @@ namespace WeaponEnchantments
                             valid = wePlayer.CheckShiftClickValid(ref Main.HoverItem);
                     }
 
-                    if(!stop) {
-						if (!valid || Main.cursorOverride == 6) {
+                    if (!stop) {
+                        if (!valid || Main.cursorOverride == 6) {
                             Main.cursorOverride = -1;
                         }
-					}
+                    }
                 }
             }
-            
+
             //Fix for splitting stack of enchanted items in a chest
             if (wePlayer.Player.chest != -1) {
                 int chest = wePlayer.Player.chest;
@@ -242,10 +244,10 @@ namespace WeaponEnchantments
                                         Main.mouseItem.stack += stack;
                                         item = new Item();
                                     }
-									else {
+                                    else {
                                         Main.mouseItem.stack = maxStack;
                                         item.stack = stack + mouseItemStack - maxStack;
-									}
+                                    }
                                 }
 
                                 break;
@@ -256,19 +258,19 @@ namespace WeaponEnchantments
             }
 
             //Calamity Reforge
-            if(EnchantedItem.calamityReforged) {
-                if(Main.reforgeItem.TryGetEnchantedItem()) {
+            if (EnchantedItem.calamityReforged) {
+                if (Main.reforgeItem.TryGetEnchantedItem()) {
                     //Calamity only
                     EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player, true);
                 }
-				else {
+                else {
                     //Calamity and AutoReforge
                     EnchantedItem.ReforgeItem(ref EnchantedItem.calamityAndAutoReforgePostReforgeItem, wePlayer.Player, true);
                 }
             }
 
             //Fargos pirates that steal items
-            if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
+            if (stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
                 if (itemToClear != null && itemToClear.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     iGlobal.lastValueBonus = 0;
@@ -279,7 +281,7 @@ namespace WeaponEnchantments
             }
 
             //Player swapper
-            if(WEMod.playerSwapperModEnabled && Main.netMode != NetmodeID.Server) {
+            if (WEMod.playerSwapperModEnabled && Main.netMode != NetmodeID.Server) {
                 string playerName = wePlayer.Player.name;
                 if (!updatedPlayerNames.Contains(playerName)) {
                     OldItemManager.ReplaceAllPlayerOldItems(wePlayer.Player);
@@ -316,7 +318,7 @@ namespace WeaponEnchantments
         public static void CloseWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item itemInUI = wePlayer.ItemInUI();
-            if(itemInUI != null && !itemInUI.IsAir) {
+            if (itemInUI != null && !itemInUI.IsAir) {
                 //Give item in table back to player
                 wePlayer.ItemUISlot().Item = wePlayer.Player.GetItem(Main.myPlayer, itemInUI, GetItemSettings.LootAllSettings);
 
@@ -326,7 +328,7 @@ namespace WeaponEnchantments
                     RemoveTableItem(wePlayer);
 
                     wePlayer.enchantingTable.item[0] = new Item();
-                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
@@ -337,7 +339,7 @@ namespace WeaponEnchantments
             wePlayer.itemBeingEnchanted = null;
             wePlayer.itemInEnchantingTable = false;
             wePlayer.usingEnchantingTable = false;
-            if(wePlayer.Player.chest == -1) {
+            if (wePlayer.Player.chest == -1) {
                 if (!noSound)
                     SoundEngine.PlaySound(SoundID.MenuClose);
             }
@@ -350,7 +352,7 @@ namespace WeaponEnchantments
         public static void OpenWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = true;
-            if(!noSound)
+            if (!noSound)
                 SoundEngine.PlaySound(SoundID.MenuOpen);
 
             if (wePlayer.enchantingTableTier > 0) {
@@ -375,7 +377,7 @@ namespace WeaponEnchantments
                         transfered = true;
                     }
                     else {
-                        if(wePlayer.enchantingTable.essenceItem[tier].stack < EnchantmentEssence.maxStack) {
+                        if (wePlayer.enchantingTable.essenceItem[tier].stack < EnchantmentEssence.maxStack) {
                             if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTable.essenceItem[tier].stack > EnchantmentEssence.maxStack) {
                                 ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
                             }
@@ -389,7 +391,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if(wePlayer.Player.inventory[j].stack == startingStack)
+                    if (wePlayer.Player.inventory[j].stack == startingStack)
                         transfered = false;
                 }
             }
@@ -400,16 +402,16 @@ namespace WeaponEnchantments
             bool crafted = false;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = EnchantingTable.maxEssenceItems - 1; i > 0; i--) {
-                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
                     int ammountToTransfer;
-                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else {
                         ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
 
-                    if(ammountToTransfer > 0) {
+                    if (ammountToTransfer > 0) {
                         wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
                         wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack -= ammountToTransfer * 4;
                         crafted = true;
@@ -448,11 +450,11 @@ namespace WeaponEnchantments
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;
-            if(weModSystemUI?.CurrentState != null) {
+            if (weModSystemUI?.CurrentState != null) {
                 weModSystemUI.Update(gameTime);
             }
 
-            if(PromptInterfaceActive)
+            if (PromptInterfaceActive)
                 promptInterface.Update(gameTime);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
@@ -460,17 +462,16 @@ namespace WeaponEnchantments
             if (index != -1) {
                 layers.Insert
                 (
-                    ++index, 
+                    ++index,
                     new LegacyGameInterfaceLayer
                     (
-                        "WeaponEnchantments: Mouse Over", 
-                        delegate 
-                        { 
-                            if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) 
-                            { 
+                        "WeaponEnchantments: Mouse Over",
+                        delegate {
+                            if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) {
                                 mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                            } return true; 
-                        }, 
+                            }
+                            return true;
+                        },
                         InterfaceScaleType.UI
                      )
                 );
@@ -507,75 +508,75 @@ namespace WeaponEnchantments
         }
         public override void AddRecipeGroups() {
             RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[] {
-                ItemID.Sapphire, 
-                ItemID.Ruby, 
-                ItemID.Emerald, 
-                ItemID.Topaz, 
+                ItemID.Sapphire,
+                ItemID.Ruby,
+                ItemID.Emerald,
+                ItemID.Topaz,
                 ItemID.Amethyst
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
 
             group = new RecipeGroup(() => "Any Rare Gem", new int[] {
-                ItemID.Amber, 
+                ItemID.Amber,
                 ItemID.Diamond
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 
             group = new RecipeGroup(() => "Workbenches", new int[] {
-                ItemID.WorkBench, 
-                ItemID.BambooWorkbench, 
-                ItemID.BlueDungeonWorkBench, 
-                ItemID.BoneWorkBench, 
-                ItemID.BorealWoodWorkBench, 
-                ItemID.CactusWorkBench, 
-                ItemID.CrystalWorkbench, 
-                ItemID.DynastyWorkBench, 
-                ItemID.EbonwoodWorkBench, 
-                ItemID.FleshWorkBench, 
-                ItemID.FrozenWorkBench, 
-                ItemID.GlassWorkBench, 
+                ItemID.WorkBench,
+                ItemID.BambooWorkbench,
+                ItemID.BlueDungeonWorkBench,
+                ItemID.BoneWorkBench,
+                ItemID.BorealWoodWorkBench,
+                ItemID.CactusWorkBench,
+                ItemID.CrystalWorkbench,
+                ItemID.DynastyWorkBench,
+                ItemID.EbonwoodWorkBench,
+                ItemID.FleshWorkBench,
+                ItemID.FrozenWorkBench,
+                ItemID.GlassWorkBench,
                 ItemID.GoldenWorkbench,
-                ItemID.GothicWorkBench, 
-                ItemID.GraniteWorkBench, 
-                ItemID.GreenDungeonWorkBench, 
-                ItemID.HoneyWorkBench, 
-                ItemID.LesionWorkbench, 
-                ItemID.LihzahrdWorkBench, 
-                ItemID.LivingWoodWorkBench, 
-                ItemID.MarbleWorkBench, 
-                ItemID.MartianWorkBench, 
-                ItemID.MeteoriteWorkBench, 
-                ItemID.MushroomWorkBench, 
-                ItemID.NebulaWorkbench, 
-                ItemID.ObsidianWorkBench, 
-                ItemID.PalmWoodWorkBench, 
-                ItemID.PearlwoodWorkBench, 
-                ItemID.PinkDungeonWorkBench, 
-                ItemID.PumpkinWorkBench, 
-                ItemID.RichMahoganyWorkBench, 
-                ItemID.SandstoneWorkbench, 
-                ItemID.ShadewoodWorkBench, 
-                ItemID.SkywareWorkbench, 
-                ItemID.SlimeWorkBench, 
-                ItemID.SolarWorkbench, 
-                ItemID.SpiderWorkbench, 
-                ItemID.SpookyWorkBench, 
-                ItemID.StardustWorkbench, 
-                ItemID.SteampunkWorkBench, 
+                ItemID.GothicWorkBench,
+                ItemID.GraniteWorkBench,
+                ItemID.GreenDungeonWorkBench,
+                ItemID.HoneyWorkBench,
+                ItemID.LesionWorkbench,
+                ItemID.LihzahrdWorkBench,
+                ItemID.LivingWoodWorkBench,
+                ItemID.MarbleWorkBench,
+                ItemID.MartianWorkBench,
+                ItemID.MeteoriteWorkBench,
+                ItemID.MushroomWorkBench,
+                ItemID.NebulaWorkbench,
+                ItemID.ObsidianWorkBench,
+                ItemID.PalmWoodWorkBench,
+                ItemID.PearlwoodWorkBench,
+                ItemID.PinkDungeonWorkBench,
+                ItemID.PumpkinWorkBench,
+                ItemID.RichMahoganyWorkBench,
+                ItemID.SandstoneWorkbench,
+                ItemID.ShadewoodWorkBench,
+                ItemID.SkywareWorkbench,
+                ItemID.SlimeWorkBench,
+                ItemID.SolarWorkbench,
+                ItemID.SpiderWorkbench,
+                ItemID.SpookyWorkBench,
+                ItemID.StardustWorkbench,
+                ItemID.SteampunkWorkBench,
                 ItemID.VortexWorkbench
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
 
             group = new RecipeGroup(() => "Any Aligned Soul", new int[] {
-                ItemID.SoulofLight, 
+                ItemID.SoulofLight,
                 ItemID.SoulofNight
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
-		}
-		public override void PostWorldGen() {
+        }
+        public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
                 Chest chest = Main.chest[chestIndex];
-                if(chest == null)
+                if (chest == null)
                     continue;
 
                 int itemsPlaced = 0;
@@ -595,7 +596,7 @@ namespace WeaponEnchantments
 
                     int type = options.GetOneFromWeightedList(chance);
 
-                    if(type > 0) {
+                    if (type > 0) {
                         bool found = false;
                         for (int k = j; k >= 0; k--) {
                             if (chest.item[k].type == type && chest.item[k].stack < chest.item[k].maxStack) {
@@ -749,8 +750,12 @@ namespace WeaponEnchantments
             versionUpdate = tag.Get<byte>("versionUpdate");
             OldItemManager.versionUpdate = versionUpdate;
         }
-		public override void SaveWorldData(TagCompound tag) {
-			tag["versionUpdate"] = versionUpdate;
-		}
-	}
+        public override void SaveWorldData(TagCompound tag) {
+            tag["versionUpdate"] = versionUpdate;
+        }
+        public override void PostUpdateTime() {
+            if (Main.dayTime && !dayTime)
+                Witch.resetShop = true;
+        }
+    }
 }
