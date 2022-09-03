@@ -159,10 +159,9 @@ namespace WeaponEnchantments.Content.NPCs
 			int num = EnchantingRarity.tierNames.Length;
 			nextSlot += num;
 			int slotNum = nextSlot - 1;
-			int essenceType = ModContent.ItemType<EnchantmentEssenceLegendary>();
-			int price = ContentSamples.ItemsByType[essenceType].value * 2;
+			int price = ContentSamples.ItemsByType[EnchantmentEssence.IDs[4]].value * 2;
 			for(int i = 0; i < num; i++) {
-				shop.item[slotNum].SetDefaults(essenceType - i);
+				shop.item[slotNum].SetDefaults(EnchantmentEssence.IDs[4 - i]);
 				shop.item[slotNum].value = price;
 				price /= 4;
 				slotNum--;
