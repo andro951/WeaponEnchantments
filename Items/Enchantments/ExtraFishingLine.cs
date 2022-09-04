@@ -8,7 +8,8 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class ExtraFishingLineEnchantment : Enchantment
 	{
 		public override string CustomTooltip => "(Chance to produce an extra projectile.  Applies to each projectile created.)";
-		public override int StrengthGroup => 8;
+		public override int StrengthGroup => 18;
+		public override float ScalePercent => 0.66667f;
 		public override void GetMyStats() {
 			Effects = new() {
 				new Multishot(@base: EnchantmentStrengthData)

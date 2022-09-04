@@ -1976,7 +1976,7 @@ namespace WeaponEnchantments
 		#region Fishing
 
 		public override void AnglerQuestReward(float rareMultiplier, List<Item> rewardItems) {
-			//TODO: make this drop essence
+			
 		}
 		public override bool? CanConsumeBait(Item bait) {
             if (GetPlayerModifierStrength(EnchantmentStat.AmmoCost, out float strength)) {

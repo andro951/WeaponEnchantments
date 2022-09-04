@@ -441,7 +441,8 @@ namespace WeaponEnchantments.Common.Configs
             get => _automaticallyMatchPreseTtoWorldDifficulty ? "Automatic" : _preset;
             set {
                 _preset = value;
-                _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                if (presetNames.Contains(value))
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
             }
         }
         private string _preset;
