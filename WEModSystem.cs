@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -753,8 +754,24 @@ namespace WeaponEnchantments
             tag["versionUpdate"] = versionUpdate;
         }
         public override void PostUpdateTime() {
-            if (Main.dayTime && !dayTime)
+            if (Main.dayTime && !dayTime) {
                 Witch.resetShop = true;
+
+                //If player has a fishing pole in inventory with NpcContactAnglerEnchantment, tell them the new fishing quest.
+                foreach (Item item in Main.LocalPlayer.inventory.Where(i => i.fishingPole > 0)) {
+                    if (item.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
+                        foreach(Enchantment enchantment in enchantedFishingPole.enchantments.Select(e => e.ModItem).OfType<Enchantment>()) {
+                            if (enchantment is NpcContactAnglerEnchantment anglerEnchantment) {
+                                int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+                                Main.NewText($"The daily fishing quest has reset.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
+                                    $"{Lang.AnglerQuestChat(false)}");
+                            }
+						}
+                    }
+                }
+            }
+
+            dayTime = Main.dayTime;
         }
     }
 }

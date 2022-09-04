@@ -72,12 +72,12 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.WoodenCrate:
                 case ItemID.IronCrate:
                 case ItemID.GoldenCrate:
-                    chance = (float)(id - ItemID.WoodenCrate + 1f) / 20f;
+                    chance = (float)(id - ItemID.WoodenCrate + 4f) / 20f;
                     break;
                 case ItemID.WoodenCrateHard:
                 case ItemID.IronCrateHard:
                 case ItemID.GoldenCrateHard:
-                    chance = (float)(id - ItemID.WoodenCrateHard + 1f) / 10f;
+                    chance = (float)(id - ItemID.WoodenCrateHard + 6f) / 20f;
                     break;
                 case ItemID.LockBox:
                     chance = 0.5f;
@@ -90,10 +90,10 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.OasisCrate:
                 case ItemID.LavaCrate:
                 case ItemID.OceanCrate:
-                    chance = 0.15f;
+                    chance = 0.25f;
                     break;
                 default:
-                    chance = 0.25f;
+                    chance = 0.35f;
                     break;
 			}
 

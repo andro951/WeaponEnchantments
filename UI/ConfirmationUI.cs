@@ -128,6 +128,9 @@ namespace WeaponEnchantments.UI
 
             //Offer every non-Modified item with the same type in the player's inventory.
             for (int i = 0; i < player.inventory.Length; i++) {
+                if (player.inventory[i].favorited)
+                    continue;
+
                 if (!player.inventory[i].TryGetEnchantedItem(out EnchantedItem iGlobal))
                     continue;
 

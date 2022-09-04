@@ -105,7 +105,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 //Find the best other projectile that matches.
                 if (mainProjectile.owner == wePlayer.Player.whoAmI && mainProjectile.type != projectile.type) {
-                    if (mainProjectile.GetGlobalProjectile<WEProjectile>().sourceItem.TryGetEnchantedItem()) {
+                    if (mainProjectile.TryGetGlobalProjectile(out ProjectileWithSourceItem projectileWSI) && projectileWSI.sourceItem.TryGetEnchantedItem()) {
                         List<string> mainProjectileNames = mainProjectile.Name.RemoveProjectileName().SplitString();
                         int checkMatches = projectileNames.CheckMatches(mainProjectileNames);
                         if (checkMatches > matchs) {

@@ -334,7 +334,7 @@ namespace WeaponEnchantments.Common.Utility
                     total += pair.Item1;
 				}
 
-                total *= randFloat;
+                total *= randFloat / chance;
 
                 foreach((float, T) pair in options) {
                     total -= pair.Item1;
@@ -370,7 +370,7 @@ namespace WeaponEnchantments.Common.Utility
                     total += pair.Weight;
                 }
 
-                total *= randFloat;
+                total *= randFloat / chance;
 
                 foreach (WeightedPair pair in options) {
                     total -= pair.Weight;
