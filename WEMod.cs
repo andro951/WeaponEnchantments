@@ -80,7 +80,7 @@ namespace WeaponEnchantments
 
 		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
 			if (thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
-				int value = ContentSamples.ItemsByType[itemType].value / 10 * serverConfig.GatheringExperienceMultiplier;
+				int value = (int)((float)ContentSamples.ItemsByType[itemType].value / 10f * ConfigValues.GatheringExperienceMultiplier);
 				enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
 			}
 

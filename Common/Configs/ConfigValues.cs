@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Terraria;
+using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEMod;
 
 namespace WeaponEnchantments.Common.Configs
@@ -16,6 +17,7 @@ namespace WeaponEnchantments.Common.Configs
 				return _globalStrengthMultiplier;
 			}
 		}
+		public static Time BuffDurationTicks = new Time((uint)serverConfig.BuffDuration * 60);
 		public static float EnchantmentDropChance = serverConfig.EnchantmentDropChance / 100f;
 		public static float BossEnchantmentDropChance = serverConfig.BossEnchantmentDropChance / 100f;
 		public static float EssenceMultiplier = serverConfig.EssenceMultiplier / 100f;

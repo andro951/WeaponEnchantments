@@ -79,7 +79,7 @@ namespace WeaponEnchantments
         public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
-	    public static SortedDictionary<byte, EnchantmentStat> PlayerStatDict = new SortedDictionary<byte, EnchantmentStat>(Enum.GetValues(typeof(EnchantmentStat)).Cast<EnchantmentStat>().ToDictionary(t => (byte)t, t => t));
+        public SortedDictionary<short, uint> OnTickBuffTimers = new();
 	
         public SortedDictionary<EnchantmentStat, EStatModifier> EnchantmentStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
         public SortedDictionary<EnchantmentStat, EStatModifier> VanillaStats { set; get; } = new SortedDictionary<EnchantmentStat, EStatModifier>();
@@ -1231,15 +1231,36 @@ namespace WeaponEnchantments
 
             return false;
         }
-	    public bool TimerOver(IUseTimer effect) {
+        private void CheckClearTimers() {
+            uint updateCount = Main.GameUpdateCount;
+            List<uint> toRemove = new List<uint>();
+            foreach (KeyValuePair<uint, IUseTimer> timer in EffectTimers) {
+                if (updateCount >= timer.Key) {
+                    toRemove.Add(timer.Key);
+                    timer.Value.TimerEnd(this);
+                }
+                else {
+                    break;
+                }
+            }
+
+            foreach (uint timer in toRemove) {
+                EffectTimers.Remove(timer);
+            }
+        }
+        public bool TimerOver(IUseTimer effect) {
             EnchantmentStat statName = effect.TimerStatName;
+			
+		    return TimerOver(statName);
+	    }
+        public bool TimerOver(EnchantmentStat statName) {
             foreach (var e in EffectTimers) {
                 if (e.Value.TimerStatName == statName)
                     return false;
-			}
-			
-		    return true;
-	    }
+            }
+
+            return true;
+        }
 	    public void SetEffectTimer(IUseTimer effect, int duration = -1) {
             if (!effect.MultipleAllowed && EffectTimers.Select(e => e.Value.TimerStatName).Contains(effect.TimerStatName))
                 return;
@@ -1249,8 +1270,36 @@ namespace WeaponEnchantments
 
             uint endTime = Main.GameUpdateCount + (uint)duration;
             EffectTimers.Add(endTime, effect);
-	    }
-	
+        }
+        private void CheckClearOnTickBuffTimers() {
+            uint updateCount = Main.GameUpdateCount;
+            List<short> toRemove = new();
+            foreach (KeyValuePair<short, uint> timer in OnTickBuffTimers) {
+                if (updateCount >= timer.Value) {
+                    toRemove.Add(timer.Key);
+                }
+                else {
+                    break;
+                }
+            }
+
+            foreach (short timer in toRemove) {
+                OnTickBuffTimers.Remove(timer);
+            }
+        }
+        public bool OnTickBuffTimerOver(short id) {
+            foreach (short timerID in OnTickBuffTimers.Keys) {
+                if (timerID == id)
+                    return false;
+            }
+
+            return true;
+        }
+        private void SetOnTickBuffTimer(short id, int duration) {
+            uint endTime = Main.GameUpdateCount + (uint)duration;
+            OnTickBuffTimers.Add(id, endTime);
+        }
+
         #endregion
 
         #region Enchantment Effect Managment
@@ -1260,7 +1309,8 @@ namespace WeaponEnchantments
         }
         public void ApplyPostMiscEnchants() {
 	        CheckClearTimers();
-	    
+            CheckClearOnTickBuffTimers();
+
             PlayerEquipment newEquipment = Equipment;
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
@@ -1292,25 +1342,16 @@ namespace WeaponEnchantments
 
             ApplyPlayerSetEffects();
 
-            Player.ApplyBuffs(CombinedOnTickBuffs);
+            ApplyOnTickBuffs(CombinedOnTickBuffs);
         }
-	    private void CheckClearTimers() {
-		    uint updateCount = Main.GameUpdateCount;
-            List<uint> toRemove = new List<uint>();
-		    foreach(KeyValuePair<uint, IUseTimer> timer in EffectTimers) {
-			    if (updateCount >= timer.Key) {
-                    toRemove.Add(timer.Key);
-                    timer.Value.TimerEnd(this);
-			    }
-				else {
-                    break;
-				}
-		    }
-
-            foreach(uint timer in toRemove) {
-                EffectTimers.Remove(timer);
+        public void ApplyOnTickBuffs(SortedDictionary<short, BuffStats> buffs) {
+            foreach (KeyValuePair<short, BuffStats> buff in buffs) {
+                if (OnTickBuffTimerOver(buff.Key)) {
+                    Player.ApplyBuff(buff, true);
+                    SetOnTickBuffTimer(buff.Key, BuffDurationTicks);
+                }
             }
-	    }
+        }
         private void ApplyPlayerSetEffects() {
             foreach(KeyValuePair<EnchantmentStat, PlayerSetEffect> effect in CombinedPlayerSetEffects) {
                 effect.Value.SetEffect(Player);
@@ -2260,11 +2301,21 @@ namespace WeaponEnchantments
                 #endregion
             }
         }
-        public static void ApplyBuffs(this Player player, SortedDictionary<short, BuffStats> buffs) {
-            foreach (var buff in buffs) {
-                float chance = buff.Value.Chance;
-                if (chance >= 1f || chance >= Main.rand.NextFloat()) {
-                    player.AddBuff(buff.Key, (int)buff.Value.Duration.Ticks);
+        public static void ApplyBuffs(this Player player, SortedDictionary<short, BuffStats> buffs, bool addToExisting = false) {
+            foreach (KeyValuePair<short, BuffStats> buff in buffs) {
+                player.ApplyBuff(buff, addToExisting);
+            }
+        }
+        public static void ApplyBuff(this Player player, KeyValuePair<short, BuffStats> buff, bool addToExisting = false) {
+            float chance = buff.Value.Chance;
+            if (chance >= 1f || chance >= Main.rand.NextFloat()) {
+                int buffIndex = player.FindBuffIndex(buff.Key);
+                int ticks = addToExisting ? Math.Min(buff.Value.Duration.Ticks, BuffDurationTicks) : buff.Value.Duration.Ticks;
+                if (!addToExisting || buffIndex < 0) {
+                   player.AddBuff(buff.Key, ticks);
+                }
+                else {
+                    player.buffTime[buffIndex] += ticks;
                 }
             }
         }

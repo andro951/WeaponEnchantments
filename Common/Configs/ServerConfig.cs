@@ -66,6 +66,13 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool AutoReuseDisabledOnMagicMissile;
 
+        [Label("Buff cooldown duration (seconds)")]
+        [Tooltip("Affects buff cooldown and duration.")]
+        [DefaultValue(15)]
+        [Range(1, 600)]
+        [ReloadRequired]
+        public int BuffDuration;
+
         //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]

@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Localization
 						{ "Disabled", "\"{0} Disabled\"" }
 					}) },
 					{ "BuffEffect", new(dict: new() {
-						{ BuffStyle.OnTickPlayerBuff.ToString(), "\"Passively grants {0} to you\"" },
+						{ BuffStyle.OnTickPlayerBuff.ToString(), "\"Passively grants {0} to you for {1} seconds every 30 seconds\"" },
 						{ BuffStyle.OnTickPlayerDebuff.ToString(), "\"Passively inflicts {0} to you\"" },
 						{ BuffStyle.OnTickAreaTeamBuff.ToString(), "\"Passively grants {0} to nearby players\"" },
 						{ BuffStyle.OnTickAreaTeamDebuff.ToString(), "\"Passively inflicts {0} to nearby players\"" },

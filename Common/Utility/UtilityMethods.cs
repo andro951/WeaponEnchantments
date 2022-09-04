@@ -515,10 +515,11 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, newValue);
             }
         }
-        public static void AddOrCombine<T>(this SortedDictionary<short, BuffStats> dictionary, T buffEffect) where T : BuffEffect {
+        public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffEffect buffEffect) {
+            $"{buffEffect.BuffStats.Duration.Ticks}".Log();
             short key = buffEffect.BuffStats.BuffID;
             if (dictionary.ContainsKey(key)) {
-                dictionary[key].CombineNoReturn(buffEffect.BuffStats);
+                dictionary[key].CombineNoReturn(buffEffect.BuffStats.Clone());
 			}
 			else {
                 dictionary.Add(key, buffEffect.BuffStats.Clone());
@@ -527,7 +528,7 @@ namespace WeaponEnchantments.Common.Utility
         public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffStats buffStat) {
             short key = buffStat.BuffID;
             if (dictionary.ContainsKey(key)) {
-                dictionary[key].CombineNoReturn(buffStat);
+                dictionary[key].CombineNoReturn(buffStat.Clone());
             }
             else {
                 dictionary.Add(key, buffStat.Clone());

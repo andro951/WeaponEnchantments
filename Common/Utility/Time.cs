@@ -149,6 +149,8 @@ namespace WeaponEnchantments.Common.Utility {
             return new Time(newFrames, Magnitude.ticks);
         }
 
+        public Time Clone() => new Time((uint)Ticks);
+
         #endregion
     }
 }

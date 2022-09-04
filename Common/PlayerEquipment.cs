@@ -133,12 +133,12 @@ namespace WeaponEnchantments.Common {
 
             return result;
 		}
-        private SortedDictionary<short, BuffStats> GetBuffEffects<T>(IEnumerable<T> buffEffects) where T : BuffEffect {
+        private SortedDictionary<short, BuffStats> GetBuffEffects(IEnumerable<BuffEffect> buffEffects) {
 		    SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>();
-		    foreach	(T buffEffect in buffEffects) {
+		    foreach	(BuffEffect buffEffect in buffEffects) {
 			    result.AddOrCombine(buffEffect);
 		    }
-		
+		    
 		    return result;
 	    }
         public void CombineDictionaries() {
@@ -177,7 +177,7 @@ namespace WeaponEnchantments.Common {
         private SortedDictionary<short, BuffStats> CombineBuffEffectDictionaries(SortedDictionary<short, BuffStats> playerDictionary, SortedDictionary<short, BuffStats> healdItemDictionary) {
             SortedDictionary<short, BuffStats> result = new SortedDictionary<short, BuffStats>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
             foreach (short buffID in healdItemDictionary.Keys) {
-                result.AddOrCombine(healdItemDictionary[buffID]);
+                result.AddOrCombine(healdItemDictionary[buffID].Clone());
             }
 
             return result;

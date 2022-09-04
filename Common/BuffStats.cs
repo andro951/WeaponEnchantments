@@ -124,10 +124,13 @@ namespace WeaponEnchantments.Common
 			float newChance = combinedWeightedDuration / _duration;
 			Chance = newChance;
 		}
-		public BuffStats Clone() => new BuffStats(BuffName, BuffID, Duration, Chance, DisableImmunity, buffStrengths);
+		public BuffStats Clone() => new BuffStats(BuffName, BuffID, Duration.Clone(), Chance, DisableImmunity, buffStrengths?.Clone());
 		public void AddBuff(Player player) {
 			if (Chance == 1f || Chance >= Main.rand.NextFloat())
 				player.AddBuff(BuffID, Duration);
+		}
+		public override string ToString() {
+			return $"BuffName: {BuffName}, BuffID: {BuffID}, Duration: {Duration}, Duration.Ticks: {Duration.Ticks}, Chance: ";
 		}
 	}
 }

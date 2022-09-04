@@ -82,6 +82,7 @@ namespace WeaponEnchantments.Effects {
                 return displayName;
             }
         }
+
         private string displayName;
 
 		public BuffEffect(int buffID, BuffStyle buffStyle, uint duration = 60, float chance = 1f, DifficultyStrength buffStrength = null, bool disableImmunity = true) {
@@ -114,13 +115,16 @@ namespace WeaponEnchantments.Effects {
                 BuffStats = new BuffStats(buffName, buffID, duration, chance, disableImmunity, buffStrength);
             }
         }
-		public static string GetBuffName(int id) { // C# is crying
+		public string GetBuffName(int id) { // C# is crying
+            string name = null;
             if (id < BuffID.Count) {
                 BuffID buffID = new();
-                return buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;
+                name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;
             }
 
-            return ModContent.GetModBuff(id).Name;
+            name ??= ModContent.GetModBuff(id).Name;
+
+            return name;
         }
     }
 }
