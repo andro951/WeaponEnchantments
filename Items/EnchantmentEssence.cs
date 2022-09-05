@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -26,7 +27,7 @@ namespace WeaponEnchantments.Items
 		private int essenceTier = -1;
 
 		public const int maxStack = 9999;
-		public static int[] IDs = new int[tierNames.Length];
+		public static List<int> IDs = new List<int>(tierNames.Length);
 		public static float[] values = new float[tierNames.Length];
 		public static float[] xpPerEssence = new float[tierNames.Length];
 		public static float valuePerXP;

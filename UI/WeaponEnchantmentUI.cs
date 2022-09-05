@@ -478,7 +478,7 @@ namespace WeaponEnchantments.UI
                         while (numberEssenceRecieved > 0) {
                             int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
                             numberEssenceRecieved -= stack;
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<EnchantmentEssenceBasic>() + tier, stack);
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stack);
                         }
                     }
                     else {
@@ -527,6 +527,11 @@ namespace WeaponEnchantments.UI
                         infusionButonText.SetText("Finalize");
                     }
                     else {
+                        if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+                            Main.NewText("Favorited items cannot be consumed for infusion.");
+                            return;
+                        }
+
                         wePlayer.infusionConsumeItem = tableItem.Clone();
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
                         infusionButonText.SetText("Cancel");
@@ -622,6 +627,11 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.ItemInUI().IsAir)
                 return;
+
+            if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+                Main.NewText("Favorited items cannot be offerd.");
+                return;
+			}
             
             WEModSystem.weModSystemUI.SetState(null);
             UIState state = new UIState();

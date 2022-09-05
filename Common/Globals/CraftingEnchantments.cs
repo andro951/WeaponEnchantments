@@ -51,7 +51,6 @@ namespace WeaponEnchantments.Common.Globals
                             }
                         }
 						else {
-                            int basicEssenceID = ModContent.ItemType<EnchantmentEssenceBasic>();
                             int essenceNumber = consumedEnchantment.Utility ? 5 : 10;
                             if (size == 4) {
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ItemID.Amber, 1);
@@ -70,7 +69,7 @@ namespace WeaponEnchantments.Common.Globals
                                 
                             //Essence
                             for (int k = newSize + 1; k <= size; k++) {
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), basicEssenceID + k, essenceNumber);
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[k], essenceNumber);
                             }
 						}
                     }

@@ -297,7 +297,7 @@ namespace WeaponEnchantments.Common.Globals
             if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue)
                 return;
 
-            GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total);
+            GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out float hp, out float total);
 
             if (total <= 0f)
                 return;
@@ -342,7 +342,7 @@ namespace WeaponEnchantments.Common.Globals
                     maxDropped = 1;
                 }
 
-                dropRule = ItemDropRule.Common(baseID + i, denominator, minDropped, maxDropped);
+                dropRule = ItemDropRule.Common(EnchantmentEssence.IDs[i], denominator, minDropped, maxDropped);
 
                 if (npc.boss || multipleSegmentBoss || normalNpcThatDropsBag) {
                     //Boss or multisegmented boss that doesn't technically count as a boss.
@@ -469,7 +469,7 @@ namespace WeaponEnchantments.Common.Globals
                 loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
             }
         }
-        public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out int baseID, out float hp, out float total) {
+        public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out float hp, out float total) {
             //Defense
             float defenseMultiplier = 1f + (float)npc.defDefense / 40f;
 
@@ -483,7 +483,6 @@ namespace WeaponEnchantments.Common.Globals
             if (value <= 0 && hp <= 10) {
                 total = 0;
                 dropRate = null;
-                baseID = 0;
                 essenceValues = null;
                 return;
             }
@@ -536,7 +535,6 @@ namespace WeaponEnchantments.Common.Globals
 
             essenceValues = EnchantmentEssence.values;
             dropRate = new float[essenceValues.Length];
-            baseID = ModContent.ItemType<EnchantmentEssenceBasic>();
             int essenceTier = 0;
 
             //Calculate the main essence tier that will be dropped.
