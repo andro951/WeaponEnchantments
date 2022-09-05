@@ -27,7 +27,7 @@ namespace WeaponEnchantments.Items
 		private int essenceTier = -1;
 
 		public const int maxStack = 9999;
-		public static List<int> IDs = new List<int>(tierNames.Length);
+		public static List<int> IDs = new List<int>(new int[tierNames.Length]);
 		public static float[] values = new float[tierNames.Length];
 		public static float[] xpPerEssence = new float[tierNames.Length];
 		public static float valuePerXP;
