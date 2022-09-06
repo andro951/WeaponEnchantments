@@ -168,7 +168,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return null;
         }
-        public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i].Item;
+        public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i]?.Item;
         public static WEUIItemSlot ItemUISlot(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i];
         public static WEUIItemSlot EnchantmentUISlot(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
         public static Item EnchantmentInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
@@ -276,7 +276,7 @@ namespace WeaponEnchantments.Common.Utility
                 else {
                     iGlobal.Experience = int.MaxValue;
                     if (WEMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log();
-                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true);
+                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true, item);
                 }
             }
             else {
@@ -458,6 +458,32 @@ namespace WeaponEnchantments.Common.Utility
             return null;
 		}
 
+        public static string Lang(this string s, string m, IEnumerable<string> args) => s.Lang(out string result, m, args) ? result : "";
+        public static bool Lang(this string s, out string result, string m, IEnumerable<string> args) {
+            string key = $"Mods.WeaponEnchantments.{m}.{s}";
+            result = Language.GetTextValue(key, args);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2, IEnumerable<string> args) => s.Lang(out string result, id, id2, args) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<string> args) {
+            string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
+            result = Language.GetTextValue(key, args);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        public static string GetTextValue(string key, IEnumerable<object> args) {
+			return Language.GetTextValue(key, args);
+		}
+
         #region AddOrCombine
 
         public static void AddOrCombine(this Dictionary<byte, EStatModifier> dictionary, byte key, EStatModifier newValue) {
@@ -516,7 +542,6 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffEffect buffEffect) {
-            $"{buffEffect.BuffStats.Duration.Ticks}".Log();
             short key = buffEffect.BuffStats.BuffID;
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].CombineNoReturn(buffEffect.BuffStats.Clone());

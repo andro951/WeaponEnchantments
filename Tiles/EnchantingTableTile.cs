@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments.Tiles
 {
@@ -107,6 +108,9 @@ namespace WeaponEnchantments.Tiles
 				Recipe.FindRecipes();
 			}
 			else {
+				if (MagicStorageIntegration.MagicStorageIsOpen())
+					MagicStorageIntegration.TryClosingMagicStorage();
+				
 				wePlayer.enchantingTableTier = enchantingTableTier;
 				if (wePlayer.highestTableTierUsed < enchantingTableTier)
 					wePlayer.highestTableTierUsed = enchantingTableTier;

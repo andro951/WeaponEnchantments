@@ -331,7 +331,8 @@ namespace WeaponEnchantments.Content.NPCs
 			foreach(int i in NPCID.Sets.TownNPCBestiaryPriority) {
 				int npcWhoAmI = NPC.FindFirstNPC(i);
 				if (npcWhoAmI >= 0) {
-					if (((TownNPCTypeID)i).ToString().Lang(out string c, L_ID1.Dialogue, npcID))
+					string[] args = { npcID.ToString() };
+					if (((TownNPCTypeID)i).ToString().Lang(out string c, L_ID1.Dialogue, npcID, args))
 						chat.Add(c, 0.5);
 				}
 			}

@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
+        public static bool printWiki = true;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -66,6 +67,18 @@ namespace WeaponEnchantments.Common.Utility
         //public static string listOfAllEnchantmentTooltips = "";
 
         //Requires an input type to have properties: Texture
+        public override void OnWorldLoad() {
+            PrintListOfEnchantmentTooltips();
+
+            //Contributors  change to give exact file location when added to contributor.
+            PrintContributorsList();
+
+            PrintAllLocalization();
+
+            PrintEnchantmentDrops();
+
+            PrintWiki();
+        }
         public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
             if (!printListOfContributors)
                 return;
@@ -336,16 +349,6 @@ namespace WeaponEnchantments.Common.Utility
 
             return newString;
 		}
-        public override void OnWorldLoad() {
-            PrintListOfEnchantmentTooltips();
-
-            //Contributors  change to give exact file location when added to contributor.
-            PrintContributorsList();
-
-            PrintAllLocalization();
-
-	        PrintEnchantmentDrops();
-        }
         private static void PrintListOfEnchantmentTooltips() {
 		if (!printListOfEnchantmentTooltips)
 			return;
@@ -469,5 +472,19 @@ namespace WeaponEnchantments.Common.Utility
 
             log.Log();
 		}
+        private static void PrintWiki() {
+            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+            IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.Name);
+            IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
+
+            string wiki = "\n\n";
+            wiki += "Containments\n";
+            wiki += "Only these enchantments can be obtained by crafting.The others must all be found in other ways.\n";
+			foreach (Enchantment enchantment in enchantments.Where(e => e.LowestCraftableTier == 0)) {
+                wiki += $"* [[{enchantment.Name.AddSpaces()}]]\n";
+			}
+
+            wiki.Log();
+        }
     }
 }

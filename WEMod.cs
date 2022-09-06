@@ -22,6 +22,7 @@ using WeaponEnchantments.Common.Utility;
 using KokoLib;
 using OnProjectile = On.Terraria.Projectile;
 using OnPlayer = On.Terraria.Player;
+using WeaponEnchantments.Content.NPCs;
 
 namespace WeaponEnchantments
 {
@@ -45,6 +46,12 @@ namespace WeaponEnchantments
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
 			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
+		}
+		public override void PostSetupContent() {
+			//Census mod support
+			if (ModLoader.TryGetMod("Census", out Mod Census)) {
+				Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
+			}
 		}
 
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {

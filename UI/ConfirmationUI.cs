@@ -181,7 +181,7 @@ namespace WeaponEnchantments.UI
 
             //Xp -> Essence
             if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
-            WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
+            WeaponEnchantmentUI.ConvertXPToEssence(xp, true, item);
 
             //Item value -> ores/essence
             if (!noOre) {
@@ -241,7 +241,7 @@ namespace WeaponEnchantments.UI
                 //Essence
                 if (essenceValue > 0) {
                     if (WEMod.magicStorageEnabled) $"essenceValue > 0, OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
-                    WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true);
+                    WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true, item);
                 }
             }
 

@@ -10,15 +10,15 @@ Terraria has you frequently swapping old gear for new. The enchanting system all
 # Wiki
 
 ## Config (Most options on the 2nd page!)
-Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
-> You have an extreme ammount of control over the power level of this mod via the config.
+Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recommended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
+> You have an extreme amount of control over the power level of this mod via the config.
 
 ## Item Experience
-All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
+All weapons, armor and accessories can now gain experience (**XP**). These are **enchantable items**.
 
 These items have a level based on their XP which is for two things:
 Increases enchantment capacity of the item by 1 per level
-Increases weapon critical strike chance by 1 per level (can be disabled, affected by the Config Recomended Strength multiplier mentioned above.)
+Increases weapon critical strike chance by 1 per level (can be disabled, affected by the Config Global Enchantment Strength multiplier mentioned above.)
 
 You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
 
@@ -30,7 +30,7 @@ You can obtain XP by damaging enemies, doing skilling activities such as mining 
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
-Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
+Essence represents solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
 They can be used to...
 * Upgrade enchantments.
 * Infuse it's XP value into items.
@@ -39,8 +39,8 @@ There are 5 Essence types, each worth more than the last:
 0. Basic
 1. Common
 2. Rare
-3. Super Rare
-4. Ultra Rare
+3. Epic
+4. Legendary
 
 ## Containments
 ![Containment](/Items/Sprites/Containment.png)
@@ -62,15 +62,15 @@ There are 3 containment levels:
 
 Enchantments allow customization of your items:
     Basic stat upgrades such as:
-        *Damage
-        *Critical strike chance
-        *Armor
-        *Life steal
+        * Damage
+        * Critical strike chance
+        * Armor
+        * Life steal
     More unique upgrades such as:
-        *Hitting all enemies in an area (One for All)
-        *Dealing massive damage but having a long recovery (All for One)
-        *Flames that spread between enemies (World Ablaze)
-        *Max health true damage (God Slayer)
+        * Hitting all enemies in an area (One for All)
+        * Dealing massive damage but having a long recovery (All for One)
+        * Flames that spread between enemies (World Ablaze)
+        * Max health true damage (God Slayer)
 
 Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity.
 
@@ -83,9 +83,9 @@ They're obtained by...
 
 Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
  > Magic Storage: The environment simulator lets you access the essence in the enchanting table.
- The environment simulator will also act as the highest tier enchanting table your character has ever ussd.
+ The environment simulator will also act as the highest tier enchanting table your character has ever used.
 
-Recipies can easily be looked up:
+Recipes can easily be looked up:
 * You can give items to the vanilla guide to see what it can be crafted into.
 * You can also use the recipe browser mod.
 
@@ -95,9 +95,9 @@ There are 5 tiers:
 0. Basic - 10 Basic Essence, Containment(the smallest one) (tier 0, Wood enchanting table or better)
 1. Medium - 10 Medium Essence, Medium Containment, tier 0 Enchantment (tier 1, Dusty enchanting table or better)
 2. Rare - 10 Rare Essence, Superior Containment, tier 1 Enchantment (tier 2, Hellish enchanting table or better)
-3. Super Rare - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
-4. Ultra Rare - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
-> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
+3. Epic - 10 Epic Essence, tier 2 Enchantment, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
+4. Legendary - 10 Legendary Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunker Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
 
 ## Power Boosters
 These are rare items obtained by defeating bosses, and add 10 levels to your item. They can be used only once per item and are returned upon offering the item.
@@ -222,14 +222,13 @@ enchantments/experience as essence/power booster back.
 ## When you start a game...
 * Make an enchanting table right away!
     * The first enchanting table is created with a workbench and 4 torches.
-* Gear yourself up (fill in your armor and accesory slots so they start getting XP).
+* Gear yourself up (fill in your armor and accessory slots so they start getting XP).
 * When upgrading, offer your old armor and weapons for essence.
 * Upgrade your new weapons and armor with the obtained essence.
-* Keep growing!
 
 ### Tips & Tricks
 * DONT SELL enchantable items! Offer them instead.
-    * The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
+    * The value from ore received is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
     * Offering items returns all Enchantments/Power Booster applied to the consumed item.
 * Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.(Especially if you set the config to 0% ore, 100% essence)
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
@@ -288,12 +287,12 @@ Kiroto:
 
 Princess of Evil: 
 
-![CursedInfernoEnchantmentCommon](/Items/Sprites/StatusEffects/CursedInfernoEnchantmentCommon.png)
-![DaybreakEnchantmentCommon](/Items/Sprites/StatusEffects/DaybreakEnchantmentCommon.png)
-![FrostburnEnchantmentCommon](/Items/Sprites/StatusEffects/FrostburnEnchantmentCommon.png)
-![IchorEnchantmentCommon](/Items/Sprites/StatusEffects/IchorEnchantmentCommon.png)
-![OnFireEnchantmentCommon](/Items/Sprites/StatusEffects/OnFireEnchantmentCommon.png)
-![VenomEnchantmentCommon](/Items/Sprites/StatusEffects/VenomEnchantmentCommon.png)
+![CursedInfernoEnchantmentCommon](/Items/Sprites/CursedInfernoEnchantmentCommon.png)
+![DaybreakEnchantmentCommon](/Items/Sprites/DaybreakEnchantmentCommon.png)
+![FrostburnEnchantmentCommon](/Items/Sprites/FrostburnEnchantmentCommon.png)
+![IchorEnchantmentCommon](/Items/Sprites/IchorEnchantmentCommon.png)
+![OnFireEnchantmentCommon](/Items/Sprites/OnFireEnchantmentCommon.png)
+![VenomEnchantmentCommon](/Items/Sprites/VenomEnchantmentCommon.png)
 
 Sir Bumpleton ✿: 
 

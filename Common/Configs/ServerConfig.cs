@@ -197,6 +197,19 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentSlotsOnTools;
 
+        [Label("Reduce Offer Efficiency By Table Tier")]
+        [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
+			"Enabling this will cause the wood table to be 60% efficient.\n" +
+			"Each table gains 10% efficiency.  100% with Ultimate table.")]
+        [DefaultValue(false)]
+        public bool ReduceOfferEfficiencyByTableTier;
+
+        [Label("Reduce Offer Efficiency By Base Infusion Power")]
+        [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
+			"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).")]
+        [DefaultValue(false)]
+        public bool ReduceOfferEfficiencyByBaseInfusionPower;
+
         //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]

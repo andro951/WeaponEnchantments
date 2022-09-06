@@ -411,7 +411,7 @@ namespace WeaponEnchantments.UI
                 Main.NewText($"You cannot gain any more experience on your {item.S()}.");
             }
         }
-        public static int ConvertXPToEssence(int xp, bool consumeAll = false) {
+        public static int ConvertXPToEssence(int xp, bool consumeAll = false, Item item = null) {
             if(xp <= 0)
                 return 0;
 
@@ -426,16 +426,20 @@ namespace WeaponEnchantments.UI
             }
 
             //Apply table tier reduction
-            int highestTableTier = wePlayer.highestTableTierUsed;
             int xpCounter;
-            if (highestTableTier < 4) {
+            if (WEMod.serverConfig.ReduceOfferEfficiencyByTableTier && wePlayer.highestTableTierUsed < 4) {
                 //Tier 3 or lower table
-                float essenceReduction = 0.6f + 0.1f * highestTableTier;
+                float essenceReduction = 0.6f + 0.1f * wePlayer.highestTableTierUsed;
                 xpCounter = (int)Math.Round(xp * essenceReduction);
             }
 			else {
                 //Tier 4 table
                 xpCounter = xp;
+            }
+
+            if (item?.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) == true && WEMod.serverConfig.ReduceOfferEfficiencyByBaseInfusionPower) {
+                float infusionPower = Math.Min((float)enchantedWeapon.infusionPower, 1100f);
+                xpCounter = (int)Math.Round((float)xpCounter * (1f - 0.2f * (infusionPower / 1100f)));
             }
 
             int xpInitial = xpCounter;
@@ -587,7 +591,7 @@ namespace WeaponEnchantments.UI
             else {
                 int xp = iGlobal.Experience - maxLevelXP;
                 if (WEMod.magicStorageEnabled) $"Syphon(), itemInUI: {itemInUI.S()}".Log();
-                iGlobal.Experience -= ConvertXPToEssence(xp);
+                iGlobal.Experience -= ConvertXPToEssence(xp, item: itemInUI);
             }
         }
         private static void LootAll() {

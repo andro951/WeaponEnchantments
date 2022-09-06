@@ -72,6 +72,8 @@ namespace WeaponEnchantments.Items
 				LogModSystem.UpdateContributorsList(this);
 				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
 			}
+
+			IDs[EssenceTier] = Type;
 		}
 
 		public override void PostUpdate() {
@@ -138,8 +140,6 @@ namespace WeaponEnchantments.Items
 						recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 						recipe.Register();
 					}
-
-					IDs[EssenceTier] = Type;
 				}
 			}
 		}
