@@ -79,6 +79,10 @@ namespace WeaponEnchantments.Common.Utility
             s.UpdateCharNum(true);
         }
 
+        public static void LogSimple(this string s) {
+            ModContent.GetInstance<WEMod>().Logger.Info(s);
+        }
+
         /// <summary>
         /// Prints a message to the .log file.
         /// Will not print the exact same string more than once per second. (Good for logging methods that get called every tick)

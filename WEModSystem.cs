@@ -508,10 +508,10 @@ namespace WeaponEnchantments
         }
         public override void AddRecipeGroups() {
             RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[] {
+                ItemID.Topaz,
                 ItemID.Sapphire,
                 ItemID.Ruby,
                 ItemID.Emerald,
-                ItemID.Topaz,
                 ItemID.Amethyst
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);

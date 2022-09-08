@@ -192,15 +192,16 @@ namespace WeaponEnchantments.Common.Utility
 	        enchantmentNames.Sort();
 	        GetLocalizationFromList(null, enchantmentNames);
 	    
-                var modItemLists = modItems
+            var modItemLists = modItems
 	    	    .Where(mi => mi is not Enchantment)
 	    	    .GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
-		    .Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
-		    .OrderBy(group => group.Key);
+		        .Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
+		        .OrderBy(group => group.Key);
             
-                foreach (var list in modItemLists) {
-                    GetLocalizationFromList(null, list.ModItemList);
-                }
+            foreach (var list in modItemLists) {
+                GetLocalizationFromList(null, list.ModItemList);
+            }
+
 	        Close();
 	    
 	        FromLocalizationData();
@@ -324,6 +325,14 @@ namespace WeaponEnchantments.Common.Utility
 		}
         private static string Tabs(int num) => num > 0 ? new string('\t', num) : "";
         public static string FillString(int num, char c) => num > 0 ? new string(c, num) : "";
+        public static string FillString(int num, string s) {
+            string text = "";
+            for (int i = 0; i < num; i++) {
+                text += s;
+			}
+
+            return text;
+		}
         private static string CheckTabOutLocalization(string s) {
             if (s.Contains("'''"))
                 return s;
@@ -590,7 +599,7 @@ namespace WeaponEnchantments.Common.Utility
         private static List<Item> GetOtherCraftedItems(Item item, Item consumedItem) => CraftingEnchantments.GetOtherCraftedItems(item, consumedItem).Select(p => new Item(p.Key, p.Value)).ToList();
         private class RecipeData
 		{
-            public List<Item> createItem;
+            public CommonItemList createItem;
             public CommonItemList requiredItem;
             public CommonItemList requiredTile;
             public RecipeData(Recipe recipe) {
@@ -602,7 +611,7 @@ namespace WeaponEnchantments.Common.Utility
                 requiredTile = new(recipe.requiredTile.Select(i => i.GetItemFromTileType()).ToList());
 			}
             public bool TryAdd(RecipeData other) {
-                if (!createItem.SameAs(other.createItem))
+                if (!createItem.ExactSame(other.createItem))
                     return false;
 
                 if (SameExceptOneTile(other)) {
@@ -635,10 +644,34 @@ namespace WeaponEnchantments.Common.Utility
 
                 return true;
             }
-			public override string ToString() {
+            public bool TryCondenseRecipe(RecipeData other) {
+                //if (createItem.NumberCommonItems(other.createItem) == 0)
+                //    return false;
+
+                if (!createItem.SameCommonItems(other.createItem))
+                    return false;
+
+                bool added = false;
+                if (SameExceptOneTile(other)) {
+                    if (requiredTile.TryAdd(other.requiredTile))
+                        added = true;
+				}
+
+                if (SameExceptOneRequiredItem(other)) {
+                    if (requiredItem.TryAdd(other.requiredItem))
+                        added = true;
+				}
+
+                if (added)
+                    createItem.TryAdd(other.createItem);
+
+                return added;
+			}
+
+            public override string ToString() {
                 string s = "";
                 if (createItem != null) {
-                    s += createItem.Select(i => i.Name).JoinList(", ");
+                    s += createItem.ToString();
                     s += "     ";
                 }
 
@@ -882,7 +915,7 @@ namespace WeaponEnchantments.Common.Utility
 				}
 
                 bool recipesAdded = false;
-                
+
                 List<List<string>> myRecipes = new() { new() { "Result", "Ingredients", "Crafting station" } };
                 if (createItem && TryAddRecipeData(myRecipes, createItemRecipes))
                     recipesAdded = true;
@@ -900,12 +933,54 @@ namespace WeaponEnchantments.Common.Utility
                 if (!allRecipeData.ContainsKey(Item.type))
                     return false;
 
-                foreach (RecipeData recipeData in allRecipeData[Item.type]) {
+                List<RecipeData> myRecipeData = new();
+
+                if (allRecipeData[Item.type].Count >= 20) {
+                    foreach (RecipeData recipeData in allRecipeData[Item.type]) {
+                        bool added = false;
+                        foreach(RecipeData myRecipe in myRecipeData) {
+                            if (myRecipe.TryCondenseRecipe(recipeData)) {
+                                added = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!added)
+                            myRecipeData.Add(recipeData);
+                    }
+                }
+				else {
+                    myRecipeData = allRecipeData[Item.type];
+                }
+
+                List<RecipeData> myRecipeData2 = myRecipeData.Where(rd => rd.requiredTile.ToString().Contains("Enchanting Table")).OrderBy(rd => -rd.requiredTile.ToString().Length).ToList();
+                List<RecipeData> myRecipeData3 = myRecipeData.Where(rd => !rd.requiredTile.ToString().Contains("Enchanting Table")).OrderBy(rd => rd.requiredTile.ToString().Length).ToList();
+
+                foreach (RecipeData recipeData in myRecipeData3.Concat(myRecipeData2)) {
                     List<string> list = new();
-                    string createItems = recipeData.createItem.Select(i => i.ToItemPNG()).JoinList();
+                    
+                    int createItemNum = recipeData.createItem.CommonList.Count;
+                    if (createItemNum > 0)
+                        createItemNum++;
+
+                    int requiredItemNum = recipeData.requiredItem.CommonList.Count;
+                    if (requiredItemNum > 0)
+                        requiredItemNum++;
+
+                    bool breaksNeeded = recipeData.createItem.UniqueList != null && recipeData.requiredItem.UniqueList != null && recipeData.createItem.UniqueList.Count > 0 && recipeData.requiredItem.UniqueList.Count > 0;
+                    int diff = Math.Abs(createItemNum - requiredItemNum);
+                    string breaks = FillString(diff, "<br/>");
+
+                    string createItems = recipeData.createItem.ToString();//Select(i => i.ToItemPNG()).JoinList();
+                    if (breaksNeeded && createItemNum < requiredItemNum)
+                        createItems = breaks + createItems;
+
                     list.Add(createItems);
 
                     string requiredItems = recipeData.requiredItem.ToString();//.Select(i => i.ToItemPNG()).JoinList();
+                    if (breaksNeeded && requiredItemNum < createItemNum)
+                        requiredItems = breaks + requiredItems;
+
                     list.Add(requiredItems);
 
                     if (recipeData.requiredTile.Count > 0) {
@@ -915,17 +990,6 @@ namespace WeaponEnchantments.Common.Utility
                     else {
                         list.Add($"By Hand\n");
                     }
-
-                    /*
-                    if (recipeData.requiredTile.Count > 0) {
-                        string tileItems = recipeData.requiredTile.Select(l => l.Select(i => i.ToItemFromTilePNG())).JoinLists();
-
-                        list.Add(tileItems);
-                    }
-                    else {
-                        list.Add($"By Hand\n");
-                    }
-                    */
 
                     myRecipes.Add(list);
                 }
@@ -986,6 +1050,20 @@ namespace WeaponEnchantments.Common.Utility
 					}
 				}
 			}
+            public bool TryAdd(CommonItemList other) {
+                if (SameCommonItems(other)) {
+                    if (other.UniqueList != null) {
+                        UniqueList.CombineLists(other.UniqueList, true);
+                    }
+					else {
+                        Add(other.CommonList);
+					}
+                    
+                    return true;
+                }
+
+                return false;
+			}
 			public override string ToString() {
                 string text = "";
                 if (CommonList.Count > 0) {
@@ -997,7 +1075,11 @@ namespace WeaponEnchantments.Common.Utility
                 if (UniqueList == null)
                     return text;
 
-                if (UniqueList.Count <= 5) {
+                int uniqueCount = UniqueList.Count;
+                if (uniqueCount >= 20) {
+                    text += CommonToAll;
+                }
+				else if (uniqueCount > 0) {
                     if (text != "")
                         text += "and<br/>";
 
@@ -1013,9 +1095,6 @@ namespace WeaponEnchantments.Common.Utility
                         text += $"{s}";
                     }
                 }
-				else {
-                    return CommonToAll;
-				}
 
                 return text;
 			}
@@ -1037,6 +1116,23 @@ namespace WeaponEnchantments.Common.Utility
 
                 return true;
 			}
+            public int NumberCommonItems(CommonItemList other) {
+                if (CommonList.Count == 0 || other.CommonList.Count == 0)
+                    return 0;
+
+                bool nullUniqueList = other.UniqueList == null;
+                List<string> myCommonList = CommonList.Select(i => i.ToString()).ToList();
+                List<string> otherCommonList = other.CommonList.Select(i => i.ToString()).ToList();
+
+                int failedMatchCount = 0;
+                foreach (string s in otherCommonList) {
+                    if (!myCommonList.Contains(s)) {
+                        failedMatchCount++;
+                    }
+                }
+
+                return CommonList.Count - failedMatchCount;
+            }
             public bool ExactSame(CommonItemList other) => UniqueList.SameAs(other.UniqueList) && CommonList.SameAs(other.CommonList);
         }
     }

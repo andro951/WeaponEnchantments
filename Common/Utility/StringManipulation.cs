@@ -339,27 +339,98 @@ namespace WeaponEnchantments.Common.Utility
             if (list == null || list.Count <= 0)
                 return "";
 
-            List<string> strings = list.Select(t => t.ToString()).ToList();
-            List<int> indexes = Enumerable.Repeat(0, list.Count).ToList();
+            List<string> original = list.Select(t => t.ToString()).ToList();
+            List<string> edited = new();
+            List<string> matches = new();
 
             string rS = list[0].ToString();
             string result = "";
             int listCount = list.Count;
+            string matchString = "";
+            for(int i = 0; i < rS.Length; i++) {
+                char c = rS[i];
+                bool match = true;
+                for (int k = 0; k < listCount; k++) {
+                    string orig = original[k];
+                    if (!orig.Contains(matchString + c)) {
+                        match = false;
+                        break;
+					}
+                }
+
+                if (match) {
+                    if (c != ' ' || matchString != " ")
+                    matchString += c;
+                }
+                else if (matchString != "") {
+                    i--;
+                    matches.Add(matchString);
+                    matchString = "";
+				}
+            }
+
+            if (matchString != "") {
+                matches.Add(matchString);
+            }
+
+            int count = matches.Count;
+            for (int i = 0; i < count; i++) {
+                string s = matches[i];
+                bool match = false;
+                for(int k = 0; k < count; k++) {
+                    if (i == k)
+                        continue;
+
+                    matchString = matches[k];
+                    if (s != matchString && matchString.Contains(s)) {
+                        match = true;
+                        break;
+					}
+				}
+
+                if (!match)
+                    result += s;
+			}
+
+            /*
+            for(int k = 0; k < listCount; k++) {
+
+                for(int z = 0; z < listCount; z++) {
+                    string edit = "";
+                    bool match = true;
+                    foreach(char c in string) {
+                        if ( c)
+					}
+				}
+			}
+            */
+
+            /*
             foreach(char c in rS) {
                 bool match = true;
                 for(int k = 0; k < listCount; k++) {
-                    int index = strings[k].IndexOf(c);
+                    string sK = strings[k];
+                    int index = sK.IndexOf(c);
                     if (index == -1) {
                         match = false;
                         break;
 					}
 
-                    strings[k] = strings[k].Substring(index + 1);
+                    
 				}
 
-                if (match)
+                if (match) {
+                    for (int k = 0; k < listCount; k++) {
+                        string sK = strings[k];
+                        int index = sK.IndexOf(c);
+                        strings[k] = sK.Substring(index + 1);
+                    }
+                    
                     result += c;
+                }
+                    
 			}
+            */
 
             return result;
 		}

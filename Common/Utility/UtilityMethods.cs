@@ -636,9 +636,12 @@ namespace WeaponEnchantments.Common.Utility
         public static void Clamp(this ref int value, int min, int max) {
             value = value < min ? min : value > max ? max : value;
 		}
-        public static void CombineLists<T>(this List<T> list1, List<T> list2) {
-            foreach(T item in list2) {
-                list1.Add(item);
+        public static void CombineLists(this List<Item> list1, List<Item> list2, bool noDuplicates = false) {
+            List<int> list1Types = list1.Select(i => i.type).ToList();
+            List<int> list2Types = list2.Select(i => i.type).ToList();
+            for(int i = 0; i < list2Types.Count; i++) {
+                if (!noDuplicates || !list1Types.Contains(list2Types[i]))
+                    list1.Add(list2[i]);
 			}
 		}
 
