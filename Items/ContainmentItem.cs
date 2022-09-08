@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Items
         public static int[] IDs = new int[sizes.Length];
         public static int[] Values = new int[sizes.Length];
         
-        public int size = 0;
+        public int tier = 0;
         private int bars;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 
@@ -25,12 +25,12 @@ namespace WeaponEnchantments.Items
         public override void SetStaticDefaults() {
             GetDefaults();
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-            bars = 4 * (int)Math.Pow(2, size);
-            Values[size] = bars * ContentSamples.ItemsByType[barIDs[0, size]].value;
-            if (size == 2)
-                Values[size] += ContentSamples.ItemsByType[180].value * 4;
+            bars = 4 * (int)Math.Pow(2, tier);
+            Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
+            if (tier == 2)
+                Values[tier] += ContentSamples.ItemsByType[180].value * 4;
 
-            Tooltip.SetDefault("Used to store " + tierNames[size] + " enchantments");
+            Tooltip.SetDefault("Used to store " + tierNames[tier] + " enchantments");
             
             LogModSystem.UpdateContributorsList(this);
         }
@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items
             for (int i = 0; i < sizes.Length; i++) {
                 int indexOfContintment = Name.IndexOf("Containment");
                 if (sizes[i] == Name.Substring(0, indexOfContintment)) {
-                    size = i;
+                    tier = i;
                     break;
                 }
             }
@@ -46,27 +46,27 @@ namespace WeaponEnchantments.Items
         public override void SetDefaults() {
             GetDefaults();
             Item.maxStack = 1000;
-            Item.value = Values[size];
-            Item.width = 28 + 4 * size;
-            Item.height = 28 + 4 * size;
+            Item.value = Values[tier];
+            Item.width = 28 + 4 * tier;
+            Item.height = 28 + 4 * tier;
         }
         public override void AddRecipes() {
             Recipe recipie;
             for (int i = 0; i < 2; i++) {
                 recipie = CreateRecipe();
                 recipie.AddTile(TileID.WorkBenches);
-                if (size == 2) {
+                if (tier == 2) {
                     recipie.AddRecipeGroup("WeaponEnchantments:CommonGems", 4);
                 }
                 else {
-                    recipie.AddIngredient(ItemID.Glass, glass[size]);
+                    recipie.AddIngredient(ItemID.Glass, glass[tier]);
                 }
-                recipie.AddIngredient(barIDs[i,size], bars);
+                recipie.AddIngredient(barIDs[i,tier], bars);
                 recipie.Register();
             }
 
-            IDs[size] = Item.type;
-            Recipe.Create(barIDs[0, size], bars).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
+            IDs[tier] = Item.type;
+            Recipe.Create(barIDs[0, tier], bars).AddIngredient(Item.type).AddTile(TileID.Furnaces).Register();
         }
     }
     public class Containment : ContainmentItem { }

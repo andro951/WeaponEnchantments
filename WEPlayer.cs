@@ -955,7 +955,7 @@ namespace WeaponEnchantments
                 //One For All
                 int oneForAllDamageDealt = 0;
                 if (weGlobalNPC.oneForAllOrigin)
-                    oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit);
+                    oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit, projectile);
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
@@ -963,18 +963,16 @@ namespace WeaponEnchantments
             //GodSlayer
             ActivateGodSlayer(target, item, damage, damageReduction, crit, fromProjectile);
 
-            //One for all kill projectile on hit.
-            if (CombinedEnchantmentStats.ContainsKey(EnchantmentStat.OneForAll) && weGlobalNPC.oneForAllOrigin && fromProjectile) {
-                if (projectile.penetrate != 1)
-                    projectile.active = false;
-            }
-
             UpdateNPCImmunity(target);
 
             if (!skipOnHitEffects)
                 ApplyOnHitEnchants(item, target, damage, knockback, crit, projectile);
         }
-        private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit) {
+        private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile) {
+            WEProjectile weProjectile = null;
+            if (projectile?.TryGetWEProjectile(out weProjectile) == true && weProjectile.activatedOneForAll)
+                return 0;
+
             if (!CheckEnchantmentStats(EnchantmentStat.OneForAll, out float allForOneMultiplier))
                 return 0;
 
@@ -1044,6 +1042,9 @@ namespace WeaponEnchantments
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 Net<INetOnHitEffects>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
+
+            if (weProjectile != null)
+                weProjectile.activatedOneForAll = true;
 
             #region Debug
 

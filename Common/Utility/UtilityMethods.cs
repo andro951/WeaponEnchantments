@@ -575,13 +575,44 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, new List<(T, List<WeightedPair>)>() { newValue });
             }
 		}
+        public static void AddOrCombine(this Dictionary<int, int> dict1, Dictionary<int, int> dict2) {
+            foreach(var pair in dict2) {
+                dict1.AddOrCombine(pair);
+			}
+		}
+        public static void AddOrCombine(this Dictionary<int, int> dict1, KeyValuePair<int, int> pair) {
+            int key = pair.Key;
+            if (dict1.ContainsKey(key)) {
+                dict1[key] += pair.Value;
+			}
+			else {
+                dict1.Add(key, pair.Value);
+			}
+		}
+        public static void AddOrCombine(this Dictionary<int, int> dict1, (int, int) pair) {
+            int key = pair.Item1;
+            if (dict1.ContainsKey(key)) {
+                dict1[key] += pair.Item2;
+            }
+            else {
+                dict1.Add(key, pair.Item2);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		//public static void ApplyTo(this StatModifier statModifier, ref float value) {
-		//    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
-		//}
-		public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
+        /*
+        public static void Combine<T>(this List<T> list, List<T> list2) {
+            foreach(T item in list2) {
+                list.Add(item);
+			}
+		}
+        */
+
+        //public static void ApplyTo(this StatModifier statModifier, ref float value) {
+        //    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
+        //}
+        public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
         public static SortedList<TKey, TValue> CombineSortedLists<TKey, TValue>(this SortedList<TKey, TValue> list1, SortedList<TKey, TValue> list2) {
             SortedList <TKey, TValue> newList = new SortedList <TKey, TValue>();
             foreach (KeyValuePair<TKey, TValue> pair in list1) {
@@ -604,6 +635,11 @@ namespace WeaponEnchantments.Common.Utility
 		}
         public static void Clamp(this ref int value, int min, int max) {
             value = value < min ? min : value > max ? max : value;
+		}
+        public static void CombineLists<T>(this List<T> list1, List<T> list2) {
+            foreach(T item in list2) {
+                list1.Add(item);
+			}
 		}
 
         #endregion

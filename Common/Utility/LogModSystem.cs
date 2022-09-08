@@ -16,6 +16,7 @@ using WeaponEnchantments.Items;
 using WeaponEnchantments.Localization;
 using static Terraria.Localization.GameCulture;
 using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
+using static WeaponEnchantments.Common.Utility.LogModSystem;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -25,7 +26,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
-        public static bool printWiki = true;
+        public static bool printWiki = WEMod.clientConfig.PrintWikiInfo;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -322,6 +323,7 @@ namespace WeaponEnchantments.Common.Utility
             return list;
 		}
         private static string Tabs(int num) => num > 0 ? new string('\t', num) : "";
+        public static string FillString(int num, char c) => num > 0 ? new string(c, num) : "";
         private static string CheckTabOutLocalization(string s) {
             if (s.Contains("'''"))
                 return s;
@@ -472,19 +474,702 @@ namespace WeaponEnchantments.Common.Utility
 
             log.Log();
 		}
+        private static Dictionary<int, List<RecipeData>> createItemRecipes;
+        private static Dictionary<int, List<RecipeData>> recipesUsedIn;
         private static void PrintWiki() {
+            if (!printWiki)
+                return;
+
             IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+            GetRecpies(modItems);
+            IEnumerable<ContainmentItem> containmentItems = modItems.OfType<ContainmentItem>().OrderBy(c => c.tier);
             IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.Name);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
+            List<WebPage> webPages = new();
+
+            WebPage Containments = new("Containments");
+            Containments.AddParagraph("These contain the power of the enchantments. More powerful enchantments require larger and stronger containments to hold them.");
+            Containments.NewLine();
+            foreach (ContainmentItem containment in containmentItems) {
+                string name = containment.Name;
+                int tier = containment.tier;
+                string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
+                Containments.AddSubHeading(1, subHeading);
+				switch (tier) {
+                    case 0://Containment
+                        string text = "Only these enchantments can be obtained by crafting.The others must all be found in other ways.";
+                        Containments.AddParagraph(text);
+                        Containments.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name).ToArray());
+                        break;
+                    case 1://Medium Containment
+
+                        break;
+                    case 2://Superior Containment
+
+                        break;
+				}
+
+                ItemInfo itemInfo = new(containment);
+                Containments.AddTable(itemInfo.RecipesCreateItem, "Recipes", true);
+                Containments.AddTable(itemInfo.RecipesUsedIn, "Used in", true);
+                Containments.NewLine();
+            }
+
+            webPages.Add(Containments);
 
             string wiki = "\n\n";
-            wiki += "Containments\n";
-            wiki += "Only these enchantments can be obtained by crafting.The others must all be found in other ways.\n";
-			foreach (Enchantment enchantment in enchantments.Where(e => e.LowestCraftableTier == 0)) {
-                wiki += $"* [[{enchantment.Name.AddSpaces()}]]\n";
+
+            foreach(WebPage webPage in webPages) {
+                wiki += webPage.ToString();
 			}
 
             wiki.Log();
         }
+        private static void GetRecpies(IEnumerable<ModItem> modItems) {
+            createItemRecipes = new();
+            recipesUsedIn = new();
+            int min = int.MaxValue;
+            int max = int.MinValue;
+            foreach (ModItem modItem in modItems) {
+                int type = modItem.Type;
+                if (type < min) {
+                    min = type;
+                }
+                else if (type > max) {
+                    max = type;
+                }
+            }
+
+            for(int i = 0; i < Recipe.numRecipes; i++) {
+                Recipe recipe = Main.recipe[i];
+                int type = recipe.createItem.type;
+                if (type >= min && type <= max) {
+                    RecipeData recipeData = new(recipe);
+                    if (createItemRecipes.ContainsKey(type)) {
+                        bool recipeAdded = false;
+                        
+                        foreach(RecipeData createItemRecipe in createItemRecipes[type]) {
+                            if (createItemRecipe.TryAdd(recipeData)) {
+                                recipeAdded = true;
+                                break;
+                            }
+						}
+                        
+                        if (!recipeAdded)
+                            createItemRecipes[type].Add(recipeData);
+					}
+					else {
+                        createItemRecipes.Add(type, new List<RecipeData> { recipeData });
+					}
+				}
+
+                foreach(Item item in recipe.requiredItem) {
+                    int requiredItemType = item.type;
+                    if (requiredItemType >= min && requiredItemType <= max) {
+                        RecipeData recipeData = new(recipe);
+                        if (recipesUsedIn.ContainsKey(requiredItemType)) {
+                            bool recipeAdded = false;
+                            foreach (RecipeData usedInRecipe in recipesUsedIn[requiredItemType]) {
+                                if (usedInRecipe.TryAdd(recipeData)) {
+                                    recipeAdded = true;
+                                    break;
+                                }
+                            }
+                            
+                            if (!recipeAdded)
+                                recipesUsedIn[requiredItemType].Add(recipeData);
+                        }
+                        else {
+                            recipesUsedIn.Add(requiredItemType, new List<RecipeData> { recipeData });
+                        }
+                    }
+                }
+			}
+        }
+        private static List<Item> GetAllOtherCraftedItems(Item item, List<Item> consumedItems) => consumedItems.SelectMany(c => GetOtherCraftedItems(item, c)).ToList();
+        private static List<Item> GetOtherCraftedItems(Item item, Item consumedItem) => CraftingEnchantments.GetOtherCraftedItems(item, consumedItem).Select(p => new Item(p.Key, p.Value)).ToList();
+        private class RecipeData
+		{
+            public List<Item> createItem;
+            public CommonItemList requiredItem;
+            public CommonItemList requiredTile;
+            public RecipeData(Recipe recipe) {
+                List<Item> tempCreateItem = new() { recipe.createItem.Clone() };
+                List<Item> tempRequiredItem = recipe.requiredItem.Select(i => i.Clone()).ToList();
+                tempCreateItem.CombineLists(GetAllOtherCraftedItems(tempCreateItem[0], tempRequiredItem));
+                createItem = new(tempCreateItem);
+                requiredItem = new(tempRequiredItem);
+                requiredTile = new(recipe.requiredTile.Select(i => i.GetItemFromTileType()).ToList());
+			}
+            public bool TryAdd(RecipeData other) {
+                if (!createItem.SameAs(other.createItem))
+                    return false;
+
+                if (SameExceptOneTile(other)) {
+                    requiredTile.Add(other.requiredTile.CommonList);
+                    return true;
+                }
+
+                if (SameExceptOneRequiredItem(other)) {
+                    requiredItem.Add(other.requiredItem.CommonList);
+                    return true;
+                }
+
+                return false;
+			}
+            public bool SameExceptOneTile(RecipeData other) {
+                if (!requiredItem.ExactSame(other.requiredItem))
+                    return false;
+
+                if (!requiredTile.SameCommonItems(other.requiredTile))
+                    return false;
+
+                return true;
+            }
+            public bool SameExceptOneRequiredItem(RecipeData other) {
+                if (!requiredTile.ExactSame(other.requiredTile))
+                    return false;
+
+                if (!requiredItem.SameCommonItems(other.requiredItem))
+                    return false;
+
+                return true;
+            }
+			public override string ToString() {
+                string s = "";
+                if (createItem != null) {
+                    s += createItem.Select(i => i.Name).JoinList(", ");
+                    s += "     ";
+                }
+
+                if (requiredItem != null) {
+                    s += requiredItem.ToString();
+                    s += "     ";
+                }
+
+                if (requiredTile != null)
+                    s += requiredTile.ToString();
+
+                return s;
+			}
+		}
+
+        private class WebPage
+		{
+            public string HeaderName { private set; get; }
+            private List<object> _elements = new();
+            public WebPage(string headerName) {
+                HeaderName = headerName;
+                AddLink("Weapon Enchantments Mod(tModLoader) Wiki", "Main Page");
+                NewLine();
+			}
+            public void Add(object obj) => _elements.Add(obj);
+            public void AddSubHeading(int num, string text) => Add(new SubHeading(num, text));
+            public void AddParagraph(string text) => Add(new Paragraph(text));
+            public void AddLink(string s, string text = null) => Add(new Link(s, text));
+            public void AddBulletedList(bool png = false, bool links = false, params object[] elements) => Add(new BulletedList(png, links, elements));
+            public void AddTable<T>(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false) where T : class => 
+                Add(new Table<T>(elements, header, firstRowHeaders, sortable, collapsible, collapsed));
+            public void NewLine(int num = 1) => _elements.Add(FillString(num - 1, '\n'));
+            public override string ToString() {
+                string text = HeaderName + "\n";
+				foreach (object element in _elements) {
+                    text += element.ToString() + "\n";
+				}
+
+                return text;
+			}
+		}
+        private class SubHeading
+		{
+            public int HeadingNumber { private set; get; }
+            public string Text { private set; get; }
+            public SubHeading(int num, string text) {
+                HeadingNumber = num + 3;
+                Text = text;
+			}
+			public override string ToString() {
+                string markup = FillString(HeadingNumber, '=');
+                return $"{markup} {Text} {markup}";
+			}
+		}
+        private class Paragraph
+		{
+            public string Text { private set; get; }
+            public Paragraph(string text) {
+                Text = text;
+            }
+            public override string ToString() {
+                return Text;
+			}
+
+        }
+        private class Link {
+            public string Text { private set; get; }
+            public Link(string s, string text = null) {
+                Text = s.ToLink(text);
+            }
+            public override string ToString() {
+                return Text;
+            }
+        }
+        private class BulletedList
+		{
+            public object[] Elements { private set; get; }
+            private bool png;
+            private bool _links;
+            public BulletedList(bool png = false, bool links = false, params object[] elements) {
+                Elements = elements;
+                _links = links;			}
+			public override string ToString() {
+                string text = "";
+                foreach (object element in Elements) {
+                    text += "* ";
+                    string elem = element.ToString();
+                    if (_links) {
+                        if (png) {
+                            elem = elem.ToItemPNG(link: true);
+						}
+						else {
+                            elem = elem.ToLink();
+                        }
+					}
+                    else if (png) {
+                        elem = elem.ToItemPNG();
+                    }
+                    
+                    text += elem;
+
+                    text += "\n";
+				}
+
+                return text;
+			}
+		}
+        private class NumberedList
+        {
+            public object[] Elements { private set; get; }
+            private bool _links;
+            public NumberedList(bool links = false, params object[] elements) {
+                Elements = elements;
+                _links = links;
+            }
+            public override string ToString() {
+                string text = "";
+                foreach (object element in Elements) {
+                    text += "# ";
+                    string elem = element.ToString();
+                    if (_links)
+                        elem = elem.ToLink();
+
+                    text += elem;
+
+                    text += "\n";
+                }
+
+                return text;
+            }
+        }
+        private class Table<T> where T : class
+		{
+            public string Header { private set; get; }
+            private bool _firstRowIsHeaders;
+            private bool _sortable;
+            private bool _collapsible;
+            private bool _collapsed;
+            private bool _rowspanColumns;
+            public List<List<T>> Elements { private set; get; }
+            public Table(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowIsHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = true) {
+                Elements = elements.Select(e => e.ToList()).ToList();
+                Header = header;
+                _firstRowIsHeaders = firstRowIsHeaders;
+                _sortable = sortable;
+                _collapsible = collapsible;
+                _collapsed = collapsed;
+                _rowspanColumns = rowspanColumns;
+            }
+            public override string ToString() {
+                if (Elements.Count >= 10) {
+                    _sortable = true;
+                    _collapsible = true;
+                    _collapsed = true;
+                }
+
+                string text = $"{"{"}| class=\"{(_sortable ? "sortable " : "")}{(_collapsible ? "mw-collapsible " : "")}{(_collapsed ? "mw-collapsed " : "")}fandom-table\"\n";
+                List<int> rowspan = Enumerable.Repeat(0, Elements[0].Count).ToList();
+                
+                if (Header != null)
+                    text += $"|+{Header}\n";
+
+                bool first = true;
+                bool firstRowHeaders;
+                int elementsCount = Elements.Count;
+                for (int i = 0; i < elementsCount; i++) {
+                    if (first) {
+                        first = false;
+                        firstRowHeaders = _firstRowIsHeaders;
+                    }
+                    else {
+                        firstRowHeaders = false;
+                        text += "|-\n";
+					}
+
+                    for (int j = 0; j < Elements[i].Count; j++) {
+                        T item = Elements[i][j];
+                        bool isRowspanColumn = false;
+                        if (!firstRowHeaders && _rowspanColumns && rowspan[j] == 0) {
+                            int k = i;
+                            while(k < elementsCount) {
+                                if (k + 1 == elementsCount)
+                                    break;
+
+                                T element = Elements[k + 1][j];
+                                if (item.ToString() == element.ToString()) {
+                                    k++;
+                                }
+								else {
+                                    break;
+								}
+							}
+
+                            if (k > i) {
+                                int rowspanNum = k - i;
+                                rowspan[j] = rowspanNum;
+                                text += $"| rowspan=\"{rowspanNum + 1}\" ";
+                                isRowspanColumn = true;
+                            }
+						}
+
+                        if (_rowspanColumns && rowspan[j] > 0) {
+                            if (!isRowspanColumn) {
+                                rowspan[j]--;
+                                continue;
+                            }
+                        }
+                        
+                        if (firstRowHeaders) {
+                            text += "!";
+						}
+						else {
+                            text += "|";
+						}
+
+                        text += $"{item}\n";
+                    }
+                }
+
+                text += "|}<br/>\n";
+
+                return text;
+			}
+		}
+        private class ItemInfo {
+            public ModItem ModItem { private set; get; }
+            public Item Item { private set; get; }
+            public ItemInfo(ModItem modItem) {
+                ModItem = modItem;
+                Item = new(modItem.Type);
+            }
+            public ItemInfo(Item item) {
+                Item = item;
+			}
+            public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
+            public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
+            private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false) {
+                if (!createItem && !usedIn) {
+                    createItem = true;
+                    usedIn = true;
+				}
+
+                bool recipesAdded = false;
+                
+                List<List<string>> myRecipes = new() { new() { "Result", "Ingredients", "Crafting station" } };
+                if (createItem && TryAddRecipeData(myRecipes, createItemRecipes))
+                    recipesAdded = true;
+
+                if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn))
+                    recipesAdded = true;
+
+                if (!recipesAdded) {
+                    $"No recipe found for {Item.S()}".Log();
+                }
+
+                return myRecipes;
+            }
+            private bool TryAddRecipeData(List<List<string>> myRecipes, Dictionary<int, List<RecipeData>> allRecipeData) {
+                if (!allRecipeData.ContainsKey(Item.type))
+                    return false;
+
+                foreach (RecipeData recipeData in allRecipeData[Item.type]) {
+                    List<string> list = new();
+                    string createItems = recipeData.createItem.Select(i => i.ToItemPNG()).JoinList();
+                    list.Add(createItems);
+
+                    string requiredItems = recipeData.requiredItem.ToString();//.Select(i => i.ToItemPNG()).JoinList();
+                    list.Add(requiredItems);
+
+                    if (recipeData.requiredTile.Count > 0) {
+                        string requiredTiles = recipeData.requiredTile.ToString();
+                        list.Add(requiredTiles);
+                    }
+                    else {
+                        list.Add($"By Hand\n");
+                    }
+
+                    /*
+                    if (recipeData.requiredTile.Count > 0) {
+                        string tileItems = recipeData.requiredTile.Select(l => l.Select(i => i.ToItemFromTilePNG())).JoinLists();
+
+                        list.Add(tileItems);
+                    }
+                    else {
+                        list.Add($"By Hand\n");
+                    }
+                    */
+
+                    myRecipes.Add(list);
+                }
+
+                return true;
+            }
+        }
+        public class CommonItemList
+        {
+            public List<Item> CommonList { get; private set; }
+            public List<Item> UniqueList { get; private set; }
+            public int Count => (CommonList != null ? CommonList.Count : 0) + (UniqueList != null ? 1 : 0);
+            public string CommonToAll {
+                get {
+                    if (commonToAll == null) {
+                        commonToAll = UniqueList.Select(i => i.ToItemPNG()).ToList().CommonToAll();
+                    }
+
+                    return commonToAll;
+                }
+            }
+            private string commonToAll;
+            public CommonItemList(List<Item> list, Item uniqueItem = null) {
+                if (uniqueItem != null) {
+                    UniqueList = new() { uniqueItem };
+				}
+
+                CommonList = new(list);
+			}
+            public void Add(List<Item> list) {
+                List<string> stringList = list.Select(i => i.ToString()).ToList();
+                if (UniqueList == null) {
+                    UniqueList = new();
+                    for(int i = 0; i < CommonList.Count(); i++) {
+                        string commonListItemName = CommonList[i].ToString();
+                        if (!stringList.Contains(commonListItemName)) {
+                            UniqueList.Add(CommonList[i]);
+                            commonToAll = null;
+                            CommonList.RemoveAt(i);
+                            break;
+						}
+					}
+				}
+
+                int index = UniqueList.Count;
+                List<string> commonStringList = CommonList.Select(i => i.ToString()).ToList();
+                List<string> uniqueStringList = UniqueList.Select(i => i.ToString()).ToList();
+                for (int i = 0; i < list.Count; i++) {
+                    string s = stringList[i];
+                    if (!commonStringList.Contains(s)) {
+                        if (!uniqueStringList.Contains(s)) {
+                            UniqueList.Add(list[i]);
+                            uniqueStringList = UniqueList.Select(i => i.ToString()).ToList();
+                            commonToAll = null;
+                        }
+
+                        break;
+					}
+				}
+			}
+			public override string ToString() {
+                string text = "";
+                if (CommonList.Count > 0) {
+                    foreach (string s in CommonList.Select(i => i.ToItemPNG())) {
+                        text += $"{s}<br/>";
+                    }
+                }
+
+                if (UniqueList == null)
+                    return text;
+
+                if (UniqueList.Count <= 5) {
+                    if (text != "")
+                        text += "and<br/>";
+
+                    bool first = true;
+                    foreach (string s in UniqueList.Select(i => i.ToItemPNG())) {
+                        if (first) {
+                            first = false;
+                        }
+                        else {
+                            text += $"<br/>or<br/>";
+                        }
+
+                        text += $"{s}";
+                    }
+                }
+				else {
+                    return CommonToAll;
+				}
+
+                return text;
+			}
+            public bool SameCommonItems(CommonItemList other) {
+                bool nullUniqueList = other.UniqueList == null;
+                List<string> myCommonList = CommonList.Select(i => i.ToString()).ToList();
+                List<string> otherCommonList = other.CommonList.Select(i => i.ToString()).ToList();
+                if (Count != other.Count)
+                    return false;
+
+                int failedMatchCount = 0;
+                foreach (string s in otherCommonList) {
+                    if (!myCommonList.Contains(s)) {
+                        failedMatchCount++;
+                        if (failedMatchCount > 0 && !nullUniqueList || failedMatchCount > 1 && nullUniqueList)
+                            return false;
+                    }
+				}
+
+                return true;
+			}
+            public bool ExactSame(CommonItemList other) => UniqueList.SameAs(other.UniqueList) && CommonList.SameAs(other.CommonList);
+        }
     }
+
+    public static class LogModSystemStaticMethods
+    {
+        private static Dictionary<int, int> itemsFromTiles;
+        public static string ToLink(this string s, string text = null) => $"[[{s.AddSpaces()}{(text != null ? $"|{text}" : "")}]]";
+        public static string ToFile(this string s) => $"[[File:{s.RemoveSpaces()}.png]]";
+        public static string ToItemPNG(this Item item, int num = 1, bool link = false) {
+            int type = item.type;
+            string name;
+            if (type < ItemID.Count) {
+                name = $"Item_{type}".ToFile();
+            }
+			else {
+                ModItem modItem = item.ModItem;
+                if (modItem == null) {
+                    name = item.Name;
+				}
+				else {
+                    name = modItem.Name;
+				}
+
+                name = name.ToFile();
+			}
+
+            int stack = item.stack;
+            return $"{name} {(link ? item.Name.ToLink() : item.Name)}{(stack > 1 ? $" ({stack})" : "")}";
+        }
+        public static string ToItemPNG(this int type, int num = 1) {
+            return new Item(type).ToItemPNG(num);
+        }
+        public static string ToItemPNG(this string s, int num = 1, bool link = false) {
+            return $"{s.ToFile()} {(link ? s.ToLink() : s)}";
+		}
+        public static string ToItemFromTilePNG(this int tileNum) {
+            if (tileNum <= 0) {
+                return "NoTileRequired.png";
+			}
+
+            int itemType = GetItemTypeFromTileType(tileNum);
+            if (itemType <= 0) {
+                $"Failed to find an item for tileNum: {tileNum}".Log();
+                return "NoTileRequired.png";
+            }
+
+            Item item = new(itemType);
+
+            return item.ToItemPNG();
+        }
+        public static int GetItemTypeFromTileType(this int tileType) {
+            if (tileType <= 0)
+                return -1;
+            
+            if (itemsFromTiles == null) {
+                itemsFromTiles = new();
+            }
+			else {
+                if (itemsFromTiles.ContainsKey(tileType))
+                    return itemsFromTiles[tileType];
+			}
+
+            for(int i = 0; i < ItemLoader.ItemCount; i++) {
+                Item sampleItem = ContentSamples.ItemsByType[i];
+                if (sampleItem == null)
+                    continue;
+
+                if (sampleItem.createTile == tileType) {
+                    itemsFromTiles.Add(tileType, i);
+                    return i;
+                }
+			}
+
+            return -1;
+		}
+        public static Item GetItemFromTileType(this int tileType) {
+            return new(GetItemTypeFromTileType(tileType));
+		}
+        public static string JoinLists(this IEnumerable<IEnumerable<string>> lists, string joinString = "or") {
+            string text = "";
+            bool first = true;
+            foreach(IEnumerable<string> list in lists) {
+                if (first) {
+                    first = false;
+				}
+				else {
+                    text += $"<br/>{joinString}<br/>";
+				}
+
+                text += list.JoinList();
+            }
+
+            return text;
+		}
+        public static string JoinList(this IEnumerable<string> list, string joinString = "<br/>") {
+            string text = "";
+            bool firstString = true;
+            foreach (string s in list) {
+                if (firstString) {
+                    firstString = false;
+                }
+                else {
+                    text += joinString;
+                }
+
+                text += s;
+            }
+
+            return text;
+        }
+        public static bool SameAs(this IEnumerable<Item> list1, IEnumerable<Item> list2) {
+            if (list1 == null && list2 == null)
+                return true;
+
+            if (list1 == null || list2 == null)
+                return false;
+
+            if (list1.Count() != list2.Count())
+                return false;
+
+            IEnumerable<int> list2Types = list2.Select(i => i.type);
+
+            foreach(int type in list1.Select(i => i.type)) {
+                if (!list2Types.Contains(type))
+                    return false;
+			}
+
+            return true;
+		}
+        //public static bool SameExceptOne(this IEnumerable<Item> list1, IEnumerable<Item> list2) {
+        //    if (Math.Abs(list1.Count() - list2.Count()) > 1)
+		//}
+	}
 }
+

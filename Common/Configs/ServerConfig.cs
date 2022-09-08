@@ -394,6 +394,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool PrintLocalizationLists;
+
+        [Label("Log all wiki info")]
+        [Tooltip("The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintWikiInfo;
     }
     public class Pair
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Items;
@@ -333,5 +334,34 @@ namespace WeaponEnchantments.Common.Utility
 
             return matches;
         }
+
+        public static string CommonToAll<T>(this List<T> list) where T : class {
+            if (list == null || list.Count <= 0)
+                return "";
+
+            List<string> strings = list.Select(t => t.ToString()).ToList();
+            List<int> indexes = Enumerable.Repeat(0, list.Count).ToList();
+
+            string rS = list[0].ToString();
+            string result = "";
+            int listCount = list.Count;
+            foreach(char c in rS) {
+                bool match = true;
+                for(int k = 0; k < listCount; k++) {
+                    int index = strings[k].IndexOf(c);
+                    if (index == -1) {
+                        match = false;
+                        break;
+					}
+
+                    strings[k] = strings[k].Substring(index + 1);
+				}
+
+                if (match)
+                    result += c;
+			}
+
+            return result;
+		}
     }
 }
