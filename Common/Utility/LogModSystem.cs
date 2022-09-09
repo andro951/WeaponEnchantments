@@ -485,13 +485,31 @@ namespace WeaponEnchantments.Common.Utility
 		}
         private static Dictionary<int, List<RecipeData>> createItemRecipes;
         private static Dictionary<int, List<RecipeData>> recipesUsedIn;
+		private static Dictionary<int, Dictionary<int, ItemDropRule>> drops;
+		private static int min;
+		private static int max;
+		private static void GetMinMax(IEnumerable<ModItem> modItems) {
+            min = int.MaxValue;
+            max = int.MinValue;
+            foreach (ModItem modItem in modItems) {
+                int type = modItem.Type;
+                if (type < min) {
+                    min = type;
+                }
+                else if (type > max) {
+                    max = type;
+                }
+            }
+		}
 	private static Dictionary<int, List<RecipeData>> recipesReverseRecipes;
         private static void PrintWiki() {
             if (!printWiki)
                 return;
 
             IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+			GetMinMax(modItems);
             GetRecpies(modItems);
+			GetDrops();
             IEnumerable<ContainmentItem> containmentItems = modItems.OfType<ContainmentItem>().OrderBy(c => c.tier);
             IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.Name);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
@@ -541,17 +559,6 @@ namespace WeaponEnchantments.Common.Utility
         private static void GetRecpies(IEnumerable<ModItem> modItems) {
             createItemRecipes = new();
             recipesUsedIn = new();
-            int min = int.MaxValue;
-            int max = int.MinValue;
-            foreach (ModItem modItem in modItems) {
-                int type = modItem.Type;
-                if (type < min) {
-                    min = type;
-                }
-                else if (type > max) {
-                    max = type;
-                }
-            }
 
             for(int i = 0; i < Recipe.numRecipes; i++) {
                 Recipe recipe = Main.recipe[i];
@@ -599,6 +606,23 @@ namespace WeaponEnchantments.Common.Utility
                 }
 			}
         }
+		private void GetDrops() {
+			drops = new();
+			//Dictionary<int, Dictionary<int, ItemDropRule>> drops
+			for(int npcType = 1; npcType < NPCLoader.Count; npcType++) {
+				foreach(ItemDropRule dropRule in DropLoader.GetDropRules(npcType)) {
+					int type = dropRule.dropItem.type;
+					if (type >= min && type <= max) {
+						if (drops.ContainsKey(type)) {
+							drops[type].Add(npcType, dropRule);
+						}
+						else {
+							drops.Add(type, new() { npcType, dropRule });
+						}
+					}
+				}
+			}
+		}
         private static List<Item> GetAllOtherCraftedItems(Item item, List<Item> consumedItems) => consumedItems.SelectMany(c => GetOtherCraftedItems(item, c)).ToList();
         private static List<Item> GetOtherCraftedItems(Item item, Item consumedItem) => CraftingEnchantments.GetOtherCraftedItems(item, consumedItem).Select(p => new Item(p.Key, p.Value)).ToList();
         private class RecipeData
@@ -910,28 +934,43 @@ namespace WeaponEnchantments.Common.Utility
             public ItemInfo(Item item) {
                 Item = item;
 			}
+			public void AddStatistics(WebPage webpage) {
+				List<List<string>> info = new() {
+					{ "Type", $"{modItem.GetType().Name}" }
+					{ "Tooltip", $"'{Item.Tooltip}'" },//italics?
+					{ "Rarity", $"{item.rare}" },//Need to edit to rarity name and color
+					{ "Buy", $"{item.value.GetCoinsPNG()}" },
+					{ "Sell", $"{(item.value / 5).GetCoinsPNG()}" },
+					{ "Research", $"{item.research} required" }
+				}
+				
+				string label = $"{item.Name}<br/>{item.ToItemPNG(displayName: false)}<br/>Statistics";
+				webpage.AddTable(label, info);
+			}
+			public void AddDrops(WebPage webpage) {
+				int type = Item.type;
+				if (!drops.ContainsKey(type))
+					return;
+				
+				List<List<string>> allDropInfo = new() { "Entity", "Qty.", "Rate"};
+				foreach(int npcType in drops[type]) {
+					List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", $"{}", $"{drops[type][npcType].dropRate}%" };
+					allDropInfo.Add(dropInfo);
+				}
+				
+				//foreach chest
+				//foreach crate
+				
+				string label = $"";
+				webpage.AddTable(label, allDropInfo, true);
+			}
             public void AddInfo(WebPage webpage) {
-				string tooltip = $"Tooltip \"{Item.Tooltip}\"";
-            	webpage.AddParagraph(tooltip);
-				
-				string rarity = $"Rarity {item.rare}";//Need to edit to rarity name and color
-				webpage.AddParagraph(rarity);
-				
-				string buy = $"Buy {item.value.GetCoinsPNG()}";
-				webpage.AddParagraph(buy);
-				
-				string sell = $"Sell {(item.value / 5).GetCoinsPNG()}";
-				webpage.AddParagraph(sell);
-				
 				if (modItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCopndition.Never) {
 					int sellPrice = (int)((float)item.value * soldByWitch.SellPriceModifier);
 					string sellPriceString = sellPrice.GetCoinsPNG();
 					string sellText = $"Sold by the Witch for {sellPriceString}. Can only appear in the shop if this condition is met: {soldByWitch.SellCondition}";
 					webPage.AddParagraph(sellText);
 				}
-				
-				string research = $"Research {item.research} required";
-				webpage.AddParagraph(research);
             }
             public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
             public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
@@ -1204,11 +1243,29 @@ namespace WeaponEnchantments.Common.Utility
             int stack = item.stack;
             return $"{(!displayName && stack > 1 ? $"{stack}" : "")}{name}{(link ? " " + item.Name.ToLink() : displayName ? " " + item.Name : "")}{(displayName && stack > 1 ? $" ({stack})" : "")}";
         }
-        public static string ToItemPNG(this int type, int num = 1) {
-            return new Item(type).ToItemPNG(num);
+        public static string ToItemPNG(this int type, int num = 1, bool link = false, bool displayName = true) {
+            return new Item(type).ToItemPNG(num, link, displayName);
         }
-        public static string ToItemPNG(this string s, int num = 1, bool link = false) {
-            return $"{s.ToFile()} {(link ? s.ToLink() : s)}";
+        public static string ToItemPNG(this string s, int num = 1, bool link = false, bool displayName = true) {
+            return $"{s.ToFile()} {(link ? s.ToLink() : displayName ? s : "")}";
+		}
+		public static string ToNPCPNG(this int npcType, bool link = false, bool displayName = true) {
+			string name;
+			if (npcType < NPCID.Count) {
+				name = $"NPC_{npcType}";
+			}
+			else {
+				NPC npc = new(npcType);
+				ModNPC modNPC = ContentSamples.NPCByType[npcType];
+				if (modNPC == null) {
+					name = npc.Name;
+				}
+				else {
+					name = modNPC.Name;
+				}
+				
+				return $"{name.ToFile()}{(link ? " " + name.ToLink() : displayName ? " " + name : "")}";
+			}
 		}
 		public static string GetCoinsPNG(this int sellPrice) {
 			int coinType = ItemID.PlatinumCoin;
