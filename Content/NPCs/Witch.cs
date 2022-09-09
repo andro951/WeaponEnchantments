@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Content.NPCs
 	{
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
-		private Dictionary<int, int> shopEnchantments = new();
+		private Dictionary<int, float> shopEnchantments = new();
 		public override void SetStaticDefaults() {
 			// DisplayName automatically assigned from localization files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Witch");
@@ -156,53 +156,53 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;
 		public override void SetupShop(Chest shop, ref int nextSlot) {
-			int num = EnchantingRarity.tierNames.Length;
-			nextSlot += num;
-			int slotNum = nextSlot - 1;
-			int price = ContentSamples.ItemsByType[EnchantmentEssence.IDs[4]].value * 2;
-			for(int i = 0; i < num; i++) {
-				shop.item[slotNum].SetDefaults(EnchantmentEssence.IDs[4 - i]);
-				shop.item[slotNum].value = price;
-				price /= 4;
-				slotNum--;
-			}
+			//int num = EnchantingRarity.tierNames.Length;
+			//nextSlot += num;
+			//int slotNum = nextSlot - 1;
+			//int price = ContentSamples.ItemsByType[EnchantmentEssence.IDs[4]].value * 2;
+			//for(int i = 0; i < num; i++) {
+			//	shop.item[slotNum].SetDefaults(EnchantmentEssence.IDs[4 - i]);
+			//	shop.item[slotNum].value = price;
+			//	price /= 4;
+			//	slotNum--;
+			//}
 
 			if (resetShop || shopEnchantments.Count == 0) {
-				GetEnchantmentsForShop();
+				GetItemsForShop();
 				resetShop = false;
 			}
 
 			foreach(KeyValuePair<int, int> pair in shopEnchantments) {
 				shop.item[nextSlot].SetDefaults(pair.Key);
-				shop.item[nextSlot].value *= pair.Value;
+				shop.item[nextSlot].value = (int)((float)shop.item[nextSlot].value * pair.Value);
 				nextSlot++;
 			}
 		}
-		private void GetEnchantmentsForShop() {
-			shopEnchantments = new Dictionary<int, int>();
-			IEnumerable<Enchantment> enchantments = ModContent.GetContent<ModItem>().OfType<Enchantment>().Where(e => e.EnchantmentTier == 0 || e.EnchantmentValueTierReduction != 0);
-			Dictionary<int, int> rareEnchantments = new Dictionary<int, int>();
+		private void GetItemsForShop() {
+			shopEnchantments = new();
+			IEnumerable<Enchantment> enchantments = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition != SellCondition.Never);
+			Dictionary<int, float> rareEnchantments = new();
 
 			//Always
-			AddEnchantmentsToShop(enchantments, SellCondition.Always, 0, 1);
+			AddEnchantmentsToShop(enchantments, SellCondition.Always, 0);
 
 			//Any Time
-			AddEnchantmentsToShop(enchantments, SellCondition.AnyTime, 4, 2);
+			AddEnchantmentsToShop(enchantments, SellCondition.AnyTime, 4);
 
 			//Any Time Rare
-			AddEnchantmentsToDict(enchantments, SellCondition.AnyTimeRare, 5, rareEnchantments);
+			AddEnchantmentsToDict(enchantments, SellCondition.AnyTimeRare, rareEnchantments);
 
 			if (Main.hardMode) {
 				//Hard Mode
-				AddEnchantmentsToDict(enchantments, SellCondition.HardMode, 20, rareEnchantments);
+				AddEnchantmentsToDict(enchantments, SellCondition.HardMode, rareEnchantments);
 
 				if (NPC.downedPlantBoss) {
 					//Post Plantera
-					AddEnchantmentsToDict(enchantments, SellCondition.PostPlantera, 50, rareEnchantments);
+					AddEnchantmentsToDict(enchantments, SellCondition.PostPlantera, rareEnchantments);
 
 					if (NPC.downedAncientCultist) {
 						//Post Cultist
-						AddEnchantmentsToDict(enchantments, SellCondition.PostCultist, 100, rareEnchantments);
+						AddEnchantmentsToDict(enchantments, SellCondition.PostCultist, rareEnchantments);
 					}
 				}
 			}
@@ -210,10 +210,11 @@ namespace WeaponEnchantments.Content.NPCs
 			AddEnchantmentsToShop(rareEnchantments, 2);
 
 			if (Main.rand.Next(100) == 0) {
-				AddEnchantmentsToShop(enchantments, SellCondition.Luck, 1, 5);
+				AddEnchantmentsToShop(enchantments, SellCondition.Luck, 1);
 			}
 		}
-		private void AddEnchantmentsToShop(IEnumerable<Enchantment> enchantments, SellCondition condition, int num, int priceMultiplier) {
+		private void AddEnchantmentsToShop(IEnumerable<Enchantment> enchantments, SellCondition condition, int num) {
+			float sellPriceModifier = GetSellPriceModifier(condition);
 			List<int> list = enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type).ToList();
 
 			if (condition == SellCondition.Always)
@@ -225,9 +226,10 @@ namespace WeaponEnchantments.Content.NPCs
 				list.Remove(type);
 			}
 		}
-		private void AddEnchantmentsToDict(IEnumerable<Enchantment> enchantments, SellCondition condition, int priceMultiplier, Dictionary<int, int> dict) {
+		private void AddEnchantmentsToDict(IEnumerable<Enchantment> enchantments, SellCondition condition, Dictionary<int, float> dict) {
 			foreach(int id in enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type)) {
-				dict.Add(id, priceMultiplier);
+				float sellPriceModifier = GetSellPriceModifier(condition);
+				dict.Add(id, sellPriceModifier);
 			}
 		}
 		private void AddEnchantmentsToShop(Dictionary<int, int> options, int num) {
@@ -374,6 +376,23 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 
 			return npcs;
+		}
+		public static float GetSellPriceModifier(SellCondition c) {
+			swich(c) {
+				case SellCondition.AnyTime:
+					return 2f;
+				case SellCondition.AnyTimeRare:
+				case SellCondition.Luck:
+					return 5f;
+				case SellCondition.HardMode:
+					return 20f;
+				case SellCondition.PostPlantera:
+					return 50f;
+				case SellCondition.PostCultist:
+					return 100f;
+				default:
+					return 1f;
+			}
 		}
 	}
 
