@@ -954,14 +954,16 @@ namespace WeaponEnchantments.Common.Utility
 				
 				List<List<string>> allDropInfo = new() { "Entity", "Qty.", "Rate"};
 				foreach(int npcType in drops[type]) {
-					List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", $"{}", $"{drops[type][npcType].dropRate}%" };
+					int minDropped = drops[type][npcType].min;
+					int maxDropped = drops[type][npcType].max;
+					List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), $"{drops[type][npcType].dropRate}%" };//Make vanilla link option to vanilla wiki
 					allDropInfo.Add(dropInfo);
 				}
 				
 				//foreach chest
 				//foreach crate
 				
-				string label = $"";
+				string label = $"Obtained From";
 				webpage.AddTable(label, allDropInfo, true);
 			}
             public void AddInfo(WebPage webpage) {
