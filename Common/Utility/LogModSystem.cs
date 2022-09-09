@@ -566,9 +566,25 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		private void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
 			WebPage Enchantments = new("Enchantments");
-			Enchantments.AddParagraph();
+			Enchantments.AddParagraph("");//Not finished
 			Enchantments.NewLine();
-			
+			foreach(IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName) {
+				bool first = true;
+				foreach(Enchantment e in list) {
+					if (first) {
+						first = false;
+						WebPage enchantmentTypePage = new(e.EnchantmentTypeName);
+						enchantmentTypePagee.AddParagraph(.Item.ToItemPNG(link: true));
+						Enchantments.AddParagraph(e.EnchantmentTypeName.ToItemPNG(link: true));
+					}
+					
+					WebPage enchantmentPage = new(e.Item.Name);
+					
+					webPages.Add(enchantmentPage);
+				}
+				
+				
+			}
 			
 		}
 		private void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
@@ -981,7 +997,52 @@ namespace WeaponEnchantments.Common.Utility
 					List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), $"{drops[type][npcType].dropRate}%" };//Make vanilla link option to vanilla wiki
 					allDropInfo.Add(dropInfo);
 				}
-				
+				/*
+				foreach(ChestID chestID in Enum.GetValues(typeof(ChestID)).Cast<ChestID>().ToList().Where(c => c != ChestID.None)) {
+					WEModSystem.GetChestLoot(chestID, out List<WeightedPair> pairs, out float baseChance);
+					if (pairs == null)
+					    continue;
+
+					string name = chestID.ToString() + " Chest";
+					float total = 0f;
+					foreach(WeightedPair pair in pairs) {
+					    total += pair.Weight;
+							}
+
+					foreach(WeightedPair pair in pairs) {
+					    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+					    if (sampleItem.ModItem is not Enchantment enchantment)
+						continue;
+
+					    log += $"\n{name},";
+					    float chance = baseChance * pair.Weight / total;
+
+					    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
+					}
+						}
+
+				    foreach(KeyValuePair<int, List<WeightedPair>> crate in GlobalCrates.crateDrops) {
+					string name = ((CrateID)crate.Key).ToString() + " Crate";
+					float total = 0f;
+					foreach(WeightedPair pair in crate.Value) {
+					    total += pair.Weight;
+							}
+
+					foreach(WeightedPair pair in crate.Value) {
+					    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+					    if (sampleItem.ModItem is not Enchantment enchantment)
+						continue;
+
+					    log += $"\n{name} ({crate.Key}),";
+					    float baseChance = GlobalCrates.GetCrateEnchantmentDropChance(crate.Key);
+					    float chance = baseChance * pair.Weight / total;
+
+					    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
+					}
+						}
+
+				    log.Log();
+				*/
 				//foreach chest
 				//foreach crate
 				
