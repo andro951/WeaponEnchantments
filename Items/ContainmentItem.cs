@@ -8,7 +8,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-    public abstract class ContainmentItem : ModItem
+    public abstract class ContainmentItem : ModItem, ISoldByWitch
     {
         public static string[] sizes = new string[] { "", "Medium", "Superior" };
         public static int[] glass = new int[] { 1, 4, 0};
@@ -19,6 +19,8 @@ namespace WeaponEnchantments.Items
         public int tier = 0;
         private int bars;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public virtual SellCondition SellCondition => SellCondition.AnyTime;
+        public virtual float SellPriceModifier => 5f;
 
         public virtual string Artist { private set; get; } = "Zorutan";
         public virtual string Designer { private set; get; } = "andro951";
@@ -71,5 +73,7 @@ namespace WeaponEnchantments.Items
     }
     public class Containment : ContainmentItem { }
     public class MediumContainment : ContainmentItem { }
-    public class SuperiorContainment : ContainmentItem { }
+    public class SuperiorContainment : ContainmentItem {
+        public override SellCondition SellCondition => SellCondition.HardMode;
+    }
 }
