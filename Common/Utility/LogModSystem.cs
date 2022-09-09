@@ -913,9 +913,12 @@ namespace WeaponEnchantments.Common.Utility
             public void AddInfo(WebPage webpage) {
 				string tooltip = $"Tooltip: \"{Item.Tooltip}\"";
             	webpage.AddParagraph(tooltip);
-				if (modItem is ISoldByWitch soldByWitch) {
-					string sellText = $"Sold by the Witch for {}.";
-					webPage.AddParagraph();
+				
+				if (modItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCopndition.Never) {
+					int sellPrice = (int)((float)item.value * soldByWitch.SellPriceModifier);
+					string sellPriceString = sellPrice.GetCoinsPNG();
+					string sellText = $"Sold by the Witch for {sellPriceString}. Can only appear in the shop if this condition is met: {soldByWitch.SellCondition}";
+					webPage.AddParagraph(sellText);
 				}
             }
             public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
@@ -1168,7 +1171,7 @@ namespace WeaponEnchantments.Common.Utility
         private static Dictionary<int, int> itemsFromTiles;
         public static string ToLink(this string s, string text = null) => $"[[{s.AddSpaces()}{(text != null ? $"|{text}" : "")}]]";
         public static string ToFile(this string s) => $"[[File:{s.RemoveSpaces()}.png]]";
-        public static string ToItemPNG(this Item item, int num = 1, bool link = false) {
+        public static string ToItemPNG(this Item item, int num = 1, bool link = false, bool displayName = true) {
             int type = item.type;
             string name;
             if (type < ItemID.Count) {
@@ -1187,13 +1190,27 @@ namespace WeaponEnchantments.Common.Utility
 			}
 
             int stack = item.stack;
-            return $"{name} {(link ? item.Name.ToLink() : item.Name)}{(stack > 1 ? $" ({stack})" : "")}";
+            return $"{(!displayName && stack > 1 ? $"{stack}" : "")}{name}{(link ? " " + item.Name.ToLink() : displayName ? " " + item.Name : "")}{(displayName && stack > 1 ? $" ({stack})" : "")}";
         }
         public static string ToItemPNG(this int type, int num = 1) {
             return new Item(type).ToItemPNG(num);
         }
         public static string ToItemPNG(this string s, int num = 1, bool link = false) {
             return $"{s.ToFile()} {(link ? s.ToLink() : s)}";
+		}
+		public static string GetCoinsPNG(this int sellPrice) {
+			int coinType = ItemID.PlatinumCoin;
+            int coinValue = 1000000;
+			string text = "";
+            while (coins > 0) {
+                int numCoinsToSpawn = coins / coinValue;
+                if (numCoinsToSpawn > 0)
+					text += coinType.ToItemPNG(numCoinsToSpawn) + " ";
+
+                coins %= coinValue;
+                coinType--;
+                coinValue /= 100;
+            }
 		}
         public static string ToItemFromTilePNG(this int tileNum) {
             if (tileNum <= 0) {
