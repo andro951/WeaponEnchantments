@@ -13,7 +13,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : ModItem
+	public abstract class EnchantmentEssence : ModItem, ISoldByWitch
 	{
 		public virtual int EssenceTier {
 			get {
@@ -37,6 +37,8 @@ namespace WeaponEnchantments.Items
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name + (WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures ? "Alt" : "")).Replace('.', '/');
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
+		public virtual SellCondition SellCondition => SellCondition.Always;
+		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier); 
 
 		public virtual string Artist { private set; get; } = "Kiroto";
 		public virtual string Designer { private set; get; } = "andro951";
