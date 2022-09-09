@@ -18,7 +18,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Items {
-	public abstract class Enchantment : ModItem {
+	public abstract class Enchantment : ModItem, ISoldByWitch {
 
 		#region Static
 
@@ -248,7 +248,7 @@ namespace WeaponEnchantments.Items {
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
-		public virtual SellCondition SellCondition => SellCondition.AnyTime;
+		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
 
 		public abstract string Artist { get; }
 		public abstract string Designer { get; }
