@@ -485,6 +485,7 @@ namespace WeaponEnchantments.Common.Utility
 		}
         private static Dictionary<int, List<RecipeData>> createItemRecipes;
         private static Dictionary<int, List<RecipeData>> recipesUsedIn;
+	private static Dictionary<int, List<RecipeData>> recipesReverseRecipes;
         private static void PrintWiki() {
             if (!printWiki)
                 return;
@@ -496,13 +497,28 @@ namespace WeaponEnchantments.Common.Utility
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
             List<WebPage> webPages = new();
 
-            WebPage Containments = new("Containments");
+            AddContainments(webPages, containmentItems, enchantments);
+	    
+
+            string wiki = "\n\n";
+
+            foreach(WebPage webPage in webPages) {
+                wiki += webPage.ToString();
+			}
+
+            wiki.Log();
+        }
+	private void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
+		WebPage Containments = new("Containments");
             Containments.AddParagraph("These contain the power of the enchantments. More powerful enchantments require larger and stronger containments to hold them.");
             Containments.NewLine();
             foreach (ContainmentItem containment in containmentItems) {
                 string name = containment.Name;
                 int tier = containment.tier;
                 string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
+		ItemInfo itemInfo = new(containment);
+		itemInfo.AddInfo(Containments);
+		
                 Containments.AddSubHeading(1, subHeading);
 				switch (tier) {
                     case 0://Containment
@@ -514,26 +530,14 @@ namespace WeaponEnchantments.Common.Utility
 
                         break;
                     case 2://Superior Containment
-
+			
                         break;
 				}
-
-                ItemInfo itemInfo = new(containment);
-                Containments.AddTable(itemInfo.RecipesCreateItem, "Recipes", true);
-                Containments.AddTable(itemInfo.RecipesUsedIn, "Used in", true);
-                Containments.NewLine();
+		itemInfo.AddRecipes(Containments);
             }
 
             webPages.Add(Containments);
-
-            string wiki = "\n\n";
-
-            foreach(WebPage webPage in webPages) {
-                wiki += webPage.ToString();
-			}
-
-            wiki.Log();
-        }
+	}
         private static void GetRecpies(IEnumerable<ModItem> modItems) {
             createItemRecipes = new();
             recipesUsedIn = new();
@@ -906,12 +910,28 @@ namespace WeaponEnchantments.Common.Utility
             public ItemInfo(Item item) {
                 Item = item;
 			}
+            public void AddInfo(WebPage webpage) {
+				string tooltip = $"Tooltip: \"{Item.Tooltip}\"";
+            	webpage.AddParagraph(tooltip);
+				if (modItem is ISoldByWitch soldByWitch) {
+					string sellText = $"Sold by the Witch for {}.";
+					webPage.AddParagraph();
+				}
+            }
             public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
             public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
-            private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false) {
-                if (!createItem && !usedIn) {
+	    	public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(reverseRecipes: true);
+	    	public void AddRecipes(WebPage webpage) {
+	    		webpage.AddTable(itemInfo.RecipesCreateItem, "Recipes", true);
+                webpage.AddTable(itemInfo.RecipesUsedIn, "Used in", true);
+				webpage.AddTable(itemInfo.RecipesReverseRecipes, "Used in (Reverse Crafting Recipes)", true);
+                //webpage.NewLine();
+	    	}
+            private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false, bool reverseRecipes = false) {
+                if (!createItem && !usedIn && !reverseRecipes) {
                     createItem = true;
                     usedIn = true;
+		    		reverseRecipes = true;
 				}
 
                 bool recipesAdded = false;
@@ -922,14 +942,16 @@ namespace WeaponEnchantments.Common.Utility
 
                 if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn))
                     recipesAdded = true;
+		    
+				if (reverseRecipes && TryAddRecipeData(myRecipes, recipesReverseRecipes, reverseRecipes))
+					recipesAdded = true;
 
-                if (!recipesAdded) {
+                if (!recipesAdded)
                     $"No recipe found for {Item.S()}".Log();
-                }
 
                 return myRecipes;
             }
-            private bool TryAddRecipeData(List<List<string>> myRecipes, Dictionary<int, List<RecipeData>> allRecipeData) {
+            private bool TryAddRecipeData(List<List<string>> myRecipes, Dictionary<int, List<RecipeData>> allRecipeData, bool includeReverse = false) {
                 if (!allRecipeData.ContainsKey(Item.type))
                     return false;
 
@@ -957,6 +979,10 @@ namespace WeaponEnchantments.Common.Utility
                 List<RecipeData> myRecipeData3 = myRecipeData.Where(rd => !rd.requiredTile.ToString().Contains("Enchanting Table")).OrderBy(rd => rd.requiredTile.ToString().Length).ToList();
 
                 foreach (RecipeData recipeData in myRecipeData3.Concat(myRecipeData2)) {
+			int createItemCount = recipeData.createItem.Count;
+			if (includeReverse && createItemCount == 1 || !includeReverse && createItemCount > 1)
+				continue;
+			
                     List<string> list = new();
                     
                     int createItemNum = recipeData.createItem.CommonList.Count;
