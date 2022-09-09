@@ -501,7 +501,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
             }
 		}
-	private static Dictionary<int, List<RecipeData>> recipesReverseRecipes;
+		//private static Dictionary<int, List<RecipeData>> recipesReverseRecipes;
         private static void PrintWiki() {
             if (!printWiki)
                 return;
@@ -516,7 +516,7 @@ namespace WeaponEnchantments.Common.Utility
             List<WebPage> webPages = new();
 
             AddContainments(webPages, containmentItems, enchantments);
-	    
+	    	
 
             string wiki = "\n\n";
 
@@ -526,23 +526,28 @@ namespace WeaponEnchantments.Common.Utility
 
             wiki.Log();
         }
-	private void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
-		WebPage Containments = new("Containments");
-            Containments.AddParagraph("These contain the power of the enchantments. More powerful enchantments require larger and stronger containments to hold them.");
+		private void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
+			WebPage Containments = new("Containments");
+            Containments.AddParagraph("These contain the power of the enchantments. More powerful enchantments require larger and stronger containments to hold them." + 
+	    	"Containments are crafting materials used to craft enchantments.");
             Containments.NewLine();
             foreach (ContainmentItem containment in containmentItems) {
                 string name = containment.Name;
                 int tier = containment.tier;
                 string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
-		ItemInfo itemInfo = new(containment);
-		itemInfo.AddInfo(Containments);
+				Containments.AddParagraph($"{containment.Item.ToItemPNG(link: true)} (Tier {tier})");
+				WebPage containmentPage = new(containment.Item.Name);
+				ItemInfo itemInfo = new(containment);
+				itemInfo.AddStatistics(containmentPage);
+				itemInfo.AddDrops(containmentPage);
+				itemInfo.AddInfo(containmentPage);
 		
                 Containments.AddSubHeading(1, subHeading);
 				switch (tier) {
                     case 0://Containment
                         string text = "Only these enchantments can be obtained by crafting.The others must all be found in other ways.";
-                        Containments.AddParagraph(text);
-                        Containments.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name).ToArray());
+                        containmentPage.AddParagraph(text);
+                        containmentPage.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name).ToArray());
                         break;
                     case 1://Medium Containment
 
@@ -551,11 +556,28 @@ namespace WeaponEnchantments.Common.Utility
 			
                         break;
 				}
-		itemInfo.AddRecipes(Containments);
+				
+				itemInfo.AddRecipes(containmentPage);
+				containmentPages.Add(containmentPage);
+				webPages.Add(containmentPage);
             }
 
             webPages.Add(Containments);
-	}
+		}
+		private void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
+			WebPage Enchantments = new("Enchantments");
+			Enchantments.AddParagraph();
+			Enchantments.NewLine();
+			
+			
+		}
+		private void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
+			WebPage Essence = new("Enchantment Essence");
+			Essence.AddParagraph();
+			Essence.NewLine();
+			
+			
+		}
         private static void GetRecpies(IEnumerable<ModItem> modItems) {
             createItemRecipes = new();
             recipesUsedIn = new();
