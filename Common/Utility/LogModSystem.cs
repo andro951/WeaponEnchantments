@@ -911,8 +911,17 @@ namespace WeaponEnchantments.Common.Utility
                 Item = item;
 			}
             public void AddInfo(WebPage webpage) {
-				string tooltip = $"Tooltip: \"{Item.Tooltip}\"";
+				string tooltip = $"Tooltip \"{Item.Tooltip}\"";
             	webpage.AddParagraph(tooltip);
+				
+				string rarity = $"Rarity {item.rare}";//Need to edit to rarity name and color
+				webpage.AddParagraph(rarity);
+				
+				string buy = $"Buy {item.value.GetCoinsPNG()}";
+				webpage.AddParagraph(buy);
+				
+				string sell = $"Sell {(item.value / 5).GetCoinsPNG()}";
+				webpage.AddParagraph(sell);
 				
 				if (modItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCopndition.Never) {
 					int sellPrice = (int)((float)item.value * soldByWitch.SellPriceModifier);
@@ -920,6 +929,9 @@ namespace WeaponEnchantments.Common.Utility
 					string sellText = $"Sold by the Witch for {sellPriceString}. Can only appear in the shop if this condition is met: {soldByWitch.SellCondition}";
 					webPage.AddParagraph(sellText);
 				}
+				
+				string research = $"Research {item.research} required";
+				webpage.AddParagraph(research);
             }
             public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
             public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
