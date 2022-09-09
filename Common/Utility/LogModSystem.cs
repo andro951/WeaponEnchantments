@@ -17,6 +17,8 @@ using WeaponEnchantments.Localization;
 using static Terraria.Localization.GameCulture;
 using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -526,7 +528,7 @@ namespace WeaponEnchantments.Common.Utility
 
             wiki.Log();
         }
-		private void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
+		private static void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
 			WebPage Containments = new("Containments");
             Containments.AddParagraph("These contain the power of the enchantments. More powerful enchantments require larger and stronger containments to hold them." + 
 	    	"Containments are crafting materials used to craft enchantments.");
@@ -558,7 +560,6 @@ namespace WeaponEnchantments.Common.Utility
 				}
 				
 				itemInfo.AddRecipes(containmentPage);
-				containmentPages.Add(containmentPage);
 				webPages.Add(containmentPage);
             }
 
@@ -568,13 +569,13 @@ namespace WeaponEnchantments.Common.Utility
 			WebPage Enchantments = new("Enchantments");
 			Enchantments.AddParagraph("");//Not finished
 			Enchantments.NewLine();
-			foreach(IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName) {
+			foreach(IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName)) {
 				bool first = true;
 				foreach(Enchantment e in list) {
 					if (first) {
 						first = false;
 						WebPage enchantmentTypePage = new(e.EnchantmentTypeName);
-						enchantmentTypePagee.AddParagraph(.Item.ToItemPNG(link: true));
+						enchantmentTypePage.AddParagraph(e.Item.ToItemPNG(link: true));
 						Enchantments.AddParagraph(e.EnchantmentTypeName.ToItemPNG(link: true));
 					}
 					
@@ -589,8 +590,8 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		private void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
 			WebPage Essence = new("Enchantment Essence");
-			Essence.AddParagraph();
-			Essence.NewLine();
+			Essence.AddParagraph("");//Not finished
+            Essence.NewLine();
 			
 			
 		}
@@ -644,7 +645,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
 			}
         }
-		private void GetDrops() {
+		private static void GetDrops() {
 			drops = new();
 			//Dictionary<int, Dictionary<int, ItemDropRule>> drops
 			for(int npcType = 1; npcType < NPCLoader.Count; npcType++) {
@@ -973,25 +974,25 @@ namespace WeaponEnchantments.Common.Utility
                 Item = item;
 			}
 			public void AddStatistics(WebPage webpage) {
-				List<List<string>> info = new() {
-					{ "Type", $"{modItem.GetType().Name}" }
-					{ "Tooltip", $"'{Item.Tooltip}'" },//italics?
-					{ "Rarity", $"{item.rare}" },//Need to edit to rarity name and color
-					{ "Buy", $"{item.value.GetCoinsPNG()}" },
-					{ "Sell", $"{(item.value / 5).GetCoinsPNG()}" },
-					{ "Research", $"{item.research} required" }
-				}
+                List<List<string>> info = new() {
+                    new () { "Type", $"{ModItem.GetType().Name}" },
+                    new() { "Tooltip", $"'{Item.ToolTip}'" },//italics?
+                    new() { "Rarity", $"{Item.rare}" },//Need to edit to rarity name and color
+                    new() { "Buy", $"{Item.value.GetCoinsPNG()}" },
+                    new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" },
+                    new() { "Research", $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required" }
+                };
 				
-				string label = $"{item.Name}<br/>{item.ToItemPNG(displayName: false)}<br/>Statistics";
-				webpage.AddTable(label, info);
+				string label = $"{Item.Name}<br/>{Item.ToItemPNG(displayName: false)}<br/>Statistics";
+				webpage.AddTable(info, label);
 			}
 			public void AddDrops(WebPage webpage) {
 				int type = Item.type;
 				if (!drops.ContainsKey(type))
 					return;
 				
-				List<List<string>> allDropInfo = new() { "Entity", "Qty.", "Rate"};
-				foreach(int npcType in drops[type]) {
+				List<List<string>> allDropInfo = new() { new() { "Entity", "Qty.", "Rate" } };
+				foreach(int npcType in drops[type].Keys) {
 					int minDropped = drops[type][npcType].min;
 					int maxDropped = drops[type][npcType].max;
 					List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), $"{drops[type][npcType].dropRate}%" };//Make vanilla link option to vanilla wiki
@@ -1046,24 +1047,24 @@ namespace WeaponEnchantments.Common.Utility
 				//foreach chest
 				//foreach crate
 				
-				string label = $"Obtained From";
-				webpage.AddTable(label, allDropInfo, true);
+				string header = $"Obtained From";
+				webpage.AddTable(allDropInfo, header, true, true, true);
 			}
             public void AddInfo(WebPage webpage) {
-				if (modItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCopndition.Never) {
-					int sellPrice = (int)((float)item.value * soldByWitch.SellPriceModifier);
+				if (ModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
+					int sellPrice = (int)((float)Item.value * soldByWitch.SellPriceModifier);
 					string sellPriceString = sellPrice.GetCoinsPNG();
 					string sellText = $"Sold by the Witch for {sellPriceString}. Can only appear in the shop if this condition is met: {soldByWitch.SellCondition}";
-					webPage.AddParagraph(sellText);
+					webpage.AddParagraph(sellText);
 				}
             }
             public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
             public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
 	    	public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(reverseRecipes: true);
 	    	public void AddRecipes(WebPage webpage) {
-	    		webpage.AddTable(itemInfo.RecipesCreateItem, "Recipes", true);
-                webpage.AddTable(itemInfo.RecipesUsedIn, "Used in", true);
-				webpage.AddTable(itemInfo.RecipesReverseRecipes, "Used in (Reverse Crafting Recipes)", true);
+	    		webpage.AddTable(RecipesCreateItem, "Recipes", true);
+                webpage.AddTable(RecipesUsedIn, "Used in", true);
+				webpage.AddTable(RecipesReverseRecipes, "Used in (Reverse Crafting Recipes)", true);
                 //webpage.NewLine();
 	    	}
             private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false, bool reverseRecipes = false) {
@@ -1082,7 +1083,7 @@ namespace WeaponEnchantments.Common.Utility
                 if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn))
                     recipesAdded = true;
 		    
-				if (reverseRecipes && TryAddRecipeData(myRecipes, recipesReverseRecipes, reverseRecipes))
+				if (reverseRecipes && TryAddRecipeData(myRecipes, recipesUsedIn, reverseRecipes))
 					recipesAdded = true;
 
                 if (!recipesAdded)
@@ -1334,37 +1335,39 @@ namespace WeaponEnchantments.Common.Utility
         public static string ToItemPNG(this string s, int num = 1, bool link = false, bool displayName = true) {
             return $"{s.ToFile()} {(link ? s.ToLink() : displayName ? s : "")}";
 		}
-		public static string ToNPCPNG(this int npcType, bool link = false, bool displayName = true) {
+		public static string ToNpcPNG(this int npcNetID, bool link = false, bool displayName = true) {
 			string name;
-			if (npcType < NPCID.Count) {
-				name = $"NPC_{npcType}";
+			if (npcNetID < NPCID.Count) {
+				name = $"NPC_{npcNetID}";
 			}
 			else {
-				NPC npc = new(npcType);
-				ModNPC modNPC = ContentSamples.NPCByType[npcType];
+				NPC npc = ContentSamples.NpcsByNetId[npcNetID];
+                ModNPC modNPC = npc.ModNPC;
 				if (modNPC == null) {
-					name = npc.Name;
+					name = npc.FullName;
 				}
 				else {
 					name = modNPC.Name;
 				}
-				
-				return $"{name.ToFile()}{(link ? " " + name.ToLink() : displayName ? " " + name : "")}";
 			}
-		}
+
+            return $"{name.ToFile()}{(link ? " " + name.ToLink() : displayName ? " " + name : "")}";
+        }
 		public static string GetCoinsPNG(this int sellPrice) {
 			int coinType = ItemID.PlatinumCoin;
             int coinValue = 1000000;
 			string text = "";
-            while (coins > 0) {
-                int numCoinsToSpawn = coins / coinValue;
+            while (sellPrice > 0) {
+                int numCoinsToSpawn = sellPrice / coinValue;
                 if (numCoinsToSpawn > 0)
 					text += coinType.ToItemPNG(numCoinsToSpawn) + " ";
 
-                coins %= coinValue;
+                sellPrice %= coinValue;
                 coinType--;
                 coinValue /= 100;
             }
+
+            return text;
 		}
         public static string ToItemFromTilePNG(this int tileNum) {
             if (tileNum <= 0) {
