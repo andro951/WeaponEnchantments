@@ -1,3 +1,8 @@
+using Terraria;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Content.NPCs;
+
 namespace WeaponEnchantments.Items
 {
 	public interface ISoldByWitch

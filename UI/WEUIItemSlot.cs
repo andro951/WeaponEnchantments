@@ -78,14 +78,17 @@ namespace WeaponEnchantments.UI
 						return false;
 
 					Enchantment newEnchantment = ((Enchantment)item.ModItem);
-					int damageType = ContentSamples.ItemsByType[itemInUI.type].DamageType.Type;
-					int damageClassSpecific = Enchantment.GetDamageClass(damageType);
+					if (itemInUI.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon)) {
+						int damageType = ContentSamples.ItemsByType[itemInUI.type].DamageType.Type;
 
-					if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
-						return false;
+						int damageClassSpecific = Enchantment.GetDamageClass(damageType);
 
-					if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
-						return false;
+						if (newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
+							return false;
+
+						if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
+							return false;
+					}
 
 					if(!CheckAllowedList(newEnchantment))
 						return false;

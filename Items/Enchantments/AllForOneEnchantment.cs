@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
 		public override int RestrictedClass => (int)DamageClassID.Summon;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override void GetMyStats() {
 			Effects = new() {
 				new AllForOne(EnchantmentStrengthData * 0.4f + 4f),

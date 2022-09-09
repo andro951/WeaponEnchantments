@@ -20,7 +20,6 @@ namespace WeaponEnchantments.Items
         private int bars;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public virtual SellCondition SellCondition => SellCondition.AnyTime;
-        public virtual float SellPriceModifier => 5f;
 
         public virtual string Artist { private set; get; } = "Zorutan";
         public virtual string Designer { private set; get; } = "andro951";
@@ -30,7 +29,7 @@ namespace WeaponEnchantments.Items
             bars = 4 * (int)Math.Pow(2, tier);
             Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
             if (tier == 2)
-                Values[tier] += ContentSamples.ItemsByType[180].value * 4;
+                Values[tier] += ContentSamples.ItemsByType[ItemID.Topaz].value * 4;
 
             Tooltip.SetDefault("Used to store " + tierNames[tier] + " enchantments");
             
@@ -51,6 +50,7 @@ namespace WeaponEnchantments.Items
             Item.value = Values[tier];
             Item.width = 28 + 4 * tier;
             Item.height = 28 + 4 * tier;
+            Item.rare = tier + 1;
         }
         public override void AddRecipes() {
             Recipe recipie;
@@ -74,6 +74,6 @@ namespace WeaponEnchantments.Items
     public class Containment : ContainmentItem { }
     public class MediumContainment : ContainmentItem { }
     public class SuperiorContainment : ContainmentItem {
-        public override SellCondition SellCondition => SellCondition.HardMode;
+        public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
     }
 }

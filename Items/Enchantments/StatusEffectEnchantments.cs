@@ -102,7 +102,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class DaybreakEnchantment : StatusEffectEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.PostCultist;
+		public override SellCondition SellCondition => SellCondition.PostSolarTower;
 		public override float CapacityCostMultiplier => 2;
 
 		public override short StatusEffect => BuffID.Daybreak;

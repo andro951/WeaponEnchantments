@@ -8,6 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AttackSpeedEnchantment : Enchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override void GetMyStats() {
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),

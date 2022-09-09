@@ -8,6 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public abstract class MovementSpeedEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 11;
+		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
 		public override void GetMyStats() {
 			Effects = new() {
 				new MovementSpeed(EnchantmentStrengthData)

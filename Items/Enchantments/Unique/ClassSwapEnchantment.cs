@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 17;
 		public override float ScalePercent => 0.1f;
-		public override SellCondition SellCondition => SellCondition.HardMode;
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		public override void GetMyStats() {

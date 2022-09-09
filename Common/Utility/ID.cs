@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Utility
@@ -202,14 +203,96 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum SellCondition
 	{
+        IgnoreCondition,
         Never,
         Always,
         AnyTime,
         AnyTimeRare,
+        PostKingSlime,
+        PostEyeOfCthulhu,
+        PostEaterOfWorldsOrBrainOfCthulhu,
+        PostSkeletron,
+        PostQueenBee,
+        PostDeerclops,
+        PostGoblinInvasion,
+        Luck,
         HardMode,
+        PostQueenSlime,
+        PostPirateInvasion,
+        PostTwins,
+        PostDestroyer,
+        PostSkeletronPrime,
         PostPlantera,
+        PostGolem,
+        PostMartianInvasion,
+        PostDukeFishron,
+        PostEmpressOfLight,
         PostCultist,
-        Luck
+        PostSolarTower,
+        PostNebulaTower,
+        PostStardustTower,
+        PostVortexTower,
+        PostMoonLord,
+	}
+    public static class SellConditionChecks
+	{
+        public static bool CanSell(this SellCondition condition) {
+			switch (condition) {
+                case SellCondition.Always:
+                case SellCondition.AnyTime:
+                case SellCondition.AnyTimeRare:
+                    return true;
+                case SellCondition.PostKingSlime:
+                    return NPC.downedSlimeKing;
+                case SellCondition.PostEyeOfCthulhu:
+                    return NPC.downedBoss1;
+                case SellCondition.PostEaterOfWorldsOrBrainOfCthulhu:
+                    return NPC.downedBoss2;
+                case SellCondition.PostSkeletron:
+                    return NPC.downedBoss3;
+                case SellCondition.PostQueenBee:
+                    return NPC.downedQueenBee;
+                case SellCondition.PostQueenSlime:
+                    return NPC.downedQueenSlime;
+                case SellCondition.PostNebulaTower:
+                    return NPC.downedTowerNebula;
+                case SellCondition.PostSolarTower:
+                    return NPC.downedTowerSolar;
+                case SellCondition.PostStardustTower:
+                    return NPC.downedTowerStardust;
+                case SellCondition.PostVortexTower:
+                    return NPC.downedTowerVortex;
+                case SellCondition.PostDeerclops:
+                    return NPC.downedDeerclops;
+                case SellCondition.PostGoblinInvasion:
+                    return NPC.downedGoblins;
+                case SellCondition.HardMode:
+                    return Main.hardMode;
+                case SellCondition.PostGolem:
+                    return NPC.downedGolemBoss;
+                case SellCondition.PostTwins:
+                    return NPC.downedMechBoss1;
+                case SellCondition.PostDestroyer:
+                    return NPC.downedMechBoss2;
+                case SellCondition.PostSkeletronPrime:
+                    return NPC.downedMechBoss3;
+                case SellCondition.PostPirateInvasion:
+                    return NPC.downedPirates;
+                case SellCondition.PostPlantera:
+                    return NPC.downedPlantBoss;
+                case SellCondition.PostEmpressOfLight:
+                    return NPC.downedEmpressOfLight;
+                case SellCondition.PostDukeFishron:
+                    return NPC.downedFishron;
+                case SellCondition.PostCultist:
+                    return NPC.downedAncientCultist;
+                case SellCondition.PostMoonLord:
+                    return NPC.downedMoonlord;
+                case SellCondition.Never:
+                default:
+                    return false;
+            }
+		}
 	}
     public enum TownNPCTypeID
 	{

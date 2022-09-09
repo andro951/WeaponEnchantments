@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Effects {
         public override string Tooltip {
             get {
                 string tooltip = "";
-                tooltip += $"{DisplayName} ({BuffStats.Chance.Percent()}% chance to apply for {BuffStats.Duration})";
+                tooltip += $"{DisplayName} ({BuffStats.Chance.Percent()}% chance to apply for {BuffStats.Duration}{(BuffStyle == BuffStyle.OnTickPlayerBuff || BuffStyle == BuffStyle.OnTickPlayerDebuff ? $" every {ConfigValues.BuffDurationTicks}" : "")})";
                 return tooltip;
             }
         }

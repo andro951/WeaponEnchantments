@@ -172,7 +172,7 @@ namespace WeaponEnchantments.Content.NPCs
 				resetShop = false;
 			}
 
-			foreach(KeyValuePair<int, int> pair in shopEnchantments) {
+			foreach(KeyValuePair<int, float> pair in shopEnchantments) {
 				shop.item[nextSlot].SetDefaults(pair.Key);
 				shop.item[nextSlot].value = (int)((float)shop.item[nextSlot].value * pair.Value);
 				nextSlot++;
@@ -180,49 +180,39 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		private void GetItemsForShop() {
 			shopEnchantments = new();
-			IEnumerable<Enchantment> enchantments = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition != SellCondition.Never);
+			IEnumerable<ISoldByWitch> modItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell());
+			IEnumerable <Enchantment> enchanmtnets = modItems.OfType<Enchantment>();
+			IEnumerable<ISoldByWitch> otherItems = modItems.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always);
 			Dictionary<int, float> rareEnchantments = new();
 
 			//Always
-			AddEnchantmentsToShop(enchantments, SellCondition.Always, 0);
+			AddEnchantmentsToShop(otherItems, SellCondition.Always);
 
 			//Any Time
-			AddEnchantmentsToShop(enchantments, SellCondition.AnyTime, 4);
+			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
 
-			//Any Time Rare
-			AddEnchantmentsToDict(enchantments, SellCondition.AnyTimeRare, rareEnchantments);
-
-			if (Main.hardMode) {
-				//Hard Mode
-				AddEnchantmentsToDict(enchantments, SellCondition.HardMode, rareEnchantments);
-
-				if (NPC.downedPlantBoss) {
-					//Post Plantera
-					AddEnchantmentsToDict(enchantments, SellCondition.PostPlantera, rareEnchantments);
-
-					if (NPC.downedAncientCultist) {
-						//Post Cultist
-						AddEnchantmentsToDict(enchantments, SellCondition.PostCultist, rareEnchantments);
-					}
-				}
-			}
-
-			AddEnchantmentsToShop(rareEnchantments, 2);
+			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime), SellCondition.IgnoreCondition, 2);
 
 			if (Main.rand.Next(100) == 0) {
-				AddEnchantmentsToShop(enchantments, SellCondition.Luck, 1);
+				AddEnchantmentsToShop(enchanmtnets, SellCondition.Luck, 1);
 			}
 		}
-		private void AddEnchantmentsToShop(IEnumerable<Enchantment> enchantments, SellCondition condition, int num) {
+		private void AddEnchantmentsToShop(IEnumerable<ISoldByWitch> modItems, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			float sellPriceModifier = GetSellPriceModifier(condition);
-			List<int> list = enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type).ToList();
-
+			List<int> list;
+			if (condition == SellCondition.IgnoreCondition) {
+				list = modItems.Select(e => ((ModItem)e).Type).ToList();
+			}
+			else {
+				list = modItems.Where(e => e.SellCondition == condition).Select(e => ((ModItem)e).Type).ToList();
+			}
+			
 			if (condition == SellCondition.Always)
 				num = list.Count;
 
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
-				shopEnchantments.Add(type, priceMultiplier);
+				shopEnchantments.Add(type, sellPriceModifier);
 				list.Remove(type);
 			}
 		}
@@ -232,7 +222,7 @@ namespace WeaponEnchantments.Content.NPCs
 				dict.Add(id, sellPriceModifier);
 			}
 		}
-		private void AddEnchantmentsToShop(Dictionary<int, int> options, int num) {
+		private void AddEnchantmentsToShop(Dictionary<int, float> options, int num) {
 			for(int i = 0; i < num && options.Count > 0; i++) {
 				int type = options.Keys.ToList().GetOneFromList();
 				shopEnchantments.Add(type, options[type]);
@@ -378,18 +368,21 @@ namespace WeaponEnchantments.Content.NPCs
 			return npcs;
 		}
 		public static float GetSellPriceModifier(SellCondition c) {
-			swich(c) {
+			switch(c) {
+				case <= SellCondition.Always:
+					return 1f;
 				case SellCondition.AnyTime:
 					return 2f;
-				case SellCondition.AnyTimeRare:
-				case SellCondition.Luck:
-					return 5f;
-				case SellCondition.HardMode:
-					return 20f;
-				case SellCondition.PostPlantera:
-					return 50f;
-				case SellCondition.PostCultist:
-					return 100f;
+				case < SellCondition.HardMode:
+					return 5f + (float)c;
+				case <= SellCondition.PostPlantera:
+					return 20f + 10f * (c - SellCondition.HardMode);
+				case <= SellCondition.PostCultist:
+					return 100f + 50f * (c - SellCondition.PostGolem);
+				case <= SellCondition.PostVortexTower:
+					return 500f;
+				case SellCondition.PostMoonLord:
+					return 1000f;
 				default:
 					return 1f;
 			}

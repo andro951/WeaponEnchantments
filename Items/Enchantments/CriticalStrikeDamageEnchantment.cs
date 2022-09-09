@@ -11,6 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 14;
 		public override float CapacityCostMultiplier => 3;
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override void GetMyStats() {
 			Effects = new() {
 				new CriticalStrikeDamage(additive: EnchantmentStrengthData),

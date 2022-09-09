@@ -45,7 +45,15 @@ namespace WeaponEnchantments.Common.Utility {
 	    
 	    private int _ticks = 0;
         public int Ticks {
-		set => _ticks = value;
+		    set {
+                double newValue = value;
+                for(int i = 0; i < (int)Mag; i++) {
+                    newValue /= Conversions[(Magnitude)i];
+				}
+
+                Value = newValue;
+                _ticks = value;
+            }
 		    get {
 			    if (_waitingForEnterWorld)
 				    SetUpAutomaticStrengthFromWorldDificulty();

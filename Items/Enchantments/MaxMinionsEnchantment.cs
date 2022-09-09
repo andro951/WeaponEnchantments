@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override SellCondition SellCondition => SellCondition.PostQueenBee;
 		public override void GetMyStats() {
 			Effects = new() {
 				new MaxMinions(@base: EnchantmentStrengthData)

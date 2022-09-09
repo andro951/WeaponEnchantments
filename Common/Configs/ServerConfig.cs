@@ -312,6 +312,11 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(true)]
         public bool AllowCraftingIntoLowerTier;
 
+        [Label("Allow Infusing items to lower infusion Powers")]
+        [Tooltip("Warning: This will allow you to consume a weak weapon to downgrade a strong weapon.")]
+        [DefaultValue(false)]
+        public bool AllowInfusingToLowerPower;
+
         //Display Settings
         [Header("Display Settings")]
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]

@@ -7,6 +7,7 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class MobilityControlEnchantment : Enchantment {
         public override int StrengthGroup => 12;
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
             Effects = new() {
                 new MaxFallSpeed(EnchantmentStrengthData),

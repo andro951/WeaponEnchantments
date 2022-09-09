@@ -663,7 +663,6 @@ namespace WeaponEnchantments.Common
 
             return valueRarity;
         }
-
         public static float GetWeaponMultiplier(this Item item, Item consumedItem, out int infusedPower) {
             if (consumedItem.IsAir) {
                 infusedPower = 0;
@@ -675,7 +674,7 @@ namespace WeaponEnchantments.Common
             infusedPower = (int)Math.Round(consumedRarity * 100f);
             float multiplier = (float)Math.Pow(InfusionDamageMultiplier, consumedRarity - itemRarity);
 
-            return multiplier > 1f ? multiplier : 1f;
+            return multiplier > 1f || WEMod.clientConfig.AllowInfusingToLowerPower ? multiplier : 1f;
         }
         public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower) {
             float itemRarity = GetWeaponRarity(item);
@@ -732,7 +731,7 @@ namespace WeaponEnchantments.Common
             int infusedArmorSlot = -1;
             if (iGlobal is EnchantedWeapon enchantedWeapon && (cGlobal is EnchantedWeapon || consumedItem.IsAir)) {
                 //Weapon
-                if (item.GetWeaponInfusionPower() < consumedItem.GetWeaponInfusionPower() || reset) {
+                if (item.GetWeaponInfusionPower() < consumedItem.GetWeaponInfusionPower() || WEMod.clientConfig.AllowInfusingToLowerPower || reset) {
                     if (failedItemFind) {
                         infusedPower = cGlobal.infusionPower;
                         consumedItemName = cGlobal.infusedItemName;
@@ -743,7 +742,7 @@ namespace WeaponEnchantments.Common
                         damageMultiplier = GetWeaponMultiplier(item, consumedItem, out infusedPower);
                     }
 
-                    if (enchantedWeapon.infusionPower < infusedPower || reset) {
+                    if (enchantedWeapon.infusionPower < infusedPower || WEMod.clientConfig.AllowInfusingToLowerPower || reset) {
                         if (!finalize) {
                             enchantedWeapon.infusionDamageMultiplier = damageMultiplier;
                         }

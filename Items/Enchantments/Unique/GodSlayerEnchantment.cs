@@ -9,7 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 7;
 		public override int DamageClassSpecific => (int)DamageClassID.Melee;
-		public override SellCondition SellCondition => SellCondition.HardMode;
+		public override SellCondition SellCondition => SellCondition.PostPlantera;
 		public override void GetMyStats() {
 			Effects = new() {
 				new GodSlayer(@base: EnchantmentStrengthData)
