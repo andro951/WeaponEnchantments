@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override int StrengthGroup => 8;
 		public override bool Max1 => true;
 		public override float CapacityCostMultiplier => 1;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override float ScalePercent => 0f;
 		public override void GetMyStats() {
             Effects = new() {
@@ -26,8 +25,10 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "Fran";
     }
-    public class LavaFishingEnchantmentBasic : LavaFishingEnchantment {
-		public override List<WeightedPair> NpcDropTypes => new() {
+    public class LavaFishingEnchantmentBasic : LavaFishingEnchantment
+    {
+        public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+        public override List<WeightedPair> NpcDropTypes => new() {
             new(NPCID.HellButterfly),
             new(NPCID.Lavafly),
             new(NPCID.MagmaSnail),

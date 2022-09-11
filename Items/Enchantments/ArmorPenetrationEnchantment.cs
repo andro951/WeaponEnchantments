@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class ArmorPenetrationEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 4;
-		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override void GetMyStats() {
 			Effects = new() {
 				new ArmorPenetration(@base: EnchantmentStrengthData),
@@ -27,6 +26,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.WallofFlesh)
 		};

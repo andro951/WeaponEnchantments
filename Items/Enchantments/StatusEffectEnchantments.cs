@@ -66,11 +66,13 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class CursedInfernoEnchantment : StatusEffectEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.CursedInferno;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.CursedFlame, 3);
 	}
-	public class CursedInfernoEnchantmentBasic : CursedInfernoEnchantment { }
+	public class CursedInfernoEnchantmentBasic : CursedInfernoEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
+	}
 	public class CursedInfernoEnchantmentCommon : CursedInfernoEnchantment { }
 	public class CursedInfernoEnchantmentRare : CursedInfernoEnchantment { }
 	public class CursedInfernoEnchantmentEpic : CursedInfernoEnchantment { }
@@ -78,11 +80,13 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class IchorEnchantment : StatusEffectEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.Ichor;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Ichor, 3);
 	}
-	public class IchorEnchantmentBasic : IchorEnchantment { }
+	public class IchorEnchantmentBasic : IchorEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
+	}
 	public class IchorEnchantmentCommon : IchorEnchantment { }
 	public class IchorEnchantmentRare : IchorEnchantment { }
 	public class IchorEnchantmentEpic : IchorEnchantment { }
@@ -90,11 +94,13 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class VenomEnchantment : StatusEffectEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override short StatusEffect => BuffID.Venom;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.VialofVenom, 3);
 	}
-	public class VenomEnchantmentBasic : VenomEnchantment { }
+	public class VenomEnchantmentBasic : VenomEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
+	}
 	public class VenomEnchantmentCommon : VenomEnchantment { }
 	public class VenomEnchantmentRare : VenomEnchantment { }
 	public class VenomEnchantmentEpic : VenomEnchantment { }
@@ -103,13 +109,15 @@ namespace WeaponEnchantments.Items.Enchantments
 
 	public abstract class DaybreakEnchantment : StatusEffectEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.PostSolarTower;
 		public override float CapacityCostMultiplier => 2;
 
 		public override short StatusEffect => BuffID.Daybreak;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.FragmentSolar, 6);
 	}
-	public class DaybreakEnchantmentBasic : DaybreakEnchantment { }
+	public class DaybreakEnchantmentBasic : DaybreakEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.PostSolarTower;
+	}
 	public class DaybreakEnchantmentCommon : DaybreakEnchantment { }
 	public class DaybreakEnchantmentRare : DaybreakEnchantment { }
 	public class DaybreakEnchantmentEpic : DaybreakEnchantment { }

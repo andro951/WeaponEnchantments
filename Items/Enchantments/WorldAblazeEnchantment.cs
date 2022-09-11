@@ -13,7 +13,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string CustomTooltip => EnchantmentTypeName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 10;
 		public override bool Max1 => true;
-		public override SellCondition SellCondition => SellCondition.PostTwins;
 		public override void GetMyStats() {
 			Effects = new() {
 				new BuffEffect(BuffID.OnFire, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData),
@@ -43,6 +42,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostTwins;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Retinazer),
 			new(NPCID.Spazmatism)

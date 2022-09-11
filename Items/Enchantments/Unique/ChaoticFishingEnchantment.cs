@@ -8,7 +8,6 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class ChaoticFishingEnchantment : Enchantment {
 		public override int StrengthGroup => 7;
-        public override SellCondition SellCondition => SellCondition.HardMode;
         public override void GetMyStats() {
             Effects = new() {
                 new FishingEnemySpawnChance(@base: EnchantmentStrengthData)
@@ -23,7 +22,9 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment {
+    public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
+    {
+        public override SellCondition SellCondition => SellCondition.HardMode;
         public override List<WeightedPair> NpcDropTypes => new() {
             new(NPCID.GoblinShark),
             new(NPCID.BloodEelHead),

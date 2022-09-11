@@ -653,6 +653,9 @@ namespace WeaponEnchantments.Common.Utility
             if (modItem == null)
                 return null;
 
+            return modItem.TypeAboveModItem();
+        }
+        public static Type TypeAboveModItem(this ModItem modItem) {
             Type type = modItem.GetType();
             bool foundListUniqueType = false;
             while (!foundListUniqueType) {

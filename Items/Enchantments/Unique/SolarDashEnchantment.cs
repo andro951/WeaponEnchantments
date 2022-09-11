@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 1;
 		public override int ArmorSlotSpecific => (int)ArmorSlotSpecificID.Legs;
-		public override SellCondition SellCondition => SellCondition.PostDeerclops;
 		public override void GetMyStats() {
 			DashID dash = EnchantmentTier >= 3 ? DashID.SolarDash : EnchantmentTier > 1 ? DashID.NinjaTabiDash : DashID.EyeOfCthulhuShieldDash;
 
@@ -32,6 +31,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class SolarDashEnchantmentBasic : SolarDashEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostDeerclops;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Deerclops)
 		};

@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Items.Utility
 		//public override bool Max1 => true;
 		//public override float CapacityCostMultiplier => 1;
 		public override float ScalePercent => 0f;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override void GetMyStats() {
 			Effects = new() {
 				new BuffEffect(buffID, BuffStyle.OnTickPlayerBuff, duration: 12 * (uint)WEMod.serverConfig.BuffDuration, chance: EnchantmentStrengthData)

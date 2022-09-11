@@ -11,7 +11,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 14;
 		public override float CapacityCostMultiplier => 3;
-		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override void GetMyStats() {
 			Effects = new() {
 				new CriticalStrikeDamage(additive: EnchantmentStrengthData),
@@ -24,7 +23,9 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Kokopai";
 	}
 
-	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment {
+	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Medusa, 1f),
 			new(NPCID.GiantFungiBulb, 1f)

@@ -7,7 +7,6 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Utility {
     public abstract class LuckEnchantment : Enchantment {
 		public override int StrengthGroup => 16;
-        public override SellCondition SellCondition => SellCondition.Luck;
         public override void GetMyStats() {
             Effects = new() {
                 new Luck(@base: EnchantmentStrengthData),
@@ -28,8 +27,10 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
         public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
-    public class LuckEnchantmentBasic : LuckEnchantment {
-		public override List<WeightedPair> NpcDropTypes => new() {
+    public class LuckEnchantmentBasic : LuckEnchantment
+    {
+        public override SellCondition SellCondition => SellCondition.Luck;
+        public override List<WeightedPair> NpcDropTypes => new() {
             new(NPCID.Pinky, 1f),
             new(NPCID.Nymph, 1f),
             new(NPCID.DungeonSlime, 0.2f),

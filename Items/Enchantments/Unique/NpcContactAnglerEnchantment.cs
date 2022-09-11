@@ -6,7 +6,6 @@ using WeaponEnchantments.Effects;
 namespace WeaponEnchantments.Items.Enchantments.Unique {
     public abstract class NpcContactAnglerEnchantment : Enchantment {
 		public override int StrengthGroup => 5;
-        public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override void GetMyStats() {
             Effects = new() {
                 new QuestFishChance(@base: EnchantmentStrengthData)
@@ -23,6 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
     }
     public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
     {
+        public override SellCondition SellCondition => SellCondition.AnyTimeRare;
         public override List<WeightedPair> CrateDrops => new() {
             new(CrateID.Golden),
             new(CrateID.Titanium_GoldenHard)

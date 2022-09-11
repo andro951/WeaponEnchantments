@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Items
 		public abstract int animationFrames { get; }
 		public virtual SellCondition SellCondition => SellCondition.Always;
 		public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.EnchantmentEssence, WikiItemTypeID.CraftingMaterial };
-		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier); 
+		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier);
 
 		public virtual string Artist { private set; get; } = "Kiroto";
 		public virtual string Designer { private set; get; } = "andro951";

@@ -10,7 +10,6 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
 		public override int StrengthGroup => 5;
-        public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
         public override void GetMyStats() {
             Effects = new() {
                 new LifeSteal(@base: EnchantmentStrengthData)
@@ -26,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments {
     }
     public class LifeStealEnchantmentBasic : LifeStealEnchantment
     {
+        public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
         public override List<WeightedPair> NpcDropTypes => new() {
             new(NPCID.WallofFlesh)
         };

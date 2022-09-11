@@ -12,7 +12,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
 		public override int RestrictedClass => (int)DamageClassID.Summon;
-		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
@@ -38,6 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.QueenSlimeBoss)
 		};

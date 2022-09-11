@@ -8,7 +8,6 @@ namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class AttackSpeedEnchantment : Enchantment
 	{
-		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override void GetMyStats() {
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
@@ -31,6 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.EaterofWorldsHead)
 		};

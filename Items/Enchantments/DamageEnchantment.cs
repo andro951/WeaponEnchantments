@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class DamageEnchantment : Enchantment
 	{
 		public override int LowestCraftableTier => 0;
-		public override SellCondition SellCondition => SellCondition.Always;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(EnchantmentStrengthData)
@@ -23,6 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class DamageEnchantmentBasic : DamageEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.Always;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.KingSlime)
 		};

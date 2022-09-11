@@ -9,7 +9,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.6f;
-		public override SellCondition SellCondition => SellCondition.PostQueenBee;
 		public override void GetMyStats() {
 			Effects = new() {
 				new MaxMinions(@base: EnchantmentStrengthData)
@@ -28,6 +27,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostQueenBee;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.QueenBee)
 		};

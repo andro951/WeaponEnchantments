@@ -8,7 +8,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public abstract class MovementSpeedEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 11;
-		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
 		public override void GetMyStats() {
 			Effects = new() {
 				new MovementSpeed(EnchantmentStrengthData)
@@ -30,6 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.EyeofCthulhu),
 			new(NPCID.GiantWalkingAntlion),

@@ -11,7 +11,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 17;
 		public override float ScalePercent => 0.1f;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		public override void GetMyStats() {
@@ -31,6 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public abstract class MeleeClassSwapEnchantment : ClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		protected override DamageClass MyDamageClass => DamageClass.Melee;
 	}
 	public class MeleeClassSwapEnchantmentBasic : MeleeClassSwapEnchantment

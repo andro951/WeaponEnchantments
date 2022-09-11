@@ -26,8 +26,7 @@ using System.Reflection;
 namespace WeaponEnchantments.Content.NPCs
 {
 	[AutoloadHead]
-	public class Witch : ModNPC
-	{
+	public class Witch : ModNPC {
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
 		private Dictionary<int, float> shopEnchantments = new();
@@ -99,9 +98,9 @@ namespace WeaponEnchantments.Content.NPCs
 				if (player.inventory.Any(item => item.ModItem is Enchantment))
 					return true;
 
-				foreach(Item item in player.inventory) {
+				foreach (Item item in player.inventory) {
 					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-						foreach(Item enchantment in enchantedItem.enchantments) {
+						foreach (Item enchantment in enchantedItem.enchantments) {
 							if (!enchantment.NullOrAir())
 								return true;
 						}
@@ -172,7 +171,7 @@ namespace WeaponEnchantments.Content.NPCs
 				resetShop = false;
 			}
 
-			foreach(KeyValuePair<int, float> pair in shopEnchantments) {
+			foreach (KeyValuePair<int, float> pair in shopEnchantments) {
 				shop.item[nextSlot].SetDefaults(pair.Key);
 				shop.item[nextSlot].value = (int)((float)shop.item[nextSlot].value * pair.Value);
 				nextSlot++;
@@ -180,53 +179,51 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		private void GetItemsForShop() {
 			shopEnchantments = new();
-			IEnumerable<ISoldByWitch> modItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell());
-			IEnumerable <Enchantment> enchanmtnets = modItems.OfType<Enchantment>();
-			IEnumerable<ISoldByWitch> otherItems = modItems.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always);
-			Dictionary<int, float> rareEnchantments = new();
+			List<ISoldByWitch> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell()).ToList();
+			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).ToList();
+			List<ISoldByWitch> otherItems = allItems
+				.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always)
+				.GroupBy(i => ((ModItem)i).TypeAboveModItem().Name)
+				.Select(g => g.ToList().OrderBy(i => EnchantingRarity.GetTierNumberFromName(((ModItem)i).Name)))
+				.SelectMany(i => i)
+				.ToList();
 
 			//Always
-			AddEnchantmentsToShop(otherItems, SellCondition.Always);
+			AddItemsToShop(otherItems);
 
 			//Any Time
 			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
 
-			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime), SellCondition.IgnoreCondition, 2);
+			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), SellCondition.IgnoreCondition, 2);
 
-			if (Main.rand.Next(100) == 0) {
+			if (Main.rand.Next(100) == 0)
 				AddEnchantmentsToShop(enchanmtnets, SellCondition.Luck, 1);
-			}
 		}
-		private void AddEnchantmentsToShop(IEnumerable<ISoldByWitch> modItems, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
-			float sellPriceModifier = GetSellPriceModifier(condition);
+		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			List<int> list;
 			if (condition == SellCondition.IgnoreCondition) {
-				list = modItems.Select(e => ((ModItem)e).Type).ToList();
+				list = soldByWitch.Select(e => ((ModItem)e).Type).ToList();
 			}
 			else {
-				list = modItems.Where(e => e.SellCondition == condition).Select(e => ((ModItem)e).Type).ToList();
+				list = soldByWitch.Where(e => e.SellCondition == condition).Select(e => ((ModItem)e).Type).ToList();
 			}
-			
+
 			if (condition == SellCondition.Always)
 				num = list.Count;
 
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
+				ModItem modItem = (ModItem)soldByWitch[list.IndexOf(type)];
+				float sellPriceModifier = soldByWitch[list.IndexOf(type)].SellPriceModifier;
 				shopEnchantments.Add(type, sellPriceModifier);
 				list.Remove(type);
 			}
 		}
-		private void AddEnchantmentsToDict(IEnumerable<Enchantment> enchantments, SellCondition condition, Dictionary<int, float> dict) {
-			foreach(int id in enchantments.Where(e => e.SellCondition == condition).Select(e => e.Type)) {
-				float sellPriceModifier = GetSellPriceModifier(condition);
-				dict.Add(id, sellPriceModifier);
-			}
-		}
-		private void AddEnchantmentsToShop(Dictionary<int, float> options, int num) {
-			for(int i = 0; i < num && options.Count > 0; i++) {
-				int type = options.Keys.ToList().GetOneFromList();
-				shopEnchantments.Add(type, options[type]);
-				options.Remove(type);
+		private void AddItemsToShop(List<ISoldByWitch> modItems) {
+			foreach(ISoldByWitch soldByWitch in modItems) {
+				ModItem modItem = (ModItem)soldByWitch;
+				float sellPriceModifier = soldByWitch.SellPriceModifier;
+				shopEnchantments.Add(modItem.Type, sellPriceModifier);
 			}
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {

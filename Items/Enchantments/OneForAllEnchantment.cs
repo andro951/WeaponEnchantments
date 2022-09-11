@@ -10,7 +10,6 @@ namespace WeaponEnchantments.Items.Enchantments
 	{
 		public override int StrengthGroup => 10;
 		public override float ScalePercent => 0.8f;
-		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override bool Max1 => true;
 		public override void GetMyStats() {
 			Effects = new() {
@@ -30,6 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class OneForAllEnchantmentBasic : OneForAllEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Mothron)
 		};

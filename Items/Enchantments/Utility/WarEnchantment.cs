@@ -11,7 +11,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	{
 		public override int StrengthGroup => 2;
 		public override float ScalePercent => -1f;
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override void GetMyStats() {
 			Effects = new() {
 				new EnemyMaxSpawns(multiplicative: EnchantmentStrengthData),
@@ -34,6 +33,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class WarEnchantmentBasic : WarEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.PirateShip),
 			new(NPCID.PirateCaptain)

@@ -324,17 +324,20 @@ namespace WeaponEnchantments
                         for (int i = 0; i < EnchantingTable.maxItems; i++) {
                             if (enchantingTableUI.itemSlotUI[i].Valid(item)) {
                                 if (!item.IsAir) {
-                                    bool doNotSwap = false;
-                                    if(item.TryGetEnchantedEquipItem(out EnchantedEquipItem iGlobal)) {
+                                    //bool canSwap =  !;
+                                    /*
+                                    if (item.TryGetEnchantedEquipItem(out EnchantedEquipItem iGlobal)) {
                                         if (iGlobal.equippedInArmorSlot && !tableItem.IsAir) {
+                                            doNotSwap = CanSwapArmor(tableItem, item);
                                             bool tryingToSwapArmor = IsAccessoryItem(item) && !IsArmorItem(item) && (IsAccessoryItem(tableItem) || IsArmorItem(tableItem));
                                             bool armorTypeDoesntMatch = item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1;
                                             if (tryingToSwapArmor || armorTypeDoesntMatch)
                                                 doNotSwap = true;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
                                         }
                                     }
+                                    */
                                     
-                                    if (!doNotSwap) {
+                                    if (CanSwapArmor(tableItem, item)) {
                                         if (moveItem) {
                                             enchantingTableUI.itemSlotUI[i].Item = item.Clone();
                                             item = itemInEnchantingTable ? itemBeingEnchanted : new Item();
@@ -489,6 +492,20 @@ namespace WeaponEnchantments
             }
 
             return valid;
+        }
+        public bool CanSwapArmor(Item newItem, Item currentItem) {
+            if (newItem.NullOrAir())
+                return true;
+
+            if (currentItem.TryGetEnchantedEquipItem(out EnchantedEquipItem outOfGlobal) && !outOfGlobal.equippedInArmorSlot)
+                return true;
+
+            bool tryingToSwapArmor = IsAccessoryItem(currentItem) && !IsArmorItem(currentItem) && (IsAccessoryItem(newItem) || IsArmorItem(newItem));
+            bool armorTypeDoesntMatch = currentItem.headSlot > -1 && newItem.headSlot == -1 || currentItem.bodySlot > -1 && newItem.bodySlot == -1 || currentItem.legSlot > -1 && newItem.legSlot == -1;
+            if (tryingToSwapArmor || armorTypeDoesntMatch)
+                return false;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
+
+            return true;
         }
         public Item[] GetEquipArmor(bool getArrayOnly = false) {
             Item[] currentEquipArmor = new Item[equipArmor.Length];
@@ -766,7 +783,7 @@ namespace WeaponEnchantments
 
             ApplyWarDamageRediction(projectile, target, ref damage, out bool multiShotConvertedToDamage);
 
-            ApplyStardustDragonScaleReduction(item, ref damage, projectile);
+            ApplyMinionDamageModifications(item, ref damage, projectile);
 
             int armorPenetration = Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
 
@@ -813,19 +830,25 @@ namespace WeaponEnchantments
                 multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
             }
         }
-        private void ApplyStardustDragonScaleReduction(Item item, ref int damage, Projectile projectile) {
+        private void ApplyMinionDamageModifications(Item item, ref int damage, Projectile projectile) {
             //Stardust dragon scale damage multiplier correction//Stardust Dragon
-            if (projectile != null && ProjectileID.Sets.StardustDragon[projectile.type]) {
-                float enchantmentScaleMultiplier = GetVanillaModifierStrength(EnchantmentStat.Size);
-                if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon))
-                    enchantmentScaleMultiplier *= enchantedWeapon.GetVanillaModifierStrength(EnchantmentStat.Size);
+            if (projectile != null) {
+                //Minion, item damage doesn't apply to minions
+                if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && (projectile.minion || projectile.DamageType == DamageClass.Summon))
+                    damage = (int)Math.Round((float)damage * enchantedWeapon.infusionDamageMultiplier);
 
-                if (enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f) {
-                    float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
-                    float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
-                    float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
-                    float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
-                    damage = (int)Math.Round((float)damage * combinedMultiplier);
+                if (ProjectileID.Sets.StardustDragon[projectile.type]) {
+                    float enchantmentScaleMultiplier = GetVanillaModifierStrength(EnchantmentStat.Size);
+                    if (enchantedWeapon != null)
+                        enchantmentScaleMultiplier *= enchantedWeapon.GetVanillaModifierStrength(EnchantmentStat.Size);
+
+                    if (enchantmentScaleMultiplier > 1f && projectile.scale / enchantmentScaleMultiplier < 1.5f) {
+                        float scaleBeforeEnchantments = projectile.scale / enchantmentScaleMultiplier;
+                        float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
+                        float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
+                        float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
+                        damage = (int)Math.Round((float)damage * combinedMultiplier);
+                    }
                 }
             }
         }
