@@ -44,7 +44,7 @@ namespace WeaponEnchantments.Common.Utility
 
 
         //Only used to print the full list of contributors.
-        private static Dictionary<string, string> contributorLinks = new Dictionary<string, string>() {
+        public static Dictionary<string, string> contributorLinks = new Dictionary<string, string>() {
             { "Zorutan", "https://twitter.com/ZorutanMesuta" }
 		};
 

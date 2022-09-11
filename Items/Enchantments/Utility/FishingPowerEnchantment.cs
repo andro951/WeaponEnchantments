@@ -20,6 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 
         public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
         public override string Artist => "andro951";
+        public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
     public class FishingPowerEnchantmentBasic : FishingPowerEnchantment

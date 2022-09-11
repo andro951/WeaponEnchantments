@@ -1,18 +1,28 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantingTableItem : ModItem
+	public abstract class EnchantingTableItem : ModItem, IItemWikiInfo
 	{
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+		public virtual List<WikiItemTypeID> WikiItemTypes {
+			get {
+				List<WikiItemTypeID> types = new() { WikiItemTypeID.EnchantingTable, WikiItemTypeID.Storage, WikiItemTypeID.CraftingStation };
+				if (enchantingTableTier < EnchantingRarity.tierNames.Length - 1)
+					types.Add(WikiItemTypeID.CraftingMaterial);
 
+				return types;
+			}
+		}
 		public virtual string Artist { private set; get; } = "Zorutan";
 		public virtual string Designer { private set; get; } = "andro951";
 		public override void SetStaticDefaults() {

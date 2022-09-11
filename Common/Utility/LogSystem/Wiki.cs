@@ -32,17 +32,21 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             GetRecpies(modItems);
             GetDrops();
             IEnumerable<ContainmentItem> containmentItems = modItems.OfType<ContainmentItem>().OrderBy(c => c.tier);
+            IEnumerable<EnchantingTableItem> enchantingTables = modItems.OfType<EnchantingTableItem>().OrderBy(t => t.enchantingTableTier);
             IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.Name);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
+
             List<WebPage> webPages = new();
 
             AddContainments(webPages, containmentItems, enchantments);
-
+            AddEnchantingTables(webPages, enchantingTables);
+            AddEssence(webPages, enchantmentEssence);
+            AddEnchantments(webPages, enchantments);
 
             string wiki = "\n\n";
 
             foreach (WebPage webPage in webPages) {
-                wiki += webPage.ToString();
+                wiki += webPage.ToString() + "\n".FillString(5);
             }
 
             wiki.Log();
@@ -51,10 +55,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             WebPage Containments = new("Containments");
             Containments.AddParagraph("Containments contain the power of an enchantment. More powerful enchantments require larger and stronger containments to hold them.\n" +
             "Containments are crafting materials used to craft enchantments.");
-            Containments.NewLine();
+            string text = "Only these enchantments can be obtained by crafting.The others must all be found in other ways.\n";
+            Containments.AddParagraph(text);
+            Containments.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name.AddSpaces()).ToArray());
             foreach (ContainmentItem containment in containmentItems) {
-                
-                string name = containment.Name;
                 int tier = containment.tier;
                 string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
                 Containments.AddParagraph($"{containment.Item.ToItemPNG(link: true)} (Tier {tier})");
@@ -64,56 +68,88 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 itemInfo.AddStatistics(containmentPage);
                 itemInfo.AddDrops(containmentPage);
                 itemInfo.AddInfo(containmentPage);
-
-                switch (tier) {
-                    case 0://Containment
-                        string text = "Only these enchantments can be obtained by crafting.The others must all be found in other ways.";
-                        containmentPage.AddParagraph(text);
-                        containmentPage.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name).ToArray());
-                        break;
-                    case 1://Medium Containment
-
-                        break;
-                    case 2://Superior Containment
-
-                        break;
-                }
-
                 itemInfo.AddRecipes(containmentPage);
                 webPages.Add(containmentPage);
             }
 
             webPages.Add(Containments);
         }
-        private static void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
-            WebPage Enchantments = new("Enchantments");
-            Enchantments.AddParagraph("");//Not finished
-            Enchantments.NewLine();
-            foreach (IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName)) {
-                bool first = true;
-                foreach (Enchantment e in list) {
-                    if (first) {
-                        first = false;
-                        WebPage enchantmentTypePage = new(e.EnchantmentTypeName);
-                        enchantmentTypePage.AddParagraph(e.Item.ToItemPNG(link: true));
-                        Enchantments.AddParagraph(e.EnchantmentTypeName.ToItemPNG(link: true));
-                    }
+        private static void AddEnchantingTables(List<WebPage> webPages, IEnumerable<EnchantingTableItem> enchantingTables) {
+            WebPage EnchantingTable = new("Enchantment enchantingTable");
+            EnchantingTable.AddParagraph("");
+            EnchantingTable.AddBulletedList(elements: new string[] {
+                
+            });
+            foreach (EnchantingTableItem enchantingTable in enchantingTables) {
+                int tier = enchantingTable.enchantingTableTier;
+                EnchantingTable.AddParagraph($"{enchantingTable.Item.ToItemPNG(link: true)} (Tier {tier})");
+                WebPage enchantingTablePage = new(enchantingTable.Item.Name);
+                ItemInfo itemInfo = new(enchantingTable);
+                enchantingTablePage.AddLink("Enchantment enchantingTable");
+                itemInfo.AddStatistics(enchantingTablePage);
+                itemInfo.AddDrops(enchantingTablePage);
+                itemInfo.AddDrops(enchantingTablePage);
+                itemInfo.AddRecipes(enchantingTablePage);
+                webPages.Add(enchantingTablePage);
 
-                    WebPage enchantmentPage = new(e.Item.Name);
-
-                    webPages.Add(enchantmentPage);
-                }
-
-
+                EnchantingTable.AddParagraph($"{enchantingTable.Item.ToItemPNG(link: true)} (Tier {tier})");
             }
 
+            webPages.Add(EnchantingTable);
         }
         private static void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
             WebPage Essence = new("Enchantment Essence");
-            Essence.AddParagraph("");//Not finished
-            Essence.NewLine();
+            Essence.AddParagraph("Essence represents solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank). They can be used to...");
+            Essence.AddBulletedList(elements: new string[] {
+                "Upgrade enchantments",
+                "Infuse it's XP value into items"
+            });
+            foreach (EnchantmentEssence essence in enchantmentEssence) {
+                int tier = essence.EssenceTier;
+                Essence.AddParagraph($"{essence.Item.ToItemPNG(link: true)} (Tier {tier})");
+                WebPage essencePage = new(essence.Item.Name);
+                ItemInfo itemInfo = new(essence);
+                essencePage.AddLink("Enchantment Essence");
+                itemInfo.AddStatistics(essencePage);
+                itemInfo.AddDrops(essencePage);
+                itemInfo.AddDrops(essencePage);
+                itemInfo.AddRecipes(essencePage);
+                webPages.Add(essencePage);
+            }
 
+            webPages.Add(Essence);
+        }
+        private static void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
+            WebPage Enchantments = new("Enchantments");
+            WebPage enchantmentTypePage = new("");
+            Enchantments.AddParagraph("");//Not finished
 
+            foreach (IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName)) {
+                bool first = true;
+                foreach (Enchantment enchantment in list.ToList()) {
+                    if (first) {
+                        first = false;
+                        enchantmentTypePage = new(enchantment.EnchantmentTypeName);
+                        enchantmentTypePage.AddParagraph(enchantment.Item.ToItemPNG(link: true));
+                        Enchantments.AddParagraph(enchantment.EnchantmentTypeName.ToItemPNG(link: true));
+                    }
+
+                    int tier = enchantment.EnchantmentTier;
+                    enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
+                    WebPage enchantmentPage = new(enchantment.Item.Name);
+                    ItemInfo itemInfo = new(enchantment);
+                    enchantmentPage.AddLink("Enchantment enchantment");
+                    itemInfo.AddStatistics(enchantmentPage);
+                    itemInfo.AddDrops(enchantmentPage);
+                    itemInfo.AddDrops(enchantmentPage);
+                    itemInfo.AddRecipes(enchantmentPage);
+                    webPages.Add(enchantmentPage);
+                }
+
+                webPages.Add(enchantmentTypePage);
+            }
+
+            webPages.Add(Enchantments);
         }
         private static void GetMinMax(IEnumerable<ModItem> modItems) {
             min = int.MaxValue;
@@ -183,7 +219,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             for (int npcNetID = NPCID.NegativeIDCount + 1; npcNetID < NPCLoader.NPCCount; npcNetID++) {
                 foreach (IItemDropRule dropRule in Main.ItemDropsDB.GetRulesForNPCID(npcNetID)) {
                     List<DropRateInfo> dropRates = new();
-                    DropRateInfoChainFeed dropRateInfoChainFeed = new();
+                    DropRateInfoChainFeed dropRateInfoChainFeed = new(1f);
                     dropRule.ReportDroprates(dropRates, dropRateInfoChainFeed);
                     foreach (DropRateInfo dropRate in dropRates) {
                         int itemType = dropRate.itemId;
@@ -210,6 +246,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
     {
         private static Dictionary<int, int> itemsFromTiles;
         public static string ToLink(this string s, string text = null) => $"[[{s}{(text != null ? $"|{text}" : "")}]]";
+        public static string ToExternalLink(this string s, string text = null) => $"[{s} {text}]";
         public static string ToFile(this string s) => $"[[File:{s.RemoveSpaces()}.png]]";
         public static string ToItemPNG(this Item item, bool link = false, bool displayName = true, bool displayNum = false) {
             int type = item.type;

@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		}
 
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment

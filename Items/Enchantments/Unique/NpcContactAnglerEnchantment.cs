@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
         }
 
         public override string Artist => "andro951";
+        public override string ArtModifiedBy => null;
         public override string Designer => "andro951";
     }
     public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment

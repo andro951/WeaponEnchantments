@@ -24,6 +24,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {EnchantmentTypeName.AddSpaces()}";
 		public override string Artist => "andro951";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "Creature";
 	}
 	public class CalmWatersEnchantmentBasic : CalmWatersEnchantment

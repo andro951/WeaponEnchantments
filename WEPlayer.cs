@@ -62,6 +62,7 @@ namespace WeaponEnchantments
         int hoverItemChest = 0;
         public Item trackedTrashItem = new Item();
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
+        public Point enchantingTableLocation = new Point(-1, -1);
 
 		#endregion
 
@@ -740,21 +741,21 @@ namespace WeaponEnchantments
 
         #region Modify Hit
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
-            ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref Player.direction);
-        }
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-            Item item = null;
-            if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
-                item = weProj.sourceItem;
-
-            if (item == null)
-                return;
-
-            ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
-        }
-        private void ModifyHitNPCWithAny(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Projectile projectile = null) {
-
+        //public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
+        //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref Player.direction);
+        //}
+        //public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+        //    Item item = null;
+        //    if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
+        //        item = weProj.sourceItem;
+        //
+        //    if (item == null)
+        //        return;
+        //
+        //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
+        //}
+        public void ModifyHitNPCWithAny(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Projectile projectile = null) {
+            //Called from WEMod detours
             #region Debug
 
             if (LogMethods.debugging) ($"\\/HitNPC(target: {target.FullName}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();

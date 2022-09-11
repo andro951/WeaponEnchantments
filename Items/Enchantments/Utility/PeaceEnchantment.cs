@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {EnchantmentTypeName.AddSpaces()}";
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
 	public class PeaceEnchantmentBasic : PeaceEnchantment

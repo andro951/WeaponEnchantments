@@ -20,9 +20,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
         public void AddParagraph(string text) => Add(new Paragraph(text));
         public void AddLink(string s, string text = null, bool png = false) => Add(new Link(s, text, png));
         public void AddBulletedList(bool png = false, bool links = false, params object[] elements) => Add(new BulletedList(png, links, elements));
-        public void AddTable<T>(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false) where T : class {
+        public void AddTable<T>(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = true, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false) where T : class {
             if (elements.Count() > 0)
-                Add(new Table<T>(elements, header, firstRowHeaders, sortable, collapsible, collapsed));
+                Add(new Table<T>(elements, header, firstRowHeaders, sortable, collapsible, collapsed, rowspanColumns, automaticCollapse));
         }
         public void NewLine(int num = 1) => _elements.Add('\n'.FillString(num - 1));
         public override string ToString() {

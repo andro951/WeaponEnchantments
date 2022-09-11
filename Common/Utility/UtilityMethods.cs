@@ -14,6 +14,7 @@ using Terraria.ModLoader.IO;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Effects;
 using Terraria.Localization;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.Common.Utility
 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
@@ -8,10 +9,12 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {
-    public class PowerBooster : ModItem
+    public class PowerBooster : ModItem, IItemWikiInfo
     {
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.HardModeBosses;
+        public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.PowerBooster };
 
         public virtual string Artist { private set; get; } = "andro951";
         public virtual string Designer { private set; get; } = "andro951";

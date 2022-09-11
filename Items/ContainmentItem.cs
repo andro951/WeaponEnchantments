@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -8,7 +9,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-    public abstract class ContainmentItem : ModItem, ISoldByWitch
+    public abstract class ContainmentItem : ModItem, ISoldByWitch, IItemWikiInfo
     {
         public static string[] sizes = new string[] { "", "Medium", "Superior" };
         public static int[] glass = new int[] { 1, 4, 0};
@@ -19,9 +20,12 @@ namespace WeaponEnchantments.Items
         public int tier = 0;
         private int bars;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-        public virtual SellCondition SellCondition => SellCondition.AnyTime;
+        public virtual SellCondition SellCondition => SellCondition.Always;
+        public virtual float SellPriceModifier => 1f;
+        public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.Containments, WikiItemTypeID.CraftingMaterial };
 
         public virtual string Artist { private set; get; } = "Zorutan";
+        public virtual string ArtModifiedBy => null;
         public virtual string Designer { private set; get; } = "andro951";
         public override void SetStaticDefaults() {
             GetDefaults();

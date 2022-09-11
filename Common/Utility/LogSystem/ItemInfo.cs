@@ -10,6 +10,11 @@ using WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Common.Utility.LogSystem.Wiki;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Common.Globals;
+using Terraria.GameContent.UI;
+using Microsoft.Xna.Framework;
+using Terraria.ID;
+using static WeaponEnchantments.Common.Utility.LogModSystem;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -24,22 +29,80 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public ItemInfo(Item item) {
             Item = item;
         }
+        private int ShopPrice;
         public void AddStatistics(WebPage webpage) {
+            List<List<string>> info = new();
+            string artistString = ((IItemWikiInfo)ModItem).Artist;
+            string artModifiedBy = ((IItemWikiInfo)ModItem).ArtModifiedBy;
+            if (artistString == "andro951")
+                artistString = null;
+
+            if (artistString != null) {
+                if (contributorLinks.ContainsKey(artistString))
+                    artistString = contributorLinks[artistString].ToExternalLink(artistString);
+
+                artistString = $"  (art by {artistString}{(artModifiedBy == null ? ")" : "")}";
+            }
+            
+            if (artModifiedBy != null) {
+                if (contributorLinks.ContainsKey(artModifiedBy))
+                    artModifiedBy = contributorLinks[artModifiedBy].ToExternalLink(artModifiedBy);
+
+                artModifiedBy = $"{(artistString == null ? "  (" : " ")}modified by {artModifiedBy})";
+            }
+
+            string label = $"{Item.Name}<br/>{Item.ToItemPNG(displayName: false)}{artistString}{artModifiedBy}<br/>Statistics";
+
+            //Type
+            string typeText = "";
+            bool first = true;
+			foreach (WikiItemTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
+                if (first) {
+                    first = false;
+				}
+				else {
+                    typeText += "  ";
+				}
+                string temp = id.GetLinkText(out bool external);
+                typeText += external ? temp.ToExternalLink(id.ToString().AddSpaces()) : temp.ToLink(id.ToString().AddSpaces());
+			}
+
+            info.Add(new() { "Type", typeText });
+
+            //Tooltip
             string tooltip = "";
             for (int i = 0; i < Item.ToolTip.Lines; i++) {
                 tooltip += Item.ToolTip.GetLine(i);
             }
-            List<List<string>> info = new() {
-                new() { "Type", $"{ModItem.GetType().Name}" },
 
-                new() { "Tooltip", $"'{tooltip}'" },//italics?
-                new() { "Rarity", $"{Item.rare}" },//Need to edit to rarity name and color
-                new() { "Buy", $"{Item.value.GetCoinsPNG()}" },
-                new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" },
-                new() { "Research", $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required" }
-            };
+            info.Add(new() { "Tooltip", $"<i>'{tooltip}'</i>" });//italics?
 
-            string label = $"{Item.Name}<br/>{Item.ToItemPNG(displayName: false)}<br/>Statistics";
+            //Rarity
+            //Need to edit to rarity name and color
+            int rare = Item.rare;
+            Color color = ItemRarity.GetColor(rare);
+            string rareString;
+            if (EnchantingRarity.TierColors.Contains(color)) {
+                rareString = EnchantingRarity.GetTierNameFromColor(color);
+            }
+			else {
+                if (!ItemRarityID.Search.TryGetName(Item.rare, out rareString))
+                    rareString = "Failed to find rarity name";
+            }
+
+            info.Add(new() { "Rarity", $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>" });
+
+            //Buy
+            //Witch shop stuff
+            if (TryGetShopPrice())
+                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}" });
+
+            //Sell
+            info.Add(new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" });
+
+            //Research
+            info.Add(new() { "Research", $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required" });
+
             webpage.AddTable(info, label);
         }
         public void AddDrops(WebPage webpage) {
@@ -48,11 +111,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 return;
 
             List<List<string>> allDropInfo = new() { new() { "Entity", "Qty.", "Rate" } };
-            foreach (int npcType in drops[type].Keys) {
-                int minDropped = drops[type][npcType].stackMin;
-                int maxDropped = drops[type][npcType].stackMax;
-                float chance = drops[type][npcType].dropRate;
-                List<string> dropInfo = new() { $"{npcType.ToNpcPNG()}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chance.PercentString() };//Make vanilla link option to vanilla wiki
+            foreach (int npcNetID in drops[type].Keys) {
+                int minDropped = drops[type][npcNetID].stackMin;
+                int maxDropped = drops[type][npcNetID].stackMax;
+                float chance = drops[type][npcNetID].dropRate;
+                bool configDrop =  WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? " if enabled in config)" : "")}";
+                List<string> dropInfo = new() { $"{npcNetID.ToNpcPNG()}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                 allDropInfo.Add(dropInfo);
             }
             /*
@@ -108,38 +173,39 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webpage.AddTable(allDropInfo, header, true, true, true);
         }
         public void AddInfo(WebPage webpage) {
-            if (ModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
-                int sellPrice = (int)((float)Item.value * soldByWitch.SellPriceModifier);
-                string sellPriceString = sellPrice.GetCoinsPNG();
-                string sellText = $"Sold by the Witch for {sellPriceString}. Can only appear in the shop if this condition is met: {soldByWitch.SellCondition.ToString().AddSpaces()}";
+            if (TryGetShopPrice() && ModItem is ISoldByWitch soldByWitch) {
+                string sellPriceString = ShopPrice.GetCoinsPNG();
+                string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
                 webpage.AddParagraph(sellText);
             }
         }
-        public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
-        public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
-        public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(reverseRecipes: true);
-        public void AddRecipes(WebPage webpage) {
-            webpage.AddTable(RecipesCreateItem, "Recipes", true);
-            webpage.AddTable(RecipesUsedIn, "Used in", true);
-            webpage.AddTable(RecipesReverseRecipes, "Used in (Reverse Crafting Recipes)", true);
-        }
-        private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false, bool reverseRecipes = false) {
-            if (!createItem && !usedIn && !reverseRecipes) {
-                createItem = true;
-                usedIn = true;
-                reverseRecipes = true;
+        private bool TryGetShopPrice() {
+            if (ShopPrice != 0)
+                return true;
+
+            if (ModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
+                ShopPrice = (int)((float)Item.value * soldByWitch.SellPriceModifier);
+                return true;
             }
 
+            return false;
+        }
+        public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
+        public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
+        public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(createItem: true, usedIn: true, reverseRecipes: true);
+        public void AddRecipes(WebPage webpage) {
+            webpage.AddTable(RecipesCreateItem, "Recipes", firstRowHeaders: true, rowspanColumns: true);
+            webpage.AddTable(RecipesUsedIn, "Used in", firstRowHeaders: true, rowspanColumns: true);
+            webpage.AddTable(RecipesReverseRecipes, "Used in (Reverse Crafting Recipes)", firstRowHeaders: true, rowspanColumns: true, automaticCollapse: true);
+        }
+        private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false, bool reverseRecipes = false) {
             bool recipesAdded = false;
 
             List<List<string>> myRecipes = new() { new() { "Result", "Ingredients", "Crafting station" } };
-            if (createItem && TryAddRecipeData(myRecipes, createItemRecipes))
+            if (createItem && TryAddRecipeData(myRecipes, createItemRecipes, reverseRecipes))
                 recipesAdded = true;
 
-            if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn))
-                recipesAdded = true;
-
-            if (reverseRecipes && TryAddRecipeData(myRecipes, recipesUsedIn, reverseRecipes))
+            if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn, reverseRecipes))
                 recipesAdded = true;
 
             if (!recipesAdded)
@@ -179,7 +245,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             foreach (RecipeData recipeData in myRecipeData3.Concat(myRecipeData2)) {
                 int createItemCount = recipeData.createItem.Count;
-                bool reverseRecipe = recipeData.IsReverseRecipe(Item.type);
+                bool reverse = recipeData.requiredItem.Count > 1 && createItemCount > recipeData.requiredItem.Count && recipeData.requiredItem.Contains(Item);
+                bool reverseRecipe = recipeData.IsReverseRecipe(Item.type) || reverse;
                 if (includeReverse && !reverseRecipe || !includeReverse && reverseRecipe)
                     continue;
 

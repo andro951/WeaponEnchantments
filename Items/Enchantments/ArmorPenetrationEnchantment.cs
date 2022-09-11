@@ -22,6 +22,7 @@ namespace WeaponEnchantments.Items.Enchantments
 
 		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
 	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment

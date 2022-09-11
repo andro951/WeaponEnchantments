@@ -12,6 +12,7 @@ using System;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.UI
 {
@@ -137,6 +138,70 @@ namespace WeaponEnchantments.UI
                 //Offer the inventory item
                 if (player.inventory[i].type == type && !iGlobal.Modified)
                     OfferItem(ref player.inventory[i], false, true);
+            }
+
+            if (FindEnchantingTable(player, out Point tablePoint)) {
+                if (FindChestsInRange(tablePoint.X, tablePoint.Y, out List<int> chests, xRangeLeft: 2, xRangeRight: 2, yRangeUp: -1, yRangeDown: 1, exactPoints: true)) {
+                    foreach(int chestNum in chests) {
+                        int chestLength = Main.chest[chestNum].item.Length;
+                        for (int i = 0; i < chestLength; i++) {
+                            Item item = Main.chest[chestNum].item[i];
+                            if (item.favorited)
+                                continue;
+
+                            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+                                continue;
+
+                             if (enchantedItem.Modified)
+                                continue;
+
+                            OfferItem(ref Main.chest[chestNum].item[i], false, true);
+                        }
+					}
+				}
+			}
+        }
+        public static bool FindEnchantingTable(Player player, out Point table) {
+            table = new();
+            Point clicked = player.GetWEPlayer().enchantingTableLocation;
+            if (clicked.X == -1 && clicked.Y == -1)
+                return false;
+
+            int tileType = Main.tile[clicked.X - 1, clicked.Y].TileType;
+            if (EnchantingTableTile.TableTypes.Contains(tileType)) {
+                table = new(clicked.X - 1, clicked.Y);
+			}
+			else {
+                table = new(clicked.X, clicked.Y);
+			}
+
+            return true;
+		}
+        public static bool FindChestsInRange(int xNum, int yNum, out List<int> chests, int xRangeRight = 0, int yRangeUp = 0, int xRangeLeft = int.MinValue, int yRangeDown = 0, bool exactPoints = false) {
+            chests = new();
+            Point low = new Point(xNum - xRangeLeft, yNum - yRangeDown);
+            Point high = new Point(xNum + xRangeRight, yNum + yRangeUp);
+
+            if (exactPoints) {
+                CheckAddChest(low.X, low.Y, chests);
+                CheckAddChest(high.X, high.Y, chests);
+                return chests.Count > 0;
+            }
+
+            for(int x = low.X; x <= high.X; x++) {
+                for(int y = low.Y; y <= high.Y; y++) {
+                    CheckAddChest(x, y, chests);
+                }
+			}
+
+            return chests.Count > 0;
+		}
+        private static void CheckAddChest(int x, int y, List<int> chests) {
+            if (Main.tileContainer[Main.tile[x, y].TileType]) {
+                int chestNum = Chest.FindChest(x, y);
+                if (chestNum != -1) {
+                    chests.Add(chestNum);
+                }
             }
         }
         public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = false) {

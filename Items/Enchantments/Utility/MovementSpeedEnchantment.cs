@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment

@@ -37,6 +37,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		}
 
 		public override string Artist => "Princess of Evil";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "Princess of Evil";
 	}
 

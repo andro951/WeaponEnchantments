@@ -13,7 +13,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : ModItem, ISoldByWitch
+	public abstract class EnchantmentEssence : ModItem, ISoldByWitch, IItemWikiInfo
 	{
 		public virtual int EssenceTier {
 			get {
@@ -38,6 +38,7 @@ namespace WeaponEnchantments.Items
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
 		public virtual SellCondition SellCondition => SellCondition.Always;
+		public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.EnchantmentEssence, WikiItemTypeID.CraftingMaterial };
 		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier); 
 
 		public virtual string Artist { private set; get; } = "Kiroto";

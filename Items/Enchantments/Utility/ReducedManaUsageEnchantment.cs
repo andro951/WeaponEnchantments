@@ -14,6 +14,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		}
 
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
 	public class ReducedManaUsageEnchantmentBasic : ReducedManaUsageEnchantment

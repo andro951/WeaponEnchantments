@@ -15,10 +15,10 @@ namespace WeaponEnchantments.Common
             new Color(0xD7, 0x54, 0x09) 
         };
         private static readonly Color[] altTierColors = new Color[] { 
-            new Color(0x3C, 0xA4, 0x62), 
+            new Color(0x3C, 0xA4, 0x62),
             new Color(0x3A, 0x4C, 0xBF), 
             new Color(0x81, 0x30, 0xC9), 
-            new Color(0xCE, 0x2B, 0x42), 
+            new Color(0xCE, 0x2B, 0x42),
             new Color(0xEF, 0x5D, 0x0A) 
         };
 
@@ -49,7 +49,15 @@ namespace WeaponEnchantments.Common
 
             return -1;
         }
+        public static string GetTierNameFromColor(Color color) {
+            Color[] colors = TierColors;
+            for (int i = 0; i < tierNames.Length; i++) {
+                if (color == colors[i])
+                    return tierNames[i];
+			}
 
+            return "Failed to find color name";
+        }
         public class EnchantingRarityBasic : EnchantingRarity { }
         public class EnchantingRarityCommon : EnchantingRarity { }
         public class EnchantingRarityRare : EnchantingRarity { }

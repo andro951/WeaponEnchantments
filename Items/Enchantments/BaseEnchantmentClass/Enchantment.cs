@@ -18,7 +18,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Items {
-	public abstract class Enchantment : ModItem, ISoldByWitch {
+	public abstract class Enchantment : ModItem, ISoldByWitch, IItemWikiInfo {
 
 		#region Static
 
@@ -249,8 +249,18 @@ namespace WeaponEnchantments.Items {
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
 		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
+		public virtual List<WikiItemTypeID> WikiItemTypes {
+			get {
+				List<WikiItemTypeID> types = new() { WikiItemTypeID.Enchantments };
+				if (EnchantmentTier < tierNames.Length - 1)
+					types.Add(WikiItemTypeID.CraftingMaterial);
+
+				return types;
+			} 
+		}
 
 		public abstract string Artist { get; }
+		public abstract string ArtModifiedBy { get; }
 		public abstract string Designer { get; }
 
 		#endregion

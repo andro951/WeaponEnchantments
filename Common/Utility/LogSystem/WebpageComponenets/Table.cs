@@ -14,8 +14,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
         private bool _collapsible;
         private bool _collapsed;
         private bool _rowspanColumns;
+        private bool _automaticCollapse;
         public List<List<T>> Elements { private set; get; }
-        public Table(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowIsHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = true) {
+        public Table(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowIsHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false) {
             Elements = elements.Select(e => e.ToList()).ToList();
             Header = header;
             _firstRowIsHeaders = firstRowIsHeaders;
@@ -23,9 +24,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
             _collapsible = collapsible;
             _collapsed = collapsed;
             _rowspanColumns = rowspanColumns;
+            _automaticCollapse = automaticCollapse;
         }
         public override string ToString() {
-            if (Elements.Count >= 10) {
+            if (_automaticCollapse && Elements.Count >= 10) {
                 _sortable = true;
                 _collapsible = true;
                 _collapsed = true;

@@ -16,6 +16,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Sir Bumpleton ✿";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "Sir Bumpleton ✿";
 	}
 	public class ProjectileVelocityEnchantmentBasic : ProjectileVelocityEnchantment

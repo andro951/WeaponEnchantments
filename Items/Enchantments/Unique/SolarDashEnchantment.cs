@@ -26,7 +26,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		}
 
 		public override string ShortTooltip => GetShortTooltip(showValue: false);
-		public override string Artist => "𝐍𝐢𝐱𝐲♱";
+		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => "𝐍𝐢𝐱𝐲♱";
 		public override string Designer => "andro951";
 	}
 	public class SolarDashEnchantmentBasic : SolarDashEnchantment

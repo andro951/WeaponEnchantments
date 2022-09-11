@@ -38,6 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		}
 
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
 	}
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment

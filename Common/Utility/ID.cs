@@ -411,25 +411,58 @@ namespace WeaponEnchantments.Common.Utility
         UnderworldHeight,
         WaterCandle
     }
-	/*
-    New enchantment names for tier 3/4
-    All EnchantmentTypeNames
-    Enchantment CustomTooltips
-
-    ```
-    text
-    text
-    text
-    ```
-
-    Enchantment.GenerateFullTooltip()
-    Enchantment.GetAllowedListTooltips()
-    EnchantedItem.ModifyTooltips() and children
-    All 3 UI files
-    EnchantmentStat (ID)
-    WorldDataManager.GetOreName()
-
-
-    Try setting up print to do GetText and GetTextValue
-     */
+	public enum DropRestrictionsID
+	{
+        None,
+        HardModeBosses
+	}
+    public enum WikiItemTypeID
+	{
+        CraftingMaterial,
+        Containments,
+        EnchantingTable,
+        Enchantments,
+        EnchantmentEssence,
+        Furniture,
+        CraftingStation,
+        Storage,
+        Armor,
+        Set,
+        Weapon,
+        Tool,
+        Mechanism,
+        LightSource,
+        PowerBooster
+	}
+    public static class WikiItemTypeMethods
+	{
+        public static string GetLinkText(this WikiItemTypeID id, out bool external) {
+            external = true;
+			switch (id) {
+                case WikiItemTypeID.CraftingMaterial:
+                    return "https://terraria.fandom.com/wiki/Category:Crafting_material_items";
+                case WikiItemTypeID.Furniture:
+                    return "";
+                case WikiItemTypeID.CraftingStation:
+                    return "";
+                case WikiItemTypeID.Storage:
+                    return "";
+                case WikiItemTypeID.Armor:
+                    return "";
+                case WikiItemTypeID.Set:
+                    return "";
+                case WikiItemTypeID.Weapon:
+                    return "";
+                case WikiItemTypeID.Tool:
+                    return "";
+                case WikiItemTypeID.Mechanism:
+                    return "";
+                case WikiItemTypeID.LightSource:
+                    return "";
+                default:
+                    external = false;
+                    return id.ToString().AddSpaces();
+			}
+		}
+	}
 }

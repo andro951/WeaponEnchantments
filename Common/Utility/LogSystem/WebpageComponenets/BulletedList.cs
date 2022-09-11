@@ -9,11 +9,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 	public class BulletedList
     {
         public object[] Elements { private set; get; }
-        private bool png;
+        private bool _png;
         private bool _links;
         public BulletedList(bool png = false, bool links = false, params object[] elements) {
-            Elements = elements;
+            _png = png;
             _links = links;
+            Elements = elements;
         }
         public override string ToString() {
             string text = "";
@@ -21,14 +22,14 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
                 text += "* ";
                 string elem = element.ToString();
                 if (_links) {
-                    if (png) {
+                    if (_png) {
                         elem = elem.ToItemPNG(link: true);
                     }
                     else {
                         elem = elem.ToLink();
                     }
                 }
-                else if (png) {
+                else if (_png) {
                     elem = elem.ToItemPNG();
                 }
 

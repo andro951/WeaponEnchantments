@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 
         public override string ShortTooltip => GetShortTooltip(sign: true);
         public override string Artist => "andro951";
+        public override string ArtModifiedBy => null;
         public override string Designer => "Fran";
     }
     public class LavaFishingEnchantmentBasic : LavaFishingEnchantment {

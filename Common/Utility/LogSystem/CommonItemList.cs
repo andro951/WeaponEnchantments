@@ -204,6 +204,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             return CommonList.Count - failedMatchCount;
         }
         public bool ExactSame(CommonItemList other) => UniqueList.SameAs(other.UniqueList) && CommonList.SameAs(other.CommonList);
+        public bool Contains(Item item) => CommonList.Select(i => i.type).Contains(item.type) || UniqueList != null && UniqueList.Select(i => i.type).Contains(item.type);
         public override string ToString() {
             string text = "";
             if (CommonList.Count > 0) {

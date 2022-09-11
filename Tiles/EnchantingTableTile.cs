@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -16,6 +17,22 @@ namespace WeaponEnchantments.Tiles
 	public abstract class EnchantingTableTile : ModTile
 	{
 		public int enchantingTableTier;
+		public static List<int> TableTypes {
+			get { 
+				if (tableTypes == null) {
+					tableTypes = new() {
+						ModContent.TileType<WoodEnchantingTable>(),
+						ModContent.TileType<DustyEnchantingTable>(),
+						ModContent.TileType<HellishEnchantingTable>(),
+						ModContent.TileType<SoulEnchantingTable>(),
+						ModContent.TileType<UltimateEnchantingTable>()
+					};
+				}
+
+				return tableTypes;
+			} 
+		}
+		private static List<int> tableTypes;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
@@ -104,13 +121,15 @@ namespace WeaponEnchantments.Tiles
 
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable) {
+				wePlayer.enchantingTableLocation = new(-1, -1);
 				WEModSystem.CloseWeaponEnchantmentUI();
 				Recipe.FindRecipes();
 			}
 			else {
 				if (MagicStorageIntegration.MagicStorageIsOpen())
 					MagicStorageIntegration.TryClosingMagicStorage();
-				
+
+				wePlayer.enchantingTableLocation = new(x, y);
 				wePlayer.enchantingTableTier = enchantingTableTier;
 				if (wePlayer.highestTableTierUsed < enchantingTableTier)
 					wePlayer.highestTableTierUsed = enchantingTableTier;
