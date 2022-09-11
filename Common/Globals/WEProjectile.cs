@@ -190,6 +190,13 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public override bool ShouldUpdatePosition(Projectile projectile) {
+            //$"{projectile.S()}, update: {Main.GameUpdateCount}, localAI[0]: {projectile.localAI[0]}, localAI[1]: {projectile.localAI[1]}, ai[0]: {projectile.ai[0]}, ai[1]: {projectile.ai[1]}".Log();
+            //Item item = sourceItem;
+            //Player player = Main.player[projectile.owner];
+            //$"{projectile.S()}, itemAnimation: {player.itemAnimation}, itemAnimationMax: {player.itemAnimationMax}".LogSimple();
+            //$"{projectile.S()}, reuseDelay: {item.reuseDelay}".LogSimple();
+            //$"{projectile.S()}, attackCD: {player.attackCD}".LogSimple();
+            //$"({item.shoot > 0 && player.itemAnimation > 0 && player.ItemTimeIsZero && (item.useLimitPerAnimation != null && player.ItemUsesThisAnimation >= item.useLimitPerAnimation.Value)}) updateCount: {Main.GameUpdateCount} {item.S()}: itemAnimation: {player.itemAnimation}, itemTime: {player.itemTime}, ItemTimeIsZero: {player.ItemTimeIsZero.S()}, useLimitPerAnimation: {item.useLimitPerAnimation}, ItemUsesThisAnimation: {player.ItemUsesThisAnimation}, useLimitPerAnimation.Value: {(item.useLimitPerAnimation != null ? item.useLimitPerAnimation.Value : "null")}".LogSimple();
             if (!base.ShouldUpdatePosition(projectile))
                 return true;
 

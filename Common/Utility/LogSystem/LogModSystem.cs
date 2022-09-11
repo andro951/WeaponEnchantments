@@ -19,6 +19,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem.GetItemDictModeID;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
+using WeaponEnchantments.Common.Utility.LogSystem;
 
 namespace WeaponEnchantments.Common.Utility
 {

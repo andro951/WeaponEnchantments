@@ -644,6 +644,27 @@ namespace WeaponEnchantments.Common.Utility
                     list1.Add(list2[i]);
 			}
 		}
+        public static Type TypeAboveModItem(this Item item) {
+            if (item == null)
+                return null;
+
+            ModItem modItem = item.ModItem;
+            if (modItem == null)
+                return null;
+
+            Type type = modItem.GetType();
+            bool foundListUniqueType = false;
+            while (!foundListUniqueType) {
+                if (type.BaseType == typeof(ModItem)) {
+                    foundListUniqueType = true;
+                }
+                else {
+                    type = type.BaseType;
+                }
+            }
+
+            return type;
+        }
 
         #endregion
     }

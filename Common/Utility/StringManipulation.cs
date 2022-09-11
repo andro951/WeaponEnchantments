@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Projectile projectile) => projectile != null ? projectile.Name : "null";
+        public static string S(this Projectile projectile) => projectile != null ? $"name: {projectile.Name}, id: {projectile.type}" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -342,7 +342,12 @@ namespace WeaponEnchantments.Common.Utility
             List<string> original = list.Select(t => t.ToString()).ToList();
             List<string> edited = new();
             List<string> matches = new();
-
+            
+            //"original".LogSimple();
+            //foreach(string s in original) {
+            //    s.LogSimple();
+			//}
+            
             string rS = list[0].ToString();
             string result = "";
             int listCount = list.Count;
@@ -355,24 +360,54 @@ namespace WeaponEnchantments.Common.Utility
                     if (!orig.Contains(matchString + c)) {
                         match = false;
                         break;
-					}
+                    }
                 }
 
                 if (match) {
                     if (c != ' ' || matchString != " ")
-                    matchString += c;
+                        matchString += c;
                 }
                 else if (matchString != "") {
                     i--;
                     matches.Add(matchString);
                     matchString = "";
-				}
+                }
             }
+            /*
+            for(int i = 0; i < rS.Length; i++) {
+                for(int j = i; j < rS.Length; j++) {
+                    char c = rS[j];
+                    bool match = true;
+                    for (int k = 0; k < listCount; k++) {
+                        string orig = original[k];
+                        if (!orig.Contains(matchString + c)) {
+                            match = false;
+                            break;
+                        }
+                    }
 
+                    if (match) {
+                        //if (c != ' ' || matchString != " ")
+                            matchString += c;
+                    }
+                    else if (matchString != "") {
+                        //j--;
+                        matches.Add(matchString);
+                        matchString = "";
+                        break;
+                    }
+                }
+            }
+            */
             if (matchString != "") {
                 matches.Add(matchString);
             }
-
+            
+            //"\nmatches".LogSimple();
+            //foreach(string s in matches) {
+            //    s.LogSimple();
+			//}
+            
             int count = matches.Count;
             for (int i = 0; i < count; i++) {
                 string s = matches[i];
@@ -391,48 +426,20 @@ namespace WeaponEnchantments.Common.Utility
                 if (!match)
                     result += s;
 			}
-
-            /*
-            for(int k = 0; k < listCount; k++) {
-
-                for(int z = 0; z < listCount; z++) {
-                    string edit = "";
-                    bool match = true;
-                    foreach(char c in string) {
-                        if ( c)
-					}
-				}
-			}
-            */
-
-            /*
-            foreach(char c in rS) {
-                bool match = true;
-                for(int k = 0; k < listCount; k++) {
-                    string sK = strings[k];
-                    int index = sK.IndexOf(c);
-                    if (index == -1) {
-                        match = false;
-                        break;
-					}
-
-                    
-				}
-
-                if (match) {
-                    for (int k = 0; k < listCount; k++) {
-                        string sK = strings[k];
-                        int index = sK.IndexOf(c);
-                        strings[k] = sK.Substring(index + 1);
-                    }
-                    
-                    result += c;
-                }
-                    
-			}
-            */
+            
+            //"/nresult".LogSimple();
+            //result.LogSimple();
 
             return result;
 		}
+        public static string FillString(this char c, int num) => num > 0 ? new string(c, num) : "";
+        public static string FillString(this string s, int num) {
+            string text = "";
+            for (int i = 0; i < num; i++) {
+                text += s;
+            }
+
+            return text;
+        }
     }
 }

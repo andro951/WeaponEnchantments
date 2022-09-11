@@ -358,7 +358,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Boss Drops
 
                 //Superior Containment
-                int denominator = (int)(500000 / total);
+                int denominator = (int)(50000f / total);
                 if (denominator < 1)
                     denominator = 1;
 
@@ -368,7 +368,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Power Booster
                 bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName);
                 if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !preHardModeBoss) {
-                    denominator = (int)(1000000 / total);
+                    denominator = (int)(100000f / total);
                     if (denominator < 1)
                         denominator = 1;
 
