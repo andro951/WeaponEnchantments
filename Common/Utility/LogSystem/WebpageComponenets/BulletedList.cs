@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-	public class BulletedList
+	public class BulletedList : WebpageComponent
     {
         public object[] Elements { private set; get; }
         private bool _png;

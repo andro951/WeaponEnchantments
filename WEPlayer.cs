@@ -441,11 +441,12 @@ namespace WeaponEnchantments
                                         }
                                         else {
                                             //Essence slot not empty
-                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                                            int maxStack = enchantingTableUI.essenceSlotUI[i].Item.maxStack;
+                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
                                                 if (moveItem) {
                                                     int ammountToTransfer;
-                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > EnchantmentEssence.maxStack) {
-                                                        ammountToTransfer = EnchantmentEssence.maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > maxStack) {
+                                                        ammountToTransfer = maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
                                                         item.stack -= ammountToTransfer;
                                                     }
                                                     else {

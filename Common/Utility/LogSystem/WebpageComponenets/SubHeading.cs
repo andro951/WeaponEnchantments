@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-    public class SubHeading
+    public class SubHeading : WebpageComponent
     {
         public int HeadingNumber { private set; get; }
         public string Text { private set; get; }
-        public SubHeading(int num, string text) {
-            HeadingNumber = num + 3;
+        public SubHeading(string text, int num = 1) {
+            HeadingNumber = num + 2;
             Text = text;
         }
         public override string ToString() {

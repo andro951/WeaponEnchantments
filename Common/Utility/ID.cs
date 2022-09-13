@@ -161,6 +161,61 @@ namespace WeaponEnchantments.Common.Utility
         SandStone = 110,
         Desert_Dungeon = 113
     }
+    public static class ChestIDMethods
+	{
+        public static int GetItemType(this ChestID id) {
+			switch (id) {
+                case ChestID.Chest_Normal:
+                    return ItemID.Chest;
+                case ChestID.Gold:
+                case ChestID.Gold_Locked:
+                    return ItemID.GoldChest;
+                case ChestID.Shadow:
+                case ChestID.Shadow_Locked:
+                    return ItemID.ShadowChest;
+                case ChestID.RichMahogany:
+                    return ItemID.RichMahoganyChest;
+                case ChestID.Ivy:
+                    return ItemID.IvyChest;
+                case ChestID.Frozen:
+                    return ItemID.FrozenChest;
+                case ChestID.LivingWood:
+                    return ItemID.LivingWoodChest;
+                case ChestID.Skyware:
+                    return ItemID.SkywareChest;
+                case ChestID.WebCovered:
+                    return ItemID.WebCoveredChest;
+                case ChestID.Lihzahrd:
+                    return ItemID.LihzahrdChest;
+                case ChestID.Water:
+                    return ItemID.WaterChest;
+                case ChestID.Jungle_Dungeon:
+                    return ItemID.JungleChest;
+                case ChestID.Corruption_Dungeon:
+                    return ItemID.CorruptionChest;
+                case ChestID.Crimson_Dungeon:
+                    return ItemID.CrimsonChest;
+                case ChestID.Hallowed_Dungeon:
+                    return ItemID.HallowedChest;
+                case ChestID.Ice_Dungeon:
+                    return ItemID.IceChest;
+                case ChestID.Mushroom:
+                    return ItemID.MushroomChest;
+                case ChestID.Granite:
+                    return ItemID.GraniteChest;
+                case ChestID.Marble:
+                    return ItemID.MarbleChest;
+                case ChestID.Gold_DeadMans:
+                    return ItemID.Fake_GoldChest;
+                case ChestID.SandStone:
+                    return ItemID.DesertChest;
+                case ChestID.Desert_Dungeon:
+                    return ItemID.DungeonDesertChest;
+                default:
+                    return -1;
+            }
+		}
+	}
     public enum CrateID
 	{
         None = -1,
@@ -464,5 +519,12 @@ namespace WeaponEnchantments.Common.Utility
                     return id.ToString().AddSpaces();
 			}
 		}
+	}
+    public enum AlignID
+	{
+        none,
+        left,
+        middle,
+        right,
 	}
 }

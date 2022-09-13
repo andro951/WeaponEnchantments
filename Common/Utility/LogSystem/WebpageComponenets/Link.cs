@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-    public class Link
+    public class Link : WebpageComponent
     {
         public string Text { private set; get; }
         public Link(string s, string text = null, bool png = false) {

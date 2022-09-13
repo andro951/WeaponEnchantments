@@ -208,7 +208,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public override string ToString() {
             string text = "";
             if (CommonList.Count > 0) {
-                foreach (string s in CommonList.Select(i => i.ToItemPNG())) {
+                foreach (string s in CommonList.Select(i => i.ToItemPNG(link: true))) {
                     text += $"{s}<br/>";
                 }
             }
@@ -225,7 +225,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     text += "and<br/>";
 
                 bool first = true;
-                foreach (string s in UniqueList.Select(i => i.ToItemPNG())) {
+                foreach (string s in UniqueList.Select(i => i.ToItemPNG(link: true))) {
                     if (first) {
                         first = false;
                     }

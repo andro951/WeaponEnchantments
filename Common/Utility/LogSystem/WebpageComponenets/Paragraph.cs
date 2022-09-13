@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-    public class Paragraph
+    public class Paragraph : WebpageComponent
     {
         public string Text { private set; get; }
         public Paragraph(string text) {

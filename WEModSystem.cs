@@ -377,9 +377,10 @@ namespace WeaponEnchantments
                         transfered = true;
                     }
                     else {
-                        if (wePlayer.enchantingTable.essenceItem[tier].stack < EnchantmentEssence.maxStack) {
-                            if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTable.essenceItem[tier].stack > EnchantmentEssence.maxStack) {
-                                ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
+                        int maxStack = wePlayer.enchantingTable.essenceItem[tier].maxStack;
+                        if (wePlayer.enchantingTable.essenceItem[tier].stack < maxStack) {
+                            if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTable.essenceItem[tier].stack > maxStack) {
+                                ammountToTransfer = maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
                             }
                             else {
                                 ammountToTransfer = wePlayer.Player.inventory[j].stack;
@@ -402,13 +403,17 @@ namespace WeaponEnchantments
             bool crafted = false;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = EnchantingTable.maxEssenceItems - 1; i > 0; i--) {
-                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.NullOrAir())
+                    continue;
+
+                int maxStack = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.maxStack;
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
                     int ammountToTransfer;
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
 
                     if (ammountToTransfer > 0) {
@@ -420,13 +425,17 @@ namespace WeaponEnchantments
             }
 
             for (int i = 1; i < EnchantingTable.maxEssenceItems; i++) {
-                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.NullOrAir())
+                    continue;
+
+                int maxStack = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.maxStack;
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
                     int ammountToTransfer;
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
 
                     if (ammountToTransfer > 0) {

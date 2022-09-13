@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-    public class NumberedList
+    public class NumberedList : WebpageComponent
     {
         public object[] Elements { private set; get; }
         private bool _links;

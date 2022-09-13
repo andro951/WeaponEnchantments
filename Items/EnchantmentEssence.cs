@@ -13,8 +13,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : ModItem, ISoldByWitch, IItemWikiInfo
-	{
+	public abstract class EnchantmentEssence : ModItem, ISoldByWitch, IItemWikiInfo {
 		public virtual int EssenceTier {
 			get {
 				if (essenceTier == -1) {
@@ -26,7 +25,6 @@ namespace WeaponEnchantments.Items
 		}
 		private int essenceTier = -1;
 
-		public const int maxStack = 9999;
 		public static List<int> IDs = new List<int>(new int[tierNames.Length]);
 		public static float[] values = new float[tierNames.Length];
 		public static float[] xpPerEssence = new float[tierNames.Length];
@@ -118,7 +116,7 @@ namespace WeaponEnchantments.Items
 		}
 		public override void SetDefaults() {
 			Item.value = (int)values[EssenceTier];
-			Item.maxStack = maxStack;
+			Item.maxStack = 9999;
 			Item.width = entitySize;
 			Item.height = entitySize;
 			Item.rare = GetRarityFromTier(EssenceTier);

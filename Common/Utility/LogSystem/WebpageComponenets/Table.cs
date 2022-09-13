@@ -6,54 +6,70 @@ using System.Threading.Tasks;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
-    public class Table<T> where T : class
+    public class Table<T> : WebpageComponent where T : class
     {
-        public string Header { private set; get; }
-        private bool _firstRowIsHeaders;
+        private string _label;
+        private IEnumerable<string> _headers;
+        private bool _firstRowHeaders;
         private bool _sortable;
         private bool _collapsible;
         private bool _collapsed;
         private bool _rowspanColumns;
         private bool _automaticCollapse;
-        public List<List<T>> Elements { private set; get; }
-        public Table(IEnumerable<IEnumerable<T>> elements, string header = null, bool firstRowIsHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false) {
-            Elements = elements.Select(e => e.ToList()).ToList();
-            Header = header;
-            _firstRowIsHeaders = firstRowIsHeaders;
+        private List<List<T>> _elements;
+        private int _maxWidth;
+        public Table(IEnumerable<IEnumerable<T>> elements, IEnumerable<string> headers = null, string label = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false, int maxWidth = 0, AlignID alignID = AlignID.none) {
+            _elements = elements.Select(e => e.ToList()).ToList();
+            _headers = headers;
+            _label = label;
+            _firstRowHeaders = firstRowHeaders;
             _sortable = sortable;
             _collapsible = collapsible;
             _collapsed = collapsed;
             _rowspanColumns = rowspanColumns;
             _automaticCollapse = automaticCollapse;
+            _maxWidth = maxWidth;
+            AlignID = alignID;
         }
         public override string ToString() {
-            if (_automaticCollapse && Elements.Count >= 10) {
+            if (_automaticCollapse && _elements.Count >= 10) {
                 _sortable = true;
                 _collapsible = true;
                 _collapsed = true;
             }
 
-            string text = $"{"{"}| class=\"{(_sortable ? "sortable " : "")}{(_collapsible ? "mw-collapsible " : "")}{(_collapsed ? "mw-collapsed " : "")}fandom-table\"\n";
-            List<int> rowspan = Enumerable.Repeat(0, Elements[0].Count).ToList();
+            string text = $"{"{"}| class=\"{(_sortable ? "sortable " : "")}{(_collapsible ? "mw-collapsible " : "")}{(_collapsed ? "mw-collapsed " : "")}wikitable\"{(_maxWidth != 0 ? $" style=\"max-width:{_maxWidth}px;\"" : "")}\n";
+            List<int> rowspan = Enumerable.Repeat(0, _elements[0].Count).ToList();
 
-            if (Header != null)
-                text += $"|+{Header}\n";
+            if (_label != null)
+                text += $"|+{_label}\n";
+
+            int rowCount = _elements[0].Count;
+            if (_headers != null) {
+                foreach (string s in _headers) {
+                    if (s == "")
+                        continue;
+
+                    text += $"!colspan=\"{rowCount}\" style=\"padding: 0px\" |{s}\n" +
+                             "|-\n";
+                }
+            }
 
             bool first = true;
             bool firstRowHeaders;
-            int elementsCount = Elements.Count;
+            int elementsCount = _elements.Count;
             for (int i = 0; i < elementsCount; i++) {
                 if (first) {
                     first = false;
-                    firstRowHeaders = _firstRowIsHeaders;
+                    firstRowHeaders = _firstRowHeaders;
                 }
                 else {
                     firstRowHeaders = false;
                     text += "|-\n";
                 }
 
-                for (int j = 0; j < Elements[i].Count; j++) {
-                    T item = Elements[i][j];
+                for (int j = 0; j < _elements[i].Count; j++) {
+                    T item = _elements[i][j];
                     bool isRowspanColumn = false;
                     if (!firstRowHeaders && _rowspanColumns && rowspan[j] == 0) {
                         int k = i;
@@ -61,7 +77,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
                             if (k + 1 == elementsCount)
                                 break;
 
-                            T element = Elements[k + 1][j];
+                            T element = _elements[k + 1][j];
                             if (item.ToString() == element.ToString()) {
                                 k++;
                             }
@@ -96,7 +112,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
                 }
             }
 
-            text += "|}<br/>\n";
+            text += "|}\n";
 
             return text;
         }

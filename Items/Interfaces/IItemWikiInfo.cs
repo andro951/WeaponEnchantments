@@ -13,5 +13,6 @@ namespace WeaponEnchantments.Items
 		public List<WikiItemTypeID> WikiItemTypes { get; }
 		public string Artist { get; }
 		public string ArtModifiedBy => null;
+		public bool ConfigOnlyDrop => false;
 	}
 }
