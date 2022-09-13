@@ -30,6 +30,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static bool printWiki = WEMod.clientConfig.PrintWikiInfo;
+        public static bool printNPCIDSwitch = true;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -82,6 +83,8 @@ namespace WeaponEnchantments.Common.Utility
             PrintEnchantmentDrops();
 
             Wiki.PrintWiki();
+
+            PrintNPCIDSwitch();
         }
         public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
             if (!printListOfContributors)
@@ -476,6 +479,22 @@ namespace WeaponEnchantments.Common.Utility
 			}
 
             log.Log();
+		}
+        private static void PrintNPCIDSwitch() {
+            if (!printNPCIDSwitch)
+                return;
+
+            string text = "";
+            text += "\n\nswitch() {\n";
+            for(short i = NPCID.NegativeIDCount + 1; i < NPCID.Count; i++) {
+                text += $"\tcase NPCID.{NPCID.Search.GetName(i)}://{i} {ContentSamples.NpcsByNetId[i].FullName}\n" +
+                        $"\t\treturn \"\";\n";
+            }
+
+            text += "\tdefault:\n" +
+				"\t\treturn \"\";\n" +
+				"}\n";
+            text.LogSimple();
 		}
     }
 }

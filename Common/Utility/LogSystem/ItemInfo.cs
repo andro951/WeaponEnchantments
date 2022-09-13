@@ -82,8 +82,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             if (tooltip == "") {
                 List<TooltipLine> tooltipLines = new();
-                ModItem.ModifyTooltips(tooltipLines);
-                tooltip += tooltipLines.Select(t => t.Text).JoinList();
+                Item item = new(Item.type);
+                if (item.ModItem is Enchantment enchantment) {
+                    float temp = enchantment.EnchantmentStrength;
+                    enchantment.ModifyTooltips(tooltipLines);
+                    tooltip += tooltipLines.Select(t => t.Text).JoinList();
+                }
 			}
 
             info.Add(new() { "Tooltip", $"<i>'{tooltip}'</i>" });//italics?

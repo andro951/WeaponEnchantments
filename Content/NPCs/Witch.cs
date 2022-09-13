@@ -155,17 +155,6 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;
 		public override void SetupShop(Chest shop, ref int nextSlot) {
-			//int num = EnchantingRarity.tierNames.Length;
-			//nextSlot += num;
-			//int slotNum = nextSlot - 1;
-			//int price = ContentSamples.ItemsByType[EnchantmentEssence.IDs[4]].value * 2;
-			//for(int i = 0; i < num; i++) {
-			//	shop.item[slotNum].SetDefaults(EnchantmentEssence.IDs[4 - i]);
-			//	shop.item[slotNum].value = price;
-			//	price /= 4;
-			//	slotNum--;
-			//}
-
 			if (resetShop || shopEnchantments.Count == 0) {
 				GetItemsForShop();
 				resetShop = false;
@@ -301,10 +290,10 @@ namespace WeaponEnchantments.Content.NPCs
 				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch), 10);
 
 			if (Main.IsItStorming)
-				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
+				chat.Add($"{DialogueID.Storm}".Lang(L_ID1.Dialogue, L_ID2.Witch), 4);
 
 			if (!NPC.downedQueenBee)
-				chat.Add($"{DialogueID.BirthdayParty}".Lang(L_ID1.Dialogue, L_ID2.Witch));
+				chat.Add($"{DialogueID.QueenBee}".Lang(L_ID1.Dialogue, L_ID2.Witch));
 
 			return chat;
 		}
