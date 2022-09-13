@@ -39,6 +39,7 @@ namespace WeaponEnchantments
 			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
 			HookEndpointManager.Add<hook_ModifyHitNPC>(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour);
 			HookEndpointManager.Add<hook_ModifyHitNPCWithProj>(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour);
+			HookEndpointManager.Add<hook_UpdateArmorSet>(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour);
 			//HookEndpointManager.Add<hook_CaughtFishStack>(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour);
 			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
@@ -81,6 +82,23 @@ namespace WeaponEnchantments
 			}
 
 			return enchantedItem.OnStack(item1, item2);
+		}
+
+		private delegate void orig_UpdateArmorSet(Player player, Item head, Item body, Item legs);
+		private delegate void hook_UpdateArmorSet(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs);
+		private static readonly MethodInfo ModLoaderUpdateArmorSetMethodInfo = typeof(ItemLoader).GetMethod("UpdateArmorSet");
+		private void UpdateArmorSetDetour(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs) {
+			WEPlayer wePlyaer = player.GetWEPlayer(); 
+			if (wePlyaer.Equipment.InfusedHead != null)
+				head = wePlyaer.Equipment.InfusedHead;
+
+			if (wePlyaer.Equipment.InfusedBody != null)
+				body = wePlyaer.Equipment.InfusedBody;
+
+			if (wePlyaer.Equipment.InfusedLegs != null)
+				legs = wePlyaer.Equipment.InfusedLegs;
+
+			orig(player, head, body, legs);
 		}
 
 		private delegate void orig_ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit);

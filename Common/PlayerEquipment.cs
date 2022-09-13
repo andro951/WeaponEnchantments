@@ -21,6 +21,9 @@ namespace WeaponEnchantments.Common {
         public Item HeldItem => heldItem[0];
         private Item[] heldItem = new Item[1];
         private Item[] Armor = new Item[vanillaArmorSlots];
+        public Item InfusedHead;
+        public Item InfusedBody;
+        public Item InfusedLegs;
         private Item[] Accesories;
         WEPlayer wePlayer;
 
@@ -37,6 +40,23 @@ namespace WeaponEnchantments.Common {
 
             for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
                 Armor[i] = player.armor[i];
+
+                if (Armor[i].TryGetEnchantedItem(out EnchantedArmor enchantedArmor)) {
+                    if (enchantedArmor.infusedItem == null)
+                        continue;
+
+					switch (i) {
+                        case 0:
+                            InfusedHead = enchantedArmor.infusedItem;
+                            break;
+                        case 1:
+                            InfusedBody = enchantedArmor.infusedItem;
+                            break;
+                        case 2:
+                            InfusedLegs = enchantedArmor.infusedItem;
+                            break;
+					}
+				}
             }
 
             for (int i = 0; i < vanillaAccesorySlots; i++) {    // Set all vanilla accesory slots

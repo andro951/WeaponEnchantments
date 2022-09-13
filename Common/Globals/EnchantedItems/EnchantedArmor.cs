@@ -25,6 +25,7 @@ namespace WeaponEnchantments.Common.Globals
 		#region Infusion
 
 		public int infusedArmorSlot = -1;
+		public Item infusedItem;
 
 		#endregion
 		public override bool InstancePerEntity => true;
@@ -38,11 +39,22 @@ namespace WeaponEnchantments.Common.Globals
 				#region Infusion
 
 				clone.infusedArmorSlot = infusedArmorSlot;
+				clone.infusedItem = infusedItem.Clone();
 
 				#endregion
 			}
 
 			return clone;
+		}
+		public override void NetSend(Item item, BinaryWriter writer) {
+			base.NetSend(item, writer);
+			writer.Write(infusedArmorSlot);
+			writer.Write(infusedItem.type);
+		}
+		public override void NetReceive(Item item, BinaryReader reader) {
+			base.NetReceive(item, reader);
+			infusedArmorSlot = reader.ReadInt32();
+			infusedItem = new Item(reader.ReadInt32());
 		}
 		public override void UpdateEquip(Item item, Player player) {
 			if (!inEnchantingTable)
@@ -64,6 +76,6 @@ namespace WeaponEnchantments.Common.Globals
 			return 
 				$"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 				$"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
-		} 
+		}
 	}
 }

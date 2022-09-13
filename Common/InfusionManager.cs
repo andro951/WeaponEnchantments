@@ -778,12 +778,14 @@ namespace WeaponEnchantments.Common
                             consumedItemName = consumedItem.Name;
                             infusedArmorSlot = consumedItem.GetInfusionArmorSlot();
                         }
+
                         if (!finalize) {
                             item.UpdateArmorSlot(infusedArmorSlot);
                         }
                         else {
                             enchantedArmor.infusedItemName = consumedItemName;
                             enchantedArmor.infusedArmorSlot = infusedArmorSlot;
+                            enchantedArmor.infusedItem = new Item(consumedItem.type);
                             int infusionValueAdded = ContentSamples.ItemsByType[consumedItem.type].value - ContentSamples.ItemsByType[item.type].value;
                             enchantedArmor.InfusionValueAdded = infusionValueAdded > 0 ? infusionValueAdded : 0;
                         }
@@ -832,7 +834,7 @@ namespace WeaponEnchantments.Common
             if (iGlobal == null)
                 return false;
 
-            bool succededGettingStats = TryGetInfusionStats(iGlobal, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot);
+            bool succededGettingStats = TryGetInfusionStats(iGlobal, iGlobal.infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot, out Item infusedItem);
             if (succededGettingStats) {
                 iGlobal.infusionPower = infusedPower;
                 if (iGlobal is EnchantedWeapon enchantedWeapon) {
@@ -840,6 +842,7 @@ namespace WeaponEnchantments.Common
                 }
                 else if (iGlobal is EnchantedArmor enchantedArmor) {
                     enchantedArmor.infusedArmorSlot = infusedArmorSlot;
+                    enchantedArmor.infusedItem = infusedItem;
                 }
             }
             else if (iGlobal is EnchantedWeapon enchantedWeapon) {
@@ -850,17 +853,19 @@ namespace WeaponEnchantments.Common
 
             return succededGettingStats;
         }
-        public static bool TryGetInfusionStats(this EnchantedItem iGlobal, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
+        public static bool TryGetInfusionStats(this EnchantedItem iGlobal, string infusedItemName, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot, out Item infusedItem) {
             infusedPower = 0;
             damageMultiplier = 1f;
             infusedArmorSlot = -1;
+            infusedItem = null;
 
             if (infusedItemName != "") {
                 int type = 0;
                 for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
-                    Item foundItem = new Item(itemType);
+                    Item foundItem = ContentSamples.ItemsByType[itemType];
                     if (foundItem.Name == infusedItemName) {
                         type = itemType;
+                        infusedItem = new Item(itemType);
                         break;
                     }
                 }
