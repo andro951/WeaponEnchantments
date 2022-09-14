@@ -13,7 +13,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public class CursedEssence : ModItem, IItemWikiInfo {
+	public abstract class CursedEssence : ModItem, IItemWikiInfo {
 		private int entitySize = 20;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public Color glowColor = TierColors[3];
@@ -29,11 +29,11 @@ namespace WeaponEnchantments.Items
 			if (LogModSystem.printListOfContributors)
 				LogModSystem.UpdateContributorsList(this);
 		}
-        public override voied ModifyTooltips(Tooltip tooltip) {
-            int cursedEssenceCount = player.GetWEPlayer().cursedEssenceCount;
-            tooltip.Add($"Energy of a curse so powerful it's taken form.  Other curses will be drawn to its power.");
-            tooltip.Add($"\tIncreases enemy spawn rate.  (Current bonus {(Main.LocalPlayer.GetWEPlayer().cursedEssenceCount * 5).PercentString()})");
-            tooltip.Add($"\tIncreased chance of cursed enemies spawning.")
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+            int cursedEssenceCount = Main.LocalPlayer.GetWEPlayer().cursedEssenceCount;
+            tooltips.Add(new(Mod, "cursedEssenceTooltip", $"Energy of a curse so powerful it's taken form.  Other curses will be drawn to its power." +
+				$"\tIncreases enemy spawn rate.  (Current bonus {((float)Main.LocalPlayer.GetWEPlayer().cursedEssenceCount * 0.05f).PercentString()})" +
+				$"\tIncreased chance of cursed enemies spawning."));
         }
 		public override void PostUpdate() {
 			float intensity = 0.5f;
@@ -52,18 +52,18 @@ namespace WeaponEnchantments.Items
                 Recipe recipe = CreateRecipe();
                 recipe.createItem = new(ModContent.ItemType<EnchantmentEssenceEpic>());
                 recipe.AddIngredient(Type);
-                recipe.AddIngredient(ItemId.PurificationPowder, 20 / (i + 1));
+                recipe.AddIngredient(ItemID.PurificationPowder, 20 / (i + 1));
                 recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
                 recipe.Register();
 			}
 		}
-        public override void UpdateInventory(Player player, Item item) {
-            player.GetWEPlayer().cursedEssenceCount += item.stack;
+		public override void UpdateInventory(Player player) {
+            player.GetWEPlayer().cursedEssenceCount += Item.stack;
             player.GetWEPlayer().cursedEssenceCount.Clamp(0, 100);
         }
 	}
     
-    public static class CursedEnemy : GlobalNPC
+    public class CursedEnemy : GlobalNPC
     {
         private static bool nextRareEnemyCursed = false;
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) {
@@ -72,23 +72,25 @@ namespace WeaponEnchantments.Items
         public static float GetCursedEnemySpawnChance(WEPlayer wePlayer) {
             float chance = 0f;
             
-            if (!Main.dayTime || Main.solarEclipse || player.ZoneUnderground)
+            if (!Main.dayTime || Main.eclipse || wePlayer.Player.ZoneNormalUnderground)
                 chance += 0.5f;
             
-            if (Main.pumpkinMoon || Main.goblinArmy || Main.pirateInvasion || Main.martianInvasion || Main.frostMoon)
+            if (Main.invasionType > 0 || Main.pumpkinMoon || Main.snowMoon)
                 chance += 0.25f;
             
             if (Main.bloodMoon)
                 chance += 0.25f;
             
-            if (player.zoneCorruption || player.zoneCrimson)
+            if (wePlayer.Player.ZoneCorrupt || wePlayer.Player.ZoneCrimson)
                 chance += 0.5f;
             
-            if (zoneUnderworld)
+            if (wePlayer.Player.ZoneUnderworldHeight)
                 chance += 0.5f;
             
             if (chance > 0f && wePlayer.cursedEssenceCount > 0)
                 chance += (float)wePlayer.cursedEssenceCount / 40f + 0.5f;
+
+            return chance;
         }
     }
 }
