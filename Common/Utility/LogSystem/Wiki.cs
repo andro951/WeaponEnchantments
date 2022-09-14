@@ -428,7 +428,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             string linkString = "";
             NPC npc = ContentSamples.NpcsByNetId[npcNetID];
             if (npcNetID < NPCID.Count) {
-                file = $"NPC_{npcNetID}";
+                file = npcNetID.GetNPCPNGLink();
                 name = npc.FullName;
                 if (link)
                     linkString = $"https://terraria.fandom.com/wiki/{name.Replace(" ", "_")}".ToExternalLink(name);
