@@ -475,6 +475,7 @@ namespace WeaponEnchantments.Common.Utility
 	{
         CraftingMaterial,
         Containments,
+		CursedEssence,
         EnchantingTable,
         Enchantments,
         EnchantmentEssence,
