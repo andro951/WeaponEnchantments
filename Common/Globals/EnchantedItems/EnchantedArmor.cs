@@ -49,12 +49,13 @@ namespace WeaponEnchantments.Common.Globals
 		public override void NetSend(Item item, BinaryWriter writer) {
 			base.NetSend(item, writer);
 			writer.Write(infusedArmorSlot);
-			writer.Write(infusedItem.type);
+			writer.Write(infusedItem?.type ?? -1);
 		}
 		public override void NetReceive(Item item, BinaryReader reader) {
 			base.NetReceive(item, reader);
 			infusedArmorSlot = reader.ReadInt32();
-			infusedItem = new Item(reader.ReadInt32());
+			int infusedItemType = reader.ReadInt32();
+			infusedItem = infusedItemType > 0 ? new Item(infusedItemType) : null;
 		}
 		public override void UpdateEquip(Item item, Player player) {
 			if (!inEnchantingTable)
