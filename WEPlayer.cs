@@ -63,6 +63,7 @@ namespace WeaponEnchantments
         public Item trackedTrashItem = new Item();
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
         public Point enchantingTableLocation = new Point(-1, -1);
+		public int cursedEssenceCount;
 
 		#endregion
 
@@ -753,6 +754,8 @@ namespace WeaponEnchantments
             }
             if (updatePlayerStat)
                 UpdatePlayerStat();
+		
+			cursedEssenceCount = 0;
         }
 
         #endregion
