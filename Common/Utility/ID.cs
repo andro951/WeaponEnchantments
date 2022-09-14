@@ -529,7 +529,7 @@ namespace WeaponEnchantments.Common.Utility
 	}
     public static class NPCIDMethods
 	{
-        public static string GetNPCPNGLink(this short id) {
+        public static string GetNPCPNGLink(this int id) {
 			switch (id) {
 				case NPCID.BigHornetStingy://-65 Hornet
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Hornet_5.png/revision/latest?cb=20170422125834&format=original";
