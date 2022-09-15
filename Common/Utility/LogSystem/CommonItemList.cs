@@ -11,6 +11,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
     {
         public List<Item> CommonList { get; private set; }
         public List<Item> UniqueList { get; private set; }
+        public IEnumerable<Item> All => UniqueList != null ? CommonList.Concat(UniqueList) : CommonList;
         public int Count => (CommonList != null ? CommonList.Count : 0) + (UniqueList != null ? 1 : 0);
         public string CommonToAll {
             get {

@@ -206,7 +206,7 @@ namespace WeaponEnchantments.Common.Utility
                 case ChestID.Marble:
                     return ItemID.MarbleChest;
                 case ChestID.Gold_DeadMans:
-                    return ItemID.Fake_GoldChest;
+                    return ItemID.DeadMansChest;
                 case ChestID.SandStone:
                     return ItemID.DesertChest;
                 case ChestID.Desert_Dungeon:
@@ -669,7 +669,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.DemonEye://2 Demon Eye
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9d/Demon_Eye.png/revision/latest?cb=20170420003551&format=original";
 				case NPCID.Zombie://3 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c3/Zombie.png/revision/latest?cb=20171102011214&format=original";
 				case NPCID.EyeofCthulhu://4 Eye of Cthulhu
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/70/Eye_of_Cthulhu_%28Phase_1%29.gif/revision/latest?cb=20211114181102&format=original";
 				case NPCID.ServantofCthulhu://5 Servant of Cthulhu
@@ -927,7 +927,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.PrimeLaser://131 Prime Laser
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1e/Prime_Laser.png/revision/latest?cb=20170421151658&format=original";
 				case NPCID.BaldZombie://132 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Bald_Zombie.png/revision/latest?cb=20161120175629&format=original";
 				case NPCID.WanderingEye://133 Wandering Eye
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Wandering_Eye.png/revision/latest?cb=20161120175931&format=original";
 				case NPCID.TheDestroyer://134 The Destroyer
@@ -1015,7 +1015,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.AngryTrapper://175 Angry Trapper
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a6/Angry_Trapper.png/revision/latest?cb=20200808223845&format=original";
 				case NPCID.MossHornet://176 Moss Hornet
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Moss_Hornet.png/revision/latest?cb=20170421222615&format=original";
 				case NPCID.Derpling://177 Derpling
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Derpling.png/revision/latest?cb=20170421203737&format=original";
 				case NPCID.Steampunker://178 Steampunker
@@ -1035,13 +1035,13 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.SnowFlinx://185 Snow Flinx
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cb/Snow_Flinx.png/revision/latest?cb=20170421233536&format=original";
 				case NPCID.PincushionZombie://186 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/9/96/Pincushion_Zombie.png/revision/latest?cb=20170422122209&format=original";
 				case NPCID.SlimedZombie://187 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/57/Slimed_Zombie.png/revision/latest?cb=20161120175703&format=original";
 				case NPCID.SwampZombie://188 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a7/Swamp_Zombie.png/revision/latest?cb=20170422121752&format=original";
 				case NPCID.TwiggyZombie://189 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Twiggy_Zombie.png/revision/latest?cb=20170422121749&format=original";
 				case NPCID.CataractEye://190 Demon Eye
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/d/de/Cataract_Eye.png/revision/latest?cb=20170422122610&format=original";
 				case NPCID.SleepyEye://191 Demon Eye
@@ -1063,7 +1063,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.LihzahrdCrawler://199 Lihzahrd
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c5/Lihzahrd_%28crawler%29.png/revision/latest?cb=20211222232440&format=original";
 				case NPCID.FemaleZombie://200 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Female_Zombie.png/revision/latest?cb=20170422121903&format=original";
 				case NPCID.HeadacheSkeleton://201 Skeleton
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original";
 				case NPCID.MisassembledSkeleton://202 Skeleton
@@ -1267,7 +1267,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Raven://301 Raven
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Raven_%28flying%29.png/revision/latest?cb=20210914024621&format=original";
 				case NPCID.SlimeMasked://302 Slime
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a4/Bunny_Slime.png/revision/latest?cb=20151229024026&format=original";
 				case NPCID.BunnySlimed://303 Bunny
 					return "";
 				case NPCID.HoppinJack://304 Hoppin' Jack
@@ -1329,13 +1329,13 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.ZombieSweater://332 Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b2/Zombie_Christmas_Variant_2.png/revision/latest?cb=20170422121209&format=original";
 				case NPCID.SlimeRibbonWhite://333 Slime
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/White_Present_Slime.png/revision/latest?cb=20170217233818&format=original";
 				case NPCID.SlimeRibbonYellow://334 Slime
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c9/Yellow_Present_Slime.png/revision/latest?cb=20170217233853&format=original";
 				case NPCID.SlimeRibbonGreen://335 Slime
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1d/Green_Present_Slime.png/revision/latest?cb=20170217233925&format=original";
 				case NPCID.SlimeRibbonRed://336 Slime
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bf/Red_Present_Slime.png/revision/latest?cb=20170217234001&format=original";
 				case NPCID.BunnyXmas://337 Bunny
 					return "";
 				case NPCID.ZombieElf://338 Zombie Elf
@@ -1523,19 +1523,19 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.VortexSoldier://429 Vortexian
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a0/Vortexian.png/revision/latest?cb=20150701100912&format=original";
 				case NPCID.ArmedZombie://430 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d9/Armed_Zombie.png/revision/latest?cb=20170422131025&format=original";
 				case NPCID.ArmedZombieEskimo://431 Frozen Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3c/Armed_Frozen_Zombie.png/revision/latest?cb=20170422131256&format=original";
 				case NPCID.ArmedZombiePincussion://432 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/e/e4/Armed_Pincushion_Zombie.png/revision/latest?cb=20170422131048&format=original";
 				case NPCID.ArmedZombieSlimed://433 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/64/Armed_Slimed_Zombie.png/revision/latest?cb=20170422131112&format=original";
 				case NPCID.ArmedZombieSwamp://434 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/48/Armed_Swamp_Zombie.png/revision/latest?cb=20170422131135&format=original";
 				case NPCID.ArmedZombieTwiggy://435 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/d/da/Armed_Twiggy_Zombie.png/revision/latest?cb=20170422131200&format=original";
 				case NPCID.ArmedZombieCenx://436 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2c/Armed_Female_Zombie.png/revision/latest?cb=20170422131225&format=original";
 				case NPCID.CultistTablet://437 Mysterious Tablet
 					return "";
 				case NPCID.CultistDevote://438 Lunatic Devotee
@@ -1561,13 +1561,13 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.GoldWorm://448 Gold Worm
 					return "";
 				case NPCID.BoneThrowingSkeleton://449 Skeleton
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original";
 				case NPCID.BoneThrowingSkeleton2://450 Skeleton
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Headache_Skeleton.png/revision/latest?cb=20170422123913&format=original";
 				case NPCID.BoneThrowingSkeleton3://451 Skeleton
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7b/Misassembled_Skeleton.png/revision/latest?cb=20170422123940&format=original";
 				case NPCID.BoneThrowingSkeleton4://452 Skeleton
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original";
 				case NPCID.SkeletonMerchant://453 Skeleton Merchant
 					return "";
 				case NPCID.CultistDragonHead://454 Phantasm Dragon
@@ -1845,7 +1845,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.TorchZombie://590 Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f8/Torch_Zombie.png/revision/latest?cb=20200516195725&format=original";
 				case NPCID.ArmedTorchZombie://591 Zombie
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f6/Armed_Torch_Zombie.png/revision/latest?cb=20200516195727&format=original";
 				case NPCID.GoldGoldfish://592 Gold Goldfish
 					return "";
 				case NPCID.GoldGoldfishWalker://593 Gold Goldfish

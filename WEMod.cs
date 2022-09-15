@@ -49,9 +49,11 @@ namespace WeaponEnchantments
 		}
 		public override void PostSetupContent() {
 			//Census mod support
-			if (ModLoader.TryGetMod("Census", out Mod Census)) {
+			if (ModLoader.TryGetMod("Census", out Mod Census))
 				Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
-			}
+
+			if (ModLoader.TryGetMod("Wikithis", out Mod wikiThis))
+				wikiThis.Call("AddModURL", this, "weapon-enchantments-mod-tmodloader.fandom.com");
 		}
 
 		private delegate Item orig_ItemIOLoad(TagCompound tag);

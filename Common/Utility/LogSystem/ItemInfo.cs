@@ -30,10 +30,51 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             Item = item;
         }
         private int ShopPrice;
-        public void AddStatistics(WebPage webpage) {
+        public void AddStatistics(WebPage webpage, bool name = true, bool artists = true, bool image = true, bool types = true, bool tooltip = true, bool rarity = true, bool buy = true, bool sell = true, bool research = true) {
             List<List<string>> info = new();
-            string artistString = ((IItemWikiInfo)ModItem).Artist;
-            string artModifiedBy = ((IItemWikiInfo)ModItem).ArtModifiedBy;
+            List<string> labels = new();
+
+            if (name)
+                labels.Add($"{GetName()}");
+
+            if (image)
+                labels.Add($"{Item.ToItemPNG(displayName: false)}");
+
+            if (artists) {
+                GetArtists(out string artistString, out string artModifiedBy);
+
+                if (artistString != null || artModifiedBy != null)
+                    labels.Add($"{artistString}{artModifiedBy}");
+            }
+
+            labels.Add("Statistics");
+
+            //Type
+            info.Add(new() { "Type", GetTypes() });
+
+            //Tooltip
+            info.Add(new() { "Tooltip", $"<i>'{GetTooltip()}'</i>" });
+
+            //Rarity
+            string rareString = GetRarity(out Color color);
+            info.Add(new() { "https://terraria.fandom.com/wiki/Rarity".ToExternalLink("Rarity"), $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>" });
+
+            //Buy
+            if (TryGetShopPrice())
+                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(ModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
+
+            //Sell
+            info.Add(new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" });
+
+            //Research
+            info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), GetResearch() });
+
+            webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
+        }
+        public string GetName() => ModItem.Name.AddSpaces();
+        public void GetArtists(out string artistString, out string artModifiedBy) {
+            artistString = ((IItemWikiInfo)ModItem).Artist;
+            artModifiedBy = ((IItemWikiInfo)ModItem).ArtModifiedBy;
             if (artistString == "andro951")
                 artistString = null;
 
@@ -43,38 +84,31 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
                 artistString = $"  (art by {artistString}{(artModifiedBy == null ? ")" : "")}";
             }
-            
+
             if (artModifiedBy != null) {
                 if (contributorLinks.ContainsKey(artModifiedBy))
                     artModifiedBy = contributorLinks[artModifiedBy].ToExternalLink(artModifiedBy);
 
                 artModifiedBy = $"{(artistString == null ? "  (" : " ")}modified by {artModifiedBy})";
             }
-
-            List<string> labels = new() {
-                $"{Item.Name}",
-                $"{Item.ToItemPNG(displayName: false)}",
-                $"{artistString}{artModifiedBy}",
-                "Statistics"
-            };
-
-            //Type
+        }
+        public string GetTypes() {
             string typeText = "";
             bool first = true;
-			foreach (WikiItemTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
+            foreach (WikiItemTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
                 if (first) {
                     first = false;
-				}
-				else {
+                }
+                else {
                     typeText += ", ";
-				}
+                }
                 string temp = id.GetLinkText(out bool external);
                 typeText += external ? temp.ToExternalLink(id.ToString().AddSpaces()) : temp.ToLink(id.ToString().AddSpaces());
-			}
+            }
 
-            info.Add(new() { "Type", typeText });
-
-            //Tooltip
+            return typeText;
+        }
+        public string GetTooltip() {
             string tooltip = "";
             for (int i = 0; i < Item.ToolTip.Lines; i++) {
                 tooltip += Item.ToolTip.GetLine(i);
@@ -82,41 +116,34 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             if (tooltip == "") {
                 List<TooltipLine> tooltipLines = new();
-                Item item = new(Item.type);
-                if (item.ModItem is Enchantment enchantment) {
-                    float temp = enchantment.EnchantmentStrength;
+                //Item item = new(Item.type);
+                //if (item.ModItem is Enchantment enchantment) {
+                if (ModItem is Enchantment enchantment) {
+                    //float temp = enchantment.EnchantmentStrength;
                     enchantment.ModifyTooltips(tooltipLines);
                     tooltip += tooltipLines.Select(t => t.Text).JoinList();
                 }
-			}
+            }
 
-            info.Add(new() { "Tooltip", $"<i>'{tooltip}'</i>" });//italics?
+            return tooltip;
+        }
+        public string GetRarity(out Color color) {
 
-            //Rarity
             int rare = Item.rare;
-            Color color = ItemRarity.GetColor(rare);
+            color = ItemRarity.GetColor(rare);
             string rareString;
             if (EnchantingRarity.TierColors.Contains(color)) {
                 rareString = EnchantingRarity.GetTierNameFromColor(color);
             }
-			else {
+            else {
                 if (!ItemRarityID.Search.TryGetName(Item.rare, out rareString))
                     rareString = "Failed to find rarity name";
             }
 
-            info.Add(new() { "https://terraria.fandom.com/wiki/Rarity".ToExternalLink("Rarity"), $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>" });
-
-            //Buy
-            if (TryGetShopPrice())
-                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}" });
-
-            //Sell
-            info.Add(new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" });
-
-            //Research
-            info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required" });
-
-            webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
+            return rareString;
+        }
+        public string GetResearch() {
+            return $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required";
         }
         public void AddDrops(WebPage webpage) {
             int type = Item.type;
@@ -162,7 +189,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             } 
         }
         public void AddInfo(WebPage webpage) {
+            webpage.AddParagraph($"Tooltip:<br/>{GetTooltip()}");
             if (TryGetShopPrice() && ModItem is ISoldByWitch soldByWitch) {
+                webpage.NewLine();
                 string sellPriceString = ShopPrice.GetCoinsPNG();
                 string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
                 webpage.AddParagraph(sellText);
@@ -194,7 +223,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (createItem && TryAddRecipeData(myRecipes, createItemRecipes, reverseRecipes))
                 recipesAdded = true;
 
-            if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn, reverseRecipes))
+            if (usedIn && TryAddRecipeData(myRecipes, recipesUsedIn, reverseRecipes, true))
                 recipesAdded = true;
 
             if (!recipesAdded)
@@ -205,7 +234,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return myRecipes;
         }
-        private bool TryAddRecipeData(List<List<string>> myRecipes, Dictionary<int, List<RecipeData>> allRecipeData, bool includeReverse = false) {
+        private bool TryAddRecipeData(List<List<string>> myRecipes, Dictionary<int, List<RecipeData>> allRecipeData, bool includeReverse = false, bool usedIn = false) {
             if (!allRecipeData.ContainsKey(Item.type))
                 return false;
 
@@ -229,13 +258,23 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 myRecipeData = allRecipeData[Item.type];
             }
 
-            List<RecipeData> myRecipeData2 = myRecipeData.Where(rd => rd.requiredTile.ToString().Contains("Enchanting Table")).OrderBy(rd => -rd.requiredTile.ToString().Length).ToList();
-            List<RecipeData> myRecipeData3 = myRecipeData.Where(rd => !rd.requiredTile.ToString().Contains("Enchanting Table")).OrderBy(rd => rd.requiredTile.ToString().Length).ToList();
+            List<RecipeData> myRecipeData2 = myRecipeData.Where(rd => rd.requiredTile.ToString().Contains("Enchanting Table"))
+                .OrderBy(rd => -rd.requiredTile.ToString().Length - (usedIn ? rd.createItem.All.FirstEnchantmentStrength() : rd.requiredItem.All.FirstEnchantmentStrength()))
+                .ToList();
+            
+            List<RecipeData> myRecipeData3 = myRecipeData
+                .Where(rd => !rd.requiredTile.ToString().Contains("Enchanting Table"))
+                .ToList();
+            
 
             foreach (RecipeData recipeData in myRecipeData3.Concat(myRecipeData2)) {
                 int createItemCount = recipeData.createItem.Count;
-                bool reverse = recipeData.requiredItem.Count > 1 && createItemCount > recipeData.requiredItem.Count && recipeData.requiredItem.Contains(Item);
-                bool reverseRecipe = recipeData.IsReverseRecipe(Item.type) || reverse;
+                bool requiredContainsItem = recipeData.requiredItem.Contains(Item);
+                bool createItemCountLarger = recipeData.requiredItem.Count > 1 && createItemCount > recipeData.requiredItem.Count && requiredContainsItem;
+                Enchantment firstRequiredEnchantment = recipeData.requiredItem.All.Select(i => i.ModItem).OfType<Enchantment>().FirstOrDefault(defaultValue: null);
+                IEnumerable<ModItem> createModItems = recipeData.createItem.All.Select(i => i.ModItem);
+                bool downGradeEnchanmtent = firstRequiredEnchantment?.EnchantmentTier > createModItems.OfType<Enchantment>().FirstOrDefault(defaultValue: null)?.EnchantmentTier || firstRequiredEnchantment != null && createModItems.OfType<EnchantmentEssence>().FirstOrDefault(defaultValue: null)?.EssenceTier == 0;
+                bool reverseRecipe = recipeData.IsReverseRecipe(Item.type) || createItemCountLarger || downGradeEnchanmtent;
                 if (includeReverse && !reverseRecipe || !includeReverse && reverseRecipe)
                     continue;
 
@@ -282,4 +321,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             recipes.Add(list);
         }
     }
+    public static class ItemInfoStaticMethods
+	{
+        public static int FirstEnchantmentStrength(this IEnumerable<Item> items) {
+            Enchantment first = items.Select(i => i.ModItem).OfType<Enchantment>().FirstOrDefault(defaultValue: null);
+            $"Enchantment Name: {first?.Name}, tier: {first?.EnchantmentTier ?? -1}".LogSimple();
+            return first?.EnchantmentTier ?? -1;
+        }
+	}
 }

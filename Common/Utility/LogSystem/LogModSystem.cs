@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListForDocumentConversion = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static bool printWiki = WEMod.clientConfig.PrintWikiInfo;
-        public static bool printNPCIDSwitch = true;
+        public static bool printNPCIDSwitch = false;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;

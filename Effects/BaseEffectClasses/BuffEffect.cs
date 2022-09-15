@@ -119,7 +119,7 @@ namespace WeaponEnchantments.Effects {
             string name = null;
             if (id < BuffID.Count) {
                 BuffID buffID = new();
-                name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;
+                name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;//Can be replaced with BuffID.Search....
             }
 
             name ??= ModContent.GetModBuff(id).Name;

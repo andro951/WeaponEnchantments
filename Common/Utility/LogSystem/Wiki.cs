@@ -26,6 +26,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static Dictionary<int, Dictionary<CrateID, float>> crateDrops;
         private static int min;
         private static int max;
+        private static bool tier0EnchantmentsOnly = false;
         public static void PrintWiki() {
             if (!LogModSystem.printWiki)
                 return;
@@ -124,27 +125,29 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         private static void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
             WebPage Enchantments = new("Enchantments");
-            Enchantments.AddSubHeading("Enchantment Effects");
-            Enchantments.AddParagraph($"Enchantments allow customization of your items with various effects.  Some are very basic stat upgrades " +
-                $"such as {EnchantmentStat.Damage.EnchantmentTypeShortLink()}, {EnchantmentStat.CriticalStrikeChance.EnchantmentTypeShortLink()}, " +
-                $"{EnchantmentStat.Defense.EnchantmentTypeShortLink()}, {EnchantmentStat.LifeSteal.EnchantmentTypeShortLink()}.  Other are more unique such as: " +
-                $"Hitting all enemies in an area ({EnchantmentStat.OneForAll.EnchantmentTypeShortLink()}), " +
-                $"Dealing massive damage but having a long recovery ({EnchantmentStat.AllForOne.EnchantmentTypeShortLink()}), " +
-                $"Flames that spread between enemies ({"WorldAblaze".EnchantmentTypeShortLink()}), " +
-                $"Max health true damage ({EnchantmentStat.GodSlayer.EnchantmentTypeShortLink()}).");
-            Enchantments.AddSubHeading("Capacity Cost");
-            Enchantments.AddParagraph("Each enchantment has a capacity cost. This cost is subtracted from the item enchantment capacity.");
-            Enchantments.AddSubHeading("Crafting and Upgrading Enchantments");
-            Enchantments.AddParagraph($"Essence in the enchanting table is available for crafting. There is no need to take them out of the crafting table. " +
-                $"({"https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347&searchtext=magic+storage".ToExternalLink("Magic Storage")} can access the essence via the Environment Simulator.  See {"Magic Storage Integration".ToLink()})<br/>\n" +
-                $"Each enchantment page has the specific crafting recipes for the enchantment.  These are the general recipes:<br/>\n" +
-                $"Topaz can be any Common Gem: {"WeaponEnchantments:CommonGems".ToItemPNGs(link: true)}<br/>\n" +
-                $"Amber can be any Rare Gem: {"WeaponEnchantments:RareGems".ToItemPNGs(link: true)}<br/>\n" +
-				$"{"Enchantment Basic".ToLabledPNG()} is used as a generic enchantment when any enchantment could be used.");
-            Enchantments.AddTable(GetGenericEnchantmnetRecipes(), label: "Recipes", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
-            Enchantments.AddParagraph($"To view recipes in game, you can use the vanilla guide's crafting interface or the " +
-				$"{"https://steamcommunity.com/sharedfiles/filedetails/?id=2619954303&searchtext=recipe+browser".ToExternalLink("Recipe Browser Mod")}");
-            Enchantments.AddSubHeading("All Enchantment types");
+            if (!tier0EnchantmentsOnly) {
+                Enchantments.AddSubHeading("Enchantment Effects");
+                Enchantments.AddParagraph($"Enchantments allow customization of your items with various effects.  Some are very basic stat upgrades " +
+                    $"such as {EnchantmentStat.Damage.EnchantmentTypeShortLink()}, {EnchantmentStat.CriticalStrikeChance.EnchantmentTypeShortLink()}, " +
+                    $"{EnchantmentStat.Defense.EnchantmentTypeShortLink()}, {EnchantmentStat.LifeSteal.EnchantmentTypeShortLink()}.  Other are more unique such as: " +
+                    $"Hitting all enemies in an area ({EnchantmentStat.OneForAll.EnchantmentTypeShortLink()}), " +
+                    $"Dealing massive damage but having a long recovery ({EnchantmentStat.AllForOne.EnchantmentTypeShortLink()}), " +
+                    $"Flames that spread between enemies ({"WorldAblaze".EnchantmentTypeShortLink()}), " +
+                    $"Max health true damage ({EnchantmentStat.GodSlayer.EnchantmentTypeShortLink()}).");
+                Enchantments.AddSubHeading("Capacity Cost");
+                Enchantments.AddParagraph("Each enchantment has a capacity cost. This cost is subtracted from the item enchantment capacity.");
+                Enchantments.AddSubHeading("Crafting and Upgrading Enchantments");
+                Enchantments.AddParagraph($"Essence in the enchanting table is available for crafting. There is no need to take them out of the crafting table. " +
+                    $"({"https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347&searchtext=magic+storage".ToExternalLink("Magic Storage")} can access the essence via the Environment Simulator.  See {"Magic Storage Integration".ToLink()})<br/>\n" +
+                    $"Each enchantment page has the specific crafting recipes for the enchantment.  These are the general recipes:<br/>\n" +
+                    $"Topaz can be any Common Gem: {"WeaponEnchantments:CommonGems".ToItemPNGs(link: true)}<br/>\n" +
+                    $"Amber can be any Rare Gem: {"WeaponEnchantments:RareGems".ToItemPNGs(link: true)}<br/>\n" +
+                    $"{"Enchantment Basic".ToLabledPNG()} is used as a generic enchantment when any enchantment could be used.");
+                Enchantments.AddTable(GetGenericEnchantmnetRecipes(), label: "Recipes", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
+                Enchantments.AddParagraph($"To view recipes in game, you can use the vanilla guide's crafting interface or the " +
+                    $"{"https://steamcommunity.com/sharedfiles/filedetails/?id=2619954303&searchtext=recipe+browser".ToExternalLink("Recipe Browser Mod")}");
+                Enchantments.AddSubHeading("All Enchantment types");
+            }
 
             WebPage enchantmentTypePage = new("");
             string typePageLinkString = "";
@@ -154,28 +157,39 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     if (first) {
                         first = false;
                         string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
-                        enchantmentTypePage = new(enchantmentType);
-                        enchantmentTypePage.AddLink("Enchantments");
-                        Enchantments.AddParagraph(enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType));
+                        if (!tier0EnchantmentsOnly) {
+                            enchantmentTypePage = new(enchantmentType);
+                            enchantmentTypePage.AddLink("Enchantments");
+                            Enchantments.AddParagraph(enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType));
+                        }
+                        
                         typePageLinkString = enchantmentType.ToLink();
                     }
 
                     int tier = enchantment.EnchantmentTier;
-                    enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
-                    WebPage enchantmentPage = new(enchantment.Item.Name);
+                    if (tier != 0 && tier0EnchantmentsOnly)
+                        continue;
+
+                    if (!tier0EnchantmentsOnly)
+                        enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
+
+                    ItemInfo itemInfo = new(enchantment);
+                    WebPage enchantmentPage = new(itemInfo.GetName());
                     enchantmentPage.AddLink("Enchantments");
                     enchantmentPage.AddParagraph(typePageLinkString);
-                    ItemInfo itemInfo = new(enchantment);
                     itemInfo.AddStatistics(enchantmentPage);
                     itemInfo.AddDrops(enchantmentPage);
+                    itemInfo.AddInfo(enchantmentPage);
                     itemInfo.AddRecipes(enchantmentPage);
                     webPages.Add(enchantmentPage);
                 }
 
-                webPages.Add(enchantmentTypePage);
+                if (!tier0EnchantmentsOnly)
+                    webPages.Add(enchantmentTypePage);
             }
 
-            webPages.Add(Enchantments);
+            if (!tier0EnchantmentsOnly)
+                webPages.Add(Enchantments);
         }
         private static List<List<string>> GetGenericEnchantmnetRecipes() {
             List<RecipeData> genericEnchantmentRecipes = new();
@@ -425,30 +439,32 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static string ToNpcPNG(this int npcNetID, bool link = false, bool displayName = true) {
             string name;
             string file;
-            string linkString = "";
+            string pngLinkString = "";
             NPC npc = ContentSamples.NpcsByNetId[npcNetID];
             if (npcNetID < NPCID.Count) {
                 file = npcNetID.GetNPCPNGLink();
-                name = npc.FullName;
+                if (file == "")
+                    file = $"NPC_{npc.netID}".ToPNG();
+
+                name = NPCID.Search.GetName(npc.netID).AddSpaces();
                 if (link)
-                    linkString = $"https://terraria.fandom.com/wiki/{name.Replace(" ", "_")}".ToExternalLink(name);
+                    pngLinkString = $"https://terraria.fandom.com/wiki/{npc.FullName.Replace(" ", "_")}".ToExternalLink(name);
             }
             else {
                 ModNPC modNPC = npc.ModNPC;
                 if (modNPC == null) {
                     name = npc.FullName;
-                    file = name;
                 }
                 else {
                     name = modNPC.Name.AddSpaces();
-                    file = name;
                 }
 
+                file = name.ToPNG();
                 if (link)
-                    linkString = name.ToLink();
+                    pngLinkString = name.ToLink();
             }
 
-            return $"{file.ToPNG()}{(link ? " " + linkString : displayName ? " " + name : "")}";
+            return $"{file}{(link ? " " + pngLinkString : displayName ? " " + name : "")}";
         }
         public static string GetCoinsPNG(this int sellPrice) {
             int coinType = ItemID.PlatinumCoin;

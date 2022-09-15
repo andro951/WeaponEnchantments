@@ -24,6 +24,7 @@ namespace WeaponEnchantments.Common
 			private set => _duration = value;
 		}
 		private Time _duration;
+		private Time _originalDuration;
 		public float Chance {
 			get {
 				if (_waitingForEnterWorld)
@@ -56,11 +57,11 @@ namespace WeaponEnchantments.Common
 				if (_waitingForEnterWorld)
 					SetUpChanceDifficultyStrength();
 
-				return buffStrength;
+				return _buffStrength;
 			}
-			protected set => buffStrength = value;
+			protected set => _buffStrength = value;
 		}
-		private float buffStrength;
+		private float _buffStrength;
 		private DifficultyStrength buffStrengths;
 
 		public BuffStats(string buffName, short buffID, Time duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
@@ -70,6 +71,7 @@ namespace WeaponEnchantments.Common
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = duration;
+			_originalDuration = _duration.Clone();
 			Chance = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
@@ -81,6 +83,7 @@ namespace WeaponEnchantments.Common
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = new Time((uint)duration);
+			_originalDuration = _duration.Clone();
 			Chance = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
@@ -90,6 +93,7 @@ namespace WeaponEnchantments.Common
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = duration;
+			_originalDuration = _duration.Clone();
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
@@ -99,24 +103,25 @@ namespace WeaponEnchantments.Common
 			BuffName = buffName;
 			BuffID = buffID;
 			_duration = new Time((uint)duration);
+			_originalDuration = _duration.Clone();
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
 			buffStrengths = buffStrength;
 		}
 		private void SetUpChanceDifficultyStrength() {
-			if (!Main.gameMenu) {
-				if (_chanceDifficultyStrengths != null) {
-					int index = _chanceDifficultyStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
-					Chance = _chanceDifficultyStrengths.AllValues[index];
-				}
-				
-				if (buffStrengths != null) {
-					int index = buffStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
-					BuffStrength = buffStrengths.AllValues[index];
-				}
-
-				_waitingForEnterWorld = false;
+			if (_chanceDifficultyStrengths != null) {
+				_duration = _originalDuration.Clone();
+				int index = Main.gameMenu ? 0 : _chanceDifficultyStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
+				Chance = _chanceDifficultyStrengths.AllValues[index];
 			}
+			
+			if (buffStrengths != null) {
+				int index = Main.gameMenu ? 0 : buffStrengths.AllValues.Length == 4 ? Main.GameMode : 0;
+				BuffStrength = buffStrengths.AllValues[index];
+			}
+
+			if (!Main.gameMenu)
+				_waitingForEnterWorld = false;
 		}
 		public void CombineNoReturn(BuffStats b) {
 			float bWeightedDuration = (float)b.Duration * b.Chance;

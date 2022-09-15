@@ -216,21 +216,29 @@ namespace WeaponEnchantments.Common.Utility
                 char c = s[i];
                 char cm1 = s[i - 1];
                 if (c.IsUpper() || c.IsNumber()) {
+                    int toAdd = 0;
                     if (cm1.IsUpper()) {
                         int j = 0;
-                        while (i + j < s.Length - 1 && s[i + j].IsUpper()) {
+                        char comp = s[i + j];
+                        while (i + j < s.Length - 1 && comp.IsUpper()) {
                             j++;
                         }
-                        i += j - 1;
+
+                        toAdd = j - 1;
                     }
                     else if (cm1.IsNumber()) {
                         int j = 0;
                         while (i + j < s.Length - 1 && s[i + j].IsNumber()) {
                             j++;
                         }
-                        i += j - 1;
+
+                        toAdd = j - 1;
                     }
 
+                    if (toAdd == -1)
+                        toAdd++;
+
+                    i += toAdd;
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = end + 1;

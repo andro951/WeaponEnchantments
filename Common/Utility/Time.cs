@@ -97,10 +97,10 @@ namespace WeaponEnchantments.Common.Utility {
         #endregion
 
 	    private void SetUpAutomaticStrengthFromWorldDificulty() {
-	        int index = _difficultyStrength.AllValues.Length == 4 ? Main.GameMode : 0;
+	        int index =  Main.gameMenu ? 0 : _difficultyStrength.AllValues.Length == 4 ? Main.GameMode : 0;
 	        _value = _difficultyStrength.AllValues[index];
             ReduceSelf();
-            Ticks = CalculateTicks();	
+            Ticks = CalculateTicks();
 	    }
 	
         // Simplifies the time as much as possible while lossless. 

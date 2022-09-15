@@ -52,6 +52,7 @@ namespace WeaponEnchantments.Common
 
 			foreach(WeightedPair pair in dropsList) {
 				float chance = parentDropChance * pair.Weight / total;
+				chance.Clamp();
 				drops.Add(new DropRateInfo(pair.ID, 1, 1, chance, ratesInfo.conditions));
 			}
 
