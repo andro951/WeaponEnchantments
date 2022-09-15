@@ -1,4 +1,9 @@
-﻿# Weapon Enchantments
+﻿#Wiki
+https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
+
+#Some information below is OUTDATED.  Please use the wiki above instead!!
+
+# Weapon Enchantments
 
 # Features
 * Item Customization (Enchantments)
