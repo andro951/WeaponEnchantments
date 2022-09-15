@@ -1454,6 +1454,9 @@ namespace WeaponEnchantments
                 case EnchantmentStat.MaxFallSpeed:
                     Player.maxFallSpeed = sm.ApplyTo(Player.maxFallSpeed);
                     break;
+                case EnchantmentStat.MiningSpeed:
+                    Player.pickSpeed = sm.InvertApplyTo(Player.pickSpeed);
+                    break;
                 case EnchantmentStat.MovementAcceleration:
                     Player.runAcceleration = sm.ApplyTo(Player.runAcceleration);
                     break;

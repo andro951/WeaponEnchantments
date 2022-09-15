@@ -210,6 +210,13 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool ReduceOfferEfficiencyByBaseInfusionPower;
 
+        [Label("Reduce recipes to minimum.")]
+        [Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
+			"Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool ReduceRecipesToMinimum;
+
         //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
@@ -279,8 +286,7 @@ namespace WeaponEnchantments.Common.Configs
     }
 
     [Label("ClientConfig")]
-    public class ClientConfig : ModConfig
-    {
+    public class ClientConfig : ModConfig {
         public override ConfigScope Mode => ConfigScope.ClientSide;
         //Enchanting Table Options
         [Header("Enchanting Table Options")]
@@ -288,7 +294,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
         [DefaultValue(true)]
         public bool teleportEssence;
-        
+
         [Label("Offer all of the same item.")]
         [Tooltip("Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.")]
         [DefaultValue(false)]
@@ -310,6 +316,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Allow crafting enchantments into lower tier enchantments.")]
         [DefaultValue(true)]
+        [ReloadRequired]
         public bool AllowCraftingIntoLowerTier;
 
         [Label("Allow Infusing items to lower infusion Powers")]

@@ -357,6 +357,13 @@ namespace WeaponEnchantments.Common
 			
 			return (baseValue + _base) * _additive * _multiplicative + _flat;
 		}
+
+		public float InvertApplyTo(float baseValue) {
+			if (_waitingForEnterWorld)
+				SetUpAutomaticStrengthFromWorldDificulty();
+
+			return (baseValue - _base) / _additive / _multiplicative - _flat;
+		}
 		/*public int ApplyTo(int baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();

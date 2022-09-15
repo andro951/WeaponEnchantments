@@ -17,6 +17,7 @@ using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
+using WeaponEnchantments.Tiles;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -10,6 +11,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments.Tiles
@@ -41,7 +43,7 @@ namespace WeaponEnchantments.Tiles
 		public override void SetStaticDefaults() {
 			GetDefaults();
 
-			// Properties
+			//Properties
 			Main.tileTable[Type] = true;
 			Main.tileSolidTop[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -51,9 +53,7 @@ namespace WeaponEnchantments.Tiles
 			TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 			TileID.Sets.BasicChest[Type] = true;
 
-			AdjTiles = new int[] { TileID.WorkBenches };
-
-			// Placement
+			//Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 			TileObjectData.newTile.CoordinateHeights = new[] { 34 };
 			TileObjectData.newTile.DrawYOffset = -16;
@@ -62,11 +62,16 @@ namespace WeaponEnchantments.Tiles
 
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
-			// Etc
+			//Etc
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault(Items.EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 			AddMapEntry(new Color(200, 200, 200), name);
 
+			List<int> adjTiles = new() { TileID.WorkBenches };
+			if (WEMod.serverConfig.ReduceRecipesToMinimum && enchantingTableTier > 0)
+				adjTiles.AddRange(TableTypes.GetRange(0, enchantingTableTier));
+
+			AdjTiles = adjTiles.ToArray();
 			LogModSystem.UpdateContributorsList(this);
 		}
 		private void GetDefaults() {

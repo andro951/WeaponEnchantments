@@ -49,10 +49,14 @@ namespace WeaponEnchantments.Items
 
 		public override void AddRecipes() {
 			for (int i = 0; i < tierNames.Length; i++) {
+                if (WEMod.serverConfig.ReduceRecipesToMinimum && i != tierNames.Length - 1)
+                    continue;
+
                 Recipe recipe = CreateRecipe();
                 recipe.createItem = new(ModContent.ItemType<EnchantmentEssenceEpic>());
                 recipe.AddIngredient(Type);
-                recipe.AddIngredient(ItemID.PurificationPowder, 20 / (i + 1));
+                int num = WEMod.serverConfig.ReduceRecipesToMinimum ? 20 / (tierNames.Length - 1) : 20 / (i + 1);
+                recipe.AddIngredient(ItemID.PurificationPowder, num);
                 recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
                 recipe.Register();
 			}

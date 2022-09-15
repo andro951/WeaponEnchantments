@@ -31,6 +31,8 @@ namespace WeaponEnchantments.Items
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 
+			IDs[enchantingTableTier] = Type;
+
 			LogModSystem.UpdateContributorsList(this);
 		}
 		private void GetDefaults() {
@@ -91,6 +93,9 @@ namespace WeaponEnchantments.Items
 
 			
 			for (int i = -1; i < enchantingTableTier; i++) {
+				if (WEMod.serverConfig.ReduceRecipesToMinimum && i < enchantingTableTier - 1)
+					continue;
+
 				for (int d = 0; d <= (i <= 0 && enchantingTableTier >= 1 ? 1 : 0); d++) {
 					Recipe recipe = CreateRecipe();
 
@@ -128,8 +133,6 @@ namespace WeaponEnchantments.Items
 					recipe.Register();
 				}
 			}
-
-			IDs[enchantingTableTier] = Type;
 		}
 	}
 	public class WoodEnchantingTable : EnchantingTableItem { }

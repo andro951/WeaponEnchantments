@@ -11,6 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override void GetMyStats() {
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
+				new MiningSpeed(EnchantmentStrengthData * 1.5f),
 				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData)
 			};
 

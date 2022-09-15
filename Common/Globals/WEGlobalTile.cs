@@ -29,6 +29,7 @@ namespace WeaponEnchantments.Common.Globals
 						case 0:
 						case 3:
 						case 24:
+						case 110:
 						case 185:
 						case 187:
 						case 233:

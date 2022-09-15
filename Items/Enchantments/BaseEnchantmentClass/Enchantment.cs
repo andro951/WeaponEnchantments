@@ -952,6 +952,9 @@ namespace WeaponEnchantments.Items {
 		}
 		public override void AddRecipes() {
 			for (int i = EnchantmentTier; i < tierNames.Length; i++) {
+				if (WEMod.serverConfig.ReduceRecipesToMinimum && i != EnchantmentTier)
+					continue;
+
 				//Lowest Craftable Tier
 				if (EnchantmentTier < LowestCraftableTier)
 					continue;
@@ -959,6 +962,9 @@ namespace WeaponEnchantments.Items {
 				Recipe recipe;
 
 				for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
+					if (WEMod.serverConfig.ReduceRecipesToMinimum && j != EnchantmentTier)
+						continue;
+
 					recipe = CreateRecipe();
 
 					//Essence
@@ -966,7 +972,7 @@ namespace WeaponEnchantments.Items {
 						int essenceNumber = Utility ? 5 : 10;
 						recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
 					}
-
+					
 					//Enchantment
 					if (j > 0) {
 						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
@@ -1004,11 +1010,17 @@ namespace WeaponEnchantments.Items {
 				return;
 
 			for (int i = 0; i < tierNames.Length; i++) {
+				if (WEMod.serverConfig.ReduceRecipesToMinimum && i != EnchantmentTier)
+					continue;
+
 				if (EnchantmentTier == tierNames.Length)
 					continue;
 
 				Recipe recipe;
 				for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
+					if (WEMod.serverConfig.ReduceRecipesToMinimum && j != EnchantmentTier + 1)
+						continue;
+
 					recipe = CreateRecipe();
 
 					//Enchantment
@@ -1030,10 +1042,13 @@ namespace WeaponEnchantments.Items {
 					recipe.Register();
 				}
 
-				//Containment Recipe
+				if (WEMod.serverConfig.ReduceRecipesToMinimum && EnchantmentTier != 0)
+					continue;
+
+				//Basic Essence Recipe
 				Recipe containmentRecipe = CreateRecipe();
 
-				//Containment
+				//Basic Essence
 				containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
 
 				//This enchantment
