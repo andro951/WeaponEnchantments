@@ -1302,25 +1302,13 @@ namespace WeaponEnchantments
         }
         private void CheckClearOnTickBuffTimers() {
             uint updateCount = Main.GameUpdateCount;
-            List<short> toRemove = new();
-            foreach (KeyValuePair<short, uint> timer in OnTickBuffTimers) {
-                if (updateCount >= timer.Value) {
-                    toRemove.Add(timer.Key);
-                }
-                else {
-                    break;
-                }
-            }
-
-            foreach (short timer in toRemove) {
+            foreach (short timer in OnTickBuffTimers.Where(t => t.Value <= updateCount).Select(t => t.Key).ToList()) {
                 OnTickBuffTimers.Remove(timer);
             }
         }
         public bool OnTickBuffTimerOver(short id) {
-            foreach (short timerID in OnTickBuffTimers.Keys) {
-                if (timerID == id)
-                    return false;
-            }
+            if (OnTickBuffTimers.Keys.Contains(id))
+                return false;
 
             return true;
         }
@@ -2344,7 +2332,10 @@ namespace WeaponEnchantments
                 int buffIndex = player.FindBuffIndex(buff.Key);
                 int ticks = addToExisting ? Math.Min(buff.Value.Duration.Ticks, BuffDurationTicks) : buff.Value.Duration.Ticks;
                 if (!addToExisting || buffIndex < 0) {
-                   player.AddBuff(buff.Key, ticks);
+                    if (addToExisting)
+                        ticks++;
+
+                    player.AddBuff(buff.Key, ticks);
                 }
                 else {
                     player.buffTime[buffIndex] += ticks;
