@@ -13,6 +13,9 @@ namespace WeaponEnchantments.Effects
 		public InfinitePenetration(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
 
 		}
+		public override EnchantmentEffect Clone() {
+			return new InfinitePenetration(MinimumStrength, StrengthData.Clone(), !EnableStat);
+		}
 
 		public override EnchantmentStat statName => EnchantmentStat.InfinitePenetration;
 	}

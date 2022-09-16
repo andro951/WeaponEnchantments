@@ -15,7 +15,11 @@ namespace WeaponEnchantments.Effects {
         public Size(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
         }
-        
+        public Size(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+        public override EnchantmentEffect Clone() {
+            return new Size(EStatModifier.Clone(), damageClass);
+        }
+
         public override EnchantmentStat statName => EnchantmentStat.Size;
     }
 }

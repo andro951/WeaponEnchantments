@@ -17,8 +17,12 @@ namespace WeaponEnchantments.Effects
         public AmmoCost(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
 		}
+		public AmmoCost(EStatModifier eStatModifier) : base(eStatModifier) { }
+		public override EnchantmentEffect Clone() {
+			return new AmmoCost(EStatModifier.Clone());
+		}
 
-        public override string DisplayName { 
+		public override string DisplayName { 
 		get {
 			if (EffectStrength >= 0f) {
 				return "Chance To Not Consume Ammo";//1
@@ -38,5 +42,5 @@ namespace WeaponEnchantments.Effects
 			
 			return $"{strength.Percent() + "%" + DisplayName} (Also Saves Bait When Fishing)";
 		}
-    }
+	}
 }

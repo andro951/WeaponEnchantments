@@ -1520,7 +1520,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
-                    if (enchantment.RestrictedClass > -1 && ContentSamples.ItemsByType[item.type].DamageType.Type == enchantment.RestrictedClass)
+                    if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
                         RemoveEnchantmentNoUpdate(ref iGlobal.enchantments[i], player, enchantmentItem.Name + $" is no longer allowed on {item.DamageType.Name} weapons and has removed from your " + item.Name + ".");
 
                     if (enchantment.Max1 && enchantmentTypeNames.Contains(enchantment.EnchantmentTypeName))

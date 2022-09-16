@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 6;
 		public override float ScalePercent => 0.8f;
 		public override bool Max1 => true;
-		public override int RestrictedClass => (int)DamageClassID.Summon;
+		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
 			Effects = new() {
 				new AllForOne(EnchantmentStrengthData * 0.4f + 4f),

@@ -73,5 +73,6 @@ namespace WeaponEnchantments.Effects {
         public void SetDamageClassMultiplier(DamageClass dc) {
             DamageClassMultiplier = EnchantmentDamageEfficiency.ContainsKey(dc) ? EnchantmentDamageEfficiency[dc] : 1f;
         }
+        public abstract EnchantmentEffect Clone();
     }
 }

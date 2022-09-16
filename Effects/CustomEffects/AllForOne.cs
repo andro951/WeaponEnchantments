@@ -37,5 +37,8 @@ namespace WeaponEnchantments.Effects
 
 			return null;
 		}
+		public override EnchantmentEffect Clone() {
+			return new AllForOne(_timerStrength.Clone());
+		}
 	}
 }

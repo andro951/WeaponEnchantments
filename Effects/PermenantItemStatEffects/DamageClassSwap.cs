@@ -17,6 +17,9 @@ namespace WeaponEnchantments.Effects
 		public DamageClassSwap(DamageClass damageClass) {
 			NewDamageClass = damageClass;
 		}
+		public override EnchantmentEffect Clone() {
+			return new DamageClassSwap(NewDamageClass);
+		}
 		public override string DisplayName => $"Convert damage type to {NewDamageClass.DisplayName}";
 
 		public virtual DamageClass NewDamageClass { get; }

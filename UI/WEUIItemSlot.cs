@@ -86,7 +86,7 @@ namespace WeaponEnchantments.UI
 						if (newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
 							return false;
 
-						if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
+						if (newEnchantment.RestrictedClass.Contains(damageClassSpecific))
 							return false;
 					}
 

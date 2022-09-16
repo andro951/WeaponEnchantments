@@ -18,6 +18,9 @@ namespace WeaponEnchantments.Effects {
             _knockback = knockback;
             _unique = unique;
         }
+        public override EnchantmentEffect Clone() {
+            return new OnHitSpawnProjectile(_projectileID, _damage, _knockback, _unique);
+        }
 
         private short _projectileID;
         private string _projectilieDisplayName;

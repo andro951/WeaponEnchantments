@@ -14,8 +14,12 @@ namespace WeaponEnchantments.Effects {
         public CriticalStrikeChance(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat * 100f, @base * 100f, dc) {
 
 		}
+		public CriticalStrikeChance(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public override EnchantmentEffect Clone() {
+			return new CriticalStrikeChance(EStatModifier.Clone(), damageClass);
+		}
 
-        public override EnchantmentStat statName => EnchantmentStat.CriticalStrikeChance;
+		public override EnchantmentStat statName => EnchantmentStat.CriticalStrikeChance;
         public override string Tooltip => $"{EStatModifier.SignPercentTooltip} {DisplayName}";
     }
 }

@@ -16,9 +16,13 @@ namespace WeaponEnchantments.Effects
     {
         public DamageAfterDefenses(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
-        }
+		}
+		public DamageAfterDefenses(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public override EnchantmentEffect Clone() {
+			return new DamageAfterDefenses(EStatModifier.Clone(), damageClass);
+		}
 
-        public override string DisplayName { get; } = $"Damage (Applied after defenses. Not visible in weapon tooltip)";
+		public override string DisplayName { get; } = $"Damage (Applied after defenses. Not visible in weapon tooltip)";
 		public override EnchantmentStat statName => EnchantmentStat.DamageAfterDefenses;
 	}
 }

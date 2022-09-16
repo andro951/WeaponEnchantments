@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MaxMinions(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MaxMinions(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MaxMinions(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MaxMinions;
         public override string DisplayName => "Max Minions";
     }

@@ -16,7 +16,11 @@ namespace WeaponEnchantments.Effects
     {
         public CriticalStrikeDamage(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
-        }
+		}
+		public CriticalStrikeDamage(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public override EnchantmentEffect Clone() {
+			return new CriticalStrikeDamage(EStatModifier.Clone(), damageClass);
+		}
 
 		public override EnchantmentStat statName => EnchantmentStat.CriticalStrikeDamage;
 	}

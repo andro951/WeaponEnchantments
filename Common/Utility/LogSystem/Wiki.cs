@@ -534,38 +534,6 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static Item GetItemFromTileType(this int tileType) {
             return new(GetItemTypeFromTileType(tileType));
         }
-        public static string JoinLists(this IEnumerable<IEnumerable<string>> lists, string joinString = "or") {
-            string text = "";
-            bool first = true;
-            foreach (IEnumerable<string> list in lists) {
-                if (first) {
-                    first = false;
-                }
-                else {
-                    text += $"<br/>{joinString}<br/>";
-                }
-
-                text += list.JoinList();
-            }
-
-            return text;
-        }
-        public static string JoinList(this IEnumerable<string> list, string joinString = "<br/>") {
-            string text = "";
-            bool firstString = true;
-            foreach (string s in list) {
-                if (firstString) {
-                    firstString = false;
-                }
-                else {
-                    text += joinString;
-                }
-
-                text += s;
-            }
-
-            return text;
-        }
         public static bool SameAs(this IEnumerable<Item> list1, IEnumerable<Item> list2) {
             if (list1 == null && list2 == null)
                 return true;

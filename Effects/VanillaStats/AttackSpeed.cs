@@ -14,9 +14,13 @@ namespace WeaponEnchantments.Effects {
     public class AttackSpeed : ClassedStatEffect, IVanillaStat {
         public AttackSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
-        }
-        
-        public override EnchantmentStat statName => EnchantmentStat.AttackSpeed;
+		}
+		public AttackSpeed(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public override EnchantmentEffect Clone() {
+			return new AttackSpeed(EStatModifier.Clone(), damageClass);
+		}
+
+		public override EnchantmentStat statName => EnchantmentStat.AttackSpeed;
         public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)";
     }
 }

@@ -9,8 +9,11 @@ namespace WeaponEnchantments.Effects {
             damageClass = dc != null ? dc : DamageClass.Generic;
 		}
         public ClassedStatEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base) {
-
-		}
+            damageClass = dc != null ? dc : DamageClass.Generic;
+        }
+        public ClassedStatEffect(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier) {
+            damageClass = dc != null ? dc : DamageClass.Generic;
+        }
 
         public DamageClass damageClass { get; set; }
         public override string DisplayName => $"{damageClass.S()} {base.DisplayName}";

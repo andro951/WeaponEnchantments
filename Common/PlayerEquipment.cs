@@ -140,7 +140,7 @@ namespace WeaponEnchantments.Common {
         private SortedDictionary<EnchantmentStat, EStatModifier> GetStatEffectDictionary<T>(IEnumerable<T> statEffects) where T : IApplyStats {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>();
             foreach (T statEffect in statEffects) {
-                result.AddOrCombine(statEffect.EStatModifier);
+                result.AddOrCombine(statEffect.EStatModifier.Clone());
             }
 
             return result;
@@ -189,7 +189,7 @@ namespace WeaponEnchantments.Common {
             SortedDictionary<EnchantmentStat, EStatModifier> result = new SortedDictionary<EnchantmentStat, EStatModifier>(playerDictionary.ToDictionary(k => k.Key, k => k.Value.Clone()));
             foreach (EnchantmentStat key in heldItemDictionary.Keys) {
                 if (!vallinllaStatCheck || !ID_Dictionaries.WeaponStatDict.Contains(key))
-                    result.AddOrCombine(heldItemDictionary[key]);
+                    result.AddOrCombine(heldItemDictionary[key].Clone());
 			}
 
             return result;

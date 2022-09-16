@@ -12,12 +12,16 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects
 {
-	public class YoyoStringLength : ClassedStatEffect, INonVanillaStat
+	public class YoyoStringLength : StatEffect, INonVanillaStat
     {
-        public YoyoStringLength(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+        public YoyoStringLength(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public YoyoStringLength(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new YoyoStringLength(EStatModifier.Clone());
+        }
 
-		public override EnchantmentStat statName => EnchantmentStat.YoyoStringLength;
+        public override EnchantmentStat statName => EnchantmentStat.YoyoStringLength;
 	}
 }

@@ -16,7 +16,11 @@ namespace WeaponEnchantments.Effects
     {
         public EnemySpawnRate(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        }
+		}
+		public EnemySpawnRate(EStatModifier eStatModifier) : base(eStatModifier) { }
+		public override EnchantmentEffect Clone() {
+			return new EnemySpawnRate(EStatModifier.Clone());
+		}
 
 		public override EnchantmentStat statName => EnchantmentStat.EnemySpawnRate;
 		public override string Tooltip => base.Tooltip + (EffectStrength > 1f ? "\n" +

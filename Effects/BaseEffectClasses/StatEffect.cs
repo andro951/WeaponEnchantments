@@ -9,12 +9,15 @@ namespace WeaponEnchantments.Effects {
             EStatModifier = sm;
         }
 
-        protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
-            EStatModifier = new EStatModifier(statName, additive, multiplicative, flat, @base);
+        protected StatEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, CombineModeID combineModeID = CombineModeID.Normal) {
+            EStatModifier = new EStatModifier(statName, additive, multiplicative, flat, @base, combineModeID: combineModeID);
 		}
-        public StatEffect(DifficultyStrength additive, DifficultyStrength multiplicative, DifficultyStrength flat, DifficultyStrength @base) {
-            EStatModifier = new EStatModifier(statName, additive, multiplicative, flat, @base);
+        public StatEffect(DifficultyStrength additive, DifficultyStrength multiplicative, DifficultyStrength flat, DifficultyStrength @base, CombineModeID combineModeID = CombineModeID.Normal) {
+            EStatModifier = new EStatModifier(statName, additive, multiplicative, flat, @base, combineModeID: combineModeID);
         }
+        public StatEffect(EStatModifier eStatModifier) {
+            EStatModifier = eStatModifier;
+		}
         public EStatModifier EStatModifier { set; get; }
         public override float EffectStrength => EStatModifier.Strength;
 		public override float CombinedMultiplier {
@@ -24,5 +27,5 @@ namespace WeaponEnchantments.Effects {
 
         public abstract EnchantmentStat statName { get; }
         public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName}";
-    }
+	}
 }

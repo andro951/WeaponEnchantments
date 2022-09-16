@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MaxLife(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MaxLife(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MaxLife(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MaxLife;
     }
 }

@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MaxMP(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MaxMP(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MaxMP(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MaxMP;
         public override string DisplayName { get; } = "Max Mana";
     }

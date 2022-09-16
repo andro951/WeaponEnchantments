@@ -144,6 +144,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 		private float _strength;
+		private CombineModeID _combineModeID;
 
 		public string SmartTooltip {
 			get {
@@ -229,7 +230,7 @@ namespace WeaponEnchantments.Common
 		*/
 
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
-		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f) {
+		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
 			StatType = statType;
 			originalAdditive = additive;
 			originalMultiplicative = multiplicative;
@@ -242,10 +243,11 @@ namespace WeaponEnchantments.Common
 			_base = @base * _efficiencyMultiplier;
 			_strength = 0f;
 			tooltip = null;
+			_combineModeID = combineModeID;
 		}
-		public EStatModifier(EnchantmentStat statType, DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, float baseEfficiencyMultiplier = 1f) {
+		public EStatModifier(EnchantmentStat statType, DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
 			_waitingForEnterWorld = true;
-			DifficultyStrength[] arr = { additive, multiplicative, flat, @base };
+			DifficultyStrength[] arr = { additive?.Clone(), multiplicative?.Clone(), flat?.Clone(), @base?.Clone() };
 			for (byte i = 0; i < arr.Length; i++) {
 				if (arr[i] != null) {
 					_automaticStrengthData = arr[i];
@@ -265,6 +267,7 @@ namespace WeaponEnchantments.Common
 			_base = 0f;
 			_strength = 0f;
 			tooltip = null;
+			_combineModeID = combineModeID;
 		}
 
 		private void SetUpAutomaticStrengthFromWorldDificulty() {
@@ -357,29 +360,12 @@ namespace WeaponEnchantments.Common
 			
 			return (baseValue + _base) * _additive * _multiplicative + _flat;
 		}
-
 		public float InvertApplyTo(float baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
 			return (baseValue - _base) / _additive / _multiplicative - _flat;
 		}
-		/*public int ApplyTo(int baseValue) {
-			if (_waitingForEnterWorld)
-				SetUpAutomaticStrengthFromWorldDificulty();
-
-			float finalValue = ((float)baseValue + _base) * _additive * _multiplicative + _flat;
-
-
-			//int (field)
-			if (fieldType == typeof(int)) {
-				float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
-				staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), iGlobal.appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
-				field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
-				//$"{key}: {(int)Math.Round(finalValue + 5E-6)}".Log();
-			}
-		}*/
-
 		public void ApplyTo(ref float baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
@@ -410,8 +396,19 @@ namespace WeaponEnchantments.Common
 
 			_additive += m.Additive - 1f;
 			_multiplicative *= m.Multiplicative;
-			_flat += m.Flat;
-			_base += m.Base;
+
+			switch (_combineModeID) {
+				case CombineModeID.MultiplicativePartOf1:
+					_flat = 1f - ((1f - _flat) * (1f - m.Flat));
+					_base = 1f - ((1f - _base) * (1f - m.Base));
+					break;
+				case CombineModeID.Normal:
+				default:
+					_flat += m.Flat;
+					_base += m.Base;
+					break;
+			}
+
 			_strength = 0f;
 			tooltip = null;
 		}
@@ -433,7 +430,7 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base);
+			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
 		}
 	}
 }

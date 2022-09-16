@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public Luck(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public Luck(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new Luck(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.Luck;
     }
 }

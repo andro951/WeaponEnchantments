@@ -17,7 +17,11 @@ namespace WeaponEnchantments.Effects
         public NPCHitCooldown(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public NPCHitCooldown(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new NPCHitCooldown(EStatModifier.Clone());
+        }
 
-		public override EnchantmentStat statName => EnchantmentStat.NPCHitCooldown;
+        public override EnchantmentStat statName => EnchantmentStat.NPCHitCooldown;
 	}
 }

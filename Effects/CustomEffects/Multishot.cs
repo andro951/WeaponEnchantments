@@ -17,8 +17,12 @@ namespace WeaponEnchantments.Effects
         public Multishot(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public Multishot(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new Multishot(EStatModifier.Clone());
+        }
 
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
+        public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
 		public override EnchantmentStat statName => EnchantmentStat.Multishot;
 	}
 }

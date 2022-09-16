@@ -16,6 +16,10 @@ namespace WeaponEnchantments.Effects {
         public FlatMPRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public FlatMPRegen(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new FlatMPRegen(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.ManaRegen;
         public override string DisplayName { get; } = "Mana Regeneration";
     }

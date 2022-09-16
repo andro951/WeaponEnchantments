@@ -48,7 +48,8 @@ namespace WeaponEnchantments.Common.Utility
         CriticalStrikeDamage,
         Damage,
         DamageAfterDefenses,
-        Defense,
+		DamageReduction,
+		Defense,
         EnemyMaxSpawns,
         EnemySpawnRate,
         FishingEnemySpawnChance,
@@ -530,7 +531,13 @@ namespace WeaponEnchantments.Common.Utility
         middle,
         right,
 	}
-    public static class NPCIDMethods
+	public enum CombineModeID
+	{
+		Normal,
+		MultiplicativePartOf1
+	}
+
+	public static class NPCIDMethods
 	{
         public static string GetNPCPNGLink(this int id) {
 			switch (id) {

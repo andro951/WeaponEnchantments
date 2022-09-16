@@ -17,6 +17,11 @@ namespace WeaponEnchantments.Effects
 		public ArmorPenetration(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
 		}
+		public ArmorPenetration(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public override EnchantmentEffect Clone() {
+			return new ArmorPenetration(EStatModifier.Clone(), damageClass);
+		}
+
 
 		public override EnchantmentStat statName => EnchantmentStat.ArmorPenetration;
 		public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";

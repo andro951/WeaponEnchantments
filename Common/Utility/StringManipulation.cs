@@ -448,5 +448,39 @@ namespace WeaponEnchantments.Common.Utility
 
             return text;
         }
+        public static string JoinLists(this IEnumerable<IEnumerable<string>> lists, string joinString = "<br/>or<br/>") {
+            string text = "";
+            bool first = true;
+            foreach (IEnumerable<string> list in lists) {
+                if (first) {
+                    first = false;
+                }
+                else {
+                    text += joinString;
+                }
+
+                text += list.JoinList();
+            }
+
+            return text;
+        }
+        public static string JoinList(this IEnumerable<string> list, string joinString = "<br/>", string last = null) {
+            string text = "";
+            bool firstString = true;
+            int count = list.Count();
+            int i = 0;
+            foreach (string s in list) {
+                if (firstString) {
+                    firstString = false;
+                }
+                else {
+                    text += i == count - 1 ? last ?? joinString : joinString;
+                }
+
+                text += s;
+            }
+
+            return text;
+        }
     }
 }

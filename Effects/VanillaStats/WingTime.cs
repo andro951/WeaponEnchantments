@@ -14,6 +14,12 @@ namespace WeaponEnchantments.Effects {
         public WingTime(bool infinity, DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
             Infinity = infinity;
         }
+        public WingTime(bool infinity, EStatModifier eStatModifier) : base(eStatModifier) {
+            Infinity = infinity;
+        }
+        public override EnchantmentEffect Clone() {
+            return new WingTime(Infinity, EStatModifier.Clone());
+        }
 
         public override EnchantmentStat statName => EnchantmentStat.WingTime;
         public override string DisplayName { get; } = "Wing Time";

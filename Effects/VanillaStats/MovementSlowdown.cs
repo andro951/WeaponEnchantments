@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MovementSlowdown(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MovementSlowdown(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MovementSlowdown(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MovementSlowdown;
     }
 }

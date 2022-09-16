@@ -17,8 +17,12 @@ namespace WeaponEnchantments.Effects
         public ManaUsage(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
 		}
+		public ManaUsage(EStatModifier eStatModifier) : base(eStatModifier) { }
+		public override EnchantmentEffect Clone() {
+			return new ManaUsage(EStatModifier.Clone());
+		}
 
-        public override string DisplayName => EffectStrength - 1f <= 0f ? "Reduced Mana Usage" : "Increased Mana Usage";
+		public override string DisplayName => EffectStrength - 1f <= 0f ? "Reduced Mana Usage" : "Increased Mana Usage";
         public override EnchantmentStat statName => EnchantmentStat.ManaUsage;
 		public override string Tooltip => ModifierToString();
 		

@@ -15,6 +15,9 @@ namespace WeaponEnchantments.Effects
 		public Channel(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) {
 
 		}
+		public override EnchantmentEffect Clone() {
+			return new Channel(MinimumStrength, StrengthData.Clone(), !EnableStat);
+		}
 
 		public override EnchantmentStat statName => EnchantmentStat.Channel;
 

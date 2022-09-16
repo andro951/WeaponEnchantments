@@ -15,8 +15,11 @@ namespace WeaponEnchantments.Effects {
         public VanillaDash(DashID dashType, DifficultyStrength timerData, float minimumStrength = 0f, bool prevent = false) : base(minimumStrength, timerData, prevent) {
             _dashType = dashType;
         }
+		public override EnchantmentEffect Clone() {
+            return new VanillaDash(_dashType, StrengthData.Clone(), MinimumStrength, !EnableStat);
+		}
 
-        private DashID _dashType;
+		private DashID _dashType;
 
         public override string DisplayName => _dashType.ToString().AddSpaces();
 

@@ -10,7 +10,13 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
     public class DefenseEffect : StatEffect, IVanillaStat {
-        public DefenseEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) { }
+        public DefenseEffect(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
+
+        }
+        public DefenseEffect(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new DefenseEffect(EStatModifier.Clone());
+        }
 
         public override EnchantmentStat statName => EnchantmentStat.Defense;
         public override string DisplayName => "Defense";

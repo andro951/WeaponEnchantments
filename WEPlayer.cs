@@ -1401,12 +1401,16 @@ namespace WeaponEnchantments
             uint endTime = Main.GameUpdateCount + (uint)duration;
             OnTickBuffTimers.Add(id, endTime);
         }
+		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit) {
+            if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult))
+                damage = (int)((float)damage * (1f - mult));
+        }
 
-        #endregion
+		#endregion
 
-        #region Enchantment Effect Managment
+		#region Enchantment Effect Managment
 
-        public override void PostUpdateMiscEffects() {
+		public override void PostUpdateMiscEffects() {
             ApplyPostMiscEnchants();
         }
         public void ApplyPostMiscEnchants() {

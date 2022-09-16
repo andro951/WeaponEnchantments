@@ -50,7 +50,8 @@ namespace WeaponEnchantments.Items {
 			new EnchantmentStrengths(new float[] { 0.05f, 0.1f, 0.15f, 0.2f, 0.25f }),
 			new EnchantmentStrengths(new float[] { 0.88f, 0.91f, 0.94f, 0.97f, 1f }),
 			new EnchantmentStrengths(new float[] { 0.5f, 0.75f, 1f, 1.5f, 2f }),
-			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 4f, 5f })
+			new EnchantmentStrengths(new float[] { 1f, 2f, 3f, 4f, 5f }),
+			new EnchantmentStrengths(new float[] { 0.06f, 0.07f, 0.08f, 0.09f, 0.1f })
 		};//Need to manually update the StrengthGroup <summary> when changing defaultEnchantmentStrengths
 
 		public static readonly uint defaultBuffDuration = 60;
@@ -93,6 +94,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>17</term><description>{ 0.88f, 0.91f, 0.94f, 0.97f, 1f }</description><br/>
 		/// <term>18</term><description>{ 0.5f, 0.75f, 1f, 1.5f, 2f }</description><br/>
 		/// <term>19</term><description>{ 1f, 2f, 3f, 4f, 5f }</description><br/>
+		/// <term>20</term><description>{ 0.06f, 0.07f, 0.08f, 0.09f, 0.1f }</description><br/>
 		/// </list>
 		/// </summary>
 		public virtual int StrengthGroup { private set; get; } = 0;
@@ -338,7 +340,7 @@ namespace WeaponEnchantments.Items {
 		/// <term>8</term><description>Throwing</description><br/>
 		/// </list>
 		/// </summary>
-		public virtual int RestrictedClass { private set; get; } = -1;
+		public virtual List<int> RestrictedClass { private set; get; } = new();
 
 		#endregion
 
@@ -371,8 +373,14 @@ namespace WeaponEnchantments.Items {
 		/// CheckBuffByName()<br/>
 		/// </summary>
 		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
+		public override ModItem Clone(Item newEntity) {
+			Enchantment clone = (Enchantment)base.Clone(newEntity);
+			clone.EnchantmentStrengthData = EnchantmentStrengthData.Clone();
+			clone.Effects = Effects.Select(e => e.Clone()).ToList();
 
-        public override void SetStaticDefaults() {
+			return clone;
+		}
+		public override void SetStaticDefaults() {
 			//Get values needed to generate tooltips
 			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
 
@@ -729,7 +737,7 @@ namespace WeaponEnchantments.Items {
 
 			fullTooltip.AddRange(GetAllowedListTooltips());
 
-			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass == -1 && Utility == false) {
+			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 1 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{EnchantmentTypeName.AddSpaces()} Only*",
@@ -752,9 +760,9 @@ namespace WeaponEnchantments.Items {
 			}
 
 			//RestrictedClass
-			if (RestrictedClass > -1) {
+			if (RestrictedClass.Count > 0) {
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *Not allowed on {((DamageClassID)GetDamageClass(RestrictedClass)).ToString().AddSpaces()} weapons*",
+					$"   *Not allowed on {RestrictedClass.Select(c => ((DamageClassID)GetDamageClass(c)).ToString().AddSpaces()).JoinList(", ", " or ")} weapons*",
 					Color.White
 				));
 			}

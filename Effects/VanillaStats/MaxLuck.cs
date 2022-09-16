@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MaxLuck(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MaxLuck(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MaxLuck(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MaxLuck;
     }
 }

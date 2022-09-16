@@ -16,7 +16,11 @@ namespace WeaponEnchantments.Effects
     {
         public EnemyMaxSpawns(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        }
+		}
+		public EnemyMaxSpawns(EStatModifier eStatModifier) : base(eStatModifier) { }
+		public override EnchantmentEffect Clone() {
+			return new EnemyMaxSpawns(EStatModifier.Clone());
+		}
 
 		public override EnchantmentStat statName => EnchantmentStat.EnemyMaxSpawns;
 	}

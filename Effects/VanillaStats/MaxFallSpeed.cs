@@ -13,6 +13,10 @@ namespace WeaponEnchantments.Effects {
         public MaxFallSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
         }
+        public MaxFallSpeed(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new MaxFallSpeed(EStatModifier.Clone());
+        }
         public override EnchantmentStat statName => EnchantmentStat.MaxFallSpeed;
     }
 }

@@ -16,7 +16,11 @@ namespace WeaponEnchantments.Effects
     {
         public CrateChance(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        }
+		}
+		public CrateChance(EStatModifier eStatModifier) : base(eStatModifier) { }
+		public override EnchantmentEffect Clone() {
+			return new CrateChance(EStatModifier.Clone());
+		}
 
 		public override string Tooltip => $"{EStatModifier.SignPercentMult100Tooltip} {DisplayName}";
 		public override EnchantmentStat statName => EnchantmentStat.CrateChance;

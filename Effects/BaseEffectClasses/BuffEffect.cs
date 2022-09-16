@@ -115,6 +115,13 @@ namespace WeaponEnchantments.Effects {
                 BuffStats = new BuffStats(buffName, buffID, duration, chance, disableImmunity, buffStrength);
             }
         }
+        public BuffEffect(BuffStyle buffStyle, BuffStats buffStats) {
+            BuffStyle = buffStyle;
+            BuffStats = buffStats;
+		}
+		public override EnchantmentEffect Clone() {
+            return new BuffEffect(BuffStyle, BuffStats.Clone());
+		}
 		public string GetBuffName(int id) { // C# is crying
             string name = null;
             if (id < BuffID.Count) {

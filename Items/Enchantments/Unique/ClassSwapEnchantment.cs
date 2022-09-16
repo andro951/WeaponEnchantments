@@ -22,6 +22,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }
 			};
+
+
+			RestrictedClass.Add((int)DamageClassID.Summon);
+			RestrictedClass.Add(MyDamageClass.Type);
 		}
 
 		public override string Artist => "andro951";
@@ -30,11 +34,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public abstract class MeleeClassSwapEnchantment : ClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		protected override DamageClass MyDamageClass => DamageClass.Melee;
 	}
 	public class MeleeClassSwapEnchantmentBasic : MeleeClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.CorruptSlime),
 			new(NPCID.EaterofSouls),
@@ -53,6 +57,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class WhipClassSwapEnchantmentBasic : WhipClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.JungleBat),
 			new(NPCID.JungleSlime)
@@ -70,6 +75,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class MagicClassSwapEnchantmentBasic : MagicClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.IceSlime),
 			new(NPCID.ZombieEskimo)
@@ -87,6 +93,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RangedClassSwapEnchantmentBasic : RangedClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => new() {
 			new(NPCID.Antlion),
 			new(NPCID.Vulture)
@@ -106,6 +113,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<WeightedPair> NpcDropTypes => WEMod.calamityEnabled ? new () {
 			new(NPCID.KingSlime, 9f)
 		} : null;
