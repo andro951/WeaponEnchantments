@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Items.Utility
 		public override SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override void GetMyStats() {
 			Effects = new() {
-				new BuffEffect(buffID, BuffStyle.OnTickPlayerBuff, duration: 12 * (uint)WEMod.serverConfig.BuffDuration, chance: EnchantmentStrengthData)
+				new BuffEffect(buffID, BuffStyle.OnTickPlayerBuff, duration: (uint)(EnchantmentStrength * (12 * WEMod.serverConfig.BuffDuration)))
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items.Utility
 			};
 		}
 
-		public override string ShortTooltip => $"Passively grants {EnchantmentTypeName.AddSpaces()} for {new Time((uint)EnchantmentStrength * 12 * (uint)WEMod.serverConfig.BuffDuration)} every {ConfigValues.BuffDurationTicks}.";
+		public override string ShortTooltip => $"Passively grants {EnchantmentTypeName.AddSpaces()} for {new Time((uint)(EnchantmentStrength * 12 * WEMod.serverConfig.BuffDuration))} every {ConfigValues.BuffDurationTicks}.";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}

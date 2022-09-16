@@ -375,7 +375,8 @@ namespace WeaponEnchantments.Items {
 		public virtual void GetMyStats() { } //Meant to be overriden in the specific Enchantment class.
 		public override ModItem Clone(Item newEntity) {
 			Enchantment clone = (Enchantment)base.Clone(newEntity);
-			clone.EnchantmentStrengthData = EnchantmentStrengthData.Clone();
+			//clone.EnchantmentStrengthData = EnchantmentStrengthData.Clone();
+			string name = Name;
 			clone.Effects = Effects.Select(e => e.Clone()).ToList();
 
 			return clone;
@@ -689,7 +690,7 @@ namespace WeaponEnchantments.Items {
 
 			return true;
 		}
-		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true) {
+		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true, string text = null) {
 			string s = "";
 			if (showValue) {
 				float strength = (float)Math.Round(EnchantmentStrength * AllowedListMultiplier, 3);
@@ -707,7 +708,7 @@ namespace WeaponEnchantments.Items {
 				s += " ";
 			}
 
-			s += EnchantmentTypeName.AddSpaces();
+			s += text ?? EnchantmentTypeName.AddSpaces();
 
 			if (!showValue)
 				s += $" {EnchantmentTier}";

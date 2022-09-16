@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Terraria.ID;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
@@ -14,6 +15,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 				new AmmoCost(@base: EnchantmentStrengthData)
 			};
 		}
+
+		public override string ShortTooltip => GetShortTooltip(text: EnchantmentStrength > 0f ? "Chance To Not Consume Ammo" : "Increased Ammo Cost");
 
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;

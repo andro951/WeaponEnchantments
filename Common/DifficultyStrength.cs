@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Common
 			if (ds == null)
 				return null;
 
-			float[] arr = (float[])ds._values.Clone();
+			float[] arr = (float[])ds._values;
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] *= mult;
 			}
@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Common
 			if (ds == null)
 				return null;
 
-			float[] arr = (float[])ds._values.Clone();
+			float[] arr = (float[])ds._values;
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] += mult;
 			}
@@ -52,7 +52,7 @@ namespace WeaponEnchantments.Common
 			if (ds == null)
 				return null;
 
-			float[] arr = (float[])ds._values.Clone();
+			float[] arr = (float[])ds._values;
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] = (float)Math.Pow(arr[i], mult);
 			}
@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Common
 			return new DifficultyStrength(arr);
 		}
 		public DifficultyStrength Invert() {
-			float[] arr = (float[])_values.Clone();
+			float[] arr = (float[])_values;
 			for (int i = 0; i < arr.Length; i++) {
 				arr[i] = 1f / arr[i];
 			}

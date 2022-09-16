@@ -19,6 +19,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
         public void AddSubHeading(string text, int num = 1) => Add(new SubHeading(text, num));
         public void AddParagraph(string text) => Add(new Paragraph(text));
         public void AddLink(string s, string text = null, bool png = false) => Add(new Link(s, text, png));
+        public void AddPNG(string s) => s.ToPNG();
         public void AddBulletedList(bool png = false, bool links = false, params object[] elements) => Add(new BulletedList(png, links, elements));
         public void AddTable<T>(IEnumerable<IEnumerable<T>> elements, IEnumerable<string> headers = null, string label = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false, int maxWidth = 0, AlignID alignID = AlignID.none) where T : class {
             if (elements.Count() > 0)

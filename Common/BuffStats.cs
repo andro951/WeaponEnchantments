@@ -74,7 +74,7 @@ namespace WeaponEnchantments.Common
 			_originalDuration = _duration.Clone();
 			Chance = chance;
 			DisableImmunity = disableImmunity;
-			buffStrengths = buffStrength;
+			buffStrengths = buffStrength?.Clone();
 		}
 		public BuffStats(string buffName, short buffID, uint duration, float chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			if (buffStrength != null)
@@ -86,7 +86,7 @@ namespace WeaponEnchantments.Common
 			_originalDuration = _duration.Clone();
 			Chance = chance;
 			DisableImmunity = disableImmunity;
-			buffStrengths = buffStrength;
+			buffStrengths = buffStrength?.Clone();
 		}
 		public BuffStats(string buffName, short buffID, Time duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			_waitingForEnterWorld = true;
@@ -96,7 +96,7 @@ namespace WeaponEnchantments.Common
 			_originalDuration = _duration.Clone();
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
-			buffStrengths = buffStrength;
+			buffStrengths = buffStrength?.Clone();
 		}
 		public BuffStats(string buffName, short buffID, uint duration, DifficultyStrength chance, bool disableImmunity, DifficultyStrength buffStrength) {
 			_waitingForEnterWorld = true;
@@ -106,7 +106,7 @@ namespace WeaponEnchantments.Common
 			_originalDuration = _duration.Clone();
 			_chanceDifficultyStrengths = chance;
 			DisableImmunity = disableImmunity;
-			buffStrengths = buffStrength;
+			buffStrengths = buffStrength?.Clone();
 		}
 		private void SetUpChanceDifficultyStrength() {
 			if (_chanceDifficultyStrengths != null) {
