@@ -79,8 +79,9 @@ namespace WeaponEnchantments.Common.Utility
         QuestFishChance,
         Size,
         WingTime,
-        WhipRange
-    }
+        WhipRange,
+		YoyoStringLength
+	}
     public static class ID_Dictionaries
     {
         public static List<EnchantmentStat> WeaponStatDict = new List<EnchantmentStat>() {

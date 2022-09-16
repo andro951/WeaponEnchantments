@@ -130,6 +130,91 @@ namespace WeaponEnchantments
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
         }
+        public static void HookFishingCheck_RollDropLevels(ILContext il) {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchCall(out _),
+                i => i.MatchLdcI4(100),
+                i => i.MatchCallvirt(out _),
+                i => i.MatchLdloc(5)
+            )) { throw new Exception("Failed to find instuctions HookFishingCheck_RollDropLevels"); }
+
+            c.EmitDelegate((int crateChance) => {
+                if (Main.LocalPlayer?.TryGetModPlayer(out WEPlayer wePlayer) == true) {
+                    if (wePlayer.CheckEnchantmentStats(EnchantmentStat.CrateChance, out float mult, 1f))
+                        crateChance = (int)Math.Round((float)crateChance * mult);
+                }
+
+                return crateChance;
+            });
+        }
+        public static void HookFishingCheck(ILContext il) {
+            var c = new ILCursor(il);
+
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdloc(9),
+                i => i.MatchLdcI4(2)
+            )) { throw new Exception("Failed to find instuctions HookFishingCheck"); }
+
+            c.Index++;
+
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate((int lavaFishingNum, Projectile projectile) => {
+                if (projectile.ValidOwner(out Player player)) {
+                    if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult)) {
+                        lavaFishingNum += (int)mult;
+                        mult %= 1f;
+                        if (Main.rand.NextFloat() <= mult)
+                            lavaFishingNum++;
+                    }
+                }
+
+                return lavaFishingNum;
+            });
+        }
+        private static float ModifyYoyoStringLength(float stringLength, Projectile projectile) {
+            if (projectile.ValidOwner(out Player player)) {
+                if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.YoyoStringLength, out float mult, 1f))
+                    stringLength *= mult;
+            }
+
+            return stringLength;
+        }
+        public static void HookAI_099_1(ILContext il) {
+            var c = new ILCursor(il);
+            //ldarg.0 is this projectile
+
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdarg(0),
+                i => i.MatchLdarg(0),
+                i => i.MatchLdfld(out _),
+                i => i.MatchLdcR4(0.5f),
+                i => i.MatchAdd(),
+                i => i.MatchStfld(out _)
+                )) { throw new Exception("Failed to find instructions HookAI_099_1"); }
+
+            c.Emit(OpCodes.Ldloc_1);
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate((float stringLength, Projectile projectile) => ModifyYoyoStringLength(stringLength, projectile));
+            c.Emit(OpCodes.Stloc_1);
+        }
+        public static void HookAI_099_2(ILContext il) {
+            var c = new ILCursor(il);
+            //ldarg.0 is this projectile
+
+            if (!c.TryGotoNext(MoveType.After,
+                i => i.MatchLdcR4(200f),
+                i => i.MatchStloc(5),
+                i => i.MatchLdsfld(out _),
+                i => i.MatchLdarg(0),
+                i => i.MatchLdfld(out _),
+                i => i.MatchLdelemR4()
+                )) { throw new Exception("Failed to find instructions HookAI_099_2"); }
+
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate((float stringLength, Projectile projectile) => ModifyYoyoStringLength(stringLength, projectile));
+        }
 
         #endregion
 
@@ -2242,48 +2327,6 @@ namespace WeaponEnchantments
 		public override void ModifyFishingAttempt(ref FishingAttempt attempt) {
             if (!attempt.CanFishInLava && CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult))
                 attempt.CanFishInLava = true;
-        }
-        public static void HookFishingCheck_RollDropLevels(ILContext il) {
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchCall(out _),
-                i => i.MatchLdcI4(100),
-                i => i.MatchCallvirt(out _),
-                i => i.MatchLdloc(5)
-            )) { throw new Exception("Failed to find instuctions HookFishingCheck_RollDropLevels"); }
-
-            c.EmitDelegate((int crateChance) => {
-                if (Main.LocalPlayer?.TryGetModPlayer(out WEPlayer wePlayer) == true) {
-                    if (wePlayer.CheckEnchantmentStats(EnchantmentStat.CrateChance, out float mult, 1f))
-                        crateChance = (int)Math.Round((float)crateChance * mult);
-                }
-
-                return crateChance;
-            });
-        }
-        public static void HookFishingCheck(ILContext il) {
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.Before,
-                i => i.MatchLdloc(9),
-                i => i.MatchLdcI4(2)
-            )) { throw new Exception("Failed to find instuctions HookFishingCheck"); }
-
-            c.Index++;
-
-            c.Emit(OpCodes.Ldarg_0);
-            c.EmitDelegate((int lavaFishingNum, Projectile projectile) => {
-                WEPlayer wePlayer = Main.player[projectile.owner].GetWEPlayer();
-                if (wePlayer.CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult)) {
-                    lavaFishingNum += (int)mult;
-                    mult %= 1f;
-                    if (Main.rand.NextFloat() <= mult)
-                        lavaFishingNum++;
-                }
-
-                return lavaFishingNum;
-            });
         }
 
         #endregion

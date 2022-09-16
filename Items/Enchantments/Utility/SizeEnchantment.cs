@@ -11,7 +11,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		public override void GetMyStats() {
 			Effects = new() {
 				new Size(EnchantmentStrengthData),
-				new WhipRange(EnchantmentStrengthData)
+				new WhipRange(EnchantmentStrengthData),
+				new YoyoStringLength(EnchantmentStrengthData)
 			};
 		}
 

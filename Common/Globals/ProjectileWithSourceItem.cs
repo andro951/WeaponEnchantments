@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Common.Globals
         protected bool updated = false;
 
 		public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) {
-            return entity.owner >= 0 && entity.owner < Main.player.Length;
+            return entity.ValidOwner(out _);
         }
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             //All other sources

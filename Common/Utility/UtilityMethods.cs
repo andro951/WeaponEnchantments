@@ -672,6 +672,15 @@ namespace WeaponEnchantments.Common.Utility
 
             return type;
         }
+        public static bool ValidOwner(this Projectile projectile, out Player player) {
+            player = null;
+            if (projectile.owner >= 0 && projectile.owner < Main.player.Length) {
+                player = Main.player[projectile.owner];
+                return true;
+			}
+            
+            return false;
+        }
 
         #endregion
     }

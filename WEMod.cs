@@ -46,6 +46,8 @@ namespace WeaponEnchantments
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
 			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
+			IL.Terraria.Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
+			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
 		public override void PostSetupContent() {
 			//Census mod support
