@@ -356,10 +356,6 @@ namespace WeaponEnchantments
             if (!noSound)
                 SoundEngine.PlaySound(SoundID.MenuOpen);
 
-            if (wePlayer.enchantingTableTier > 0) {
-                QuickStackEssence();
-            }
-
             UIState state = new UIState();
             state.Append(wePlayer.enchantingTableUI);
             weModSystemUI.SetState(state);
