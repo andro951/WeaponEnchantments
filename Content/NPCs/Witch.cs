@@ -316,12 +316,15 @@ namespace WeaponEnchantments.Content.NPCs
 			foreach(int i in NPCID.Sets.TownNPCBestiaryPriority) {
 				int npcWhoAmI = NPC.FindFirstNPC(i);
 				if (npcWhoAmI >= 0) {
-					string[] args = { npcID.ToString() };
-					if (((TownNPCTypeID)i).ToString().Lang(out string c, L_ID1.Dialogue, npcID, args))
+					string otherNPCString = ((TownNPCTypeID)i).ToString();
+					string otherNPCName = Main.npc[npcWhoAmI].GivenName;
+					string[] args = { otherNPCName };
+					if (otherNPCString.Lang(out string c, L_ID1.Dialogue, npcID, args))
 						chat.Add(c, 0.5);
 				}
 			}
 		}
+
 		public void AddBiomeDialogues(WeightedRandom<string> chat, L_ID2 npcID, bool shareCorrupted = true) {
 			Player player = Main.LocalPlayer;
 			foreach(BiomeID biomeName in Enum.GetValues(typeof(BiomeID))) {

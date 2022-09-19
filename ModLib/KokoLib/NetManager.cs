@@ -32,9 +32,10 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			//AmaterasuDebuff.ForceUpdate(npc);
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
 
-			WEGlobalNPC wEGlobalNPC = target.GetWEGlobalNPC();
-			wEGlobalNPC.amaterasuDamage += damage;
-			wEGlobalNPC.amaterasuStrength = amaterasuStrength;
+			if (target.TryGetWEGlobalNPC(out WEGlobalNPC wEGlobalNPC)) {
+				wEGlobalNPC.amaterasuDamage += damage;
+				wEGlobalNPC.amaterasuStrength = amaterasuStrength;
+			}
 
 			target.ApplyBuffs(debuffs);
 

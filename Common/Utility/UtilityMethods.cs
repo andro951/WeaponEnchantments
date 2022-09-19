@@ -60,6 +60,7 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
+        public static bool TryGetWEGlobalNPC(this NPC npc, out WEGlobalNPC weGlobalNPC) => npc.TryGetGlobalNPC(out weGlobalNPC);
         public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory ac) || item.TryGetGlobalItem(out EnchantedFishingPole fp) || item.TryGetGlobalItem(out EnchantedTool t));
         public static bool TryGetEnchantedItemSearchAll(this Item item, out EnchantedItem iGlobal) {
             iGlobal = null;
@@ -473,7 +474,7 @@ namespace WeaponEnchantments.Common.Utility
         public static string Lang(this string s, L_ID1 id, L_ID2 id2, IEnumerable<string> args) => s.Lang(out string result, id, id2, args) ? result : "";
         public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<string> args) {
             string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
-            result = Language.GetTextValue(key, args);
+            result = Language.GetTextValue(key, args.ToArray());
 
             if (result == key) {
                 return false;

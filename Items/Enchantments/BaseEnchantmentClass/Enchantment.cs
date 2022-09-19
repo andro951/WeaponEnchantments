@@ -928,19 +928,20 @@ namespace WeaponEnchantments.Items {
 			return toolTip;
 		}*/
 		public static int GetDamageClass(int damageType) {
-			switch ((DamageClassID)damageType) {
-				case DamageClassID.Melee:
-				case DamageClassID.MeleeNoSpeed:
+
+			switch (damageType) {
+				case (int)DamageClassID.Melee:
+				case (int)DamageClassID.MeleeNoSpeed:
 					return (int)DamageClassID.Melee;
-				case DamageClassID.Ranged:
+				case (int)DamageClassID.Ranged:
 					return (int)DamageClassID.Ranged;
-				case DamageClassID.Magic:
+				case (int)DamageClassID.Magic:
 					return (int)DamageClassID.Magic;
-				case DamageClassID.Summon:
-				case DamageClassID.MagicSummonHybrid:
-				case DamageClassID.SummonMeleeSpeed:
+				case (int)DamageClassID.Summon:
+				case (int)DamageClassID.MagicSummonHybrid:
+				case (int)DamageClassID.SummonMeleeSpeed:
 					return (int)DamageClassID.Summon;
-				case DamageClassID.Throwing:
+				case (int)DamageClassID.Throwing:
 					return (int)DamageClassID.Throwing;
 				default:
 					if (WEMod.calamityEnabled) {
