@@ -119,22 +119,49 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				$"# Remove the item from the enchanting table (move with mouse or shift click.)  (There is no confirm button for enchantments)");
 
             EnchantingTable.AddSubHeading("Offer" + "OfferButton".ToPNG());
-            EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" +
-				$"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" +
-				$"It sta");
+            EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" + 
+                $"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" + 
+                $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.  \n" + 
+                $"# Place the item you want to offer in the item slot." + 
+                $"# press the offer button." +
+				$"Press confirm." +
+				$"You recieve the offer rewards items.");
+
+            EnchantingTable.AddSubHeading("Syphon" + "SyphonButton".ToPNG());
+            EnchantingTable.AddParagraph($"If you have a max level item (level 40), you can convert any excess experience on the item past level 40 " +
+				$"(past 100M experience) into essence.\n" +
+				$"# Place the max level item into the item slot." +
+				$"# Click syphon." +
+				$"# Essence will be deposited into the enchanting table interface.");
 
             EnchantingTable.AddSubHeading("Infusion" + "InfusionButton".ToPNG());
-            EnchantingTable.AddParagraph($"");
+            EnchantingTable.AddParagraph($"Allows you to consume a weapon to enhance the power of a lower tier weapon to about the same power as the " +
+				$"consumed weapon or transfers the set bonus from a piece of armor to anohter.  Any experience/enchantments/power booster on a consumed item will be returned just like {"offering".ToLink()}.");
 
             EnchantingTable.AddSubHeading("Weapon Infusion", 2);
-            EnchantingTable.AddParagraph($"");
+            EnchantingTable.AddParagraph($"Allows you to consume high rarity items to upgrade the damage of low rarity weapons.  \n" +
+				$"Example, if you like Veilthorn more than your newer/stronger weapon, just infuse the new weapon into Veilthorn to upgrade it's damage instead of switching.  \n" +
+				$"The damage bonus is based on the difference in rarity and value between the 2 items. Terraria has 10 rarities of vanilla weapons, so I based the system off of those.  \n" +
+				$"(modded items can be rarity 11 which will cause their Infusion Power to be the same as the max value rarity 10 items (1100).  \n" +
+				$"Infusion Power - A weapon stat that is determined by an item's rarity and value. 100 Infusion Power per rarity (rarity x100).  \n" +
+				$"Additionally, the item's rarity will give up to 100 extra infusion power based on the value of the item compared to the average value of items in that rarity.  \n" +
+				$"(Example: items of rarity 0 have an average value of about 3000 copper (30 silver). The lowest value item is worth 100 copper.  \n" +
+				$"This 100 copper item would have an infusion power of 0. A rarity 0 item worth the average value (~30 silver) would have an infusion power of 50.  \n" +
+				$"The max value rarity 0 item would have 100 infusion power. The min, max and average values are calculated based only on vanilla items.  \n" +
+				$"Modded items that are above or below the min/max values will be counted as the min/max value for the infusion power calculation.  \n" +
+				$"Currently, the highest Infusion Power possible for weapons is from Meowmere (1100) because it is rarity 10 and has the highest item value of rarity 10 weapons.  \n" +
+				$"Weapon infusion steps:\n" +
+				$"# Place the higher Infusion Power item into the enchanting table (this item will be destroyed)\n" +
+				$"# Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)\n" +
+				$"# Place the lower Infusion Power item into the enchanting table Click Finalize (Same button as Infusion/Cancel)");
 
             EnchantingTable.AddSubHeading("Armor Infusion", 2);
-            EnchantingTable.AddParagraph($"");
-
-            EnchantingTable.AddBulletedList(elements: new string[] {
-
-            });
+            EnchantingTable.AddParagraph($"Allows you to consume a piece of armor and replace the set bonus of an item with one from another.  \n" +
+				$"The piece of armor will act like the consumed one for the purposes of determining set bonuses. The piece of armor will also look like the consumed one while equiped.  \n" +
+				$"Armor infusion steps:\n" +
+				$"# Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)\n" +
+				$"# Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)\n" +
+				$"# Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's) Click Finalize (Same button as Infusion/Cancel)");
 
             webPages.Add(EnchantingTable);
         }

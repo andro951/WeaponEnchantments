@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Globals
 				#region Infusion
 
 				clone.infusedArmorSlot = infusedArmorSlot;
-				clone.infusedItem = infusedItem.Clone();
+				clone.infusedItem = infusedItem?.Clone();
 
 				#endregion
 			}
