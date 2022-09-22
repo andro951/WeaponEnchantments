@@ -225,20 +225,6 @@ namespace WeaponEnchantments.UnusedFunctions
 				return new Item();
 			}
 		}
-
-		//Currently not used in ExampleMod, but functions correctly
-		public static void SpawnCoins(int coinValue, Player player)
-		{
-			int valuePerCoin = 1000000;//Starting with value of 1 platinum coin.
-			for (int i = 3; i >= 0; i--)
-			{
-				int coins = coinValue / valuePerCoin;
-				coinValue %= valuePerCoin;
-				valuePerCoin /= 100;
-				if (coins > 0)
-					player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.CopperCoin + i, coins);
-			}
-		}
 		*/
 	}
 }

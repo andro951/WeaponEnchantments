@@ -169,7 +169,7 @@ namespace WeaponEnchantments.Content.NPCs
 		private void GetItemsForShop() {
 			shopEnchantments = new();
 			List<ISoldByWitch> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell()).ToList();
-			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).ToList();
+			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
 			List<ISoldByWitch> otherItems = allItems
 				.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always)
 				.GroupBy(i => ((ModItem)i).TypeAboveModItem().Name)
@@ -324,7 +324,6 @@ namespace WeaponEnchantments.Content.NPCs
 				}
 			}
 		}
-
 		public void AddBiomeDialogues(WeightedRandom<string> chat, L_ID2 npcID, bool shareCorrupted = true) {
 			Player player = Main.LocalPlayer;
 			foreach(BiomeID biomeName in Enum.GetValues(typeof(BiomeID))) {
@@ -377,7 +376,7 @@ namespace WeaponEnchantments.Content.NPCs
 					return 100f + 50f * (c - SellCondition.PostGolem);
 				case <= SellCondition.PostVortexTower:
 					return 500f;
-				case SellCondition.PostMoonLord:
+				case <= SellCondition.PostMoonLord:
 					return 1000f;
 				default:
 					return 1f;

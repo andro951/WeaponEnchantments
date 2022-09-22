@@ -274,6 +274,7 @@ namespace WeaponEnchantments.Common.Globals
             switch (arg) {
                 case NPCID.WallofFlesh:
                 case NPCID.MoonLordCore:
+                case NPCID.TorchGod:
                     chance *= 2f;
                     break;
             }

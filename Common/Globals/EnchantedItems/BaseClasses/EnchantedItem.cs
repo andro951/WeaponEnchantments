@@ -1269,7 +1269,7 @@ namespace WeaponEnchantments.Common.Globals
                     actualDamage *= 2f;
             }
 
-            //live vs damage check
+            //life vs damage check
             int xpDamage = (int)actualDamage;
             if (target.life < 0)
                 xpDamage += target.life;

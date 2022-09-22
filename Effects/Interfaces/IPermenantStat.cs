@@ -23,6 +23,6 @@ namespace WeaponEnchantments.Effects {
         /// <param name="knockback">The amount of knockback about to be sustained by the npc</param>
         /// <param name="crit">Whether or not the damage is from a critical strike</param>
         /// <param name="projectile">If it was issued by a projectile, the projectile instance.</param>
-        public void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null);
+        public void OnHitNPC(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null);
     }
 }

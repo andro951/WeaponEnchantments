@@ -1560,7 +1560,7 @@ namespace WeaponEnchantments
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
             foreach (IOnHitEffect effect in CombinedOnHitEffects) {
-                effect.OnAfterHit(target, this, item, damage, knockback, crit, proj);
+                effect.OnHitNPC(target, this, item, damage, knockback, crit, proj);
             }
         }
 

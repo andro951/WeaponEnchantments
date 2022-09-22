@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Effects {
 
         public override string Tooltip => $"Enemies hit become the minion attack target.  Same effect as whips.";
 
-		public void OnAfterHit(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
+		public void OnHitNPC(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
             wePlayer.Player.MinionAttackTargetNPC = npc.whoAmI;
         }
 	}

@@ -269,6 +269,16 @@ namespace WeaponEnchantments.Common.Utility
                 coinValue /= 100;
             }
         }
+        public static void SpawnCoins(this Player player, int coinValue) {
+            int valuePerCoin = 1000000;
+            for (int i = 3; i >= 0; i--) {
+                int coins = coinValue / valuePerCoin;
+                coinValue %= valuePerCoin;
+                valuePerCoin /= 100;
+                if (coins > 0)
+                    player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.CopperCoin + i, coins);
+            }
+        }
         public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
             if (item.TryGetEnchantedItem(out EnchantedItem iGlobal) && consumedItem.TryGetEnchantedItem(out EnchantedItem cGlobal)) {
                 long xp = (long)iGlobal.Experience + (long)cGlobal.Experience;

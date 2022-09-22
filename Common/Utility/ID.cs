@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Common.Utility
         AttackSpeed,
         ArmorPenetration,
         AutoReuse,
-        BonusManaRegen,
+		BonusManaRegen,
 		CatastrophicRelease,
         Channel,
         CrateChance,
@@ -261,7 +261,8 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum SellCondition
 	{
-        IgnoreCondition,
+		PlayerHasLessThan1Gold = -1,
+		IgnoreCondition,
         Never,
         Always,
         AnyTime,
@@ -300,7 +301,7 @@ namespace WeaponEnchantments.Common.Utility
                 case SellCondition.AnyTime:
                 case SellCondition.AnyTimeRare:
                     return true;
-                case SellCondition.PostKingSlime:
+				case SellCondition.PostKingSlime:
                     return NPC.downedSlimeKing;
                 case SellCondition.PostEyeOfCthulhu:
                     return NPC.downedBoss1;
@@ -346,7 +347,10 @@ namespace WeaponEnchantments.Common.Utility
                     return NPC.downedAncientCultist;
                 case SellCondition.PostMoonLord:
                     return NPC.downedMoonlord;
-                case SellCondition.Never:
+				case SellCondition.PlayerHasLessThan1Gold:
+					bool has1Gold = Main.LocalPlayer.CanBuyItem(10000);
+					return !has1Gold;
+				case SellCondition.Never:
                 default:
                     return false;
             }
