@@ -41,7 +41,7 @@ namespace WeaponEnchantments.Common.Utility
         ArmorPenetration,
         AutoReuse,
         BonusManaRegen,
-        CatastrophicRelease,
+		CatastrophicRelease,
         Channel,
         CrateChance,
         CriticalStrikeChance,

@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Effects {
         /// This happens before health regeneration and gravity and such.
         /// </para>
         /// </summary>
-        /// <param name="player">The player for which this enchantment applies</param>
-        public void PostUpdateMiscEffects(WEPlayer player);
+        /// <param name="wePlayer">The player for which this enchantment applies</param>
+        public void PostUpdateMiscEffects(WEPlayer wePlayer);
     }
 }
