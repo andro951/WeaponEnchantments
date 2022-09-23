@@ -259,11 +259,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             }
 
             List<RecipeData> myRecipeData2 = myRecipeData.Where(rd => rd.requiredTile.ToString().Contains("Enchanting Table"))
-                .OrderBy(rd => -rd.requiredTile.ToString().Length - (usedIn ? rd.createItem.All.FirstEnchantmentStrength() : rd.requiredItem.All.FirstEnchantmentStrength()))
+                .OrderBy(rd => (rd.requiredTile.ToString().Contains("<br/>or<br/>") ? -rd.requiredTile.ToString().Length : 10 * EnchantingTableItem.GetTableTier(rd.requiredTile.ToString())) - (usedIn ? rd.createItem.All.FirstEnchantmentStrength() : rd.requiredItem.All.FirstEnchantmentStrength()))
                 .ToList();
             
             List<RecipeData> myRecipeData3 = myRecipeData
                 .Where(rd => !rd.requiredTile.ToString().Contains("Enchanting Table"))
+                .OrderBy(rd => rd.requiredItem.ToString().Length)
                 .ToList();
             
 
@@ -315,7 +316,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 list.Add(requiredTiles);
             }
             else {
-                list.Add($"By Hand\n");
+                list.Add($"By Hand");
             }
 
             recipes.Add(list);

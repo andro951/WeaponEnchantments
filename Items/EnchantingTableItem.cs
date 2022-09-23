@@ -13,10 +13,18 @@ namespace WeaponEnchantments.Items
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
 		public static int[] IDs = new int[enchantingTableNames.Length];
+		public static int[] Values = new int[enchantingTableNames.Length];
+		private static List<Dictionary<int, int>> ingredients = new() {
+			new() { { ItemID.WorkBench, 1 }, { ItemID.Torch, 4 } },
+			new() { { ItemID.FossilOre, 1 } },
+			new() { { ItemID.ObsidianSkull, 1 }, { ItemID.Hellstone, 2 } },
+			new() { { ItemID.SoulofLight, 2 } },
+			new() { { ItemID.HallowedBar, 2 } }
+		};
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public virtual List<WikiItemTypeID> WikiItemTypes {
 			get {
-				List<WikiItemTypeID> types = new() { WikiItemTypeID.EnchantingTable, WikiItemTypeID.Storage, WikiItemTypeID.CraftingStation };
+				List<WikiItemTypeID> types = new() { WikiItemTypeID.EnchantingTables, WikiItemTypeID.Storage, WikiItemTypeID.CraftingStation };
 				if (enchantingTableTier < EnchantingRarity.tierNames.Length - 1)
 					types.Add(WikiItemTypeID.CraftingMaterial);
 
@@ -32,6 +40,12 @@ namespace WeaponEnchantments.Items
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 
 			IDs[enchantingTableTier] = Type;
+
+			for(int i = 0; i <= enchantingTableTier; i++) {
+				foreach (KeyValuePair<int, int> pair in ingredients[i]) {
+					Values[enchantingTableTier] += ContentSamples.ItemsByType[pair.Key].value * pair.Value;
+				}
+			}
 
 			LogModSystem.UpdateContributorsList(this);
 		}
@@ -75,7 +89,8 @@ namespace WeaponEnchantments.Items
 			Item.useTime = 10;
 			Item.useAnimation = 15;
 			Item.consumable = true;
-			Item.value = 150;
+			Item.rare = EnchantingRarity.GetRarityFromTier(enchantingTableTier);
+			Item.value = Values[enchantingTableTier];
 		}
 
 		private string GetTableName(int tier) {
@@ -133,6 +148,15 @@ namespace WeaponEnchantments.Items
 					recipe.Register();
 				}
 			}
+		}
+
+		public static int GetTableTier(string s) {
+			for(int i = 0; i < enchantingTableNames.Length; i++) {
+				if (s.Contains(enchantingTableNames[i]))
+					return i;
+			}
+
+			return enchantingTableNames.Length;
 		}
 	}
 	public class WoodEnchantingTable : EnchantingTableItem { }

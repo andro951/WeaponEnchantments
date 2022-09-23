@@ -37,7 +37,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             GetDrops();
             IEnumerable<ContainmentItem> containmentItems = modItems.OfType<ContainmentItem>().OrderBy(c => c.tier);
             IEnumerable<EnchantingTableItem> enchantingTables = modItems.OfType<EnchantingTableItem>().OrderBy(t => t.enchantingTableTier);
-            IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.Name);
+            IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.EssenceTier);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
 
             List<WebPage> webPages = new();
@@ -79,27 +79,24 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(Containments);
         }
         private static void AddEnchantingTables(List<WebPage> webPages, IEnumerable<EnchantingTableItem> enchantingTables) {
-            WebPage EnchantingTable = new("Enchantment enchantingTable");
+            WebPage EnchantingTable = new("Enchanting Tables");
             foreach (EnchantingTableItem enchantingTable in enchantingTables) {
                 int tier = enchantingTable.enchantingTableTier;
                 EnchantingTable.AddParagraph($"{enchantingTable.Item.ToItemPNG(link: true)} (Tier {tier})");
                 WebPage enchantingTablePage = new(enchantingTable.Item.Name);
                 ItemInfo itemInfo = new(enchantingTable);
-                enchantingTablePage.AddLink("Enchantment enchantingTable");
+                enchantingTablePage.AddLink("Enchanting Tables");
                 itemInfo.AddStatistics(enchantingTablePage);
                 itemInfo.AddDrops(enchantingTablePage);
-                itemInfo.AddDrops(enchantingTablePage);
+                itemInfo.AddInfo(enchantingTablePage);
                 itemInfo.AddRecipes(enchantingTablePage);
                 webPages.Add(enchantingTablePage);
-
-                EnchantingTable.AddParagraph($"{enchantingTable.Item.ToItemPNG(link: true)} (Tier {tier})");
             }
 
-            EnchantingTable.AddPNG("EnchantingTableUI");
             EnchantingTable.AddParagraph($"All of the essence you pick up are stored in the enchanting table interface. " +
-				$"Right clicking the enchanting table opens the interface. In an enchanting table you can {"".ToSectionLink("create and upgrade", "Enchantments")} enchantments via crafting, " +
+				$"Right clicking the enchanting table opens the interface. In an enchanting table you can {"Crafting and Upgrading Enchantments".ToSectionLink("create and upgrade", "Enchantments")} enchantments via crafting, " +
 				$"{"Enchanting items".ToSectionLink("apply and remove")} enchantments, {"Leveling items up".ToSectionLink("convert essence to item experience")}, " +
-				$"{"Offer".ToSectionLink("offer")} items, {"".ToSectionLink("syphon")} items and {"".ToSectionLink("infuse")} items." +
+				$"{"Offer".ToSectionLink("offer")} items, {"Syphon".ToSectionLink("syphon")} items and {"Infusion".ToSectionLink("infuse")} items." +
 				$"");
             EnchantingTable.AddSubHeading("Leveling items up");
             EnchantingTable.AddParagraph($"Item experienced can be gained by {"".ToSectionLink("using the item", "")} or consuming essence in the enchanting table interface.\n" +
@@ -107,36 +104,40 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				$"# Place your item in the Item slot\n" +
 				$"# Click the Level Up button\n" +
 				$"# Enough essence is used to level your item up once.\n" +
+				$"Essence can be favorited in the enchanting table interface to prevent it from being consumed by the level up button " +
+				$"(ignored if you don't have enough total essence to level up without the favorited essence)<br/>\n" +
 				$"* XP buttons { "XPButtons".ToPNG()}\n" +
 				$"# Place your item in the Item slot\n" +
 				$"# Click the XP button below the essence you want to consume for experience\n" +
 				$"# One essence of that type is consumed, adding experience to your item");
 
             EnchantingTable.AddSubHeading("Enchanting items");
+            EnchantingTable.AddPNG("EnchantingTableUI");
             EnchantingTable.AddParagraph($"To enchant an item, it must have enough {"Enchantment Capacity"} to handle the new enchantment's capacity cost.\n" +
 				$"# Place the item you wish to enchant into the item slot.  (You can shift left click from your inventory instead of using your mouse)\n" +
 				$"# Add (or remove) the enchantment(s) you wish using the enchantment slots.  (Can also be shift clicked from your inventory)\n" +
 				$"# Remove the item from the enchanting table (move with mouse or shift click.)  (There is no confirm button for enchantments)");
+            EnchantingTable.AddPNG("MusketTooltip");
 
-            EnchantingTable.AddSubHeading("Offer" + "OfferButton".ToPNG());
+            EnchantingTable.AddSubHeading("Offer " + "OfferButton".ToPNG());
             EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" + 
                 $"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" + 
                 $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.  \n" + 
                 $"# Place the item you want to offer in the item slot." + 
                 $"# press the offer button." +
-				$"Press confirm." +
-				$"You recieve the offer rewards items.");
+				$"# Press confirm." +
+				$"# You receive the offer rewards items.");
 
-            EnchantingTable.AddSubHeading("Syphon" + "SyphonButton".ToPNG());
+            EnchantingTable.AddSubHeading("Syphon " + "SyphonButton".ToPNG());
             EnchantingTable.AddParagraph($"If you have a max level item (level 40), you can convert any excess experience on the item past level 40 " +
 				$"(past 100M experience) into essence.\n" +
 				$"# Place the max level item into the item slot." +
 				$"# Click syphon." +
 				$"# Essence will be deposited into the enchanting table interface.");
 
-            EnchantingTable.AddSubHeading("Infusion" + "InfusionButton".ToPNG());
+            EnchantingTable.AddSubHeading("Infusion " + "InfusionButton".ToPNG());
             EnchantingTable.AddParagraph($"Allows you to consume a weapon to enhance the power of a lower tier weapon to about the same power as the " +
-				$"consumed weapon or transfers the set bonus from a piece of armor to anohter.  Any experience/enchantments/power booster on a consumed item will be returned just like {"offering".ToLink()}.");
+				$"consumed weapon or transfers the set bonus from a piece of armor to another.  Any experience/enchantments/power booster on a consumed item will be returned just like {"Offer".ToSectionLink("offer")}.");
 
             EnchantingTable.AddSubHeading("Weapon Infusion", 2);
             EnchantingTable.AddParagraph($"Allows you to consume high rarity items to upgrade the damage of low rarity weapons.  \n" +
@@ -157,9 +158,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             EnchantingTable.AddSubHeading("Armor Infusion", 2);
             EnchantingTable.AddParagraph($"Allows you to consume a piece of armor and replace the set bonus of an item with one from another.  \n" +
-				$"The piece of armor will act like the consumed one for the purposes of determining set bonuses. The piece of armor will also look like the consumed one while equiped.  \n" +
+				$"The piece of armor will act like the consumed one for the purposes of determining set bonuses. The piece of armor will also look like the consumed one while equipped.  \n" +
 				$"Armor infusion steps:\n" +
-				$"# Place the armor with the set bonus you want to transfer into the enchanting tabel (this item will be destroyed)\n" +
+				$"# Place the armor with the set bonus you want to transfer into the enchanting table (this item will be destroyed)\n" +
 				$"# Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)\n" +
 				$"# Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's) Click Finalize (Same button as Infusion/Cancel)");
 
@@ -167,10 +168,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         private static void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
             WebPage Essence = new("Enchantment Essence");
-            Essence.AddParagraph("Essence represents solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank). They can be used to...");
+            Essence.AddParagraph("Essence represents solidified experience and are automatically stored in the enchanting table interface when picked up. They can be used to...");
             Essence.AddBulletedList(elements: new string[] {
-                "Upgrade enchantments",
-                "Infuse it's XP value into items"
+                "Crafting and Upgrading Enchantments".ToSectionLink("Upgrade enchantments", "Enchantments"),
+                "Leveling items up".ToSectionLink("Infuse it's XP value into items", "Enchanting Tables")
             });
             foreach (EnchantmentEssence essence in enchantmentEssence) {
                 int tier = essence.EssenceTier;
@@ -180,7 +181,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 essencePage.AddLink("Enchantment Essence");
                 itemInfo.AddStatistics(essencePage);
                 itemInfo.AddDrops(essencePage);
-                itemInfo.AddDrops(essencePage);
+                itemInfo.AddInfo(essencePage);
                 itemInfo.AddRecipes(essencePage);
                 webPages.Add(essencePage);
             }

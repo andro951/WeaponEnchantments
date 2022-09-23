@@ -483,7 +483,7 @@ namespace WeaponEnchantments.Common.Utility
         CraftingMaterial,
         Containments,
 		CursedEssence,
-        EnchantingTable,
+        EnchantingTables,
         Enchantments,
         EnchantmentEssence,
         Furniture,
@@ -505,23 +505,23 @@ namespace WeaponEnchantments.Common.Utility
                 case WikiItemTypeID.CraftingMaterial:
                     return "https://terraria.fandom.com/wiki/Category:Crafting_material_items";
                 case WikiItemTypeID.Furniture:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Furniture";
                 case WikiItemTypeID.CraftingStation:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Crafting_stations";
                 case WikiItemTypeID.Storage:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Storage_items";
                 case WikiItemTypeID.Armor:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Armor";
                 case WikiItemTypeID.Set:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Armor";
                 case WikiItemTypeID.Weapon:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Weapons";
                 case WikiItemTypeID.Tool:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Tools";
                 case WikiItemTypeID.Mechanism:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Mechanisms";
                 case WikiItemTypeID.LightSource:
-                    return "";
+                    return "https://terraria.fandom.com/wiki/Light_sources";
                 default:
                     external = false;
                     return id.ToString().AddSpaces();

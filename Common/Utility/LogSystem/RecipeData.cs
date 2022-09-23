@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -27,6 +28,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         private static List<Item> GetAllOtherCraftedItems(Item item, List<Item> consumedItems) => consumedItems.SelectMany(c => GetOtherCraftedItems(item, c)).ToList();
         private static List<Item> GetOtherCraftedItems(Item item, Item consumedItem) => CraftingEnchantments.GetOtherCraftedItems(item, consumedItem).Select(p => new Item(p.Key, p.Value)).ToList();
         public bool TryAdd(RecipeData other) {
+            if (createItem.Count == 1 && requiredItem.Count == 1) {
+                if (createItem.All[0].ModItem is EnchantmentEssence && requiredItem.All[0].ModItem is EnchantmentEssence)
+                    return false;
+            }
+
             if (!createItem.SameCommonItems(other.createItem))
                 return false;
 
@@ -83,8 +89,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             return true;
         }
         public bool TryCondenseRecipe(RecipeData other) {
-            //if (createItem.NumberCommonItems(other.createItem) == 0)
-            //    return false;
+            /* Test if this isn't needed
+            if (createItem.Count == 1 && requiredItem.Count == 1) {
+                if (createItem.All[0].ModItem is EnchantmentEssence && requiredItem.All[0].ModItem is EnchantmentEssence)
+                    return false;
+			}
+            */
 
             if (!createItem.SameCommonItemsCompareTypesIgnoreStack(other.createItem))
                 return false;
