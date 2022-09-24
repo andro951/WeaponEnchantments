@@ -14,16 +14,17 @@ namespace WeaponEnchantments.Effects
 	public class DamageClassSwap : EnchantmentEffect, IPermenantStat
 	{
 		public static DamageClassSwap Default => new DamageClassSwap(DamageClass.Generic);
-		public DamageClassSwap(DamageClass damageClass) {
+		public DamageClassSwap(DamageClass damageClass, DamageClass baseDamageClass = null) {
 			NewDamageClass = damageClass;
+			BaseDamageClass = baseDamageClass;
 		}
 		public override EnchantmentEffect Clone() {
-			return new DamageClassSwap(NewDamageClass);
+			return new DamageClassSwap(NewDamageClass, BaseDamageClass);
 		}
 		public override string DisplayName => $"Convert damage type to {NewDamageClass.DisplayName}";
 
 		public virtual DamageClass NewDamageClass { get; }
-		public DamageClass BaseDamageClass = null;
+		public DamageClass BaseDamageClass;
 
 		public void Update(ref Item item, bool reset = false) {
 			if (reset) {
@@ -40,11 +41,17 @@ namespace WeaponEnchantments.Effects
 					BaseDamageClass = ContentSamples.ItemsByType[item.type].DamageType;
 
 				enchantedWeapon.damageType = NewDamageClass;
+				if (item.TryGetEnchantedItem(out EnchantedWeapon weapon))
+					weapon.damageType = NewDamageClass;
+
 				enchantedWeapon.baseDamageType = BaseDamageClass;
 			}
 		}
 		public void Reset(ref Item item) {
 			item.DamageType = BaseDamageClass;
+			if (item.TryGetEnchantedItem(out EnchantedWeapon weapon))
+				weapon.damageType = BaseDamageClass;
+
 			BaseDamageClass = null;
 		}
 	}

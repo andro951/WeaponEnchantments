@@ -58,7 +58,7 @@ namespace WeaponEnchantments.Common.Globals
             return true;
         }
 		public override void GrabRange(Item item, Player player, ref int grabRange) {
-            grabRange *= 10;
+            grabRange *= WEMod.serverConfig.EssenceGrabRange;
 		}
 
 		public override bool ItemSpace(Item item, Player player) {

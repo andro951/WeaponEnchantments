@@ -59,7 +59,8 @@ namespace WeaponEnchantments.Items
 			if(EssenceTier == 4)
 				valuePerXP = values[tierNames.Length - 1] / xpPerEssence[tierNames.Length - 1];
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+			if (!WEMod.serverConfig.DisableResearch)
+				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 
 			//Tooltip
 			Tooltip.SetDefault(tierNames[EssenceTier].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[EssenceTier] + " experience in an enchanting table.");

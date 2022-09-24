@@ -107,6 +107,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(100)]
         public int GatheringExperienceMultiplier;
 
+        [Label("Essence Grab Range Multiplier")]
+        [Tooltip("Affects how far the essence can be away from the player when it starts moving towards the player.")]
+        [DefaultValue(10)]
+        [Range(1, 100)]
+        public int EssenceGrabRange;
+
         //Enchantment Drop Rates(%)
         [Header("Enchantment Drop Rates(%)")]
         [Label("Boss Enchantment Drop Rate(%)")]
@@ -265,6 +271,11 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough.")]
         [DefaultValue(false)]
         public bool DCUStart;
+
+        [Label("Disable Ability to research Weapon Enchantment items")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool DisableResearch;
 
         public ServerConfig() {
             presetData = new PresetData();

@@ -55,7 +55,8 @@ namespace WeaponEnchantments.Common.Globals
 				return true;
 			}
 
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (!Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+				return true;
 			
 			//Calculate damage done to the tile  (Copied vanilla code)
 			int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
@@ -86,7 +87,9 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
         }
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem) {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (!Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+				return;
+
 			Item heldItem = wePlayer.Player.HeldItem;
 
 			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))

@@ -35,7 +35,9 @@ namespace WeaponEnchantments.Items
 		public virtual string Designer { private set; get; } = "andro951";
 		public override void SetStaticDefaults() {
 			GetDefaults();
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			if (!WEMod.serverConfig.DisableResearch)
+				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
 			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
 			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 

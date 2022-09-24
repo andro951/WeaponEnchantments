@@ -19,7 +19,9 @@ namespace WeaponEnchantments.Items
         public virtual string Artist { private set; get; } = "andro951";
         public virtual string Designer { private set; get; } = "andro951";
         public override void SetStaticDefaults() {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            if (!WEMod.serverConfig.DisableResearch)
+                CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;

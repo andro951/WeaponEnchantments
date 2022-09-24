@@ -29,7 +29,9 @@ namespace WeaponEnchantments.Items
         public virtual string Designer { private set; get; } = "andro951";
         public override void SetStaticDefaults() {
             GetDefaults();
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            if (!WEMod.serverConfig.DisableResearch)
+                CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+
             bars = 4 * (int)Math.Pow(2, tier);
             Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
             if (tier == 2)

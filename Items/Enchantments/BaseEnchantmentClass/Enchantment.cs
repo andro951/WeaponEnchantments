@@ -386,7 +386,8 @@ namespace WeaponEnchantments.Items {
 			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
 
 			//Journy mode item sacrifice
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			if (!WEMod.serverConfig.DisableResearch)
+				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
 			//DisplayName
 			//string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;

@@ -23,7 +23,8 @@ namespace WeaponEnchantments.Items
 		public virtual string Designer { private set; get; } = "andro951";
 
 		public override void SetStaticDefaults() {
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            if (!WEMod.serverConfig.DisableResearch)
+                CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 
 			//Log contributors
 			if (LogModSystem.printListOfContributors)

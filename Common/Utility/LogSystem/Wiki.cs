@@ -39,6 +39,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             IEnumerable<EnchantingTableItem> enchantingTables = modItems.OfType<EnchantingTableItem>().OrderBy(t => t.enchantingTableTier);
             IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.EssenceTier);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
+            PowerBooster powerBooster = modItems.OfType<PowerBooster>().First();
 
             List<WebPage> webPages = new();
 
@@ -46,6 +47,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             AddEnchantingTables(webPages, enchantingTables);
             AddEssence(webPages, enchantmentEssence);
             AddEnchantments(webPages, enchantments);
+            AddPowerBooster(webPages, powerBooster);
 
             string wiki = "\n\n";
 
@@ -256,6 +258,24 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (!tier0EnchantmentsOnly)
                 webPages.Add(Enchantments);
         }
+        private static void AddPowerBooster(List<WebPage> webPages, PowerBooster powerBooster) {
+            WebPage PowerBooster = new("Power Booster");
+            ItemInfo itemInfo = new(powerBooster);
+            itemInfo.AddStatistics(PowerBooster);
+            itemInfo.AddDrops(PowerBooster);
+            itemInfo.AddInfo(PowerBooster);
+            itemInfo.AddRecipes(PowerBooster);
+            PowerBooster.AddParagraph($"<br/>\n" +
+				$"A Power Booster is a rare item obtained from defeating bosses.  " +
+				$"Prehardmode bosses don't drop power boosters unless the config option is enabled.  " +
+				$"It adds 10 levels to an item " +
+				$"(These levels do not count towards the level 40 cap or give critical strike chance.).  They can only be used once per item.  " +
+				$"To apply a power booster to an item, place the item into the enchanting table then click the power booster onto the item in the table as if you were " +
+				$"merging two stacks of the same item.  You can also shift left click the power booster from your inventory.  Power boosters drop from boss bags in " +
+				$"Expert/Master mode at the same rates from the table.");
+
+            webPages.Add(PowerBooster);
+		}
         private static List<List<string>> GetGenericEnchantmnetRecipes() {
             List<RecipeData> genericEnchantmentRecipes = new();
             List<int> enchantmentIDs = new() {
