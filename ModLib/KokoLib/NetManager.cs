@@ -19,6 +19,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetStrikeNPC(NPC npc, int damage, bool crit);
 		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy);
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary);
+		public void NetAddNPCValue(NPC npc, float value);
 	}
 	public class NetManager : ModHandler<INetOnHitEffects>, INetOnHitEffects
 	{
@@ -51,6 +52,9 @@ namespace WeaponEnchantments.ModLib.KokoLib
 				Net.IgnoreClient = WhoAmI;
 				Net<INetOnHitEffects>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
 			}
+		}
+		public void NetAddNPCValue(NPC npc, float value) {
+			npc.value += value;
 		}
 	}
 }

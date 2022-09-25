@@ -28,9 +28,9 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class PennyPinchingEnchantmentBasic : PennyPinchingEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.PlayerHasLessThan1Gold;
+		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
 		public override List<WeightedPair> NpcDropTypes => new() {
-			new(NPCID.TorchGod)
+			new(NPCID.EyeofCthulhu)
 		};
 	}
 	public class PennyPinchingEnchantmentCommon : PennyPinchingEnchantment { }

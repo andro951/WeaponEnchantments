@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KokoLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.ModLib.KokoLib;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects
@@ -39,20 +41,31 @@ namespace WeaponEnchantments.Effects
 			if (damageInt <= 0)
 				return;
 
-			float value = (float)damageInt / (float)npc.lifeMax * npc.value;
+
+			int whoAmI;
+			NPC sample;
+			if (npc.realLife >= 0) {
+				whoAmI = npc.realLife;
+				sample = ContentSamples.NpcsByNetId[Main.npc[whoAmI].netID];
+			}
+			else {
+				whoAmI = npc.whoAmI;
+				sample = ContentSamples.NpcsByNetId[npc.netID];
+			}
+
+			NPC thisNPC = Main.npc[whoAmI];
+
+			float value = (float)damageInt / (float)thisNPC.lifeMax * sample.value;
 			if (value < damageInt)
 				value = (float)damageInt;
 
-			float vanillaMultiplier = GetVanillaCoinMultiplier(npc, wePlayer.Player, out float extraValue);
-			value *= vanillaMultiplier;
-			value += extraValue;
+			value *= 1f + wePlayer.Player.luck;
 
 			int coins = (int)Math.Round(EStatModifier.ApplyTo(0f) * value);
 			if (coins <= 0)
 				coins = 1;
 
-			wePlayer.Player.SpawnCoins(coins);
-
+			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(thisNPC, coins);
 		}
 		private static float GetVanillaCoinMultiplier(NPC npc, Player player, out float extraValue) {
 			float num = 0f;

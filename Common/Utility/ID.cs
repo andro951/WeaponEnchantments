@@ -261,7 +261,6 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum SellCondition
 	{
-		PlayerHasLessThan1Gold = -1,
 		IgnoreCondition,
         Never,
         Always,
@@ -347,9 +346,6 @@ namespace WeaponEnchantments.Common.Utility
                     return NPC.downedAncientCultist;
                 case SellCondition.PostMoonLord:
                     return NPC.downedMoonlord;
-				case SellCondition.PlayerHasLessThan1Gold:
-					bool has1Gold = Main.LocalPlayer.CanBuyItem(10000);
-					return !has1Gold;
 				case SellCondition.Never:
                 default:
                     return false;
