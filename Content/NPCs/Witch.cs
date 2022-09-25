@@ -161,8 +161,10 @@ namespace WeaponEnchantments.Content.NPCs
 			}
 
 			foreach (KeyValuePair<int, float> pair in shopEnchantments) {
-				shop.item[nextSlot].SetDefaults(pair.Key);
-				shop.item[nextSlot].value = (int)((float)shop.item[nextSlot].value * pair.Value);
+				Item item = shop.item[nextSlot];
+				item.SetDefaults(pair.Key);
+				float multiplier = pair.Value;
+				item.value = (int)((float)item.value * multiplier);
 				nextSlot++;
 			}
 		}
@@ -190,11 +192,14 @@ namespace WeaponEnchantments.Content.NPCs
 		}
 		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			List<int> list;
+			List<ISoldByWitch> filteredList;
 			if (condition == SellCondition.IgnoreCondition) {
+				filteredList = soldByWitch;
 				list = soldByWitch.Select(e => ((ModItem)e).Type).ToList();
 			}
 			else {
-				list = soldByWitch.Where(e => e.SellCondition == condition).Select(e => ((ModItem)e).Type).ToList();
+				filteredList = soldByWitch.Where(e => e.SellCondition == condition).ToList();
+				list = filteredList.Select(e => ((ModItem)e).Type).ToList();
 			}
 
 			if (condition == SellCondition.Always)
@@ -202,8 +207,7 @@ namespace WeaponEnchantments.Content.NPCs
 
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
-				ModItem modItem = (ModItem)soldByWitch[list.IndexOf(type)];
-				float sellPriceModifier = soldByWitch[list.IndexOf(type)].SellPriceModifier;
+				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopEnchantments.ContainsKey(type)) {
 					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.DuplicateItemInWitchsShop);
 					i--;
