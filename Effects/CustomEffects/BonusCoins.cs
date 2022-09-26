@@ -67,58 +67,8 @@ namespace WeaponEnchantments.Effects
 
 			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(thisNPC, coins);
 		}
-		private static float GetVanillaCoinMultiplier(NPC npc, Player player, out float extraValue) {
-			float num = 0f;
-			float luck = player.luck;
-			int num2 = 1;
-			if (Main.rand.NextFloat() < Math.Abs(luck))
-				num2 = 2;
 
-			for (int i = 0; i < num2; i++) {
-				float num3 = 1f;
-				if (npc.midas)
-					num3 *= 1f + (float)Main.rand.Next(10, 51) * 0.01f;
-
-				num3 *= 1f + (float)Main.rand.Next(-20, 76) * 0.01f;
-				if (Main.rand.Next(2) == 0)
-					num3 *= 1f + (float)Main.rand.Next(5, 11) * 0.01f;
-
-				if (Main.rand.Next(4) == 0)
-					num3 *= 1f + (float)Main.rand.Next(10, 21) * 0.01f;
-
-				if (Main.rand.Next(8) == 0)
-					num3 *= 1f + (float)Main.rand.Next(15, 31) * 0.01f;
-
-				if (Main.rand.Next(16) == 0)
-					num3 *= 1f + (float)Main.rand.Next(20, 41) * 0.01f;
-
-				if (Main.rand.Next(32) == 0)
-					num3 *= 1f + (float)Main.rand.Next(25, 51) * 0.01f;
-
-				if (Main.rand.Next(64) == 0)
-					num3 *= 1f + (float)Main.rand.Next(50, 101) * 0.01f;
-
-				if (Main.bloodMoon)
-					num3 *= 1f + (float)Main.rand.Next(101) * 0.01f;
-
-				if (i == 0) {
-					num = num3;
-				}
-				else if (luck < 0f) {
-					if (num3 < num)
-						num = num3;
-				}
-				else if (num3 > num) {
-					num = num3;
-				}
-			}
-
-			extraValue = (float)npc.extraValue;
-
-			return num;
-		}
-
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will give you coins based on damage dealt, enemy max health, enemy value, and luck.)";
+		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will increase the number of coins it will drop on death based on damage dealt, enemy max health, enemy base value, and luck.)";
 		public override EnchantmentStat statName => EnchantmentStat.None;
 	}
 }

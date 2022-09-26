@@ -61,9 +61,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             WebPage Containments = new("Containments");
             Containments.AddParagraph("Containments contain the power of an enchantment. More powerful enchantments require larger and stronger containments to hold them.\n" +
             "Containments are crafting materials used to craft enchantments.");
-            string text = "Only these enchantments can be obtained by crafting.The others must all be found in other ways.\n";
-            Containments.AddParagraph(text);
-            Containments.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name.AddSpaces()).ToArray());
+            AddLowestCraftableEnchantments(Containments, enchantments);
             foreach (ContainmentItem containment in containmentItems) {
                 int tier = containment.tier;
                 string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
@@ -80,7 +78,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webPages.Add(Containments);
         }
-        private static void AddEnchantingTables(List<WebPage> webPages, IEnumerable<EnchantingTableItem> enchantingTables) {
+		private static void AddEnchantingTables(List<WebPage> webPages, IEnumerable<EnchantingTableItem> enchantingTables) {
             WebPage EnchantingTable = new("Enchanting Tables");
             foreach (EnchantingTableItem enchantingTable in enchantingTables) {
                 int tier = enchantingTable.enchantingTableTier;
@@ -118,7 +116,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             EnchantingTable.AddParagraph($"To enchant an item, it must have enough {"Enchantment Capacity"} to handle the new enchantment's capacity cost.\n" +
 				$"# Place the item you wish to enchant into the item slot.  (You can shift left click from your inventory instead of using your mouse)\n" +
 				$"# Add (or remove) the enchantment(s) you wish using the enchantment slots.  (Can also be shift clicked from your inventory)\n" +
-				$"# Remove the item from the enchanting table (move with mouse or shift click.)  (There is no confirm button for enchantments)");
+				$"# Remove the item from the enchanting table (move with mouse or shift click.)  (There is no confirm button for enchantments)<br/>\n" +
+				$"The Utility Slot is for {"Utility Enchantments".ToLink()}");
             EnchantingTable.AddPNG("MusketTooltip");
 
             EnchantingTable.AddSubHeading("Offer " + "OfferButton".ToPNG());
@@ -192,6 +191,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         private static void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
             WebPage Enchantments = new("Enchantments");
+            WebPage UtilityEnchantments = new("Utility Enchantments");
             if (!tier0EnchantmentsOnly) {
                 Enchantments.AddSubHeading("Enchantment Effects");
                 Enchantments.AddParagraph($"Enchantments allow customization of your items with various effects.  Some are very basic stat upgrades " +
@@ -203,6 +203,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     $"Max health true damage ({EnchantmentStat.GodSlayer.EnchantmentTypeShortLink()}).");
                 Enchantments.AddSubHeading("Capacity Cost");
                 Enchantments.AddParagraph("Each enchantment has a capacity cost. This cost is subtracted from the item enchantment capacity.");
+
                 Enchantments.AddSubHeading("Crafting and Upgrading Enchantments");
                 Enchantments.AddParagraph($"Essence in the enchanting table is available for crafting. There is no need to take them out of the crafting table. " +
                     $"({"https://steamcommunity.com/sharedfiles/filedetails/?id=2563309347&searchtext=magic+storage".ToExternalLink("Magic Storage")} can access the essence via the Environment Simulator.  See {"Magic Storage Integration".ToLink()})<br/>\n" +
@@ -210,6 +211,20 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     $"Topaz can be any Common Gem: {"WeaponEnchantments:CommonGems".ToItemPNGs(link: true)}<br/>\n" +
                     $"Amber can be any Rare Gem: {"WeaponEnchantments:RareGems".ToItemPNGs(link: true)}<br/>\n" +
                     $"{"Enchantment Basic".ToLabledPNG()} is used as a generic enchantment when any enchantment could be used.");
+
+                Enchantments.AddSubHeading("Utility Enchantments");
+                string shortUtilityExplanation = $"{"Utility Enchantments".ToLink()} are non-damage based enchantments.  " +
+                    $"They can be placed into any of the enchantment slots, but only utility enchantments can be placed into the utility slot.";
+                Enchantments.AddParagraph(shortUtilityExplanation);
+                UtilityEnchantments.AddLink("Enchantments");
+                UtilityEnchantments.AddParagraph($"{shortUtilityExplanation}<br/>\n" +
+					$"Utility enchantments require half as much essence to craft and cost half the enchantment capacity, 1 to 5 enchantment capacity(based on tier) " +
+					$"instead of 2 to 10.");
+
+                Enchantments.AddSubHeading("Obtaining Enchantments");
+                AddLowestCraftableEnchantments(Enchantments, enchantments);
+                Enchantments.AddParagraph($"All other enchantments can be found from killing enemies or looting chests/fishing crates.  ({"All Enchantment Drops".ToLink("Full drop table")})");
+
                 Enchantments.AddTable(GetGenericEnchantmnetRecipes(), label: "Recipes", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
                 Enchantments.AddParagraph($"To view recipes in game, you can use the vanilla guide's crafting interface or the " +
                     $"{"https://steamcommunity.com/sharedfiles/filedetails/?id=2619954303&searchtext=recipe+browser".ToExternalLink("Recipe Browser Mod")}");
@@ -227,7 +242,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                         if (!tier0EnchantmentsOnly) {
                             enchantmentTypePage = new(enchantmentType);
                             enchantmentTypePage.AddLink("Enchantments");
-                            Enchantments.AddParagraph(enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType));
+                            string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
+                            Enchantments.AddParagraph(typePNG);
+                            if (enchantment.Utility)
+                                UtilityEnchantments.AddParagraph(typePNG);
                         }
                         
                         typePageLinkString = enchantmentType.ToLink();
@@ -255,8 +273,15 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     webPages.Add(enchantmentTypePage);
             }
 
-            if (!tier0EnchantmentsOnly)
+            if (!tier0EnchantmentsOnly) {
+                webPages.Add(UtilityEnchantments);
                 webPages.Add(Enchantments);
+            }
+
+            WebPage AllEnchantmentDrops = new("All Enchantment Drops");
+            AllEnchantmentDrops.AddLink("Enchantments");
+            ItemInfo.AddAllDrops(AllEnchantmentDrops, typeof(Enchantment));
+            webPages.Add(AllEnchantmentDrops);
         }
         private static void AddPowerBooster(List<WebPage> webPages, PowerBooster powerBooster) {
             WebPage PowerBooster = new("Power Booster");
@@ -276,6 +301,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webPages.Add(PowerBooster);
 		}
+        private static void AddLowestCraftableEnchantments(WebPage webPage, IEnumerable<Enchantment> enchantments) {
+            string text = "Only these enchantments can be obtained by crafting.  The others must all be found in other ways.\n";
+            webPage.AddParagraph(text);
+            webPage.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name.AddSpaces()).ToArray());
+        }
         private static List<List<string>> GetGenericEnchantmnetRecipes() {
             List<RecipeData> genericEnchantmentRecipes = new();
             List<int> enchantmentIDs = new() {
@@ -532,7 +562,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 if (file == "")
                     file = $"NPC_{npc.netID}".ToPNG();
 
-                name = NPCID.Search.GetName(npc.netID).AddSpaces();
+                name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces() : npc.FullName;
                 if (link)
                     pngLinkString = $"https://terraria.fandom.com/wiki/{npc.FullName.Replace(" ", "_")}".ToExternalLink(name);
             }

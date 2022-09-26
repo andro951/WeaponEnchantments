@@ -111,6 +111,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return false;
         }
+        public static bool IsUpperOrNumber(this char c) => c.IsUpper() || c.IsNumber();
 
         /// <summary>
         /// Create a list of words from a string, splitting them when encountering capital letters<br/>
@@ -202,55 +203,49 @@ namespace WeaponEnchantments.Common.Utility
             return s.Substring(i);
         }
 
+        private static List<string> LowerCaseAddSpacesStringWords = new() { "of" };
+
         /// <summary>
         /// Add spaces before capitals and numbers.<br/>
         /// (multiple capatials or numbers in a row will split only the last one.  It assumes there is an abriviation.)<br/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns>String with spaces added.</returns>
-        public static string AddSpaces(this string s) {
+        public static string AddSpaces(this string s, bool checkLowerCaseWords = false) {
             int start = 0;
             int end;
             string finalString = "";
-            for (int i = 1; i < s.Length; i++) {
-                char c = s[i];
-                char cm1 = s[i - 1];
-                if (c.IsUpper() || c.IsNumber()) {
-                    int toAdd = 0;
-                    if (cm1.IsUpper()) {
-                        int j = 0;
-                        char comp = s[i + j];
-                        while (i + j < s.Length - 1 && comp.IsUpper()) {
-                            j++;
-                        }
-
-                        toAdd = j - 1;
-                    }
-                    else if (cm1.IsNumber()) {
-                        int j = 0;
-                        while (i + j < s.Length - 1 && s[i + j].IsNumber()) {
-                            j++;
-                        }
-
-                        toAdd = j - 1;
-                    }
-
-                    if (toAdd == -1)
-                        toAdd++;
-
-                    i += toAdd;
+            int length = s.Length;
+            char previous = s[0];
+            char c = s[1];
+            for (int i = 2; i < length; i++) {
+                char previous2 = previous;
+                previous = c;
+                c = s[i];
+                bool previousUpperOrNumber = previous.IsUpperOrNumber();
+                bool currentUppderOrNumber = c.IsUpperOrNumber();
+                if (!previousUpperOrNumber && currentUppderOrNumber) {
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
-                    start = end + 1;
+                    start = i;
                 }
-                else if (i == s.Length - 1) {
-                    end = i;
-                    finalString += s.Substring(start, end - start + 1);
-                    start = -1;
+                else if (previousUpperOrNumber && previous2.IsUpperOrNumber() && !currentUppderOrNumber) {
+                    end = i - 2;
+                    finalString += s.Substring(start, end - start + 1) + " ";
+                    start = i - 1;
                 }
             }
+
             if (start != -1)
                 finalString += s.Substring(start);
+
+            foreach(string word in LowerCaseAddSpacesStringWords) {
+                int index = finalString.IndexOf($"{word} ");
+                if (index > 0) {
+                    if (finalString[index - 1] != ' ')
+                        finalString = finalString.Substring(0, index - 1) + " " + finalString.Substring(index);
+				}
+			}
 
             return finalString;
         }
@@ -478,6 +473,7 @@ namespace WeaponEnchantments.Common.Utility
                 }
 
                 text += s;
+                i++;
             }
 
             return text;

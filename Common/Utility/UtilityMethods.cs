@@ -41,6 +41,7 @@ namespace WeaponEnchantments.Common.Utility
             wePlayer = null;
             return false;
         }
+        public static bool TryGetWEPlayer(this Player player, out WEPlayer wePlayer) => player.TryGetModPlayer(out wePlayer);
         public static ProjectileWithSourceItem GetMyGlobalProjectile(this Projectile projectile) {
             if (projectile.TryGetGlobalProjectile(out WEProjectile wEProjectile))
                 return wEProjectile;
@@ -59,6 +60,20 @@ namespace WeaponEnchantments.Common.Utility
                 return false;
             }
         }
+        public static bool TryGetProjectileWithSourceItem(this Projectile projectile, out ProjectileWithSourceItem projectileWithSourceItem) {
+            if (projectile.TryGetGlobalProjectile(out WEProjectile wEProjectile)) {
+                projectileWithSourceItem = wEProjectile;
+                return true;
+			}
+
+            if (projectile.TryGetGlobalProjectile(out BobberProjectile bobberProjectile)) {
+                projectileWithSourceItem = bobberProjectile;
+                return true;
+			}
+
+            projectileWithSourceItem = null;
+            return false;
+		}
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TryGetWEGlobalNPC(this NPC npc, out WEGlobalNPC weGlobalNPC) => npc.TryGetGlobalNPC(out weGlobalNPC);
         public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory ac) || item.TryGetGlobalItem(out EnchantedFishingPole fp) || item.TryGetGlobalItem(out EnchantedTool t));

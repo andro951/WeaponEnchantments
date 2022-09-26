@@ -64,6 +64,7 @@ namespace WeaponEnchantments
         public bool disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
         public Point enchantingTableLocation = new Point(-1, -1);
 		public int cursedEssenceCount;
+        public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
 
 		#endregion
 
@@ -818,6 +819,15 @@ namespace WeaponEnchantments
                     }
                 }
             }
+
+            if (WEMod.calamityEnabled) {
+                CalamityRespawnMinionSourceItems.Clear();
+                for (int i = 0; i < 200; i++) {
+                    Projectile projectile = Main.projectile[i];
+                    if (projectile.minion && projectile.TryGetWEProjectile(out WEProjectile weProjectile) && !weProjectile.sourceItem.NullOrAir())
+                        CalamityRespawnMinionSourceItems.Add(projectile.type, weProjectile.sourceItem);
+                }
+			}
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
             List<Item> items = new List<Item>();

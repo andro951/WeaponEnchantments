@@ -80,8 +80,6 @@ namespace WeaponEnchantments.Common.Utility
 
             PrintAllLocalization();
 
-            PrintEnchantmentDrops();
-
             Wiki.PrintWiki();
 
             PrintNPCIDSwitch();
@@ -410,76 +408,6 @@ namespace WeaponEnchantments.Common.Utility
             namesAddedToContributorDictionary.Clear();
             contributorsData.Clear();
         }
-        private static void PrintEnchantmentDrops() {
-		if (!printEnchantmentDrops)
-			return;
-            string log = "\n";
-            foreach(KeyValuePair<int, List<(float, List<WeightedPair>)>> npc in npcEnchantmentDrops) {
-                string name = ContentSamples.NpcsByNetId[npc.Key].TypeName;
-                foreach((float, List<WeightedPair>) enchantmentGroup in npc.Value) {
-                    float total = 0f;
-                    foreach(WeightedPair pair in enchantmentGroup.Item2) {
-                        total += pair.Weight;
-                    }
-
-                    foreach(WeightedPair pair in enchantmentGroup.Item2) {
-                        Item sampleItem = ContentSamples.ItemsByType[pair.ID];
-                        if (sampleItem.ModItem is not Enchantment enchantment)
-                            continue;
-
-                        log += $"\n{name} ({npc.Key}),";
-                        float chance = enchantmentGroup.Item1 * pair.Weight / total;
-
-                        log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
-                    }
-                }
-			}
-
-            foreach(ChestID chestID in Enum.GetValues(typeof(ChestID)).Cast<ChestID>().ToList().Where(c => c != ChestID.None)) {
-                WEModSystem.GetChestLoot(chestID, out List<WeightedPair> pairs, out float baseChance);
-                if (pairs == null)
-                    continue;
-
-                string name = chestID.ToString() + " Chest";
-                float total = 0f;
-                foreach(WeightedPair pair in pairs) {
-                    total += pair.Weight;
-				}
-
-                foreach(WeightedPair pair in pairs) {
-                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
-                    if (sampleItem.ModItem is not Enchantment enchantment)
-                        continue;
-
-                    log += $"\n{name},";
-                    float chance = baseChance * pair.Weight / total;
-
-                    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
-                }
-			}
-
-            foreach(KeyValuePair<int, List<WeightedPair>> crate in GlobalCrates.crateDrops) {
-                string name = ((CrateID)crate.Key).ToString() + " Crate";
-                float total = 0f;
-                foreach(WeightedPair pair in crate.Value) {
-                    total += pair.Weight;
-				}
-
-                foreach(WeightedPair pair in crate.Value) {
-                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
-                    if (sampleItem.ModItem is not Enchantment enchantment)
-                        continue;
-
-                    log += $"\n{name} ({crate.Key}),";
-                    float baseChance = GlobalCrates.GetCrateEnchantmentDropChance(crate.Key);
-                    float chance = baseChance * pair.Weight / total;
-
-                    log += $"{enchantment.EnchantmentTypeName.AddSpaces()},{chance.PercentString()}";
-                }
-			}
-
-            log.Log();
-		}
         private static void PrintNPCIDSwitch() {
             if (!printNPCIDSwitch)
                 return;

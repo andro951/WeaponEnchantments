@@ -50,7 +50,6 @@ namespace WeaponEnchantments
 			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
 		public override void PostSetupContent() {
-			//Census mod support
 			if (ModLoader.TryGetMod("Census", out Mod Census))
 				Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
 

@@ -186,7 +186,7 @@ namespace WeaponEnchantments.Common
                                 if (newGlobalItems[i].Instance is UnloadedGlobalItem unloadedGlobalItem) {
                                     if (dataFieldInfo.GetValue(unloadedGlobalItem) is IList<TagCompound> unloadedTagList) {
                                         foreach (TagCompound tagCompound in unloadedTagList) {
-                                            $"item: {item.S()}, tagCompound: {tagCompound}".Log();
+                                            //$"item: {item.S()}, tagCompound: {tagCompound}".Log();
                                             string mod = tagCompound.Get<string>("mod");
                                             if (mod == modName) {
                                                 string name = tagCompound.Get<string>("name");

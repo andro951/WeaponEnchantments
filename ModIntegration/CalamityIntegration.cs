@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using Terraria.ID;
 
 namespace WeaponEnchantments.ModIntegration
 {

@@ -26,8 +26,10 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public override INetOnHitEffects Handler => this;
 		public void NetStrikeNPC(NPC npc, int damage, bool crit) {
 			WEGlobalNPC.StrikeNPC(npc, damage, crit);
-			if (Main.netMode == NetmodeID.Server)
+			if (Main.netMode == NetmodeID.Server) {
+				Net.IgnoreClient = WhoAmI;
 				Net<INetOnHitEffects>.Proxy.NetStrikeNPC(npc, damage, crit);
+			}
 		}
 		public void NetDebuffs(NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			//AmaterasuDebuff.ForceUpdate(npc);
@@ -40,8 +42,10 @@ namespace WeaponEnchantments.ModLib.KokoLib
 
 			target.ApplyBuffs(debuffs);
 
-			if (Main.netMode == NetmodeID.Server)
+			if (Main.netMode == NetmodeID.Server) {
+				Net.IgnoreClient = WhoAmI;
 				Net<INetOnHitEffects>.Proxy.NetDebuffs(target, damage, amaterasuStrength, debuffs, dontDissableImmunitiy);
+			}
 		}
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary) {
 			foreach (NPC npc in oneForAllNPCDictionary.Keys) {
@@ -55,6 +59,11 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		}
 		public void NetAddNPCValue(NPC npc, float value) {
 			npc.value += value;
+
+			if (Main.netMode == NetmodeID.Server) {
+				Net.IgnoreClient = WhoAmI;
+				Net<INetOnHitEffects>.Proxy.NetAddNPCValue(npc, value);
+			}
 		}
 	}
 }

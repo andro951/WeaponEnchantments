@@ -749,7 +749,7 @@ namespace WeaponEnchantments.Items {
 			else if (DamageClassSpecific > 0) {
 				//DamageClassSpecific
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{((DamageClassID)GetDamageClass(DamageClassSpecific)).ToString().AddSpaces()} Only*",
+					$"   *{GetDamageClassName(DamageClassSpecific)} Only*",
 					Color.White
 				));
 			}
@@ -764,7 +764,7 @@ namespace WeaponEnchantments.Items {
 			//RestrictedClass
 			if (RestrictedClass.Count > 0) {
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *Not allowed on {RestrictedClass.Select(c => ((DamageClassID)GetDamageClass(c)).ToString().AddSpaces()).JoinList(", ", " or ")} weapons*",
+					$"   *Not allowed on {RestrictedClass.Select(c => GetDamageClassName(c)).JoinList(", ", " or ")} weapons*",
 					Color.White
 				));
 			}
@@ -934,29 +934,40 @@ namespace WeaponEnchantments.Items {
 				case (int)DamageClassID.Melee:
 				case (int)DamageClassID.MeleeNoSpeed:
 					return (int)DamageClassID.Melee;
-				case (int)DamageClassID.Ranged:
-					return (int)DamageClassID.Ranged;
-				case (int)DamageClassID.Magic:
-					return (int)DamageClassID.Magic;
 				case (int)DamageClassID.Summon:
 				case (int)DamageClassID.MagicSummonHybrid:
-				case (int)DamageClassID.SummonMeleeSpeed:
 					return (int)DamageClassID.Summon;
-				case (int)DamageClassID.Throwing:
-					return (int)DamageClassID.Throwing;
 				default:
 					if (WEMod.calamityEnabled) {
-						int rogue = ModIntegration.CalamityValues.rogue.Type;
-						if (damageType == rogue)
-							return (int)DamageClassID.Ranged;
-
 						int trueMelee = ModIntegration.CalamityValues.trueMelee.Type;
 						if (damageType == trueMelee)
 							return (int)DamageClassID.Melee;
 					}
 
-					return (int)DamageClassID.Generic;
+					return damageType;
 			}
+		}
+		public static string GetDamageClassName(int type) {
+			int damageType = GetDamageClass(type);
+
+			if (damageType <= (int)DamageClassID.Default)
+				return DamageClassID.Generic.ToString();
+
+			switch (damageType) {
+				case (int)DamageClassID.SummonMeleeSpeed:
+					return "Whip";
+			}
+
+			if (damageType < (int)DamageClassID.Throwing)
+				return ((DamageClassID)damageType).ToString().AddSpaces();
+
+			if (WEMod.calamityEnabled) {
+				int rogue = ModIntegration.CalamityValues.rogue.Type;
+				if (damageType == rogue)
+					return "Rogue";
+			}
+
+			return DamageClassID.Generic.ToString();
 		}
 		private uint GetBuffDuration() {
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);

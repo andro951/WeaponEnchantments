@@ -60,10 +60,17 @@ namespace WeaponEnchantments.Common.Globals
             }
             else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar) {
                 parent = parentProjectile;
-                TryUpdateFromParent(out WEProjectile pGlobal);
+                TryUpdateFromParent(out _);
             }
             else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
-                sourceItem = FindMiscSourceItem(projectile, eSource.Context);
+                if (WEMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
+                    sourceItem = wePlayer.CalamityRespawnMinionSourceItems[projectile.type];
+                    wePlayer.CalamityRespawnMinionSourceItems.Remove(projectile.type);
+                }
+				else {
+                    sourceItem = FindMiscSourceItem(projectile, eSource.Context);
+                }
+                
                 ItemSourceSet = sourceItem.TryGetEnchantedItem();
             }
             else if (source is EntitySource_Parent projectilePlayerSource && projectilePlayerSource.Entity is Player pSource) {
@@ -105,7 +112,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 //Find the best other projectile that matches.
                 if (mainProjectile.owner == wePlayer.Player.whoAmI && mainProjectile.type != projectile.type) {
-                    if (mainProjectile.TryGetGlobalProjectile(out ProjectileWithSourceItem projectileWSI) && projectileWSI.sourceItem.TryGetEnchantedItem()) {
+                    if (mainProjectile.TryGetProjectileWithSourceItem(out ProjectileWithSourceItem projectileWSI) && projectileWSI.sourceItem.TryGetEnchantedItem()) {
                         List<string> mainProjectileNames = mainProjectile.Name.RemoveProjectileName().SplitString();
                         int checkMatches = projectileNames.CheckMatches(mainProjectileNames);
                         if (checkMatches > matchs) {

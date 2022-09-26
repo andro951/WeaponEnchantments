@@ -188,6 +188,69 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 webpage.AddTable(dropTable.Item2, firstRowHeaders: true, collapsible: true, maxWidth: 400, alignID: AlignID.right, label: dropTable.Item1);
             } 
         }
+        public static void AddAllDrops(WebPage webpage, Type type = null) {
+            List<(string, List<List<string>>)> dropTables = new();
+            List<List<string>> allDropInfo = new();
+            foreach (int itemType in enemyDrops.Keys) {
+                ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
+                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                    continue;
+
+                string itemPNG = itemType.ToItemPNG(link: true);
+
+                foreach (int npcNetID in enemyDrops[itemType].Keys) {
+                    int minDropped = enemyDrops[itemType][npcNetID].stackMin;
+                    int maxDropped = enemyDrops[itemType][npcNetID].stackMax;
+                    float chance = enemyDrops[itemType][npcNetID].dropRate;
+                    bool configDrop = ((IItemWikiInfo)modItem).ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                    string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
+                    List<string> dropInfo = new() { itemPNG, $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
+                    allDropInfo.Add(dropInfo);
+                }
+            }
+
+            if (allDropInfo.Count > 0)
+                dropTables.Add(($"{"Bestiary_Boss_Enemy".ToPNG()} Obtained From", new List<List<string>>() { new() { "Item", "Entity", "Qty.", "Rate" } }.Concat(allDropInfo.OrderBy(l => l[0])).ToList()));
+
+            List<List<string>> allChestDropInfo = new();
+
+            foreach(int itemType in chestDrops.Keys) {
+                ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
+                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                    continue;
+
+                string itemPNG = itemType.ToItemPNG(link: true);
+
+                foreach (KeyValuePair<ChestID, float> pair in chestDrops[itemType]) {
+                    List<string> dropInfo = new() { itemPNG, $"{pair.Key.GetItemType().ToItemPNG(link: true)}", pair.Value.PercentString() };
+                    allChestDropInfo.Add(dropInfo);
+                }
+            }
+
+            if (allChestDropInfo.Count > 0)
+                dropTables.Add(($"{ItemID.Chest.ToItemPNG(displayName: false)} Obtained From", new List<List<string>>() { new() { "Item", "Entity", "Rate" } }.Concat(allChestDropInfo.OrderBy(l => l[0])).ToList()));
+
+            List<List<string>> allCrateDropInfo = new();
+            foreach (int itemType in crateDrops.Keys) {
+                ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
+                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                    continue;
+
+                string itemPNG = itemType.ToItemPNG(link: true);
+
+                foreach (KeyValuePair<CrateID, float> pair in crateDrops[itemType]) {
+                    List<string> dropInfo = new() { itemPNG, $"{((int)pair.Key).ToItemPNG(link: true)}", pair.Value.PercentString() };
+                    allCrateDropInfo.Add(dropInfo);
+                }
+            }
+
+            if (allCrateDropInfo.Count > 0)
+                dropTables.Add(($"{ItemID.WoodenCrate.ToItemPNG(displayName: false)} Obtained From", new List<List<string>>() { new() { "Item", "Entity", "Rate" } }.Concat(allCrateDropInfo.OrderBy(l => l[0])).ToList()));
+
+            foreach ((string, List<List<string>>) dropTable in dropTables) {
+                webpage.AddTable(dropTable.Item2, firstRowHeaders: true, collapsible: true, label: dropTable.Item1, sortable: true);
+            }
+        }
         public void AddInfo(WebPage webpage) {
             webpage.AddParagraph($"Tooltip:<br/>{GetTooltip()}");
             if (TryGetShopPrice() && ModItem is ISoldByWitch soldByWitch) {
@@ -326,7 +389,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 	{
         public static int FirstEnchantmentStrength(this IEnumerable<Item> items) {
             Enchantment first = items.Select(i => i.ModItem).OfType<Enchantment>().FirstOrDefault(defaultValue: null);
-            $"Enchantment Name: {first?.Name}, tier: {first?.EnchantmentTier ?? -1}".LogSimple();
+            //$"Enchantment Name: {first?.Name}, tier: {first?.EnchantmentTier ?? -1}".LogSimple();
             return first?.EnchantmentTier ?? -1;
         }
 	}
