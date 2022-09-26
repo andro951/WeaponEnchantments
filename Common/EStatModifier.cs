@@ -115,7 +115,7 @@ namespace WeaponEnchantments.Common
 		private float _efficiencyMultiplier;
 
 		private DifficultyStrength _automaticStrengthData;
-		byte statTypeID;
+		byte _statTypeID;
 		private bool _waitingForEnterWorld;
 
 		/// <summary>
@@ -251,7 +251,7 @@ namespace WeaponEnchantments.Common
 			for (byte i = 0; i < arr.Length; i++) {
 				if (arr[i] != null) {
 					_automaticStrengthData = arr[i];
-					statTypeID = i;
+					_statTypeID = i;
 					break;
 				}
 			}
@@ -269,10 +269,28 @@ namespace WeaponEnchantments.Common
 			tooltip = null;
 			_combineModeID = combineModeID;
 		}
+		public EStatModifier(EnchantmentStat statType, DifficultyStrength automaticStrengthData, byte statTypeID, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
+			_waitingForEnterWorld = true;
+			_automaticStrengthData = automaticStrengthData;
+			_statTypeID = statTypeID;
+			StatType = statType;
+			originalAdditive = 0f;
+			originalMultiplicative = 1f;
+			originalFlat = 0f;
+			originalBase = 0f;
+			_efficiencyMultiplier = baseEfficiencyMultiplier;
+			_additive = 1f;
+			_multiplicative = 1f;
+			_flat = 0f;
+			_base = 0f;
+			_strength = 0f;
+			tooltip = null;
+			_combineModeID = combineModeID;
+		}
 
 		private void SetUpAutomaticStrengthFromWorldDificulty() {
 			int index = Main.gameMenu ? 0 : _automaticStrengthData.AllValues.Length == 4 ? Main.GameMode : 0;
-			switch (statTypeID) {
+			switch (_statTypeID) {
 				case 0:
 					originalAdditive = _automaticStrengthData.AllValues[index];
 					_additive = 1f + originalAdditive * _efficiencyMultiplier;
@@ -423,12 +441,21 @@ namespace WeaponEnchantments.Common
 		public StatModifier Scale(float scale) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
+
 			return new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
 		}
 
+		/*
 		public EStatModifier Clone() {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
+
+			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
+		}
+		*/
+		public EStatModifier Clone() {
+			if (_automaticStrengthData != null)
+				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, combineModeID: _combineModeID);
 
 			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
 		}
