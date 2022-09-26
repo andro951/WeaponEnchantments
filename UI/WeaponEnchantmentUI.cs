@@ -657,10 +657,10 @@ namespace WeaponEnchantments.UI
 
             //xpAvailable
             for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--) {
-		    	int xpToAdd = (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
-                xpAvailable += xpToAdd;
+		    	int xpToAdd = WEMath.MultiplyCheckOverflow((int)EnchantmentEssence.xpPerEssence[i], wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack);
+                xpAvailable.AddCheckOverflow(xpToAdd);
 			    if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
-				    nonFavoriteXpAvailable += xpToAdd;
+				    nonFavoriteXpAvailable.AddCheckOverflow(xpToAdd);
             }
 
             //xpNeeded

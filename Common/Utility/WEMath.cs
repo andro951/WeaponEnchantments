@@ -16,19 +16,8 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="remainder">0 if result is < int.MaxValue.  = result - int.MaxValue otherwise</param>
 		/// <returns>True if the result is > int.MaxValue</returns>
 		public static bool AddCheckOverflow(this ref int n1, int n2, out long remainder) {
-			remainder = 0;
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
-				remainder = (long)n1 + (long)n2 - int.MaxValue;
-				n1 = int.MaxValue;
-				return true;
-			}
-
-			return false;
+			n1 = AddCheckOverflow(n1, n2, out remainder);
+			return remainder != 0;
 		}
 
 		/// <summary>
@@ -37,19 +26,8 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="remainder">0 if result is < int.MaxValue.  = result - int.MaxValue otherwise</param>
 		/// <returns>True if the result is > int.MaxValue</returns>
 		public static bool MultiplyCheckOverflow(this ref int n1, int n2, out long remainder) {
-			remainder = 0;
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
-				remainder = (long)n1 * (long)n2 - int.MaxValue;
-				n1 = int.MaxValue;
-				return true;
-			}
-
-			return false;
+			n1 = MultiplyCheckOverflow(n1, n2, out remainder);
+			return remainder != 0;
 		}
 
 		#endregion
@@ -60,84 +38,70 @@ namespace WeaponEnchantments.Common.Utility
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static void AddCheckOverflow(this ref int n1, int n2) {
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
+			int maxN2 = int.MaxValue - n1;
+			if (n2 > maxN2) {
 				n1 = int.MaxValue;
+				return;
 			}
+
+			n1 += n2;
 		}
 
 		/// <summary>
 		/// Multiplies n1 by n2 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static void MultiplyCheckOverflow(this ref int n1, int n2) {
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
+			int maxN2 = int.MaxValue / n1;
+			if (n2 > maxN2) {
 				n1 = int.MaxValue;
+				return;
 			}
+
+			n1 *= n2;
 		}
 
 		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
-		public static void AddCheckOverflow(this ref int n1, float n2) {
-			try {
-				checked {
-					n1 += (int)n2;
-				}
-			}
-			catch {
-				n1 = int.MaxValue;
-			}
-		}
+		public static void AddCheckOverflow(this ref int n1, float n2) => n1.AddCheckOverflow((int)n2);
 
 		/// <summary>
 		/// Multiplies n1 by n2 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static void MultiplyCheckOverflow(this ref int n1, float n2) {
-			try {
-				checked {
-					n1 = (int)Math.Round((float)n1 * n2);
-				}
-			}
-			catch {
+			float maxN2 = (float)int.MaxValue / (float)n1;
+			if (n2 > maxN2) {
 				n1 = int.MaxValue;
+				return;
 			}
+
+			n1 = (int)Math.Round((float)n1 * n2);
 		}
 
 		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static void AddCheckOverflow(this ref float n1, float n2) {
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
+			float maxN2 = float.MaxValue - n1;
+			if (n2 > maxN2) {
 				n1 = float.MaxValue;
+				return;
 			}
+
+			n1 += n2;
 		}
 
 		/// <summary>
 		/// Multiplies n1 by n2 and caps n1 at float.MaxValue.
 		/// </summary>
 		public static void MultiplyCheckOverflow(this ref float n1, float n2) {
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
+			float maxN2 = float.MaxValue / n1;
+			if (n2 > maxN2) {
 				n1 = float.MaxValue;
+				return;
 			}
+
+			n1 *= n2;
 		}
 
 		#endregion
@@ -150,18 +114,14 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="remainder">0 if result is < int.MaxValue.  = result - int.MaxValue otherwise</param>
 		/// <returns>True if the result is > int.MaxValue</returns>
 		public static int AddCheckOverflow(int n1, int n2, out long remainder) {
-			remainder = 0;
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
+			int maxN2 = int.MaxValue - n1;
+			if (n2 > maxN2) {
 				remainder = (long)n1 + (long)n2 - int.MaxValue;
-				n1 = int.MaxValue;
+				return int.MaxValue;
 			}
 
-			return n1;
+			remainder = 0;
+			return n1 + n2;
 		}
 
 		/// <summary>
@@ -170,33 +130,21 @@ namespace WeaponEnchantments.Common.Utility
 		/// <param name="remainder">0 if result is < int.MaxValue.  = result - int.MaxValue otherwise</param>
 		/// <returns>True if the result is > int.MaxValue</returns>
 		public static int MultiplyCheckOverflow(int n1, int n2, out long remainder) {
-			remainder = 0;
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
+			int maxN2 = int.MaxValue / n1;
+			if (n2 > maxN2) {
 				remainder = (long)n1 * (long)n2 - int.MaxValue;
-				n1 = int.MaxValue;
+				return int.MaxValue;
 			}
 
-			return n1;
+			remainder = 0;
+			return n1 * n2;
 		}
 
 		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static int AddCheckOverflow(int n1, int n2) {
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
-				n1 = int.MaxValue;
-			}
-
+			n1.AddCheckOverflow(n2);
 			return n1;
 		}
 
@@ -204,15 +152,7 @@ namespace WeaponEnchantments.Common.Utility
 		/// Multiplies n1 by n2 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static int MultiplyCheckOverflow(int n1, int n2) {
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
-				n1 = int.MaxValue;
-			}
-
+			n1.MultiplyCheckOverflow(n2);
 			return n1;
 		}
 
@@ -220,15 +160,7 @@ namespace WeaponEnchantments.Common.Utility
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static float AddCheckOverflow(float n1, float n2) {
-			try {
-				checked {
-					n1 += n2;
-				}
-			}
-			catch {
-				n1 = float.MaxValue;
-			}
-
+			n1.AddCheckOverflow(n2);
 			return n1;
 		}
 
@@ -236,15 +168,7 @@ namespace WeaponEnchantments.Common.Utility
 		/// Multiplies n1 by n2 and caps n1 at float.MaxValue.
 		/// </summary>
 		public static float MultiplyCheckOverflow(float n1, float n2) {
-			try {
-				checked {
-					n1 *= n2;
-				}
-			}
-			catch {
-				n1 = float.MaxValue;
-			}
-
+			n1.MultiplyCheckOverflow(n2);
 			return n1;
 		}
 
