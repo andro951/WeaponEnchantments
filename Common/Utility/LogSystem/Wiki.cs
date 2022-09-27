@@ -14,6 +14,7 @@ using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Utility.LogSystem;
 using WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets;
 using WeaponEnchantments.Items.Enchantments;
+using WeaponEnchantments.Content.NPCs;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -48,6 +49,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             AddEssence(webPages, enchantmentEssence);
             AddEnchantments(webPages, enchantments);
             AddPowerBooster(webPages, powerBooster);
+            AddWitch(webPages);
 
             string wiki = "\n\n";
 
@@ -300,6 +302,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				$"Expert/Master mode at the same rates from the table.");
 
             webPages.Add(PowerBooster);
+		}
+        private static void AddWitch(List<WebPage> webPages) {
+            WebPage WitchPage = new("Witch");
+            NPCInfo npcInfo = new(ModContent.NPCType<Witch>());
 		}
         private static void AddLowestCraftableEnchantments(WebPage webPage, IEnumerable<Enchantment> enchantments) {
             string text = "Only these enchantments can be obtained by crafting.  The others must all be found in other ways.\n";

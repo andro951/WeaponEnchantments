@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             Item = item;
         }
         private int ShopPrice;
-        public void AddStatistics(WebPage webpage, bool name = true, bool artists = true, bool image = true, bool types = true, bool tooltip = true, bool rarity = true, bool buy = true, bool sell = true, bool research = true) {
+        public void AddStatistics(WebPage webpage, bool name = true, bool image = true, bool artists = true, bool types = true, bool tooltip = true, bool rarity = true, bool buy = true, bool sell = true, bool research = true) {
             List<List<string>> info = new();
             List<string> labels = new();
 
@@ -50,24 +50,30 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             labels.Add("Statistics");
 
             //Type
-            info.Add(new() { "Type", GetTypes() });
+            if (types)
+                info.Add(new() { "Type", GetTypes() });
 
             //Tooltip
-            info.Add(new() { "Tooltip", $"<i>'{GetTooltip()}'</i>" });
+            if (tooltip)
+                info.Add(new() { "Tooltip", $"<i>'{GetTooltip()}'</i>" });
 
             //Rarity
-            string rareString = GetRarity(out Color color);
-            info.Add(new() { "https://terraria.fandom.com/wiki/Rarity".ToExternalLink("Rarity"), $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>" });
+            if (rarity) {
+                string rareString = GetRarity(out Color color);
+                info.Add(new() { "https://terraria.fandom.com/wiki/Rarity".ToExternalLink("Rarity"), $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>" });
+            }
 
             //Buy
-            if (TryGetShopPrice())
+            if (buy && TryGetShopPrice())
                 info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(ModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
 
             //Sell
-            info.Add(new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" });
+            if (sell)
+                info.Add(new() { "Sell", $"{(Item.value / 5).GetCoinsPNG()}" });
 
             //Research
-            info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), GetResearch() });
+            if (research)
+                info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), GetResearch() });
 
             webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
         }
