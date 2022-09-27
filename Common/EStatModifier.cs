@@ -454,10 +454,14 @@ namespace WeaponEnchantments.Common
 		}
 		*/
 		public EStatModifier Clone() {
-			if (_automaticStrengthData != null)
+			if (_waitingForEnterWorld)
 				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, combineModeID: _combineModeID);
 
 			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
+		}
+
+		public override string ToString() {
+			return $"{StatType}, A: {_additive}, M: {_multiplicative}, F: {_flat}, B: {_base}, combineMode: {_combineModeID}";
 		}
 	}
 }
