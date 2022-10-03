@@ -23,6 +23,7 @@ using KokoLib;
 using OnProjectile = On.Terraria.Projectile;
 using OnPlayer = On.Terraria.Player;
 using WeaponEnchantments.Content.NPCs;
+using System.Linq;
 
 namespace WeaponEnchantments
 {
@@ -50,9 +51,13 @@ namespace WeaponEnchantments
 			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
 		public override void PostSetupContent() {
-			if (ModLoader.TryGetMod("Census", out Mod Census))
-				Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
-
+			if (ModLoader.TryGetMod("Census", out Mod Census)) {
+				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
+					Census.Call("TownNPCCondition", modNPC.NPC.netID, ((INPCWikiInfo)modNPC).SpawnCondition);
+				}
+				//Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
+			}
+			
 			if (ModLoader.TryGetMod("Wikithis", out Mod wikiThis))
 				wikiThis.Call("AddModURL", this, "weapon-enchantments-mod-tmodloader.fandom.com");
 		}

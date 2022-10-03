@@ -26,15 +26,37 @@ using System.Reflection;
 namespace WeaponEnchantments.Content.NPCs
 {
 	[AutoloadHead]
-	public class Witch : ModNPC {
+	public class Witch : ModNPC, INPCWikiInfo {
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
 		private Dictionary<int, float> shopEnchantments = new();
+
+		public List<WikiTypeID> WikiNPCTypes => new() { WikiTypeID.NPC };
+
+		public string Artist => "Sir Bumpleton ?";
+
+		public Dictionary<IShoppingBiome, AffectionLevel> BiomeAffections => new() {
+			{ ModContent.GetInstance<DungeonBiome>(), AffectionLevel.Love },
+			{ ModContent.GetInstance<JungleBiome>(), AffectionLevel.Like },
+			{ ModContent.GetInstance<ForestBiome>(), AffectionLevel.Dislike },
+			{ ModContent.GetInstance<HallowBiome>(), AffectionLevel.Hate },
+		};
+		public Dictionary<int, AffectionLevel> NPCAffections => new() {
+			{ NPCID.WitchDoctor, AffectionLevel.Love },
+			{ NPCID.Wizard, AffectionLevel.Like },
+			{ NPCID.Dryad, AffectionLevel.Dislike },
+			{ NPCID.BestiaryGirl, AffectionLevel.Hate }
+		};
+
+		public bool TownNPC => true;
+
+		public string SpawnCondition => "Have an enchantment in your inventory or on your equipment.";
+
 		public override void SetStaticDefaults() {
 			// DisplayName automatically assigned from localization files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Witch");
 			Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
-
+			
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs.
 			NPCID.Sets.AttackFrameCount[Type] = 4;
 			NPCID.Sets.DangerDetectRange[Type] = 700; // The amount of pixels away from the center of the npc that it tries to attack enemies.
@@ -53,18 +75,14 @@ namespace WeaponEnchantments.Content.NPCs
 
 			// Set Example Person's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in WeaponEnchantments/Localization/en-US.lang).
 			// NOTE: The following code uses chaining - a style that works due to the fact that the SetXAffection methods return the same NPCHappiness instance they're called on.
-			NPC.Happiness
-				.SetBiomeAffection<DungeonBiome>(AffectionLevel.Love)
-				.SetBiomeAffection<JungleBiome>(AffectionLevel.Like)
-				.SetBiomeAffection<ForestBiome>(AffectionLevel.Dislike)
-				.SetBiomeAffection<HallowBiome>(AffectionLevel.Hate)
-				.SetNPCAffection(NPCID.WitchDoctor, AffectionLevel.Love)
-				.SetNPCAffection(NPCID.Wizard, AffectionLevel.Like)
-				.SetNPCAffection(NPCID.Dryad, AffectionLevel.Dislike)
-				.SetNPCAffection(NPCID.BestiaryGirl, AffectionLevel.Hate)
-			;
-		}
+			foreach (KeyValuePair<IShoppingBiome, AffectionLevel> pair in BiomeAffections) {
+				NPC.Happiness.SetBiomeAffection(pair.Key, pair.Value);
+			}
 
+			foreach (KeyValuePair<int, AffectionLevel> pair in NPCAffections) {
+				NPC.Happiness.SetNPCAffection(pair.Key, pair.Value);
+			}
+		}
 		public override void SetDefaults() {
 			NPC.townNPC = true;
 			NPC.friendly = true;

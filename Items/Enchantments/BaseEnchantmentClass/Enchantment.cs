@@ -251,15 +251,16 @@ namespace WeaponEnchantments.Items {
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
 		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
-		public virtual List<WikiItemTypeID> WikiItemTypes {
+		public virtual List<WikiTypeID> WikiItemTypes {
 			get {
-				List<WikiItemTypeID> types = new() { WikiItemTypeID.Enchantments };
+				List<WikiTypeID> types = new() { WikiTypeID.Enchantments };
 				if (EnchantmentTier < tierNames.Length - 1)
-					types.Add(WikiItemTypeID.CraftingMaterial);
+					types.Add(WikiTypeID.CraftingMaterial);
 
 				return types;
 			} 
 		}
+		public virtual string WikiDescription => null;
 
 		public abstract string Artist { get; }
 		public abstract string ArtModifiedBy { get; }

@@ -22,11 +22,11 @@ namespace WeaponEnchantments.Items
 			new() { { ItemID.HallowedBar, 2 } }
 		};
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-		public virtual List<WikiItemTypeID> WikiItemTypes {
+		public virtual List<WikiTypeID> WikiItemTypes {
 			get {
-				List<WikiItemTypeID> types = new() { WikiItemTypeID.EnchantingTables, WikiItemTypeID.Storage, WikiItemTypeID.CraftingStation };
+				List<WikiTypeID> types = new() { WikiTypeID.EnchantingTables, WikiTypeID.Storage, WikiTypeID.CraftingStation };
 				if (enchantingTableTier < EnchantingRarity.tierNames.Length - 1)
-					types.Add(WikiItemTypeID.CraftingMaterial);
+					types.Add(WikiTypeID.CraftingMaterial);
 
 				return types;
 			}

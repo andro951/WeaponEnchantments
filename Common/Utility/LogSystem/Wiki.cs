@@ -49,7 +49,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             AddEssence(webPages, enchantmentEssence);
             AddEnchantments(webPages, enchantments);
             AddPowerBooster(webPages, powerBooster);
-            AddWitch(webPages);
+            AddWitch(webPages, modItems.Where(m => m is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never));
 
             string wiki = "\n\n";
 
@@ -244,6 +244,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                         if (!tier0EnchantmentsOnly) {
                             enchantmentTypePage = new(enchantmentType);
                             enchantmentTypePage.AddLink("Enchantments");
+                            IItemWikiInfo wikiInfo = enchantment;
+                            if (wikiInfo.WikiDescription != null)
+                                enchantmentTypePage.AddParagraph(wikiInfo.WikiDescription);
+
                             string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
                             Enchantments.AddParagraph(typePNG);
                             if (enchantment.Utility)
@@ -303,9 +307,44 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webPages.Add(PowerBooster);
 		}
-        private static void AddWitch(List<WebPage> webPages) {
+        private static void AddWitch(List<WebPage> webPages, IEnumerable<ModItem> modItems) {
             WebPage WitchPage = new("Witch");
             NPCInfo npcInfo = new(ModContent.NPCType<Witch>());
+            npcInfo.AddStatistics(WitchPage);
+            WitchPage.AddParagraph(
+                $"The Witch is a town npc that sells a variety of items.  " +
+				$"She sells containments and enchantment essence and a selection of enchantments.  The enchantents are " +
+				$"chosen randomly from the ones that are allowed to be sold.  This includes all enchantments with a sell condition " +
+				$"of \"Always\", 4 enchantments with a sell condtion of \"Any Time\", and 2 from the rare pool.  The rare pool " +
+				$"consists of the \"Any Time Rare\" enchantments and all other enchantments if the sell condition for them is met.  " +
+				$"Her shop resets as soon as the the game changes from night to day.  This happens at 4:30 am normally, but if using " +
+				$"some other effect to set time, it will trigger as well as long as the game registered it being night then day.  " +
+				$"The prices of enchantment essence and enchantments (except ones with a sell condition of \"Always\") are higher " +
+				$"than normal.  Enchantment essence is 2x higher for Tier 4(Legendary) while the lower tiers are multiplied by an " +
+				$"additional 2x each tier.  This is make the cost per experience the exact same at every tier and to prevent an " +
+				$"infinite coin/essence exploit from buying Basic essence and crafting it into Legendary, gaining a significant " +
+				$"amount of value.  The 2x increase is to add a slight disincentive to buying essence instead of farming for it.");
+            npcInfo.AddSpawnCondition(WitchPage);
+            List<List<string>> sellItems = new() { new List<string>() { "Item", "Price", "Sell Condition" } };
+			foreach (ModItem modItem in 
+                modItems
+                .OrderBy(m => ((ISoldByWitch)m).SellCondition)
+                .GroupBy(m => m.TypeAboveModItem().Name)
+                .Select(g => g.ToList().OrderBy(m => EnchantingRarity.GetTierNumberFromName(m.Name)))
+                .SelectMany(i => i)) {
+
+                ItemInfo.TryGetShopPrice(modItem, out int price);
+                sellItems.Add(new() { modItem.Item.ToItemPNG(link: true), price.GetCoinsPNG(), ((ISoldByWitch)modItem).SellCondition.ToString().AddSpaces() });
+			}
+
+            WitchPage.AddSubHeading("Shop Items");
+            WitchPage.AddTable(
+                elements: sellItems,
+                firstRowHeaders: true
+            );
+            npcInfo.AddLivingPreferences(WitchPage);
+
+            webPages.Add(WitchPage);
 		}
         private static void AddLowestCraftableEnchantments(WebPage webPage, IEnumerable<Enchantment> enchantments) {
             string text = "Only these enchantments can be obtained by crafting.  The others must all be found in other ways.\n";

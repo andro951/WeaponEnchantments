@@ -36,7 +36,7 @@ namespace WeaponEnchantments.Items
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
 		public virtual SellCondition SellCondition => SellCondition.Always;
-		public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.EnchantmentEssence, WikiItemTypeID.CraftingMaterial };
+		public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.EnchantmentEssence, WikiTypeID.CraftingMaterial };
 		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier);
 
 		public virtual string Artist { private set; get; } = "Kiroto";
@@ -49,11 +49,7 @@ namespace WeaponEnchantments.Items
 			ItemID.Sets.ItemIconPulse[type] = true;
 			ItemID.Sets.ItemNoGravity[type] = true;
 
-			//Values and xp per essence
-			for (int i = 0; i < tierNames.Length; i++) {
-				values[i] = (float)(25 * Math.Pow(8, i));
-				xpPerEssence[i] = (float)(400 * Math.Pow(4, i));
-			}
+			SetupStaticValues();
 
 			//Value per xp
 			if(EssenceTier == 4)
@@ -77,7 +73,14 @@ namespace WeaponEnchantments.Items
 
 			IDs[EssenceTier] = Type;
 		}
+		private void SetupStaticValues() {
+			if (values[EssenceTier] != 0)
+				return;
 
+			//Values and xp per essence
+			values[EssenceTier] = (float)(25 * Math.Pow(8, EssenceTier));
+			xpPerEssence[EssenceTier] = (float)(400 * Math.Pow(4, EssenceTier));
+		}
 		public override void PostUpdate() {
 			// Turn the alpha of the color into it's brightness (0-1)
 			float intensity = glowBrightness / 255f;
@@ -116,6 +119,7 @@ namespace WeaponEnchantments.Items
 			);
 		}
 		public override void SetDefaults() {
+			SetupStaticValues();
 			Item.value = (int)values[EssenceTier];
 			Item.maxStack = 9999;
 			Item.width = entitySize;

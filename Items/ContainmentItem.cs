@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Items
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public virtual SellCondition SellCondition => SellCondition.Always;
         public virtual float SellPriceModifier => 1f;
-        public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.Containments, WikiItemTypeID.CraftingMaterial };
+        public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Containments, WikiTypeID.CraftingMaterial };
 
         public virtual string Artist { private set; get; } = "Zorutan";
         public virtual string ArtModifiedBy => null;
@@ -31,11 +31,6 @@ namespace WeaponEnchantments.Items
             GetDefaults();
             if (!WEMod.serverConfig.DisableResearch)
                 CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
-
-            bars = 4 * (int)Math.Pow(2, tier);
-            Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
-            if (tier == 2)
-                Values[tier] += ContentSamples.ItemsByType[ItemID.Topaz].value * 4;
 
             Tooltip.SetDefault("Used to store " + tierNames[tier] + " enchantments");
             
@@ -49,6 +44,8 @@ namespace WeaponEnchantments.Items
                     break;
                 }
             }
+
+            GetValues();
         }
         public override void SetDefaults() {
             GetDefaults();
@@ -57,6 +54,15 @@ namespace WeaponEnchantments.Items
             Item.width = 28 + 4 * tier;
             Item.height = 28 + 4 * tier;
             Item.rare = tier + 1;
+        }
+        private void GetValues() {
+            if (Values[tier] != 0)
+                return;
+
+            bars = 4 * (int)Math.Pow(2, tier);
+            Values[tier] = bars * ContentSamples.ItemsByType[barIDs[0, tier]].value;
+            if (tier == 2)
+                Values[tier] += ContentSamples.ItemsByType[ItemID.Topaz].value * 4;
         }
         public override void AddRecipes() {
             Recipe recipie;

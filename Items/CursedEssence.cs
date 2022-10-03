@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Items
 		private int entitySize = 20;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public Color glowColor = TierColors[3];
-		public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.CursedEssence, WikiItemTypeID.CraftingMaterial };
+		public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.CursedEssence, WikiTypeID.CraftingMaterial };
 
 		public virtual string Artist { private set; get; } = "Kiroto";
 		public virtual string Designer { private set; get; } = "andro951";

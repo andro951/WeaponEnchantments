@@ -14,7 +14,7 @@ namespace WeaponEnchantments.Items
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
         public virtual DropRestrictionsID DropRestrictionsID => DropRestrictionsID.HardModeBosses;
-        public virtual List<WikiItemTypeID> WikiItemTypes => new() { WikiItemTypeID.PowerBooster };
+        public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.PowerBooster };
         public bool ConfigOnlyDrop => true;
         public virtual string Artist { private set; get; } = "andro951";
         public virtual string Designer { private set; get; } = "andro951";

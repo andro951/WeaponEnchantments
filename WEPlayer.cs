@@ -1199,6 +1199,10 @@ namespace WeaponEnchantments
 
                 //Player hp less than max
                 if (heal > 0 && player.lifeSteal > 0f) {
+                    int excess = player.statLife + heal - player.statLifeMax2;
+                    if (excess > 0)
+                        heal -= excess;
+
                     //Vanilla lifesteal mitigation
                     int vanillaLifeStealValue = (int)Math.Round(heal * ConfigValues.AffectOnVanillaLifeStealLimit);
                     player.lifeSteal -= vanillaLifeStealValue;
@@ -1207,7 +1211,7 @@ namespace WeaponEnchantments
                 }
 
                 //Life Steal Rollover
-                lifeStealRollover = healTotal - heal;
+                lifeStealRollover = (healTotal - (float)heal) % 1f;
             }
             else {
                 //Player hp is max

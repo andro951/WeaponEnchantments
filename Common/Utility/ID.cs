@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Utility
@@ -474,7 +475,7 @@ namespace WeaponEnchantments.Common.Utility
         None,
         HardModeBosses
 	}
-    public enum WikiItemTypeID
+    public enum WikiTypeID
 	{
         CraftingMaterial,
         Containments,
@@ -491,37 +492,76 @@ namespace WeaponEnchantments.Common.Utility
         Tool,
         Mechanism,
         LightSource,
-        PowerBooster
+        PowerBooster,
+		NPC
 	}
-    public static class WikiItemTypeMethods
+
+	public static class WikiItemTypeMethods
 	{
-        public static string GetLinkText(this WikiItemTypeID id, out bool external) {
+        public static string GetLinkText(this WikiTypeID id, out bool external) {
             external = true;
 			switch (id) {
-                case WikiItemTypeID.CraftingMaterial:
+                case WikiTypeID.CraftingMaterial:
                     return "https://terraria.fandom.com/wiki/Category:Crafting_material_items";
-                case WikiItemTypeID.Furniture:
+                case WikiTypeID.Furniture:
                     return "https://terraria.fandom.com/wiki/Furniture";
-                case WikiItemTypeID.CraftingStation:
+                case WikiTypeID.CraftingStation:
                     return "https://terraria.fandom.com/wiki/Crafting_stations";
-                case WikiItemTypeID.Storage:
+                case WikiTypeID.Storage:
                     return "https://terraria.fandom.com/wiki/Storage_items";
-                case WikiItemTypeID.Armor:
+                case WikiTypeID.Armor:
                     return "https://terraria.fandom.com/wiki/Armor";
-                case WikiItemTypeID.Set:
+                case WikiTypeID.Set:
                     return "https://terraria.fandom.com/wiki/Armor";
-                case WikiItemTypeID.Weapon:
+                case WikiTypeID.Weapon:
                     return "https://terraria.fandom.com/wiki/Weapons";
-                case WikiItemTypeID.Tool:
+                case WikiTypeID.Tool:
                     return "https://terraria.fandom.com/wiki/Tools";
-                case WikiItemTypeID.Mechanism:
+                case WikiTypeID.Mechanism:
                     return "https://terraria.fandom.com/wiki/Mechanisms";
-                case WikiItemTypeID.LightSource:
+                case WikiTypeID.LightSource:
                     return "https://terraria.fandom.com/wiki/Light_sources";
+				case WikiTypeID.NPC:
+					return "https://terraria.fandom.com/wiki/NPCs";
                 default:
                     external = false;
                     return id.ToString().AddSpaces();
 			}
+		}
+		public static string GetPNGLink(this IShoppingBiome shoppingBiome) {
+			switch (shoppingBiome.NameKey) {
+				case "Jungle":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Bestiary_The_Jungle.png";
+				case "Hallow":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Bestiary_The_Hallow.png";
+				case "Dungeon":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Bestiary_The_Dungeon.png";
+				case "Corruption":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ab/Bestiary_The_Corruption.png";
+				case "Crimson":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Bestiary_The_Crimson.png";
+				case "Glowing Mushroom":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/66/Bestiary_Surface_Mushroom.png";
+				case "Snow":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/fa/Bestiary_Snow.png";
+				case "Ocean":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/aa/Bestiary_Ocean.png";
+				case "Desert":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Bestiary_Desert.png";
+				case "Underground":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/79/Bestiary_Underground.png";
+				case "Cavern":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/52/Bestiary_Caverns.png";
+				case "The Underworld":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Bestiary_The_Underworld.png";
+				case "Forest":
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/42/Bestiary_Surface.png";
+				default:
+					return $"{shoppingBiome.NameKey} Not Found";
+			}
+		}
+		public static string GetLinkText(this IShoppingBiome shoppingBiome) {
+			return $"https://terraria.fandom.com/wiki/{shoppingBiome.NameKey}";
 		}
 	}
     public enum AlignID
@@ -706,17 +746,17 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.MotherSlime://16 Mother Slime
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Mother_Slime.png/revision/latest?cb=20160925081648&format=original";
 				case NPCID.Merchant://17 Merchant
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/19/Merchant.png/revision/latest?cb=20211003230931&format=original";
 				case NPCID.Nurse://18 Nurse
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cc/Nurse.png/revision/latest?cb=20161005060102&format=original";
 				case NPCID.ArmsDealer://19 Arms Dealer
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/9/9e/Arms_Dealer.png/revision/latest?cb=20161004000744&format=original";
 				case NPCID.Dryad://20 Dryad
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/5c/Dryad.png/revision/latest?cb=20161004000507&format=original";
 				case NPCID.Skeleton://21 Skeleton
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/23/Skeleton.png/revision/latest?cb=20170420012637&format=original";
 				case NPCID.Guide://22 Guide
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7f/Guide.png/revision/latest?cb=20191003231144&format=original";
 				case NPCID.MeteorHead://23 Meteor Head
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a1/Meteor_Head.png/revision/latest?cb=20170420013145&format=original";
 				case NPCID.FireImp://24 Fire Imp
@@ -748,7 +788,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.OldMan://37 Old Man
 					return "";
 				case NPCID.Demolitionist://38 Demolitionist
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/6e/Demolitionist.png/revision/latest?cb=20200330043525&format=original";
 				case NPCID.BoneSerpentHead://39 Bone Serpent
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1c/Bone_Serpent_Head.png/revision/latest?cb=20170420015651&format=original";
 				case NPCID.BoneSerpentBody://40 Bone Serpent
@@ -780,7 +820,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.TheGroom://53 The Groom
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cd/The_Groom.png/revision/latest?cb=20170420102844&format=original";
 				case NPCID.Clothier://54 Clothier
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/d/d2/Clothier.png/revision/latest?cb=20161009093143&format=original";
 				case NPCID.Goldfish://55 Goldfish
 					return "";
 				case NPCID.Snatcher://56 Snatcher
@@ -886,9 +926,9 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.BoundWizard://106 Bound Wizard
 					return "";
 				case NPCID.GoblinTinkerer://107 Goblin Tinkerer
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/86/Goblin_Tinkerer.png/revision/latest?cb=20150705070124&format=original";
 				case NPCID.Wizard://108 Wizard
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c7/Wizard.png/revision/latest?cb=20151018113651&format=original";
 				case NPCID.Clown://109 Clown
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/ff/Clown.png/revision/latest?cb=20170421224900&format=original";
 				case NPCID.SkeletonArcher://110 Skeleton Archer
@@ -920,7 +960,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.BoundMechanic://123 Bound Mechanic
 					return "";
 				case NPCID.Mechanic://124 Mechanic
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/55/Mechanic.png/revision/latest?cb=20151018120500&format=original";
 				case NPCID.Retinazer://125 Retinazer
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/af/Retinazer_%28Second_Form%29.png/revision/latest?cb=20170421155457&format=original";
 				case NPCID.Spazmatism://126 Spazmatism
@@ -956,7 +996,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.ToxicSludge://141 Toxic Sludge
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Toxic_Sludge.gif/revision/latest?cb=20200808162634&format=original";
 				case NPCID.SantaClaus://142 Santa Claus
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/58/Santa_Claus.png/revision/latest?cb=20201013025452&format=original";
 				case NPCID.SnowmanGangsta://143 Snowman Gangsta
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7a/Snowman_Gangsta.png/revision/latest?cb=20210620022429&format=original";
 				case NPCID.MisterStabby://144 Mister Stabby
@@ -992,7 +1032,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Vampire://159 Vampire
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4e/Vampire.png/revision/latest?cb=20170422005918&format=original";
 				case NPCID.Truffle://160 Truffle
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Truffle.png/revision/latest?cb=20200704192524&format=original";
 				case NPCID.ZombieEskimo://161 Frozen Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/cf/Frozen_Zombie.png/revision/latest?cb=20170422010132&format=original";
 				case NPCID.Frankenstein://162 Frankenstein
@@ -1028,7 +1068,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Derpling://177 Derpling
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/34/Derpling.png/revision/latest?cb=20170421203737&format=original";
 				case NPCID.Steampunker://178 Steampunker
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/82/Steampunker.png/revision/latest?cb=20200702150220&format=original";
 				case NPCID.CrimsonAxe://179 Crimson Axe
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/d/df/Crimson_Axe.png/revision/latest?cb=20170420181950&format=original";
 				case NPCID.PigronCrimson://180 Pigron
@@ -1086,11 +1126,11 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.IcyMerman://206 Icy Merman
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/4f/Icy_Merman.png/revision/latest?cb=20170421020536&format=original";
 				case NPCID.DyeTrader://207 Dye Trader
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/51/Dye_Trader.png/revision/latest?cb=20161009093013&format=original";
 				case NPCID.PartyGirl://208 Party Girl
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a8/Party_Girl.png/revision/latest?cb=20161130010012&format=original";
 				case NPCID.Cyborg://209 Cyborg
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/a3/Cyborg.png/revision/latest?cb=20161004001101&format=original";
 				case NPCID.Bee://210 Bee
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/Bee.png/revision/latest?cb=20170422124353&format=original";
 				case NPCID.BeeSmall://211 Bee
@@ -1126,11 +1166,11 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.FlyingSnake://226 Flying Snake
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/82/Flying_Snake.png/revision/latest?cb=20161024041552&format=original";
 				case NPCID.Painter://227 Painter
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Painter.png/revision/latest?cb=20150705103620&format=original";
 				case NPCID.WitchDoctor://228 Witch Doctor
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ac/Witch_Doctor.png/revision/latest?cb=20170108122024&format=original";
 				case NPCID.Pirate://229 Pirate
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7d/Pirate.png/revision/latest?cb=20170421220847&format=original";
 				case NPCID.GoldfishWalker://230 Goldfish
 					return "";
 				case NPCID.HornetFatty://231 Hornet
@@ -1378,7 +1418,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Flocko://352 Flocko
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/62/Flocko.png/revision/latest?cb=20200518194055&format=original";
 				case NPCID.Stylist://353 Stylist
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/16/Stylist.png/revision/latest?cb=20151031152652&format=original";
 				case NPCID.WebbedStylist://354 Webbed Stylist
 					return "";
 				case NPCID.Firefly://355 Firefly
@@ -1408,9 +1448,9 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Scorpion://367 Scorpion
 					return "";
 				case NPCID.TravellingMerchant://368 Traveling Merchant
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Traveling_Merchant.png/revision/latest?cb=20150704081454&format=original";
 				case NPCID.Angler://369 Angler
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/bf/Angler.png/revision/latest?cb=20200702150720&format=original	";
 				case NPCID.DukeFishron://370 Duke Fishron
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Duke_Fishron.png/revision/latest?cb=20180705150806&format=original";
 				case NPCID.DetonatingBubble://371 Detonating Bubble
@@ -1554,7 +1594,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.CultistBossClone://440 Lunatic Cultist
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/9/94/Ancient_Cultist.png/revision/latest?cb=20160318233643&format=original";
 				case NPCID.TaxCollector://441 Tax Collector
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/75/Tax_Collector.png/revision/latest?cb=20150701011232&format=original";
 				case NPCID.GoldBird://442 Gold Bird
 					return "";
 				case NPCID.GoldBunny://443 Gold Bunny
@@ -1578,7 +1618,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.BoneThrowingSkeleton4://452 Skeleton
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/be/Pantless_Skeleton.png/revision/latest?cb=20170422124010&format=original";
 				case NPCID.SkeletonMerchant://453 Skeleton Merchant
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/37/Skeleton_Merchant.png/revision/latest?cb=20150701011353&format=original";
 				case NPCID.CultistDragonHead://454 Phantasm Dragon
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/30/Phantasm_Dragon_%28Head%29.png/revision/latest?cb=20150701103037&format=original";
 				case NPCID.CultistDragonBody1://455 Phantasm Dragon
@@ -1772,7 +1812,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.DD2LanePortal://549 Mysterious Portal
 					return "";
 				case NPCID.DD2Bartender://550 Tavernkeep
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/81/Tavernkeep.png/revision/latest?cb=20161115191006&format=original";
 				case NPCID.DD2Betsy://551 Betsy
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/e/ec/Betsy.png/revision/latest?cb=20161117001359&format=original";
 				case NPCID.DD2GoblinT1://552 Etherian Goblin
@@ -1848,7 +1888,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.EyeballFlyingFish://587 Wandering Eye Fish
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Wandering_Eye_Fish.png/revision/latest?cb=20200516195725&format=original";
 				case NPCID.Golfer://588 Golfer
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/1a/Golfer.png/revision/latest?cb=20200516183144&format=original";
 				case NPCID.GolferRescue://589 Golfer
 					return "";
 				case NPCID.TorchZombie://590 Zombie
@@ -1938,7 +1978,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.MaggotZombie://632 Maggot Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/a/ab/Maggot_Zombie.png/revision/latest?cb=20200516193041&format=original";
 				case NPCID.BestiaryGirl://633 Zoologist
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/61/Zoologist.png/revision/latest?cb=20200516192903&format=original";
 				case NPCID.SporeBat://634 Spore Bat
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b7/Spore_Bat.png/revision/latest?cb=20200516193907&format=original";
 				case NPCID.SporeSkeleton://635 Spore Skeleton
@@ -1998,7 +2038,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.PirateGhost://662 Pirate's Curse
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Pirate%27s_Curse.png/revision/latest?cb=20200730145829&format=original";
 				case NPCID.Princess://663 Princess
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f2/Princess.png/revision/latest?cb=20201013172546&format=original";
 				case NPCID.TorchGod://664 The Torch God
 					return "";
 				case NPCID.ChaosBallTim://665 Chaos Ball

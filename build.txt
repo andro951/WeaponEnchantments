@@ -1,7 +1,8 @@
 displayName = Weapon Enchantments
 author = andro951
-version = 1.0.0.1
+version = 1.0.0.2
 weakReferences = MagicStorage@0.5.6.2
 includeSource = true
 sortAfter = RecursiveCraft
 modReferences = KokoLib
+homepage = https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki

@@ -35,7 +35,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             List<string> labels = new();
 
             if (name)
-                labels.Add($"{GetName()}");
+                labels.Add(GetName());
 
             if (image)
                 labels.Add($"{Item.ToItemPNG(displayName: false)}");
@@ -101,13 +101,14 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public string GetTypes() {
             string typeText = "";
             bool first = true;
-            foreach (WikiItemTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
+            foreach (WikiTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
                 if (first) {
                     first = false;
                 }
                 else {
                     typeText += ", ";
                 }
+
                 string temp = id.GetLinkText(out bool external);
                 typeText += external ? temp.ToExternalLink(id.ToString().AddSpaces()) : temp.ToLink(id.ToString().AddSpaces());
             }
@@ -277,6 +278,15 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return false;
         }
+        public static bool TryGetShopPrice(ModItem modItem, out int price) {
+            if (modItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
+                price = (int)((float)modItem.Item.value * soldByWitch.SellPriceModifier);
+                return true;
+            }
+
+            price = 0;
+            return false;
+		}
         public IEnumerable<IEnumerable<string>> RecipesCreateItem => GetRecipes(createItem: true);
         public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
         public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(createItem: true, usedIn: true, reverseRecipes: true);
