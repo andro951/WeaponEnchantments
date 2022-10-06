@@ -5,10 +5,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Localization;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantingTableItem : ModItem, IItemWikiInfo
+	public abstract class EnchantingTableItem : WEModItem
 	{
 		public int enchantingTableTier = -1;
 		public static string[] enchantingTableNames = new string[5] { "Wood", "Dusty", "Hellish", "Soul", "Ultimate" };
@@ -22,7 +23,7 @@ namespace WeaponEnchantments.Items
 			new() { { ItemID.HallowedBar, 2 } }
 		};
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
-		public virtual List<WikiTypeID> WikiItemTypes {
+		public override List<WikiTypeID> WikiItemTypes {
 			get {
 				List<WikiTypeID> types = new() { WikiTypeID.EnchantingTables, WikiTypeID.Storage, WikiTypeID.CraftingStation };
 				if (enchantingTableTier < EnchantingRarity.tierNames.Length - 1)
@@ -31,15 +32,12 @@ namespace WeaponEnchantments.Items
 				return types;
 			}
 		}
-		public virtual string Artist { private set; get; } = "Zorutan";
-		public virtual string Designer { private set; get; } = "andro951";
+		public override int CreativeItemSacrifice => 1;
+		public override string LocalizationTooltip => $"Used to apply enchantments to items. (tier {enchantingTableTier})";
+		public override string Artist => "Zorutan";
+		public override string Designer => "andro951";
 		public override void SetStaticDefaults() {
 			GetDefaults();
-			if (!WEMod.serverConfig.DisableResearch)
-				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-			Tooltip.SetDefault("Used to apply enchantments to items. (tier " + enchantingTableTier + ")");
-			//DisplayName.SetDefault(enchantingTableNames[enchantingTableTier] + " Enchanting Table");
 
 			IDs[enchantingTableTier] = Type;
 
@@ -49,7 +47,7 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
-			LogModSystem.UpdateContributorsList(this);
+			base.SetStaticDefaults();
 		}
 		private void GetDefaults() {
 			for (int i = 0; i < enchantingTableNames.Length; i++) {

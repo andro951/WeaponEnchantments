@@ -244,9 +244,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                         if (!tier0EnchantmentsOnly) {
                             enchantmentTypePage = new(enchantmentType);
                             enchantmentTypePage.AddLink("Enchantments");
-                            IItemWikiInfo wikiInfo = enchantment;
-                            if (wikiInfo.WikiDescription != null)
-                                enchantmentTypePage.AddParagraph(wikiInfo.WikiDescription);
+                            if (enchantment.WikiDescription != null)
+                                enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
 
                             string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
                             Enchantments.AddParagraph(typePNG);

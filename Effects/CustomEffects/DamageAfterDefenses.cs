@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects
 			return new DamageAfterDefenses(EStatModifier.Clone(), damageClass);
 		}
 
-		public override string DisplayName { get; } = $"Damage (Applied after defenses. Not visible in weapon tooltip)";
+		//public override string DisplayName { get; } = $"Damage (Applied after defenses. Not visible in weapon tooltip)";
 		public override EnchantmentStat statName => EnchantmentStat.DamageAfterDefenses;
 	}
 }

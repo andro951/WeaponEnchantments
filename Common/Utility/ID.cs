@@ -390,7 +390,8 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum L_ID1
 	{
-        Tooltip,
+		ItemTooltip,
+		Tooltip,
         Dialogue,
         NPCNames,
         Bestiary,

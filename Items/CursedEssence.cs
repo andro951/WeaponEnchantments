@@ -13,22 +13,18 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class CursedEssence : ModItem, IItemWikiInfo {
+	public abstract class CursedEssence : WEModItem {
 		private int entitySize = 20;
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 		public Color glowColor = TierColors[3];
-		public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.CursedEssence, WikiTypeID.CraftingMaterial };
+		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.CursedEssence, WikiTypeID.CraftingMaterial };
+        public override int CreativeItemSacrifice => 25;
 
-		public virtual string Artist { private set; get; } = "Kiroto";
-		public virtual string Designer { private set; get; } = "andro951";
+		public override string Artist => "Kiroto";
+		public override string Designer => "andro951";
 
 		public override void SetStaticDefaults() {
-            if (!WEMod.serverConfig.DisableResearch)
-                CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
-
-			//Log contributors
-			if (LogModSystem.printListOfContributors)
-				LogModSystem.UpdateContributorsList(this);
+			base.SetStaticDefaults();
 		}
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
             int cursedEssenceCount = Main.LocalPlayer.GetWEPlayer().cursedEssenceCount;

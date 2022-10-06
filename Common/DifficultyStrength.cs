@@ -8,8 +8,7 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common
 {
-	public class DifficultyStrength
-	{
+	public class DifficultyStrength {
 		private float[] _values;
 		public float[] AllValues => _values;
 		public float Value {
@@ -25,6 +24,7 @@ namespace WeaponEnchantments.Common
 		public DifficultyStrength(float[] values) {
 			_values = values;
 		}
+		public static DifficultyStrength Default => new(new float[] {1f, 1f, 1f, 1f});
 
 		public static DifficultyStrength operator *(DifficultyStrength ds, float mult) {
 			if (ds == null)

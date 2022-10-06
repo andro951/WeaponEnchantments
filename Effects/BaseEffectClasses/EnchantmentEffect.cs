@@ -12,12 +12,18 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class EnchantmentEffect {
-        //internal static char s(float f) {
-        //    return f > 0 ? '+' : '\0';
-        //}
+        public EnchantmentEffect() {
+            
+        }
 
-        public EnchantmentEffect(float EnchantmentStrength = 1f) {
-            //this.EnchantmentStrength = EnchantmentStrength;
+        private static string name;
+        public string Name {
+			get {
+                if (name == null)
+                    name = GetType().Name;
+
+                return name;
+			}
         }
 
         /// <summary>
@@ -63,8 +69,21 @@ namespace WeaponEnchantments.Effects {
         protected float damageClassMultiplier = 1f;
 
 
-        public virtual string DisplayName => GetType().Name.AddSpaces();
-        public virtual string Tooltip => DisplayName;
+        public virtual string DisplayName { 
+            get {
+                if (displayName == null)
+                    displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName);
+
+                return displayName;
+			} 
+        }
+        protected string displayName;
+        public virtual int DisplayNameNum => -1;
+        public virtual Dictionary<string, string> LocalizationTooltips => new() { { GetType().Name, DisplayName } };
+        public virtual IEnumerable<object> TooltipArgs { get; }
+        public virtual string Tooltip => this.GetEffectTooltip(TooltipArgs, TooltipKey);
+        public virtual string TooltipName => Name;
+        public virtual string TooltipKey => null;
         public virtual Color TooltipColor { get; protected set; } = Color.White;
         public virtual bool showTooltip => true;
 	    

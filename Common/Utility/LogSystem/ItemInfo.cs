@@ -20,11 +20,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 {
     public class ItemInfo
     {
-        public ModItem ModItem { private set; get; }
+        public WEModItem WEModItem { private set; get; }
         public Item Item { private set; get; }
-        public ItemInfo(ModItem modItem) {
-            ModItem = modItem;
-            Item = new(modItem.Type);
+        public ItemInfo(WEModItem weModItem) {
+            WEModItem = weModItem;
+            Item = new(weModItem.Type);
         }
         public ItemInfo(Item item) {
             Item = item;
@@ -65,7 +65,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             //Buy
             if (buy && TryGetShopPrice())
-                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(ModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
+                info.Add(new() { "Buy", $"{ShopPrice.GetCoinsPNG()}{(WEModItem is ISoldByWitch soldByWitch ? $" ({soldByWitch.SellCondition.ToString().AddSpaces()})" : "")}" });
 
             //Sell
             if (sell)
@@ -77,10 +77,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
         }
-        public string GetName() => ModItem.Name.AddSpaces();
+        public string GetName() => WEModItem.Name.AddSpaces();
         public void GetArtists(out string artistString, out string artModifiedBy) {
-            artistString = ((IItemWikiInfo)ModItem).Artist;
-            artModifiedBy = ((IItemWikiInfo)ModItem).ArtModifiedBy;
+            artistString = WEModItem.Artist;
+            artModifiedBy = WEModItem.ArtModifiedBy;
             if (artistString == "andro951")
                 artistString = null;
 
@@ -101,7 +101,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public string GetTypes() {
             string typeText = "";
             bool first = true;
-            foreach (WikiTypeID id in ((IItemWikiInfo)ModItem).WikiItemTypes) {
+            foreach (WikiTypeID id in WEModItem.WikiItemTypes) {
                 if (first) {
                     first = false;
                 }
@@ -115,17 +115,22 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return typeText;
         }
-        public string GetTooltip() {
+        public string GetTooltip() => GetTooltip(WEModItem);
+        public static string GetTooltip(ModItem modItem) {
+            Item item = new Item(modItem.Type);
             string tooltip = "";
-            for (int i = 0; i < Item.ToolTip.Lines; i++) {
-                tooltip += Item.ToolTip.GetLine(i);
+            List<string> tooltipStrings = new();
+            for (int i = 0; i < item.ToolTip.Lines; i++) {
+                tooltipStrings.Add(item.ToolTip.GetLine(i));
             }
+
+            tooltip += tooltipStrings.JoinList();
 
             if (tooltip == "") {
                 List<TooltipLine> tooltipLines = new();
                 //Item item = new(Item.type);
                 //if (item.ModItem is Enchantment enchantment) {
-                if (ModItem is Enchantment enchantment) {
+                if (modItem is Enchantment enchantment) {
                     //float temp = enchantment.EnchantmentStrength;
                     enchantment.ModifyTooltips(tooltipLines);
                     tooltip += tooltipLines.Select(t => t.Text).JoinList();
@@ -162,7 +167,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     int minDropped = enemyDrops[type][npcNetID].stackMin;
                     int maxDropped = enemyDrops[type][npcNetID].stackMax;
                     float chance = enemyDrops[type][npcNetID].dropRate;
-                    bool configDrop = ((IItemWikiInfo)ModItem).ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                    bool configDrop = WEModItem.ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
                     string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
                     List<string> dropInfo = new() { $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                     allDropInfo.Add(dropInfo);
@@ -209,7 +214,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     int minDropped = enemyDrops[itemType][npcNetID].stackMin;
                     int maxDropped = enemyDrops[itemType][npcNetID].stackMax;
                     float chance = enemyDrops[itemType][npcNetID].dropRate;
-                    bool configDrop = ((IItemWikiInfo)modItem).ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                    bool configDrop = modItem is WEModItem weModItem && weModItem.ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
                     string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
                     List<string> dropInfo = new() { itemPNG, $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                     allDropInfo.Add(dropInfo);
@@ -260,7 +265,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         public void AddInfo(WebPage webpage) {
             webpage.AddParagraph($"Tooltip:<br/>{GetTooltip()}");
-            if (TryGetShopPrice() && ModItem is ISoldByWitch soldByWitch) {
+            if (TryGetShopPrice() && WEModItem is ISoldByWitch soldByWitch) {
                 webpage.NewLine();
                 string sellPriceString = ShopPrice.GetCoinsPNG();
                 string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
@@ -271,7 +276,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (ShopPrice != 0)
                 return true;
 
-            if (ModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
+            if (WEModItem is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never) {
                 ShopPrice = (int)((float)Item.value * soldByWitch.SellPriceModifier);
                 return true;
             }

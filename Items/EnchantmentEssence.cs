@@ -9,11 +9,12 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Localization;
 using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items
 {
-	public abstract class EnchantmentEssence : ModItem, ISoldByWitch, IItemWikiInfo {
+	public abstract class EnchantmentEssence : WEModItem, ISoldByWitch {
 		public virtual int EssenceTier {
 			get {
 				if (essenceTier == -1) {
@@ -36,11 +37,15 @@ namespace WeaponEnchantments.Items
 		public Color glowColor => TierColors[EssenceTier];
 		public abstract int animationFrames { get; }
 		public virtual SellCondition SellCondition => SellCondition.Always;
-		public virtual List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.EnchantmentEssence, WikiTypeID.CraftingMaterial };
+		public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.EnchantmentEssence, WikiTypeID.CraftingMaterial };
 		public virtual float SellPriceModifier => (float)Math.Pow(2, tierNames.Length - essenceTier);
+		public override int CreativeItemSacrifice => 25;
+		public override string LocalizationTooltip => 
+			$"{tierNames[EssenceTier].AddSpaces()} material for crafting and upgrading enchantments.\n" +
+			$"Can be converted to {xpPerEssence[EssenceTier]} experience in an enchanting table.";
 
-		public virtual string Artist { private set; get; } = "Kiroto";
-		public virtual string Designer { private set; get; } = "andro951";
+		public override string Artist => "Kiroto";
+		public override string Designer => "andro951";
 
 		public override void SetStaticDefaults() {
 			int type = Item.type;
@@ -55,23 +60,17 @@ namespace WeaponEnchantments.Items
 			if(EssenceTier == 4)
 				valuePerXP = values[tierNames.Length - 1] / xpPerEssence[tierNames.Length - 1];
 
-			if (!WEMod.serverConfig.DisableResearch)
-				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
-
-			//Tooltip
-			Tooltip.SetDefault(tierNames[EssenceTier].AddSpaces() + " material for crafting and upgrading enchantments.\nCan be converted to " + xpPerEssence[EssenceTier] + " experience in an enchanting table.");
-			//if (!WEMod.clientConfig.UseOldTierNames)
-			//	DisplayName.SetDefault(StringManipulation.AddSpaces(Name.Substring(0, Name.IndexOf(tierNames[essenceTier])) + displayTierNames[essenceTier]));
-
 			//Log contributors for both normal and alternate spritesheets
 			if (LogModSystem.printListOfContributors) {
-				LogModSystem.UpdateContributorsList(this);
+				//LogModSystem.UpdateContributorsList(this);
 				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
 				LogModSystem.UpdateContributorsList(this);
 				WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures = !WEMod.clientConfig.UseAlternateEnchantmentEssenceTextures;
 			}
 
 			IDs[EssenceTier] = Type;
+
+			base.SetStaticDefaults();
 		}
 		private void SetupStaticValues() {
 			if (values[EssenceTier] != 0)

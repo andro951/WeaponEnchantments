@@ -414,7 +414,6 @@ namespace WeaponEnchantments.Common.Utility
         public static string PercentString(this float value) {
             return $"{Math.Round(value * 100, 2)}%";
         }
-
         public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
         public static bool Lang(this string s, out string result, string m) {
             string key = $"Mods.WeaponEnchantments.{m}.{s}";
@@ -496,10 +495,10 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string Lang(this string s, L_ID1 id, L_ID2 id2, IEnumerable<string> args) => s.Lang(out string result, id, id2, args) ? result : "";
-        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<string> args) {
+        public static string Lang(this string s, L_ID1 id, L_ID2 id2, IEnumerable<object> args) => s.Lang(out string result, id, id2, args) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<object> args) {
             string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
-            result = Language.GetTextValue(key, args.ToArray());
+            result = args != null ? Language.GetTextValue(key, args.ToArray()) : Language.GetTextValue(key);
 
             if (result == key) {
                 return false;
@@ -507,7 +506,14 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        public static string GetTextValue(string key, IEnumerable<object> args) {
+        public static string GetEffectTooltip(this EnchantmentEffect enchantmentEffect, IEnumerable<object> args, string key = null) {
+            string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.Name;
+            if (fullKey.Lang(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
+                return result;
+
+            return "";
+        }
+        public static string GetTextValue(this string key, IEnumerable<object> args) {
 			return Language.GetTextValue(key, args);
 		}
 
@@ -698,6 +704,38 @@ namespace WeaponEnchantments.Common.Utility
 
             return type;
         }
+        public static Type TypeAboveGrandParent(this object child, Type parent) => child.GetType().TypeAboveGrandParent(parent);
+        public static Type TypeAboveGrandParent(this Type child, Type parent) {
+            Type type = child;
+            bool foundListUniqueType = false;
+            while (!foundListUniqueType && type.BaseType != null) {
+                if (type.BaseType == parent) {
+                    foundListUniqueType = true;
+				}
+				else {
+                    type = type.BaseType;
+				}
+			}
+
+            return type;
+		}
+        public static int ChildNumber(this object child, Type parent) => child.GetType().ChildNumber(parent);
+        public static int ChildNumber(this Type child, Type parent) {
+            Type type = child;
+            int i = 0;
+			while (type.BaseType != null) {
+                if (type.BaseType == parent) {
+                    return i;
+				}
+                else {
+                    type = type.BaseType;
+				}
+
+                i++;
+			}
+
+            return -1;
+		}
         public static bool ValidOwner(this Projectile projectile, out Player player) {
             player = null;
             if (projectile.owner >= 0 && projectile.owner < Main.player.Length) {

@@ -18,7 +18,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Items {
-	public abstract class Enchantment : ModItem, ISoldByWitch, IItemWikiInfo {
+	public abstract class Enchantment : WEModItem, ISoldByWitch {
 
 		#region Static
 
@@ -251,7 +251,7 @@ namespace WeaponEnchantments.Items {
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
 
 		public virtual SellCondition SellCondition => EnchantmentTier == 0 ? SellCondition.AnyTime : SellCondition.Never;
-		public virtual List<WikiTypeID> WikiItemTypes {
+		public override List<WikiTypeID> WikiItemTypes {
 			get {
 				List<WikiTypeID> types = new() { WikiTypeID.Enchantments };
 				if (EnchantmentTier < tierNames.Length - 1)
@@ -260,11 +260,8 @@ namespace WeaponEnchantments.Items {
 				return types;
 			} 
 		}
-		public virtual string WikiDescription => null;
-
-		public abstract string Artist { get; }
-		public abstract string ArtModifiedBy { get; }
-		public abstract string Designer { get; }
+		public override bool DynamicTooltip => true;
+		public override int CreativeItemSacrifice => 1;
 
 		#endregion
 
@@ -386,10 +383,6 @@ namespace WeaponEnchantments.Items {
 			//Get values needed to generate tooltips
 			GetDefaults();// true);//Change this to have arguments to only get the needed info for setting up tooltips.
 
-			//Journy mode item sacrifice
-			if (!WEMod.serverConfig.DisableResearch)
-				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
 			//DisplayName
 			//string typeNameString = "Mods.WeaponEnchantments.EnchantmentTypeNames." + EnchantmentTypeName;
 			//typeNameString.Log();
@@ -448,9 +441,7 @@ namespace WeaponEnchantments.Items {
 				}
 			}
 
-			//if(printLocalization) {
-			//	UpdateEnchantmentLocalization(this);
-			//}
+			base.SetStaticDefaults();
 		}
 		private void GetDefaults() {
 			//Item rarity

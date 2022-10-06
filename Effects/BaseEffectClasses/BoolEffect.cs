@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
@@ -15,19 +16,23 @@ namespace WeaponEnchantments.Effects {
 
         public DifficultyStrength StrengthData;
         public float MinimumStrength;
-		public abstract EnchantmentStat statName { get; }
-
-        public override string Tooltip {
+        public abstract EnchantmentStat statName { get; }
+        public override IEnumerable<object> TooltipArgs => new string[] { DisplayName };
+        public override string TooltipKey => EnableStat ? "Enabled" : "Prevented";
+        public override string TooltipName {
             get {
-                if (StrengthData != null && MinimumStrength > StrengthData.Value)
-                    return "";
-		if (EnableStat) {
-			return $"{DisplayName} Enabled";
-		}
-		else {
-			    return $"{DisplayName} Prevented";
-		}
+                if (tooltipName == null)
+                    tooltipName = typeof(BoolEffect).Name;
+
+                return tooltipName;
             }
-		}
+        }
+        private static string tooltipName;
+        /*
+        public override Dictionary<string, string> LocalizationTooltips => new() {
+            { "Enabled", "\"{0} Enabled\"" },
+            { "Disabled", "\"{0} Disabled\"" }
+        };
+        */
     }
 }

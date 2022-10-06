@@ -125,13 +125,11 @@ namespace WeaponEnchantments.Common.Utility
 
             AutoloadTranslations(file, modTranslationDictionary);
 
-            foreach (var value in modTranslationDictionary.Values) {
+            foreach (ModTranslation value in modTranslationDictionary.Values) {
                 AddTranslation(value);
             }
         }
-        public static void AddTranslation(ModTranslation translation) {
-            translations[translation.Key] = translation;
-        }
+        public static void AddTranslation(ModTranslation translation) => translations.Add(translation.Key, translation);
         private static void AutoloadTranslations(TmodFile file, Dictionary<string, ModTranslation> modTranslationDictionary) {
             
             foreach (var translationFile in file.Where(entry => Path.GetExtension(entry.Name) == ".hjson")) {
@@ -192,18 +190,17 @@ namespace WeaponEnchantments.Common.Utility
 	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	    enchantmentNames.Add(enchantment.Name);
 	        }
-	    
-	        enchantmentNames.Sort();
-	        GetLocalizationFromList(null, enchantmentNames);
-	    
-            var modItemLists = modItems
-	    	    .Where(mi => mi is not Enchantment)
-	    	    .GroupBy(mi => mi is Enchantment ? mi.GetType().BaseType.BaseType.Name : mi.GetType().BaseType.Name)
-		        .Select(mi => new { Key = mi.GetType().BaseType.Name, ModItemList = mi})
-		        .OrderBy(group => group.Key);
             
-            foreach (var list in modItemLists) {
-                GetLocalizationFromList(null, list.ModItemList);
+            enchantmentNames.Sort();
+	        GetLocalizationFromList(null, enchantmentNames);
+
+            Dictionary<string, List<ModItem>> modItemLists = modItems
+                .Where(mi => mi is not Enchantment)
+                .GroupBy(mi => mi.TypeAboveModItem().Name)
+                .ToDictionary(g => g.Key, g => g.ToList());
+            
+            foreach (KeyValuePair<string, List<ModItem>> pair in modItemLists) {
+                GetLocalizationFromList(null, pair.Value);
             }
 
 	        Close();
@@ -212,10 +209,7 @@ namespace WeaponEnchantments.Common.Utility
 	    
 	        End();
         }
-	    private static void FromLocalizationData() {
-		    SortedDictionary<string, SData> all = LocalizationData.All;
-		    GetFromSDataDict(all);
-	    }
+	    private static void FromLocalizationData() => GetFromSDataDict(LocalizationData.All);
 	    private static void GetFromSDataDict(SortedDictionary<string, SData> dict) {
             foreach (KeyValuePair<string, SData> pair in dict) {
                 AddLabel(pair.Key);
@@ -243,6 +237,7 @@ namespace WeaponEnchantments.Common.Utility
 			    .Where(t => !t.IsAbstract)
 			    .Select(t => t.Name)
 			    .ToList();
+
             SortedDictionary<string, string> dict = pair.Value.Dict;
 		    foreach(string s in list) {
 			    if(!dict.ContainsKey(s))
@@ -301,11 +296,28 @@ namespace WeaponEnchantments.Common.Utility
 		    string allLabels = string.Join(".", labels.ToArray());
             foreach (KeyValuePair<string, string> p in dict) {
                 string key = allLabels + "." + p.Key;
-                string s = translations.ContainsKey(key) ? translations[key].GetTranslation(culture) : key;
+                //string s = translations.ContainsKey(key) ? translations[key].GetTranslation(culture) : key;
+                string s;
+                if (translations.ContainsKey(key)) {
+                    s = translations[key].GetTranslation(culture);
+                    if (culture == (int)CultureName.English) {
+                        if (s != p.Value)
+                            LocalizationData.ChangedData.Add(key);
+                    }
+                    
+                    if (LocalizationData.ChangedData.Contains(key))
+                        s = p.Value;
+                }
+				else {
+                    s = key;
+				}
                 //$"{key}: {s}".Log();
                 if (s == key) {
                     s = p.Value;
                 }
+				else if (s.Contains("{") && s[0] != '"') {
+                    s = $"\"{s}\"";
+				}
 
                 s = CheckTabOutLocalization(s);
 
