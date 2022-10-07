@@ -108,15 +108,12 @@ namespace WeaponEnchantments.Common.Utility
             if (!printLocalization)
                 return;
 
+            LocalizationData.changedData = new();
             Mod mod = ModContent.GetInstance<WEMod>();
             TmodFile file = (TmodFile)typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mod);
             translations = new();
             Autoload(file);
-            /*foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
-                foreach(string key in translations.Keys) {
-                    $"{key}: {translations[key].GetTranslation(i)}".Log();
-				}
-            }*/
+            
             foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
                 PrintLocalization((CultureName)i);
             }
@@ -183,8 +180,8 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         public static void PrintLocalization(CultureName cultureName) {
-	        Start(cultureName);
-	    
+            Start(cultureName);
+	        
 	        AddLabel(L_ID1.ItemName.ToString());
             Mod weMod = ModContent.GetInstance<WEMod>();
             IEnumerable<ModItem> modItems = weMod.GetContent<ModItem>();

@@ -343,7 +343,7 @@ namespace WeaponEnchantments.Localization
 			} 
 		}
 
-		private static List<string> changedData;
+		public static List<string> changedData;
 		public static List<string> ChangedData {
 			get {
 				if (changedData == null)
