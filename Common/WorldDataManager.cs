@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common
@@ -29,7 +30,7 @@ namespace WeaponEnchantments.Common
 		public static int MythrilBar;
 		public static int AdamantiteBar;
 
-		public static string GetOreNamesList(int start, int end = 8, bool andAtEnd = false, bool skipDemonite = true) {
+		public static string GetOreNamesList(int start, int end = 9, bool andAtEnd = false, bool skipDemonite = true) {
 			string list = "";
 			bool first = true;
 			for(int i = start; i < end; i++) {
@@ -60,42 +61,64 @@ namespace WeaponEnchantments.Common
 		private static List<int> ores;
 
 		private static string GetOreName(int id) {
+			string name;
 			switch (id) {
 				case ItemID.CopperOre:
-					return "copper";
+					name = "copper";
+					break;
 				case ItemID.TinOre:
-					return "tin";
+					name = "tin";
+					break;
 				case ItemID.IronOre:
-					return "iron";
+					name = "iron";
+					break;
 				case ItemID.LeadOre:
-					return "lead";
+					name = "lead";
+					break;
 				case ItemID.SilverOre:
-					return "silver";
+					name = "silver";
+					break;
 				case ItemID.TungstenOre:
-					return "tungsten";
+					name = "tungsten";
+					break;
 				case ItemID.GoldOre:
-					return "gold";
+					name = "gold";
+					break;
 				case ItemID.PlatinumOre:
-					return "platinum";
+					name = "platinum";
+					break;
 				case ItemID.DemoniteOre:
-					return "demonite";
+					name = "demonite";
+					break;
 				case ItemID.CrimtaneOre:
-					return "crimtane";
+					name = "crimtane";
+					break;
 				case ItemID.CobaltOre:
-					return "cobalt";
+					name = "cobalt";
+					break;
 				case ItemID.PalladiumOre:
-					return "palladium";
+					name = "palladium";
+					break;
 				case ItemID.MythrilOre:
-					return "mythril";
+					name = "mythril";
+					break;
 				case ItemID.OrichalcumOre:
-					return "orichalcum";
+					name = "orichalcum";
+					break;
 				case ItemID.AdamantiteOre:
-					return "adamantite";
+					name = "adamantite";
+					break;
 				case ItemID.TitaniumOre:
-					return "titanium";
+					name = "titanium";
+					break;
+				case ItemID.ChlorophyteOre:
+					name = "chlorophyte";
+					break;
 				default:
 					return "";
 			}
+
+			return name.Lang(L_ID1.Ores);
 		}
 
 		public override void OnWorldLoad() { 
@@ -206,7 +229,8 @@ namespace WeaponEnchantments.Common
 				DemoniteOre,
 				CobaltOre,
 				MythrilOre,
-				AdamantiteOre
+				AdamantiteOre,
+				ItemID.ChlorophyteOre
 			};
 		}
 	}

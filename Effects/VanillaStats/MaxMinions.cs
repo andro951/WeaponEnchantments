@@ -18,6 +18,5 @@ namespace WeaponEnchantments.Effects {
             return new MaxMinions(EStatModifier.Clone());
         }
         public override EnchantmentStat statName => EnchantmentStat.MaxMinions;
-        public override string DisplayName => "Max Minions";
     }
 }

@@ -7,7 +7,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
 	public abstract class MultishotEnchantment : Enchantment
 	{
-		public override string CustomTooltip => "(Chance to produce an extra projectile.  Applies to each projectile created.)";
 		public override int StrengthGroup => 8;
 		public override int DamageClassSpecific => (int)DamageClassID.Ranged;
 		public override void GetMyStats() {

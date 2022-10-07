@@ -35,6 +35,9 @@ namespace WeaponEnchantments.Effects
 		*/
 		public override int DisplayNameNum => EffectStrength >= 0f ? 1 : 2;//1 is Chance not to consume.  2 is Increased Ammo cost
 		public override EnchantmentStat statName => EnchantmentStat.AmmoCost;
+		public override IEnumerable<object> TooltipArgs => new object[] { $"{(EffectStrength < 0f ? EffectStrength * -1 : EffectStrength).PercentString()} {DisplayName}" };
+		public override string Tooltip => StandardTooltip;
+		/*
 		public override string Tooltip => ModifierToString();
 	
 		private string ModifierToString() {
@@ -44,5 +47,6 @@ namespace WeaponEnchantments.Effects
 			
 			return $"{strength.Percent() + "%" + DisplayName} (Also Saves Bait When Fishing)";
 		}
+		*/
 	}
 }

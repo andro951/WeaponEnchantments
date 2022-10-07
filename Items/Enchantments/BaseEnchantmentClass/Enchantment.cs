@@ -198,7 +198,7 @@ namespace WeaponEnchantments.Items {
 		public string EnchantmentTypeName { 
 			get {
 				if (enchantmentTypeName == null)
-					enchantmentTypeName = Name.Substring(0, Name.IndexOf("Enchantment"));
+					enchantmentTypeName = Name.ToEnchantmentTypeName();
 
 				return enchantmentTypeName;
 			} 
@@ -701,19 +701,21 @@ namespace WeaponEnchantments.Items {
 				s += " ";
 			}
 
-			s += text ?? EnchantmentTypeName.AddSpaces();
+			s += text ?? GetLocalizationTypeName();
 
 			if (!showValue)
 				s += $" {EnchantmentTier}";
 
 			return s;
 		}
+		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? enchantmentTypeName).Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			var tooltipTuples = GenerateFullTooltip();
             foreach (var tooltipTuple in tooltipTuples) {
 				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
 			}
 		}
+		/*
 		public IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
 			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
 
@@ -769,6 +771,63 @@ namespace WeaponEnchantments.Items {
 
 			return fullTooltip;
 		}
+		*/
+		public IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
+			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
+
+			if (CustomTooltip != "")
+				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.White));//, Color.DarkGray));
+
+			//fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
+			fullTooltip.AddRange(GetEffectsTooltips());
+
+			fullTooltip.Add(new Tuple<string, Color>(GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.LevelCost, GetCapacityCost()), Color.LightGreen));
+
+			//Unique
+			if (Unique)
+				fullTooltip.Add(new Tuple<string, Color>($"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Unique)}*", Color.White));
+
+			fullTooltip.AddRange(GetAllowedListTooltips());
+
+			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 1 && Utility == false) {
+				//Unique (Specific Item)
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, GetLocalizationTypeName())}*",
+					Color.White
+				));
+			}
+			else if (DamageClassSpecific > 0) {
+				//DamageClassSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, GetDamageClassName(DamageClassSpecific))}*",
+					Color.White
+				));
+			}
+			else if (ArmorSlotSpecific > -1) {
+				//ArmorSlotSpecific
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.ArmorSlotOnly, (ArmorSlotSpecificID)ArmorSlotSpecific)}*",
+					Color.White
+				));
+			}
+
+			//RestrictedClass
+			if (RestrictedClass.Count > 0) {
+				fullTooltip.Add(new Tuple<string, Color>(
+					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.NotAllowed, RestrictedClass.Select(c => GetDamageClassName(c)).JoinList(", ", $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Or)} "))}*",
+					Color.White
+				));
+			}
+
+			if (Max1)
+				fullTooltip.Add(new Tuple<string, Color>($"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Max1)}*", Color.White));
+
+			if (Utility)
+				fullTooltip.Add(new Tuple<string, Color>($"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Utility)}*", Color.White));
+
+			return fullTooltip;
+		}
+		private static string GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID id, object arg = null) => id.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { arg });
 		//public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
 		//	List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
 		//	
@@ -784,21 +843,21 @@ namespace WeaponEnchantments.Items {
 				foreach (EItemType key in AllowedList.Keys) {
 					if (first) {
 						if (count < 3) {
-							tooltip += "   *Only allowed on ";
+							tooltip += $"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.OnlyAllowedOn)} ";
 						}
 						else {
-							tooltip += "   *Allowed on ";
+							tooltip += $"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.AllowedOn)} ";
 						}
 						first = false;
 					}
 					else if (i == count - 1) {
-						tooltip += " and ";	
+						tooltip += $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.And)} ";	
 					}
 					else {
 						tooltip += ", ";	
 					}
 					
-					tooltip += $"{key}: {AllowedList[key].Percent()}%";
+					tooltip += $"{key.ToString().Lang(L_ID1.Tooltip, L_ID2.ItemType)}: {AllowedList[key].Percent()}%";
 					
 					i++;
 					if (i == count) {

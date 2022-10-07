@@ -9,8 +9,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
 		public override int StrengthGroup => 16;
         public override void GetMyStats() {
             Effects = new() {
-                new Luck(@base: EnchantmentStrengthData),
-                new MaxLuck(@base: EnchantmentStrengthData)
+                new Luck(@base: EnchantmentStrengthData)
             };
 
             AllowedList = new Dictionary<EItemType, float>() {

@@ -113,7 +113,7 @@ namespace WeaponEnchantments
 
                     if (wePlayer.infusionConsumeItem != null && (EnchantedItemStaticMethods.IsWeaponItem(itemBeingEnchanted) || EnchantedItemStaticMethods.IsArmorItem(itemBeingEnchanted))) {
                         wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-                        wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
+                        wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
                     }
 
                     if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
@@ -134,9 +134,8 @@ namespace WeaponEnchantments
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                     Item tableEnchantment = wePlayer.EnchantmentInUI(i);
                     Item itemEnchantment = new Item();
-                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
                         itemEnchantment = iGlobal.enchantments[i];
-                    }
 
                     if (tableEnchantment.IsAir) {
                         if (wePlayer.enchantmentInEnchantingTable[i]) {//if enchantmentSlot HAD an enchantment in it but it was just taken out,
@@ -307,7 +306,7 @@ namespace WeaponEnchantments
                 if (!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
                     wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
 
-                wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
+                wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Cancel.ToString().Lang(L_ID1.TableText));
             }
 
             if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))

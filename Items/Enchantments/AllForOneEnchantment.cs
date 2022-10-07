@@ -28,7 +28,7 @@ namespace WeaponEnchantments.Items.Enchantments
 			};
 		}
 
-		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {EnchantmentTypeName.AddSpaces()}";
+		public override string ShortTooltip => $"{Math.Round(EnchantmentStrength * AllowedListMultiplier, 3)}x {GetLocalizationTypeName()}";
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";

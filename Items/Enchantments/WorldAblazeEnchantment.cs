@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments
 				Effects.Add(new BuffEffect(BuffID.OnFire3, BuffStyle.OnHitEnemyDebuff, BuffDuration, EnchantmentStrengthData * 0.2f));
 
 			if (EnchantmentTier == 4)
-				Effects.Add(new BuffEffect((short)ModContent.BuffType<AmaterasuDebuff>(), BuffStyle.OnHitEnemyDebuff, 10000, buffStrength: EnchantmentStrengthData));
+				Effects.Add(new BuffEffect((short)ModContent.BuffType<Amaterasu>(), BuffStyle.OnHitEnemyDebuff, 10000, buffStrength: EnchantmentStrengthData));
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f }

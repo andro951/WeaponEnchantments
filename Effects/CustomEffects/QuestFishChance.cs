@@ -22,7 +22,9 @@ namespace WeaponEnchantments.Effects
             return new QuestFishChance(EStatModifier.Clone());
         }
 
-        public override string Tooltip => $"{EStatModifier.SignPercentMult100Tooltip} {DisplayName} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)";
-		public override EnchantmentStat statName => EnchantmentStat.QuestFishChance;
+        //public override string Tooltip => $"{EStatModifier.SignPercentMult100Tooltip} {DisplayName} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)";
+        public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+        public override string Tooltip => StandardTooltip;
+        public override EnchantmentStat statName => EnchantmentStat.QuestFishChance;
 	}
 }

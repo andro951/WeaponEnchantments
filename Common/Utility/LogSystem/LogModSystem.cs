@@ -28,6 +28,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
         public static bool printListForDocumentConversion = false;
+        public static bool zzzLocalizationForTesting = false;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static bool printWiki = WEMod.clientConfig.PrintWikiInfo;
         public static bool printNPCIDSwitch = false;
@@ -184,8 +185,9 @@ namespace WeaponEnchantments.Common.Utility
         public static void PrintLocalization(CultureName cultureName) {
 	        Start(cultureName);
 	    
-	        AddLabel("ItemName");
-            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+	        AddLabel(L_ID1.ItemName.ToString());
+            Mod weMod = ModContent.GetInstance<WEMod>();
+            IEnumerable<ModItem> modItems = weMod.GetContent<ModItem>();
 	        List<string> enchantmentNames = new();
 	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	    enchantmentNames.Add(enchantment.Name);
@@ -203,9 +205,11 @@ namespace WeaponEnchantments.Common.Utility
                 GetLocalizationFromList(null, pair.Value);
             }
 
-	        Close();
-	    
-	        FromLocalizationData();
+            Close();
+
+            GetLocalizationFromList(L_ID1.BuffName.ToString(), weMod.GetContent<ModBuff>().Select(b => b.Name));
+
+            FromLocalizationData();
 	    
 	        End();
         }
@@ -311,13 +315,25 @@ namespace WeaponEnchantments.Common.Utility
 				else {
                     s = key;
 				}
+
                 //$"{key}: {s}".Log();
+
                 if (s == key) {
                     s = p.Value;
                 }
-				else if (s.Contains("{") && s[0] != '"') {
+				
+                if (s.Contains("{") && s[0] != '"' && !s.Contains('\n')) {
                     s = $"\"{s}\"";
-				}
+                }
+
+                if (zzzLocalizationForTesting) {
+                    if (s[s.Length - 1] == '"') {
+                        s = $"{s.Substring(0, s.Length - 1)}zzz\"";
+                    }
+                    else {
+                        s += "zzz";
+                    }
+                }
 
                 s = CheckTabOutLocalization(s);
 

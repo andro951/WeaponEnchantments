@@ -21,7 +21,8 @@ namespace WeaponEnchantments.Effects {
 
 		private DashID _dashType;
 
-        public override string DisplayName => _dashType.ToString().AddSpaces();
+		//public override string DisplayName => _dashType.ToString().AddSpaces();
+		public override int DisplayNameNum => (int)_dashType;
 
 		public override void SetEffect(Player player) {
             int playerDashType = player.dashType;

@@ -75,7 +75,7 @@ namespace WeaponEnchantments.UI
             };
 
             confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
-            UIText yesButtonText = new UIText("Yes") {
+            UIText yesButtonText = new UIText(TableTextID.Yes.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -97,7 +97,7 @@ namespace WeaponEnchantments.UI
             };
 
             confirmationButton[ConfirmationButtonID.No].OnClick += (evt, element) => { DeclineOffer(); };
-            UIText noButtonText = new UIText("No") {
+            UIText noButtonText = new UIText(TableTextID.No.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -341,24 +341,33 @@ namespace WeaponEnchantments.UI
 
             int oresEnd = !WEMod.serverConfig.AllowHighTierOres || !Main.hardMode ? 3 : 8;
             bool canGetChlorophyte = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
-            string oreString = $"({WorldDataManager.GetOreNamesList(1, oresEnd, canGetChlorophyte)}{(canGetChlorophyte ? "chlorophyte" : "")})";
+            if (canGetChlorophyte)
+                oresEnd++;
+
+            string oreString = $"({WorldDataManager.GetOreNamesList(1, oresEnd)})";
             float percentEss = PercentOfferEssence;
             string oreAndEssencePercent;
             if (percentEss == 1f) {
-                oreAndEssencePercent = $"In exchange for essence?";
-			}
+                //oreAndEssencePercent = $"In exchange for essence?";
+                oreAndEssencePercent = TableTextID.ExchangeEssence.ToString().Lang(L_ID1.TableText);
+            }
             else if (percentEss == 0f) {
-                oreAndEssencePercent = $"In exchange for ores?";
+                //oreAndEssencePercent = $"In exchange for ores?";
+                oreAndEssencePercent = TableTextID.ExchangeOres.ToString().Lang(L_ID1.TableText);
             }
 			else {
-                oreAndEssencePercent = $"In exchange for ores({(1f - percentEss).PercentString()}) and essence({percentEss.PercentString()})?";
+                //oreAndEssencePercent = $"In exchange for ores({(1f - percentEss).PercentString()}) and essence({percentEss.PercentString()})?";
+                oreAndEssencePercent = TableTextID.ExchangeEssenceAndOres.ToString().Lang(L_ID1.TableText, new object[] { (1f - percentEss).PercentString(), percentEss.PercentString() });
             }
-
+            /*
             promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your level {iGlobal.level}\n" +
 				$"{wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name} {oreAndEssencePercent}\n" +
 				(percentEss < 1f ? $"{oreString}\n" : "") +
 				$"(Based on item value/experience.  Enchantments will be returned.)"
             );
+            */
+            object[] args = new object[] { iGlobal.level.ToString(), wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name, oreAndEssencePercent, percentEss < 1f ? $"{oreString}\n" : "" };
+            promptText.SetText(TableTextID.AreYouSure.ToString().Lang(L_ID1.TableText, args));
         }
     }
 }

@@ -22,7 +22,10 @@ namespace WeaponEnchantments.Effects
             return new OneForAll(EStatModifier.Clone());
         }
 
-        public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)";
+		//public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)";
+		public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+		public override string Tooltip => StandardTooltip;
+
 		public override EnchantmentStat statName => EnchantmentStat.OneForAll;
 	}
 }

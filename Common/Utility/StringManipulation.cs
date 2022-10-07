@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
@@ -224,12 +225,19 @@ namespace WeaponEnchantments.Common.Utility
                 c = s[i];
                 bool previousUpperOrNumber = previous.IsUpperOrNumber();
                 bool currentUppderOrNumber = c.IsUpperOrNumber();
+                
                 if (!previousUpperOrNumber && currentUppderOrNumber) {
+                    if (previous == ' ')
+                        continue;
+
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = i;
                 }
                 else if (previousUpperOrNumber && previous2.IsUpperOrNumber() && !currentUppderOrNumber) {
+                    if (c == ' ')
+                        continue;
+
                     end = i - 2;
                     finalString += s.Substring(start, end - start + 1) + " ";
                     start = i - 1;
@@ -239,13 +247,15 @@ namespace WeaponEnchantments.Common.Utility
             if (start != -1)
                 finalString += s.Substring(start);
 
-            foreach(string word in LowerCaseAddSpacesStringWords) {
-                int index = finalString.IndexOf($"{word} ");
-                if (index > 0) {
-                    if (finalString[index - 1] != ' ')
-                        finalString = finalString.Substring(0, index - 1) + " " + finalString.Substring(index);
-				}
-			}
+            if (checkLowerCaseWords) {
+                foreach (string word in LowerCaseAddSpacesStringWords) {
+                    int index = finalString.IndexOf($"{word} ");
+                    if (index > 0) {
+                        if (finalString[index - 1] != ' ')
+                            finalString = finalString.Substring(0, index - 1) + " " + finalString.Substring(index);
+                    }
+                }
+            }
 
             return finalString;
         }
@@ -478,5 +488,22 @@ namespace WeaponEnchantments.Common.Utility
 
             return text;
         }
+        public static string ToEnchantmentTypeName(this string enchantmentName) => enchantmentName.Substring(0, enchantmentName.IndexOf("Enchantment"));
+        public static void PadStrings(this List<string> strings) {
+            int max = 0;
+            foreach(string s in strings) {
+                if (s.Length > max)
+                    max = s.Length;
+			}
+
+            for(int i = 0; i < strings.Count; i++) {
+                string s = strings[i];
+                int length = s.Length;
+                float leftFloat = (max - length) / 2f;
+                int right = (int)leftFloat;
+                int left = (int)Math.Round(leftFloat);
+                strings[i] = $"{' '.FillString(left)}{s}{' '.FillString(right)}";
+            }
+		}
     }
 }

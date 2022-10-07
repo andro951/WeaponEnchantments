@@ -39,7 +39,7 @@ namespace WeaponEnchantments.UI
             public const int Essence = 2;
         }
 
-        public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
+        //public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
         public static bool preventItemUse = false;
         public static bool pressedLootAll = true;
 
@@ -75,7 +75,11 @@ namespace WeaponEnchantments.UI
             float nextElementY = -PaddingTop / 2;
 
             //UI slot labels
-            titleText = new UIText("Item           Enchantments      Utility  ") {
+            string item = TableTextID.Item.ToString().Lang(L_ID1.TableText);
+            string enchantments = TableTextID.Enchantments.ToString().Lang(L_ID1.TableText);
+            string utility = EnchantmentGeneralTooltipsID.Utility.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips);
+            string labels = $"{item}{' '.FillString(15 - item.Length)}{enchantments}{' '.FillString(18 - enchantments.Length)}{utility}{' '.FillString(9 - utility.Length)}";
+            titleText = new UIText(labels) {
                 Top = { Pixels = nextElementY },
                 Left = { Pixels = 0 + xOffset },
                 HAlign = 0.5f
@@ -95,13 +99,19 @@ namespace WeaponEnchantments.UI
 
                 //ItemSlot(s) mouseover text
                 wePlayer.enchantingTableUI.itemSlotUI[i].OnMouseover += (timer) => {
-                    Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
-                    if (timer > 60) {
-                        Main.hoverItemName =
-                            "       Place a weapon, piece of armor or accessory here.       \n" +
-                            "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                            "       Using weapon Enchantments on armor or accessories       \n" +
-                            "          provides diminished bonuses and vice versa.          ";
+                    List<string> texts = new();
+                    texts.Add(TableTextID.weapon0.ToString().Lang(L_ID1.TableText));
+                    for (int j = 1; j <= 3; j++) {
+                        texts.Add($"general{j}".Lang(L_ID1.TableText));
+                    }
+
+                    texts.PadStrings();
+
+                    if (timer < 60) {
+                        Main.hoverItemName = texts[0];
+					}
+					else {
+                        Main.hoverItemName = texts.JoinList("\n");
                     }
                 };
 
@@ -118,18 +128,23 @@ namespace WeaponEnchantments.UI
                         HAlign = 0.5f
                     };
 
-                    string extraStr = "";
-                    if (i > 0)
-                        extraStr = "\n  Requires " + Items.EnchantingTableItem.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
-
+                    string enchantment4String = TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { ContentSamples.ItemsByType[EnchantingTableItem.IDs[i]].Name });
                     wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) => {
-                        Main.hoverItemName = "                   Place Enchantments here.                    ";
-                        if (timer > 60) {
-                            Main.hoverItemName =
-                                "                   Place Enchantments here.                    \n" +
-						        "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-						        "       Using weapon Enchantments on armor or accessories       \n" +
-						        "          provides diminished bonuses and vice versa.          " + extraStr;
+                        List<string> texts = new();
+                        texts.Add(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText));
+                        for (int j = 1; j <= 3; j++) {
+                            texts.Add($"general{j}".Lang(L_ID1.TableText));
+                        }
+
+                        texts.Add(enchantment4String);
+
+                        texts.PadStrings();
+
+                        if (timer < 60) {
+                            Main.hoverItemName = texts[0];
+                        }
+                        else {
+                            Main.hoverItemName = texts.JoinList("\n");
                         }
                     };
                 }
@@ -142,13 +157,19 @@ namespace WeaponEnchantments.UI
                     };
 
                     wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) => {
-                        Main.hoverItemName = "            Only utility Enchantments can go here.             ";
-                        if (timer > 60) {
-                            Main.hoverItemName =
-                                "            Only utility Enchantments can go here.             \n" +
-                                "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                                "       Using weapon Enchantments on armor or accessories       \n" +
-						        "          provides diminished bonuses and vice versa.          ";
+                        List<string> texts = new();
+                        texts.Add(TableTextID.utility0.ToString().Lang(L_ID1.TableText));
+                        for (int j = 1; j <= 3; j++) {
+                            texts.Add($"general{j}".Lang(L_ID1.TableText));
+                        }
+
+                        texts.PadStrings();
+
+                        if (timer < 60) {
+                            Main.hoverItemName = texts[0];
+                        }
+                        else {
+                            Main.hoverItemName = texts.JoinList("\n");
                         }
                     };
                 }
@@ -164,15 +185,21 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f
                 };
 
-                string type = tierNames[i];
+                string essence0String = TableTextID.essence0.ToString().Lang(L_ID1.TableText, new object[] { ContentSamples.ItemsByType[EnchantmentEssence.IDs[i]].Name });
                 wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) => {
-                    Main.hoverItemName = "                      Place " + type + " Essence here.                ";
-                    if (timer > 60) {
-                        Main.hoverItemName =
-                    "                      Place " + type + " Essence here.                \n" +
-                    "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                    "       Using weapon Enchantments on armor or accessories       \n" +
-					"          provides diminished bonuses and vice versa.          ";
+                    List<string> texts = new();
+                    texts.Add(essence0String);
+                    for (int j = 1; j <= 3; j++) {
+                        texts.Add($"general{j}".Lang(L_ID1.TableText));
+                    }
+
+                    texts.PadStrings();
+
+                    if (timer < 60) {
+                        Main.hoverItemName = texts[0];
+                    }
+                    else {
+                        Main.hoverItemName = texts.JoinList("\n");
                     }
                 };
 
@@ -206,7 +233,7 @@ namespace WeaponEnchantments.UI
                         break;
                 }
 
-                UIText xpButonText = new UIText("xp") {
+                UIText xpButonText = new UIText(TableTextID.xp.ToString().Lang(L_ID1.TableText)) {
                     Top = { Pixels = -8f },
                     Left = { Pixels = 0f }
                 };
@@ -227,7 +254,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.LevelUp].OnClick += (evt, element) => LevelUp();
-            UIText levelButonText = new UIText("Level Up") {
+            UIText levelButonText = new UIText(TableTextID.LevelUp.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
             };
@@ -247,7 +274,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.Syphon].OnClick += (evt, element) => Syphon();
-            UIText syphonButonText = new UIText("Syphon") {
+            UIText syphonButonText = new UIText(TableTextID.Syphon.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
             };
@@ -270,12 +297,12 @@ namespace WeaponEnchantments.UI
             string infusionText;
             if (wePlayer.infusionConsumeItem != null) {
                 if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir)
-                    infusionText = "Cancel";
+                    infusionText = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
                 else
-                    infusionText = "Finalize";
+                    infusionText = TableTextID.Finalize.ToString().Lang(L_ID1.TableText);
             }
             else {
-                infusionText = "Infusion";
+                infusionText = TableTextID.Infusion.ToString().Lang(L_ID1.TableText);
             }
 
             infusionButonText = new UIText(infusionText) {
@@ -301,7 +328,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.LootAll].OnClick += (evt, element) => LootAll();
-            UIText lootAllButonText = new UIText("Loot All") {
+            UIText lootAllButonText = new UIText(TableTextID.LootAll.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = 5f }
             };
@@ -323,7 +350,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.Offer].OnClick += (evt, element) => Offer();
-            UIText offerButtonText = new UIText("Offer") {
+            UIText offerButtonText = new UIText(TableTextID.Offer.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -528,7 +555,7 @@ namespace WeaponEnchantments.UI
                     if (tableItem.stack > 1) {
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
                         wePlayer.infusionConsumeItem = new Item(tableItem.type);
-                        infusionButonText.SetText("Finalize");
+                        infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
                     }
                     else {
                         if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
@@ -538,7 +565,7 @@ namespace WeaponEnchantments.UI
 
                         wePlayer.infusionConsumeItem = tableItem.Clone();
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                        infusionButonText.SetText("Cancel");
+                        infusionButonText.SetText(TableTextID.Cancel.ToString().Lang(L_ID1.TableText));
                     }
                 }
                 else {
@@ -561,7 +588,7 @@ namespace WeaponEnchantments.UI
                     if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
                         ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
                         wePlayer.infusionConsumeItem = null;
-                        infusionButonText.SetText("Infusion");
+                        infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
                     }
                 }
             }
@@ -569,7 +596,7 @@ namespace WeaponEnchantments.UI
                 //Return infusion item to table
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
                 wePlayer.infusionConsumeItem = null;
-                infusionButonText.SetText("Infusion");
+                infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
             }
         }
         public static void Syphon() {

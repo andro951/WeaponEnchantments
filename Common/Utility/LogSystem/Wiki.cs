@@ -606,7 +606,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 if (file == "")
                     file = $"NPC_{npc.netID}".ToPNG();
 
-                name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces() : npc.FullName;
+                name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces(true) : npc.FullName;
                 if (link)
                     pngLinkString = $"https://terraria.fandom.com/wiki/{npc.FullName.Replace(" ", "_")}".ToExternalLink(name);
             }

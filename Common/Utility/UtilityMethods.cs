@@ -506,8 +506,42 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
+        public static string Lang(this string s, L_ID1 id, IEnumerable<object> args) => s.Lang(out string result, id, args) ? result : "";
+        public static bool Lang(this string s, out string result, L_ID1 id, IEnumerable<object> args) {
+            string key = $"Mods.WeaponEnchantments.{id}.{s}";
+            result = args != null ? Language.GetTextValue(key, args.ToArray()) : Language.GetTextValue(key);
+
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        /*
+        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<object> args) {
+            string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
+            string temp = args?.Select(a => a.ToString()).JoinList();
+            List<string> argList = new();
+            int i = 0;
+            if (args != null) {
+                foreach (object arg in args) {
+                    string argString = arg.ToString() + i.ToString();
+                    argList.Add(argString);
+                    i++;
+                }
+            }
+            
+            //result = args != null ? Language.GetTextValue(key, args) : Language.GetTextValue(key);
+            result = argList.Count > 0 ? Language.GetTextValue(key, argList) : Language.GetTextValue(key);
+            if (result == key) {
+                return false;
+            }
+
+            return true;
+        }
+        */
         public static string GetEffectTooltip(this EnchantmentEffect enchantmentEffect, IEnumerable<object> args, string key = null) {
-            string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.Name;
+            string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.TooltipName;
             if (fullKey.Lang(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
                 return result;
 

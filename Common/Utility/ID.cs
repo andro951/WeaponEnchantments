@@ -67,7 +67,6 @@ namespace WeaponEnchantments.Common.Utility
         ManaRegen,
         MaxFallSpeed,
         MaxLife,
-        MaxLuck,
         MaxMinions,
         MaxMP,
 		MiningSpeed,
@@ -125,7 +124,8 @@ namespace WeaponEnchantments.Common.Utility
         OnHitAreaTeamBuff,
         OnHitAreaTeamDebuff,
         OnHitAreaEnemyBuff,
-        OnHitAreaEnemyDebuff
+        OnHitAreaEnemyDebuff,
+		All
     }
     public enum PermenantItemFields : short
 	{
@@ -390,21 +390,29 @@ namespace WeaponEnchantments.Common.Utility
     }
     public enum L_ID1
 	{
+		ItemName,
 		ItemTooltip,
 		Tooltip,
-        Dialogue,
+		BuffName,
+		Dialogue,
         NPCNames,
         Bestiary,
-        TownNPCMood
-    }
+        TownNPCMood,
+		Ores,
+		TableText
+	}
     public enum L_ID2
 	{
         None,
         Witch,
         EffectDisplayName,
         EnchantmentEffects,
-        EnchantmentCustomTooltips
-    }
+        EnchantmentCustomTooltips,
+		EnchantmentTypeNames,
+		EnchantmentShortTooltip,
+		EnchantmentGeneralTooltips,
+		ItemType
+	}
     public enum L_ID_V
 	{
         Item,
@@ -412,6 +420,47 @@ namespace WeaponEnchantments.Common.Utility
         NPC,
         Buff,
 		BuffDescription
+	}
+	public enum EnchantmentGeneralTooltipsID
+	{
+		LevelCost,
+		Unique,
+		Only,
+		ArmorSlotOnly,
+		NotAllowed,
+		Max1,
+		Utility,
+		Or,
+		OnlyAllowedOn,
+		AllowedOn,
+		And
+	}
+	public enum TableTextID
+	{
+		Yes,
+		No,
+		LootAll,
+		Syphon,
+		LevelUp,
+		xp,
+		Offer,
+		Infusion,
+		Finalize,
+		Cancel,
+		AreYouSure,
+		ExchangeEssence,
+		ExchangeOres,
+		ExchangeEssenceAndOres,
+		Item,
+		Enchantments,
+		weapon0,
+		general1,
+		general2,
+		general3,
+		enchantment0,
+		enchantment4,
+		utility0,
+		essence0,
 	}
 	public enum DialogueID {
         StandardDialogue,

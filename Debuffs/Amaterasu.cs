@@ -9,9 +9,9 @@ using Terraria.ModLoader;
 
 namespace WeaponEnchantments.Debuffs
 {
-    public class AmaterasuDebuff : ModBuff
+    public class Amaterasu : ModBuff
     {
-        static int[] notImmuneBuffs = new int[] { ModContent.BuffType<AmaterasuDebuff>(), BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
+        static int[] notImmuneBuffs = new int[] { ModContent.BuffType<Amaterasu>(), BuffID.OnFire, BuffID.CursedInferno, BuffID.ShadowFlame, BuffID.OnFire3, BuffID.Oiled};
         public override void SetStaticDefaults() {
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

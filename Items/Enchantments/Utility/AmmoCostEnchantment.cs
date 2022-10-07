@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			};
 		}
 
-		public override string ShortTooltip => GetShortTooltip(text: EnchantmentStrength > 0f ? "Chance To Not Consume Ammo" : "Increased Ammo Cost");
+		public override string ShortTooltip => GetShortTooltip(text: GetLocalizationTypeName(EnchantmentTypeName + (EnchantmentStrength > 0f ? "1" : "2")));
 
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;

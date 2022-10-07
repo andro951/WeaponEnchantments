@@ -22,7 +22,9 @@ namespace WeaponEnchantments.Effects
 			return new FishingEnemySpawnChance(EStatModifier.Clone());
 		}
 
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron)";
+		//public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron)";
+		public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+		public override string Tooltip => StandardTooltip;
 		public override EnchantmentStat statName => EnchantmentStat.FishingEnemySpawnChance;
 	}
 }

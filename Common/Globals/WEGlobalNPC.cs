@@ -621,7 +621,7 @@ namespace WeaponEnchantments.Common.Globals
             npc.trapImmune = true;
         }
         public override void UpdateLifeRegen(NPC npc, ref int damage) {
-            if (!npc.HasBuff<AmaterasuDebuff>())
+            if (!npc.HasBuff<Amaterasu>())
                 return;
 
             #region Debug
@@ -662,16 +662,16 @@ namespace WeaponEnchantments.Common.Globals
                         }
 
                         if (!wEGlobalNPC.amaterasuImmunityUpdated) {
-                            AmaterasuDebuff.RemoveImmunities(mainNPC);
+                            Amaterasu.RemoveImmunities(mainNPC);
                             wEGlobalNPC.amaterasuStrength = amaterasuStrength;
-                            mainNPC.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000);
+                            mainNPC.AddBuff(ModContent.BuffType<Amaterasu>(), 10000);
                             wEGlobalNPC.amaterasuImmunityUpdated = true;
                         }
                     }
                 }
 
                 amaterasuDamage++;
-                npc.AddBuff(ModContent.BuffType<AmaterasuDebuff>(), 10000, true);
+                npc.AddBuff(ModContent.BuffType<Amaterasu>(), 10000, true);
                 lastAmaterasuTime = Main.GameUpdateCount;
             }
             else {
@@ -729,7 +729,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         public override void DrawEffects(NPC npc, ref Color drawColor) {
-            if (npc.HasBuff<AmaterasuDebuff>()) {
+            if (npc.HasBuff<Amaterasu>()) {
                 //Black On fire dust
                 if (Main.rand.Next(4) < 3) {
                     Dust dust4 = Dust.NewDustDirect(new Vector2(npc.position.X - 2f, npc.position.Y - 2f), npc.width + 4, npc.height + 4, DustID.WhiteTorch, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 3.5f);

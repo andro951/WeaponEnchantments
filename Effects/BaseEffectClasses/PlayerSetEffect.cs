@@ -23,6 +23,7 @@ namespace WeaponEnchantments.Effects {
         public float MinimumStrength;
 		public virtual EnchantmentStat statName { get; }
 
+		/*
         public override string Tooltip {
             get {
                 if (StrengthData != null && MinimumStrength > StrengthData.Value)
@@ -30,8 +31,12 @@ namespace WeaponEnchantments.Effects {
 
                 return $"{DisplayName}{": " + (EnableStat ? "Enabled" : "Prevented")}";
             }
-	}
-	    
-	public abstract void SetEffect(Player player);
+	    }
+        */
+		public override string TooltipName => typeof(PlayerSetEffect).Name;
+		public override string TooltipKey => EnableStat ? "Enabled" : "Prevented";
+		public override IEnumerable<object> TooltipArgs => new object[] { DisplayName };
+
+		public abstract void SetEffect(Player player);
     }
 }

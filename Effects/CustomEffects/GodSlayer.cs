@@ -22,7 +22,9 @@ namespace WeaponEnchantments.Effects
 			return new GodSlayer(EStatModifier.Clone());
 		}
 
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
+		//public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)";
+		public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+		public override string Tooltip => StandardTooltip;
 		public override EnchantmentStat statName => EnchantmentStat.GodSlayer;
 	}
 }

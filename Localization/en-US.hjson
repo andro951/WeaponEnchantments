@@ -291,6 +291,9 @@
 			UltimateEnchantingTable: Ultimate Enchanting Table
 			WoodEnchantingTable: Wood Enchanting Table
 		}
+		BuffName: {
+			Amaterasu: Amaterasu
+		}
 		Bestiary: {
 			Witch: The Witch is an ugly and wicked lady and deals in further wicked things. She trades in dubious materials used to improve equipment with mysterious effects.
 		}
@@ -383,6 +386,7 @@
 		}
 		Ores: {
 			adamantite: adamantite
+			chlorophyte: chlorophyte
 			cobalt: cobalt
 			copper: copper
 			crimtane: crimtane
@@ -399,6 +403,37 @@
 			titanium: titanium
 			tungsten: tungsten
 		}
+		TableText: {
+			Cancel: Cancel
+			Finalize: Finalize
+			Infusion: Infusion
+			LevelUp: Level Up
+			LootAll: Loot All
+			No: No
+			Offer: Offer
+			Syphon: Syphon
+			xp: xp
+			Yes: Yes
+			AreYouSure: 
+				'''
+				Are you sure you want to PERMENANTLY DESTROY your level {0}
+				{1} {2}
+				{3}(Based on item value/experience.  Enchantments will be returned.)
+				'''
+			enchantment0: Place Enchantments here.
+			enchantment4: "Requires {0} or Better to use this slot."
+			Enchantments: Enchantments
+			essence0: "Place {0} here."
+			ExchangeEssence: In exchange for essence?
+			ExchangeEssenceAndOres: "In exchange for ores({0}) and essence({1})?"
+			ExchangeOres: In exchange for ores?
+			general1: Upgrading Enchanting Table Tier unlocks more Enchantment slots.
+			general2: Using weapon Enchantments on armor or accessories
+			general3: provides diminished bonuses and vice versa.
+			Item: Item
+			utility0: Only utility Enchantments can go here.
+			weapon0: Place a weapon, piece of armor or accessory here.
+		}
 		Tooltip: {
 			EffectDisplayName: {
 				AllForOne: All For One
@@ -408,52 +443,104 @@
 				AttackSpeed: Attack Speed
 				AutoReuse: Auto Reuse
 				BonusCoins: Bonus Coins
-				BuffDuration: Buff Duration
-				BuffEffect: Buff Effect
+				BuffDuration: "Extends the duration of buffs by {0}"
+				BuffEffect0: "Passively grants {0} to you"
+				BuffEffect1: "Passively inflicts {0} to you"
+				BuffEffect10: "Grants {0} to enemies on hit"
+				BuffEffect11: "Inflicts {0} to enemies on hit"
+				BuffEffect12: "Grants {0} to nearby players on hit"
+				BuffEffect13: "Inflicts {0} to nearby players on hit"
+				BuffEffect14: "Grants {0} to nearby enemies on hit"
+				BuffEffect15: "Passively inflicts {0} to nearby enemies on hit"
+				BuffEffect2: "Passively grants {0} to nearby players"
+				BuffEffect3: "Passively inflicts {0} to nearby players"
+				BuffEffect4: "Passively grants {0} to enemy"
+				BuffEffect5: "Passively inflicts {0} to enemy"
+				BuffEffect6: "Passively grants {0} to nearby enemies"
+				BuffEffect7: "Passively inflicts {0} to nearby enemies"
+				BuffEffect8: "Grants you {0} on hit"
+				BuffEffect9: "Inflicts {0} to you on hit"
+				CalmWaters: Calm Waters
 				CatastrophicRelease: Catastrophic Release
 				Channel: Channel
+				ChaoticFishing: Chaotic Fishing
+				ColdSteel: Cold Steel
+				Crate: Crate
 				CrateChance: Crate Chance
 				CriticalStrikeChance: Critical Strike Chance
 				CriticalStrikeDamage: Critical Strike Damage
+				CursedInferno: Cursed Inferno
+				Damage: Damage
 				DamageAfterDefenses: Damage (Applied after defenses. Not visible in weapon tooltip)
-				DamageClassChange: "Convert damage type to {0}"
-				DamageClassSwap: Damage Class Swap
+				DamageClassSwap: "Convert damage type to {0}"
 				DamageReduction: Damage Reduction
-				DefenseEffect: Defense Effect
+				DangerSense: Danger Sense
+				Daybreak: Daybreak
+				Defense: Defense
 				EnemyMaxSpawns: Enemy Max Spawns
 				EnemySpawnRate: Enemy Spawn Rate
+				ExtraFishingLine: Extra Fishing Line
+				Fishing: Fishing
 				FishingEnemySpawnChance: Fishing Enemy Spawn Chance
 				FishingPower: Fishing Power
 				FlatMPRegen: Flat MP Regen
+				Frostburn: Frostburn
 				GodSlayer: God Slayer
+				HellsWrath: Hells Wrath
+				Hunter: Hunter
+				Ichor: Ichor
 				InfinitePenetration: Infinite Penetration
+				Juiced: Juiced
 				JumpSpeed: Jump Speed
+				JunglesFury: Jungles Fury
 				LavaFishing: Lava Fishing
 				LifeRegeneration: Life Regeneration
 				LifeSteal: Life Steal
 				Luck: Luck
-				ManaUsage: Mana Usage
+				MagicClassSwap: Magic Class Swap
+				ManaUsage1: Reduced Mana Usage
+				ManaUsage2: Increased Mana Usage
 				MaxFallSpeed: Max Fall Speed
 				MaxLife: Max Life
-				MaxLuck: Max Luck
 				MaxMinions: Max Minions
 				MaxMP: Max MP
+				MeleeClassSwap: Melee Class Swap
 				MiningSpeed: Mining Speed
 				MinionAttackTarget: Minion Attack Target
+				MobilityControl: Mobility Control
+				Moonlight: Moonlight
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown
 				MovementSpeed: Movement Speed
 				MPBonusRegen: MP Bonus Regen
 				Multishot: Multishot
+				NpcContactAngler: Npc Contact Angler
 				NPCHitCooldown: NPC Hit Cooldown
+				ObsidianSkin: Obsidian Skin
 				OneForAll: One For All
+				OnFire: On Fire
 				OnHitSpawnProjectile: On Hit Spawn Projectile
+				Peace: Peace
+				PennyPinching: Penny Pinching
 				ProjectileVelocity: Projectile Velocity
 				QuestFishChance: Quest Fish Chance
+				RangedClassSwap: Ranged Class Swap
+				ReducedManaUsage: Reduced Mana Usage
+				RogueClassSwap: Rogue Class Swap
 				Size: Size
-				VanillaDash: Vanilla Dash
+				SolarDash: Solar Dash
+				Sonar: Sonar
+				Spelunker: Spelunker
+				VanillaDash1: Ninja Tabi Dash
+				VanillaDash2: Eye Of Cthulhu Shield Dash
+				VanillaDash3: Solar Dash
+				VanillaDash5: Crystal Ninja Dash
+				Venom: Venom
+				War: War
+				WhipClassSwap: Whip Class Swap
 				WhipRange: Whip Range
 				WingTime: Wing Time
+				WorldAblaze: World Ablaze
 				YoyoStringLength: Yoyo String Length
 			}
 			EnchantmentCustomTooltips: {
@@ -463,61 +550,82 @@
 					(None shall survive the unstopable flames of Amaterasu)
 					(Inflict a unique fire debuff to enemies that never stops)
 					(The damage from the debuff grows over time and from dealing more damage to the target)
-					(Spreads to nearby enemies and prevents enemies from being immune from other WorldAblaze debuffs.)
+					(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)
 					'''
 			}
 			EnchantmentEffects: {
+				AllForOne: "(Item CD equal to {0}x use speed)"
+				AmmoCost: "{0} (Also Saves Bait When Fishing)"
+				AttackSpeed: "{0} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)"
+				BonusCoins: "{0} (Hitting an enemy will increase the number of coins it will drop on death based on damage dealt, enemy max health, enemy base value, and luck.)"
+				BuffDuration: 
+					'''
+					{0}
+					(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)
+					'''
+				EnemySpawnRate: 
+					'''
+					{0}
+					(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)
+					(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)
+					(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1.6)
+					(Enemies spawned will be immune to lava/traps)
+					'''
+				FishingEnemySpawnChance: "{0} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron.)"
+				GodSlayer: 
+					'''
+					{0}
+					(Bonus true damage based on enemy max hp)
+					(Bonus damage not affected by LifeSteal)
+					'''
+				LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"
+				LifeSteal: "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)"
+				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
+				Multishot: "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)"
+				OneForAll: 
+					'''
+					{0}
+					(Hitting an enemy will damage all nearby enemies)
+					(Only activates on the first hit from a projectile.)
+					'''
+				OnHitSpawnProjectile: "Spawns a projectile when hitting an enemy: {0}"
+				QuestFishChance: "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"
 				BoolEffect: {
-					Disabled: "{0} Disabled"
-					Enabled: "{0} Enabled"
+					Enabled: "{0}: Enabled"
+					Prevented: "{0}: Prevented"
 				}
 				BuffEffect: {
-					OnHitAreaEnemyBuff: "Grants {0} to nearby enemies on hit"
-					OnHitAreaEnemyDebuff: "Passively inflicts {0} to nearby enemies on hit"
-					OnHitAreaTeamBuff: "Grants {0} to nearby players on hit"
-					OnHitAreaTeamDebuff: "Inflicts {0} to nearby players on hit"
-					OnHitEnemyBuff: "Grants {0} to enemies on hit"
-					OnHitEnemyDebuff: "Inflicts {0} to enemies on hit"
-					OnHitPlayerBuff: "Grants you {0} on hit"
-					OnHitPlayerDebuff: "Inflicts {0} to you on hit"
-					OnTickAreaEnemyBuff: "Passively grants {0} to nearby enemies"
-					OnTickAreaEnemyDebuff: "Passively inflicts {0} to nearby enemies"
-					OnTickAreaTeamBuff: "Passively grants {0} to nearby players"
-					OnTickAreaTeamDebuff: "Passively inflicts {0} to nearby players"
-					OnTickEnemyBuff: "Passively grants {0} to enemy"
-					OnTickEnemyDebuff: "Passively inflicts {0} to enemy"
-					OnTickPlayerBuff: "Passively grants {0} to you for {1} seconds every 30 seconds"
-					OnTickPlayerDebuff: "Passively inflicts {0} to you"
+					All: "{0} ({1}% chance to apply for {2})"
+					OnTickPlayerBuff: "{0} ({1}% chance to apply for {2} every {3})"
 				}
 				PlayerSetEffect: {
-					VanillaDash: {
-						CrystalNinjaDash: Crystal Ninja Dash
-						EyeOfCthulhuShieldDash: Eye Of Cthulhu Shield Dash
-						NinjaTabiDash: Ninja Tabi Dash
-						SolarDash: Solar Dash
-					}
+					Enabled: "{0}: Enabled"
+					Prevented: "{0}: Prevented"
 				}
-				StatEffect: {
-					AllForOne: "(Item CD equal to {0}x use speed)"
-					AmmoCost: "{0} (Also Saves Bait When Fishing)"
-					EnemySpawnRate: 
-						'''
-						(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)
-						(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)
-						(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1.6)
-						(Enemies spawned will be immune to lava/traps)
-						'''
-					FishingEnemySpawnChance: "{0} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron)"
-					GodSlayer: 
-						'''
-						"{0} (Bonus true damage based on enemy max hp)
-						(Bonus damage not affected by LifeSteal)"
-						'''
-					LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"
-					MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
-					OnHitSpawnProjectile: "Spawns a projectile when hitting an enemy: {0}"
-					QuestFishChance: "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"
-				}
+			}
+			EnchantmentGeneralTooltips: {
+				AllowedOn: Allowed on
+				And: and
+				ArmorSlotOnly: "{0} armor slot Only"
+				LevelCost: "Level cost: {0}"
+				Max1: Max of 1 per item
+				NotAllowed: "Not allowed on {0} weapons"
+				Only: "{0} Only"
+				OnlyAllowedOn: Only allowed on
+				Or: or
+				Unique: Unique (Limited to 1 Unique Enchantment)
+				Utility: Utility
+			}
+			EnchantmentShortTooltip: {
+				OnTickPlayerBuff: "Passively grants {0} for {1} every {2}"
+			}
+			ItemType: {
+				Accessories: Accessories
+				Armor: Armor
+				FishingPoles: Fishing Poles
+				None: None
+				Tools: Tools
+				Weapons: Weapons
 			}
 		}
 		TownNPCMood: {

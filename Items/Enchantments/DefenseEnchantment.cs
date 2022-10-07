@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {
-				new DefenseEffect(@base: EnchantmentStrengthData),
+				new Defense(@base: EnchantmentStrengthData),
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
@@ -14,7 +15,9 @@ namespace WeaponEnchantments.Effects {
             return new LifeSteal(EStatModifier.Clone());
         }
 
-        public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (remainder is saved to prevent always rounding to 0 for low damage weapons)";
+        //public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (remainder is saved to prevent always rounding to 0 for low damage weapons)";
+        public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+        public override string Tooltip => StandardTooltip;
         public override EnchantmentStat statName => EnchantmentStat.LifeSteal;
     }
 }

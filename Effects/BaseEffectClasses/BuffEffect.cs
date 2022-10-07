@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
@@ -17,6 +18,7 @@ namespace WeaponEnchantments.Effects {
         public BuffStats BuffStats { get; protected set; }
         public string BuffName => BuffStats.BuffName;
         public BuffStyle BuffStyle;
+        /*
         public override string Tooltip {
             get {
                 string tooltip = "";
@@ -24,8 +26,14 @@ namespace WeaponEnchantments.Effects {
                 return tooltip;
             }
         }
-		public override string DisplayName { 
-            get { 
+        */
+		public override string TooltipKey => BuffStyle == BuffStyle.OnTickPlayerBuff || BuffStyle == BuffStyle.OnTickPlayerDebuff ? $"{BuffStyle.OnTickPlayerBuff}" : $"{BuffStyle.All}";
+		public override IEnumerable<object> TooltipArgs => BuffStyle == BuffStyle.OnTickPlayerBuff || BuffStyle == BuffStyle.OnTickPlayerDebuff ? new object[] { DisplayName, BuffStats.Chance.Percent(), BuffStats.Duration, ConfigValues.BuffDurationTicks } : new object[] { DisplayName, BuffStats.Chance.Percent(), BuffStats.Duration };
+		public override int DisplayNameNum => (int)BuffStyle;
+		public override IEnumerable<object> DisplayNameArgs => new object[] { BuffName };
+		/*
+		public override string DisplayName {
+            get {
                 if (displayName == null) {
                     switch (BuffStyle) {
                         case BuffStyle.OnTickPlayerBuff:
@@ -84,6 +92,7 @@ namespace WeaponEnchantments.Effects {
         }
 
         private string displayName;
+        */
 
 		public BuffEffect(int buffID, BuffStyle buffStyle, uint duration = 60, float chance = 1f, DifficultyStrength buffStrength = null, bool disableImmunity = true) {
             BuffStyle = buffStyle;
@@ -125,11 +134,18 @@ namespace WeaponEnchantments.Effects {
 		public string GetBuffName(int id) { // C# is crying
             string name = null;
             if (id < BuffID.Count) {
-                BuffID buffID = new();
-                name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;//Can be replaced with BuffID.Search....
+                //BuffID buffID = new();
+                //name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;//Can be replaced with BuffID.Search....
+                name = BuffID.Search.GetName(id);
             }
 
-            name ??= ModContent.GetModBuff(id).Name;
+            name ??= Language.GetTextValue(ModContent.GetModBuff(id).DisplayName.Key);
+            /*
+            if (ModContent.GetContent<ModBuff>().Select(b => b.Name).Contains(name))
+                name = name.Lang();
+            */
+
+            string temp = ModContent.GetModBuff(id)?.DisplayName.Key;
 
             return name;
         }

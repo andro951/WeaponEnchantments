@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Items.Utility
 			};
 		}
 
-		public override string ShortTooltip => $"Passively grants {EnchantmentTypeName.AddSpaces()} for {new Time((uint)(EnchantmentStrength * 12 * WEMod.serverConfig.BuffDuration))} every {ConfigValues.BuffDurationTicks}.";
+		public override string ShortTooltip => $"{BuffStyle.OnTickPlayerBuff}".Lang(L_ID1.Tooltip, L_ID2.EnchantmentShortTooltip, new object[] { GetLocalizationTypeName(), (new Time((uint)(EnchantmentStrength * 12 * WEMod.serverConfig.BuffDuration))).ToString(), ConfigValues.BuffDurationTicks.ToString() });
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}

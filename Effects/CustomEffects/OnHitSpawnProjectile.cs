@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,8 @@ namespace WeaponEnchantments.Effects {
 
             return ModContent.GetModBuff(id).Name;
         }
-        public override string Tooltip => $"Spawns a projectile when hitting an enemy: {_projectilieDisplayName}";
+		//public override string Tooltip => $"Spawns a projectile when hitting an enemy: {_projectilieDisplayName}";
+		public override IEnumerable<object> TooltipArgs => new object[] { _projectilieDisplayName };
 
 		public void OnHitNPC(NPC target, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
             if (projectile != null && ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects || target.netID == NPCID.TargetDummy)

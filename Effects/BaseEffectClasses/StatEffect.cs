@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
@@ -27,5 +28,5 @@ namespace WeaponEnchantments.Effects {
 
         public abstract EnchantmentStat statName { get; }
         public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName}";
-	}
+    }
 }

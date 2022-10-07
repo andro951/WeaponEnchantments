@@ -70,7 +70,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
 			webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
 		}
-		public string GetName() => NPC.netID < 0 ? NPCID.Search.GetName(NPC.netID).AddSpaces() : NPC.FullName;
+		public string GetName() => NPC.netID < 0 ? NPCID.Search.GetName(NPC.netID).AddSpaces(true) : NPC.FullName;
 		public void GetArtists(out string artistString, out string artModifiedBy) {
 			artistString = ((INPCWikiInfo)ModNPC).Artist;
 			artModifiedBy = ((INPCWikiInfo)ModNPC).ArtModifiedBy;

@@ -1028,7 +1028,7 @@ namespace WeaponEnchantments
             if (!skipOnHitEffects) {
                 //Debuffs
                 int amaterasuDamageAdded = 0;
-                short amaterasuID = (short)ModContent.BuffType<AmaterasuDebuff>();
+                short amaterasuID = (short)ModContent.BuffType<Amaterasu>();
                 if (CombinedOnHitDebuffs.ContainsKey(amaterasuID)) {
                     if (weGlobalNPC.amaterasuStrength == 0)
                         weGlobalNPC.amaterasuStrength = CombinedOnHitDebuffs[amaterasuID].BuffStrength;
@@ -1532,9 +1532,6 @@ namespace WeaponEnchantments
                     break;
                 case EnchantmentStat.MaxLife:
                     Player.statLifeMax2 = (int)sm.ApplyTo(Player.statLifeMax2);
-                    break;
-                case EnchantmentStat.MaxLuck:
-                    Player.luckMaximumCap = sm.ApplyTo(1f);
                     break;
                 case EnchantmentStat.MaxMinions:
                     Player.maxMinions = (int)sm.ApplyTo(Player.maxMinions);

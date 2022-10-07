@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Effects {
             
         }
 
-        private static string name;
+        private string name;
         public string Name {
 			get {
                 if (name == null)
@@ -71,17 +71,25 @@ namespace WeaponEnchantments.Effects {
 
         public virtual string DisplayName { 
             get {
-                if (displayName == null)
-                    displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName);
+                if (displayName == null) {
+                    if (DisplayNameArgs == null) {
+                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName);
+                    }
+					else {
+                        displayName = $"{GetType().Name}{(DisplayNameNum > -1 ? DisplayNameNum : "")}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, DisplayNameArgs);
+                    }
+				}
 
                 return displayName;
 			} 
         }
         protected string displayName;
         public virtual int DisplayNameNum => -1;
-        public virtual Dictionary<string, string> LocalizationTooltips => new() { { GetType().Name, DisplayName } };
-        public virtual IEnumerable<object> TooltipArgs { get; }
-        public virtual string Tooltip => this.GetEffectTooltip(TooltipArgs, TooltipKey);
+        //public static virtual Dictionary<string, string> LocalizationTooltips => new() { { GetType().Name, Tooltip } };//doesnt work. 
+        public virtual IEnumerable<object> TooltipArgs => new object[] { DisplayName };
+        public virtual IEnumerable<object> DisplayNameArgs { get; }
+        public virtual string Tooltip => TooltipKey != null || TooltipArgs != null ? StandardTooltip : DisplayName;
+        protected string StandardTooltip => this.GetEffectTooltip(TooltipArgs, TooltipKey);
         public virtual string TooltipName => Name;
         public virtual string TooltipKey => null;
         public virtual Color TooltipColor { get; protected set; } = Color.White;

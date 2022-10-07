@@ -27,9 +27,9 @@ namespace WeaponEnchantments.Effects {
                 return tooltipName;
             }
         }
-        private static string tooltipName;
+        private string tooltipName;
         /*
-        public override Dictionary<string, string> LocalizationTooltips => new() {
+        public static override Dictionary<string, string> LocalizationTooltips => new() {
             { "Enabled", "\"{0} Enabled\"" },
             { "Disabled", "\"{0} Disabled\"" }
         };
