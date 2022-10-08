@@ -27,11 +27,13 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
         public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
-        public static bool printListForDocumentConversion = false;
-        public static bool zzzLocalizationForTesting = false;
+        public static readonly bool printListForDocumentConversion = false;
+        public static readonly bool zzzLocalizationForTesting = false;
+        public static bool PrintLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
+        public static readonly bool printLocalizationKeysAndValues = true;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
-        public static bool printWiki = WEMod.clientConfig.PrintWikiInfo;
-        public static bool printNPCIDSwitch = false;
+        public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;
+        public static readonly bool printNPCIDSwitch = false;
 
         public static class GetItemDictModeID {
             public static byte Weapon = 0;
@@ -64,6 +66,8 @@ namespace WeaponEnchantments.Common.Utility
         public static List<string> enchantmentsLocalization = new List<string>();
         public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
 	    private static string localization = "";
+        private static string localizationValues = "";
+        private static string localizationKeys = "";
 	    private static int tabs = 0;
 	    private static List<string> labels;
         private static Dictionary<string, ModTranslation> translations;
@@ -105,7 +109,7 @@ namespace WeaponEnchantments.Common.Utility
                 namesAddedToContributorDictionary.Add(sharedName);
         }
         private static void PrintAllLocalization() {
-            if (!printLocalization)
+            if (!printLocalization && !printLocalizationKeysAndValues)
                 return;
 
             LocalizationData.changedData = new();
@@ -246,13 +250,33 @@ namespace WeaponEnchantments.Common.Utility
 		    }
 	    }
 	    private static void AddLabel(string label) {
-		    localization += Tabs(tabs) + label + ": {\n";
-		    tabs++;
+            string tabsString = Tabs(tabs) + label + ": {\n";
+            if (printLocalization)
+                localization += tabsString;
+
+            if (PrintLocalizationKeysAndValues)
+                localizationKeys += tabsString;
+
+            tabs++;
 		    labels.Add(label);
 	    }
 	    private static void Start(CultureName cultureName) {
             culture = (int)cultureName;
-            localization += "\n\n" + cultureName.ToString() + "\n";
+            if (printLocalization) {
+                string label = $"\n\n{cultureName}\n";
+                localization += label;
+            }
+            
+            if (PrintLocalizationKeysAndValues) {
+                string keyLabel = $"\n\n{cultureName} Keys\n";
+                localizationKeys += keyLabel;
+            }
+
+            if (printLocalizationKeysAndValues) {
+                string valueLabel = $"\n\n{cultureName} Values\n";
+                localizationValues += valueLabel;
+            }
+            
 		    labels = new();
 		    AddLabel("Mods");
 		    AddLabel("WeaponEnchantments");
@@ -262,9 +286,14 @@ namespace WeaponEnchantments.Common.Utility
             if (tabs < 0)
                 return;
 
-		    localization += Tabs(tabs) + "}\n";
-			
-		    labels.RemoveAt(labels.Count - 1);
+            string tabsString = Tabs(tabs) + "}\n";
+            if (printLocalization)
+                localization += tabsString;
+            
+            if (PrintLocalizationKeysAndValues)
+                localizationKeys += tabsString;
+
+            labels.RemoveAt(labels.Count - 1);
 	    }
 	    private static void End() {
 		    while(tabs >= 0) {
@@ -272,8 +301,20 @@ namespace WeaponEnchantments.Common.Utility
 		    }
 		
 		    tabs = 0;
-		    localization.Log();
-		    localization = "";
+            if (printLocalization) {
+                localization.LogSimple();
+                localization = "";
+            }
+		    
+            if (PrintLocalizationKeysAndValues) {
+                localizationKeys.LogSimple();
+                localizationKeys = "";
+            }
+
+            if (printLocalizationKeysAndValues) {
+                localizationValues.LogSimple();
+                localizationValues = "";
+            }
 	    }
         private static void GetLocalizationFromList(string label, IEnumerable<ModType> list, bool ignoreLabel = false, bool printMaster = false) {
             IEnumerable<string> listNames = list.Select(l => l.Name);
@@ -333,8 +374,16 @@ namespace WeaponEnchantments.Common.Utility
                 }
 
                 s = CheckTabOutLocalization(s);
+                if (printLocalization)
+                    localization += $"{tabString}{p.Key}: {s}\n";
+                
+                if (PrintLocalizationKeysAndValues) {
+                    localizationKeys += $"{tabString}{p.Key}: \n";
+                }
 
-                localization += tabString + p.Key + ": " + (printMaster ? "" : s) + "\n";
+                if (printLocalizationKeysAndValues) {
+                    localizationValues += $"{s}\n";
+                }
             }
 
             if (!ignoreLabel)

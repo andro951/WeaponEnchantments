@@ -399,6 +399,7 @@ namespace WeaponEnchantments.Common.Configs
 
         private bool _onlyShowErrorMessagesInChatOnce;
 
+        //Logging Information
         [Header("Logging Information")]
         [Label("Log a List of Enchantment Tooltips")]
         [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]

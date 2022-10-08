@@ -367,7 +367,7 @@ namespace WeaponEnchantments.Localization
 	public static class LocalizationDataStaticMethods
 	{
 		public static void AddLocalizationTooltip(this ModItem modItem, string tooltip) {
-			if (LogModSystem.printLocalization && !LocalizationData.AllData[L_ID1.ItemTooltip.ToString()].Dict.ContainsKey(modItem.Name)) {
+			if ((LogModSystem.printLocalization || LogModSystem.printLocalizationKeysAndValues) && !LocalizationData.AllData[L_ID1.ItemTooltip.ToString()].Dict.ContainsKey(modItem.Name)) {
 				LocalizationData.AllData[L_ID1.ItemTooltip.ToString()].Dict.Add(modItem.Name, tooltip);
 			}
 		}
