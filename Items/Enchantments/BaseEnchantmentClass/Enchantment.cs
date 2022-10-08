@@ -708,7 +708,7 @@ namespace WeaponEnchantments.Items {
 
 			return s;
 		}
-		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? enchantmentTypeName).Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
+		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? EnchantmentTypeName).Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			var tooltipTuples = GenerateFullTooltip();
             foreach (var tooltipTuple in tooltipTuples) {

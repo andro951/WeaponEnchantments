@@ -322,38 +322,38 @@ Mods: {
 			Containment: Służy do przechowywania podstawowych zaklęć
 			DustyEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 1)
 			EnchantmentEssenceBasic: 
-				''''
+				'''
 				Podstawowy materiał do tworzenia i ulepszania zaklęć.
 				Można zamienić na 400 punktów doświadczenia w czarującym stole.
-				''''
+				'''
 			EnchantmentEssenceCommon: 
-				''''
+				'''
 				Powszechny materiał do tworzenia i ulepszania zaklęć.
 				Można zamienić na 1600 punktów doświadczenia w czarującym stole.
-				''''
+				'''
 			EnchantmentEssenceEpic: 
-				''''
+				'''
 				Epicki materiał do tworzenia i ulepszania zaklęć.
 				Można zamienić na 25600 punktów doświadczenia w czarującym stole.
-				''''
+				'''
 			EnchantmentEssenceLegendary: 
-				''''
+				'''
 				Legendarny materiał do tworzenia i ulepszania zaklęć.
 				Można zamienić na 102400 punktów doświadczenia w czarującym stole.
-				''''
+				'''
 			EnchantmentEssenceRare: 
-				''''
+				'''
 				Rzadki materiał do tworzenia i ulepszania zaklęć.
 				Można zamienić na 6400 punktów doświadczenia w czarującym stole.
-				''''
+				'''
 			HellishEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 2)
 			MediumContainment: Służy do przechowywania zwykłych zaklęć
 			PowerBooster: 
-				''''
+				'''
 				Użyj tego, gdy przedmiot, który chcesz wzmocnić, znajduje się w tabeli zaklęć, aby podnieść jego podstawowy poziom o 10.
 				(Shift lewy przycisk myszy w ekwipunku lub lewy przycisk myszy na przedmiocie w tabeli z tym na kursorze.)
 				Ten przedmiot zostanie zwrócony, jeśli zostanie zaoferowany wzmocniony przedmiot.
-				''''
+				'''
 			SoulEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 3)
 			SuperiorContainment: Służy do przechowywania rzadkich zaklęć
 			UltimateEnchantingTable: Służy do nakładania zaklęć na przedmioty. (Poziom 4)
@@ -416,11 +416,11 @@ Mods: {
 			xp: xp
 			Yes: TAk
 			AreYouSure: 
-				''''
+				'''
 				Czy na pewno chcesz NA STAŁE ZNISZCZYĆ swój poziom {0}
 				{1} {2}
 				{3}(Na podstawie wartości przedmiotu/doświadczenia. Zaklęcia zostaną zwrócone).
-				''''
+				'''
 			enchantment0: Umieść tutaj zaklęcia.
 			enchantment4: „Wymaga {0} lub Lepiej, aby korzystać z tego gniazda”.
 			Enchantments: Zaklęcia
@@ -562,53 +562,53 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Zaklęcie Mody Katastrofy)
 				WorldAblaze: 
-					''''
+					'''
 					(Osłabienie Amaterasu i poniższe uwagi na ten temat mają zastosowanie tylko na 4. poziomie zaklęcia)
 					(Nikt nie przetrwa niepowstrzymanych płomieni Amaterasu)
 					(Zadaj wrogom unikalne osłabienie ognia, które nigdy się nie zatrzymuje)
 					(Obrażenia z debuffu rosną z czasem i od zadawania większych obrażeń celowi)
 					(Rozprzestrzenia się na pobliskich wrogów i uniemożliwia wrogom odporność na inne osłabienia World Ablaze.)
-					''''
+					'''
 			}
 			EnchantmentEffects: {
 				AllForOne: „(Pozycja na płycie CD równa {0}x prędkości użytkowania)”
 				AmmoCost: „{0} (Oszczędza również przynętę podczas łowienia)”
 				AttackSpeed: „{0} (Wpływa na szybkostrzelność stworów, jeśli strzelają pociskami. Wpływa na szybkość gryzienia żyłki przez ryby.)”
 				BonusCoins: 
-					''''
+					'''
 					{0} (Uderzenie wroga zwiększy liczbę monet, które spadnie po śmierci
 					na podstawie zadanych obrażeń, maksymalnego zdrowia wroga, podstawowej wartości wroga i szczęścia.)
-					''''
+					'''
 				BuffDuration: 
-					''''
+					'''
 					{0}
 					(Czas trwania jest stale zwiększany, gdy wzmocnienie jest aktywne, a nie po pierwszym zdobyciu wzmocnienia.)
-					''''
+					'''
 				EnemySpawnRate: 
-					''''
+					'''
 					{0}
 					(Obrażenia stworów są zmniejszane o mnożnik częstotliwości odradzania się z zaklęć, chyba że są one celem ataku stworów)
 					(cel ataku stworów ustawiony od uderzania wrogów biczami lub bronią, która jest zamieniana na obrażenia przyzywające z zaklęcia)
 					(Zapobiega zużywaniu przedmiotów przywołujących bossa, jeśli mnożnik częstotliwości odradzania z zaklęć wynosi > 1,6)
 					(Odrodzeni wrogowie będą odporni na lawę/pułapki)
-					''''
+					'''
 				FishingEnemySpawnChance: „{0} (zmniejsza się 5x w ciągu dnia. Wpływa na Chum Caster. Może również odrodzić Księcia Fishrona.)”
 				GodSlayer: 
-					''''
+					'''
 					{0}
 					(Bonusowe nieuchronne obrażenia w oparciu o maksymalne hp wroga)
 					(Dodatkowe obrażenia, na które nie ma wpływu LifeSteal)
-					''''
+					'''
 				LavaFishing: „{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)”
 				LifeSteal: „{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)”
 				MinionAttackTarget: Trafieni wrogowie stają się celem ataku stworów. Taki sam efekt jak bicze.
 				Multishot: „{0} (Możliwość wytworzenia dodatkowego pocisku. Dotyczy każdego utworzonego pocisku.)”
 				OneForAll: 
-					''''
+					'''
 					{0}
 					(Trafienie wroga zada obrażenia wszystkim pobliskim wrogom)
 					(Aktywuje się tylko przy pierwszym trafieniu pociskiem.)
-					''''
+					'''
 				OnHitSpawnProjectile: „Tworzy pocisk po trafieniu wroga: {0}”
 				QuestFishChance: „{0} (Złapane ryby w ramach misji zostaną automatycznie oddane i rozpoczną nowe zadanie, z pominięciem limitu 1 dziennie.)”
 				BoolEffect: {

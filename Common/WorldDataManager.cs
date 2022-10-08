@@ -42,7 +42,7 @@ namespace WeaponEnchantments.Common
 				}
 				else {
 					if (!andAtEnd && i == end - 1) {
-						list += " and ";
+						list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
 					}
 					else {
 						list += ", ";
