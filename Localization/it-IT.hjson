@@ -163,7 +163,7 @@ Mods: {
 			MaxMinionsEnchantmentLegendary: Incantesimo Max Minion Leggendario
 			MaxMinionsEnchantmentRare: Incantesimo Max Minion Raro
 			MeleeClassSwapEnchantmentBasic: Melee Class Swap Incantesimo Base
-			MeleeClassSwapEnchantmentCommon: Melee Class Swap Incantesimo Common
+			MeleeClassSwapEnchantmentCommon: Melee Class Swap Incantesimo Comune
 			MeleeClassSwapEnchantmentEpic: Melee Class Swap Incantesimo Epico
 			MeleeClassSwapEnchantmentLegendary: Incantesimo di scambio di classe da mischia Leggendario
 			MeleeClassSwapEnchantmentRare: Incantesimo di scambio di classe da mischia Raro
@@ -310,7 +310,7 @@ Mods: {
 				Princess: "Ugh! {0} è sempre sul mio caso! Non so cosa siano 'Etica' o 'Morale', ma lei non lascerà il mio posto!"
 				QueenBee: La giungla ha i migliori ingredienti per la produzione della birra. Peccato che un gigantesco parassita ronzante stia infestando!
 				StandardDialogue0: Ho imparato questa ricetta, è davvero carina, la terrò più tardi per il tuo dolcetto!
-				StandardDialogue1: Perché parlo tutto il tempo, è davvero difficile fare questirima!
+				StandardDialogue1: Perché parlo tutto il tempo, è davvero difficile fare queste rime!
 				StandardDialogue2: Sono ancora qui, ti guardo giocare, ma non mi viene in mente molto da dire!
 				Storm: Ah! Thunder è il migliore quando si tratta di creare nuove sciocchezze magiche! Che la grande ora delle streghe abbia inizio!
 				WitchDoctor: "Un compagno che usa il calderone! {0} ha così tanti strani espedienti, un vero seduttore!"
@@ -436,6 +436,21 @@ Mods: {
 			weapon0: Metti qui un'arma, un pezzo di armatura o un accessorio.
 		}
 		Tooltip: {
+			ArmorSlotNames: {
+				Body: Corpo
+				Head: Testa
+				Legs: Gambe
+			}
+			DamageClassNames: {
+				Generic: Generico
+				Magic: Magia
+				Melee: Mischia
+				Ranged: A distanza
+				Rogue: Briccone
+				Summon: Convocare
+				Throwing: Lancio
+				Whip: Frusta
+			}
 			EffectDisplayName: {
 				AllForOne: Tutti per uno
 				AmmoCost1: Possibilità di non consumare munizioni
@@ -545,12 +560,13 @@ Mods: {
 				YoyoStringLength: Lunghezza della corda Yo-yo
 			}
 			EnchantmentCustomTooltips: {
+				CalamityMod: (Incantesimo Mod Calamità)
 				WorldAblaze: 
 					'''
 					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)
 					(Nessuno sopravviverà alle fiamme inarrestabili di Amaterasu)
 					(Infliggi un debuff di fuoco unico ai nemici che non si ferma mai)
-					(Il danno del debuff cresce nel tempo e infliggendo more danno al bersaglio)
+					(Il danno del debuff aumenta nel tempo e infligge più danni al bersaglio)
 					(Si diffonde ai nemici vicini e impedisce ai nemici di essere immuni ad altri debuff di World Ablaze.)
 					'''
 			}
@@ -558,7 +574,11 @@ Mods: {
 				AllForOne: "(CD oggetto uguale a {0}x velocità di utilizzo)"
 				AmmoCost: "{0} (risparmia anche l'esca durante la pesca)"
 				AttackSpeed: "{0} (Influisce sulla velocità di fuoco dei minion se sparano proiettili. Influisce sulla velocità con cui i pesci morderanno la lenza.)"
-				BonusCoins: "{0} (Colpire un nemico aumenterà il numero di monete che cadrà alla morte in base al danno inflitto, alla salute massima del nemico, al valore di base del nemico e alla fortuna.)"
+				BonusCoins: 
+					'''
+					{0} (Colpire un nemico aumenterà il numero di monete che cadrà alla morte
+					in base al danno inflitto, alla salute massima del nemico, al valore di base del nemico e alla fortuna.)
+					'''
 				BuffDuration: 
 					'''
 					{0}
@@ -640,7 +660,7 @@ Mods: {
 				HateCrouded: Non riesco a gestire questo traffico qui! Fammi uscire o buttali fuori, fallo in fretta!
 				HateNPC: "{NPCName} è una tirannosa ragazza che continua a lasciare i capelli ovunque, la farò pagare in guerra!"
 				LikeBiome: Questo posto è pieno di creature e letame, è ora di fare soldi in fretta!
-				LikeNPC: "Anche se {NPCName} non si avventura al di fuori del collaudato, la sua conoscenza arcana lo classifica come quella di un guru!"
+				LikeNPC: "Sebbene {NPCName} non si avventuri al di fuori del vero e proprio, la sua conoscenza arcana lo classifica come quella di un guru!"
 				LoveBiome: Questo posto mi ricorda la mia vecchia tana. Molto cupo, molto magico, che stile!
 				LoveNPC: "Un compagno che usa il calderone! {NPCName} ha così tanti strani espedienti, un vero seduttore!"
 				LoveSpace: Ora che tutti sono andati via, finalmente i miei esperimenti possono andare avanti!

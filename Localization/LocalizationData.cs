@@ -12,6 +12,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Utility;
+using WeaponEnchantments.ModIntegration;
 using static Terraria.Localization.GameCulture;
 
 namespace WeaponEnchantments.Localization
@@ -101,7 +102,7 @@ namespace WeaponEnchantments.Localization
 									{ typeof(AllForOne).Name, "(Item CD equal to {0}x use speed)" },
 									{ typeof(AmmoCost).Name, "{0} (Also Saves Bait When Fishing)" },
 									{ typeof(AttackSpeed).Name, "{0} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)" },
-									{ typeof(BonusCoins).Name, "{0} (Hitting an enemy will increase the number of coins it will drop on death based on damage dealt, enemy max health, enemy base value, and luck.)" },
+									{ typeof(BonusCoins).Name, "{0} (Hitting an enemy will increase the number of coins it will drop on death\nbased on damage dealt, enemy max health, enemy base value, and luck.)" },
 									{ typeof(BuffDuration).Name,
 										"{0}\n" +
 										"(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)"
@@ -130,6 +131,7 @@ namespace WeaponEnchantments.Localization
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
+								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" }
 							}) },
 							{ L_ID2.EnchantmentShortTooltip.ToString(), new(dict: new() {
 								{ typeof(OnTickPlayerBuffEnchantment).Name.ToEnchantmentTypeName(), "Passively grants {0} for {1} every {2}" }
@@ -148,6 +150,12 @@ namespace WeaponEnchantments.Localization
 								{ $"{EnchantmentGeneralTooltipsID.And}", "and" }
 							}) },
 							{ L_ID2.ItemType.ToString(), new(values: new() {
+								//Filled Automatically
+							}) },
+							{ L_ID2.ArmorSlotNames.ToString(), new(values: new() {
+								//Filled Automatically
+							}) },
+							{ L_ID2.DamageClassNames.ToString(), new(values: new() {
 								//Filled Automatically
 							}) }
 						}) },
@@ -290,6 +298,17 @@ namespace WeaponEnchantments.Localization
 					string itemTypeKey = L_ID2.ItemType.ToString();
 					foreach (string eItemType in Enum.GetNames(typeof(EItemType))) {
 						allData[tooltipKey].Children[itemTypeKey].Values.Add(eItemType);
+					}
+
+					string armorSlotKey = L_ID2.ArmorSlotNames.ToString();
+					foreach (string armorSlotName in Enum.GetNames(typeof(ArmorSlotSpecificID))) {
+						allData[tooltipKey].Children[armorSlotKey].Values.Add(armorSlotName);
+					}
+
+					string damageClassKey = L_ID2.DamageClassNames.ToString();
+					List<string> ignoredNames = new() { DamageClassID.Default.ToString(), DamageClassID.MeleeNoSpeed.ToString(), DamageClassID.MagicSummonHybrid.ToString() };
+					foreach(string damageClassName in Enum.GetNames(typeof(DamageClassID)).Where(n => !ignoredNames.Contains(n))) {
+						allData[tooltipKey].Children[damageClassKey].Values.Add(damageClassName);
 					}
 
 					string tableTextKey = L_ID1.TableText.ToString();

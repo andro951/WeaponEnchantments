@@ -350,9 +350,9 @@ Mods: {
 			MediumContainment: Используется чтобы содержать обычные зачарования
 			PowerBooster: 
 				'''
-				Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.
-				(Shift left click from your inventory or left click on item in the table with this on your cursor.)
-				This item will be returned if the boosted item is offered.
+				Используйте, пока предмет, который вы хотите усилить, находится в столе зачарования, чтобы увеличить его базовый уровень на 10.
+				(Shift+ЛКМ из инвентаря или ЛКМ по предмету в столе с усилителем на курсоре.)
+				Усилитель будет возвращен, если усиленный предмет будет пожертвован.
 				'''
 			SoulEnchantingTable: Используется чтобы зачаровывать предметы (Уровень 3)
 			SuperiorContainment: Используется чтобы содержать редкие зачарования
@@ -407,13 +407,13 @@ Mods: {
 		TableText: {
 			Cancel: Отменить
 			Finalize: Завершить
-			Infusion: Наполнение
+			Infusion: Наполнить
 			LevelUp: Поднять уровень
-			LootAll: Взять всё
+			LootAll: Взять
 			No: Нет
 			Offer: Пожертвовать
 			Syphon: Сифон
-			xp: xp
+			xp: XP
 			Yes: Да
 			AreYouSure: 
 				'''
@@ -431,11 +431,25 @@ Mods: {
 			general1: Улучшение стола зачарования открывает больше слотов для зачарований.
 			general2: Использование зачарований для оружия на броне или аксессуарах
 			general3: и наоборот даёт уменьшенные бонусы.
-			Item: предмет
+			Item: Предмет
 			utility0: Сюда можно положить только вспомогательные зачарования.
 			weapon0: Место для оружия, брони или аксессуара.
 		}
-		Tooltip: {
+		Tooltip: {ArmorSlotNames: {
+			Body: Тело
+			Head: Голова
+			Legs: Ноги
+		}
+		DamageClassNames: {
+			Generic: Общий
+			Magic: Магический
+			Melee: Ближнебойный
+			Ranged: Стрелковый
+			Rogue: Разбойничий
+			Summon: Призывательский
+			Throwing: Бросательный
+			Whip: Кнут
+		}
 			EffectDisplayName: {
 				AllForOne: Все за одного
 				AmmoCost1: Шанс не потратить патроны
@@ -473,7 +487,7 @@ Mods: {
 				CursedInferno: Проклят адом
 				Damage: Урон
 				DamageAfterDefenses: Урон (Применяется после защиты. Не отображается в подсказке)
-				DamageClassSwap: "Преобразовать урон к типу '{0}'"
+				DamageClassSwap: "Преобразовывает урон к типу '{0}'"
 				DamageReduction: Уменьшение урона
 				DangerSense: Предчувствие
 				Daybreak: Солнечный ожог
@@ -520,7 +534,7 @@ Mods: {
 				ObsidianSkin: Обсидиановая кожа
 				OneForAll: Один за всех
 				OnFire: В огне
-				OnHitSpawnProjectile: Создание снарядов при ударе
+				OnHitSpawnProjectile: Создает снаряды при ударе
 				Peace: Мир
 				PennyPinching: Скупость
 				ProjectileVelocity: Скорость снарядов
@@ -614,19 +628,19 @@ Mods: {
 				Only: "Только {0}"
 				OnlyAllowedOn: Разрешен только на
 				Or: или
-				Unique: Уникальный (Ограничен до 1 уникального зачарования)
+				Unique: Уникальное (Ограничение до 1 уникального зачарования)
 				Utility: Вспомогательное
 			}
 			EnchantmentShortTooltip: {
 				OnTickPlayerBuff: "Пассивно даёт эффект '{0}' на {1} каждые {2}"
 			}
 			ItemType: {
-				Accessories: Аксессуарах
-				Armor: Броне
-				FishingPoles: Удочках
-				None: Никакой
-				Tools: Инструментах
-				Weapons: Оружиях
+				Accessories: аксессуарах
+				Armor: броне
+				FishingPoles: удочках
+				None: никакой
+				Tools: инструментах
+				Weapons: оружии
 			}
 		}
 		TownNPCMood: {

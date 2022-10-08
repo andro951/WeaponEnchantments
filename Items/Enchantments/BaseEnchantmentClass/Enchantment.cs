@@ -789,7 +789,7 @@ namespace WeaponEnchantments.Items {
 
 			fullTooltip.AddRange(GetAllowedListTooltips());
 
-			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 1 && Utility == false) {
+			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 0 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, GetLocalizationTypeName())}*",
@@ -798,8 +798,9 @@ namespace WeaponEnchantments.Items {
 			}
 			else if (DamageClassSpecific > 0) {
 				//DamageClassSpecific
+				string damageClassName = GetDamageClassName(DamageClassSpecific);
 				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, GetDamageClassName(DamageClassSpecific))}*",
+					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, damageClassName)}*",
 					Color.White
 				));
 			}
@@ -1002,23 +1003,25 @@ namespace WeaponEnchantments.Items {
 			int damageType = GetDamageClass(type);
 
 			if (damageType <= (int)DamageClassID.Default)
-				return DamageClassID.Generic.ToString();
+				return DamageClassID.Generic.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
 
 			switch (damageType) {
-				case (int)DamageClassID.SummonMeleeSpeed:
-					return "Whip";
+				case (int)DamageClassID.MagicSummonHybrid:
+					return DamageClassID.Summon.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
+				case (int)DamageClassID.MeleeNoSpeed:
+					return DamageClassID.Melee.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
 			}
 
-			if (damageType < (int)DamageClassID.Throwing)
-				return ((DamageClassID)damageType).ToString().AddSpaces();
+			if (damageType <= (int)DamageClassID.Throwing)
+				return ((DamageClassID)damageType).ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
 
 			if (WEMod.calamityEnabled) {
 				int rogue = ModIntegration.CalamityValues.rogue.Type;
 				if (damageType == rogue)
-					return "Rogue";
+					return DamageClassID.Rogue.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
 			}
 
-			return DamageClassID.Generic.ToString();
+			return DamageClassID.Generic.ToString().Lang(L_ID1.Tooltip, L_ID2.DamageClassNames);
 		}
 		private uint GetBuffDuration() {
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);

@@ -4,6 +4,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -107,7 +108,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => ModIntegration.CalamityValues.rogue ?? DamageClass.Throwing;
-		public override string CustomTooltip => "(Calamity Mod Enchantment)";
+		public override string CustomTooltip => CalamityIntegration.calamityName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override string Designer => "Vyklade";
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment

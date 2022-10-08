@@ -14,9 +14,10 @@ namespace WeaponEnchantments.Common.Utility
 		Ranged,
 		Magic,
 		Summon,
-		SummonMeleeSpeed,
+		Whip,
 		MagicSummonHybrid,
-		Throwing
+		Throwing,
+		Rogue
 	} //Located in DamageClassLoader.cs
     public enum EItemType
     {
@@ -411,7 +412,9 @@ namespace WeaponEnchantments.Common.Utility
 		EnchantmentTypeNames,
 		EnchantmentShortTooltip,
 		EnchantmentGeneralTooltips,
-		ItemType
+		ItemType,
+		ArmorSlotNames,
+		DamageClassNames
 	}
     public enum L_ID_V
 	{
