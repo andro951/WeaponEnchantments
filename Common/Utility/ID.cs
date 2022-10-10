@@ -414,7 +414,8 @@ namespace WeaponEnchantments.Common.Utility
 		EnchantmentGeneralTooltips,
 		ItemType,
 		ArmorSlotNames,
-		DamageClassNames
+		DamageClassNames,
+		VanillaBuffs
 	}
     public enum L_ID_V
 	{

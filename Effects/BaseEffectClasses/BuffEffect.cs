@@ -137,7 +137,15 @@ namespace WeaponEnchantments.Effects {
                 //BuffID buffID = new();
                 //name = buffID.GetType().GetFields().Where(field => field.FieldType == typeof(int) && (int)field.GetValue(buffID) == id).First().Name;//Can be replaced with BuffID.Search....
                 name = BuffID.Search.GetName(id);
-                name = Language.GetTextValue($"BuffName.{name}");
+                string key = $"BuffName.{name}";
+                string langName = Language.GetTextValue(key);
+                if (langName != key && langName != "") {
+                    name = langName;
+                }
+				else {
+                    if (name.Lang(out string result, L_ID1.Tooltip, L_ID2.VanillaBuffs))
+                        name = result;
+				}
             }
 
             name ??= Language.GetTextValue(ModContent.GetModBuff(id).DisplayName.Key);

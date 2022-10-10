@@ -213,10 +213,16 @@ namespace WeaponEnchantments.Common.Utility
         /// <param name="s"></param>
         /// <returns>String with spaces added.</returns>
         public static string AddSpaces(this string s, bool checkLowerCaseWords = false) {
+            if (s == null)
+                return s;
+
+            int length = s.Length;
+            if (length < 2)
+                return s;
+
             int start = 0;
             int end;
             string finalString = "";
-            int length = s.Length;
             char previous = s[0];
             char c = s[1];
             for (int i = 2; i < length; i++) {
