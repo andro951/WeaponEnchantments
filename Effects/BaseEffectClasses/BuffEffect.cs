@@ -139,7 +139,7 @@ namespace WeaponEnchantments.Effects {
                 name = BuffID.Search.GetName(id);
                 string key = $"BuffName.{name}";
                 string langName = Language.GetTextValue(key);
-                if (langName != key && langName != "") {
+                if (langName != key && langName != "" && !langName.Contains("Buff Name")) {
                     name = langName;
                 }
 				else {
