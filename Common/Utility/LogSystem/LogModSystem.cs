@@ -29,8 +29,9 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
-        public static bool PrintLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
+        //public static bool printLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
         public static readonly bool printLocalizationKeysAndValues = false;
+        private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;
         public static readonly bool printNPCIDSwitch = false;
@@ -254,7 +255,7 @@ namespace WeaponEnchantments.Common.Utility
             if (printLocalization)
                 localization += tabsString;
 
-            if (PrintLocalizationKeysAndValues)
+            if (printLocalizationKeysAndValues)
                 localizationKeys += tabsString;
 
             tabs++;
@@ -267,12 +268,11 @@ namespace WeaponEnchantments.Common.Utility
                 localization += label;
             }
             
-            if (PrintLocalizationKeysAndValues) {
+            if (printLocalizationKeysAndValues) {
+                localizationValuesCharacterCount = 0;
                 string keyLabel = $"\n\n{cultureName} Keys\n";
                 localizationKeys += keyLabel;
-            }
 
-            if (printLocalizationKeysAndValues) {
                 string valueLabel = $"\n\n{cultureName} Values\n";
                 localizationValues += valueLabel;
             }
@@ -290,7 +290,7 @@ namespace WeaponEnchantments.Common.Utility
             if (printLocalization)
                 localization += tabsString;
             
-            if (PrintLocalizationKeysAndValues)
+            if (printLocalizationKeysAndValues)
                 localizationKeys += tabsString;
 
             labels.RemoveAt(labels.Count - 1);
@@ -306,12 +306,10 @@ namespace WeaponEnchantments.Common.Utility
                 localization = "";
             }
 		    
-            if (PrintLocalizationKeysAndValues) {
+            if (printLocalizationKeysAndValues) {
                 localizationKeys.LogSimple();
                 localizationKeys = "";
-            }
 
-            if (printLocalizationKeysAndValues) {
                 localizationValues.LogSimple();
                 localizationValues = "";
             }
@@ -359,6 +357,8 @@ namespace WeaponEnchantments.Common.Utility
                 if (s == key) {
                     s = p.Value;
                 }
+
+                bool noLocalizationFound = s == p.Value;
 				
                 if (s.Contains("{") && s[0] != '"' && !s.Contains('\n')) {
                     s = $"\"{s}\"";
@@ -377,12 +377,20 @@ namespace WeaponEnchantments.Common.Utility
                 if (printLocalization)
                     localization += $"{tabString}{p.Key}: {s}\n";
                 
-                if (PrintLocalizationKeysAndValues) {
-                    localizationKeys += $"{tabString}{p.Key}: \n";
-                }
-
                 if (printLocalizationKeysAndValues) {
-                    localizationValues += $"{s}\n";
+                    localizationKeys += $"{tabString}{p.Key}: {(!noLocalizationFound ? s : "")}\n";
+
+                    if (noLocalizationFound) {
+                        int length = s.Length;
+                        if (localizationValuesCharacterCount + length > 5000) {
+                            localizationValues += $"{'_'.FillString(4999 - localizationValuesCharacterCount)}\n";
+                            localizationValuesCharacterCount = 0;
+						}
+
+                        localizationValuesCharacterCount += length + 1;
+
+                        localizationValues += $"{s}\n";
+                    }
                 }
             }
 

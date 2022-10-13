@@ -4,7 +4,7 @@ Mods: {
 		ItemName: {
 			AllForOneEnchantmentBasic: Wszystko za jednego Podstawowe zaklęcie
 			AllForOneEnchantmentCommon: Wszystko za jedno zaklęcie wspólne
-			AllForOneEnchantmentEpic: Epic zaklęcia „Wszystko za jednego”
+			AllForOneEnchantmentEpic: Epopeja zaklęcia „Wszystko za jednego”
 			AllForOneEnchantmentLegendary: Legendarne zaklęcie Wszystko za jednego
 			AllForOneEnchantmentRare: Wszystko za jednego zaklęcie rzadkie
 			AmmoCostEnchantmentBasic: Podstawowe zaklęcie kosztu amunicji
@@ -304,18 +304,18 @@ Mods: {
 				BloodMoon: Naprawdę przepraszam za moje wcześniejsze zachowanie. Nie byłem wtedy w najlepszej formie i jeśli wypadłem jako niegrzeczny, przepraszam.
 				Corrupt: Och! Brud tutaj jest piękny! Nie mogę się doczekać nowego odkrycia!
 				Crimson: Och! Gore tutaj jest cudowne! Nie mogę się doczekać nowego odkrycia!
-				Dryad: „Ta... {0} osoba jest taka banalna! 'Uratuj świat od zła' Zło jest głęboko zakorzenione i tu zostanie!”
-				DyeTrader: „{0} zawsze podrywa mnie najciemniejszą czernią i najbardziej przerażającą zielenią! Te kolory dodają mi blasku i sprawiają, że wyglądam na tak szczupłą!”
+				Dryad: "„Ta... {0} osoba jest taka banalna! 'Uratuj świat od zła' Zło jest głęboko zakorzenione i tu zostanie!”"
+				DyeTrader: "„{0} zawsze podrywa mnie najciemniejszą czernią i najbardziej przerażającą zielenią! Te kolory dodają mi blasku i sprawiają, że wyglądam na tak szczupłą!”"
 				Graveyard: Niektórzy ludzie mogą uznać martwe za przerażające, ale to „martwe milczenie” jest w rzeczywistości dość radosne! bla bla bla bla!
-				Princess: „Ugh! {0} jest zawsze w mojej sprawie! Nie wiem, czym jest „Etyka” czy „Moralność”, ale ona nie opuści mojego miejsca!”
+				Princess: "„Ugh! {0} jest zawsze w mojej sprawie! Nie wiem, czym jest „Etyka” czy „Moralność”, ale ona nie opuści mojego miejsca!”"
 				QueenBee: Dżungla ma najlepsze składniki do warzenia. Szkoda, że ​​atakuje gigantyczny brzęczący szkodnik!
 				StandardDialogue0: Nauczyłam się tego przepisu, jest naprawdę fajny, zachowam go później na twoją ucztę!
 				StandardDialogue1: Dlaczego cały czas mówię, naprawdę trudno jest zrymować!
 				StandardDialogue2: Nadal tu jestem, obserwuję, jak grasz, ale nie mam zbyt wiele do powiedzenia!
 				Storm: Ha! Thunder jest najlepszy, jeśli chodzi o tworzenie nowych magicznych bzdur! Niech rozpocznie się wielka godzina czarownic!
-				WitchDoctor: „Kolejny użytkownik kotła! {0} ma tyle dziwnych sztuczek, prawdziwy uwodziciel!”
-				Wizard: „Chociaż {0} nie wychodzi poza wypróbowane i prawdziwe, jego tajemna wiedza zalicza go do guru!”
-				Zoologist: „{0} to tyraniczna dziewka, która wszędzie zostawia włosy, zmuszę ją do zapłaty na wojnie!”
+				WitchDoctor: "„Kolejny użytkownik kotła! {0} ma tyle dziwnych sztuczek, prawdziwy uwodziciel!”"
+				Wizard: "„Chociaż {0} nie wychodzi poza wypróbowane i prawdziwe, jego tajemna wiedza zalicza go do guru!”"
+				Zoologist: "„{0} to tyraniczna dziewka, która wszędzie zostawia włosy, zmuszę ją do zapłaty na wojnie!”"
 			}
 		}
 		ItemTooltip: {
@@ -422,11 +422,11 @@ Mods: {
 				{3}(Na podstawie wartości przedmiotu/doświadczenia. Zaklęcia zostaną zwrócone).
 				'''
 			enchantment0: Umieść tutaj zaklęcia.
-			enchantment4: „Wymaga {0} lub Lepiej, aby korzystać z tego gniazda”.
+			enchantment4: "„Wymaga {0} lub Lepiej, aby korzystać z tego gniazda”."
 			Enchantments: Zaklęcia
-			essence0: „Umieść {0} tutaj”.
+			essence0: "„Umieść {0} tutaj”."
 			ExchangeEssence: W zamian za esencję?
-			ExchangeEssenceAndOres: „W zamian za rudy({0}) i esencję({1})?”
+			ExchangeEssenceAndOres: "„W zamian za rudy({0}) i esencję({1})?”"
 			ExchangeOres: W zamian za rudy?
 			general1: Ulepszenie poziomu stołu zaklinającego odblokowuje więcej miejsc na zaklęcia.
 			general2: Używanie zaklęć broni na zbroi lub akcesoriach
@@ -459,23 +459,23 @@ Mods: {
 				AttackSpeed: Szybkość ataku
 				AutoReuse: Automatyczne ponowne użycie
 				BonusCoins: Monety bonusowe
-				BuffDuration: „Wydłuża czas trwania wzmocnień o {0}”
+				BuffDuration: "„Wydłuża czas trwania wzmocnień o {0}”"
 				BuffEffect0: "Pasywnie przyznaje {0} tobie"
 				BuffEffect1: "Biernie nakłada {0} na ciebie"
-				BuffEffect10: „Przyznaje {0} wrogom przy trafieniu”
-				BuffEffect11: „Zadaje {0} wrogom przy trafieniu”
-				BuffEffect12: „Przyznaje {0} pobliskim graczom po trafieniu”
-				BuffEffect13: „Zadaje {0} pobliskim graczom przy trafieniu”
-				BuffEffect14: „Przyznaje {0} pobliskim wrogom przy trafieniu”
-				BuffEffect15: „Pasywnie nakłada {0} na pobliskich wrogów przy trafieniu”
-				BuffEffect2: „Pasywnie przyznaje {0} graczom znajdującym się w pobliżu”
-				BuffEffect3: „Pasywnie nakłada {0} na pobliskich graczy”
+				BuffEffect10: "„Przyznaje {0} wrogom przy trafieniu”"
+				BuffEffect11: "„Zadaje {0} wrogom przy trafieniu”"
+				BuffEffect12: "„Przyznaje {0} pobliskim graczom po trafieniu”"
+				BuffEffect13: "„Zadaje {0} pobliskim graczom przy trafieniu”"
+				BuffEffect14: "„Przyznaje {0} pobliskim wrogom przy trafieniu”"
+				BuffEffect15: "„Pasywnie nakłada {0} na pobliskich wrogów przy trafieniu”"
+				BuffEffect2: "„Pasywnie przyznaje {0} graczom znajdującym się w pobliżu”"
+				BuffEffect3: "„Pasywnie nakłada {0} na pobliskich graczy”"
 				BuffEffect4: "Pasywnie przyznaje {0} przeciwnikowi"
 				BuffEffect5: "Biernie narzuca {0} przeciwnikowi"
-				BuffEffect6: „Pasywnie przyznaje {0} pobliskim wrogom”
-				BuffEffect7: „Pasywnie nakłada {0} na pobliskich wrogów”
-				BuffEffect8: „Przyznaje Ci {0} przy trafieniu”
-				BuffEffect9: „Zadaje ci {0} przy trafieniu”
+				BuffEffect6: "„Pasywnie przyznaje {0} pobliskim wrogom”"
+				BuffEffect7: "„Pasywnie nakłada {0} na pobliskich wrogów”"
+				BuffEffect8: "„Przyznaje Ci {0} przy trafieniu”"
+				BuffEffect9: "„Zadaje ci {0} przy trafieniu”"
 				CalmWaters: Spokojne wody
 				CatastrophicRelease: Katastrofalne uwolnienie
 				Channel: Kanał
@@ -571,9 +571,9 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: „(Pozycja na płycie CD równa {0}x prędkości użytkowania)”
-				AmmoCost: „{0} (Oszczędza również przynętę podczas łowienia)”
-				AttackSpeed: „{0} (Wpływa na szybkostrzelność stworów, jeśli strzelają pociskami. Wpływa na szybkość gryzienia żyłki przez ryby.)”
+				AllForOne: "„(Pozycja na płycie CD równa {0}x prędkości użytkowania)”"
+				AmmoCost: "„{0} (Oszczędza również przynętę podczas łowienia)”"
+				AttackSpeed: "„{0} (Wpływa na szybkostrzelność stworów, jeśli strzelają pociskami. Wpływa na szybkość gryzienia żyłki przez ryby.)”"
 				BonusCoins: 
 					'''
 					{0} (Uderzenie wroga zwiększy liczbę monet, które spadnie po śmierci
@@ -592,36 +592,36 @@ Mods: {
 					(Zapobiega zużywaniu przedmiotów przywołujących bossa, jeśli mnożnik częstotliwości odradzania z zaklęć wynosi > 1,6)
 					(Odrodzeni wrogowie będą odporni na lawę/pułapki)
 					'''
-				FishingEnemySpawnChance: „{0} (zmniejsza się 5x w ciągu dnia. Wpływa na Chum Caster. Może również odrodzić Księcia Fishrona.)”
+				FishingEnemySpawnChance: "„{0} (zmniejsza się 5x w ciągu dnia. Wpływa na Chum Caster. Może również odrodzić Księcia Fishrona.)”"
 				GodSlayer: 
 					'''
 					{0}
 					(Bonusowe nieuchronne obrażenia w oparciu o maksymalne hp wroga)
 					(Dodatkowe obrażenia, na które nie ma wpływu LifeSteal)
 					'''
-				LavaFishing: „{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)”
-				LifeSteal: „{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)”
+				LavaFishing: "„{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)”"
+				LifeSteal: "„{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)”"
 				MinionAttackTarget: Trafieni wrogowie stają się celem ataku stworów. Taki sam efekt jak bicze.
-				Multishot: „{0} (Możliwość wytworzenia dodatkowego pocisku. Dotyczy każdego utworzonego pocisku.)”
+				Multishot: "„{0} (Możliwość wytworzenia dodatkowego pocisku. Dotyczy każdego utworzonego pocisku.)”"
 				OneForAll: 
 					'''
 					{0}
 					(Trafienie wroga zada obrażenia wszystkim pobliskim wrogom)
 					(Aktywuje się tylko przy pierwszym trafieniu pociskiem.)
 					'''
-				OnHitSpawnProjectile: „Tworzy pocisk po trafieniu wroga: {0}”
-				QuestFishChance: „{0} (Złapane ryby w ramach misji zostaną automatycznie oddane i rozpoczną nowe zadanie, z pominięciem limitu 1 dziennie.)”
+				OnHitSpawnProjectile: "„Tworzy pocisk po trafieniu wroga: {0}”"
+				QuestFishChance: "„{0} (Złapane ryby w ramach misji zostaną automatycznie oddane i rozpoczną nowe zadanie, z pominięciem limitu 1 dziennie.)”"
 				BoolEffect: {
-					Enabled: „{0}: Włączone”
-					Prevented: „{0}: Zabronione”
+					Enabled: "„{0}: Włączone”"
+					Prevented: "„{0}: Zabronione”"
 				}
 				BuffEffect: {
 					All: "{0} ({1}% szans na zgłoszenie się do {2})"
-					OnTickPlayerBuff: „{0} ({1}% szans na zgłoszenie się o {2} co {3})”
+					OnTickPlayerBuff: "„{0} ({1}% szans na zgłoszenie się o {2} co {3})”"
 				}
 				PlayerSetEffect: {
-					Enabled: „{0}: Włączone”
-					Prevented: „{0}: Zabronione”
+					Enabled: "„{0}: Włączone”"
+					Prevented: "„{0}: Zabronione”"
 				}
 			}
 			EnchantmentGeneralTooltips: {
@@ -630,15 +630,15 @@ Mods: {
 				ArmorSlotOnly: "Tylko {0} gniazdo pancerza"
 				LevelCost: "Koszt poziomu: {0}"
 				Max1: Maksymalnie 1 za sztukę
-				NotAllowed: „Niedozwolone dla {0} broni”
-				Only: „{0} Tylko”
+				NotAllowed: "„Niedozwolone dla {0} broni”"
+				Only: "„{0} Tylko”"
 				OnlyAllowedOn: Dozwolone tylko na
 				Or: lub
 				Unique: Unikalny (ograniczony do 1 unikalnego zaklęcia)
 				Utility: Pożytek
 			}
 			EnchantmentShortTooltip: {
-				OnTickPlayerBuff: „Pasywnie przyznaje {0} za {1} co {2}”
+				OnTickPlayerBuff: "„Pasywnie przyznaje {0} za {1} co {2}”"
 			}
 			ItemType: {
 				Accessories: Akcesoria

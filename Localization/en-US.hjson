@@ -441,7 +441,7 @@
 				Legs: Legs
 			}
 			DamageClassNames: {
-				Default: Default
+				Generic: Generic
 				Magic: Magic
 				Melee: Melee
 				Ranged: Ranged

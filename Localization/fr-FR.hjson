@@ -1,140 +1,671 @@
-﻿#Contributed by @Soluna#1422, @Olixx12#5354
+﻿#Contributed by @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			Containment: Conteneur
-			MediumContainment: Conteneur moyen
-			SuperiorContainment: Conteneur supérieur
-			DustyEnchantingTable: Table d'enchantement poussiéreuse
-			HellishEnchantingTable: Table d'enchantement infernale
-			SoulEnchantingTable: Table d'enchantement d'âme
-			UltimateEnchantingTable: Table d'enchantement ultime
-			WoodEnchantingTable: Table d'enchantement en bois
-			EnchantmentEssenceBasic: Essence d'enchantement de base
-			EnchantmentEssenceCommon: Essence d'enchantement commune
-			EnchantmentEssenceRare: Essence d'enchantement rare
-			EnchantmentEssenceEpic: Essence d'enchantement super rare
-			EnchantmentEssenceLegendary: Essence d'enchantement ultra rare
 			AllForOneEnchantmentBasic: Enchantement Tous pour un de base
 			AllForOneEnchantmentCommon: Enchantement Tous pour un commun
+			AllForOneEnchantmentEpic: Tout pour un enchantement épique
+			AllForOneEnchantmentLegendary: All For One Enchantement Légendaire
 			AllForOneEnchantmentRare: Enchantement Tous pour un rare
-			AllForOneEnchantmentEpic: Enchantement Tous pour un super rare
-			AllForOneEnchantmentLegendary: Enchantement Tous pour un ultra rare
-			ArmorPenetrationEnchantmentBasic: Enchantement de pénétration d'armure de base
-			ArmorPenetrationEnchantmentCommon: Enchantement de pénétration d'armure Commun
-			ArmorPenetrationEnchantmentRare: Enchantement de pénétration d'armure Rare
-			ArmorPenetrationEnchantmentEpic: Enchantement de pénétration d'armure Super rare
-			ArmorPenetrationEnchantmentLegendary: Enchantement de pénétration d'armure Ultra rare
-			CriticalStrikeChanceEnchantmentBasic: Enchantement de Chance de coup critique de base
-			CriticalStrikeChanceEnchantmentCommon: Enchantement de Chance de coup critique Commun
-			CriticalStrikeChanceEnchantmentRare: Enchantement de Chance de coup critique Rare
-			CriticalStrikeChanceEnchantmentEpic: Enchantement de Chance de coup critique Super rare
-			CriticalStrikeChanceEnchantmentLegendary: Enchantement de Chance de coup critique Ultra rare
-			DamageEnchantmentBasic: Enchantement de dégâts de base
-			DamageEnchantmentCommon: Enchantement de dégâts Commun
-			DamageEnchantmentRare: Enchantement de dégâts Rare
-			DamageEnchantmentEpic: Enchantement de dégâts Super Rare
-			DamageEnchantmentLegendary: Enchantement de dégâts Ultra Rare
-			LifeStealEnchantmentBasic: Enchantement de Vol de vie de base
-			LifeStealEnchantmentCommon: Enchantement de Vol de vie Commun
-			LifeStealEnchantmentRare: Enchantement de Vol de vie Rare
-			LifeStealEnchantmentEpic: Enchantement de Vol de vie Super rare
-			LifeStealEnchantmentLegendary: Enchantement de Vol de vie Ultra Rare
-			MaxMinionsEnchantmentBasic: Enchantement de Sbires max de base
-			MaxMinionsEnchantmentCommon: Enchantement de Sbires max Commun
-			MaxMinionsEnchantmentRare: Enchantement de Sbires max Rare
-			MaxMinionsEnchantmentEpic: Enchantement de Sbires max Super Rare
-			MaxMinionsEnchantmentLegendary: Enchantement de Sbires max Ultra Rare
-			OneForAllEnchantmentBasic: Enchantement Un pour tous de base
-			OneForAllEnchantmentCommon: Enchantement Un pour tous commun
-			OneForAllEnchantmentRare: Enchantement Un pour tous rare
-			OneForAllEnchantmentEpic: Enchantement Un pour tous Super rare
-			OneForAllEnchantmentLegendary: Enchantement Un pour tous Ultra Rare
-			AttackSpeedEnchantmentBasic: Enchantement de vitesse de base
-			AttackSpeedEnchantmentCommon: Enchantement de vitesse Commun
-			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
-			AttackSpeedEnchantmentEpic: Enchantement de vitesse Super Rare
-			AttackSpeedEnchantmentLegendary: Enchantement de vitesse Ultra Rare
-			StatDefenseEnchantmentBasic: Enchantement de défense de base
-			StatDefenseEnchantmentCommon: Enchantement de défense Commun
-			StatDefenseEnchantmentRare: Enchantement de défense Rare
-			StatDefenseEnchantmentEpic: Enchantement de défense Super Rare
-			StatDefenseEnchantmentLegendary: Enchantement de défense Ultra Rare
-			ColdSteelEnchantmentBasic: Enchantement d'acier froid de base
-			ColdSteelEnchantmentCommon: Enchantement d'acier froid
-			ColdSteelEnchantmentRare: Enchantement d'acier froid rare
-			ColdSteelEnchantmentEpic: Enchantement d'acier froid Super rare
-			ColdSteelEnchantmentLegendary: Enchantement d'acier froid Ultra Rare
-			GodSlayerEnchantmentBasic: Enchantement de Tueur de dieu de base
-			GodSlayerEnchantmentCommon: Enchantement de Tueur de dieu Commun
-			GodSlayerEnchantmentRare: Enchantement de Tueur de dieu Rare
-			GodSlayerEnchantmentEpic: Enchantement de Tueur de dieu Super Rare
-			GodSlayerEnchantmentLegendary: Enchantement de Tueur de dieu Ultra Rare
-			HellsWrathEnchantmentBasic: Enchantement de Colère infernale de base
-			HellsWrathEnchantmentCommon: Enchantement de Colère infernale Commun
-			HellsWrathEnchantmentRare: Enchantement de Colère infernale Rare
-			HellsWrathEnchantmentEpic: Enchantement de Colère infernale Super Rare
-			HellsWrathEnchantmentLegendary: Enchantement de Colère infernale Ultra Rare
-			JunglesFuryEnchantmentBasic: Enchantement de Fureur de la jungle de base
-			JunglesFuryEnchantmentCommon: Enchantement de Fureur de la jungle Commun
-			JunglesFuryEnchantmentRare: Enchantement de Fureur de la jungle Rare
-			JunglesFuryEnchantmentEpic: Enchantement de Fureur de la jungle Super Rare
-			JunglesFuryEnchantmentLegendary: Enchantement de Fureur de la jungle Ultra Rare
-			MoonlightEnchantmentBasic: Enchantement de Clair de lune de base
-			MoonlightEnchantmentCommon: Enchantement de Clair de lune Commun
-			MoonlightEnchantmentRare: Enchantement de Clair de lune rare
-			MoonlightEnchantmentEpic: Enchantement de Clair de lune Super rare
-			MoonlightEnchantmentLegendary: Enchantement de Clair de lune Ultra Rare
-			MultishotEnchantmentBasic: Enchantement de Multi-tir de base
-			MultishotEnchantmentCommon: Enchantement de Multi-tir Commun
-			MultishotEnchantmentRare: Enchantement de Multi-tir Rare
-			MultishotEnchantmentEpic: Enchantement de Multi-tir Super Rare
-			MultishotEnchantmentLegendary: Enchantement de Multi-tir Ultra Rare
 			AmmoCostEnchantmentBasic: Enchantement de coût en munitions de base
 			AmmoCostEnchantmentCommon: Enchantement de coût en munitions Commun
+			AmmoCostEnchantmentEpic: Épique d'enchantement de coût de munitions
+			AmmoCostEnchantmentLegendary: Coût en munitions Enchantement Légendaire
 			AmmoCostEnchantmentRare: Enchantement de coût en munitions Rare
-			AmmoCostEnchantmentEpic: Enchantement de coût de munitions Super Rare
-			AmmoCostEnchantmentLegendary: Enchantement de coût en munitions Ultra Rare
-			DangerSenseEnchantmentLegendary: Enchantement de danger Ultra Rare
-			HunterEnchantmentLegendary: Enchantement de chasse Ultra Rare
-			ReducedManaUsageEnchantmentBasic: Enchantement de mana de base
-			ReducedManaUsageEnchantmentCommon: Enchantement de mana Commun
-			ReducedManaUsageEnchantmentRare: Enchantement de mana Rare
-			ReducedManaUsageEnchantmentEpic: Enchantement de mana Super Rare
-			ReducedManaUsageEnchantmentLegendary: Enchantement de mana Ultra Rare
+			ArmorPenetrationEnchantmentBasic: Enchantement de pénétration d'armure de base
+			ArmorPenetrationEnchantmentCommon: Enchantement de pénétration d'armure Commun
+			ArmorPenetrationEnchantmentEpic: Pénétration d'armure Enchantement Épique
+			ArmorPenetrationEnchantmentLegendary: Pénétration d'armure Enchantement Légendaire
+			ArmorPenetrationEnchantmentRare: Enchantement de pénétration d'armure Rare
+			AttackSpeedEnchantmentBasic: Enchantement de vitesse de base
+			AttackSpeedEnchantmentCommon: Enchantement de vitesse Commun
+			AttackSpeedEnchantmentEpic: Vitesse d'attaque Enchantement Épique
+			AttackSpeedEnchantmentLegendary: Vitesse d'attaque Enchantement Légendaire
+			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
+			CalmWatersEnchantmentBasic: Enchantement des eaux calmes de base
+			CalmWatersEnchantmentCommon: Eaux calmes Enchantement Commun
+			CalmWatersEnchantmentEpic: Épopée d'enchantement des eaux calmes
+			CalmWatersEnchantmentLegendary: Eaux calmes Enchantement Légendaire
+			CalmWatersEnchantmentRare: Eaux calmes Enchantement Rare
+			ChaoticFishingEnchantmentBasic: Enchantement de pêche chaotique de base
+			ChaoticFishingEnchantmentCommon: Pêche chaotique Enchantement Common
+			ChaoticFishingEnchantmentEpic: Épopée d'enchantement de pêche chaotique
+			ChaoticFishingEnchantmentLegendary: Pêche chaotique Enchantement Légendaire
+			ChaoticFishingEnchantmentRare: Pêche chaotique Enchantement Rare
+			ColdSteelEnchantmentBasic: Enchantement d'acier froid de base
+			ColdSteelEnchantmentCommon: Enchantement d'acier froid
+			ColdSteelEnchantmentEpic: Épopée d'enchantement d'acier froid
+			ColdSteelEnchantmentLegendary: Cold Steel Enchantement Légendaire
+			ColdSteelEnchantmentRare: Enchantement d'acier froid rare
+			CrateChanceEnchantmentBasic: Enchantement de chance de caisse de base
+			CrateChanceEnchantmentCommon: Chance de caisse Enchantement Commun
+			CrateChanceEnchantmentEpic: Épique d'enchantement de chance de caisse
+			CrateChanceEnchantmentLegendary: Caisse Chance Enchantement Légendaire
+			CrateChanceEnchantmentRare: Caisse Chance Enchantement Rare
+			CrateEnchantmentBasic: Caisse d'enchantement de base
+			CrateEnchantmentCommon: Enchantement de caisse commun
+			CrateEnchantmentEpic: Épique d'enchantement de caisse
+			CrateEnchantmentLegendary: Caisse Enchantement Légendaire
+			CrateEnchantmentRare: Enchantement de caisse rare
+			CriticalStrikeChanceEnchantmentBasic: Enchantement de Chance de coup critique de base
+			CriticalStrikeChanceEnchantmentCommon: Enchantement de Chance de coup critique Commun
+			CriticalStrikeChanceEnchantmentEpic: Épique d'enchantement de chance de coup critique
+			CriticalStrikeChanceEnchantmentLegendary: Chance de coup critique Enchantement Légendaire
+			CriticalStrikeChanceEnchantmentRare: Enchantement de Chance de coup critique Rare
+			CriticalStrikeDamageEnchantmentBasic: Enchantement de dégâts de coup critique de base
+			CriticalStrikeDamageEnchantmentCommon: Enchantement de dégâts de coup critique
+			CriticalStrikeDamageEnchantmentEpic: Épique d'enchantement de dégâts de coup critique
+			CriticalStrikeDamageEnchantmentLegendary: Enchantement de dégâts de coup critique Légendaire
+			CriticalStrikeDamageEnchantmentRare: Enchantement de dégâts de coup critique rare
+			CursedInfernoEnchantmentBasic: Enchantement de base de l'enfer maudit
+			CursedInfernoEnchantmentCommon: Inferno maudit Enchantement Common
+			CursedInfernoEnchantmentEpic: Épopée d'enchantement de l'enfer maudit
+			CursedInfernoEnchantmentLegendary: Inferno maudit Enchantement Légendaire
+			CursedInfernoEnchantmentRare: Inferno maudit Enchantement Rare
+			DamageEnchantmentBasic: Enchantement de dégâts de base
+			DamageEnchantmentCommon: Enchantement de dégâts Commun
+			DamageEnchantmentEpic: Épique d'enchantement de dégâts
+			DamageEnchantmentLegendary: Dégâts Enchantement Légendaire
+			DamageEnchantmentRare: Enchantement de dégâts Rare
+			DamageReductionEnchantmentBasic: Enchantement de réduction des dégâts de base
+			DamageReductionEnchantmentCommon: Enchantement de réduction des dégâts Commun
+			DamageReductionEnchantmentEpic: Enchantement épique de réduction des dégâts
+			DamageReductionEnchantmentLegendary: Enchantement de réduction des dégâts Légendaire
+			DamageReductionEnchantmentRare: Réduction des dégâts Enchantement Rare
+			DangerSenseEnchantmentBasic: Sens du danger Enchantement de base
+			DangerSenseEnchantmentCommon: Sens du danger Enchantement Commun
+			DangerSenseEnchantmentEpic: Épique d'enchantement Sens du danger
+			DangerSenseEnchantmentLegendary: Sens du danger Enchantement Légendaire
+			DangerSenseEnchantmentRare: Sens du danger Enchantement Rare
+			DaybreakEnchantmentBasic: Enchantement de l'aube de base
+			DaybreakEnchantmentCommon: Enchantement de l'aube Commun
+			DaybreakEnchantmentEpic: Épique d'enchantement de l'aube
+			DaybreakEnchantmentLegendary: Enchantement de l'aube Légendaire
+			DaybreakEnchantmentRare: Enchantement de l'aube rare
+			DefenseEnchantmentBasic: Enchantement de défense de base
+			DefenseEnchantmentCommon: Défense Enchantement Commun
+			DefenseEnchantmentEpic: Épique d'enchantement de défense
+			DefenseEnchantmentLegendary: Défense Enchantement Légendaire
+			DefenseEnchantmentRare: Défense Enchantement Rare
+			ExtraFishingLineEnchantmentBasic: Enchantement de ligne de pêche supplémentaire de base
+			ExtraFishingLineEnchantmentCommon: Enchantement de ligne de pêche supplémentaire
+			ExtraFishingLineEnchantmentEpic: Épique d'enchantement de ligne de pêche supplémentaire
+			ExtraFishingLineEnchantmentLegendary: Ligne de pêche supplémentaire Enchantement Légendaire
+			ExtraFishingLineEnchantmentRare: Enchantement de ligne de pêche supplémentaire rare
+			FishingEnchantmentBasic: Enchantement de pêche de base
+			FishingEnchantmentCommon: Pêche Enchantement Commun
+			FishingEnchantmentEpic: Épopée d'enchantement de pêche
+			FishingEnchantmentLegendary: Pêche Enchantement Légendaire
+			FishingEnchantmentRare: Pêche Enchantement Rare
+			FishingPowerEnchantmentBasic: Enchantement de puissance de pêche de base
+			FishingPowerEnchantmentCommon: Puissance de pêche Enchantement Commun
+			FishingPowerEnchantmentEpic: Épique d'enchantement de puissance de pêche
+			FishingPowerEnchantmentLegendary: Puissance de pêche Enchantement Légendaire
+			FishingPowerEnchantmentRare: Puissance de pêche Enchantement Rare
+			FrostburnEnchantmentBasic: Enchantement de base de brûlure de givre
+			FrostburnEnchantmentCommon: Enchantement de brûlure de givre
+			FrostburnEnchantmentEpic: Épique d'enchantement de brûlure de givre
+			FrostburnEnchantmentLegendary: Frostburn Enchantement Légendaire
+			FrostburnEnchantmentRare: Enchantement brûle-givre rare
+			GodSlayerEnchantmentBasic: Enchantement de Tueur de dieu de base
+			GodSlayerEnchantmentCommon: Enchantement de Tueur de dieu Commun
+			GodSlayerEnchantmentEpic: Épopée d'enchantement de God Slayer
+			GodSlayerEnchantmentLegendary: God Slayer Enchantement Légendaire
+			GodSlayerEnchantmentRare: Enchantement de Tueur de dieu Rare
+			HellsWrathEnchantmentBasic: Enchantement de Colère infernale de base
+			HellsWrathEnchantmentCommon: Enchantement de Colère infernale Commun
+			HellsWrathEnchantmentEpic: Épopée d'enchantement de Hells Wrath
+			HellsWrathEnchantmentLegendary: Hells Wrath Enchantement Légendaire
+			HellsWrathEnchantmentRare: Enchantement de Colère infernale Rare
+			HunterEnchantmentBasic: Chasseur Enchantement de base
+			HunterEnchantmentCommon: Chasseur Enchantement Commun
+			HunterEnchantmentEpic: Épique d'enchantement de chasseur
+			HunterEnchantmentLegendary: Chasseur Enchantement Légendaire
+			HunterEnchantmentRare: Chasseur Enchantement Rare
+			IchorEnchantmentBasic: Ichor Enchantement Basique
+			IchorEnchantmentCommon: Ichor Enchantement Commun
+			IchorEnchantmentEpic: Épopée d'enchantement d'ichor
+			IchorEnchantmentLegendary: Ichor Enchantement Légendaire
+			IchorEnchantmentRare: Ichor Enchantement Rare
+			JuicedEnchantmentBasic: Enchantement jus de base
+			JuicedEnchantmentCommon: Enchantement de jus Commun
+			JuicedEnchantmentEpic: Jus d'enchantement épique
+			JuicedEnchantmentLegendary: Jus Enchantement Légendaire
+			JuicedEnchantmentRare: Enchantement jus Rare
+			JunglesFuryEnchantmentBasic: Enchantement de Fureur de la jungle de base
+			JunglesFuryEnchantmentCommon: Enchantement de Fureur de la jungle Commun
+			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Épique
+			JunglesFuryEnchantmentLegendary: Jungles Fureur Enchantement Légendaire
+			JunglesFuryEnchantmentRare: Enchantement de Fureur de la jungle Rare
+			LavaFishingEnchantmentBasic: Enchantement de pêche à la lave de base
+			LavaFishingEnchantmentCommon: Enchantement de pêche à la lave Commun
+			LavaFishingEnchantmentEpic: Épopée d'enchantement de pêche à la lave
+			LavaFishingEnchantmentLegendary: Pêche à la lave Enchantement Légendaire
+			LavaFishingEnchantmentRare: Pêche à la lave Enchantement Rare
+			LifeStealEnchantmentBasic: Enchantement de Vol de vie de base
+			LifeStealEnchantmentCommon: Enchantement de Vol de vie Commun
+			LifeStealEnchantmentEpic: Épique d'enchantement de vol de vie
+			LifeStealEnchantmentLegendary: Vol de vie Enchantement Légendaire
+			LifeStealEnchantmentRare: Enchantement de Vol de vie Rare
+			LuckEnchantmentBasic: Chance Enchantement Basique
+			LuckEnchantmentCommon: Chance Enchantement Commun
+			LuckEnchantmentEpic: Chance Enchantement Epic
+			LuckEnchantmentLegendary: Chance Enchantement Légendaire
+			LuckEnchantmentRare: Chance Enchantement Rare
+			MagicClassSwapEnchantmentBasic: Enchantement d'échange de classe magique de base
+			MagicClassSwapEnchantmentCommon: Enchantement d'échange de classe magique Commun
+			MagicClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe magique
+			MagicClassSwapEnchantmentLegendary: Échange de classe magique Enchantement Légendaire
+			MagicClassSwapEnchantmentRare: Enchantement d'échange de classe magique rare
+			MaxMinionsEnchantmentBasic: Enchantement de Sbires max de base
+			MaxMinionsEnchantmentCommon: Enchantement de Sbires max Commun
+			MaxMinionsEnchantmentEpic: Épique d'enchantement Max Minions
+			MaxMinionsEnchantmentLegendary: Max Minions Enchantement Légendaire
+			MaxMinionsEnchantmentRare: Enchantement de Sbires max Rare
+			MeleeClassSwapEnchantmentBasic: Enchantement d'échange de classe de mêlée de base
+			MeleeClassSwapEnchantmentCommon: Enchantement d'échange de classe de mêlée Commun
+			MeleeClassSwapEnchantmentEpic: Épique d'enchantement d'échange de classe de mêlée
+			MeleeClassSwapEnchantmentLegendary: Échange de classe de mêlée Enchantement Légendaire
+			MeleeClassSwapEnchantmentRare: Enchantement d'échange de classe de mêlée rare
+			MobilityControlEnchantmentBasic: Enchantement de contrôle de la mobilité de base
+			MobilityControlEnchantmentCommon: Enchantement de contrôle de la mobilité Commun
+			MobilityControlEnchantmentEpic: Épopée d'enchantement de contrôle de la mobilité
+			MobilityControlEnchantmentLegendary: Contrôle de la mobilité Enchantement Légendaire
+			MobilityControlEnchantmentRare: Contrôle de la mobilité Enchantement Rare
+			MoonlightEnchantmentBasic: Enchantement de Clair de lune de base
+			MoonlightEnchantmentCommon: Enchantement de Clair de lune Commun
+			MoonlightEnchantmentEpic: Épopée d'enchantement au clair de lune
+			MoonlightEnchantmentLegendary: Enchantement au clair de lune Légendaire
+			MoonlightEnchantmentRare: Enchantement de Clair de lune rare
 			MovementSpeedEnchantmentBasic: Enchantement de Vitesse de déplacement de base
 			MovementSpeedEnchantmentCommon: Enchantement de Vitesse de déplacement Commun
+			MovementSpeedEnchantmentEpic: Vitesse de déplacement Enchantement Épique
+			MovementSpeedEnchantmentLegendary: Vitesse de déplacement Enchantement Légendaire
 			MovementSpeedEnchantmentRare: Enchantement de Vitesse de déplacement Rare
-			MovementSpeedEnchantmentEpic: Enchantement de Vitesse de déplacement Super Rare
-			MovementSpeedEnchantmentLegendary: Enchantement de Vitesse de déplacement Ultra Rare
-			ObsidianSkinEnchantmentLegendary: Enchantement D'enveloppe en obsidienne Ultra Rare
+			MultishotEnchantmentBasic: Enchantement de Multi-tir de base
+			MultishotEnchantmentCommon: Enchantement de Multi-tir Commun
+			MultishotEnchantmentEpic: Épique d'enchantement à plusieurs coups
+			MultishotEnchantmentLegendary: Enchantement Multishot Légendaire
+			MultishotEnchantmentRare: Enchantement de Multi-tir Rare
+			NpcContactAnglerEnchantmentBasic: Enchantement de base du pêcheur à la ligne de contact Npc
+			NpcContactAnglerEnchantmentCommon: PNJ Contact Pêcheur Enchantement Commun
+			NpcContactAnglerEnchantmentEpic: Npc Contact Angler Enchantment Epic
+			NpcContactAnglerEnchantmentLegendary: Npc Contact Pêcheur Enchantement Légendaire
+			NpcContactAnglerEnchantmentRare: Npc Contact Pêcheur Enchantement Rare
+			ObsidianSkinEnchantmentBasic: Enchantement de peau d'obsidienne de base
+			ObsidianSkinEnchantmentCommon: Enchantement de peau d'obsidienne
+			ObsidianSkinEnchantmentEpic: Épopée d'enchantement de peau d'obsidienne
+			ObsidianSkinEnchantmentLegendary: Enchantement de peau d'obsidienne Légendaire
+			ObsidianSkinEnchantmentRare: Enchantement de peau d'obsidienne rare
+			OneForAllEnchantmentBasic: Enchantement Un pour tous de base
+			OneForAllEnchantmentCommon: Enchantement Un pour tous commun
+			OneForAllEnchantmentEpic: Épique d'enchantement One For All
+			OneForAllEnchantmentLegendary: Un pour tous Enchantement Légendaire
+			OneForAllEnchantmentRare: Enchantement Un pour tous rare
+			OnFireEnchantmentBasic: Enchantement de base en feu
+			OnFireEnchantmentCommon: Enchantement en feu Commun
+			OnFireEnchantmentEpic: Enchantement épique en feu
+			OnFireEnchantmentLegendary: Enchantement Enflammé Légendaire
+			OnFireEnchantmentRare: Enchantement Enflammé Rare
 			PeaceEnchantmentBasic: Enchantement de paix de base
 			PeaceEnchantmentCommon: Enchantement de paix Commun
+			PeaceEnchantmentEpic: Épopée d'enchantement de la paix
+			PeaceEnchantmentLegendary: Paix Enchantement Légendaire
 			PeaceEnchantmentRare: Enchantement de paix Rare
-			PeaceEnchantmentEpic: Enchantement de paix Super Rare
-			PeaceEnchantmentLegendary: Enchantement de paix Ultra Rare
-			SizeEnchantmentBasic: Enchantement de taille de base
-			SizeEnchantmentCommon: Enchantement de taille Commun
-			SizeEnchantmentRare: Enchantement de taille Rare
-			SizeEnchantmentEpic: Enchantement de taille Super Rare
-			SizeEnchantmentLegendary: Enchantement de taille Ultra Rare
+			PennyPinchingEnchantmentBasic: Penny Pinching Enchantement Basique
+			PennyPinchingEnchantmentCommon: Penny Pincement Enchantement Commun
+			PennyPinchingEnchantmentEpic: Penny Pinching Enchantement épique
+			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantement Légendaire
+			PennyPinchingEnchantmentRare: Penny Pinching Enchantement Rare
 			ProjectileVelocityEnchantmentBasic: Enchantement de vitesse de tir de base
 			ProjectileVelocityEnchantmentCommon: Enchantement de vitesse de tir Commun
+			ProjectileVelocityEnchantmentEpic: Épique d'enchantement de vitesse de projectile
+			ProjectileVelocityEnchantmentLegendary: Vitesse du projectile Enchantement Légendaire
 			ProjectileVelocityEnchantmentRare: Enchantement de vitesse de tir Rare
-			ProjectileVelocityEnchantmentEpic: Enchantement de vitesse de tir Super Rare
-			ProjectileVelocityEnchantmentLegendary: Enchantement de vitesse de tir Ultra Rare
-			SpelunkerEnchantmentLegendary: Enchantement de spéléologue Ultra Rare
+			RangedClassSwapEnchantmentBasic: Enchantement d'échange de classe à distance de base
+			RangedClassSwapEnchantmentCommon: Enchantement d'échange de classe à distance Commun
+			RangedClassSwapEnchantmentEpic: Épique d'enchantement d'échange de classe à distance
+			RangedClassSwapEnchantmentLegendary: Échange de classe à distance Enchantement Légendaire
+			RangedClassSwapEnchantmentRare: Enchantement d'échange de classe à distance rare
+			ReducedManaUsageEnchantmentBasic: Enchantement de mana de base
+			ReducedManaUsageEnchantmentCommon: Enchantement de mana Commun
+			ReducedManaUsageEnchantmentEpic: Épique d'enchantement d'utilisation de mana réduite
+			ReducedManaUsageEnchantmentLegendary: Réduction de l'utilisation du mana Enchantement Légendaire
+			ReducedManaUsageEnchantmentRare: Enchantement de mana Rare
+			RogueClassSwapEnchantmentBasic: Enchantement d'échange de classe voleur de base
+			RogueClassSwapEnchantmentCommon: Enchantement d'échange de classe Rogue Common
+			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
+			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
+			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantment Rare
+			SizeEnchantmentBasic: Enchantement de taille de base
+			SizeEnchantmentCommon: Enchantement de taille Commun
+			SizeEnchantmentEpic: Taille Enchantement Épique
+			SizeEnchantmentLegendary: Taille Enchantement Légendaire
+			SizeEnchantmentRare: Enchantement de taille Rare
+			SolarDashEnchantmentBasic: Solar Dash Enchantement de base
+			SolarDashEnchantmentCommon: Enchantement Solar Dash Commun
+			SolarDashEnchantmentEpic: Épopée d'enchantement Solar Dash
+			SolarDashEnchantmentLegendary: Solar Dash Enchantement Légendaire
+			SolarDashEnchantmentRare: Élan solaire Enchantement Rare
+			SonarEnchantmentBasic: Enchantement de base du sonar
+			SonarEnchantmentCommon: Enchantement de sonar Commun
+			SonarEnchantmentEpic: Épopée d'enchantement de sonar
+			SonarEnchantmentLegendary: Sonar Enchantement Légendaire
+			SonarEnchantmentRare: Enchantement sonar rare
+			SpelunkerEnchantmentBasic: Enchantement de spéléologue de base
+			SpelunkerEnchantmentCommon: Enchantement de spéléologue Commun
+			SpelunkerEnchantmentEpic: Épopée d'enchantement de spéléologue
+			SpelunkerEnchantmentLegendary: Spéléologue Enchantement Légendaire
+			SpelunkerEnchantmentRare: Enchantement de spéléologue rare
+			VenomEnchantmentBasic: Enchantement de venin de base
+			VenomEnchantmentCommon: Enchantement de venin Commun
+			VenomEnchantmentEpic: Épique d'enchantement de venin
+			VenomEnchantmentLegendary: Venin Enchantement Légendaire
+			VenomEnchantmentRare: Enchantement de venin rare
 			WarEnchantmentBasic: Enchantement de guerre de base
 			WarEnchantmentCommon: Enchantement de guerre Commun
+			WarEnchantmentEpic: Épopée d'enchantement de guerre
+			WarEnchantmentLegendary: Guerre Enchantement Légendaire
 			WarEnchantmentRare: Enchantement de guerre Rare
-			WarEnchantmentEpic: Enchantement de guerre Super Rare
-			WarEnchantmentLegendary: Enchantement de guerre Ultra Rare
+			WhipClassSwapEnchantmentBasic: Enchantement d'échange de classe Whip Basic
+			WhipClassSwapEnchantmentCommon: Enchantement d'échange de classe de fouet Commun
+			WhipClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe de fouet
+			WhipClassSwapEnchantmentLegendary: Échange de classe de fouet Enchantement Légendaire
+			WhipClassSwapEnchantmentRare: Enchantement d'échange de classe de fouet rare
 			WorldAblazeEnchantmentBasic: Enchantement du Monde Enflammé de base
 			WorldAblazeEnchantmentCommon: Enchantement du Monde Enflammé Commun
+			WorldAblazeEnchantmentEpic: World Ablaze Enchantment Epic
+			WorldAblazeEnchantmentLegendary: World Ablaze Enchantement Légendaire
 			WorldAblazeEnchantmentRare: Enchantement du Monde Enflammé Rare
-			WorldAblazeEnchantmentEpic: Enchantement du Monde Enflammé Super rare
-			WorldAblazeEnchantmentLegendary: Enchantement du Monde Enflammé Ultra rare
+			Containment: Conteneur
+			DustyEnchantingTable: Table d'enchantement poussiéreuse
+			EnchantmentEssenceBasic: Essence d'enchantement de base
+			EnchantmentEssenceCommon: Essence d'enchantement commune
+			EnchantmentEssenceEpic: Essence d'enchantement épique
+			EnchantmentEssenceLegendary: Enchantement Essence Légendaire
+			EnchantmentEssenceRare: Essence d'enchantement rare
+			HellishEnchantingTable: Table d'enchantement infernale
+			MediumContainment: Conteneur moyen
 			PowerBooster: Amplificateur de puissance
+			SoulEnchantingTable: Table d'enchantement d'âme
+			SuperiorContainment: Conteneur supérieur
+			UltimateEnchantingTable: Table d'enchantement ultime
+			WoodEnchantingTable: Table d'enchantement en bois
+		}
+		BuffName: {
+			Amaterasu: Amaterasu
+		}
+		Bestiary: {
+			Witch: La sorcière est une femme laide et méchante et s'occupe d'autres choses méchantes. Elle fait le commerce de matériaux douteux utilisés pour améliorer des équipements aux effets mystérieux.
+		}
+		Dialogue: {
+			Witch: {
+				BirthdayParty: POURQUOI SUIS-JE FORCÉ DE M'HABILLER EN ROSE ? ! C'EST HORRIBLE, CETTE FÊTE PUE !
+				BloodMoon: Je suis vraiment désolé pour mon comportement antérieur. Je n'étais pas à mon meilleur à l'époque, et si je me suis montré impoli, je m'en excuse.
+				Corrupt: Oh ! La crasse ici est belle! J'ai hâte d'embrasser de nouvelles découvertes!
+				Crimson: Oh ! Le gore ici est charmant! J'ai hâte d'embrasser de nouvelles découvertes!
+				Dryad: "Cette... {0} personne est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester!"
+				DyeTrader: "{0} me met toujours en contact avec les noirs les plus sombres et les verts les plus effrayants ! Ces couleurs me donnent beaucoup d'éclat et me font paraître si mince !"
+				Graveyard: Certaines personnes pourraient trouver les morts effrayants, mais ce « silencieux des morts » est en fait assez énergique ! Nyack nyack nyack !
+				Princess: "Ugh ! {0} est toujours sur mon cas ! Je ne sais pas ce que sont 'l'éthique' ou la 'morale', mais elle ne quittera pas ma place!"
+				QueenBee: La jungle a les meilleurs ingrédients pour le brassage. Dommage qu'un ravageur bourdonnant géant infeste !
+				StandardDialogue0: J'ai appris cette recette, elle est vraiment chouette, je la garderai plus tard pour votre plaisir !
+				StandardDialogue1: Pourquoi est-ce que je parle tout le temps, c'est vraiment dur de faire rimer ça !
+				StandardDialogue2: Je suis toujours là, je te regarde jouer, mais je n'ai pas grand-chose à dire !
+				Storm: Ha ! Thunder est le meilleur quand il s'agit de créer de nouvelles absurdités magiques ! Que la grande heure des sorcières commence !
+				WitchDoctor: "Un autre utilisateur de chaudron ! {0} a tellement de gadgets étranges, un vrai séducteur !"
+				Wizard: "Bien que {0} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !"
+				Zoologist: "{0} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
+			}
+		}
+		ItemTooltip: {
+			Containment: Utilisé pour stocker les enchantements de base
+			DustyEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 1)
+			EnchantmentEssenceBasic: 
+				'''
+				Matériel de base pour fabriquer et améliorer des enchantements.
+				Peut être converti en 400 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceCommon: 
+				'''
+				Matériau commun pour fabriquer et améliorer des enchantements.
+				Peut être converti en 1600 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceEpic: 
+				'''
+				Matériel épique pour fabriquer et améliorer des enchantements.
+				Peut être converti en 25600 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceLegendary: 
+				'''
+				Matériau légendaire pour fabriquer et améliorer des enchantements.
+				Peut être converti en 102400 points d'expérience dans une table d'enchantement.
+				'''
+			EnchantmentEssenceRare: 
+				'''
+				Matériau rare pour fabriquer et améliorer des enchantements.
+				Peut être converti en 6400 points d'expérience dans une table d'enchantement.
+				'''
+			HellishEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 2)
+			MediumContainment: Utilisé pour stocker des enchantements communs
+			PowerBooster: 
+				'''
+				Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 10.
+				(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
+				Cet article sera retourné si l'article boosté est offert.
+				'''
+			SoulEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (Niveau 3)
+			SuperiorContainment: Utilisé pour stocker des enchantements rares
+			UltimateEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 4)
+			WoodEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 0)
+		}
+		NPCNames: {
+			Witch: {
+				Agatha: Agathe
+				Akko: Akko
+				Binx: Binx
+				Blobbelda: Blobbelda
+				Brentilda: Brentilda
+				Freyja: Freyja
+				Gruntilda: Gruntilda
+				Hazel: Noisette
+				Jasminka: Jasminka
+				Kyubey: Kyubey
+				Maleficient: Maléfique
+				Mary: Marie
+				Medusa: Méduse
+				Melusine: Mélusine
+				Mingella: Mingelle
+				MissGulch: Mlle Gulch
+				Morgana: Morgane
+				Sabrina: Sabrina
+				Salem: Salem
+				Sarah: Sara
+				Ursula: Ursule
+				Winifred: Winifred
+			}
+		}
+		Ores: {
+			adamantite: adamantite
+			chlorophyte: chlorophyte
+			cobalt: cobalt
+			copper: cuivre
+			crimtane: crimtane
+			demonite: démonite
+			gold: or
+			iron: le fer
+			lead: conduire
+			mythril: mythril
+			orichalcum: orichalque
+			palladium: palladium
+			platinum: platine
+			silver: argent
+			tin: étain
+			titanium: titane
+			tungsten: tungstène
+		}
+		TableText: {
+			Cancel: Annuler
+			Finalize: Finaliser
+			Infusion: Infusion
+			LevelUp: Niveau supérieur
+			LootAll: Tout piller
+			No: Non
+			Offer: Offrir
+			Syphon: Siphon
+			xp: XP
+			Yes: Oui
+			AreYouSure: 
+				'''
+				Êtes-vous sûr de vouloir DÉTRUIRE DE FAÇON PERMANENTE votre niveau {0}
+				{1} {2}
+				{3}(Basé sur la valeur de l'objet/l'expérience. Les enchantements seront retournés.)
+				'''
+			enchantment0: Placez les enchantements ici.
+			enchantment4: "Nécessite {0} ou mieux pour utiliser cet emplacement."
+			Enchantments: Enchantements
+			essence0: "Placez {0} ici."
+			ExchangeEssence: En échange de l'essentiel ?
+			ExchangeEssenceAndOres: "En échange de minerais ({0}) et d'essence ({1}) ?"
+			ExchangeOres: En échange de minerais ?
+			general1: La mise à niveau du niveau de la table d'enchantement débloque plus d'emplacements d'enchantement.
+			general2: Utiliser des enchantements d'armes sur des armures ou des accessoires
+			general3: offre des bonus diminués et vice versa.
+			Item: Article
+			utility0: Seuls les enchantements utilitaires peuvent aller ici.
+			weapon0: Placez une arme, une pièce d'armure ou un accessoire ici.
+		}
+		Tooltip: {
+			ArmorSlotNames: {
+				Body: Corps
+				Head: Tête
+				Legs: Les jambes
+			}
+			DamageClassNames: {
+				Generic: Générique
+				Magic: la magie
+				Melee: Mêlée
+				Ranged: À distance
+				Rogue: Voyou
+				Summon: Convoquer
+				Throwing: Lancement
+				Whip: Fouet
+			}
+			EffectDisplayName: {
+				AllForOne: Tous pour un
+				AmmoCost1: Chance de ne pas consommer de munitions
+				AmmoCost2: Augmentation du coût des munitions
+				ArmorPenetration: Pénétration d'armure
+				AttackSpeed: Vitesse d'attaque
+				AutoReuse: Réutilisation automatique
+				BonusCoins: Pièces bonus
+				BuffDuration: "Prolonge la durée des buffs de {0}"
+				BuffEffect0: "Vous accorde passivement {0}"
+				BuffEffect1: "Vous inflige passivement {0}"
+				BuffEffect10: "Accorde {0} aux ennemis touchés"
+				BuffEffect11: "Inflige {0} aux ennemis en cas de coup"
+				BuffEffect12: "Accorde {0} aux joueurs à proximité en cas de coup"
+				BuffEffect13: "Inflige {0} aux joueurs proches en cas de coup"
+				BuffEffect14: "Accorde {0} aux ennemis proches en cas de coup"
+				BuffEffect15: "Inflige passivement {0} aux ennemis proches en cas de coup"
+				BuffEffect2: "Accorde passivement {0} aux joueurs à proximité"
+				BuffEffect3: "Inflige passivement {0} aux joueurs proches"
+				BuffEffect4: "Accorde passivement {0} à l'ennemi"
+				BuffEffect5: "Inflige passivement {0} à l'ennemi"
+				BuffEffect6: "Accorde passivement {0} aux ennemis proches"
+				BuffEffect7: "Inflige passivement {0} aux ennemis proches"
+				BuffEffect8: "Vous accorde {0} en cas de coup"
+				BuffEffect9: "Vous inflige {0} en cas de coup"
+				CalmWaters: Eaux calmes
+				CatastrophicRelease: Libération catastrophique
+				Channel: Canaliser
+				ChaoticFishing: Pêche chaotique
+				ColdSteel: Acier froid
+				Crate: Caisse
+				CrateChance: Chance de caisse
+				CriticalStrikeChance: Chance de coup critique
+				CriticalStrikeDamage: Dégâts de coup critique
+				CursedInferno: Enfer maudit
+				Damage: Dégâts
+				DamageAfterDefenses: Dégâts (Appliqué après les défenses. Non visible dans l'infobulle de l'arme)
+				DamageClassSwap: "Convertir le type de dégâts en {0}"
+				DamageReduction: Réduction de dégats
+				DangerSense: Sens du danger
+				Daybreak: Aube
+				Defense: La défense
+				EnemyMaxSpawns: Le maximum d'ennemis apparaît
+				EnemySpawnRate: Taux d'apparition des ennemis
+				ExtraFishingLine: Ligne de pêche supplémentaire
+				Fishing: Faire de la pêche
+				FishingEnemySpawnChance: Chance d'apparition de l'ennemi de pêche
+				FishingPower: Puissance de pêche
+				FlatMPRegen: Régénération MP plate
+				Frostburn: Brûlure de givre
+				GodSlayer: Dieu tueur
+				HellsWrath: Colère de l'enfer
+				Hunter: Chasseur
+				Ichor: Ichor
+				InfinitePenetration: Pénétration infinie
+				Juiced: Jus
+				JumpSpeed: Vitesse de saut
+				JunglesFury: Fureur de la jungle
+				LavaFishing: Pêche à la lave
+				LifeRegeneration: Régénération de la vie
+				LifeSteal: Vol de vie
+				Luck: Chance
+				MagicClassSwap: Échange de classe magique
+				ManaUsage1: Utilisation de mana réduite
+				ManaUsage2: Augmentation de l'utilisation du mana
+				MaxFallSpeed: Vitesse de chute maximale
+				MaxLife: Durée de vie maximale
+				MaxMinions: Max Minions
+				MaxMP: MP max
+				MeleeClassSwap: Échange de classe de mêlée
+				MiningSpeed: Vitesse de minage
+				MinionAttackTarget: Cible d'attaque de sbires
+				MobilityControl: Contrôle de la mobilité
+				Moonlight: Clair de lune
+				MovementAcceleration: Accélération du mouvement
+				MovementSlowdown: Ralentissement du mouvement
+				MovementSpeed: Vitesse de mouvement
+				MPBonusRegen: Régénération du bonus MP
+				Multishot: Tir multiple
+				NpcContactAngler: CNP Contacter le pêcheur
+				NPCHitCooldown: Temps de recharge des coups de PNJ
+				ObsidianSkin: Peau d'obsidienne
+				OneForAll: Un pour tous
+				OnFire: Sur le feu
+				OnHitSpawnProjectile: Projectile d'apparition sur coup
+				Peace: Paix
+				PennyPinching: Penny pincement
+				ProjectileVelocity: Vitesse du projectile
+				QuestFishChance: Chance de poisson de quête
+				RangedClassSwap: Échange de classe à distance
+				ReducedManaUsage: Utilisation de mana réduite
+				RogueClassSwap: Échange de classe Rogue
+				Size: Taille
+				SolarDash: Tiret solaire
+				Sonar: Sonar
+				Spelunker: Spéléologue
+				VanillaDash1: Ninja Tabi Dash
+				VanillaDash2: Tiret de bouclier de l'œil de Cthulhu
+				VanillaDash3: Tiret solaire
+				VanillaDash5: Dash ninja de cristal
+				Venom: Venin
+				War: Guerre
+				WhipClassSwap: Échange de classe de fouet
+				WhipRange: Gamme fouet
+				WingTime: Temps d'aile
+				WorldAblaze: Monde en feu
+				YoyoStringLength: Longueur de la chaîne Yoyo
+			}
+			EnchantmentCustomTooltips: {
+				CalamityMod: (Enchantement Mod Calamité)
+				WorldAblaze: 
+					'''
+					(Le debuff d'Amaterasu et les notes ci-dessous à ce sujet ne s'appliquent qu'au niveau d'enchantement 4.)
+					(Personne ne survivra aux flammes imparables d'Amaterasu)
+					(Infligez un debuff de feu unique aux ennemis qui ne s'arrête jamais)
+					(Les dégâts du debuff augmentent avec le temps et en infligeant plus de dégâts à la cible)
+					(Se propage aux ennemis proches et empêche les ennemis d'être immunisés contre les autres affaiblissements de World Ablaze.)
+					'''
+			}
+			EnchantmentEffects: {
+				AllForOne: "(CD de l'objet égal à {0}x vitesse d'utilisation)"
+				AmmoCost: "{0} (enregistre également l'appât lors de la pêche)"
+				AttackSpeed: "{0} (Affecte la cadence de tir des sbires s'ils tirent des projectiles. Affecte la vitesse à laquelle les poissons mordront la ligne de pêche.)"
+				BonusCoins: 
+					'''
+					{0} (Frapper un ennemi augmentera le nombre de pièces qu'il lâchera à sa mort
+					basé sur les dégâts infligés, la santé maximale de l'ennemi, la valeur de base de l'ennemi et la chance.)
+					'''
+				BuffDuration: 
+					'''
+					{0}
+					(La durée est continuellement augmentée pendant que le buff est actif, pas après avoir obtenu le buff pour la première fois.)
+					'''
+				EnemySpawnRate: 
+					'''
+					{0}
+					(Les dégâts des sbires sont réduits par votre multiplicateur de taux d'apparition, à partir des enchantements, à moins qu'ils ne soient la cible de votre attaque de sbires)
+					(cible d'attaque de sbires définie en frappant des ennemis avec des fouets ou une arme qui est convertie pour invoquer des dégâts d'un enchantement)
+					(Empêche la consommation d'objets d'invocation de boss si le multiplicateur de taux d'apparition, à partir d'enchantements, est> 1,6)
+					(Les ennemis engendrés seront immunisés contre la lave/les pièges)
+					'''
+				FishingEnemySpawnChance: "{0} (Réduit de 5x pendant la journée. Affecté par Chum Caster. Peut également faire apparaître Duke Fishron.)"
+				GodSlayer: 
+					'''
+					{0}
+					(Bonus de dégâts réels basés sur les HP max de l'ennemi)
+					(Dégâts bonus non affectés par LifeSteal)
+					'''
+				LavaFishing: "{0} (Permet de pêcher dans la lave et a une chance d'améliorer les taux de capture dans la lave. Se cumule avec d'autres sources.)"
+				LifeSteal: "{0} (le reste est enregistré pour éviter de toujours arrondir à 0 pour les armes à faibles dégâts)"
+				MinionAttackTarget: Les ennemis touchés deviennent la cible de l'attaque des sbires. Même effet que les fouets.
+				Multishot: "{0} (Chance de produire un projectile supplémentaire. S'applique à chaque projectile créé.)"
+				OneForAll: 
+					'''
+					{0}
+					(Frapper un ennemi endommagera tous les ennemis proches)
+					(S'active uniquement au premier coup d'un projectile.)
+					'''
+				OnHitSpawnProjectile: "Génère un projectile en touchant un ennemi : {0}"
+				QuestFishChance: "{0} (Les poissons de quête capturés seront automatiquement rendus et commenceront une nouvelle quête, en contournant la limite de 1 par jour.)"
+				BoolEffect: {
+					Enabled: "{0} : Activé"
+					Prevented: "{0} : empêché"
+				}
+				BuffEffect: {
+					All: "{0} ({1} % de chances de postuler pour {2})"
+					OnTickPlayerBuff: "{0} ({1} % de chances de postuler pour {2} tous les {3})"
+				}
+				PlayerSetEffect: {
+					Enabled: "{0} : Activé"
+					Prevented: "{0} : empêché"
+				}
+			}
+			EnchantmentGeneralTooltips: {
+				AllowedOn: Autorisé sur
+				And: et
+				ArmorSlotOnly: "{0} emplacement d'armure uniquement"
+				LevelCost: "Coût du niveau : {0}"
+				Max1: Maximum de 1 par article
+				NotAllowed: "Non autorisé sur {0} armes"
+				Only: "{0} seulement"
+				OnlyAllowedOn: Autorisé uniquement sur
+				Or: ou
+				Unique: Unique (limité à 1 enchantement unique)
+				Utility: Utilitaire
+			}
+			EnchantmentShortTooltip: {
+				OnTickPlayerBuff: "Accorde passivement {0} pour {1} tous les {2}"
+			}
+			ItemType: {
+				Accessories: Accessoires
+				Armor: Armure
+				FishingPoles: Cannes à pêche
+				None: Aucun
+				Tools: Outils
+				Weapons: Armes
+			}
+		}
+		TownNPCMood: {
+			Witch: {
+				Content: La vie ici est supportable. Pas de dispute, pas de drame, ce n'est pas si horrible.
+				DislikeBiome: C'est incroyable comme ici c'est si apprivoisé, pas de mal, pas de creepies, c'est tellement boiteux !
+				DislikeCrowded: Comment consentir à tout ce bruit !
+				DislikeNPC: "Cette... personne de {NPCName} est tellement cliché ! 'Sauvez le monde du mal' Les maux sont profondément enracinés, et là pour rester !"
+				FarFromHome: J'ai dû m'aventurer loin pour trouver de nouveaux réactifs. Bien que mon foyer soit agréable, je peux brasser une nouvelle concoction avec ces derniers ingrédients.
+				HateBiome: Aïe ! Cet endroit est tellement lumineux, qu'avant tout je le hais !
+				HateCrouded: Je ne peux pas gérer ce trafic ici ! Sortez-moi ou expulsez-les, faites vite !
+				HateNPC: "{NPCName} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
+				LikeBiome: Cet endroit est plein de bestioles et de boue, il est temps de faire de l'argent rapidement !
+				LikeNPC: "Bien que {NPCName} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !"
+				LoveBiome: Cet endroit me rappelle mon ancien repaire. Très sombre, très magique, quel flair !
+				LoveNPC: « Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur ! »
+				LoveSpace: Maintenant que tout le monde est parti, mes expériences peuvent enfin continuer !
+				NoHome: Je ne peux pas tenir toutes mes marchandises, celles-ci sont instables s'il vous plaît méfiez-vous !
+			}
 		}
 	}
 }
