@@ -385,6 +385,8 @@ namespace WeaponEnchantments.Common.Utility
                         if (localizationValuesCharacterCount + length > 5000) {
                             localizationValues += $"{'_'.FillString(4999 - localizationValuesCharacterCount)}\n";
                             localizationValuesCharacterCount = 0;
+                            if (s.Contains("'''"))
+                                localizationValues += "\n";
 						}
 
                         localizationValuesCharacterCount += length + 1;

@@ -435,21 +435,22 @@ Mods: {
 			utility0: Сюда можно положить только вспомогательные зачарования.
 			weapon0: Место для оружия, брони или аксессуара.
 		}
-		Tooltip: {ArmorSlotNames: {
-			Body: Тело
-			Head: Голова
-			Legs: Ноги
-		}
-		DamageClassNames: {
-			Generic: Общий
-			Magic: Магический
-			Melee: Ближнебойный
-			Ranged: Стрелковый
-			Rogue: Разбойничий
-			Summon: Призывательский
-			Throwing: Бросательный
-			Whip: Кнут
-		}
+		Tooltip: {
+			ArmorSlotNames: {
+				Body: Тело
+				Head: Голова
+				Legs: Ноги
+			}
+			DamageClassNames: {
+				Generic: Общий
+				Magic: Магический
+				Melee: Ближнебойный
+				Ranged: Стрелковый
+				Rogue: Разбойничий
+				Summon: Призывательский
+				Throwing: Бросательный
+				Whip: Кнут
+			}
 			EffectDisplayName: {
 				AllForOne: Все за одного
 				AmmoCost1: Шанс не потратить патроны
@@ -559,6 +560,7 @@ Mods: {
 				YoyoStringLength: Длина нити Йо-Йо
 			}
 			EnchantmentCustomTooltips: {
+				CalamityMod: (Зачарование мода Calamity)
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))
