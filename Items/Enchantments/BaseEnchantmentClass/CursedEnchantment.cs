@@ -16,31 +16,36 @@ using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
+using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace WeaponEnchantments.Items {
 	public class CursedEnchantment : Enchantment {
-                public override Load() {
+		public override void LoadData(TagCompound tag) {
 			
 		}
-		public override Save() {
+		public override void SaveData(TagCompound tag) {
 			
 		}
-		public override NetRecieve() {
+		public override void NetReceive(BinaryReader reader) {
 			
 		}
-		public override NetSend() {
+		public override void NetSend(BinaryWriter writer) {
 			
 		}
-		public override SetStaticDefaults() {
+		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
 		}
-		public override SetDefaults() {
+		public override void SetDefaults() {
 			base.SetDefaults();
 			Item.maxStack = 1;
 		}
-		public override CanStack() => false;
-		
-        }
+		public override bool CanStack(Item item2) => false;
+
+		public override string Artist => "andro951";
+
+		public override string Designer => "andro951";
+	}
 }
 
 /*
