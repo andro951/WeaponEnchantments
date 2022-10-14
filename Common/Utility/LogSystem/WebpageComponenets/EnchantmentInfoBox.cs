@@ -8,7 +8,15 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
     public class EnchantmentInfoBox
     {
-        private string name;
+        public string Name {
+		get {
+			if (name == null)
+				return "";
+			
+			return name;
+		}
+	}
+	private string name;
         List<ItemInfo> items = new();
 	public void Add(Enchantment enchantment) {
 		if (name == null)
