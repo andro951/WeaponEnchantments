@@ -35,10 +35,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             List<string> labels = new();
 
             if (name)
-                labels.Add(GetName());
+                labels.Add(Name);
 
             if (image)
-                labels.Add($"{Item.ToItemPNG(displayName: false)}");
+                labels.Add(Image);
 
             if (artists) {
                 GetArtists(out string artistString, out string artModifiedBy);
@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             //Tooltip
             if (tooltip)
-                info.Add(new() { "Tooltip", $"<i>'{GetTooltip()}'</i>" });
+                info.Add(new() { "Tooltip", $"<i>'{Tooltip}'</i>" });
 
             //Rarity
             if (rarity) {
@@ -73,11 +73,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             //Research
             if (research)
-                info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), GetResearch() });
+                info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), Research });
 
             webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
         }
-        public string GetName() => WEModItem.Name.AddSpaces();
+        public string Name => WEModItem.Name.AddSpaces();
+	public string Image => $"{Item.ToItemPNG(displayName: false)}";
         public void GetArtists(out string artistString, out string artModifiedBy) {
             artistString = WEModItem.Artist;
             artModifiedBy = WEModItem.ArtModifiedBy;
@@ -115,7 +116,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return typeText;
         }
-        public string GetTooltip() => GetTooltip(WEModItem);
+        public string Tooltip => GetTooltip(WEModItem);
         public static string GetTooltip(ModItem modItem) {
             Item item = new Item(modItem.Type);
             string tooltip = "";
@@ -154,9 +155,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return rareString;
         }
-        public string GetResearch() {
-            return $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required";
-        }
+        public string Research => $"{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Item.type]} required";
         public void AddDrops(WebPage webpage) {
             int type = Item.type;
             List<(string, List<List<string>>)> dropTables = new();
