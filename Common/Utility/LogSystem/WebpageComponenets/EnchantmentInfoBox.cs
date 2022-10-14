@@ -34,6 +34,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 		
 		items.Add(new ItemInfo(enchantment));
 	}
+	public void AddDrops(WebPage webPage) {
+		if (items.Count == 0)
+			return;
+		
+		items[0].AddDrops(webPage);
+	}
         public override string ToString() {
 		if (items.Count == 0)
 			return "";
