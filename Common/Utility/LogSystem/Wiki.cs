@@ -233,49 +233,74 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 Enchantments.AddSubHeading("All Enchantment types");
             }
 
-            WebPage enchantmentTypePage = new("");
+            //WebPage enchantmentTypePage = new("");
             string typePageLinkString = "";
             foreach (IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName).Select(l => l.ToList().OrderBy(e => e.EnchantmentTier))) {
                 bool first = true;
+		        EnchantmentInfoBox enchantmentInfoBox = new();
                 foreach (Enchantment enchantment in list.ToList()) {
-                    if (first) {
-                        first = false;
-                        string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
-                        if (!tier0EnchantmentsOnly) {
-                            enchantmentTypePage = new(enchantmentType);
-                            enchantmentTypePage.AddLink("Enchantments");
-                            if (enchantment.WikiDescription != null)
-                                enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
+                    enchantmentInfoBox.Add(enchantment);
+                    
+                    //if (first) {
+                    //    first = false;
+                    //    string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
+                    //    if (!tier0EnchantmentsOnly) {
+                    //        enchantmentTypePage = new(enchantmentType);
+                    //        enchantmentTypePage.AddLink("Enchantments");
+                    //        if (enchantment.WikiDescription != null)
+                    //            enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
 
-                            string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
-                            Enchantments.AddParagraph(typePNG);
-                            if (enchantment.Utility)
-                                UtilityEnchantments.AddParagraph(typePNG);
-                        }
+                    //        string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
+                    //        Enchantments.AddParagraph(typePNG);
+                    //        if (enchantment.Utility)
+                    //            UtilityEnchantments.AddParagraph(typePNG);
+                    //    }
                         
-                        typePageLinkString = enchantmentType.ToLink();
-                    }
+                    //    typePageLinkString = enchantmentType.ToLink();
+                    //}
 
-                    int tier = enchantment.EnchantmentTier;
-                    if (tier != 0 && tier0EnchantmentsOnly)
-                        continue;
+                    //int tier = enchantment.EnchantmentTier;
+                    //if (tier != 0 && tier0EnchantmentsOnly)
+                    //    continue;
 
-                    if (!tier0EnchantmentsOnly)
-                        enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
+                    //if (!tier0EnchantmentsOnly)
+                    //    enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
 
-                    ItemInfo itemInfo = new(enchantment);
-                    WebPage enchantmentPage = new(itemInfo.GetName());
-                    enchantmentPage.AddLink("Enchantments");
-                    enchantmentPage.AddParagraph(typePageLinkString);
-                    itemInfo.AddStatistics(enchantmentPage);
-                    itemInfo.AddDrops(enchantmentPage);
-                    itemInfo.AddInfo(enchantmentPage);
-                    itemInfo.AddRecipes(enchantmentPage);
-                    webPages.Add(enchantmentPage);
+                    //ItemInfo itemInfo = new(enchantment);
+                    //WebPage enchantmentPage = new(itemInfo.Name);
+                    //enchantmentPage.AddLink("Enchantments");
+                    //enchantmentPage.AddParagraph(typePageLinkString);
+                    //itemInfo.AddStatistics(enchantmentPage);
+                    //itemInfo.AddDrops(enchantmentPage);
+                    //itemInfo.AddInfo(enchantmentPage);
+                    //itemInfo.AddRecipes(enchantmentPage);
+                    //webPages.Add(enchantmentPage);
                 }
+                
+                WebPage enchantmentPage = new(enchantmentInfoBox.Name);
+                enchantmentPage.AddLink("Enchantments");
+                enchantmentInfoBox.AddStatistics(enchantmentPage);
+                enchantmentInfoBox.AddDrops(enchantmentPage);
+                enchantmentInfoBox.AddInfo(enchantmentPage);
+                enchantmentInfoBox.AddEffects(enchantmentPage);
+                enchantmentInfoBox.AddAllowedList(enchantmentPage);
+                enchantmentInfoBox.AddRecipes(enchantmentPage);
+                enchantmentPage.AddParagraph("{{Enchantments}}");
+                enchantmentPage.AddParagraph("[[Category:Enchantments]]");
+                webPages.Add(enchantmentPage);
+                string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
+                if (!tier0EnchantmentsOnly) {
+                    if (enchantment.WikiDescription != null)
+                        enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
 
-                if (!tier0EnchantmentsOnly)
-                    webPages.Add(enchantmentTypePage);
+                    string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
+                    Enchantments.AddParagraph(typePNG);
+                    if (enchantment.Utility)
+                        UtilityEnchantments.AddParagraph(typePNG);
+                }
+                
+                //if (!tier0EnchantmentsOnly)
+                //    webPages.Add(enchantmentTypePage);
             }
 
             if (!tier0EnchantmentsOnly) {
