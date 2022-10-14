@@ -17,6 +17,16 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 		}
 	}
 	private string name;
+	public string WikiDescription {
+		get {
+			if (items.Count == 0)
+				return "";
+			
+			string wikiDescription = ((Enchantment)items[0].WEModItem).WikiDescription;
+			
+			return wikiDescription ?? "";
+		}
+	}
         List<ItemInfo> items = new();
 	public void Add(Enchantment enchantment) {
 		if (name == null)
