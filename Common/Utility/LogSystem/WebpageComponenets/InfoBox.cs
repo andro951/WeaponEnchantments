@@ -8,7 +8,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
     public class InfoBox
     {
-        private string _label;
+        private Struct InfoBoxItem {
+            public InfoBoxItem () {
+                
+            }
+        }
+        private string name;
+        
         private IEnumerable<string> _headers;
         private bool _firstRowHeaders;
         private bool _sortable;
