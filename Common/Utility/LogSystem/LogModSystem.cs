@@ -253,7 +253,7 @@ namespace WeaponEnchantments.Common.Utility
 		    }
 	    }
 	    private static void AddLabel(string label) {
-            string tabsString = $"{Tabs(tabs)}{label}: {"{"}\n";
+            string tabsString = $"\n{Tabs(tabs)}{label}: {"{"}";
             if (printLocalization)
                 localization += tabsString;
 
@@ -266,13 +266,13 @@ namespace WeaponEnchantments.Common.Utility
 	    private static void Start(CultureName cultureName) {
             culture = (int)cultureName;
             if (printLocalization) {
-                string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}\n";
+                string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}";
                 localization += label;
             }
             
             if (printLocalizationKeysAndValues) {
                 localizationValuesCharacterCount = 0;
-                string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}\n";
+                string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}";
                 localizationKeys += keyLabel;
 
                 string valueLabel = "";
@@ -288,7 +288,7 @@ namespace WeaponEnchantments.Common.Utility
             if (tabs < 0)
                 return;
 
-            string tabsString = Tabs(tabs) + "}\n";
+            string tabsString = $"\n{Tabs(tabs)}{"}"}";
             if (printLocalization)
                 localization += tabsString;
             
@@ -315,9 +315,8 @@ namespace WeaponEnchantments.Common.Utility
                 File.WriteAllText(keyFilePath, localizationKeys);
                 localizationKeys = "";
 
-                localizationValues = localizationValues.ReplaceLineEndings();
                 string valueFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\In\{cultureName}.txt";
-                File.WriteAllText(valueFilePath, localizationValues.Replace("\t", ""));
+                File.WriteAllText(valueFilePath, localizationValues);
                 localizationValues = "";
             }
 	    }
@@ -384,7 +383,7 @@ namespace WeaponEnchantments.Common.Utility
                     s = p.Value;
                 }
 
-                bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
+                bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || !LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
 				
                 if (s.Contains("{") && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n')) {
                     s = $"\"{s}\"";
@@ -401,31 +400,32 @@ namespace WeaponEnchantments.Common.Utility
 
                 s = CheckTabOutLocalization(s);
                 if (printLocalization)
-                    localization += $"{tabString}{p.Key}: {s}\n";
+                    localization += $"\n{tabString}{p.Key}: {s}";
                 
                 if (printLocalizationKeysAndValues) {
-                    localizationKeys += $"{tabString}{p.Key}: {(!noLocalizationFound ? s : "")}\n";
+                    localizationKeys += $"\n{tabString}{p.Key}: {(!noLocalizationFound ? s : "")}";
 
                     if (noLocalizationFound) {
-                        int length = s.Length;
+                        string valueString = s.Replace("\t", "");
+                        int length = valueString.Length;
                         if (localizationValuesCharacterCount + length > 5000) {
-                            localizationValues += $"{'_'.FillString(4999 - localizationValuesCharacterCount)}\n";
+                            localizationValues += $"\n{'_'.FillString(4999 - localizationValuesCharacterCount)}";
                             localizationValuesCharacterCount = 0;
-                            int newLineIndex = s.IndexOf("\n");
-                            string checkString = newLineIndex > -1 ? s.Substring(0, newLineIndex) : s;
+                            int newLineIndex = valueString.IndexOf("\n");
+                            string checkString = newLineIndex > -1 ? valueString.Substring(0, newLineIndex) : valueString;
                             if (checkString.Contains("'''"))
                                 localizationValues += "\n";
 						}
 
                         localizationValuesCharacterCount += length + 1;
 
-                        localizationValues += $"{s}\n";
+                        localizationValues += $"{(localizationValues != "" ? "\n" : "")}{valueString}";
                     }
                 }
             }
 
             if (!ignoreLabel)
-	    	Close();
+	    	    Close();
         }
         private static void GetLocalizationFromListAddToEnd(string label, IEnumerable<string> list, string addString, int tabsNum) {
             List<string> newList = ListAddToEnd(list, addString);

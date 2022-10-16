@@ -413,6 +413,7 @@ namespace WeaponEnchantments.Localization
 				new() {
 					"Amaterasu",
 					"Akko",
+					"Binx",
 					"Blobbelda",
 					"Brentilda",
 					"Gruntilda",

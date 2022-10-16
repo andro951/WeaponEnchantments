@@ -321,34 +321,34 @@ Mods: {
 		ItemTooltip: {
 			Containment: Used to store Basic enchantments
 			DustyEnchantingTable: Used to apply enchantments to items. (tier 1)
-			EnchantmentEssenceBasic: 
+			EnchantmentEssenceBasic: 					
 					'''
 					Basic material for crafting and upgrading enchantments.
 					Can be converted to 400 experience in an enchanting table.
 					'''
-			EnchantmentEssenceCommon: 
+			EnchantmentEssenceCommon: 					
 					'''
 					Common material for crafting and upgrading enchantments.
 					Can be converted to 1600 experience in an enchanting table.
 					'''
-			EnchantmentEssenceEpic: 
+			EnchantmentEssenceEpic: 					
 					'''
 					Epic material for crafting and upgrading enchantments.
 					Can be converted to 25600 experience in an enchanting table.
 					'''
-			EnchantmentEssenceLegendary: 
+			EnchantmentEssenceLegendary: 					
 					'''
 					Legendary material for crafting and upgrading enchantments.
 					Can be converted to 102400 experience in an enchanting table.
 					'''
-			EnchantmentEssenceRare: 
+			EnchantmentEssenceRare: 					
 					'''
 					Rare material for crafting and upgrading enchantments.
 					Can be converted to 6400 experience in an enchanting table.
 					'''
 			HellishEnchantingTable: Used to apply enchantments to items. (tier 2)
 			MediumContainment: Used to store Common enchantments
-			PowerBooster: 
+			PowerBooster: 					
 					'''
 					Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.
 					(Shift left click from your inventory or left click on item in the table with this on your cursor.)
@@ -415,7 +415,7 @@ Mods: {
 			Syphon: Syphon
 			xp: xp
 			Yes: Yes
-			AreYouSure: 
+			AreYouSure: 					
 					'''
 					Are you sure you want to PERMENANTLY DESTROY your level {0}
 					{1} {2}
@@ -562,7 +562,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Calamity Mod Enchantment)
-				WorldAblaze: 
+				WorldAblaze: 						
 						'''
 						(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)
 						(None shall survive the unstopable flames of Amaterasu)
@@ -574,17 +574,17 @@ Mods: {
 			EnchantmentEffects: {
 				AmmoCost: "{0} (Also Saves Bait When Fishing)"
 				AttackSpeed: "{0} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)"
-				BonusCoins: 
+				BonusCoins: 						
 						'''
 						{0} (Hitting an enemy will increase the number of coins it will drop on death
 						based on damage dealt, enemy max health, enemy base value, and luck.)
 						'''
-				BuffDuration: 
+				BuffDuration: 						
 						'''
 						{0}
 						(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)
 						'''
-				EnemySpawnRate: 
+				EnemySpawnRate: 						
 						'''
 						{0}
 						(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)
@@ -593,7 +593,7 @@ Mods: {
 						(Enemies spawned will be immune to lava/traps)
 						'''
 				FishingEnemySpawnChance: "{0} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron.)"
-				GodSlayer: 
+				GodSlayer: 						
 						'''
 						{0}
 						(Bonus true damage based on enemy max hp)
@@ -604,7 +604,7 @@ Mods: {
 				LifeSteal: "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)"
 				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
 				Multishot: "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)"
-				OneForAll: 
+				OneForAll: 						
 						'''
 						{0}
 						(Hitting an enemy will damage all nearby enemies)
