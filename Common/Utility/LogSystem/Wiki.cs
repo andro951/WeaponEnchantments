@@ -236,8 +236,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             //WebPage enchantmentTypePage = new("");
             string typePageLinkString = "";
             foreach (IEnumerable<Enchantment> list in enchantments.GroupBy(e => e.EnchantmentTypeName).Select(l => l.ToList().OrderBy(e => e.EnchantmentTier))) {
-                bool first = true;
-		        EnchantmentInfoBox enchantmentInfoBox = new();
+                //bool first = true;
+		        EnchantmentInfoBox enchantmentInfoBox = new(FloatID.right);
                 foreach (Enchantment enchantment in list.ToList()) {
                     enchantmentInfoBox.Add(enchantment);
                     
@@ -288,11 +288,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 enchantmentPage.AddParagraph("{{Enchantments}}");
                 enchantmentPage.AddParagraph("[[Category:Enchantments]]");
                 webPages.Add(enchantmentPage);
-                string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
                 if (!tier0EnchantmentsOnly) {
-                    if (enchantment.WikiDescription != null)
-                        enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
-
+                    string enchantmentType = enchantmentInfoBox.Name;
+                    Enchantment enchantment = enchantmentInfoBox.enchantments[0];
                     string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
                     Enchantments.AddParagraph(typePNG);
                     if (enchantment.Utility)

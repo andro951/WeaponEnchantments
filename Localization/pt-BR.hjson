@@ -1,4 +1,4 @@
-﻿#Contributed by @Ninguém#8017, @pedro_123444#8294
+#Contributors: @Ninguém#8017, @pedro_123444#8294
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -189,7 +189,7 @@ Mods: {
 			MultishotEnchantmentRare: Encantamento Tiro Múltiplo Raro
 			NpcContactAnglerEnchantmentBasic: Encantamento Contatar Pescador Básico
 			NpcContactAnglerEnchantmentCommon: Encantamento Contatar Pescador Comum
-			NpcContactAnglerEnchantmentEpic:  Encantamento Contatar Pescador Épico
+			NpcContactAnglerEnchantmentEpic: Encantamento Contatar Pescador Épico
 			NpcContactAnglerEnchantmentLegendary: Encantamento Contatar Pescador Lendário
 			NpcContactAnglerEnchantmentRare: Encantamento Contatar Pescador Raro
 			ObsidianSkinEnchantmentBasic: Encanatamento Pele de Obisidiana Básico
@@ -281,8 +281,8 @@ Mods: {
 			DustyEnchantingTable: Mesa de Encantamento Empoeirada
 			EnchantmentEssenceBasic: Essência de Encantamento Básico
 			EnchantmentEssenceCommon: Essência de Encantamento Comum
-			EnchantmentEssenceEpic: Enchantment Essence Epic
-			EnchantmentEssenceLegendary: Enchantment Essence Legendary
+			EnchantmentEssenceEpic: Essência de Encantamento Épico
+			EnchantmentEssenceLegendary: Essência de Encantamento Lendário
 			EnchantmentEssenceRare: Essência de Encantamento Raro
 			HellishEnchantingTable: Mesa de Encantamento Infernal
 			MediumContainment: Contenção média
@@ -361,7 +361,7 @@ Mods: {
 		}
 		NPCNames: {
 			Witch: {
-				Agatha: Agatha
+				Agatha: Ágata
 				Akko: Akko
 				Binx: Binx
 				Blobbelda: Blobbelda
@@ -371,17 +371,17 @@ Mods: {
 				Hazel: Hazel
 				Jasminka: Jasminka
 				Kyubey: Kyubey
-				Maleficient: Maleficient
+				Maleficient: Maléfico
 				Mary: Mary
 				Medusa: Medusa
-				Melusine: Melusine
-				Mingella: Mingella
+				Melusine: Melusina
+				Mingella: Mingela
 				MissGulch: Senhorita Gulch
 				Morgana: Morgana
 				Sabrina: Sabrina
 				Salem: Salem
-				Sarah: Sarah
-				Ursula: Ursula
+				Sarah: Sara
+				Ursula: Úrsula
 				Winifred: Winifred
 			}
 		}
@@ -437,19 +437,19 @@ Mods: {
 		}
 		Tooltip: {
 			ArmorSlotNames: {
-				Body: Body
-				Head: Head
-				Legs: Legs
+				Body: Corpo
+				Head: Cabeça
+				Legs: Pernas
 			}
 			DamageClassNames: {
-				Generic: Generic
-				Magic: Magic
-				Melee: Melee
-				Ranged: Ranged
-				Rogue: Rogue
-				Summon: Summon
-				Throwing: Throwing
-				Whip: Whip
+				Generic: Genérico
+				Magic: Magia
+				Melee: Corpo a corpo
+				Ranged: À distância
+				Rogue: Vampiro
+				Summon: Convocar
+				Throwing: Arremesso
+				Whip: Chicote
 			}
 			EffectDisplayName: {
 				AllForOne: Todos por um
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: Caçador
 				Ichor: Icor
 				InfinitePenetration: Penetração Infinita
+				ItemCooldown: Recarga de items
 				Juiced: Espremido
 				JumpSpeed: Velocidade de salto
 				JunglesFury: Fúria da Selva
@@ -550,7 +551,7 @@ Mods: {
 				VanillaDash1: Investida da Tabi Ninja
 				VanillaDash2: Investida do Escudo de Cthulhu
 				VanillaDash3: Investida Solar
-				VanillaDash5: Crystal Ninja Dash
+				VanillaDash5: Cristal Ninja Dash
 				Venom: Veneno
 				War: Guerra
 				WhipClassSwap: Troca de classe de Invocador
@@ -560,7 +561,7 @@ Mods: {
 				YoyoStringLength: Comprimento da corda de Yoyo
 			}
 			EnchantmentCustomTooltips: {
-				CalamityMod: (Calamity Mod Enchantment)
+				CalamityMod: (Encantamento do Mod Calamidade)
 				WorldAblaze: 
 					'''
 					(O efeito negativo de Amaterasu e as notas abaixo sobre isso só se aplicam ao nível 4 de Encantamento.)
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "(Tempo de recarga do item igual a {0}x velocidade de uso)"
 				AmmoCost: "{0} (Também economiza isca ao pescar)"
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					(Bônus de dano real baseado na vida máxima do inimigo)
 					(Dano bônus não afetado pelo roubo de vida)
 					'''
+				ItemCooldown: "(Tempo de recarga do item igual a {0} velocidade de uso)"
 				LavaFishing: "{0} (Permite pescar na lava e tem a chance de melhorar as taxas de captura na lava. Pilha com outras fontes.)"
 				LifeSteal: "{0} (o restante é salvo para evitar sempre o arredondamento para 0 para armas de baixo dano)"
 				MinionAttackTarget: Os inimigos atingidos tornam-se o alvo do ataque dos lacaios. Mesmo efeito dos chicotes.

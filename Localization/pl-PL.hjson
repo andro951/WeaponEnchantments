@@ -1,4 +1,4 @@
-﻿#(Google Translated.  No contribuions yet)  @thewei1#0582
+#(Google Translated.  No contribuions yet)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: Łowca
 				Ichor: Posoka
 				InfinitePenetration: Nieskończona penetracja
+				ItemCooldown: Czas odnowienia przedmiotu
 				Juiced: sok
 				JumpSpeed: Prędkość skoku
 				JunglesFury: Furia Dżungli
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "„(Pozycja na płycie CD równa {0}x prędkości użytkowania)”"
 				AmmoCost: "„{0} (Oszczędza również przynętę podczas łowienia)”"
 				AttackSpeed: "„{0} (Wpływa na szybkostrzelność stworów, jeśli strzelają pociskami. Wpływa na szybkość gryzienia żyłki przez ryby.)”"
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					(Bonusowe nieuchronne obrażenia w oparciu o maksymalne hp wroga)
 					(Dodatkowe obrażenia, na które nie ma wpływu LifeSteal)
 					'''
+				ItemCooldown: "„(Pozycja na płycie CD równa {0} prędkości użytkowania)”"
 				LavaFishing: "„{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)”"
 				LifeSteal: "„{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)”"
 				MinionAttackTarget: Trafieni wrogowie stają się celem ataku stworów. Taki sam efekt jak bicze.

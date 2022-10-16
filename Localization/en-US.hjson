@@ -1,4 +1,5 @@
-﻿Mods: {
+#
+Mods: {
 	WeaponEnchantments: {
 		ItemName: {
 			AllForOneEnchantmentBasic: All For One Enchantment Basic
@@ -321,38 +322,38 @@
 			Containment: Used to store Basic enchantments
 			DustyEnchantingTable: Used to apply enchantments to items. (tier 1)
 			EnchantmentEssenceBasic: 
-				'''
-				Basic material for crafting and upgrading enchantments.
-				Can be converted to 400 experience in an enchanting table.
-				'''
+					'''
+					Basic material for crafting and upgrading enchantments.
+					Can be converted to 400 experience in an enchanting table.
+					'''
 			EnchantmentEssenceCommon: 
-				'''
-				Common material for crafting and upgrading enchantments.
-				Can be converted to 1600 experience in an enchanting table.
-				'''
+					'''
+					Common material for crafting and upgrading enchantments.
+					Can be converted to 1600 experience in an enchanting table.
+					'''
 			EnchantmentEssenceEpic: 
-				'''
-				Epic material for crafting and upgrading enchantments.
-				Can be converted to 25600 experience in an enchanting table.
-				'''
+					'''
+					Epic material for crafting and upgrading enchantments.
+					Can be converted to 25600 experience in an enchanting table.
+					'''
 			EnchantmentEssenceLegendary: 
-				'''
-				Legendary material for crafting and upgrading enchantments.
-				Can be converted to 102400 experience in an enchanting table.
-				'''
+					'''
+					Legendary material for crafting and upgrading enchantments.
+					Can be converted to 102400 experience in an enchanting table.
+					'''
 			EnchantmentEssenceRare: 
-				'''
-				Rare material for crafting and upgrading enchantments.
-				Can be converted to 6400 experience in an enchanting table.
-				'''
+					'''
+					Rare material for crafting and upgrading enchantments.
+					Can be converted to 6400 experience in an enchanting table.
+					'''
 			HellishEnchantingTable: Used to apply enchantments to items. (tier 2)
 			MediumContainment: Used to store Common enchantments
 			PowerBooster: 
-				'''
-				Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.
-				(Shift left click from your inventory or left click on item in the table with this on your cursor.)
-				This item will be returned if the boosted item is offered.
-				'''
+					'''
+					Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.
+					(Shift left click from your inventory or left click on item in the table with this on your cursor.)
+					This item will be returned if the boosted item is offered.
+					'''
 			SoulEnchantingTable: Used to apply enchantments to items. (tier 3)
 			SuperiorContainment: Used to store Rare enchantments
 			UltimateEnchantingTable: Used to apply enchantments to items. (tier 4)
@@ -415,11 +416,11 @@
 			xp: xp
 			Yes: Yes
 			AreYouSure: 
-				'''
-				Are you sure you want to PERMENANTLY DESTROY your level {0}
-				{1} {2}
-				{3}(Based on item value/experience.  Enchantments will be returned.)
-				'''
+					'''
+					Are you sure you want to PERMENANTLY DESTROY your level {0}
+					{1} {2}
+					{3}(Based on item value/experience.  Enchantments will be returned.)
+					'''
 			enchantment0: Place Enchantments here.
 			enchantment4: "Requires {0} or Better to use this slot."
 			Enchantments: Enchantments
@@ -505,6 +506,7 @@
 				Hunter: Hunter
 				Ichor: Ichor
 				InfinitePenetration: Infinite Penetration
+				ItemCooldown: Item Cooldown
 				Juiced: Juiced
 				JumpSpeed: Jump Speed
 				JunglesFury: Jungles Fury
@@ -561,53 +563,53 @@
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Calamity Mod Enchantment)
 				WorldAblaze: 
-					'''
-					(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)
-					(None shall survive the unstopable flames of Amaterasu)
-					(Inflict a unique fire debuff to enemies that never stops)
-					(The damage from the debuff grows over time and from dealing more damage to the target)
-					(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)
-					'''
+						'''
+						(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)
+						(None shall survive the unstopable flames of Amaterasu)
+						(Inflict a unique fire debuff to enemies that never stops)
+						(The damage from the debuff grows over time and from dealing more damage to the target)
+						(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)
+						'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "(Item CD equal to {0}x use speed)"
 				AmmoCost: "{0} (Also Saves Bait When Fishing)"
 				AttackSpeed: "{0} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)"
 				BonusCoins: 
-					'''
-					{0} (Hitting an enemy will increase the number of coins it will drop on death
-					based on damage dealt, enemy max health, enemy base value, and luck.)
-					'''
+						'''
+						{0} (Hitting an enemy will increase the number of coins it will drop on death
+						based on damage dealt, enemy max health, enemy base value, and luck.)
+						'''
 				BuffDuration: 
-					'''
-					{0}
-					(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)
-					'''
+						'''
+						{0}
+						(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)
+						'''
 				EnemySpawnRate: 
-					'''
-					{0}
-					(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)
-					(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)
-					(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1.6)
-					(Enemies spawned will be immune to lava/traps)
-					'''
+						'''
+						{0}
+						(Minion Damage is reduced by your spawn rate multiplier, from enchantments, unless they are your minion attack target)
+						(minion attack target set from hitting enemies with whips or a weapon that is converted to summon damage from an enchantment)
+						(Prevents consuming boss summoning items if spawn rate multiplier, from enchantments, is > 1.6)
+						(Enemies spawned will be immune to lava/traps)
+						'''
 				FishingEnemySpawnChance: "{0} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron.)"
 				GodSlayer: 
-					'''
-					{0}
-					(Bonus true damage based on enemy max hp)
-					(Bonus damage not affected by LifeSteal)
-					'''
+						'''
+						{0}
+						(Bonus true damage based on enemy max hp)
+						(Bonus damage not affected by LifeSteal)
+						'''
+				ItemCooldown: "(Item CD equal to {0} use speed)"
 				LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"
 				LifeSteal: "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)"
 				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
 				Multishot: "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)"
 				OneForAll: 
-					'''
-					{0}
-					(Hitting an enemy will damage all nearby enemies)
-					(Only activates on the first hit from a projectile.)
-					'''
+						'''
+						{0}
+						(Hitting an enemy will damage all nearby enemies)
+						(Only activates on the first hit from a projectile.)
+						'''
 				OnHitSpawnProjectile: "Spawns a projectile when hitting an enemy: {0}"
 				QuestFishChance: "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"
 				BoolEffect: {

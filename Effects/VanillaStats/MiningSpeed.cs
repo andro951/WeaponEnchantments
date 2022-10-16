@@ -21,6 +21,6 @@ namespace WeaponEnchantments.Effects {
         }
 
         public override EnchantmentStat statName => EnchantmentStat.MiningSpeed;
-        public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName}";
-    }
+		public override string TooltipValue => EStatModifier.SmartTooltip;
+	}
 }

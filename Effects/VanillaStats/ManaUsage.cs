@@ -22,21 +22,9 @@ namespace WeaponEnchantments.Effects
 			return new ManaUsage(EStatModifier.Clone());
 		}
 
-		//public override string DisplayName => EffectStrength - 1f <= 0f ? "Reduced Mana Usage" : "Increased Mana Usage";
         public override EnchantmentStat statName => EnchantmentStat.ManaUsage;
 		public override int DisplayNameNum => EffectStrength - 1f <= 0f ? 1 : 2;//1 is Reduced Mana Usage.  2 is Increased Mana Usage
-		public override string Tooltip => $"{(strength < 0f ? strength * -1 : strength).PercentString()} {DisplayName}";
+		public override string TooltipValue => (strength < 0f ? strength * -1 : strength).PercentString();
 		private float strength => EffectStrength - 1f < 0f ? EffectStrength - 1f : EffectStrength;
-		/*
-		public override string Tooltip => ModifierToString();
-		
-		private string ModifierToString() {
-			float strength = EffectStrength -1f < 0f ? EffectStrength - 1f : EffectStrength;
-			if (strength < 0f)
-				strength *= -1f;
-			
-			return $"{strength.Percent()}% {DisplayName}";
-		}
-		*/
 	}
 }

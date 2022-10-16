@@ -15,6 +15,6 @@ namespace WeaponEnchantments.Effects {
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.DamageReduction;
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
+		public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
 	}
 }

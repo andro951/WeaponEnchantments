@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public ItemInfo(Item item) {
             Item = item;
         }
-        private int ShopPrice;
+        public int ShopPrice;
         public void AddStatistics(WebPage webpage, bool name = true, bool image = true, bool artists = true, bool types = true, bool tooltip = true, bool rarity = true, bool buy = true, bool sell = true, bool research = true) {
             List<List<string>> info = new();
             List<string> labels = new();
@@ -75,7 +75,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (research)
                 info.Add(new() { "https://terraria.fandom.com/wiki/Journey_Mode".ToExternalLink("Research"), Research });
 
-            webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
+            webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: FloatID.right, collapsible: true);
         }
         public string Name => WEModItem.Name.AddSpaces();
 	public string Image => $"{Item.ToItemPNG(displayName: false)}";
@@ -196,7 +196,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             }
 
             foreach ((string, List<List<string>>) dropTable in dropTables) {
-                webpage.AddTable(dropTable.Item2, firstRowHeaders: true, collapsible: true, maxWidth: 400, alignID: AlignID.right, label: dropTable.Item1);
+                webpage.AddTable(dropTable.Item2, firstRowHeaders: true, collapsible: true, maxWidth: 400, alignID: FloatID.right, label: dropTable.Item1);
             } 
         }
         public static void AddAllDrops(WebPage webpage, Type type = null) {
@@ -263,7 +263,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             }
         }
         public void AddInfo(WebPage webpage) {
-            webpage.AddParagraph($"Tooltip:<br/>{GetTooltip()}");
+            //webpage.AddParagraph($"Tooltip:<br/>{Tooltip}");
             if (TryGetShopPrice() && WEModItem is ISoldByWitch soldByWitch) {
                 webpage.NewLine();
                 string sellPriceString = ShopPrice.GetCoinsPNG();
@@ -271,7 +271,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 webpage.AddParagraph(sellText);
             }
         }
-        private bool TryGetShopPrice() {
+        public bool TryGetShopPrice() {
             if (ShopPrice != 0)
                 return true;
 
@@ -295,10 +295,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public IEnumerable<IEnumerable<string>> RecipesUsedIn => GetRecipes(usedIn: true);
         public IEnumerable<IEnumerable<string>> RecipesReverseRecipes => GetRecipes(createItem: true, usedIn: true, reverseRecipes: true);
         public void AddRecipes(WebPage webpage) {
-            webpage.AddTable(RecipesCreateItem, label: "Recipes", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
-            webpage.AddTable(RecipesUsedIn, label: "Used in", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
-            webpage.AddTable(RecipesReverseRecipes, label: "Used in (Reverse Crafting Recipes)", firstRowHeaders: true, rowspanColumns: true, automaticCollapse: true);
+            webpage.AddTable(RecipesCreateItemTable);
+            webpage.AddTable(RecipesUsedInTable);
+            webpage.AddTable(RecipesReverseRecipesTable);
         }
+        public Table<string> RecipesCreateItemTable => new Table<string>(RecipesCreateItem, label: "Recipes", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
+        public Table<string> RecipesUsedInTable => new Table<string>(RecipesUsedIn, label: "Used in", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
+        public Table<string> RecipesReverseRecipesTable => new Table<string>(RecipesReverseRecipes, label: "Used in (Reverse Crafting Recipes)", firstRowHeaders: true, rowspanColumns: true, collapsible: true);
         private IEnumerable<IEnumerable<string>> GetRecipes(bool createItem = false, bool usedIn = false, bool reverseRecipes = false) {
             bool recipesAdded = false;
 

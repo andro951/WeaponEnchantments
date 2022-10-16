@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Effects
 
 
 		public override EnchantmentStat statName => EnchantmentStat.ArmorPenetration;
-		public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
+		public override string TooltipValue => EStatModifier.SignTooltip;
 
 
 		public void Update(ref Item item, bool reset = false) {

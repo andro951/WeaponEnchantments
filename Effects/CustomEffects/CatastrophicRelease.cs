@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects
 			return new CatastrophicRelease(EStatModifier.Clone());
 		}
 
-		public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName}";
+		public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
 		public override EnchantmentStat statName => EnchantmentStat.CatastrophicRelease;
 
 		public Time TimerDuration { get; } = new Time(300);

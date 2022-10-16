@@ -21,9 +21,9 @@ namespace WeaponEnchantments.Effects
 		public override EnchantmentEffect Clone() {
 			return new DamageClassSwap(NewDamageClass, BaseDamageClass);
 		}
-		//public override string DisplayName => $"Convert damage type to {NewDamageClass.DisplayName}";
-		//public override string Tooltip => DisplayName;
-		public override IEnumerable<object> DisplayNameArgs => new string[] { NewDamageClass.DisplayName };
+
+		public override IEnumerable<object> DisplayNameArgs => new string[] { TooltipValue };
+		public override string TooltipValue => NewDamageClass.DisplayName;
 		public override IEnumerable<object> TooltipArgs => null;
 
 		public virtual DamageClass NewDamageClass { get; }

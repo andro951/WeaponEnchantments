@@ -1,4 +1,4 @@
-﻿#Contributed by @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)
+#Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: Chasseur
 				Ichor: Ichor
 				InfinitePenetration: Pénétration infinie
+				ItemCooldown: Temps de recharge de l'objet
 				Juiced: Jus
 				JumpSpeed: Vitesse de saut
 				JunglesFury: Fureur de la jungle
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "(CD de l'objet égal à {0}x vitesse d'utilisation)"
 				AmmoCost: "{0} (enregistre également l'appât lors de la pêche)"
 				AttackSpeed: "{0} (Affecte la cadence de tir des sbires s'ils tirent des projectiles. Affecte la vitesse à laquelle les poissons mordront la ligne de pêche.)"
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					(Bonus de dégâts réels basés sur les HP max de l'ennemi)
 					(Dégâts bonus non affectés par LifeSteal)
 					'''
+				ItemCooldown: "(CD de l'objet égal à {0} vitesse d'utilisation)"
 				LavaFishing: "{0} (Permet de pêcher dans la lave et a une chance d'améliorer les taux de capture dans la lave. Se cumule avec d'autres sources.)"
 				LifeSteal: "{0} (le reste est enregistré pour éviter de toujours arrondir à 0 pour les armes à faibles dégâts)"
 				MinionAttackTarget: Les ennemis touchés deviennent la cible de l'attaque des sbires. Même effet que les fouets.
@@ -662,7 +663,7 @@ Mods: {
 				LikeBiome: Cet endroit est plein de bestioles et de boue, il est temps de faire de l'argent rapidement !
 				LikeNPC: "Bien que {NPCName} ne s'aventure pas en dehors de ce qui a fait ses preuves, ses connaissances obscures le classent parmi celles d'un gourou !"
 				LoveBiome: Cet endroit me rappelle mon ancien repaire. Très sombre, très magique, quel flair !
-				LoveNPC: « Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur ! »
+				LoveNPC: "Un autre utilisateur de chaudron ! {NPCName} a tellement de trucs étranges, un vrai séducteur !"
 				LoveSpace: Maintenant que tout le monde est parti, mes expériences peuvent enfin continuer !
 				NoHome: Je ne peux pas tenir toutes mes marchandises, celles-ci sont instables s'il vous plaît méfiez-vous !
 			}

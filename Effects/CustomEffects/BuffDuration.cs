@@ -34,11 +34,9 @@ namespace WeaponEnchantments.Effects
 				}
 			}
 		}
-        /*
-		public override string Tooltip => $"Extends the duration of buffs by {_additiveBonus.Value.PercentString()}.\n" +
-			$"(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)";
-        */
-		public override IEnumerable<object> DisplayNameArgs => new object[] { _additiveBonus.Value.PercentString() };
+
+		public override IEnumerable<object> DisplayNameArgs => new object[] { TooltipValue };
+		public override string TooltipValue => _additiveBonus.Value.PercentString();
 		public override string Tooltip => StandardTooltip;
 	}
 }

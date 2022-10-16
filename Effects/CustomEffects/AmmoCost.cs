@@ -21,32 +21,11 @@ namespace WeaponEnchantments.Effects
 		public override EnchantmentEffect Clone() {
 			return new AmmoCost(EStatModifier.Clone());
 		}
-		/*
-		public override string DisplayName { 
-			get {
-				if (EffectStrength >= 0f) {
-					return "Chance To Not Consume Ammo";//1
-				}
-				else {
-					return "Increased Ammo Cost";//2
-				}
-			} 
-		}
-		*/
+
 		public override int DisplayNameNum => EffectStrength >= 0f ? 1 : 2;//1 is Chance not to consume.  2 is Increased Ammo cost
 		public override EnchantmentStat statName => EnchantmentStat.AmmoCost;
-		public override IEnumerable<object> TooltipArgs => new object[] { $"{(EffectStrength < 0f ? EffectStrength * -1 : EffectStrength).PercentString()} {DisplayName}" };
+		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
 		public override string Tooltip => StandardTooltip;
-		/*
-		public override string Tooltip => ModifierToString();
-	
-		private string ModifierToString() {
-			float strength = EffectStrength;
-			if (strength < 0f)
-				strength *= -1f;
-			
-			return $"{strength.Percent() + "%" + DisplayName} (Also Saves Bait When Fishing)";
-		}
-		*/
+		public override string TooltipValue => (EffectStrength < 0f ? EffectStrength * -1 : EffectStrength).PercentString();
 	}
 }

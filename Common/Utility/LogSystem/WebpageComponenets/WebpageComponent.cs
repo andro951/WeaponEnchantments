@@ -8,6 +8,6 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {
 	public abstract class WebpageComponent
 	{
-		public virtual AlignID AlignID { protected set; get; } = AlignID.none;
+		public virtual FloatID AlignID { protected set; get; } = FloatID.none;
 	}
 }

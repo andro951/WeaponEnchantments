@@ -18,7 +18,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
         private bool _automaticCollapse;
         private List<List<T>> _elements;
         private int _maxWidth;
-        public Table(IEnumerable<IEnumerable<T>> elements, IEnumerable<string> headers = null, string label = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false, int maxWidth = 0, AlignID alignID = AlignID.none) {
+        public int Count => _elements.Count;
+        public Table(IEnumerable<IEnumerable<T>> elements, IEnumerable<string> headers = null, string label = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false, int maxWidth = 0, FloatID alignID = FloatID.none) {
             _elements = elements.Select(e => e.ToList()).ToList();
             _headers = headers;
             _label = label;
@@ -39,7 +40,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
             }
 
             string text = $"{"{"}| class=\"{(_sortable ? "sortable " : "")}{(_collapsible ? "mw-collapsible " : "")}{(_collapsed ? "mw-collapsed " : "")}wikitable\"{(_maxWidth != 0 ? $" style=\"max-width:{_maxWidth}px;\"" : "")}\n";
-            List<int> rowspan = Enumerable.Repeat(0, _elements[0].Count).ToList();
+
+            List<int> rowspan = new();
+            if (_rowspanColumns)
+                rowspan = Enumerable.Repeat(0, _elements[0].Count).ToList();
 
             if (_label != null)
                 text += $"|+{_label}\n";

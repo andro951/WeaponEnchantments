@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Effects
 			return new CrateChance(EStatModifier.Clone());
 		}
 
-		public override string Tooltip => $"{EStatModifier.SignPercentMult100Tooltip} {DisplayName}";
+		public override string TooltipValue => EStatModifier.SignPercentMult100Tooltip;
 		public override EnchantmentStat statName => EnchantmentStat.CrateChance;
 	}
 }

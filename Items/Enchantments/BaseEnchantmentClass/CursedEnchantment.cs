@@ -20,7 +20,7 @@ using Terraria.ModLoader.IO;
 using System.IO;
 
 namespace WeaponEnchantments.Items {
-	public class CursedEnchantment : Enchantment {
+	public abstract class CursedEnchantment : Enchantment {
 		public override void LoadData(TagCompound tag) {
 			
 		}

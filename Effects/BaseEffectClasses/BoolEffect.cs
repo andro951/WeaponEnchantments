@@ -19,7 +19,8 @@ namespace WeaponEnchantments.Effects {
         public abstract EnchantmentStat statName { get; }
         public override IEnumerable<object> TooltipArgs => new string[] { DisplayName };
         public override string TooltipKey => EnableStat ? "Enabled" : "Prevented";
-        public override string TooltipName {
+		public override string TooltipValue => TooltipKey;
+		public override string TooltipName {
             get {
                 if (tooltipName == null)
                     tooltipName = typeof(BoolEffect).Name;

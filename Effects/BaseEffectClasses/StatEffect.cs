@@ -27,6 +27,7 @@ namespace WeaponEnchantments.Effects {
         }
 
         public abstract EnchantmentStat statName { get; }
-        public override string Tooltip => $"{EStatModifier.SmartTooltip} {DisplayName}";
+        public override string Tooltip => $"{TooltipValue} {DisplayName}";
+        public override string TooltipValue => EStatModifier.SmartTooltip;
     }
 }

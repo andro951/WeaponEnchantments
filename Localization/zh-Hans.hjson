@@ -1,4 +1,4 @@
-﻿#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
+#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: 猎人
 				Ichor: 脓液
 				InfinitePenetration: 无限穿透
+				ItemCooldown: 物品冷却时间
 				Juiced: 榨汁
 				JumpSpeed: 跳跃速度
 				JunglesFury: 丛林之怒
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: “（物品 CD 等于 {0}x 使用速度）”
 				AmmoCost: “{0}（钓鱼时也可以节省诱饵）”
 				AttackSpeed: “{0}（如果小兵发射射弹，则会影响他们的射速。影响鱼咬钓鱼线的速度。）”
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					（基于敌人最大生命值的额外真实伤害）
 					（额外伤害不受生命窃取影响）
 					'''
+				ItemCooldown: "“（物品 CD 等于 {0} 使用速度）”"
 				LavaFishing: “{0}（允许在熔岩中钓鱼并有机会提高在熔岩中的捕获率。与其他来源叠加。）”
 				LifeSteal: “{0}（保留余数以防止对于低伤害武器总是四舍五入为 0）”
 				MinionAttackTarget: 被击中的敌人成为仆从的攻击目标。效果和鞭子一样。

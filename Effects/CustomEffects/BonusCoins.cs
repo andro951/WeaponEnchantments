@@ -68,9 +68,9 @@ namespace WeaponEnchantments.Effects
 			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(thisNPC, coins);
 		}
 
-		//public override string Tooltip => $"{EStatModifier.PercentMult100Tooltip} {DisplayName} (Hitting an enemy will increase the number of coins it will drop on death based on damage dealt, enemy max health, enemy base value, and luck.)";
-		public override IEnumerable<object> TooltipArgs => new object[] { $"{EStatModifier.PercentMult100Tooltip} {DisplayName}" };
+		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
 		public override string Tooltip => StandardTooltip;
+		public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
 		public override EnchantmentStat statName => EnchantmentStat.None;
 	}
 }

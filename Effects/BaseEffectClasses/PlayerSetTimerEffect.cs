@@ -26,8 +26,11 @@ namespace WeaponEnchantments.Effects {
                 if (StrengthData != null && MinimumStrength > StrengthData.Value)
                     return "";
 
-                return $"{(EnableStat ? "Grants" : "Prevents")} {DisplayName} ({TimerDuration} cooldown)";
+                return $"{(EnableStat ? "Grants" : "Prevents")} {DisplayName} ({TimerDuration} cooldown)";//Not set up for Localization yet
             }
 	    }
+
+		public override string TooltipKey => EnableStat ? "Grants" : "Prevents";
+		public override string TooltipValue => TooltipKey;
 	}
 }

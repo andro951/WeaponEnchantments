@@ -20,6 +20,6 @@ namespace WeaponEnchantments.Effects {
 		}
 
 		public override EnchantmentStat statName => EnchantmentStat.CriticalStrikeChance;
-        public override string Tooltip => $"{EStatModifier.SignPercentTooltip} {DisplayName}";
-    }
+		public override string TooltipValue => EStatModifier.SignPercentTooltip;
+	}
 }

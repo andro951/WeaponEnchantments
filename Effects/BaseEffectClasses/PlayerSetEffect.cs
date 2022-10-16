@@ -22,19 +22,9 @@ namespace WeaponEnchantments.Effects {
         public DifficultyStrength StrengthData;
         public float MinimumStrength;
 		public virtual EnchantmentStat statName { get; }
-
-		/*
-        public override string Tooltip {
-            get {
-                if (StrengthData != null && MinimumStrength > StrengthData.Value)
-                    return "";
-
-                return $"{DisplayName}{": " + (EnableStat ? "Enabled" : "Prevented")}";
-            }
-	    }
-        */
 		public override string TooltipName => typeof(PlayerSetEffect).Name;
 		public override string TooltipKey => EnableStat ? "Enabled" : "Prevented";
+		public override string TooltipValue => TooltipKey;
 		public override IEnumerable<object> TooltipArgs => new object[] { DisplayName };
 
 		public abstract void SetEffect(Player player);

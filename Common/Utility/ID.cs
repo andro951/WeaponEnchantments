@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
+using static Terraria.Localization.GameCulture;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -550,7 +551,7 @@ namespace WeaponEnchantments.Common.Utility
 		NPC
 	}
 
-	public static class WikiItemTypeMethods
+	public static class WikiExtensionMethods
 	{
         public static string GetLinkText(this WikiTypeID id, out bool external) {
             external = true;
@@ -617,8 +618,32 @@ namespace WeaponEnchantments.Common.Utility
 		public static string GetLinkText(this IShoppingBiome shoppingBiome) {
 			return $"https://terraria.fandom.com/wiki/{shoppingBiome.NameKey}";
 		}
+		public static string ToLanguageName(this CultureName id) {
+			switch (id) {
+				case CultureName.English:
+					return "en-US";
+				case CultureName.French:
+					return "fr-FR";
+				case CultureName.German:
+					return "de-DE";
+				case CultureName.Italian:
+					return "it-IT";
+				case CultureName.Spanish:
+					return "es-ES";
+				case CultureName.Russian:
+					return "ru-RU";
+				case CultureName.Chinese:
+					return "zh-Hans";
+				case CultureName.Portuguese:
+					return "pt-BR";
+				case CultureName.Polish:
+					return "pl-PL";
+				default:
+					return "CultureNameNotFound";
+			}
+		}
 	}
-    public enum AlignID
+    public enum FloatID
 	{
         none,
         left,

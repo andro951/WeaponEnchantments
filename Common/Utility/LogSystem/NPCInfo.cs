@@ -68,7 +68,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				info.Add(new() { $"{"https://terraria.fandom.com/wiki/Knockback".ToExternalLink("KB")} Resist", $"{NPC.knockBackResist.PercentString()}" });
 			}
 
-			webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: AlignID.right, collapsible: true);
+			webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: FloatID.right, collapsible: true);
 		}
 		public string GetName() => NPC.netID < 0 ? NPCID.Search.GetName(NPC.netID).AddSpaces(true) : NPC.FullName;
 		public void GetArtists(out string artistString, out string artModifiedBy) {

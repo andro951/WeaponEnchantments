@@ -14,7 +14,8 @@ namespace WeaponEnchantments.Effects {
             return new FishingPower(EStatModifier.Clone());
         }
 
-        public override string Tooltip => $"{EStatModifier.SignTooltip} {DisplayName}";
+
+        public override string TooltipValue => EStatModifier.SignTooltip;
         public override EnchantmentStat statName => EnchantmentStat.FishingPower;
     }
 }

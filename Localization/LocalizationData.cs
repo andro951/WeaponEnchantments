@@ -45,6 +45,18 @@ namespace WeaponEnchantments.Localization
 			"EnchantmentEffects"
 		};
 
+		public static Dictionary<CultureName, string> LocalizationComments = new() {
+			{ CultureName.German, "Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)" },
+			{ CultureName.English, "" },
+			{ CultureName.Spanish , "Contributors: @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)" },
+			{ CultureName.French , "Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)" },
+			{ CultureName.Italian , "Contributors: @Tefra_K" },
+			{ CultureName.Polish , "(Google Translated.  No contribuions yet)" },
+			{ CultureName.Portuguese , "Contributors: @Ninguém#8017, @pedro_123444#8294" },
+			{ CultureName.Russian , "Contributed by @4sent4" },
+			{ CultureName.Chinese , "Contributed by @An unilolusiality  (All others Google Translated.  Needs review)" }
+		};
+
 		private static SortedDictionary<string, SData> allData;
 		public static SortedDictionary<string, SData> AllData { 
 			get {
@@ -99,7 +111,7 @@ namespace WeaponEnchantments.Localization
 									})}
 								},
 								dict: new() {
-									{ typeof(AllForOne).Name, "(Item CD equal to {0}x use speed)" },
+									{ typeof(ItemCooldown).Name, "(Item CD equal to {0} use speed)" },
 									{ typeof(AmmoCost).Name, "{0} (Also Saves Bait When Fishing)" },
 									{ typeof(AttackSpeed).Name, "{0} (Affects minion fire rate if they shoot projectiles.  Affects how fast fish will bite the fishing line.)" },
 									{ typeof(BonusCoins).Name, "{0} (Hitting an enemy will increase the number of coins it will drop on death\nbased on damage dealt, enemy max health, enemy base value, and luck.)" },
@@ -286,8 +298,9 @@ namespace WeaponEnchantments.Localization
 					string displayNameKey = L_ID2.EffectDisplayName.ToString();
 					SortedDictionary<string, string> dict = allData[tooltipKey].Children[displayNameKey].Dict;
 					foreach (Type effectType in effectTypes) {
-						if (!dict.ContainsKey(effectType.Name) && !dict.ContainsKey(effectType.Name + "1"))
-							dict.Add(effectType.Name, effectType.Name.AddSpaces());
+						string name = effectType.Name;
+						if (!dict.ContainsKey(name) && !dict.ContainsKey(name + "1"))
+							dict.Add(name, name.AddSpaces());
 					}
 
 					foreach (string enchantmentTypeName in ModContent.GetContent<Enchantment>().Where(e => e.EnchantmentTier == 0).Select(e => e.EnchantmentTypeName)) {
@@ -362,7 +375,7 @@ namespace WeaponEnchantments.Localization
 			} 
 		}
 
-		public static List<string> changedData;
+		private static List<string> changedData;
 		public static List<string> ChangedData {
 			get {
 				if (changedData == null)
@@ -370,7 +383,99 @@ namespace WeaponEnchantments.Localization
 
 				return changedData;
 			}
+
+			set => changedData = value;
 		}
+
+		private static Dictionary<string, string> renamedFullKeys;
+		public static Dictionary<string, string> RenamedFullKeys {
+			get {
+				if (renamedFullKeys == null)
+					renamedFullKeys = new();
+
+				return renamedFullKeys;
+			}
+
+			set => renamedFullKeys = value;
+		}
+
+		public static Dictionary<string, string> RenamedKeys = new() {
+			{ typeof(ItemCooldown).Name, "AllForOne" }
+		};
+
+		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {
+			{ CultureName.German, new() {
+					
+				}
+			},
+			{
+				CultureName.Spanish,
+				new() {
+					"Amaterasu",
+					"Akko",
+					"Blobbelda",
+					"Brentilda",
+					"Gruntilda",
+					"Kyubey",
+					"Medusa",
+					"Sabrina",
+					"Salem",
+					"Winifred",
+					"Sonar"
+				}
+			},
+			{
+				CultureName.French,
+				new() {
+
+				}
+			},
+			{
+				CultureName.Italian,
+				new() {
+					"Amaterasu",
+					"Akko",
+					"Binx",
+					"Blobbelda",
+					"Gruntilda",
+					"Jasminka",
+					"Kyubey",
+					"Medusa",
+					"Mingella",
+					"Morgana",
+					"Sabrina",
+					"Salem",
+					"Winifred",
+					"No",
+					"xp",
+					"Sonar"
+				}
+			},
+			{
+				CultureName.Polish,
+				new() {
+
+				}
+			},
+			{
+				CultureName.Portuguese,
+				new() {
+
+				}
+			},
+			{
+				CultureName.Russian,
+				new() {
+
+				}
+			},
+			{
+				CultureName.Chinese,
+				new() {
+
+				}
+			},
+		};
 	}
 	public class SData {
 		public List<string> Values;

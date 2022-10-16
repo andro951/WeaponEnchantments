@@ -13,14 +13,16 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects
 {
-	public class AllForOne : EnchantmentEffect, IUseTimer, ICanUseItem, IUseItem {
-		public AllForOne(DifficultyStrength timerStrength) {
+	public class ItemCooldown : EnchantmentEffect, IUseTimer, ICanUseItem, IUseItem {
+		public ItemCooldown(DifficultyStrength timerStrength) {
 			_timerStrength = timerStrength;
 		}
 
 		//public override string Tooltip => $"(Item CD equal to {EffectStrength * 0.8f}x use speed)";
 		public override string Tooltip => StandardTooltip;
-		public override IEnumerable<object> TooltipArgs => new object[] { EffectStrength * 0.8f };
+		public override IEnumerable<object> TooltipArgs => new object[] { TooltipValue };
+		public override string TooltipValue => $"{EffectStrength}x";
+		public override float EffectStrength => _timerStrength.Value * 0.8f;
 
 		private DifficultyStrength _timerStrength;
 		public Time TimerDuration => null;
@@ -34,13 +36,13 @@ namespace WeaponEnchantments.Effects
 			SoundEngine.PlaySound(SoundID.Unlock);
 		}
 		public bool? UseItem(Item item, Player player) {
-			int duration = (int)((float)item.useTime * _timerStrength.Value);
+			int duration = (int)((float)item.useTime * EffectStrength);
 			player.GetWEPlayer().SetEffectTimer(this, duration);
 
 			return null;
 		}
 		public override EnchantmentEffect Clone() {
-			return new AllForOne(_timerStrength.Clone());
+			return new ItemCooldown(_timerStrength.Clone());
 		}
 	}
 }

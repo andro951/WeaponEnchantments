@@ -20,6 +20,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using WeaponEnchantments.Common.Utility.LogSystem;
+using System.Diagnostics;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -30,7 +31,7 @@ namespace WeaponEnchantments.Common.Utility
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
         //public static bool printLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
-        public static readonly bool printLocalizationKeysAndValues = false;
+        public static readonly bool printLocalizationKeysAndValues = true && Debugger.IsAttached;
         private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;
@@ -113,7 +114,8 @@ namespace WeaponEnchantments.Common.Utility
             if (!printLocalization && !printLocalizationKeysAndValues)
                 return;
 
-            LocalizationData.changedData = new();
+            LocalizationData.ChangedData = new();
+            LocalizationData.RenamedFullKeys = new();
             Mod mod = ModContent.GetInstance<WEMod>();
             TmodFile file = (TmodFile)typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mod);
             translations = new();
@@ -251,7 +253,7 @@ namespace WeaponEnchantments.Common.Utility
 		    }
 	    }
 	    private static void AddLabel(string label) {
-            string tabsString = Tabs(tabs) + label + ": {\n";
+            string tabsString = $"{Tabs(tabs)}{label}: {"{"}\n";
             if (printLocalization)
                 localization += tabsString;
 
@@ -264,16 +266,16 @@ namespace WeaponEnchantments.Common.Utility
 	    private static void Start(CultureName cultureName) {
             culture = (int)cultureName;
             if (printLocalization) {
-                string label = $"\n\n{cultureName}\n";
+                string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}\n";
                 localization += label;
             }
             
             if (printLocalizationKeysAndValues) {
                 localizationValuesCharacterCount = 0;
-                string keyLabel = $"\n\n{cultureName} Keys\n";
+                string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}\n";
                 localizationKeys += keyLabel;
 
-                string valueLabel = $"\n\n{cultureName} Values\n";
+                string valueLabel = "";
                 localizationValues += valueLabel;
             }
             
@@ -307,10 +309,15 @@ namespace WeaponEnchantments.Common.Utility
             }
 		    
             if (printLocalizationKeysAndValues) {
-                localizationKeys.LogSimple();
+                string cultureName = ((CultureName)culture).ToLanguageName();
+                localizationKeys = localizationKeys.ReplaceLineEndings();
+                string keyFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\Keys\{cultureName}.txt";
+                File.WriteAllText(keyFilePath, localizationKeys);
                 localizationKeys = "";
 
-                localizationValues.LogSimple();
+                localizationValues = localizationValues.ReplaceLineEndings();
+                string valueFilePath = @$"C:\Users\Isaac\Desktop\TerrariaDev\Localization Merger\In\{cultureName}.txt";
+                File.WriteAllText(valueFilePath, localizationValues.Replace("\t", ""));
                 localizationValues = "";
             }
 	    }
@@ -335,11 +342,11 @@ namespace WeaponEnchantments.Common.Utility
             string tabString = Tabs(tabs);
 		    string allLabels = string.Join(".", labels.ToArray());
             foreach (KeyValuePair<string, string> p in dict) {
-                string key = allLabels + "." + p.Key;
-                //string s = translations.ContainsKey(key) ? translations[key].GetTranslation(culture) : key;
-                string s;
+                string key = $"{allLabels}.{p.Key}";
+                string s = null;
                 if (translations.ContainsKey(key)) {
                     s = translations[key].GetTranslation(culture);
+
                     if (culture == (int)CultureName.English) {
                         if (s != p.Value)
                             LocalizationData.ChangedData.Add(key);
@@ -348,9 +355,28 @@ namespace WeaponEnchantments.Common.Utility
                     if (LocalizationData.ChangedData.Contains(key))
                         s = p.Value;
                 }
-				else {
-                    s = key;
-				}
+                else {
+                    if (culture == (int)CultureName.English) {
+                        if (LocalizationData.RenamedKeys.ContainsKey(p.Key)) {
+                            string renamedKey = LocalizationData.RenamedKeys[p.Key];
+                            string newKey = $"{allLabels}.{renamedKey}";
+                            string newS = translations[newKey].GetTranslation(culture);
+                            if (newS != renamedKey.AddSpaces())
+                                LocalizationData.RenamedFullKeys.Add(key, newKey);
+                        }
+                    }
+
+                    if (LocalizationData.RenamedFullKeys.ContainsKey(key)) {
+                        string newKey = LocalizationData.RenamedFullKeys[key];
+                        string newS = translations[newKey].GetTranslation(culture);
+                        if (newS != newKey) {
+                            key = newKey;
+                            s = translations[key].GetTranslation(culture);
+                        }
+                    }
+                }
+
+                s ??= key;
 
                 //$"{key}: {s}".Log();
 
@@ -358,9 +384,9 @@ namespace WeaponEnchantments.Common.Utility
                     s = p.Value;
                 }
 
-                bool noLocalizationFound = s == p.Value;
+                bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
 				
-                if (s.Contains("{") && s[0] != '"' && !s.Contains('\n')) {
+                if (s.Contains("{") && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n')) {
                     s = $"\"{s}\"";
                 }
 
@@ -385,7 +411,9 @@ namespace WeaponEnchantments.Common.Utility
                         if (localizationValuesCharacterCount + length > 5000) {
                             localizationValues += $"{'_'.FillString(4999 - localizationValuesCharacterCount)}\n";
                             localizationValuesCharacterCount = 0;
-                            if (s.Contains("'''"))
+                            int newLineIndex = s.IndexOf("\n");
+                            string checkString = newLineIndex > -1 ? s.Substring(0, newLineIndex) : s;
+                            if (checkString.Contains("'''"))
                                 localizationValues += "\n";
 						}
 

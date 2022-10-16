@@ -1,4 +1,4 @@
-#Google Translate @Tefra_K
+#Contributors: @Tefra_K
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -386,7 +386,7 @@ Mods: {
 			}
 		}
 		Ores: {
-			adamantite: adamantite
+			adamantite: Adamantio
 			chlorophyte: clorofita
 			cobalt: cobalto
 			copper: rame
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: Cacciatore
 				Ichor: Icore
 				InfinitePenetration: Penetrazione infinita
+				ItemCooldown: Tempo di recupero dell'oggetto
 				Juiced: Succo
 				JumpSpeed: Velocità di salto
 				JunglesFury: Furia della giungla
@@ -539,7 +540,7 @@ Mods: {
 				Peace: Pace
 				PennyPinching: Penny che pizzica
 				ProjectileVelocity: Velocità del proiettile
-				QuestFishChance: Quest Fish Chance
+				QuestFishChance: Probabilità Pesce Missione
 				RangedClassSwap: Scambio di classe a distanza
 				ReducedManaUsage: Consumo di mana ridotto
 				RogueClassSwap: Scambio di classe canaglia
@@ -547,7 +548,7 @@ Mods: {
 				SolarDash: Scatto solare
 				Sonar: Sonar
 				Spelunker: Speleologo
-				VanillaDash1: Ninja Tabi Dash
+				VanillaDash1: Scatto Tabi Ninja
 				VanillaDash2: Occhio di Cthulhu Shield Dash
 				VanillaDash3: Scatto solare
 				VanillaDash5: Corsa Ninja di cristallo
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "(CD oggetto uguale a {0}x velocità di utilizzo)"
 				AmmoCost: "{0} (risparmia anche l'esca durante la pesca)"
 				AttackSpeed: "{0} (Influisce sulla velocità di fuoco dei minion se sparano proiettili. Influisce sulla velocità con cui i pesci morderanno la lenza.)"
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					(Bonus al danno reale basato sui PS massimi del nemico)
 					(Danno bonus non influenzato da LifeSteal)
 					'''
+				ItemCooldown: "(CD oggetto uguale a {0} velocità di utilizzo)"
 				LavaFishing: "{0} (Consente di pescare nella lava e ha la possibilità di migliorare i tassi di cattura nella lava. Si accumula con altre fonti.)"
 				LifeSteal: "{0} (il resto viene salvato per evitare di arrotondare sempre a 0 per armi a basso danno)"
 				MinionAttackTarget: I nemici colpiti diventano il bersaglio dell'attacco dei minion. Stesso effetto delle fruste.

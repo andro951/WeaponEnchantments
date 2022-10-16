@@ -1,4 +1,4 @@
-﻿#Contributed by @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)
+#Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -314,7 +314,7 @@ Mods: {
 				StandardDialogue2: Ich bin immer noch hier, ich sehe dir beim Spielen zu, aber mir fällt nicht viel ein, was ich sagen könnte!
 				Storm: Ha! Donner ist das Beste, wenn es darum geht, neuen magischen Unsinn zu erschaffen! Lasst die große Geisterstunde beginnen!
 				WitchDoctor: "Ein anderer Kesselbenutzer! {0} hat so viele seltsame Gimmicks, ein wahrer Verführer!"
-				Wizard: „Während {0} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“
+				Wizard: "„Während {0} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“"
 				Zoologist: "{0} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 			}
 		}
@@ -462,7 +462,7 @@ Mods: {
 				BuffDuration: "Verlängert die Dauer von Buffs um {0}"
 				BuffEffect0: "Gibt Ihnen passiv {0}"
 				BuffEffect1: "Fügt dir passiv {0} zu"
-				BuffEffect10: „Gewährt Gegnern bei Treffer {0}“
+				BuffEffect10: "„Gewährt Gegnern bei Treffer {0}“"
 				BuffEffect11: "Fügt Gegnern bei Treffer {0} zu"
 				BuffEffect12: "Gewährt bei Treffer {0} an Spieler in der Nähe"
 				BuffEffect13: "Fügt Spielern in der Nähe bei einem Treffer {0} zu"
@@ -470,7 +470,7 @@ Mods: {
 				BuffEffect15: "Fügt Gegnern in der Nähe bei einem Treffer passiv {0} zu"
 				BuffEffect2: "Gibt passiv {0} an Spieler in der Nähe"
 				BuffEffect3: "Fügt Spielern in der Nähe passiv {0} zu"
-				BuffEffect4: „Gewährt dem Feind passiv {0}“
+				BuffEffect4: "„Gewährt dem Feind passiv {0}“"
 				BuffEffect5: "Fügt dem Feind passiv {0} zu"
 				BuffEffect6: "Gewährt passiv {0} an Gegner in der Nähe"
 				BuffEffect7: "Fügt Gegnern in der Nähe passiv {0} zu"
@@ -506,6 +506,7 @@ Mods: {
 				Hunter: Jäger
 				Ichor: Ichor
 				InfinitePenetration: Unendliche Durchdringung
+				ItemCooldown: Abklingzeit des Gegenstands
 				Juiced: Entsaftet
 				JumpSpeed: Sprunggeschwindigkeit
 				JunglesFury: Dschungel-Wut
@@ -519,7 +520,7 @@ Mods: {
 				MaxFallSpeed: Maximale Fallgeschwindigkeit
 				MaxLife: Maximales Leben
 				MaxMinions: Maximale Schergen
-				MaxMP: Max MP
+				MaxMP: Abklingzeit des Gegenstands
 				MeleeClassSwap: Nahkampf-Klassentausch
 				MiningSpeed: Mining-Geschwindigkeit
 				MinionAttackTarget: Vasallen-Angriffsziel
@@ -571,7 +572,6 @@ Mods: {
 					'''
 			}
 			EnchantmentEffects: {
-				AllForOne: "(Artikel-CD gleich {0}x Nutzungsgeschwindigkeit)"
 				AmmoCost: "{0} (speichert auch Köder beim Angeln)"
 				AttackSpeed: "{0} (Beeinflusst die Feuerrate von Vasallen, wenn sie Projektile abfeuern. Beeinflusst, wie schnell Fische die Angelschnur beißen.)"
 				BonusCoins: 
@@ -599,6 +599,7 @@ Mods: {
 					(Zusätzlicher wahrer Schaden basierend auf der max. HP des Gegners)
 					(Bonusschaden nicht von LifeSteal betroffen)
 					'''
+				ItemCooldown: "(Artikel-CD gleich {0} Nutzungsgeschwindigkeit)"
 				LavaFishing: "{0} (Ermöglicht das Fischen in Lava und hat eine Chance, die Fangraten in Lava zu verbessern. Kann mit anderen Quellen gestapelt werden.)"
 				LifeSteal: "{0} (Rest wird gespeichert, um zu verhindern, dass bei Waffen mit geringem Schaden immer auf 0 gerundet wird)"
 				MinionAttackTarget: Getroffene Feinde werden zum Vasallenangriffsziel. Gleiche Wirkung wie Peitschen.
@@ -660,7 +661,7 @@ Mods: {
 				HateCrouded: Ich kann mit diesem Verkehr hier nicht umgehen! Hol mich raus oder wirf sie raus, mach schnell!
 				HateNPC: "{NPCName} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 				LikeBiome: Dieser Ort ist voller Viecher und Dreck, Zeit für schnelles Geld!
-				LikeNPC: „Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“
+				LikeNPC: "„Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“"
 				LoveBiome: Dieser Ort erinnert mich an meine alte Höhle. Sehr grimmig, sehr magisch, was für ein Flair!
 				LoveNPC: "Ein anderer Kesselbenutzer! {NPCName} hat so viele seltsame Gimmicks, ein wahrer Verführer!"
 				LoveSpace: Jetzt wo alle weg sind, können meine Experimente endlich weitergehen!

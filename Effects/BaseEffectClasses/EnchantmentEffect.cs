@@ -69,7 +69,7 @@ namespace WeaponEnchantments.Effects {
         protected float damageClassMultiplier = 1f;
 
 
-        public virtual string DisplayName { 
+        public virtual string DisplayName {
             get {
                 if (displayName == null) {
                     if (DisplayNameArgs == null) {
@@ -94,7 +94,8 @@ namespace WeaponEnchantments.Effects {
         public virtual string TooltipKey => null;
         public virtual Color TooltipColor { get; protected set; } = Color.White;
         public virtual bool showTooltip => true;
-	    
+        public abstract string TooltipValue { get; }
+
         public virtual float SelfStackingPenalty { get; protected set; } = 0f;
 
         public void SetDamageClassMultiplier(DamageClass dc) {

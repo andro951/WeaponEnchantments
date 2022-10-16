@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
 			Effects = new() {
-				new AllForOne(EnchantmentStrengthData * 0.4f + 4f),
+				new ItemCooldown(EnchantmentStrengthData * 0.4f + 4f),
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new NPCHitCooldown(multiplicative: EnchantmentStrengthData * 0.4f + 4f),
 				new AttackSpeed(multiplicative: (EnchantmentStrengthData * 0.1f + 1f).Invert()),
