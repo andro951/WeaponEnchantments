@@ -576,7 +576,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static string ToSectionLink(this string s, string text = null, string page = null) => $"{(page != null ? page : "")}#{s}".ToLink(text);
         public static string EnchantmentTypeShortLink(this string s) => $"{s.AddSpaces()} Enchantment".ToLink(s.AddSpaces());
         public static string EnchantmentTypeShortLink(this EnchantmentStat enchantmentStat) => enchantmentStat.ToString().EnchantmentTypeShortLink();
-        public static string ToExternalLink(this string s, string text = null) => $"[{s} {text}]";
+        public static string ToExternalLink(this string s, string text = null) => $"[{s}{(text != null ? $" {text}" : "")}]";
+        public static string ToVanillaWikiLink(this string s, string text = null) => $"https://terraria.fandom.com/wiki/{s}".ToExternalLink(text != null ? text : s.Replace('_', ' '));
+        public static string ToVanillaWikiLink(this InvasionID id, string text = null) => $"{id}".ToVanillaWikiLink(text);
         public static string ToPNG(this string s) => $"[[File:{s.RemoveSpaces()}.png]]";
         public static string ToPNGLink(this string s) => s.ToPNG() + s.ToLink();
         public static string ToLabledPNG(this string s) => s.ToPNG() + s;
@@ -602,8 +604,14 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     name = linkText ?? modItem.Name.AddSpaces();
                 }
 
-                if (link)
-                    linkString = name.ToLink();
+                if (link) {
+                    if (item.ModItem is Enchantment enchantment) {
+                        linkString = enchantment.TierName.ToSectionLink(name, $"{enchantment.EnchantmentTypeName.AddSpaces()} Enchantment");
+					}
+					else {
+                        linkString = name.ToLink();
+                    }
+                }
             }
 
             int stack = item.stack;
@@ -619,15 +627,17 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         }
         public static string ToItemPNGs(this string recipeGroupKey, bool link = false, bool displayName = true) =>
             RecipeGroup.recipeGroups[RecipeGroup.recipeGroupIDs[recipeGroupKey]].ValidItems.Select(i => i.ToItemPNG(link: link, displayName: displayName)).JoinList(", ");
-        public static string ToNpcPNG(this int npcNetID, bool link = false, bool displayName = true) {
+        public static string ToNpcPNG(this int npcNetID, bool link = false, bool displayName = true, bool displayPNG = true) {
             string name;
-            string file;
+            string file = "";
             string pngLinkString = "";
             NPC npc = ContentSamples.NpcsByNetId[npcNetID];
             if (npcNetID < NPCID.Count) {
-                file = npcNetID.GetNPCPNGLink();
-                if (file == "")
-                    file = $"NPC_{npc.netID}".ToPNG();
+                if (displayPNG) {
+                    file = npcNetID.GetNPCPNGLink();
+                    if (file == "")
+                        file = $"NPC_{npc.netID}".ToPNG();
+                }
 
                 name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces(true) : npc.FullName;
                 if (link)
@@ -642,13 +652,17 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     name = modNPC.Name.AddSpaces();
                 }
 
-                file = name.ToPNG();
+                if (displayPNG)
+                    file = name.ToPNG();
+
                 if (link)
                     pngLinkString = name.ToLink();
             }
 
             return $"{file}{(link ? " " + pngLinkString : displayName ? " " + name : "")}";
         }
+        public static string ToNpcPNG(this short npcNetID, bool link = false, bool displayName = true, bool displayPNG = true) =>
+            ((int)npcNetID).ToNpcPNG(link, displayName, displayPNG);
         public static string GetCoinsPNG(this int sellPrice) {
             int coinType = ItemID.PlatinumCoin;
             int coinValue = 1000000;
@@ -736,8 +750,71 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             return true;
         }
-        //public static bool SameExceptOne(this IEnumerable<Item> list1, IEnumerable<Item> list2) {
-        //    if (Math.Abs(list1.Count() - list2.Count()) > 1)
-        //}
+        public static string ToWitchSellText(this SellCondition condition, string value) {
+            string witch = ModContent.NPCType<Witch>().ToNpcPNG(link: true, displayPNG: false);
+            switch (condition) {
+                case SellCondition.Never:
+                    return $"can never appear in the {witch}'s shop.";
+                case SellCondition.Always:
+                    return $"will always appear in the {witch}'s shop.";
+                case SellCondition.IgnoreCondition:
+                case SellCondition.AnyTime:
+                    return $"can appear in the {witch}'s shop any time for {value}.";
+                case SellCondition.AnyTimeRare:
+                    return $"can appear in the {witch}'s shop any time for {value}, but is rare.";
+                case SellCondition.PostKingSlime:
+                    return $"can appear in the {witch}'s shop after the {NPCID.KingSlime.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostEyeOfCthulhu:
+                    return $"can appear in the {witch}'s shop after the {NPCID.EyeofCthulhu.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostEaterOfWorldsOrBrainOfCthulhu:
+                    return $"can appear in the {witch}'s shop after the {NPCID.EaterofWorldsHead.ToNpcPNG(link: true, displayPNG: false)} or {NPCID.BrainofCthulhu.ToNpcPNG(link: true, displayPNG: false)} have been defeated for {value}.";
+                case SellCondition.PostSkeletron:
+                    return $"can appear in the {witch}'s shop after {NPCID.Skeleton.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostQueenBee:
+                    return $"can appear in the {witch}'s shop after the {NPCID.QueenBee.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostDeerclops:
+                    return $"can appear in the {witch}'s shop after {NPCID.Deerclops.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostGoblinInvasion:
+                    return $"can appear in the {witch}'s shop after the {InvasionID.Goblin_Army.ToVanillaWikiLink()} has been defeated for {value}.";
+                case SellCondition.Luck:
+                    return $"can appear in the {witch}'s shop any time for {value}, but is extremely rare.";
+                case SellCondition.HardMode:
+                    return $"can appear in the {witch}'s shop during hard mode for {value}.";
+                case SellCondition.PostQueenSlime:
+                    return $"can appear in the {witch}'s shop after the {NPCID.QueenSlimeBoss.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostPirateInvasion:
+                    return $"can appear in the {witch}'s shop after a {InvasionID.Pirate_Invasion.ToVanillaWikiLink()} has been defeated for {value}.";
+                case SellCondition.PostTwins:
+                    return $"can appear in the {witch}'s shop after {"The_Twins".ToVanillaWikiLink()} have been defeated for {value}.";
+                case SellCondition.PostDestroyer:
+                    return $"can appear in the {witch}'s shop after {NPCID.TheDestroyer.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostSkeletronPrime:
+                    return $"can appear in the {witch}'s shop after {NPCID.SkeletronPrime.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostPlantera:
+                    return $"can appear in the {witch}'s shop after {NPCID.Plantera.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostGolem:
+                    return $"can appear in the {witch}'s shop after the {NPCID.Golem.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostMartianInvasion:
+                    return $"can appear in the {witch}'s shop after {InvasionID.Martian_Madness} has been defeated for {value}.";
+                case SellCondition.PostDukeFishron:
+                    return $"can appear in the {witch}'s shop after {NPCID.DukeFishron.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostEmpressOfLight:
+                    return $"can appear in the {witch}'s shop after the {NPCID.HallowBoss.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostCultist:
+                    return $"can appear in the {witch}'s shop after the {NPCID.CultistBoss.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostSolarTower:
+                    return $"can appear in the {witch}'s shop after the {NPCID.LunarTowerSolar.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostNebulaTower:
+                    return $"can appear in the {witch}'s shop after the {NPCID.LunarTowerNebula.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostStardustTower:
+                    return $"can appear in the {witch}'s shop after the {NPCID.LunarTowerStardust.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostVortexTower:
+                    return $"can appear in the {witch}'s shop after the {NPCID.LunarTowerVortex.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                case SellCondition.PostMoonLord:
+                    return $"can appear in the {witch}'s shop after the {NPCID.MoonLordHead.ToNpcPNG(link: true, displayPNG: false)} has been defeated for {value}.";
+                default:
+                    return "SellConditionTextNotFound";
+            }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace WeaponEnchantments.ModIntegration
 	{
 		public static DamageClass rogue;
 		public static DamageClass trueMelee;
+		public static DamageClass trueMeleeNoSpeed;
 	}
 }

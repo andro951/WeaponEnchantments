@@ -57,7 +57,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 		public void AddEffects(WebPage webPage) {
 			if (items.Count == 0)
 				return;
-		
+
+			webPage.AddSubHeading("Effects");
 			List<Dictionary<string, EnchantmentEffect>> effects = new();
 			List<string> effectNames = new();
 			for(int i = 0; i < items.Count; i++) {
@@ -96,7 +97,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 		public void AddAllowedList(WebPage webPage) {
 			if (items.Count == 0)
 				return;
-		
+
+			webPage.AddSubHeading("Applicability");
 			List<List<string>> list = new();
 			Enchantment enchantment = enchantments[0];
 			foreach(EItemType itemType in Enum.GetValues(typeof(EItemType)).Cast<EItemType>()) {
@@ -136,11 +138,19 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 			for (int i = 0; i < items.Count; i++) {
 				int num = i + 1;
 				ItemInfo itemInfo = items[i];
-				text += 
-				$"| image{num}   = {itemInfo.Image}\n" + 
-				$"| tooltip{num} = <i>'{itemInfo.Tooltip}'</i>\n" +
-				$"{(i == 0 && itemInfo.TryGetShopPrice() ? $"| buy      = {itemInfo.ShopPrice.GetCoinsPNG()}" : "")}\n" +
-				$"| sell{num}    = {(itemInfo.Item.value / 5).GetCoinsPNG()}\n\n";
+				text += $"| image{num}   = {itemInfo.Image}\n";
+
+				itemInfo.GetArtists(out string artistString, out string artModifiedBy);
+
+				if (artistString != null || artModifiedBy != null)
+					text += $"| artist{num}  = {artistString}{artModifiedBy}\n";
+
+				text +=
+					$"| type{num}    = {itemInfo.GetItemTypes()}\n" +
+					$"| tooltip{num} = <i>'{itemInfo.Tooltip}'</i>\n" +
+					$"| rarity{num}  = {itemInfo.Rarity}\n" +
+					(i == 0 && itemInfo.TryGetShopPrice() ? $"| buy      = {itemInfo.ShopPrice.GetCoinsPNG()}\n" : "") +
+					$"| sell{num}    = {(itemInfo.Item.value / 5).GetCoinsPNG()}\n\n";
 			}
 		
 			text += 

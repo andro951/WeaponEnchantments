@@ -28,6 +28,11 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
+		public override string WikiDescription =>
+			$"The '''Attack Speed Enchantments''' are [[enchantments]] that decrease an item's [https://terraria.wiki.gg/wiki/Use_time use time], " +
+			$"resulting in more uses per second. Additionally, it increases mining speed on tools, the fire rate of minion's that shoot projectiles " +
+			$"and reduces how long it takes a fish to bite when used on fishing poles.  If the enchantment gives 10%(configurable) or more attack speed, " +
+			$"it will also enable [https://terraria.wiki.gg/wiki/Autoswing autoswing].";
 	}
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{

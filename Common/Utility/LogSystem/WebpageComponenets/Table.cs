@@ -46,7 +46,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
                 rowspan = Enumerable.Repeat(0, _elements[0].Count).ToList();
 
             if (_label != null)
-                text += $"|+{_label}\n";
+                text += $"|+ {_label}\n";
 
             int rowCount = _elements[0].Count;
             if (_headers != null) {
@@ -106,10 +106,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
                     }
 
                     if (firstRowHeaders) {
-                        text += "!";
+                        text += "! ";
                     }
                     else {
-                        text += "|";
+                        text += "| ";
                     }
 
                     text += $"{item}\n";

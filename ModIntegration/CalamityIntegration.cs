@@ -30,6 +30,7 @@ namespace WeaponEnchantments.ModIntegration
 			if (Enabled) {
 				calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
 				calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
+				calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
 			}
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {

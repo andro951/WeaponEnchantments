@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Effects {
         public BuffStyle BuffStyle;
 		public override string TooltipKey => BuffStyle == BuffStyle.OnTickPlayerBuff || BuffStyle == BuffStyle.OnTickPlayerDebuff ? $"{BuffStyle.OnTickPlayerBuff}" : $"{BuffStyle.All}";
 		public override IEnumerable<object> TooltipArgs => BuffStyle == BuffStyle.OnTickPlayerBuff || BuffStyle == BuffStyle.OnTickPlayerDebuff ? new object[] { DisplayName, BuffStats.Chance.Percent(), BuffStats.Duration, ConfigValues.BuffDurationTicks } : new object[] { DisplayName, BuffStats.Chance.Percent(), BuffStats.Duration };
-		public override string TooltipValue => $"{BuffStats.Chance.Percent()}, {BuffStats.Duration}";
+		public override string TooltipValue => $"{BuffStats.Chance.PercentString()}, {BuffStats.Duration}";
 		public override int DisplayNameNum => (int)BuffStyle;
 		public override IEnumerable<object> DisplayNameArgs => new object[] { BuffName };
 

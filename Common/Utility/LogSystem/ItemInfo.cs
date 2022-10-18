@@ -18,8 +18,7 @@ using static WeaponEnchantments.Common.Utility.LogModSystem;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
-    public class ItemInfo
-    {
+    public class ItemInfo {
         public WEModItem WEModItem { private set; get; }
         public Item Item { private set; get; }
         public ItemInfo(WEModItem weModItem) {
@@ -51,7 +50,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             //Type
             if (types)
-                info.Add(new() { "Type", GetTypes() });
+                info.Add(new() { "Type", GetItemTypes() });
 
             //Tooltip
             if (tooltip)
@@ -78,7 +77,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webpage.AddTable(info, headers: labels, maxWidth: 400, alignID: FloatID.right, collapsible: true);
         }
         public string Name => WEModItem.Name.AddSpaces();
-	public string Image => $"{Item.ToItemPNG(displayName: false)}";
+        public string Image => $"{Item.ToItemPNG(displayName: false)}";
         public void GetArtists(out string artistString, out string artModifiedBy) {
             artistString = WEModItem.Artist;
             artModifiedBy = WEModItem.ArtModifiedBy;
@@ -89,17 +88,18 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 if (contributorLinks.ContainsKey(artistString))
                     artistString = contributorLinks[artistString].ToExternalLink(artistString);
 
-                artistString = $"  (art by {artistString}{(artModifiedBy == null ? ")" : "")}";
+                //artistString = $"  (art by {artistString}{(artModifiedBy == null ? ")" : "")}";
             }
 
             if (artModifiedBy != null) {
                 if (contributorLinks.ContainsKey(artModifiedBy))
                     artModifiedBy = contributorLinks[artModifiedBy].ToExternalLink(artModifiedBy);
 
-                artModifiedBy = $"{(artistString == null ? "  (" : " ")}modified by {artModifiedBy})";
+                //artModifiedBy = $"{(artistString == null ? "  (" : " ")}modified by {artModifiedBy})";
+                artModifiedBy = $"{(artistString == null ? "" : " ")}modified by {artModifiedBy}";
             }
         }
-        public string GetTypes() {
+        public string GetItemTypes() {
             string typeText = "";
             bool first = true;
             foreach (WikiTypeID id in WEModItem.WikiItemTypes) {
@@ -117,6 +117,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             return typeText;
         }
         public string Tooltip => GetTooltip(WEModItem);
+        public string Rarity {
+            get {
+                string rareString = GetRarity(out Color color);
+                return $"<b><span style=\"color:rgb({color.R}, {color.G}, {color.B});\">{rareString}</span></b>";
+            }
+        }
         public static string GetTooltip(ModItem modItem) {
             Item item = new Item(modItem.Type);
             string tooltip = "";
@@ -267,7 +273,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             if (TryGetShopPrice() && WEModItem is ISoldByWitch soldByWitch) {
                 webpage.NewLine();
                 string sellPriceString = ShopPrice.GetCoinsPNG();
-                string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
+                //string sellText = $"Can appear in the Witch's shop for {sellPriceString}. ({soldByWitch.SellCondition.ToString().AddSpaces()})";
+                string sellText = $"The {Item.Name} {soldByWitch.SellCondition.ToWitchSellText(sellPriceString)}";
                 webpage.AddParagraph(sellText);
             }
         }

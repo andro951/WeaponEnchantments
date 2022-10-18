@@ -536,7 +536,7 @@ namespace WeaponEnchantments.Common.Utility
             if (result == key) {
                 return false;
             }
-
+            
             return true;
         }
         */

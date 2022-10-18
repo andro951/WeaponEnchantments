@@ -262,6 +262,7 @@ namespace WeaponEnchantments.Items {
 		}
 		public override bool DynamicTooltip => true;
 		public override int CreativeItemSacrifice => 1;
+		public string TierName => tierNames[EnchantmentTier];
 
 		#endregion
 
@@ -991,8 +992,7 @@ namespace WeaponEnchantments.Items {
 					return (int)DamageClassID.Summon;
 				default:
 					if (WEMod.calamityEnabled) {
-						int trueMelee = ModIntegration.CalamityValues.trueMelee.Type;
-						if (damageType == trueMelee)
+						if (damageType == ModIntegration.CalamityValues.trueMelee.Type || damageType == ModIntegration.CalamityValues.trueMeleeNoSpeed.Type)
 							return (int)DamageClassID.Melee;
 					}
 

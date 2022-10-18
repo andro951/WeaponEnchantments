@@ -78,7 +78,7 @@ namespace WeaponEnchantments.UI
 						return false;
 
 					Enchantment newEnchantment = ((Enchantment)item.ModItem);
-					if (itemInUI.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon)) {
+					if (itemInUI.TryGetEnchantedItem(out EnchantedWeapon _)) {
 						int damageType = ContentSamples.ItemsByType[itemInUI.type].DamageType.Type;
 
 						int damageClassSpecific = Enchantment.GetDamageClass(damageType);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
+using WeaponEnchantments.Content.NPCs;
 using static Terraria.Localization.GameCulture;
 
 namespace WeaponEnchantments.Common.Utility
@@ -295,7 +296,7 @@ namespace WeaponEnchantments.Common.Utility
         PostVortexTower,
         PostMoonLord,
 	}
-    public static class SellConditionChecks
+    public static class SellConditionMethods
 	{
         public static bool CanSell(this SellCondition condition) {
 			switch (condition) {
@@ -355,7 +356,7 @@ namespace WeaponEnchantments.Common.Utility
             }
 		}
 	}
-    public enum TownNPCTypeID
+	public enum TownNPCTypeID
 	{
         Guide = 22,
         Merchant = 17,
@@ -473,8 +474,6 @@ namespace WeaponEnchantments.Common.Utility
         BirthdayParty,
         Storm,
         QueenBee,
-
-
         Content,
         NoHome,
         LoveSpace,
@@ -549,6 +548,12 @@ namespace WeaponEnchantments.Common.Utility
         LightSource,
         PowerBooster,
 		NPC
+	}
+	public enum InvasionID
+	{
+		Goblin_Army,
+		Pirate_Invasion,
+		Martian_Madness
 	}
 
 	public static class WikiExtensionMethods
