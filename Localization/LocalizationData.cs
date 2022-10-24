@@ -197,7 +197,7 @@ namespace WeaponEnchantments.Localization
 								{ DialogueID.LoveSpace.ToString(), "With everyone now gone, finally my experiments can carry on!" },
 								{ DialogueID.FarFromHome.ToString(), "I had to venture far to find new reagants.While my home is pleasant, I can brew a new concoction with these last ingredients." },
 								{ DialogueID.DislikeCrowded.ToString(), "How am I to consentrate with all this noise!" },
-								{ DialogueID.HateCrouded.ToString(), "I can't deal with this here traffic! Get me out or kick them out, make it quick!" },
+								{ DialogueID.HateCrowded.ToString(), "I can't deal with this here traffic! Get me out or kick them out, make it quick!" },
 								{ DialogueID.LikeBiome.ToString(), "This place is full of critters and muck, time to make a quick buck!" },
 								{ DialogueID.LoveBiome.ToString(), "This place reminds me of my old lair. Very grim, very magic, what a flair!" },
 								{ DialogueID.DislikeBiome.ToString(), "It's incredible how here is so tame, no evil, no creepies, it's so lame!" },
@@ -399,7 +399,8 @@ namespace WeaponEnchantments.Localization
 		}
 
 		public static Dictionary<string, string> RenamedKeys = new() {
-			{ typeof(ItemCooldown).Name, "AllForOne" }
+			//{ typeof(ItemCooldown).Name, "AllForOne" },
+			//{ DialogueID.HateCrowded.ToString(), "HateCrouded" }
 		};
 
 		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {

@@ -480,7 +480,7 @@ namespace WeaponEnchantments.Common.Utility
         LoveSpace,
         FarFromHome,
         DislikeCrowded,
-        HateCrouded,
+        HateCrowded,
         LikeBiome,
         LoveBiome,
         DislikeBiome,
