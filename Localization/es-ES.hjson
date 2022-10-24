@@ -422,9 +422,9 @@ Mods: {
 					{3}(Basado en el valor del artículo/experiencia. Se devolverán los encantamientos).
 					'''
 			enchantment0: Coloque encantamientos aquí.
-			enchantment4: "Requiere {0} o mejor para usar esta ranura".
+			enchantment4: "Requiere {0} o mejor para usar esta ranura."
 			Enchantments: encantamientos
-			essence0: "Coloca {0} aquí".
+			essence0: "Coloca {0} aquí."
 			ExchangeEssence: ¿A cambio de esencia?
 			ExchangeEssenceAndOres: "¿A cambio de minerales ({0}) y esencia ({1})?"
 			ExchangeOres: ¿A cambio de minerales?
@@ -573,7 +573,7 @@ Mods: {
 			}
 			EnchantmentEffects: {
 				AmmoCost: "{0} (También guarda el cebo al pescar)"
-				AttackSpeed: "{0} (Afecta a la velocidad de disparo de los súbditos si disparan proyectiles. Afecta a la rapidez con la que los peces muerden el sedal)".
+				AttackSpeed: "{0} (Afecta a la velocidad de disparo de los súbditos si disparan proyectiles. Afecta a la rapidez con la que los peces muerden el sedal)."
 				BonusCoins: 						
 						'''
 						{0} (Golpear a un enemigo aumentará la cantidad de monedas que arrojará al morir)
@@ -600,7 +600,7 @@ Mods: {
 						(Daño adicional no afectado por LifeSteal)
 						'''
 				ItemCooldown: "(Ítem CD igual a {0} velocidad de uso)"
-				LavaFishing: "{0} (Permite pescar en lava y tiene la posibilidad de mejorar las tasas de captura en lava. Se acumula con otras fuentes)".
+				LavaFishing: "{0} (Permite pescar en lava y tiene la posibilidad de mejorar las tasas de captura en lava. Se acumula con otras fuentes)."
 				LifeSteal: "{0} (el resto se guarda para evitar redondear siempre a 0 para armas de bajo daño)"
 				MinionAttackTarget: Los enemigos golpeados se convierten en el objetivo del ataque de los súbditos. Mismo efecto que los látigos.
 				Multishot: "{0} (Oportunidad de producir un proyectil extra. Se aplica a cada proyectil creado.)"
