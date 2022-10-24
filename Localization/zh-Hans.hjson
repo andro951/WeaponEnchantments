@@ -459,7 +459,7 @@ Mods: {
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动重用
 				BonusCoins: 奖金硬币
-				BuffDuration: “将增益效果的持续时间延长 {0}”
+				BuffDuration: 增益持续时间
 				BuffEffect0: “被动地授予您{0}”
 				BuffEffect1: “被动地对你造成{0}”
 				BuffEffect10: “击中敌人时获得 {0}”
@@ -548,7 +548,7 @@ Mods: {
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
 				Spelunker: 探险者
-				VanillaDash1: Ninja Tabi Dash
+				VanillaDash1: 忍者袜短跑
 				VanillaDash2: 克苏鲁之眼盾牌冲刺
 				VanillaDash3: 太阳能短跑
 				VanillaDash5: 水晶忍者冲刺

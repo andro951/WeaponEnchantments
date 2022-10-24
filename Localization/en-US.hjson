@@ -459,7 +459,7 @@ Mods: {
 				AttackSpeed: Attack Speed
 				AutoReuse: Auto Reuse
 				BonusCoins: Bonus Coins
-				BuffDuration: "Extends the duration of buffs by {0}"
+				BuffDuration: Buff Duration
 				BuffEffect0: "Passively grants {0} to you"
 				BuffEffect1: "Passively inflicts {0} to you"
 				BuffEffect10: "Grants {0} to enemies on hit"

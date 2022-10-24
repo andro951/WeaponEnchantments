@@ -459,7 +459,7 @@ Mods: {
 				AttackSpeed: Angriffsgeschwindigkeit
 				AutoReuse: Automatische Wiederverwendung
 				BonusCoins: Bonusmünzen
-				BuffDuration: "Verlängert die Dauer von Buffs um {0}"
+				BuffDuration: Buff-Dauer
 				BuffEffect0: "Gibt Ihnen passiv {0}"
 				BuffEffect1: "Fügt dir passiv {0} zu"
 				BuffEffect10: "„Gewährt Gegnern bei Treffer {0}“"

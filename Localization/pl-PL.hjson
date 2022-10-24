@@ -459,7 +459,7 @@ Mods: {
 				AttackSpeed: Szybkość ataku
 				AutoReuse: Automatyczne ponowne użycie
 				BonusCoins: Monety bonusowe
-				BuffDuration: "„Wydłuża czas trwania wzmocnień o {0}”"
+				BuffDuration: Czas trwania premii
 				BuffEffect0: "Pasywnie przyznaje {0} tobie"
 				BuffEffect1: "Biernie nakłada {0} na ciebie"
 				BuffEffect10: "„Przyznaje {0} wrogom przy trafieniu”"

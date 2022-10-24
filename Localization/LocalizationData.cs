@@ -71,7 +71,6 @@ namespace WeaponEnchantments.Localization
 								{ $"{typeof(AmmoCost).Name}2", "Increased Ammo Cost" },
 								{ $"{typeof(ManaUsage).Name}1", "Reduced Mana Usage" },
 								{ $"{typeof(ManaUsage).Name}2", "Increased Mana Usage" },
-								{ typeof(BuffDuration).Name, "Extends the duration of buffs by {0}" },
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnTickPlayerBuff}", "Passively grants {0} to you" },
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnTickPlayerDebuff}", "Passively inflicts {0} to you" },
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnTickAreaTeamBuff}", "Passively grants {0} to nearby players" },

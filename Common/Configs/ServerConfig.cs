@@ -76,27 +76,27 @@ namespace WeaponEnchantments.Common.Configs
         //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
-        [Tooltip("Modify the ammount of essence recieved by bosses.")]
+        [Tooltip("Modify the ammount of essence recieved from bosses.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         [ReloadRequired]
         public int BossEssenceMultiplier;
 
         [Label("Non-Boss Essence Multiplier(%)")]
-        [Tooltip("Modify the ammount of essence recieved by non-boss enemies.")]
+        [Tooltip("Modify the ammount of essence recieved from non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         [ReloadRequired]
         public int EssenceMultiplier;
 
         [Label("Boss Experience Multiplier(%)")]
-        [Tooltip("Modify the ammount of experience recieved by bosses.")]
+        [Tooltip("Modify the ammount of experience recieved from bosses.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         public int BossExperienceMultiplier;
 
         [Label("Non-Boss Experience Multiplier(%)")]
-        [Tooltip("Modify the ammount of experience recieved by non-boss enemies.")]
+        [Tooltip("Modify the ammount of experience recieved from non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         public int ExperienceMultiplier;

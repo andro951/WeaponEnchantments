@@ -281,6 +281,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 enchantmentPage.AddLink("Enchantments");
                 enchantmentInfoBox.AddStatistics(enchantmentPage);
                 enchantmentInfoBox.AddDrops(enchantmentPage);
+                enchantmentInfoBox.TryAddWikiDescription(enchantmentPage);
                 enchantmentInfoBox.AddInfo(enchantmentPage);
                 enchantmentInfoBox.AddEffects(enchantmentPage);
                 enchantmentInfoBox.AddAllowedList(enchantmentPage);

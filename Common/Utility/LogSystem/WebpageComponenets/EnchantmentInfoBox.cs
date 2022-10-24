@@ -127,6 +127,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 			//string tabberString = tabber.ToString();
 			webPage.Add(tabber);
 		}
+		public void TryAddWikiDescription(WebPage webPage) {
+			string text = WikiDescription;
+			if (text != null)
+				webPage.AddParagraph(text);
+		}
 		public override string ToString() {
 			if (items.Count == 0)
 				return "";

@@ -459,7 +459,7 @@ Mods: {
 				AttackSpeed: Vitesse d'attaque
 				AutoReuse: Réutilisation automatique
 				BonusCoins: Pièces bonus
-				BuffDuration: "Prolonge la durée des buffs de {0}"
+				BuffDuration: Durée du buff
 				BuffEffect0: "Vous accorde passivement {0}"
 				BuffEffect1: "Vous inflige passivement {0}"
 				BuffEffect10: "Accorde {0} aux ennemis touchés"
