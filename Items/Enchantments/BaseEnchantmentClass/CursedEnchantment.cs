@@ -21,8 +21,10 @@ using System.IO;
 
 namespace WeaponEnchantments.Items {
 	public abstract class CursedEnchantment : Enchantment {
+		public override int CreativeItemSacrifice => -1;
+		private Enchantment CopiedEnchantment;
 		public override void LoadData(TagCompound tag) {
-			
+			CopiedEnchantment = (Enchantment)Activator.CreateInstance("WeaponEnchantments", tag.Get<string>("CopiedEnchantment"));
 		}
 		public override void SaveData(TagCompound tag) {
 			
@@ -39,6 +41,10 @@ namespace WeaponEnchantments.Items {
 		public override void SetDefaults() {
 			base.SetDefaults();
 			Item.maxStack = 1;
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			string name = CopiedEnchantment?.Name;
+			tooltips.Add(new(Mod, "myTooltip", name) { OverrideColor = Color.Orange });
 		}
 		public override bool CanStack(Item item2) => false;
 
