@@ -21,6 +21,7 @@ using WeaponEnchantments.ModLib.KokoLib;
 using KokoLib;
 using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Items.Utility;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -655,10 +656,10 @@ namespace WeaponEnchantments.Common.Globals
                         WEGlobalNPC wEGlobalNPC = Main.npc[whoAmI].GetWEGlobalNPC();
                         if (IsWorm(mainNPC)) {
                             if (wEGlobalNPC.amaterasuDamage <= 0)
-                                wEGlobalNPC.amaterasuDamage++;
+                                wEGlobalNPC.amaterasuDamage += AmaterasuSelfGrowthPerTick/5;
                         }
                         else {
-                            wEGlobalNPC.amaterasuDamage += 5;
+                            wEGlobalNPC.amaterasuDamage += AmaterasuSelfGrowthPerTick;
                         }
 
                         if (!wEGlobalNPC.amaterasuImmunityUpdated) {
@@ -670,7 +671,13 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
 
-                amaterasuDamage++;
+                if (isWorm) {
+                    amaterasuDamage += AmaterasuSelfGrowthPerTick/5;
+                }
+				else {
+                    amaterasuDamage += AmaterasuSelfGrowthPerTick;
+                }
+                
                 npc.AddBuff(ModContent.BuffType<Amaterasu>(), 10000, true);
                 lastAmaterasuTime = Main.GameUpdateCount;
             }

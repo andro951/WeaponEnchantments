@@ -9,8 +9,7 @@ using WeaponEnchantments.Common.Utility;
 namespace WeaponEnchantments.Common.Configs
 {
     [Label("Server Config")]
-    public class ServerConfig : ModConfig
-    {
+    public class ServerConfig : ModConfig {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
         //Server Config
@@ -35,7 +34,7 @@ namespace WeaponEnchantments.Common.Configs
         [Header("Enchantment Settings")]
         [Label("Damage type converting enchantments always override.")]
         [Tooltip("Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.\n" +
-			"If not selected, the damage type will only be changed if the weapon is currently it's original damage type.")]
+            "If not selected, the damage type will only be changed if the weapon is currently it's original damage type.")]
         [DefaultValue(true)]
         public bool AlwaysOverrideDamageType;
 
@@ -54,7 +53,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Speed Enchantment Auto Reuse Enabled (%)")]
         [Tooltip("The strength that a Speed Enchantment will start giving the Auto Reuse stat.\n" +
-			"Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
+            "Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
         [Range(0, 10000)]
         [DefaultValue(10)]
         [ReloadRequired]
@@ -72,6 +71,12 @@ namespace WeaponEnchantments.Common.Configs
         [Range(1, 600)]
         [ReloadRequired]
         public int BuffDuration;
+
+        [Label("Amaterasu Self Growth Per Tick")]
+        [Tooltip("Affects how quickly Amaterasu damage will go up naturally (Not when being hit again with a World Ablaze weapon.)")]
+        [DefaultValue(5)]
+        [Range(0, 1000000)]
+        public int AmaterasuSelfGrowthPerTick;
 
         //Essence and Experience
         [Header("Essence and Experience")]

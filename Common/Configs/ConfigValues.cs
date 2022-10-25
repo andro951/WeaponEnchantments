@@ -34,5 +34,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float ChestSpawnChance => serverConfig.ChestSpawnChance / 100f;
 		public static float CrateDropChance => serverConfig.CrateDropChance / 100f;
 		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
+		public static int AmaterasuSelfGrowthPerTick => serverConfig.AmaterasuSelfGrowthPerTick;
 	}
 }

@@ -48,7 +48,7 @@ namespace WeaponEnchantments.Localization
 		public static Dictionary<CultureName, string> LocalizationComments = new() {
 			{ CultureName.German, "Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)" },
 			{ CultureName.English, "" },
-			{ CultureName.Spanish , "Contributors: @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)" },
+			{ CultureName.Spanish , "Contributors: @DaviReM#8740, @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)" },
 			{ CultureName.French , "Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)" },
 			{ CultureName.Italian , "Contributors: @Tefra_K" },
 			{ CultureName.Polish , "(Google Translated.  No contribuions yet)" },
