@@ -103,6 +103,9 @@ namespace WeaponEnchantments.Common
 			get => _efficiencyMultiplier;
 			set {
 				if (value != _efficiencyMultiplier) {
+					if (_waitingForEnterWorld)
+						SetUpAutomaticStrengthFromWorldDificulty();
+
 					_efficiencyMultiplier = value;
 					_additive = 1f + originalAdditive * value;
 					_multiplicative = 1f + (originalMultiplicative - 1f) * _efficiencyMultiplier;
@@ -255,6 +258,7 @@ namespace WeaponEnchantments.Common
 					break;
 				}
 			}
+
 			StatType = statType;
 			originalAdditive = 0f;
 			originalMultiplicative = 1f;
@@ -455,7 +459,7 @@ namespace WeaponEnchantments.Common
 		*/
 		public EStatModifier Clone() {
 			if (_waitingForEnterWorld)
-				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, combineModeID: _combineModeID);
+				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, EfficiencyMultiplier, _combineModeID);
 
 			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
 		}

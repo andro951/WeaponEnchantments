@@ -406,6 +406,22 @@ namespace WeaponEnchantments
 
                         valid = true;
                     }
+                    else if (item.type == UltraPowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out tableItemGlobal) && !tableItemGlobal.UltraPowerBoosterInstalled) {
+                        //Ultra Power Booster
+                        if (moveItem) {
+                            tableItemGlobal.UltraPowerBoosterInstalled = true;
+                            if (item.stack > 1) {
+                                item.stack--;
+                            }
+                            else {
+                                item = new Item();
+                            }
+
+                            SoundEngine.PlaySound(SoundID.Grab);
+                        }
+
+                        valid = true;
+                    }
                     else {
                         //Check/Move item
                         for (int i = 0; i < EnchantingTable.maxItems; i++) {

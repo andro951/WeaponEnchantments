@@ -29,7 +29,9 @@ namespace WeaponEnchantments.Common.Globals
         #region Static
 
         public static List<int> preHardModeBossTypes;
+        public static List<int> postPlanteraBossTypes;
         public static List<string> preHardModeModBossNames;
+        public static List<string> postPlanteraBossNames;
         public static SortedDictionary<int, float> multipleSegmentBossTypes;
         public static List<int> normalNpcsThatDropsBags;
 
@@ -91,6 +93,21 @@ namespace WeaponEnchantments.Common.Globals
                 "The Divine Light",//Querty's Bosses and Items 2
                 "Ancient Machine",//Querty's Bosses and Items 2
                 "Noehtnap",//Querty's Bosses and Items 2
+            };
+
+            postPlanteraBossTypes = new() {
+                NPCID.HallowBoss,
+                NPCID.CultistBoss,
+                NPCID.MoonLordCore,
+                NPCID.MoonLordHead,
+                NPCID.Plantera,
+                NPCID.Golem,
+                NPCID.DukeFishron,
+                NPCID.MartianSaucer
+            };
+
+            postPlanteraBossNames = new() {
+
             };
 
             multipleSegmentBossTypes = new SortedDictionary<int, float>() {
@@ -369,12 +386,13 @@ namespace WeaponEnchantments.Common.Globals
 
                 //Power Booster
                 bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName);
+                bool postPlanteraBoss = postPlanteraBossTypes.Contains(npc.netID) || postPlanteraBossNames.Contains(npc.FullName);
                 if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !preHardModeBoss) {
                     denominator = (int)(100000f / total);
                     if (denominator < 1)
                         denominator = 1;
 
-                    dropRule = ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
+                    dropRule = postPlanteraBoss ? ItemDropRule.Common(ModContent.ItemType<UltraPowerBooster>(), denominator, 1, 1) : ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
                     AddBossLoot(loot, npc, dropRule, bossBag);
                 }
 

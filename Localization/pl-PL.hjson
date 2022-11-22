@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 3)
 			SuperiorContainment: Służy do przechowywania rzadkich zaklęć
 			UltimateEnchantingTable: Służy do nakładania zaklęć na przedmioty. (Poziom 4)
+			UltraPowerBooster: 
+				'''
+				Użyj tego, gdy przedmiot, który chcesz wzmocnić, znajduje się w tabeli zaklęć, aby podnieść jego podstawowy poziom o 20.
+				(Shift lewy przycisk myszy w ekwipunku lub lewy przycisk myszy na przedmiocie w tabeli z tym na kursorze.)
+				Ten przedmiot zostanie zwrócony, jeśli zostanie zaoferowany wzmocniony przedmiot.
+				'''
 			WoodEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 0)
 		}
 		NPCNames: {

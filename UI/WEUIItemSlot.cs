@@ -61,6 +61,9 @@ namespace WeaponEnchantments.UI
                     if (iGlobal != null) {
 						if (item.type == PowerBooster.ID && !iGlobal.PowerBoosterInstalled)
 							return true;
+
+						if (item.type == UltraPowerBooster.ID && !iGlobal.UltraPowerBoosterInstalled)
+							return true;
 					}
 
 					return item.TryGetEnchantedItem();
@@ -193,6 +196,20 @@ namespace WeaponEnchantments.UI
 
 						SoundEngine.PlaySound(SoundID.Grab);
 						iGlobal.PowerBoosterInstalled = true;
+					}
+				}
+				else if (Main.mouseItem.type == UltraPowerBooster.ID) {
+					Item itemInUI = wePlayer.ItemInUI();
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && !iGlobal.UltraPowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
+						if (Main.mouseItem.stack > 1) {
+							Main.mouseItem.stack--;
+						}
+						else {
+							Main.mouseItem = new Item();
+						}
+
+						SoundEngine.PlaySound(SoundID.Grab);
+						iGlobal.UltraPowerBoosterInstalled = true;
 					}
 				}
 				else if (Main.mouseItem.ModItem is Enchantment enchantment) {

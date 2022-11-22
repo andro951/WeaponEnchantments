@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (Niveau 3)
 			SuperiorContainment: Utilisé pour stocker des enchantements rares
 			UltimateEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 4)
+			UltraPowerBooster: 
+				'''
+				Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 20.
+				(Maj clic gauche depuis votre inventaire ou clic gauche sur l'élément dans le tableau avec ceci sur votre curseur.)
+				Cet article sera retourné si l'article boosté est offert.
+				'''
 			WoodEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 0)
 		}
 		NPCNames: {

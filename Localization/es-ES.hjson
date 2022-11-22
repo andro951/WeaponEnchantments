@@ -17,8 +17,8 @@ Mods: {
 			ArmorPenetrationEnchantmentEpic: Penetración de armadura Encantamiento Épico
 			ArmorPenetrationEnchantmentLegendary: Penetración de armadura Encantamiento Legendario
 			ArmorPenetrationEnchantmentRare: Penetración de armadura Encantamiento Raro
-			AttackSpeedEnchantmentBasic: Velocidad de ataque Encantamiento Encantamiento Básico
-			AttackSpeedEnchantmentCommon: Velocidad de ataque Encantamiento Encantamiento Común
+			AttackSpeedEnchantmentBasic: Velocidad de ataque Encantamiento Básico
+			AttackSpeedEnchantmentCommon: Velocidad de ataque Encantamiento Común
 			AttackSpeedEnchantmentEpic: Velocidad de ataque Encantamiento Épico
 			AttackSpeedEnchantmentLegendary: Velocidad de ataque Encantamiento Legendario
 			AttackSpeedEnchantmentRare: Velocidad de ataque Encantamiento Raro
@@ -29,14 +29,14 @@ Mods: {
 			CalmWatersEnchantmentRare: Encantamiento de aguas tranquilas Raro
 			ChaoticFishingEnchantmentBasic: Encantamiento de pesca caótica Básico
 			ChaoticFishingEnchantmentCommon: Encantamiento de pesca caótica Común
-			ChaoticFishingEnchantmentEpic: Encantamiento de pesca caótica
-			ChaoticFishingEnchantmentLegendary: Encantamiento de pesca caótico Legendario
-			ChaoticFishingEnchantmentRare: Encantamiento de pesca caótica Raro
-			ColdSteelEnchantmentBasic: Encantamiento de acero frío básico
-			ColdSteelEnchantmentCommon: Encantamiento de acero frío común
-			ColdSteelEnchantmentEpic: Encantamiento de acero frío épico
-			ColdSteelEnchantmentLegendary: Encantamiento de acero frío Legendario
-			ColdSteelEnchantmentRare: Encantamiento de acero frío Raro
+			ChaoticFishingEnchantmentEpic: Encantamiento de pesca caótica Épica
+			ChaoticFishingEnchantmentLegendary: Encantamiento de pesca caótica Legendaria
+			ChaoticFishingEnchantmentRare: Encantamiento de pesca caótica Rara
+			ColdSteelEnchantmentBasic: Encantamiento de Acero Gélido básico
+			ColdSteelEnchantmentCommon: Encantamiento de Acero Gélido común
+			ColdSteelEnchantmentEpic: Encantamiento de Acero Gélido épico
+			ColdSteelEnchantmentLegendary: Encantamiento de Acero Gélido Legendario
+			ColdSteelEnchantmentRare: Encantamiento de Acero Gélido Raro
 			CrateChanceEnchantmentBasic: Encantamiento de probabilidad de caja Básico
 			CrateChanceEnchantmentCommon: Encantamiento de probabilidad de caja Común
 			CrateChanceEnchantmentEpic: Encantamiento de probabilidad de caja Épico
@@ -47,41 +47,41 @@ Mods: {
 			CrateEnchantmentEpic: Encantamiento de caja Épico
 			CrateEnchantmentLegendary: Encantamiento de caja Legendario
 			CrateEnchantmentRare: Encantamiento de caja Raro
-			CriticalStrikeChanceEnchantmentBasic: Probabilidad de Golpe Crítico Encantamiento Básico
-			CriticalStrikeChanceEnchantmentCommon: Probabilidad de Golpe Crítico Encantamiento Común
-			CriticalStrikeChanceEnchantmentEpic: Probabilidad de Golpe Crítico Encantamiento Épico
-			CriticalStrikeChanceEnchantmentLegendary: Probabilidad de Golpe Crítico Encantamiento Legendario
-			CriticalStrikeChanceEnchantmentRare: Probabilidad de Golpe Crítico Encantamiento Raro
-			CriticalStrikeDamageEnchantmentBasic: Daño de Golpe Crítico Encantamiento Básico
-			CriticalStrikeDamageEnchantmentCommon: Daño de Golpe Crítico Encantamiento Común
-			CriticalStrikeDamageEnchantmentEpic: Daño de Golpe Crítico Encantamiento Épico
-			CriticalStrikeDamageEnchantmentLegendary: Daño de Golpe Crítico Encantamiento Legendario
-			CriticalStrikeDamageEnchantmentRare: Daño de Golpe Crítico Encantamiento Raro
-			CursedInfernoEnchantmentBasic: Infierno Maldito Encantamiento Básico
-			CursedInfernoEnchantmentCommon: Infierno Maldito Encantamiento Común
-			CursedInfernoEnchantmentEpic: Infierno Maldito Encantamiento Épico
-			CursedInfernoEnchantmentLegendary: Infierno Maldito Encantamiento Legendario
-			CursedInfernoEnchantmentRare: Infierno Maldito Encantamiento Raro
+			CriticalStrikeChanceEnchantmentBasic: Encantamiento de Golpe Crítico Básico
+			CriticalStrikeChanceEnchantmentCommon: Encantamiento de Golpe Crítico Común
+			CriticalStrikeChanceEnchantmentEpic: Encantamiento de Golpe Crítico Épico
+			CriticalStrikeChanceEnchantmentLegendary: Encantamiento de Golpe Crítico Legendario
+			CriticalStrikeChanceEnchantmentRare: Encantamiento de Golpe Crítico Raro
+			CriticalStrikeDamageEnchantmentBasic: Encantamiento de Daño Crítico Básico
+			CriticalStrikeDamageEnchantmentCommon: Encantamiento de Daño Crítico Común
+			CriticalStrikeDamageEnchantmentEpic: Encantamiento de Daño Crítico Épico
+			CriticalStrikeDamageEnchantmentLegendary: Encantamiento de Daño Crítico Legendario
+			CriticalStrikeDamageEnchantmentRare: Encantamiento de Daño Crítico Raro
+			CursedInfernoEnchantmentBasic: Encantamiento de Infierno Maldito Básico
+			CursedInfernoEnchantmentCommon: Encantamiento de Infierno Maldito Común
+			CursedInfernoEnchantmentEpic: Encantamiento de Infierno Maldito Épico
+			CursedInfernoEnchantmentLegendary: Encantamiento de Infierno Maldito Legendario
+			CursedInfernoEnchantmentRare: Encantamiento de Infierno Maldito Raro
 			DamageEnchantmentBasic: Encantamiento de daño Básico
 			DamageEnchantmentCommon: Encantamiento de daño Común
 			DamageEnchantmentEpic: Encantamiento de daño Épico
 			DamageEnchantmentLegendary: Encantamiento de daño Legendario
 			DamageEnchantmentRare: Encantamiento de daño Raro
-			DamageReductionEnchantmentBasic: Encantamiento de reducción de daños Básico
+			DamageReductionEnchantmentBasic: Encantamiento de reducción de daño Básico
 			DamageReductionEnchantmentCommon: Encantamiento de reducción de daño Común
-			DamageReductionEnchantmentEpic: Encantamiento de reducción de daños Épico
-			DamageReductionEnchantmentLegendary: Encantamiento de reducción de daños Legendario
-			DamageReductionEnchantmentRare: Encantamiento de reducción de daños Raro
+			DamageReductionEnchantmentEpic: Encantamiento de reducción de daño Épico
+			DamageReductionEnchantmentLegendary: Encantamiento de reducción de daño Legendario
+			DamageReductionEnchantmentRare: Encantamiento de reducción de daño Raro
 			DangerSenseEnchantmentBasic: Encantamiento de sentido del peligro básico
 			DangerSenseEnchantmentCommon: Encantamiento de sentido del peligro Común
 			DangerSenseEnchantmentEpic: Encantamiento de sentido del peligro Épico
 			DangerSenseEnchantmentLegendary: Encantamiento de sentido del peligro Legendario
 			DangerSenseEnchantmentRare: Encantamiento de sentido del peligro Raro
-			DaybreakEnchantmentBasic: Encantamiento de amanecer Básico
-			DaybreakEnchantmentCommon: Encantamiento de amanecer Común
-			DaybreakEnchantmentEpic: Encantamiento de amanecer Épico
-			DaybreakEnchantmentLegendary: Encantamiento de amanecer Legendario
-			DaybreakEnchantmentRare: Encantamiento de amanecer Raro
+			DaybreakEnchantmentBasic: Encantamiento de Amanecer Básico
+			DaybreakEnchantmentCommon: Encantamiento de Amanecer Común
+			DaybreakEnchantmentEpic: Encantamiento de Amanecer Épico
+			DaybreakEnchantmentLegendary: Encantamiento de Amanecer Legendario
+			DaybreakEnchantmentRare: Encantamiento de Amanecer Raro
 			DefenseEnchantmentBasic: Encantamiento de defensa Básico
 			DefenseEnchantmentCommon: Encantamiento de defensa Común
 			DefenseEnchantmentEpic: Encantamiento de defensa Épico
@@ -102,21 +102,21 @@ Mods: {
 			FishingPowerEnchantmentEpic: Encantamiento de poder de pesca Épico
 			FishingPowerEnchantmentLegendary: Encantamiento de poder de pesca Legendario
 			FishingPowerEnchantmentRare: Encantamiento de poder de pesca Raro
-			FrostburnEnchantmentBasic: Encantamiento de quemadura de escarcha Básico
-			FrostburnEnchantmentCommon: Encantamiento de quemadura de escarcha Común
-			FrostburnEnchantmentEpic: Encantamiento de quemadura de escarcha Épico
-			FrostburnEnchantmentLegendary: Encantamiento de quemadura de escarcha Legendario
-			FrostburnEnchantmentRare: Encantamiento de quemadura de escarcha Raro
-			GodSlayerEnchantmentBasic: God Slayer Encantamiento Básico
-			GodSlayerEnchantmentCommon: God Slayer Encantamiento Común
-			GodSlayerEnchantmentEpic: God Slayer Encantamiento Épico
-			GodSlayerEnchantmentLegendary: God Slayer Encantamiento Legendario
-			GodSlayerEnchantmentRare: God Slayer Encantamiento Raro
-			HellsWrathEnchantmentBasic: Ira del Infierno Encantamiento Básico
-			HellsWrathEnchantmentCommon: Ira del Infierno Encantamiento Común
-			HellsWrathEnchantmentEpic: Ira del Infierno Encantamiento Épico
-			HellsWrathEnchantmentLegendary: Ira del Infierno Encantamiento Legendario
-			HellsWrathEnchantmentRare: Ira del Infierno Encantamiento Raro
+			FrostburnEnchantmentBasic: Encantamiento de quemadura de hielo Básico
+			FrostburnEnchantmentCommon: Encantamiento de quemadura de hielo Común
+			FrostburnEnchantmentEpic: Encantamiento de quemadura de hielo Épico
+			FrostburnEnchantmentLegendary: Encantamiento de quemadura de hielo Legendario
+			FrostburnEnchantmentRare: Encantamiento de quemadura de hielo Raro
+			GodSlayerEnchantmentBasic: Encantamiento Matadioses Básico
+			GodSlayerEnchantmentCommon: Encantamiento Matadioses Común
+			GodSlayerEnchantmentEpic: Encantamiento Matadioses Épico
+			GodSlayerEnchantmentLegendary: Encantamiento Matadioses Legendario
+			GodSlayerEnchantmentRare: Encantamiento Matadioses Raro
+			HellsWrathEnchantmentBasic: Encantamiento de Furia del Infierno Básico
+			HellsWrathEnchantmentCommon: Encantamiento de Furia del Infierno Común
+			HellsWrathEnchantmentEpic: Encantamiento de Furia del Infierno Épico
+			HellsWrathEnchantmentLegendary: Furia del Infierno Legendario
+			HellsWrathEnchantmentRare: Encantamiento de Furia del Infierno Raro
 			HunterEnchantmentBasic: Encantamiento de cazador básico
 			HunterEnchantmentCommon: Encantamiento de cazador Común
 			HunterEnchantmentEpic: Encantamiento de cazador Épico
@@ -132,16 +132,16 @@ Mods: {
 			JuicedEnchantmentEpic: Encantamiento de jugo Épico
 			JuicedEnchantmentLegendary: Encantamiento de jugo Legendario
 			JuicedEnchantmentRare: Encantamiento de jugo Raro
-			JunglesFuryEnchantmentBasic: Encantamiento de furia de la jungla Básico
-			JunglesFuryEnchantmentCommon: Encantamiento de furia de la jungla Común
-			JunglesFuryEnchantmentEpic: Encantamiento de furia de la jungla Épico
-			JunglesFuryEnchantmentLegendary: Encantamiento de furia de la jungla Legendario
-			JunglesFuryEnchantmentRare: Encantamiento de furia de la jungla Raro
-			LavaFishingEnchantmentBasic: Encantamiento de pesca de lava Básico
-			LavaFishingEnchantmentCommon: Encantamiento de pesca de lava Común
-			LavaFishingEnchantmentEpic: Encantamiento de pesca de lava Épico
-			LavaFishingEnchantmentLegendary: Encantamiento de pesca de lava Legendario
-			LavaFishingEnchantmentRare: Encantamiento de pesca de lava Raro
+			JunglesFuryEnchantmentBasic: Encantamiento de Ira de la jungla Básico
+			JunglesFuryEnchantmentCommon: Encantamiento de Ira de la jungla Común
+			JunglesFuryEnchantmentEpic: Encantamiento de Ira de la jungla Épico
+			JunglesFuryEnchantmentLegendary: Encantamiento de Ira de la jungla Legendario
+			JunglesFuryEnchantmentRare: Encantamiento de Ira de la jungla Raro
+			LavaFishingEnchantmentBasic: Encantamiento de pesca en lava Básico
+			LavaFishingEnchantmentCommon: Encantamiento de pesca en lava Común
+			LavaFishingEnchantmentEpic: Encantamiento de pesca en lava Épico
+			LavaFishingEnchantmentLegendary: Encantamiento de pesca en lava Legendario
+			LavaFishingEnchantmentRare: Encantamiento de pesca en lava Raro
 			LifeStealEnchantmentBasic: Encantamiento de robo de vida Básico
 			LifeStealEnchantmentCommon: Encantamiento de robo de vida Común
 			LifeStealEnchantmentEpic: Encantamiento de robo de vida Épico
@@ -152,21 +152,21 @@ Mods: {
 			LuckEnchantmentEpic: Encantamiento de suerte Épico
 			LuckEnchantmentLegendary: Encantamiento de suerte Legendario
 			LuckEnchantmentRare: Encantamiento de suerte Raro
-			MagicClassSwapEnchantmentBasic: Cambio de clase mágica Encantamiento Básico
-			MagicClassSwapEnchantmentCommon: Cambio de clase de magia Encantamiento Común
-			MagicClassSwapEnchantmentEpic: Encantamiento de cambio de clase mágica Épico
-			MagicClassSwapEnchantmentLegendary: Encantamiento de cambio de clase mágica Legendario
-			MagicClassSwapEnchantmentRare: Encantamiento de cambio de clase mágica Raro
-			MaxMinionsEnchantmentBasic: Max Minions Encantamiento Básico
-			MaxMinionsEnchantmentCommon: Max Minions Encantamiento Común
-			MaxMinionsEnchantmentEpic: Max Minions Encantamiento Épico
-			MaxMinionsEnchantmentLegendary: Max Minions Encantamiento Legendario
-			MaxMinionsEnchantmentRare: Max Minions Encantamiento Raro
-			MeleeClassSwapEnchantmentBasic: Encantamiento de cambio de clase cuerpo a cuerpo Básico
-			MeleeClassSwapEnchantmentCommon: Encantamiento de cambio de clase cuerpo a cuerpo Común
-			MeleeClassSwapEnchantmentEpic: Encantamiento de cambio de clase cuerpo a cuerpo Épico
-			MeleeClassSwapEnchantmentLegendary: Encantamiento de cambio de clase cuerpo a cuerpo Legendario
-			MeleeClassSwapEnchantmentRare: Encantamiento de cambio de clase cuerpo a cuerpo Raro
+			MagicClassSwapEnchantmentBasic: Encantamiento de Cambio a clase mágica Básico
+			MagicClassSwapEnchantmentCommon: Encantamiento de Cambio a clase mágica Común
+			MagicClassSwapEnchantmentEpic: Encantamiento de cambio a clase mágica Épico
+			MagicClassSwapEnchantmentLegendary: Encantamiento de cambio a clase mágica Legendario
+			MagicClassSwapEnchantmentRare: Encantamiento de cambio a clase mágica Raro
+			MaxMinionsEnchantmentBasic: Encantamiento de Subditos Máximos Básico
+			MaxMinionsEnchantmentCommon: Encantamiento de Subditos Máximos Común
+			MaxMinionsEnchantmentEpic: Encantamiento de Subditos Máximos Épico
+			MaxMinionsEnchantmentLegendary: Encantamiento de Subditos Máximos Legendario
+			MaxMinionsEnchantmentRare: Encantamiento de Subditos Máximos Raro
+			MeleeClassSwapEnchantmentBasic: Encantamiento de cambio a clase cuerpo a cuerpo Básico
+			MeleeClassSwapEnchantmentCommon: Encantamiento de cambio a clase cuerpo a cuerpo Común
+			MeleeClassSwapEnchantmentEpic: Encantamiento de cambio a clase cuerpo a cuerpo Épico
+			MeleeClassSwapEnchantmentLegendary: Encantamiento de cambio a clase cuerpo a cuerpo Legendario
+			MeleeClassSwapEnchantmentRare: Encantamiento de cambio a clase cuerpo a cuerpo Raro
 			MobilityControlEnchantmentBasic: Encantamiento de control de movilidad Básico
 			MobilityControlEnchantmentCommon: Encantamiento de control de movilidad Común
 			MobilityControlEnchantmentEpic: Encantamiento de control de movilidad Épico
@@ -177,16 +177,16 @@ Mods: {
 			MoonlightEnchantmentEpic: Encantamiento de luz de luna Épico
 			MoonlightEnchantmentLegendary: Encantamiento de luz de luna Legendario
 			MoonlightEnchantmentRare: Encantamiento de luz de luna raro
-			MovementSpeedEnchantmentBasic: Velocidad de movimiento Encantamiento Básico
-			MovementSpeedEnchantmentCommon: Velocidad de movimiento Encantamiento Común
-			MovementSpeedEnchantmentEpic: Velocidad de movimiento Encantamiento Épico
-			MovementSpeedEnchantmentLegendary: Velocidad de movimiento Encantamiento Legendario
-			MovementSpeedEnchantmentRare: Velocidad de movimiento Encantamiento Raro
-			MultishotEnchantmentBasic: Encantamiento multidisparo Básico
-			MultishotEnchantmentCommon: Encantamiento multidisparo Común
+			MovementSpeedEnchantmentBasic: Encantamiento de Velocidad de movimiento Básico
+			MovementSpeedEnchantmentCommon: Encantamiento de Velocidad de movimiento Común
+			MovementSpeedEnchantmentEpic: Encantamiento de Velocidad de movimiento Épico
+			MovementSpeedEnchantmentLegendary: Encantamiento de Velocidad de movimiento Legendario
+			MovementSpeedEnchantmentRare: Encantamiento de Velocidad de movimiento Raro
+			MultishotEnchantmentBasic: Encantamiento de multidisparo Básico
+			MultishotEnchantmentCommon: Encantamiento de multidisparo Común
 			MultishotEnchantmentEpic: Encantamiento de multidisparo Épico
 			MultishotEnchantmentLegendary: Encantamiento de multidisparo Legendario
-			MultishotEnchantmentRare: Encantamiento multidisparo Raro
+			MultishotEnchantmentRare: Encantamiento de multidisparo Raro
 			NpcContactAnglerEnchantmentBasic: Npc Contacto Pescador Encantamiento Básico
 			NpcContactAnglerEnchantmentCommon: Npc Contacto Pescador Encantamiento Común
 			NpcContactAnglerEnchantmentEpic: Npc Contacto Pescador Encantamiento Épico
@@ -197,56 +197,56 @@ Mods: {
 			ObsidianSkinEnchantmentEpic: Encantamiento de piel de obsidiana Épico
 			ObsidianSkinEnchantmentLegendary: Encantamiento de piel de obsidiana Legendario
 			ObsidianSkinEnchantmentRare: Encantamiento de piel de obsidiana Raro
-			OneForAllEnchantmentBasic: Uno para todos Encantamiento Básico
-			OneForAllEnchantmentCommon: Uno para todos Encantamiento Común
-			OneForAllEnchantmentEpic: Uno para todos Encantamiento Épico
-			OneForAllEnchantmentLegendary: Uno para todos Encantamiento Legendario
-			OneForAllEnchantmentRare: Uno para todos Encantamiento Raro
-			OnFireEnchantmentBasic: En llamas Encantamiento Básico
-			OnFireEnchantmentCommon: En llamas Encantamiento Común
-			OnFireEnchantmentEpic: En llamas Encantamiento Épico
-			OnFireEnchantmentLegendary: En llamas Encantamiento Legendario
-			OnFireEnchantmentRare: En llamas Encantamiento Raro
+			OneForAllEnchantmentBasic: Encantamiento Uno para todos Básico
+			OneForAllEnchantmentCommon: Encantamiento Uno para todos Común
+			OneForAllEnchantmentEpic: Encantamiento Uno para todos Épico
+			OneForAllEnchantmentLegendary: Encantamiento Uno para todos Legendario
+			OneForAllEnchantmentRare: Encantamiento Uno para todos Raro
+			OnFireEnchantmentBasic: Encantamiento En llamas Básico
+			OnFireEnchantmentCommon: Encantamiento En llamas Común
+			OnFireEnchantmentEpic: Encantamiento En llamas Épico
+			OnFireEnchantmentLegendary: Encantamiento En llamas Legendario
+			OnFireEnchantmentRare: Encantamiento En llamas Raro
 			PeaceEnchantmentBasic: Encantamiento de paz Básico
 			PeaceEnchantmentCommon: Encantamiento de paz Común
 			PeaceEnchantmentEpic: Encantamiento de paz Épico
 			PeaceEnchantmentLegendary: Encantamiento de paz Legendario
 			PeaceEnchantmentRare: Encantamiento de paz Raro
-			PennyPinchingEnchantmentBasic: Penny Pinching Encantamiento Básico
-			PennyPinchingEnchantmentCommon: Penny Pinching Encantamiento Común
-			PennyPinchingEnchantmentEpic: Penny Pinching Encantamiento Épico
-			PennyPinchingEnchantmentLegendary: Penny Pinching Encantamiento Legendario
-			PennyPinchingEnchantmentRare: Penny Pinching Encantamiento Raro
+			PennyPinchingEnchantmentBasic: Encantamiento de Ladrón de monedas Básico
+			PennyPinchingEnchantmentCommon: Encantamiento de Ladrón de monedas Común
+			PennyPinchingEnchantmentEpic: Encantamiento de Ladrón de monedas Épico
+			PennyPinchingEnchantmentLegendary: Encantamiento de Ladrón de monedas Legendario
+			PennyPinchingEnchantmentRare: Encantamiento de Ladrón de monedas Raro
 			ProjectileVelocityEnchantmentBasic: Encantamiento de velocidad de proyectil Básico
 			ProjectileVelocityEnchantmentCommon: Encantamiento de velocidad de proyectil Común
 			ProjectileVelocityEnchantmentEpic: Encantamiento de velocidad de proyectil Épico
 			ProjectileVelocityEnchantmentLegendary: Encantamiento de velocidad de proyectil Legendario
 			ProjectileVelocityEnchantmentRare: Encantamiento de velocidad de proyectil Raro
-			RangedClassSwapEnchantmentBasic: Encantamiento de cambio de clase a distancia Básico
-			RangedClassSwapEnchantmentCommon: Encantamiento de cambio de clase a distancia Común
-			RangedClassSwapEnchantmentEpic: Encantamiento de cambio de clase a distancia Épico
-			RangedClassSwapEnchantmentLegendary: Encantamiento de cambio de clase a distancia Legendario
-			RangedClassSwapEnchantmentRare: Encantamiento de cambio de clase a distancia Raro
+			RangedClassSwapEnchantmentBasic: Encantamiento de cambio a clase a distancia Básico
+			RangedClassSwapEnchantmentCommon: Encantamiento de cambio a clase a distancia Común
+			RangedClassSwapEnchantmentEpic: Encantamiento de cambio a clase a distancia Épico
+			RangedClassSwapEnchantmentLegendary: Encantamiento de cambio a clase a distancia Legendario
+			RangedClassSwapEnchantmentRare: Encantamiento de cambio a clase a distancia Raro
 			ReducedManaUsageEnchantmentBasic: Encantamiento de uso de maná reducido Básico
 			ReducedManaUsageEnchantmentCommon: Encantamiento de uso de maná reducido Común
 			ReducedManaUsageEnchantmentEpic: Encantamiento de uso de maná reducido Épico
 			ReducedManaUsageEnchantmentLegendary: Encantamiento de uso de maná reducido Legendario
 			ReducedManaUsageEnchantmentRare: Encantamiento de uso de maná reducido Raro
-			RogueClassSwapEnchantmentBasic: Encantamiento de cambio de clase de pícaro Básico
-			RogueClassSwapEnchantmentCommon: Encantamiento de cambio de clase de pícaro Común
-			RogueClassSwapEnchantmentEpic: Encantamiento de cambio de clase pícaro Épico
-			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio de clase pícaro Legendario
-			RogueClassSwapEnchantmentRare: Encantamiento de cambio de clase de pícaro Raro
+			RogueClassSwapEnchantmentBasic: Encantamiento de cambio a clase de pícaro Básico
+			RogueClassSwapEnchantmentCommon: Encantamiento de cambio a clase de pícaro Común
+			RogueClassSwapEnchantmentEpic: Encantamiento de cambio a clase pícaro Épico
+			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio a clase pícaro Legendario
+			RogueClassSwapEnchantmentRare: Encantamiento de cambio a clase de pícaro Raro
 			SizeEnchantmentBasic: Encantamiento de tamaño Básico
 			SizeEnchantmentCommon: Encantamiento de tamaño Común
 			SizeEnchantmentEpic: Encantamiento de tamaño Épico
 			SizeEnchantmentLegendary: Encantamiento de tamaño Legendario
 			SizeEnchantmentRare: Encantamiento de tamaño Raro
-			SolarDashEnchantmentBasic: Encantamiento de Dash solar Básico
-			SolarDashEnchantmentCommon: Encantamiento de Dash solar Común
-			SolarDashEnchantmentEpic: Encantamiento de Dash solar Épico 
-			SolarDashEnchantmentLegendary: Encantamiento de Dash solar Legendario
-			SolarDashEnchantmentRare: Encantamiento de Dash solar Raro
+			SolarDashEnchantmentBasic: Encantamiento de Embestida solar Básico
+			SolarDashEnchantmentCommon: Encantamiento de Embestida solar Común
+			SolarDashEnchantmentEpic: Encantamiento de Embestida solar Épico 
+			SolarDashEnchantmentLegendary: Encantamiento de Embestida solar Legendario
+			SolarDashEnchantmentRare: Encantamiento de Embestida solar Raro
 			SonarEnchantmentBasic: Encantamiento de sonar Básico
 			SonarEnchantmentCommon: Encantamiento de sonar Comú
 			SonarEnchantmentEpic:  Encantamiento de sonar Épico
@@ -258,39 +258,39 @@ Mods: {
 			SpelunkerEnchantmentLegendary: Encantamiento de espeleólogo Legendario
 			SpelunkerEnchantmentRare: Encantamiento de espeleólogo Raro
 			VenomEnchantmentBasic: Encantamiento de veneno básico
-			VenomEnchantmentCommon: Venom Encantamiento Común
-			VenomEnchantmentEpic: Venom Encantamiento Épica
-			VenomEnchantmentLegendary: Venom Encantamiento Legendario
-			VenomEnchantmentRare: Venom Encantamiento Raro
+			VenomEnchantmentCommon: Encantamiento de veneno Común
+			VenomEnchantmentEpic: Encantamiento de veneno Épica
+			VenomEnchantmentLegendary: Encantamiento de veneno Legendario
+			VenomEnchantmentRare: Encantamiento de veneno Raro
 			WarEnchantmentBasic: Encantamiento de guerra Básico
 			WarEnchantmentCommon: Encantamiento de guerra Común
 			WarEnchantmentEpic: Encantamiento de guerra Épico
 			WarEnchantmentLegendary: Encantamiento de guerra Legendario
 			WarEnchantmentRare: Encantamiento de guerra raro
-			WhipClassSwapEnchantmentBasic: Encantamiento de intercambio de clase de látigo Básico
-			WhipClassSwapEnchantmentCommon: Encantamiento de intercambio de clase de látigo Común
-			WhipClassSwapEnchantmentEpic: Encantamiento de intercambio de clase de látigo Épico
-			WhipClassSwapEnchantmentLegendary: Encantamiento de cambio de clase de látigo Legendario
-			WhipClassSwapEnchantmentRare: Encantamiento de cambio de clase de látigo Raro
-			WorldAblazeEnchantmentBasic: Mundo En Llamas Encantamiento Básico
-			WorldAblazeEnchantmentCommon: Mundo En Llamas Encantamiento Común
-			WorldAblazeEnchantmentEpic: Mundo en llamas Encantamiento Épico
-			WorldAblazeEnchantmentLegendary: Mundo en llamas Encantamiento Legendario
-			WorldAblazeEnchantmentRare: Mundo En Llamas Encantamiento Raro
-			Containment: Contención
+			WhipClassSwapEnchantmentBasic: Encantamiento de cambio a clase de látigo Básico
+			WhipClassSwapEnchantmentCommon: Encantamiento de cambio a clase de látigo Común
+			WhipClassSwapEnchantmentEpic: Encantamiento de cambio a clase de látigo Épico
+			WhipClassSwapEnchantmentLegendary: Encantamiento de cambio a clase de látigo Legendario
+			WhipClassSwapEnchantmentRare: Encantamiento de cambio a clase de látigo Raro
+			WorldAblazeEnchantmentBasic: Encantamiento de Mundo En Llamas Básico
+			WorldAblazeEnchantmentCommon: Encantamiento de Mundo En Llamas Común
+			WorldAblazeEnchantmentEpic: Encantamiento de Mundo en llamas Épico
+			WorldAblazeEnchantmentLegendary: Encantamiento de Mundo en llamas Legendario
+			WorldAblazeEnchantmentRare: Encantamiento de Mundo En Llamas Raro
+			Containment: Contenedor
 			DustyEnchantingTable: Mesa de encantamiento polvorienta
 			EnchantmentEssenceBasic: Esencia de encantamiento Básica
 			EnchantmentEssenceCommon: Esencia de encantamiento Común
 			EnchantmentEssenceEpic: Esencia de encantamiento Épica
-			EnchantmentEssenceLegendary: Esencia de encantamiento Legendario
+			EnchantmentEssenceLegendary: Esencia de encantamiento Legendaria
 			EnchantmentEssenceRare: Esencia de encantamiento Rara
 			HellishEnchantingTable: Mesa de encantamiento infernal
-			MediumContainment: Contención Media
-			PowerBooster: Ampliación de potencia
-			SoulEnchantingTable: Mesa de encantamiento de almas
-			SuperiorContainment: Contención Superior
+			MediumContainment: Contenedor Medio
+			PowerBooster: Estimulante de potencia
+			SoulEnchantingTable: Mesa de encantamiento Espiritual
+			SuperiorContainment: Contenedor Superior
 			UltimateEnchantingTable: Mesa de encantamiento definitiva
-			WoodEnchantingTable: Mesa de madera encantada
+			WoodEnchantingTable: Mesa encantamiento de madera
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -303,16 +303,16 @@ Mods: {
 				BirthdayParty: ¿POR QUÉ ME OBLIGAN A VESTIR DE ROSA? ¡ESTO PARECE HORRIBLE, ESTA FIESTA APESTA!
 				BloodMoon: Realmente lamento mi comportamiento anterior. No estaba en mi mejor momento en ese entonces, y si me mostré grosera, me disculpo.
 				Corrupt: ¡Oooh! ¡La mugre aquí es encantadora! ¡No puedo esperar para abrazar nuevos descubrimientos!
-				Crimson: ¡Oooh! ¡El gore aquí es encantador! ¡No puedo esperar para abrazar nuevos descubrimientos!
-				Dryad: "Esta... {0} persona es un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
-				DyeTrader: "¡{0} siempre me engancha con los negros más oscuros y los verdes más espeluznantes! ¡Estos colores me dan mucho brillo y me hacen ver tan delgado!"
+				Crimson: ¡Oooh! ¡La sangre aquí es encantadora! ¡No puedo esperar para abrazar nuevos descubrimientos!
+				Dryad: "Esta... {0} es todo un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
+				DyeTrader: "¡{0} siempre me engancha con los negros más oscuros y los verdes más espeluznantes! ¡Estos colores me dan mucho brillo y me hacen ver tan delgada!"
 				Graveyard: Algunas personas pueden encontrar a los muertos espeluznantes, ¡pero este "tranquilo silencio" es en realidad bastante lleno de vida! Nyack nyack nyack!
 				Princess: "¡Ugh! ¡{0} siempre está en mi caso! No sé qué es 'Ética' o 'Moral', ¡pero ella no se va de mi lugar!"
 				QueenBee: La selva tiene los mejores ingredientes para elaborar cerveza. ¡Lástima que una plaga zumbadora gigante esté infestando!
 				StandardDialogue0: Aprendí esta receta, es realmente genial, ¡la guardaré más tarde para tu regalo!
 				StandardDialogue1: ¿Por qué hablo todo el tiempo? ¡Es muy difícil hacer que rimen!
 				StandardDialogue2: Todavía estoy aquí, te veo jugar, ¡pero no puedo pensar en mucho que decir!
-				Storm: ¡Ja! ¡Trueno es el mejor cuando se trata de crear nuevas tonterías mágicas! ¡Que comience la gran hora de las brujas!
+				Storm: ¡Ja! ¡Los rayos son lo mejor cuando se trata de crear nuevas tonterías mágicas! ¡Que comience la gran hora de las brujas!
 				WitchDoctor: "¡Un compañero usuario del caldero! {0} tiene tantos trucos extraños, ¡es un verdadero seductor!"
 				Wizard: "Si bien {0} no se aventura fuera de lo probado y verdadero, ¡su conocimiento arcano lo ubica como un gurú!"
 				Zoologist: "{0} es una moza tiránica que sigue dejando pelos por todas partes, ¡la haré pagar en la guerra!"
@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 3)
 			SuperiorContainment: Se usa para almacenar encantamientos raros.
 			UltimateEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 4)
+			UltraPowerBooster: 					
+					'''
+					Úselo mientras el elemento que desea potenciar está en una tabla de encantamiento para aumentar su nivel base en 20.
+					(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
+					Este artículo será devuelto si se ofrece el artículo seleccionado.
+					'''
 			WoodEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (nivel 0)
 		}
 		NPCNames: {
@@ -411,8 +417,8 @@ Mods: {
 			LevelUp: Subir nivel
 			LootAll: Saquear todos
 			No: No
-			Offer: Oferta
-			Syphon: Sifón
+			Offer: Ofrecer
+			Syphon: Drenar
 			xp: XP
 			Yes: Sí
 			AreYouSure: 					
@@ -445,7 +451,7 @@ Mods: {
 				Generic: Genérico
 				Magic: Magia
 				Melee: Cuerpo a Cuerpo
-				Ranged: A distancia
+				Ranged: Rango
 				Rogue: Pícaro
 				Summon: Invocador
 				Throwing: Lanzador
@@ -480,7 +486,7 @@ Mods: {
 				CatastrophicRelease: Liberación catastrófica
 				Channel: Canal
 				ChaoticFishing: Pesca caótica
-				ColdSteel: Arma blanca
+				ColdSteel: Acero Gélido
 				Crate: Caja
 				CrateChance: Probabilidad de caja
 				CriticalStrikeChance: Chance de golpe crítico
@@ -538,41 +544,41 @@ Mods: {
 				OnFire: En llamas
 				OnHitSpawnProjectile: Proyectil de engendro al golpear
 				Peace: Paz
-				PennyPinching: Pellizco de centavo
+				PennyPinching: Ladrón de Monedas
 				ProjectileVelocity: Velocidad del proyectil
 				QuestFishChance: Probabilidad de Pescado de Misión
 				RangedClassSwap: Intercambio de clase a distancia
 				ReducedManaUsage: Uso de maná reducido
-				RogueClassSwap: Cambio de clase de pícaro
+				RogueClassSwap: Cambio de clase a pícaro
 				Size: Tamaño
-				SolarDash: Carrera solar
+				SolarDash: Embestida solar
 				Sonar: Sonar
 				Spelunker: Espeleólogo
-				VanillaDash1: Carrera de tabi ninja
-				VanillaDash2: Ojo de Cthulhu Escudo Dash
-				VanillaDash3: Carrera solar
-				VanillaDash5: Carrera ninja de cristal
+				VanillaDash1: Embestida de tabi ninja
+				VanillaDash2: Embestida del Escudo del Ojo de Cthulhu
+				VanillaDash3: Embestida solar
+				VanillaDash5: Embestida ninja de cristal
 				Venom: Veneno
 				War: Guerra
-				WhipClassSwap: Cambio de clase de látigo
+				WhipClassSwap: Cambio de clase a látigo
 				WhipRange: Rango de látigo
-				WingTime: Tiempo de ala
+				WingTime: Tiempo de alas
 				WorldAblaze: Mundo en llamas
 				YoyoStringLength: Longitud de la cuerda del yoyo
 			}
 			EnchantmentCustomTooltips: {
-				CalamityMod: (Encantamiento Mod Calamidad)
+				CalamityMod: (Encantamiento Mod Calamity)
 				WorldAblaze: 						
 						'''
-						(La desventaja de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).
+						(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).
 						(Ninguno sobrevivirá a las llamas imparables de Amaterasu)
-						(Inflige una desventaja de fuego única a los enemigos que nunca se detiene)
-						(El daño de la desventaja crece con el tiempo y al infligir más daño al objetivo)
-						(Se propaga a los enemigos cercanos y evita que los enemigos sean inmunes a otras desventajas de Mundo en Llamas).
+						(Inflige un efecto negativo de fuego única a los enemigos que nunca se detiene)
+						(El daño del efecto negativo crece con el tiempo y al infligir más daño al objetivo)
+						(Se propaga a los enemigos cercanos y evita que los enemigos sean inmunes a otros efectos negativos de Mundo en Llamas).
 						'''
 			}
 			EnchantmentEffects: {
-				AmmoCost: "{0} (También guarda el cebo al pescar)"
+				AmmoCost: "{0} (También ahorra el cebo al pescar)"
 				AttackSpeed: "{0} (Afecta a la velocidad de disparo de los súbditos si disparan proyectiles. Afecta a la rapidez con la que los peces muerden el sedal)."
 				BonusCoins: 						
 						'''
@@ -596,7 +602,7 @@ Mods: {
 				GodSlayer: 						
 						'''
 						{0}
-						(Daño real adicional basado en el hp máximo del enemigo)
+						(Daño real adicional basado en la vida máxima del enemigo)
 						(Daño adicional no afectado por Robo de Vida)
 						'''
 				ItemCooldown: "(Ítem CD igual a {0} velocidad de uso)"
@@ -628,11 +634,11 @@ Mods: {
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Permitido en
 				And: y
-				ArmorSlotOnly: "{0} ranura de armadura solamente"
+				ArmorSlotOnly: "Solo para ranuras de {0}"
 				LevelCost: "Coste de nivel: {0}"
 				Max1: Máximo de 1 por artículo
-				NotAllowed: "No permitido en {0} armas"
-				Only: "{0} Solo"
+				NotAllowed: "No permitido en armas {0}"
+				Only: "{0} Solamente"
 				OnlyAllowedOn: Solo permitido en
 				Or: o
 				Unique: Único (limitado a 1 encantamiento único)
@@ -653,13 +659,13 @@ Mods: {
 		TownNPCMood: {
 			Witch: {
 				Content: La vida aquí es soportable. Sin conflictos, sin drama, no es tan horrible.
-				DislikeBiome: Es increíble cómo aquí es tan manso, sin maldad, sin espeluznantes, ¡es tan cojo!
-				DislikeCrowded: ¡Cómo voy a consentirme con todo este ruido!
-				DislikeNPC: "Esta... persona de {NPCName} es un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
+				DislikeBiome: Es increíble cómo aquí es tan manso, sin maldad, sin cosas espeluznantes, ¡es tan lamentable!
+				DislikeCrowded: ¡Cómo voy a consentrarme con todo este ruido!
+				DislikeNPC: "Esta... {NPCName} es todo un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
 				FarFromHome: Tuve que aventurarme lejos para encontrar nuevos reactivos. Si bien mi hogar es agradable, puedo preparar un nuevo brebaje con estos últimos ingredientes.
-				HateBiome: ¡Ay! ¡Este lugar es tan brillante, que sobre todo me despecho!
+				HateBiome: ¡Ay! ¡Este lugar es tan brillante, es lo que mas desprecio!
 				HateCrouded: ¡No puedo lidiar con este tráfico aquí! Sácame o échalos, ¡hazlo rápido!
-				HateNPC: "{NPCName} es una moza tiránica que sigue dejando pelo por todos lados, ¡la haré pagar en la guerra!"
+				HateNPC: "{NPCName} es una perra tiránica que sigue dejando pelo por todos lados, ¡la haré pagar en esta guerra!"
 				LikeBiome: Este lugar está lleno de bichos y basura, ¡es hora de ganar dinero rápido!
 				LikeNPC: "Si bien {NPCName} no se aventura fuera de lo probado y verdadero, ¡su conocimiento arcano lo ubica como el de un gurú!"
 				LoveBiome: Este lugar me recuerda a mi antigua guarida. Muy sombrío, muy mágico, ¡qué estilo!

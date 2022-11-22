@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 3)
 			SuperiorContainment: Usato per immagazzinare incantesimi rari
 			UltimateEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 4)
+			UltraPowerBooster: 
+				'''
+				Usalo mentre l'oggetto che vuoi potenziare si trova in una tabella degli incantesimi per aumentare il suo livello base di 20.
+				(Fai clic con il pulsante sinistro del mouse dal tuo inventario o fai clic con il pulsante sinistro del mouse sull'elemento nella tabella con questo sul cursore.)
+				Questo articolo verrà restituito se viene offerto l'articolo potenziato.
+				'''
 			WoodEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 0)
 		}
 		NPCNames: {

@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 3)
 			SuperiorContainment: Wird verwendet, um seltene Verzauberungen aufzubewahren
 			UltimateEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 4)
+			UltraPowerBooster: 
+				'''
+				Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 20 zu erhöhen.
+				(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
+				Dieser Artikel wird zurückgegeben, wenn der aufgewertete Artikel angeboten wird.
+				'''
 			WoodEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 0)
 		}
 		NPCNames: {

@@ -17,12 +17,15 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
 
-namespace WeaponEnchantments.Items {
-	public abstract class Enchantment : WEModItem, ISoldByWitch {
+namespace WeaponEnchantments.Items
+{
+	public abstract class Enchantment : WEModItem, ISoldByWitch
+	{
 
 		#region Static
 
-		public struct EnchantmentStrengths {
+		public struct EnchantmentStrengths
+		{
 			public EnchantmentStrengths(float[] strengths) {
 				enchantmentTierStrength = strengths;
 			}
@@ -63,11 +66,12 @@ namespace WeaponEnchantments.Items {
 		public DifficultyStrength TierStrengthData;
 		protected virtual bool UsesTierStrengthData => false;
 		private DifficultyStrength _enchantmentStrengthData;
-		public DifficultyStrength EnchantmentStrengthData { 
+		public DifficultyStrength EnchantmentStrengthData {
 			get => _enchantmentStrengthData;
 			set => _enchantmentStrengthData = value;
 		}
 		public float EnchantmentStrength => EnchantmentStrengthData.Value;
+		public float TierPercent => ((float)EnchantmentTier + 1f) / 5f;
 
 		/// <summary>
 		/// Default 0<br/>
@@ -150,13 +154,15 @@ namespace WeaponEnchantments.Items {
 				foreach (EnchantmentEffect effect in Effects) {
 					effect.AllowedListMultiplier = AllowedListMultiplier;
 				}
+
+				itemTypeAppliedOn = value;
 			}
 		}
 		private DamageClass damageClassAppliedOn = DamageClass.Default;
 		public DamageClass DamageClassAppliedOn {
 			get => damageClassAppliedOn;
 			set {
-				foreach(EnchantmentEffect effect in Effects) {
+				foreach (EnchantmentEffect effect in Effects) {
 					effect.SetDamageClassMultiplier(value);
 				}
 
@@ -180,7 +186,7 @@ namespace WeaponEnchantments.Items {
 		#endregion
 
 		#region Identifiers and names
-			
+
 		/// <summary>
 		/// A value 0 - 4 representing the enchantment's tier.
 		/// </summary>
@@ -191,17 +197,17 @@ namespace WeaponEnchantments.Items {
 				}
 
 				return enchantmentTier;
-			} 
+			}
 		}
 		private int enchantmentTier = -1;
 
-		public string EnchantmentTypeName { 
+		public string EnchantmentTypeName {
 			get {
 				if (enchantmentTypeName == null)
 					enchantmentTypeName = Name.ToEnchantmentTypeName();
 
 				return enchantmentTypeName;
-			} 
+			}
 		}
 		private string enchantmentTypeName;
 
@@ -258,7 +264,7 @@ namespace WeaponEnchantments.Items {
 					types.Add(WikiTypeID.CraftingMaterial);
 
 				return types;
-			} 
+			}
 		}
 		public override bool DynamicTooltip => true;
 		public override int CreativeItemSacrifice => 1;
@@ -403,7 +409,7 @@ namespace WeaponEnchantments.Items {
 				DisplayName.SetDefault(StringManipulation.AddSpaces(MyDisplayName + "Enchantment" + displayTierNames[EnchantmentTier]));
 			}*/
 
-			if(printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
+			if (printListOfContributors && (EnchantmentTier == 1 || EnchantmentTypeName == "AllForOne")) {
 				//All for one is allowed to pass every sprite
 				bool allForOne = EnchantmentTypeName == "AllForOne";
 
@@ -427,7 +433,7 @@ namespace WeaponEnchantments.Items {
 			}
 
 			if (ChestDrops != null) {
-				foreach(KeyValuePair<ChestID, float> pair in ChestDrops) {
+				foreach (KeyValuePair<ChestID, float> pair in ChestDrops) {
 					ChestID chestID = pair.Key;
 					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Value);
 					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentPair);
@@ -529,12 +535,14 @@ namespace WeaponEnchantments.Items {
 			float[] strengths = new float[1];
 			float[] tierStrengths = new float[1];
 			float tierStrengthPercentage = ((float)EnchantmentTier + 1f) / (float)defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength.Length;
+			//Config - Individual Strength Multipliers
 			if (WEMod.serverConfig.individualStrengthsEnabled && WEMod.serverConfig.individualStrengths.Count > 0) {
 				foreach (Pair pair in WEMod.serverConfig.individualStrengths) {
 					if (pair.itemDefinition.Name == Name) {
 						strengths[0] = (float)pair.Strength / 1000f;
 						if (UsesTierStrengthData)
 							tierStrengths[0] = tierStrengthPercentage * strengths[0] / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+
 						foundIndividualStrength = true;
 						//Round Enchantment Strength
 						strengths[0] = (float)Math.Round(strengths[0], 4);
@@ -544,37 +552,53 @@ namespace WeaponEnchantments.Items {
 
 			//Config - Global Enchantment Strength Multipliers
 			if (!foundIndividualStrength) {
-				if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
-					strengths = new float[4];
-					tierStrengths = new float[4];
+				bool foundRarityStrength = false;
+				float rarityMultiplier = RarityEnchantmentStrengthMultipliers[EnchantmentTier];
+				if (rarityMultiplier >= 0f) {
+					foundRarityStrength = true;
+					strengths[0] = GetStrengthApplyScalePercent(rarityMultiplier);
+					if (UsesTierStrengthData)
+						tierStrengths[0] = tierStrengthPercentage * rarityMultiplier;
 				}
 
-				int count = strengths.Length;
-				for (int i = 0; i < count; i++) {
-					//Global
-					float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
-					float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-					float scale = Math.Abs(ScalePercent);
-
-					//Apply Scale Percent
-					if (ScalePercent < 0f && multiplier < 1f) {
-						strengths[i] = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
-					}
-					else {
-						float strength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
-						strengths[i] = strength;
+				if (!foundRarityStrength) {
+					if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
+						strengths = new float[4];
+						tierStrengths = new float[4];
 					}
 
-					if (UsesTierStrengthData)
-						tierStrengths[i] = tierStrengthPercentage * multiplier;
+					int count = strengths.Length;
+					for (int i = 0; i < count; i++) {
+						//Global
+						float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
 
-					//Round Enchantment Strength
-					strengths[i] = (float)Math.Round(strengths[i], 4);
+						//Apply Scale Percent
+						strengths[i] = GetStrengthApplyScalePercent(multiplier);
+
+						if (UsesTierStrengthData)
+							tierStrengths[i] = tierStrengthPercentage * multiplier;
+
+						//Round Enchantment Strength
+						strengths[i] = (float)Math.Round(strengths[i], 4);
+					}
 				}
 			}
 
 			TierStrengthData = new DifficultyStrength(tierStrengths);
 			EnchantmentStrengthData = new DifficultyStrength(strengths);
+		}
+		private float GetStrengthApplyScalePercent(float multiplier) {
+			float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
+			float scale = Math.Abs(ScalePercent);
+			float strength;
+			if (ScalePercent < 0f && multiplier < 1f) {
+				strength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
+			}
+			else {
+				strength = (1f - scale) * defaultStrength + defaultStrength * multiplier * scale;
+			}
+
+			return strength;
 		}
 		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
 			if (checkName == "")
@@ -712,8 +736,8 @@ namespace WeaponEnchantments.Items {
 		protected string GetLocalizationTypeName(string s = null, IEnumerable<object> args = null) => (s ?? EnchantmentTypeName).Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName, args);
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			var tooltipTuples = GenerateFullTooltip();
-            foreach (var tooltipTuple in tooltipTuples) {
-				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2});
+			foreach (var tooltipTuple in tooltipTuples) {
+				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2 });
 			}
 		}
 		/*
@@ -853,14 +877,14 @@ namespace WeaponEnchantments.Items {
 						first = false;
 					}
 					else if (i == count - 1) {
-						tooltip += $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.And)} ";	
+						tooltip += $" {GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.And)} ";
 					}
 					else {
-						tooltip += ", ";	
+						tooltip += ", ";
 					}
-					
+
 					tooltip += $"{key.ToString().Lang(L_ID1.Tooltip, L_ID2.ItemType)}: {AllowedList[key].Percent()}%";
-					
+
 					i++;
 					if (i == count) {
 						tooltip += "*";
@@ -1048,12 +1072,12 @@ namespace WeaponEnchantments.Items {
 						int essenceNumber = Utility ? 5 : 10;
 						recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
 					}
-					
+
 					//Enchantment
 					if (j > 0) {
 						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
 					}
-						
+
 					//Containment
 					if (EnchantmentTier < 3) {
 						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
@@ -1073,7 +1097,7 @@ namespace WeaponEnchantments.Items {
 					//Enchanting Table
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 
-					if(j == 0)
+					if (j == 0)
 						EditTier0Recipies(recipe);
 
 					EditRecipe(recipe);
@@ -1135,7 +1159,7 @@ namespace WeaponEnchantments.Items {
 				containmentRecipe.Register();
 			}
 
-			
+
 		}
 		/// <summary>
 		/// Allows for editing recipies in any way.  Called for every recipe.

@@ -231,9 +231,8 @@ namespace WeaponEnchantments.Common.Globals
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
-            if (!WEMod.serverConfig.CritPerLevelDisabled) {
+            if (!WEMod.serverConfig.CritPerLevelDisabled)
                 crit += levelBeforeBooster * GlobalStrengthMultiplier;
-            }
 
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
         }
