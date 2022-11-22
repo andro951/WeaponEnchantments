@@ -244,6 +244,11 @@ namespace WeaponEnchantments.UI
             if (iGlobal.UltraPowerBoosterInstalled)
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
+            //Ultra Power Booster
+            if (iGlobal.UltraPowerBoosterInstalled) {
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
+            }
+
             int xp = iGlobal.Experience;
             float value = item.value - iGlobal.lastValueBonus;
 

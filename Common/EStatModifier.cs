@@ -461,7 +461,7 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, EfficiencyMultiplier, _combineModeID);
 
-			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
+			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, EfficiencyMultiplier, _combineModeID);
 		}
 
 		public override string ToString() {
