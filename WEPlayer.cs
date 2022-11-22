@@ -1129,7 +1129,11 @@ namespace WeaponEnchantments
                 return 0;
 
             //Range
-            float oneForAllRange = baseOneForAllRange * item.scale;
+            float oneForAllScale = item.scale;
+            if (oneForAllScale < 1f)
+                oneForAllScale = 1f;
+
+            float oneForAllRange = baseOneForAllRange * oneForAllScale;
 
             //Sorted List by range
             Dictionary<int, float> npcs = SortNPCsByRange(target, oneForAllRange);
