@@ -520,39 +520,91 @@ namespace WeaponEnchantments.Common.Configs
         }
         private int _globalEnchantmentStrengthMultiplier;
 
+        [Header("Rarity Enchantment Strength Multipliers")]
+        [Label("Basic")]
+        [Tooltip("Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int BasicEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Common")]
+        [Tooltip("Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int CommonEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Rare")]
+        [Tooltip("Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int RareEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Epic")]
+        [Tooltip("Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int EpicEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Legendary")]
+        [Tooltip("Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int LegendaryEnchantmentStrengthMultiplier { set; get; }
+
         public PresetData() {
             AutomaticallyMatchPreseTtoWorldDifficulty = true;
             Preset = "Normal";
+            BasicEnchantmentStrengthMultiplier = -1;
+            CommonEnchantmentStrengthMultiplier = -1;
+            RareEnchantmentStrengthMultiplier = -1;
+            EpicEnchantmentStrengthMultiplier = -1;
+            LegendaryEnchantmentStrengthMultiplier = -1;
         }
 
         public override bool Equals(object obj) {
-            if (obj is PresetData other)
-                return Preset == other.Preset && GlobalEnchantmentStrengthMultiplier == other.GlobalEnchantmentStrengthMultiplier;
+            if (obj is PresetData other) {
+                if (Preset != other.Preset)
+                    return false;
+
+                if (GlobalEnchantmentStrengthMultiplier != other.GlobalEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (BasicEnchantmentStrengthMultiplier != other.BasicEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (CommonEnchantmentStrengthMultiplier != other.CommonEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (RareEnchantmentStrengthMultiplier != other.RareEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (EpicEnchantmentStrengthMultiplier != other.EpicEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (LegendaryEnchantmentStrengthMultiplier != other.LegendaryEnchantmentStrengthMultiplier)
+                    return false;
+
+                return true;
+            }
             
             return base.Equals(obj);
         }
 
         public override int GetHashCode() {
-            return new { Preset, GlobalEnchantmentStrengthMultiplier }.GetHashCode();
-        }
-    }
-
-    public class ComplexData
-    {
-        [Label("Strength Presets")]
-        [Tooltip("Adjust all enchantment strengths to one of 4 recomended preset values.")]
-        [ReloadRequired]
-        public PresetData nestedSimple = new PresetData();
-
-        public override bool Equals(object obj) {
-            if (obj is ComplexData other)
-                return nestedSimple.Equals(other.nestedSimple);
-            
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode() {
-            return new { nestedSimple }.GetHashCode();
-        }
-    }
+			return new {
+				Preset,
+				GlobalEnchantmentStrengthMultiplier,
+				BasicEnchantmentStrengthMultiplier,
+				CommonEnchantmentStrengthMultiplier,
+                RareEnchantmentStrengthMultiplier,
+                EpicEnchantmentStrengthMultiplier,
+                LegendaryEnchantmentStrengthMultiplier
+			}.GetHashCode();
+		}
+	}
 }

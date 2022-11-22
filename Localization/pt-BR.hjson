@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Usado para aplicar encantamentos a itens. (tier 3)
 			SuperiorContainment: Usado para armazenar encantamentos raros
 			UltimateEnchantingTable: Usado para aplicar encantamentos a itens. (tier 4)
+			UltraPowerBooster: 
+				'''
+				Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 20.
+				(Clique com o botão esquerdo no item que deseja fortalecer enquanto segura isso.)
+				Este item será devolvido se o item impulsionado for oferecido.
+				'''
 			WoodEnchantingTable: Usado para aplicar encantamentos a itens. (tier 0)
 		}
 		NPCNames: {

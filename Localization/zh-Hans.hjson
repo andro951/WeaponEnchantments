@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: 用于对物品施加附魔。 （第 3 层）
 			SuperiorContainment: 用于储存稀有附魔
 			UltimateEnchantingTable: 用于对物品施加附魔。 （第 4 层）
+			UltraPowerBooster: 
+				'''
+				当您想要提升的物品在附魔表中时使用它可以将其基础等级提高 20。
+				（从您的库存中左键单击或左键单击表格中的项目并将其放在光标上。）
+				如果提供提升的项目，该项目将被退回。
+				'''
 			WoodEnchantingTable: 用于对物品施加附魔。 （第 0 层）
 		}
 		NPCNames: {

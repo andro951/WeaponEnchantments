@@ -41,6 +41,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             IEnumerable<EnchantmentEssence> enchantmentEssence = modItems.OfType<EnchantmentEssence>().OrderBy(e => e.EssenceTier);
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
             PowerBooster powerBooster = modItems.OfType<PowerBooster>().First();
+            UltraPowerBooster ultraPowerBooster = modItems.OfType<UltraPowerBooster>().First();
 
             List<WebPage> webPages = new();
 
@@ -49,6 +50,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             AddEssence(webPages, enchantmentEssence);
             AddEnchantments(webPages, enchantments);
             AddPowerBooster(webPages, powerBooster);
+            AddUltraPowerBooster(webPages, ultraPowerBooster);
             AddWitch(webPages, modItems.Where(m => m is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never));
 
             string wiki = "\n\n";
@@ -330,6 +332,23 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             webPages.Add(PowerBooster);
 		}
+        private static void AddUltraPowerBooster(List<WebPage> webPages, UltraPowerBooster ultraPowerBooster) {
+            WebPage PowerBooster = new("Ultra Power Booster");
+            ItemInfo itemInfo = new(ultraPowerBooster);
+            itemInfo.AddStatistics(PowerBooster);
+            itemInfo.AddDrops(PowerBooster);
+            itemInfo.AddInfo(PowerBooster);
+            itemInfo.AddRecipes(PowerBooster);
+            PowerBooster.AddParagraph($"<br/>\n" +
+                $"A Power Booster is a rare item obtained from defeating post Plantera bosses (inlcudes Plantera).  " +
+                $"It adds 20 levels to an item " +
+                $"(These levels do not count towards the level 40 cap or give critical strike chance.).  They can only be used once per item.  " +
+                $"To apply an ultra power booster to an item, place the item into the enchanting table then click the ultra power booster onto the item in the table as if you were " +
+                $"merging two stacks of the same item.  You can also shift left click the power booster from your inventory.  Ultra Power boosters drop from boss bags in " +
+                $"Expert/Master mode at the same rates from the table.");
+
+            webPages.Add(PowerBooster);
+        }
         private static void AddWitch(List<WebPage> webPages, IEnumerable<ModItem> modItems) {
             WebPage WitchPage = new("Witch");
             NPCInfo npcInfo = new(ModContent.NPCType<Witch>());

@@ -528,7 +528,8 @@ namespace WeaponEnchantments.Common.Utility
 	public enum DropRestrictionsID
 	{
         None,
-        HardModeBosses
+        HardModeBosses,
+		PostPlanteraBosses
 	}
     public enum WikiTypeID
 	{

@@ -35,5 +35,12 @@ namespace WeaponEnchantments.Common.Configs
 		public static float CrateDropChance => serverConfig.CrateDropChance / 100f;
 		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
 		public static int AmaterasuSelfGrowthPerTick => serverConfig.AmaterasuSelfGrowthPerTick;
+		public static float[] RarityEnchantmentStrengthMultipliers = {
+			(float)serverConfig.presetData.BasicEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.CommonEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.RareEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.EpicEnchantmentStrengthMultiplier / 100f,
+			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f
+		};
 	}
 }

@@ -115,6 +115,19 @@ namespace WeaponEnchantments.Common.Globals
                     UpdateLevelAndValue();
             }
         }
+
+        protected bool _ultraPowerBoosterInstalled = false;
+        public bool UltraPowerBoosterInstalled {
+            get { return _ultraPowerBoosterInstalled; }
+            set {
+                bool lastValue = _ultraPowerBoosterInstalled;
+                _ultraPowerBoosterInstalled = value;
+
+                //If changed, update Level/Value
+                if (lastValue != _ultraPowerBoosterInstalled)
+                    UpdateLevelAndValue();
+            }
+        }
         public int level = 0;
         public int lastValueBonus = 0;
 
@@ -164,8 +177,8 @@ namespace WeaponEnchantments.Common.Globals
         #region Properties (instance)
 
         public Item Item;
-        public bool Enchanted => Experience != 0 || PowerBoosterInstalled;
-        public bool Modified => Experience != 0 || PowerBoosterInstalled || infusedItemName != "";
+        public bool Enchanted => Experience != 0 || PowerBoosterInstalled || UltraPowerBoosterInstalled;
+        public bool Modified => Enchanted || infusedItemName != "";
 
         #endregion
 
@@ -219,6 +232,7 @@ namespace WeaponEnchantments.Common.Globals
                 clone.Experience = _experience;
                 clone.levelBeforeBooster = levelBeforeBooster;
                 clone.PowerBoosterInstalled = PowerBoosterInstalled;
+                clone.UltraPowerBoosterInstalled = UltraPowerBoosterInstalled;
                 clone.level = level;
                 if (resetGlobals) {
                     clone.lastValueBonus = lastValueBonus;
@@ -293,6 +307,7 @@ namespace WeaponEnchantments.Common.Globals
 
             Experience = tag.Get<int>("experience");
             PowerBoosterInstalled = tag.Get<bool>("powerBooster");
+            UltraPowerBoosterInstalled = tag.Get<bool>("ultraPowerBooster");
 
             #endregion
 
@@ -328,6 +343,7 @@ namespace WeaponEnchantments.Common.Globals
 
             tag["experience"] = Experience;
             tag["powerBooster"] = PowerBoosterInstalled;
+            tag["ultraPowerBooster"] = UltraPowerBoosterInstalled;
 
             #endregion
 
@@ -372,6 +388,7 @@ namespace WeaponEnchantments.Common.Globals
 
             writer.Write(Experience);
             writer.Write(PowerBoosterInstalled);
+            writer.Write(UltraPowerBoosterInstalled);
 
             #endregion
 
@@ -430,6 +447,7 @@ namespace WeaponEnchantments.Common.Globals
 
             Experience = reader.ReadInt32();
             PowerBoosterInstalled = reader.ReadBoolean();
+            UltraPowerBoosterInstalled = reader.ReadBoolean();
 
             #endregion
 
@@ -487,8 +505,9 @@ namespace WeaponEnchantments.Common.Globals
                 enchantmentsValue += enchantments[i].value;
             }
 
-            int powerBoosterValue = PowerBoosterInstalled ? ModContent.GetModItem(ModContent.ItemType<PowerBooster>()).Item.value : 0;
-            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + InfusionValueAdded;
+            int powerBoosterValue = PowerBoosterInstalled ? ContentSamples.ItemsByType[ModContent.ItemType<PowerBooster>()].value : 0;
+            int ultraPowerBoosterValue = UltraPowerBoosterInstalled ? ContentSamples.ItemsByType[ModContent.ItemType<UltraPowerBooster>()].value : 0;
+            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + ultraPowerBoosterValue + InfusionValueAdded;
             valueToAdd /= Item.stack;
 
             if (this is EnchantedWeapon enchantedWeapon && enchantedWeapon.Stack0)
@@ -523,6 +542,9 @@ namespace WeaponEnchantments.Common.Globals
 
             if (PowerBoosterInstalled)
                 level += 10;
+
+            if (UltraPowerBoosterInstalled)
+                level += 20;
 
             UpdateItemValue();
         }
@@ -577,8 +599,9 @@ namespace WeaponEnchantments.Common.Globals
                 string pointsName = WEMod.clientConfig.UsePointsAsTooltip ? "Points" : "Enchantment Capacity";
 
                 string levelTooltip = $"Level: {levelBeforeBooster}  {pointsName} available: {GetLevelsAvailable()}";
-                if (PowerBoosterInstalled) {
-                    levelTooltip += " (Booster Installed)";
+                if (PowerBoosterInstalled || UltraPowerBoosterInstalled) {
+                    bool both = PowerBoosterInstalled && UltraPowerBoosterInstalled;
+                    levelTooltip += $" (Booster Installed {(PowerBoosterInstalled ? "N" : "")}{(both ? " " : "")}{(UltraPowerBoosterInstalled ? "U" : "")})";
                 }
 
                 tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
@@ -1400,12 +1423,23 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     if (cGlobal.PowerBoosterInstalled) {
-                        if (!iGlobal.PowerBoosterInstalled)
+                        if (!iGlobal.PowerBoosterInstalled) {
                             iGlobal.PowerBoosterInstalled = true;
-                        else
+                        }
+						else {
                             Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
+                        }
                     }
-                                    
+
+                    if (cGlobal.UltraPowerBoosterInstalled) {
+                        if (!iGlobal.UltraPowerBoosterInstalled) {
+                            iGlobal.UltraPowerBoosterInstalled = true;
+                        }
+						else {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>(), 1);
+                        }
+                    }
+
                     int j;
                     for (j = 0; j <= EnchantingTable.maxEnchantments; j++) {
                         if (j > 4)
@@ -1460,9 +1494,15 @@ namespace WeaponEnchantments.Common.Globals
                         }
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
                     }
+
                     if (cGlobal.PowerBoosterInstalled) {
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
                     }
+
+                    if (cGlobal.UltraPowerBoosterInstalled) {
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>(), 1);
+                    }
+
                     for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
                         if (!cGlobal.enchantments[k].IsAir) {
                             Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
@@ -1569,7 +1609,7 @@ namespace WeaponEnchantments.Common.Globals
             if (item1.type != item2.type || item1.prefix != item2.prefix)
                 return false;
 
-            if (global1.PowerBoosterInstalled != global2.PowerBoosterInstalled || global1.infusedItemName != global2.infusedItemName)
+            if (global1.PowerBoosterInstalled != global2.PowerBoosterInstalled || global1.UltraPowerBoosterInstalled != global2.UltraPowerBoosterInstalled || global1.infusedItemName != global2.infusedItemName)
                 return false;
 
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {

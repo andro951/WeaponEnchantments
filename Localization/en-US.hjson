@@ -357,6 +357,12 @@ Mods: {
 			SoulEnchantingTable: Used to apply enchantments to items. (tier 3)
 			SuperiorContainment: Used to store Rare enchantments
 			UltimateEnchantingTable: Used to apply enchantments to items. (tier 4)
+			UltraPowerBooster: 					
+					'''
+					Use this while the item you want to boost is in an Enchantment Table to raise its base level by 20.
+					(Shift left click from your inventory or left click on item in the table with this on your cursor.)
+					This item will be returned if the boosted item is offered.
+					'''
 			WoodEnchantingTable: Used to apply enchantments to items. (tier 0)
 		}
 		NPCNames: {
