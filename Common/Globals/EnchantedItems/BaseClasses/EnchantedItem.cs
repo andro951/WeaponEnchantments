@@ -1039,7 +1039,7 @@ namespace WeaponEnchantments.Common.Globals
             iGlobal.TryGetInfusionStats();
 
             //Update Stats
-            Main.LocalPlayer.GetWEPlayer().UpdateItemStats(ref item);
+            Main.LocalPlayer?.GetWEPlayer().UpdateItemStats(ref item);
         }
         public static void ApplyEnchantment(int i) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

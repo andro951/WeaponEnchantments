@@ -87,15 +87,39 @@ namespace WeaponEnchantments.Common
             #endregion
 
             //"armor".Log();
-            ReplaceOldItems(player.GetWEPlayer().GetEquipArmor(true), player, 91);
+            //ReplaceOldItems(player.GetWEPlayer().GetEquipArmor(true), player, 91);
+            ReplaceOldItems(player.armor, player, 91);
+
+            int modSlotCount = player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
+            var loader = LoaderManager.Get<AccessorySlotLoader>();
+            for (int num = 0; num < modSlotCount; num++) {
+                if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
+                    Item accessoryClone = loader.Get(num).FunctionalItem.Clone();
+                    if (!accessoryClone.NullOrAir()) {
+                        ReplaceOldItem(ref accessoryClone, player, 91);
+                        loader.Get(num).FunctionalItem = accessoryClone;
+				    }
+
+                    Item vanityClone = loader.Get(num).VanityItem.Clone();
+                    if (!vanityClone.NullOrAir()) {
+                        ReplaceOldItem(ref vanityClone, player, 91);
+                        loader.Get(num).VanityItem = vanityClone;
+				    }
+                }
+            }
+
             //"inventory".Log();
             ReplaceOldItems(player.inventory, player);
+
             //"bank1".Log();
             ReplaceOldItems(player.bank.item, player, 50, -2);
+
             //"bank2".Log();
             ReplaceOldItems(player.bank2.item, player, 50, -3);
+
             //"bank3".Log();
             ReplaceOldItems(player.bank3.item, player, 50, -4);
+
             //"bank4".Log();
             ReplaceOldItems(player.bank4.item, player, 50, -5);
 
@@ -216,11 +240,10 @@ namespace WeaponEnchantments.Common
                         }
                     }
 
-                    if (player != null) {
+                    if (player != null)
                         item.CheckRemoveEnchantments(player);
 
-                        item.SetupGlobals();
-                    }
+                    item.SetupGlobals();
                 }
 
                 #region Debug

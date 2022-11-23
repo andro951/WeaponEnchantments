@@ -102,17 +102,17 @@ namespace WeaponEnchantments.Common
 		public float EfficiencyMultiplier {
 			get => _efficiencyMultiplier;
 			set {
-				if (value != _efficiencyMultiplier) {
+				//if (value != _efficiencyMultiplier) {
 					if (_waitingForEnterWorld)
 						SetUpAutomaticStrengthFromWorldDificulty();
 
 					_efficiencyMultiplier = value;
 					_additive = 1f + originalAdditive * value;
-					_multiplicative = 1f + (originalMultiplicative - 1f) * _efficiencyMultiplier;
+					_multiplicative = 1f + (originalMultiplicative - 1f) * value;
 					_flat = originalFlat * value;
 					_base = originalBase * value;
 					_strength = 0f;
-				}
+				//}
 			}
 		}
 		private float _efficiencyMultiplier;
@@ -416,16 +416,25 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
+			originalAdditive += (m.Additive - 1f) / m.EfficiencyMultiplier;
+			originalMultiplicative *= 1f + (m.Multiplicative - 1f) / m.EfficiencyMultiplier;
+
 			_additive += m.Additive - 1f;
 			_multiplicative *= m.Multiplicative;
 
 			switch (_combineModeID) {
 				case CombineModeID.MultiplicativePartOf1:
+					originalFlat = 1f - ((1f - originalFlat) * (1f - m.Flat / m.EfficiencyMultiplier));
+					originalBase = 1f - ((1f - _base) * (1f - m.Base / m.EfficiencyMultiplier));
+
 					_flat = 1f - ((1f - _flat) * (1f - m.Flat));
 					_base = 1f - ((1f - _base) * (1f - m.Base));
 					break;
 				case CombineModeID.Normal:
 				default:
+					originalFlat += m.Flat / m.EfficiencyMultiplier;
+					originalBase += m.Base / m.EfficiencyMultiplier;
+
 					_flat += m.Flat;
 					_base += m.Base;
 					break;
@@ -449,19 +458,11 @@ namespace WeaponEnchantments.Common
 			return new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
 		}
 
-		/*
-		public EStatModifier Clone() {
-			if (_waitingForEnterWorld)
-				SetUpAutomaticStrengthFromWorldDificulty();
-
-			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, combineModeID: _combineModeID);
-		}
-		*/
 		public EStatModifier Clone() {
 			if (_waitingForEnterWorld)
 				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, EfficiencyMultiplier, _combineModeID);
 
-			return new EStatModifier(StatType, _additive - 1f, _multiplicative, _flat, _base, EfficiencyMultiplier, _combineModeID);
+			return new EStatModifier(StatType, originalAdditive, originalMultiplicative, originalFlat, originalBase, EfficiencyMultiplier, _combineModeID);
 		}
 
 		public override string ToString() {
