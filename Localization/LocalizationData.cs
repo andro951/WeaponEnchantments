@@ -90,7 +90,7 @@ namespace WeaponEnchantments.Localization
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnHitAreaEnemyDebuff}", "Passively inflicts {0} to nearby enemies on hit" },
 								{ typeof(DamageAfterDefenses).Name, "Damage (Applied after defenses. Not visible in weapon tooltip)" },
 								{ typeof(DamageClassSwap).Name, "Convert damage type to {0}"},
-								{ typeof(KiDamage).Name, "Convert damage type to Ki" },
+								{ typeof(KiDamageSwap).Name, "Convert damage type to Ki" },
 								{ typeof(MaxKi).Name, "Max Ki"},
 								{ typeof(KiRegen).Name, "Ki Regen/Sec" },
 								{ $"{typeof(VanillaDash).Name}{(int)DashID.NinjaTabiDash}", $"{DashID.NinjaTabiDash}".AddSpaces() },
