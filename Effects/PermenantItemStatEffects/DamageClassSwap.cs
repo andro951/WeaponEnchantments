@@ -14,17 +14,16 @@ namespace WeaponEnchantments.Effects
 	public class DamageClassSwap : EnchantmentEffect, IPermenantStat
 	{
 		public static DamageClassSwap Default => new DamageClassSwap(DamageClass.Generic);
-		public DamageClassSwap(DamageClass damageClass, DamageClass baseDamageClass = null, string className = null) {
+		public DamageClassSwap(DamageClass damageClass, DamageClass baseDamageClass = null) {
 			NewDamageClass = damageClass;
 			BaseDamageClass = baseDamageClass;
-			ClassName = className;
 		}
 		public override EnchantmentEffect Clone() {
 			return new DamageClassSwap(NewDamageClass, BaseDamageClass);
 		}
 
 		public override IEnumerable<object> DisplayNameArgs => new string[] { TooltipValue };
-		public override string TooltipValue => ClassName ?? NewDamageClass.DisplayName;
+		public override string TooltipValue => NewDamageClass.DisplayName;
 		public override IEnumerable<object> TooltipArgs => null;
 
 		public string ClassName { get; }
