@@ -5,6 +5,8 @@ using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.ModIntegration;
+using System.Linq;
+using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -18,6 +20,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new DamageClassSwap(MyDamageClass)
+				
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -122,4 +125,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RogueClassSwapEnchantmentRare : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
+
+
 }

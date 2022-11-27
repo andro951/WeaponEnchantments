@@ -29,6 +29,7 @@ using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments
 {
