@@ -449,7 +449,6 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Generic
-				Ki: Ki
 				Magic: Magic
 				Melee: Melee
 				Ranged: Ranged
@@ -517,9 +516,6 @@ Mods: {
 				Juiced: Juiced
 				JumpSpeed: Jump Speed
 				JunglesFury: Jungles Fury
-				KiClassSwap: Ki Class Swap
-				KiDamageSwap: Convert damage type to Ki
-				KiRegen: Ki Regen
 				LavaFishing: Lava Fishing
 				LifeRegeneration: Life Regeneration
 				LifeSteal: Life Steal
@@ -528,7 +524,6 @@ Mods: {
 				ManaUsage1: Reduced Mana Usage
 				ManaUsage2: Increased Mana Usage
 				MaxFallSpeed: Max Fall Speed
-				MaxKi: Max Ki
 				MaxLife: Max Life
 				MaxMinions: Max Minions
 				MaxMP: Max MP
@@ -612,11 +607,8 @@ Mods: {
 						(Bonus damage not affected by LifeSteal)
 						'''
 				ItemCooldown: "(Item CD equal to {0} use speed)"
-				KiDamageSwap: Convert damage type to Ki
-				KiRegen: "{0} Ki Regen"
 				LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"
 				LifeSteal: "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)"
-				MaxKi: "{0} Max Ki"
 				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
 				Multishot: "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)"
 				OneForAll: 						
