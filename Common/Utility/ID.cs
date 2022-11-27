@@ -62,6 +62,7 @@ namespace WeaponEnchantments.Common.Utility
         GodSlayer,
         InfinitePenetration,
         JumpSpeed,
+		KiDamage,
 		KiRegen,
         Knockback,
         LavaFishing,

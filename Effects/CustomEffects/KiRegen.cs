@@ -11,31 +11,19 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects.CustomEffects
 {
-    public class KiRegen : PlayerSetEffect
+    public class KiRegen : StatEffect, IVanillaStat
     {
-        public KiRegen(float minimumStrength, DifficultyStrength timerData = null, bool prevent = false) : base(minimumStrength, timerData, prevent)
+        public KiRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base)
         {
-            
+
         }
+        public KiRegen(EStatModifier eStatModifier) : base(eStatModifier) { }
         public override EnchantmentEffect Clone()
         {
-            return new KiRegen(MinimumStrength, StrengthData.Clone(), !EnableStat);
+            return new KiRegen(EStatModifier.Clone());
         }
 
         public override EnchantmentStat statName => EnchantmentStat.KiRegen;
-        public override string TooltipValue => Math.Ceiling((MinimumStrength * 60) / 3).ToString();
-        public override void SetEffect(Player player)
-        {
-            if (WEMod.dbtEnabled)
-            {
-                var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { player });
-                var KiRegen = (int)DbtPlayerClass.GetField("kiRegen").GetValue(DbtPlayer);
-                DbtPlayerClass.GetField("kiRegen").SetValue(DbtPlayer, (int)KiRegen + (int)MinimumStrength);
-                
-            }
-        }
-
+        public override string TooltipValue => $"+{Math.Ceiling((EStatModifier.ApplyTo(0) * 60) / 3)}";
     }
 }

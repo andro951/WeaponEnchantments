@@ -1581,6 +1581,36 @@ namespace WeaponEnchantments
                 case EnchantmentStat.WhipRange:
                     Player.whipRangeMultiplier = sm.ApplyTo(Player.whipRangeMultiplier);
                     break;
+                case EnchantmentStat.MaxKi:
+                    if (WEMod.dbtEnabled)
+                    {
+                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
+                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
+                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
+                        var MaxKi = (int)DbtPlayerClass.GetField("kiMax2").GetValue(DbtPlayer);
+                        DbtPlayerClass.GetField("kiMax2").SetValue(DbtPlayer, (int)sm.ApplyTo(MaxKi));
+                    }
+                    break;
+                case EnchantmentStat.KiRegen:
+                    if (WEMod.dbtEnabled)
+                    {
+                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
+                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
+                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
+                        var KiRegen = (int)DbtPlayerClass.GetField("kiRegen").GetValue(DbtPlayer);
+                        DbtPlayerClass.GetField("kiRegen").SetValue(DbtPlayer, (int)sm.ApplyTo(KiRegen));
+                    }
+                    break;
+                case EnchantmentStat.KiDamage:
+                    if (WEMod.dbtEnabled)
+                    {
+                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
+                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
+                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
+                        var KiDamage = (float)DbtPlayerClass.GetField("KiDamage").GetValue(DbtPlayer);
+                        Player.GetDamage(DamageClass.Default) += KiDamage;
+                    }
+                    break;
             }
         }
         public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {

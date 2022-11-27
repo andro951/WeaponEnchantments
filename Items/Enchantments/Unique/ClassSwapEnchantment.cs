@@ -7,6 +7,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.ModIntegration;
 using System.Linq;
 using static WeaponEnchantments.WEPlayer;
+using WeaponEnchantments.Effects.CustomEffects;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -126,5 +127,43 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
 
+
+	public abstract class KiClassSwapEnchantment : Enchantment
+	{
+        public override bool Max1 => true;
+        public override int StrengthGroup => 17;
+		public override float ScalePercent => 0.1f;
+        public override string CustomTooltip => DBZMODPORTIntegration.DBTName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string Designer => "Vyklade";
+		public override string Artist => "andro951";
+		public override void GetMyStats()
+		{
+			base.GetMyStats();
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
+			};
+
+			RestrictedClass.Add((int)DamageClassID.Summon);
+			RestrictedClass.Add((int)DamageClassID.Generic);
+
+			Effects = new()
+			{
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new KiDamageSwap()
+			};
+		}
+	}
+	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override List<WeightedPair> NpcDropTypes => WEMod.calamityEnabled ? new()
+		{
+			new(NPCID.Golem, 9f)
+		} : null;
+	}
+	public class KiClassSwapEnchantmentCommon : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentRare : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
 
 }
