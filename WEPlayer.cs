@@ -1608,7 +1608,7 @@ namespace WeaponEnchantments
                         var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
                         var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
                         var KiDamage = (float)DbtPlayerClass.GetField("KiDamage").GetValue(DbtPlayer);
-                        Player.GetDamage(DamageClass.Default) += KiDamage;
+                        Player.GetDamage(DamageClass.Default) *= KiDamage;
                     }
                     break;
             }
