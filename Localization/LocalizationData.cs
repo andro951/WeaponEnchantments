@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.Effects.CustomEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Utility;
@@ -89,6 +90,9 @@ namespace WeaponEnchantments.Localization
 								{ $"{typeof(BuffEffect).Name}{(int)BuffStyle.OnHitAreaEnemyDebuff}", "Passively inflicts {0} to nearby enemies on hit" },
 								{ typeof(DamageAfterDefenses).Name, "Damage (Applied after defenses. Not visible in weapon tooltip)" },
 								{ typeof(DamageClassSwap).Name, "Convert damage type to {0}"},
+								{ typeof(KiDamageSwap).Name, "Convert damage type to Ki" },
+								{ typeof(MaxKi).Name, "Max Ki"},
+								{ typeof(KiRegen).Name, "Ki Regen/Sec" },
 								{ $"{typeof(VanillaDash).Name}{(int)DashID.NinjaTabiDash}", $"{DashID.NinjaTabiDash}".AddSpaces() },
 								{ $"{typeof(VanillaDash).Name}{(int)DashID.EyeOfCthulhuShieldDash}", $"{DashID.EyeOfCthulhuShieldDash}".AddSpaces() },
 								{ $"{typeof(VanillaDash).Name}{(int)DashID.SolarDash}", $"{DashID.SolarDash}".AddSpaces() },
@@ -132,7 +136,9 @@ namespace WeaponEnchantments.Localization
 									{ typeof(Multishot).Name, "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)" },
 									{ typeof(OneForAll).Name, "{0}\n(Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)" },
 									{ typeof(OnHitSpawnProjectile).Name, "Spawns a projectile when hitting an enemy: {0}"},
-									{ typeof(QuestFishChance).Name, "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"}
+									{ typeof(QuestFishChance).Name, "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"},
+									{ typeof(MaxKi).Name, "{0} Max Ki"},
+									{ typeof(KiRegen).Name, "{0} Ki Regen"}
 								}
 							) },
 							{ L_ID2.EnchantmentCustomTooltips.ToString(), new(dict: new() {
@@ -142,7 +148,8 @@ namespace WeaponEnchantments.Localization
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
-								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" }
+								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" },
+								{ DBZMODPORTIntegration.DBTName, "(Dragon Ball Terraria Enchantment)"}
 							}) },
 							{ L_ID2.EnchantmentShortTooltip.ToString(), new(dict: new() {
 								{ typeof(OnTickPlayerBuffEnchantment).Name.ToEnchantmentTypeName(), "Passively grants {0} for {1} every {2}" }
