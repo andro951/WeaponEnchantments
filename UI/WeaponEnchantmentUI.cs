@@ -735,5 +735,8 @@ namespace WeaponEnchantments.UI
                 }
             }
         }
+
+        //TODO
+        //Add max level up button.                
     }
 }
