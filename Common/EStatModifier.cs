@@ -54,6 +54,27 @@ namespace WeaponEnchantments.Common
 		private float _additive;
 
 		/// <summary>
+		/// The combination of all additive denominator multipliers. Starts at 1
+		/// </summary>
+		public float AdditiveDenominator {
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				return _additiveDenominator;
+			}
+			set {
+				if (value != originalAdditiveDenominator) {
+					originalAdditiveDenominator = value;
+					_additiveDenominator = 1f + value * EfficiencyMultiplier;
+					_strength = 0f;
+				}
+			}
+		}
+		private float originalAdditiveDenominator;
+		private float _additiveDenominator;
+
+		/// <summary>
 		/// The combination of all multiplicative multipliers. Starts at 1. Applies 'after' all additive bonuses have been accumulated.
 		/// </summary>
 		public float Multiplicative {
@@ -108,6 +129,7 @@ namespace WeaponEnchantments.Common
 
 					_efficiencyMultiplier = value;
 					_additive = 1f + originalAdditive * value;
+					_additiveDenominator = 1f + originalAdditiveDenominator * value;
 					_multiplicative = 1f + (originalMultiplicative - 1f) * value;
 					_flat = originalFlat * value;
 					_base = originalBase * value;
@@ -154,14 +176,14 @@ namespace WeaponEnchantments.Common
 				if (_waitingForEnterWorld)
 					SetUpAutomaticStrengthFromWorldDificulty();
 
-				if (_additive != 1f)
+				if (_additive != 1f || _additiveDenominator != 1f)
 					return SignPercentMult100Minus1Tooltip;
 
 				return SignTooltip;
 			}
 		}
 
-		private string FlatTooltip => _flat > 0f ? _additive > 0f || _multiplicative > 0f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
+		private string FlatTooltip => _flat > 0f ? _additive > 1f || _additiveDenominator > 1f || _multiplicative > 1f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
 
 		private string tooltip;
 		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
@@ -187,15 +209,15 @@ namespace WeaponEnchantments.Common
 
 			if (tooltip == null || _strength == 0) {
 				float baseTooltip;
-				if (minusOne && _base == 0f && _additive != 1f) {
-					baseTooltip = (float)Math.Round(_additive * _multiplicative - 1f, 3);
+				if (minusOne && _base == 0f && (_additive != 1f || _additiveDenominator != 1f)) {
+					baseTooltip = (float)Math.Round(_additive / _additiveDenominator * _multiplicative - 1f, 3);
 				}
 				else {
 					baseTooltip = (float)Math.Round(Strength - _flat, 3);
 				}
 
 				tooltip = "";
-				if (_base > 0f || _additive != 1f && minusOne) {
+				if (_base > 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
 					if (sign)
 						tooltip += "+";
 
@@ -235,12 +257,20 @@ namespace WeaponEnchantments.Common
 		public StatModifier StatModifier => new StatModifier(_additive, _multiplicative, _flat, _base);
 		public EStatModifier(EnchantmentStat statType, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f, float baseEfficiencyMultiplier = 1f, CombineModeID combineModeID = CombineModeID.Normal) {
 			StatType = statType;
-			originalAdditive = additive;
+			if (additive >= 0f) {
+				originalAdditive = additive;
+				originalAdditiveDenominator = 0f;
+			}
+			else {
+				originalAdditive = 0f;
+				originalAdditiveDenominator = -additive;
+			}
 			originalMultiplicative = multiplicative;
 			originalFlat = flat;
 			originalBase = @base;
 			_efficiencyMultiplier = baseEfficiencyMultiplier;
-			_additive = 1f + additive * _efficiencyMultiplier;
+			_additive = 1f + originalAdditive * _efficiencyMultiplier;
+			_additiveDenominator = 1f + originalAdditiveDenominator * _efficiencyMultiplier;
 			_multiplicative = 1f + (multiplicative - 1f) * _efficiencyMultiplier;
 			_flat = flat * _efficiencyMultiplier;
 			_base = @base * _efficiencyMultiplier;
@@ -261,11 +291,13 @@ namespace WeaponEnchantments.Common
 
 			StatType = statType;
 			originalAdditive = 0f;
+			originalAdditiveDenominator = 0f;
 			originalMultiplicative = 1f;
 			originalFlat = 0f;
 			originalBase = 0f;
 			_efficiencyMultiplier = baseEfficiencyMultiplier;
 			_additive = 1f;
+			_additiveDenominator = 1f;
 			_multiplicative = 1f;
 			_flat = 0f;
 			_base = 0f;
@@ -279,11 +311,13 @@ namespace WeaponEnchantments.Common
 			_statTypeID = statTypeID;
 			StatType = statType;
 			originalAdditive = 0f;
+			originalAdditiveDenominator = 0f;
 			originalMultiplicative = 1f;
 			originalFlat = 0f;
 			originalBase = 0f;
 			_efficiencyMultiplier = baseEfficiencyMultiplier;
 			_additive = 1f;
+			_additiveDenominator = 1f;
 			_multiplicative = 1f;
 			_flat = 0f;
 			_base = 0f;
@@ -296,8 +330,17 @@ namespace WeaponEnchantments.Common
 			int index = Main.gameMenu ? 0 : _automaticStrengthData.AllValues.Length == 4 ? Main.GameMode : 0;
 			switch (_statTypeID) {
 				case 0:
-					originalAdditive = _automaticStrengthData.AllValues[index];
+					float value = _automaticStrengthData.AllValues[index];
+					if (value >= 0f) {
+						originalAdditive = value;
+						originalAdditiveDenominator = 0f;
+					}
+					else {
+						originalAdditive = 0f;
+						originalAdditiveDenominator = -value;
+					}
 					_additive = 1f + originalAdditive * _efficiencyMultiplier;
+					_additiveDenominator = 1f + originalAdditiveDenominator * _efficiencyMultiplier;
 					break;
 				case 1:
 					originalMultiplicative = _automaticStrengthData.AllValues[index];
@@ -380,32 +423,32 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 			
-			return (baseValue + _base) * _additive * _multiplicative + _flat;
+			return (baseValue + _base) * _additive / _additiveDenominator * _multiplicative + _flat;
 		}
 		public float InvertApplyTo(float baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			return (baseValue - _base) / _additive / _multiplicative - _flat;
+			return (baseValue - _base) / _additive * _additiveDenominator / _multiplicative - _flat;
 		}
 		public void ApplyTo(ref float baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			baseValue = (baseValue + _base) * _additive * _multiplicative + _flat;
+			baseValue = (baseValue + _base) * _additive / _additiveDenominator * _multiplicative + _flat;
 		}
 		public void ApplyTo(ref int baseValue) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive * _multiplicative + _flat);
+			baseValue = (int)Math.Round(((float)baseValue + _base) * _additive / _additiveDenominator * _multiplicative + _flat);
 		}
 		public void ApplyTo(ref float flat, ref float mult, Item item) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
 			flat += _base;
-			mult *= _additive * _multiplicative;
+			mult *= _additive / _additiveDenominator * _multiplicative;
 
 			if (_flat != 0f) {
 				float sampleMana = (float)ContentSamples.ItemsByType[item.type].mana;
@@ -416,10 +459,27 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			originalAdditive += (m.Additive - 1f) / m.EfficiencyMultiplier;
+			float totalOriginalAdditive = originalAdditive - originalAdditiveDenominator + (m.Additive - m.AdditiveDenominator) / m.EfficiencyMultiplier;
+			if (totalOriginalAdditive >= 0f) {
+				originalAdditive = totalOriginalAdditive;
+				originalAdditiveDenominator = 0f;
+			}
+			else {
+				originalAdditive = 0f;
+				originalAdditiveDenominator = -totalOriginalAdditive;
+			}
+
 			originalMultiplicative *= 1f + (m.Multiplicative - 1f) / m.EfficiencyMultiplier;
 
-			_additive += m.Additive - 1f;
+			float totalAdditive = _additive - _additiveDenominator + m.Additive - m.AdditiveDenominator;
+			if (totalAdditive >= 0f) {
+				_additive = 1f + totalAdditive;
+				_additiveDenominator = 1f;
+			}
+			else {
+				_additive = 1f;
+				_additiveDenominator = 1f - totalAdditive;
+			}
 			_multiplicative *= m.Multiplicative;
 
 			switch (_combineModeID) {
@@ -448,25 +508,31 @@ namespace WeaponEnchantments.Common
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			return new StatModifier(_additive + m.Additive - 1f, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
+			float otherAdditive = m.Additive >= 0f ? m.Additive : 1f;
+			float otherAdditiveDenominator = m.Additive >= 0f ? 1f : 1f / m.Additive ;
+			float totalAdditive = _additive - _additiveDenominator + otherAdditive - otherAdditiveDenominator;
+			float additive = totalAdditive >= 0f ? 1f + totalAdditive : 1f / (1f + totalAdditive);
+			return new StatModifier(additive, _multiplicative * m.Multiplicative, _flat + m.Flat, _base + m.Base);
 		}
 
 		public StatModifier Scale(float scale) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			return new StatModifier(1f + (_additive - 1f) * scale, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
+			float totalAdditive = _additive - _additiveDenominator;
+			float additive = totalAdditive >= 0f ? 1f + totalAdditive * scale : 1f / (1f - totalAdditive * scale);
+			return new StatModifier(additive, 1f + (_multiplicative - 1f) * scale, _flat * scale, _base * scale);
 		}
 
 		public EStatModifier Clone() {
 			if (_waitingForEnterWorld)
 				return new EStatModifier(StatType, _automaticStrengthData, _statTypeID, EfficiencyMultiplier, _combineModeID);
 
-			return new EStatModifier(StatType, originalAdditive, originalMultiplicative, originalFlat, originalBase, EfficiencyMultiplier, _combineModeID);
+			return new EStatModifier(StatType, originalAdditive - originalAdditiveDenominator, originalMultiplicative, originalFlat, originalBase, EfficiencyMultiplier, _combineModeID);
 		}
 
 		public override string ToString() {
-			return $"{StatType}, A: {_additive}, M: {_multiplicative}, F: {_flat}, B: {_base}, combineMode: {_combineModeID}";
+			return $"{StatType}, A: {_additive}, AD: {_additiveDenominator}, M: {_multiplicative}, F: {_flat}, B: {_base}, combineMode: {_combineModeID}";
 		}
 	}
 }

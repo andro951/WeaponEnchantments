@@ -12,7 +12,8 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
 				new MiningSpeed(EnchantmentStrengthData * 1.5f),
-				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData)
+				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData),
+				new NPCHitCooldown(EnchantmentStrengthData * -1)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

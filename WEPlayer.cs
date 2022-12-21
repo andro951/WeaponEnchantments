@@ -1294,7 +1294,7 @@ namespace WeaponEnchantments
 
             if (Player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.NPCHitCooldown, out float NPCHitCooldownMultiplier, 1f)) {
                 //npc.immune
-                int newImmune = (int)((float)target.immune[Player.whoAmI] * NPCHitCooldownMultiplier);
+                int newImmune = (int)(Math.Round((float)target.immune[Player.whoAmI] * NPCHitCooldownMultiplier));
                 if (newImmune < 1)
                     newImmune = 1;
 
