@@ -77,6 +77,11 @@ namespace WeaponEnchantments.Common.Globals
                     //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
                     if (weaponProjectile)
                         uSourceGlobal.masterProjectile = projectile;
+
+                    if (uSourceGlobal is EnchantedWeapon weapon) {
+                        if (weapon.damageType != DamageClass.Default)
+                            projectile.DamageType = weapon.damageType;
+					}
                 }
             }
 
