@@ -1,4 +1,4 @@
-#Contributors: @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)
+#Contributors: @DaviReM#8740, @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Encantamiento de Ira de la jungla Épico
 			JunglesFuryEnchantmentLegendary: Encantamiento de Ira de la jungla Legendario
 			JunglesFuryEnchantmentRare: Encantamiento de Ira de la jungla Raro
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Encantamiento de pesca en lava Básico
 			LavaFishingEnchantmentCommon: Encantamiento de pesca en lava Común
 			LavaFishingEnchantmentEpic: Encantamiento de pesca en lava Épico
@@ -244,17 +254,17 @@ Mods: {
 			SizeEnchantmentRare: Encantamiento de tamaño Raro
 			SolarDashEnchantmentBasic: Encantamiento de Embestida solar Básico
 			SolarDashEnchantmentCommon: Encantamiento de Embestida solar Común
-			SolarDashEnchantmentEpic: Encantamiento de Embestida solar Épico 
+			SolarDashEnchantmentEpic: Encantamiento de Embestida solar Épico
 			SolarDashEnchantmentLegendary: Encantamiento de Embestida solar Legendario
 			SolarDashEnchantmentRare: Encantamiento de Embestida solar Raro
 			SonarEnchantmentBasic: Encantamiento de sonar Básico
 			SonarEnchantmentCommon: Encantamiento de sonar Comú
-			SonarEnchantmentEpic:  Encantamiento de sonar Épico
+			SonarEnchantmentEpic: Encantamiento de sonar Épico
 			SonarEnchantmentLegendary: Encantamiento de sonar Legendario
 			SonarEnchantmentRare: Encantamiento de sonar Raro
 			SpelunkerEnchantmentBasic: Encantamiento de espeleólogo Básico
 			SpelunkerEnchantmentCommon: Encantamiento de espeleólogo Común
-			SpelunkerEnchantmentEpic:  Encantamiento de espeleólogo Épico
+			SpelunkerEnchantmentEpic: Encantamiento de espeleólogo Épico
 			SpelunkerEnchantmentLegendary: Encantamiento de espeleólogo Legendario
 			SpelunkerEnchantmentRare: Encantamiento de espeleólogo Raro
 			VenomEnchantmentBasic: Encantamiento de veneno básico
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Mesa de encantamiento Espiritual
 			SuperiorContainment: Contenedor Superior
 			UltimateEnchantingTable: Mesa de encantamiento definitiva
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Mesa encantamiento de madera
 		}
 		BuffName: {
@@ -321,48 +332,48 @@ Mods: {
 		ItemTooltip: {
 			Containment: Se utiliza para almacenar encantamientos básicos.
 			DustyEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 1)
-			EnchantmentEssenceBasic: 					
-					'''
-					Material básico para fabricar y mejorar encantamientos.
-					Se puede convertir a 400 de experiencia en una mesa de encantamiento.
-					'''
-			EnchantmentEssenceCommon: 					
-					'''
-					Material común para fabricar y mejorar encantamientos.
-					Se puede convertir a 1600 de experiencia en una mesa de encantamiento.
-					'''
-			EnchantmentEssenceEpic: 					
-					'''
-					Material épico para crear y mejorar encantamientos.
-					Se puede convertir a 25600 de experiencia en una mesa de encantamiento.
-					'''
-			EnchantmentEssenceLegendary: 					
-					'''
-					Material legendario para crear y mejorar encantamientos.
-					Se puede convertir a 102400 de experiencia en una mesa de encantamiento.
-					'''
-			EnchantmentEssenceRare: 					
-					'''
-					Material raro para crear y mejorar encantamientos.
-					Se puede convertir a 6400 de experiencia en una mesa de encantamiento.
-					'''
+			EnchantmentEssenceBasic: 
+				'''
+				Material básico para fabricar y mejorar encantamientos.
+				Se puede convertir a 400 de experiencia en una mesa de encantamiento.
+				'''
+			EnchantmentEssenceCommon: 
+				'''
+				Material común para fabricar y mejorar encantamientos.
+				Se puede convertir a 1600 de experiencia en una mesa de encantamiento.
+				'''
+			EnchantmentEssenceEpic: 
+				'''
+				Material épico para crear y mejorar encantamientos.
+				Se puede convertir a 25600 de experiencia en una mesa de encantamiento.
+				'''
+			EnchantmentEssenceLegendary: 
+				'''
+				Material legendario para crear y mejorar encantamientos.
+				Se puede convertir a 102400 de experiencia en una mesa de encantamiento.
+				'''
+			EnchantmentEssenceRare: 
+				'''
+				Material raro para crear y mejorar encantamientos.
+				Se puede convertir a 6400 de experiencia en una mesa de encantamiento.
+				'''
 			HellishEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 2)
 			MediumContainment: Se usa para almacenar encantamientos comunes
-			PowerBooster: 					
-					'''
-					Úselo mientras el elemento que desea potenciar está en una tabla de encantamiento para aumentar su nivel base en 10.
-					(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
-					Este artículo será devuelto si se ofrece el artículo seleccionado.
-					'''
+			PowerBooster: 
+				'''
+				Úselo mientras el elemento que desea potenciar está en una tabla de encantamiento para aumentar su nivel base en 10.
+				(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
+				Este artículo será devuelto si se ofrece el artículo seleccionado.
+				'''
 			SoulEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 3)
 			SuperiorContainment: Se usa para almacenar encantamientos raros.
 			UltimateEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 4)
-			UltraPowerBooster: 					
-					'''
-					Úselo mientras el elemento que desea potenciar está en una tabla de encantamiento para aumentar su nivel base en 20.
-					(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
-					Este artículo será devuelto si se ofrece el artículo seleccionado.
-					'''
+			UltraPowerBooster: 
+				'''
+				Úselo mientras el elemento que desea potenciar está en una tabla de encantamiento para aumentar su nivel base en 20.
+				(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
+				Este artículo será devuelto si se ofrece el artículo seleccionado.
+				'''
 			WoodEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (nivel 0)
 		}
 		NPCNames: {
@@ -421,12 +432,12 @@ Mods: {
 			Syphon: Drenar
 			xp: XP
 			Yes: Sí
-			AreYouSure: 					
-					'''
-					¿Estás seguro de que quieres DESTRUIR PERMANENTEMENTE tu nivel {0}?
-					{1} {2}
-					{3}(Basado en el valor del artículo/experiencia. Se devolverán los encantamientos).
-					'''
+			AreYouSure: 
+				'''
+				¿Estás seguro de que quieres DESTRUIR PERMANENTEMENTE tu nivel {0}?
+				{1} {2}
+				{3}(Basado en el valor del artículo/experiencia. Se devolverán los encantamientos).
+				'''
 			enchantment0: Coloque los encantamientos aquí.
 			enchantment4: "Requiere {0} o mejor para usar esta ranura."
 			Enchantments: Encantamientos
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Genérico
+				Ki: Ki
 				Magic: Magia
 				Melee: Cuerpo a Cuerpo
 				Ranged: Rango
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: Jugo
 				JumpSpeed: Velocidad de salto
 				JunglesFury: Furia de la jungla
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Pescar en lava
 				LifeRegeneration: Regeneración de vida
 				LifeSteal: Robo de vida
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Uso de maná reducido
 				ManaUsage2: Mayor uso de maná
 				MaxFallSpeed: Velocidad máxima de caída
+				MaxKi: Max Ki
 				MaxLife: Vida máxima
 				MaxMinions: Secuaces máximos
 				MaxMP: MP máx.
@@ -568,54 +585,55 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Encantamiento Mod Calamity)
-				WorldAblaze: 						
-						'''
-						(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).
-						(Ninguno sobrevivirá a las llamas imparables de Amaterasu)
-						(Inflige un efecto negativo de fuego única a los enemigos que nunca se detiene)
-						(El daño del efecto negativo crece con el tiempo y al infligir más daño al objetivo)
-						(Se propaga a los enemigos cercanos y evita que los enemigos sean inmunes a otros efectos negativos de Mundo en Llamas).
-						'''
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				WorldAblaze: 
+					'''
+					(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).
+					(Ninguno sobrevivirá a las llamas imparables de Amaterasu)
+					(Inflige un efecto negativo de fuego única a los enemigos que nunca se detiene)
+					(El daño del efecto negativo crece con el tiempo y al infligir más daño al objetivo)
+					(Se propaga a los enemigos cercanos y evita que los enemigos sean inmunes a otros efectos negativos de Mundo en Llamas).
+					'''
 			}
 			EnchantmentEffects: {
 				AmmoCost: "{0} (También ahorra el cebo al pescar)"
 				AttackSpeed: "{0} (Afecta a la velocidad de disparo de los súbditos si disparan proyectiles. Afecta a la rapidez con la que los peces muerden el sedal)."
-				BonusCoins: 						
-						'''
-						{0} (Golpear a un enemigo aumentará la cantidad de monedas que arrojará al morir)
-						(Basado en el daño infligido, la salud máxima del enemigo, el valor base del enemigo y la suerte).
-						'''
-				BuffDuration: 						
-						'''
-						{0}
-						(La duración aumenta continuamente mientras el beneficio está activo, no al obtener el beneficio por primera vez).
-						'''
-				EnemySpawnRate: 						
-						'''
-						{0}
-						(El daño de los súbditos se reduce por el multiplicador de la tasa de generación de los encantamientos, a menos que sean el objetivo de tu ataque de súbditos)
-						(Objetivo de ataque de súbdito establecido al golpear a los enemigos con látigos o un arma que se convierte para invocar daño de un encantamiento)
-						(Evita consumir elementos de invocación de jefes si el multiplicador de tasa de generación, de los encantamientos, es> 1.6)
-						(Los enemigos generados serán inmunes a la lava/trampas)
-						'''
+				BonusCoins: 
+					'''
+					{0} (Golpear a un enemigo aumentará la cantidad de monedas que arrojará al morir)
+					(Basado en el daño infligido, la salud máxima del enemigo, el valor base del enemigo y la suerte).
+					'''
+				BuffDuration: 
+					'''
+					{0}
+					(La duración aumenta continuamente mientras el beneficio está activo, no al obtener el beneficio por primera vez).
+					'''
+				EnemySpawnRate: 
+					'''
+					{0}
+					(El daño de los súbditos se reduce por el multiplicador de la tasa de generación de los encantamientos, a menos que sean el objetivo de tu ataque de súbditos)
+					(Objetivo de ataque de súbdito establecido al golpear a los enemigos con látigos o un arma que se convierte para invocar daño de un encantamiento)
+					(Evita consumir elementos de invocación de jefes si el multiplicador de tasa de generación, de los encantamientos, es> 1.6)
+					(Los enemigos generados serán inmunes a la lava/trampas)
+					'''
 				FishingEnemySpawnChance: "{0} (Reducido en 5x durante el día. Afectado por Chum Caster. También puede engendrar a Duke Fishron.)"
-				GodSlayer: 						
-						'''
-						{0}
-						(Daño real adicional basado en la vida máxima del enemigo)
-						(Daño adicional no afectado por Robo de Vida)
-						'''
+				GodSlayer: 
+					'''
+					{0}
+					(Daño real adicional basado en la vida máxima del enemigo)
+					(Daño adicional no afectado por Robo de Vida)
+					'''
 				ItemCooldown: "(Ítem CD igual a {0} velocidad de uso)"
 				LavaFishing: "{0} (Permite pescar en lava y tiene la posibilidad de mejorar las tasas de captura en lava. Se acumula con otras fuentes)."
 				LifeSteal: "{0} (el resto se guarda para evitar redondear siempre a 0 para armas de bajo daño)"
 				MinionAttackTarget: Los enemigos golpeados se convierten en el objetivo del ataque de los súbditos. Mismo efecto que los látigos.
 				Multishot: "{0} (Oportunidad de producir un proyectil extra. Se aplica a cada proyectil creado.)"
-				OneForAll: 						
-						'''
-						{0}
-						(Golpear a un enemigo dañará a todos los enemigos cercanos)
-						(Solo se activa con el primer impacto de un proyectil).
-						'''
+				OneForAll: 
+					'''
+					{0}
+					(Golpear a un enemigo dañará a todos los enemigos cercanos)
+					(Solo se activa con el primer impacto de un proyectil).
+					'''
 				OnHitSpawnProjectile: "Genera un proyectil al golpear a un enemigo: {0}"
 				QuestFishChance: "{0} (Los peces de la misión capturados se entregarán automáticamente y se iniciará una nueva misión, superando el límite de 1 por día)."
 				BoolEffect: {
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "Esta... {NPCName} es todo un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
 				FarFromHome: Tuve que aventurarme lejos para encontrar nuevos reactivos. Si bien mi hogar es agradable, puedo preparar un nuevo brebaje con estos últimos ingredientes.
 				HateBiome: ¡Ay! ¡Este lugar es tan brillante, es lo que mas desprecio!
-				HateCrouded: ¡No puedo lidiar con este tráfico aquí! Sácame o échalos, ¡hazlo rápido!
+				HateCrowded: ¡No puedo lidiar con este tráfico aquí! Sácame o échalos, ¡hazlo rápido!
 				HateNPC: "{NPCName} es una perra tiránica que sigue dejando pelo por todos lados, ¡la haré pagar en esta guerra!"
 				LikeBiome: Este lugar está lleno de bichos y basura, ¡es hora de ganar dinero rápido!
 				LikeNPC: "Si bien {NPCName} no se aventura fuera de lo probado y verdadero, ¡su conocimiento arcano lo ubica como el de un gurú!"

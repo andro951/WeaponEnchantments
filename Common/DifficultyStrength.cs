@@ -48,6 +48,40 @@ namespace WeaponEnchantments.Common
 
 			return new DifficultyStrength(arr);
 		}
+		public static DifficultyStrength operator -(DifficultyStrength ds, float mult) {
+			if (ds == null)
+				return null;
+
+			float[] arr = (float[])ds._values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				arr[i] -= mult;
+			}
+
+			return new DifficultyStrength(arr);
+		}
+		public static DifficultyStrength operator /(DifficultyStrength ds, float mult) {
+			if (ds == null)
+				return null;
+
+			float[] arr = (float[])ds._values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				arr[i] /= mult;
+			}
+
+			return new DifficultyStrength(arr);
+		}
+		public static DifficultyStrength operator /(DifficultyStrength ds, int mult) {
+			if (ds == null)
+				return null;
+
+			float[] arr = (float[])ds._values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				float value = arr[i] / mult;
+				arr[i] = (float)(int)value;
+			}
+
+			return new DifficultyStrength(arr);
+		}
 		public static DifficultyStrength operator ^(DifficultyStrength ds, int mult) {
 			if (ds == null)
 				return null;

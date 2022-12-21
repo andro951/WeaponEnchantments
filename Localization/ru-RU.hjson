@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Зачарование "Ярость джунглей" (Эпическое)
 			JunglesFuryEnchantmentLegendary: Зачарование "Ярость джунглей" (Легендарное)
 			JunglesFuryEnchantmentRare: Зачарование "Ярость джунглей" (Редкое)
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Зачарование "Рыбалка в лаве" (Базовое)
 			LavaFishingEnchantmentCommon: Зачарование "Рыбалка в лаве" (Обычное)
 			LavaFishingEnchantmentEpic: Зачарование "Рыбалка в лаве" (Эпическое)
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Стол зачарования души
 			SuperiorContainment: Превосходный контейнер
 			UltimateEnchantingTable: Абсолютный стол зачарования
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Деревянный стол зачарования
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Общий
+				Ki: Ki
 				Magic: Магический
 				Melee: Ближнебойный
 				Ranged: Стрелковый
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: Выжатый
 				JumpSpeed: Скорость прыжка
 				JunglesFury: Ярость джунглей
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Рыбалка в лаве
 				LifeRegeneration: Восстановление жизни
 				LifeSteal: Похищение жизни
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Уменьшение затрат маны
 				ManaUsage2: Увеличение затрат маны
 				MaxFallSpeed: Максимальная скорость падения
+				MaxKi: Max Ki
 				MaxLife: Максимум жизни
 				MaxMinions: Максимум прислужников
 				MaxMP: Максимум маны
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Зачарование мода Calamity)
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "{NPCName}... это просто ходячий штамп! 'Спаси мир от зла' Зло глубоко укоренилось, и оно здесь надолго!"
 				FarFromHome: Мне пришлось далеко зайти, чтобы найти новых реагентов. Хотя в моем доме уютно, я могу приготовить новую смесь из этих ингредиентов.
 				HateBiome: Черт возьми! Тут так светло, светлее и быть не могло.
-				HateCrouded: Я не справляюсь с здешним контингентом! Вышвырни их вон или кто-то станет реагентом!
+				HateCrowded: Я не справляюсь с здешним контингентом! Вышвырни их вон или кто-то станет реагентом!
 				HateNPC: "{NPCName}  везде свои волосы роняет, кроме войны мне выбора не оставляет!"
 				LikeBiome: Это место полно грязи и тварей, из них получатся отличные товары!
 				LikeNPC: "Хоть {NPCName} и не выходит за грани проверенного, тайных знаний у него немерено!"

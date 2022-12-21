@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Epic
 			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Legendary
 			JunglesFuryEnchantmentRare: Jungles Fury Enchantment Rare
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Lava Fishing Enchantment Basic
 			LavaFishingEnchantmentCommon: Lava Fishing Enchantment Common
 			LavaFishingEnchantmentEpic: Lava Fishing Enchantment Epic
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Soul Enchanting Table
 			SuperiorContainment: Superior Containment
 			UltimateEnchantingTable: Ultimate Enchanting Table
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Wood Enchanting Table
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Generic
+				Ki: Ki
 				Magic: Magic
 				Melee: Melee
 				Ranged: Ranged
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: Juiced
 				JumpSpeed: Jump Speed
 				JunglesFury: Jungles Fury
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Lava Fishing
 				LifeRegeneration: Life Regeneration
 				LifeSteal: Life Steal
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Reduced Mana Usage
 				ManaUsage2: Increased Mana Usage
 				MaxFallSpeed: Max Fall Speed
+				MaxKi: Max Ki
 				MaxLife: Max Life
 				MaxMinions: Max Minions
 				MaxMP: Max MP
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Calamity Mod Enchantment)
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 						
 						'''
 						(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "This... {NPCName} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!"
 				FarFromHome: I had to venture far to find new reagants.While my home is pleasant, I can brew a new concoction with these last ingredients.
 				HateBiome: Yikes! This place is so bright, that above all I spite!
-				HateCrouded: I can't deal with this here traffic! Get me out or kick them out, make it quick!
+				HateCrowded: I can't deal with this here traffic! Get me out or kick them out, make it quick!
 				HateNPC: "{NPCName} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!"
 				LikeBiome: This place is full of critters and muck, time to make a quick buck!
 				LikeNPC: "While {NPCName} does not venture outside the tried-and-true, his arcane knowledge ranks him of that of a guru!"

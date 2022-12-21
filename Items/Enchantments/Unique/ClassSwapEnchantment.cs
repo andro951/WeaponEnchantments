@@ -5,6 +5,9 @@ using WeaponEnchantments.Effects;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.ModIntegration;
+using System.Linq;
+using static WeaponEnchantments.WEPlayer;
+using WeaponEnchantments.Effects.CustomEffects;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -14,10 +17,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		public override float ScalePercent => 0.1f;
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
+		protected virtual DamageClassID DamageClassNameOveride => DamageClassID.Default;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
-				new DamageClassSwap(MyDamageClass)
+				new DamageClassSwap(MyDamageClass, damageClassNameOveride: DamageClassNameOveride)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
@@ -122,4 +126,26 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RogueClassSwapEnchantmentRare : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentEpic : RogueClassSwapEnchantment { }
 	public class RogueClassSwapEnchantmentLegendary : RogueClassSwapEnchantment { }
+
+
+	public abstract class KiClassSwapEnchantment : ClassSwapEnchantment
+	{
+		protected override DamageClass MyDamageClass => DBZMODPORTIntegration.Enabled ? DamageClass.Generic : DamageClass.Magic;
+		public override string CustomTooltip => DBZMODPORTIntegration.DBTName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
+		public override string Designer => "Vyklade";
+	}
+	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override List<WeightedPair> NpcDropTypes => WEMod.dbtEnabled ? new()
+		{
+			new(NPCID.Golem, 9f)
+		} : null;
+	}
+	public class KiClassSwapEnchantmentCommon : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentRare : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
+	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
+
 }

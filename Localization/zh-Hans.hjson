@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: 丛林之怒附魔史诗
 			JunglesFuryEnchantmentLegendary: 丛林之怒附魔传奇
 			JunglesFuryEnchantmentRare: 稀有丛林之怒附魔
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: 熔岩钓鱼附魔基础
 			LavaFishingEnchantmentCommon: 熔岩钓鱼附魔常见
 			LavaFishingEnchantmentEpic: 熔岩钓鱼附魔史诗
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: 灵魂附魔台
 			SuperiorContainment: 高级容器
 			UltimateEnchantingTable: 终极附魔台
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: 木质附魔台
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: 通用的
+				Ki: Ki
 				Magic: 魔法
 				Melee: 近战
 				Ranged: 远程
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: 榨汁
 				JumpSpeed: 跳跃速度
 				JunglesFury: 丛林之怒
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: 熔岩钓鱼
 				LifeRegeneration: 生命再生
 				LifeSteal: 生命窃取
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: 减少法力消耗
 				ManaUsage2: 法力消耗增加
 				MaxFallSpeed: 最大下降速度
+				MaxKi: Max Ki
 				MaxLife: 最大寿命
 				MaxMinions: 最大奴才
 				MaxMP: 最大 MP
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: （灾难模组附魔）
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 
 					'''
 					（Amaterasu debuff 和以下关于它的注释仅适用于附魔第 4 层。）
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: “这……{NPCName}这个人太老套了！‘从邪恶中拯救世界’邪恶根深蒂固，在这里留下来！”
 				FarFromHome: 我不得不冒险去寻找新的试剂。虽然我的家很舒服，但我可以用这些最后的成分酿造一种新的混合物。
 				HateBiome: 哎呀！这个地方太亮了，我最讨厌！
-				HateCrouded: 我不能应付这里的交通！让我出去或把他们踢出去，快点！
+				HateCrowded: 我不能应付这里的交通！让我出去或把他们踢出去，快点！
 				HateNPC: “{NPCName}是个到处留头发的暴虐丫头，我会让她在战争中付出代价！”
 				LikeBiome: 这个地方到处都是小动物和泥土，是时候快速赚钱了！
 				LikeNPC: “虽然 {NPCName} 不会冒险离开久经考验的真理，但他的奥术知识将他列为大师！”

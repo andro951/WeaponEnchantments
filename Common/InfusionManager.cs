@@ -266,8 +266,8 @@ namespace WeaponEnchantments.Common
                     break;
                 case ItemID.Minishark:
                 case ItemID.StarCannon:
-		    rarity = 1.4f;
-		    break;
+		            rarity = 1.4f;
+		            break;
                 case ItemID.BloodRainBow:
                 case ItemID.VampireFrogStaff:
                     rarity = 1.5f;

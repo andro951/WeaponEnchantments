@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.Effects.CustomEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Utility;
@@ -142,7 +143,8 @@ namespace WeaponEnchantments.Localization
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
-								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" }
+								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" },
+								{ DBZMODPORTIntegration.DBTName, "(Dragon Ball Terraria Enchantment)"}
 							}) },
 							{ L_ID2.EnchantmentShortTooltip.ToString(), new(dict: new() {
 								{ typeof(OnTickPlayerBuffEnchantment).Name.ToEnchantmentTypeName(), "Passively grants {0} for {1} every {2}" }
@@ -400,7 +402,7 @@ namespace WeaponEnchantments.Localization
 
 		public static Dictionary<string, string> RenamedKeys = new() {
 			//{ typeof(ItemCooldown).Name, "AllForOne" },
-			//{ DialogueID.HateCrowded.ToString(), "HateCrouded" }
+			{ DialogueID.HateCrowded.ToString(), "HateCrouded" }
 		};
 
 		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {
