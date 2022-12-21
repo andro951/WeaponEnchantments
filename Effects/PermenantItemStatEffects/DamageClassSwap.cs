@@ -26,7 +26,6 @@ namespace WeaponEnchantments.Effects
 		public override string TooltipValue => NewDamageClass.DisplayName;
 		public override IEnumerable<object> TooltipArgs => null;
 
-		public string ClassName { get; }
 		public virtual DamageClass NewDamageClass { get; }
 		public DamageClass BaseDamageClass;
 
@@ -37,7 +36,6 @@ namespace WeaponEnchantments.Effects
 			else {
 				ApplyTo(ref item);
 			}
-			
 		}
 		public void ApplyTo(ref Item item) {
 			if (item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon)) {

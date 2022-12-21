@@ -29,7 +29,6 @@ using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
-using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments
 {
@@ -1580,36 +1579,6 @@ namespace WeaponEnchantments
                     break;
                 case EnchantmentStat.WhipRange:
                     Player.whipRangeMultiplier = sm.ApplyTo(Player.whipRangeMultiplier);
-                    break;
-                case EnchantmentStat.MaxKi:
-                    if (WEMod.dbtEnabled)
-                    {
-                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
-                        var MaxKi = (int)DbtPlayerClass.GetField("kiMax2").GetValue(DbtPlayer);
-                        DbtPlayerClass.GetField("kiMax2").SetValue(DbtPlayer, (int)sm.ApplyTo(MaxKi));
-                    }
-                    break;
-                case EnchantmentStat.KiRegen:
-                    if (WEMod.dbtEnabled)
-                    {
-                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
-                        var KiRegen = (int)DbtPlayerClass.GetField("kiRegen").GetValue(DbtPlayer);
-                        DbtPlayerClass.GetField("kiRegen").SetValue(DbtPlayer, (int)sm.ApplyTo(KiRegen));
-                    }
-                    break;
-                case EnchantmentStat.KiDamage:
-                    if (WEMod.dbtEnabled)
-                    {
-                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
-                        var KiDamage = (float)DbtPlayerClass.GetField("KiDamage").GetValue(DbtPlayer);
-                        Player.GetDamage(DamageClass.Default) += KiDamage;
-                    }
                     break;
             }
         }
