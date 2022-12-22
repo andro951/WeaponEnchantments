@@ -81,38 +81,8 @@ namespace WeaponEnchantments.UI
 						return false;
 
 					Enchantment newEnchantment = ((Enchantment)item.ModItem);
-					if (itemInUI.TryGetEnchantedItem(out EnchantedWeapon _)) {
-						int damageType = ContentSamples.ItemsByType[itemInUI.type].DamageType.Type;
-
-						int damageClassSpecific = Enchantment.GetDamageClass(damageType);
-
-						if (newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
-							return false;
-
-						if (newEnchantment.RestrictedClass.Contains(damageClassSpecific))
-							return false;
-					}
-
-					if(!CheckAllowedList(newEnchantment))
+					if (!EnchantmentAllowedOnItem(itemInUI, wePlayer, newEnchantment))
 						return false;
-
-					if(newEnchantment.ArmorSlotSpecific > -1) {
-						int slot = -1;
-						switch (newEnchantment.ArmorSlotSpecific) {
-							case (int)ArmorSlotSpecificID.Head:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.headSlot;
-								break;
-							case (int)ArmorSlotSpecificID.Body:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.bodySlot;
-								break;
-							case (int)ArmorSlotSpecificID.Legs:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.legSlot;
-								break;
-						}
-
-						if (slot == -1)
-							return false;
-					}
 
 					int currentEnchantmentLevelCost = 0;
                     if (!Item.IsAir)
@@ -130,6 +100,42 @@ namespace WeaponEnchantments.UI
 				default:
 					return false;
 			}
+		}
+		public static bool EnchantmentAllowedOnItem(Item item, WEPlayer wePlayer, Enchantment newEnchantment) {
+			if (item.TryGetEnchantedItem(out EnchantedWeapon _)) {
+				int damageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
+
+				int damageClassSpecific = Enchantment.GetDamageClass(damageType);
+
+				if (newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
+					return false;
+
+				if (newEnchantment.RestrictedClass.Contains(damageClassSpecific))
+					return false;
+			}
+
+			if (!CheckAllowedList(newEnchantment))
+				return false;
+
+			if (newEnchantment.ArmorSlotSpecific > -1) {
+				int slot = -1;
+				switch (newEnchantment.ArmorSlotSpecific) {
+					case (int)ArmorSlotSpecificID.Head:
+						slot = item.headSlot;
+						break;
+					case (int)ArmorSlotSpecificID.Body:
+						slot = item.bodySlot;
+						break;
+					case (int)ArmorSlotSpecificID.Legs:
+						slot = item.legSlot;
+						break;
+				}
+
+				if (slot == -1)
+					return false;
+			}
+
+			return true;
 		}
 		public static bool CheckAllowedList(Enchantment enchantment) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

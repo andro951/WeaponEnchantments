@@ -1452,7 +1452,10 @@ namespace WeaponEnchantments.Common.Globals
                             Enchantment enchantment = ((Enchantment)cGlobal.enchantments[k].ModItem);
                             int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
-                            if (enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
+                            if (!WEUIItemSlot.EnchantmentAllowedOnItem(item, Main.LocalPlayer.GetWEPlayer(), enchantment))
+                                cantFit = true;
+
+                            if (!cantFit && enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
                                     if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (IsWeaponItem(item) || IsArmorItem(item))) {
                                         iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
@@ -1478,6 +1481,7 @@ namespace WeaponEnchantments.Common.Globals
                             if (cantFit)
                                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
                         }
+
                         cGlobal.enchantments[k] = new Item();
                     }
                 }

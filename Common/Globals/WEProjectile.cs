@@ -117,9 +117,11 @@ namespace WeaponEnchantments.Common.Globals
             //Immunities
             if (projectile.usesLocalNPCImmunity) {
                 if (NPCHitCooldownMultiplier > 1f) {
-                    projectile.usesIDStaticNPCImmunity = true;
-                    projectile.usesLocalNPCImmunity = false;
-                    projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                    if (projectile.localNPCHitCooldown > 0) {
+                        projectile.usesIDStaticNPCImmunity = true;
+                        projectile.usesLocalNPCImmunity = false;
+                        projectile.idStaticNPCHitCooldown = projectile.localNPCHitCooldown;
+                    }
                 }
                 else if (projectile.localNPCHitCooldown > 0) {
                     projectile.localNPCHitCooldown = (int)Math.Round((float)projectile.localNPCHitCooldown * NPCHitCooldownMultiplier);
