@@ -72,7 +72,7 @@ namespace WeaponEnchantments.UI
 					if (iGlobal == null)
 						return false;
 
-					bool useEnchantmentSlot = UseEnchantmentSlot();
+					bool useEnchantmentSlot = UseEnchantmentSlot(itemInUI, _slotTier, _utilitySlot);
 					if (!useEnchantmentSlot)
 						return false;
 
@@ -114,7 +114,7 @@ namespace WeaponEnchantments.UI
 					return false;
 			}
 
-			if (!CheckAllowedList(newEnchantment))
+			if (!CheckAllowedList(item, newEnchantment))
 				return false;
 
 			if (newEnchantment.ArmorSlotSpecific > -1) {
@@ -137,10 +137,8 @@ namespace WeaponEnchantments.UI
 
 			return true;
 		}
-		public static bool CheckAllowedList(Enchantment enchantment) {
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			Item itemInUI = wePlayer.ItemInUI();
-			if (itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+		public static bool CheckAllowedList(Item item, Enchantment enchantment) {
+			if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
 				bool allowedOnItem = enchantment.AllowedList.ContainsKey(enchantedItem.ItemType);
 
 				return allowedOnItem;
@@ -148,15 +146,13 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		private bool UseEnchantmentSlot() {
+		public static bool UseEnchantmentSlot(Item item, int slot, bool utilitySlot = false) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
-			if (_slotTier > wePlayer.enchantingTableTier && !_utilitySlot)
+			if (slot > wePlayer.enchantingTableTier && !utilitySlot)
 				return false;
 
-			Item itemInUI = wePlayer.ItemInUI();
-
-			return SlotAllowedByConfig(itemInUI, _slotTier);
+			return SlotAllowedByConfig(item, slot);
 		}
 		public static bool SlotAllowedByConfig(Item item, int slot) {
 			int configSlots;
@@ -328,7 +324,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			Draw(spriteBatch, rectangle.TopLeft());
+			Draw(spriteBatch, wePlayer.ItemInUI(), rectangle.TopLeft());
 
 			if (contains) {
 				timer++;
@@ -340,7 +336,7 @@ namespace WeaponEnchantments.UI
 
 			Main.inventoryScale = oldScale;
 		}
-		public void Draw(SpriteBatch spriteBatch/*, Item item, int context, int slot*/, Vector2 position) {
+		public void Draw(SpriteBatch spriteBatch, Item item/*, int context, int slot*/, Vector2 position) {
 			//All copied then modified from vanilla
 
 			float inventoryScale = Main.inventoryScale;
@@ -360,7 +356,7 @@ namespace WeaponEnchantments.UI
 			Color color2 = Color.White;
 
 			int context;
-            if (!UseEnchantmentSlot() && (_context == 0 || _context == 10)){
+            if (!UseEnchantmentSlot(item, _slotTier, _utilitySlot) && (_context == 0 || _context == 10)){
 				context = 5;
             }
 			else {
