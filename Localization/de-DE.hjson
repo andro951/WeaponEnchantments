@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Epos
 			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Legendär
 			JunglesFuryEnchantmentRare: Jungle Zorn Verzauberung Selten
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Lavafischen Verzauberung Basic
 			LavaFishingEnchantmentCommon: Lavafischen Verzauberung Allgemein
 			LavaFishingEnchantmentEpic: Epische Lavafischen-Verzauberung
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Seelen Verzauberungstisch
 			SuperiorContainment: Überlegene Eindämmung
 			UltimateEnchantingTable: Ultimativer Verzauberungstisch
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Holz Verzauberungstisch
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Generisch
+				Ki: Ki
 				Magic: Magie
 				Melee: Nahkampf
 				Ranged: Reichweite
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: Entsaftet
 				JumpSpeed: Sprunggeschwindigkeit
 				JunglesFury: Dschungel-Wut
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Lavafischen
 				LifeRegeneration: Lebensregeneration
 				LifeSteal: Lebensraub
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Reduzierter Manaverbrauch
 				ManaUsage2: Erhöhter Manaverbrauch
 				MaxFallSpeed: Maximale Fallgeschwindigkeit
+				MaxKi: Max Ki
 				MaxLife: Maximales Leben
 				MaxMinions: Maximale Schergen
 				MaxMP: Abklingzeit des Gegenstands
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "Diese... Person von {NPCName} ist so klischeehaft! 'Rette die Welt vor dem Bösen' Das Böse ist tief verwurzelt und hier, um zu bleiben!"
 				FarFromHome: Ich musste mich weit wagen, um neue Reagenzien zu finden. Während mein Zuhause angenehm ist, kann ich mit diesen letzten Zutaten ein neues Gebräu brauen.
 				HateBiome: Huch! Dieser Ort ist so hell, dass ich vor allem ärgere!
-				HateCrouded: Ich kann mit diesem Verkehr hier nicht umgehen! Hol mich raus oder wirf sie raus, mach schnell!
+				HateCrowded: Ich kann mit diesem Verkehr hier nicht umgehen! Hol mich raus oder wirf sie raus, mach schnell!
 				HateNPC: "{NPCName} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 				LikeBiome: Dieser Ort ist voller Viecher und Dreck, Zeit für schnelles Geld!
 				LikeNPC: "„Während {NPCName} sich nicht außerhalb des Bewährten wagt, zählt er mit seinem arkanen Wissen zu dem eines Guru!“"

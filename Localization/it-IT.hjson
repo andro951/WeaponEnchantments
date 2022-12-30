@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Incantesimo Epico
 			JunglesFuryEnchantmentLegendary: Incantesimo Furia della Giungla Leggendario
 			JunglesFuryEnchantmentRare: Incantesimo Furia della Giungla Raro
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Incantesimo Pesca alla lava Base
 			LavaFishingEnchantmentCommon: Incantesimo Pesca di Lava Comune
 			LavaFishingEnchantmentEpic: Incantesimo di pesca alla lava epico
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Tavolo incantevole dell'anima
 			SuperiorContainment: Contenimento superiore
 			UltimateEnchantingTable: Tavolo incantevole definitivo
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Tavolo incantevole in legno
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Generico
+				Ki: Ki
 				Magic: Magia
 				Melee: Mischia
 				Ranged: A distanza
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: Succo
 				JumpSpeed: Velocità di salto
 				JunglesFury: Furia della giungla
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Pesca alla lava
 				LifeRegeneration: Rigenerazione della vita
 				LifeSteal: Ruba la vita
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Consumo di mana ridotto
 				ManaUsage2: Aumento del consumo di mana
 				MaxFallSpeed: Velocità massima di caduta
+				MaxKi: Max Ki
 				MaxLife: Massimo Vita
 				MaxMinions: Max Minion
 				MaxMP: MP massimo
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Incantesimo Mod Calamità)
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 
 					'''
 					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "Questa... persona {NPCName} è così cliché! 'Salva il mondo dal male' I mali sono radicati e sono qui per restare!"
 				FarFromHome: Ho dovuto avventurarmi lontano per trovare nuovi reagenti. Anche se la mia casa è piacevole, posso preparare una nuova miscela con questi ultimi ingredienti.
 				HateBiome: Accidenti! Questo posto è così luminoso, che soprattutto faccio un dispetto!
-				HateCrouded: Non riesco a gestire questo traffico qui! Fammi uscire o buttali fuori, fallo in fretta!
+				HateCrowded: Non riesco a gestire questo traffico qui! Fammi uscire o buttali fuori, fallo in fretta!
 				HateNPC: "{NPCName} è una tirannosa ragazza che continua a lasciare i capelli ovunque, la farò pagare in guerra!"
 				LikeBiome: Questo posto è pieno di creature e letame, è ora di fare soldi in fretta!
 				LikeNPC: "Sebbene {NPCName} non si avventuri al di fuori del vero e proprio, la sua conoscenza arcana lo classifica come quella di un guru!"

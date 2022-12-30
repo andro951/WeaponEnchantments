@@ -137,6 +137,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Epickie Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentLegendary: Legendarne Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentRare: Zaklęcie Furii Dżungli Rzadkie
+			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic: Ki Enchantment Basic
+			KiEnchantmentCommon: Ki Enchantment Common
+			KiEnchantmentEpic: Ki Enchantment Epic
+			KiEnchantmentLegendary: Ki Enchantment Legendary
+			KiEnchantmentRare: Ki Enchantment Rare
 			LavaFishingEnchantmentBasic: Podstawowe zaklęcie na lawę
 			LavaFishingEnchantmentCommon: Zaklęcie łowienia lawy Powszechne
 			LavaFishingEnchantmentEpic: Epickie zaklęcie do połowów lawy
@@ -290,6 +300,7 @@ Mods: {
 			SoulEnchantingTable: Stół Zaklinania Duszy
 			SuperiorContainment: Doskonałe zabezpieczenie
 			UltimateEnchantingTable: Ostateczny stół zaklinający
+			UltraPowerBooster: Ultra Power Booster
 			WoodEnchantingTable: Stół do zaklinania drewna
 		}
 		BuffName: {
@@ -449,6 +460,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Ogólny
+				Ki: Ki
 				Magic: magia
 				Melee: Bijatyka
 				Ranged: Dystansowy
@@ -516,6 +528,10 @@ Mods: {
 				Juiced: sok
 				JumpSpeed: Prędkość skoku
 				JunglesFury: Furia Dżungli
+				Ki: Ki
+				KiClassSwap: Ki Class Swap
+				KiDamage: Ki Damage
+				KiRegen: Ki Regen
 				LavaFishing: Wędkarstwo lawowe
 				LifeRegeneration: Regeneracja życia
 				LifeSteal: Kradzież życia
@@ -524,6 +540,7 @@ Mods: {
 				ManaUsage1: Zmniejszone zużycie many
 				ManaUsage2: Zwiększone zużycie many
 				MaxFallSpeed: Maksymalna prędkość upadku
+				MaxKi: Max Ki
 				MaxLife: Maksymalne życie
 				MaxMinions: Maks sługusów
 				MaxMP: Maks. MP
@@ -568,6 +585,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Zaklęcie Mody Katastrofy)
+				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				WorldAblaze: 
 					'''
 					(Osłabienie Amaterasu i poniższe uwagi na ten temat mają zastosowanie tylko na 4. poziomie zaklęcia)
@@ -664,7 +682,7 @@ Mods: {
 				DislikeNPC: "Ta... osoba {NPCName} jest taka banalna! 'Uratuj świat przed złem' Zło jest głęboko zakorzenione i tu zostanie!"
 				FarFromHome: Musiałem zapuszczać się daleko, aby znaleźć nowe odczynniki. Chociaż mój dom jest przyjemny, mogę uwarzyć nową miksturę z tych ostatnich składników.
 				HateBiome: Ojej! To miejsce jest tak jasne, że przede wszystkim na złość!
-				HateCrouded: Nie mogę sobie z tym poradzić! Wyciągnij mnie lub wykop ich, zrób to szybko!
+				HateCrowded: Nie mogę sobie z tym poradzić! Wyciągnij mnie lub wykop ich, zrób to szybko!
 				HateNPC: "{NPCName} to tyraniczna dziewka, która ciągle zostawia włosy wszędzie, zapłaci za nią na wojnie!"
 				LikeBiome: To miejsce jest pełne stworzeń i błota, czas na szybkie zarobienie pieniędzy!
 				LikeNPC: "Chociaż {NPCName} nie wychodzi poza wypróbowane i prawdziwe, jego tajemna wiedza zalicza go do guru!"

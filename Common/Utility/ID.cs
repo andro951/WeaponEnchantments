@@ -19,7 +19,8 @@ namespace WeaponEnchantments.Common.Utility
 		Whip,
 		MagicSummonHybrid,
 		Throwing,
-		Rogue
+		Rogue,
+		Ki
 	} //Located in DamageClassLoader.cs
     public enum EItemType
     {
@@ -62,6 +63,8 @@ namespace WeaponEnchantments.Common.Utility
         GodSlayer,
         InfinitePenetration,
         JumpSpeed,
+		KiDamage,
+		KiRegen,
         Knockback,
         LavaFishing,
         LifeRegen,
@@ -70,6 +73,7 @@ namespace WeaponEnchantments.Common.Utility
         ManaUsage,
         ManaRegen,
         MaxFallSpeed,
+		MaxKi,
         MaxLife,
         MaxMinions,
         MaxMP,
