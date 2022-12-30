@@ -1052,7 +1052,7 @@ namespace WeaponEnchantments.Items
 		}
 		public override void AddRecipes() {
 			for (int i = EnchantmentTier; i < tierNames.Length; i++) {
-				if (WEMod.serverConfig.ReduceRecipesToMinimum && i != EnchantmentTier)
+				if (!useAllRecipes && i != EnchantmentTier)
 					continue;
 
 				//Lowest Craftable Tier
@@ -1062,7 +1062,7 @@ namespace WeaponEnchantments.Items
 				Recipe recipe;
 
 				for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
-					if (WEMod.serverConfig.ReduceRecipesToMinimum && j != EnchantmentTier)
+					if (!useAllRecipes && j != EnchantmentTier)
 						continue;
 
 					recipe = CreateRecipe();
@@ -1110,7 +1110,7 @@ namespace WeaponEnchantments.Items
 				return;
 
 			for (int i = 0; i < tierNames.Length; i++) {
-				if (WEMod.serverConfig.ReduceRecipesToMinimum && i != EnchantmentTier)
+				if (!useAllRecipes && i != EnchantmentTier)
 					continue;
 
 				if (EnchantmentTier == tierNames.Length)
@@ -1118,7 +1118,7 @@ namespace WeaponEnchantments.Items
 
 				Recipe recipe;
 				for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
-					if (WEMod.serverConfig.ReduceRecipesToMinimum && j != EnchantmentTier + 1)
+					if (!useAllRecipes && j != EnchantmentTier + 1)
 						continue;
 
 					recipe = CreateRecipe();
@@ -1142,7 +1142,7 @@ namespace WeaponEnchantments.Items
 					recipe.Register();
 				}
 
-				if (WEMod.serverConfig.ReduceRecipesToMinimum && EnchantmentTier != 0)
+				if (!useAllRecipes && EnchantmentTier != 0)
 					continue;
 
 				//Basic Essence Recipe

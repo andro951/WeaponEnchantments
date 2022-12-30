@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 using static WeaponEnchantments.Common.EnchantingRarity;
@@ -130,12 +131,12 @@ namespace WeaponEnchantments.Items
 
 		public override void AddRecipes() {
 			for (int i = 0; i < tierNames.Length; i++) {
-				if (WEMod.serverConfig.ReduceRecipesToMinimum && i != essenceTier)
+				if (!ConfigValues.useAllRecipes && i != essenceTier)
 					continue;
 
 				Recipe recipe = CreateRecipe();
 				if (EssenceTier > 0) {
-					int num = WEMod.serverConfig.ReduceRecipesToMinimum ? 4 : 8 - i;
+					int num = !ConfigValues.useAllRecipes ? 4 : 8 - i;
 					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier - 1], num);
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 					recipe.Register();
@@ -144,7 +145,7 @@ namespace WeaponEnchantments.Items
 				if (EssenceTier < tierNames.Length - 1) {
 					recipe = CreateRecipe();
 					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[EssenceTier + 1], 1);
-					int num = WEMod.serverConfig.ReduceRecipesToMinimum ? 4 : 2 + i / 2;
+					int num = !ConfigValues.useAllRecipes ? 4 : 2 + i / 2;
 					recipe.createItem.stack = num;
 					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
 					recipe.Register();

@@ -33,6 +33,7 @@ namespace WeaponEnchantments
 		public static bool calamityEnabled = false;
 		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
+		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod recursiveCraft);
 		public static List<Item> consumedItems = new List<Item>();
 
 		public override void Load() {

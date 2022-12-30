@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
@@ -68,7 +69,7 @@ namespace WeaponEnchantments.Tiles
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
-			if (WEMod.serverConfig.ReduceRecipesToMinimum && enchantingTableTier > 0)
+			if (!ConfigValues.useAllRecipes && enchantingTableTier > 0)
 				adjTiles.AddRange(TableTypes.GetRange(0, enchantingTableTier));
 
 			AdjTiles = adjTiles.ToArray();

@@ -8,6 +8,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
 
@@ -46,13 +47,13 @@ namespace WeaponEnchantments.Items
 
 		public override void AddRecipes() {
 			for (int i = 0; i < tierNames.Length; i++) {
-                if (WEMod.serverConfig.ReduceRecipesToMinimum && i != tierNames.Length - 1)
+                if (!ConfigValues.useAllRecipes && i != tierNames.Length - 1)
                     continue;
 
                 Recipe recipe = CreateRecipe();
                 recipe.createItem = new(ModContent.ItemType<EnchantmentEssenceEpic>());
                 recipe.AddIngredient(Type);
-                int num = WEMod.serverConfig.ReduceRecipesToMinimum ? 20 / (tierNames.Length - 1) : 20 / (i + 1);
+                int num = !ConfigValues.useAllRecipes ? 20 / (tierNames.Length - 1) : 20 / (i + 1);
                 recipe.AddIngredient(ItemID.PurificationPowder, num);
                 recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
                 recipe.Register();

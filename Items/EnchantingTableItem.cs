@@ -4,6 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 
@@ -108,7 +109,7 @@ namespace WeaponEnchantments.Items
 
 			
 			for (int i = -1; i < enchantingTableTier; i++) {
-				if (WEMod.serverConfig.ReduceRecipesToMinimum && i < enchantingTableTier - 1)
+				if (!ConfigValues.useAllRecipes && i < enchantingTableTier - 1)
 					continue;
 
 				for (int d = 0; d <= (i <= 0 && enchantingTableTier >= 1 ? 1 : 0); d++) {
