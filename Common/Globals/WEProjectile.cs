@@ -51,17 +51,29 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            #endregion
+			#endregion
 
-            //VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
-            weaponProjectile = projectile.type == ProjectileID.VortexBeater || projectile.type == ProjectileID.Celeb2Weapon || projectile.type == ProjectileID.Phantasm;
+			//VortexBeater, Celeb2, Phantasm, Laser Machinegun, Charged Blaster Cannon fix (Speed Enchantments)
+			switch (projectile.type) {
+                case ProjectileID.VortexBeater:
+                case ProjectileID.Celeb2Weapon:
+                case ProjectileID.Phantasm:
+                case ProjectileID.LaserMachinegun:
+                case ProjectileID.ChargedBlasterCannon:
+					weaponProjectile = true;
+                    break;
+			}
 
             if (source is EntitySource_ItemUse_WithAmmo vbSource) {
                 //These weapons shoot the weapon sprite instead of shooting bullest/arrows etc.  This causes many challenges with changing attackspeed.
-                bool projectileFromVortexBeater = vbSource.Item.type == ItemID.VortexBeater;
-                bool projectileFromCeleb2 = vbSource.Item.type == ItemID.Celeb2;
-                bool prjectileFromPhantasm = vbSource.Item.type == ItemID.Phantasm;
-                if (!weaponProjectile && ( projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm)) {
+                int sourceItemType = vbSource.Item.type;
+				bool projectileFromVortexBeater = sourceItemType == ItemID.VortexBeater;
+                bool projectileFromCeleb2 = sourceItemType == ItemID.Celeb2;
+                bool prjectileFromPhantasm = sourceItemType == ItemID.Phantasm;
+                bool projectileFromLaserMachinegun = sourceItemType == ItemID.LaserMachinegun;
+                bool projectileFromChargedBlasterCannon = sourceItemType == ItemID.ChargedBlasterCannon;
+                bool projectileFromWeaponProjectile = projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm || projectileFromLaserMachinegun || projectileFromChargedBlasterCannon;
+				if (!weaponProjectile && projectileFromWeaponProjectile) {
                     //Try get source projectile from the weapon.
                     if(vbSource.Item.TryGetEnchantedItem(out EnchantedItem vbSourceGlobal)) {
                         if (vbSourceGlobal.masterProjectile != null)
@@ -74,8 +86,8 @@ namespace WeaponEnchantments.Common.Globals
 
             if (source is EntitySource_ItemUse uSource) {
                 if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
-                    //Set Master projectile for VortexBeater, Celeb2, Phantasm fix (Speed Enchantments)
-                    if (weaponProjectile)
+					//Set Master projectile for VortexBeater, Celeb2, Phantasm, Laser Machinegun, Charged Blaster Cannon fix (Speed Enchantments)
+					if (weaponProjectile)
                         uSourceGlobal.masterProjectile = projectile;
 
                     if (uSourceGlobal is EnchantedWeapon weapon) {
@@ -104,11 +116,13 @@ namespace WeaponEnchantments.Common.Globals
             //NPC Hit Cooldown
             if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
                 GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.AttackSpeed, out float attackSpeedMultiplier);
+                float speedMultiplier = attackSpeedMultiplier;
 
-                if(GetEnchantmentModifierStrength(EnchantmentStat.AllForOne, out float allForOne))
-                    allForOne /= 2.5f;
-
-                float speedMultiplier = attackSpeedMultiplier / allForOne;
+				if (GetEnchantmentModifierStrength(EnchantmentStat.NPCHitCooldown, out float npcHitCooldown) && npcHitCooldown > 1f) {
+					npcHitCooldown /= 2f;
+					speedMultiplier /= npcHitCooldown;
+				}
+                
                 speed = 1f - 1f / speedMultiplier;
             }
 
@@ -154,11 +168,12 @@ namespace WeaponEnchantments.Common.Globals
             if (!weaponProjectile && !multiShotConvertedToDamage)
                 base.ActivateMultishot(projectile, source);
         }
-        protected virtual void TryUpdateFromParent() {
-            base.TryUpdateFromParent(out WEProjectile pGlobal);
+        public virtual void TryUpdateFromWEProjectileParent(WEProjectile pGlobal) {
+            //base.TryUpdateFromParent(out WEProjectile pGlobal);
 
             for (int i = 0; i < 2; i++) {
-                if (pGlobal.completedChildSpawnSpeedSetup[i]) {
+                bool completedThisChildSpawnSpeedSetup = pGlobal.completedChildSpawnSpeedSetup[i];
+				if (completedThisChildSpawnSpeedSetup) {
                     //Parent has spawned a child before
                     float ai = parent.ai[i];
                     double lastspawntime = pGlobal.lastChildSpawnTime[i];
@@ -210,7 +225,8 @@ namespace WeaponEnchantments.Common.Globals
             //If the parent projectile spawned this child and conditions are met, apply the parent's speed multiplier to the parent's ai values.
             for (int i = 0; i < 2; i++) {
                 float aiValue = projectile.ai[i];
-                if (spawnedChild[i]) {
+                bool thisSpawnedChile = spawnedChild[i];
+				if (thisSpawnedChile) {
                     lastChildSpawnTime[i] = Main.GameUpdateCount;
                     float thisSpawnChildValue = spawnChildValue[i];
                     float thisNextValueAfterChild = nextValueAfterChild[i];
@@ -233,9 +249,8 @@ namespace WeaponEnchantments.Common.Globals
 
                     //The 3 weaponProjectile weapons from vanilla spawn projectiles basid on the ai[0], but don't reset it ever.
                     //The ai[1] does reset when they are spawned, so we want to affect both.
-                    if (i == 1 && weaponProjectile) {
+                    if (i == 1 && weaponProjectile)
                         projectile.ai[0] -= valueToAdd;
-                    }
 
                     spawnedChild[i] = false;
                 }

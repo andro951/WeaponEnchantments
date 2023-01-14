@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Common.Globals
             }
             else if (source is EntitySource_Parent parentSource && parentSource.Entity is Projectile parentProjectile && projectile.type != ProjectileID.FallingStar) {
                 parent = parentProjectile;
-                TryUpdateFromParent(out _);
+                TryUpdateFromParent();
             }
             else if (source is EntitySource_Misc eSource && eSource.Context != "FallingStar") {
                 if (WEMod.calamityEnabled && projectile.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.CalamityRespawnMinionSourceItems.ContainsKey(projectile.type)) {
@@ -84,16 +84,19 @@ namespace WeaponEnchantments.Common.Globals
             ActivateMultishot(projectile, source);
         }
 
-        protected virtual void TryUpdateFromParent(out WEProjectile pGlobal) {
+        protected virtual void TryUpdateFromParent() {
             //Player source
             playerSource = parent.GetMyGlobalProjectile().playerSource;
 
-            if (!parent.TryGetWEProjectile(out pGlobal))
+            if (!parent.TryGetProjectileWithSourceItem(out ProjectileWithSourceItem pGlobal))
                 return;
 
             //Source Item
             sourceItem = pGlobal.sourceItem;
             ItemSourceSet = true;
+
+            if (pGlobal is WEProjectile weProjectileParent && this is WEProjectile weProjectile)
+				weProjectile.TryUpdateFromWEProjectileParent(weProjectileParent);
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace WeaponEnchantments.Common.Globals
         public virtual bool UpdateProjectile(Projectile projectile) {
             if (!ItemSourceSet) {
                 if (parent != null)
-                    TryUpdateFromParent(out WEProjectile pGlobal);
+                    TryUpdateFromParent();
 
                 return false;
             }
