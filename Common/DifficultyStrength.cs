@@ -101,6 +101,24 @@ namespace WeaponEnchantments.Common
 
 			return new DifficultyStrength(arr);
 		}
+		public DifficultyStrength Min(float min) {
+			float[] arr = (float[])_values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				if (arr[i] < min)
+					arr[i] = min;
+			}
+
+			return new DifficultyStrength(arr);
+		}
+		public DifficultyStrength Max(float max) {
+			float[] arr = (float[])_values.Clone();
+			for (int i = 0; i < arr.Length; i++) {
+				if (arr[i] > max)
+					arr[i] = max;
+			}
+
+			return new DifficultyStrength(arr);
+		}
 		public override string ToString() {
 			string s = "";
 			int length = _values.Length;

@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Epickie zaklęcie szybkości ataku
 			AttackSpeedEnchantmentLegendary: Legendarne zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare: Rzadkie zaklęcie prędkości ataku
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: Podstawowe zaklęcie spokojnych wód
 			CalmWatersEnchantmentCommon: Zaklęcie spokojnych wód Powszechne
 			CalmWatersEnchantmentEpic: Epic zaklęcia spokojnych wód
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Penetracja pancerza
 				AttackSpeed: Szybkość ataku
 				AutoReuse: Automatyczne ponowne użycie
+				BerserkersRage: Berserkers Rage
 				BonusCoins: Monety bonusowe
 				BuffDuration: Czas trwania premii
 				BuffEffect0: "Pasywnie przyznaje {0} tobie"

@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Encantamento Velocidade de Ataque Épico
 			AttackSpeedEnchantmentLegendary: Encantamento Velocidade de Ataque Lendário
 			AttackSpeedEnchantmentRare: Encantamento Velocidade de Ataque Raro
+			BerserkersRageEnchantmentBasic: Berserkers Rage Encantamento Básico
+			BerserkersRageEnchantmentCommon: Encantamento Fúria Berserkers Comum
+			BerserkersRageEnchantmentEpic: Berserkers Rage Encantamento Épico
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Encantamento Lendário
+			BerserkersRageEnchantmentRare: Berserkers Rage Encantamento Raro
 			CalmWatersEnchantmentBasic: Encantamento Águas Calmas Básico
 			CalmWatersEnchantmentCommon: Encantamento Águas Calmas Comum
 			CalmWatersEnchantmentEpic: Encantamento Águas Calmas Épico
@@ -137,16 +142,16 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Encantamento Fúria da Selva Épico
 			JunglesFuryEnchantmentLegendary: Encantamento Fúria da Selva Lendário
 			JunglesFuryEnchantmentRare: Encantamento Fúria da Selva Raro
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Básico de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentCommon: Comum de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentEpic: Épico de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentLegendary: Encantamento de Troca de Classe Ki Lendário
+			KiClassSwapEnchantmentRare: Encantamento de Troca de Classe Ki Raro
+			KiEnchantmentBasic: Encantamento de Ki Básico
+			KiEnchantmentCommon: Encantamento de Ki Comum
+			KiEnchantmentEpic: Ki encantamento épico
+			KiEnchantmentLegendary: Encantamento de Ki Lendário
+			KiEnchantmentRare: Encantamento de Ki Raro
 			LavaFishingEnchantmentBasic: Encantamento Pesca na Lava Básico
 			LavaFishingEnchantmentCommon: Encantamento Pesca na Lava Comum
 			LavaFishingEnchantmentEpic: Encantamento Pesca na Lava Épico
@@ -300,7 +305,7 @@ Mods: {
 			SoulEnchantingTable: Mesa de Encantamento de Almas
 			SuperiorContainment: Contenção Superior
 			UltimateEnchantingTable: Mesa de Encantamento Suprema
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Impulsionador de Ultra Potência
 			WoodEnchantingTable: Mesa de Encantamento de Madeira
 		}
 		BuffName: {
@@ -385,8 +390,8 @@ Mods: {
 				Brentilda: Brentilda
 				Freyja: Freyja
 				Gruntilda: Gruntilda
-				Hazel: Hazel
-				Jasminka: Jasminka
+				Hazel: avelã
+				Jasminka: jasminka
 				Kyubey: Kyubey
 				Maleficient: Maléfico
 				Mary: Mary
@@ -395,8 +400,8 @@ Mods: {
 				Mingella: Mingela
 				MissGulch: Senhorita Gulch
 				Morgana: Morgana
-				Sabrina: Sabrina
-				Salem: Salem
+				Sabrina: sabrina
+				Salem: Salém
 				Sarah: Sara
 				Ursula: Úrsula
 				Winifred: Winifred
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Penetração de Armadura
 				AttackSpeed: Velocidade de ataque
 				AutoReuse: Reutilização automática
+				BerserkersRage: Fúria do Berserker
 				BonusCoins: Moedas de bônus
 				BuffDuration: Duração do Efeito
 				BuffEffect0: "Concede passivamente {0} a você"
@@ -529,9 +535,9 @@ Mods: {
 				JumpSpeed: Velocidade de salto
 				JunglesFury: Fúria da Selva
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
-				KiRegen: Ki Regen
+				KiClassSwap: Troca de Classe Ki
+				KiDamage: Dano de Ki
+				KiRegen: Regeneração de Ki
 				LavaFishing: Pesca na lava
 				LifeRegeneration: Regeneração de Vida
 				LifeSteal: Roubo de Vida
@@ -585,7 +591,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Encantamento do Mod Calamidade)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Dragon Ball Terraria Encantamento)
 				WorldAblaze: 
 					'''
 					(O efeito negativo de Amaterasu e as notas abaixo sobre isso só se aplicam ao nível 4 de Encantamento.)

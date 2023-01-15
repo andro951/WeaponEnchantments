@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Зачарование "Скорость" (Эпическое)
 			AttackSpeedEnchantmentLegendary: Зачарование "Скорость" (Легендарное)
 			AttackSpeedEnchantmentRare: Зачарование "Скорость" (Редкое)
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: Зачарование "Спокойные воды" (Базовое)
 			CalmWatersEnchantmentCommon: Зачарование "Спокойные воды" (Обычное)
 			CalmWatersEnchantmentEpic: Зачарование "Спокойные воды" (Эпическое)
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Пробивание брони
 				AttackSpeed: Скорость атаки
 				AutoReuse: Автоматическое использование
+				BerserkersRage: Berserkers Rage
 				BonusCoins: Бонусные монеты
 				BuffDuration: Длительность эффекта
 				BuffEffect0: "Пассивно даёт эффект '{0}'"

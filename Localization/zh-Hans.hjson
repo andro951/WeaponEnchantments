@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: 攻击速度附魔史诗
 			AttackSpeedEnchantmentLegendary: 攻击速度附魔传奇
 			AttackSpeedEnchantmentRare: 稀有攻速附魔
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: 平静水域附魔基础
 			CalmWatersEnchantmentCommon: 平静水域附魔常见
 			CalmWatersEnchantmentEpic: 平静水域附魔史诗
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: 护甲穿透
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动重用
+				BerserkersRage: Berserkers Rage
 				BonusCoins: 奖金硬币
 				BuffDuration: 增益持续时间
 				BuffEffect0: “被动地授予您{0}”

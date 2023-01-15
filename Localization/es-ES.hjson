@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Velocidad de ataque Encantamiento Épico
 			AttackSpeedEnchantmentLegendary: Velocidad de ataque Encantamiento Legendario
 			AttackSpeedEnchantmentRare: Velocidad de ataque Encantamiento Raro
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: Encantamiento de aguas tranquilas Básico
 			CalmWatersEnchantmentCommon: Encantamiento de aguas tranquilas Común
 			CalmWatersEnchantmentEpic: Encantamiento de aguas tranquilas Épico
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Penetración de armadura
 				AttackSpeed: Velocidad de ataque
 				AutoReuse: Reutilización automática
+				BerserkersRage: Berserkers Rage
 				BonusCoins: Monedas de bonificación
 				BuffDuration: "Extiende la duración de los beneficios en {0}"
 				BuffEffect0: "Pasivamente te otorga {0}"

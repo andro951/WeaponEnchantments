@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Angriffsgeschwindigkeitsverzauberung Epic
 			AttackSpeedEnchantmentLegendary: Angriffsgeschwindigkeitsverzauberung Legendär
 			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: Ruhiges Wasser Verzauberung Basic
 			CalmWatersEnchantmentCommon: Ruhiges Wasser Verzauberung Common
 			CalmWatersEnchantmentEpic: Calm Waters Enchantment Epos
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Rüstungsdurchdringung
 				AttackSpeed: Angriffsgeschwindigkeit
 				AutoReuse: Automatische Wiederverwendung
+				BerserkersRage: Berserkers Rage
 				BonusCoins: Bonusmünzen
 				BuffDuration: Buff-Dauer
 				BuffEffect0: "Gibt Ihnen passiv {0}"

@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Attack Speed Enchantment Epic
 			AttackSpeedEnchantmentLegendary: Attack Speed Enchantment Legendary
 			AttackSpeedEnchantmentRare: Attack Speed Enchantment Rare
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
 			CalmWatersEnchantmentBasic: Calm Waters Enchantment Basic
 			CalmWatersEnchantmentCommon: Calm Waters Enchantment Common
 			CalmWatersEnchantmentEpic: Calm Waters Enchantment Epic
@@ -476,6 +481,7 @@ Mods: {
 				ArmorPenetration: Armor Penetration
 				AttackSpeed: Attack Speed
 				AutoReuse: Auto Reuse
+				BerserkersRage: Berserkers Rage
 				BonusCoins: Bonus Coins
 				BuffDuration: Buff Duration
 				BuffEffect0: "Passively grants {0} to you"

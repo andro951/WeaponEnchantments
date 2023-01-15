@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
@@ -8,20 +9,22 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 {
     public abstract class BerserkersRageEnchantment : Enchantment
     {
+		public override int StrengthGroup => 21;
 		public override void GetMyStats()
         {
             Effects = new() {
-                new AttackSpeed(EnchantmentStrengthData * 2.5f),
-                new MiningSpeed(EnchantmentStrengthData * 3.75f),
+                new AttackSpeed(EnchantmentStrengthData),
+                new MiningSpeed(EnchantmentStrengthData),
                 new AutoReuse(),
-                new NPCHitCooldown(EnchantmentStrengthData * -2.5f),
-                new AmmoCost(@base: EnchantmentStrengthData * 1.25f),
-                new DamageAfterDefenses(multiplicative: EnchantmentStrengthData * -1.25f + 1f)
+                new NPCHitCooldown(EnchantmentStrengthData * -1f),
+                new AmmoCost(@base: EnchantmentStrengthData * 0.3f),
+                new DamageAfterDefenses(multiplicative: (EnchantmentStrengthData * -0.25f + 1f).Min(0.5f))
             };
 
             AllowedList = new Dictionary<EItemType, float>() {
                 { EItemType.Weapons, 1f },
-                { EItemType.FishingPoles, 1f}
+                { EItemType.FishingPoles, 1f},
+                { EItemType.Tools, 1f }
             };
         }
 
