@@ -715,9 +715,8 @@ namespace WeaponEnchantments.Items
 				if (multiply100)
 					strength *= 100f;
 
-				if (sign) {
+				if (sign)
 					s += strength < 0f ? "" : "+";
-				}
 
 				s += $"{strength}";
 				if (percent)

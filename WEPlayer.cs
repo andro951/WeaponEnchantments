@@ -1101,7 +1101,7 @@ namespace WeaponEnchantments
             }
 
             //GodSlayer
-            ActivateGodSlayer(target, item, damage, damageReduction, crit, fromProjectile);
+            ActivateGodSlayer(target, damage, damageReduction, crit, fromProjectile);
 
             UpdateNPCImmunity(target);
 
@@ -1239,7 +1239,7 @@ namespace WeaponEnchantments
                 lifeStealRollover = 0f;
             }
         }
-        public int ActivateGodSlayer(NPC target, Item item, int damage, int damageReduction, bool crit, bool projectile) {
+        public int ActivateGodSlayer(NPC target, int damage, int damageReduction, bool crit, bool projectile) {
             if (!CheckEnchantmentStats(EnchantmentStat.GodSlayer, out float godSlayerBonus))
                 return 0;
 
@@ -1256,7 +1256,7 @@ namespace WeaponEnchantments
             float godSlayerDamage = actualDamageDealt * godSlayerBonus * target.lifeMax / 100f;
 
             //Projectile damage reduction
-            float projectileMultiplier = projectile != null ? 0.5f : 1f;
+            float projectileMultiplier = projectile == true ? 0.5f : 1f;
             godSlayerDamage *= projectileMultiplier;
 
             //Max life reduction factor

@@ -218,7 +218,7 @@ namespace WeaponEnchantments.Common
 
 				tooltip = "";
 				if (_base > 0f || (_additive != 1f || _additiveDenominator != 1f) && minusOne) {
-					if (sign)
+					if (sign && (_base > 0f || _additive > _additiveDenominator))
 						tooltip += "+";
 
 					tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
