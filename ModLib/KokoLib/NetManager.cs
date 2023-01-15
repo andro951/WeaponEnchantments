@@ -32,15 +32,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			}
 		}
 		public void NetDebuffs(NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
-			//AmaterasuDebuff.ForceUpdate(npc);
-			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
-
-			if (target.TryGetWEGlobalNPC(out WEGlobalNPC wEGlobalNPC)) {
-				wEGlobalNPC.amaterasuDamage += damage;
-				wEGlobalNPC.amaterasuStrength = amaterasuStrength;
-			}
-
-			target.ApplyBuffs(debuffs);
+			target.HandleOnHitNPCBuffs(damage, amaterasuStrength, debuffs, dontDissableImmunitiy);
 
 			if (Main.netMode == NetmodeID.Server) {
 				Net.IgnoreClient = WhoAmI;

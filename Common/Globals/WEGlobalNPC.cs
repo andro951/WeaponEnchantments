@@ -777,6 +777,16 @@ namespace WeaponEnchantments.Common.Globals
         public static bool IsWorm(NPC npc) {
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
+        public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
+			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
+
+			if (target.TryGetWEGlobalNPC(out WEGlobalNPC wEGlobalNPC)) {
+				wEGlobalNPC.amaterasuDamage += damage;
+				wEGlobalNPC.amaterasuStrength = amaterasuStrength;
+			}
+
+			target.ApplyBuffs(debuffs);
+		}
         public static void RemoveNPCBuffImunities(this NPC target, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
             HashSet<short> debuffIDs = new HashSet<short>(debuffs.Keys);
             if (dontDissableImmunitiy.Count > 0) {

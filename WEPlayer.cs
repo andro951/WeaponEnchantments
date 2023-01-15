@@ -1072,8 +1072,11 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
-                }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
+
+                    target.HandleOnHitNPCBuffs(amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
+				}
                 else {
                     $"NetDebuffs called from server.".Log();
                 }
