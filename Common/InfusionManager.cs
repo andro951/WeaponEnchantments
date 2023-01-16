@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 
@@ -118,7 +119,7 @@ namespace WeaponEnchantments.Common
                     if ( weaponList || armorList || accessory) {
                         int[] itemStats = { item.rare, item.value, item.damage };
                         if (item.rare >= numRarities)
-                            $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".Log();
+                            $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".LogSimple();
 
                         if (!itemsDict.ContainsKey(modName))
                             itemsDict.Add(modName, new List<int[]>());
@@ -133,7 +134,17 @@ namespace WeaponEnchantments.Common
                                 infusionPowers.Add(infusionPower, new SortedDictionary<string, ItemDetails>() { { clone.Name, itemDetails } });
                             }
 							else {
-                                infusionPowers[infusionPower].Add(clone.Name, itemDetails);
+                                if (infusionPowers[infusionPower].ContainsKey(clone.Name)) {
+                                    ItemDetails currentItemDetails = infusionPowers[infusionPower][clone.Name];
+                                    Item currentItem = currentItemDetails.Item;
+									int currentInfusionPower = currentItem.GetWeaponInfusionPower();
+									($"infusionPowers[{infusionPower}] already contains key({clone.Name}).\n" +
+                                        $"Current = {GetDataString(currentInfusionPower, currentItem.Name, currentItemDetails)}\n" +
+                                        $"New = {GetDataString(infusionPower, clone.Name, itemDetails)}").LogSimple();
+                                }
+                                else {
+									infusionPowers[infusionPower].Add(clone.Name, itemDetails);
+								}
 							}
                         }
                     }
@@ -145,15 +156,7 @@ namespace WeaponEnchantments.Common
                     msg += "\nMod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS";
                     foreach (int infusionPower in infusionPowers.Keys) {
                         foreach(string name in infusionPowers[infusionPower].Keys) {
-                            Item item = infusionPowers[infusionPower][name].Item;
-							string mod = item.ModItem?.Mod.Name;
-                            if (mod == null)
-                                mod = "Terraria";
-
-                            int damage = item.damage;
-                            int useTime = item.useTime;
-                            float dps = (float)damage * 60f / (float)useTime;
-                            msg += $"\n{mod}, {name}, {infusionPower}, {infusionPowers[infusionPower][name].ValueRarity}, {infusionPowers[infusionPower][name].Rarity}, {item.rare}, {item.value}, {item.type}, {damage}, {useTime}, {dps}";
+                            msg += $"\n{GetDataString(infusionPower, name, infusionPowers[infusionPower][name])}";
                         }
                     }
                 }
@@ -163,6 +166,18 @@ namespace WeaponEnchantments.Common
             
             return itemsDict;
         }
+        private static string GetDataString(int infusionPower, string name, ItemDetails itemDetails) {
+			Item item = itemDetails.Item;
+			string mod = item.ModItem?.Mod.Name;
+			if (mod == null)
+				mod = "Terraria";
+
+			int damage = item.damage;
+			int useTime = item.useTime;
+			float dps = (float)damage * 60f / (float)useTime;
+
+			return $"{mod}, {name}, {infusionPower}, {itemDetails.ValueRarity}, {itemDetails.Rarity}, {item.rare}, {item.value}, {item.type}, {damage}, {useTime}, {dps}";
+		}
         public static float GetWeaponRarity(this Item item) {
             return GetWeaponRarity(item, out float rarity, out float valueRarity);
         }

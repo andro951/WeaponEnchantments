@@ -442,6 +442,12 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool PrintWikiInfo;
+
+        [Label("Log all weapon infusion powers")]
+        [Tooltip("The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintWeaponInfusionPowers;
     }
     public class Pair
     {
