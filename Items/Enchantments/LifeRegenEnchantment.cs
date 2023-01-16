@@ -45,5 +45,4 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class LifeRegenEnchantmentRare : LifeRegenEnchantment { }
 	public class LifeRegenEnchantmentEpic : LifeRegenEnchantment { }
 	public class LifeRegenEnchantmentLegendary : LifeRegenEnchantment { }
-
 }
