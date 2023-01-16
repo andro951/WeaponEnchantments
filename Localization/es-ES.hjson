@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Velocidad de ataque Encantamiento Épico
 			AttackSpeedEnchantmentLegendary: Velocidad de ataque Encantamiento Legendario
 			AttackSpeedEnchantmentRare: Velocidad de ataque Encantamiento Raro
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
-			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentBasic: Berserkers Rabia Encantamiento Básico
+			BerserkersRageEnchantmentCommon: Berserkers Rabia Encantamiento Común
+			BerserkersRageEnchantmentEpic: Berserkers Rabia Encantamiento Épico
+			BerserkersRageEnchantmentLegendary: Berserkers Rabia Encantamiento Legendario
+			BerserkersRageEnchantmentRare: Berserkers Rage Encantamiento Raro
 			CalmWatersEnchantmentBasic: Encantamiento de aguas tranquilas Básico
 			CalmWatersEnchantmentCommon: Encantamiento de aguas tranquilas Común
 			CalmWatersEnchantmentEpic: Encantamiento de aguas tranquilas Épico
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Encantamiento de Ira de la jungla Épico
 			JunglesFuryEnchantmentLegendary: Encantamiento de Ira de la jungla Legendario
 			JunglesFuryEnchantmentRare: Encantamiento de Ira de la jungla Raro
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Encantamiento de intercambio de clase Ki básico
+			KiClassSwapEnchantmentCommon: Encantamiento de cambio de clase Ki Común
+			KiClassSwapEnchantmentEpic: Epopeya de encantamiento de intercambio de clase Ki
+			KiClassSwapEnchantmentLegendary: Encantamiento de cambio de clase Ki Legendario
+			KiClassSwapEnchantmentRare: Encantamiento de intercambio de clase Ki Raro
+			KiEnchantmentBasic: Ki encantamiento básico
+			KiEnchantmentCommon: Ki Encantamiento Común
+			KiEnchantmentEpic: Epopeya de encantamiento Ki
+			KiEnchantmentLegendary: Ki Encantamiento Legendario
+			KiEnchantmentRare: Ki Encantamiento Raro
 			LavaFishingEnchantmentBasic: Encantamiento de pesca en lava Básico
 			LavaFishingEnchantmentCommon: Encantamiento de pesca en lava Común
 			LavaFishingEnchantmentEpic: Encantamiento de pesca en lava Épico
 			LavaFishingEnchantmentLegendary: Encantamiento de pesca en lava Legendario
 			LavaFishingEnchantmentRare: Encantamiento de pesca en lava Raro
+			LifeRegenEnchantmentBasic: Encantamiento de regeneración de vida básico
+			LifeRegenEnchantmentCommon: Encantamiento de regeneración de vida común
+			LifeRegenEnchantmentEpic: Epopeya de encantamiento de regeneración de vida
+			LifeRegenEnchantmentLegendary: Encantamiento de regeneración de vida Legendario
+			LifeRegenEnchantmentRare: Encantamiento de regeneración de vida raro
 			LifeStealEnchantmentBasic: Encantamiento de robo de vida Básico
 			LifeStealEnchantmentCommon: Encantamiento de robo de vida Común
 			LifeStealEnchantmentEpic: Encantamiento de robo de vida Épico
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Mesa de encantamiento Espiritual
 			SuperiorContainment: Contenedor Superior
 			UltimateEnchantingTable: Mesa de encantamiento definitiva
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Potenciador de potencia ultra
 			WoodEnchantingTable: Mesa encantamiento de madera
 		}
 		BuffName: {
@@ -383,14 +388,14 @@ Mods: {
 		}
 		NPCNames: {
 			Witch: {
-				Agatha: Agatha
+				Agatha: agatha
 				Akko: Akko
 				Binx: Binx
 				Blobbelda: Blobbelda
 				Brentilda: Brentilda
-				Freyja: Freyja
+				Freyja: freyja
 				Gruntilda: Gruntilda
-				Hazel: Hazel
+				Hazel: Color avellana
 				Jasminka: Jazminka
 				Kyubey: Kyubey
 				Maleficient: Málefica
@@ -399,7 +404,7 @@ Mods: {
 				Melusine: Melusina
 				Mingella: Mingella
 				MissGulch: Señorita Gulch
-				Morgana: Morgana
+				Morgana: morgana
 				Sabrina: Sabrina
 				Salem: Salem
 				Sarah: Sara
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Penetración de armadura
 				AttackSpeed: Velocidad de ataque
 				AutoReuse: Reutilización automática
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: Rabia de berserkers
 				BonusCoins: Monedas de bonificación
 				BuffDuration: "Extiende la duración de los beneficios en {0}"
 				BuffEffect0: "Pasivamente te otorga {0}"
@@ -535,10 +540,11 @@ Mods: {
 				JumpSpeed: Velocidad de salto
 				JunglesFury: Furia de la jungla
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
-				KiRegen: Ki Regen
+				KiClassSwap: Intercambio de clases de Ki
+				KiDamage: Daño Ki
+				KiRegen: Regeneración de Ki
 				LavaFishing: Pescar en lava
+				LifeRegen: Regeneración de vida
 				LifeRegeneration: Regeneración de vida
 				LifeSteal: Robo de vida
 				Luck: Suerte
@@ -546,7 +552,7 @@ Mods: {
 				ManaUsage1: Uso de maná reducido
 				ManaUsage2: Mayor uso de maná
 				MaxFallSpeed: Velocidad máxima de caída
-				MaxKi: Max Ki
+				MaxKi: max ki
 				MaxLife: Vida máxima
 				MaxMinions: Secuaces máximos
 				MaxMP: MP máx.
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Encantamiento Mod Calamity)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Encantamiento Dragon Ball Terraria)
 				WorldAblaze: 
 					'''
 					(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).

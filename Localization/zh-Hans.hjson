@@ -157,6 +157,11 @@ Mods: {
 			LavaFishingEnchantmentEpic: 熔岩钓鱼附魔史诗
 			LavaFishingEnchantmentLegendary: 熔岩钓鱼附魔传奇
 			LavaFishingEnchantmentRare: 熔岩钓鱼附魔稀有
+			LifeRegenEnchantmentBasic: 生命回复附魔基礎
+			LifeRegenEnchantmentCommon: 生命恢復附魔 普通
+			LifeRegenEnchantmentEpic: 生命恢復附魔史詩
+			LifeRegenEnchantmentLegendary: 生命恢復結界傳奇
+			LifeRegenEnchantmentRare: 生命恢復附魔稀有
 			LifeStealEnchantmentBasic: 基础吸血附魔
 			LifeStealEnchantmentCommon: 普通吸血附魔
 			LifeStealEnchantmentEpic: 生命窃取附魔史诗
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: 灵魂附魔台
 			SuperiorContainment: 高级容器
 			UltimateEnchantingTable: 终极附魔台
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: 超級功率助推器
 			WoodEnchantingTable: 木质附魔台
 		}
 		BuffName: {
@@ -465,7 +470,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: 通用的
-				Ki: Ki
+				Ki: 基
 				Magic: 魔法
 				Melee: 近战
 				Ranged: 远程
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: 护甲穿透
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动重用
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: 狂戰士之怒
 				BonusCoins: 奖金硬币
 				BuffDuration: 增益持续时间
 				BuffEffect0: “被动地授予您{0}”
@@ -534,11 +539,12 @@ Mods: {
 				Juiced: 榨汁
 				JumpSpeed: 跳跃速度
 				JunglesFury: 丛林之怒
-				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
-				KiRegen: Ki Regen
+				Ki: 基
+				KiClassSwap: 文級交換
+				KiDamage: 氣傷害
+				KiRegen: 氣再生
 				LavaFishing: 熔岩钓鱼
+				LifeRegen: 生命恢復
 				LifeRegeneration: 生命再生
 				LifeSteal: 生命窃取
 				Luck: 运气
@@ -546,7 +552,7 @@ Mods: {
 				ManaUsage1: 减少法力消耗
 				ManaUsage2: 法力消耗增加
 				MaxFallSpeed: 最大下降速度
-				MaxKi: Max Ki
+				MaxKi: 馬克斯基
 				MaxLife: 最大寿命
 				MaxMinions: 最大奴才
 				MaxMP: 最大 MP
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: （灾难模组附魔）
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: （龍珠泰拉瑞亞附魔）
 				WorldAblaze: 
 					'''
 					（Amaterasu debuff 和以下关于它的注释仅适用于附魔第 4 层。）

@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Vitesse d'attaque Enchantement Épique
 			AttackSpeedEnchantmentLegendary: Vitesse d'attaque Enchantement Légendaire
 			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basique
+			BerserkersRageEnchantmentCommon: Rage des berserkers Enchantement Commun
 			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantement Légendaire
+			BerserkersRageEnchantmentRare: Rage des Berserkers Enchantement Rare
 			CalmWatersEnchantmentBasic: Enchantement des eaux calmes de base
 			CalmWatersEnchantmentCommon: Eaux calmes Enchantement Commun
 			CalmWatersEnchantmentEpic: Épopée d'enchantement des eaux calmes
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Épique
 			JunglesFuryEnchantmentLegendary: Jungles Fureur Enchantement Légendaire
 			JunglesFuryEnchantmentRare: Enchantement de Fureur de la jungle Rare
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Enchantement d'échange de classe Ki de base
+			KiClassSwapEnchantmentCommon: Enchantement d'échange de classe Ki
+			KiClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Ki
+			KiClassSwapEnchantmentLegendary: Enchantement d'échange de classe Ki Légendaire
+			KiClassSwapEnchantmentRare: Enchantement d'échange de classe Ki rare
+			KiEnchantmentBasic: Enchantement Ki de base
+			KiEnchantmentCommon: Ki Enchantement Commun
+			KiEnchantmentEpic: Épique d'enchantement de Ki
+			KiEnchantmentLegendary: Ki Enchantement Légendaire
+			KiEnchantmentRare: Ki Enchantement Rare
 			LavaFishingEnchantmentBasic: Enchantement de pêche à la lave de base
 			LavaFishingEnchantmentCommon: Enchantement de pêche à la lave Commun
 			LavaFishingEnchantmentEpic: Épopée d'enchantement de pêche à la lave
 			LavaFishingEnchantmentLegendary: Pêche à la lave Enchantement Légendaire
 			LavaFishingEnchantmentRare: Pêche à la lave Enchantement Rare
+			LifeRegenEnchantmentBasic: Enchantement de régénération de vie de base
+			LifeRegenEnchantmentCommon: Enchantement de régénération de vie
+			LifeRegenEnchantmentEpic: Épopée d'enchantement de régénération de vie
+			LifeRegenEnchantmentLegendary: Régénération de vie Enchantement Légendaire
+			LifeRegenEnchantmentRare: Enchantement de régénération de vie rare
 			LifeStealEnchantmentBasic: Enchantement de Vol de vie de base
 			LifeStealEnchantmentCommon: Enchantement de Vol de vie Commun
 			LifeStealEnchantmentEpic: Épique d'enchantement de vol de vie
@@ -251,7 +256,7 @@ Mods: {
 			RogueClassSwapEnchantmentCommon: Enchantement d'échange de classe Rogue Common
 			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
-			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantment Rare
+			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantement Rare
 			SizeEnchantmentBasic: Enchantement de taille de base
 			SizeEnchantmentCommon: Enchantement de taille Commun
 			SizeEnchantmentEpic: Taille Enchantement Épique
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Table d'enchantement d'âme
 			SuperiorContainment: Conteneur supérieur
 			UltimateEnchantingTable: Table d'enchantement ultime
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Amplificateur de puissance ultra
 			WoodEnchantingTable: Table d'enchantement en bois
 		}
 		BuffName: {
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Pénétration d'armure
 				AttackSpeed: Vitesse d'attaque
 				AutoReuse: Réutilisation automatique
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: Rage des Berserkers
 				BonusCoins: Pièces bonus
 				BuffDuration: Durée du buff
 				BuffEffect0: "Vous accorde passivement {0}"
@@ -535,10 +540,11 @@ Mods: {
 				JumpSpeed: Vitesse de saut
 				JunglesFury: Fureur de la jungle
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
+				KiClassSwap: Échange de classe Ki
+				KiDamage: Dégâts Ki
 				KiRegen: Ki Regen
 				LavaFishing: Pêche à la lave
+				LifeRegen: Régénération de vie
 				LifeRegeneration: Régénération de la vie
 				LifeSteal: Vol de vie
 				Luck: Chance
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Enchantement Mod Calamité)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Enchantement Dragon Ball Terraria)
 				WorldAblaze: 
 					'''
 					(Le debuff d'Amaterasu et les notes ci-dessous à ce sujet ne s'appliquent qu'au niveau d'enchantement 4.)

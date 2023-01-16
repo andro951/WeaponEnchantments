@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Epickie zaklęcie szybkości ataku
 			AttackSpeedEnchantmentLegendary: Legendarne zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare: Rzadkie zaklęcie prędkości ataku
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
-			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentBasic: Podstawowe zaklęcie furii berserkerów
+			BerserkersRageEnchantmentCommon: Zaklęcie Szału Berserkerów Powszechne
+			BerserkersRageEnchantmentEpic: Epickie zaklęcie zaklęcia furii berserkerów
+			BerserkersRageEnchantmentLegendary: Zaklęcie Szału Berserkerów Legendarne
+			BerserkersRageEnchantmentRare: Rzadkie zaklęcie furii berserkerów
 			CalmWatersEnchantmentBasic: Podstawowe zaklęcie spokojnych wód
 			CalmWatersEnchantmentCommon: Zaklęcie spokojnych wód Powszechne
 			CalmWatersEnchantmentEpic: Epic zaklęcia spokojnych wód
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Epickie Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentLegendary: Legendarne Zaklęcie Furii Dżungli
 			JunglesFuryEnchantmentRare: Zaklęcie Furii Dżungli Rzadkie
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Podstawowe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentCommon: Zwykłe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentEpic: Epicki zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentLegendary: Zaklęcie zamiany klas Ki Legendarne
+			KiClassSwapEnchantmentRare: Rzadkie zaklęcie zamiany klas Ki
+			KiEnchantmentBasic: Podstawowe zaklęcie Ki
+			KiEnchantmentCommon: Wspólne Zaklęcie Ki
+			KiEnchantmentEpic: Epickie zaklęcie Ki
+			KiEnchantmentLegendary: Legendarne zaklęcie Ki
+			KiEnchantmentRare: Rzadkie zaklęcie Ki
 			LavaFishingEnchantmentBasic: Podstawowe zaklęcie na lawę
 			LavaFishingEnchantmentCommon: Zaklęcie łowienia lawy Powszechne
 			LavaFishingEnchantmentEpic: Epickie zaklęcie do połowów lawy
 			LavaFishingEnchantmentLegendary: Legendarne zaklęcie do połowu lawy
 			LavaFishingEnchantmentRare: Zaklęcie łowienia lawy Rzadkie
+			LifeRegenEnchantmentBasic: Podstawowe zaklęcie regeneracji życia
+			LifeRegenEnchantmentCommon: Zwykłe zaklęcie regeneracji życia
+			LifeRegenEnchantmentEpic: Epicki zaklęcie regeneracji życia
+			LifeRegenEnchantmentLegendary: Legendarne zaklęcie regeneracji życia
+			LifeRegenEnchantmentRare: Rzadkie zaklęcie regeneracji życia
 			LifeStealEnchantmentBasic: Podstawowe zaklęcie kradzieży życia
 			LifeStealEnchantmentCommon: Zaklęcie kradzieży życia Zwykłe
 			LifeStealEnchantmentEpic: Epic zaklęcia kradzieży życia
@@ -202,9 +207,9 @@ Mods: {
 			MultishotEnchantmentEpic: Wielostrzałowy Epicki Zaklęcie
 			MultishotEnchantmentLegendary: Legendarne zaklęcie wielostrzałowe
 			MultishotEnchantmentRare: Zaklęcie Wielostrzałowe Rzadkie
-			NpcContactAnglerEnchantmentBasic: Npc Contact Angler Enchantment Basic
-			NpcContactAnglerEnchantmentCommon: Npc Contact Angler Enchantment Common
-			NpcContactAnglerEnchantmentEpic: Npc Contact Angler Enchantment Epic
+			NpcContactAnglerEnchantmentBasic: Podstawowe zaklęcie Npc Contact Angler
+			NpcContactAnglerEnchantmentCommon: Npc Zaklęcie Wędkarza Kontaktowego Powszechne
+			NpcContactAnglerEnchantmentEpic: Npc Kontakt Wędkarz Zaklęcie Epic
 			NpcContactAnglerEnchantmentLegendary: Npc Contact Angler Legendarne Enchantment
 			NpcContactAnglerEnchantmentRare: Npc Contact Angler Enchantment Rzadkie
 			ObsidianSkinEnchantmentBasic: Podstawowe zaklęcie obsydianowej skóry
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Stół Zaklinania Duszy
 			SuperiorContainment: Doskonałe zabezpieczenie
 			UltimateEnchantingTable: Ostateczny stół zaklinający
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Ultrawzmacniacz mocy
 			WoodEnchantingTable: Stół do zaklinania drewna
 		}
 		BuffName: {
@@ -391,10 +396,10 @@ Mods: {
 				Freyja: Freyja
 				Gruntilda: Gruntylda
 				Hazel: Leszczyna
-				Jasminka: Jasminka
+				Jasminka: Jaśminka
 				Kyubey: Kyubey
 				Maleficient: Złośliwy
-				Mary: Mary
+				Mary: Maryja
 				Medusa: Meduza
 				Melusine: Meluzyna
 				Mingella: Mingella
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Penetracja pancerza
 				AttackSpeed: Szybkość ataku
 				AutoReuse: Automatyczne ponowne użycie
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: Wściekłość berserkerów
 				BonusCoins: Monety bonusowe
 				BuffDuration: Czas trwania premii
 				BuffEffect0: "Pasywnie przyznaje {0} tobie"
@@ -535,10 +540,11 @@ Mods: {
 				JumpSpeed: Prędkość skoku
 				JunglesFury: Furia Dżungli
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
+				KiClassSwap: Zamiana klas Ki
+				KiDamage: Obrażenia Ki
 				KiRegen: Ki Regen
 				LavaFishing: Wędkarstwo lawowe
+				LifeRegen: Regeneracja życia
 				LifeRegeneration: Regeneracja życia
 				LifeSteal: Kradzież życia
 				Luck: Szczęście
@@ -546,7 +552,7 @@ Mods: {
 				ManaUsage1: Zmniejszone zużycie many
 				ManaUsage2: Zwiększone zużycie many
 				MaxFallSpeed: Maksymalna prędkość upadku
-				MaxKi: Max Ki
+				MaxKi: Maks Ki
 				MaxLife: Maksymalne życie
 				MaxMinions: Maks sługusów
 				MaxMP: Maks. MP
@@ -560,7 +566,7 @@ Mods: {
 				MovementSpeed: Prędkość ruchu
 				MPBonusRegen: Regeneracja premii MP
 				Multishot: Wielostrzałowy
-				NpcContactAngler: Npc Contact Angler
+				NpcContactAngler: Wędkarz kontaktowy NPC
 				NPCHitCooldown: Czas odnowienia trafienia NPC
 				ObsidianSkin: Obsydianowa skórka
 				OneForAll: Jeden za wszystkich
@@ -576,7 +582,7 @@ Mods: {
 				Size: Rozmiar
 				SolarDash: Słoneczna kreska
 				Sonar: Sonar
-				Spelunker: Spelunker
+				Spelunker: grotołaz
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Zryw tarczy oka Cthulhu
 				VanillaDash3: Słoneczna kreska
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Zaklęcie Mody Katastrofy)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Zaklęcie Dragon Ball Terraria)
 				WorldAblaze: 
 					'''
 					(Osłabienie Amaterasu i poniższe uwagi na ten temat mają zastosowanie tylko na 4. poziomie zaklęcia)

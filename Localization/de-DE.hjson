@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Angriffsgeschwindigkeitsverzauberung Epic
 			AttackSpeedEnchantmentLegendary: Angriffsgeschwindigkeitsverzauberung Legendär
 			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
-			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentBasic: Berserker Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon: Berserker Rage Enchantment Common
+			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epos
+			BerserkersRageEnchantmentLegendary: Berserker Rage Enchantment Legendär
+			BerserkersRageEnchantmentRare: Berserker Rage Enchantment Selten
 			CalmWatersEnchantmentBasic: Ruhiges Wasser Verzauberung Basic
 			CalmWatersEnchantmentCommon: Ruhiges Wasser Verzauberung Common
 			CalmWatersEnchantmentEpic: Calm Waters Enchantment Epos
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Enchantment Epos
 			JunglesFuryEnchantmentLegendary: Jungles Fury Enchantment Legendär
 			JunglesFuryEnchantmentRare: Jungle Zorn Verzauberung Selten
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Ki-Klassentausch-Verzauberung Basic
+			KiClassSwapEnchantmentCommon: Ki-Klassentausch-Verzauberung Gewöhnlich
+			KiClassSwapEnchantmentEpic: Ki-Klassentausch-Verzauberungs-Epos
+			KiClassSwapEnchantmentLegendary: Ki-Klassentausch-Verzauberung Legendär
+			KiClassSwapEnchantmentRare: Ki-Klassentausch-Verzauberung Selten
+			KiEnchantmentBasic: Ki-Verzauberung Basic
+			KiEnchantmentCommon: Ki Verzauberung Allgemein
+			KiEnchantmentEpic: Ki-Verzauberungs-Epos
+			KiEnchantmentLegendary: Ki-Verzauberung Legendär
+			KiEnchantmentRare: Ki-Verzauberung Selten
 			LavaFishingEnchantmentBasic: Lavafischen Verzauberung Basic
 			LavaFishingEnchantmentCommon: Lavafischen Verzauberung Allgemein
 			LavaFishingEnchantmentEpic: Epische Lavafischen-Verzauberung
 			LavaFishingEnchantmentLegendary: Lavafischen Verzauberung Legendär
 			LavaFishingEnchantmentRare: Lavafischen Verzauberung Selten
+			LifeRegenEnchantmentBasic: Lebensregenerierungs-Verzauberung Basic
+			LifeRegenEnchantmentCommon: Verzauberung der Lebensregeneration
+			LifeRegenEnchantmentEpic: Epische Lebensregenerierungsverzauberung
+			LifeRegenEnchantmentLegendary: Verzauberung der Lebensregeneration Legendär
+			LifeRegenEnchantmentRare: Verzauberung der Lebensregeneration Selten
 			LifeStealEnchantmentBasic: Lebensraub Verzauberung Basic
 			LifeStealEnchantmentCommon: Lebensraub Verzauberung Gewöhnlich
 			LifeStealEnchantmentEpic: Life Steal Enchantment-Epos
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Seelen Verzauberungstisch
 			SuperiorContainment: Überlegene Eindämmung
 			UltimateEnchantingTable: Ultimativer Verzauberungstisch
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Ultra-Power-Booster
 			WoodEnchantingTable: Holz Verzauberungstisch
 		}
 		BuffName: {
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Rüstungsdurchdringung
 				AttackSpeed: Angriffsgeschwindigkeit
 				AutoReuse: Automatische Wiederverwendung
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: Berserker-Wut
 				BonusCoins: Bonusmünzen
 				BuffDuration: Buff-Dauer
 				BuffEffect0: "Gibt Ihnen passiv {0}"
@@ -535,10 +540,11 @@ Mods: {
 				JumpSpeed: Sprunggeschwindigkeit
 				JunglesFury: Dschungel-Wut
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
+				KiClassSwap: Ki-Klassentausch
+				KiDamage: Ki-Schaden
 				KiRegen: Ki Regen
 				LavaFishing: Lavafischen
+				LifeRegen: Lebensregeneration
 				LifeRegeneration: Lebensregeneration
 				LifeSteal: Lebensraub
 				Luck: Glück
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Dragon Ball Terraria-Verzauberung)
 				WorldAblaze: 
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)
