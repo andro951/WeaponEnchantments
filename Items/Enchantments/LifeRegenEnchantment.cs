@@ -8,6 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class LifeRegenEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 22;
+		public override int LowestCraftableTier => 0;
 		public override void GetMyStats() {
 			Effects = new() {
                 new LifeRegeneration(@base: EnchantmentStrengthData),
