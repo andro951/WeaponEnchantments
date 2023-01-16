@@ -157,6 +157,11 @@ Mods: {
 			LavaFishingEnchantmentEpic: 史诗熔岩钓鱼附魔
 			LavaFishingEnchantmentLegendary: 传奇熔岩钓鱼附魔
 			LavaFishingEnchantmentRare: 稀有熔岩钓鱼附魔
+			LifeRegenEnchantmentBasic: 生命回复附魔基礎
+			LifeRegenEnchantmentCommon: 生命恢復附魔 普通
+			LifeRegenEnchantmentEpic: 生命恢復附魔史詩
+			LifeRegenEnchantmentLegendary: 生命恢復結界傳奇
+			LifeRegenEnchantmentRare: 生命恢復附魔稀有
 			LifeStealEnchantmentBasic: 基础生命窃取附魔
 			LifeStealEnchantmentCommon: 普通生命窃取附魔
 			LifeStealEnchantmentEpic: 史诗生命窃取附魔
