@@ -564,6 +564,18 @@ namespace WeaponEnchantments.Common
                         case "Primary Zenith":
                             rarity = 0f;
                             break;
+                        case "Aorta":
+                        case "Sausage Maker":
+						case "Bloody Rupture":
+						case "Blood Bath":
+						case "Vein Burster":
+						case "Eviscerator":
+						case "Blood Clot Staff":
+							rarity = 1.5f;
+                            break;
+						case "Tooth Ball":
+                            rarity = 2.5f;
+                            break;
                         case "Nullification Pistol":
                         case "Atomic Annie":
                             rarity = 3f;
