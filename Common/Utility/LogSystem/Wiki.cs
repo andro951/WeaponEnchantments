@@ -391,7 +391,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         private static void AddLowestCraftableEnchantments(WebPage webPage, IEnumerable<Enchantment> enchantments) {
             string text = "Only these enchantments can be obtained by crafting.  The others must all be found in other ways.\n";
             webPage.AddParagraph(text);
-            webPage.AddBulletedList(true, true, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Name.AddSpaces()).ToArray());
+            webPage.AddBulletedList(false, false, enchantments.Where(e => e.LowestCraftableTier == 0 && e.EnchantmentTier == 0).Select(c => c.Item.ToItemPNG(link: true, linkText: (c.EnchantmentTypeName + "Enchantment").AddSpaces())).ToArray());
         }
         private static List<List<string>> GetGenericEnchantmnetRecipes() {
             List<RecipeData> genericEnchantmentRecipes = new();

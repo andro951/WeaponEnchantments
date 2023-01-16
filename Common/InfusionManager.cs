@@ -142,13 +142,18 @@ namespace WeaponEnchantments.Common
 
             if(printList && postSetupPrintList) {
                 if (mode == GetItemDictModeID.Weapon) {
-                    msg += "\nWeapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS";
+                    msg += "\nMod, Weapon, Infusion Power, Value Rarity, Rarity, Original Rarity, Value, Item ID, Damage, Use Time, DPS";
                     foreach (int infusionPower in infusionPowers.Keys) {
                         foreach(string name in infusionPowers[infusionPower].Keys) {
-                            int damage = infusionPowers[infusionPower][name].Item.damage;
-                            int useTime = infusionPowers[infusionPower][name].Item.useTime;
+                            Item item = infusionPowers[infusionPower][name].Item;
+							string mod = item.ModItem?.Mod.Name;
+                            if (mod == null)
+                                mod = "Terraria";
+
+                            int damage = item.damage;
+                            int useTime = item.useTime;
                             float dps = (float)damage * 60f / (float)useTime;
-                            msg += $"\n{name}, {infusionPower}, {infusionPowers[infusionPower][name].ValueRarity}, {infusionPowers[infusionPower][name].Rarity}, {infusionPowers[infusionPower][name].Item.rare}, {infusionPowers[infusionPower][name].Item.value}, {infusionPowers[infusionPower][name].Item.type}, {damage}, {useTime}, {dps}";
+                            msg += $"\n{mod}, {name}, {infusionPower}, {infusionPowers[infusionPower][name].ValueRarity}, {infusionPowers[infusionPower][name].Rarity}, {item.rare}, {item.value}, {item.type}, {damage}, {useTime}, {dps}";
                         }
                     }
                 }
@@ -178,7 +183,8 @@ namespace WeaponEnchantments.Common
             int sampleValue = sampleItem.value;
 
             //If from calamity, calculate just from value
-            if (sampleItem.ModItem?.Mod.Name == "CalamityMod")
+            string modName = sampleItem.ModItem?.Mod.Name;
+			if (modName == "CalamityMod" || modName == "ThoriumMod")
                 useCalamiryValuesOnly = true;
 
             switch (sampleItem.type) {
