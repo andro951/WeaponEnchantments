@@ -89,7 +89,9 @@ namespace WeaponEnchantments.UI
                     if (!Item.IsAir)
 						currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetCapacityCost();
 
-					return iGlobal.GetLevelsAvailable() >= newEnchantment.GetCapacityCost() - currentEnchantmentLevelCost;
+					int levelsAvailable = iGlobal.GetLevelsAvailable();
+					int newEnchantmentCost = newEnchantment.GetCapacityCost();
+					return levelsAvailable >= newEnchantmentCost - currentEnchantmentLevelCost;
 
 				case ItemSlotContext.Essence:
                     if (item.TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
@@ -262,7 +264,7 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot) {
-			return RemoveEnchantmentRestrictions && ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
+			return RemoveEnchantmentRestrictions || ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
 			if (RemoveEnchantmentRestrictions)
