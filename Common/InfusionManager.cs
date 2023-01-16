@@ -561,26 +561,26 @@ namespace WeaponEnchantments.Common
                 case > ItemID.Count:
                     //Manually set rarity of an item
                     switch (sampleItem.Name) {
-                        case "Primary Zenith":
+                        case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
                             break;
-                        case "Aorta":
-                        case "Sausage Maker":
-						case "Bloody Rupture":
-						case "Blood Bath":
-						case "Vein Burster":
-						case "Eviscerator":
-						case "Blood Clot Staff":
+                        case "Aorta"://Calamity
+                        case "Sausage Maker"://Calamity
+						case "Bloody Rupture"://Calamity
+						case "Blood Bath"://Calamity
+						case "Vein Burster"://Calamity
+						case "Eviscerator"://Calamity
+						case "Blood Clot Staff"://Calamity
 							rarity = 1.5f;
                             break;
-						case "Tooth Ball":
-                            rarity = 2.5f;
+						case "Tooth Ball"://Calamity
+							rarity = 2.5f;
                             break;
-                        case "Nullification Pistol":
-                        case "Atomic Annie":
-                            rarity = 3f;
+                        case "Nullification Pistol"://Calamity
+						case "Atomic Annie"://Calamity
+							rarity = 3f;
                             break;
-                        case "The Only Thing I Know For Real":
+                        case "The Only Thing I Know For Real"://Stars Above
                             rarity = 9f;
                             break;
                         default:
