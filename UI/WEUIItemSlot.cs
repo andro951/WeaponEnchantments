@@ -251,7 +251,7 @@ namespace WeaponEnchantments.UI
 		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
 			if (item.ModItem is Enchantment enchantment) {
 				if (utility) {
-					return enchantment.Utility || ConfigValues.RemoveEnchantmentRestrictions;
+					return enchantment.Utility || RemoveEnchantmentRestrictions;
 				}
 				else {
 					return true;
@@ -262,10 +262,10 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot) {
-			return !ConfigValues.RemoveEnchantmentRestrictions && ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
+			return RemoveEnchantmentRestrictions && ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
-			if (ConfigValues.RemoveEnchantmentRestrictions)
+			if (RemoveEnchantmentRestrictions)
 				return -1;
 
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
