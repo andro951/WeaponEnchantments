@@ -19,6 +19,7 @@ using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Common.Configs;
 using System.Linq;
 using static WeaponEnchantments.Items.Enchantment;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.UI
 {
@@ -81,7 +82,7 @@ namespace WeaponEnchantments.UI
 						return false;
 
 					Enchantment newEnchantment = ((Enchantment)item.ModItem);
-					if (!EnchantmentAllowedOnItem(itemInUI, wePlayer, newEnchantment))
+					if (!EnchantmentAllowedOnItem(itemInUI, newEnchantment))
 						return false;
 
 					int currentEnchantmentLevelCost = 0;
@@ -101,7 +102,10 @@ namespace WeaponEnchantments.UI
 					return false;
 			}
 		}
-		public static bool EnchantmentAllowedOnItem(Item item, WEPlayer wePlayer, Enchantment newEnchantment) {
+		public static bool EnchantmentAllowedOnItem(Item item, Enchantment newEnchantment) {
+			if (RemoveEnchantmentRestrictions)
+				return true;
+
 			if (item.TryGetEnchantedItem(out EnchantedWeapon _)) {
 				int damageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
 
@@ -138,6 +142,9 @@ namespace WeaponEnchantments.UI
 			return true;
 		}
 		public static bool CheckAllowedList(Item item, Enchantment enchantment) {
+			if (RemoveEnchantmentRestrictions)
+				return true;
+
 			if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
 				bool allowedOnItem = enchantment.AllowedList.ContainsKey(enchantedItem.ItemType);
 
@@ -244,7 +251,7 @@ namespace WeaponEnchantments.UI
 		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
 			if (item.ModItem is Enchantment enchantment) {
 				if (utility) {
-					return enchantment.Utility;
+					return enchantment.Utility || ConfigValues.RemoveEnchantmentRestrictions;
 				}
 				else {
 					return true;
@@ -255,14 +262,17 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot) {
-			return (!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return !ConfigValues.RemoveEnchantmentRestrictions && ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
+			if (ConfigValues.RemoveEnchantmentRestrictions)
+				return -1;
+
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
 				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
 					if (!iGlobal.enchantments[i].IsAir) {
 						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
-						if (appliedEnchantment != null && ((enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
+						if (appliedEnchantment != null && (enchantement.Unique && appliedEnchantment.Unique || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
 							return i;
 						}
 					}

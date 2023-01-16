@@ -78,8 +78,28 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 1000000)]
         public int AmaterasuSelfGrowthPerTick;
 
-        //Essence and Experience
-        [Header("Essence and Experience")]
+		[Label("Reduce recipes to minimum.")]
+		[Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
+			"Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool ReduceRecipesToMinimum;
+
+		[Label("Enchantment Capacity Cost Multiplier(%)")]
+		[Tooltip("Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.")]
+		[DefaultValue(100)]
+		[Range(0, 1400)]
+		[ReloadRequired]
+		public int ConfigCapacityCostMultiplier;
+
+		[Label("Remove enchantment restrictions (Use at your own risk!)")]
+		[Tooltip("Removes things like Unique, Max 1 and weapon or item type specific enchantments.")]
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool RemoveEnchantmentRestrictions;
+
+		//Essence and Experience
+		[Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
         [Tooltip("Modify the ammount of essence recieved from bosses.")]
         [Range(0, 10000)]
@@ -220,13 +240,6 @@ namespace WeaponEnchantments.Common.Configs
 			"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).")]
         [DefaultValue(false)]
         public bool ReduceOfferEfficiencyByBaseInfusionPower;
-
-        [Label("Reduce recipes to minimum.")]
-        [Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
-			"Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool ReduceRecipesToMinimum;
 
         //General Game Changes
         [Header("General Game Changes")]

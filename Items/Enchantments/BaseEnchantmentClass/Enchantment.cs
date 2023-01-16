@@ -521,6 +521,13 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
+			if (RemoveEnchantmentRestrictions) {
+				foreach(EItemType eItemType in Enum.GetValues(typeof(EItemType))) {
+					if (!AllowedList.Keys.Contains(eItemType))
+						AllowedList.Add(eItemType, 1f);
+				}
+			}
+
 			//Default Stat
 			//if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
 			//	AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
@@ -1174,20 +1181,22 @@ namespace WeaponEnchantments.Items
 		/// <param name="recipe"></param>
 		protected virtual void EditTier0Recipies(Recipe recipe) { }
 		public int GetCapacityCost() {
+			float multiplier;
 			if (CapacityCostMultiplier != -13.13f) {
 				//multiplier is being manually set by this enchantment
-				return (int)Math.Round((1 + EnchantmentTier) * CapacityCostMultiplier);
+				multiplier = CapacityCostMultiplier;
+			}
+			else {
+				multiplier = 2f;
+
+				if (Utility)
+					multiplier = 1f;
+
+				if (Unique || Max1)
+					multiplier = 3f;
 			}
 
-			int multiplier = 2;
-
-			if (Utility)
-				multiplier = 1;
-
-			if (Unique || Max1)
-				multiplier = 3;
-
-			return (1 + EnchantmentTier) * multiplier;
+			return (int)Math.Round((1f + EnchantmentTier) * multiplier * ConfigCapacityCostMultiplier);
 		}
 	}
 }

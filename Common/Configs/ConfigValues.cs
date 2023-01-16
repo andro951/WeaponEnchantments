@@ -33,7 +33,6 @@ namespace WeaponEnchantments.Common.Configs
 		public static float PercentOfferEssence => clientConfig.PercentOfferEssence / 100f;
 		public static float ChestSpawnChance => serverConfig.ChestSpawnChance / 100f;
 		public static float CrateDropChance => serverConfig.CrateDropChance / 100f;
-		public static int MaxSlotTierAllowed = new int[] { serverConfig.EnchantmentSlotsOnWeapons, serverConfig.EnchantmentSlotsOnArmor, serverConfig.EnchantmentSlotsOnAccessories }.Max() - 1;
 		public static int AmaterasuSelfGrowthPerTick => serverConfig.AmaterasuSelfGrowthPerTick;
 		public static float[] RarityEnchantmentStrengthMultipliers = {
 			(float)serverConfig.presetData.BasicEnchantmentStrengthMultiplier / 100f,
@@ -43,5 +42,7 @@ namespace WeaponEnchantments.Common.Configs
 			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f
 		};
 		public static bool useAllRecipes = !recursiveCraftEnabled && !serverConfig.ReduceRecipesToMinimum;
+		public static bool RemoveEnchantmentRestrictions = serverConfig.RemoveEnchantmentRestrictions;
+		public static float ConfigCapacityCostMultiplier = serverConfig.ConfigCapacityCostMultiplier / 100f;
 	}
 }

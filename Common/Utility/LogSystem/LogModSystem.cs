@@ -31,7 +31,7 @@ namespace WeaponEnchantments.Common.Utility
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
         //public static bool printLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
-        public static readonly bool printLocalizationKeysAndValues = true && Debugger.IsAttached;
+        public static readonly bool printLocalizationKeysAndValues = false && Debugger.IsAttached;
         private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;

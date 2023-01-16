@@ -1455,12 +1455,12 @@ namespace WeaponEnchantments.Common.Globals
                             if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 4))
                                 cantFit = true;
 
-                            if (!cantFit && !WEUIItemSlot.EnchantmentAllowedOnItem(item, Main.LocalPlayer.GetWEPlayer(), enchantment))
+                            if (!cantFit && !WEUIItemSlot.EnchantmentAllowedOnItem(item, enchantment))
                                 cantFit = true;
 
                             if (!cantFit && enchantment.GetCapacityCost() <= iGlobal.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if (enchantment.Utility && iGlobal.enchantments[4].IsAir && (IsWeaponItem(item) || IsArmorItem(item))) {
+                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && iGlobal.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
                                         iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
                                         item.ApplyEnchantment(j);
                                     }
@@ -1520,7 +1520,7 @@ namespace WeaponEnchantments.Common.Globals
             consumedItems.Clear();
         }
         public static void CheckRemoveEnchantments(this Item item, Player player) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal) || RemoveEnchantmentRestrictions)
                 return;
 
             //Check config

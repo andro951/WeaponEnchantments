@@ -473,7 +473,7 @@ namespace WeaponEnchantments
                                             int s = i;
                                             //Utility
                                             int maxIndex = EnchantingTable.maxEnchantments - 1;
-                                            if (enchantment.Utility && enchantingTableUI.enchantmentSlotUI[maxIndex].Item.IsAir) {
+                                            if ((enchantment.Utility || RemoveEnchantmentRestrictions) && enchantingTableUI.enchantmentSlotUI[maxIndex].Item.IsAir) {
                                                 bool utilitySlotAllowedOnItem = WEUIItemSlot.SlotAllowedByConfig(tableItem, 1);
                                                 if (utilitySlotAllowedOnItem)
                                                     s = maxIndex;
