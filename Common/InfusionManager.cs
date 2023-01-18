@@ -587,15 +587,6 @@ namespace WeaponEnchantments.Common
                         case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
                             break;
-						/*case "Aorta"://Calamity
-                        case "Sausage Maker"://Calamity
-						case "Bloody Rupture"://Calamity
-						case "Blood Bath"://Calamity
-						case "Vein Burster"://Calamity
-						case "Eviscerator"://Calamity
-						case "Blood Clot Staff"://Calamity
-							rarity = 1.5f;
-                            break;*/
 						case "Tooth Ball"://Calamity
 							rarity = 1.5f;
                             break;
