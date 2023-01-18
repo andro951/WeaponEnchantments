@@ -194,7 +194,17 @@ namespace WeaponEnchantments.Common
             return combinedRarity > 0 ? combinedRarity : 0;
         }
         public static float GetAdjustedItemRarity(Item sampleItem, out bool useCalamiryValuesOnly) {
-            useCalamiryValuesOnly = sampleItem.ModItem?.Mod != null;
+            string sampleItemModName = sampleItem.ModItem?.Mod.Name;
+            switch (sampleItemModName) {
+                case null:
+                case "StarsAbove":
+                    useCalamiryValuesOnly = false;
+					break;
+                default:
+                    useCalamiryValuesOnly = true;
+                    break;
+            }
+
             float rarity = sampleItem.rare;
             int sampleValue = sampleItem.value;
 
@@ -205,7 +215,8 @@ namespace WeaponEnchantments.Common
             //    useCalamiryValuesOnly = true;
 
             switch (sampleItem.type) {
-                case ItemID.Count://April Fools Joke
+				#region Vanilla rarities
+				case ItemID.Count://April Fools Joke
                     rarity = -0.9999f;
                     break;
                 case ItemID.GravediggerShovel:
@@ -581,7 +592,8 @@ namespace WeaponEnchantments.Common
                 case ItemID.StarWrath:
                     rarity = 10f;
                     break;
-                case > ItemID.Count:
+				#endregion
+				case > ItemID.Count:
                     //Manually set rarity of an item
                     switch (sampleItem.Name) {
                         case "Primary Zenith"://Primary Zenith
