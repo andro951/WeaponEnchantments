@@ -161,9 +161,8 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Flamethrowers fix
-            if (!multiShotConvertedToDamage) {
+            if (!multiShotConvertedToDamage)
                 multiShotConvertedToDamage = sourceItem.useAmmo == ItemID.Gel;
-            }
 
             if (!weaponProjectile && !multiShotConvertedToDamage)
                 base.ActivateMultishot(projectile, source);
