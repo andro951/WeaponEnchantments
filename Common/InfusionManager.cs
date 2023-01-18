@@ -21,9 +21,10 @@ namespace WeaponEnchantments.Common
         public static int[] maxValues = new int[numRarities];
         public static int[] calamityAverageValues = new int[numRarities];
         public static int[] calamityMinValues = new int[numRarities];
-        //                                                 0     1      2      3      4       5       6       7       8       9       10       11       12       13       14       15       16       17
-        public static int[] calamityMaxValues = new int[] {5000, 10000, 20000, 40000, 120000, 240000, 360000, 480000, 600000, 800000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000, 2500000};
-        public const float minMaxValueMultiplier = 0.25f;
+		//                                                 0     1      2      3      4       5       6       7       8       9       10       11       12       13       14       15       16       17
+		public static int[] calamityMaxValues = new int[] { 23000, 52000, 87000, 128000, 175000, 240000, 360000, 480000, 600000, 800000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000, 2500000 };
+		//public static int[] calamityMaxValues = new int[] {5000, 10000, 20000, 40000, 120000, 240000, 360000, 480000, 600000, 800000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000, 2500000};
+		public const float minMaxValueMultiplier = 0.25f;
 
         public static void SetUpVanillaWeaponInfusionPowers() {
             Dictionary<string, List<int[]>> weaponsDict = GetItemDict(GetItemDictModeID.Weapon);
@@ -193,14 +194,15 @@ namespace WeaponEnchantments.Common
             return combinedRarity > 0 ? combinedRarity : 0;
         }
         public static float GetAdjustedItemRarity(Item sampleItem, out bool useCalamiryValuesOnly) {
-            useCalamiryValuesOnly = false;
+            useCalamiryValuesOnly = sampleItem.ModItem?.Mod != null;
             float rarity = sampleItem.rare;
             int sampleValue = sampleItem.value;
 
             //If from calamity, calculate just from value
-            string modName = sampleItem.ModItem?.Mod.Name;
-			if (modName == "CalamityMod" || modName == "ThoriumMod")
-                useCalamiryValuesOnly = true;
+
+            //string modName = sampleItem.ModItem?.Mod.Name;
+			//if (modName == "CalamityMod" || modName == "ThoriumMod")
+            //    useCalamiryValuesOnly = true;
 
             switch (sampleItem.type) {
                 case ItemID.Count://April Fools Joke
@@ -585,7 +587,7 @@ namespace WeaponEnchantments.Common
                         case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
                             break;
-                        case "Aorta"://Calamity
+						/*case "Aorta"://Calamity
                         case "Sausage Maker"://Calamity
 						case "Bloody Rupture"://Calamity
 						case "Blood Bath"://Calamity
@@ -593,9 +595,9 @@ namespace WeaponEnchantments.Common
 						case "Eviscerator"://Calamity
 						case "Blood Clot Staff"://Calamity
 							rarity = 1.5f;
-                            break;
+                            break;*/
 						case "Tooth Ball"://Calamity
-							rarity = 2.5f;
+							rarity = 1.5f;
                             break;
                         case "Nullification Pistol"://Calamity
 						case "Atomic Annie"://Calamity
@@ -634,11 +636,18 @@ namespace WeaponEnchantments.Common
                                 rarity = i;
                             }
 
-                            break;
+							if (rarity > numRarities - 1) {
+								rarity = numRarities - 1;
+							}
+							else if (rarity < 0) {
+								rarity = 0;
+							}
+
+							break;
                     }
+
                     break;
                 default:
-
                     if (rarity > numRarities - 1) {
                         rarity = numRarities - 1;
                     }

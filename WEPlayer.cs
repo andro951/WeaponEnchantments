@@ -1033,6 +1033,10 @@ namespace WeaponEnchantments
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
+            //Used to help identify the ModNPC name of modded bosses for setting up mod boss bag support.
+            if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
+                $"NPC hit by item: {item.Name}, target.Name: {target.FullName}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple();
+
             WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;

@@ -93,7 +93,13 @@ namespace WeaponEnchantments.Common.Globals
                 "The Divine Light",//Querty's Bosses and Items 2
                 "Ancient Machine",//Querty's Bosses and Items 2
                 "Noehtnap",//Querty's Bosses and Items 2
-            };
+                "The Grand Thunder Bird",//Thorium
+				"Queen Jellyfish",//Thorium
+				"Viscount",//Thorium
+				"Granite Energy Storm",//Thorium
+				"Buried Champion",//Thorium
+				"Star Scouter"//Thorium
+			};
 
             postPlanteraBossTypes = new() {
                 NPCID.HallowBoss,
@@ -122,6 +128,14 @@ namespace WeaponEnchantments.Common.Globals
             normalNpcsThatDropsBags = new List<int>() {
                 NPCID.DD2Betsy
             };
+
+            if (WEMod.thoriumEnabled) {
+                normalNpcsThatDropsBags.Add(NPCID.DD2DarkMageT1);
+				normalNpcsThatDropsBags.Add(NPCID.DD2DarkMageT3);
+				normalNpcsThatDropsBags.Add(NPCID.DD2OgreT2);
+				normalNpcsThatDropsBags.Add(NPCID.DD2OgreT3);
+				normalNpcsThatDropsBags.Add(NPCID.PirateShip);
+			}
         }
         private static void HookDamage(ILContext il) {
             bool debuggingHookDamage = false;
@@ -316,7 +330,9 @@ namespace WeaponEnchantments.Common.Globals
             if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue)
                 return;
 
-            GetEssenceDropList(npc, out float[] essenceValues, out float[] dropRate, out float hp, out float total);
+			bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.netID);
+
+			GetEssenceDropList(npc, normalNpcThatDropsBag, out float[] essenceValues, out float[] dropRate, out float hp, out float total);
 
             if (total <= 0f)
                 return;
@@ -324,7 +340,6 @@ namespace WeaponEnchantments.Common.Globals
             IItemDropRule dropRule;
 
             bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
-            bool normalNpcThatDropsBag = normalNpcsThatDropsBags.Contains(npc.netID);
             float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.netID);
 
             if (multipleSegmentBoss && bossBag)
@@ -406,7 +421,7 @@ namespace WeaponEnchantments.Common.Globals
                     dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.netID]);
                     AddBossLoot(loot, npc, dropRule, bossBag);
 
-                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.netID)))
+                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID)))
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
             }
@@ -468,28 +483,28 @@ namespace WeaponEnchantments.Common.Globals
                 GlobalBossBags.modBossBagIntegrationSetup = true;
             }
 
-            bool npcCantDropBossBags;
+            bool bossCantDropBossBags;
 
             switch (npc.netID) {
                 //UnobtainableBossBags
                 case NPCID.CultistBoss:
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2OgreT2:
-                    npcCantDropBossBags = true;
+                    bossCantDropBossBags = !WEMod.thoriumEnabled;
                     break;
                 default:
-                    npcCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.Contains(npc.netID);
+                    bossCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID);
                     break;
             }
 
-            if (bossBag || npcCantDropBossBags) {
+            if (bossBag || bossCantDropBossBags) {
                 loot.Add(dropRule);
             }
             else {
                 loot.Add(new DropBasedOnExpertMode(dropRule, ItemDropRule.DropNothing()));
             }
         }
-        public static void GetEssenceDropList(NPC npc, out float[] essenceValues, out float[] dropRate, out float hp, out float total) {
+        public static void GetEssenceDropList(NPC npc, bool normalNPCThatDropsBossBag, out float[] essenceValues, out float[] dropRate, out float hp, out float total) {
             //Defense
             float defenseMultiplier = 1f + (float)npc.defDefense / 40f;
 
@@ -513,6 +528,9 @@ namespace WeaponEnchantments.Common.Globals
             }
             else {
                 total = hp * 2.6f;
+                //Thorium bags for Dark Mage and Ogre only drop at a 25% rate.
+                if (WEMod.thoriumEnabled && (npc.FullName == "Dark Mage" || npc.FullName == "Ogre"))
+                    total *= 4f;
             }
 
             //Hp reduction factor
@@ -546,7 +564,7 @@ namespace WeaponEnchantments.Common.Globals
             bool multiSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
 
             //Config Multiplier
-            if (npc.boss || multiSegmentBoss) {
+            if (npc.boss || normalNPCThatDropsBossBag || multiSegmentBoss) {
                 essenceTotal *= BossEssenceMultiplier;
             }
             else {
@@ -558,7 +576,7 @@ namespace WeaponEnchantments.Common.Globals
             int essenceTier = 0;
 
             //Calculate the main essence tier that will be dropped.
-            if (npc.boss) {
+            if (npc.boss || normalNPCThatDropsBossBag) {
                 //Bosses
                 for (int i = 0; i < essenceValues.Length; ++i) {
                     float essenceValue = essenceValues[i];
