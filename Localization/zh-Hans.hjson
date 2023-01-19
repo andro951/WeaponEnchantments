@@ -1,302 +1,302 @@
-#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
+#by Kiritan
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
-			AllForOneEnchantmentBasic: 基础万众一心附魔
-			AllForOneEnchantmentCommon: 普通万众一心附魔
-			AllForOneEnchantmentEpic: 史诗万众一心附魔
-			AllForOneEnchantmentLegendary: 传奇万众一心附魔
-			AllForOneEnchantmentRare: 稀有万众一心附魔
-			AmmoCostEnchantmentBasic: 基础弹药消耗附魔
-			AmmoCostEnchantmentCommon: 普通弹药消耗附魔
-			AmmoCostEnchantmentEpic: 史诗弹药消耗附魔
-			AmmoCostEnchantmentLegendary: 传奇弹药消耗附魔
-			AmmoCostEnchantmentRare: 稀有弹药消耗附魔
-			ArmorPenetrationEnchantmentBasic: 基础护甲穿透附魔
-			ArmorPenetrationEnchantmentCommon: 普通护甲穿透附魔
-			ArmorPenetrationEnchantmentEpic: 史诗护甲穿透附魔
-			ArmorPenetrationEnchantmentLegendary: 传奇护甲穿透附魔
-			ArmorPenetrationEnchantmentRare: 稀有护甲穿透附魔
-			AttackSpeedEnchantmentBasic: 基础攻速附魔
-			AttackSpeedEnchantmentCommon: 普通攻速附魔
-			AttackSpeedEnchantmentEpic: 史诗攻速附魔
-			AttackSpeedEnchantmentLegendary: 传奇攻速附魔
-			AttackSpeedEnchantmentRare: 稀有攻速附魔
-			BerserkersRageEnchantmentBasic: 基础狂暴者之怒附魔
-			BerserkersRageEnchantmentCommon: 普通狂暴者之怒附魔
-			BerserkersRageEnchantmentEpic: 史诗狂暴者之怒附魔
-			BerserkersRageEnchantmentLegendary: 传奇狂暴者之怒附魔
-			BerserkersRageEnchantmentRare: 稀有狂暴者之怒附魔
-			CalmWatersEnchantmentBasic: 基础风平浪静附魔
-			CalmWatersEnchantmentCommon: 普通风平浪静附魔
-			CalmWatersEnchantmentEpic: 史诗风平浪静附魔
-			CalmWatersEnchantmentLegendary: 传奇风平浪静附魔
-			CalmWatersEnchantmentRare: 稀有风平浪静附魔
-			ChaoticFishingEnchantmentBasic: 基础混沌渔力附魔
-			ChaoticFishingEnchantmentCommon: 普通混沌渔力附魔
-			ChaoticFishingEnchantmentEpic: 史诗混沌渔力附魔
-			ChaoticFishingEnchantmentLegendary: 传奇混沌渔力附魔
-			ChaoticFishingEnchantmentRare: 稀有混沌渔力附魔
-			ColdSteelEnchantmentBasic: 基础冰冷之钢附魔
-			ColdSteelEnchantmentCommon: 普通冰冷之钢附魔
-			ColdSteelEnchantmentEpic: 史诗冰冷之钢附魔
-			ColdSteelEnchantmentLegendary: 传奇冰冷之钢附魔
-			ColdSteelEnchantmentRare: 稀有冰冷之钢附魔
-			CrateChanceEnchantmentBasic: 基础板条箱附魔
-			CrateChanceEnchantmentCommon: 普通板条箱附魔
-			CrateChanceEnchantmentEpic: 史诗板条箱附魔
-			CrateChanceEnchantmentLegendary: 传奇板条箱附魔
-			CrateChanceEnchantmentRare: 稀有板条箱附魔
-			CrateEnchantmentBasic: 基础宝匣药水附魔
-			CrateEnchantmentCommon: 普通宝匣药水附魔
-			CrateEnchantmentEpic: 史诗宝匣药水附魔
-			CrateEnchantmentLegendary: 传奇宝匣药水附魔
-			CrateEnchantmentRare: 稀有宝匣药水附魔
-			CriticalStrikeChanceEnchantmentBasic: 基础暴击率附魔
-			CriticalStrikeChanceEnchantmentCommon: 普通暴击率附魔
-			CriticalStrikeChanceEnchantmentEpic: 史诗暴击率附魔
-			CriticalStrikeChanceEnchantmentLegendary: 传奇暴击率附魔
-			CriticalStrikeChanceEnchantmentRare: 稀有暴击率附魔
-			CriticalStrikeDamageEnchantmentBasic: 基础暴击伤害附魔
-			CriticalStrikeDamageEnchantmentCommon: 普通暴击伤害附魔
-			CriticalStrikeDamageEnchantmentEpic: 史诗暴击伤害附魔
-			CriticalStrikeDamageEnchantmentLegendary: 传奇暴击伤害附魔
-			CriticalStrikeDamageEnchantmentRare: 稀有暴击伤害附魔
-			CursedInfernoEnchantmentBasic: 基础诅咒之焰附魔
-			CursedInfernoEnchantmentCommon: 普通诅咒之焰附魔
-			CursedInfernoEnchantmentEpic: 史诗诅咒之焰附魔
-			CursedInfernoEnchantmentLegendary: 传奇诅咒之焰附魔
-			CursedInfernoEnchantmentRare: 稀有诅咒之焰附魔
-			DamageEnchantmentBasic: 基础伤害附魔
-			DamageEnchantmentCommon: 普通伤害附魔
-			DamageEnchantmentEpic: 史诗伤害附魔
-			DamageEnchantmentLegendary: 传奇伤害附魔
-			DamageEnchantmentRare: 稀有伤害附魔
-			DamageReductionEnchantmentBasic: 基础伤害减免附魔
-			DamageReductionEnchantmentCommon: 普通伤害减免附魔
-			DamageReductionEnchantmentEpic: 史诗伤害减免附魔
-			DamageReductionEnchantmentLegendary: 传奇伤害减免附魔
-			DamageReductionEnchantmentRare: 稀有伤害减免附魔
-			DangerSenseEnchantmentBasic: 基础危险感知附魔
-			DangerSenseEnchantmentCommon: 普通危险感知附魔
-			DangerSenseEnchantmentEpic: 史诗危险感知附魔
-			DangerSenseEnchantmentLegendary: 传奇危险感知附魔
-			DangerSenseEnchantmentRare: 稀有危险感知附魔
-			DaybreakEnchantmentBasic: 基础破晓附魔
-			DaybreakEnchantmentCommon: 普通破晓附魔
-			DaybreakEnchantmentEpic: 史诗破晓附魔
-			DaybreakEnchantmentLegendary: 传奇破晓附魔
-			DaybreakEnchantmentRare: 稀有破晓附魔
-			DefenseEnchantmentBasic: 基础防御附魔
-			DefenseEnchantmentCommon: 普通防御附魔
-			DefenseEnchantmentEpic: 史诗防御附魔
-			DefenseEnchantmentLegendary: 传奇防御附魔
-			DefenseEnchantmentRare: 稀有防御附魔
-			ExtraFishingLineEnchantmentBasic: 基础额外钓鱼线附魔
-			ExtraFishingLineEnchantmentCommon: 普通额外钓鱼线附魔
-			ExtraFishingLineEnchantmentEpic: 史诗额外钓鱼线附魔
-			ExtraFishingLineEnchantmentLegendary: 传奇额外钓鱼线附魔
-			ExtraFishingLineEnchantmentRare: 稀有额外钓鱼线附魔
-			FishingEnchantmentBasic: 基础钓鱼药水附魔
-			FishingEnchantmentCommon: 普通钓鱼药水附魔
-			FishingEnchantmentEpic: 史诗钓鱼药水附魔
-			FishingEnchantmentLegendary: 传奇钓鱼药水附魔
-			FishingEnchantmentRare: 稀有钓鱼药水附魔
-			FishingPowerEnchantmentBasic: 基础渔力附魔
-			FishingPowerEnchantmentCommon: 普通渔力附魔
-			FishingPowerEnchantmentEpic: 史诗渔力附魔
-			FishingPowerEnchantmentLegendary: 传奇渔力附魔
-			FishingPowerEnchantmentRare: 稀有渔力附魔
-			FrostburnEnchantmentBasic: 基础霜冻附魔
-			FrostburnEnchantmentCommon: 普通霜冻附魔
-			FrostburnEnchantmentEpic: 史诗霜冻附魔
-			FrostburnEnchantmentLegendary: 传奇霜冻附魔
-			FrostburnEnchantmentRare: 稀有霜冻附魔
-			GodSlayerEnchantmentBasic: 基础弑神者附魔
-			GodSlayerEnchantmentCommon: 普通弑神者附魔
-			GodSlayerEnchantmentEpic: 史诗弑神者附魔
-			GodSlayerEnchantmentLegendary: 传奇弑神者附魔
-			GodSlayerEnchantmentRare: 稀有弑神者附魔
-			HellsWrathEnchantmentBasic: 基础地狱之怒附魔
-			HellsWrathEnchantmentCommon: 普通地狱之怒附魔
-			HellsWrathEnchantmentEpic: 史诗地狱之怒附魔
-			HellsWrathEnchantmentLegendary: 传奇地狱之怒附魔
-			HellsWrathEnchantmentRare: 稀有地狱之怒附魔
-			HunterEnchantmentBasic: 基础猎人药水附魔
-			HunterEnchantmentCommon: 普通猎人药水附魔
-			HunterEnchantmentEpic: 史诗猎人药水附魔
-			HunterEnchantmentLegendary: 传奇猎人药水附魔
-			HunterEnchantmentRare: 稀有猎人药水附魔
-			IchorEnchantmentBasic: 基础灵液附魔
-			IchorEnchantmentCommon: 普通灵液附魔
-			IchorEnchantmentEpic: 史诗灵液附魔
-			IchorEnchantmentLegendary: 传奇灵液附魔
-			IchorEnchantmentRare: 稀有灵液附魔
-			JuicedEnchantmentBasic: 基础兴奋附魔
-			JuicedEnchantmentCommon: 普通兴奋附魔
-			JuicedEnchantmentEpic: 史诗兴奋附魔
-			JuicedEnchantmentLegendary: 传奇兴奋附魔
-			JuicedEnchantmentRare: 稀有兴奋附魔
-			JunglesFuryEnchantmentBasic: 基础丛林之怒附魔
-			JunglesFuryEnchantmentCommon: 普通丛林之怒附魔
-			JunglesFuryEnchantmentEpic: 史诗丛林之怒附魔
-			JunglesFuryEnchantmentLegendary: 传奇丛林之怒附魔
-			JunglesFuryEnchantmentRare: 稀有丛林之怒附魔
-			KiClassSwapEnchantmentBasic: 基础Ki类型伤害转换附魔
-			KiClassSwapEnchantmentCommon: 普通Ki类型伤害转换附魔
-			KiClassSwapEnchantmentEpic: 史诗Ki类型伤害转换附魔
-			KiClassSwapEnchantmentLegendary: 传奇Ki类型伤害转换附魔
-			KiClassSwapEnchantmentRare: 稀有Ki类型伤害转换附魔
-			KiEnchantmentBasic: 基础Ki附魔
-			KiEnchantmentCommon: 普通Ki附魔
-			KiEnchantmentEpic: 史诗Ki附魔
-			KiEnchantmentLegendary: 传奇Ki附魔
-			KiEnchantmentRare: 稀有Ki附魔
-			LavaFishingEnchantmentBasic: 基础熔岩钓鱼附魔
-			LavaFishingEnchantmentCommon: 普通熔岩钓鱼附魔
-			LavaFishingEnchantmentEpic: 史诗熔岩钓鱼附魔
-			LavaFishingEnchantmentLegendary: 传奇熔岩钓鱼附魔
-			LavaFishingEnchantmentRare: 稀有熔岩钓鱼附魔
-			LifeRegenEnchantmentBasic: 生命回复附魔基礎
-			LifeRegenEnchantmentCommon: 生命恢復附魔 普通
-			LifeRegenEnchantmentEpic: 生命恢復附魔史詩
-			LifeRegenEnchantmentLegendary: 生命恢復結界傳奇
-			LifeRegenEnchantmentRare: 生命恢復附魔稀有
-			LifeStealEnchantmentBasic: 基础生命窃取附魔
-			LifeStealEnchantmentCommon: 普通生命窃取附魔
-			LifeStealEnchantmentEpic: 史诗生命窃取附魔
-			LifeStealEnchantmentLegendary: 传奇生命窃取附魔
-			LifeStealEnchantmentRare: 稀有生命窃取附魔
-			LuckEnchantmentBasic: 基础幸运附魔
-			LuckEnchantmentCommon: 普通幸运附魔
-			LuckEnchantmentEpic: 史诗幸运附魔
-			LuckEnchantmentLegendary: 传奇幸运附魔
-			LuckEnchantmentRare: 稀有幸运附魔
-			MagicClassSwapEnchantmentBasic: 基础魔法类型伤害转换附魔
-			MagicClassSwapEnchantmentCommon: 普通魔法类型伤害转换附魔
-			MagicClassSwapEnchantmentEpic: 史诗魔法类型伤害转换附魔
-			MagicClassSwapEnchantmentLegendary: 传奇魔法类型伤害转换附魔
-			MagicClassSwapEnchantmentRare: 稀有魔法类型伤害转换附魔
-			MaxMinionsEnchantmentBasic: 基础最大仆从附魔
-			MaxMinionsEnchantmentCommon: 普通最大仆从附魔
-			MaxMinionsEnchantmentEpic: 史诗最大仆从附魔
-			MaxMinionsEnchantmentLegendary: 传奇最大仆从附魔
-			MaxMinionsEnchantmentRare: 稀有最大仆从附魔
-			MeleeClassSwapEnchantmentBasic: 基础近战类型伤害转换附魔
-			MeleeClassSwapEnchantmentCommon: 普通近战类型伤害转换附魔
-			MeleeClassSwapEnchantmentEpic: 史诗近战类型伤害转换附魔
-			MeleeClassSwapEnchantmentLegendary: 传奇近战类型伤害转换附魔
-			MeleeClassSwapEnchantmentRare: 稀有近战类型伤害转换附魔
-			MobilityControlEnchantmentBasic: 基础移动控制附魔
-			MobilityControlEnchantmentCommon: 普通移动控制附魔
-			MobilityControlEnchantmentEpic: 史诗移动控制附魔
-			MobilityControlEnchantmentLegendary: 传奇移动控制附魔
-			MobilityControlEnchantmentRare: 稀有移动控制附魔
-			MoonlightEnchantmentBasic: 基础月光附魔
-			MoonlightEnchantmentCommon: 普通月光附魔
-			MoonlightEnchantmentEpic: 史诗月光附魔
-			MoonlightEnchantmentLegendary: 传奇月光附魔
-			MoonlightEnchantmentRare: 稀有月光附魔
-			MovementSpeedEnchantmentBasic: 基础移速附魔
-			MovementSpeedEnchantmentCommon: 普通移速附魔
-			MovementSpeedEnchantmentEpic: 史诗移速附魔
-			MovementSpeedEnchantmentLegendary: 传奇移速附魔
-			MovementSpeedEnchantmentRare: 稀有移速附魔
-			MultishotEnchantmentBasic: 基础多发附魔
-			MultishotEnchantmentCommon: 普通多发附魔
-			MultishotEnchantmentEpic: 史诗多发附魔
-			MultishotEnchantmentLegendary: 传奇多发附魔
-			MultishotEnchantmentRare: 稀有多发附魔
-			NpcContactAnglerEnchantmentBasic: 基础钓鱼者附魔
-			NpcContactAnglerEnchantmentCommon: 普通钓鱼者附魔
-			NpcContactAnglerEnchantmentEpic: 史诗钓鱼者附魔
-			NpcContactAnglerEnchantmentLegendary: 传奇钓鱼者附魔
-			NpcContactAnglerEnchantmentRare: 稀有钓鱼者附魔
-			ObsidianSkinEnchantmentBasic: 基础黑曜石皮肤药水附魔
-			ObsidianSkinEnchantmentCommon: 普通黑曜石皮肤药水附魔
-			ObsidianSkinEnchantmentEpic: 史诗黑曜石皮肤药水附魔
-			ObsidianSkinEnchantmentLegendary: 传奇黑曜石皮肤药水附魔
-			ObsidianSkinEnchantmentRare: 稀有黑曜石皮肤药水附魔
-			OneForAllEnchantmentBasic: 基础连锁附魔
-			OneForAllEnchantmentCommon: 普通连锁附魔
-			OneForAllEnchantmentEpic: 史诗连锁附魔
-			OneForAllEnchantmentLegendary: 传奇连锁附魔
-			OneForAllEnchantmentRare: 稀有连锁附魔
-			OnFireEnchantmentBasic: 基础火焰附加附魔
-			OnFireEnchantmentCommon: 普通火焰附加附魔
-			OnFireEnchantmentEpic: 史诗火焰附加附魔
-			OnFireEnchantmentLegendary: 传奇火焰附加附魔
-			OnFireEnchantmentRare: 稀有火焰附加附魔
-			PeaceEnchantmentBasic: 基础和平附魔
-			PeaceEnchantmentCommon: 普通和平附魔
-			PeaceEnchantmentEpic: 史诗和平附魔
-			PeaceEnchantmentLegendary: 传奇和平附魔
-			PeaceEnchantmentRare: 稀有和平附魔
-			PennyPinchingEnchantmentBasic: 基础锱铢必较附魔
-			PennyPinchingEnchantmentCommon: 普通锱铢必较附魔
-			PennyPinchingEnchantmentEpic: 史诗锱铢必较附魔
-			PennyPinchingEnchantmentLegendary: 传奇锱铢必较附魔
-			PennyPinchingEnchantmentRare: 稀有锱铢必较附魔
-			ProjectileVelocityEnchantmentBasic: 基础射速附魔
-			ProjectileVelocityEnchantmentCommon: 普通射速附魔
-			ProjectileVelocityEnchantmentEpic: 史诗射速附魔
-			ProjectileVelocityEnchantmentLegendary: 传奇射速附魔
-			ProjectileVelocityEnchantmentRare: 稀有射速附魔
-			RangedClassSwapEnchantmentBasic: 基础远程类型伤害转换附魔
-			RangedClassSwapEnchantmentCommon: 普通远程类型伤害转换附魔
-			RangedClassSwapEnchantmentEpic: 史诗远程类型伤害转换附魔
-			RangedClassSwapEnchantmentLegendary: 传奇远程类型伤害转换附魔
-			RangedClassSwapEnchantmentRare: 稀有远程类型伤害转换附魔
-			ReducedManaUsageEnchantmentBasic: 基础魔力消耗附魔
-			ReducedManaUsageEnchantmentCommon: 普通魔力消耗附魔
-			ReducedManaUsageEnchantmentEpic: 史诗魔力消耗附魔
-			ReducedManaUsageEnchantmentLegendary: 传奇魔力消耗附魔
-			ReducedManaUsageEnchantmentRare: 稀有魔力消耗附魔
-			RogueClassSwapEnchantmentBasic: 基础盗贼类型伤害转换附魔
-			RogueClassSwapEnchantmentCommon: 普通盗贼类型伤害转换附魔
-			RogueClassSwapEnchantmentEpic: 史诗盗贼类型伤害转换附魔
-			RogueClassSwapEnchantmentLegendary: 传奇盗贼类型伤害转换附魔
-			RogueClassSwapEnchantmentRare: 稀有盗贼类型伤害转换附魔
-			SizeEnchantmentBasic: 基础大小附魔
-			SizeEnchantmentCommon: 普通大小附魔
-			SizeEnchantmentEpic: 史诗大小附魔
-			SizeEnchantmentLegendary: 传奇大小附魔
-			SizeEnchantmentRare: 稀有大小附魔
-			SolarDashEnchantmentBasic: 基础太阳能冲刺附魔
-			SolarDashEnchantmentCommon: 普通太阳能冲刺附魔
-			SolarDashEnchantmentEpic: 史诗太阳能冲刺附魔
-			SolarDashEnchantmentLegendary: 传奇太阳能冲刺附魔
-			SolarDashEnchantmentRare: 稀有太阳能冲刺附魔
-			SonarEnchantmentBasic: 基础声纳药水附魔
-			SonarEnchantmentCommon: 普通声纳药水附魔
-			SonarEnchantmentEpic: 史诗声纳药水附魔
-			SonarEnchantmentLegendary: 传奇声纳药水附魔
-			SonarEnchantmentRare: 稀有声纳药水附魔
-			SpelunkerEnchantmentBasic: 基础洞穴探险者附魔
-			SpelunkerEnchantmentCommon: 普通洞穴探险者附魔
-			SpelunkerEnchantmentEpic: 史诗洞穴探险者附魔
-			SpelunkerEnchantmentLegendary: 传奇洞穴探险者附魔
-			SpelunkerEnchantmentRare: 稀有洞穴探险者附魔
-			VenomEnchantmentBasic: 基础毒液附魔
-			VenomEnchantmentCommon: 普通毒液附魔
-			VenomEnchantmentEpic: 史诗毒液附魔
-			VenomEnchantmentLegendary: 传奇毒液附魔
-			VenomEnchantmentRare: 稀有毒液附魔
-			WarEnchantmentBasic: 基础战争药水附魔
-			WarEnchantmentCommon: 普通战争药水附魔
-			WarEnchantmentEpic: 史诗战争药水附魔
-			WarEnchantmentLegendary: 传奇战争药水附魔
-			WarEnchantmentRare: 稀有战争药水附魔
-			WhipClassSwapEnchantmentBasic: 基础鞭类型伤害转换附魔
-			WhipClassSwapEnchantmentCommon: 普通鞭类型伤害转换附魔
-			WhipClassSwapEnchantmentEpic: 史诗鞭类型伤害转换附魔
-			WhipClassSwapEnchantmentLegendary: 传奇鞭类型伤害转换附魔
-			WhipClassSwapEnchantmentRare: 稀有鞭类型伤害转换附魔
-			WorldAblazeEnchantmentBasic: 基础焚世附魔
-			WorldAblazeEnchantmentCommon: 普通焚世附魔
-			WorldAblazeEnchantmentEpic: 史诗焚世附魔
-			WorldAblazeEnchantmentLegendary: 传奇焚世附魔
-			WorldAblazeEnchantmentRare: 稀有焚世附魔
+			AllForOneEnchantmentBasic: 万众一心附魔基元
+			AllForOneEnchantmentCommon: 万众一心附魔普通
+			AllForOneEnchantmentEpic: 万众一心附魔史诗
+			AllForOneEnchantmentLegendary: 万众一心附魔传奇
+			AllForOneEnchantmentRare: 万众一心附魔稀有
+			AmmoCostEnchantmentBasic: 弹药消耗附魔基元
+			AmmoCostEnchantmentCommon: 弹药消耗附魔普通
+			AmmoCostEnchantmentEpic: 弹药消耗附魔史诗
+			AmmoCostEnchantmentLegendary: 弹药消耗附魔传奇
+			AmmoCostEnchantmentRare: 弹药消耗附魔稀有
+			ArmorPenetrationEnchantmentBasic: 护甲穿透附魔基元
+			ArmorPenetrationEnchantmentCommon: 护甲穿透附魔普通
+			ArmorPenetrationEnchantmentEpic: 护甲穿透附魔史诗
+			ArmorPenetrationEnchantmentLegendary: 护甲穿透附魔传奇
+			ArmorPenetrationEnchantmentRare: 护甲穿透附魔稀有
+			AttackSpeedEnchantmentBasic: 攻速附魔基元
+			AttackSpeedEnchantmentCommon: 攻速附魔普通
+			AttackSpeedEnchantmentEpic: 攻速附魔史诗
+			AttackSpeedEnchantmentLegendary: 攻速附魔传奇
+			AttackSpeedEnchantmentRare: 攻速附魔稀有
+			BerserkersRageEnchantmentBasic: 狂暴者之怒附魔基元
+			BerserkersRageEnchantmentCommon: 狂暴者之怒附魔普通
+			BerserkersRageEnchantmentEpic: 狂暴者之怒附魔史诗
+			BerserkersRageEnchantmentLegendary: 狂暴者之怒附魔传奇
+			BerserkersRageEnchantmentRare: 狂暴者之怒附魔稀有
+			CalmWatersEnchantmentBasic: 风平浪静附魔基元
+			CalmWatersEnchantmentCommon: 风平浪静附魔普通
+			CalmWatersEnchantmentEpic: 风平浪静附魔史诗
+			CalmWatersEnchantmentLegendary: 风平浪静附魔传奇
+			CalmWatersEnchantmentRare: 风平浪静附魔稀有
+			ChaoticFishingEnchantmentBasic: 混沌渔力附魔基元
+			ChaoticFishingEnchantmentCommon: 混沌渔力附魔普通
+			ChaoticFishingEnchantmentEpic: 混沌渔力附魔史诗
+			ChaoticFishingEnchantmentLegendary: 混沌渔力附魔传奇
+			ChaoticFishingEnchantmentRare: 混沌渔力附魔稀有
+			ColdSteelEnchantmentBasic: 冰冷之钢附魔基元
+			ColdSteelEnchantmentCommon: 冰冷之钢附魔普通
+			ColdSteelEnchantmentEpic: 冰冷之钢附魔史诗
+			ColdSteelEnchantmentLegendary: 冰冷之钢附魔传奇
+			ColdSteelEnchantmentRare: 冰冷之钢附魔稀有
+			CrateChanceEnchantmentBasic: 板条箱附魔基元
+			CrateChanceEnchantmentCommon: 板条箱附魔普通
+			CrateChanceEnchantmentEpic: 板条箱附魔史诗
+			CrateChanceEnchantmentLegendary: 板条箱附魔传奇
+			CrateChanceEnchantmentRare: 板条箱附魔稀有
+			CrateEnchantmentBasic: 宝匣药水附魔基元
+			CrateEnchantmentCommon: 宝匣药水附魔普通
+			CrateEnchantmentEpic: 宝匣药水附魔史诗
+			CrateEnchantmentLegendary: 宝匣药水附魔传奇
+			CrateEnchantmentRare: 宝匣药水附魔稀有
+			CriticalStrikeChanceEnchantmentBasic: 暴击率附魔基元
+			CriticalStrikeChanceEnchantmentCommon: 暴击率附魔普通
+			CriticalStrikeChanceEnchantmentEpic: 暴击率附魔史诗
+			CriticalStrikeChanceEnchantmentLegendary: 暴击率附魔传奇
+			CriticalStrikeChanceEnchantmentRare: 暴击率附魔稀有
+			CriticalStrikeDamageEnchantmentBasic: 暴击伤害附魔基元
+			CriticalStrikeDamageEnchantmentCommon: 暴击伤害附魔普通
+			CriticalStrikeDamageEnchantmentEpic: 暴击伤害附魔史诗
+			CriticalStrikeDamageEnchantmentLegendary: 暴击伤害附魔传奇
+			CriticalStrikeDamageEnchantmentRare: 暴击伤害附魔稀有
+			CursedInfernoEnchantmentBasic: 诅咒之焰附魔基元
+			CursedInfernoEnchantmentCommon: 诅咒之焰附魔普通
+			CursedInfernoEnchantmentEpic: 诅咒之焰附魔史诗
+			CursedInfernoEnchantmentLegendary: 诅咒之焰附魔传奇
+			CursedInfernoEnchantmentRare: 诅咒之焰附魔稀有
+			DamageEnchantmentBasic: 伤害附魔基元
+			DamageEnchantmentCommon: 伤害附魔普通
+			DamageEnchantmentEpic: 伤害附魔史诗
+			DamageEnchantmentLegendary: 伤害附魔传奇
+			DamageEnchantmentRare: 伤害附魔稀有
+			DamageReductionEnchantmentBasic: 伤害减免附魔基元
+			DamageReductionEnchantmentCommon: 伤害减免附魔普通
+			DamageReductionEnchantmentEpic: 伤害减免附魔史诗
+			DamageReductionEnchantmentLegendary: 伤害减免附魔传奇
+			DamageReductionEnchantmentRare: 伤害减免附魔稀有
+			DangerSenseEnchantmentBasic: 危险感知附魔基元
+			DangerSenseEnchantmentCommon: 危险感知附魔普通
+			DangerSenseEnchantmentEpic: 危险感知附魔史诗
+			DangerSenseEnchantmentLegendary: 危险感知附魔传奇
+			DangerSenseEnchantmentRare: 危险感知附魔稀有
+			DaybreakEnchantmentBasic: 破晓附魔基元
+			DaybreakEnchantmentCommon: 破晓附魔普通
+			DaybreakEnchantmentEpic: 破晓附魔史诗
+			DaybreakEnchantmentLegendary: 破晓附魔传奇
+			DaybreakEnchantmentRare: 破晓附魔稀有
+			DefenseEnchantmentBasic: 防御附魔基元
+			DefenseEnchantmentCommon: 防御附魔普通
+			DefenseEnchantmentEpic: 防御附魔史诗
+			DefenseEnchantmentLegendary: 防御附魔传奇
+			DefenseEnchantmentRare: 防御附魔稀有
+			ExtraFishingLineEnchantmentBasic: 额外钓鱼线附魔基元
+			ExtraFishingLineEnchantmentCommon: 额外钓鱼线附魔普通
+			ExtraFishingLineEnchantmentEpic: 额外钓鱼线附魔史诗
+			ExtraFishingLineEnchantmentLegendary: 额外钓鱼线附魔传奇
+			ExtraFishingLineEnchantmentRare: 额外钓鱼线附魔稀有
+			FishingEnchantmentBasic: 钓鱼药水附魔基元
+			FishingEnchantmentCommon: 钓鱼药水附魔普通
+			FishingEnchantmentEpic: 钓鱼药水附魔史诗
+			FishingEnchantmentLegendary: 钓鱼药水附魔传奇
+			FishingEnchantmentRare: 钓鱼药水附魔稀有
+			FishingPowerEnchantmentBasic: 渔力附魔基元
+			FishingPowerEnchantmentCommon: 渔力附魔普通
+			FishingPowerEnchantmentEpic: 渔力附魔史诗
+			FishingPowerEnchantmentLegendary: 渔力附魔传奇
+			FishingPowerEnchantmentRare: 渔力附魔稀有
+			FrostburnEnchantmentBasic: 霜冻附魔基元
+			FrostburnEnchantmentCommon: 霜冻附魔普通
+			FrostburnEnchantmentEpic: 霜冻附魔史诗
+			FrostburnEnchantmentLegendary: 霜冻附魔传奇
+			FrostburnEnchantmentRare: 霜冻附魔稀有
+			GodSlayerEnchantmentBasic: 弑神者附魔基元
+			GodSlayerEnchantmentCommon: 弑神者附魔普通
+			GodSlayerEnchantmentEpic: 弑神者附魔史诗
+			GodSlayerEnchantmentLegendary: 弑神者附魔传奇
+			GodSlayerEnchantmentRare: 弑神者附魔稀有
+			HellsWrathEnchantmentBasic: 地狱之怒附魔基元
+			HellsWrathEnchantmentCommon: 地狱之怒附魔普通
+			HellsWrathEnchantmentEpic: 地狱之怒附魔史诗
+			HellsWrathEnchantmentLegendary: 地狱之怒附魔传奇
+			HellsWrathEnchantmentRare: 地狱之怒附魔稀有
+			HunterEnchantmentBasic: 猎人药水附魔基元
+			HunterEnchantmentCommon: 猎人药水附魔普通
+			HunterEnchantmentEpic: 猎人药水附魔史诗
+			HunterEnchantmentLegendary: 猎人药水附魔传奇
+			HunterEnchantmentRare: 猎人药水附魔稀有
+			IchorEnchantmentBasic: 灵液附魔基元
+			IchorEnchantmentCommon: 灵液附魔普通
+			IchorEnchantmentEpic: 灵液附魔史诗
+			IchorEnchantmentLegendary: 灵液附魔传奇
+			IchorEnchantmentRare: 灵液附魔稀有
+			JuicedEnchantmentBasic: 兴奋附魔基元
+			JuicedEnchantmentCommon: 兴奋附魔普通
+			JuicedEnchantmentEpic: 兴奋附魔史诗
+			JuicedEnchantmentLegendary: 兴奋附魔传奇
+			JuicedEnchantmentRare: 兴奋附魔稀有
+			JunglesFuryEnchantmentBasic: 丛林之怒附魔基元
+			JunglesFuryEnchantmentCommon: 丛林之怒附魔普通
+			JunglesFuryEnchantmentEpic: 丛林之怒附魔史诗
+			JunglesFuryEnchantmentLegendary: 丛林之怒附魔传奇
+			JunglesFuryEnchantmentRare: 丛林之怒附魔稀有
+			KiClassSwapEnchantmentBasic: Ki类型伤害转换附魔基元
+			KiClassSwapEnchantmentCommon: Ki类型伤害转换附魔普通
+			KiClassSwapEnchantmentEpic: Ki类型伤害转换附魔史诗
+			KiClassSwapEnchantmentLegendary: Ki类型伤害转换附魔传奇
+			KiClassSwapEnchantmentRare: Ki类型伤害转换附魔稀有
+			KiEnchantmentBasic: Ki附魔基元
+			KiEnchantmentCommon: Ki附魔普通
+			KiEnchantmentEpic: Ki附魔史诗
+			KiEnchantmentLegendary: Ki附魔传奇
+			KiEnchantmentRare: Ki附魔稀有
+			LavaFishingEnchantmentBasic: 熔岩钓鱼附魔基元
+			LavaFishingEnchantmentCommon: 熔岩钓鱼附魔普通
+			LavaFishingEnchantmentEpic: 熔岩钓鱼附魔史诗
+			LavaFishingEnchantmentLegendary: 熔岩钓鱼附魔传奇
+			LavaFishingEnchantmentRare: 熔岩钓鱼附魔稀有
+			LifeRegenEnchantmentBasic: 生命再生附魔基础
+			LifeRegenEnchantmentCommon: 生命再生附魔普通
+			LifeRegenEnchantmentEpic: 生命再生附魔史诗
+			LifeRegenEnchantmentLegendary: 生命再生附魔传奇
+			LifeRegenEnchantmentRare: 生命再生附魔稀有
+			LifeStealEnchantmentBasic: 生命窃取附魔基元
+			LifeStealEnchantmentCommon: 生命窃取附魔普通
+			LifeStealEnchantmentEpic: 生命窃取附魔史诗
+			LifeStealEnchantmentLegendary: 生命窃取附魔传奇
+			LifeStealEnchantmentRare: 生命窃取附魔稀有
+			LuckEnchantmentBasic: 幸运附魔基元
+			LuckEnchantmentCommon: 幸运附魔普通
+			LuckEnchantmentEpic: 幸运附魔史诗
+			LuckEnchantmentLegendary: 幸运附魔传奇
+			LuckEnchantmentRare: 幸运附魔稀有
+			MagicClassSwapEnchantmentBasic: 魔法类型伤害转换附魔基元
+			MagicClassSwapEnchantmentCommon: 魔法类型伤害转换附魔普通
+			MagicClassSwapEnchantmentEpic: 魔法类型伤害转换附魔史诗
+			MagicClassSwapEnchantmentLegendary: 魔法类型伤害转换附魔传奇
+			MagicClassSwapEnchantmentRare: 魔法类型伤害转换附魔稀有
+			MaxMinionsEnchantmentBasic: 最大仆从附魔基元
+			MaxMinionsEnchantmentCommon: 最大仆从附魔普通
+			MaxMinionsEnchantmentEpic: 最大仆从附魔史诗
+			MaxMinionsEnchantmentLegendary: 最大仆从附魔传奇
+			MaxMinionsEnchantmentRare: 最大仆从附魔稀有
+			MeleeClassSwapEnchantmentBasic: 近战类型伤害转换附魔基元
+			MeleeClassSwapEnchantmentCommon: 近战类型伤害转换附魔普通
+			MeleeClassSwapEnchantmentEpic: 近战类型伤害转换附魔史诗
+			MeleeClassSwapEnchantmentLegendary: 近战类型伤害转换附魔传奇
+			MeleeClassSwapEnchantmentRare: 近战类型伤害转换附魔稀有
+			MobilityControlEnchantmentBasic: 移动控制附魔基元
+			MobilityControlEnchantmentCommon: 移动控制附魔普通
+			MobilityControlEnchantmentEpic: 移动控制附魔史诗
+			MobilityControlEnchantmentLegendary: 移动控制附魔传奇
+			MobilityControlEnchantmentRare: 移动控制附魔稀有
+			MoonlightEnchantmentBasic: 月光附魔基元
+			MoonlightEnchantmentCommon: 月光附魔普通
+			MoonlightEnchantmentEpic: 月光附魔史诗
+			MoonlightEnchantmentLegendary: 月光附魔传奇
+			MoonlightEnchantmentRare: 月光附魔稀有
+			MovementSpeedEnchantmentBasic: 移速附魔基元
+			MovementSpeedEnchantmentCommon: 移速附魔普通
+			MovementSpeedEnchantmentEpic: 移速附魔史诗
+			MovementSpeedEnchantmentLegendary: 移速附魔传奇
+			MovementSpeedEnchantmentRare: 移速附魔稀有
+			MultishotEnchantmentBasic: 多发附魔基元
+			MultishotEnchantmentCommon: 多发附魔普通
+			MultishotEnchantmentEpic: 多发附魔史诗
+			MultishotEnchantmentLegendary: 多发附魔传奇
+			MultishotEnchantmentRare: 多发附魔稀有
+			NpcContactAnglerEnchantmentBasic: 钓鱼者附魔基元
+			NpcContactAnglerEnchantmentCommon: 钓鱼者附魔普通
+			NpcContactAnglerEnchantmentEpic: 钓鱼者附魔史诗
+			NpcContactAnglerEnchantmentLegendary: 钓鱼者附魔传奇
+			NpcContactAnglerEnchantmentRare: 钓鱼者附魔稀有
+			ObsidianSkinEnchantmentBasic: 黑曜石皮肤药水附魔基元
+			ObsidianSkinEnchantmentCommon: 黑曜石皮肤药水附魔普通
+			ObsidianSkinEnchantmentEpic: 黑曜石皮肤药水附魔史诗
+			ObsidianSkinEnchantmentLegendary: 黑曜石皮肤药水附魔传奇
+			ObsidianSkinEnchantmentRare: 黑曜石皮肤药水附魔稀有
+			OneForAllEnchantmentBasic: 连锁附魔基元
+			OneForAllEnchantmentCommon: 连锁附魔普通
+			OneForAllEnchantmentEpic: 连锁附魔史诗
+			OneForAllEnchantmentLegendary: 连锁附魔传奇
+			OneForAllEnchantmentRare: 连锁附魔稀有
+			OnFireEnchantmentBasic: 火焰附加附魔基元
+			OnFireEnchantmentCommon: 火焰附加附魔普通
+			OnFireEnchantmentEpic: 火焰附加附魔史诗
+			OnFireEnchantmentLegendary: 火焰附加附魔传奇
+			OnFireEnchantmentRare: 火焰附加附魔稀有
+			PeaceEnchantmentBasic: 和平附魔基元
+			PeaceEnchantmentCommon: 和平附魔普通
+			PeaceEnchantmentEpic: 和平附魔史诗
+			PeaceEnchantmentLegendary: 和平附魔传奇
+			PeaceEnchantmentRare: 和平附魔稀有
+			PennyPinchingEnchantmentBasic: 锱铢必较附魔基元
+			PennyPinchingEnchantmentCommon: 锱铢必较附魔普通
+			PennyPinchingEnchantmentEpic: 锱铢必较附魔史诗
+			PennyPinchingEnchantmentLegendary: 锱铢必较附魔传奇
+			PennyPinchingEnchantmentRare: 锱铢必较附魔稀有
+			ProjectileVelocityEnchantmentBasic: 射速附魔基元
+			ProjectileVelocityEnchantmentCommon: 射速附魔普通
+			ProjectileVelocityEnchantmentEpic: 射速附魔史诗
+			ProjectileVelocityEnchantmentLegendary: 射速附魔传奇
+			ProjectileVelocityEnchantmentRare: 射速附魔稀有
+			RangedClassSwapEnchantmentBasic: 远程类型伤害转换附魔基元
+			RangedClassSwapEnchantmentCommon: 远程类型伤害转换附魔普通
+			RangedClassSwapEnchantmentEpic: 远程类型伤害转换附魔史诗
+			RangedClassSwapEnchantmentLegendary: 远程类型伤害转换附魔传奇
+			RangedClassSwapEnchantmentRare: 远程类型伤害转换附魔稀有
+			ReducedManaUsageEnchantmentBasic: 魔力消耗附魔基元
+			ReducedManaUsageEnchantmentCommon: 魔力消耗附魔普通
+			ReducedManaUsageEnchantmentEpic: 魔力消耗附魔史诗
+			ReducedManaUsageEnchantmentLegendary: 魔力消耗附魔传奇
+			ReducedManaUsageEnchantmentRare: 魔力消耗附魔稀有
+			RogueClassSwapEnchantmentBasic: 盗贼类型伤害转换附魔基元
+			RogueClassSwapEnchantmentCommon: 盗贼类型伤害转换附魔普通
+			RogueClassSwapEnchantmentEpic: 盗贼类型伤害转换附魔史诗
+			RogueClassSwapEnchantmentLegendary: 盗贼类型伤害转换附魔传奇
+			RogueClassSwapEnchantmentRare: 盗贼类型伤害转换附魔稀有
+			SizeEnchantmentBasic: 大小附魔基元
+			SizeEnchantmentCommon: 大小附魔普通
+			SizeEnchantmentEpic: 大小附魔史诗
+			SizeEnchantmentLegendary: 大小附魔传奇
+			SizeEnchantmentRare: 大小附魔稀有
+			SolarDashEnchantmentBasic: 太阳能冲刺附魔基元
+			SolarDashEnchantmentCommon: 太阳能冲刺附魔普通
+			SolarDashEnchantmentEpic: 太阳能冲刺附魔史诗
+			SolarDashEnchantmentLegendary: 太阳能冲刺附魔传奇
+			SolarDashEnchantmentRare: 太阳能冲刺附魔稀有
+			SonarEnchantmentBasic: 声纳药水附魔基元
+			SonarEnchantmentCommon: 声纳药水附魔普通
+			SonarEnchantmentEpic: 声纳药水附魔史诗
+			SonarEnchantmentLegendary: 声纳药水附魔传奇
+			SonarEnchantmentRare: 声纳药水附魔稀有
+			SpelunkerEnchantmentBasic: 洞穴探险者附魔基元
+			SpelunkerEnchantmentCommon: 洞穴探险者附魔普通
+			SpelunkerEnchantmentEpic: 洞穴探险者附魔史诗
+			SpelunkerEnchantmentLegendary: 洞穴探险者附魔传奇
+			SpelunkerEnchantmentRare: 洞穴探险者附魔稀有
+			VenomEnchantmentBasic: 毒液附魔基元
+			VenomEnchantmentCommon: 毒液附魔普通
+			VenomEnchantmentEpic: 毒液附魔史诗
+			VenomEnchantmentLegendary: 毒液附魔传奇
+			VenomEnchantmentRare: 毒液附魔稀有
+			WarEnchantmentBasic: 战争药水附魔基元
+			WarEnchantmentCommon: 战争药水附魔普通
+			WarEnchantmentEpic: 战争药水附魔史诗
+			WarEnchantmentLegendary: 战争药水附魔传奇
+			WarEnchantmentRare: 战争药水附魔稀有
+			WhipClassSwapEnchantmentBasic: 鞭类型伤害转换附魔基元
+			WhipClassSwapEnchantmentCommon: 鞭类型伤害转换附魔普通
+			WhipClassSwapEnchantmentEpic: 鞭类型伤害转换附魔史诗
+			WhipClassSwapEnchantmentLegendary: 鞭类型伤害转换附魔传奇
+			WhipClassSwapEnchantmentRare: 鞭类型伤害转换附魔稀有
+			WorldAblazeEnchantmentBasic: 焚世附魔基元
+			WorldAblazeEnchantmentCommon: 焚世附魔普通
+			WorldAblazeEnchantmentEpic: 焚世附魔史诗
+			WorldAblazeEnchantmentLegendary: 焚世附魔传奇
+			WorldAblazeEnchantmentRare: 焚世附魔稀有
 			Containment: 容器
 			DustyEnchantingTable: 尘封附魔台
 			EnchantmentEssenceBasic: 基础附魔精华
@@ -306,11 +306,11 @@ Mods: {
 			EnchantmentEssenceRare: 稀有附魔精华
 			HellishEnchantingTable: 地狱附魔台
 			MediumContainment: 中级容器
-			PowerBooster: 能力强化器
+			PowerBooster: 能量强化器
 			SoulEnchantingTable: 灵魂附魔台
 			SuperiorContainment: 高级容器
 			UltimateEnchantingTable: 终极附魔台
-			UltraPowerBooster: 终极能力强化器
+			UltraPowerBooster: 终极能量强化器
 			WoodEnchantingTable: 木质附魔台
 		}
 		BuffName: {
@@ -340,11 +340,11 @@ Mods: {
 			}
 		}
 		ItemTooltip: {
-			Containment: 用于存放基础附魔
+			Containment: 用于存放附魔基元
 			DustyEnchantingTable: 用于对物品附魔。 （第1阶）
 			EnchantmentEssenceBasic: 
 				'''
-				用于制作和升级附魔的基本材料。
+				用于制作和升级附魔的基础材料。
 				在附魔台可转换成400经验。
 				'''
 			EnchantmentEssenceCommon: 
@@ -368,7 +368,7 @@ Mods: {
 				在附魔台可转换成6400经验。
 				'''
 			HellishEnchantingTable: 用于对物品附魔。 （第2阶）
-			MediumContainment: 用于存放普通附魔
+			MediumContainment: 用于合成附魔普通
 			PowerBooster: 
 				'''
 				当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 10。
@@ -376,7 +376,7 @@ Mods: {
 				如果提升等级的物品被熔炼，该物品将会退还。
 				'''
 			SoulEnchantingTable: 用于对物品附魔。 （第3阶）
-			SuperiorContainment: 用于存放稀有附魔
+			SuperiorContainment: 用于合成附魔稀有
 			UltimateEnchantingTable: 用于对物品附魔。 （第4阶）
 			UltraPowerBooster: 
 				'''
@@ -434,9 +434,9 @@ Mods: {
 		TableText: {
 			Cancel: 取消
 			Finalize: 确定
-			Infusion: 以旧换新
+			Infusion: 武器融合
 			LevelUp: 提升等级
-			LootAll: 收取全部
+			LootAll: 一键收取
 			No: 否
 			Offer: 熔炼回收
 			Syphon: 吸取经验
@@ -544,14 +544,14 @@ Mods: {
 				KiDamage: Ki伤害
 				KiRegen: Ki再生
 				LavaFishing: 熔岩钓鱼
-				LifeRegen: 生命恢復
-				LifeRegeneration: 生命再生
+				LifeRegen: 生命再生
+				LifeRegeneration: 生命再生值
 				LifeSteal: 生命窃取
 				Luck: 运气
 				MagicClassSwap: 魔法类型伤害转换
 				ManaUsage1: 减少魔力消耗
 				ManaUsage2: 增加魔力消耗
-				MaxFallSpeed: 最大下降速度
+				MaxFallSpeed: 最大降速
 				MaxKi: Ki上限
 				MaxLife: 生命上限
 				MaxMinions: 仆从上限
@@ -693,7 +693,7 @@ Mods: {
 				DislikeCrowded: 我怎么能忍受这些噪音！
 				DislikeNPC: “这……{NPCName}这个人太老套了！‘从邪恶中拯救世界’邪恶根深蒂固，在这里留下来！”
 				FarFromHome: 我不得不冒险去寻找新的试剂。虽然我的家很舒服，但我可以用这些最后的成分酿造一种新的混合物。
-				HateBiome: 哎呀！这个地方太亮了，我最讨厌！
+				HateBiome: 哎呀！这个地方很是明亮，我最喜欢了！
 				HateCrowded: 我不能应付这里的交通！让我出去或把他们踢出去，快点！
 				HateNPC: “{NPCName}是一个暴虐的女人，总是把头发留在各处，我将让她在战争中付出代价！”
 				LikeBiome: 这个地方到处都是小动物和泥土，是时候快速赚钱了！
@@ -701,7 +701,7 @@ Mods: {
 				LoveBiome: 这个地方让我想起了我的老巢。很冷酷，很魔幻，很有精神！
 				LoveNPC: “同为炼丹师！{NPCName}有这么多奇怪的噱头，一个真正的诱惑者！”
 				LoveSpace: 现在大家都走了，我的实验终于可以继续了！
-				NoHome: 我无法容纳我所有的商品，这些商品不稳定，请注意！
+				NoHome: 我无法同时销售我所有的商品，这些商品很不稳定，请注意！
 			}
 		}
 	}
