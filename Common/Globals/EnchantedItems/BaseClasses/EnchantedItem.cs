@@ -276,7 +276,7 @@ namespace WeaponEnchantments.Common.Globals
             else {
                 //fixes enchantments being applied to all of an item instead of just the instance
                 for (int i = 0; i < enchantments.Length; i++)
-                    clone.enchantments[i] = enchantments[i].Clone();
+                    clone.enchantments[i] = enchantments[i]?.Clone();
             }
 
             #endregion
@@ -1500,7 +1500,7 @@ namespace WeaponEnchantments.Common.Globals
                             numberEssenceRecieved += 1;
                         }
 
-                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], 1);
+                        Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], numberEssenceRecieved);
                     }
 
                     if (cGlobal.PowerBoosterInstalled)
