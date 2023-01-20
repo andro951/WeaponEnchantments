@@ -152,7 +152,11 @@ namespace WeaponEnchantments.Common.Globals
 
             //Initial scale
             initialScale = projectile.scale;
-            GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.Size, out float sizeMultiplier);
+			//Fix for Titanium Decimator from Calamity's Titanium Railgun
+			if (initialScale <= 0)
+                initialScale = 1f;
+
+			GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.Size, out float sizeMultiplier);
             bool projectileScaleNotModified = projectile.scale < sizeMultiplier * ContentSamples.ProjectilesByType[projectile.type].scale;
             if (sizeMultiplier >= 1f && projectileScaleNotModified) {
                 projectile.scale *= sizeMultiplier;
@@ -161,6 +165,9 @@ namespace WeaponEnchantments.Common.Globals
 
             //Reference scale (after applying sourceItem.scale if needed)
             referenceScale = projectile.scale;
+			//Fix for Titanium Decimator from Calamity's Titanium Railgun
+			if (referenceScale <= 0)
+                referenceScale = 1f;
 
             return true;
         }

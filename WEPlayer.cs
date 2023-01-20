@@ -2340,10 +2340,10 @@ namespace WeaponEnchantments
                     float rand = Main.rand.NextFloat();
                     if (rand <= questFishChance) {
                         itemDrop = attempt.questFish;
-                        $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
+                        if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
                     }
 					else {
-                        $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
+						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
                     }
                 }
 			}
