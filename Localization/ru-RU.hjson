@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Зачарование "Скорость" (Эпическое)
 			AttackSpeedEnchantmentLegendary: Зачарование "Скорость" (Легендарное)
 			AttackSpeedEnchantmentRare: Зачарование "Скорость" (Редкое)
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
-			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentBasic: Зачарование ярости берсерков базовое
+			BerserkersRageEnchantmentCommon: Чары ярости берсерков
+			BerserkersRageEnchantmentEpic: Ярость берсерков Чары Эпические
+			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Легендарный
+			BerserkersRageEnchantmentRare: Зачарование ярости берсерков редкое
 			CalmWatersEnchantmentBasic: Зачарование "Спокойные воды" (Базовое)
 			CalmWatersEnchantmentCommon: Зачарование "Спокойные воды" (Обычное)
 			CalmWatersEnchantmentEpic: Зачарование "Спокойные воды" (Эпическое)
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Зачарование "Ярость джунглей" (Эпическое)
 			JunglesFuryEnchantmentLegendary: Зачарование "Ярость джунглей" (Легендарное)
 			JunglesFuryEnchantmentRare: Зачарование "Ярость джунглей" (Редкое)
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Базовое зачарование смены класса Ки
+			KiClassSwapEnchantmentCommon: Зачарование смены класса Ки Обычный
+			KiClassSwapEnchantmentEpic: Эпическое зачарование смены класса Ки
+			KiClassSwapEnchantmentLegendary: Легендарное зачарование смены класса Ки
+			KiClassSwapEnchantmentRare: Зачарование смены класса Ки Редкое
+			KiEnchantmentBasic: Зачарование Ки Базовое
+			KiEnchantmentCommon: Чары Ки Обычный
+			KiEnchantmentEpic: Ки Чары Эпические
+			KiEnchantmentLegendary: Ки Чары Легендарные
+			KiEnchantmentRare: Ки Чары Редкие
 			LavaFishingEnchantmentBasic: Зачарование "Рыбалка в лаве" (Базовое)
 			LavaFishingEnchantmentCommon: Зачарование "Рыбалка в лаве" (Обычное)
 			LavaFishingEnchantmentEpic: Зачарование "Рыбалка в лаве" (Эпическое)
 			LavaFishingEnchantmentLegendary: Зачарование "Рыбалка в лаве" (Легендарное)
 			LavaFishingEnchantmentRare: Зачарование "Рыбалка в лаве" (Редкое)
+			LifeRegenEnchantmentBasic: Зачарование Регенерации Жизни Базовое
+			LifeRegenEnchantmentCommon: Чары Регенерации Жизни Обычный
+			LifeRegenEnchantmentEpic: Эпическое зачарование регенерации жизни
+			LifeRegenEnchantmentLegendary: Чары Регенерации Жизни Легендарные
+			LifeRegenEnchantmentRare: Чары регенерации здоровья Редкие
 			LifeStealEnchantmentBasic: Зачарование "Похищение жизни" (Базовое)
 			LifeStealEnchantmentCommon: Зачарование "Похищение жизни" (Обычное)
 			LifeStealEnchantmentEpic: Зачарование "Похищение жизни" (Эпическое)
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Стол зачарования души
 			SuperiorContainment: Превосходный контейнер
 			UltimateEnchantingTable: Абсолютный стол зачарования
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Ультрамощный усилитель
 			WoodEnchantingTable: Деревянный стол зачарования
 		}
 		BuffName: {
@@ -465,7 +470,7 @@ Mods: {
 			}
 			DamageClassNames: {
 				Generic: Общий
-				Ki: Ki
+				Ki: Ки
 				Magic: Магический
 				Melee: Ближнебойный
 				Ranged: Стрелковый
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Пробивание брони
 				AttackSpeed: Скорость атаки
 				AutoReuse: Автоматическое использование
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: Ярость берсерков
 				BonusCoins: Бонусные монеты
 				BuffDuration: Длительность эффекта
 				BuffEffect0: "Пассивно даёт эффект '{0}'"
@@ -534,11 +539,12 @@ Mods: {
 				Juiced: Выжатый
 				JumpSpeed: Скорость прыжка
 				JunglesFury: Ярость джунглей
-				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
-				KiRegen: Ki Regen
+				Ki: Ки
+				KiClassSwap: Смена класса Ки
+				KiDamage: Ки Урон
+				KiRegen: Ки Реген
 				LavaFishing: Рыбалка в лаве
+				LifeRegen: Регенерация жизни
 				LifeRegeneration: Восстановление жизни
 				LifeSteal: Похищение жизни
 				Luck: Удача
@@ -546,7 +552,7 @@ Mods: {
 				ManaUsage1: Уменьшение затрат маны
 				ManaUsage2: Увеличение затрат маны
 				MaxFallSpeed: Максимальная скорость падения
-				MaxKi: Max Ki
+				MaxKi: Макс Ки
 				MaxLife: Максимум жизни
 				MaxMinions: Максимум прислужников
 				MaxMP: Максимум маны
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Зачарование мода Calamity)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Зачарование Террарии Жемчуга Дракона)
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))

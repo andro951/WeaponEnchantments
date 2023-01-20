@@ -16,6 +16,8 @@ namespace WeaponEnchantments.Items.Enchantments
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 0.5f },
+				{ EItemType.Tools, 0.5f },
+				{ EItemType.FishingPoles, 0.5f },
 				{ EItemType.Armor, 1f },
 				{ EItemType.Accessories, 1f }
 			};

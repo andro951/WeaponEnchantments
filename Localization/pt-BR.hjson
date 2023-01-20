@@ -157,6 +157,11 @@ Mods: {
 			LavaFishingEnchantmentEpic: Encantamento Pesca na Lava Épico
 			LavaFishingEnchantmentLegendary: Encantamento Pesca na Lava lendário
 			LavaFishingEnchantmentRare: Encantamento Pesca na Lava Raro
+			LifeRegenEnchantmentBasic: Básico de Encantamento de Regeneração de Vida
+			LifeRegenEnchantmentCommon: Encantamento de Regeneração de Vida Comum
+			LifeRegenEnchantmentEpic: Épico de Encantamento de Regeneração de Vida
+			LifeRegenEnchantmentLegendary: Regeneração de Vida Encantamento Lendário
+			LifeRegenEnchantmentRare: Encantamento de Regeneração de Vida Raro
 			LifeStealEnchantmentBasic: Encantamento Roubo de Vida Básico
 			LifeStealEnchantmentCommon: Encantamento Roubo de Vida Comum
 			LifeStealEnchantmentEpic: Encantamento Roubo de Vida Épico
@@ -539,6 +544,7 @@ Mods: {
 				KiDamage: Dano de Ki
 				KiRegen: Regeneração de Ki
 				LavaFishing: Pesca na lava
+				LifeRegen: Regeneração de vida
 				LifeRegeneration: Regeneração de Vida
 				LifeSteal: Roubo de Vida
 				Luck: Sorte

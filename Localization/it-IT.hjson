@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Incantesimo velocità d'attacco epico
 			AttackSpeedEnchantmentLegendary: Incantesimo velocità d'attacco Leggendario
 			AttackSpeedEnchantmentRare: Incantesimo velocità d'attacco Raro
-			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
-			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Enchantment Legendary
-			BerserkersRageEnchantmentRare: Berserkers Rage Enchantment Rare
+			BerserkersRageEnchantmentBasic: Berserkers Rage Incantesimo di base
+			BerserkersRageEnchantmentCommon: Berserker Rabbia Incantesimo Comune
+			BerserkersRageEnchantmentEpic: Berserkers Rage Incantesimo Epico
+			BerserkersRageEnchantmentLegendary: Berserkers Rabbia Incantesimo Leggendario
+			BerserkersRageEnchantmentRare: Berserker Rabbia Incantesimo Raro
 			CalmWatersEnchantmentBasic: Incantesimo di acque calme di base
 			CalmWatersEnchantmentCommon: Incantesimo acque calme comune
 			CalmWatersEnchantmentEpic: Epopea dell'incantesimo delle acque calme
@@ -142,21 +142,26 @@ Mods: {
 			JunglesFuryEnchantmentEpic: Jungles Fury Incantesimo Epico
 			JunglesFuryEnchantmentLegendary: Incantesimo Furia della Giungla Leggendario
 			JunglesFuryEnchantmentRare: Incantesimo Furia della Giungla Raro
-			KiClassSwapEnchantmentBasic: Ki Class Swap Enchantment Basic
-			KiClassSwapEnchantmentCommon: Ki Class Swap Enchantment Common
-			KiClassSwapEnchantmentEpic: Ki Class Swap Enchantment Epic
-			KiClassSwapEnchantmentLegendary: Ki Class Swap Enchantment Legendary
-			KiClassSwapEnchantmentRare: Ki Class Swap Enchantment Rare
-			KiEnchantmentBasic: Ki Enchantment Basic
-			KiEnchantmentCommon: Ki Enchantment Common
-			KiEnchantmentEpic: Ki Enchantment Epic
-			KiEnchantmentLegendary: Ki Enchantment Legendary
-			KiEnchantmentRare: Ki Enchantment Rare
+			KiClassSwapEnchantmentBasic: Ki Class Swap Incantesimo di base
+			KiClassSwapEnchantmentCommon: Incantesimo di scambio di classe Ki Comune
+			KiClassSwapEnchantmentEpic: Ki Class Swap Incantesimo Epico
+			KiClassSwapEnchantmentLegendary: Incantesimo di scambio di classe Ki Leggendario
+			KiClassSwapEnchantmentRare: Incantesimo di scambio di classe Ki Raro
+			KiEnchantmentBasic: Ki Incantesimo di base
+			KiEnchantmentCommon: Ki Incantesimo Comune
+			KiEnchantmentEpic: Ki Incantesimo epico
+			KiEnchantmentLegendary: Ki Incantesimo Leggendario
+			KiEnchantmentRare: Ki Incantesimo Raro
 			LavaFishingEnchantmentBasic: Incantesimo Pesca alla lava Base
 			LavaFishingEnchantmentCommon: Incantesimo Pesca di Lava Comune
 			LavaFishingEnchantmentEpic: Incantesimo di pesca alla lava epico
 			LavaFishingEnchantmentLegendary: Incantesimo Pesca di lava Leggendario
 			LavaFishingEnchantmentRare: Incantesimo Pesca alla Lava Raro
+			LifeRegenEnchantmentBasic: Vita Regen Incantesimo di base
+			LifeRegenEnchantmentCommon: Vita Regen Incantesimo Comune
+			LifeRegenEnchantmentEpic: Life Regen Incantesimo Epico
+			LifeRegenEnchantmentLegendary: Incantesimo di rigenerazione della vita Leggendario
+			LifeRegenEnchantmentRare: Incantesimo Rigenera Vita Raro
 			LifeStealEnchantmentBasic: Incantesimo ruba vita di base
 			LifeStealEnchantmentCommon: Incantesimo Ruba Vita Comune
 			LifeStealEnchantmentEpic: Incantesimo rubavita epico
@@ -305,7 +310,7 @@ Mods: {
 			SoulEnchantingTable: Tavolo incantevole dell'anima
 			SuperiorContainment: Contenimento superiore
 			UltimateEnchantingTable: Tavolo incantevole definitivo
-			UltraPowerBooster: Ultra Power Booster
+			UltraPowerBooster: Potenziatore ultra potente
 			WoodEnchantingTable: Tavolo incantevole in legno
 		}
 		BuffName: {
@@ -481,7 +486,7 @@ Mods: {
 				ArmorPenetration: Penetrazione dell'armatura
 				AttackSpeed: Velocità d'attacco
 				AutoReuse: Riutilizzo automatico
-				BerserkersRage: Berserkers Rage
+				BerserkersRage: La rabbia dei berserker
 				BonusCoins: Monete bonus
 				BuffDuration: Durata del Potenziamento
 				BuffEffect0: "Ti concede {0} passivamente"
@@ -535,10 +540,11 @@ Mods: {
 				JumpSpeed: Velocità di salto
 				JunglesFury: Furia della giungla
 				Ki: Ki
-				KiClassSwap: Ki Class Swap
-				KiDamage: Ki Damage
+				KiClassSwap: Scambio di classe Ki
+				KiDamage: Ki Danni
 				KiRegen: Ki Regen
 				LavaFishing: Pesca alla lava
+				LifeRegen: Vita rigenerata
 				LifeRegeneration: Rigenerazione della vita
 				LifeSteal: Ruba la vita
 				Luck: Fortuna
@@ -591,7 +597,7 @@ Mods: {
 			}
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Incantesimo Mod Calamità)
-				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				DBZMODPORT: (Incantesimo Dragon Ball Terraria)
 				WorldAblaze: 
 					'''
 					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)

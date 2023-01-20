@@ -157,6 +157,11 @@ Mods: {
 			LavaFishingEnchantmentEpic: Lava Fishing Enchantment Epic
 			LavaFishingEnchantmentLegendary: Lava Fishing Enchantment Legendary
 			LavaFishingEnchantmentRare: Lava Fishing Enchantment Rare
+			LifeRegenEnchantmentBasic: Life Regen Enchantment Basic
+			LifeRegenEnchantmentCommon: Life Regen Enchantment Common
+			LifeRegenEnchantmentEpic: Life Regen Enchantment Epic
+			LifeRegenEnchantmentLegendary: Life Regen Enchantment Legendary
+			LifeRegenEnchantmentRare: Life Regen Enchantment Rare
 			LifeStealEnchantmentBasic: Life Steal Enchantment Basic
 			LifeStealEnchantmentCommon: Life Steal Enchantment Common
 			LifeStealEnchantmentEpic: Life Steal Enchantment Epic
@@ -539,6 +544,7 @@ Mods: {
 				KiDamage: Ki Damage
 				KiRegen: Ki Regen
 				LavaFishing: Lava Fishing
+				LifeRegen: Life Regen
 				LifeRegeneration: Life Regeneration
 				LifeSteal: Life Steal
 				Luck: Luck
