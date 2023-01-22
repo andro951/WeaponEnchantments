@@ -20,7 +20,8 @@ namespace WeaponEnchantments.Items.Enchantments
 				new NPCHitCooldown(multiplicative: EnchantmentStrengthData * 0.4f + 4f),
 				new AttackSpeed(multiplicative: (EnchantmentStrengthData * 0.1f + 1f).Invert()),
 				new ManaUsage(@base: EnchantmentStrengthData * 0.15f + 1.5f),
-				new AutoReuse(prevent: true)
+				new AutoReuse(prevent: true),
+				new ProjectileVelocity(EnchantmentStrengthData * 0.1f)
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {
