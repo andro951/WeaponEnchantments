@@ -76,7 +76,7 @@ namespace WeaponEnchantments.Common.Utility
 		MaxKi,
         MaxLife,
         MaxMinions,
-        MaxMP,
+        MaxMana,
 		Melee,
 		MiningSpeed,
 		MovementAcceleration,
