@@ -86,6 +86,42 @@ namespace WeaponEnchantments.Common.Utility
         /// </summary>
         public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageClassID.Generic ? ((DamageClassID)dc.Type).ToString() + " " : "" : "";
 
+        public static string S(this float f, int decimals = 4) {
+            string s = f.ToString($"F{decimals}");
+            int dot = s.IndexOf('.');
+            if (dot == -1)
+                return s;
+
+            int length = s.Length;
+            int end = length - 1;
+            for (; end > dot; end--) {
+                char c = s[end - 1];
+				if (c != '0' && c != '.') {
+                    break;
+                }
+            }
+
+            if (end == length - 1 && length - dot - 1 > 2) {
+                char last = s[end];
+                char lastM1 = (char)(last - 1);
+                int i = end + 1;
+				for (; i > dot + 2; i--) {
+                    char c = s[i - 2];
+                    if (c != last && c != lastM1 && c != '.') {
+                        break;
+                    }
+                }
+
+                if (i < end) {
+					string newStr1 = $"{s.Substring(0, i)}{last}";
+					return newStr1;
+				}
+			}
+
+			string newStr = s.Substring(0, end);
+			return newStr;
+		}
+
         #endregion
 
         public static bool IsUpper(this char c) {

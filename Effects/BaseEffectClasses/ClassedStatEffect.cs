@@ -16,6 +16,6 @@ namespace WeaponEnchantments.Effects {
         }
 
         public DamageClass damageClass { get; set; }
-        public override string DisplayName => $"{damageClass.S()} {base.DisplayName}";
+        public override string DisplayName => $"{damageClass.S()}{(damageClass != DamageClass.Generic ? " " : "")}{base.DisplayName}";
 	}
 }

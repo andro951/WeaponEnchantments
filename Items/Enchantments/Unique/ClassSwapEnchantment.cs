@@ -58,6 +58,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class WhipClassSwapEnchantment : ClassSwapEnchantment
 	{
 		protected override DamageClass MyDamageClass => DamageClass.SummonMeleeSpeed;
+		public override void GetMyStats() {
+			base.GetMyStats();
+			Effects.Add(new MinionAttackTarget());
+		}
 	}
 	public class WhipClassSwapEnchantmentBasic : WhipClassSwapEnchantment
 	{

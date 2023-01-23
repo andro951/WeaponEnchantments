@@ -29,11 +29,5 @@ namespace WeaponEnchantments.Effects {
             }
         }
         private string tooltipName;
-        /*
-        public static override Dictionary<string, string> LocalizationTooltips => new() {
-            { "Enabled", "\"{0} Enabled\"" },
-            { "Disabled", "\"{0} Disabled\"" }
-        };
-        */
     }
 }

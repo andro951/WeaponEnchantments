@@ -408,13 +408,9 @@ namespace WeaponEnchantments.Common.Utility
 
             return 0;
         }
-        public static float Percent(this float value) {
-            return (float)Math.Round(value * 100, 1);
-        }
-        public static string PercentString(this float value) {
-            return $"{Math.Round(value * 100, 2)}%";
-        }
-        public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
+        public static float Percent(this float value) => value * 100f;
+        public static string PercentString(this float value) => $"{(value * 100).S()}%";
+		public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
         public static bool Lang(this string s, out string result, string m) {
             string key = $"Mods.WeaponEnchantments.{m}.{s}";
             result = Language.GetTextValue(key);

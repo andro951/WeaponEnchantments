@@ -788,7 +788,8 @@ namespace WeaponEnchantments.Common.Globals
                 Lighting.AddLight((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f + 1f), 1f, 0.3f, 0.1f);
             }
         }
-    }
+        public void ResetWarReduction() => myWarReduction = 1f;
+	}
 
     public static class NPCStaticMethods
     {

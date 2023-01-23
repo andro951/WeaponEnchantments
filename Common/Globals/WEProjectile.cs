@@ -114,7 +114,7 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
 
             //NPC Hit Cooldown
-            if (projectile.minion || projectile.DamageType == DamageClass.Summon || weaponProjectile) {
+            if (projectile.minion || projectile.DamageType == DamageClass.Summon || projectile.DamageType == DamageClass.MagicSummonHybrid || weaponProjectile) {
                 GetSharedVanillaModifierStrength(projectile.owner, EnchantmentStat.AttackSpeed, out float attackSpeedMultiplier);
                 float speedMultiplier = attackSpeedMultiplier;
 

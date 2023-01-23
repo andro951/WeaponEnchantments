@@ -17,8 +17,6 @@ namespace WeaponEnchantments.Effects
 		public ItemCooldown(DifficultyStrength timerStrength) {
 			_timerStrength = timerStrength;
 		}
-
-		//public override string Tooltip => $"(Item CD equal to {EffectStrength * 0.8f}x use speed)";
 		public override string Tooltip => StandardTooltip;
 		public override IEnumerable<object> TooltipArgs => new object[] { TooltipValue };
 		public override string TooltipValue => $"{EffectStrength}x";

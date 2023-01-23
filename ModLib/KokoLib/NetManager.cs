@@ -20,6 +20,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy);
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary);
 		public void NetAddNPCValue(NPC npc, float value);
+		public void NetResetWarReduction(NPC npc);
 	}
 	public class NetManager : ModHandler<INetOnHitEffects>, INetOnHitEffects
 	{
@@ -55,6 +56,15 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			if (Main.netMode == NetmodeID.Server) {
 				Net.IgnoreClient = WhoAmI;
 				Net<INetOnHitEffects>.Proxy.NetAddNPCValue(npc, value);
+			}
+		}
+
+		public void NetResetWarReduction(NPC npc) {
+			npc.GetWEGlobalNPC().ResetWarReduction();
+
+			if (Main.netMode == NetmodeID.Server) {
+				Net.IgnoreClient = WhoAmI;
+				Net<INetOnHitEffects>.Proxy.NetResetWarReduction(npc);
 			}
 		}
 	}

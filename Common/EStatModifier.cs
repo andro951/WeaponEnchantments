@@ -183,7 +183,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 
-		private string FlatTooltip => _flat > 0f ? _additive > 1f || _additiveDenominator > 1f || _multiplicative > 1f || _base > 0f ? ", +" : "" + $"{(float)Math.Round(_flat, 3)}" : "";
+		private string FlatTooltip => _flat > 0f ? _additive > 1f || _additiveDenominator > 1f || _multiplicative > 1f || _base > 0f ? ", +" : "" + _flat.S() : "";
 
 		private string tooltip;
 		public string SignPercentMult100Tooltip => GetTootlip(true, true, true);
@@ -210,10 +210,10 @@ namespace WeaponEnchantments.Common
 			if (tooltip == null || _strength == 0) {
 				float baseTooltip;
 				if (minusOne && _base == 0f && (_additive != 1f || _additiveDenominator != 1f)) {
-					baseTooltip = (float)Math.Round(_additive / _additiveDenominator * _multiplicative - 1f, 3);
+					baseTooltip = _additive / _additiveDenominator * _multiplicative - 1f;
 				}
 				else {
-					baseTooltip = (float)Math.Round(Strength - _flat, 3);
+					baseTooltip = Strength - _flat;
 				}
 
 				tooltip = "";
@@ -221,10 +221,10 @@ namespace WeaponEnchantments.Common
 					if (sign && (_base > 0f || _additive > _additiveDenominator))
 						tooltip += "+";
 
-					tooltip += $"{(multiply100 ? baseTooltip * 100f : baseTooltip)}";
+					tooltip += multiply100 ? (baseTooltip * 100f).S() : baseTooltip.S();
 				}
 				else {
-					tooltip += $"{baseTooltip}";
+					tooltip += baseTooltip.S();
 					if (sign)
 						tooltip += "x";
 				}

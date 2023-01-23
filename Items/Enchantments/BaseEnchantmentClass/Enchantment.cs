@@ -21,7 +21,6 @@ namespace WeaponEnchantments.Items
 {
 	public abstract class Enchantment : WEModItem, ISoldByWitch
 	{
-
 		#region Static
 
 		public struct EnchantmentStrengths
@@ -555,8 +554,6 @@ namespace WeaponEnchantments.Items
 							tierStrengths[0] = tierStrengthPercentage * strengths[0] / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 
 						foundIndividualStrength = true;
-						//Round Enchantment Strength
-						strengths[0] = (float)Math.Round(strengths[0], 4);
 					}
 				}
 			}
@@ -588,9 +585,6 @@ namespace WeaponEnchantments.Items
 
 						if (UsesTierStrengthData)
 							tierStrengths[i] = tierStrengthPercentage * multiplier;
-
-						//Round Enchantment Strength
-						strengths[i] = (float)Math.Round(strengths[i], 4);
 					}
 				}
 			}
@@ -719,17 +713,20 @@ namespace WeaponEnchantments.Items
 
 			return true;
 		}
-		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true, string text = null) {
+		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true, bool multiplicative = false, string text = null) {
 			string s = "";
 			if (showValue) {
-				float strength = (float)Math.Round(EnchantmentStrength * AllowedListMultiplier, 3);
+				float strength = EnchantmentStrength * AllowedListMultiplier;
 				if (multiply100)
 					strength *= 100f;
 
 				if (sign)
 					s += strength < 0f ? "" : "+";
 
-				s += $"{strength}";
+				if (multiplicative)
+					s += "x";
+
+				s += strength.S();
 				if (percent)
 					s += "%";
 
@@ -750,63 +747,6 @@ namespace WeaponEnchantments.Items
 				tooltips.Add(new TooltipLine(Mod, "enchantment:base", tooltipTuple.Item1) { OverrideColor = tooltipTuple.Item2 });
 			}
 		}
-		/*
-		public IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
-			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
-
-			if (CustomTooltip != "")
-				fullTooltip.Add(new Tuple<string, Color>(CustomTooltip, Color.White));//, Color.DarkGray));
-
-			//fullTooltip.Add(new Tuple<string, Color>("Effects:", Color.Violet));
-			fullTooltip.AddRange(GetEffectsTooltips());
-
-			fullTooltip.Add(new Tuple<string, Color>($"Level cost: {GetCapacityCost()}", Color.LightGreen));
-
-			//Unique
-			if (Unique)
-				fullTooltip.Add(new Tuple<string, Color>("   *Unique* (Limited to 1 Unique Enchantment)", Color.White));
-
-			fullTooltip.AddRange(GetAllowedListTooltips());
-
-			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 1 && Utility == false) {
-				//Unique (Specific Item)
-				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{EnchantmentTypeName.AddSpaces()} Only*",
-					Color.White
-				));
-			}
-			else if (DamageClassSpecific > 0) {
-				//DamageClassSpecific
-				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{GetDamageClassName(DamageClassSpecific)} Only*",
-					Color.White
-				));
-			}
-			else if (ArmorSlotSpecific > -1) {
-				//ArmorSlotSpecific
-				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *{(ArmorSlotSpecificID)ArmorSlotSpecific} armor slot Only*",
-					Color.White
-				));
-			}
-
-			//RestrictedClass
-			if (RestrictedClass.Count > 0) {
-				fullTooltip.Add(new Tuple<string, Color>(
-					$"   *Not allowed on {RestrictedClass.Select(c => GetDamageClassName(c)).JoinList(", ", " or ")} weapons*",
-					Color.White
-				));
-			}
-
-			if (Max1)
-				fullTooltip.Add(new Tuple<string, Color>($"   *Max of 1 per item*", Color.White));
-
-			if (Utility)
-				fullTooltip.Add(new Tuple<string, Color>($"   *Utility*", Color.White));
-
-			return fullTooltip;
-		}
-		*/
 		public IEnumerable<Tuple<string, Color>> GenerateFullTooltip() {
 			List<Tuple<string, Color>> fullTooltip = new List<Tuple<string, Color>>();
 
@@ -864,12 +804,6 @@ namespace WeaponEnchantments.Items
 			return fullTooltip;
 		}
 		private static string GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID id, object arg = null) => id.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips, new object[] { arg });
-		//public IEnumerable<Tuple<string, Color>> GetEnchantmentTooltips() {
-		//	List<Tuple<string, Color>> tooltips = new List<Tuple<string, Color>>();
-		//	
-		//	return tooltips;
-		//}
-
 		public IEnumerable<Tuple<string, Color>> GetAllowedListTooltips() {
 			string tooltip = "";
 			int count = AllowedList.Count;
@@ -915,106 +849,6 @@ namespace WeaponEnchantments.Items
 
 			return tooltips;
 		}
-
-		//private string GetItemRestrictionTooltip(IEnumerable<EItemType> itemTypes) {
-		//	return string.Join("\nAllowed on ", itemTypes.Select(i => $"{i} ({Math.Round(AllowedList[i]*100, 1)})"));
-		//}
-
-		/*private string GetEStatToolTip(EStat eStat, bool forFullToolTip = false, bool firstToolTip = false, EItemType allowedListKey = EItemType.None) {
-			string toolTip = "";
-
-			//percentage, multiply100, plus
-			GetPercentageMult100(eStat.StatName, out bool percentage, out bool multiply100, out bool plus);
-
-			//Stat Name
-			string statName;
-			string eStatFirst2 = eStat.StatName.Substring(0, 2);
-			bool invert = forFullToolTip && !firstToolTip && eStatFirst2 == "I_";
-			if (invert) {
-				//Remove "I_" from the start of the Stat Name
-				statName = eStat.StatName.Substring(2);
-			}
-			else {
-				statName = eStat.StatName;
-			}
-
-			//Flat value of 13.13f will prevent any number from being displayed in the tooltip.
-			if (eStat.Flat != 13.13f) {
-				float allowedListMultiplier = allowedListKey != EItemType.None ? AllowedList[allowedListKey] : 1f;
-				float invertMultiplier = invert ? -1f : 1f;
-				float additive = eStat.Additive * invertMultiplier * allowedListMultiplier;
-				float multiplicative = invert ? 1f / (eStat.Multiplicative * allowedListMultiplier) : eStat.Multiplicative * allowedListMultiplier;
-				float flat = eStat.Flat * invertMultiplier * allowedListMultiplier;
-				float @base = eStat.Base * invertMultiplier * allowedListMultiplier;
-				EStat enchantmentStat = new EStat(statName, additive, multiplicative, flat, @base);
-
-				if (enchantmentStat.Additive != 0f || enchantmentStat.Multiplicative != 1f) {
-					if (enchantmentStat.Additive != 0f) {
-						toolTip += (plus ? (enchantmentStat.Additive > 0f ? "+" : "") : "") + 
-							$"{enchantmentStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";
-					}
-					else if (enchantmentStat.Multiplicative != 1f) {
-						toolTip += $"{enchantmentStat.Multiplicative}x ";
-					}
-				}
-				else {
-					float num = enchantmentStat.Base != 0f ? enchantmentStat.Base : enchantmentStat.Flat;
-					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";
-				}
-			}
-
-			toolTip += $"{(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : statName) : MyDisplayName)}";
-
-			return toolTip;
-		}
-		private string GetStaticStatToolTip(EnchantmentStaticStat staticStat, bool forFullToolTip = false, bool firstToolTip = false, EItemType allowedListKey = EItemType.None) {
-			string toolTip = "";
-			string statName;
-			bool invert = staticStat.Name.Substring(0, 2) == "I_";
-			bool prevent = staticStat.Name.Substring(0, 2) == "P_";
-			if (invert || prevent) {
-				statName = staticStat.Name.Substring(2);
-			}
-			else {
-				statName = staticStat.Name;
-			}
-
-			bool statIsBool = CheckStaticStatByName(statName, true);
-			if (statIsBool) {
-				statName = statName.CapitalizeFirst().AddSpaces();
-				if (prevent)
-					statName = $"Prevent {statName}";
-
-				toolTip = statName;
-			}
-			else {
-				float allowedListMultiplier = allowedListKey != EItemType.None ? AllowedList[allowedListKey] : 1f;
-				float invertMultiplier = invert ? -1f : 1f;
-				float additive = staticStat.Additive * invertMultiplier * allowedListMultiplier;
-				float multiplicative = invert ? 1f / (staticStat.Multiplicative * allowedListMultiplier) : staticStat.Multiplicative * allowedListMultiplier;
-				float flat = staticStat.Flat * invertMultiplier * allowedListMultiplier;
-				float @base = staticStat.Base * invertMultiplier * allowedListMultiplier;
-				EnchantmentStaticStat enchantmentStaticStat = new EnchantmentStaticStat(statName, additive, multiplicative, flat, @base);
-
-				GetPercentageMult100(enchantmentStaticStat.Name, out bool percentage, out bool multiply100, out bool plus, true);
-
-				if (enchantmentStaticStat.Additive != 0f || enchantmentStaticStat.Multiplicative != 1f) {
-					if (enchantmentStaticStat.Additive != 0f) {
-						toolTip += (plus ? (enchantmentStaticStat.Additive > 0f ? "+" : "") : "") + $"{enchantmentStaticStat.Additive * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";
-					}
-					else if (enchantmentStaticStat.Multiplicative != 1f) {
-						toolTip += $"{enchantmentStaticStat.Multiplicative}x ";
-					}
-				}
-				else {
-					float num = enchantmentStaticStat.Base != 0f ? enchantmentStaticStat.Base : enchantmentStaticStat.Flat;
-					toolTip += (plus ? (num > 0f ? "+" : "") : "") + $"{num * (multiply100 ? 100 : 1)}{(percentage ? "%" : "")} ";// " + (enchantmentStaticStat.Base != 0f ? "base" : "");
-				}
-				toolTip += $"{(forFullToolTip ? CheckStatAlteredName(firstToolTip ? MyDisplayName : enchantmentStaticStat.Name) : MyDisplayName)}";
-			}
-
-			return toolTip;
-		}*/
 		public static int GetDamageClass(int damageType) {
 
 			switch (damageType) {
@@ -1171,6 +1005,7 @@ namespace WeaponEnchantments.Items
 
 
 		}
+
 		/// <summary>
 		/// Allows for editing recipies in any way.  Called for every recipe.
 		/// </summary>

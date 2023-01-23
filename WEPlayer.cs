@@ -30,6 +30,7 @@ using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.ModIntegration;
+using System.Diagnostics;
 
 namespace WeaponEnchantments
 {
@@ -1029,15 +1030,42 @@ namespace WeaponEnchantments
 
             OnHitNPCWithAny(item, target, damage, knockback, crit, proj);
         }
+        private void TryResetWarReduction(NPC target, Projectile projectile, WEGlobalNPC weGlobalNPC) {
+            bool reset = false;
+            if (projectile == null) {
+                reset = true;
+            }
+            else {
+				if (projectile?.minion == false && projectile.TryGetProjectileWithSourceItem(out ProjectileWithSourceItem projectileWithSourceItem)) {
+					DamageClass projDamageType = projectile.DamageType;
+					if (projDamageType != DamageClass.Summon && projDamageType != DamageClass.MagicSummonHybrid) {
+						if (projectileWithSourceItem.parent == null || !projectileWithSourceItem.parent.minion) {
+							reset = true;
+						}
+					}
+				}
+			}
+
+            if (reset) {
+				weGlobalNPC.ResetWarReduction();
+
+				if (Main.netMode == NetmodeID.MultiplayerClient)
+					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
+			}
+		}
         private void OnHitNPCWithAny(Item item, NPC target, int damage, float knockback, bool crit, Projectile projectile = null) {
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
-            //Used to help identify the ModNPC name of modded bosses for setting up mod boss bag support.
-            if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
+			WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
+
+            //Remove target.myWarReduction if hit by non-minion
+            TryResetWarReduction(target, projectile, weGlobalNPC);
+
+			//Used to help identify the ModNPC name of modded bosses for setting up mod boss bag support.
+			if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
                 $"NPC hit by item: {item.Name}, target.Name: {target.FullName}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple();
 
-            WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
