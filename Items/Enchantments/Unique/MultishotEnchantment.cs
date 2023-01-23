@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class MultishotEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 8;
-		public override int DamageClassSpecific => (int)DamageClassID.Ranged;
+		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
 			Effects = new() {
 				new Multishot(@base: EnchantmentStrengthData)

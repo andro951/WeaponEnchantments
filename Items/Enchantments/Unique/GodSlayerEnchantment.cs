@@ -8,7 +8,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public abstract class GodSlayerEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 7;
-		public override int DamageClassSpecific => (int)DamageClassID.Melee;
 		public override void GetMyStats() {
 			Effects = new() {
 				new GodSlayer(@base: EnchantmentStrengthData)
