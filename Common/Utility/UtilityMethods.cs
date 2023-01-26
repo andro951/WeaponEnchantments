@@ -718,13 +718,13 @@ namespace WeaponEnchantments.Common.Utility
             if (modItem == null)
                 return null;
 
-            return modItem.TypeAboveModItem();
+            return modItem.TypeBeforeModItem();
         }
-        public static Type TypeAboveModItem(this ModItem modItem) {
+        public static Type TypeBeforeModItem(this ModItem modItem) {
             Type type = modItem.GetType();
             bool foundListUniqueType = false;
             while (!foundListUniqueType) {
-                if (type.BaseType == typeof(ModItem)) {
+                if (type.BaseType == typeof(WEModItem) || type.BaseType.BaseType != typeof(WEModItem) && type.BaseType == typeof(ModItem) ) {
                     foundListUniqueType = true;
                 }
                 else {

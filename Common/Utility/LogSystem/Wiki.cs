@@ -15,11 +15,14 @@ using WeaponEnchantments.Common.Utility.LogSystem;
 using WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Content.NPCs;
+using static Terraria.Localization.GameCulture;
+using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
-	public static class Wiki
-	{
+    public static class Wiki {
         public static Dictionary<int, List<RecipeData>> createItemRecipes;
         public static Dictionary<int, List<RecipeData>> recipesUsedIn;
         public static Dictionary<int, Dictionary<int, DropRateInfo>> enemyDrops;
@@ -28,11 +31,67 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         private static int min;
         private static int max;
         private static bool tier0EnchantmentsOnly = false;
-        public static void PrintWiki() {
+        public static DirectoryInfo logsDirectory = new ($"{Path.GetFullPath(Directory.GetCurrentDirectory())}\\tModLoader-Logs");
+
+		public static string nowString = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_");
+        public static string wikiPath = $"{logsDirectory.FullName}\\WeaponEnchantmentsWiki_{nowString}";
+        public static Folder wikiFolder = null;
+        private static string lastWikiDirectory = "";
+		public static string LastWikiDirectory {
+            get {
+                if (lastWikiDirectory == "") {
+					string weWiki = "WeaponEnchantmentsWiki";
+					string mostRecent = null;
+					int[] mostRecentData = null;
+					IEnumerable<string> directoryNames = logsDirectory.GetDirectories().Where(d => d.FullName != wikiPath).Select(d => d.Name);
+					foreach (string directoryName in directoryNames) {
+						if (directoryName.StartsWith(weWiki)) {
+							if (mostRecent == null) {
+								mostRecent = directoryName;
+								string dataBeforeParse = directoryName.Substring(weWiki.Length + 1, directoryName.Length - 4 - weWiki.Length)
+									.Replace(" ", "_");
+								mostRecentData = dataBeforeParse.Split("_").Select(s => int.Parse(s)).ToArray();
+							}
+							else {
+								string dataBeforeParse = directoryName.Substring(weWiki.Length + 1, directoryName.Length - 4 - weWiki.Length)
+									.Replace(" ", "_");
+								int[] newData = dataBeforeParse.Split("_").Select(s => int.Parse(s)).ToArray();
+                                for(int i = 0; i < mostRecentData.Length; i++) {
+                                    if (newData[i] == mostRecentData[i]) {
+                                        continue;
+                                    }
+                                    else if (newData[i] > mostRecentData[i]) {
+										mostRecent = directoryName;
+										mostRecentData = newData;
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                }
+							}
+						}
+					}
+
+					lastWikiDirectory = mostRecent;
+				}
+
+                return lastWikiDirectory;
+            }        
+        }
+		public static void PrintWiki() {
             if (!LogModSystem.printWiki)
                 return;
 
-            IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
+			if (Debugger.IsAttached) {
+				Directory.CreateDirectory(wikiPath);
+
+				if (LastWikiDirectory != null) {
+					string lastWikiDirectoryPath = $"{logsDirectory.FullName}\\{LastWikiDirectory}";
+					wikiFolder = new(lastWikiDirectoryPath);
+				}
+			}
+
+			IEnumerable<ModItem> modItems = ModContent.GetInstance<WEMod>().GetContent<ModItem>();
             GetMinMax(modItems);
             GetRecpies(modItems);
             GetDrops();
@@ -43,8 +102,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             PowerBooster powerBooster = modItems.OfType<PowerBooster>().First();
             UltraPowerBooster ultraPowerBooster = modItems.OfType<UltraPowerBooster>().First();
 
-            List<WebPage> webPages = new();
+			List<WebPage> webPages = new();
 
+            AddMainPage(webPages);
             AddContainments(webPages, containmentItems, enchantments);
             AddEnchantingTables(webPages, enchantingTables);
             AddEssence(webPages, enchantmentEssence);
@@ -55,14 +115,96 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             string wiki = "\n\n";
 
-            foreach (WebPage webPage in webPages) {
-                wiki += webPage.ToString() + "\n".FillString(5);
-            }
+			foreach (WebPage webPage in webPages) {
+				if (Debugger.IsAttached) {
+                    webPage.Log();
+				}
+				else {
+					wiki += $"Page: {webPage.HeaderName}\n{webPage}{"\n".FillString(5)}";
+				}
+			}
 
-            wiki.Log();
+            if (!Debugger.IsAttached)
+                wiki.Log();
         }
-        private static void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
-            WebPage Containments = new("Containments");
+        private static void AddMainPage(List<WebPage> webPages) {
+            WebPage mainPage = new("Main Page");
+            string fullMainPage =
+                "<mainpage-leftcolumn-start />\r\n" +
+                "<div style=\"text-align: center;>[[File:Icon.png]]</div>\r\n" +
+                "<div style=\"text-align: center; font-size: x-large; padding: 1em;\">'''Welcome to the {{SITENAME}}!'''</div>\r\n" +
+                "\r\n" +
+                "If you are interested in contributing to this wiki, please let me know: https://discord.gg/hEKKVsFBMd - andro951\r\n" +
+                "\r\n" +
+                "=== Features ===\r\n" +
+                "\r\n" +
+                "* Item Customization ([[Enchantments]])\r\n" +
+                "* Progression System ([[Item Experience]])\r\n" +
+                "* Item Upgrading (Infusion)\r\n" +
+                "\r\n" +
+                "Terraria has you frequently swapping old gear for new. The enchanting system allows you to customize your weapons and armor, and keep your progress as you change or upgrade your gear.\r\n" +
+                "\r\n" +
+                "===Items===\r\n" +
+                "[[Containments]]\r\n" +
+                "\r\n" +
+                "[[Enchanting Tables]]\r\n" +
+                "\r\n" +
+                "[[Enchantment Essence]]\r\n" +
+                "\r\n" +
+                "[[Enchantments]]\r\n" +
+                "\r\n" +
+                "[[Power Booster]]\r\n" +
+                "\r\n" +
+                "[[Ultra Power Booster]]\r\n" +
+                "\r\n" +
+                "=== NPCs ===\r\n" +
+                "[[Witch]]\r\n" +
+                "\r\n" +
+                "=== Config ===\r\n" +
+                "Many players will find Enchantments to be too powerful. For players who enjoy a high difficulty experience, it is recommended to change the Enchantment Strength Preset to Expert (50%) or Master (25%). (2nd page of the config)<blockquote>You have an extreme amount of control over the power level of this mod via the config.</blockquote>\r\n" +
+                "\r\n" +
+                "=== When you start a game... ===\r\n" +
+                "\r\n" +
+                "* Make an enchanting table right away!\r\n" +
+                "** The first enchanting table is created with a workbench and 4 torches.\r\n" +
+                "* Gear yourself up (fill in your armor and accessory slots so they start getting XP).\r\n" +
+                "* When upgrading, offer your old armor and weapons for essence.\r\n" +
+                "* Upgrade your new weapons and armor with the obtained essence.\r\n" +
+                "\r\n" +
+                "=== New Player Tips and Tricks ===\r\n" +
+                "\r\n" +
+                "* DONT SELL enchantable items! Offer them instead.\r\n" +
+                "** The value from ore received is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.\r\n" +
+                "** Offering items returns all Enchantments/Power Booster applied to the consumed item.\r\n" +
+                "* Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.(Especially if you set the config to 0% ore, 100% essence)\r\n" +
+                "* Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Enchantments.\r\n" +
+                "\r\n" +
+                "=== Other Mod Integration ===\r\n" +
+                "[[Magic Storage Integration]]\r\n" +
+                "\r\n" +
+                "<mainpage-endcolumn />\r\n" +
+                "\r\n" +
+                "<mainpage-rightcolumn-start />\r\n" +
+                "''Need help building out this community?''\r\n" +
+                "\r\n" +
+                "*[[Project:Wiki rules|Rules of this wiki]]\r\n" +
+                "*[[w:c:community:Help:Getting Started|Getting Started]]\r\n" +
+                "*[[w:c:community:Help:Contributing|How to Contribute]]\r\n" +
+                "*[[w:c:community:Help:Community Management|Managing your new community]]\r\n" +
+                "*[[w:c:community:Help:Contents|Guides]]\r\n" +
+                "*[[w:c:community:Help:Index|All Help articles]]\r\n" +
+                "\r\n" +
+                "You can also be part of the larger Fandom family of communities. Visit [[w:c:community|Fandom's Community Central]]!\r\n" +
+                "\r\n" +
+                "\r\n" +
+                "\r\n''Community Founders'': Write a good and paragraph-length description for your welcome section about your topic. Let your readers know what your topic is about and add some general information about it. Then you should visit [[Special:AdminDashboard|the admin dashboard for more tips]]. \r\n" +
+                "<mainpage-endcolumn />\r\n" +
+                "[[Category:{{SITENAME}}]]\r\n";
+			mainPage.AddParagraph(fullMainPage);
+            webPages.Add(mainPage);
+        }
+		private static void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
+            WebPage Containments = new("Containments", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             Containments.AddParagraph("Containments contain the power of an enchantment. More powerful enchantments require larger and stronger containments to hold them.\n" +
             "Containments are crafting materials used to craft enchantments.");
             AddLowestCraftableEnchantments(Containments, enchantments);
@@ -70,7 +212,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 int tier = containment.tier;
                 string subHeading = $"{containment.Item.ToItemPNG()} (Tier {tier})";
                 Containments.AddParagraph($"{containment.Item.ToItemPNG(link: true)} (Tier {tier})");
-                WebPage containmentPage = new(containment.Item.Name);
+                WebPage containmentPage = new(containment.Item.Name, Containments);
                 ItemInfo itemInfo = new(containment);
                 containmentPage.AddLink("Containments");
                 itemInfo.AddStatistics(containmentPage);
@@ -83,11 +225,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(Containments);
         }
 		private static void AddEnchantingTables(List<WebPage> webPages, IEnumerable<EnchantingTableItem> enchantingTables) {
-            WebPage EnchantingTable = new("Enchanting Tables");
+            WebPage EnchantingTable = new("Enchanting Tables", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             foreach (EnchantingTableItem enchantingTable in enchantingTables) {
                 int tier = enchantingTable.enchantingTableTier;
                 EnchantingTable.AddParagraph($"{enchantingTable.Item.ToItemPNG(link: true)} (Tier {tier})");
-                WebPage enchantingTablePage = new(enchantingTable.Item.Name);
+                WebPage enchantingTablePage = new(enchantingTable.Item.Name, EnchantingTable);
                 ItemInfo itemInfo = new(enchantingTable);
                 enchantingTablePage.AddLink("Enchanting Tables");
                 itemInfo.AddStatistics(enchantingTablePage);
@@ -172,7 +314,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(EnchantingTable);
         }
         private static void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
-            WebPage Essence = new("Enchantment Essence");
+            WebPage Essence = new("Enchantment Essence", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             Essence.AddParagraph("Essence represents solidified experience and are automatically stored in the enchanting table interface when picked up. They can be used to...");
             Essence.AddBulletedList(elements: new string[] {
                 "Crafting and Upgrading Enchantments".ToSectionLink("Upgrade enchantments", "Enchantments"),
@@ -181,7 +323,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             foreach (EnchantmentEssence essence in enchantmentEssence) {
                 int tier = essence.EssenceTier;
                 Essence.AddParagraph($"{essence.Item.ToItemPNG(link: true)} (Tier {tier})");
-                WebPage essencePage = new(essence.Item.Name);
+                WebPage essencePage = new(essence.Item.Name, Essence);
                 ItemInfo itemInfo = new(essence);
                 essencePage.AddLink("Enchantment Essence");
                 itemInfo.AddStatistics(essencePage);
@@ -194,8 +336,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(Essence);
         }
         private static void AddEnchantments(List<WebPage> webPages, IEnumerable<Enchantment> enchantments) {
-            WebPage Enchantments = new("Enchantments");
-            WebPage UtilityEnchantments = new("Utility Enchantments");
+            WebPage Enchantments = new("Enchantments", webPages.Where(wp => wp.HeaderName == "Main Page").First());
+            WebPage UtilityEnchantments = new("Utility Enchantments", Enchantments);
             if (!tier0EnchantmentsOnly) {
                 Enchantments.AddSubHeading("Enchantment Effects");
                 Enchantments.AddParagraph($"Enchantments allow customization of your items with various effects.  Some are very basic stat upgrades " +
@@ -279,7 +421,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     //webPages.Add(enchantmentPage);
                 }
                 
-                WebPage enchantmentPage = new(enchantmentInfoBox.Name);
+                WebPage enchantmentPage = new(enchantmentInfoBox.Name, Enchantments);
                 enchantmentPage.AddLink("Enchantments");
                 enchantmentInfoBox.AddStatistics(enchantmentPage);
                 enchantmentInfoBox.AddDrops(enchantmentPage);
@@ -309,13 +451,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 webPages.Add(Enchantments);
             }
 
-            WebPage AllEnchantmentDrops = new("All Enchantment Drops");
+            WebPage AllEnchantmentDrops = new("All Enchantment Drops", Enchantments);
             AllEnchantmentDrops.AddLink("Enchantments");
             ItemInfo.AddAllDrops(AllEnchantmentDrops, typeof(Enchantment));
             webPages.Add(AllEnchantmentDrops);
         }
         private static void AddPowerBooster(List<WebPage> webPages, PowerBooster powerBooster) {
-            WebPage PowerBooster = new("Power Booster");
+            WebPage PowerBooster = new("Power Booster", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             ItemInfo itemInfo = new(powerBooster);
             itemInfo.AddStatistics(PowerBooster);
             itemInfo.AddDrops(PowerBooster);
@@ -333,7 +475,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(PowerBooster);
 		}
         private static void AddUltraPowerBooster(List<WebPage> webPages, UltraPowerBooster ultraPowerBooster) {
-            WebPage PowerBooster = new("Ultra Power Booster");
+            WebPage PowerBooster = new("Ultra Power Booster", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             ItemInfo itemInfo = new(ultraPowerBooster);
             itemInfo.AddStatistics(PowerBooster);
             itemInfo.AddDrops(PowerBooster);
@@ -350,7 +492,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             webPages.Add(PowerBooster);
         }
         private static void AddWitch(List<WebPage> webPages, IEnumerable<ModItem> modItems) {
-            WebPage WitchPage = new("Witch");
+            WebPage WitchPage = new("Witch", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             NPCInfo npcInfo = new(ModContent.NPCType<Witch>());
             npcInfo.AddStatistics(WitchPage);
             WitchPage.AddParagraph(
@@ -371,7 +513,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 			foreach (ModItem modItem in 
                 modItems
                 .OrderBy(m => ((ISoldByWitch)m).SellCondition)
-                .GroupBy(m => m.TypeAboveModItem().Name)
+                .GroupBy(m => m.TypeBeforeModItem().Name)
                 .Select(g => g.ToList().OrderBy(m => EnchantingRarity.GetTierNumberFromName(m.Name)))
                 .SelectMany(i => i)) {
 
@@ -603,16 +745,29 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static string ToPNGLink(this string s) => s.ToPNG() + s.ToLink();
         public static string ToLabledPNG(this string s) => s.ToPNG() + s;
         public static string ToItemPNG(this Item item, bool link = false, bool displayName = true, bool displayNum = false, string linkText = null) {
-            int type = item.type;
             string name;
             string file;
             string linkString = "";
-            if (type < ItemID.Count) {
-                file = $"Item_{type}";
-                name = item.Name;
-                if (link)
-                    linkString = $"https://terraria.fandom.com/wiki/{name.Replace(" ", "_")}".ToExternalLink(name);
-            }
+            if (item.type < ItemID.Count) {
+				//manually changing the item
+				switch (item.type) {
+					case ItemID.Fake_GoldChest:
+						item = new Item(ItemID.GoldChest);
+						name = "Locked Gold Chest";
+						break;
+                    case ItemID.Fake_ShadowChest:
+                        item = new Item(ItemID.ShadowChest);
+                        name = "Locked Shadow Chest";
+                        break;
+					default:
+						name = item.Name;
+						break;
+				}
+
+				file = $"Item_{item.type}";
+				if (link)
+					linkString = $"https://terraria.fandom.com/wiki/{item.Name.Replace(" ", "_")}".ToExternalLink(name);
+			}
             else {
                 ModItem modItem = item.ModItem;
                 if (modItem == null) {
@@ -634,7 +789,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 }
             }
 
-            int stack = item.stack;
+			int stack = item.stack;
             return $"{(!displayName && displayNum ? $"{stack}" : "")}{file.ToPNG()}{(link ? " " + linkString : displayName ? " " + name : "")}{(displayName && stack > 1 ? $" ({stack})" : "")}";
         }
         public static string ToItemPNG(this int type, int num = 1, bool link = false, bool displayName = true, bool dislpayNum = false, string label = null) {

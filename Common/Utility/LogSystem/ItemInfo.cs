@@ -210,7 +210,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             List<List<string>> allDropInfo = new();
             foreach (int itemType in enemyDrops.Keys) {
                 ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
-                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                if (type != null && !modItem.TypeBeforeModItem().Equals(type))
                     continue;
 
                 string itemPNG = itemType.ToItemPNG(link: true);
@@ -233,7 +233,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             foreach(int itemType in chestDrops.Keys) {
                 ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
-                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                if (type != null && !modItem.TypeBeforeModItem().Equals(type))
                     continue;
 
                 string itemPNG = itemType.ToItemPNG(link: true);
@@ -250,7 +250,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             List<List<string>> allCrateDropInfo = new();
             foreach (int itemType in crateDrops.Keys) {
                 ModItem modItem = ContentSamples.ItemsByType[itemType].ModItem;
-                if (type != null && !modItem.TypeAboveModItem().Equals(type))
+                if (type != null && !modItem.TypeBeforeModItem().Equals(type))
                     continue;
 
                 string itemPNG = itemType.ToItemPNG(link: true);

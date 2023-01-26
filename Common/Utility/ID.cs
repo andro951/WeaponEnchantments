@@ -181,12 +181,14 @@ namespace WeaponEnchantments.Common.Utility
                 case ChestID.Chest_Normal:
                     return ItemID.Chest;
                 case ChestID.Gold:
-                case ChestID.Gold_Locked:
-                    return ItemID.GoldChest;
+					return ItemID.GoldChest;
+				case ChestID.Gold_Locked:
+					return ItemID.Fake_GoldChest;
                 case ChestID.Shadow:
-                case ChestID.Shadow_Locked:
                     return ItemID.ShadowChest;
-                case ChestID.RichMahogany:
+				case ChestID.Shadow_Locked:
+					return ItemID.Fake_ShadowChest;
+				case ChestID.RichMahogany:
                     return ItemID.RichMahoganyChest;
                 case ChestID.Ivy:
                     return ItemID.IvyChest;

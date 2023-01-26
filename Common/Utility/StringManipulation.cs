@@ -547,5 +547,6 @@ namespace WeaponEnchantments.Common.Utility
                 strings[i] = $"{' '.FillString(left)}{s}{' '.FillString(right)}";
             }
 		}
+        public static bool StartsWith(this string original, string startString) => original.Length >= startString.Length && original.Substring(0, startString.Length) == startString;
     }
 }

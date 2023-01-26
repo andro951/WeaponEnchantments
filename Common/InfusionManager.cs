@@ -599,6 +599,9 @@ namespace WeaponEnchantments.Common
                         case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
                             break;
+                        case "Aegis Driver":
+                            rarity = 0.8f;
+                            break;
 						case "Tooth Ball"://Calamity
 							rarity = 1.5f;
                             break;
@@ -609,7 +612,10 @@ namespace WeaponEnchantments.Common
                         case "The Only Thing I Know For Real"://Stars Above
                             rarity = 9f;
                             break;
-                        default:
+                        case "Mjölnir"://Thorium
+                            rarity = 13f;
+                            break;
+						default:
                             if (useCalamiryValuesOnly) {
                                 int i;
                                 for (i = 0; i < numRarities; i++) {

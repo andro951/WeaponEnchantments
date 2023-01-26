@@ -192,7 +192,7 @@ namespace WeaponEnchantments.Content.NPCs
 			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
 			List<ISoldByWitch> otherItems = allItems
 				.Where(i => i is not Enchantment || i.SellCondition <= SellCondition.Always)
-				.GroupBy(i => ((ModItem)i).TypeAboveModItem().Name)
+				.GroupBy(i => ((ModItem)i).TypeBeforeModItem().Name)
 				.Select(g => g.ToList().OrderBy(i => EnchantingRarity.GetTierNumberFromName(((ModItem)i).Name)))
 				.SelectMany(i => i)
 				.ToList();

@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Common.Globals
     public class GlobalBossBags : GlobalItem
     {
         public static bool modBossBagIntegrationSetup = false;
-        public static bool printNPCNameOnHitForBossBagSupport = true && Debugger.IsAttached;
+        public static bool printNPCNameOnHitForBossBagSupport = false && Debugger.IsAttached;
         public static SortedDictionary<int, List<int>> bossBagNPCIDs = new SortedDictionary<int, List<int>>() {
             { ItemID.KingSlimeBossBag, new() { NPCID.KingSlime } },
             { ItemID.EyeOfCthulhuBossBag, new() { NPCID.EyeofCthulhu } },

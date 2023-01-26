@@ -1030,29 +1030,6 @@ namespace WeaponEnchantments
 
             OnHitNPCWithAny(item, target, damage, knockback, crit, proj);
         }
-        private void TryResetWarReduction(NPC target, Projectile projectile, WEGlobalNPC weGlobalNPC) {
-            bool reset = false;
-            if (projectile == null) {
-                reset = true;
-            }
-            else {
-				if (projectile?.minion == false && projectile.TryGetProjectileWithSourceItem(out ProjectileWithSourceItem projectileWithSourceItem)) {
-					DamageClass projDamageType = projectile.DamageType;
-					if (projDamageType != DamageClass.Summon && projDamageType != DamageClass.MagicSummonHybrid) {
-						if (projectileWithSourceItem.parent == null || !projectileWithSourceItem.parent.minion) {
-							reset = true;
-						}
-					}
-				}
-			}
-
-            if (reset) {
-				weGlobalNPC.ResetWarReduction();
-
-				if (Main.netMode == NetmodeID.MultiplayerClient)
-					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
-			}
-		}
         private void OnHitNPCWithAny(Item item, NPC target, int damage, float knockback, bool crit, Projectile projectile = null) {
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
@@ -1142,8 +1119,31 @@ namespace WeaponEnchantments
 
             if (!skipOnHitEffects)
                 ApplyOnHitEnchants(item, target, damage, knockback, crit, projectile);
-        }
-        private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile) {
+		}
+		private void TryResetWarReduction(NPC target, Projectile projectile, WEGlobalNPC weGlobalNPC) {
+			bool reset = false;
+			if (projectile == null) {
+				reset = true;
+			}
+			else {
+				if (projectile?.minion == false && projectile.TryGetProjectileWithSourceItem(out ProjectileWithSourceItem projectileWithSourceItem)) {
+					DamageClass projDamageType = projectile.DamageType;
+					if (projDamageType != DamageClass.Summon && projDamageType != DamageClass.MagicSummonHybrid) {
+						if (projectileWithSourceItem.parent == null || !projectileWithSourceItem.parent.minion) {
+							reset = true;
+						}
+					}
+				}
+			}
+
+			if (reset) {
+				weGlobalNPC.ResetWarReduction();
+
+				if (Main.netMode == NetmodeID.MultiplayerClient)
+					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
+			}
+		}
+		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile) {
             WEProjectile weProjectile = null;
             if (projectile?.TryGetWEProjectile(out weProjectile) == true && weProjectile.activatedOneForAll)
                 return 0;

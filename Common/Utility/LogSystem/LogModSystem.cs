@@ -201,7 +201,7 @@ namespace WeaponEnchantments.Common.Utility
 
             Dictionary<string, List<ModItem>> modItemLists = modItems
                 .Where(mi => mi is not Enchantment)
-                .GroupBy(mi => mi.TypeAboveModItem().Name)
+                .GroupBy(mi => mi.TypeBeforeModItem().Name)
                 .ToDictionary(g => g.Key, g => g.ToList());
             
             foreach (KeyValuePair<string, List<ModItem>> pair in modItemLists) {
