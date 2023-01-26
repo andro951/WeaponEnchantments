@@ -61,7 +61,5 @@ namespace WeaponEnchantments.Common.Utility
 					folder.SetParent();
 			}
 		}
-
-		//public virtual void LogInfo() { }
 	}
 }

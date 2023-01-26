@@ -10,17 +10,9 @@ namespace WeaponEnchantments.Common.Utility
 {
 	public class TXT : MyFile
 	{
-		FileInfo MyFileInfo;
 		string MyText => File.ReadAllText(ActualPath);
-		public TXT(FileInfo fileInfo, MyFile parent) : base(fileInfo.Name, parent) {
-			MyFileInfo = fileInfo;
-		}
+		public TXT(string name, MyFile parent) : base(name, parent) {}
 
 		public bool DifferentText(string text) => text != MyText;
-
-		/*public override void LogInfo() {
-			string temp = $"{CompairPath}, {ActualPath}";
-			$"\n{CompairPath}\n{ActualPath}".LogSimple();
-		}*/
 	}
 }

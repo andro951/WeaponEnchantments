@@ -10,17 +10,17 @@ namespace WeaponEnchantments.Common.Utility
 	public class Folder : MyFile
 	{
 		DirectoryInfo MyDirectoryInfo;
-		public Dictionary<string, MyFile> files = new();
+		public List<MyFile> files = new();
 		private List<TXT> txtFiles = null;
 		public List<TXT> TXTFiles {
 			get {
 				if (txtFiles == null) {
 					txtFiles = new();
-					foreach (TXT txt in files.Values.OfType<TXT>()) {
+					foreach (TXT txt in files.OfType<TXT>()) {
 						txtFiles.Add(txt);
 					}
 
-					foreach (Folder folder in files.Values.OfType<Folder>()) {
+					foreach (Folder folder in files.OfType<Folder>()) {
 						List<TXT> folderFiles = folder.TXTFiles;
 						txtFiles = txtFiles.Concat(folderFiles).ToList();
 					}
@@ -59,20 +59,13 @@ namespace WeaponEnchantments.Common.Utility
 		private void GetFiles() {
 			foreach (DirectoryInfo directoryInfo in MyDirectoryInfo.GetDirectories()) {
 				Folder newFolder = new(directoryInfo, this);
-				files.Add(newFolder.Name, newFolder);
+				files.Add(newFolder);
 			}
 
 			foreach (FileInfo fileInfo in MyDirectoryInfo.GetFiles()) {
-				TXT newTXT = new(fileInfo, this);
-				files.Add(newTXT.Name, newTXT);
+				TXT newTXT = new(fileInfo.Name, this);
+				files.Add(newTXT);
 			}
 		}
-
-		/*public override void LogInfo() {
-			foreach(MyFile myFile in files.Values) {
-				Type type = myFile.GetType();
-				myFile.LogInfo();
-			}
-		}*/
 	}
 }
