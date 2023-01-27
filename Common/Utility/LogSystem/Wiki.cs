@@ -36,6 +36,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 		public static string nowString = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_");
         public static string wikiPath = $"{logsDirectory.FullName}\\WeaponEnchantmentsWiki_{nowString}";
         public static Folder wikiFolder = null;
+        public static string changesSumary = null;
         private static string lastWikiDirectory = "";
 		public static string LastWikiDirectory {
             get {
@@ -83,6 +84,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 return;
 
 			if (Debugger.IsAttached) {
+                changesSumary = "";
 				Directory.CreateDirectory(wikiPath);
 
 				if (LastWikiDirectory != null) {
@@ -105,6 +107,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 			List<WebPage> webPages = new();
 
             AddMainPage(webPages);
+            AddItemExperience(webPages);
             AddContainments(webPages, containmentItems, enchantments);
             AddEnchantingTables(webPages, enchantingTables);
             AddEssence(webPages, enchantmentEssence);
@@ -124,8 +127,12 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				}
 			}
 
-            if (!Debugger.IsAttached)
-                wiki.Log();
+            if (Debugger.IsAttached) {
+				File.WriteAllText($"{wikiPath}\\Change Sumary.txt", changesSumary);
+			}
+            else {
+				wiki.Log();
+			}
         }
         private static void AddMainPage(List<WebPage> webPages) {
             WebPage mainPage = new("Main Page");
@@ -203,6 +210,26 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 			mainPage.AddParagraph(fullMainPage);
             webPages.Add(mainPage);
         }
+        private static void AddItemExperience(List<WebPage> webPages) {
+			WebPage itemExperience = new("Item Experience", webPages.Where(wp => wp.HeaderName == "Main Page").First());
+            itemExperience.AddParagraph(
+                "All weapons, armor and accessories can now gain experience (XP). These are enchantable items.");
+            itemExperience.NewLine();
+            itemExperience.AddParagraph(
+                "Items have a level based on their XP.  Levels increase the enchantment capacity of the item by 1 per level.  \n" +
+                "Levels also increases weapon critical strike chance by 1 per level.  Armor and accessories grant you damage reduction per level. " +
+                "(Both can be disabled and are affected by the Config Global Enchantment Strength multiplier.)\n" +
+                "Armor grants 0.25% ");
+			itemExperience.NewLine();
+			itemExperience.AddParagraph(
+                "You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.");
+			itemExperience.NewLine();
+			itemExperience.AddParagraph(
+                "Items with no XP will not display experience or levels.");
+			itemExperience.NewLine();
+			itemExperience.AddPNG("Musket With Experience", false);
+			webPages.Add(itemExperience);
+		}
 		private static void AddContainments(List<WebPage> webPages, IEnumerable<ContainmentItem> containmentItems, IEnumerable<Enchantment> enchantments) {
             WebPage Containments = new("Containments", webPages.Where(wp => wp.HeaderName == "Main Page").First());
             Containments.AddParagraph("Containments contain the power of an enchantment. More powerful enchantments require larger and stronger containments to hold them.\n" +
@@ -741,7 +768,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
         public static string ToExternalLink(this string s, string text = null) => $"[{s}{(text != null ? $" {text}" : "")}]";
         public static string ToVanillaWikiLink(this string s, string text = null) => $"https://terraria.fandom.com/wiki/{s}".ToExternalLink(text != null ? text : s.Replace('_', ' '));
         public static string ToVanillaWikiLink(this InvasionID id, string text = null) => $"{id}".ToVanillaWikiLink(text);
-        public static string ToPNG(this string s) => $"[[File:{s.RemoveSpaces()}.png]]";
+        public static string ToPNG(this string s, bool removeSpaces = true) => $"[[File:{(removeSpaces ? s.RemoveSpaces() : s)}.png]]";
         public static string ToPNGLink(this string s) => s.ToPNG() + s.ToLink();
         public static string ToLabledPNG(this string s) => s.ToPNG() + s;
         public static string ToItemPNG(this Item item, bool link = false, bool displayName = true, bool displayNum = false, string linkText = null) {

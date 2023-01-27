@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
         public void AddSubHeading(string text, int num = 1) => Add(new SubHeading(text, num));
         public void AddParagraph(string text) => Add(new Paragraph(text));
         public void AddLink(string s, string text = null, bool png = false) => Add(new Link(s, text, png));
-        public void AddPNG(string s) => Add(s.ToPNG() + "<br/>");
+        public void AddPNG(string s, bool removeSpaces = true) => Add(s.ToPNG(removeSpaces) + "<br/>");
         public void AddBulletedList(bool png = false, bool links = false, params object[] elements) => Add(new BulletedList(png, links, elements));
         public void AddTable<T>(IEnumerable<IEnumerable<T>> elements, IEnumerable<string> headers = null, string label = null, bool firstRowHeaders = false, bool sortable = false, bool collapsible = false, bool collapsed = false, bool rowspanColumns = false, bool automaticCollapse = false, int maxWidth = 0, FloatID alignID = FloatID.none) where T : class {
             if (elements.Count() > 0)
@@ -58,17 +58,24 @@ namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 			IsParent = true;
 		}
         public string CheckDiffHeaderName() {
+            string headerName = HeaderName;
             if (Wiki.LastWikiDirectory != null) {
+                bool addToChangeSumary = false;
                 bool textChanged = false;
 				if (Wiki.wikiFolder?.NewFile(CompairPath, $"{this}", out textChanged) == true) {
-					return $"{HeaderName} (New)";
+					headerName += " (New)";
+                    addToChangeSumary = true;
 				}
 				else if (textChanged) {
-					return $"{HeaderName} (Changed)";
+					headerName += " (Changed)";
+					addToChangeSumary = true;
 				}
+
+                if (addToChangeSumary)
+				    Wiki.changesSumary += $"{headerName}\n";
 			}
-            
-            return HeaderName;
+
+			return headerName;
         }
 		public override string ToString() {
             string text = "";

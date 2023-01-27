@@ -531,7 +531,8 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (tableItem.TryGetEnchantedItem()) {
-                if (!EnchantedItemStaticMethods.IsWeaponItem(tableItem) && !EnchantedItemStaticMethods.IsArmorItem(tableItem))
+                tableItem.InfusionAllowed(out bool infusionAllowed);
+				if (!infusionAllowed)
                     return;
 
                 if (wePlayer.infusionConsumeItem == null) {

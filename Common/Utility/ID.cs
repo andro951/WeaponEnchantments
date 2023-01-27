@@ -2149,4 +2149,21 @@ namespace WeaponEnchantments.Common.Utility
 			}
 		}
 	}
+
+	public static class GameModeMethods {
+		public static string ToGameModeIDName(this short id) {
+			switch (id) {
+				case GameModeID.Normal:
+					return "Normal";
+				case GameModeID.Expert:
+					return "Expert";
+				case GameModeID.Master:
+					return "Master";
+				case GameModeID.Creative:
+					return "Journey";
+				default:
+					return "";
+			}
+		}
+	}
 }

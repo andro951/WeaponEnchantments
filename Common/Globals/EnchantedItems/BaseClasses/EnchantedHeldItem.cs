@@ -56,9 +56,6 @@ namespace WeaponEnchantments.Common.Globals
 
 			return returnValue;
 		}
-		public override void ModifyItemScale(Item item, Player player, ref float scale) {
-			CheckEnchantmnetStatsApplyTo(ref scale, EnchantmentStat.Size);
-		}
 		public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player) {
 			/*float rand = Main.rand.NextFloat();
             float ammoSaveChance = -1f * weapon.ApplyEStat("AmmoCost", 0f);

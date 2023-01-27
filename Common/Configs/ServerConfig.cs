@@ -5,6 +5,8 @@ using Terraria.ModLoader.Config;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
+using IL.Terraria;
+using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Configs
 {
@@ -78,28 +80,28 @@ namespace WeaponEnchantments.Common.Configs
         [Range(0, 1000000)]
         public int AmaterasuSelfGrowthPerTick;
 
-		[Label("Reduce recipes to minimum.")]
-		[Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
-			"Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool ReduceRecipesToMinimum;
+        [Label("Reduce recipes to minimum.")]
+        [Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
+            "Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool ReduceRecipesToMinimum;
 
-		[Label("Enchantment Capacity Cost Multiplier(%)")]
-		[Tooltip("Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.")]
-		[DefaultValue(100)]
-		[Range(0, 1400)]
-		[ReloadRequired]
-		public int ConfigCapacityCostMultiplier;
+        [Label("Enchantment Capacity Cost Multiplier(%)")]
+        [Tooltip("Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.")]
+        [DefaultValue(100)]
+        [Range(0, 1400)]
+        [ReloadRequired]
+        public int ConfigCapacityCostMultiplier;
 
-		[Label("Remove enchantment restrictions (Use at your own risk!)")]
-		[Tooltip("Removes things like Unique, Max 1 and weapon or item type specific enchantments.")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool RemoveEnchantmentRestrictions;
+        [Label("Remove enchantment restrictions (Use at your own risk!)")]
+        [Tooltip("Removes things like Unique, Max 1 and weapon or item type specific enchantments.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool RemoveEnchantmentRestrictions;
 
-		//Essence and Experience
-		[Header("Essence and Experience")]
+        //Essence and Experience
+        [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
         [Tooltip("Modify the ammount of essence recieved from bosses.")]
         [Range(0, 10000)]
@@ -178,14 +180,14 @@ namespace WeaponEnchantments.Common.Configs
         [Header("Enchanting Table Options")]
         [Label("Recieve ores up to Chlorophyte from Offering items.")]
         [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).\n" +
-			"(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
+            "(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
         [DefaultValue(true)]
         public bool AllowHighTierOres;
 
         [Label("Enchantment Slots On Weapons")]
         [Tooltip("1st slot is a normal slot.\n" +
-			"2nd slot is the utility slot.\n" +
-			"3rd-5th are normal slots.")]
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
         [DefaultValue(5)]
         [Range(0, 5)]
         [ReloadRequired]
@@ -222,7 +224,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("1st slot is a normal slot.\n" +
             "2nd slot is the utility slot.\n" +
             "3rd-5th are normal slots.\n" +
-			"The Clentaminator is the only tool so far.")]
+            "The Clentaminator is the only tool so far.")]
         [DefaultValue(5)]
         [Range(0, 5)]
         [ReloadRequired]
@@ -230,14 +232,14 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Reduce Offer Efficiency By Table Tier")]
         [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
-			"Enabling this will cause the wood table to be 60% efficient.\n" +
-			"Each table gains 10% efficiency.  100% with Ultimate table.")]
+            "Enabling this will cause the wood table to be 60% efficient.\n" +
+            "Each table gains 10% efficiency.  100% with Ultimate table.")]
         [DefaultValue(false)]
         public bool ReduceOfferEfficiencyByTableTier;
 
         [Label("Reduce Offer Efficiency By Base Infusion Power")]
         [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
-			"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).")]
+            "Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).")]
         [DefaultValue(false)]
         public bool ReduceOfferEfficiencyByBaseInfusionPower;
 
@@ -245,21 +247,30 @@ namespace WeaponEnchantments.Common.Configs
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n" +
-			"10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
+            "10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
         [DefaultValue(true)]
         public bool ArmorPenetration;
 
         [Label("Disable Minion Critical hits")]
         [Tooltip("In vanilla, minions arent affected by weapon critical chance.\n" +
-			"Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
-			"This option disables the crits(vanilla mechanics)")]
+            "Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
+            "This option disables the crits(vanilla mechanics)")]
         [DefaultValue(false)]
         public bool DisableMinionCrits;
 
-        [Label("Disable Item critical strike chance per level")]
-        [Tooltip("Items gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
+        [Label("Disable Weapon critical strike chance per level")]
+        [Tooltip("Weapons gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
         [DefaultValue(false)]
         public bool CritPerLevelDisabled;
+
+		[Label("Disable armor and accessory damage reduction per level")]
+		[Tooltip("Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.")]
+		[DefaultValue(false)]
+		public bool DamageReductionPerLevelDisabled;
+
+		[ReloadRequired]
+        [Label("Armor and accessory Damage Reductions")]
+        public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
 
         [Label("Multiplicative critical hits past the first.")]
         [Tooltip("Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.\n" +
@@ -273,11 +284,17 @@ namespace WeaponEnchantments.Common.Configs
         [Range(1000, 2000)]
         [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +
 			"Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.\n" +
-			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
+			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage.\n" +
+            "Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons.")]
         [ReloadRequired]
         public int InfusionDamageMultiplier;
 
-        [Label("Minion Life Steal Multiplier (%)")]
+        [Tooltip("This will prevent you from infusing armor items and will ignore infused set bonues.")]
+        [ReloadRequired]
+        [DefaultValue(false)]
+        public bool DisableArmorInfusion;
+
+		[Label("Minion Life Steal Multiplier (%)")]
         [Tooltip("Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.")]
         [DefaultValue(50)]
         [Range(0, 100)]
@@ -449,8 +466,7 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool PrintWeaponInfusionPowers;
     }
-    public class Pair
-    {
+    public class Pair {
         [Tooltip("Only Select Enchantment Items.\nLikely to cause an error if selecting any other item.")]
         [Label("Enchantment")]
         [ReloadRequired]
@@ -477,8 +493,62 @@ namespace WeaponEnchantments.Common.Configs
             return new { itemDefinition, Strength }.GetHashCode();
         }
     }
-    public class PresetData
-    {
+    public class ArmorDamageReduction {
+		[JsonIgnore]
+		private static readonly int[,] DamageReductionPerLevel = {
+			{ 25000, 12500 },
+			{ 18750, 9375 },
+			{ 12500, 6250 },
+			{ 62500, 31250 },
+		};
+
+        [JsonIgnore]
+        short GameModeID;
+
+        [Label("Armor DR Per Level (100000 = 1%)")]
+        [Tooltip("250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.")]
+        [Range(0, 250000)]
+        public int ArmorDamageReductionPerLevel;
+
+		[Label("Accessory DR Per Level (100000 = 1%)")]
+		[Tooltip("250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.")]
+		[Range(0, 250000)]
+		public int AccessoryDamageReductionPerLevel;
+		public ArmorDamageReduction(short gameMode) {
+            GameModeID = gameMode;
+            ArmorDamageReductionPerLevel = DamageReductionPerLevel[gameMode, 0];
+			AccessoryDamageReductionPerLevel = DamageReductionPerLevel[gameMode, 1];
+		}
+		public override bool Equals(object obj) {
+			if (obj is ArmorDamageReduction other) {
+				if (GameModeID != other.GameModeID)
+					return false;
+
+				if (ArmorDamageReductionPerLevel != other.ArmorDamageReductionPerLevel)
+					return false;
+
+				if (AccessoryDamageReductionPerLevel != other.AccessoryDamageReductionPerLevel)
+					return false;
+
+				return true;
+			}
+
+			return base.Equals(obj);
+		}
+		public override int GetHashCode() {
+			return new {
+				GameModeID,
+                ArmorDamageReductionPerLevel,
+                AccessoryDamageReductionPerLevel
+			}.GetHashCode();
+		}
+		public override string ToString() {
+            return $"{GameModeID.ToGameModeIDName()}" +
+                $", Armor {(ArmorDamageReductionPerLevel/100000f).S(5)}% ({(ArmorDamageReductionPerLevel / 2500f).S(5)}% at 40)" +
+                $", Accessory {(AccessoryDamageReductionPerLevel / 100000f).S(5)}% ({(AccessoryDamageReductionPerLevel / 2500f).S(5)}% at 40)";
+		}
+	}
+    public class PresetData {
         [JsonIgnore]
         public static List<int> presetValues = new List<int> { 250, 100, 50, 25 };
 

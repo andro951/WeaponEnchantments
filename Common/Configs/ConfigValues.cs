@@ -41,8 +41,11 @@ namespace WeaponEnchantments.Common.Configs
 			(float)serverConfig.presetData.EpicEnchantmentStrengthMultiplier / 100f,
 			(float)serverConfig.presetData.LegendaryEnchantmentStrengthMultiplier / 100f
 		};
+
 		public static bool useAllRecipes = !recursiveCraftEnabled && !serverConfig.ReduceRecipesToMinimum;
 		public static bool RemoveEnchantmentRestrictions = serverConfig.RemoveEnchantmentRestrictions;
 		public static float ConfigCapacityCostMultiplier = serverConfig.ConfigCapacityCostMultiplier / 100f;
+		public static float ArmorDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].ArmorDamageReductionPerLevel / 10000000f;
+		public static float AccessoryDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].AccessoryDamageReductionPerLevel / 10000000f;
 	}
 }

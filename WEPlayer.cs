@@ -22,15 +22,12 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
-using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
-using WeaponEnchantments.ModIntegration;
-using System.Diagnostics;
 
 namespace WeaponEnchantments
 {
@@ -1385,8 +1382,21 @@ namespace WeaponEnchantments
             return enableAutoReuse;
         }
         public override void ModifyItemScale(Item item, ref float scale) {
-            GetPlayerModifierStrength(EnchantmentStat.Size, out float strength, 1f);
-            scale *= strength;
+			if (GetSharedVanillaModifierStrength(item, EnchantmentStat.Size, out float strength))
+                scale *= strength;
+		}
+		public bool GetSharedVanillaModifierStrength(Item item, EnchantmentStat enchantmentStat, out float strength, float baseStrength = 1f) {
+			strength = baseStrength;
+
+			if (VanillaStats.ContainsKey(enchantmentStat))
+				VanillaStats[enchantmentStat].ApplyTo(ref strength);
+
+			if (item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem)) {
+				if (enchantedHeldItem.VanillaStats.ContainsKey(enchantmentStat))
+					enchantedHeldItem.VanillaStats[enchantmentStat].ApplyTo(ref strength);
+			}
+
+			return strength != 1f;
 		}
 		public override void ModifyManaCost(Item item, ref float reduce, ref float mult) {
             if (CheckGetVanillaModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))

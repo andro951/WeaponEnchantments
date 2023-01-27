@@ -111,10 +111,11 @@ namespace WeaponEnchantments
                             enchantedEquipItem.equippedInArmorSlot = false;
                     }
 
-                    if (wePlayer.infusionConsumeItem != null && (EnchantedItemStaticMethods.IsWeaponItem(itemBeingEnchanted) || EnchantedItemStaticMethods.IsArmorItem(itemBeingEnchanted))) {
-                        wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+                    if (wePlayer.infusionConsumeItem != null && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
                         wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
-                    }
+                        if (infusionAllowed)
+							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+					}
 
                     if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {

@@ -43,5 +43,26 @@ namespace WeaponEnchantments.Common.Globals
                 inEnchantingTable = false;
             }
         }
-    }
+		protected override string GetPerLevelBonusTooltip() {
+			if (WEMod.serverConfig.DamageReductionPerLevelDisabled)
+				return "";
+
+			float damageReduction = GetPerLevelDamageReduction();
+			string tooltip = damageReduction > 0f ? 
+				$"+{damageReduction.PercentString()} {$"{EnchantmentStat.DamageReduction}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+
+			return tooltip;
+		}
+		public float GetPerLevelDamageReduction(float armorMultiplier = 0f, float accessoryMultiplier = 0f) {
+			if (armorMultiplier <= 0f || accessoryMultiplier <= 0f) {
+				armorMultiplier = ArmorDamageReductionPerLevel;
+				accessoryMultiplier = AccessoryDamageReductionPerLevel;
+			}
+
+			float multiplier = Item.accessory ? accessoryMultiplier : armorMultiplier;
+			float damageReduction = multiplier * levelBeforeBooster;
+
+			return damageReduction;
+		}
+	}
 }

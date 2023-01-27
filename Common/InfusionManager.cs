@@ -819,7 +819,7 @@ namespace WeaponEnchantments.Common
             }
             else if (iGlobal is EnchantedArmor enchantedArmor && (cGlobal is EnchantedArmor || consumedItem.IsAir)) {
                 //Armor
-                if (item.GetSlotIndex() == consumedItem.GetSlotIndex()) {
+                if (item.GetSlotIndex() == consumedItem.GetSlotIndex() || reset) {
                     if (item.GetInfusionArmorSlot(true) != consumedItem.GetInfusionArmorSlot()) {
                         if (failedItemFind) {
                             consumedItemName = enchantedArmor.infusedItemName;
@@ -942,6 +942,9 @@ namespace WeaponEnchantments.Common
             return false;
         }
         public static void UpdateArmorSlot(this Item item, int infusedArmorSlot) {
+            if (WEMod.serverConfig.DisableArmorInfusion)
+                return;
+
             Item sampleItem = ContentSamples.ItemsByType[item.type];
             item.headSlot = sampleItem.headSlot;
             item.bodySlot = sampleItem.bodySlot;
@@ -1000,4 +1003,16 @@ namespace WeaponEnchantments.Common
             }
         }
     }
+
+    public static class InfusionStaticClasses {
+        public static bool InfusionAllowed(this Item item, out bool configAllowed) {
+            bool weapon = EnchantedItemStaticMethods.IsWeaponItem(item);
+            bool armor = EnchantedItemStaticMethods.IsArmorItem(item);
+            bool WeaponAndWeaponInfusionAllowed = weapon && WEMod.serverConfig.InfusionDamageMultiplier > 1000;
+			bool ArmorAndArmorInfusionAllowed = armor && !WEMod.serverConfig.DisableArmorInfusion;
+			configAllowed = WeaponAndWeaponInfusionAllowed || ArmorAndArmorInfusionAllowed;
+
+			return weapon || armor;
+		}
+	}
 }

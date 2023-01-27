@@ -87,7 +87,7 @@ namespace WeaponEnchantments.Common.Utility
         public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageClassID.Generic ? ((DamageClassID)dc.Type).ToString() + " " : "" : "";
 
         public static string S(this float f, int decimals = 4) {
-            string s = f.ToString($"F{decimals}");
+            string s = f.ToString($"F{decimals + 1}");
             int dot = s.IndexOf('.');
             if (dot == -1)
                 return s;
@@ -122,9 +122,9 @@ namespace WeaponEnchantments.Common.Utility
 			return newStr;
 		}
 
-        #endregion
+		#endregion
 
-        public static bool IsUpper(this char c) {
+		public static bool IsUpper(this char c) {
             foreach (char upper in upperCase) {
                 if (upper == c)
                     return true;

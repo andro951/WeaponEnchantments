@@ -12,6 +12,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using static WeaponEnchantments.Common.Globals.EnchantedWeapon;
 using static WeaponEnchantments.WEPlayer;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.Common {
     public class PlayerEquipment {
@@ -86,6 +87,17 @@ namespace WeaponEnchantments.Common {
         
         public void UpdateEnchantedEquipItemEffects(IEnumerable<EnchantedEquipItem> enchantedItems) {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
+
+            //Damage Reduction Per level
+            if (!WEMod.serverConfig.DamageReductionPerLevelDisabled) {
+                float armorMultiplier = ArmorDamageReductionPerLevel;
+                float accessoryMultiplier = AccessoryDamageReductionPerLevel;
+                foreach(EnchantedEquipItem enchantedItem in enchantedItems) {
+                    float damageReduction = enchantedItem.GetPerLevelDamageReduction();
+					if (damageReduction > 0f)
+						enchantmentEffects.Add(new DamageReduction(@base: new DifficultyStrength(damageReduction)));
+                }
+            }
 
             // Get all non null enchanted items
             foreach (EnchantedEquipItem enchantedItem in enchantedItems) {

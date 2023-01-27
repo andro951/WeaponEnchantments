@@ -25,8 +25,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects
-    {
+    public class EnchantedWeapon : EnchantedHeldItem, ISortedOnHitEffects {
 
         #region Stats
 
@@ -99,13 +98,13 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapons;
-		public override void Load() {
-			
-		}
-		public override void HoldItem(Item item, Player player) {
-			
-		}
-		public override GlobalItem Clone(Item item, Item itemClone) {
+        public override void Load() {
+
+        }
+        public override void HoldItem(Item item, Player player) {
+
+        }
+        public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedWeapon clone = (EnchantedWeapon)base.Clone(item, itemClone);
 
             if (cloneReforgedItem || resetGlobals) {
@@ -223,6 +222,16 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
+        protected override string GetPerLevelBonusTooltip() {
+            if (WEMod.serverConfig.CritPerLevelDisabled)
+                return "";
+
+            float critChance = GetPerLevelCritChance();
+            string tooltip = critChance > 0f ?
+                $"+{(critChance / 100f).PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+
+            return tooltip;
+        }
         protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
         protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {item.GetWeaponInfusionPower()}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
@@ -232,7 +241,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
             if (!WEMod.serverConfig.CritPerLevelDisabled)
-                crit += levelBeforeBooster * GlobalStrengthMultiplier;
+                crit += GetPerLevelCritChance();
 
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
         }
@@ -290,16 +299,16 @@ namespace WeaponEnchantments.Common.Globals
                 return;
             }
         }
-		public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
             IEnumerable<IUseTimer> useTimers = player.GetWEPlayer().EffectTimers.Where(n => n.Value.TimerStatName == EnchantmentStat.CatastrophicRelease).Select(t => t.Value);
-            foreach(IUseTimer useTimer in useTimers) {
+            foreach (IUseTimer useTimer in useTimers) {
                 if (!useTimer.TimerOver(player))
                     return false;
-			}
+            }
 
             return true;
-		}
-		public override bool? UseItem(Item item, Player player) {
+        }
+        public override bool? UseItem(Item item, Player player) {
             WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
             if (!Modified)
@@ -316,7 +325,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (item.stack < 2) {
                     Restock(item);
 
-                    if (item.stack < 2  || item.Name == "") {
+                    if (item.stack < 2 || item.Name == "") {
                         Stack0 = true;
                         item.stack = 2;
                     }
@@ -370,7 +379,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-    }
+        public float GetPerLevelCritChance() => levelBeforeBooster * GlobalStrengthMultiplier;
+	}
 
     public static class EnchantedWeaponStaticMethods
 	{

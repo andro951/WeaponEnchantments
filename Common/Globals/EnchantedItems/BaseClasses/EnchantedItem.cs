@@ -606,6 +606,10 @@ namespace WeaponEnchantments.Common.Globals
 
                 tooltips.Add(new TooltipLine(Mod, "level", levelTooltip) { OverrideColor = Color.LightGreen });
 
+                string bonusPerLevelTooltip = GetPerLevelBonusTooltip();
+                if (bonusPerLevelTooltip != "")
+                    tooltips.Add(new TooltipLine(Mod, "PerLevelBonus", bonusPerLevelTooltip) { OverrideColor = Color.Blue });
+
                 //Experience tooltip
                 string experienceTooltip = $"Experience: {Experience}";
                 if (levelBeforeBooster < MAX_Level) {
@@ -618,6 +622,7 @@ namespace WeaponEnchantments.Common.Globals
                 tooltips.Add(new TooltipLine(Mod, "experience", experienceTooltip) { OverrideColor = Color.White });
             }
         }
+        protected virtual string GetPerLevelBonusTooltip() => "";
         protected virtual string GetInfusedItemTooltip(Item item) => "";
         protected virtual string GetInfusionTooltip(Item item) => "";
         protected virtual string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) => "";
@@ -990,7 +995,7 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.FireproofBugNet:
                     return true;
                 default:
-                    return false;
+                    return item.mana > 0 && !IsWeaponItem(item);
 			}
         }
         public static bool IsSameEnchantedType(this Item item, Item otherItem) {
