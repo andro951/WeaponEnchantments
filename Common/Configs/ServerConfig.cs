@@ -495,7 +495,7 @@ namespace WeaponEnchantments.Common.Configs
     }
     public class ArmorDamageReduction {
 		[JsonIgnore]
-		private static readonly int[,] DamageReductionPerLevel = {
+		public static readonly int[,] DamageReductionPerLevel = {
 			{ 25000, 12500 },
 			{ 18750, 9375 },
 			{ 12500, 6250 },

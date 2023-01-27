@@ -19,6 +19,7 @@ using static Terraria.Localization.GameCulture;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -52,12 +53,17 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 								string dataBeforeParse = directoryName.Substring(weWiki.Length + 1, directoryName.Length - 4 - weWiki.Length)
 									.Replace(" ", "_");
 								mostRecentData = dataBeforeParse.Split("_").Select(s => int.Parse(s)).ToArray();
+                                if (directoryName.EndsWith("PM"))
+                                    mostRecentData[3] += 12;
 							}
 							else {
 								string dataBeforeParse = directoryName.Substring(weWiki.Length + 1, directoryName.Length - 4 - weWiki.Length)
 									.Replace(" ", "_");
 								int[] newData = dataBeforeParse.Split("_").Select(s => int.Parse(s)).ToArray();
-                                for(int i = 0; i < mostRecentData.Length; i++) {
+								if (directoryName.EndsWith("PM"))
+									newData[3] += 12;
+
+								for (int i = 0; i < mostRecentData.Length; i++) {
                                     if (newData[i] == mostRecentData[i]) {
                                         continue;
                                     }
@@ -218,8 +224,21 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             itemExperience.AddParagraph(
                 "Items have a level based on their XP.  Levels increase the enchantment capacity of the item by 1 per level.  \n" +
                 "Levels also increases weapon critical strike chance by 1 per level.  Armor and accessories grant you damage reduction per level. " +
-                "(Both can be disabled and are affected by the Config Global Enchantment Strength multiplier.)\n" +
-                "Armor grants 0.25% ");
+                "(Both can be disabled and are affected by the Config Global Enchantment Strength multiplier.)");
+
+            List<List<string>> damageReductionTable = new() { new() { "", "Armor", "Accessory" } };
+			short[] gameModes = { 3, 0, 1, 2 };
+			foreach (short gameMode in gameModes) {
+                float armorDamageReduction = ArmorDamageReduction.DamageReductionPerLevel[gameMode, 0] / 100000f;
+                float accessoryDamageReduction = ArmorDamageReduction.DamageReductionPerLevel[gameMode, 1] / 100000f;
+				damageReductionTable.Add(new() {
+					gameMode.ToGameModeIDName(),
+					$"{armorDamageReduction.S(5)}% ({(armorDamageReduction * 40f).S()}% at 40)",
+					$"{accessoryDamageReduction.S(5)}% ({(accessoryDamageReduction * 40f).S()}% at 40)"
+                });
+			}
+
+			itemExperience.AddTable(damageReductionTable, label: "Damage Reduction per level default values", firstRowHeaders: true);
 			itemExperience.NewLine();
 			itemExperience.AddParagraph(
                 "You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.");
