@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.ModLib.KokoLib;
 using static WeaponEnchantments.WEPlayer;
@@ -32,30 +33,19 @@ namespace WeaponEnchantments.Effects
 			if (crit)
 				damageInt *= 2;
 
-			if (npc.life < 0)
-				damageInt += npc.life;
+			int life = npc.RealLife();
+			if (life < 0)
+				damageInt += life;
 
-			if (damageInt > npc.lifeMax)
-				damageInt = npc.lifeMax;
+			int lifeMax = npc.RealLifeMax();
+			if (damageInt > lifeMax)
+				damageInt = lifeMax;
 
 			if (damageInt <= 0)
 				return;
 
-
-			int whoAmI;
-			NPC sample;
-			if (npc.realLife >= 0) {
-				whoAmI = npc.realLife;
-				sample = ContentSamples.NpcsByNetId[Main.npc[whoAmI].netID];
-			}
-			else {
-				whoAmI = npc.whoAmI;
-				sample = ContentSamples.NpcsByNetId[npc.netID];
-			}
-
-			NPC thisNPC = Main.npc[whoAmI];
-
-			float value = (float)damageInt / (float)thisNPC.lifeMax * sample.value;
+			float npcValue = npc.RealValue();
+			float value = (float)damageInt / (float)life * npcValue;
 			if (value < damageInt)
 				value = (float)damageInt;
 
@@ -65,7 +55,7 @@ namespace WeaponEnchantments.Effects
 			if (coins <= 0)
 				coins = 1;
 
-			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(thisNPC, coins);
+			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(npc, coins);
 		}
 
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };

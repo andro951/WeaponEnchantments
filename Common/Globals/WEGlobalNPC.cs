@@ -509,10 +509,11 @@ namespace WeaponEnchantments.Common.Globals
             float defenseMultiplier = 1f + (float)npc.defDefense / 40f;
 
             //HP
-            hp = (float)npc.lifeMax * defenseMultiplier;
+            int lifeMax = npc.RealLifeMax();
+            hp = (float)lifeMax * defenseMultiplier;
 
             //Value
-            float value = npc.value;
+            float value = npc.RealValue();
 
             //Prevent low value enemies like critters from dropping essence
             if (value <= 0 && hp <= 10) {
@@ -645,7 +646,7 @@ namespace WeaponEnchantments.Common.Globals
             return npcs;
         }
         public static void StrikeNPC(NPC npc, int damage, bool crit) {
-            if (npc.active && npc.life > 0)
+            if (npc.active && npc.RealLife() > 0)
                 npc.StrikeNPC(damage, 0, 0, crit, false, true);
         }
         public override void OnSpawn(NPC npc, IEntitySource source) {
@@ -663,7 +664,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+            if (LogMethods.debugging) ($"\\/UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen}").Log();
 
             #endregion
 
@@ -677,14 +678,20 @@ namespace WeaponEnchantments.Common.Globals
             int lifeRegen = (int)((float)amaterasuDamage / 30f * amaterasuStrength);
             npc.lifeRegen -= lifeRegen;
 
-            //Fix for bosses not dying from Amaterasu
-            if (npc.boss || multipleSegmentBossTypes.ContainsKey(npc.netID)) {
-                if (npc.life + npc.lifeRegen < 1 && npc.lifeRegen < 0)
-                    npc.lifeRegen = 0;
-            }
+            int life = npc.RealLife();
 
-            //Spread to other enemies ever 10 ticks
-            if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.netID != NPCID.TargetDummy) {
+			
+			if (life - damage < 1) {
+                if (life > 0)
+				    damage = life;
+
+				//Fix for bosses not dying from Amaterasu
+				if (npc.realLife != -1 && life <= 1)
+                    StrikeNPC(npc, 1, false);
+			}
+
+			//Spread to other enemies ever 10 ticks
+			if (lastAmaterasuTime + 10 <= Main.GameUpdateCount && npc.netID != NPCID.TargetDummy) {
                 if (amaterasuDamage > minSpreadDamage) {
                     Dictionary<int, float> npcs = SortNPCsByRange(npc, baseAmaterasuSpreadRange);
                     foreach (int whoAmI in npcs.Keys) {
@@ -725,7 +732,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.life} npc.liferegen: {npc.lifeRegen}").Log();
+            if (LogMethods.debugging) ($"/\\UpdateLifeRegen(npc: {npc.S()}, damage: {damage} amaterasuDamage: {amaterasuDamage} amaterasuStrength: {amaterasuStrength} npc.life: {npc.RealLife()} npc.liferegen: {npc.lifeRegen }").Log();
 
             #endregion
         }
@@ -831,5 +838,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-    }
+        public static int RealNetID(this NPC npc) => npc.realLife == -1 ? npc.netID : Main.npc[npc.realLife].netID;
+        public static int RealLife(this NPC npc) => npc.realLife == -1 ? npc.life : Main.npc[npc.realLife].life;
+		public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
+        public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
+        public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
+        public static void AddValue(this NPC npc, float value) {
+            if (npc.realLife == -1) {
+                npc.value += value;
+			}
+            else {
+				Main.npc[npc.realLife].value += value;
+			}
+        }
+	}
 }

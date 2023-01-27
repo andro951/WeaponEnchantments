@@ -1057,7 +1057,6 @@ namespace WeaponEnchantments
                         weGlobalNPC.amaterasuStrength = CombinedOnHitDebuffs[amaterasuID].BuffStrength;
 
                     amaterasuDamageAdded = damage * (crit ? 2 : 1);
-                    weGlobalNPC.amaterasuDamage += amaterasuDamageAdded;
                 }
 
                 if (Main.netMode != NetmodeID.Server) {
@@ -1284,15 +1283,16 @@ namespace WeaponEnchantments
 
             #endregion
 
+            int lifeMax = target.RealLifeMax();
             float actualDamageDealt = damage - damageReduction;
-            float godSlayerDamage = actualDamageDealt * godSlayerBonus * target.lifeMax / 100f;
+            float godSlayerDamage = actualDamageDealt * godSlayerBonus * lifeMax / 100f;
 
             //Projectile damage reduction
             float projectileMultiplier = projectile == true ? 0.5f : 1f;
             godSlayerDamage *= projectileMultiplier;
 
             //Max life reduction factor
-            float denominator = 1f + target.lifeMax * 49f / 150000f;
+            float denominator = 1f + lifeMax * 49f / 150000f;
             godSlayerDamage /= denominator;
 
             //Bypass armor

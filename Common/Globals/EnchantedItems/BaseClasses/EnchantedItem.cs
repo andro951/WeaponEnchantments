@@ -1257,14 +1257,15 @@ namespace WeaponEnchantments.Common.Globals
             //value
             float value;
             if (Main.netMode == NetmodeID.MultiplayerClient) {
-                value = ContentSamples.NpcsByNetId[target.netID].value;
+                value = ContentSamples.NpcsByNetId[target.RealNetID()].value;
             }
             else {
-                value = target.value;
+                value = target.RealValue();
             }
 
             //value or life max goto debug
-            if (value <= 0 && (target.SpawnedFromStatue || target.lifeMax <= 10))
+            int realLifeMax = target.RealLifeMax();
+			if (value <= 0 && (target.SpawnedFromStatue || realLifeMax <= 10))
                 goto debugBeforeReturn;
 
             //NPC Characteristics Factors
@@ -1299,8 +1300,9 @@ namespace WeaponEnchantments.Common.Globals
 
             //life vs damage check
             int xpDamage = (int)actualDamage;
-            if (target.life < 0)
-                xpDamage += target.life;
+            int life = target.RealLife();
+            if (life < 0)
+                xpDamage += life;
 
             //XP Damage <= 0 check
             if (xpDamage <= 0)
@@ -1337,7 +1339,8 @@ namespace WeaponEnchantments.Common.Globals
             float xp = xpDamage * lowDamagePerHitXPBoost * experienceMultiplier;
 
             //Reduction Factor (Life Max)
-            float reductionFactor = GetReductionFactor(target.lifeMax);
+            int lifeMax = target.RealLifeMax();
+            float reductionFactor = GetReductionFactor(lifeMax);
             xp /= reductionFactor;
 
             //XP <= 0 check

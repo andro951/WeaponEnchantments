@@ -51,7 +51,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 			}
 		}
 		public void NetAddNPCValue(NPC npc, float value) {
-			npc.value += value;
+			npc.AddValue(value);
 
 			if (Main.netMode == NetmodeID.Server) {
 				Net.IgnoreClient = WhoAmI;

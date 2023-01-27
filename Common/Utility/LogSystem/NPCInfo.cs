@@ -63,7 +63,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				if (damage > 0)
 					info.Add(new() { "Damage", $"{damage}" });
 
-				info.Add(new() { $"Max Life", $"{NPC.lifeMax}" });
+				info.Add(new() { $"Max Life", $"{NPC.RealLifeMax()}" });
 				info.Add(new() { "https://terraria.fandom.com/wiki/Defense".ToExternalLink("Defense"), $"{NPC.defDefense}" });
 				info.Add(new() { $"{"https://terraria.fandom.com/wiki/Knockback".ToExternalLink("KB")} Resist", $"{NPC.knockBackResist.PercentString()}" });
 			}
