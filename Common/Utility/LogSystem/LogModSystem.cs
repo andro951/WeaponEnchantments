@@ -27,11 +27,11 @@ namespace WeaponEnchantments.Common.Utility
     public class LogModSystem : ModSystem {
         public static bool printListOfContributors = false;
         public static bool printListOfEnchantmentTooltips => WEMod.clientConfig.PrintEnchantmentTooltips;
-        public static bool printLocalization = WEMod.clientConfig.PrintLocalizationLists;
+        public static bool printLocalization => WEMod.clientConfig.PrintLocalizationLists && !Debugger.IsAttached;
         public static readonly bool printListForDocumentConversion = false;
         public static readonly bool zzzLocalizationForTesting = false;
         //public static bool printLocalizationKeysAndValues => printLocalizationKeysAndValues && culture == (int)CultureName.English;
-        public static readonly bool printLocalizationKeysAndValues = false && Debugger.IsAttached;
+        public static bool printLocalizationKeysAndValues => WEMod.clientConfig.PrintLocalizationLists && Debugger.IsAttached;
         private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
         public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;

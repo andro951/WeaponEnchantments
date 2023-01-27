@@ -407,7 +407,36 @@ namespace WeaponEnchantments.Localization
 
 		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {
 			{ CultureName.German, new() {
-					
+					"Mobility Control Enchantment Epic",
+					"Penny Pinching Enchantment Basic",
+					"Rogue Class Swap Enchantment Epic",
+					"Amaterasu",
+					"Agatha",
+					"Akko",
+					"Binx",
+					"Blobbelda",
+					"Brentilda",
+					"Freyja",
+					"Gruntilda",
+					"Jasminka",
+					"Kyubey",
+					"Melusine",
+					"Mingella",
+					"Morgana",
+					"Sabrina",
+					"Sarah",
+					"Ursula",
+					"Winifred",
+					"Infusion",
+					"Ki",
+					"Ichor",
+					"Ki Regen",
+					"Max Ki",
+					"Solar Dash",
+					"Sonar",
+					"Ninja Tabi Dash",
+					"Solar Dash",
+					"Crystal Ninja Dash",
 				}
 			},
 			{
@@ -419,8 +448,11 @@ namespace WeaponEnchantments.Localization
 					"Blobbelda",
 					"Brentilda",
 					"Gruntilda",
+					"Ki",
 					"Kyubey",
 					"Medusa",
+					"Mingella",
+					"No",
 					"Sabrina",
 					"Salem",
 					"Winifred",
@@ -430,7 +462,35 @@ namespace WeaponEnchantments.Localization
 			{
 				CultureName.French,
 				new() {
-
+					"Berserkers Rage Enchantment Epic",
+					"Npc Contact Angler Enchantment Epic",
+					"World Ablaze Enchantment Epic",
+					"Amaterasu",
+					"Akko",
+					"Binx",
+					"Blobbelda",
+					"Brentilda",
+					"Freyja",
+					"Gruntilda",
+					"Jasminka",
+					"Kyubey",
+					"Sabrina",
+					"Salem",
+					"Winifred",
+					"adamantite",
+					"chlorophyte",
+					"cobalt",
+					"crimtane",
+					"mythril",
+					"palladium",
+					"Infusion",
+					"Ki",
+					"Ichor",
+					"Ki Regen",
+					"Max Ki",
+					"Max Minions",
+					"Sonar",
+					"Ninja Tabi Dash",
 				}
 			},
 			{
@@ -442,7 +502,10 @@ namespace WeaponEnchantments.Localization
 					"Blobbelda",
 					"Gruntilda",
 					"Jasminka",
+					"Ki",
+					"Ki Regen",
 					"Kyubey",
+					"Max Ki",
 					"Medusa",
 					"Mingella",
 					"Morgana",
@@ -457,13 +520,45 @@ namespace WeaponEnchantments.Localization
 			{
 				CultureName.Polish,
 				new() {
-
+					"Amaterasu",
+					"Akko",
+					"Binx",
+					"Blobbelda",
+					"Brentilda",
+					"Freyja",
+					"Kyubey",
+					"Mingella",
+					"Morgana",
+					"Sabrina",
+					"Salem",
+					"Winifred",
+					"orichalcum",
+					"xp",
+					"Ki",
+					"Ki Regen",
+					"Sonar",
+					"Ninja Tabi Dash",
 				}
 			},
 			{
 				CultureName.Portuguese,
 				new() {
-
+					"Amaterasu",
+					"Akko",
+					"Binx",
+					"Blobbelda",
+					"Brentilda",
+					"Freyja",
+					"Gruntilda",
+					"Kyubey",
+					"Mary",
+					"Medusa",
+					"Morgana",
+					"Winifred",
+					"Item",
+					"Ki",
+					"Max Ki",
+					"Sonar"
 				}
 			},
 			{
@@ -475,7 +570,7 @@ namespace WeaponEnchantments.Localization
 			{
 				CultureName.Chinese,
 				new() {
-
+					"Ki"
 				}
 			},
 		};
