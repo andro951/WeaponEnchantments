@@ -226,9 +226,18 @@ namespace WeaponEnchantments.Common.Globals
             if (WEMod.serverConfig.CritPerLevelDisabled)
                 return "";
 
-            float critChance = GetPerLevelCritChance();
-            string tooltip = critChance > 0f ?
-                $"+{(critChance / 100f).PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+            float perLevelBonus = GetPerLevelBonus();
+            string tooltip = "";
+            if (perLevelBonus > 0f) {
+                if (WEMod.serverConfig.DamagePerLevelInstead) {
+					tooltip = perLevelBonus > 0f ?
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.DamageAfterDefenses}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				}
+                else {
+					tooltip = perLevelBonus > 0f ?
+				        $"+{perLevelBonus.PercentString()} {$"{EnchantmentStat.CriticalStrikeChance}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName)}" : "";
+				}
+            }
 
             return tooltip;
         }
@@ -240,9 +249,6 @@ namespace WeaponEnchantments.Common.Globals
                 $"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
         }
         public override void ModifyWeaponCrit(Item item, Player player, ref float crit) {
-            if (!WEMod.serverConfig.CritPerLevelDisabled)
-                crit += GetPerLevelCritChance();
-
             CheckEnchantmnetStatsApplyTo(ref crit, EnchantmentStat.CriticalStrikeChance);
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
@@ -379,7 +385,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public float GetPerLevelCritChance() => levelBeforeBooster * GlobalStrengthMultiplier;
+        public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
 	}
 
     public static class EnchantedWeaponStaticMethods

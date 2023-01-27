@@ -995,7 +995,7 @@ namespace WeaponEnchantments
                     crit = true;
                     critLevel--;
 
-                    if (critLevel > 0) {
+                    if (AllowCriticalChancePast100 && critLevel > 0) {
                         if (MultiplicativeCriticalHits) {
                             //Multiplicative
                             float multiplicativeCritMultiplier = (float)Math.Pow(2 * critDamageMultiplier, critLevel);

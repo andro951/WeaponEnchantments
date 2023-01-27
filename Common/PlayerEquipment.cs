@@ -93,7 +93,7 @@ namespace WeaponEnchantments.Common {
                 float armorMultiplier = ArmorDamageReductionPerLevel;
                 float accessoryMultiplier = AccessoryDamageReductionPerLevel;
                 foreach(EnchantedEquipItem enchantedItem in enchantedItems) {
-                    float damageReduction = enchantedItem.GetPerLevelDamageReduction();
+                    float damageReduction = enchantedItem.GetPerLevelDamageReduction(armorMultiplier, accessoryMultiplier);
 					if (damageReduction > 0f)
 						enchantmentEffects.Add(new DamageReduction(@base: new DifficultyStrength(damageReduction)));
                 }
@@ -110,7 +110,19 @@ namespace WeaponEnchantments.Common {
         }
         public void UpdateEnchantedHeldItemEffects(EnchantedHeldItem enchantedHeldItem) {
             List<EnchantmentEffect> enchantmentEffects = new List<EnchantmentEffect>();
-            GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
+            if (!WEMod.serverConfig.CritPerLevelDisabled && enchantedHeldItem is EnchantedWeapon enchantedWeapon) {
+                float bonus = enchantedWeapon.GetPerLevelBonus();
+                if (bonus > 0f) {
+					if (WEMod.serverConfig.DamagePerLevelInstead) {
+                        enchantmentEffects.Add(new DamageAfterDefenses(multiplicative: new DifficultyStrength(1f + bonus)));
+				    }
+					else {
+                        enchantmentEffects.Add(new CriticalStrikeChance(@base: new DifficultyStrength(bonus)));
+					}
+				}
+            }
+
+			GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
             enchantedHeldItem.EnchantmentEffects = enchantmentEffects;
             SortEnchantmentEffects(enchantedHeldItem);
         }

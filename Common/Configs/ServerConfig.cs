@@ -259,9 +259,16 @@ namespace WeaponEnchantments.Common.Configs
         public bool DisableMinionCrits;
 
         [Label("Disable Weapon critical strike chance per level")]
-        [Tooltip("Weapons gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
+        [Tooltip("Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.")]
         [DefaultValue(false)]
+        [ReloadRequired]
         public bool CritPerLevelDisabled;
+
+        [Label("Damage instead of critical chance per level")]
+        [Tooltip("Weapons gain damage per level instead of critical strike chance equal to their level * Global Enchantment Strength Multiplier")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool DamagePerLevelInstead;
 
 		[Label("Disable armor and accessory damage reduction per level")]
 		[Tooltip("Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.")]
@@ -271,6 +278,12 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
         [Label("Armor and accessory Damage Reductions")]
         public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
+
+        [Label("Critical hit chance effective over 100% chance")]
+        [Tooltip("Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.\n" +
+            "120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.")]
+        [DefaultValue(true)]
+        public bool AllowCriticalChancePast100;
 
         [Label("Multiplicative critical hits past the first.")]
         [Tooltip("Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.\n" +
@@ -386,7 +399,7 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Display approximate weapon damage in the tooltip")]
         [Tooltip("Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
             "This displays the damage against a 0 armor enemy.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool DisplayApproximateWeaponDamageTooltip;
 
         //Error messages
