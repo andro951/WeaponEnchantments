@@ -12,9 +12,11 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new AttackSpeed(EnchantmentStrengthData),
 				new MiningSpeed(EnchantmentStrengthData * 1.5f),
-				new AutoReuse(AttackSpeedEnchantmentAutoReuseSetpoint, EnchantmentStrengthData),
 				new NPCHitCooldown(EnchantmentStrengthData * -1)
 			};
+
+			if (EnchantmentStrength >= AttackSpeedEnchantmentAutoReuseSetpoint)
+				Effects.Add(new AutoReuse());
 
 			AllowedList = new Dictionary<EItemType, float>() {
 				{ EItemType.Weapons, 1f },

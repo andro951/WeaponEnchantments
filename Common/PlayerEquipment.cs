@@ -132,9 +132,6 @@ namespace WeaponEnchantments.Common {
             // For each enchantment get its effects
             foreach (Enchantment enchantment in enchantments) {
                 foreach (EnchantmentEffect enchantmentEffect in enchantment.Effects) {
-                    if (enchantmentEffect is BoolEffect boolEffect && boolEffect.StrengthData != null && boolEffect.MinimumStrength > boolEffect.StrengthData.Value)
-                        continue;
-
                     effects.Add(enchantmentEffect);
                 }
             }

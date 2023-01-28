@@ -9,7 +9,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Default;
 using Terraria.ModLoader.IO;
@@ -1362,7 +1361,7 @@ namespace WeaponEnchantments
                     return null;
             }
 
-            if (item.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole))
+            if (item.TryGetEnchantedItem(out EnchantedFishingPole _))
                 return null;
 
             return ApplyAutoReuseEnchants();
@@ -1562,8 +1561,8 @@ namespace WeaponEnchantments
                     Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
                     break;
                 case EnchantmentStat.AttackSpeed:
-                    Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));
-                    break;
+					Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));//Not used
+					break;
                 case EnchantmentStat.BonusManaRegen:
                     Player.manaRegenBonus = (int)sm.ApplyTo(Player.manaRegenBonus);
                     break;

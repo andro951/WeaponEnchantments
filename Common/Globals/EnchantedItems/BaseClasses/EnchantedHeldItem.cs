@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -33,8 +34,25 @@ namespace WeaponEnchantments.Common.Globals
 			if (CheckGetModifier(EnchantmentStat.ManaUsage, out EStatModifier eStatModifier))
 				eStatModifier.ApplyTo(ref reduce, ref mult, item);
 		}
+
+		//Calamity Rogue weapon Attackspeed fix
+		private bool findingUseSpeed;
 		public override float UseSpeedMultiplier(Item item, Player player) {
 			float attackSpeed = GetVanillaModifierStrength(EnchantmentStat.AttackSpeed);
+
+			//Calamity Rogue weapon Attackspeed fix
+			if (WEMod.calamityEnabled && !findingUseSpeed) {
+				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
+					findingUseSpeed = true;
+					float multiplier = CombinedHooks.TotalUseTimeMultiplier(player, item);
+					Item sampleItem = ContentSamples.ItemsByType[item.type];
+					item.useTime = Math.Max(1, (int)Math.Round(sampleItem.useTime * multiplier));
+					item.useAnimation = Math.Max(1, (int)Math.Round(sampleItem.useAnimation * multiplier));
+					findingUseSpeed = false;
+					return 1f;
+				}
+			}
+
 			if (GetPlayerModifierStrength(player, EnchantmentStat.CatastrophicRelease, out float catastrophicReleaseMultiplier))
 				attackSpeed *= 0.1f;
 

@@ -15,9 +15,9 @@ namespace WeaponEnchantments.Effects.CustomEffects
 {
     public class KiDamage : BoolEffect, IPassiveEffect
     {
-        public KiDamage(float minimumStrength = 0f, DifficultyStrength strengthData = null, bool prevent = false) : base(minimumStrength, strengthData, prevent) { }
+        public KiDamage(bool prevent = false) : base(prevent) { }
         public override EnchantmentEffect Clone() {
-            return new KiDamage(MinimumStrength, StrengthData?.Clone(), !EnableStat);
+            return new KiDamage(!EnableStat);
         }
 
 		public void PostUpdateMiscEffects(WEPlayer wePlayer) {
