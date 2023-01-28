@@ -30,12 +30,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class MovementSpeedEnchantmentBasic : MovementSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.EyeofCthulhu),
 			new(NPCID.GiantWalkingAntlion),
 			new(NPCID.WalkingAntlion)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Oasis),
 			new(CrateID.Mirage_OasisHard)
 		};

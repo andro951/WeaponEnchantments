@@ -21,21 +21,21 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class CriticalStrikeChanceEnchantmentBasic : CriticalStrikeChanceEnchantment
 	{
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.SkeletronHead)
 		};
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.ManEater),
 			new(NPCAIStyleID.Jellyfish),
 			new(NPCAIStyleID.Antlion)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f },
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f },
-			{ ChestID.RichMahogany, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans),
+			new(ChestID.RichMahogany)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Wooden, 0.5f),
 			new(CrateID.Pearlwood_WoodenHard, 0.5f),
 			new(CrateID.Iron, 0.5f),

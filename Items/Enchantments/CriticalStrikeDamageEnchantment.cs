@@ -26,11 +26,11 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class CriticalStrikeDamageEnchantmentBasic : CriticalStrikeDamageEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.HardMode;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Medusa, 1f),
 			new(NPCID.GiantFungiBulb, 1f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Stockade_DungeonHard, 0.5f),
 			new(CrateID.Mirage_OasisHard, 0.5f)
 		};

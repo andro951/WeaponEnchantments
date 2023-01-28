@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class GodSlayerEnchantmentBasic : GodSlayerEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.BiomeMimic)
 		};
 	}

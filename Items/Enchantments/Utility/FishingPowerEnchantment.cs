@@ -25,10 +25,10 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     }
     public class FishingPowerEnchantmentBasic : FishingPowerEnchantment
     {
-        public override SortedDictionary<ChestID, float> ChestDrops => new() {
-            { ChestID.Water, 1f }
+        public override List<DropData> ChestDrops => new() {
+            new(ChestID.Water)
         };
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Wooden),
             new(CrateID.Pearlwood_WoodenHard)
         };

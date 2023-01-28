@@ -25,14 +25,14 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
     public class ChaoticFishingEnchantmentBasic : ChaoticFishingEnchantment
     {
         public override SellCondition SellCondition => SellCondition.HardMode;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.GoblinShark),
             new(NPCID.BloodEelHead),
             new(NPCID.BloodNautilus),
             new(NPCID.Shark)
         };
 
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Golden),
             new(CrateID.Titanium_GoldenHard)
 		};

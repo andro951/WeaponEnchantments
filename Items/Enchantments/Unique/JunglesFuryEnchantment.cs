@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class JunglesFuryEnchantmentBasic : JunglesFuryEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Plantera)
 		};
 	}

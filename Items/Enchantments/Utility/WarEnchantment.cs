@@ -34,15 +34,15 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class WarEnchantmentBasic : WarEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.PirateShip),
 			new(NPCID.PirateCaptain)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Shadow, 0.8f },
-			{ ChestID.Shadow_Locked, 0.8f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Shadow, 0.8f),
+			new(ChestID.Shadow_Locked, 0.8f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Obsidian_LockBox, 0.4f)
 		};
 	}

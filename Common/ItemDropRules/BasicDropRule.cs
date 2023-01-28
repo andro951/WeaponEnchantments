@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Common
 {
-	public class OneFromWeightedOptionsNotScaledWithLuckDropRule : IItemDropRule
+	public class BasicDropRule : IItemDropRule
 	{
-		public List<WeightedPair> dropsList;
+		public int itemID;
 		public float dropChance;
 
 		public List<IItemDropRuleChainAttempt> ChainedRules {
@@ -18,12 +19,17 @@ namespace WeaponEnchantments.Common
 			private set;
 		}
 
-		public OneFromWeightedOptionsNotScaledWithLuckDropRule(float chance, IEnumerable<DropData> options) {
-			dropChance = chance;
-			dropsList = new();
-			foreach(DropData dropData in options) {
-				dropsList.Add(new(dropData));
-			}
+		public BasicDropRule(int id, float chance, float configChance) {
+			itemID = id;
+			dropChance = chance * configChance;
+			dropChance.Clamp();
+
+			ChainedRules = new List<IItemDropRuleChainAttempt>();
+		}
+		public BasicDropRule(DropData dropData, float configChance) {
+			itemID = dropData.ID;
+			dropChance = dropData.Chance * configChance;
+			dropChance.Clamp();
 
 			ChainedRules = new List<IItemDropRuleChainAttempt>();
 		}
@@ -32,9 +38,9 @@ namespace WeaponEnchantments.Common
 
 		public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info) {
 			ItemDropAttemptResult result;
-			int item = dropsList.GetOneFromWeightedList(dropChance);
-			if (item > 0) {
-				CommonCode.DropItem(info, item, 1);
+			float randFloat = Main.rand.NextFloat();
+			if (randFloat <= dropChance) {
+				CommonCode.DropItem(info, itemID, 1);
 				result = default(ItemDropAttemptResult);
 				result.State = ItemDropAttemptResultState.Success;
 
@@ -48,17 +54,7 @@ namespace WeaponEnchantments.Common
 		}
 
 		public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo) {
-			float parentDropChance = dropChance * ratesInfo.parentDroprateChance;
-			float total = 0f;
-			foreach(WeightedPair pair in dropsList) {
-				total += pair.Weight;
-			}
-
-			foreach(WeightedPair pair in dropsList) {
-				float chance = parentDropChance * pair.Weight / total;
-				chance.Clamp();
-				drops.Add(new DropRateInfo(pair.ID, 1, 1, chance, ratesInfo.conditions));
-			}
+			drops.Add(new DropRateInfo(itemID, 1, 1, dropChance));
 
 			Chains.ReportDroprates(ChainedRules, dropChance, drops, ratesInfo);
 		}

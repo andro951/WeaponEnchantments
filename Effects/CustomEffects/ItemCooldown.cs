@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Effects
 		}
 		public override string Tooltip => StandardTooltip;
 		public override IEnumerable<object> TooltipArgs => new object[] { TooltipValue };
-		public override string TooltipValue => $"{EffectStrength}x";
+		public override string TooltipValue => $"{EffectStrength.S()}x";
 		public override float EffectStrength => _timerStrength.Value * 0.8f;
 
 		private DifficultyStrength _timerStrength;

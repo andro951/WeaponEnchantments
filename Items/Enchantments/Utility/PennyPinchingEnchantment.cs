@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	public class PennyPinchingEnchantmentBasic : PennyPinchingEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEyeOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.EyeofCthulhu)
 		};
 	}

@@ -25,7 +25,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MultishotEnchantmentBasic : MultishotEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostPlantera;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.BiomeMimic)
 		};
 	}

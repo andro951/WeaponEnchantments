@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletronPrime;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.SkeletronPrime)
 		};
 	}

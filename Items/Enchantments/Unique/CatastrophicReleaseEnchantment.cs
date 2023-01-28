@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	/*
 	public class CatastrophicReleaseEnchantmentBasic : CatastrophicReleaseEnchantment {
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.TheDestroyer, 1f)
 		};
 	}

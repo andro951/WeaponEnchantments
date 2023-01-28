@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class WorldAblazeEnchantmentBasic : WorldAblazeEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostTwins;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Retinazer),
 			new(NPCID.Spazmatism)
 		};

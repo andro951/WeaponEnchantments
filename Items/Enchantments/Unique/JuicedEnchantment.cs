@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class JuicedEnchantmentBasic : JuicedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.EaterofWorldsHead, 1f/9f),
 			new(NPCID.BrainofCthulhu, 1f/9f)
 		};

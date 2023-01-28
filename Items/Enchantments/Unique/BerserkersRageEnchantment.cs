@@ -36,10 +36,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
     public class BerserkersRageEnchantmentBasic : BerserkersRageEnchantment
 	{
         public override SellCondition SellCondition => SellCondition.PostSkeletron;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.SkeletronHead, 0.25f)
         };
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Dungeon, 0.5f),
             new(CrateID.Stockade_DungeonHard, 0.5f)
         };

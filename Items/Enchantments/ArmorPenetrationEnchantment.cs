@@ -27,14 +27,14 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.WallofFlesh)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Shadow, 0.1f },
-			{ ChestID.Shadow_Locked, 0.1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Shadow, 0.1f),
+			new(ChestID.Shadow_Locked, 0.1f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Obsidian_LockBox, 0.05f)
 		};
 	}

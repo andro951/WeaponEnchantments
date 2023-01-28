@@ -37,8 +37,8 @@ namespace WeaponEnchantments.Common.Globals
 
         static bool war = false;
         static float warReduction = 1f;
-        public static SortedDictionary<int, List<WeightedPair>> npcDropTypes = new SortedDictionary<int, List<WeightedPair>>();
-        public static SortedDictionary<int, List<WeightedPair>> npcAIDrops = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<DropData>> npcDropTypes = new();
+        public static SortedDictionary<int, List<DropData>> npcAIDrops = new();
 
         #endregion
 
@@ -341,6 +341,7 @@ namespace WeaponEnchantments.Common.Globals
 
             bool multipleSegmentBoss = multipleSegmentBossTypes.ContainsKey(npc.netID);
             float multipleSegmentBossMultiplier = GetMultiSegmentBossMultiplier(npc.netID);
+            bool boss = npc.boss || multipleSegmentBoss || normalNpcThatDropsBag;
 
             if (multipleSegmentBoss && bossBag)
                 total *= multipleSegmentBossMultiplier;
@@ -388,7 +389,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Enchantments and other boss drops
-            if (npc.boss || multipleSegmentBoss || normalNpcThatDropsBag) {
+            if (boss) {
                 //Boss Drops
 
                 //Superior Containment
@@ -418,10 +419,12 @@ namespace WeaponEnchantments.Common.Globals
                     if (npcDropTypes[npc.netID].Count == 1)
                         chance *= npcDropTypes[npc.netID][0].Weight;
 
-                    dropRule = new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.netID]);
-                    AddBossLoot(loot, npc, dropRule, bossBag);
+                    List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], WEMod.serverConfig.BossEnchantmentDropChance);
+                    foreach(IItemDropRule rule in dropRules) {
+						AddBossLoot(loot, npc, rule, bossBag);
+					}
 
-                    if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID)))
+					if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID)))
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
             }
@@ -456,10 +459,13 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
                 if (npcDropTypes.ContainsKey(npc.netID)) {
-                    if (npcDropTypes[npc.netID].Count == 1)
+                    if (npcDropTypes[npc.netID].Where(d => d.Chance <= 0f).Count() == 1)
                         chance *= npcDropTypes[npc.netID][0].Weight;
 
-                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcDropTypes[npc.netID]));
+					List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], WEMod.serverConfig.EnchantmentDropChance);
+					foreach (IItemDropRule rule in dropRules) {
+						loot.Add(rule);
+					}
 
                     if (LogModSystem.printEnchantmentDrops)
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
@@ -469,14 +475,31 @@ namespace WeaponEnchantments.Common.Globals
                     if (npcAIDrops[npc.aiStyle].Count == 1)
                         chance *= npcAIDrops[npc.aiStyle][0].Weight;
 
-                    loot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, npcAIDrops[npc.aiStyle]));
+					List<IItemDropRule> dropRules = GetDropRules(chance, npcAIDrops[npc.aiStyle], WEMod.serverConfig.EnchantmentDropChance);
+					foreach (IItemDropRule rule in dropRules) {
+						loot.Add(rule);
+					}
 
-                    if (LogModSystem.printEnchantmentDrops)
+					if (LogModSystem.printEnchantmentDrops)
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcAIDrops[npc.aiStyle]));
                 }
             }
         }
-        private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
+        public static List<IItemDropRule> GetDropRules(float chance, IEnumerable<DropData> dropData, float configChance) {
+            List<IItemDropRule> itemDropRules = new();
+            IEnumerable<DropData> weightedDrops = dropData.Where(d => d.Chance <= 0f);
+			IEnumerable<DropData> basicDrops = dropData.Where(d => d.Chance > 0f);
+            if (weightedDrops.Count() > 0)
+                itemDropRules.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, weightedDrops));
+
+            foreach(DropData data in basicDrops) {
+                itemDropRules.Add(new BasicDropRule(data, configChance));
+            }
+
+            return itemDropRules;
+		}
+
+		private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
             //Setup mod boss bag support (Relies on NPC loot being set up before boss bag loot)
             if (!GlobalBossBags.modBossBagIntegrationSetup) {
                 GlobalBossBags.SetupModBossBagIntegration();

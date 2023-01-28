@@ -16,7 +16,31 @@ namespace WeaponEnchantments.Common.Utility
             ID = (int)id;
             Weight = w; 
 		}
+        public WeightedPair(DropData dropData) {
+            ID = dropData.ID;
+            Weight = dropData.Weight;
+        }
         public float Weight;
         public int ID;
-    }
+	}
+	public struct DropData {
+        public int ID;
+        public float Weight;
+        public float Chance;
+        public DropData(int id, float weight = 1f, float chance = -1f) {
+            ID = id;
+            Weight = weight;
+            Chance = chance;
+        }
+		public DropData(ChestID id, float weight = 1f, float chance = -1f) {
+			ID = (int)id;
+			Weight = weight;
+			Chance = chance;
+		}
+		public DropData(CrateID id, float weight = 1f, float chance = -1f) {
+			ID = (int)id;
+			Weight = weight;
+			Chance = chance;
+		}
+	}
 }

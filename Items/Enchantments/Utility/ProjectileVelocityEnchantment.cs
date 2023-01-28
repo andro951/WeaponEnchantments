@@ -21,12 +21,12 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class ProjectileVelocityEnchantmentBasic : ProjectileVelocityEnchantment
 	{
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Harpy),
 			new(NPCID.SnowBalla),
 			new(NPCID.SnowmanGangsta)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Frozen),
 			new(CrateID.Boreal_FrozenHard)
 		};

@@ -38,21 +38,21 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class AttackSpeedEnchantmentBasic : AttackSpeedEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.EaterofWorldsHead)
 		};
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Bat),
 			new(NPCAIStyleID.Piranha)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f },
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f },
-			{ ChestID.Ivy, 1f },
-			{ ChestID.Granite, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans),
+			new(ChestID.Ivy),
+			new(ChestID.Granite)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Wooden, 0.5f),
 			new(CrateID.Pearlwood_WoodenHard, 0.5f),
 			new(CrateID.Iron, 0.5f),

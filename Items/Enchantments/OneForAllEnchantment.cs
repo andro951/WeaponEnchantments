@@ -30,14 +30,14 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class OneForAllEnchantmentBasic : OneForAllEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Mothron)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold_Locked, 1f },
-			{ ChestID.Lihzahrd, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold_Locked),
+			new(ChestID.Lihzahrd, 1f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Golden_LockBox, 0.45f)
 		};
 	}

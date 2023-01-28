@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.QueenSlimeBoss)
 		};
 	}

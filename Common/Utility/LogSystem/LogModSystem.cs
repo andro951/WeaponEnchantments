@@ -65,7 +65,7 @@ namespace WeaponEnchantments.Common.Utility
         public static SortedDictionary<string, Contributors> contributorsData = new SortedDictionary<string, Contributors>();
         public static List<string> namesAddedToContributorDictionary = new List<string>();
         public static List<string> enchantmentsLocalization = new List<string>();
-        public static SortedDictionary<int, List<(float, List<WeightedPair>)>> npcEnchantmentDrops = new();
+        public static SortedDictionary<int, List<(float, List<DropData>)>> npcEnchantmentDrops = new();
 	    private static string localization = "";
         private static string localizationValues = "";
         private static string localizationKeys = "";

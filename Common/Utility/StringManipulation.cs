@@ -88,7 +88,12 @@ namespace WeaponEnchantments.Common.Utility
         public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageClassID.Generic ? ((DamageClassID)dc.Type).ToString() + " " : "" : "";
 
         public static string S(this float f, int decimals = 4) {
+            float correction = (float)Math.Pow(0.1f, decimals + 1);
+            if (1f - f + (int)f <= correction)
+                f += correction;
+
             string s = f.ToString($"F{decimals + 1}");
+
             int dot = s.IndexOf('.');
             if (dot == -1)
                 return s;
@@ -120,6 +125,7 @@ namespace WeaponEnchantments.Common.Utility
 			}
 
 			string newStr = s.Substring(0, end);
+
 			return newStr;
 		}
 

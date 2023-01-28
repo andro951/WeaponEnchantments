@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class SolarDashEnchantmentBasic : SolarDashEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostDeerclops;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Deerclops)
 		};
 	}

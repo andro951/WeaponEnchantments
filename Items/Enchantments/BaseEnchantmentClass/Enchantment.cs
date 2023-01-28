@@ -181,10 +181,10 @@ namespace WeaponEnchantments.Items
 		/// Example: Having just { EItemType.Weapon, 1f } will prevent the item being used on armor and accessories.<br/>
 		/// </summary>
 		public Dictionary<EItemType, float> AllowedList { protected set; get; }
-		public virtual List<WeightedPair> NpcDropTypes { protected set; get; } = null;
-		public virtual List<WeightedPair> NpcAIDrops { protected set; get; } = null;
-		public virtual SortedDictionary<ChestID, float> ChestDrops { protected set; get; } = null;
-		public virtual List<WeightedPair> CrateDrops { protected set; get; } = null;
+		public virtual List<DropData> NpcDropTypes { protected set; get; } = null;
+		public virtual List<DropData> NpcAIDrops { protected set; get; } = null;
+		public virtual List<DropData> ChestDrops { protected set; get; } = null;
+		public virtual List<DropData> CrateDrops { protected set; get; } = null;
 
 		#endregion
 
@@ -420,34 +420,34 @@ namespace WeaponEnchantments.Items
 			}
 
 			if (NpcDropTypes != null) {
-				foreach (WeightedPair pair in NpcDropTypes) {
-					int npcType = pair.ID;
-					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
-					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentPair);
+				foreach (DropData dropData in NpcDropTypes) {
+					int npcType = dropData.ID;
+					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
+					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentDropData);
 				}
 			}
 
 			if (NpcAIDrops != null) {
-				foreach (WeightedPair pair in NpcAIDrops) {
-					int npcAIStyle = pair.ID;
-					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
-					WEGlobalNPC.npcAIDrops.AddOrCombine(npcAIStyle, enchantmentPair);
+				foreach (DropData dropData in NpcAIDrops) {
+					int npcAIStyle = dropData.ID;
+					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
+					WEGlobalNPC.npcAIDrops.AddOrCombine(npcAIStyle, enchantmentDropData);
 				}
 			}
 
 			if (ChestDrops != null) {
-				foreach (KeyValuePair<ChestID, float> pair in ChestDrops) {
-					ChestID chestID = pair.Key;
-					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Value);
-					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentPair);
+				foreach (DropData dropData in ChestDrops) {
+					ChestID chestID = (ChestID)dropData.ID;
+					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
+					WEModSystem.chestDrops.AddOrCombine(chestID, enchantmentDropData);
 				}
 			}
 
 			if (CrateDrops != null) {
-				foreach (WeightedPair pair in CrateDrops) {
-					int crateID = pair.ID;
-					WeightedPair enchantmentPair = new WeightedPair(Type, pair.Weight);
-					GlobalCrates.crateDrops.AddOrCombine(crateID, enchantmentPair);
+				foreach (DropData dropData in CrateDrops) {
+					int crateID = dropData.ID;
+					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
+					GlobalCrates.crateDrops.AddOrCombine(crateID, enchantmentDropData);
 				}
 			}
 

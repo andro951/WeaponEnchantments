@@ -32,13 +32,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 	}
 	public class PeaceEnchantmentBasic : PeaceEnchantment
 	{
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.Pixie)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Wooden, 0.5f),
 			new(CrateID.Pearlwood_WoodenHard, 0.5f)
 		};

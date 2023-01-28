@@ -430,41 +430,6 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 		        EnchantmentInfoBox enchantmentInfoBox = new(FloatID.right);
                 foreach (Enchantment enchantment in list.ToList()) {
                     enchantmentInfoBox.Add(enchantment);
-                    
-                    //if (first) {
-                    //    first = false;
-                    //    string enchantmentType = enchantment.EnchantmentTypeName.AddSpaces() + " Enchantment";
-                    //    if (!tier0EnchantmentsOnly) {
-                    //        enchantmentTypePage = new(enchantmentType);
-                    //        enchantmentTypePage.AddLink("Enchantments");
-                    //        if (enchantment.WikiDescription != null)
-                    //            enchantmentTypePage.AddParagraph(enchantment.WikiDescription);
-
-                    //        string typePNG = enchantment.Item.ToItemPNG(link: true, linkText: enchantmentType);
-                    //        Enchantments.AddParagraph(typePNG);
-                    //        if (enchantment.Utility)
-                    //            UtilityEnchantments.AddParagraph(typePNG);
-                    //    }
-                        
-                    //    typePageLinkString = enchantmentType.ToLink();
-                    //}
-
-                    //int tier = enchantment.EnchantmentTier;
-                    //if (tier != 0 && tier0EnchantmentsOnly)
-                    //    continue;
-
-                    //if (!tier0EnchantmentsOnly)
-                    //    enchantmentTypePage.AddParagraph($"{enchantment.Item.ToItemPNG(link: true)} (Tier {tier})");
-
-                    //ItemInfo itemInfo = new(enchantment);
-                    //WebPage enchantmentPage = new(itemInfo.Name);
-                    //enchantmentPage.AddLink("Enchantments");
-                    //enchantmentPage.AddParagraph(typePageLinkString);
-                    //itemInfo.AddStatistics(enchantmentPage);
-                    //itemInfo.AddDrops(enchantmentPage);
-                    //itemInfo.AddInfo(enchantmentPage);
-                    //itemInfo.AddRecipes(enchantmentPage);
-                    //webPages.Add(enchantmentPage);
                 }
                 
                 WebPage enchantmentPage = new(enchantmentInfoBox.Name, Enchantments);
@@ -681,41 +646,70 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 
             chestDrops = new();
             foreach (ChestID chestID in Enum.GetValues(typeof(ChestID)).Cast<ChestID>().ToList().Where(c => c != ChestID.None)) {
-                WEModSystem.GetChestLoot(chestID, out List<WeightedPair> pairs, out float baseChance);
-                if (pairs == null)
+                WEModSystem.GetChestLoot(chestID, out List<DropData> dropData, out float baseChance);
+                if (dropData == null)
                     continue;
 
                 string name = chestID.ToString() + " Chest";
                 float total = 0f;
-                foreach (WeightedPair pair in pairs) {
-                    total += pair.Weight;
+                IEnumerable<DropData> weightedDrops = dropData.Where(d => d.Chance <= 0f);
+				IEnumerable<DropData> chanceDrops = dropData.Where(d => d.Chance > 0f);
+
+                foreach (DropData data in chanceDrops) {
+                    float randFloat = Main.rand.NextFloat();
+                    float chance = ConfigValues.ChestSpawnChance / 0.5f * data.Chance;
+					if (chestDrops.ContainsKey(data.ID)) {
+						chestDrops[data.ID].Add(chestID, chance);
+					}
+					else {
+						chestDrops.Add(data.ID, new() { { chestID, chance } });
+					}
+				}
+
+				foreach (DropData data in weightedDrops) {
+                    total += data.Weight;
                 }
 
-                foreach (WeightedPair pair in pairs) {
-                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+                foreach (DropData data in weightedDrops) {
+                    Item sampleItem = ContentSamples.ItemsByType[data.ID];
                     int type = sampleItem.type;
                     if (!(type >= min && type <= max))
                         continue;
 
                     if (chestDrops.ContainsKey(type)) {
-                        chestDrops[type].Add(chestID, baseChance * pair.Weight / total);
+                        chestDrops[type].Add(chestID, baseChance * data.Weight / total);
 					}
 					else {
-                        chestDrops.Add(type, new() { { chestID, baseChance * pair.Weight / total } });
+                        chestDrops.Add(type, new() { { chestID, baseChance * data.Weight / total } });
                     }
                 }
             }
 
             crateDrops = new();
-            foreach (KeyValuePair<int, List<WeightedPair>> crate in GlobalCrates.crateDrops) {
+            foreach (KeyValuePair<int, List<DropData>> crate in GlobalCrates.crateDrops) {
                 string name = ((CrateID)crate.Key).ToString() + " Crate";
                 float total = 0f;
-                foreach (WeightedPair pair in crate.Value) {
-                    total += pair.Weight;
+
+				IEnumerable<DropData> weightedDrops = crate.Value.Where(d => d.Chance <= 0f);
+				IEnumerable<DropData> chanceDrops = crate.Value.Where(d => d.Chance > 0f);
+
+				foreach (DropData data in chanceDrops) {
+					float randFloat = Main.rand.NextFloat();
+					float chance = ConfigValues.CrateDropChance * data.Chance;
+					if (crateDrops.ContainsKey(data.ID)) {
+						crateDrops[data.ID].Add((CrateID)crate.Key, chance);
+					}
+					else {
+						crateDrops.Add(data.ID, new() { { (CrateID)crate.Key, chance } });
+					}
+				}
+
+				foreach (DropData data in crate.Value) {
+                    total += data.Weight;
                 }
 
-                foreach (WeightedPair pair in crate.Value) {
-                    Item sampleItem = ContentSamples.ItemsByType[pair.ID];
+                foreach (DropData data in crate.Value) {
+                    Item sampleItem = ContentSamples.ItemsByType[data.ID];
                     int type = sampleItem.type;
                     if (!(type >= min && type <= max))
                         continue;
@@ -723,7 +717,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     float baseChance = GlobalCrates.GetCrateEnchantmentDropChance(crate.Key);
                     if (crateDrops.ContainsKey(type)) {
                         if (crateDrops[type].ContainsKey((CrateID)crate.Key)) {
-                            $"New: item: {sampleItem.S()}, CrateID: {(CrateID)crate.Key}, chance: {baseChance * pair.Weight / total}.  Old chance: {crateDrops[type][(CrateID)crate.Key]}".LogSimple();
+                            $"New: item: {sampleItem.S()}, CrateID: {(CrateID)crate.Key}, chance: {baseChance * data.Weight / total}.  Old chance: {crateDrops[type][(CrateID)crate.Key]}".LogSimple();
                             continue;
                             /*
 [23:42:04.661] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: New: item: Attack Speed Enchantment Basic, CrateID: Iron, chance: 0.008305647.  Old chance: 0.008305647
@@ -741,10 +735,10 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                             */
                         }
 
-                        crateDrops[type].Add((CrateID)crate.Key, baseChance * pair.Weight / total);
+                        crateDrops[type].Add((CrateID)crate.Key, baseChance * data.Weight / total);
                     }
                     else {
-                        crateDrops.Add(type, new() { { (CrateID)crate.Key, baseChance * pair.Weight / total } });
+                        crateDrops.Add(type, new() { { (CrateID)crate.Key, baseChance * data.Weight / total } });
                     }
                 }
             }

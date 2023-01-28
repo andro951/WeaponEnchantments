@@ -45,14 +45,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class DangerSenseEnchantmentBasic : DangerSenseEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 0.5f),
 			new(CrateID.Iron, 0.5f)
 		};
@@ -68,14 +68,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class HunterEnchantmentBasic : HunterEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 0.5f),
 			new(CrateID.Iron, 0.5f)
 		};
@@ -91,14 +91,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class ObsidianSkinEnchantmentBasic : ObsidianSkinEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 0.5f),
 			new(CrateID.Iron, 0.5f)
 		};
@@ -114,14 +114,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class SpelunkerEnchantmentBasic : SpelunkerEnchantment
 	{
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 1f },
-			{ ChestID.Gold_DeadMans, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 0.5f),
 			new(CrateID.Iron, 0.5f)
 		};
@@ -138,15 +138,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class FishingEnchantmentBasic : FishingEnchantment
 	{
-		protected override int buffID => BuffID.Fishing;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic, 0.5f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 0.5f },
-			{ ChestID.Gold_DeadMans, 0.5f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold, 0.5f),
+			new(ChestID.Gold_DeadMans, 0.5f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 1f),
 			new(CrateID.Iron, 1f)
 		};
@@ -162,15 +161,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class CrateEnchantmentBasic : CrateEnchantment
 	{
-		protected override int buffID => BuffID.Crate;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic, 0.5f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 0.5f },
-			{ ChestID.Gold_DeadMans, 0.5f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold, 0.5f),
+			new(ChestID.Gold_DeadMans, 0.5f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 1f),
 			new(CrateID.Iron, 1f)
 		};
@@ -186,15 +184,14 @@ namespace WeaponEnchantments.Items.Utility
 	}
 	public class SonarEnchantmentBasic : SonarEnchantment
 	{
-		protected override int buffID => BuffID.Sonar;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Mimic, 0.5f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Gold, 0.5f },
-			{ ChestID.Gold_DeadMans, 0.5f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold, 0.5f),
+			new(ChestID.Gold_DeadMans, 0.5f)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Iron, 1f),
 			new(CrateID.Iron, 1f)
 		};
@@ -203,4 +200,26 @@ namespace WeaponEnchantments.Items.Utility
 	public class SonarEnchantmentRare : SonarEnchantment { }
 	public class SonarEnchantmentEpic : SonarEnchantment { }
 	public class SonarEnchantmentLegendary : SonarEnchantment { }
+	public abstract class ShineEnchantment : OnTickPlayerBuffEnchantment
+	{
+		protected override int buffID => BuffID.Shine;
+		public override string Artist => "andro951";
+	}
+	public class ShineEnchantmentBasic : ShineEnchantment
+	{
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.UndeadMiner, chance: 1f)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal, 0.5f)
+		};
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 1f),
+			new(CrateID.Pearlwood_WoodenHard, 1f)
+		};
+	}
+	public class ShineEnchantmentCommon : ShineEnchantment { }
+	public class ShineEnchantmentRare : ShineEnchantment { }
+	public class ShineEnchantmentEpic : ShineEnchantment { }
+	public class ShineEnchantmentLegendary : ShineEnchantment { }
 }

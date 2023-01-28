@@ -24,10 +24,10 @@ namespace WeaponEnchantments.Items.Enchantments
 	}
 	public class ExtraFishingLineEnchantmentBasic : ExtraFishingLineEnchantment
 	{
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.FlyingFish)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Jungle),
 			new(CrateID.Bramble_JungleHard),
 			new(CrateID.Sky),

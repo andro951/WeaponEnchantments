@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments
     public class KiEnchantmentBasic : KiEnchantment
     {
         public override SellCondition SellCondition => SellCondition.HardMode;
-        public override List<WeightedPair> NpcDropTypes => new()
+        public override List<DropData> NpcDropTypes => new()
         {
             new(NPCID.Lihzahrd),
             new(NPCID.LihzahrdCrawler)

@@ -30,7 +30,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     public class LuckEnchantmentBasic : LuckEnchantment
     {
         public override SellCondition SellCondition => SellCondition.Luck;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.Pinky, 1f),
             new(NPCID.Nymph, 1f),
             new(NPCID.DungeonSlime, 0.2f),
@@ -90,31 +90,31 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
             new(NPCID.Mothron, 0.01f),
             new(NPCID.GoldenSlime, 1f)
         };
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
             new(NPCAIStyleID.Mimic, 0.05f),
             new(NPCAIStyleID.BiomeMimic, 0.1f)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-            { ChestID.Chest_Normal, 0.05f },
-            { ChestID.Gold, 0.05f },
-            { ChestID.Gold_Locked, 0.05f },
-            { ChestID.Shadow, 0.05f },
-            { ChestID.Shadow_Locked, 0.05f },
-            { ChestID.RichMahogany, 0.05f },
-            { ChestID.Ivy, 0.05f },
-            { ChestID.Frozen, 0.05f },
-            { ChestID.LivingWood, 0.05f },
-            { ChestID.Skyware, 0.05f },
-            { ChestID.WebCovered, 0.05f },
-            { ChestID.Lihzahrd, 0.05f },
-            { ChestID.Water, 0.05f },
-            { ChestID.Mushroom, 0.05f },
-            { ChestID.Granite, 0.05f },
-            { ChestID.Marble, 0.05f },
-            { ChestID.Gold_DeadMans, 0.5f },
-            { ChestID.SandStone, 0.05f }
+		public override List<DropData> ChestDrops => new() {
+            new(ChestID.Chest_Normal, 0.05f),
+            new(ChestID.Gold, 0.05f),
+            new(ChestID.Gold_Locked, 0.05f),
+            new(ChestID.Shadow, 0.05f),
+            new(ChestID.Shadow_Locked, 0.05f),
+            new(ChestID.RichMahogany, 0.05f),
+            new(ChestID.Ivy, 0.05f),
+            new(ChestID.Frozen, 0.05f),
+            new(ChestID.LivingWood, 0.05f),
+            new(ChestID.Skyware, 0.05f),
+            new(ChestID.WebCovered, 0.05f),
+            new(ChestID.Lihzahrd, 0.05f),
+            new(ChestID.Water, 0.05f),
+            new(ChestID.Mushroom, 0.05f),
+            new(ChestID.Granite, 0.05f),
+            new(ChestID.Marble, 0.05f),
+            new(ChestID.Gold_DeadMans, 0.5f),
+            new(ChestID.SandStone, 0.05f)
         };
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
             new(CrateID.Wooden, 0.05f),
             new(CrateID.Iron, 0.05f),
             new(CrateID.Golden, 0.05f),

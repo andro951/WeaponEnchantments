@@ -28,13 +28,13 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     public class LavaFishingEnchantmentBasic : LavaFishingEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.HellButterfly),
             new(NPCID.Lavafly),
             new(NPCID.MagmaSnail),
             new(NPCID.Hellbat)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
             new(CrateID.Iron),
             new(CrateID.Mythril_IronHard)
 		};

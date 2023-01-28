@@ -31,14 +31,14 @@ namespace WeaponEnchantments.Items.Enchantments.Utility {
     public class MobilityControlEnchantmentBasic : MobilityControlEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.Harpy),
             new(NPCID.WyvernHead)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-            { ChestID.Skyware, 1f }            
+		public override List<DropData> ChestDrops => new() {
+            new(ChestID.Skyware)           
 		};
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Sky),
             new(CrateID.Azure_SkyHard)
         };

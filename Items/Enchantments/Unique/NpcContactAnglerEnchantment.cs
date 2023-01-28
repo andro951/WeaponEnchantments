@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique {
     public class NpcContactAnglerEnchantmentBasic : NpcContactAnglerEnchantment
     {
         public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Golden),
             new(CrateID.Titanium_GoldenHard)
         };

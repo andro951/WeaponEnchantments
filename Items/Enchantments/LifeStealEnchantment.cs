@@ -41,19 +41,19 @@ namespace WeaponEnchantments.Items.Enchantments {
     public class LifeStealEnchantmentBasic : LifeStealEnchantment
     {
         public override SellCondition SellCondition => SellCondition.PostEaterOfWorldsOrBrainOfCthulhu;
-        public override List<WeightedPair> NpcDropTypes => new() {
+        public override List<DropData> NpcDropTypes => new() {
             new(NPCID.WallofFlesh)
         };
-        public override List<WeightedPair> NpcAIDrops => new() {
+        public override List<DropData> NpcAIDrops => new() {
             new(NPCAIStyleID.Vulture),
             new(NPCAIStyleID.TheHungry),
             new(NPCAIStyleID.Creeper)
         };
-        public override SortedDictionary<ChestID, float> ChestDrops => new() {
-            { ChestID.Shadow, 0.1f },
-            { ChestID.Shadow_Locked, 0.1f }
+        public override List<DropData> ChestDrops => new() {
+            new(ChestID.Shadow, 0.1f),
+            new(ChestID.Shadow_Locked, 0.1f)
         };
-        public override List<WeightedPair> CrateDrops => new() {
+        public override List<DropData> CrateDrops => new() {
             new(CrateID.Obsidian_LockBox, 0.05f),
             new(CrateID.Crimson, 0.5f),
             new(CrateID.Hematic_CrimsonHard, 0.5f)

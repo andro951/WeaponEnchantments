@@ -28,13 +28,13 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class MaxMinionsEnchantmentBasic : MaxMinionsEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostQueenBee;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.QueenBee)
 		};
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Spider)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Oasis, 0.5f),
 			new(CrateID.Mirage_OasisHard, 0.5f),
 			new(CrateID.Jungle, 0.5f),

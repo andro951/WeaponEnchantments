@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class MoonlightEnchantmentBasic : MoonlightEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostCultist;
-		public override List<WeightedPair> NpcDropTypes => new() {
+		public override List<DropData> NpcDropTypes => new() {
 			new(NPCID.CultistBoss)
 		};
 	}

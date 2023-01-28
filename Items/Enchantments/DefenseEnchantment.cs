@@ -31,13 +31,13 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class DefenseEnchantmentBasic : DefenseEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.Always;
-		public override List<WeightedPair> NpcAIDrops => new() {
+		public override List<DropData> NpcAIDrops => new() {
 			new(NPCAIStyleID.Fighter)
 		};
-		public override SortedDictionary<ChestID, float> ChestDrops => new() {
-			{ ChestID.Chest_Normal, 1f }
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal)
 		};
-		public override List<WeightedPair> CrateDrops => new() {
+		public override List<DropData> CrateDrops => new() {
 			new(CrateID.Wooden, 0.5f),
 			new(CrateID.Pearlwood_WoodenHard, 0.5f)
 		};

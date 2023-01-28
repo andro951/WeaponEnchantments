@@ -35,7 +35,7 @@ namespace WeaponEnchantments
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
-        public static SortedDictionary<ChestID, List<WeightedPair>> chestDrops = new SortedDictionary<ChestID, List<WeightedPair>>();
+        public static SortedDictionary<ChestID, List<DropData>> chestDrops = new();
 
         private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
@@ -588,7 +588,7 @@ namespace WeaponEnchantments
                 int itemsPlaced = 0;
 
                 ChestID chestID = GetChestIDFromChest(chest);
-                GetChestLoot(chestID, out List<WeightedPair> options, out float chance);
+                GetChestLoot(chestID, out List<DropData> options, out float chance);
 
                 if (chance <= 0f)
                     continue;
@@ -596,11 +596,36 @@ namespace WeaponEnchantments
                 if (options == null)
                     continue;
 
-                for (int j = 0; j < 40 && itemsPlaced < chance; j++) {
+                IEnumerable<DropData> weightedDropData = options.Where(d => d.Chance <= 0f);
+				IEnumerable<DropData> chanceDropData = options.Where(d => d.Chance > 0f);
+                foreach(DropData dropData in chanceDropData) {
+					float randFloat = Main.rand.NextFloat();
+                    float dropChance = dropData.Chance * ChestSpawnChance / 0.5f;
+                    if (randFloat > dropChance)
+                        continue;
+
+					for (int j = 0; j < 40; j++) {
+						if (chest.item[j].type != ItemID.None)
+							continue;
+
+                        int type = dropData.ID;
+						for (int k = j; k >= 0; k--) {
+							if (chest.item[k].type == type && chest.item[k].stack < chest.item[k].maxStack) {
+								chest.item[k].stack++;
+                                break;
+							}
+						}
+
+						chest.item[j] = new Item(type);
+                        break;
+					}
+				}
+
+				for (int j = 0; j < 40 && itemsPlaced < chance; j++) {
                     if (chest.item[j].type != ItemID.None)
                         continue;
 
-                    int type = options.GetOneFromWeightedList(chance);
+                    int type = weightedDropData.GetOneFromWeightedList(chance);
 
                     if (type > 0) {
                         bool found = false;
@@ -609,6 +634,7 @@ namespace WeaponEnchantments
                                 chest.item[k].stack++;
                                 found = true;
                                 j--;
+                                break;
                             }
                         }
 
@@ -637,14 +663,14 @@ namespace WeaponEnchantments
                     return ChestID.None;
             }
         }
-        public static void GetChestLoot(ChestID chestID, out List<WeightedPair> itemTypes, out float chance) {
+        public static void GetChestLoot(ChestID chestID, out List<DropData> itemTypes, out float chance) {
             chance = 0f;
             itemTypes = chestDrops.ContainsKey(chestID) ? chestDrops[chestID] : null;
             if (itemTypes == null)
                 return;
 
             chance = ChestSpawnChance;
-            if (itemTypes.Count == 1)
+            if (itemTypes.Where(d => d.Chance <= 0f).Count() == 1)
                 chance *= itemTypes[0].Weight;
 
             switch (chestID) {

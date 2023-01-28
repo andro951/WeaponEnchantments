@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalCrates : GlobalItem
     {
-        public static SortedDictionary<int, List<WeightedPair>> crateDrops = new SortedDictionary<int, List<WeightedPair>>();
+        public static SortedDictionary<int, List<DropData>> crateDrops = new();
         /*
         // No need for premature optimizations - the VM has no idea what an "enum" is, every enum is just stored as its underlying type (usually int).
         public static SortedDictionary<int, ChestID> crateToChestIDs = new SortedDictionary<int, ChestID>() {
@@ -56,11 +56,12 @@ namespace WeaponEnchantments.Common.Globals
             //ChestID chestID = crateToChestIDs[item.type];
 
             //WEModSystem.GetChestLoot(chestID, out List<int> itemDrops, out float chance);
-
             if (crateDrops.ContainsKey(item.type)) {
                 float chance = GetCrateEnchantmentDropChance(item.type);
-
-                itemLoot.Add(new OneFromWeightedOptionsNotScaledWithLuckDropRule(chance, crateDrops[item.type]));
+				List<IItemDropRule> dropRules = WEGlobalNPC.GetDropRules(chance, crateDrops[item.type], ConfigValues.CrateDropChance);
+				foreach (IItemDropRule rule in dropRules) {
+					itemLoot.Add(rule);
+				}
             }
             
             //itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuckWithX(epsilon, (int)(chance * epsilon), itemDrops.ToArray()));
