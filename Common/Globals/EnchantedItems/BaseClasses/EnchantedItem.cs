@@ -1460,7 +1460,8 @@ namespace WeaponEnchantments.Common.Globals
                             Enchantment enchantment = ((Enchantment)cGlobal.enchantments[k].ModItem);
                             int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
-                            if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 4))
+                            //int slotToUse = enchantment.Utility && iGlobal.enchantments[j].IsAir ? 4 : j;
+                            if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 1))
                                 cantFit = true;
 
                             if (!cantFit && !WEUIItemSlot.EnchantmentAllowedOnItem(item, enchantment))
