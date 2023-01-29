@@ -955,7 +955,7 @@ namespace WeaponEnchantments.Common.Globals
                     isWeapon = false;
                     break;
                 default:
-                    isWeapon = item.DamageType != DamageClass.Default;
+                    isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0) && item.ammo == 0;
                     break;
             }
 
