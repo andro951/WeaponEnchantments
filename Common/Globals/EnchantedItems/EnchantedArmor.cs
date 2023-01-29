@@ -78,5 +78,12 @@ namespace WeaponEnchantments.Common.Globals
 				$"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 				$"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
 		}
+
+		public override (string, string, string) SkillPointsToNames() => ("Resilience", "Deftness", "Endurance");
+
+		public override void SkillPointsToStats()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

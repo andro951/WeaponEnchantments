@@ -386,7 +386,14 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
-	}
+
+        public override (string, string, string) SkillPointsToNames() => ("Strength", "Swiftness", "Efficiency");
+
+        public override void SkillPointsToStats()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public static class EnchantedWeaponStaticMethods
 	{

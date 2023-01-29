@@ -16,6 +16,14 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return IsTool(entity);
 		}
-		public override EItemType ItemType => EItemType.Tools;
-	}
+
+        public override EItemType ItemType => EItemType.Tools;
+
+        public override (string, string, string) SkillPointsToNames() => ("Swiftness", "Reach", "Violence");
+
+        public override void SkillPointsToStats()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

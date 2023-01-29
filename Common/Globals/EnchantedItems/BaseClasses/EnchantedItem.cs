@@ -88,6 +88,59 @@ namespace WeaponEnchantments.Common.Globals
 
         #endregion
 
+        #region Skill Points
+
+        /*(int Unspent, int FirstStat, int SecondStat, int ThirdStat) _skillpoints = (0, 0, 0, 0);
+
+
+        public (int Unspent, int FirstStat, int SecondStat, int ThirdStat) SkillPoints
+        {
+            get => _skillpoints;
+            private set => _skillpoints = value;
+        }
+
+        public void GetSkillPoint() => SkillPoints = (_skillpoints.Unspent++, _skillpoints.FirstStat, _skillpoints.SecondStat, _skillpoints.ThirdStat);
+
+        public bool TryUseSkillPoint(int pos = -1)
+        {
+            if (SkillPoints.Unspent < 1) return false;
+            switch (pos)
+            {
+                case -1: break;
+                case 1: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat++, _skillpoints.SecondStat, _skillpoints.ThirdStat); break;
+                case 2: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat, _skillpoints.SecondStat++, _skillpoints.ThirdStat); break;
+                case 3: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat, _skillpoints.SecondStat, _skillpoints.ThirdStat++); break;
+                default : return false;
+            }
+            return true;
+        }
+        public void RespecSkillPoints() => SkillPoints = (levelBeforeBooster, 0, 0, 0);*/
+
+        (int FirstStat, int SecondStat, int ThirdStat) _skillpoints = (0, 0, 0);
+        public int FirstStat { get => _skillpoints.FirstStat; private set => _skillpoints = (value, _skillpoints.SecondStat, _skillpoints.ThirdStat); }
+        public int SecondStat { get => _skillpoints.SecondStat; private set => _skillpoints = (_skillpoints.FirstStat, value, _skillpoints.ThirdStat); }
+        public int ThirdStat { get => _skillpoints.ThirdStat; private set => _skillpoints = (_skillpoints.FirstStat, _skillpoints.SecondStat, value); }
+
+        public int AvailableSkillPoints() => (int) Math.Ceiling((double) (levelBeforeBooster - (FirstStat+SecondStat+ThirdStat)));
+        public abstract (string, string, string) SkillPointsToNames();
+        public abstract void SkillPointsToStats();
+        public bool TryUseSkillPoint(int pos = -1)
+        {
+            if (AvailableSkillPoints() < 1) return false;
+            switch (pos)
+            {
+                case -1: break;
+                case 1: FirstStat++; break;
+                case 2: SecondStat++; break;
+                case 3: ThirdStat++; break;
+                default : return false;
+            }
+            return true;
+        }
+        public void RespecSkillPoints() { FirstStat = 0; SecondStat = 0; ThirdStat = 0; }
+
+        #endregion
+
         #region Experience
 
         protected int _experience = 0;

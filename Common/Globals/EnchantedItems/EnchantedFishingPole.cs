@@ -17,5 +17,12 @@ namespace WeaponEnchantments.Common.Globals
 			return IsFishingRod(entity);
 		}
 		public override EItemType ItemType => EItemType.FishingPoles;
+
+		public override (string, string, string) SkillPointsToNames() => ("Efficiency", "Alluring", "Luck");
+
+		public override void SkillPointsToStats()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

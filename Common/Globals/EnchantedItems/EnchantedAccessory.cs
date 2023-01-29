@@ -25,5 +25,12 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsAccessoryItem(entity);
 		public override EItemType ItemType => EItemType.Accessories;
+
+		public override (string, string, string) SkillPointsToNames() => ("Luck", "Greed", "Speed");
+
+		public override void SkillPointsToStats()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
