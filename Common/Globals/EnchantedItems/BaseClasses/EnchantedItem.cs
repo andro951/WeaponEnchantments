@@ -951,15 +951,11 @@ namespace WeaponEnchantments.Common.Globals
 
             bool isWeapon;
             switch (item.type) {
-                case ItemID.CoinGun:
-                case ItemID.Snowball:
-                    isWeapon = true;
-                    break;
                 case ItemID.ExplosiveBunny:
                     isWeapon = false;
                     break;
                 default:
-                    isWeapon = item.damage > 0 && item.ammo == 0;
+                    isWeapon = item.DamageType != DamageClass.Default;
                     break;
             }
 

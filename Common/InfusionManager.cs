@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -589,30 +590,195 @@ namespace WeaponEnchantments.Common
                 case ItemID.DayBreak:
                     rarity = 9.5f;
                     break;
-                case ItemID.StarWrath:
+				case ItemID.LunarHamaxeStardust:
+                case ItemID.LunarHamaxeNebula:
+                case ItemID.LunarHamaxeSolar:
+                case ItemID.LunarHamaxeVortex:
+                    rarity = 10.2f;
+                    break;
+				case ItemID.StarWrath:
                     rarity = 10f;
                     break;
 				#endregion
 				case > ItemID.Count:
                     //Manually set rarity of an item
                     switch (sampleItem.Name) {
-                        case "Primary Zenith"://Primary Zenith
+						case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
                             break;
-                        case "Aegis Driver":
+						case "Aegis Driver":
                             rarity = 0.8f;
+                            break;
+						case "Carian Dark Moon"://Stars Above
+                        case "Konpaku Katana"://stars Above
+							rarity = 1f;
+                            break;
+                            rarity = 1.1f;
+                            break;
+						case "Takonomicon"://Stars Above
+						case "Ashen Ambition"://Stars Above
+						case "Neo Dealmaker"://Stars Above
+							rarity = 1.15f;
+							break;
+						case "Rad Gun"://Stars Above
+                            rarity = 1.2f;
                             break;
 						case "Tooth Ball"://Calamity
 							rarity = 1.5f;
                             break;
-                        case "Nullification Pistol"://Calamity
+						case "Pod Zero-42"://Stars Above
+                        case "Persephone"://Stars Above
+							rarity = 2.35f;
+                            break;
+						case "Misery's Company"://Stars Above
+						case "The Morning Star"://Stars Above
+						case "Skofnung"://Stars Above
+                        case "Apalistik"://Stars Above
+                        case "Kazimierz Seraphim"://Stars Above
+                        case "Irminsul's Dream"://Stars Above
+							rarity = 2.4f;
+							break;
+						case "Der Freischutz"://Stars Above
+                        case "Death In Four Acts"://Stars Above
+							rarity = 2.5f;
+							break;
+						case "Nullification Pistol"://Calamity
 						case "Atomic Annie"://Calamity
 							rarity = 3f;
                             break;
-                        case "The Only Thing I Know For Real"://Stars Above
-                            rarity = 9f;
+                        case "Inugami Ripsaw"://Stars Above
+                            rarity = 3.55f;
                             break;
-                        case "Mjölnir"://Thorium
+						case "Luminary Wand"://Stars Above
+                            rarity = 4.25f;
+                            break;
+                        case "Force-of-Nature"://Stars Above
+                        case "Aurum Edge"://Stars Above
+                        case "Every Moment Matters"://Stars Above
+							rarity = 4.35f;
+                            break;
+                        case "Karlan Truesilver"://Stars Above
+                            rarity = 4.5f;
+                            break;
+						case "Saltwater Scourge"://Stars Above
+                            rarity = 5.5f;
+                            break;
+                        case "Dreadnought Chemtank"://Stars Above
+                        case "Sparkblossom's Beacon"://Stars Above
+							rarity = 5.7f;
+                            break;
+						case "Armaments of the Sky Striker"://Stars Above
+						case "Umbra"://Stars Above
+                        case "Seaborn Apalistik"://Stars Above
+							rarity = 6f;
+                            break;
+							rarity = 6.05f;
+                            break;
+							rarity = 6.15f;
+                            break;
+                            rarity = 6.25f;
+                            break;
+						case "Xenoblade"://Stars Above
+							rarity = 6.4f;
+							break;
+						case "Ride the Bull"://Stars Above
+						case "Drachenlance"://Stars Above
+						case "Hullwrought"://Stars Above
+						case "El Capitan's Hardware"://Stars Above
+							rarity = 6.5f;
+                            break;
+                        case "Hunter's Symphony"://Stars Above
+                            rarity = 6.6f;
+                            break;
+						case "Kifrosse"://Stars Above
+                            rarity = 7.1f;
+                            break;
+						case "Voice of the Fallen"://Stars Above
+                        case "Crimson Outbreak"://Stars Above
+							rarity = 7.35f;
+                            break;
+						case "Stygian Nymph"://Stars Above
+						case "Penthesilea's Muse"://Stars Above
+						case "Vision of Euthymia"://Stars Above
+                        case "Cæsura of Despair"://Stars Above
+						case "The Blood Blade"://Stars Above
+                        case "Kroniic Principality"://Stars Above
+							rarity = 8.1f;
+                            break;
+							rarity = 8.25f;
+                            break;
+						case "Phantom in the Mirror"://Stars Above
+                        case "Hollowheart Albion"://Stars Above
+							rarity = 8.3f;
+                            break;
+						case "Mercy"://Stars Above
+						case "Genocide"://Stars Above
+                        case "Gloves of the Black Silence"://Stars Above
+                        case "Tartaglia"://Stars Above
+                        case "Plenilune Gaze"://Stars Above
+							rarity = 8.4f;
+                            break;
+						case "Sakura's Vengeance"://Stars Above
+                        case "Arachnid Needlepoint"://Stars Above
+							rarity = 9.3f;
+                            break;
+                            rarity = 9.45f;
+                            break;
+						case "Key of the Sinner"://Stars Above
+						case "Crimson Sakura Alpha"://Stars Above
+							rarity = 9.7f;
+                            break;
+						case "Ozma Ascendant"://Stars Above
+                            rarity = 9.8f;
+                            break;
+						case "The Only Thing I Know For Real"://Stars Above
+						case "Manifestation"://Stars Above
+                        case "Claimh Solais"://Stars Above
+							rarity = 9.9f;
+                            break;
+						case "Yunlai Stiletto"://Stars Above
+                        case "Twin Stars of Albiero"://Stars Above
+                        case "Rex Lapis"://Stars Above
+                        case "Unforgotten"://Stars Above
+                        case "Liberation Blazing"://Stars Above
+                        case "Catalyst's Memory"://Stars Above
+							rarity = 10.1f;
+                            break;
+                        case "Eternal Star"://Stars Above
+                        case "Soul Reaver"://Stars Above
+							rarity = 10.15f;
+                            break;
+							rarity = 10.2f;
+                            break;
+						case "Virtue's Edge"://Stars Above
+                        case "Shadowless Cerulean"://Stars Above
+                        case "Naganadel"://Stars Above
+						case "Vermilion Daemon"://Stars Above
+                        case "Suistrume"://Stars Above
+							rarity = 10.25f;
+                            break;
+						case "Ignition Astra"://Stars Above
+                        case "Hullwrought MK. II"://Stars Above
+							rarity = 10.4f;
+                            break;
+                        case "Celestial Princess' Genesis"://Stars Above
+                            rarity = 10.6f;
+                            break;
+						case "Vermilion Riposte"://Stars Above
+                        case "Light Unrelenting"://Stars Above
+                        case "The Everlasting Pickaxe"://Stars Above
+						case "Burning Desire"://Stars Above
+						case "Key of the King's Law"://Stars Above
+							rarity = 11.3f;
+                            break;
+                        case "Bury The Light"://Stars Above
+                            rarity = 11.4f;
+                            break;
+						case "Architect's Luminance"://Stars Above
+						case "Cosmic Destroyer"://Stars Above
+							rarity = 11.6f;
+                            break;
+						case "Mjölnir"://Thorium
                             rarity = 13f;
                             break;
 						default:
