@@ -849,7 +849,8 @@ namespace WeaponEnchantments.Common.Globals
                 return true;
 
             //item1 already tested for try.
-            item2.TryGetEnchantedItem(out EnchantedItem i2Global);
+            if (!item2.TryGetEnchantedItem(out EnchantedItem i2Global))
+                return true;
 
             bool modified1 = i1Global.Modified;
             bool modified2 = i2Global.Modified;
