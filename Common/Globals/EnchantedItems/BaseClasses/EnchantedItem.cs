@@ -632,7 +632,7 @@ namespace WeaponEnchantments.Common.Globals
             foreach (Enchantment enchantment in enchantmentModItems) {
                 //float effectiveness = enchantment.AllowedList[ItemType];
                 //var effectTooltips = enchantment.GetEffectsTooltips();
-		        string tooltip = enchantment.StoredShortTooltip;
+		        string tooltip = enchantment.ShortTooltip;
 		        tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = TierColors[enchantment.EnchantmentTier] });
                 //tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
                 //foreach (var tooltipTuple in effectTooltips) {
@@ -1038,7 +1038,9 @@ namespace WeaponEnchantments.Common.Globals
                 Item enchantmentItem = iGlobal.enchantments[i];
                 Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
-            }
+                if (!enchantmentItem.NullOrAir())
+                    item.ApplyEnchantment(i);
+			}
 
             //Get Global Item Stats
             iGlobal.TryGetInfusionStats();
@@ -1060,10 +1062,16 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                Enchantment enchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
+                foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
+                    effect.EnchantedItem = enchantedItem;
+                }
+
+                if (enchantment is IStoreAppliedItem storeAppliedItem)
+                    storeAppliedItem.EnchantedItem = enchantedItem;
             }
 
 			#region Debug
@@ -1692,5 +1700,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }//d
-    }
+		public static float GetPrideOfTheWeakMultiplier(this EnchantedItem enchantedItem) => 1f - enchantedItem.GetInfusionPower() / 500f;
+	}
 }

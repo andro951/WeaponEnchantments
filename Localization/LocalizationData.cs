@@ -133,6 +133,7 @@ namespace WeaponEnchantments.Localization
 									{ typeof(Multishot).Name, "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)" },
 									{ typeof(OneForAll).Name, "{0}\n(Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)" },
 									{ typeof(OnHitSpawnProjectile).Name, "Spawns a projectile when hitting an enemy: {0}"},
+									{ typeof(PrideOfTheWeak).Name, "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)" },
 									{ typeof(QuestFishChance).Name, "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"}
 								}
 							) },

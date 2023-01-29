@@ -123,6 +123,11 @@ namespace WeaponEnchantments.Common {
             }
 
 			GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
+            List<IAddDynamicEffects> addDynamicEffects = enchantmentEffects.OfType<IAddDynamicEffects>().ToList();
+			foreach (IAddDynamicEffects effect in addDynamicEffects) {
+                effect.AddDynamicEffects(enchantmentEffects, enchantedHeldItem);
+            }
+
             enchantedHeldItem.EnchantmentEffects = enchantmentEffects;
             SortEnchantmentEffects(enchantedHeldItem);
         }

@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Encantamiento de Ladrón de monedas Épico
 			PennyPinchingEnchantmentLegendary: Encantamiento de Ladrón de monedas Legendario
 			PennyPinchingEnchantmentRare: Encantamiento de Ladrón de monedas Raro
+			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
+			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
+			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
+			PrideOfTheWeakEnchantmentLegendary: Pride Of The Weak Enchantment Legendary
+			PrideOfTheWeakEnchantmentRare: Pride Of The Weak Enchantment Rare
 			ProjectileVelocityEnchantmentBasic: Encantamiento de velocidad de proyectil Básico
 			ProjectileVelocityEnchantmentCommon: Encantamiento de velocidad de proyectil Común
 			ProjectileVelocityEnchantmentEpic: Encantamiento de velocidad de proyectil Épico
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Encantamiento de cambio a clase pícaro Épico
 			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio a clase pícaro Legendario
 			RogueClassSwapEnchantmentRare: Encantamiento de cambio a clase de pícaro Raro
+			ShineEnchantmentBasic: Shine Enchantment Basic
+			ShineEnchantmentCommon: Shine Enchantment Common
+			ShineEnchantmentEpic: Shine Enchantment Epic
+			ShineEnchantmentLegendary: Shine Enchantment Legendary
+			ShineEnchantmentRare: Shine Enchantment Rare
 			SizeEnchantmentBasic: Encantamiento de tamaño Básico
 			SizeEnchantmentCommon: Encantamiento de tamaño Común
 			SizeEnchantmentEpic: Encantamiento de tamaño Épico
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: Encantamiento de Mundo en llamas Legendario
 			WorldAblazeEnchantmentRare: Encantamiento de Mundo En Llamas Raro
 			Containment: Contenedor
+			MediumContainment: Contenedor Medio
+			SuperiorContainment: Contenedor Superior
 			DustyEnchantingTable: Mesa de encantamiento polvorienta
+			HellishEnchantingTable: Mesa de encantamiento infernal
+			SoulEnchantingTable: Mesa de encantamiento Espiritual
+			UltimateEnchantingTable: Mesa de encantamiento definitiva
+			WoodEnchantingTable: Mesa encantamiento de madera
 			EnchantmentEssenceBasic: Esencia de encantamiento Básica
 			EnchantmentEssenceCommon: Esencia de encantamiento Común
 			EnchantmentEssenceEpic: Esencia de encantamiento Épica
 			EnchantmentEssenceLegendary: Esencia de encantamiento Legendaria
 			EnchantmentEssenceRare: Esencia de encantamiento Rara
-			HellishEnchantingTable: Mesa de encantamiento infernal
-			MediumContainment: Contenedor Medio
 			PowerBooster: Estimulante de potencia
-			SoulEnchantingTable: Mesa de encantamiento Espiritual
-			SuperiorContainment: Contenedor Superior
-			UltimateEnchantingTable: Mesa de encantamiento definitiva
 			UltraPowerBooster: Potenciador de potencia ultra
-			WoodEnchantingTable: Mesa encantamiento de madera
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Proyectil de engendro al golpear
 				Peace: Paz
 				PennyPinching: Ladrón de Monedas
+				PrideOfTheWeak: Pride Of The Weak
 				ProjectileVelocity: Velocidad del proyectil
 				QuestFishChance: Probabilidad de Pescado de Misión
 				RangedClassSwap: Intercambio de clase a distancia
 				ReducedManaUsage: Uso de maná reducido
 				RogueClassSwap: Cambio de clase a pícaro
+				Shine: Shine
 				Size: Tamaño
 				SolarDash: Embestida solar
 				Sonar: Sonar
@@ -647,6 +659,7 @@ Mods: {
 					(Solo se activa con el primer impacto de un proyectil).
 					'''
 				OnHitSpawnProjectile: "Genera un proyectil al golpear a un enemigo: {0}"
+				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
 				QuestFishChance: "{0} (Los peces de la misión capturados se entregarán automáticamente y se iniciará una nueva misión, superando el límite de 1 por día)."
 				BoolEffect: {
 					Enabled: "{0}: Habilitado"

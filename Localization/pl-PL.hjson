@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Epickie zaklęcie szczypiące grosz
 			PennyPinchingEnchantmentLegendary: Penny Szczypanie Zaklęcie Legendarne
 			PennyPinchingEnchantmentRare: Zaklęcie Szczypiące Penny Rzadkie
+			PrideOfTheWeakEnchantmentBasic: Podstawowe zaklęcie Duma słabych
+			PrideOfTheWeakEnchantmentCommon: Duma Słabego Zaklęcia Wspólne
+			PrideOfTheWeakEnchantmentEpic: Epicka duma słabych zaklęć
+			PrideOfTheWeakEnchantmentLegendary: Legendarne zaklęcie Duma słabych
+			PrideOfTheWeakEnchantmentRare: Duma słabego zaklęcia Rzadkie
 			ProjectileVelocityEnchantmentBasic: Podstawowe zaklęcie prędkości pocisku
 			ProjectileVelocityEnchantmentCommon: Zaklęcie prędkości pocisku Powszechne
 			ProjectileVelocityEnchantmentEpic: Epickie zaklęcie prędkości pocisku
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Epic zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentLegendary: Legendarne zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentRare: Rzadkie zaklęcie zmiany klasy Rzadkie
+			ShineEnchantmentBasic: Podstawowe zaklęcie blasku
+			ShineEnchantmentCommon: Pospolity zaklęcie blasku
+			ShineEnchantmentEpic: Epickie zaklęcie blasku
+			ShineEnchantmentLegendary: Legendarne zaklęcie blasku
+			ShineEnchantmentRare: Rzadkie Zaklęcie Połysku
 			SizeEnchantmentBasic: Podstawowe zaklęcie rozmiaru
 			SizeEnchantmentCommon: Rozmiar Zaklęcie Powszechne
 			SizeEnchantmentEpic: Epicki rozmiar zaklęcia
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: Legendarne Zaklęcie Płomienia Świata
 			WorldAblazeEnchantmentRare: Zaklęcie Płomienia Świata Rzadkie
 			Containment: Powstrzymywanie
+			MediumContainment: Średnia izolacja
+			SuperiorContainment: Doskonałe zabezpieczenie
 			DustyEnchantingTable: Zakurzony stół do czarowania
+			HellishEnchantingTable: Piekielna Zaklinająca Stół
+			SoulEnchantingTable: Stół Zaklinania Duszy
+			UltimateEnchantingTable: Ostateczny stół zaklinający
+			WoodEnchantingTable: Stół do zaklinania drewna
 			EnchantmentEssenceBasic: Podstawowa esencja zaklęcia
 			EnchantmentEssenceCommon: Esencja zaklęcia Zwykła
 			EnchantmentEssenceEpic: Esencja zaklęcia Epic
 			EnchantmentEssenceLegendary: Legendarna esencja zaklęcia
 			EnchantmentEssenceRare: Zaklinająca Esencja Rzadka
-			HellishEnchantingTable: Piekielna Zaklinająca Stół
-			MediumContainment: Średnia izolacja
 			PowerBooster: Wzmacniacz mocy
-			SoulEnchantingTable: Stół Zaklinania Duszy
-			SuperiorContainment: Doskonałe zabezpieczenie
-			UltimateEnchantingTable: Ostateczny stół zaklinający
 			UltraPowerBooster: Ultrawzmacniacz mocy
-			WoodEnchantingTable: Stół do zaklinania drewna
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Po trafieniu pocisk odradza się
 				Peace: Pokój
 				PennyPinching: szczypta grosza
+				PrideOfTheWeak: Duma słabych
 				ProjectileVelocity: Prędkość pocisku
 				QuestFishChance: Szansa na ryby
 				RangedClassSwap: Zamiana klas dystansowych
 				ReducedManaUsage: Zmniejszone zużycie many
 				RogueClassSwap: Zmiana klasy łotrzyka
+				Shine: Świecić
 				Size: Rozmiar
 				SolarDash: Słoneczna kreska
 				Sonar: Sonar
@@ -647,6 +659,7 @@ Mods: {
 					(Aktywuje się tylko przy pierwszym trafieniu pociskiem.)
 					'''
 				OnHitSpawnProjectile: "„Tworzy pocisk po trafieniu wroga: {0}”"
+				PrideOfTheWeak: "„{0} Zwiększa obrażenia zadawane przez słabą broń. (100% skuteczności przy mocy infuzji 0. 0% skuteczności przy mocy infuzji 500.)”"
 				QuestFishChance: "„{0} (Złapane ryby w ramach misji zostaną automatycznie oddane i rozpoczną nowe zadanie, z pominięciem limitu 1 dziennie.)”"
 				BoolEffect: {
 					Enabled: "„{0}: Włączone”"

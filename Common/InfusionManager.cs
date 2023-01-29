@@ -727,6 +727,15 @@ namespace WeaponEnchantments.Common
 
             return multiplier > 1f || WEMod.clientConfig.AllowInfusingToLowerPower ? multiplier : 1f;
         }
+        public static int GetInfusionPower(this EnchantedItem enchantedItem) {
+            if (enchantedItem.infusedItemName != "") {
+                return enchantedItem.infusionPower;
+            }
+            else {
+                float itemRarity = GetWeaponRarity(enchantedItem.Item);
+                return (int)Math.Round(itemRarity * 100f); ;
+            }
+        }
         public static float GetWeaponMultiplier(this Item item, int consumedItemInfusionPower) {
             float itemRarity = GetWeaponRarity(item);
             float consumedRarity = (float)consumedItemInfusionPower / 100f;

@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Зачарование "Скупость" (Эпическое)
 			PennyPinchingEnchantmentLegendary: Зачарование "Скупость" (Легендарное)
 			PennyPinchingEnchantmentRare: Зачарование "Скупость" (Редкое)
+			PrideOfTheWeakEnchantmentBasic: Зачарование "Гордость слабых" (Базовое)
+			PrideOfTheWeakEnchantmentCommon: Зачарование "Гордость слабых" (Обычное)
+			PrideOfTheWeakEnchantmentEpic: Зачарование "Гордость слабых" (Эпическое)
+			PrideOfTheWeakEnchantmentLegendary: Зачарование "Гордость слабых" (Легендарное)
+			PrideOfTheWeakEnchantmentRare: Зачарование "Гордость слабых" (Редкое)
 			ProjectileVelocityEnchantmentBasic: Зачарование "Скорость снаряда" (Базовое)
 			ProjectileVelocityEnchantmentCommon: Зачарование "Скорость снаряда" (Обычное)
 			ProjectileVelocityEnchantmentEpic: Зачарование "Скорость снаряда" (Эпическое)
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Зачарование "Замена класса - Разбойник" (Эпическое)
 			RogueClassSwapEnchantmentLegendary: Зачарование "Замена класса - Разбойник" (Легендарное)
 			RogueClassSwapEnchantmentRare: Зачарование "Замена класса - Разбойник" (Редкое)
+			ShineEnchantmentBasic: Зачарование "Сияние" (Базовое)
+			ShineEnchantmentCommon: Зачарование "Сияние" (Обычное)
+			ShineEnchantmentEpic: Зачарование "Сияние" (Эпическое)
+			ShineEnchantmentLegendary: Зачарование "Сияние" (Легендарное)
+			ShineEnchantmentRare: Зачарование "Сияние" (Редкое)
 			SizeEnchantmentBasic: Зачарование "Размер" (Базовое)
 			SizeEnchantmentCommon: Зачарование "Размер" (Обычное)
 			SizeEnchantmentEpic: Зачарование "Размер" (Эпическое)
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: Зачарование "Мир в огне" (Легендарное)
 			WorldAblazeEnchantmentRare: Зачарование "Мир в огне" (Редкое)
 			Containment: Контейнер
+			MediumContainment: Средний контейнер
+			SuperiorContainment: Превосходный контейнер
 			DustyEnchantingTable: Пыльный стол зачарования
+			HellishEnchantingTable: Адский стол зачарования
+			SoulEnchantingTable: Стол зачарования души
+			UltimateEnchantingTable: Абсолютный стол зачарования
+			WoodEnchantingTable: Деревянный стол зачарования
 			EnchantmentEssenceBasic: Базовая эссенция зачарования
 			EnchantmentEssenceCommon: Обычная эссенция зачарования
 			EnchantmentEssenceEpic: Эпическая эссенция зачарования
 			EnchantmentEssenceLegendary: Легендарная эссенция зачарования
 			EnchantmentEssenceRare: Редкая эссенция зачарования
-			HellishEnchantingTable: Адский стол зачарования
-			MediumContainment: Средний контейнер
 			PowerBooster: Усилитель мощности
-			SoulEnchantingTable: Стол зачарования души
-			SuperiorContainment: Превосходный контейнер
-			UltimateEnchantingTable: Абсолютный стол зачарования
 			UltraPowerBooster: Ультрамощный усилитель
-			WoodEnchantingTable: Деревянный стол зачарования
 		}
 		BuffName: {
 			Amaterasu: Аматерасу
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Создает снаряды при ударе
 				Peace: Мир
 				PennyPinching: Скупость
+				PrideOfTheWeak: Гордость слабых
 				ProjectileVelocity: Скорость снарядов
 				QuestFishChance: Шанс квестовой рыбы
 				RangedClassSwap: Замена класса - Стрелок
 				ReducedManaUsage: Сниженный расход маны
 				RogueClassSwap: Замена класса - Разбойник
+				Shine: Сияние
 				Size: Размер
 				SolarDash: Солнечный рывок
 				Sonar: Сонар
@@ -647,6 +659,7 @@ Mods: {
 					(Срабатывает только на первом ударе снаряда.)
 					'''
 				OnHitSpawnProjectile: "Создаёт снаряд при ударе по противнику: {0}"
+				PrideOfTheWeak: "{0} увеличивает урон наносимый слабым оружием (100% эффект при силе наполнения 0. 0% эффект при силе наполнения 500)"
 				QuestFishChance: "{0} (Квестовая рыба будет автоматически сдана при поимке, и начнётся новый квест, обходя лимит 1 квеста в день.)"
 				BoolEffect: {
 					Enabled: "{0}: Включено"

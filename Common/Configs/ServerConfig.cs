@@ -365,7 +365,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Always display Infusion Power")]
         [Tooltip("Enable to display item's Infusion Power always instead of just when the enchanting table is open.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool AlwaysDisplayInfusionPower;
 
         [Label("Percentage of offered Item value converted to essence.")]

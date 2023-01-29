@@ -462,7 +462,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (npcDropTypes[npc.netID].Where(d => d.Chance <= 0f).Count() == 1)
                         chance *= npcDropTypes[npc.netID][0].Weight;
 
-					List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], WEMod.serverConfig.EnchantmentDropChance);
+					List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], EnchantmentDropChance);
 					foreach (IItemDropRule rule in dropRules) {
 						loot.Add(rule);
 					}
@@ -475,7 +475,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (npcAIDrops[npc.aiStyle].Count == 1)
                         chance *= npcAIDrops[npc.aiStyle][0].Weight;
 
-					List<IItemDropRule> dropRules = GetDropRules(chance, npcAIDrops[npc.aiStyle], WEMod.serverConfig.EnchantmentDropChance);
+					List<IItemDropRule> dropRules = GetDropRules(chance, npcAIDrops[npc.aiStyle], EnchantmentDropChance);
 					foreach (IItemDropRule rule in dropRules) {
 						loot.Add(rule);
 					}
