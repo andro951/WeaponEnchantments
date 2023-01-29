@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
-    public class DefenseEffect : StatEffect {
-        public DefenseEffect(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+    public class Defense : StatEffect, IVanillaStat {
+        public Defense(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        public override EditableStat statName => EditableStat.Defense;
-        public override string DisplayName => "Defense";
+        }
+        public Defense(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new Defense(EStatModifier.Clone());
+        }
+
+        public override EnchantmentStat statName => EnchantmentStat.Defense;
+        public override string TooltipValue => EStatModifier.SignTooltip;
     }
 }

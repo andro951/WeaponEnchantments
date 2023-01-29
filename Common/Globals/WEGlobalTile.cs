@@ -29,6 +29,7 @@ namespace WeaponEnchantments.Common.Globals
 						case 0:
 						case 3:
 						case 24:
+						case 110:
 						case 185:
 						case 187:
 						case 233:
@@ -47,7 +48,15 @@ namespace WeaponEnchantments.Common.Globals
 			if (tileTarget.TileType == MysticSnakeRope)
 				return true;
 
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			//Hammer (Don't calculate a dropItem)
+			if (Main.tileHammer[tileTarget.TileType]) {
+				tileType = tileTarget.TileType;
+				dropItem = new Item();
+				return true;
+			}
+
+			if (!Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+				return true;
 			
 			//Calculate damage done to the tile  (Copied vanilla code)
 			int hitBufferIndex = wePlayer.Player.hitTile.HitObject(i, j, 1);
@@ -78,7 +87,9 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
         }
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem) {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (!Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
+				return;
+
 			Item heldItem = wePlayer.Player.HeldItem;
 
 			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
@@ -103,6 +114,10 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
 				xp = tileType >= TreeTopaz && tileType <= TreeAmber ? tiles  * 50 : tiles * 10;
+			}
+			else if (Main.tileHammer[tileType]) {
+				//Hammer
+				xp += 9;
 			}
 			else {
 				//Pickaxe

@@ -4,55 +4,59 @@ using Terraria.ModLoader;
 using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using System.Collections.Generic;
 using WeaponEnchantments.Common.Utility;
+using System.Diagnostics;
 
 namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
         public static bool modBossBagIntegrationSetup = false;
-        public static SortedDictionary<int, int> bossBagNPCIDs = new SortedDictionary<int, int>() {
-                { ItemID.KingSlimeBossBag, NPCID.KingSlime },
-                { ItemID.EyeOfCthulhuBossBag, NPCID.EyeofCthulhu },
-                { ItemID.EaterOfWorldsBossBag, NPCID.EaterofWorldsHead },
-                { ItemID.BrainOfCthulhuBossBag, NPCID.BrainofCthulhu },
-                { ItemID.QueenBeeBossBag, NPCID.QueenBee },
-                { ItemID.SkeletronBossBag, NPCID.SkeletronHead },
-                { ItemID.DeerclopsBossBag, NPCID.Deerclops },
-                { ItemID.WallOfFleshBossBag, NPCID.WallofFlesh },
-                { ItemID.QueenSlimeBossBag, NPCID.QueenSlimeBoss },
-                { ItemID.TwinsBossBag, NPCID.Retinazer },
-                { ItemID.DestroyerBossBag, NPCID.TheDestroyer },
-                { ItemID.SkeletronPrimeBossBag, NPCID.SkeletronPrime },
-                { ItemID.PlanteraBossBag, NPCID.Plantera },
-                { ItemID.GolemBossBag, NPCID.Golem },
-                { ItemID.FishronBossBag, NPCID.DukeFishron },
-                { ItemID.FairyQueenBossBag, NPCID.HallowBoss },
-                { ItemID.CultistBossBag/*Unobtainable*/, NPCID.CultistBoss },
-                { ItemID.MoonLordBossBag, NPCID.MoonLordCore },
-                { ItemID.BossBagDarkMage/*Unobtainable*/, NPCID.DD2DarkMageT1 },
-                { ItemID.BossBagOgre/*Unobtainable*/, NPCID.DD2OgreT2 },
-                { ItemID.BossBagBetsy, NPCID.DD2Betsy }
+        public static bool printNPCNameOnHitForBossBagSupport = false && Debugger.IsAttached;
+        public static SortedDictionary<int, List<int>> bossBagNPCIDs = new SortedDictionary<int, List<int>>() {
+            { ItemID.KingSlimeBossBag, new() { NPCID.KingSlime } },
+            { ItemID.EyeOfCthulhuBossBag, new() { NPCID.EyeofCthulhu } },
+            { ItemID.EaterOfWorldsBossBag, new() { NPCID.EaterofWorldsHead } },
+            { ItemID.BrainOfCthulhuBossBag, new() { NPCID.BrainofCthulhu } },
+            { ItemID.QueenBeeBossBag, new() { NPCID.QueenBee } },
+            { ItemID.SkeletronBossBag, new() { NPCID.SkeletronHead } },
+            { ItemID.DeerclopsBossBag, new() { NPCID.Deerclops } },
+            { ItemID.WallOfFleshBossBag, new() { NPCID.WallofFlesh } },
+            { ItemID.QueenSlimeBossBag, new() { NPCID.QueenSlimeBoss } },
+            { ItemID.TwinsBossBag, new() { NPCID.Retinazer } },
+            { ItemID.DestroyerBossBag, new() { NPCID.TheDestroyer } },
+            { ItemID.SkeletronPrimeBossBag, new() { NPCID.SkeletronPrime } },
+            { ItemID.PlanteraBossBag, new() { NPCID.Plantera } },
+            { ItemID.GolemBossBag, new() { NPCID.Golem } },
+            { ItemID.FishronBossBag, new() { NPCID.DukeFishron } },
+            { ItemID.FairyQueenBossBag, new() { NPCID.HallowBoss } },
+            { ItemID.CultistBossBag/*Unobtainable*/, new() { NPCID.CultistBoss } },
+            { ItemID.MoonLordBossBag, new() { NPCID.MoonLordCore } },
+            { ItemID.BossBagDarkMage/*Unobtainable*/, new() { NPCID.DD2DarkMageT1 } },
+            { ItemID.BossBagOgre/*Unobtainable*/, new() { NPCID.DD2OgreT2 } },
+            { ItemID.BossBagBetsy, new() { NPCID.DD2Betsy } }
 		};
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
 
             int type = item.type;
 
             if (!bossBagNPCIDs.ContainsKey(type))
-                return;
+				return;
 
-            int npcType = bossBagNPCIDs[type];
-            NPC npc = ContentSamples.NpcsByNetId[npcType];
+            List<int> npcTypes = bossBagNPCIDs[type];
+            foreach(int npcType in npcTypes) {
+				NPC npc = ContentSamples.NpcsByNetId[npcType];
 
-            #region Debug
+				#region Debug
 
-            if (LogMethods.debugging && item.ModItem != null) {
-                string bagName = item.ModItem.Name;
-                bagName.Log();
-            }
+				if (LogMethods.debugging && item.ModItem != null) {
+					string bagName = item.ModItem.Name;
+					bagName.Log();
+				}
 
-            #endregion
+				#endregion
 
-            GetLoot(itemLoot, npc, true);
+				GetLoot(itemLoot, npc, true);
+			}
         }
         public static void SetupModBossBagIntegration() {
             SortedDictionary<string, int> supportedNPCsThatDropBags = new SortedDictionary<string, int>();
@@ -72,12 +76,16 @@ namespace WeaponEnchantments.Common.Globals
                 }
                 */
 
+                //Fix for a mod by bsicaly im a cat (aka FoxXD_) causing old boss bags to turn into other items -> no mod item
+                if (sampleItem.ModItem == null)
+                    continue;
+
                 // \/ Fix for Querty's bags not included in BossBag item sets
                 string bossName = GetModdedBossNameFromBag(sampleItem.ModItem.Name);
 
                 if (itemIsBossBag) {
                     if(bossName == null) {
-                        $"Support for this boss bag: {sampleItem.S()} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT(ChatMessagesIDs.BossBagNameNull);
+                        $"Support for this boss bag: {sampleItem.S()}, ModItem: {sampleItem.ModItem.Name} has not yet been added Mod: {sampleItem.ModItem.Mod.Name}.".LogNT(ChatMessagesIDs.BossBagNameNull);
                         continue;
                     }
                 }
@@ -90,14 +98,18 @@ namespace WeaponEnchantments.Common.Globals
                 supportedNPCsThatDropBags.Add(bossName, sampleItem.type);
             }
 
-            //Find the modded boss that drops the modded boss bag
-            for (int i = NPCID.Count; i < NPCLoader.NPCCount; i++) {
+            //Find the boss that drops the modded boss bag
+            for (int i = 0; i < NPCLoader.NPCCount; i++) {
                 NPC sampleNPC = ContentSamples.NpcsByNetId[i];
                 string sampleNPCName = sampleNPC.FullName;
                 if (supportedNPCsThatDropBags.ContainsKey(sampleNPCName)) {
                     int bagType = supportedNPCsThatDropBags[sampleNPCName];
-                    if(!bossBagNPCIDs.ContainsKey(bagType))
-                        bossBagNPCIDs.Add(bagType, sampleNPC.type);
+                    if (!bossBagNPCIDs.ContainsKey(bagType)) {
+						bossBagNPCIDs.Add(bagType, new() { sampleNPC.netID });
+					}
+                    else {
+                        bossBagNPCIDs[bagType].Add(sampleNPC.netID);
+                    }
                 }
             }
         }
@@ -362,8 +374,51 @@ namespace WeaponEnchantments.Common.Globals
                 // /\ Querty's Bosses and Items 2
 
 
-                //Extras for later
-                /*case "":
+                // \/ StormDiversMod
+                case "StormBossBag":
+                    return "Overloaded Scandrone";
+				// \/ StormDiversMod
+
+
+				// \/ ThoriumMod
+				case "AbyssionBag":
+					return "Forgotten One";
+				case "CultistBag":
+					return "Lunatic Cultist";
+				case "BoreanBag":
+					return "Borean Strider";
+				case "DarkMageBag":
+					return "Dark Mage";
+				case "OgreBag":
+					return "Ogre";
+				case "RagBag":
+					return "Slag Fury, the First Flame";
+				case "GraniteBag":
+					return "Granite Energy Storm";
+				case "BeholderBag":
+					return "Fallen Beholder";
+				case "HeroBag":
+					return "Buried Champion";
+				case "LichBag":
+					return "Lich";
+				case "FlyingDutchmanBag":
+					return "Flying Dutchman";
+				case "MartianSaucerBag":
+					return "Martian Saucer";
+				case "JellyFishBag":
+					return "Queen Jellyfish";
+				case "ScouterBag":
+					return "Star Scouter";
+				case "ThunderBirdBag":
+					return "The Grand Thunder Bird";
+				case "CountBag":
+					return "Viscount";
+				// \/ ThoriumMod
+
+
+
+				//Extras for later
+				/*case "":
                     return "";
                 case "":
                     return "";
@@ -377,7 +432,7 @@ namespace WeaponEnchantments.Common.Globals
                     return "";
                 case "":
                     return "";*/
-                default:
+				default:
                     return null;
             }
         }

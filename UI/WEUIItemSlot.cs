@@ -19,6 +19,7 @@ using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Common.Configs;
 using System.Linq;
 using static WeaponEnchantments.Items.Enchantment;
+using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments.UI
 {
@@ -61,6 +62,9 @@ namespace WeaponEnchantments.UI
                     if (iGlobal != null) {
 						if (item.type == PowerBooster.ID && !iGlobal.PowerBoosterInstalled)
 							return true;
+
+						if (item.type == UltraPowerBooster.ID && !iGlobal.UltraPowerBoosterInstalled)
+							return true;
 					}
 
 					return item.TryGetEnchantedItem();
@@ -69,7 +73,7 @@ namespace WeaponEnchantments.UI
 					if (iGlobal == null)
 						return false;
 
-					bool useEnchantmentSlot = UseEnchantmentSlot();
+					bool useEnchantmentSlot = UseEnchantmentSlot(itemInUI, _slotTier, _utilitySlot);
 					if (!useEnchantmentSlot)
 						return false;
 
@@ -78,45 +82,20 @@ namespace WeaponEnchantments.UI
 						return false;
 
 					Enchantment newEnchantment = ((Enchantment)item.ModItem);
-					int damageType = ContentSamples.ItemsByType[itemInUI.type].DamageType.Type;
-					int damageClassSpecific = Enchantment.GetDamageClass(damageType);
-
-					if(newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
+					if (!EnchantmentAllowedOnItem(itemInUI, newEnchantment))
 						return false;
-
-					if (newEnchantment.RestrictedClass != -1 && damageClassSpecific == newEnchantment.RestrictedClass)
-						return false;
-
-					if(!CheckAllowedList(newEnchantment))
-						return false;
-
-					if(newEnchantment.ArmorSlotSpecific > -1) {
-						int slot = -1;
-						switch (newEnchantment.ArmorSlotSpecific) {
-							case (int)ArmorSlotSpecificID.Head:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.headSlot;
-								break;
-							case (int)ArmorSlotSpecificID.Body:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.bodySlot;
-								break;
-							case (int)ArmorSlotSpecificID.Legs:
-								slot = wePlayer.enchantingTableUI.itemSlotUI[0].Item.legSlot;
-								break;
-						}
-
-						if (slot == -1)
-							return false;
-					}
 
 					int currentEnchantmentLevelCost = 0;
                     if (!Item.IsAir)
 						currentEnchantmentLevelCost = ((Enchantment)Item.ModItem).GetCapacityCost();
 
-					return iGlobal.GetLevelsAvailable() >= newEnchantment.GetCapacityCost() - currentEnchantmentLevelCost;
+					int levelsAvailable = iGlobal.GetLevelsAvailable();
+					int newEnchantmentCost = newEnchantment.GetCapacityCost();
+					return levelsAvailable >= newEnchantmentCost - currentEnchantmentLevelCost;
 
 				case ItemSlotContext.Essence:
                     if (item.TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
-						return essence.essenceTier == _slotTier;
+						return essence.EssenceTier == _slotTier;
 					}//check essence is valid
                     else {
 						return false;
@@ -125,44 +104,80 @@ namespace WeaponEnchantments.UI
 					return false;
 			}
 		}
-		public static bool CheckAllowedList(Enchantment enchantment) {
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-			Item itemInUI = wePlayer.ItemInUI();
-			bool allowedWeapon = enchantment.AllowedList.ContainsKey(EItemType.Weapon) && IsWeaponItem(itemInUI);
-			bool allowedArmor = enchantment.AllowedList.ContainsKey(EItemType.Armor) && IsArmorItem(itemInUI);
-			bool allowedAccessory = enchantment.AllowedList.ContainsKey(EItemType.Accessory) && IsAccessoryItem(itemInUI);
+		public static bool EnchantmentAllowedOnItem(Item item, Enchantment newEnchantment) {
+			if (RemoveEnchantmentRestrictions)
+				return true;
 
-			return allowedWeapon || allowedArmor || allowedAccessory;
-		}
-		private bool UseEnchantmentSlot() {
-			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+			if (item.TryGetEnchantedItem(out EnchantedWeapon _)) {
+				int damageType = ContentSamples.ItemsByType[item.type].DamageType.Type;
 
-			if (_slotTier > wePlayer.enchantingTableTier && !_utilitySlot)
+				int damageClassSpecific = Enchantment.GetDamageClass(damageType);
+
+				if (newEnchantment.DamageClassSpecific != 0 && damageClassSpecific != newEnchantment.DamageClassSpecific)
+					return false;
+
+				if (newEnchantment.RestrictedClass.Contains(damageClassSpecific))
+					return false;
+			}
+
+			if (!CheckAllowedList(item, newEnchantment))
 				return false;
 
-			Item itemInUI = wePlayer.ItemInUI();
+			if (newEnchantment.ArmorSlotSpecific > -1) {
+				int slot = -1;
+				switch (newEnchantment.ArmorSlotSpecific) {
+					case (int)ArmorSlotSpecificID.Head:
+						slot = item.headSlot;
+						break;
+					case (int)ArmorSlotSpecificID.Body:
+						slot = item.bodySlot;
+						break;
+					case (int)ArmorSlotSpecificID.Legs:
+						slot = item.legSlot;
+						break;
+				}
 
-			return SlotAllowedByConfig(itemInUI, _slotTier);
+				if (slot == -1)
+					return false;
+			}
+
+			return true;
+		}
+		public static bool CheckAllowedList(Item item, Enchantment enchantment) {
+			if (RemoveEnchantmentRestrictions)
+				return true;
+
+			if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				bool allowedOnItem = enchantment.AllowedList.ContainsKey(enchantedItem.ItemType);
+
+				return allowedOnItem;
+			}
+
+			return false;
+		}
+		public static bool UseEnchantmentSlot(Item item, int slot, bool utilitySlot = false) {
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+
+			if (slot > wePlayer.enchantingTableTier && !utilitySlot)
+				return false;
+
+			return SlotAllowedByConfig(item, slot);
 		}
 		public static bool SlotAllowedByConfig(Item item, int slot) {
 			int configSlots;
-			int[] configSlotSettings = new int[] { 
+			int[] configSlotSettings = new int[] {
 				WEMod.serverConfig.EnchantmentSlotsOnWeapons,
 				WEMod.serverConfig.EnchantmentSlotsOnArmor,
-				WEMod.serverConfig.EnchantmentSlotsOnAccessories
+				WEMod.serverConfig.EnchantmentSlotsOnAccessories,
+				WEMod.serverConfig.EnchantmentSlotsOnFishingPoles,
+				WEMod.serverConfig.EnchantmentSlotsOnTools
 			};
 
-			if(item == null || item.IsAir) {
+			if (item == null || item.IsAir) {
 				configSlots = configSlotSettings.Max();
 			}
-			else if (IsWeaponItem(item)) {
-				configSlots = configSlotSettings[0];
-			}
-			else if (IsArmorItem(item)) {
-				configSlots = configSlotSettings[1];
-			}
-			else if (IsAccessoryItem(item)) {
-				configSlots = configSlotSettings[2];
+			else if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				configSlots = configSlotSettings[(int)enchantedItem.ItemType - 1];
 			}
 			else {
 				configSlots = 0;
@@ -192,6 +207,20 @@ namespace WeaponEnchantments.UI
 
 						SoundEngine.PlaySound(SoundID.Grab);
 						iGlobal.PowerBoosterInstalled = true;
+					}
+				}
+				else if (Main.mouseItem.type == UltraPowerBooster.ID) {
+					Item itemInUI = wePlayer.ItemInUI();
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && !iGlobal.UltraPowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
+						if (Main.mouseItem.stack > 1) {
+							Main.mouseItem.stack--;
+						}
+						else {
+							Main.mouseItem = new Item();
+						}
+
+						SoundEngine.PlaySound(SoundID.Grab);
+						iGlobal.UltraPowerBoosterInstalled = true;
 					}
 				}
 				else if (Main.mouseItem.ModItem is Enchantment enchantment) {
@@ -224,7 +253,7 @@ namespace WeaponEnchantments.UI
 		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
 			if (item.ModItem is Enchantment enchantment) {
 				if (utility) {
-					return enchantment.Utility;
+					return enchantment.Utility || RemoveEnchantmentRestrictions;
 				}
 				else {
 					return true;
@@ -235,14 +264,17 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public bool CheckUniqueSlot(Enchantment enchantment, int swapEnchantmentSlot) {
-			return (!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier;
+			return RemoveEnchantmentRestrictions || ((!enchantment.Unique && !enchantment.Max1) || swapEnchantmentSlot == -1 || swapEnchantmentSlot == _slotTier);
 		}
 		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item item) {
+			if (RemoveEnchantmentRestrictions)
+				return -1;
+
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
 				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
 					if (!iGlobal.enchantments[i].IsAir) {
 						Enchantment appliedEnchantment = (Enchantment)iGlobal.enchantments[i].ModItem;
-						if (appliedEnchantment != null && ((enchantement.Unique) && (appliedEnchantment.Unique) || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
+						if (appliedEnchantment != null && (enchantement.Unique && appliedEnchantment.Unique || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
 							return i;
 						}
 					}
@@ -304,7 +336,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			Draw(spriteBatch, rectangle.TopLeft());
+			Draw(spriteBatch, wePlayer.ItemInUI(), rectangle.TopLeft());
 
 			if (contains) {
 				timer++;
@@ -316,7 +348,7 @@ namespace WeaponEnchantments.UI
 
 			Main.inventoryScale = oldScale;
 		}
-		public void Draw(SpriteBatch spriteBatch/*, Item item, int context, int slot*/, Vector2 position) {
+		public void Draw(SpriteBatch spriteBatch, Item item/*, int context, int slot*/, Vector2 position) {
 			//All copied then modified from vanilla
 
 			float inventoryScale = Main.inventoryScale;
@@ -336,7 +368,7 @@ namespace WeaponEnchantments.UI
 			Color color2 = Color.White;
 
 			int context;
-            if (!UseEnchantmentSlot() && (_context == 0 || _context == 10)){
+            if (!UseEnchantmentSlot(item, _slotTier, _utilitySlot) && (_context == 0 || _context == 10)){
 				context = 5;
             }
 			else {

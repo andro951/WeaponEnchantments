@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common.Utility
@@ -37,7 +40,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Projectile projectile) => projectile != null ? projectile.Name : "null";
+        public static string S(this Projectile projectile) => projectile != null ? $"name: {projectile.Name}, id: {projectile.type}" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -47,7 +50,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this NPC npc, bool stats = false) => npc != null ? $"name: {npc.FullName} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeMax}, life: {npc.life}" : "")}" : "null";
+        public static string S(this NPC npc, bool stats = false) => npc != null ? $"name: {npc.FullName} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -58,6 +61,11 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this Dictionary<int, int> dictionary, int key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
+        
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
+        public static string S(this Dictionary<short, int> dictionary, short key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key] : "");
 
         /// <summary>
         /// Convert to a string
@@ -73,10 +81,57 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this bool b) => b ? "True" : "False";
+		
+        /// <summary>
+        /// Convert to a string
+        /// </summary>
+        public static string S(this DamageClass dc) => dc != null ? dc.Type != (int)DamageClassID.Generic ? ((DamageClassID)dc.Type).ToString() + " " : "" : "";
 
-        #endregion
+        public static string S(this float f, int decimals = 4) {
+            float correction = (float)Math.Pow(0.1f, decimals + 1);
+            if (1f - f + (int)f <= correction)
+                f += correction;
 
-        public static bool IsUpper(this char c) {
+            string s = f.ToString($"F{decimals + 1}");
+
+            int dot = s.IndexOf('.');
+            if (dot == -1)
+                return s;
+
+            int length = s.Length;
+            int end = length - 1;
+            for (; end > dot; end--) {
+                char c = s[end - 1];
+				if (c != '0' && c != '.') {
+                    break;
+                }
+            }
+
+            if (end == length - 1 && length - dot - 1 > 2) {
+                char last = s[end];
+                char lastM1 = (char)(last - 1);
+                int i = end + 1;
+				for (; i > dot + 2; i--) {
+                    char c = s[i - 2];
+                    if (c != last && c != lastM1 && c != '.') {
+                        break;
+                    }
+                }
+
+                if (i < end) {
+					string newStr1 = $"{s.Substring(0, i)}{last}";
+					return newStr1;
+				}
+			}
+
+			string newStr = s.Substring(0, end);
+
+			return newStr;
+		}
+
+		#endregion
+
+		public static bool IsUpper(this char c) {
             foreach (char upper in upperCase) {
                 if (upper == c)
                     return true;
@@ -100,6 +155,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return false;
         }
+        public static bool IsUpperOrNumber(this char c) => c.IsUpper() || c.IsNumber();
 
         /// <summary>
         /// Create a list of words from a string, splitting them when encountering capital letters<br/>
@@ -170,6 +226,7 @@ namespace WeaponEnchantments.Common.Utility
                     }
                 }
             }
+
             return -1;
         }
 
@@ -190,47 +247,64 @@ namespace WeaponEnchantments.Common.Utility
             return s.Substring(i);
         }
 
+        private static List<string> LowerCaseAddSpacesStringWords = new() { "of" };
+
         /// <summary>
         /// Add spaces before capitals and numbers.<br/>
         /// (multiple capatials or numbers in a row will split only the last one.  It assumes there is an abriviation.)<br/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns>String with spaces added.</returns>
-        public static string AddSpaces(this string s) {
+        public static string AddSpaces(this string s, bool checkLowerCaseWords = false) {
+            if (s == null)
+                return s;
+
+            int length = s.Length;
+            if (length < 2)
+                return s;
+
             int start = 0;
             int end;
             string finalString = "";
-            for (int i = 1; i < s.Length; i++) {
-                char c = s[i];
-                char cm1 = s[i - 1];
-                if (c.IsUpper() || c.IsNumber()) {
-                    if (cm1.IsUpper()) {
-                        int j = 0;
-                        while (i + j < s.Length - 1 && s[i + j].IsUpper()) {
-                            j++;
-                        }
-                        i += j - 1;
-                    }
-                    else if (cm1.IsNumber()) {
-                        int j = 0;
-                        while (i + j < s.Length - 1 && s[i + j].IsNumber()) {
-                            j++;
-                        }
-                        i += j - 1;
-                    }
+            char previous = s[0];
+            char c = s[1];
+            for (int i = 2; i < length; i++) {
+                char previous2 = previous;
+                previous = c;
+                c = s[i];
+                bool previousUpperOrNumber = previous.IsUpperOrNumber();
+                bool currentUppderOrNumber = c.IsUpperOrNumber();
+                
+                if (!previousUpperOrNumber && currentUppderOrNumber) {
+                    if (previous == ' ')
+                        continue;
 
                     end = i - 1;
                     finalString += s.Substring(start, end - start + 1) + " ";
-                    start = end + 1;
+                    start = i;
                 }
-                else if (i == s.Length - 1) {
-                    end = i;
-                    finalString += s.Substring(start, end - start + 1);
-                    start = -1;
+                else if (previousUpperOrNumber && previous2.IsUpperOrNumber() && !currentUppderOrNumber) {
+                    if (c == ' ')
+                        continue;
+
+                    end = i - 2;
+                    finalString += s.Substring(start, end - start + 1) + " ";
+                    start = i - 1;
                 }
             }
+
             if (start != -1)
                 finalString += s.Substring(start);
+
+            if (checkLowerCaseWords) {
+                foreach (string word in LowerCaseAddSpacesStringWords) {
+                    int index = finalString.IndexOf($"{word} ");
+                    if (index > 0) {
+                        if (finalString[index - 1] != ' ')
+                            finalString = finalString.Substring(0, index - 1) + " " + finalString.Substring(index);
+                    }
+                }
+            }
 
             return finalString;
         }
@@ -322,5 +396,164 @@ namespace WeaponEnchantments.Common.Utility
 
             return matches;
         }
+        public static string CommonToAll<T>(this List<T> list) where T : class {
+            if (list == null || list.Count <= 0)
+                return "";
+
+            List<string> original = list.Select(t => t.ToString()).ToList();
+            List<string> edited = new();
+            List<string> matches = new();
+            
+            //"original".LogSimple();
+            //foreach(string s in original) {
+            //    s.LogSimple();
+			//}
+            
+            string rS = list[0].ToString();
+            string result = "";
+            int listCount = list.Count;
+            string matchString = "";
+            for(int i = 0; i < rS.Length; i++) {
+                char c = rS[i];
+                bool match = true;
+                for (int k = 0; k < listCount; k++) {
+                    string orig = original[k];
+                    if (!orig.Contains(matchString + c)) {
+                        match = false;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    if (c != ' ' || matchString != " ")
+                        matchString += c;
+                }
+                else if (matchString != "") {
+                    i--;
+                    matches.Add(matchString);
+                    matchString = "";
+                }
+            }
+            /*
+            for(int i = 0; i < rS.Length; i++) {
+                for(int j = i; j < rS.Length; j++) {
+                    char c = rS[j];
+                    bool match = true;
+                    for (int k = 0; k < listCount; k++) {
+                        string orig = original[k];
+                        if (!orig.Contains(matchString + c)) {
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        //if (c != ' ' || matchString != " ")
+                            matchString += c;
+                    }
+                    else if (matchString != "") {
+                        //j--;
+                        matches.Add(matchString);
+                        matchString = "";
+                        break;
+                    }
+                }
+            }
+            */
+            if (matchString != "") {
+                matches.Add(matchString);
+            }
+            
+            //"\nmatches".LogSimple();
+            //foreach(string s in matches) {
+            //    s.LogSimple();
+			//}
+            
+            int count = matches.Count;
+            for (int i = 0; i < count; i++) {
+                string s = matches[i];
+                bool match = false;
+                for(int k = 0; k < count; k++) {
+                    if (i == k)
+                        continue;
+
+                    matchString = matches[k];
+                    if (s != matchString && matchString.Contains(s)) {
+                        match = true;
+                        break;
+					}
+				}
+
+                if (!match)
+                    result += s;
+			}
+            
+            //"/nresult".LogSimple();
+            //result.LogSimple();
+
+            return result;
+		}
+        public static string FillString(this char c, int num) => num > 0 ? new string(c, num) : "";
+        public static string FillString(this string s, int num) {
+            string text = "";
+            for (int i = 0; i < num; i++) {
+                text += s;
+            }
+
+            return text;
+        }
+        public static string JoinLists(this IEnumerable<IEnumerable<string>> lists, string joinString = "<br/>or<br/>") {
+            string text = "";
+            bool first = true;
+            foreach (IEnumerable<string> list in lists) {
+                if (first) {
+                    first = false;
+                }
+                else {
+                    text += joinString;
+                }
+
+                text += list.JoinList();
+            }
+
+            return text;
+        }
+        public static string JoinList(this IEnumerable<string> list, string joinString = "<br/>", string last = null) {
+            string text = "";
+            bool firstString = true;
+            int count = list.Count();
+            int i = 0;
+            foreach (string s in list) {
+                if (firstString) {
+                    firstString = false;
+                }
+                else {
+                    text += i == count - 1 ? last ?? joinString : joinString;
+                }
+
+                text += s;
+                i++;
+            }
+
+            return text;
+        }
+        public static string ToEnchantmentTypeName(this string enchantmentName) => enchantmentName.Substring(0, enchantmentName.IndexOf("Enchantment"));
+        public static void PadStrings(this List<string> strings) {
+            int max = 0;
+            foreach(string s in strings) {
+                if (s.Length > max)
+                    max = s.Length;
+			}
+
+            for(int i = 0; i < strings.Count; i++) {
+                string s = strings[i];
+                int length = s.Length;
+                float leftFloat = (max - length) / 2f;
+                int right = (int)leftFloat;
+                int left = (int)Math.Round(leftFloat);
+                strings[i] = $"{' '.FillString(left)}{s}{' '.FillString(right)}";
+            }
+		}
+        public static bool StartsWith(this string original, string startString) => original.Length >= startString.Length && original.Substring(0, startString.Length) == startString;
     }
 }

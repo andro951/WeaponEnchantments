@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using Terraria.ID;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -24,8 +25,13 @@ namespace WeaponEnchantments.ModIntegration
 		private bool skipOnce = false;
 
 		public override void Load() {
-			Enabled = ModLoader.HasMod(calamityName);
+			Enabled = ModLoader.TryGetMod(calamityName, out Mod calamityMod);
 			WEMod.calamityEnabled = Enabled;
+			if (Enabled) {
+				calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);
+				calamityMod.TryFind("TrueMeleeDamageClass", out CalamityValues.trueMelee);
+				calamityMod.TryFind("TrueMeleeNoSpeedDamageClass", out CalamityValues.trueMeleeNoSpeed);
+			}
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (Enabled) {
@@ -107,7 +113,6 @@ namespace WeaponEnchantments.ModIntegration
 
 			lastMouseItem = Main.mouseItem.Clone();
 		}
-
 		private void SearchForItem() {
 			bool foundItem = false;
 
@@ -144,7 +149,6 @@ namespace WeaponEnchantments.ModIntegration
 			if (foundItem)
 				mouseItemClones.Clear();
 		}
-
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()

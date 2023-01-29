@@ -39,7 +39,7 @@ namespace WeaponEnchantments.UI
             public const int Essence = 2;
         }
 
-        public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
+        //public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
         public static bool preventItemUse = false;
         public static bool pressedLootAll = true;
 
@@ -75,7 +75,11 @@ namespace WeaponEnchantments.UI
             float nextElementY = -PaddingTop / 2;
 
             //UI slot labels
-            titleText = new UIText("Item           Enchantments      Utility  ") {
+            string item = TableTextID.Item.ToString().Lang(L_ID1.TableText);
+            string enchantments = TableTextID.Enchantments.ToString().Lang(L_ID1.TableText);
+            string utility = EnchantmentGeneralTooltipsID.Utility.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips);
+            string labels = $"{item}{' '.FillString(15 - item.Length)}{enchantments}{' '.FillString(18 - enchantments.Length)}{utility}{' '.FillString(9 - utility.Length)}";
+            titleText = new UIText(labels) {
                 Top = { Pixels = nextElementY },
                 Left = { Pixels = 0 + xOffset },
                 HAlign = 0.5f
@@ -95,13 +99,19 @@ namespace WeaponEnchantments.UI
 
                 //ItemSlot(s) mouseover text
                 wePlayer.enchantingTableUI.itemSlotUI[i].OnMouseover += (timer) => {
-                    Main.hoverItemName = "       Place a weapon, piece of armor or accessory here.       ";
-                    if (timer > 60) {
-                        Main.hoverItemName =
-                            "       Place a weapon, piece of armor or accessory here.       \n" +
-                            "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                            "       Using weapon Enchantments on armor or accessories       \n" +
-                            "          provides diminished bonuses and vice versa.          ";
+                    List<string> texts = new();
+                    texts.Add(TableTextID.weapon0.ToString().Lang(L_ID1.TableText));
+                    for (int j = 1; j <= 3; j++) {
+                        texts.Add($"general{j}".Lang(L_ID1.TableText));
+                    }
+
+                    texts.PadStrings();
+
+                    if (timer < 60) {
+                        Main.hoverItemName = texts[0];
+					}
+					else {
+                        Main.hoverItemName = texts.JoinList("\n");
                     }
                 };
 
@@ -118,18 +128,23 @@ namespace WeaponEnchantments.UI
                         HAlign = 0.5f
                     };
 
-                    string extraStr = "";
-                    if (i > 0)
-                        extraStr = "\n  Requires " + Items.EnchantingTableItem.enchantingTableNames[i] + " Enchanting Table or Better to use this slot.  ";
-
+                    string enchantment4String = TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { ContentSamples.ItemsByType[EnchantingTableItem.IDs[i]].Name });
                     wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) => {
-                        Main.hoverItemName = "                   Place Enchantments here.                    ";
-                        if (timer > 60) {
-                            Main.hoverItemName =
-                                "                   Place Enchantments here.                    \n" +
-						        "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-						        "       Using weapon Enchantments on armor or accessories       \n" +
-						        "          provides diminished bonuses and vice versa.          " + extraStr;
+                        List<string> texts = new();
+                        texts.Add(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText));
+                        for (int j = 1; j <= 3; j++) {
+                            texts.Add($"general{j}".Lang(L_ID1.TableText));
+                        }
+
+                        texts.Add(enchantment4String);
+
+                        texts.PadStrings();
+
+                        if (timer < 60) {
+                            Main.hoverItemName = texts[0];
+                        }
+                        else {
+                            Main.hoverItemName = texts.JoinList("\n");
                         }
                     };
                 }
@@ -142,13 +157,19 @@ namespace WeaponEnchantments.UI
                     };
 
                     wePlayer.enchantingTableUI.enchantmentSlotUI[i].OnMouseover += (timer) => {
-                        Main.hoverItemName = "            Only utility Enchantments can go here.             ";
-                        if (timer > 60) {
-                            Main.hoverItemName =
-                                "            Only utility Enchantments can go here.             \n" +
-                                "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                                "       Using weapon Enchantments on armor or accessories       \n" +
-						        "          provides diminished bonuses and vice versa.          ";
+                        List<string> texts = new();
+                        texts.Add(TableTextID.utility0.ToString().Lang(L_ID1.TableText));
+                        for (int j = 1; j <= 3; j++) {
+                            texts.Add($"general{j}".Lang(L_ID1.TableText));
+                        }
+
+                        texts.PadStrings();
+
+                        if (timer < 60) {
+                            Main.hoverItemName = texts[0];
+                        }
+                        else {
+                            Main.hoverItemName = texts.JoinList("\n");
                         }
                     };
                 }
@@ -164,15 +185,21 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f
                 };
 
-                string type = tierNames[i];
+                string essence0String = TableTextID.essence0.ToString().Lang(L_ID1.TableText, new object[] { ContentSamples.ItemsByType[EnchantmentEssence.IDs[i]].Name });
                 wePlayer.enchantingTableUI.essenceSlotUI[i].OnMouseover += (timer) => {
-                    Main.hoverItemName = "                      Place " + type + " Essence here.                ";
-                    if (timer > 60) {
-                        Main.hoverItemName =
-                    "                      Place " + type + " Essence here.                \n" +
-                    "Upgrading Enchanting Table Tier unlocks more Enchantment slots.\n" +
-                    "       Using weapon Enchantments on armor or accessories       \n" +
-					"          provides diminished bonuses and vice versa.          ";
+                    List<string> texts = new();
+                    texts.Add(essence0String);
+                    for (int j = 1; j <= 3; j++) {
+                        texts.Add($"general{j}".Lang(L_ID1.TableText));
+                    }
+
+                    texts.PadStrings();
+
+                    if (timer < 60) {
+                        Main.hoverItemName = texts[0];
+                    }
+                    else {
+                        Main.hoverItemName = texts.JoinList("\n");
                     }
                 };
 
@@ -206,7 +233,7 @@ namespace WeaponEnchantments.UI
                         break;
                 }
 
-                UIText xpButonText = new UIText("xp") {
+                UIText xpButonText = new UIText(TableTextID.xp.ToString().Lang(L_ID1.TableText)) {
                     Top = { Pixels = -8f },
                     Left = { Pixels = 0f }
                 };
@@ -227,7 +254,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.LevelUp].OnClick += (evt, element) => LevelUp();
-            UIText levelButonText = new UIText("Level Up") {
+            UIText levelButonText = new UIText(TableTextID.LevelUp.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
             };
@@ -247,7 +274,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.Syphon].OnClick += (evt, element) => Syphon();
-            UIText syphonButonText = new UIText("Syphon") {
+            UIText syphonButonText = new UIText(TableTextID.Syphon.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
             };
@@ -270,12 +297,12 @@ namespace WeaponEnchantments.UI
             string infusionText;
             if (wePlayer.infusionConsumeItem != null) {
                 if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir)
-                    infusionText = "Cancel";
+                    infusionText = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
                 else
-                    infusionText = "Finalize";
+                    infusionText = TableTextID.Finalize.ToString().Lang(L_ID1.TableText);
             }
             else {
-                infusionText = "Infusion";
+                infusionText = TableTextID.Infusion.ToString().Lang(L_ID1.TableText);
             }
 
             infusionButonText = new UIText(infusionText) {
@@ -301,7 +328,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.LootAll].OnClick += (evt, element) => LootAll();
-            UIText lootAllButonText = new UIText("Loot All") {
+            UIText lootAllButonText = new UIText(TableTextID.LootAll.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = 5f }
             };
@@ -323,7 +350,7 @@ namespace WeaponEnchantments.UI
             };
 
             button[ButtonID.Offer].OnClick += (evt, element) => Offer();
-            UIText offerButtonText = new UIText("Offer") {
+            UIText offerButtonText = new UIText(TableTextID.Offer.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -411,10 +438,11 @@ namespace WeaponEnchantments.UI
                 Main.NewText($"You cannot gain any more experience on your {item.S()}.");
             }
         }
-        public static int ConvertXPToEssence(int xp, bool consumeAll = false) {
+        public static int ConvertXPToEssence(int xp, bool consumeAll = false, Item item = null) {
             if(xp <= 0)
                 return 0;
 
+            if (WEMod.magicStorageEnabled) $"Converted xp to essence. xp: {xp}, consumeAll: {consumeAll.S()}".Log();
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             //Force player essence data to sync with the ui
@@ -425,16 +453,20 @@ namespace WeaponEnchantments.UI
             }
 
             //Apply table tier reduction
-            int highestTableTier = wePlayer.highestTableTierUsed;
             int xpCounter;
-            if (highestTableTier < 4) {
+            if (WEMod.serverConfig.ReduceOfferEfficiencyByTableTier && wePlayer.highestTableTierUsed < 4) {
                 //Tier 3 or lower table
-                float essenceReduction = 0.6f + 0.1f * highestTableTier;
+                float essenceReduction = 0.6f + 0.1f * wePlayer.highestTableTierUsed;
                 xpCounter = (int)Math.Round(xp * essenceReduction);
             }
 			else {
                 //Tier 4 table
                 xpCounter = xp;
+            }
+
+            if (item?.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) == true && WEMod.serverConfig.ReduceOfferEfficiencyByBaseInfusionPower) {
+                float infusionPower = Math.Min((float)enchantedWeapon.infusionPower, 1100f);
+                xpCounter = (int)Math.Round((float)xpCounter * (1f - 0.2f * (infusionPower / 1100f)));
             }
 
             int xpInitial = xpCounter;
@@ -477,7 +509,7 @@ namespace WeaponEnchantments.UI
                         while (numberEssenceRecieved > 0) {
                             int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
                             numberEssenceRecieved -= stack;
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<EnchantmentEssenceBasic>() + tier, stack);
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stack);
                         }
                     }
                     else {
@@ -499,7 +531,8 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (tableItem.TryGetEnchantedItem()) {
-                if (!EnchantedItemStaticMethods.IsWeaponItem(tableItem) && !EnchantedItemStaticMethods.IsArmorItem(tableItem))
+                tableItem.InfusionAllowed(out bool infusionAllowed);
+				if (!infusionAllowed)
                     return;
 
                 if (wePlayer.infusionConsumeItem == null) {
@@ -523,12 +556,17 @@ namespace WeaponEnchantments.UI
                     if (tableItem.stack > 1) {
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item.stack -= 1;
                         wePlayer.infusionConsumeItem = new Item(tableItem.type);
-                        infusionButonText.SetText("Finalize");
+                        infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
                     }
                     else {
+                        if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+                            Main.NewText("Favorited items cannot be consumed for infusion.");
+                            return;
+                        }
+
                         wePlayer.infusionConsumeItem = tableItem.Clone();
                         wePlayer.enchantingTableUI.itemSlotUI[0].Item = new Item();
-                        infusionButonText.SetText("Cancel");
+                        infusionButonText.SetText(TableTextID.Cancel.ToString().Lang(L_ID1.TableText));
                     }
                 }
                 else {
@@ -551,7 +589,7 @@ namespace WeaponEnchantments.UI
                     if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
                         ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
                         wePlayer.infusionConsumeItem = null;
-                        infusionButonText.SetText("Infusion");
+                        infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
                     }
                 }
             }
@@ -559,7 +597,7 @@ namespace WeaponEnchantments.UI
                 //Return infusion item to table
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
                 wePlayer.infusionConsumeItem = null;
-                infusionButonText.SetText("Infusion");
+                infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
             }
         }
         public static void Syphon() {
@@ -572,7 +610,7 @@ namespace WeaponEnchantments.UI
             if (!itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return;
 
-            int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_LEVEL - 1];
+            int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
             int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
             int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
             if (iGlobal.Experience < minimumXPToSyphon) {
@@ -580,7 +618,8 @@ namespace WeaponEnchantments.UI
             }
             else {
                 int xp = iGlobal.Experience - maxLevelXP;
-                iGlobal.Experience -= ConvertXPToEssence(xp);
+                if (WEMod.magicStorageEnabled) $"Syphon(), itemInUI: {itemInUI.S()}".Log();
+                iGlobal.Experience -= ConvertXPToEssence(xp, item: itemInUI);
             }
         }
         private static void LootAll() {
@@ -599,8 +638,6 @@ namespace WeaponEnchantments.UI
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                     if (wePlayer.EnchantmentInUI(i).stack < 1) {
                         EnchantedItemStaticMethods.RemoveEnchantment(i);
-                        if(iGlobal != null)
-                            iGlobal.enchantments[i] = new Item();
                     }
                 }
             }
@@ -622,6 +659,11 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.ItemInUI().IsAir)
                 return;
+
+            if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+                Main.NewText("Favorited items cannot be offerd.");
+                return;
+			}
             
             WEModSystem.weModSystemUI.SetState(null);
             UIState state = new UIState();
@@ -636,17 +678,17 @@ namespace WeaponEnchantments.UI
 
             int xpAvailable = 0;
 		    int nonFavoriteXpAvailable = 0;
-            if(iGlobal.levelBeforeBooster == EnchantedItem.MAX_LEVEL) {
+            if(iGlobal.levelBeforeBooster == EnchantedItem.MAX_Level) {
                 Main.NewText("Your " + tableItem.Name + " is already max level.");
                 return;
             }
 
             //xpAvailable
             for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--) {
-		    	int xpToAdd = (int)EnchantmentEssence.xpPerEssence[i] * wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
-                xpAvailable += xpToAdd;
+		    	int xpToAdd = WEMath.MultiplyCheckOverflow((int)EnchantmentEssence.xpPerEssence[i], wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack);
+                xpAvailable.AddCheckOverflow(xpToAdd);
 			    if(!wePlayer.enchantingTableUI.essenceSlotUI[i].Item.favorited)
-				    nonFavoriteXpAvailable += xpToAdd;
+				    nonFavoriteXpAvailable.AddCheckOverflow(xpToAdd);
             }
 
             //xpNeeded
@@ -694,5 +736,8 @@ namespace WeaponEnchantments.UI
                 }
             }
         }
+
+        //TODO
+        //Add max level up button.                
     }
 }

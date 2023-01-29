@@ -1,6 +1,8 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common
@@ -27,6 +29,97 @@ namespace WeaponEnchantments.Common
 		public static int CobaltBar;
 		public static int MythrilBar;
 		public static int AdamantiteBar;
+
+		public static string GetOreNamesList(int start, int end = 9, bool andAtEnd = false, bool skipDemonite = true) {
+			string list = "";
+			bool first = true;
+			for(int i = start; i < end; i++) {
+				if (i == 4 && skipDemonite)
+					continue;
+
+				if (first) {
+					first = false;
+				}
+				else {
+					if (!andAtEnd && i == end - 1) {
+						list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
+					}
+					else {
+						list += ", ";
+					}
+				}
+
+				list += $"{GetOreName(ores[i])}";
+
+				if (andAtEnd && i == end - 1)
+					list += $" {EnchantmentGeneralTooltipsID.And.ToString().Lang(L_ID1.Tooltip, L_ID2.EnchantmentGeneralTooltips)} ";
+			}
+
+			return list;
+		}
+
+		private static List<int> ores;
+
+		private static string GetOreName(int id) {
+			string name;
+			switch (id) {
+				case ItemID.CopperOre:
+					name = "copper";
+					break;
+				case ItemID.TinOre:
+					name = "tin";
+					break;
+				case ItemID.IronOre:
+					name = "iron";
+					break;
+				case ItemID.LeadOre:
+					name = "lead";
+					break;
+				case ItemID.SilverOre:
+					name = "silver";
+					break;
+				case ItemID.TungstenOre:
+					name = "tungsten";
+					break;
+				case ItemID.GoldOre:
+					name = "gold";
+					break;
+				case ItemID.PlatinumOre:
+					name = "platinum";
+					break;
+				case ItemID.DemoniteOre:
+					name = "demonite";
+					break;
+				case ItemID.CrimtaneOre:
+					name = "crimtane";
+					break;
+				case ItemID.CobaltOre:
+					name = "cobalt";
+					break;
+				case ItemID.PalladiumOre:
+					name = "palladium";
+					break;
+				case ItemID.MythrilOre:
+					name = "mythril";
+					break;
+				case ItemID.OrichalcumOre:
+					name = "orichalcum";
+					break;
+				case ItemID.AdamantiteOre:
+					name = "adamantite";
+					break;
+				case ItemID.TitaniumOre:
+					name = "titanium";
+					break;
+				case ItemID.ChlorophyteOre:
+					name = "chlorophyte";
+					break;
+				default:
+					return "";
+			}
+
+			return name.Lang(L_ID1.Ores);
+		}
 
 		public override void OnWorldLoad() { 
 			//World ores
@@ -127,6 +220,18 @@ namespace WeaponEnchantments.Common
 					}
 				}
 			}
+
+			ores = new() {
+				CopperOre,
+				IronOre,
+				SilverOre,
+				GoldOre,
+				DemoniteOre,
+				CobaltOre,
+				MythrilOre,
+				AdamantiteOre,
+				ItemID.ChlorophyteOre
+			};
 		}
 	}
 }

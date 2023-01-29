@@ -19,105 +19,145 @@ using System;
 using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
+using KokoLib;
+using OnProjectile = On.Terraria.Projectile;
+using OnPlayer = On.Terraria.Player;
+using WeaponEnchantments.Content.NPCs;
+using System.Linq;
 
 namespace WeaponEnchantments
 {
-    public class WEMod : Mod
-    {
+	public class WEMod : Mod {
 		internal static ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
 		internal static ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
 		public static bool calamityEnabled = false;
+		public static bool magicStorageEnabled = false;
 		public static bool playerSwapperModEnabled = false;
+		public static bool dbtEnabled = false;
+		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
+		public static bool thoriumEnabled = ModLoader.TryGetMod("ThoriumMod", out Mod _);
 		public static List<Item> consumedItems = new List<Item>();
-		public static class PacketIDs
-		{
-			public const byte OnHitEffects = 0;
+
+		public override void Load() {
+			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
+			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
+			HookEndpointManager.Add<hook_ModifyHitNPC>(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour);
+			HookEndpointManager.Add<hook_ModifyHitNPCWithProj>(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour);
+			HookEndpointManager.Add<hook_UpdateArmorSet>(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour);
+			//HookEndpointManager.Add<hook_CaughtFishStack>(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour);
+			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
+			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
+			IL.Terraria.Recipe.Create += HookCreate;
+			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
+			IL.Terraria.Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
+			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
-        public override void HandlePacket(BinaryReader reader, int whoAmI) {
-			byte type = reader.ReadByte();
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"\\/HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
-
-			#endregion
-
-			switch (type) {
-				case PacketIDs.OnHitEffects:
-					int npcWhoAmI = reader.ReadInt32();
-					int damage = reader.ReadInt32();
-					bool crit = reader.ReadBoolean();
-
-					#region Debug
-
-					if (LogMethods.debugging) ($"\\/OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
-
-					#endregion
-
-					for (int i = 0; i < OnHitEffectID.Count; i++) {
-						bool applyEffect = reader.ReadBoolean();
-						if (!applyEffect)
-							continue;
-
-                        switch (i) {
-							case OnHitEffectID.GodSlayer:
-								int godSlayerDamage = reader.ReadInt32();
-								WEGlobalNPC.StrikeNPC(npcWhoAmI, godSlayerDamage, crit);
-								break;
-
-							case OnHitEffectID.OneForAll:
-								int oneForAllWhoAmIsCount = reader.ReadInt32();
-								for (int j = 0; j < oneForAllWhoAmIsCount; j++) {
-									int oneForAllWhoAmI = reader.ReadInt32();
-									int oneForAllDamages = reader.ReadInt32();
-									WEGlobalNPC.StrikeNPC(oneForAllWhoAmI, oneForAllDamages, crit);
-								}
-
-								break;
-
-							case OnHitEffectID.Amaterasu:
-								float amaterasuItemStrength = reader.ReadSingle();
-								if (Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength == 0f)
-									Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuStrength = amaterasuItemStrength;
-								Main.npc[npcWhoAmI].GetWEGlobalNPC().amaterasuDamage += damage * (crit ? 2 : 1);
-								break;
-						}
-					}
-
-					#region Debug
-
-					if (LogMethods.debugging) ($"/\\OnHitEffects Packet: npc: {Main.npc[npcWhoAmI]} life: {Main.npc[npcWhoAmI].life}").Log();
-
-					#endregion
-
-					break;
-				default:
-					("*NOT RECOGNIZED*\ncase: " + type + "\n*NOT RECOGNIZED*").Log();
-					break;
+		public override void PostSetupContent() {
+			if (ModLoader.TryGetMod("Census", out Mod Census)) {
+				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
+					Census.Call("TownNPCCondition", modNPC.NPC.netID, ((INPCWikiInfo)modNPC).SpawnCondition);
+				}
+				//Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
 			}
-
-			#region Debug
-
-			if (LogMethods.debugging) ($"/\\HandlePacket(reader, " + whoAmI + ": " + Main.player[whoAmI].name + ") type: " + type).Log();
-
-			#endregion
+			
+			if (ModLoader.TryGetMod("Wikithis", out Mod wikiThis))
+				wikiThis.Call("AddModURL", this, "weapon-enchantments-mod-tmodloader.fandom.com");
 		}
-		
+
 		private delegate Item orig_ItemIOLoad(TagCompound tag);
 		private delegate Item hook_ItemIOLoad(orig_ItemIOLoad orig, TagCompound tag);
 		private static readonly MethodInfo ModLoaderIOItemIOLoadMethodInfo = typeof(Main).Assembly.GetType("Terraria.ModLoader.IO.ItemIO")!.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, new System.Type[] { typeof(TagCompound) })!;
-		public override void Load() {
-			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
-			IL.Terraria.Recipe.Create += HookCreate;
-		}
 		private Item ItemIOLoadDetour(orig_ItemIOLoad orig, TagCompound tag) {
 			Item item = orig(tag);
-			if(item.ModItem is UnloadedItem) {
+			if (item.ModItem is UnloadedItem)
 				OldItemManager.ReplaceOldItem(ref item);
-			}
+
 			return item;
-        }
+		}
+
+		private delegate bool orig_CanStack(Item item1, Item item2);
+		private delegate bool hook_CanStack(orig_CanStack orig, Item item1, Item item2);
+		private static readonly MethodInfo ModLoaderCanStackMethodInfo = typeof(ItemLoader).GetMethod("CanStack");
+		private bool CanStackDetour(orig_CanStack orig, Item item1, Item item2) {
+			if (!orig(item1, item2))
+				return false;
+
+			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+				return true;
+
+			if (magicStorageEnabled) {
+				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
+				if ("CanCombineItems" == name)
+					return true;
+			}
+
+			return enchantedItem.OnStack(item1, item2);
+		}
+
+		private delegate void orig_UpdateArmorSet(Player player, Item head, Item body, Item legs);
+		private delegate void hook_UpdateArmorSet(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs);
+		private static readonly MethodInfo ModLoaderUpdateArmorSetMethodInfo = typeof(ItemLoader).GetMethod("UpdateArmorSet");
+		private void UpdateArmorSetDetour(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs) {
+			WEPlayer wePlyaer = player.GetWEPlayer(); 
+			if (wePlyaer.Equipment.InfusedHead != null)
+				head = wePlyaer.Equipment.InfusedHead;
+
+			if (wePlyaer.Equipment.InfusedBody != null)
+				body = wePlyaer.Equipment.InfusedBody;
+
+			if (wePlyaer.Equipment.InfusedLegs != null)
+				legs = wePlyaer.Equipment.InfusedLegs;
+
+			orig(player, head, body, legs);
+		}
+
+		private delegate void orig_ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit);
+		private delegate void hook_ModifyHitNPC(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit);
+		private static readonly MethodInfo ModLoaderModifyHitNPCMethodInfo = typeof(Terraria.ModLoader.ItemLoader).GetMethod("ModifyHitNPC");
+		private void ModifyHitNPCDetour(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit) {
+			player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref player.direction);
+			orig(item, player, target, ref damage, ref knockback, ref crit);
+		}
+		private delegate void orig_ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection);
+		private delegate void hook_ModifyHitNPCWithProj(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection);
+		private static readonly MethodInfo ModLoaderModifyHitNPCWithProjMethodInfo = typeof(Terraria.ModLoader.ProjectileLoader).GetMethod("ModifyHitNPC");
+		private void ModifyHitNPCWithProjDetour(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+			Player player = Main.player[proj.owner];
+			Item item = null;
+			if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
+				item = weProj.sourceItem;
+
+			if (item != null)
+				player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
+
+			orig(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
+		}
+
+		//private delegate void orig_CaughtFishStack(Item item);
+		//private delegate void hook_CaughtFishStack(orig_CaughtFishStack orig, Item item);
+		//private static readonly MethodInfo ModLoaderCaughtFishStackMethodInfo = typeof(ItemLoader).GetMethod("CaughtFishStack");
+		//private void CaughtFishStackDetour(orig_CaughtFishStack orig, Item item) { orig(item); }
+		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
+			if (thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
+				int value = (int)((float)ContentSamples.ItemsByType[itemType].value / 10f * ConfigValues.GatheringExperienceMultiplier);
+				enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
+			}
+
+			orig(self, thePlayer, itemType);
+		}
+		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
+			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
+				spawnChance /= 10f;
+				float rand = Main.rand.NextFloat();
+				rand = 0f;
+				if (rand <= spawnChance) {
+					baitTypeUsed = ItemID.TruffleWorm;
+				}
+			}
+
+			orig(self, bobber, baitTypeUsed);
+		}*/
 
 		public static int counter = 0;
 		private const bool debuggingHookFindRecipes = false;
@@ -285,7 +325,6 @@ namespace WeaponEnchantments
 				if (wePlayer.usingEnchantingTable) {
 					if (debuggingHookFindRecipes) {
 						counter++;
-						Main.NewText("counter: " + counter.ToString());
 						ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
 					}
 					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {

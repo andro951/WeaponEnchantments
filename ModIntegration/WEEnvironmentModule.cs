@@ -15,7 +15,7 @@ namespace WeaponEnchantments.ModIntegration
     [ExtendsFromMod(MagicStorageIntegration.magicStorageName)]
     public class WEEnvironmentModule : EnvironmentModule
     {
-        public override string Name => "WeaponEnchantments_EnvironmentModule";
+        public override string Name => "Enchanting Table Essence";
 		public override IEnumerable<Item> GetAdditionalItems(EnvironmentSandbox sandbox) {
             return Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem;
         }
@@ -33,13 +33,5 @@ namespace WeaponEnchantments.ModIntegration
             if (tableTier > -1)
                 information.adjTiles[tableTier] = true;
 		}
-		public override void OnConsumeItemForRecipe(EnvironmentSandbox sandbox, Item item, int stack) {
-			if (item.ModItem != null && item.ModItem is EnchantmentEssence) {
-                int type0 = ModContent.ItemType<EnchantmentEssenceBasic>();
-                Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem[item.type - type0].stack -= stack;
-            }//Will be done by magic storage next update
-            
-            WEMod.consumedItems.Add(item.Clone());
-        }
 	}
 }

@@ -12,6 +12,7 @@ using System;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.UI
 {
@@ -33,10 +34,11 @@ namespace WeaponEnchantments.UI
         private readonly static Color bgColor = new Color(73, 94, 171);
         private readonly static Color hoverColor = new Color(100, 118, 184);
 
-        internal const int width = 680;
+        //internal const int width = 680;
+        internal const int width = 750;
         internal const int height = 155;
 
-        internal int RelativeLeft => Main.screenWidth / 2 - width / 2;
+        internal int RelativeLeft => Main.screenWidth / 2 - width / 2 + 35;
         internal int RelativeTop => Main.screenHeight / 2 + 42;
         public override void OnInitialize() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -65,7 +67,7 @@ namespace WeaponEnchantments.UI
             //Yes Button
             confirmationButton[ConfirmationButtonID.Yes] = new UIPanel() {
                 Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 - 56 },
+                Left = { Pixels = -66 - 56 - 25 },
                 Width = { Pixels = 100f },
                 Height = { Pixels = 30f },
                 HAlign = 0.5f - ratioFromCenter,
@@ -73,7 +75,7 @@ namespace WeaponEnchantments.UI
             };
 
             confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
-            UIText yesButtonText = new UIText("Yes") {
+            UIText yesButtonText = new UIText(TableTextID.Yes.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -87,7 +89,7 @@ namespace WeaponEnchantments.UI
             //No Button
             confirmationButton[ConfirmationButtonID.No] = new UIPanel() {
                 Top = { Pixels = nextElementY },
-                Left = { Pixels = -66 - 56 },
+                Left = { Pixels = -66 - 56 - 25 },
                 Width = { Pixels = 100f },
                 Height = { Pixels = 30f },
                 HAlign = 0.5f - ratioFromCenter,
@@ -95,7 +97,7 @@ namespace WeaponEnchantments.UI
             };
 
             confirmationButton[ConfirmationButtonID.No].OnClick += (evt, element) => { DeclineOffer(); };
-            UIText noButtonText = new UIText("No") {
+            UIText noButtonText = new UIText(TableTextID.No.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
             };
@@ -127,12 +129,79 @@ namespace WeaponEnchantments.UI
 
             //Offer every non-Modified item with the same type in the player's inventory.
             for (int i = 0; i < player.inventory.Length; i++) {
+                if (player.inventory[i].favorited)
+                    continue;
+
                 if (!player.inventory[i].TryGetEnchantedItem(out EnchantedItem iGlobal))
                     continue;
 
                 //Offer the inventory item
                 if (player.inventory[i].type == type && !iGlobal.Modified)
                     OfferItem(ref player.inventory[i], false, true);
+            }
+
+            if (FindEnchantingTable(player, out Point tablePoint)) {
+                if (FindChestsInRange(tablePoint.X, tablePoint.Y, out List<int> chests, xRangeLeft: 2, xRangeRight: 2, yRangeUp: -1, yRangeDown: 1, exactPoints: true)) {
+                    foreach(int chestNum in chests) {
+                        int chestLength = Main.chest[chestNum].item.Length;
+                        for (int i = 0; i < chestLength; i++) {
+                            Item item = Main.chest[chestNum].item[i];
+                            if (item.favorited)
+                                continue;
+
+                            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+                                continue;
+
+                             if (enchantedItem.Modified)
+                                continue;
+
+                            OfferItem(ref Main.chest[chestNum].item[i], false, true);
+                        }
+					}
+				}
+			}
+        }
+        public static bool FindEnchantingTable(Player player, out Point table) {
+            table = new();
+            Point clicked = player.GetWEPlayer().enchantingTableLocation;
+            if (clicked.X == -1 && clicked.Y == -1)
+                return false;
+
+            int tileType = Main.tile[clicked.X - 1, clicked.Y].TileType;
+            if (EnchantingTableTile.TableTypes.Contains(tileType)) {
+                table = new(clicked.X - 1, clicked.Y);
+			}
+			else {
+                table = new(clicked.X, clicked.Y);
+			}
+
+            return true;
+		}
+        public static bool FindChestsInRange(int xNum, int yNum, out List<int> chests, int xRangeRight = 0, int yRangeUp = 0, int xRangeLeft = int.MinValue, int yRangeDown = 0, bool exactPoints = false) {
+            chests = new();
+            Point low = new Point(xNum - xRangeLeft, yNum - yRangeDown);
+            Point high = new Point(xNum + xRangeRight, yNum + yRangeUp);
+
+            if (exactPoints) {
+                CheckAddChest(low.X, low.Y, chests);
+                CheckAddChest(high.X, high.Y, chests);
+                return chests.Count > 0;
+            }
+
+            for(int x = low.X; x <= high.X; x++) {
+                for(int y = low.Y; y <= high.Y; y++) {
+                    CheckAddChest(x, y, chests);
+                }
+			}
+
+            return chests.Count > 0;
+		}
+        private static void CheckAddChest(int x, int y, List<int> chests) {
+            if (Main.tileContainer[Main.tile[x, y].TileType]) {
+                int chestNum = Chest.FindChest(x, y);
+                if (chestNum != -1) {
+                    chests.Add(chestNum);
+                }
             }
         }
         public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = false) {
@@ -168,15 +237,19 @@ namespace WeaponEnchantments.UI
                 return -1;
 
             //Power Booster
-            if (iGlobal.PowerBoosterInstalled) {
+            if (iGlobal.PowerBoosterInstalled)
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
-            }
+
+            //Ultra Power Booster
+            if (iGlobal.UltraPowerBoosterInstalled)
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
             int xp = iGlobal.Experience;
-            float value = item.value + (item.stack > 1 ? ContentSamples.ItemsByType[item.type].value * (item.stack - 1) : 0f);
+            float value = item.value - iGlobal.lastValueBonus;
 
             //Xp -> Essence
-            WeaponEnchantmentUI.ConvertXPToEssence(xp, true);
+            if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
+            WeaponEnchantmentUI.ConvertXPToEssence(xp, true, item);
 
             //Item value -> ores/essence
             if (!noOre) {
@@ -234,8 +307,10 @@ namespace WeaponEnchantments.UI
                 }
 
                 //Essence
-                if (essenceValue > 0)
-                    WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true);
+                if (essenceValue > 0) {
+                    if (WEMod.magicStorageEnabled) $"essenceValue > 0, OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
+                    WeaponEnchantmentUI.ConvertXPToEssence(essenceValue, true, item);
+                }
             }
 
             item = new Item();
@@ -267,11 +342,35 @@ namespace WeaponEnchantments.UI
                 return;
             }
 
-            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your\n" +
-				$"level {iGlobal.level} {wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name}\n" +
-				$"In exchange for Iron, Silver and Gold ore and Essence?\n" +
+            int oresEnd = !WEMod.serverConfig.AllowHighTierOres || !Main.hardMode ? 3 : 8;
+            bool canGetChlorophyte = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
+            if (canGetChlorophyte)
+                oresEnd++;
+
+            string oreString = $"({WorldDataManager.GetOreNamesList(1, oresEnd)})";
+            float percentEss = PercentOfferEssence;
+            string oreAndEssencePercent;
+            if (percentEss == 1f) {
+                //oreAndEssencePercent = $"In exchange for essence?";
+                oreAndEssencePercent = TableTextID.ExchangeEssence.ToString().Lang(L_ID1.TableText);
+            }
+            else if (percentEss == 0f) {
+                //oreAndEssencePercent = $"In exchange for ores?";
+                oreAndEssencePercent = TableTextID.ExchangeOres.ToString().Lang(L_ID1.TableText);
+            }
+			else {
+                //oreAndEssencePercent = $"In exchange for ores({(1f - percentEss).PercentString()}) and essence({percentEss.PercentString()})?";
+                oreAndEssencePercent = TableTextID.ExchangeEssenceAndOres.ToString().Lang(L_ID1.TableText, new object[] { (1f - percentEss).PercentString(), percentEss.PercentString() });
+            }
+            /*
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your level {iGlobal.level}\n" +
+				$"{wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name} {oreAndEssencePercent}\n" +
+				(percentEss < 1f ? $"{oreString}\n" : "") +
 				$"(Based on item value/experience.  Enchantments will be returned.)"
             );
+            */
+            object[] args = new object[] { iGlobal.level.ToString(), wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name, oreAndEssencePercent, percentEss < 1f ? $"{oreString}\n" : "" };
+            promptText.SetText(TableTextID.AreYouSure.ToString().Lang(L_ID1.TableText, args));
         }
     }
 }

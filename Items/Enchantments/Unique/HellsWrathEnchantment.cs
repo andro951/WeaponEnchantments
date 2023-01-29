@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.EnchantingRarity;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
@@ -8,27 +11,39 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override int NewDamageType => (int)DamageTypeSpecificID.SummonMeleeSpeed;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
+		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			Debuff.Add(BuffID.FlameWhipEnemyDebuff, BuffDuration);
-			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
+			Effects = new() {
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new DamageClassSwap(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget(),
+				new BuffEffect(EnchantmentTier >= 2 ? BuffID.OnFire3 : BuffID.OnFire, BuffStyle.OnHitEnemyDebuff, BuffDuration)
+			};
 
-			Debuff.Add(EnchantmentTier == 3 ? BuffID.OnFire3 : BuffID.OnFire, BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
+			if (EnchantmentTier >= 3)
+				Effects.Add(new BuffEffect(BuffID.FlameWhipEnemyDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
+
+			if (EnchantmentTier == 4)
+				Effects.Add(new BuffEffect(BuffID.RainbowWhipNPCDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
+			};
 		}
 
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentBasic : HellsWrathEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.PostQueenSlime;
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.QueenSlimeBoss)
+		};
+	}
 	public class HellsWrathEnchantmentCommon : HellsWrathEnchantment { }
 	public class HellsWrathEnchantmentRare : HellsWrathEnchantment { }
-	public class HellsWrathEnchantmentSuperRare : HellsWrathEnchantment { }
-	public class HellsWrathEnchantmentUltraRare : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentEpic : HellsWrathEnchantment { }
+	public class HellsWrathEnchantmentLegendary : HellsWrathEnchantment { }
 }

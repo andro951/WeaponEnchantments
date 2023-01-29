@@ -1,18 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments.Utility;
+using WeaponEnchantments.Items.Utility;
+using WeaponEnchantments.Tiles;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments
@@ -24,12 +29,16 @@ namespace WeaponEnchantments
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
-        public static int[] levelXps = new int[EnchantedItem.MAX_LEVEL];
+        internal static byte versionUpdate = 0;
+        public static bool PromptInterfaceActive => promptInterface?.CurrentState != null;
+        public static int[] levelXps = new int[EnchantedItem.MAX_Level];
         private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
+        public static SortedDictionary<ChestID, List<DropData>> chestDrops = new();
 
         private GameTime _lastUpdateUiGameTime;
+        private bool dayTime = Main.dayTime;
 
         public override void OnModLoad() {
             if (!Main.dedServ) {
@@ -41,7 +50,7 @@ namespace WeaponEnchantments
             double previous = 0;
             double current;
             int l;
-            for (l = 0; l < EnchantedItem.MAX_LEVEL; l++) {
+            for (l = 0; l < EnchantedItem.MAX_Level; l++) {
                 current = previous * 1.23356622200537 + (l + 1) * 1000;
                 previous = current;
                 levelXps[l] = (int)current;
@@ -83,54 +92,32 @@ namespace WeaponEnchantments
                     addedItem = true;
                     wePlayer.itemInEnchantingTable = true;//Set PREVIOUS state of itemSlot to having an item in it
                 }
-                else if (wePlayer.itemBeingEnchanted != itemInUI) {
+                else if (!wePlayer.itemBeingEnchanted.IsSameEnchantedItem(itemInUI)) {
                     swappedItem = true;
                 }
 
-                if (removedItem || swappedItem) {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                        Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
-                        //For each enchantment in the enchantmentSlots,
-                        if (enchantmentInUI != null) {
-                            if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                                iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
-                        }
-                        
-                        wePlayer.EnchantmentUISlot(i).Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
-                        wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
-                    }
-
-                    if (wePlayer.infusionConsumeItem != null) {
-                        if(!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
-                            wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
-
-                        wePlayer.enchantingTableUI.infusionButonText.SetText("Cancel");
-                    }
-
-                    if(wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
-                        iBEGlobal.inEnchantingTable = false;
-
-                    wePlayer.itemBeingEnchanted.favorited = favorited;
-                    wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
-                }
+                if (removedItem || swappedItem)
+                    RemoveTableItem(wePlayer);
 
                 if (addedItem || swappedItem) {
                     wePlayer.itemBeingEnchanted = wePlayer.ItemInUI();// Link the item in the table to the player so it can be updated after being taken out.
                     Item itemBeingEnchanted = wePlayer.itemBeingEnchanted;
                     favorited = itemBeingEnchanted.favorited;
                     itemBeingEnchanted.favorited = false;
-                    if(itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
+                    if (itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
                         iBEGlobal.inEnchantingTable = true;
-                        iBEGlobal.equippedInArmorSlot = false;
                         wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
+                        if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
+                            enchantedEquipItem.equippedInArmorSlot = false;
                     }
 
-                    if (wePlayer.infusionConsumeItem != null && (EnchantedItemStaticMethods.IsWeaponItem(itemBeingEnchanted) || EnchantedItemStaticMethods.IsArmorItem(itemBeingEnchanted))) {
-                        wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-                        wePlayer.enchantingTableUI.infusionButonText.SetText("Finalize");
-                    }
+                    if (wePlayer.infusionConsumeItem != null && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
+                        wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
+                        if (infusionAllowed)
+							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+					}
 
-					if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                             if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
                                 wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
@@ -148,9 +135,8 @@ namespace WeaponEnchantments
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                     Item tableEnchantment = wePlayer.EnchantmentInUI(i);
                     Item itemEnchantment = new Item();
-                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
                         itemEnchantment = iGlobal.enchantments[i];
-                    }
 
                     if (tableEnchantment.IsAir) {
                         if (wePlayer.enchantmentInEnchantingTable[i]) {//if enchantmentSlot HAD an enchantment in it but it was just taken out,
@@ -162,7 +148,7 @@ namespace WeaponEnchantments
 
                         wePlayer.enchantmentInEnchantingTable[i] = false;//Set PREVIOUS state of enchantmentSlot to empty(false)
                     }
-                    else if (!itemEnchantment.IsAir && itemEnchantment != tableEnchantment) {
+                    else if (!itemEnchantment.IsAir && itemEnchantment.type != tableEnchantment.type) {
                         //If player swapped enchantments (without removing the previous one in the enchantmentSlot) Force global item to re-link to the enchantmentSlot instead of following the enchantment just taken out
                         EnchantedItemStaticMethods.RemoveEnchantment(i);
                         iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;
@@ -207,14 +193,14 @@ namespace WeaponEnchantments
                             valid = wePlayer.CheckShiftClickValid(ref Main.HoverItem);
                     }
 
-                    if(!stop) {
-						if (!valid || Main.cursorOverride == 6) {
+                    if (!stop) {
+                        if (!valid || Main.cursorOverride == 6) {
                             Main.cursorOverride = -1;
                         }
-					}
+                    }
                 }
             }
-            
+
             //Fix for splitting stack of enchanted items in a chest
             if (wePlayer.Player.chest != -1) {
                 int chest = wePlayer.Player.chest;
@@ -259,10 +245,10 @@ namespace WeaponEnchantments
                                         Main.mouseItem.stack += stack;
                                         item = new Item();
                                     }
-									else {
+                                    else {
                                         Main.mouseItem.stack = maxStack;
                                         item.stack = stack + mouseItemStack - maxStack;
-									}
+                                    }
                                 }
 
                                 break;
@@ -273,19 +259,19 @@ namespace WeaponEnchantments
             }
 
             //Calamity Reforge
-            if(EnchantedItem.calamityReforged) {
-                if(Main.reforgeItem.TryGetEnchantedItem()) {
+            if (EnchantedItem.calamityReforged) {
+                if (Main.reforgeItem.TryGetEnchantedItem()) {
                     //Calamity only
                     EnchantedItem.ReforgeItem(ref Main.reforgeItem, wePlayer.Player, true);
                 }
-				else {
+                else {
                     //Calamity and AutoReforge
                     EnchantedItem.ReforgeItem(ref EnchantedItem.calamityAndAutoReforgePostReforgeItem, wePlayer.Player, true);
                 }
             }
 
             //Fargos pirates that steal items
-            if(stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
+            if (stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
                 if (itemToClear != null && itemToClear.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
                     iGlobal.lastValueBonus = 0;
@@ -296,7 +282,7 @@ namespace WeaponEnchantments
             }
 
             //Player swapper
-            if(WEMod.playerSwapperModEnabled && Main.netMode != NetmodeID.Server) {
+            if (WEMod.playerSwapperModEnabled && Main.netMode != NetmodeID.Server) {
                 string playerName = wePlayer.Player.name;
                 if (!updatedPlayerNames.Contains(playerName)) {
                     OldItemManager.ReplaceAllPlayerOldItems(wePlayer.Player);
@@ -304,18 +290,46 @@ namespace WeaponEnchantments
                 }
             }
         }
+        public static void RemoveTableItem(WEPlayer wePlayer) {
+            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
+                //For each enchantment in the enchantmentSlots,
+                if (enchantmentInUI != null) {
+                    if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                        iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
+                }
+
+                wePlayer.EnchantmentUISlot(i).Item = new Item();//Delete enchantments still in enchantmentSlots(There were transfered to the global item)
+                wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
+            }
+
+            if (wePlayer.infusionConsumeItem != null) {
+                if (!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
+                    wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
+
+                wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Cancel.ToString().Lang(L_ID1.TableText));
+            }
+
+            if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
+                iBEGlobal.inEnchantingTable = false;
+
+            wePlayer.itemBeingEnchanted.favorited = favorited;
+            wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
+        }
         public static void CloseWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item itemInUI = wePlayer.ItemInUI();
-            if(itemInUI != null && !itemInUI.IsAir) {
+            if (itemInUI != null && !itemInUI.IsAir) {
                 //Give item in table back to player
                 wePlayer.ItemUISlot().Item = wePlayer.Player.GetItem(Main.myPlayer, itemInUI, GetItemSettings.LootAllSettings);
 
                 //Clear item and enchantments from table
                 itemInUI = wePlayer.ItemInUI();
                 if (itemInUI.IsAir) {
+                    RemoveTableItem(wePlayer);
+
                     wePlayer.enchantingTable.item[0] = new Item();
-                    for(int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         wePlayer.enchantmentInEnchantingTable[i] = false;
                         wePlayer.enchantingTable.enchantmentItem[i] = new Item();
                         wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
@@ -326,7 +340,7 @@ namespace WeaponEnchantments
             wePlayer.itemBeingEnchanted = null;
             wePlayer.itemInEnchantingTable = false;
             wePlayer.usingEnchantingTable = false;
-            if(wePlayer.Player.chest == -1) {
+            if (wePlayer.Player.chest == -1) {
                 if (!noSound)
                     SoundEngine.PlaySound(SoundID.MenuClose);
             }
@@ -339,12 +353,8 @@ namespace WeaponEnchantments
         public static void OpenWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = true;
-            if(!noSound)
+            if (!noSound)
                 SoundEngine.PlaySound(SoundID.MenuOpen);
-
-            if (wePlayer.enchantingTableTier > 0) {
-                QuickStackEssence();
-            }
 
             UIState state = new UIState();
             state.Append(wePlayer.enchantingTableUI);
@@ -355,7 +365,7 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int j = 0; j < 50; j++) {
                 if (wePlayer.Player.inventory[j].TryGetEnchantmentEssence(out EnchantmentEssence essence)) {
-                    int tier = essence.essenceTier;
+                    int tier = essence.EssenceTier;
                     int ammountToTransfer;
                     int startingStack = wePlayer.Player.inventory[j].stack;
                     if (wePlayer.enchantingTable.essenceItem[tier].IsAir) {
@@ -364,9 +374,10 @@ namespace WeaponEnchantments
                         transfered = true;
                     }
                     else {
-                        if(wePlayer.enchantingTable.essenceItem[tier].stack < EnchantmentEssence.maxStack) {
-                            if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTable.essenceItem[tier].stack > EnchantmentEssence.maxStack) {
-                                ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
+                        int maxStack = wePlayer.enchantingTable.essenceItem[tier].maxStack;
+                        if (wePlayer.enchantingTable.essenceItem[tier].stack < maxStack) {
+                            if (wePlayer.Player.inventory[j].stack + wePlayer.enchantingTable.essenceItem[tier].stack > maxStack) {
+                                ammountToTransfer = maxStack - wePlayer.enchantingTable.essenceItem[tier].stack;
                             }
                             else {
                                 ammountToTransfer = wePlayer.Player.inventory[j].stack;
@@ -378,7 +389,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if(wePlayer.Player.inventory[j].stack == startingStack)
+                    if (wePlayer.Player.inventory[j].stack == startingStack)
                         transfered = false;
                 }
             }
@@ -389,16 +400,20 @@ namespace WeaponEnchantments
             bool crafted = false;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             for (int i = EnchantingTable.maxEssenceItems - 1; i > 0; i--) {
-                if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.NullOrAir())
+                    continue;
+
+                int maxStack = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.maxStack;
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
                     int ammountToTransfer;
-                    if(wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
 
-                    if(ammountToTransfer > 0) {
+                    if (ammountToTransfer > 0) {
                         wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
                         wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack -= ammountToTransfer * 4;
                         crafted = true;
@@ -407,13 +422,17 @@ namespace WeaponEnchantments
             }
 
             for (int i = 1; i < EnchantingTable.maxEssenceItems; i++) {
-                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < EnchantmentEssence.maxStack) {
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.NullOrAir())
+                    continue;
+
+                int maxStack = wePlayer.enchantingTableUI.essenceSlotUI[i].Item.maxStack;
+                if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
                     int ammountToTransfer;
-                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (EnchantmentEssence.maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
+                    if (wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack == 0 || (maxStack > wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack + (wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4))) {
                         ammountToTransfer = wePlayer.enchantingTableUI.essenceSlotUI[i - 1].Item.stack / 4;
                     }
                     else {
-                        ammountToTransfer = EnchantmentEssence.maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
+                        ammountToTransfer = maxStack - wePlayer.enchantingTableUI.essenceSlotUI[i].Item.stack;
                     }
 
                     if (ammountToTransfer > 0) {
@@ -437,11 +456,11 @@ namespace WeaponEnchantments
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;
-            if(weModSystemUI?.CurrentState != null) {
+            if (weModSystemUI?.CurrentState != null) {
                 weModSystemUI.Update(gameTime);
             }
 
-            if(promptInterface?.CurrentState != null)
+            if (PromptInterfaceActive)
                 promptInterface.Update(gameTime);
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
@@ -449,17 +468,16 @@ namespace WeaponEnchantments
             if (index != -1) {
                 layers.Insert
                 (
-                    ++index, 
+                    ++index,
                     new LegacyGameInterfaceLayer
                     (
-                        "WeaponEnchantments: Mouse Over", 
-                        delegate 
-                        { 
-                            if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) 
-                            { 
+                        "WeaponEnchantments: Mouse Over",
+                        delegate {
+                            if (_lastUpdateUiGameTime != null && mouseoverUIInterface?.CurrentState != null) {
                                 mouseoverUIInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                            } return true; 
-                        }, 
+                            }
+                            return true;
+                        },
                         InterfaceScaleType.UI
                      )
                 );
@@ -485,7 +503,7 @@ namespace WeaponEnchantments
                 layers.Insert(index, new LegacyGameInterfaceLayer(
                     "WeaponEnchantments: PromptUI",
                     delegate {
-                        if (_lastUpdateUiGameTime != null && promptInterface?.CurrentState != null)
+                        if (_lastUpdateUiGameTime != null && PromptInterfaceActive)
                             promptInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
 
                         return true;
@@ -496,217 +514,296 @@ namespace WeaponEnchantments
         }
         public override void AddRecipeGroups() {
             RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[] {
-                ItemID.Sapphire, 
-                ItemID.Ruby, 
-                ItemID.Emerald, 
-                ItemID.Topaz, 
+                ItemID.Topaz,
+                ItemID.Sapphire,
+                ItemID.Ruby,
+                ItemID.Emerald,
                 ItemID.Amethyst
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
 
             group = new RecipeGroup(() => "Any Rare Gem", new int[] {
-                ItemID.Amber, 
+                ItemID.Amber,
                 ItemID.Diamond
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 
             group = new RecipeGroup(() => "Workbenches", new int[] {
-                ItemID.WorkBench, 
-                ItemID.BambooWorkbench, 
-                ItemID.BlueDungeonWorkBench, 
-                ItemID.BoneWorkBench, 
-                ItemID.BorealWoodWorkBench, 
-                ItemID.CactusWorkBench, 
-                ItemID.CrystalWorkbench, 
-                ItemID.DynastyWorkBench, 
-                ItemID.EbonwoodWorkBench, 
-                ItemID.FleshWorkBench, 
-                ItemID.FrozenWorkBench, 
-                ItemID.GlassWorkBench, 
+                ItemID.WorkBench,
+                ItemID.BambooWorkbench,
+                ItemID.BlueDungeonWorkBench,
+                ItemID.BoneWorkBench,
+                ItemID.BorealWoodWorkBench,
+                ItemID.CactusWorkBench,
+                ItemID.CrystalWorkbench,
+                ItemID.DynastyWorkBench,
+                ItemID.EbonwoodWorkBench,
+                ItemID.FleshWorkBench,
+                ItemID.FrozenWorkBench,
+                ItemID.GlassWorkBench,
                 ItemID.GoldenWorkbench,
-                ItemID.GothicWorkBench, 
-                ItemID.GraniteWorkBench, 
-                ItemID.GreenDungeonWorkBench, 
-                ItemID.HoneyWorkBench, 
-                ItemID.LesionWorkbench, 
-                ItemID.LihzahrdWorkBench, 
-                ItemID.LivingWoodWorkBench, 
-                ItemID.MarbleWorkBench, 
-                ItemID.MartianWorkBench, 
-                ItemID.MeteoriteWorkBench, 
-                ItemID.MushroomWorkBench, 
-                ItemID.NebulaWorkbench, 
-                ItemID.ObsidianWorkBench, 
-                ItemID.PalmWoodWorkBench, 
-                ItemID.PearlwoodWorkBench, 
-                ItemID.PinkDungeonWorkBench, 
-                ItemID.PumpkinWorkBench, 
-                ItemID.RichMahoganyWorkBench, 
-                ItemID.SandstoneWorkbench, 
-                ItemID.ShadewoodWorkBench, 
-                ItemID.SkywareWorkbench, 
-                ItemID.SlimeWorkBench, 
-                ItemID.SolarWorkbench, 
-                ItemID.SpiderWorkbench, 
-                ItemID.SpookyWorkBench, 
-                ItemID.StardustWorkbench, 
-                ItemID.SteampunkWorkBench, 
+                ItemID.GothicWorkBench,
+                ItemID.GraniteWorkBench,
+                ItemID.GreenDungeonWorkBench,
+                ItemID.HoneyWorkBench,
+                ItemID.LesionWorkbench,
+                ItemID.LihzahrdWorkBench,
+                ItemID.LivingWoodWorkBench,
+                ItemID.MarbleWorkBench,
+                ItemID.MartianWorkBench,
+                ItemID.MeteoriteWorkBench,
+                ItemID.MushroomWorkBench,
+                ItemID.NebulaWorkbench,
+                ItemID.ObsidianWorkBench,
+                ItemID.PalmWoodWorkBench,
+                ItemID.PearlwoodWorkBench,
+                ItemID.PinkDungeonWorkBench,
+                ItemID.PumpkinWorkBench,
+                ItemID.RichMahoganyWorkBench,
+                ItemID.SandstoneWorkbench,
+                ItemID.ShadewoodWorkBench,
+                ItemID.SkywareWorkbench,
+                ItemID.SlimeWorkBench,
+                ItemID.SolarWorkbench,
+                ItemID.SpiderWorkbench,
+                ItemID.SpookyWorkBench,
+                ItemID.StardustWorkbench,
+                ItemID.SteampunkWorkBench,
                 ItemID.VortexWorkbench
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:Workbenches", group);
 
             group = new RecipeGroup(() => "Any Aligned Soul", new int[] {
-                ItemID.SoulofLight, 
+                ItemID.SoulofLight,
                 ItemID.SoulofNight
             });
             RecipeGroup.RegisterGroup("WeaponEnchantments:AlignedSoul", group);
         }
-		public override void PostWorldGen() {
+        public override void PostWorldGen() {
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
                 Chest chest = Main.chest[chestIndex];
-                if(chest == null)
+                if (chest == null)
                     continue;
 
-                float chance = ChestSpawnChance;
                 int itemsPlaced = 0;
-                List<int> itemTypes = new List<int>();
 
-                // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
-                // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
-                switch (Main.tile[chest.x, chest.y].TileType) {
-                    case 21:
-                    case 441:
-                        switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
-                            case 0://Chest
-                                chance *= 0.7f;
-                                itemTypes.Add(ModContent.ItemType<StatDefenseEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
-                                break;
-                            case 1://Gold Chest
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                break;
-                            case 2://Gold Chest (Locked)
-                                itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
-                                break;
-                            case 3://Shadow Chest
-                            case 4://Shadow Chest (Locked)
-                                chance *= 2f;
-                                itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
-                                break;
-                            case 8://Rich Mahogany Chest (Jungle)
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                break;
-                            case 10://Ivy Chest (Jungle)
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                break;
-                            case 11://Frozen Chest
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
-                                break;
-                            case 12://Living Wood Chest
-                                itemTypes.Add(ModContent.ItemType<ScaleEnchantmentBasic>());
-                                break;
-                            case 13://Skyware Chest
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                break;
-                            case 15://Web Covered Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 16://Lihzahrd Chest
-                                chance *= 2f;
-                                itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
-                                break;
-                            case 17://Water Chest
-                                itemTypes.Add(ModContent.ItemType<ManaEnchantmentBasic>());
-                                break;
-                            case 23://Jungle Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 24://Corruption Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 25://Crimson Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 26://Hallowed Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 27://Ice Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                            case 32://Mushroom Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 40://Granite Chest
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                break;
-                            case 41://Marble Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                        }
-
-                        break;
-                    case 467:
-                    case 468:
-                        switch (Main.tile[chest.x, chest.y].TileFrameX / 36) {
-                            case 4://Gold Dead man's chest
-                                itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                                itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<HunterEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentUltraRare>());
-                                itemTypes.Add(ModContent.ItemType<SpeedEnchantmentBasic>());
-                                break;
-                            case 10://SandStone Chest
-                                itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
-                                break;
-                            case 13://Desert Chest
-                                    chance = 1f;
-                                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
-                                break;
-                        }
-
-                        break;
-                    default:
-                        chance = 0f;
-                        break;
-                }
+                ChestID chestID = GetChestIDFromChest(chest);
+                GetChestLoot(chestID, out List<DropData> options, out float chance);
 
                 if (chance <= 0f)
                     continue;
 
-                for (int j = 0; j < 40 && itemsPlaced < chance; j++) {
+                if (options == null)
+                    continue;
+
+                IEnumerable<DropData> weightedDropData = options.Where(d => d.Chance <= 0f);
+				IEnumerable<DropData> chanceDropData = options.Where(d => d.Chance > 0f);
+                foreach(DropData dropData in chanceDropData) {
+					float randFloat = Main.rand.NextFloat();
+                    float dropChance = dropData.Chance * ChestSpawnChance / 0.5f;
+                    if (randFloat > dropChance)
+                        continue;
+
+					for (int j = 0; j < 40; j++) {
+						if (chest.item[j].type != ItemID.None)
+							continue;
+
+                        int type = dropData.ID;
+						for (int k = j; k >= 0; k--) {
+							if (chest.item[k].type == type && chest.item[k].stack < chest.item[k].maxStack) {
+								chest.item[k].stack++;
+                                break;
+							}
+						}
+
+						chest.item[j] = new Item(type);
+                        break;
+					}
+				}
+
+				for (int j = 0; j < 40 && itemsPlaced < chance; j++) {
                     if (chest.item[j].type != ItemID.None)
                         continue;
 
-                    int type = itemTypes.GetOneFromList(chance);
-                    if(type > 0)
-                        chest.item[j] = new Item(type);
+                    int type = weightedDropData.GetOneFromWeightedList(chance);
+
+                    if (type > 0) {
+                        bool found = false;
+                        for (int k = j; k >= 0; k--) {
+                            if (chest.item[k].type == type && chest.item[k].stack < chest.item[k].maxStack) {
+                                chest.item[k].stack++;
+                                found = true;
+                                j--;
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                            chest.item[j] = new Item(type);
+                    }
 
                     itemsPlaced++;
                 }
             }
+        }
+        public static ChestID GetChestIDFromChest(Chest chest) {
+            Tile tile = Main.tile[chest.x, chest.y];
+            ushort tileType = tile.TileType;
+            short tileFrameX = tile.TileFrameX;
+            // If you look at the sprite for Chests by extracting Tiles_21.xnb, you'll see that the 12th chest is the Ice Chest.
+            // Since we are counting from 0, this is where 11 comes from. 36 comes from the width of each tile including padding.
+            switch (tileType) {
+                case TileID.Containers:
+                case TileID.FakeContainers:
+                    return (ChestID)(tileFrameX / 36);
+                case TileID.Containers2:
+                case TileID.FakeContainers2:
+                    return (ChestID)(tileFrameX / 36 + 100);
+                default:
+                    return ChestID.None;
+            }
+        }
+        public static void GetChestLoot(ChestID chestID, out List<DropData> itemTypes, out float chance) {
+            chance = 0f;
+            itemTypes = chestDrops.ContainsKey(chestID) ? chestDrops[chestID] : null;
+            if (itemTypes == null)
+                return;
+
+            chance = ChestSpawnChance;
+            if (itemTypes.Where(d => d.Chance <= 0f).Count() == 1)
+                chance *= itemTypes[0].Weight;
+
+            switch (chestID) {
+                case ChestID.Chest_Normal:
+                    chance *= 0.7f;
+                    //itemTypes.Add(ModContent.ItemType<DefenseEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<PeaceEnchantmentBasic>());
+                    break;
+                case ChestID.Gold:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case ChestID.Gold_Locked:
+                    //itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                    break;
+                case ChestID.Shadow:
+                case ChestID.Shadow_Locked:
+                    chance *= 2f;
+                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<WarEnchantmentBasic>());
+                    break;
+                case ChestID.RichMahogany:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    break;
+                case ChestID.Ivy:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    break;
+                case ChestID.Frozen:
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    break;
+                case ChestID.LivingWood:
+                    //itemTypes.Add(ModContent.ItemType<SizeEnchantmentBasic>());
+                    break;
+                case ChestID.Skyware:
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case ChestID.WebCovered:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case ChestID.Lihzahrd:
+                    chance *= 2f;
+                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<AllForOneEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<OneForAllEnchantmentBasic>());
+                    break;
+                case ChestID.Water:
+                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
+                    break;
+                case ChestID.Jungle_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case ChestID.Corruption_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case ChestID.Crimson_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case ChestID.Hallowed_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case ChestID.Ice_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+                case ChestID.Mushroom:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case ChestID.Granite:
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case ChestID.Marble:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case ChestID.Gold_DeadMans:
+                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
+                    //itemTypes.Add(ModContent.ItemType<SpelunkerEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<DangerSenseEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<HunterEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<ObsidianSkinEnchantmentLegendary>());
+                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
+                    break;
+                case ChestID.SandStone:
+                    //itemTypes.Add(ModContent.ItemType<AmmoCostEnchantmentBasic>());
+                    break;
+                case ChestID.Desert_Dungeon:
+                    chance = 1f;
+                    //itemTypes.Add(ModContent.ItemType<Enchantment>());
+                    break;
+            }
+        }
+        public override void LoadWorldData(TagCompound tag) {
+            versionUpdate = tag.Get<byte>("versionUpdate");
+            OldItemManager.versionUpdate = versionUpdate;
+        }
+        public override void SaveWorldData(TagCompound tag) {
+            tag["versionUpdate"] = versionUpdate;
+        }
+        public override void PostUpdateTime() {
+            if (Main.dayTime && !dayTime) {
+                Witch.resetShop = true;
+
+                //If player has a fishing pole in inventory with NpcContactAnglerEnchantment, tell them the new fishing quest.
+                foreach (Item item in Main.LocalPlayer.inventory.Where(i => i.fishingPole > 0)) {
+                    if (item.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
+                        foreach(Enchantment enchantment in enchantedFishingPole.enchantments.Select(e => e.ModItem).OfType<Enchantment>()) {
+                            if (enchantment is NpcContactAnglerEnchantment anglerEnchantment) {
+                                int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+                                Main.NewText($"The daily fishing quest has reset.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
+                                    $"{Lang.AnglerQuestChat(false)}");
+                            }
+						}
+                    }
+                }
+            }
+
+            dayTime = Main.dayTime;
         }
     }
 }

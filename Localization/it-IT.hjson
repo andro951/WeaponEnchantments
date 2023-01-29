@@ -1,1 +1,708 @@
-﻿
+#Contributors: @Tefra_K
+Mods: {
+	WeaponEnchantments: {
+		ItemName: {
+			AllForOneEnchantmentBasic: Tutto per un incantesimo di base
+			AllForOneEnchantmentCommon: Tutti per un incantesimo comune
+			AllForOneEnchantmentEpic: Tutto per un incantesimo epico
+			AllForOneEnchantmentLegendary: Tutto per un incantesimo Leggendario
+			AllForOneEnchantmentRare: Incantesimo All For One Raro
+			AmmoCostEnchantmentBasic: Costo munizioni incantesimo base
+			AmmoCostEnchantmentCommon: Costo munizioni incantesimo Comune
+			AmmoCostEnchantmentEpic: Incantesimo costo munizioni epico
+			AmmoCostEnchantmentLegendary: Incantesimo costo munizioni Leggendario
+			AmmoCostEnchantmentRare: Incantesimo costo munizioni raro
+			ArmorPenetrationEnchantmentBasic: Incantesimo di penetrazione dell'armatura di base
+			ArmorPenetrationEnchantmentCommon: Incantesimo di penetrazione dell'armatura Comune
+			ArmorPenetrationEnchantmentEpic: Incantesimo di penetrazione dell'armatura epico
+			ArmorPenetrationEnchantmentLegendary: Incantesimo di penetrazione dell'armatura Leggendario
+			ArmorPenetrationEnchantmentRare: Incantesimo di penetrazione dell'armatura Raro
+			AttackSpeedEnchantmentBasic: Incantesimo di velocità d'attacco di base
+			AttackSpeedEnchantmentCommon: Incantesimo velocità d'attacco Comune
+			AttackSpeedEnchantmentEpic: Incantesimo velocità d'attacco epico
+			AttackSpeedEnchantmentLegendary: Incantesimo velocità d'attacco Leggendario
+			AttackSpeedEnchantmentRare: Incantesimo velocità d'attacco Raro
+			BerserkersRageEnchantmentBasic: Berserkers Rage Incantesimo di base
+			BerserkersRageEnchantmentCommon: Berserker Rabbia Incantesimo Comune
+			BerserkersRageEnchantmentEpic: Berserkers Rage Incantesimo Epico
+			BerserkersRageEnchantmentLegendary: Berserkers Rabbia Incantesimo Leggendario
+			BerserkersRageEnchantmentRare: Berserker Rabbia Incantesimo Raro
+			CalmWatersEnchantmentBasic: Incantesimo di acque calme di base
+			CalmWatersEnchantmentCommon: Incantesimo acque calme comune
+			CalmWatersEnchantmentEpic: Epopea dell'incantesimo delle acque calme
+			CalmWatersEnchantmentLegendary: Incantesimo Acque Calme Leggendario
+			CalmWatersEnchantmentRare: Incantesimo Acque Calme Raro
+			ChaoticFishingEnchantmentBasic: Incantesimo di pesca caotico di base
+			ChaoticFishingEnchantmentCommon: Incantesimo di pesca caotico Comune
+			ChaoticFishingEnchantmentEpic: Incantesimo di pesca caotico epico
+			ChaoticFishingEnchantmentLegendary: Incantesimo di pesca caotico Leggendario
+			ChaoticFishingEnchantmentRare: Incantesimo di pesca caotico Raro
+			ColdSteelEnchantmentBasic: Incantesimo Acciaio Freddo Base
+			ColdSteelEnchantmentCommon: Incantesimo Acciaio Freddo Comune
+			ColdSteelEnchantmentEpic: Epopea dell'incantesimo d'acciaio freddo
+			ColdSteelEnchantmentLegendary: Incantesimo Acciaio Freddo Leggendario
+			ColdSteelEnchantmentRare: Incantesimo Acciaio Freddo Raro
+			CrateChanceEnchantmentBasic: Cassa Incantesimo Probabilità Base
+			CrateChanceEnchantmentCommon: Cassa Incantesimo Probabilità Comune
+			CrateChanceEnchantmentEpic: Epopea dell'incantesimo della probabilità della cassa
+			CrateChanceEnchantmentLegendary: Incantesimo probabilità cassa Leggendario
+			CrateChanceEnchantmentRare: Incantesimo probabilità cassa Raro
+			CrateEnchantmentBasic: Incantesimo di cassa di base
+			CrateEnchantmentCommon: Incantesimo di cassa comune
+			CrateEnchantmentEpic: Epopea dell'incantesimo della cassa
+			CrateEnchantmentLegendary: Incantesimo della cassa Leggendario
+			CrateEnchantmentRare: Incantesimo della cassa Raro
+			CriticalStrikeChanceEnchantmentBasic: Probabilità di colpo critico Incantesimo Base
+			CriticalStrikeChanceEnchantmentCommon: Probabilità di colpo critico Incantesimo Comune
+			CriticalStrikeChanceEnchantmentEpic: Probabilità di colpo critico Incantesimo epico
+			CriticalStrikeChanceEnchantmentLegendary: Probabilità di colpo critico Incantesimo Leggendario
+			CriticalStrikeChanceEnchantmentRare: Probabilità di colpo critico Incantesimo Raro
+			CriticalStrikeDamageEnchantmentBasic: Incantesimo del danno da colpo critico di base
+			CriticalStrikeDamageEnchantmentCommon: Colpo critico Danno Incantesimo Comune
+			CriticalStrikeDamageEnchantmentEpic: Epico incantesimo con danno da colpo critico
+			CriticalStrikeDamageEnchantmentLegendary: Incantesimo con danno da colpo critico Leggendario
+			CriticalStrikeDamageEnchantmentRare: Incantesimo con danno da colpo critico Raro
+			CursedInfernoEnchantmentBasic: Incantesimo Inferno Maledetto di base
+			CursedInfernoEnchantmentCommon: Incantesimo Inferno Maledetto Comune
+			CursedInfernoEnchantmentEpic: Incantesimo Inferno Maledetto Epico
+			CursedInfernoEnchantmentLegendary: Incantesimo Inferno Maledetto Leggendario
+			CursedInfernoEnchantmentRare: Incantesimo Inferno Maledetto Raro
+			DamageEnchantmentBasic: Danno incantesimo di base
+			DamageEnchantmentCommon: Danno incantesimo Comune
+			DamageEnchantmentEpic: Danno incantesimo epico
+			DamageEnchantmentLegendary: Danno incantesimo Leggendario
+			DamageEnchantmentRare: Danno incantesimo Raro
+			DamageReductionEnchantmentBasic: Incantesimo di riduzione del danno di base
+			DamageReductionEnchantmentCommon: Incantesimo di riduzione del danno Comune
+			DamageReductionEnchantmentEpic: Incantesimo di riduzione del danno epico
+			DamageReductionEnchantmentLegendary: Incantesimo di riduzione del danno Leggendario
+			DamageReductionEnchantmentRare: Incantesimo di riduzione del danno Raro
+			DangerSenseEnchantmentBasic: Pericolo Senso Incantesimo Base
+			DangerSenseEnchantmentCommon: Pericolo Senso Incantesimo Comune
+			DangerSenseEnchantmentEpic: Pericolo Senso Incantesimo Epico
+			DangerSenseEnchantmentLegendary: Incantesimo del senso di pericolo Leggendario
+			DangerSenseEnchantmentRare: Pericolo Senso Incantesimo Raro
+			DaybreakEnchantmentBasic: Incantesimo dell'alba di base
+			DaybreakEnchantmentCommon: Incantesimo dell'alba Comune
+			DaybreakEnchantmentEpic: Epopea dell'incantesimo dell'alba
+			DaybreakEnchantmentLegendary: Incantesimo dell'alba Leggendario
+			DaybreakEnchantmentRare: Incantesimo dell'alba Raro
+			DefenseEnchantmentBasic: Incantesimo di difesa di base
+			DefenseEnchantmentCommon: Incantesimo di difesa comune
+			DefenseEnchantmentEpic: Incantesimo di difesa epico
+			DefenseEnchantmentLegendary: Incantesimo di difesa leggendario
+			DefenseEnchantmentRare: Incantesimo di difesa Raro
+			ExtraFishingLineEnchantmentBasic: Incantesimo di lenza extra Basic
+			ExtraFishingLineEnchantmentCommon: Incantesimo di lenza extra comune
+			ExtraFishingLineEnchantmentEpic: Epico incantesimo della lenza extra
+			ExtraFishingLineEnchantmentLegendary: Incantesimo della lenza extra Leggendario
+			ExtraFishingLineEnchantmentRare: Incantesimo della lenza extra Raro
+			FishingEnchantmentBasic: Incantesimo di pesca di base
+			FishingEnchantmentCommon: Incantesimo di pesca comune
+			FishingEnchantmentEpic: Incantesimo di pesca epico
+			FishingEnchantmentLegendary: Incantesimo di pesca Leggendario
+			FishingEnchantmentRare: Incantesimo di pesca Raro
+			FishingPowerEnchantmentBasic: Incantesimo del potere di pesca di base
+			FishingPowerEnchantmentCommon: Incantesimo del potere di pesca Comune
+			FishingPowerEnchantmentEpic: Epopea dell'incantesimo del potere della pesca
+			FishingPowerEnchantmentLegendary: Incantesimo del potere della pesca Leggendario
+			FishingPowerEnchantmentRare: Incantesimo del potere di pesca Raro
+			FrostburnEnchantmentBasic: Incantesimo Frostburn Basic
+			FrostburnEnchantmentCommon: Incantesimo Bruciore di Gelo Comune
+			FrostburnEnchantmentEpic: Incantesimo di Gelo Epico
+			FrostburnEnchantmentLegendary: Incantesimo Frostburn Leggendario
+			FrostburnEnchantmentRare: Incantesimo Bruciore di Gelo Raro
+			GodSlayerEnchantmentBasic: Incantesimo dell'uccisore di dio di base
+			GodSlayerEnchantmentCommon: Incantesimo dell'uccisore di dio comune
+			GodSlayerEnchantmentEpic: Epopea dell'incantesimo dell'uccisore di dio
+			GodSlayerEnchantmentLegendary: Incantesimo Ammazzadio Leggendario
+			GodSlayerEnchantmentRare: Incantesimo dell'uccisore di dio raro
+			HellsWrathEnchantmentBasic: Incantesimo di Hells Wrath Basic
+			HellsWrathEnchantmentCommon: Incantesimo dell'Ira Infernale Comune
+			HellsWrathEnchantmentEpic: Incantesimo epico dell'ira dell'inferno
+			HellsWrathEnchantmentLegendary: Incantesimo dell'Ira Infernale Leggendario
+			HellsWrathEnchantmentRare: Incantesimo dell'ira dell'inferno Raro
+			HunterEnchantmentBasic: Incantesimo del cacciatore di base
+			HunterEnchantmentCommon: Incantesimo del cacciatore comune
+			HunterEnchantmentEpic: Epopea dell'incantesimo del cacciatore
+			HunterEnchantmentLegendary: Incantesimo del cacciatore leggendario
+			HunterEnchantmentRare: Incantesimo del cacciatore Raro
+			IchorEnchantmentBasic: Icore Incantesimo Base
+			IchorEnchantmentCommon: Incantesimo Icore Comune
+			IchorEnchantmentEpic: Epopea dell'incantesimo di Icore
+			IchorEnchantmentLegendary: Incantesimo Icore Leggendario
+			IchorEnchantmentRare: Incantesimo Icore Raro
+			JuicedEnchantmentBasic: Incantesimo succo di base
+			JuicedEnchantmentCommon: Incantesimo Succo Comune
+			JuicedEnchantmentEpic: Epopea dell'incantesimo spremuto
+			JuicedEnchantmentLegendary: Incantesimo Juiced Leggendario
+			JuicedEnchantmentRare: Incantesimo Juiced Raro
+			JunglesFuryEnchantmentBasic: Jungles Fury Incantesimo di base
+			JunglesFuryEnchantmentCommon: Giungla Furia Incantesimo Comune
+			JunglesFuryEnchantmentEpic: Jungles Fury Incantesimo Epico
+			JunglesFuryEnchantmentLegendary: Incantesimo Furia della Giungla Leggendario
+			JunglesFuryEnchantmentRare: Incantesimo Furia della Giungla Raro
+			KiClassSwapEnchantmentBasic: Ki Class Swap Incantesimo di base
+			KiClassSwapEnchantmentCommon: Incantesimo di scambio di classe Ki Comune
+			KiClassSwapEnchantmentEpic: Ki Class Swap Incantesimo Epico
+			KiClassSwapEnchantmentLegendary: Incantesimo di scambio di classe Ki Leggendario
+			KiClassSwapEnchantmentRare: Incantesimo di scambio di classe Ki Raro
+			KiEnchantmentBasic: Ki Incantesimo di base
+			KiEnchantmentCommon: Ki Incantesimo Comune
+			KiEnchantmentEpic: Ki Incantesimo epico
+			KiEnchantmentLegendary: Ki Incantesimo Leggendario
+			KiEnchantmentRare: Ki Incantesimo Raro
+			LavaFishingEnchantmentBasic: Incantesimo Pesca alla lava Base
+			LavaFishingEnchantmentCommon: Incantesimo Pesca di Lava Comune
+			LavaFishingEnchantmentEpic: Incantesimo di pesca alla lava epico
+			LavaFishingEnchantmentLegendary: Incantesimo Pesca di lava Leggendario
+			LavaFishingEnchantmentRare: Incantesimo Pesca alla Lava Raro
+			LifeRegenEnchantmentBasic: Vita Regen Incantesimo di base
+			LifeRegenEnchantmentCommon: Vita Regen Incantesimo Comune
+			LifeRegenEnchantmentEpic: Life Regen Incantesimo Epico
+			LifeRegenEnchantmentLegendary: Incantesimo di rigenerazione della vita Leggendario
+			LifeRegenEnchantmentRare: Incantesimo Rigenera Vita Raro
+			LifeStealEnchantmentBasic: Incantesimo ruba vita di base
+			LifeStealEnchantmentCommon: Incantesimo Ruba Vita Comune
+			LifeStealEnchantmentEpic: Incantesimo rubavita epico
+			LifeStealEnchantmentLegendary: Incantesimo rubavita Leggendario
+			LifeStealEnchantmentRare: Incantesimo ruba vita Raro
+			LuckEnchantmentBasic: Incantesimo di fortuna di base
+			LuckEnchantmentCommon: Incantesimo fortuna comune
+			LuckEnchantmentEpic: Fortuna incantesimo epico
+			LuckEnchantmentLegendary: Incantesimo della fortuna Leggendario
+			LuckEnchantmentRare: Incantesimo fortuna raro
+			MagicClassSwapEnchantmentBasic: Incantesimo di scambio di classe magica di base
+			MagicClassSwapEnchantmentCommon: Scambio di classe magica Incantesimo Comune
+			MagicClassSwapEnchantmentEpic: Magic Class Swap Incantesimo Epico
+			MagicClassSwapEnchantmentLegendary: Incantesimo di scambio di classe magica Leggendario
+			MagicClassSwapEnchantmentRare: Incantesimo di scambio di classe magica Raro
+			MaxMinionsEnchantmentBasic: Max Minion Incantesimo di base
+			MaxMinionsEnchantmentCommon: Max Minion Incantesimo Comune
+			MaxMinionsEnchantmentEpic: Max Minion Incantesimo Epico
+			MaxMinionsEnchantmentLegendary: Incantesimo Max Minion Leggendario
+			MaxMinionsEnchantmentRare: Incantesimo Max Minion Raro
+			MeleeClassSwapEnchantmentBasic: Melee Class Swap Incantesimo Base
+			MeleeClassSwapEnchantmentCommon: Melee Class Swap Incantesimo Comune
+			MeleeClassSwapEnchantmentEpic: Melee Class Swap Incantesimo Epico
+			MeleeClassSwapEnchantmentLegendary: Incantesimo di scambio di classe da mischia Leggendario
+			MeleeClassSwapEnchantmentRare: Incantesimo di scambio di classe da mischia Raro
+			MobilityControlEnchantmentBasic: Incantesimo di controllo della mobilità di base
+			MobilityControlEnchantmentCommon: Incantesimo di controllo della mobilità Comune
+			MobilityControlEnchantmentEpic: Incantesimo di controllo della mobilità epico
+			MobilityControlEnchantmentLegendary: Incantesimo di controllo della mobilità Leggendario
+			MobilityControlEnchantmentRare: Incantesimo di controllo della mobilità Raro
+			MoonlightEnchantmentBasic: Incantesimo chiaro di luna di base
+			MoonlightEnchantmentCommon: Incantesimo al chiaro di luna comune
+			MoonlightEnchantmentEpic: Incantesimo al chiaro di luna epico
+			MoonlightEnchantmentLegendary: Incantesimo al chiaro di luna Leggendario
+			MoonlightEnchantmentRare: Incantesimo al chiaro di luna Raro
+			MovementSpeedEnchantmentBasic: Incantesimo di velocità di movimento di base
+			MovementSpeedEnchantmentCommon: Velocità di movimento Incantesimo Comune
+			MovementSpeedEnchantmentEpic: Velocità di movimento incantesimo epico
+			MovementSpeedEnchantmentLegendary: Incantesimo velocità di movimento Leggendario
+			MovementSpeedEnchantmentRare: Incantesimo di velocità di movimento Raro
+			MultishotEnchantmentBasic: Incantesimo multicolpo di base
+			MultishotEnchantmentCommon: Incantesimo Multishot Comune
+			MultishotEnchantmentEpic: Epopea dell'incantesimo a colpi multipli
+			MultishotEnchantmentLegendary: Incantesimo Multishot Leggendario
+			MultishotEnchantmentRare: Incantesimo Multishot Raro
+			NpcContactAnglerEnchantmentBasic: Npc Contatto Pescatore Incantesimo Base
+			NpcContactAnglerEnchantmentCommon: Npc Contatto Pescatore Incantesimo Comune
+			NpcContactAnglerEnchantmentEpic: Npc contatto pescatore incantesimo epico
+			NpcContactAnglerEnchantmentLegendary: Incantesimo del pescatore di contatto Npc Leggendario
+			NpcContactAnglerEnchantmentRare: Incantesimo del pescatore di contatto Npc Raro
+			ObsidianSkinEnchantmentBasic: Incantesimo pelle di ossidiana di base
+			ObsidianSkinEnchantmentCommon: Incantesimo della pelle di ossidiana Comune
+			ObsidianSkinEnchantmentEpic: Epopea dell'incantesimo della pelle di ossidiana
+			ObsidianSkinEnchantmentLegendary: Incantesimo della pelle di ossidiana Leggendario
+			ObsidianSkinEnchantmentRare: Incantesimo della pelle di ossidiana Raro
+			OneForAllEnchantmentBasic: Uno per tutti l'incantesimo di base
+			OneForAllEnchantmentCommon: Uno per tutti incantesimo comune
+			OneForAllEnchantmentEpic: Uno per tutti incantesimo epico
+			OneForAllEnchantmentLegendary: Incantesimo One For All Leggendario
+			OneForAllEnchantmentRare: Incantesimo Uno per Tutti Raro
+			OnFireEnchantmentBasic: Sull'incantesimo di fuoco di base
+			OnFireEnchantmentCommon: Incantesimo di fuoco comune
+			OnFireEnchantmentEpic: L'epopea dell'incantesimo di fuoco
+			OnFireEnchantmentLegendary: Incantesimo di fuoco leggendario
+			OnFireEnchantmentRare: Incantesimo di fuoco raro
+			PeaceEnchantmentBasic: Incantesimo di pace di base
+			PeaceEnchantmentCommon: Incantesimo di pace comune
+			PeaceEnchantmentEpic: Epopea dell'incantesimo della pace
+			PeaceEnchantmentLegendary: Incantesimo della pace leggendario
+			PeaceEnchantmentRare: Incantesimo di pace raro
+			PennyPinchingEnchantmentBasic: Penny che pizzica l'incantesimo di base
+			PennyPinchingEnchantmentCommon: Penny Pizzica Incantesimo Comune
+			PennyPinchingEnchantmentEpic: Penny Pizzicando Incantesimo Epico
+			PennyPinchingEnchantmentLegendary: Penny Pizzicando Incantesimo Leggendario
+			PennyPinchingEnchantmentRare: Penny Pizzica Incantesimo Raro
+			ProjectileVelocityEnchantmentBasic: Incantesimo velocità proiettile di base
+			ProjectileVelocityEnchantmentCommon: Incantesimo velocità proiettile Comune
+			ProjectileVelocityEnchantmentEpic: Epopea dell'incantesimo della velocità del proiettile
+			ProjectileVelocityEnchantmentLegendary: Incantesimo velocità proiettile Leggendario
+			ProjectileVelocityEnchantmentRare: Incantesimo velocità proiettile Raro
+			RangedClassSwapEnchantmentBasic: Incantesimo di scambio di classe a distanza di base
+			RangedClassSwapEnchantmentCommon: Incantesimo di scambio di classe a distanza Comune
+			RangedClassSwapEnchantmentEpic: Incantesimo di scambio di classe a distanza epico
+			RangedClassSwapEnchantmentLegendary: Incantesimo di scambio di classe a distanza Leggenda
+			RangedClassSwapEnchantmentRare: Incantesimo di scambio di classe a distanza Raro
+			ReducedManaUsageEnchantmentBasic: Utilizzo di mana ridotto Incantesimo di base
+			ReducedManaUsageEnchantmentCommon: Utilizzo di mana ridotto Incantesimo Comune
+			ReducedManaUsageEnchantmentEpic: Ridotto utilizzo del mana incantesimo epico
+			ReducedManaUsageEnchantmentLegendary: Incantesimo a consumo di mana ridotto Leggendario
+			ReducedManaUsageEnchantmentRare: Incantesimo a consumo di mana ridotto Raro
+			RogueClassSwapEnchantmentBasic: Incantesimo di scambio di classe Rogue Basic
+			RogueClassSwapEnchantmentCommon: Incantesimo di scambio di classe ladro Comune
+			RogueClassSwapEnchantmentEpic: Rogue Class Swap Incantesimo Epico
+			RogueClassSwapEnchantmentLegendary: Incantesimo di scambio di classe ladro Leggendario
+			RogueClassSwapEnchantmentRare: Incantesimo di scambio di classe ladro Raro
+			SizeEnchantmentBasic: Dimensione Incantesimo Base
+			SizeEnchantmentCommon: Dimensione Incantesimo Comune
+			SizeEnchantmentEpic: Dimensioni incantesimo epico
+			SizeEnchantmentLegendary: Dimensioni Incantesimo Leggendario
+			SizeEnchantmentRare: Dimensione Incantesimo Raro
+			SolarDashEnchantmentBasic: Incantesimo Solar Dash Basic
+			SolarDashEnchantmentCommon: Incantesimo Solar Dash Comune
+			SolarDashEnchantmentEpic: Incantesimo Solar Dash Epico
+			SolarDashEnchantmentLegendary: Incantesimo Solar Dash Leggendario
+			SolarDashEnchantmentRare: Incantesimo Solar Dash Raro
+			SonarEnchantmentBasic: Sonar incantesimo di base
+			SonarEnchantmentCommon: Sonar incantesimo comune
+			SonarEnchantmentEpic: Sonar incantesimo epico
+			SonarEnchantmentLegendary: Incantesimo Sonar Leggendario
+			SonarEnchantmentRare: Incantesimo sonar raro
+			SpelunkerEnchantmentBasic: Incantesimo Spelunker Basic
+			SpelunkerEnchantmentCommon: Incantesimo Spelunker Comune
+			SpelunkerEnchantmentEpic: Spelunker Incantesimo Epico
+			SpelunkerEnchantmentLegendary: Incantesimo Spelunker Leggendario
+			SpelunkerEnchantmentRare: Incantesimo Spelunker Raro
+			VenomEnchantmentBasic: Incantesimo Veleno Base
+			VenomEnchantmentCommon: Incantesimo Veleno Comune
+			VenomEnchantmentEpic: Incantesimo di veleno epico
+			VenomEnchantmentLegendary: Incantesimo Veleno Leggendario
+			VenomEnchantmentRare: Incantesimo Veleno Raro
+			WarEnchantmentBasic: Incantesimo di guerra di base
+			WarEnchantmentCommon: Incantesimo di guerra comune
+			WarEnchantmentEpic: Epopea dell'incantesimo di guerra
+			WarEnchantmentLegendary: Incantesimo di guerra leggendario
+			WarEnchantmentRare: Incantesimo di guerra raro
+			WhipClassSwapEnchantmentBasic: Frusta Scambio di classe Incantesimo Base
+			WhipClassSwapEnchantmentCommon: Frusta Scambio di classe Incantesimo Comune
+			WhipClassSwapEnchantmentEpic: Frusta Scambio di classe Incantesimo Epico
+			WhipClassSwapEnchantmentLegendary: Frusta Scambio di classe Incantesimo Leggendario
+			WhipClassSwapEnchantmentRare: Frusta Scambio di classe Incantesimo Raro
+			WorldAblazeEnchantmentBasic: Incantesimo World Ablaze Basic
+			WorldAblazeEnchantmentCommon: Incantesimo del mondo in fiamme comune
+			WorldAblazeEnchantmentEpic: Epopea dell'incantesimo World Ablaze
+			WorldAblazeEnchantmentLegendary: Incantesimo World Ablaze Leggendario
+			WorldAblazeEnchantmentRare: Incantesimo World Ablaze Raro
+			Containment: Contenimento
+			DustyEnchantingTable: Tavolo incantevole polveroso
+			EnchantmentEssenceBasic: Essenza incantesimo di base
+			EnchantmentEssenceCommon: Essenza incantesimo comune
+			EnchantmentEssenceEpic: Incantesimo Essenza Epica
+			EnchantmentEssenceLegendary: Essenza incantesimo Leggendaria
+			EnchantmentEssenceRare: Essenza incantesimo Raro
+			HellishEnchantingTable: Tavolo incantevole infernale
+			MediumContainment: Contenimento medio
+			PowerBooster: Potenziatore
+			SoulEnchantingTable: Tavolo incantevole dell'anima
+			SuperiorContainment: Contenimento superiore
+			UltimateEnchantingTable: Tavolo incantevole definitivo
+			UltraPowerBooster: Potenziatore ultra potente
+			WoodEnchantingTable: Tavolo incantevole in legno
+		}
+		BuffName: {
+			Amaterasu: Amaterasu
+		}
+		Bestiary: {
+			Witch: La strega è una donna brutta e malvagia e si occupa di altre cose malvagie. Commercia materiali dubbi utilizzati per migliorare l'equipaggiamento con effetti misteriosi.
+		}
+		Dialogue: {
+			Witch: {
+				BirthdayParty: PERCHE' SONO COSTRETTA A VESTIRE DI ROSA?! QUESTO Sembra orribile, QUESTA FESTA PUZZA!
+				BloodMoon: Mi dispiace davvero per il mio comportamento precedente. All'epoca non ero al mio meglio, e se sono stato maleducato, mi scuso.
+				Corrupt: Ooh! La sporcizia qui è adorabile! Non vedo l'ora di abbracciare una nuova scoperta!
+				Crimson: Ooh! Il sangue qui è adorabile! Non vedo l'ora di abbracciare una nuova scoperta!
+				Dryad: "Questa... {0} persona è così cliché! 'Salva il mondo dal male' I mali sono radicati e sono qui per restare!"
+				DyeTrader: "{0} mi attira sempre con i neri più scuri e i verdi più inquietanti! Questi colori mi danno abbastanza lucentezza e mi fanno sembrare così magro!"
+				Graveyard: Alcune persone potrebbero trovare i morti inquietanti, ma questo "tranquillo" in realtà è piuttosto vivace! Nyack nyack nyack!
+				Princess: "Ugh! {0} è sempre sul mio caso! Non so cosa siano 'Etica' o 'Morale', ma lei non lascerà il mio posto!"
+				QueenBee: La giungla ha i migliori ingredienti per la produzione della birra. Peccato che un gigantesco parassita ronzante stia infestando!
+				StandardDialogue0: Ho imparato questa ricetta, è davvero carina, la terrò più tardi per il tuo dolcetto!
+				StandardDialogue1: Perché parlo tutto il tempo, è davvero difficile fare queste rime!
+				StandardDialogue2: Sono ancora qui, ti guardo giocare, ma non mi viene in mente molto da dire!
+				Storm: Ah! Thunder è il migliore quando si tratta di creare nuove sciocchezze magiche! Che la grande ora delle streghe abbia inizio!
+				WitchDoctor: "Un compagno che usa il calderone! {0} ha così tanti strani espedienti, un vero seduttore!"
+				Wizard: "Sebbene {0} non si avventuri al di fuori del vero e proprio, la sua conoscenza arcana lo classifica come quella di un guru!"
+				Zoologist: "{0} è una fanciulla tirannica che continua a lasciare capelli dappertutto, le farò pagare in guerra!"
+			}
+		}
+		ItemTooltip: {
+			Containment: Usato per immagazzinare incantesimi di base
+			DustyEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 1)
+			EnchantmentEssenceBasic: 
+				'''
+				Materiale di base per creare e potenziare gli incantesimi.
+				Può essere convertito in 400 punti esperienza in un tavolo incantevole.
+				'''
+			EnchantmentEssenceCommon: 
+				'''
+				Materiale comune per la creazione e il potenziamento degli incantesimi.
+				Può essere convertito in 1600 punti esperienza in un tavolo incantevole.
+				'''
+			EnchantmentEssenceEpic: 
+				'''
+				Materiale epico per creare e potenziare incantesimi.
+				Può essere convertito in 25600 esperienza in un tavolo incantevole.
+				'''
+			EnchantmentEssenceLegendary: 
+				'''
+				Materiale leggendario per creare e potenziare gli incantesimi.
+				Può essere convertito in 102400 esperienza in un tavolo incantevole.
+				'''
+			EnchantmentEssenceRare: 
+				'''
+				Materiale raro per creare e potenziare incantesimi.
+				Può essere convertito in 6400 esperienza in un tavolo incantevole.
+				'''
+			HellishEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 2)
+			MediumContainment: Usato per immagazzinare incantesimi comuni
+			PowerBooster: 
+				'''
+				Usalo mentre l'oggetto che vuoi potenziare si trova in una tabella degli incantesimi per aumentare il suo livello base di 10.
+				(Fai clic con il pulsante sinistro del mouse dal tuo inventario o fai clic con il pulsante sinistro del mouse sull'elemento nella tabella con questo sul cursore.)
+				Questo articolo verrà restituito se viene offerto l'articolo potenziato.
+				'''
+			SoulEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 3)
+			SuperiorContainment: Usato per immagazzinare incantesimi rari
+			UltimateEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 4)
+			UltraPowerBooster: 
+				'''
+				Usalo mentre l'oggetto che vuoi potenziare si trova in una tabella degli incantesimi per aumentare il suo livello base di 20.
+				(Fai clic con il pulsante sinistro del mouse dal tuo inventario o fai clic con il pulsante sinistro del mouse sull'elemento nella tabella con questo sul cursore.)
+				Questo articolo verrà restituito se viene offerto l'articolo potenziato.
+				'''
+			WoodEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 0)
+		}
+		NPCNames: {
+			Witch: {
+				Agatha: Agata
+				Akko: Akko
+				Binx: Binx
+				Blobbelda: Blobbelda
+				Brentilda: Brentilde
+				Freyja: Freia
+				Gruntilda: Gruntilda
+				Hazel: Nocciola
+				Jasminka: Jasminka
+				Kyubey: Kyubey
+				Maleficient: Malefico
+				Mary: Maria
+				Medusa: Medusa
+				Melusine: Melusina
+				Mingella: Mingella
+				MissGulch: Signorina Gulch
+				Morgana: Morgana
+				Sabrina: Sabrina
+				Salem: Salem
+				Sarah: Sara
+				Ursula: Orsola
+				Winifred: Winifred
+			}
+		}
+		Ores: {
+			adamantite: Adamantio
+			chlorophyte: clorofita
+			cobalt: cobalto
+			copper: rame
+			crimtane: crimtano
+			demonite: demonio
+			gold: oro
+			iron: ferro da stiro
+			lead: piombo
+			mythril: mitrillo
+			orichalcum: oricalco
+			palladium: palladio
+			platinum: platino
+			silver: d'argento
+			tin: lattina
+			titanium: titanio
+			tungsten: tungsteno
+		}
+		TableText: {
+			Cancel: Annulla
+			Finalize: Finalizzare
+			Infusion: Infusione
+			LevelUp: Sali di livello
+			LootAll: Saccheggia tutto
+			No: No
+			Offer: Offerta
+			Syphon: Sifone
+			xp: xp
+			Yes: sì
+			AreYouSure: 
+				'''
+				Sei sicuro di voler DISTRUGGERE PERMANENTEMENTE il tuo livello {0}
+				{1} {2}
+				{3}(In base al valore/esperienza dell'oggetto. Gli incantesimi verranno restituiti.)
+				'''
+			enchantment0: Posiziona qui gli incantesimi.
+			enchantment4: "Richiede {0} o migliore per utilizzare questo slot."
+			Enchantments: Incantesimi
+			essence0: "Posiziona {0} qui."
+			ExchangeEssence: In cambio dell'essenza?
+			ExchangeEssenceAndOres: "In cambio di minerali({0}) ed essenza({1})?"
+			ExchangeOres: In cambio di minerali?
+			general1: L'aggiornamento del livello del tavolo incantato sblocca più slot incantesimo.
+			general2: Usare incantesimi per armi su armature o accessori
+			general3: fornisce bonus ridotti e viceversa.
+			Item: Elemento
+			utility0: Solo gli incantesimi di utilità possono andare qui.
+			weapon0: Metti qui un'arma, un pezzo di armatura o un accessorio.
+		}
+		Tooltip: {
+			ArmorSlotNames: {
+				Body: Corpo
+				Head: Testa
+				Legs: Gambe
+			}
+			DamageClassNames: {
+				Generic: Generico
+				Ki: Ki
+				Magic: Magia
+				Melee: Mischia
+				Ranged: A distanza
+				Rogue: Briccone
+				Summon: Convocare
+				Throwing: Lancio
+				Whip: Frusta
+			}
+			EffectDisplayName: {
+				AllForOne: Tutti per uno
+				AmmoCost1: Possibilità di non consumare munizioni
+				AmmoCost2: Aumento del costo delle munizioni
+				ArmorPenetration: Penetrazione dell'armatura
+				AttackSpeed: Velocità d'attacco
+				AutoReuse: Riutilizzo automatico
+				BerserkersRage: La rabbia dei berserker
+				BonusCoins: Monete bonus
+				BuffDuration: Durata del Potenziamento
+				BuffEffect0: "Ti concede {0} passivamente"
+				BuffEffect1: "Ti infligge passivamente {0}"
+				BuffEffect10: "Concede {0} ai nemici colpiti"
+				BuffEffect11: "Infligge {0} ai nemici colpiti"
+				BuffEffect12: "Concede {0} ai giocatori vicini in caso di successo"
+				BuffEffect13: "Infligge {0} ai giocatori vicini se colpiti"
+				BuffEffect14: "Concede {0} ai nemici vicini se colpiti"
+				BuffEffect15: "Infligge passivamente {0} ai nemici vicini se colpiti"
+				BuffEffect2: "Concede {0} passivamente ai giocatori vicini"
+				BuffEffect3: "Infligge passivamente {0} ai giocatori vicini"
+				BuffEffect4: "Concede passivamente {0} al nemico"
+				BuffEffect5: "Infligge passivamente {0} al nemico"
+				BuffEffect6: "Concede {0} passivamente ai nemici vicini"
+				BuffEffect7: "Infligge passivamente {0} ai nemici vicini"
+				BuffEffect8: "Ti concede {0} al successo"
+				BuffEffect9: "Ti infligge {0} al colpo"
+				CalmWaters: Acque calme
+				CatastrophicRelease: Rilascio catastrofico
+				Channel: Canale
+				ChaoticFishing: Pesca caotica
+				ColdSteel: Acciaio freddo
+				Crate: Cassa
+				CrateChance: Possibilità di cassa
+				CriticalStrikeChance: Probabilità di colpo critico
+				CriticalStrikeDamage: Danno da colpo critico
+				CursedInferno: Inferno maledetto
+				Damage: Danno
+				DamageAfterDefenses: Danno (applicato dopo le difese. Non visibile nel suggerimento dell'arma)
+				DamageClassSwap: "Converti il ​​tipo di danno in {0}"
+				DamageReduction: Riduzione del danno
+				DangerSense: Senso di pericolo
+				Daybreak: Alba
+				Defense: Difesa
+				EnemyMaxSpawns: Il massimo nemico si genera
+				EnemySpawnRate: Tasso di spawn dei nemici
+				ExtraFishingLine: Lenza extra
+				Fishing: Pesca
+				FishingEnemySpawnChance: Pescare la probabilità di spawn dei nemici
+				FishingPower: Potenza di pesca
+				FlatMPRegen: Rigenerazione MP piatto
+				Frostburn: Bruciore di gelo
+				GodSlayer: Dio Sterminatore
+				HellsWrath: L'ira dell'inferno
+				Hunter: Cacciatore
+				Ichor: Icore
+				InfinitePenetration: Penetrazione infinita
+				ItemCooldown: Tempo di recupero dell'oggetto
+				Juiced: Succo
+				JumpSpeed: Velocità di salto
+				JunglesFury: Furia della giungla
+				Ki: Ki
+				KiClassSwap: Scambio di classe Ki
+				KiDamage: Ki Danni
+				KiRegen: Ki Regen
+				LavaFishing: Pesca alla lava
+				LifeRegen: Vita rigenerata
+				LifeRegeneration: Rigenerazione della vita
+				LifeSteal: Ruba la vita
+				Luck: Fortuna
+				MagicClassSwap: Scambio di classe magica
+				ManaUsage1: Consumo di mana ridotto
+				ManaUsage2: Aumento del consumo di mana
+				MaxFallSpeed: Velocità massima di caduta
+				MaxKi: Max Ki
+				MaxLife: Massimo Vita
+				MaxMinions: Max Minion
+				MaxMP: MP massimo
+				MeleeClassSwap: Cambio di classe da mischia
+				MiningSpeed: Velocità di estrazione
+				MinionAttackTarget: Bersaglio di attacco dei servitori
+				MobilityControl: Controllo della mobilità
+				Moonlight: Chiaro di luna
+				MovementAcceleration: Accelerazione del movimento
+				MovementSlowdown: Rallentamento del movimento
+				MovementSpeed: Velocità di movimento
+				MPBonusRegen: Rigenerazione bonus MP
+				Multishot: Spari multipli
+				NpcContactAngler: Pescatore di contatto Npc
+				NPCHitCooldown: Recupero colpo NPC
+				ObsidianSkin: Pelle di ossidiana
+				OneForAll: Uno per tutti
+				OnFire: A fuoco
+				OnHitSpawnProjectile: Sul proiettile di spawn colpito
+				Peace: Pace
+				PennyPinching: Penny che pizzica
+				ProjectileVelocity: Velocità del proiettile
+				QuestFishChance: Probabilità Pesce Missione
+				RangedClassSwap: Scambio di classe a distanza
+				ReducedManaUsage: Consumo di mana ridotto
+				RogueClassSwap: Scambio di classe canaglia
+				Size: Dimensione
+				SolarDash: Scatto solare
+				Sonar: Sonar
+				Spelunker: Speleologo
+				VanillaDash1: Scatto Tabi Ninja
+				VanillaDash2: Occhio di Cthulhu Shield Dash
+				VanillaDash3: Scatto solare
+				VanillaDash5: Corsa Ninja di cristallo
+				Venom: Veleno
+				War: Guerra
+				WhipClassSwap: Scambio di classe Whip
+				WhipRange: Gamma di frusta
+				WingTime: Tempo d'ala
+				WorldAblaze: Mondo in fiamme
+				YoyoStringLength: Lunghezza della corda Yo-yo
+			}
+			EnchantmentCustomTooltips: {
+				CalamityMod: (Incantesimo Mod Calamità)
+				DBZMODPORT: (Incantesimo Dragon Ball Terraria)
+				WorldAblaze: 
+					'''
+					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)
+					(Nessuno sopravviverà alle fiamme inarrestabili di Amaterasu)
+					(Infliggi un debuff di fuoco unico ai nemici che non si ferma mai)
+					(Il danno del debuff aumenta nel tempo e infligge più danni al bersaglio)
+					(Si diffonde ai nemici vicini e impedisce ai nemici di essere immuni ad altri debuff di World Ablaze.)
+					'''
+			}
+			EnchantmentEffects: {
+				AmmoCost: "{0} (risparmia anche l'esca durante la pesca)"
+				AttackSpeed: "{0} (Influisce sulla velocità di fuoco dei minion se sparano proiettili. Influisce sulla velocità con cui i pesci morderanno la lenza.)"
+				BonusCoins: 
+					'''
+					{0} (Colpire un nemico aumenterà il numero di monete che cadrà alla morte
+					in base al danno inflitto, alla salute massima del nemico, al valore di base del nemico e alla fortuna.)
+					'''
+				BuffDuration: 
+					'''
+					{0}
+					(La durata viene continuamente aumentata mentre il buff è attivo, non prima di aver ottenuto il buff.)
+					'''
+				EnemySpawnRate: 
+					'''
+					{0}
+					(Il danno dei servitori è ridotto dal moltiplicatore del tuo tasso di spawn, dagli incantesimi, a meno che non siano il tuo bersaglio di attacco dei minion)
+					(bersaglio dell'attacco dei minion impostato dal colpire i nemici con fruste o un'arma che viene convertita per evocare danni da un incantesimo)
+					(Previene il consumo di oggetti di evocazione del boss se il moltiplicatore del tasso di spawn, dagli incantesimi, è > 1,6)
+					(I nemici generati saranno immuni da lava/trappole)
+					'''
+				FishingEnemySpawnChance: "{0} (Ridotto di 5 volte durante il giorno. Interessato da Chum Caster. Può anche generare Duke Fishron.)"
+				GodSlayer: 
+					'''
+					{0}
+					(Bonus al danno reale basato sui PS massimi del nemico)
+					(Danno bonus non influenzato da LifeSteal)
+					'''
+				ItemCooldown: "(CD oggetto uguale a {0} velocità di utilizzo)"
+				LavaFishing: "{0} (Consente di pescare nella lava e ha la possibilità di migliorare i tassi di cattura nella lava. Si accumula con altre fonti.)"
+				LifeSteal: "{0} (il resto viene salvato per evitare di arrotondare sempre a 0 per armi a basso danno)"
+				MinionAttackTarget: I nemici colpiti diventano il bersaglio dell'attacco dei minion. Stesso effetto delle fruste.
+				Multishot: "{0} (Possibilità di produrre un proiettile aggiuntivo. Si applica a ogni proiettile creato.)"
+				OneForAll: 
+					'''
+					{0}
+					(Colpire un nemico danneggerà tutti i nemici vicini)
+					(Si attiva solo al primo colpo di un proiettile.)
+					'''
+				OnHitSpawnProjectile: "Genera un proiettile quando colpisce un nemico: {0}"
+				QuestFishChance: "{0} (Il pesce catturato in missione verrà automaticamente consegnato e inizierà una nuova missione, aggirando il limite di 1 al giorno.)"
+				BoolEffect: {
+					Enabled: "{0}: abilitato"
+					Prevented: "{0}: Impedito"
+				}
+				BuffEffect: {
+					All: "{0} ({1}% di possibilità di richiedere {2})"
+					OnTickPlayerBuff: "{0} ({1}% di possibilità di richiedere {2} ogni {3})"
+				}
+				PlayerSetEffect: {
+					Enabled: "{0}: abilitato"
+					Prevented: "{0}: Impedito"
+				}
+			}
+			EnchantmentGeneralTooltips: {
+				AllowedOn: Consentito
+				And: e
+				ArmorSlotOnly: "{0}Solo slot per armature"
+				LevelCost: "Costo livello: {0}"
+				Max1: Massimo 1 per articolo
+				NotAllowed: "Non consentito su {0} armi"
+				Only: "Solo {0}"
+				OnlyAllowedOn: Consentito solo
+				Or: o
+				Unique: Unico (limitato a 1 incantesimo unico)
+				Utility: Utilità
+			}
+			EnchantmentShortTooltip: {
+				OnTickPlayerBuff: "Concede passivamente {0} per {1} ogni {2}"
+			}
+			ItemType: {
+				Accessories: Accessori
+				Armor: Armatura
+				FishingPoles: Canne da pesca
+				None: Nessuno
+				Tools: Strumenti
+				Weapons: Armi
+			}
+		}
+		TownNPCMood: {
+			Witch: {
+				Content: La vita qui è sopportabile. Nessun conflitto, nessun dramma, non è così orribile.
+				DislikeBiome: È incredibile come qui sia così docile, nessun male, nessun inquietante, è così zoppo!
+				DislikeCrowded: Come posso acconsentire a tutto questo rumore!
+				DislikeNPC: "Questa... persona {NPCName} è così cliché! 'Salva il mondo dal male' I mali sono radicati e sono qui per restare!"
+				FarFromHome: Ho dovuto avventurarmi lontano per trovare nuovi reagenti. Anche se la mia casa è piacevole, posso preparare una nuova miscela con questi ultimi ingredienti.
+				HateBiome: Accidenti! Questo posto è così luminoso, che soprattutto faccio un dispetto!
+				HateCrowded: Non riesco a gestire questo traffico qui! Fammi uscire o buttali fuori, fallo in fretta!
+				HateNPC: "{NPCName} è una tirannosa ragazza che continua a lasciare i capelli ovunque, la farò pagare in guerra!"
+				LikeBiome: Questo posto è pieno di creature e letame, è ora di fare soldi in fretta!
+				LikeNPC: "Sebbene {NPCName} non si avventuri al di fuori del vero e proprio, la sua conoscenza arcana lo classifica come quella di un guru!"
+				LoveBiome: Questo posto mi ricorda la mia vecchia tana. Molto cupo, molto magico, che stile!
+				LoveNPC: "Un compagno che usa il calderone! {NPCName} ha così tanti strani espedienti, un vero seduttore!"
+				LoveSpace: Ora che tutti sono andati via, finalmente i miei esperimenti possono andare avanti!
+				NoHome: Non riesco a tenere tutte le mie merci, queste sono instabili per favore attenzione!
+			}
+		}
+	}
+}

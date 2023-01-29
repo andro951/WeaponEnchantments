@@ -1,21 +1,51 @@
-﻿
+﻿using System.Collections.Generic;
+using Terraria.ID;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
 	public abstract class CriticalStrikeChanceEnchantment : Enchantment
 	{
-		//public override bool? ShowPercentSignInTooltip => false;
-		public override bool? MultiplyBy100InTooltip => false;
 		public override void GetMyStats() {
-			CheckStaticStatByName();
+			Effects = new() {
+				new CriticalStrikeChance(@base: EnchantmentStrengthData),
+			};
 		}
 
+		public override string ShortTooltip => GetShortTooltip(sign: true);
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	public class CriticalStrikeChanceEnchantmentBasic : CriticalStrikeChanceEnchantment { }
+	public class CriticalStrikeChanceEnchantmentBasic : CriticalStrikeChanceEnchantment
+	{
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.SkeletronHead)
+		};
+		public override List<DropData> NpcAIDrops => new() {
+			new(NPCAIStyleID.ManEater),
+			new(NPCAIStyleID.Jellyfish),
+			new(NPCAIStyleID.Antlion)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Chest_Normal),
+			new(ChestID.Gold),
+			new(ChestID.Gold_DeadMans),
+			new(ChestID.RichMahogany)
+		};
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Wooden, 0.5f),
+			new(CrateID.Pearlwood_WoodenHard, 0.5f),
+			new(CrateID.Iron, 0.5f),
+			new(CrateID.Iron, 0.5f),
+			new(CrateID.Jungle, 0.5f),
+			new(CrateID.Jungle, 0.5f)
+		};
+	}
 	public class CriticalStrikeChanceEnchantmentCommon : CriticalStrikeChanceEnchantment { }
 	public class CriticalStrikeChanceEnchantmentRare : CriticalStrikeChanceEnchantment { }
-	public class CriticalStrikeChanceEnchantmentSuperRare : CriticalStrikeChanceEnchantment { }
-	public class CriticalStrikeChanceEnchantmentUltraRare : CriticalStrikeChanceEnchantment { }
+	public class CriticalStrikeChanceEnchantmentEpic : CriticalStrikeChanceEnchantment { }
+	public class CriticalStrikeChanceEnchantmentLegendary : CriticalStrikeChanceEnchantment { }
 }

@@ -6,8 +6,6 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class AllItemsGlobalItem : GlobalItem
 	{
-		public override bool InstancePerEntity => true;
-
 		public override bool CanUseItem(Item item, Player player) {
 			WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 

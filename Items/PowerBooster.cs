@@ -1,30 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Localization;
 
 namespace WeaponEnchantments.Items
 {
-    public class PowerBooster : ModItem
+    public class PowerBooster : WEModItem
     {
         public static int ID;
         public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
+        public override DropRestrictionsID DropRestrictionsID => DropRestrictionsID.HardModeBosses;
+        public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.PowerBooster };
+        public override bool ConfigOnlyDrop => true;
+        public override int CreativeItemSacrifice => 1;
+		public override string LocalizationTooltip => 
+            "Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n" +
+			"(Shift left click from your inventory or left click on item in the table with this on your cursor.)\n" +
+			"This item will be returned if the boosted item is offered.";
 
-        public virtual string Artist { private set; get; } = "andro951";
-        public virtual string Designer { private set; get; } = "andro951";
+        public override string Artist => "andro951";
+        public override string Designer => "andro951";
         public override void SetStaticDefaults() {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-            Tooltip.SetDefault("Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.\n(Shift left click from your inventory or left click on item in the table with this on your cursor.)\nThis item will be returned if the boosted item is offered.");
-
-            LogModSystem.UpdateContributorsList(this);
+            base.SetStaticDefaults();
         }
         public override void SetDefaults() {
             Item.value = 500000;

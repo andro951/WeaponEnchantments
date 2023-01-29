@@ -1,5 +1,5 @@
-More detailed description on Github:
-https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
+More detailed description on the Wiki:
+https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
 Weapon Enchantments adds
      -Item customization
@@ -36,8 +36,8 @@ Tips:
     -Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.
     -Make a gem tree farm (especially for diamond/amber).  They are used in crafting high tier Containments.
 
-All other info for the mod on the github: 
-https://github.com/andro951/WeaponEnchantments/blob/master/Readme.md
+All other info for the mod on the Wiki: 
+https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
 
 Please give us your feedback!!!!!!
 https://discord.gg/mPywEhyV9b
@@ -45,6 +45,3 @@ https://forums.terraria.org/index.php?threads/weapon-enchantments.112509/
 
 Patreon:
 https://www.patreon.com/andro951
-
-Contributors:
-See github for contributors list

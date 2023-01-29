@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -17,13 +18,22 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool OnPickup(Item item, Player player) {
-            EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+            if (item == null || item.ModItem == null)
+                return false;
+
             WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
+                if (item.ModItem is not EnchantmentEssence essence)
+                    return false;
+
                 List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
-                int tier = essence.essenceTier;
+                int tier = essence.EssenceTier;
                 int tableStack = essenceSlots[tier].stack;
                 int toStore = Math.Min(item.maxStack - tableStack, item.stack);
+
+                if (toStore <= 0)
+                    return true;
+
                 item.stack -= toStore;
                 //Less than max stack when combined
 
@@ -38,8 +48,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);
                 SoundEngine.PlaySound(SoundID.Grab);
-                if (item.stack < 1)
-                {
+                if (item.stack < 1) {
                     item.TurnToAir();
 
                     return false;
@@ -48,5 +57,22 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-    }
+		public override void GrabRange(Item item, Player player, ref int grabRange) {
+            grabRange *= WEMod.serverConfig.EssenceGrabRange;
+		}
+
+		public override bool ItemSpace(Item item, Player player) {
+            WEPlayer wePlayer = player.GetWEPlayer();
+            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
+                EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+                List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
+                int tier = essence.EssenceTier;
+                int tableStack = essenceSlots[tier].stack;
+                if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)
+                    return true;
+            }
+
+            return false;
+        }
+	}
 }

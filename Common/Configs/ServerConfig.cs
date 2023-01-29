@@ -5,12 +5,13 @@ using Terraria.ModLoader.Config;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
+using IL.Terraria;
+using Terraria.ID;
 
 namespace WeaponEnchantments.Common.Configs
 {
     [Label("Server Config")]
-    public class ServerConfig : ModConfig
-    {
+    public class ServerConfig : ModConfig {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
         //Server Config
@@ -35,7 +36,7 @@ namespace WeaponEnchantments.Common.Configs
         [Header("Enchantment Settings")]
         [Label("Damage type converting enchantments always override.")]
         [Tooltip("Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.\n" +
-			"If not selected, the damage type will only be changed if the weapon is currently it's original damage type.")]
+            "If not selected, the damage type will only be changed if the weapon is currently it's original damage type.")]
         [DefaultValue(true)]
         public bool AlwaysOverrideDamageType;
 
@@ -54,35 +55,75 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Speed Enchantment Auto Reuse Enabled (%)")]
         [Tooltip("The strength that a Speed Enchantment will start giving the Auto Reuse stat.\n" +
-			"Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
+            "Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)")]
         [Range(0, 10000)]
         [DefaultValue(10)]
-        public int SpeedEnchantmentAutoReuseSetpoint;
+        [ReloadRequired]
+        public int AttackSpeedEnchantmentAutoReuseSetpoint;
+
+        [Label("Auto Reuse Disabled on Magic Missile type weapons")]
+        [Tooltip("Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool AutoReuseDisabledOnMagicMissile;
+
+        [Label("Buff cooldown duration (seconds)")]
+        [Tooltip("Affects buff cooldown and duration.")]
+        [DefaultValue(15)]
+        [Range(1, 600)]
+        [ReloadRequired]
+        public int BuffDuration;
+
+        [Label("Amaterasu Self Growth Per Tick")]
+        [Tooltip("Affects how quickly Amaterasu damage will go up naturally (Not when being hit again with a World Ablaze weapon.)")]
+        [DefaultValue(5)]
+        [Range(0, 1000000)]
+        public int AmaterasuSelfGrowthPerTick;
+
+        [Label("Reduce recipes to minimum.")]
+        [Tooltip("Removes all recipes that jump between tiers to reduce clutter when viewing recipes.\n" +
+            "Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool ReduceRecipesToMinimum;
+
+        [Label("Enchantment Capacity Cost Multiplier(%)")]
+        [Tooltip("Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.")]
+        [DefaultValue(100)]
+        [Range(0, 1400)]
+        [ReloadRequired]
+        public int ConfigCapacityCostMultiplier;
+
+        [Label("Remove enchantment restrictions (Use at your own risk!)")]
+        [Tooltip("Removes things like Unique, Max 1 and weapon or item type specific enchantments.")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool RemoveEnchantmentRestrictions;
 
         //Essence and Experience
         [Header("Essence and Experience")]
         [Label("Boss Essence Multiplier(%)")]
-        [Tooltip("Modify the ammount of essence recieved by bosses.")]
+        [Tooltip("Modify the ammount of essence recieved from bosses.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         [ReloadRequired]
         public int BossEssenceMultiplier;
 
         [Label("Non-Boss Essence Multiplier(%)")]
-        [Tooltip("Modify the ammount of essence recieved by non-boss enemies.")]
+        [Tooltip("Modify the ammount of essence recieved from non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         [ReloadRequired]
         public int EssenceMultiplier;
 
         [Label("Boss Experience Multiplier(%)")]
-        [Tooltip("Modify the ammount of experience recieved by bosses.")]
+        [Tooltip("Modify the ammount of experience recieved from bosses.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         public int BossExperienceMultiplier;
 
         [Label("Non-Boss Experience Multiplier(%)")]
-        [Tooltip("Modify the ammount of experience recieved by non-boss enemies.")]
+        [Tooltip("Modify the ammount of experience recieved from non-boss enemies.")]
         [Range(0, 10000)]
         [DefaultValue(100)]
         public int ExperienceMultiplier;
@@ -93,9 +134,15 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(100)]
         public int GatheringExperienceMultiplier;
 
+        [Label("Essence Grab Range Multiplier")]
+        [Tooltip("Affects how far the essence can be away from the player when it starts moving towards the player.")]
+        [DefaultValue(10)]
+        [Range(1, 100)]
+        public int EssenceGrabRange;
+
         //Enchantment Drop Rates(%)
         [Header("Enchantment Drop Rates(%)")]
-        [Label("Boss Enchantment Drop Rate")]
+        [Label("Boss Enchantment Drop Rate(%)")]
         [Tooltip("Adjust the drop rate of enchantments from bosses.\n(Default is 50%)")]
         [Range(0, 100)]
         [DefaultValue(50)]
@@ -111,9 +158,15 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("Chest Enchantment Spawn Chance(%)")]
         [Tooltip("Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)")]
-        [Range(0, 4000)]
+        [Range(0, 100000)]
         [DefaultValue(50)]
         public int ChestSpawnChance;
+
+        [Label("Crate Enchantment Drop Chance Multiplier(%)")]
+        [Tooltip("Adjust the chance of finding enchantments in fishing crates.")]
+        [Range(0, 10000)]
+        [DefaultValue(100)]
+        public int CrateDropChance;
 
         //Other Drop Rates
         [Header("Other Drop Rates")]
@@ -127,19 +180,14 @@ namespace WeaponEnchantments.Common.Configs
         [Header("Enchanting Table Options")]
         [Label("Recieve ores up to Chlorophyte from Offering items.")]
         [Tooltip("Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).\n" +
-			"(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
+            "(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)")]
         [DefaultValue(true)]
         public bool AllowHighTierOres;
 
-        [Label("Percentage of offered Item value converted to essence.")]
-        [DefaultValue(50)]
-        [Range(0, 100)]
-        public int PercentOfferEssence;
-
         [Label("Enchantment Slots On Weapons")]
         [Tooltip("1st slot is a normal slot.\n" +
-			"2nd slot is the utility slot.\n" +
-			"3rd-5th are normal slots.")]
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
         [DefaultValue(5)]
         [Range(0, 5)]
         [ReloadRequired]
@@ -163,25 +211,79 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public int EnchantmentSlotsOnAccessories;
 
+        [Label("Enchantment Slots On Fishing Poles")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnFishingPoles;
+
+        [Label("Enchantment Slots On Tools")]
+        [Tooltip("1st slot is a normal slot.\n" +
+            "2nd slot is the utility slot.\n" +
+            "3rd-5th are normal slots.\n" +
+            "The Clentaminator is the only tool so far.")]
+        [DefaultValue(5)]
+        [Range(0, 5)]
+        [ReloadRequired]
+        public int EnchantmentSlotsOnTools;
+
+        [Label("Reduce Offer Efficiency By Table Tier")]
+        [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
+            "Enabling this will cause the wood table to be 60% efficient.\n" +
+            "Each table gains 10% efficiency.  100% with Ultimate table.")]
+        [DefaultValue(false)]
+        public bool ReduceOfferEfficiencyByTableTier;
+
+        [Label("Reduce Offer Efficiency By Base Infusion Power")]
+        [Tooltip("When offering items, you recieve essence equivelent to the experience on the item.\n" +
+            "Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).")]
+        [DefaultValue(false)]
+        public bool ReduceOfferEfficiencyByBaseInfusionPower;
+
         //General Game Changes
         [Header("General Game Changes")]
         [Label("Convert excess armor penetration to bonus damage")]
         [Tooltip("Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n" +
-			"10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
+            "10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)")]
         [DefaultValue(true)]
         public bool ArmorPenetration;
 
         [Label("Disable Minion Critical hits")]
         [Tooltip("In vanilla, minions arent affected by weapon critical chance.\n" +
-			"Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
-			"This option disables the crits(vanilla mechanics)")]
+            "Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.\n" +
+            "This option disables the crits(vanilla mechanics)")]
         [DefaultValue(false)]
         public bool DisableMinionCrits;
 
-        [Label("Disable Item critical strike chance per level")]
-        [Tooltip("Items gain critical strike chance equal to thier level * Enchantment strength multiplier.")]
+        [Label("Disable Weapon critical strike chance per level")]
+        [Tooltip("Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.")]
         [DefaultValue(false)]
+        [ReloadRequired]
         public bool CritPerLevelDisabled;
+
+        [Label("Damage instead of critical chance per level")]
+        [Tooltip("Weapons gain damage per level instead of critical strike chance equal to their level * Global Enchantment Strength Multiplier")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool DamagePerLevelInstead;
+
+		[Label("Disable armor and accessory damage reduction per level")]
+		[Tooltip("Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.")]
+		[DefaultValue(false)]
+		public bool DamageReductionPerLevelDisabled;
+
+		[ReloadRequired]
+        [Label("Armor and accessory Damage Reductions")]
+        public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
+
+        [Label("Critical hit chance effective over 100% chance")]
+        [Tooltip("Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.\n" +
+            "120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.")]
+        [DefaultValue(true)]
+        public bool AllowCriticalChancePast100;
 
         [Label("Multiplicative critical hits past the first.")]
         [Tooltip("Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.\n" +
@@ -195,10 +297,17 @@ namespace WeaponEnchantments.Common.Configs
         [Range(1000, 2000)]
         [Tooltip("Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)\n" +
 			"Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.\n" +
-			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage")]
+			"Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage.\n" +
+            "Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons.")]
+        [ReloadRequired]
         public int InfusionDamageMultiplier;
 
-        [Label("Minion Life Steal Multiplier (%)")]
+        [Tooltip("This will prevent you from infusing armor items and will ignore infused set bonues.")]
+        [ReloadRequired]
+        [DefaultValue(false)]
+        public bool DisableArmorInfusion;
+
+		[Label("Minion Life Steal Multiplier (%)")]
         [Tooltip("Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.")]
         [DefaultValue(50)]
         [Range(0, 100)]
@@ -210,6 +319,11 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("All players will get a Drill Containment Unit when they first spawn.\nThis is just for fun when you feel like a faster playthrough.")]
         [DefaultValue(false)]
         public bool DCUStart;
+
+        [Label("Disable Ability to research Weapon Enchantment items")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool DisableResearch;
 
         public ServerConfig() {
             presetData = new PresetData();
@@ -231,8 +345,7 @@ namespace WeaponEnchantments.Common.Configs
     }
 
     [Label("ClientConfig")]
-    public class ClientConfig : ModConfig
-    {
+    public class ClientConfig : ModConfig {
         public override ConfigScope Mode => ConfigScope.ClientSide;
         //Enchanting Table Options
         [Header("Enchanting Table Options")]
@@ -240,7 +353,7 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Automatically send essence from your inventory to the UI essence slots.\n(Disables while the UI is open.)")]
         [DefaultValue(true)]
         public bool teleportEssence;
-        
+
         [Label("Offer all of the same item.")]
         [Tooltip("Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.")]
         [DefaultValue(false)]
@@ -255,18 +368,26 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         public bool AlwaysDisplayInfusionPower;
 
+        [Label("Percentage of offered Item value converted to essence.")]
+        [DefaultValue(50)]
+        [Range(0, 100)]
+        public int PercentOfferEssence;
+
+        [Label("Allow crafting enchantments into lower tier enchantments.")]
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool AllowCraftingIntoLowerTier;
+
+        [Label("Allow Infusing items to lower infusion Powers")]
+        [Tooltip("Warning: This will allow you to consume a weak weapon to downgrade a strong weapon.")]
+        [DefaultValue(false)]
+        public bool AllowInfusingToLowerPower;
+
         //Display Settings
         [Header("Display Settings")]
-        [Label("Use Original Tier Names")]
-        [Tooltip("Use Original Tier Names: Rare, Super Rare, Ultra Rare")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool UseOldTierNames;
-
         [Label("\"Points\" instead of \"Enchantment Capacity\"")]
         [Tooltip("Tooltips will show Points Available instead of Enchantment Capacity Available")]
         [DefaultValue(false)]
-        [ReloadRequired]
         public bool UsePointsAsTooltip;
 
         [Label("Use Alternate Enchantment Essence Textures")]
@@ -278,7 +399,7 @@ namespace WeaponEnchantments.Common.Configs
         [Label("Display approximate weapon damage in the tooltip")]
         [Tooltip("Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
             "This displays the damage against a 0 armor enemy.")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool DisplayApproximateWeaponDamageTooltip;
 
         //Error messages
@@ -325,9 +446,40 @@ namespace WeaponEnchantments.Common.Configs
         }
 
         private bool _onlyShowErrorMessagesInChatOnce;
+
+        //Logging Information
+        [Header("Logging Information")]
+        [Label("Log a List of Enchantment Tooltips")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentTooltips;
+
+        [Label("Log a List of Enchantment Drop sources")]
+        [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintEnchantmentDrops; 
+        
+        [Label("Log all translation lists")]
+        [Tooltip("The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintLocalizationLists;
+
+        [Label("Log all wiki info")]
+        [Tooltip("The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintWikiInfo;
+
+        [Label("Log all weapon infusion powers")]
+        [Tooltip("The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool PrintWeaponInfusionPowers;
     }
-    public class Pair
-    {
+    public class Pair {
         [Tooltip("Only Select Enchantment Items.\nLikely to cause an error if selecting any other item.")]
         [Label("Enchantment")]
         [ReloadRequired]
@@ -354,74 +506,207 @@ namespace WeaponEnchantments.Common.Configs
             return new { itemDefinition, Strength }.GetHashCode();
         }
     }
-    public class PresetData
-    {
+    public class ArmorDamageReduction {
+		[JsonIgnore]
+		public static readonly int[,] DamageReductionPerLevel = {
+			{ 25000, 12500 },
+			{ 18750, 9375 },
+			{ 12500, 6250 },
+			{ 62500, 31250 },
+		};
+
+        [JsonIgnore]
+        short GameModeID;
+
+        [Label("Armor DR Per Level (100000 = 1%)")]
+        [Tooltip("250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.")]
+        [Range(0, 250000)]
+        public int ArmorDamageReductionPerLevel;
+
+		[Label("Accessory DR Per Level (100000 = 1%)")]
+		[Tooltip("250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.")]
+		[Range(0, 250000)]
+		public int AccessoryDamageReductionPerLevel;
+		public ArmorDamageReduction(short gameMode) {
+            GameModeID = gameMode;
+            ArmorDamageReductionPerLevel = DamageReductionPerLevel[gameMode, 0];
+			AccessoryDamageReductionPerLevel = DamageReductionPerLevel[gameMode, 1];
+		}
+		public override bool Equals(object obj) {
+			if (obj is ArmorDamageReduction other) {
+				if (GameModeID != other.GameModeID)
+					return false;
+
+				if (ArmorDamageReductionPerLevel != other.ArmorDamageReductionPerLevel)
+					return false;
+
+				if (AccessoryDamageReductionPerLevel != other.AccessoryDamageReductionPerLevel)
+					return false;
+
+				return true;
+			}
+
+			return base.Equals(obj);
+		}
+		public override int GetHashCode() {
+			return new {
+				GameModeID,
+                ArmorDamageReductionPerLevel,
+                AccessoryDamageReductionPerLevel
+			}.GetHashCode();
+		}
+		public override string ToString() {
+            return $"{GameModeID.ToGameModeIDName()}" +
+                $", Armor {(ArmorDamageReductionPerLevel/100000f).S(5)}% ({(ArmorDamageReductionPerLevel / 2500f).S(5)}% at 40)" +
+                $", Accessory {(AccessoryDamageReductionPerLevel / 100000f).S(5)}% ({(AccessoryDamageReductionPerLevel / 2500f).S(5)}% at 40)";
+		}
+	}
+    public class PresetData {
         [JsonIgnore]
         public static List<int> presetValues = new List<int> { 250, 100, 50, 25 };
 
         [JsonIgnore]
         public static List<string> presetNames = new List<string>() { "Journey", "Normal", "Expert", "Master" };
 
-        //Presets
-        [Header("Presets")]
-        [DrawTicks]
-        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Custom" })]
-        [DefaultValue("Normal")]
-        [Tooltip("Journey, Normal, Expert, Master, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Recomended Strength Multiplier.)")]
+        //Automatic Preset based on world difficulty
+        [Label("Automatically Match Preset to World Difficulty")]
+        [DefaultValue(true)]
         [ReloadRequired]
-        public string Preset {
-            get => presetValues.Contains(GlobalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(GlobalEnchantmentStrengthMultiplier)] : "Custom";
-
+        public bool AutomaticallyMatchPreseTtoWorldDifficulty {
+            get => _automaticallyMatchPreseTtoWorldDifficulty;
             set {
-                if (presetNames.Contains(value)) {
-                    GlobalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+                _automaticallyMatchPreseTtoWorldDifficulty = value;
+                if (value) {
+                    _preset = "Automatic";
+                }
+                else {
+                    GlobalEnchantmentStrengthMultiplier = _globalEnchantmentStrengthMultiplier;
                 }
             }
         }
 
+        private bool _automaticallyMatchPreseTtoWorldDifficulty;
+
+        //Presets
+        [Header("Presets")]
+        [DrawTicks]
+        [OptionStrings(new string[] { "Journey", "Normal", "Expert", "Master", "Automatic", "Custom" })]
+        [DefaultValue("Normal")]
+        [Tooltip("Journey, Normal, Expert, Master, Automatic, Custom \n(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)")]
+        [ReloadRequired]
+        public string Preset {
+            get => _automaticallyMatchPreseTtoWorldDifficulty ? "Automatic" : _preset;
+            set {
+                _preset = value;
+                if (presetNames.Contains(value))
+                    _globalEnchantmentStrengthMultiplier = presetValues[presetNames.IndexOf(value)];
+            }
+        }
+        private string _preset;
+
         //Multipliers
         [Header("Multipliers")]
         [Label("Global Enchantment Strength Multiplier (%)")]
-        [Range(1, 250)]
+        [Range(0, 250)]
         [DefaultValue(100)]
         [Tooltip("Adjusts all enchantment strengths based on recomended enchantment changes." +
             "\nUses the same calculations as the presets but allows you to pick a different number." +
             "\npreset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)")]
         [ReloadRequired]
-        public int GlobalEnchantmentStrengthMultiplier { get; set; }
+        public int GlobalEnchantmentStrengthMultiplier {
+            get => _globalEnchantmentStrengthMultiplier;
+            set {
+                _globalEnchantmentStrengthMultiplier = value;
+                Preset = presetValues.Contains(_globalEnchantmentStrengthMultiplier) ? presetNames[presetValues.IndexOf(_globalEnchantmentStrengthMultiplier)] : "Custom";
+            }
+        }
+        private int _globalEnchantmentStrengthMultiplier;
+
+        [Header("Rarity Enchantment Strength Multipliers")]
+        [Label("Basic")]
+        [Tooltip("Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int BasicEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Common")]
+        [Tooltip("Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int CommonEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Rare")]
+        [Tooltip("Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int RareEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Epic")]
+        [Tooltip("Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int EpicEnchantmentStrengthMultiplier { set; get; }
+
+        [Label("Legendary")]
+        [Tooltip("Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.")]
+        [Range(-1, 10000)]
+        [DefaultValue(-1)]
+        [ReloadRequired]
+        public int LegendaryEnchantmentStrengthMultiplier { set; get; }
 
         public PresetData() {
+            AutomaticallyMatchPreseTtoWorldDifficulty = true;
             Preset = "Normal";
+            BasicEnchantmentStrengthMultiplier = -1;
+            CommonEnchantmentStrengthMultiplier = -1;
+            RareEnchantmentStrengthMultiplier = -1;
+            EpicEnchantmentStrengthMultiplier = -1;
+            LegendaryEnchantmentStrengthMultiplier = -1;
         }
 
         public override bool Equals(object obj) {
-            if (obj is PresetData other)
-                return Preset == other.Preset && GlobalEnchantmentStrengthMultiplier == other.GlobalEnchantmentStrengthMultiplier;
+            if (obj is PresetData other) {
+                if (Preset != other.Preset)
+                    return false;
+
+                if (GlobalEnchantmentStrengthMultiplier != other.GlobalEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (BasicEnchantmentStrengthMultiplier != other.BasicEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (CommonEnchantmentStrengthMultiplier != other.CommonEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (RareEnchantmentStrengthMultiplier != other.RareEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (EpicEnchantmentStrengthMultiplier != other.EpicEnchantmentStrengthMultiplier)
+                    return false;
+
+                if (LegendaryEnchantmentStrengthMultiplier != other.LegendaryEnchantmentStrengthMultiplier)
+                    return false;
+
+                return true;
+            }
             
             return base.Equals(obj);
         }
 
         public override int GetHashCode() {
-            return new { Preset, GlobalEnchantmentStrengthMultiplier }.GetHashCode();
-        }
-    }
-
-    public class ComplexData
-    {
-        [Label("Strength Presets")]
-        [Tooltip("Adjust all enchantment strengths to one of 4 recomended preset values.")]
-        [ReloadRequired]
-        public PresetData nestedSimple = new PresetData();
-
-        public override bool Equals(object obj) {
-            if (obj is ComplexData other)
-                return nestedSimple.Equals(other.nestedSimple);
-            
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode() {
-            return new { nestedSimple }.GetHashCode();
-        }
-    }
+			return new {
+				Preset,
+				GlobalEnchantmentStrengthMultiplier,
+				BasicEnchantmentStrengthMultiplier,
+				CommonEnchantmentStrengthMultiplier,
+                RareEnchantmentStrengthMultiplier,
+                EpicEnchantmentStrengthMultiplier,
+                LegendaryEnchantmentStrengthMultiplier
+			}.GetHashCode();
+		}
+	}
 }

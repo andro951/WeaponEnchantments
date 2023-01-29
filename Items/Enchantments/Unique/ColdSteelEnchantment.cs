@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using WeaponEnchantments.Effects;
+using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -8,29 +11,41 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override int StrengthGroup => 9;
 		public override float ScalePercent => 0.2f / defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[tierNames.Length - 1];
-		public override int RestrictedClass => (int)DamageTypeSpecificID.Summon;
-		public override int NewDamageType => (int)DamageTypeSpecificID.SummonMeleeSpeed;
-		public override Dictionary<EItemType, float> AllowedList => new Dictionary<EItemType, float>() {
-			{ EItemType.Weapon, 1f }
-		};
+		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
 		public override void GetMyStats() {
-			AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			if (EnchantmentTier == 3)
-				OnHitBuff.Add(BuffID.CoolWhipPlayerBuff, BuffDuration);
+			Effects = new() {
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new DamageClassSwap(DamageClass.SummonMeleeSpeed),
+				new MinionAttackTarget(),
+				new BuffEffect(BuffID.Frostburn, BuffStyle.OnHitEnemyDebuff, BuffDuration)
+			};
+
+			if (EnchantmentTier >= 3) {
+				Effects.Add(new BuffEffect(BuffID.CoolWhipPlayerBuff, BuffStyle.OnHitPlayerBuff, BuffDuration));
+				Effects.Add(new OnHitSpawnProjectile(ProjectileID.CoolWhipProj, 10));
+			}
 
 			if (EnchantmentTier == 4)
-				Debuff.Add(BuffID.RainbowWhipNPCDebuff, BuffDuration);
+				Effects.Add(new BuffEffect(BuffID.RainbowWhipNPCDebuff, BuffStyle.OnHitEnemyDebuff, BuffDuration));
 
-			Debuff.Add(BuffID.Frostburn, BuffDuration);
-			AddEStat("Damage", 0f, EnchantmentStrength);
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
+			};
 		}
 
 		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentBasic : ColdSteelEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.PostSkeletronPrime;
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.SkeletronPrime)
+		};
+	}
 	public class ColdSteelEnchantmentCommon : ColdSteelEnchantment { }
 	public class ColdSteelEnchantmentRare : ColdSteelEnchantment { }
-	public class ColdSteelEnchantmentSuperRare : ColdSteelEnchantment { }
-	public class ColdSteelEnchantmentUltraRare : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentEpic : ColdSteelEnchantment { }
+	public class ColdSteelEnchantmentLegendary : ColdSteelEnchantment { }
 }

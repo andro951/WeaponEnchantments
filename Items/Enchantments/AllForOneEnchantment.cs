@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using Terraria.ID;
+using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
+
+namespace WeaponEnchantments.Items.Enchantments
+{
+	public abstract class AllForOneEnchantment : Enchantment
+	{
+		public override int StrengthGroup => 6;
+		public override float ScalePercent => 0.8f;
+		public override bool Max1 => true;
+		public override List<int> RestrictedClass => new() { (int)DamageClassID.Summon };
+		public override void GetMyStats() {
+			Effects = new() {
+				new ItemCooldown(EnchantmentStrengthData * 0.4f + 4f),
+				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
+				new NPCHitCooldown(multiplicative: EnchantmentStrengthData * 0.4f + 4f),
+				new AttackSpeed(multiplicative: (EnchantmentStrengthData * 0.1f + 1f).Invert()),
+				new ManaUsage(@base: EnchantmentStrengthData * 0.15f + 1.5f),
+				new AutoReuse(prevent: true),
+				new ProjectileVelocity(EnchantmentStrengthData * 0.1f)
+			};
+
+			AllowedList = new Dictionary<EItemType, float>() {
+				{ EItemType.Weapons, 1f }
+			};
+		}
+
+		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
+		public override string Artist => "Zorutan";
+		public override string ArtModifiedBy => null;
+		public override string Designer => "andro951";
+	}
+	public class AllForOneEnchantmentBasic : AllForOneEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.PostSkeletron;
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.Mothron)
+		};
+		public override List<DropData> ChestDrops => new() {
+			new(ChestID.Gold_Locked),
+			new(ChestID.Lihzahrd)
+		};
+		public override List<DropData> CrateDrops => new() {
+			new(CrateID.Golden_LockBox, 0.45f)
+		};
+	}
+	public class AllForOneEnchantmentCommon : AllForOneEnchantment { }
+	public class AllForOneEnchantmentRare : AllForOneEnchantment { }
+	public class AllForOneEnchantmentEpic : AllForOneEnchantment { }
+	public class AllForOneEnchantmentLegendary : AllForOneEnchantment { }
+}

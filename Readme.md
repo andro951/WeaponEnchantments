@@ -1,4 +1,9 @@
-﻿# Weapon Enchantments
+﻿#Wiki
+https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/Weapon_Enchantments_Mod_(tModLoader)_Wiki
+
+#Some information below is OUTDATED.  Please use the wiki above instead!!
+
+# Weapon Enchantments
 
 # Features
 * Item Customization (Enchantments)
@@ -10,15 +15,15 @@ Terraria has you frequently swapping old gear for new. The enchanting system all
 # Wiki
 
 ## Config (Most options on the 2nd page!)
-Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recomended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
-> You have an extreme ammount of control over the power level of this mod via the config.
+Many players will find Enchantments to be too powerful.  For players who enjoy a high difficulty experience, it is recommended to change the **Enchantment Strength Preset** to **Expert** (50%) or **Master** (25%). (2nd page of the config)
+> You have an extreme amount of control over the power level of this mod via the config.
 
 ## Item Experience
-All weapons, armor and accesories can now gain experience (**XP**). These are **enchantable items**.
+All weapons, armor and accessories can now gain experience (**XP**). These are **enchantable items**.
 
 These items have a level based on their XP which is for two things:
 Increases enchantment capacity of the item by 1 per level
-Increases weapon critical strike chance by 1 per level (can be disabled, affected by the Config Recomended Strength multiplier mentioned above.)
+Increases weapon critical strike chance by 1 per level (can be disabled, affected by the Config Global Enchantment Strength multiplier mentioned above.)
 
 You can obtain XP by damaging enemies, doing skilling activities such as mining and cutting trees, and consuming essence.
 
@@ -30,7 +35,7 @@ You can obtain XP by damaging enemies, doing skilling activities such as mining 
 ![Basic Essence](/Items/Sprites/EnchantmentEssenceBasic.png)
 ![Common Essence](/Items/Sprites/EnchantmentEssenceCommon.png)
 
-Essence represent solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
+Essence represents solidified experience and are automatically stored in the enchanting table inventory (like a piggy bank).
 They can be used to...
 * Upgrade enchantments.
 * Infuse it's XP value into items.
@@ -39,8 +44,8 @@ There are 5 Essence types, each worth more than the last:
 0. Basic
 1. Common
 2. Rare
-3. Super Rare
-4. Ultra Rare
+3. Epic
+4. Legendary
 
 ## Containments
 ![Containment](/Items/Sprites/Containment.png)
@@ -57,20 +62,20 @@ There are 3 containment levels:
     *Ingredients - 16 Demonite/Crimtane Bars, 4 common gems (any except diamond/amber)
 
 ## Enchantments
-![Defense Enchantment](/Items/Sprites/StatDefenseEnchantmentBasic.png)
+![Defense Enchantment](/Items/Sprites/DefenseEnchantmentBasic.png)
 ![Damage Enchantment](/Items/Sprites/DamageEnchantmentCommon.png)
 
 Enchantments allow customization of your items:
     Basic stat upgrades such as:
-        *Damage
-        *Critical strike chance
-        *Armor
-        *Life steal
+        * Damage
+        * Critical strike chance
+        * Armor
+        * Life steal
     More unique upgrades such as:
-        *Hitting all enemies in an area (One for All)
-        *Dealing massive damage but having a long recovery (All for One)
-        *Flames that spread between enemies (World Ablaze)
-        *Max health true damage (God Slayer)
+        * Hitting all enemies in an area (One for All)
+        * Dealing massive damage but having a long recovery (All for One)
+        * Flames that spread between enemies (World Ablaze)
+        * Max health true damage (God Slayer)
 
 Each enchantment has a capacity cost.  This cost is subtracted from the item enchantment capacity.
 
@@ -83,9 +88,9 @@ They're obtained by...
 
 Essence in the enchanting table is available for crafting.  There is no need to take them out of the crafting table.
  > Magic Storage: The environment simulator lets you access the essence in the enchanting table.
- The environment simulator will also act as the highest tier enchanting table your character has ever ussd.
+ The environment simulator will also act as the highest tier enchanting table your character has ever used.
 
-Recipies can easily be looked up:
+Recipes can easily be looked up:
 * You can give items to the vanilla guide to see what it can be crafted into.
 * You can also use the recipe browser mod.
 
@@ -95,9 +100,9 @@ There are 5 tiers:
 0. Basic - 10 Basic Essence, Containment(the smallest one) (tier 0, Wood enchanting table or better)
 1. Medium - 10 Medium Essence, Medium Containment, tier 0 Enchantment (tier 1, Dusty enchanting table or better)
 2. Rare - 10 Rare Essence, Superior Containment, tier 1 Enchantment (tier 2, Hellish enchanting table or better)
-3. Super Rare - 10 Super Rare Essence, tier 2 Enchantmentl, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
-4. Ultra Rare - 10 Ultra Rare Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
-> Some enchantments are tier 4 exclusive, as is the case of the Spelunkner Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
+3. Epic - 10 Epic Essence, tier 2 Enchantment, 2 common gems(any except diamond/amber) (tier 3, Soul enchanting table or better)
+4. Legendary - 10 Legendary Essence, tier 3 Enchantment, 1 rare gem (diamond/amber) (tier 4, Ultimate enchanting table or better)
+> Some enchantments are tier 4 exclusive, as is the case of the Spelunker Enchantment. (This is temporary until the mechanics are in place to have lower tiers.)
 
 ## Power Boosters
 These are rare items obtained by defeating bosses, and add 10 levels to your item. They can be used only once per item and are returned upon offering the item.
@@ -129,7 +134,7 @@ There are 5 tiers of enchanting tables
        > (TIP - Found in the desert, look for amber while you're there)
     *70% of item experience converted to Essence when offering items.
 2. Hellish:
-    *Ingredients - tier 1 Enchanting Table, obsidian skull
+    *Ingredients - tier 1 Enchanting Table, obsidian skull, 2 hellstone ore
     *80% of item experience converted to Essence when offering items.
 3. Soul:
     *Ingredients - tier 2 Enchanting Table, 2 souls of light/night
@@ -222,20 +227,19 @@ enchantments/experience as essence/power booster back.
 ## When you start a game...
 * Make an enchanting table right away!
     * The first enchanting table is created with a workbench and 4 torches.
-* Gear yourself up (fill in your armor and accesory slots so they start getting XP).
+* Gear yourself up (fill in your armor and accessory slots so they start getting XP).
 * When upgrading, offer your old armor and weapons for essence.
 * Upgrade your new weapons and armor with the obtained essence.
-* Keep growing!
 
 ### Tips & Tricks
 * DONT SELL enchantable items! Offer them instead.
-    * The value from ore recieved is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
+    * The value from ore received is slightly higher than an item's sell value and you get Essence equivalent to the item's xp.
     * Offering items returns all Enchantments/Power Booster applied to the consumed item.
 * Carrying an Enchanting Table with you to convert unwanted items is a good way to save inventory space.(Especially if you set the config to 0% ore, 100% essence)
 * Make a gem tree farm (especially for diamond/amber). They are used to craft high tier Containments.
 
 ### Where do I get the good Enchantments?
-![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentUltraRare.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentUltraRare.png)
+![WorldAblaze](/Items/Sprites/WorldAblazeEnchantmentLegendary.png)![Jungles Fury](/Items/Sprites/JunglesFuryEnchantmentLegendary.png)
 
 Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode bosses drop general Enchantments usable on all items and Hardmode bosses drop more specialized Enchantments.
 
@@ -248,62 +252,88 @@ Unique Enchantments are obtained from Chests/Bosses/Rare enemies. Pre-Hardmode b
 
 ## Contributors
 
+### Supporting Mod Library
+
+KokoLib by Tabizzz - For managing the sending and recieving of packets for multiplayer servers.
+https://github.com/Tabizzz/KokoLib
+
 ### Art
 
 andro951: 
 
-![CatastrophicReleaseEnchantmentCommon](/Items/Sprites/CatastrophicReleaseEnchantmentCommon.png)
-![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
-![PhaseJumpEnchantmentCommon](/Items/Sprites/PhaseJumpEnchantmentCommon.png)
+![CalmWatersEnchantmentCommon](/Items/Sprites/CalmWatersEnchantmentCommon.png)
+![ChaoticFishingEnchantmentCommon](/Items/Sprites/ChaoticFishingEnchantmentCommon.png)
+![CrateChanceEnchantmentCommon](/Items/Sprites/CrateChanceEnchantmentCommon.png)
+![ExtraFishingLineEnchantmentCommon](/Items/Sprites/ExtraFishingLineEnchantmentCommon.png)
+![FishingPowerEnchantmentCommon](/Items/Sprites/FishingPowerEnchantmentCommon.png)
+![LavaFishingEnchantmentCommon](/Items/Sprites/LavaFishingEnchantmentCommon.png)
+![LuckEnchantmentCommon](/Items/Sprites/LuckEnchantmentCommon.png)
+![NpcContactAnglerEnchantmentCommon](/Items/Sprites/NpcContactAnglerEnchantmentCommon.png)
 ![PowerBooster](/Items/Sprites/PowerBooster.png)
 
 Kiroto: 
 
 ![EnchantmentEssenceBasic](/Items/Sprites/EnchantmentEssenceBasic.png)
-![EnchantmentEssenceBasicCB](/Items/Sprites/EnchantmentEssenceBasicAlt.png)
+![EnchantmentEssenceBasicAlt](/Items/Sprites/EnchantmentEssenceBasicAlt.png)
 ![EnchantmentEssenceCommon](/Items/Sprites/EnchantmentEssenceCommon.png)
-![EnchantmentEssenceCommonCB](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
+![EnchantmentEssenceCommonAlt](/Items/Sprites/EnchantmentEssenceCommonAlt.png)
 ![EnchantmentEssenceRare](/Items/Sprites/EnchantmentEssenceRare.png)
-![EnchantmentEssenceRareCB](/Items/Sprites/EnchantmentEssenceRareAlt.png)
-![EnchantmentEssenceSuperRare](/Items/Sprites/EnchantmentEssenceSuperRare.png)
-![EnchantmentEssenceSuperRareCB](/Items/Sprites/EnchantmentEssenceSuperRareAlt.png)
-![EnchantmentEssenceUltraRare](/Items/Sprites/EnchantmentEssenceUltraRare.png)
-![EnchantmentEssenceUltraRareCB](/Items/Sprites/EnchantmentEssenceUltraRareAlt.png)
+![EnchantmentEssenceRareAlt](/Items/Sprites/EnchantmentEssenceRareAlt.png)
+![EnchantmentEssenceEpic](/Items/Sprites/EnchantmentEssenceEpic.png)
+![EnchantmentEssenceEpicAlt](/Items/Sprites/EnchantmentEssenceEpicAlt.png)
+![EnchantmentEssenceLegendary](/Items/Sprites/EnchantmentEssenceLegendary.png)
+![EnchantmentEssenceLegendaryAlt](/Items/Sprites/EnchantmentEssenceLegendaryAlt.png)
 
-Sir Bumpleton: 
+𝐍𝐢𝐱𝐲♱: 
 
-![ShootSpeedEnchantmentCommon](/Items/Sprites/ShootSpeedEnchantmentCommon.png)
+![CriticalStrikeDamageEnchantmentCommon](/Items/Sprites/CriticalStrikeDamageEnchantmentCommon.png)
+![MaxMinionsEnchantmentCommon](/Items/Sprites/MaxMinionsEnchantmentCommon.png)
+![SolarDashEnchantmentCommon](/Items/Sprites/SolarDashEnchantmentCommon.png)
+
+Princess of Evil: 
+
+![CursedInfernoEnchantmentCommon](/Items/Sprites/CursedInfernoEnchantmentCommon.png)
+![DaybreakEnchantmentCommon](/Items/Sprites/DaybreakEnchantmentCommon.png)
+![FrostburnEnchantmentCommon](/Items/Sprites/FrostburnEnchantmentCommon.png)
+![IchorEnchantmentCommon](/Items/Sprites/IchorEnchantmentCommon.png)
+![OnFireEnchantmentCommon](/Items/Sprites/OnFireEnchantmentCommon.png)
+![VenomEnchantmentCommon](/Items/Sprites/VenomEnchantmentCommon.png)
+
+Sir Bumpleton ✿: 
+
+![MobilityControlEnchantmentCommon](/Items/Sprites/MobilityControlEnchantmentCommon.png)
+![ProjectileVelocityEnchantmentCommon](/Items/Sprites/ProjectileVelocityEnchantmentCommon.png)
 
 Zorutan: https://twitter.com/ZorutanMesuta
 
 ![AllForOneEnchantmentBasic](/Items/Sprites/AllForOneEnchantmentBasic.png)
 ![AllForOneEnchantmentCommon](/Items/Sprites/AllForOneEnchantmentCommon.png)
 ![AllForOneEnchantmentRare](/Items/Sprites/AllForOneEnchantmentRare.png)
-![AllForOneEnchantmentSuperRare](/Items/Sprites/AllForOneEnchantmentSuperRare.png)
-![AllForOneEnchantmentUltraRare](/Items/Sprites/AllForOneEnchantmentUltraRare.png)
+![AllForOneEnchantmentEpic](/Items/Sprites/AllForOneEnchantmentEpic.png)
+![AllForOneEnchantmentLegendary](/Items/Sprites/AllForOneEnchantmentLegendary.png)
 ![AmmoCostEnchantmentCommon](/Items/Sprites/AmmoCostEnchantmentCommon.png)
 ![ArmorPenetrationEnchantmentCommon](/Items/Sprites/ArmorPenetrationEnchantmentCommon.png)
+![AttackSpeedEnchantmentCommon](/Items/Sprites/AttackSpeedEnchantmentCommon.png)
 ![ColdSteelEnchantmentCommon](/Items/Sprites/ColdSteelEnchantmentCommon.png)
 ![Containment](/Items/Sprites/Containment.png)
 ![CriticalStrikeChanceEnchantmentCommon](/Items/Sprites/CriticalStrikeChanceEnchantmentCommon.png)
 ![DamageEnchantmentCommon](/Items/Sprites/DamageEnchantmentCommon.png)
+![DefenseEnchantmentCommon](/Items/Sprites/DefenseEnchantmentCommon.png)
 ![DustyEnchantingTable](/Items/Sprites/DustyEnchantingTable.png)
 ![GodSlayerEnchantmentCommon](/Items/Sprites/GodSlayerEnchantmentCommon.png)
 ![HellishEnchantingTable](/Items/Sprites/HellishEnchantingTable.png)
 ![HellsWrathEnchantmentCommon](/Items/Sprites/HellsWrathEnchantmentCommon.png)
 ![JunglesFuryEnchantmentCommon](/Items/Sprites/JunglesFuryEnchantmentCommon.png)
 ![LifeStealEnchantmentCommon](/Items/Sprites/LifeStealEnchantmentCommon.png)
-![ManaEnchantmentCommon](/Items/Sprites/ManaEnchantmentCommon.png)
 ![MediumContainment](/Items/Sprites/MediumContainment.png)
 ![MoonlightEnchantmentCommon](/Items/Sprites/MoonlightEnchantmentCommon.png)
-![MoveSpeedEnchantmentCommon](/Items/Sprites/MoveSpeedEnchantmentCommon.png)
+![MovementSpeedEnchantmentCommon](/Items/Sprites/MovementSpeedEnchantmentCommon.png)
 ![MultishotEnchantmentCommon](/Items/Sprites/MultishotEnchantmentCommon.png)
 ![OneForAllEnchantmentCommon](/Items/Sprites/OneForAllEnchantmentCommon.png)
 ![PeaceEnchantmentCommon](/Items/Sprites/PeaceEnchantmentCommon.png)
-![ScaleEnchantmentCommon](/Items/Sprites/ScaleEnchantmentCommon.png)
+![ReducedManaUsageEnchantmentCommon](/Items/Sprites/ReducedManaUsageEnchantmentCommon.png)
+![SizeEnchantmentCommon](/Items/Sprites/SizeEnchantmentCommon.png)
 ![SoulEnchantingTable](/Items/Sprites/SoulEnchantingTable.png)
-![SpeedEnchantmentCommon](/Items/Sprites/SpeedEnchantmentCommon.png)
-![StatDefenseEnchantmentCommon](/Items/Sprites/StatDefenseEnchantmentCommon.png)
 ![SuperiorContainment](/Items/Sprites/SuperiorContainment.png)
 ![UltimateEnchantingTable](/Items/Sprites/UltimateEnchantingTable.png)
 ![WarEnchantmentCommon](/Items/Sprites/WarEnchantmentCommon.png)

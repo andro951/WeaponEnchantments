@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
+using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects {
-    public class JumpSpeed : StatEffect {
-        public JumpSpeed(float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) : base(additive, multiplicative, flat, @base) { }
+    public class JumpSpeed : StatEffect, IVanillaStat {
+        public JumpSpeed(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base) {
 
-        public override EditableStat statName => EditableStat.JumpSpeedBoost;
-        public override string DisplayName { get; } = "Jump Speed";
+        }
+        public JumpSpeed(EStatModifier eStatModifier) : base(eStatModifier) { }
+        public override EnchantmentEffect Clone() {
+            return new JumpSpeed(EStatModifier.Clone());
+        }
+        public override EnchantmentStat statName => EnchantmentStat.JumpSpeed;
     }
 }
