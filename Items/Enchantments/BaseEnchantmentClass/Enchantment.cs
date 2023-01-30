@@ -588,7 +588,7 @@ namespace WeaponEnchantments.Items
 			float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 			float scale = Math.Abs(ScalePercent);
 			float strength;
-			if (ScalePercent < 0f && multiplier < 1f) {
+			if (ScalePercent < 0f) {
 				strength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
 			}
 			else {

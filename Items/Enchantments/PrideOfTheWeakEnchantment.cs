@@ -12,6 +12,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 23;
 		public override int LowestCraftableTier => 0;
 		public override float CapacityCostMultiplier => 0f;
+		public override float ScalePercent => -1f;
 		public override bool Max1 => true;
 		public override void GetMyStats() {
 			Effects = new() {
