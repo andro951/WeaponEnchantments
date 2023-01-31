@@ -8,7 +8,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public abstract class ExtraFishingLineEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 18;
-		public override float ScalePercent => 0.66667f;
+		public override float ScalePercent => 2f/3f;
 		public override void GetMyStats() {
 			Effects = new() {
 				new Multishot(@base: EnchantmentStrengthData)

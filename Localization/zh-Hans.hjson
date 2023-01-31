@@ -1,4 +1,4 @@
-#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
+#Contributed by 1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -237,11 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: 锱铢必较附魔史诗
 			PennyPinchingEnchantmentLegendary: 锱铢必较附魔传奇
 			PennyPinchingEnchantmentRare: 锱铢必较附魔稀有
-			PrideOfTheWeakEnchantmentBasic: 弱者的骄傲基础
-			PrideOfTheWeakEnchantmentCommon: 弱者的骄傲 普通
-			PrideOfTheWeakEnchantmentEpic: 弱魔法史诗的骄傲
-			PrideOfTheWeakEnchantmentLegendary: 弱魔法传奇的骄傲
-			PrideOfTheWeakEnchantmentRare: 弱者的骄傲 稀有
+			PrideOfTheWeakEnchantmentBasic: 弱者的意志基元
+			PrideOfTheWeakEnchantmentCommon: 弱者的意志普通
+			PrideOfTheWeakEnchantmentEpic: 弱者的意志史诗
+			PrideOfTheWeakEnchantmentLegendary: 弱者的意志传奇
+			PrideOfTheWeakEnchantmentRare: 弱者的意志稀有
 			ProjectileVelocityEnchantmentBasic: 射速附魔基元
 			ProjectileVelocityEnchantmentCommon: 射速附魔普通
 			ProjectileVelocityEnchantmentEpic: 射速附魔史诗
@@ -584,7 +584,7 @@ Mods: {
 				OnHitSpawnProjectile: 命中时生成弹幕
 				Peace: 和平
 				PennyPinching: 锱铢必较
-				PrideOfTheWeak: 弱者的骄傲
+				PrideOfTheWeak: 弱者的意志
 				ProjectileVelocity: 子弹速度
 				QuestFishChance: 任务鱼几率
 				RangedClassSwap: 远程类型伤害转换
@@ -659,7 +659,7 @@ Mods: {
 					（仅在子弹的第一次命中时有效。）
 					'''
 				OnHitSpawnProjectile: “击中敌人时产生弹幕：{0}”
-				PrideOfTheWeak: "{0} 增加弱武器造成的伤害。（0 灌注能量时 100% 有效。500 灌注能量时 0% 有效。）"
+				PrideOfTheWeak: "{0} 增加弱武器造成的伤害。（当前灌注能量为0时 100%起效 ，灌注能量越高效果越低，超过500 时不再起效。)"
 				QuestFishChance: “{0}（捕获的任务鱼将自动上交并开始新的任务，绕过每天 1 条的限制。）”
 				BoolEffect: {
 					Enabled: “{0}：启用”

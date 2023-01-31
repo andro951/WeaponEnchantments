@@ -486,6 +486,8 @@ namespace WeaponEnchantments.Common.Globals
 				case Chlorophyte:
 					xp *= 5;
 					break;
+				case < 0:
+					break;
 				default:
 					if (Main.tileDungeon[tileType]) {
 						xp *= 2;
