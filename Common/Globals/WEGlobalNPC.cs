@@ -691,7 +691,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            bool isWorm = IsWorm(npc);
+            bool isWorm = npc.IsWorm();
             int minSpreadDamage = isWorm ? 13 : 100;
 
             //Controls how fast the damage tick rate is.
@@ -720,7 +720,7 @@ namespace WeaponEnchantments.Common.Globals
                     foreach (int whoAmI in npcs.Keys) {
                         NPC mainNPC = Main.npc[whoAmI];
                         WEGlobalNPC wEGlobalNPC = Main.npc[whoAmI].GetWEGlobalNPC();
-                        if (IsWorm(mainNPC)) {
+                        if (mainNPC.IsWorm()) {
                             if (wEGlobalNPC.amaterasuDamage <= 0)
                                 wEGlobalNPC.amaterasuDamage += AmaterasuSelfGrowthPerTick/5;
                         }
@@ -823,10 +823,12 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class NPCStaticMethods
     {
-        public static bool IsWorm(NPC npc) {
+        public static bool IsWorm(this NPC npc) {
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
-        public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
+        public static bool IsDummy(this NPC npc) => npc.netID == NPCID.TargetDummy || WEMod.calamityEnabled && npc.FullName == "Super Dummy";
+
+		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
 
 			if (target.TryGetWEGlobalNPC(out WEGlobalNPC wEGlobalNPC)) {

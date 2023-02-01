@@ -1044,7 +1044,7 @@ namespace WeaponEnchantments
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
-            bool dummyTarget = target.netID == NPCID.TargetDummy;
+            bool dummyTarget = target.IsDummy();
 
             Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
@@ -1072,7 +1072,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.netID)) {
+                    if (target.IsWorm() || multipleSegmentBossTypes.ContainsKey(target.netID)) {
                         foreach (short key in debuffs.Keys) {
                             debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
                         }
@@ -1088,7 +1088,12 @@ namespace WeaponEnchantments
                 }
             }
 
-            if (!dummyTarget) {
+			//One For All
+			int oneForAllDamageDealt = 0;
+			if (weGlobalNPC.oneForAllOrigin)
+				oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit, projectile, dummyTarget);
+
+			if (!dummyTarget) {
                 //Player buffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
@@ -1100,11 +1105,6 @@ namespace WeaponEnchantments
                 if (LogMethods.debugging) ($"item: {item.S()} {ItemEStats.S("OneForAll")}").Log();
 
                 #endregion
-
-                //One For All
-                int oneForAllDamageDealt = 0;
-                if (weGlobalNPC.oneForAllOrigin)
-                    oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit, projectile);
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
@@ -1140,7 +1140,7 @@ namespace WeaponEnchantments
 					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
 			}
 		}
-		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile) {
+		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile, bool dummyOnly) {
             WEProjectile weProjectile = null;
             if (projectile?.TryGetWEProjectile(out weProjectile) == true && weProjectile.activatedOneForAll)
                 return 0;
@@ -1161,12 +1161,15 @@ namespace WeaponEnchantments
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return 0;
 
-            //Range
+			//Range
             float oneForAllScale = item.scale;
             if (oneForAllScale < 1f)
-                oneForAllScale = 1f;
+				oneForAllScale = 1f;
 
-            float oneForAllRange = baseOneForAllRange * oneForAllScale;
+			if (GetSharedVanillaModifierStrength(item, EnchantmentStat.Size, out float strength))
+                oneForAllScale *= strength;
+
+			float oneForAllRange = baseOneForAllRange * oneForAllScale;
 
             //Sorted List by range
             Dictionary<int, float> npcs = SortNPCsByRange(target, oneForAllRange);
@@ -1180,7 +1183,10 @@ namespace WeaponEnchantments
                 int whoAmI = npcDataPair.Key;
                 NPC ofaTarget = Main.npc[whoAmI];
 
-                bool isWorm = IsWorm(target);
+                if (dummyOnly && !ofaTarget.IsDummy())
+                    continue;
+
+                bool isWorm = target.IsWorm();
 
                 //Worms
                 if (isWorm)
