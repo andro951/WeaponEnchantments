@@ -756,14 +756,16 @@ namespace WeaponEnchantments.Items
 
 			fullTooltip.AddRange(GetAllowedListTooltips());
 
-			if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 0 && Utility == false) {
+			//For making enchantments only allowed on 1 specific weapon with the same name
+			/*if (AllowedList.ContainsKey(EItemType.Weapons) && Unique && !Max1 && DamageClassSpecific == 0 && ArmorSlotSpecific == -1 && RestrictedClass?.Count == 0 && Utility == false) {
 				//Unique (Specific Item)
 				fullTooltip.Add(new Tuple<string, Color>(
 					$"   *{GetLocalizationForGeneralTooltip(EnchantmentGeneralTooltipsID.Only, GetLocalizationTypeName())}*",
 					Color.White
 				));
 			}
-			else if (DamageClassSpecific > 0) {
+			else */
+			if (DamageClassSpecific > 0) {
 				//DamageClassSpecific
 				string damageClassName = GetDamageClassName(DamageClassSpecific);
 				fullTooltip.Add(new Tuple<string, Color>(

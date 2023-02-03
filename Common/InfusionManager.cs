@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Microsoft.CodeAnalysis.Operations;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
@@ -609,8 +610,25 @@ namespace WeaponEnchantments.Common
 				case > ItemID.Count:
                     //Manually set rarity of an item
                     switch (sampleItem.Name) {
+                        case "Depth Crusher"://Calamity
+                            rarity = -0.4f;
+                            break;
+                        case "Feller of Evergreens"://Calamity
+                            rarity = -0.3f;
+                            break;
+						case "Squirrel Squire Staff"://Calamity
+                        case "Frost Bolt"://Calamity
+						case "Spadefish"://Calamity
+							rarity = -0.2f;
+                            break;
+                        case "Stormjaw Staff"://Calamity
+                            rarity = -0.05f;
+                            break;
 						case "Primary Zenith"://Primary Zenith
                             rarity = 0f;
+                            break;
+                        case "Sparkling Empress"://Calamity
+                            rarity = 0.05f;
                             break;
                         case "Storm Surge"://Calamity
                         case "Seashine Sword"://Calamity
@@ -618,20 +636,47 @@ namespace WeaponEnchantments.Common
 						case "Aquamarine Staff"://Calamity
                         case "Nasty Cholla"://Calamity
                         case "Throwing Brick"://Calamity
+                        case "Monstrous Knives"://Calamity
+                        case "Seafoam Bomb"://Calamity
 							rarity = 0.1f;
                             break;
                         case "Web Ball"://Calamity
+                        case "Icicle Staff"://Calamity
+                        case "Spark Spreader"://Calamity
+						case "Sun Spirit Staff"://Calamity
 							rarity = 0.2f;
                             break;
-                        case "Lead Tomahawk"://Calamity
+						case "Frost Blossom Staff"://Calamity
+						case "Mana Rose"://Calamity
+							rarity = 0.25f;
+							break;
+						case "Lead Tomahawk"://Calamity
                         case "Iron Francisca"://Calamity
+						case "Harvest Staff"://Calamity
 							rarity = 0.3f;
                             break;
+						case "Crackshot Colt"://Calamity
+						case "Gilded Dagger"://Calamity
+						case "Gleaming Dagger"://Calamity
+						case "Marnite Deconstructor"://Calamity
+						case "Marnite Obliterator"://Calamity
+							rarity = 0.35f;
+                            break;
 						case "Wulfrum Knife"://Calamity
+                        case "Urchin Stinger"://Calamity
 							rarity = 0.4f;
                             break;
+                        case "Opal Striker"://Calamity
+							rarity = 0.45f;
+							break;
+                        case "Firestorm Cannon"://Calamity
+                        case "Magna Cannon"://Calamity
+                        case "Meteor Fist"://Calamity
 							rarity = 0.5f;
 							break;
+                        case "Pumpler"://Calamity
+                            rarity = 0.7f;
+                            break;
 						case "Aegis Driver":
                             rarity = 0.8f;
                             break;
@@ -656,7 +701,8 @@ namespace WeaponEnchantments.Common
 							rarity = 1.15f;
 							break;
 						case "Rad Gun"://Stars Above
-                            rarity = 1.2f;
+                        case "Star Struck Water"://Calamity
+							rarity = 1.2f;
                             break;
 						case "Teardrop Cleaver"://Calamity
 						case "Deathstare Rod"://Calamity
@@ -672,9 +718,16 @@ namespace WeaponEnchantments.Common
                             break;
 						case "Magnum"://Calamity
                         case "Sky Glaze"://Calamity
+                        case "Ashen Stalactite"://Calamity
+						case "Crystalline"://Calamity
 							rarity = 1.3f;
                             break;
-                        case "Mycoroot"://Calamity
+                            rarity = 1.35f;
+                            break;
+						case "Burnt Sienna"://Calamity
+                            rarity = 1.4f;
+                            break;
+						case "Mycoroot"://Calamity
                         case "Puff Shroom"://Calamity
                         case "Hyphae Rod"://Calamity
 						case "Fungicide"://Calamity
@@ -682,13 +735,29 @@ namespace WeaponEnchantments.Common
 						case "Mycelial Claws"://Calamity
 							rarity = 1.5f;
                             break;
-                        case "Sludge Splotch"://Calamity
+                        case "Belladonna Spirit Staff"://Calamity
+                        case "Yateveo Bloom"://Calamity
+							rarity = 1.55f;
+                            break;
+						case "Sludge Splotch"://Calamity
                             rarity = 1.6f;
                             break;
 						case "Scab Ripper"://Calamity
                         case "Caustic Edge"://Calamity
 						case "Vile Feeder"://Calamity
 							rarity = 1.65f;
+                            break;
+                        case "Carnage Ray"://Calamity
+                        case "Night's Ray"://Calamity
+                        case "The God's Gambit"://Calamity
+							rarity = 1.8f;
+                            break;
+                        case "Overloaded Blaster"://Calamity
+                        case "Corroslime Staff"://Calamity
+                        case "Crimslime Staff"://Calamity
+						case "Eldritch Tome"://Calamity
+						case "Abyssal Tome"://Calamity
+							rarity = 1.85f;
                             break;
 						case "Bouncy Spiky Ball"://Calamity
                         case "Poison Pack"://Calamity
@@ -700,7 +769,15 @@ namespace WeaponEnchantments.Common
                             break;
                         case "Rot Ball"://Calamity
 						case "Tooth Ball"://Calamity
+						case "Gelpick"://Calamity
+						case "Gelitic Blade"://Calamity
+                        case "Goobow"://Calamity
+                        case "Gunk Shot"://Calamity
+                        case "Slime Puppet Staff"://Calamity
 							rarity = 2.15f;
+                            break;
+                        case "Lunarian Bow"://Calamity
+                            rarity = 2.2f;
                             break;
 						case "Shadethrower"://Calamity
                         case "Perfect Dark"://Calamity
@@ -748,31 +825,133 @@ namespace WeaponEnchantments.Common
                         case "Flurrystorm Cannon"://Calamity
 							rarity = 2.4f;
 							break;
+                        case "Hardened Honeycomb"://Calamity
+                        case "Glaive"://Calamity
+                        case "Bladecrest Oathsword"://Calamity
+                        case "Dragoon Drizzlefish"://Calamity
+                        case "Old Lord Oathsword"://Calamity
+							rarity = 2.45f;
+                            break;
 						case "Der Freischutz"://Stars Above
                         case "Death In Four Acts"://Stars Above
+                        case "Cinquedea"://Calamity
+						case "Kylie"://Calamity
+                        case "Shinobi Blade"://Calamity
+                        case "Staff of Necrosteocytes"://Calamity
 							rarity = 2.5f;
 							break;
-						case "Nullification Pistol"://Calamity
+                        case "Abyss Shocker"://Calamity
+                        case "Archerfish"://Calamity
+                        case "Ball O' Fugu"://Calamity
+                        case "Black Anurian"://Calamity
+                        case "Herring Staff"://Calamity
+                        case "Lionfish"://Calamity
+							rarity = 2.6f;
+                            break;
 						case "Atomic Annie"://Calamity
 							rarity = 3f;
                             break;
+                        case "Gel Dart"://Calamity
+                        case "Infernal Kris"://Calamity
+							rarity = 3.05f;
+                            break;
+                        case "Cinder Blossom Staff"://Calamity
+                        case "Flare Bolt"://Calamity
+                        case "Hellwing Staff"://Calamity
+							rarity = 3.15f;
+                            break;
 						case "Broken Biome Blade"://Calamity
                         case "Aestheticus"://Calamity
+                        case "Bloody Edge"://Calamity
+                        case "Eye of Night"://Calamity
+                        case "Flesh of Infidelity"://Calamity
 							rarity = 3.2f;
+                            break;
+                        case "Meowthrower"://Calamity
+                        case "Black Hawk Remote"://Calamity
+                        case "Blast Barrel"://Calamity
+                        case "Carnage"://Calamity
+                        case "P90"://Calamity
+                        case "Slick Cane"://Calamity
+							rarity = 3.35f;
+                            break;
+                        case "Ancient Ice Chunk"://Calamity
+                        case "Caustic Staff"://Calamity
+                        case "Clothier's Wrath"://Calamity
+                        case "Cursed Capper"://Calamity
+                        case "Equanimity"://Calamity
+                        case "Eutrophic Scimitar"://Calamity
+                        case "Evil Smasher"://Calamity
+                        case "Flarewing Bow"://Calamity
+                        case "Frigidflash Bolt"://Calamity
+                        case "Gacruxian Mollusk"://Calamity
+                        case "Glorious End"://Calamity
+                        case "Haunted Scroll"://Calamity
+                        case "Axe of Purity"://Calamity
+                        case "Ichor Spear"://Calamity
+                        case "Lunic Eye"://Calamity
+						case "Needler"://Calamity
+                        case "Polaris Parrotfish"://Calamity
+                        case "Roxcalibur"://Calamity
+                        case "Serpentine"://Calamity
+                        case "True Caustic Edge"://Calamity
+                        case "Yin-Yo"://Calamity
+							rarity = 3.4f;
+                            break;
+                        case "Butcher"://Calamity
+                            rarity = 3.5f;
                             break;
 						case "Inugami Ripsaw"://Stars Above
                             rarity = 3.55f;
                             break;
-						case "Luminary Wand"://Stars Above
-                            rarity = 4.25f;
+                        case "Aftershock"://Calamity
+                        case "Earthen Pike"://Calamity
+                        case "Slag Magnum"://Calamity
+                            rarity = 3.8f;
                             break;
-                        case "Force-of-Nature"://Stars Above
+						case "Cobalt Kunai"://Calamity
+                        case "Palladium Javelin"://Calamity
+							rarity = 4.1f;
+                            break;
+						case "Mythril Knife"://Calamity
+                        case "Adamantite Throwing Axe"://Calamity
+                        case "Golden Gun"://Calamity
+                        case "Blazing Star"://Calamity
+							rarity = 4.2f;
+                            break;
+						case "Luminary Wand"://Stars Above
+							rarity = 4.25f;
+                            break;
+                        case "Orichalcum Spiked Gemstone"://Calamity
+                        case "Titanium Shuriken"://Calamity
+							rarity = 4.3f;
+                            break;
+						case "Force-of-Nature"://Stars Above
                         case "Aurum Edge"://Stars Above
                         case "Every Moment Matters"://Stars Above
+                        case "Nychthemeron"://Calamity
 							rarity = 4.35f;
                             break;
-                        case "Karlan Truesilver"://Stars Above
+                        case "Midas Prime"://Calamity
+                            rarity = 4.4f;
+                            break;
+						case "Karlan Truesilver"://Stars Above
                             rarity = 4.5f;
+                            break;
+                        case "Ice Star"://Calamity
+                            rarity = 4.7f;
+                            break;
+                        case "Frostbite Blaster"://Calamity
+                        case "Icicle Trident"://Calamity
+							rarity = 4.8f;
+                            break;
+						case "Celestial Claymore"://Calamity
+                        case "Cold Divinity"://Calamity
+                        case "Effluvium Bow"://Calamity
+                        case "Avalanche"://Calamity
+                        case "Snowstorm Staff"://Calamity
+                        case "Icebreaker"://Calamity
+							rarity = 4.9f;
                             break;
 						case "Saltwater Scourge"://Stars Above
                             rarity = 5.5f;
@@ -792,6 +971,9 @@ namespace WeaponEnchantments.Common
                             break;
                             rarity = 6.25f;
                             break;
+                        case "Frosty Flare"://Calamity
+                            rarity = 6.3f;
+                            break;
 						case "Xenoblade"://Stars Above
 							rarity = 6.4f;
 							break;
@@ -804,12 +986,22 @@ namespace WeaponEnchantments.Common
                         case "Hunter's Symphony"://Stars Above
                             rarity = 6.6f;
                             break;
+                        case "Monkey Darts"://Calamity
+                        case "Shock Grenade"://Calamity
+							rarity = 6.9f;
+                            break;
 						case "Kifrosse"://Stars Above
                             rarity = 7.1f;
                             break;
 						case "Voice of the Fallen"://Stars Above
                         case "Crimson Outbreak"://Stars Above
 							rarity = 7.35f;
+                            break;
+							case "Nullification Pistol"://Calamity
+							rarity = 7.8f;
+							break;
+						case "Defective Sphere"://Calamity
+                            rarity = 7.95f;
                             break;
 						case "Stygian Nymph"://Stars Above
 						case "Penthesilea's Muse"://Stars Above
@@ -856,6 +1048,7 @@ namespace WeaponEnchantments.Common
                         case "Unforgotten"://Stars Above
                         case "Liberation Blazing"://Stars Above
                         case "Catalyst's Memory"://Stars Above
+                        case "Lunar Kunai"://Calamity
 							rarity = 10.1f;
                             break;
                         case "Eternal Star"://Stars Above

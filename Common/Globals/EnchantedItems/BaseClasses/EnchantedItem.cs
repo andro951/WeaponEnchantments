@@ -960,6 +960,14 @@ namespace WeaponEnchantments.Common.Globals
                     break;
             }
 
+            //Manually prevent calamity items from being weapons
+            if (WEMod.calamityEnabled) {
+                switch (item.Name) {
+                    case "Biome Globe":
+						return false;
+                }
+            }
+
             return isWeapon && !item.accessory;
         }
         public static bool IsArmorItem(Item item) {
