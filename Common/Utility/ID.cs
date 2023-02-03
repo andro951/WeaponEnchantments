@@ -555,7 +555,8 @@ namespace WeaponEnchantments.Common.Utility
         Tool,
         Mechanism,
         LightSource,
-        PowerBooster,
+		PowerBooster,
+		SuperSoap,
 		NPC
 	}
 	public enum InvasionID

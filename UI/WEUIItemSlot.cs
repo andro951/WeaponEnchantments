@@ -223,6 +223,20 @@ namespace WeaponEnchantments.UI
 						iGlobal.UltraPowerBoosterInstalled = true;
 					}
 				}
+				else if (Main.mouseItem.type == SuperSoap.ID) {
+					Item itemInUI = wePlayer.ItemInUI();
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && Main.mouseLeft && Main.mouseLeftRelease) {
+						if (Main.mouseItem.stack > 1) {
+							Main.mouseItem.stack--;
+						}
+						else {
+							Main.mouseItem = new Item();
+						}
+
+						SoundEngine.PlaySound(SoundID.Grab);
+						iGlobal.RespecSkillPoints();
+					}
+				}
 				else if (Main.mouseItem.ModItem is Enchantment enchantment) {
                     if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableUI.itemSlotUI[0].Item))) {
 						if (Main.mouseItem.type != Item.type) {
