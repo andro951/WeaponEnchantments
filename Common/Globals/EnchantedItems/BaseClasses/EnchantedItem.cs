@@ -122,7 +122,7 @@ namespace WeaponEnchantments.Common.Globals
         public int ThirdStat { get => _skillpoints.ThirdStat; private set => _skillpoints = (_skillpoints.FirstStat, _skillpoints.SecondStat, value); }
 
         public int AvailableSkillPoints() => (int) Math.Ceiling((double) (levelBeforeBooster - (FirstStat+SecondStat+ThirdStat)));
-        public abstract (string, string, string) SkillPointsToNames();
+        public abstract Dictionary<string, string>[] SkillPointsToNames();
         public abstract void SkillPointsToStats();
         public bool TryUseSkillPoint(int pos = -1)
         {
