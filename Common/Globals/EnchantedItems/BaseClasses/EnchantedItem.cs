@@ -685,7 +685,7 @@ namespace WeaponEnchantments.Common.Globals
             foreach (Enchantment enchantment in enchantmentModItems) {
                 //float effectiveness = enchantment.AllowedList[ItemType];
                 //var effectTooltips = enchantment.GetEffectsTooltips();
-		        string tooltip = enchantment.StoredShortTooltip;
+		        string tooltip = enchantment.ShortTooltip;
 		        tooltips.Add(new TooltipLine(Mod, $"enchantment{i}", tooltip) { OverrideColor = TierColors[enchantment.EnchantmentTier] });
                 //tooltips.Add(new TooltipLine(Mod, $"enchantment:{enchantment.Name}", $"{enchantment.EnchantmentTypeName} ({effectiveness.Percent()}%):") { OverrideColor = Color.Violet });
                 //foreach (var tooltipTuple in effectTooltips) {
@@ -902,7 +902,8 @@ namespace WeaponEnchantments.Common.Globals
                 return true;
 
             //item1 already tested for try.
-            item2.TryGetEnchantedItem(out EnchantedItem i2Global);
+            if (!item2.TryGetEnchantedItem(out EnchantedItem i2Global))
+                return true;
 
             bool modified1 = i1Global.Modified;
             bool modified2 = i2Global.Modified;
@@ -1004,16 +1005,20 @@ namespace WeaponEnchantments.Common.Globals
 
             bool isWeapon;
             switch (item.type) {
-                case ItemID.CoinGun:
-                case ItemID.Snowball:
-                    isWeapon = true;
-                    break;
                 case ItemID.ExplosiveBunny:
                     isWeapon = false;
                     break;
                 default:
-                    isWeapon = item.damage > 0 && item.ammo == 0;
+                    isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0) && item.ammo == 0;
                     break;
+            }
+
+            //Manually prevent calamity items from being weapons
+            if (WEMod.calamityEnabled) {
+                switch (item.Name) {
+                    case "Biome Globe":
+						return false;
+                }
             }
 
             return isWeapon && !item.accessory;
@@ -1091,7 +1096,9 @@ namespace WeaponEnchantments.Common.Globals
                 Item enchantmentItem = iGlobal.enchantments[i];
                 Enchantment enchantment = (Enchantment)enchantmentItem.ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
-            }
+                if (!enchantmentItem.NullOrAir())
+                    item.ApplyEnchantment(i);
+			}
 
             //Get Global Item Stats
             iGlobal.TryGetInfusionStats();
@@ -1113,10 +1120,16 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                Enchantment enchantment = (Enchantment)(iGlobal.enchantments[i].ModItem);
+            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                Enchantment enchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
+                foreach (IAddDynamicEffects effect in enchantment.Effects.OfType<IAddDynamicEffects>()) {
+                    effect.EnchantedItem = enchantedItem;
+                }
+
+                if (enchantment is IStoreAppliedItem storeAppliedItem)
+                    storeAppliedItem.EnchantedItem = enchantedItem;
             }
 
 			#region Debug
@@ -1745,5 +1758,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }//d
-    }
+		public static float GetPrideOfTheWeakMultiplier(this EnchantedItem enchantedItem) => 1f - enchantedItem.GetInfusionPower() / 500f;
+	}
 }

@@ -101,8 +101,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				else {
 					typeText += ", ";
 				}
-				string temp = id.GetLinkText(out bool external);
-				typeText += external ? temp.ToExternalLink(id.ToString().AddSpaces()) : temp.ToLink(id.ToString().AddSpaces());
+				string linkText = id.GetLinkText(out bool external);
+				typeText += external ? linkText.ToExternalLink(id.ToString().AddSpaces()) : linkText.ToLink(id.ToString().AddSpaces());
 			}
 
 			return typeText;

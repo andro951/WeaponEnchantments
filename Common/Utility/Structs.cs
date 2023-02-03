@@ -42,5 +42,8 @@ namespace WeaponEnchantments.Common.Utility
 			Weight = weight;
 			Chance = chance;
 		}
+		public override string ToString() {
+			return $"ID: {ID}, Weight: {Weight}, Chance: {Chance}";
+		}
 	}
 }

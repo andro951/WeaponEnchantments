@@ -486,6 +486,8 @@ namespace WeaponEnchantments.Common.Globals
 				case Chlorophyte:
 					xp *= 5;
 					break;
+				case < 0:
+					break;
 				default:
 					if (Main.tileDungeon[tileType]) {
 						xp *= 2;
@@ -500,5 +502,11 @@ namespace WeaponEnchantments.Common.Globals
 
 			return xp;
         }
+		/*public override void PlaceInWorld(int i, int j, int type, Item item) {
+			ITileData tileData;
+			Main.tile[i, j].
+			David 👻 [Crowd Control Mod] — Today at 5:34 PM
+			I'm not too too familiar. You create a struct that implements ITileData. Then with a tile instance you can do ref tile.Get<YourStruct>().
+		}*/
 	}
 }

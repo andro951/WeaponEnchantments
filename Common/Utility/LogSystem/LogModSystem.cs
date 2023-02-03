@@ -21,6 +21,7 @@ using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using WeaponEnchantments.Common.Utility.LogSystem;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -73,6 +74,8 @@ namespace WeaponEnchantments.Common.Utility
 	    private static List<string> labels;
         private static Dictionary<string, ModTranslation> translations;
         private static int culture;
+        private static bool numPad1 = false;
+        private static bool numPad3 = false;
 
         //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
         //public static string listOfAllEnchantmentTooltips = "";
@@ -90,7 +93,18 @@ namespace WeaponEnchantments.Common.Utility
 
             PrintNPCIDSwitch();
         }
-        public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
+		/*public override void PostDrawInterface(SpriteBatch spriteBatch) {
+			Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+            bool newNumpad1 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad1);
+            bool newNumpad3 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad3);
+			if (!newNumpad1 && numPad1) {
+                //next weapon
+            }
+            else if (newNumpad3) {
+
+            }
+		}*/
+		public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
             if (!printListOfContributors)
                 return;
 

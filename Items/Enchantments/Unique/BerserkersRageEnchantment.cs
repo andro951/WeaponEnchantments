@@ -18,7 +18,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
                 new AutoReuse(),
                 new NPCHitCooldown(EnchantmentStrengthData * -1f),
                 new AmmoCost(@base: EnchantmentStrengthData * 0.3f),
-                new DamageAfterDefenses(multiplicative: (EnchantmentStrengthData * -0.25f + 1f).Min(0.5f))
+				new ManaUsage(@base: EnchantmentStrengthData * -0.3f),
+				new DamageAfterDefenses(multiplicative: (EnchantmentStrengthData * -0.25f + 1f).Min(0.5f))
             };
 
             AllowedList = new Dictionary<EItemType, float>() {

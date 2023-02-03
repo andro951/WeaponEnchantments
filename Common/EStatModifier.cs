@@ -203,17 +203,20 @@ namespace WeaponEnchantments.Common
 		public string Mult100Minus1Tooltip => GetTootlip(false, false, true, true);
 		public string Minus1Tooltip => GetTootlip(false, false, false, true);
 
-		private string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false) {
+		public string GetTootlip(bool sign, bool percent, bool multiply100, bool minusOne = false, float? multiplier = null) {
 			if (_waitingForEnterWorld)
 				SetUpAutomaticStrengthFromWorldDificulty();
 
-			if (tooltip == null || _strength == 0) {
+			if (tooltip == null || _strength == 0 || multiplier != null) {
+				if (multiplier == null)
+					multiplier = 1f;
+
 				float baseTooltip;
 				if (minusOne && _base == 0f && (_additive != 1f || _additiveDenominator != 1f)) {
-					baseTooltip = _additive / _additiveDenominator * _multiplicative - 1f;
+					baseTooltip = (_additive / _additiveDenominator * _multiplicative - 1f) * (float)multiplier;
 				}
 				else {
-					baseTooltip = Strength - _flat;
+					baseTooltip = 1f + (Strength - 1f) * (float)multiplier - (float)multiplier * _flat;
 				}
 
 				tooltip = "";

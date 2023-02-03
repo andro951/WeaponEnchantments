@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantment Epos
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantment Legendär
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantment Selten
+			PrideOfTheWeakEnchantmentBasic: Stolz der schwachen Verzauberung Basic
+			PrideOfTheWeakEnchantmentCommon: Stolz der schwachen Verzauberung
+			PrideOfTheWeakEnchantmentEpic: Stolz der schwachen Verzauberung Epos
+			PrideOfTheWeakEnchantmentLegendary: Stolz der schwachen Verzauberung Legendär
+			PrideOfTheWeakEnchantmentRare: Stolz der schwachen Verzauberung Selten
 			ProjectileVelocityEnchantmentBasic: Schussgeschwindigkeit ​​Verzauberung Basic
 			ProjectileVelocityEnchantmentCommon: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
 			ProjectileVelocityEnchantmentEpic: Projektilgeschwindigkeitsverzauberung Epos
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Rogue Class Swap Enchantment Epic
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap-Verzauberung Legendär
 			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantment Selten
+			ShineEnchantmentBasic: Glänzen Sie Verzauberung Basic
+			ShineEnchantmentCommon: Glänzende Verzauberung
+			ShineEnchantmentEpic: Shine Enchantment Episch
+			ShineEnchantmentLegendary: Glänzende Verzauberung Legendär
+			ShineEnchantmentRare: Glanzverzauberung Selten
 			SizeEnchantmentBasic: Skalierung Verzauberung Basic
 			SizeEnchantmentCommon: Skalierung Verzauberung Gewöhnlich
 			SizeEnchantmentEpic: Größe Verzauberung Epic
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: Legendäre Verzauberung der Welt
 			WorldAblazeEnchantmentRare: Welt in Flammen Verzauberung Selten
 			Containment: Eindämmung
+			MediumContainment: Mittlere Eindämmung
+			SuperiorContainment: Überlegene Eindämmung
 			DustyEnchantingTable: Staubiger Verzauberungstisch
+			HellishEnchantingTable: Höllischer Verzaubertisch
+			SoulEnchantingTable: Seelen Verzauberungstisch
+			UltimateEnchantingTable: Ultimativer Verzauberungstisch
+			WoodEnchantingTable: Holz Verzauberungstisch
 			EnchantmentEssenceBasic: Verzauberungsessenz Basic
 			EnchantmentEssenceCommon: Verzauberungsessenz Gewöhnlich
 			EnchantmentEssenceEpic: Verzauberungsessenz Epic
 			EnchantmentEssenceLegendary: Verzauberungsessenz Legendär
 			EnchantmentEssenceRare: Verzauberungsessenz Selten
-			HellishEnchantingTable: Höllischer Verzaubertisch
-			MediumContainment: Mittlere Eindämmung
 			PowerBooster: Leistungsverstärker
-			SoulEnchantingTable: Seelen Verzauberungstisch
-			SuperiorContainment: Überlegene Eindämmung
-			UltimateEnchantingTable: Ultimativer Verzauberungstisch
 			UltraPowerBooster: Ultra-Power-Booster
-			WoodEnchantingTable: Holz Verzauberungstisch
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Spawn-Projektil bei Treffer
 				Peace: Frieden
 				PennyPinching: Pfennigkneifen
+				PrideOfTheWeak: Stolz der Schwachen
 				ProjectileVelocity: Projektilgeschwindigkeit
 				QuestFishChance: Quest-Fisch-Chance
 				RangedClassSwap: Fernkampf-Klassentausch
 				ReducedManaUsage: Reduzierter Manaverbrauch
 				RogueClassSwap: Rogue-Klassentausch
+				Shine: Scheinen
 				Size: Größe
 				SolarDash: Solar Dash
 				Sonar: Sonar
@@ -647,6 +659,7 @@ Mods: {
 					(Wird nur beim ersten Treffer eines Projektils aktiviert.)
 					'''
 				OnHitSpawnProjectile: "Erzeugt ein Projektil, wenn ein Gegner getroffen wird: {0}"
+				PrideOfTheWeak: "{0} Erhöht den durch schwache Waffen verursachten Schaden. (100 % effektiv bei 0 Infusionskraft. 0 % effektiv bei 500 Infusionskraft.)"
 				QuestFishChance: "{0} (Questfisch, der gefangen wird, wird automatisch abgegeben und startet eine neue Quest, wobei das Limit von 1 pro Tag umgangen wird.)"
 				BoolEffect: {
 					Enabled: "{0}: Aktiviert"

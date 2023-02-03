@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantement épique
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantement Légendaire
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantement Rare
+			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
+			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
+			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
+			PrideOfTheWeakEnchantmentLegendary: Pride Of The Weak Enchantment Legendary
+			PrideOfTheWeakEnchantmentRare: Pride Of The Weak Enchantment Rare
 			ProjectileVelocityEnchantmentBasic: Enchantement de vitesse de tir de base
 			ProjectileVelocityEnchantmentCommon: Enchantement de vitesse de tir Commun
 			ProjectileVelocityEnchantmentEpic: Épique d'enchantement de vitesse de projectile
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
 			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantement Rare
+			ShineEnchantmentBasic: Shine Enchantment Basic
+			ShineEnchantmentCommon: Shine Enchantment Common
+			ShineEnchantmentEpic: Shine Enchantment Epic
+			ShineEnchantmentLegendary: Shine Enchantment Legendary
+			ShineEnchantmentRare: Shine Enchantment Rare
 			SizeEnchantmentBasic: Enchantement de taille de base
 			SizeEnchantmentCommon: Enchantement de taille Commun
 			SizeEnchantmentEpic: Taille Enchantement Épique
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: World Ablaze Enchantement Légendaire
 			WorldAblazeEnchantmentRare: Enchantement du Monde Enflammé Rare
 			Containment: Conteneur
+			MediumContainment: Conteneur moyen
+			SuperiorContainment: Conteneur supérieur
 			DustyEnchantingTable: Table d'enchantement poussiéreuse
+			HellishEnchantingTable: Table d'enchantement infernale
+			SoulEnchantingTable: Table d'enchantement d'âme
+			UltimateEnchantingTable: Table d'enchantement ultime
+			WoodEnchantingTable: Table d'enchantement en bois
 			EnchantmentEssenceBasic: Essence d'enchantement de base
 			EnchantmentEssenceCommon: Essence d'enchantement commune
 			EnchantmentEssenceEpic: Essence d'enchantement épique
 			EnchantmentEssenceLegendary: Enchantement Essence Légendaire
 			EnchantmentEssenceRare: Essence d'enchantement rare
-			HellishEnchantingTable: Table d'enchantement infernale
-			MediumContainment: Conteneur moyen
 			PowerBooster: Amplificateur de puissance
-			SoulEnchantingTable: Table d'enchantement d'âme
-			SuperiorContainment: Conteneur supérieur
-			UltimateEnchantingTable: Table d'enchantement ultime
 			UltraPowerBooster: Amplificateur de puissance ultra
-			WoodEnchantingTable: Table d'enchantement en bois
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Projectile d'apparition sur coup
 				Peace: Paix
 				PennyPinching: Penny pincement
+				PrideOfTheWeak: Pride Of The Weak
 				ProjectileVelocity: Vitesse du projectile
 				QuestFishChance: Chance de poisson de quête
 				RangedClassSwap: Échange de classe à distance
 				ReducedManaUsage: Utilisation de mana réduite
 				RogueClassSwap: Échange de classe Rogue
+				Shine: Shine
 				Size: Taille
 				SolarDash: Tiret solaire
 				Sonar: Sonar
@@ -647,6 +659,7 @@ Mods: {
 					(S'active uniquement au premier coup d'un projectile.)
 					'''
 				OnHitSpawnProjectile: "Génère un projectile en touchant un ennemi : {0}"
+				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
 				QuestFishChance: "{0} (Les poissons de quête capturés seront automatiquement rendus et commenceront une nouvelle quête, en contournant la limite de 1 par jour.)"
 				BoolEffect: {
 					Enabled: "{0} : Activé"

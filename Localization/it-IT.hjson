@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pizzicando Incantesimo Epico
 			PennyPinchingEnchantmentLegendary: Penny Pizzicando Incantesimo Leggendario
 			PennyPinchingEnchantmentRare: Penny Pizzica Incantesimo Raro
+			PrideOfTheWeakEnchantmentBasic: L'orgoglio dei deboli Incantesimo di base
+			PrideOfTheWeakEnchantmentCommon: Orgoglio dei deboli Incantesimo comune
+			PrideOfTheWeakEnchantmentEpic: L'epopea dell'incanto dell'orgoglio dei deboli
+			PrideOfTheWeakEnchantmentLegendary: Orgoglio dei deboli Incantesimo Leggendario
+			PrideOfTheWeakEnchantmentRare: L'orgoglio dei deboli Incantesimo raro
 			ProjectileVelocityEnchantmentBasic: Incantesimo velocità proiettile di base
 			ProjectileVelocityEnchantmentCommon: Incantesimo velocità proiettile Comune
 			ProjectileVelocityEnchantmentEpic: Epopea dell'incantesimo della velocità del proiettile
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Rogue Class Swap Incantesimo Epico
 			RogueClassSwapEnchantmentLegendary: Incantesimo di scambio di classe ladro Leggendario
 			RogueClassSwapEnchantmentRare: Incantesimo di scambio di classe ladro Raro
+			ShineEnchantmentBasic: Shine Incantesimo Base
+			ShineEnchantmentCommon: Brillare Incantesimo Comune
+			ShineEnchantmentEpic: Brillare Incantesimo epico
+			ShineEnchantmentLegendary: Brillare Incantesimo Leggendario
+			ShineEnchantmentRare: Brillare Incantesimo Raro
 			SizeEnchantmentBasic: Dimensione Incantesimo Base
 			SizeEnchantmentCommon: Dimensione Incantesimo Comune
 			SizeEnchantmentEpic: Dimensioni incantesimo epico
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: Incantesimo World Ablaze Leggendario
 			WorldAblazeEnchantmentRare: Incantesimo World Ablaze Raro
 			Containment: Contenimento
+			MediumContainment: Contenimento medio
+			SuperiorContainment: Contenimento superiore
 			DustyEnchantingTable: Tavolo incantevole polveroso
+			HellishEnchantingTable: Tavolo incantevole infernale
+			SoulEnchantingTable: Tavolo incantevole dell'anima
+			UltimateEnchantingTable: Tavolo incantevole definitivo
+			WoodEnchantingTable: Tavolo incantevole in legno
 			EnchantmentEssenceBasic: Essenza incantesimo di base
 			EnchantmentEssenceCommon: Essenza incantesimo comune
 			EnchantmentEssenceEpic: Incantesimo Essenza Epica
 			EnchantmentEssenceLegendary: Essenza incantesimo Leggendaria
 			EnchantmentEssenceRare: Essenza incantesimo Raro
-			HellishEnchantingTable: Tavolo incantevole infernale
-			MediumContainment: Contenimento medio
 			PowerBooster: Potenziatore
-			SoulEnchantingTable: Tavolo incantevole dell'anima
-			SuperiorContainment: Contenimento superiore
-			UltimateEnchantingTable: Tavolo incantevole definitivo
 			UltraPowerBooster: Potenziatore ultra potente
-			WoodEnchantingTable: Tavolo incantevole in legno
 		}
 		BuffName: {
 			Amaterasu: Amaterasu
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: Sul proiettile di spawn colpito
 				Peace: Pace
 				PennyPinching: Penny che pizzica
+				PrideOfTheWeak: L'orgoglio dei deboli
 				ProjectileVelocity: Velocità del proiettile
 				QuestFishChance: Probabilità Pesce Missione
 				RangedClassSwap: Scambio di classe a distanza
 				ReducedManaUsage: Consumo di mana ridotto
 				RogueClassSwap: Scambio di classe canaglia
+				Shine: Splendere
 				Size: Dimensione
 				SolarDash: Scatto solare
 				Sonar: Sonar
@@ -647,6 +659,7 @@ Mods: {
 					(Si attiva solo al primo colpo di un proiettile.)
 					'''
 				OnHitSpawnProjectile: "Genera un proiettile quando colpisce un nemico: {0}"
+				PrideOfTheWeak: "{0} Aumenta i danni inflitti dalle armi deboli. (Efficace al 100% con potenza di infusione pari a 0. Efficace al 0% con potenza di infusione pari a 500.)"
 				QuestFishChance: "{0} (Il pesce catturato in missione verrà automaticamente consegnato e inizierà una nuova missione, aggirando il limite di 1 al giorno.)"
 				BoolEffect: {
 					Enabled: "{0}: abilitato"

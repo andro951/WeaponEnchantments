@@ -1,4 +1,4 @@
-#Contributed by  1090549930 Kiritan-Github, @An unilolusiality
+#Contributed by 1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -237,6 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: 锱铢必较附魔史诗
 			PennyPinchingEnchantmentLegendary: 锱铢必较附魔传奇
 			PennyPinchingEnchantmentRare: 锱铢必较附魔稀有
+			PrideOfTheWeakEnchantmentBasic: 弱者的意志基元
+			PrideOfTheWeakEnchantmentCommon: 弱者的意志普通
+			PrideOfTheWeakEnchantmentEpic: 弱者的意志史诗
+			PrideOfTheWeakEnchantmentLegendary: 弱者的意志传奇
+			PrideOfTheWeakEnchantmentRare: 弱者的意志稀有
 			ProjectileVelocityEnchantmentBasic: 射速附魔基元
 			ProjectileVelocityEnchantmentCommon: 射速附魔普通
 			ProjectileVelocityEnchantmentEpic: 射速附魔史诗
@@ -257,6 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: 盗贼类型伤害转换附魔史诗
 			RogueClassSwapEnchantmentLegendary: 盗贼类型伤害转换附魔传奇
 			RogueClassSwapEnchantmentRare: 盗贼类型伤害转换附魔稀有
+			ShineEnchantmentBasic: 闪耀魔法基础
+			ShineEnchantmentCommon: 闪耀附魔常见
+			ShineEnchantmentEpic: 闪耀魔法史诗
+			ShineEnchantmentLegendary: 闪耀魔法传奇
+			ShineEnchantmentRare: 闪耀魅力稀有
 			SizeEnchantmentBasic: 大小附魔基元
 			SizeEnchantmentCommon: 大小附魔普通
 			SizeEnchantmentEpic: 大小附魔史诗
@@ -298,20 +308,20 @@ Mods: {
 			WorldAblazeEnchantmentLegendary: 焚世附魔传奇
 			WorldAblazeEnchantmentRare: 焚世附魔稀有
 			Containment: 容器
+			MediumContainment: 中级容器
+			SuperiorContainment: 高级容器
 			DustyEnchantingTable: 尘封附魔台
+			HellishEnchantingTable: 地狱附魔台
+			SoulEnchantingTable: 灵魂附魔台
+			UltimateEnchantingTable: 终极附魔台
+			WoodEnchantingTable: 木质附魔台
 			EnchantmentEssenceBasic: 基础附魔精华
 			EnchantmentEssenceCommon: 普通附魔精华
 			EnchantmentEssenceEpic: 史诗附魔精华
 			EnchantmentEssenceLegendary: 传奇附魔精华
 			EnchantmentEssenceRare: 稀有附魔精华
-			HellishEnchantingTable: 地狱附魔台
-			MediumContainment: 中级容器
 			PowerBooster: 能量强化器
-			SoulEnchantingTable: 灵魂附魔台
-			SuperiorContainment: 高级容器
-			UltimateEnchantingTable: 终极附魔台
 			UltraPowerBooster: 终极能量强化器
-			WoodEnchantingTable: 木质附魔台
 		}
 		BuffName: {
 			Amaterasu: 天照
@@ -574,11 +584,13 @@ Mods: {
 				OnHitSpawnProjectile: 命中时生成弹幕
 				Peace: 和平
 				PennyPinching: 锱铢必较
+				PrideOfTheWeak: 弱者的意志
 				ProjectileVelocity: 子弹速度
 				QuestFishChance: 任务鱼几率
 				RangedClassSwap: 远程类型伤害转换
 				ReducedManaUsage: 减少魔力消耗
 				RogueClassSwap: 盗贼类型伤害转换
+				Shine: 闪耀
 				Size: 大小
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
@@ -647,6 +659,7 @@ Mods: {
 					（仅在子弹的第一次命中时有效。）
 					'''
 				OnHitSpawnProjectile: “击中敌人时产生弹幕：{0}”
+				PrideOfTheWeak: "{0} 增加弱武器造成的伤害。（当前灌注能量为0时 100%起效 ，灌注能量越高效果越低，超过500 时不再起效。)"
 				QuestFishChance: “{0}（捕获的任务鱼将自动上交并开始新的任务，绕过每天 1 条的限制。）”
 				BoolEffect: {
 					Enabled: “{0}：启用”

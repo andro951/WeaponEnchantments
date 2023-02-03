@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Common.Globals
 			int questFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
 			if (questFish == type) {
 				Player player = Main.LocalPlayer;
-				if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float notUsed)) {
+				if (player.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float _)) {
 					stack = 0;
 
 					NPC angler = new();
@@ -101,19 +101,19 @@ namespace WeaponEnchantments.Common.Globals
 			item.type = 0;
 			switch (questsDone) {
 				case 5:
-					item.SetDefaults(2428);
+					item.SetDefaults(ItemID.FuzzyCarrot);
 					break;
 				case 10:
-					item.SetDefaults(2367);
+					item.SetDefaults(ItemID.AnglerHat);
 					break;
 				case 15:
-					item.SetDefaults(2368);
+					item.SetDefaults(ItemID.AnglerVest);
 					break;
 				case 20:
-					item.SetDefaults(2369);
+					item.SetDefaults(ItemID.AnglerPants);
 					break;
 				case 30:
-					item.SetDefaults(2294);
+					item.SetDefaults(ItemID.GoldenFishingRod);
 					break;
 				default: {
 					List<int> itemIdsOfAccsWeWant = new List<int> {

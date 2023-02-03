@@ -27,6 +27,8 @@ using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
+using static Humanizer.In;
+using WeaponEnchantments.Content.NPCs;
 
 namespace WeaponEnchantments
 {
@@ -1042,7 +1044,7 @@ namespace WeaponEnchantments
             Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
             bool fromProjectile = projectile != null;
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
-            bool dummyTarget = target.netID == NPCID.TargetDummy;
+            bool dummyTarget = target.IsDummy();
 
             Dictionary<string, StatModifier> ItemEStats = iGlobal.eStats;
 
@@ -1070,7 +1072,7 @@ namespace WeaponEnchantments
                         }
                     }
 
-                    if (IsWorm(target) || multipleSegmentBossTypes.ContainsKey(target.netID)) {
+                    if (target.IsWorm() || multipleSegmentBossTypes.ContainsKey(target.netID)) {
                         foreach (short key in debuffs.Keys) {
                             debuffs[key] = (int)Math.Round((float)debuffs[key] / 5f);
                         }
@@ -1086,7 +1088,12 @@ namespace WeaponEnchantments
                 }
             }
 
-            if (!dummyTarget) {
+			//One For All
+			int oneForAllDamageDealt = 0;
+			if (weGlobalNPC.oneForAllOrigin)
+				oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit, projectile, dummyTarget);
+
+			if (!dummyTarget) {
                 //Player buffs
                 if (!skipOnHitEffects) {
                     //On Hit Player buffs
@@ -1098,11 +1105,6 @@ namespace WeaponEnchantments
                 if (LogMethods.debugging) ($"item: {item.S()} {ItemEStats.S("OneForAll")}").Log();
 
                 #endregion
-
-                //One For All
-                int oneForAllDamageDealt = 0;
-                if (weGlobalNPC.oneForAllOrigin)
-                    oneForAllDamageDealt = ActivateOneForAll(target, item, damage, knockback, crit, projectile);
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
@@ -1138,7 +1140,7 @@ namespace WeaponEnchantments
 					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
 			}
 		}
-		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile) {
+		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile, bool dummyOnly) {
             WEProjectile weProjectile = null;
             if (projectile?.TryGetWEProjectile(out weProjectile) == true && weProjectile.activatedOneForAll)
                 return 0;
@@ -1159,12 +1161,15 @@ namespace WeaponEnchantments
             if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                 return 0;
 
-            //Range
+			//Range
             float oneForAllScale = item.scale;
             if (oneForAllScale < 1f)
-                oneForAllScale = 1f;
+				oneForAllScale = 1f;
 
-            float oneForAllRange = baseOneForAllRange * oneForAllScale;
+			if (GetSharedVanillaModifierStrength(item, EnchantmentStat.Size, out float strength))
+                oneForAllScale *= strength;
+
+			float oneForAllRange = baseOneForAllRange * oneForAllScale;
 
             //Sorted List by range
             Dictionary<int, float> npcs = SortNPCsByRange(target, oneForAllRange);
@@ -1178,7 +1183,10 @@ namespace WeaponEnchantments
                 int whoAmI = npcDataPair.Key;
                 NPC ofaTarget = Main.npc[whoAmI];
 
-                bool isWorm = IsWorm(target);
+                if (dummyOnly && !ofaTarget.IsDummy())
+                    continue;
+
+                bool isWorm = target.IsWorm();
 
                 //Worms
                 if (isWorm)
@@ -2239,10 +2247,7 @@ namespace WeaponEnchantments
             return null;
         }
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition) {
-            if (attempt.crate || npcSpawn > 0 || attempt.veryrare || attempt.legendary || itemDrop != -1 && attempt.questFish == itemDrop)
-                return;
-
-			if (Main.anglerQuest > 0 && attempt.questFish != -1) {
+			if (attempt.questFish != -1) {
                 if (CheckEnchantmentStats(EnchantmentStat.QuestFishChance, out float questFishChance)) {
                     float weightedChance = .1f;
                     int questFish = attempt.questFish;
@@ -2377,7 +2382,9 @@ namespace WeaponEnchantments
                     float rand = Main.rand.NextFloat();
                     if (rand <= questFishChance) {
                         itemDrop = attempt.questFish;
-                        if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
+                        npcSpawn = NPCID.NegativeIDCount;
+						if (LogMethods.debugging) $"success, questFishChance: {questFishChance}, rand: {rand}".Log();
+                        return;
                     }
 					else {
 						if (LogMethods.debugging) $"failed, questFishChance: {questFishChance}, rand: {rand}".Log();
@@ -2418,12 +2425,69 @@ namespace WeaponEnchantments
                 }
             }
         }
+		private void AI_061_FishingBobber_GiveItemToPlayer(Player thePlayer, int itemType) {
+			Item item = new Item();
+			item.SetDefaults(itemType);
+			if (itemType == 3196) {
+				int finalFishingLevel = thePlayer.GetFishingConditions().FinalFishingLevel;
+				int minValue = (finalFishingLevel / 20 + 3) / 2;
+				int num = (finalFishingLevel / 10 + 6) / 2;
+				if (Main.rand.Next(50) < finalFishingLevel)
+					num++;
+
+				if (Main.rand.Next(100) < finalFishingLevel)
+					num++;
+
+				if (Main.rand.Next(150) < finalFishingLevel)
+					num++;
+
+				if (Main.rand.Next(200) < finalFishingLevel)
+					num++;
+
+				item.stack = Main.rand.Next(minValue, num + 1);
+			}
+
+			if (itemType == 3197) {
+				int finalFishingLevel2 = thePlayer.GetFishingConditions().FinalFishingLevel;
+				int minValue2 = (finalFishingLevel2 / 4 + 15) / 2;
+				int num3 = (finalFishingLevel2 / 2 + 30) / 2;
+				if (Main.rand.Next(50) < finalFishingLevel2)
+					num3 += 4;
+
+				if (Main.rand.Next(100) < finalFishingLevel2)
+					num3 += 4;
+
+				if (Main.rand.Next(150) < finalFishingLevel2)
+					num3 += 4;
+
+				if (Main.rand.Next(200) < finalFishingLevel2)
+					num3 += 4;
+
+				item.stack = Main.rand.Next(minValue2, num3 + 1);
+			}
+
+			PlayerLoader.ModifyCaughtFish(thePlayer, item);
+            ItemLoader.CaughtFishStack(item);
+            item.newAndShiny = true;
+			Item item2 = thePlayer.GetItem(Player.whoAmI, item, default(GetItemSettings));
+            if (item2.stack > 0) {
+				int number = Item.NewItem(new EntitySource_Loot(Player.HeldItem), (int)Player.position.X, (int)Player.position.Y, Player.width, Player.height, itemType, item2.stack, noBroadcast: false, 0, noGrabDelay: true);
+				if (Main.netMode == 1)
+					NetMessage.SendData(21, -1, -1, null, number, 1f);
+			}
+			else {
+				item.position.X = Player.Center.X - (float)(item.width / 2);
+				item.position.Y = Player.Center.Y - (float)(item.height / 2);
+				item.active = true;
+				PopupText.NewText(PopupTextContext.RegularItemPickup, item, 0);
+			}
+		}
 		public override void GetFishingLevel(Item fishingRod, Item bait, ref float fishingLevel) {
             if (fishingRod.TryGetEnchantedItem(out EnchantedFishingPole pole))
                 fishingLevel += pole.levelBeforeBooster / 100f * GlobalStrengthMultiplier;
 		}
 		public override void ModifyCaughtFish(Item fish) {
-			base.ModifyCaughtFish(fish);
+
 		}
 		public override void ModifyFishingAttempt(ref FishingAttempt attempt) {
             if (!attempt.CanFishInLava && CheckEnchantmentStats(EnchantmentStat.LavaFishing, out float mult))
