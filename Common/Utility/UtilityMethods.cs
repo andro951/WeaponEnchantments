@@ -186,6 +186,17 @@ namespace WeaponEnchantments.Common.Utility
             return null;
         }
         public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i]?.Item;
+        public static bool EnchantedItemInUI(this Player player, out EnchantedItem enchantedItem, int i = 0) {
+            enchantedItem = null;
+            if (!Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer))
+                return false;
+
+			Item itemInUI = wePlayer.ItemInUI(i);
+            if (itemInUI == null)
+                return false;
+
+            return itemInUI.TryGetEnchantedItem(out enchantedItem);
+        }
         public static WEUIItemSlot ItemUISlot(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i];
         public static WEUIItemSlot EnchantmentUISlot(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
         public static Item EnchantmentInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;

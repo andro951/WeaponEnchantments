@@ -2168,4 +2168,10 @@ namespace WeaponEnchantments.Common.Utility
 			}
 		}
 	}
+
+	public enum SkillTexts {
+		Name,
+		Milestone,
+
+	}
 }

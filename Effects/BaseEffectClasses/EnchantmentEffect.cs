@@ -89,7 +89,8 @@ namespace WeaponEnchantments.Effects {
         public virtual IEnumerable<object> TooltipArgs => new object[] { DisplayName };
         public virtual IEnumerable<object> DisplayNameArgs { get; }
         public virtual string Tooltip => TooltipKey != null || TooltipArgs != null ? StandardTooltip : DisplayName;
-        protected string StandardTooltip => this.GetEffectTooltip(TooltipArgs, TooltipKey);
+        public virtual string PerLevelTooltip => Tooltip;
+		protected string StandardTooltip => this.GetEffectTooltip(TooltipArgs, TooltipKey);
         public virtual string TooltipName => Name;
         public virtual string TooltipKey => null;
         public virtual Color TooltipColor { get; protected set; } = Color.White;

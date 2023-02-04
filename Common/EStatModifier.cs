@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
 
@@ -180,6 +181,19 @@ namespace WeaponEnchantments.Common
 					return SignPercentMult100Minus1Tooltip;
 
 				return SignTooltip;
+			}
+		}
+
+		public string PerLevelTooltip {
+			get {
+				if (_waitingForEnterWorld)
+					SetUpAutomaticStrengthFromWorldDificulty();
+
+				float mult = 1f / (float)EnchantedItem.MAX_Level;
+				if (_additive != 1f || _additiveDenominator != 1f)
+					return GetTootlip(true, true, true, true, mult);
+
+				return GetTootlip(true, false, false, multiplier: mult);
 			}
 		}
 

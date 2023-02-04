@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		#endregion
 		public override bool InstancePerEntity => true;
-		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsArmorItem(entity);
+		public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.IsArmorItem();
 		public override EItemType ItemType => EItemType.Armor;
 		public override GlobalItem Clone(Item item, Item itemClone) {
 			EnchantedArmor clone = (EnchantedArmor)base.Clone(item, itemClone);
@@ -77,36 +77,6 @@ namespace WeaponEnchantments.Common.Globals
 			return 
 				$"*New Set Bonus ID: {wePlayer.infusionConsumeItem.GetInfusionArmorSlot()}   " +
 				$"New Infused Item: {wePlayer.infusionConsumeItem.GetInfusionItemName()}*";
-		}
-
-		public override Dictionary<string, string>[] SkillPointsToNames() =>
-			new Dictionary<string, string>[] {
-				new Dictionary<string, string>() {
-					{ "Skill", "Resilience" },
-					{ "Scaling", "+0.25% Damage Resistance / Level" },
-					{ "Milestone1", "+2.5% Damage resistance" },
-					{ "Milestone2", "+10 Defense" },
-					{ "Milestone3", "Getting hit increases your damage resistance, which stacks, but decays after some time" }
-				},
-				new Dictionary<string, string>() {
-					{ "Skill", "Determination" },
-					{ "Scaling", "+0.1 HP/s / Level" },
-					{ "Milestone1", "+1 Health/s" },
-					{ "Milestone2", "+50 Max health" },
-					{ "Milestone3", "Regeneration increases based on health missing " }
-				},
-				new Dictionary<string, string>() {
-					{ "Skill", "Deftness" },
-					{ "Scaling", "+0.25% Dodge Chance / Level" },
-					{ "Milestone1", "+2.5% Dodge Chance" },
-					{ "Milestone2", "Dodges increase attack speed for a short moment" },
-					{ "Milestone3", "Guarantees a dodge every five minutes, stacks with others" }
-				}
-			};
-
-		public override void SkillPointsToStats()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

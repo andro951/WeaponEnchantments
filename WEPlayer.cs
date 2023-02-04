@@ -604,7 +604,7 @@ namespace WeaponEnchantments
             if (currentItem.TryGetEnchantedEquipItem(out EnchantedEquipItem outOfGlobal) && !outOfGlobal.equippedInArmorSlot)
                 return true;
 
-            bool tryingToSwapArmor = IsAccessoryItem(currentItem) && !IsArmorItem(currentItem) && (IsAccessoryItem(newItem) || IsArmorItem(newItem));
+            bool tryingToSwapArmor = currentItem.IsAccessoryItem() && !currentItem.IsArmorItem() && (newItem.IsAccessoryItem() || newItem.IsArmorItem());
             bool armorTypeDoesntMatch = currentItem.headSlot > -1 && newItem.headSlot == -1 || currentItem.bodySlot > -1 && newItem.bodySlot == -1 || currentItem.legSlot > -1 && newItem.legSlot == -1;
             if (tryingToSwapArmor || armorTypeDoesntMatch)
                 return false;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
@@ -679,7 +679,7 @@ namespace WeaponEnchantments
             if (Main.mouseItem.IsAir) {
                 Player.HeldItem.CheckWeapon(ref trackedWeapon, Player, 0);
             }
-            else if (IsEnchantable(Main.mouseItem)) {
+            else if (Main.mouseItem.IsEnchantable()) {
                 Main.mouseItem.CheckWeapon(ref trackedWeapon, Player, 1);
             }
 
@@ -724,7 +724,7 @@ namespace WeaponEnchantments
 
                 if (newItem == null) {
                     for (int i = 0; i < Player.inventory.Length; i++) {
-                        if (IsWeaponItem(Player.inventory[i])) {
+                        if (Player.inventory[i].IsWeaponItem()) {
                             if (EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[i], Main.HoverItem)) {
                                 hoverItemIndex = i;
                                 newItem = Player.inventory[i];
@@ -757,7 +757,7 @@ namespace WeaponEnchantments
 
                     for (int i = 0; i < inventory.Length; i++) {
                         Item chestItem = inventory[i];
-                        if (IsWeaponItem(chestItem)) {
+                        if (chestItem.IsWeaponItem()) {
                             if (EnchantedItemStaticMethods.IsSameEnchantedItem(chestItem, Main.HoverItem)) {
                                 hoverItemIndex = i;
                                 newItem = chestItem;
@@ -1849,16 +1849,16 @@ namespace WeaponEnchantments
 
             #endregion
 
-            if (IsEnchantable(newItem))
+            if (newItem.IsEnchantable())
                 UpdatePlayerDictionaries(newItem);
 
-            if (IsEnchantable(oldItem))
+            if (oldItem.IsEnchantable())
                 UpdatePlayerDictionaries(oldItem, true);
 
-            if (IsEnchantable(newItem))
+            if (newItem.IsEnchantable())
                 UpdateItemStats(ref newItem);
 
-            if (!IsWeaponItem(newItem)) {
+            if (!newItem.IsWeaponItem()) {
                 Item weapon = null;
                 if (Player.HeldItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) && enchantedWeapon.trackedWeapon) {
                     weapon = Player.HeldItem;
@@ -1968,7 +1968,7 @@ namespace WeaponEnchantments
 
             foreach (string key in iGlobal.statModifiers.Keys) {
                 string statName = key.RemoveInvert();
-                if (!IsWeaponItem(item) || item.GetType().GetField(statName) == null && item.GetType().GetProperty(statName) == null) {
+                if (!item.IsWeaponItem() || item.GetType().GetField(statName) == null && item.GetType().GetProperty(statName) == null) {
                     if (!statModifiers.ContainsKey(key))
                         statModifiers.Add(key, StatModifier.Default);
 
@@ -1977,7 +1977,7 @@ namespace WeaponEnchantments
                 }
             }
 
-            if (!IsWeaponItem(item)) {
+            if (!item.IsWeaponItem()) {
                 foreach (string key in iGlobal.eStats.Keys) {
                     if (!eStats.ContainsKey(key))
                         eStats.Add(key, StatModifier.Default);
@@ -2040,7 +2040,7 @@ namespace WeaponEnchantments
             }
 
             //Populate playerStatModifiers if item is a weapon
-            if (IsWeaponItem(item)) {
+            if (item.IsWeaponItem()) {
                 foreach (string playerKey in statModifiers.Keys) {
                     string riPlayerKey = playerKey.RemoveInvert().RemovePrevent();
                     if (item.GetType().GetField(riPlayerKey) != null || item.GetType().GetProperty(riPlayerKey) != null) {
@@ -2161,7 +2161,7 @@ namespace WeaponEnchantments
             }
 
             //Populate playereStats if item is a weapon
-            if (IsWeaponItem(item)) {
+            if (item.IsWeaponItem()) {
                 foreach (string playerKey in eStats.Keys) {
                     string riPlayerKey = playerKey.RemoveInvert();
                     StatModifier riEStat = playerKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, eStats[playerKey], true) : eStats[playerKey];
@@ -2515,8 +2515,8 @@ namespace WeaponEnchantments
                 if (!oldItem.IsAir && oldItem.TryGetEnchantedWeapon(out EnchantedWeapon oldGlobal))
                     oldGlobal.trackedWeapon = false;
 
-                Item newCheckItem = IsWeaponItem(newItem) ? newItem : new Item();
-                Item oldCheckItem = IsWeaponItem(oldItem) ? oldItem : new Item();
+                Item newCheckItem = newItem.IsWeaponItem() ? newItem : new Item();
+                Item oldCheckItem = oldItem.IsWeaponItem() ? oldItem : new Item();
                 //wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
                 wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
 

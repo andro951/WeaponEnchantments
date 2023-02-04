@@ -43,15 +43,15 @@ namespace WeaponEnchantments.UI
             public const int Skill2 = 1;
             public const int Skill3 = 2;
 
-            public const int SkillScaling1 = 3;
-            public const int SkillScaling2 = 4;
-            public const int SkillScaling3 = 5;
+			public const int SkillPointCount = 3;
 
-            public const int Milestone1 = 6;
-            public const int Milestone2 = 7;
-            public const int Milestone3 = 8;
+			public const int SkillScaling1 = 4;
+            public const int SkillScaling2 = 5;
+            public const int SkillScaling3 = 6;
 
-            public const int SkillPointCount = 9;
+            public const int Milestone1 = 7;
+            public const int Milestone2 = 8;
+            public const int Milestone3 = 9;
 
             public const int Count = 10;
         }
@@ -108,12 +108,12 @@ namespace WeaponEnchantments.UI
                     "Should you need to respecialise your skill points, " +
                     "you may do so by buying SuperSoap™ from the Witch " +
                     "and applying it like you would a booster. ");
-            defaultTexts.Add("hintTextSkill0", "+0.25 Somethings / Level");
-            defaultTexts.Add("hintTextSkill1", "+0.25 Scrunkly / Level");
-            defaultTexts.Add("hintTextSkill2", "+0.25 Prongus / Level");
-            defaultTexts.Add("hintTextMilestone0", "+1.00 Somethings");
-            defaultTexts.Add("hintTextMilestone1", "Somethings now inflict pain");
-            defaultTexts.Add("hintTextMilestone2", "Somethings also increase your damage proportionally");
+            //defaultTexts.Add("hintTextSkill0", "+0.25 Somethings / Level");
+            //defaultTexts.Add("hintTextSkill1", "+0.25 Scrunkly / Level");
+            //defaultTexts.Add("hintTextSkill2", "+0.25 Prongus / Level");
+            //defaultTexts.Add("hintTextMilestone0", "+1.00 Somethings");
+            //defaultTexts.Add("hintTextMilestone1", "Somethings now inflict pain");
+            //defaultTexts.Add("hintTextMilestone2", "Somethings also increase your damage proportionally");
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Width.Pixels = width;
             Height.Pixels = height;
@@ -149,8 +149,8 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.5f
                 };
 
-                wePlayer.enchantingTableUI.itemSlotUI[i].OnClick += (_, _) => UpdateSkills();
-                wePlayer.enchantingTableUI.itemSlotUI[i].OnUpdate += (_) => UpdateSkills();
+                //wePlayer.enchantingTableUI.itemSlotUI[i].OnClick += (_, _) => UpdateSkills();
+                //wePlayer.enchantingTableUI.itemSlotUI[i].OnUpdate += (_) => UpdateSkills();
 
                 //ItemSlot(s) mouseover text
                 wePlayer.enchantingTableUI.itemSlotUI[i].OnMouseover += (timer) => {
@@ -423,8 +423,7 @@ namespace WeaponEnchantments.UI
             nextElementY += 46f;
 
             //Skill Hint
-            button[ButtonID.SkillHint] = new UIPanel()
-            {
+            button[ButtonID.SkillHint] = new UIPanel() {
                 Top = { Pixels = nextElementY },
                 Left = { Pixels = 27f },
                 Width = { Pixels = 100f },
@@ -435,8 +434,7 @@ namespace WeaponEnchantments.UI
 
             button[ButtonID.SkillHint].OnClick += (evt, element) => ToggleHints();
 
-            UIText skillPointTutorial = new UIText(string.Empty)
-            {
+            UIText skillPointTutorial = new UIText(string.Empty) {
                 Top = { Pixels = -100f },
                 Left = { Pixels = -520f },
                 Width = { Pixels = 500f },
@@ -444,68 +442,69 @@ namespace WeaponEnchantments.UI
             };
             toggleableHints.Add("skillPointTutorial", skillPointTutorial);
             
-            UIText hintText2 = new UIText("-")
-            {
+            UIText hintText2 = new UIText("-") {
                 Top = { Pixels = 56f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
+
             texts[TextID.SkillPointCount] = hintText2;
-            UIText hintText1 = new UIText("Available:")
-            {
+            UIText hintText1 = new UIText("Available:") {
                 Top = { Pixels = 26f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
-            UIText hintText0 = new UIText("Skill Points")
-            {
+
+            UIText hintText0 = new UIText("Skill Points") {
                 Top = { Pixels = 2f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
+
             UIText hintTextSkill0 = new UIText(string.Empty)
             {
                 Top = { Pixels = 151f },
                 Left = { Pixels = 525f },
                 HAlign = 0.0f
             };
+
             texts[TextID.SkillScaling1] = hintTextSkill0;
-            UIText hintTextSkill1 = new UIText(string.Empty)
-            {
+            UIText hintTextSkill1 = new UIText(string.Empty) {
                 Top = { Pixels = 186f },
                 Left = { Pixels = 525f },
                 HAlign = 0.0f
             };
+
             texts[TextID.SkillScaling2] = hintTextSkill1;
-            UIText hintTextSkill2 = new UIText(string.Empty)
-            {
+            UIText hintTextSkill2 = new UIText(string.Empty) {
                 Top = { Pixels = 221f },
                 Left = { Pixels = 525f },
                 HAlign = 0.0f
             };
+
             texts[TextID.SkillScaling3] = hintTextSkill2;
-            UIText hintTextMilestone0 = new UIText(string.Empty)
-            {
+            UIText hintTextMilestone0 = new UIText(string.Empty) {
                 Top = { Pixels = 260f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
+
             hintTextMilestone0.TextColor = Color.Gray;
             texts[TextID.Milestone1] = hintTextMilestone0;
-            UIText hintTextMilestone1 = new UIText(string.Empty)
-            {
+            UIText hintTextMilestone1 = new UIText(string.Empty) {
                 Top = { Pixels = 290f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
+
             hintTextMilestone1.TextColor = Color.Gray;
             texts[TextID.Milestone2] = hintTextMilestone1;
-            UIText hintTextMilestone2 = new UIText(string.Empty)
-            {
+            UIText hintTextMilestone2 = new UIText(string.Empty) {
                 Top = { Pixels = 320f },
                 Left = { Pixels = 0f },
                 HAlign = 0.5f
             };
+
             hintTextMilestone2.TextColor = Color.Gray;
             texts[TextID.Milestone3] = hintTextMilestone2;
             Append(skillPointTutorial);
@@ -531,10 +530,8 @@ namespace WeaponEnchantments.UI
 
             //Skill Point Buttons
             int[] skillpointids = { ButtonID.SkillPoint1, ButtonID.SkillPoint2, ButtonID.SkillPoint3 };
-            for (int i = 0; i < skillpointids.Length; i++) 
-            {
-                button[skillpointids[i]] = new UIPanel()
-                {
+            for (int i = 0; i < skillpointids.Length; i++) {
+                button[skillpointids[i]] = new UIPanel() {
                     Top = { Pixels = nextElementY },
                     Left = { Pixels = 144f },
                     Width = { Pixels = 330f },
@@ -542,33 +539,29 @@ namespace WeaponEnchantments.UI
                     HAlign = 0.0f,
                     BackgroundColor = bgColor
                 };
+
                 nextElementY += 35f;
 
-                UIText skillText = new UIText("-")
-                {
+                UIText skillText = new UIText("-") {
                     Top = { Pixels = -5f },
                     Left = { Pixels = 0f },
                     HAlign = 0.5f
                 };
+
                 texts[i] = skillText;
                 button[skillpointids[i]].Append(skillText);
             }
-            button[ButtonID.SkillPoint1].OnClick += (evt, element) => InvestSkillPoint(1);
-            button[ButtonID.SkillPoint2].OnClick += (evt, element) => InvestSkillPoint(2);
-            button[ButtonID.SkillPoint3].OnClick += (evt, element) => InvestSkillPoint(3);
-            Append(button[ButtonID.SkillPoint1]);
-            Append(button[ButtonID.SkillPoint2]);
-            Append(button[ButtonID.SkillPoint3]);
-            panels.Add(button[ButtonID.SkillPoint1]);
-            panels.Add(button[ButtonID.SkillPoint2]);
-            panels.Add(button[ButtonID.SkillPoint3]);
-            hoverPanels.Add(button[ButtonID.SkillPoint1], "-");
-            hoverPanels.Add(button[ButtonID.SkillPoint2], "-");
-            hoverPanels.Add(button[ButtonID.SkillPoint3], "-");
+
+            for (int id = ButtonID.SkillPoint1; id <= ButtonID.SkillPoint3; id++) {
+                int i = id - ButtonID.SkillPoint1;
+				button[id].OnClick += (evt, element) => InvestSkillPoint(i);
+				Append(button[id]);
+				panels.Add(button[id]);
+				hoverPanels.Add(button[id], "-");
+			}
         }
 
-        private void WeaponEnchantmentUI_OnClick(UIMouseEvent evt, UIElement listeningElement)
-        {
+        private void WeaponEnchantmentUI_OnClick(UIMouseEvent evt, UIElement listeningElement) {
             throw new NotImplementedException();
         }
 
@@ -588,12 +581,14 @@ namespace WeaponEnchantments.UI
             for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
                 if (wePlayer.enchantingTable.essenceItem[i].stack < 1)
                     wePlayer.enchantingTable.essenceItem[i] = new Item();
+
                 wePlayer.enchantingTableUI.essenceSlotUI[i].Item = wePlayer.enchantingTable.essenceItem[i].Clone();
             }
-            UpdateSkills();
+
+            //UpdateSkills();
             showHints = true;
             ToggleHints();
-        }
+		}
         public override void OnDeactivate() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null) {
@@ -631,18 +626,20 @@ namespace WeaponEnchantments.UI
                 }
             }
 
-            if (button[ButtonID.SkillHint].IsMouseHovering) Main.cursorOverride = 2;
-            if (showHints && (currentItem != null))
-            {
-                if (button[ButtonID.SkillPoint1].IsMouseHovering) SetMilestones(0, currentItem.FirstStat);
-                if (button[ButtonID.SkillPoint2].IsMouseHovering) SetMilestones(1, currentItem.SecondStat);
-                if (button[ButtonID.SkillPoint3].IsMouseHovering) SetMilestones(2, currentItem.ThirdStat);
-            } 
+            if (button[ButtonID.SkillHint].IsMouseHovering) 
+                Main.cursorOverride = 2;
+
+            if (showHints && Main.LocalPlayer.EnchantedItemInUI(out EnchantedItem enchantedItem)) {
+                for (int id = ButtonID.SkillPoint1; id <= ButtonID.SkillPoint3; id++) {
+                    int i = id - ButtonID.SkillPoint1;
+                    if (button[id].IsMouseHovering)
+                        SetMilestones(i);
+                }
+            }
 
             if (IsMouseHovering)
                 preventItemUse = true;
         }
-
         private static void ConvertEssenceToXP(int tier) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item essence = wePlayer.enchantingTableUI.essenceSlotUI[tier].Item;
@@ -656,9 +653,13 @@ namespace WeaponEnchantments.UI
             if(iGlobal.Experience < int.MaxValue) {
                 essence.stack--;
                 int xp = (int)EnchantmentEssence.xpPerEssence[tier];
+                int levelBefore = iGlobal.levelBeforeBooster;
                 iGlobal.GainXP(item, xp);
-                SoundEngine.PlaySound(SoundID.MenuTick);
-            }
+				int levelAfter = iGlobal.levelBeforeBooster;
+				SoundEngine.PlaySound(SoundID.MenuTick);
+                if (levelAfter > levelBefore)
+				    wePlayer.enchantingTableUI.UpdateSkills();
+			}
             else {
                 Main.NewText($"You cannot gain any more experience on your {item.S()}.");
             }
@@ -667,7 +668,9 @@ namespace WeaponEnchantments.UI
             if(xp <= 0)
                 return 0;
 
-            if (WEMod.magicStorageEnabled) $"Converted xp to essence. xp: {xp}, consumeAll: {consumeAll.S()}".Log();
+            if (WEMod.magicStorageEnabled)
+                $"Converted xp to essence. xp: {xp}, consumeAll: {consumeAll.S()}".Log();
+
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             //Force player essence data to sync with the ui
@@ -960,102 +963,80 @@ namespace WeaponEnchantments.UI
                     iGlobal.GainXP(tableItem, xpTransfered);
                 }
             }
+
+			wePlayer.enchantingTableUI.UpdateSkills();
+		}
+
+        private void SetMilestones(int skillNum) {
+            bool showMilestones = Main.LocalPlayer.EnchantedItemInUI(out EnchantedItem enchantedItem) && showHints;
+            for (int milestoneNum = 0; milestoneNum < 3; milestoneNum++) {
+				int id = milestoneNum + TextID.Milestone1;
+				if (showMilestones) {
+					enchantedItem.UpdateMilestone(ref texts[id], skillNum, milestoneNum);
+				}
+                else {
+					texts[id].SetText("");
+					texts[id].TextColor = Color.Gray;
+				}
+			}
         }
 
-        private void SetMilestones(int n, int stat)
-        {
-            Dictionary<string, string>[] names = currentItem.SkillPointsToNames();
-            texts[TextID.Milestone1].TextColor = Color.Gray;
-            texts[TextID.Milestone2].TextColor = Color.Gray;
-            texts[TextID.Milestone3].TextColor = Color.Gray;
-            if (stat >= 5) texts[TextID.Milestone1].TextColor = Color.Yellow;
-            if (stat >= 10) texts[TextID.Milestone2].TextColor = Color.Yellow;
-            if (stat >= 25) texts[TextID.Milestone3].TextColor = Color.Yellow;
-            texts[TextID.Milestone1].SetText(names[n]["Milestone1"]);
-            texts[TextID.Milestone2].SetText(names[n]["Milestone2"]);
-            texts[TextID.Milestone3].SetText(names[n]["Milestone3"]);
-        }
-
-        private void UpdateSkills()
-        {
-            currentItem = null;
-            texts[TextID.SkillPointCount].SetText("-");
-            texts[TextID.Skill1].SetText("-");
-            texts[TextID.Skill2].SetText("-");
-            texts[TextID.Skill3].SetText("-");
-            if (showHints) {
-                texts[TextID.SkillScaling1].SetText("-");
-                texts[TextID.SkillScaling2].SetText("-");
-                texts[TextID.SkillScaling3].SetText("-");
-                texts[TextID.Milestone1].TextColor = Color.Gray;
-                texts[TextID.Milestone2].TextColor = Color.Gray;
-                texts[TextID.Milestone3].TextColor = Color.Gray;
-                texts[TextID.Milestone1].SetText("-");
-                texts[TextID.Milestone2].SetText("-");
-                texts[TextID.Milestone3].SetText("-");
-            }
-
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
-            {
-                if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem iGlobal))
-                    return;
-                currentItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem();
-
-                texts[TextID.SkillPointCount].SetText("" + currentItem.AvailableSkillPoints());
-                Dictionary<string, string>[] names = currentItem.SkillPointsToNames();
-                texts[TextID.Skill1].SetText(names[0]["Skill"] + " - " + currentItem.FirstStat);
-                texts[TextID.Skill2].SetText(names[1]["Skill"] + " - " + currentItem.SecondStat);
-                texts[TextID.Skill3].SetText(names[2]["Skill"] + " - " + currentItem.ThirdStat);
-                if (showHints) {
-                    texts[TextID.SkillScaling1].SetText(names[0]["Scaling"]);
-                    texts[TextID.SkillScaling2].SetText(names[1]["Scaling"]);
-                    texts[TextID.SkillScaling3].SetText(names[2]["Scaling"]);
-                    SetMilestones(0, currentItem.FirstStat);
+        public void UpdateSkills() {
+            if (Main.LocalPlayer.EnchantedItemInUI(out EnchantedItem enchantedItem)) {
+                texts[TextID.SkillPointCount].SetText($"{enchantedItem.AvailableSkillPoints()}");
+                int[] skillPoints = enchantedItem.MySkillPoints;
+                for (int id = TextID.Skill1; id <= TextID.Skill3; id++) {
+                    int i = id - TextID.Skill1;
+                    int points = skillPoints[i];
+					texts[id].SetText($"{enchantedItem.SkillName(i)} - {points}");
+                    if (showHints) {
+                        int perLevelID = i + TextID.SkillScaling1;
+						texts[perLevelID].SetText(enchantedItem.PerLevelEffectTooltip(i));
+					}
+				}
+			}
+            else {
+                int end = showHints ? TextID.Milestone1 : TextID.SkillScaling1;
+                for (int id = TextID.Skill1; id < end; id++) {
+                    string text = id > TextID.SkillPointCount ? "" : "-";
+                    texts[id].SetText(text);
                 }
-            }
-        }
+			}
+		}
 
-        private void InvestSkillPoint(int n)
-        {
+        private void InvestSkillPoint(int n) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null)
-            {
+            if (wePlayer.enchantingTableUI?.itemSlotUI?[0]?.Item != null) {
                 if (!wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem iGlobal))
                     return;
-                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().TryUseSkillPoint(n))
-                {
+
+                if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().TryUseSkillPoint(n)) {
                     SoundEngine.PlaySound(SoundID.MenuTick);
                     UpdateSkills();
-                    if (showHints)
-                    {
-                        switch (n)
-                        {
-                            case 1: SetMilestones(0, wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().FirstStat); break;
-                            case 2: SetMilestones(1, wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().SecondStat); break;
-                            case 3: SetMilestones(2, wePlayer.enchantingTableUI.itemSlotUI[0].Item.GetEnchantedItem().ThirdStat); break;
-                        }
-                    }
                 }
             }
         }
 
-        private void ToggleHints()
-        {
+        private void ToggleHints() {
             SoundEngine.PlaySound(SoundID.MenuTick);
             showHints = !showHints;
-            if (showHints)
-            {
-                foreach (var entry in toggleableHints) {
+            if (showHints) {
+                toggleableHints["skillPointTutorial"].SetText(defaultTexts["skillPointTutorial"]);
+                /*
+                foreach (KeyValuePair<string, UIText> entry in toggleableHints) {
                     entry.Value.SetText(defaultTexts[entry.Key]);
-                } UpdateSkills();
-            } else
-            {
-                foreach (var entry in toggleableHints) {
-                    entry.Value.SetText(string.Empty);
+                }
+                */
+            } else {
+                foreach (KeyValuePair<string, UIText> entry in toggleableHints) {
+                    entry.Value.SetText("");
                 }
             }
-        }
+
+            UpdateSkills();
+			if (showHints)
+				SetMilestones(0);
+		}
 
         //TODO
         //Add max level up button.                

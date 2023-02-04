@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Terraria.GameContent.UI.Elements;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -90,54 +91,29 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Skill Points
 
-        /*(int Unspent, int FirstStat, int SecondStat, int ThirdStat) _skillpoints = (0, 0, 0, 0);
+        private SkillPoints skillPoints {
+            get {
+                if (_skillPoints == null)
+				    _skillPoints = new SkillPoints(this);
 
-
-        public (int Unspent, int FirstStat, int SecondStat, int ThirdStat) SkillPoints
-        {
-            get => _skillpoints;
-            private set => _skillpoints = value;
+                return _skillPoints;
+			}
+        }
+        private SkillPoints _skillPoints = null;
+        public int[] MySkillPoints {
+            get => skillPoints.AllSkills;
+            set => skillPoints.SetSkillPoints(value);
         }
 
-        public void GetSkillPoint() => SkillPoints = (_skillpoints.Unspent++, _skillpoints.FirstStat, _skillpoints.SecondStat, _skillpoints.ThirdStat);
-
-        public bool TryUseSkillPoint(int pos = -1)
-        {
-            if (SkillPoints.Unspent < 1) return false;
-            switch (pos)
-            {
-                case -1: break;
-                case 1: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat++, _skillpoints.SecondStat, _skillpoints.ThirdStat); break;
-                case 2: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat, _skillpoints.SecondStat++, _skillpoints.ThirdStat); break;
-                case 3: SkillPoints = (_skillpoints.Unspent--, _skillpoints.FirstStat, _skillpoints.SecondStat, _skillpoints.ThirdStat++); break;
-                default : return false;
-            }
-            return true;
-        }
-        public void RespecSkillPoints() => SkillPoints = (levelBeforeBooster, 0, 0, 0);*/
-
-        (int FirstStat, int SecondStat, int ThirdStat) _skillpoints = (0, 0, 0);
-        public int FirstStat { get => _skillpoints.FirstStat; private set => _skillpoints = (value, _skillpoints.SecondStat, _skillpoints.ThirdStat); }
-        public int SecondStat { get => _skillpoints.SecondStat; private set => _skillpoints = (_skillpoints.FirstStat, value, _skillpoints.ThirdStat); }
-        public int ThirdStat { get => _skillpoints.ThirdStat; private set => _skillpoints = (_skillpoints.FirstStat, _skillpoints.SecondStat, value); }
-
-        public int AvailableSkillPoints() => (int) Math.Ceiling((double) (levelBeforeBooster - (FirstStat+SecondStat+ThirdStat)));
-        public abstract Dictionary<string, string>[] SkillPointsToNames();
-        public abstract void SkillPointsToStats();
-        public bool TryUseSkillPoint(int pos = -1)
-        {
-            if (AvailableSkillPoints() < 1) return false;
-            switch (pos)
-            {
-                case -1: break;
-                case 1: FirstStat++; break;
-                case 2: SecondStat++; break;
-                case 3: ThirdStat++; break;
-                default : return false;
-            }
-            return true;
-        }
-        public void RespecSkillPoints() { FirstStat = 0; SecondStat = 0; ThirdStat = 0; }
+        public int AvailableSkillPoints() => skillPoints.AvailableSkillPoints(levelBeforeBooster);
+        public string SkillName(int skillNum) => skillPoints.SkillName(skillNum);
+        public string MileStone(int skillNum, int milestoneNum) => skillPoints.MileStoneTooltip(skillNum, milestoneNum);
+        public void UpdateMilestone(ref UIText uIText, int skillNum, int milestoneNum)
+            => skillPoints.UpdateMilestone(ref uIText, skillNum, milestoneNum);
+		public string PerLevelEffectTooltip(int skillNum) => skillPoints.PerLevelEffectTooltip(skillNum);
+		public bool TryUseSkillPoint(int pos) => skillPoints.TryUseSkillPoint(pos, AvailableSkillPoints());
+        public void RespecSkillPoints() => skillPoints.Reset();
+        public void GetItemLevelEffects(List<EnchantmentEffect> effects) => skillPoints.GetEffects(effects);
 
         #endregion
 
@@ -239,7 +215,7 @@ namespace WeaponEnchantments.Common.Globals
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                 enchantments[i] = new Item();
             }
-        }
+		}
 		public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedItem clone;
 
@@ -280,9 +256,15 @@ namespace WeaponEnchantments.Common.Globals
 
                 #endregion
 
-                #region Experience
+                #region Skill Points
 
-                clone.Experience = _experience;
+                clone.MySkillPoints = MySkillPoints;
+
+				#endregion
+
+				#region Experience
+
+				clone.Experience = _experience;
                 clone.levelBeforeBooster = levelBeforeBooster;
                 clone.PowerBoosterInstalled = PowerBoosterInstalled;
                 clone.UltraPowerBoosterInstalled = UltraPowerBoosterInstalled;
@@ -369,9 +351,15 @@ namespace WeaponEnchantments.Common.Globals
             infusedItemName = tag.Get<string>("infusedItemName");
             infusionPower = tag.Get<int>("infusedPower");
 
-            #endregion
+			#endregion
 
-            if (Experience < 0)
+			#region Skill Points
+
+			MySkillPoints = tag.Get<int[]>("skillPoints");
+
+			#endregion
+
+			if (Experience < 0)
                 Experience = int.MaxValue;
 
             #region Debug
@@ -406,8 +394,14 @@ namespace WeaponEnchantments.Common.Globals
             tag["infusedPower"] = infusionPower;
 
             #endregion
-        }
-        public override void NetSend(Item item, BinaryWriter writer) {
+
+            #region Skill Points
+
+            tag["skillPoints"] = MySkillPoints;
+
+            #endregion
+		}
+		public override void NetSend(Item item, BinaryWriter writer) {
 
             writer.Write(Modified);
 
@@ -426,7 +420,7 @@ namespace WeaponEnchantments.Common.Globals
             #region Enchantment
 
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                writer.Write((short)enchantments[i].type);
+                writer.Write((ushort)enchantments[i].type);
 
                 #region Debug
 
@@ -454,11 +448,19 @@ namespace WeaponEnchantments.Common.Globals
                 writer.Write(infusionPower);
             }
 
-            #endregion
+			#endregion
 
-            #region Debug
+			#region Skill Points
 
-            if (LogMethods.debugging) {
+            foreach(int skillPoints in MySkillPoints) {
+                writer.Write((ushort)skillPoints);
+            }
+
+			#endregion
+
+			#region Debug
+
+			if (LogMethods.debugging) {
                 ($"eStats.Count: " + eStats.Count + ", statModifiers.Count: " + statModifiers.Count).Log();
                 ($"/\\NetSend(" + item.Name + ")").Log();
             }
@@ -514,7 +516,19 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            item.SetupGlobals();
+            #region Skill Points
+
+            int length = MySkillPoints.Length;
+            int[] skillPoints = new int[length];
+			for (int i = 0; i < length; i++) {
+                 skillPoints[i] = reader.ReadUInt16();
+			}
+
+            MySkillPoints = skillPoints;
+
+			#endregion
+
+			item.SetupGlobals();
 
             #region Debug
 
@@ -991,7 +1005,7 @@ namespace WeaponEnchantments.Common.Globals
 	}
 
     public static class EnchantedItemStaticMethods {
-        public static bool IsEnchantable(Item item) {
+        public static bool IsEnchantable(this Item item) {
             if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
                 return true;
             }
@@ -999,7 +1013,7 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
             }
         }
-        public static bool IsWeaponItem(Item item) {
+        public static bool IsWeaponItem(this Item item) {
             if (item.NullOrAir())
                 return false;
 
@@ -1023,26 +1037,26 @@ namespace WeaponEnchantments.Common.Globals
 
             return isWeapon && !item.accessory;
         }
-        public static bool IsArmorItem(Item item) {
+        public static bool IsArmorItem(this Item item) {
             if (item.NullOrAir())
                 return false;
 
             return !item.vanity && (item.headSlot > -1 || item.bodySlot > -1 || item.legSlot > -1);
         }
-        public static bool IsAccessoryItem(Item item) {
+        public static bool IsAccessoryItem(this Item item) {
             if (item.NullOrAir())
                 return false;
 
             //Check for armor item is a fix for Reforgable armor mod setting armor to accessories
             return item.accessory && !IsArmorItem(item);
         }
-        public static bool IsFishingRod(Item item) {
+        public static bool IsFishingRod(this Item item) {
             if (item.NullOrAir())
                 return false;
 
             return item.fishingPole > 0;
         }
-        public static bool IsTool(Item item) {
+        public static bool IsTool(this Item item) {
             if (item.NullOrAir())
                 return false;
 

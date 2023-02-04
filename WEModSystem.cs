@@ -18,6 +18,7 @@ using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.Tiles;
+using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments
@@ -99,38 +100,13 @@ namespace WeaponEnchantments
                 if (removedItem || swappedItem)
                     RemoveTableItem(wePlayer);
 
-                if (addedItem || swappedItem) {
-                    wePlayer.itemBeingEnchanted = wePlayer.ItemInUI();// Link the item in the table to the player so it can be updated after being taken out.
-                    Item itemBeingEnchanted = wePlayer.itemBeingEnchanted;
-                    favorited = itemBeingEnchanted.favorited;
-                    itemBeingEnchanted.favorited = false;
-                    if (itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
-                        iBEGlobal.inEnchantingTable = true;
-                        wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
-                        if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
-                            enchantedEquipItem.equippedInArmorSlot = false;
-                    }
+                if (addedItem || swappedItem)
+                    AddTableItem(wePlayer);
 
-                    if (wePlayer.infusionConsumeItem != null && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
-                        wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
-                        if (infusionAllowed)
-							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
-					}
+                if (addedItem || removedItem || swappedItem)
+					wePlayer.enchantingTableUI.UpdateSkills();
 
-                    if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                        for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                            if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
-                                wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
-                                wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EnchantmentsModItem(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
-                                iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;//Force link to enchantmentSlot just in case
-                            }
-
-                            iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;//Link global item to the enchantmentSlots
-                        }
-                    }
-                }
-
-                itemInUI = wePlayer.ItemInUI();
+				itemInUI = wePlayer.ItemInUI();
                 //Check if enchantments are added/removed from enchantmentSlots and re-link global item to enchantmentSlot
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                     Item tableEnchantment = wePlayer.EnchantmentInUI(i);
@@ -316,6 +292,36 @@ namespace WeaponEnchantments
             wePlayer.itemBeingEnchanted.favorited = favorited;
             wePlayer.itemBeingEnchanted = wePlayer.enchantingTableUI.itemSlotUI[0].Item;//Stop tracking the item that just left the itemSlot
         }
+        public static void AddTableItem(WEPlayer wePlayer) {
+			wePlayer.itemBeingEnchanted = wePlayer.ItemInUI();// Link the item in the table to the player so it can be updated after being taken out.
+			Item itemBeingEnchanted = wePlayer.itemBeingEnchanted;
+			favorited = itemBeingEnchanted.favorited;
+			itemBeingEnchanted.favorited = false;
+			if (itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
+				iBEGlobal.inEnchantingTable = true;
+				wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
+				if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
+					enchantedEquipItem.equippedInArmorSlot = false;
+			}
+
+			if (wePlayer.infusionConsumeItem != null && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
+				wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
+				if (infusionAllowed)
+					wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+			}
+
+			if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+				for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+					if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
+						wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
+						wePlayer.enchantmentInEnchantingTable[i] = wePlayer.EnchantmentsModItem(i) != null;//Set PREVIOUS state of enchantmentSlot to has an item in it(true)
+						iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;//Force link to enchantmentSlot just in case
+					}
+
+					iGlobal.enchantments[i] = wePlayer.EnchantmentUISlot(i).Item;//Link global item to the enchantmentSlots
+				}
+			}
+		}
         public static void CloseWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item itemInUI = wePlayer.ItemInUI();

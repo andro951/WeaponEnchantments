@@ -99,10 +99,15 @@ namespace WeaponEnchantments.Common {
                 }
             }
 
-            // Get all non null enchanted items
+            
+
+            //Get all non null enchanted items
             foreach (EnchantedEquipItem enchantedItem in enchantedItems) {
-                // For each enchanted item, get its enchantments
-                GetEnchantmentEffects(enchantedItem, enchantmentEffects);
+				//Per level item effects
+				enchantedItem.GetItemLevelEffects(enchantmentEffects);
+
+				//For each enchanted item, get its enchantments
+				GetEnchantmentEffects(enchantedItem, enchantmentEffects);
             }
 
             wePlayer.EnchantmentEffects = enchantmentEffects;
@@ -121,6 +126,9 @@ namespace WeaponEnchantments.Common {
 					}
 				}
             }
+
+            //Per level item effects
+            enchantedHeldItem.GetItemLevelEffects(enchantmentEffects);
 
 			GetEnchantmentEffects(enchantedHeldItem, enchantmentEffects);
             List<IAddDynamicEffects> addDynamicEffects = enchantmentEffects.OfType<IAddDynamicEffects>().ToList();

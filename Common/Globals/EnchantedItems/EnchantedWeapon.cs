@@ -96,7 +96,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.IsWeaponItem();
         public override EItemType ItemType => EItemType.Weapons;
         public override void Load() {
 
@@ -194,11 +194,6 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             base.UpdateInventory(item, player);
-        }
-        public override bool OnPickup(Item item, Player player) {
-            //player.GetWEPlayer().UpdateItemStats(ref item);
-
-            return true;
         }
         protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
@@ -386,36 +381,6 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public float GetPerLevelBonus() => levelBeforeBooster * GlobalStrengthMultiplier / 100f;
-
-        public override Dictionary<string, string>[] SkillPointsToNames() =>
-            new Dictionary<string, string>[] {
-                new Dictionary<string, string>() {
-                    { "Skill", "Strength" },
-                    { "Scaling", "+1% Damage & +2.5% Size / Level" },
-                    { "Milestone1", "+25% Size" },
-                    { "Milestone2", "+10% Damage" },
-                    { "Milestone3", "Crushing: Deal double damage against enemies above half health" }
-                },
-                new Dictionary<string, string>() {
-                    { "Skill", "Swiftness" },
-                    { "Scaling", "+1% Attack Speed & +2.5% Projectile Speed / Level" },
-                    { "Milestone1", "+25% Projectile Speed" },
-                    { "Milestone2", "+10% Attack Speed" },
-                    { "Milestone3", "Wind Up: The longer the weapon is used, the faster the attack speed is up to +50%, resets upon being hit" }
-                },
-                new Dictionary<string, string>() {
-                    { "Skill", "Efficiency" },
-                    { "Scaling", "+1% Critical Chance & -1% Mana/Ammo usage / Level" },
-                    { "Milestone1", "-10% Ammo/Mana Usage" },
-                    { "Milestone2", "+10% Critical Chance" },
-                    { "Milestone3", "Deadeye: Crits apply broken armor for 2 second" }
-                }
-            };
-
-        public override void SkillPointsToStats()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public static class EnchantedWeaponStaticMethods
