@@ -65,6 +65,9 @@ namespace WeaponEnchantments.UI
 
 						if (item.type == UltraPowerBooster.ID && !iGlobal.UltraPowerBoosterInstalled)
 							return true;
+
+						if (item.type == SuperSoap.ID)
+							return true;
 					}
 
 					return item.TryGetEnchantedItem();

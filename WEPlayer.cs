@@ -421,6 +421,20 @@ namespace WeaponEnchantments
                         }
 
                         valid = true;
+                    } if (item.type == SuperSoap.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out tableItemGlobal)) {
+                        //Super Soap
+                        if (moveItem) {
+                            if (item.stack > 1) {
+                                item.stack--;
+                            }
+                            else {
+                                item = new Item();
+                            }
+
+                            SoundEngine.PlaySound(SoundID.Grab);
+                        }
+
+                        valid = true;
                     }
                     else {
                         //Check/Move item

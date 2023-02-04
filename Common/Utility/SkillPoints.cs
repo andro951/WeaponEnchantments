@@ -213,13 +213,19 @@ namespace WeaponEnchantments.Common.Utility
 		public string PerLevelEffectTooltip(int skillNum) => _effects[skillNum].PerLevelTooltip;
 
 		public void GetEffects(List<EnchantmentEffect> effects) {
-			for (int i = 0; i < _effects.Count; i++) {
-				int skillPoints = _skillPoints[i];
-				if (skillPoints > 0) {
-					effects.Add(_effects[i]);
-					foreach(int milestone in MilestonePoints) {
-						if (skillPoints > milestone)
-							effects.Add(_milestoneEffects[i][milestone]);
+			if (_effects.Count < 0)
+			{
+				for (int i = 0; i < _effects.Count; i++)
+				{
+					int skillPoints = _skillPoints[i];
+					if (skillPoints > 0)
+					{
+						effects.Add(_effects[i]);
+						foreach (int milestone in MilestonePoints)
+						{
+							if (skillPoints > milestone)
+								effects.Add(_milestoneEffects[i][milestone]);
+						}
 					}
 				}
 			}
