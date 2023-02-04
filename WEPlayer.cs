@@ -421,9 +421,10 @@ namespace WeaponEnchantments
                         }
 
                         valid = true;
-                    } if (item.type == SuperSoap.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out tableItemGlobal)) {
+                    } if (item.type == SuperSoap.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out tableItemGlobal) && tableItemGlobal.AvailableSkillPoints() < tableItemGlobal.levelBeforeBooster) {
                         //Super Soap
                         if (moveItem) {
+                            tableItemGlobal.RespecSkillPoints();
                             if (item.stack > 1) {
                                 item.stack--;
                             }

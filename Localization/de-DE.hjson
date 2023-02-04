@@ -321,6 +321,7 @@ Mods: {
 			EnchantmentEssenceLegendary: Verzauberungsessenz Legendär
 			EnchantmentEssenceRare: Verzauberungsessenz Selten
 			PowerBooster: Leistungsverstärker
+			SuperSoap: Super Seife
 			UltraPowerBooster: Ultra-Power-Booster
 		}
 		BuffName: {
@@ -387,6 +388,11 @@ Mods: {
 				'''
 			SoulEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 3)
 			SuperiorContainment: Wird verwendet, um seltene Verzauberungen aufzubewahren
+			SuperSoap: 
+				'''
+				Verwenden Sie dies, während sich der Gegenstand, den Sie reinigen möchten, in einer Verzauberungstabelle befindet, um seine Fertigkeitspunkte zurückzusetzen.
+				(Umschalt-Linksklick aus Ihrem Inventar oder Linksklick auf einen Gegenstand in der Tabelle mit diesem auf Ihrem Cursor.)
+				'''
 			UltimateEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 4)
 			UltraPowerBooster: 
 				'''

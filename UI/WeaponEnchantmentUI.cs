@@ -1000,8 +1000,10 @@ namespace WeaponEnchantments.UI
                 for (int id = TextID.Skill1; id < end; id++) {
                     string text = id > TextID.SkillPointCount ? "" : "-";
                     texts[id].SetText(text);
-                }
+				}
 			}
+
+			SetMilestones(0);
 		}
 
         private void InvestSkillPoint(int n) {
@@ -1034,8 +1036,7 @@ namespace WeaponEnchantments.UI
             }
 
             UpdateSkills();
-			if (showHints)
-				SetMilestones(0);
+			SetMilestones(0);
 		}
 
         //TODO

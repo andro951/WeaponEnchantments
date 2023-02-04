@@ -183,6 +183,9 @@ namespace WeaponEnchantments.Common.Utility
 			for (int i = 0; i < _skillPoints.Length; i++) {
 				_skillPoints[i] = 0;
 			}
+
+			if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer))
+				wePlayer.enchantingTableUI?.UpdateSkills();
 		}
 
 		public int AvailableSkillPoints(int totalPoints) =>

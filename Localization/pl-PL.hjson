@@ -321,6 +321,7 @@ Mods: {
 			EnchantmentEssenceLegendary: Legendarna esencja zaklęcia
 			EnchantmentEssenceRare: Zaklinająca Esencja Rzadka
 			PowerBooster: Wzmacniacz mocy
+			SuperSoap: Super mydło
 			UltraPowerBooster: Ultrawzmacniacz mocy
 		}
 		BuffName: {
@@ -387,6 +388,11 @@ Mods: {
 				'''
 			SoulEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 3)
 			SuperiorContainment: Służy do przechowywania rzadkich zaklęć
+			SuperSoap: 
+				'''
+				Użyj tego, gdy przedmiot, który chcesz wyczyścić, znajduje się w tabeli zaklęć, aby zresetować jego punkty umiejętności.
+				(Przesuń lewy przycisk myszy z ekwipunku lub kliknij lewym przyciskiem myszy przedmiot w tabeli z tym kursorem.)
+				'''
 			UltimateEnchantingTable: Służy do nakładania zaklęć na przedmioty. (Poziom 4)
 			UltraPowerBooster: 
 				'''

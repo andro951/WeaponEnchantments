@@ -237,11 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Encantamiento de Ladrón de monedas Épico
 			PennyPinchingEnchantmentLegendary: Encantamiento de Ladrón de monedas Legendario
 			PennyPinchingEnchantmentRare: Encantamiento de Ladrón de monedas Raro
-			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
-			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
-			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
-			PrideOfTheWeakEnchantmentLegendary: Pride Of The Weak Enchantment Legendary
-			PrideOfTheWeakEnchantmentRare: Pride Of The Weak Enchantment Rare
+			PrideOfTheWeakEnchantmentBasic: Encantamiento de Orgullo de los Débiles Básico
+			PrideOfTheWeakEnchantmentCommon: Encantamiento de Orgullo de los Débiles Común
+			PrideOfTheWeakEnchantmentEpic: Encantamiento de Orgullo de los Débiles Épico
+			PrideOfTheWeakEnchantmentLegendary: Encantamiento de Orgullo de los Débiles Legendario
+			PrideOfTheWeakEnchantmentRare: Encantamiento de Orgullo de los Débiles Raro
 			ProjectileVelocityEnchantmentBasic: Encantamiento de velocidad de proyectil Básico
 			ProjectileVelocityEnchantmentCommon: Encantamiento de velocidad de proyectil Común
 			ProjectileVelocityEnchantmentEpic: Encantamiento de velocidad de proyectil Épico
@@ -262,11 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Encantamiento de cambio a clase pícaro Épico
 			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio a clase pícaro Legendario
 			RogueClassSwapEnchantmentRare: Encantamiento de cambio a clase de pícaro Raro
-			ShineEnchantmentBasic: Shine Enchantment Basic
-			ShineEnchantmentCommon: Shine Enchantment Common
-			ShineEnchantmentEpic: Shine Enchantment Epic
-			ShineEnchantmentLegendary: Shine Enchantment Legendary
-			ShineEnchantmentRare: Shine Enchantment Rare
+			ShineEnchantmentBasic: Encantamiento de Brillo Básico
+			ShineEnchantmentCommon: Encantamiento de Brillo Común
+			ShineEnchantmentEpic: Encantamiento de Brillo Épico
+			ShineEnchantmentLegendary: Encantamiento de Brillo Legendario
+			ShineEnchantmentRare: Encantamiento de Brillo Raro
 			SizeEnchantmentBasic: Encantamiento de tamaño Básico
 			SizeEnchantmentCommon: Encantamiento de tamaño Común
 			SizeEnchantmentEpic: Encantamiento de tamaño Épico
@@ -321,6 +321,7 @@ Mods: {
 			EnchantmentEssenceLegendary: Esencia de encantamiento Legendaria
 			EnchantmentEssenceRare: Esencia de encantamiento Rara
 			PowerBooster: Estimulante de potencia
+			SuperSoap: Súper Jabón
 			UltraPowerBooster: Potenciador de potencia ultra
 		}
 		BuffName: {
@@ -387,6 +388,11 @@ Mods: {
 				'''
 			SoulEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 3)
 			SuperiorContainment: Se usa para almacenar encantamientos raros.
+			SuperSoap: 
+				'''
+				Use esto mientras el elemento que desea limpiar está en una mesa de encantamiento para restablecer sus puntos de habilidad.
+				(Haga clic con el botón izquierdo en su inventario o haga clic con el botón izquierdo en el elemento de la tabla con esto en el cursor).
+				'''
 			UltimateEnchantingTable: Se utiliza para aplicar encantamientos a los elementos. (Nivel 4)
 			UltraPowerBooster: 
 				'''
@@ -584,13 +590,13 @@ Mods: {
 				OnHitSpawnProjectile: Proyectil de engendro al golpear
 				Peace: Paz
 				PennyPinching: Ladrón de Monedas
-				PrideOfTheWeak: Pride Of The Weak
+				PrideOfTheWeak: Orgullo de los débiles
 				ProjectileVelocity: Velocidad del proyectil
 				QuestFishChance: Probabilidad de Pescado de Misión
 				RangedClassSwap: Intercambio de clase a distancia
 				ReducedManaUsage: Uso de maná reducido
 				RogueClassSwap: Cambio de clase a pícaro
-				Shine: Shine
+				Shine: Brillo
 				Size: Tamaño
 				SolarDash: Embestida solar
 				Sonar: Sonar
@@ -659,7 +665,7 @@ Mods: {
 					(Solo se activa con el primer impacto de un proyectil).
 					'''
 				OnHitSpawnProjectile: "Genera un proyectil al golpear a un enemigo: {0}"
-				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
+				PrideOfTheWeak: "{0} Aumenta el daño infligido por armas débiles. (100 % efectivo con 0 de poder de infusión. 0 % efectivo con 500 de poder de infusión)."
 				QuestFishChance: "{0} (Los peces de la misión capturados se entregarán automáticamente y se iniciará una nueva misión, superando el límite de 1 por día)."
 				BoolEffect: {
 					Enabled: "{0}: Habilitado"

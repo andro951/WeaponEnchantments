@@ -321,6 +321,7 @@ Mods: {
 			EnchantmentEssenceLegendary: Essenza incantesimo Leggendaria
 			EnchantmentEssenceRare: Essenza incantesimo Raro
 			PowerBooster: Potenziatore
+			SuperSoap: Super Sapone
 			UltraPowerBooster: Potenziatore ultra potente
 		}
 		BuffName: {
@@ -387,6 +388,11 @@ Mods: {
 				'''
 			SoulEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 3)
 			SuperiorContainment: Usato per immagazzinare incantesimi rari
+			SuperSoap: 
+				'''
+				Usalo mentre l'oggetto che vuoi pulire si trova in una tabella degli incantesimi per ripristinare i suoi punti abilità.
+				(Sposta il clic sinistro dal tuo inventario o fai clic sinistro sull'elemento nella tabella con questo sul cursore.)
+				'''
 			UltimateEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 4)
 			UltraPowerBooster: 
 				'''

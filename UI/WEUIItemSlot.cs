@@ -228,7 +228,7 @@ namespace WeaponEnchantments.UI
 				}
 				else if (Main.mouseItem.type == SuperSoap.ID) {
 					Item itemInUI = wePlayer.ItemInUI();
-					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && Main.mouseLeft && Main.mouseLeftRelease) {
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal) && iGlobal.AvailableSkillPoints() < iGlobal.levelBeforeBooster && Main.mouseLeft && Main.mouseLeftRelease) {
 						if (Main.mouseItem.stack > 1) {
 							Main.mouseItem.stack--;
 						}

@@ -1,4 +1,4 @@
-#Contributed by 1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality
+#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -321,6 +321,7 @@ Mods: {
 			EnchantmentEssenceLegendary: 传奇附魔精华
 			EnchantmentEssenceRare: 稀有附魔精华
 			PowerBooster: 能量强化器
+			SuperSoap: 超级肥皂
 			UltraPowerBooster: 终极能量强化器
 		}
 		BuffName: {
@@ -387,6 +388,11 @@ Mods: {
 				'''
 			SoulEnchantingTable: 用于对物品附魔。 （第3阶）
 			SuperiorContainment: 用于合成附魔稀有
+			SuperSoap: 
+				'''
+				当您要清洁的物品位于附魔台中时使用它来重置其技能点。
+				（按住 Shift 左键单击您的物品栏或左键单击表格中的项目，并将其放在光标上。）
+				'''
 			UltimateEnchantingTable: 用于对物品附魔。 （第4阶）
 			UltraPowerBooster: 
 				'''
