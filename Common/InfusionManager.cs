@@ -953,6 +953,21 @@ namespace WeaponEnchantments.Common
                         case "Icebreaker"://Calamity
 							rarity = 4.9f;
                             break;
+                        case "Orthocera Shell"://Calamity
+						case "Scourge of the Seas"://Calamity
+						case "Downpour"://Calamity
+						case "Submarine Shocker"://Calamity
+						case "Deepsea Staff"://Calamity
+						case "Barinautical"://Calamity
+						case "Flak Toxicannon"://Calamity
+						case "Miasma"://Calamity
+						case "Bonebreaker"://Calamity
+						case "Corroded Caustibow"://Calamity
+						case "Acidic Rain Barrel"://Calamity
+                        case "Slithering Eels"://Calamity
+                        case "Skyfin Bombers"://Calamity
+							rarity = 5f;
+                            break;
 						case "Saltwater Scourge"://Stars Above
                             rarity = 5.5f;
                             break;
