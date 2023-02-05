@@ -16,11 +16,11 @@ namespace WeaponEnchantments.Common.Utility
 		public static readonly int[] MilestonePoints = { 5, 10, 25 };
 		//Need to convert all the strings in here to enum keys and add localizations and add to LocalizationData
 		private static Dictionary<EItemType, List<string>> AllSkillNames = new() {
-			{ EItemType.Weapons, new() { "Strength", "Swiftness", "Efficiency" } },
-			{ EItemType.Armor, new() { "Resilience", "Deftness", "Endurance" } },
-			{ EItemType.Accessories, new() { "Luck", "Greed", "Speed" } },
-			{ EItemType.Tools, new() { "Swiftness", "Reach", "Violence" } },
-			{ EItemType.FishingPoles, new() { "Efficiency", "Alluring", "Luck" } }
+			{ EItemType.Weapons, new() { "Strength", "Swiftness", "Precision" } },
+			{ EItemType.Armor, new() { "Resilience", "Endurance", "Deftness" } },
+			{ EItemType.Accessories, new() { "Speed", "Greed", "Luck" } },
+			{ EItemType.Tools, new() { "Haste", "Reach", "Violence" } },
+			{ EItemType.FishingPoles, new() { "Alluring", "Efficiency", "Fortune" } }
 		};
 		private int[] _skillPoints = new int[3];
 		public int FirstSkill => _skillPoints[0];
@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Common.Utility
 		public int TotalSkillPoints => AllSkills.Sum();
 		public int[] AllSkills => _skillPoints;
 		private EItemType _itemType;
-		private List<EnchantmentEffect> _effects = new();
+		private List<(string, List<EnchantmentEffect>)> _effects = new();
 		private List<List<EnchantmentEffect>> _milestoneEffects = new();
 
 		public List<string> SkillNames => AllSkillNames[_itemType];
@@ -46,9 +46,12 @@ namespace WeaponEnchantments.Common.Utility
 			switch (_itemType) {
 				case EItemType.Weapons:
 					_effects = new() {
-						new DamageAfterDefenses(new DifficultyStrength(strength)),
-						new AttackSpeed(new DifficultyStrength(strength)),
-						new CriticalStrikeChance(new DifficultyStrength(strength))
+						("",
+						new List<EnchantmentEffect> { new DamageAfterDefenses(new DifficultyStrength(strength)), new Size(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new AttackSpeed(new DifficultyStrength(strength)), new ProjectileVelocity(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new CriticalStrikeChance(new DifficultyStrength(strength)), new AmmoCost(new DifficultyStrength(strength)), new ManaUsage(new DifficultyStrength(strength)) })
 					};
 					_milestoneEffects = new() {
 						new() {
@@ -71,9 +74,12 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Armor:
 					_effects = new() {
-						new DamageAfterDefenses(new DifficultyStrength(strength)),
-						new AttackSpeed(new DifficultyStrength(strength)),
-						new CriticalStrikeChance(new DifficultyStrength(strength))
+						("",
+						new List<EnchantmentEffect> { new DamageAfterDefenses(new DifficultyStrength(strength)), new Size(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new AttackSpeed(new DifficultyStrength(strength)), new ProjectileVelocity(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new CriticalStrikeChance(new DifficultyStrength(strength)), new AmmoCost(new DifficultyStrength(strength)), new ManaUsage(new DifficultyStrength(strength)) })
 					};
 					_milestoneEffects = new() {
 						new() {
@@ -96,9 +102,12 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Accessories:
 					_effects = new() {
-						new DamageAfterDefenses(new DifficultyStrength(strength)),
-						new AttackSpeed(new DifficultyStrength(strength)),
-						new CriticalStrikeChance(new DifficultyStrength(strength))
+						("",
+						new List<EnchantmentEffect> { new DamageAfterDefenses(new DifficultyStrength(strength)), new Size(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new AttackSpeed(new DifficultyStrength(strength)), new ProjectileVelocity(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new CriticalStrikeChance(new DifficultyStrength(strength)), new AmmoCost(new DifficultyStrength(strength)), new ManaUsage(new DifficultyStrength(strength)) })
 					};
 					_milestoneEffects = new() {
 						new() {
@@ -121,9 +130,12 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Tools:
 					_effects = new() {
-						new DamageAfterDefenses(new DifficultyStrength(strength)),
-						new AttackSpeed(new DifficultyStrength(strength)),
-						new CriticalStrikeChance(new DifficultyStrength(strength))
+						("",
+						new List<EnchantmentEffect> { new DamageAfterDefenses(new DifficultyStrength(strength)), new Size(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new AttackSpeed(new DifficultyStrength(strength)), new ProjectileVelocity(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new CriticalStrikeChance(new DifficultyStrength(strength)), new AmmoCost(new DifficultyStrength(strength)), new ManaUsage(new DifficultyStrength(strength)) })
 					};
 					_milestoneEffects = new() {
 						new() {
@@ -146,9 +158,12 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.FishingPoles:
 					_effects = new() {
-						new DamageAfterDefenses(new DifficultyStrength(strength)),
-						new AttackSpeed(new DifficultyStrength(strength)),
-						new CriticalStrikeChance(new DifficultyStrength(strength))
+						("",
+						new List<EnchantmentEffect> { new DamageAfterDefenses(new DifficultyStrength(strength)), new Size(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new AttackSpeed(new DifficultyStrength(strength)), new ProjectileVelocity(new DifficultyStrength(strength)) }),
+						("",
+						new List<EnchantmentEffect> { new CriticalStrikeChance(new DifficultyStrength(strength)), new AmmoCost(new DifficultyStrength(strength)), new ManaUsage(new DifficultyStrength(strength)) })
 					};
 					_milestoneEffects = new() {
 						new() {
@@ -213,7 +228,15 @@ namespace WeaponEnchantments.Common.Utility
 			uIText.SetText(MileStoneTooltip(skillNum, mileStoneNum));
 			uIText.TextColor = milestone ? Color.Yellow : Color.Gray;
 		}
-		public string PerLevelEffectTooltip(int skillNum) => _effects[skillNum].PerLevelTooltip;
+		public string PerLevelEffectTooltip(int skillNum) {
+			string amalgamation = "";
+			if (_effects[skillNum].Item1 != "") return _effects[skillNum].Item1;
+			foreach (EnchantmentEffect skillstats in _effects[skillNum].Item2)
+            {
+				amalgamation = amalgamation + " # " + skillstats.PerLevelTooltip;
+			}
+			return amalgamation;
+		}
 
 		public void GetEffects(List<EnchantmentEffect> effects) {
 			if (_effects.Count < 0)
@@ -223,7 +246,10 @@ namespace WeaponEnchantments.Common.Utility
 					int skillPoints = _skillPoints[i];
 					if (skillPoints > 0)
 					{
-						effects.Add(_effects[i]);
+                        foreach (EnchantmentEffect skillstats in _effects[i].Item2)
+						{
+							effects.Add(skillstats);
+						}
 						foreach (int milestone in MilestonePoints)
 						{
 							if (skillPoints > milestone)
