@@ -268,7 +268,14 @@ namespace WeaponEnchantments.Common.Utility
 			if (_effects[skillNum].Item1 != "") return _effects[skillNum].Item1;
 			foreach (EnchantmentEffect skillstats in _effects[skillNum].Item2)
             {
-				amalgamation = amalgamation + " # " + skillstats.PerLevelTooltip;
+				//amalgamation = amalgamation + " # " + skillstats.PerLevelTooltip;
+				amalgamation = amalgamation + " # ";
+				if (skillstats is StatEffect statEffect) {
+					amalgamation += statEffect.EStatModifier.PerLevelTooltip + " " + $"{statEffect.statName}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName); ;
+				}
+				else {
+					amalgamation += skillstats.Tooltip;
+				}
 			}
 			return amalgamation;
 		}
