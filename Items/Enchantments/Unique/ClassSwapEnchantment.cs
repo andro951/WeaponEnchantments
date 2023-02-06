@@ -142,8 +142,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
-		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new()
-		{
+		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
 			new(NPCID.Golem, 9f)
 		} : null;
 	}

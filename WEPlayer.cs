@@ -998,7 +998,7 @@ namespace WeaponEnchantments
         }
         private void CalculateCriticalChance(Item item, ref int damage, ref bool crit) {
             //Critical strike
-            if (item.DamageType != DamageClass.Summon || !WEMod.serverConfig.DisableMinionCrits) {
+            if ((item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid) || !WEMod.serverConfig.DisableMinionCrits) {
                 int critChance = Player.GetWeaponCrit(item) + (crit ? 100 : 0);
                 crit = false;
                 int critLevel = critChance / 100;
@@ -1019,8 +1019,8 @@ namespace WeaponEnchantments
                         }
                         else {
                             //Additive
-                            float additiveCritMultiplier = 1f + 0.5f * critLevel * critDamageMultiplier;
-                            critDamageMultiplier *= additiveCritMultiplier;
+                            float additiveCritMultiplier = critLevel * (critDamageMultiplier - 0.5f);
+                            critDamageMultiplier += additiveCritMultiplier;
                         }
                     }
 
