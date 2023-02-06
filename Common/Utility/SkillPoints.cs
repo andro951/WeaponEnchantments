@@ -271,7 +271,8 @@ namespace WeaponEnchantments.Common.Utility
 				//amalgamation = amalgamation + " # " + skillstats.PerLevelTooltip;
 				amalgamation = amalgamation + " # ";
 				if (skillstats is StatEffect statEffect) {
-					amalgamation += statEffect.EStatModifier.PerLevelTooltip + " " + $"{statEffect.statName}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName); ;
+					EnchantmentStat enchantmentStat = statEffect.statName == EnchantmentStat.DamageAfterDefenses ? EnchantmentStat.Damage : statEffect.statName;
+					amalgamation += statEffect.EStatModifier.PerLevelTooltip + " " + $"{enchantmentStat}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName); ;
 				}
 				else {
 					amalgamation += skillstats.Tooltip;
