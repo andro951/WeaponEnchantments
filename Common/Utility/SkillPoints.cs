@@ -46,15 +46,15 @@ namespace WeaponEnchantments.Common.Utility
 			switch (_itemType) {
 				case EItemType.Weapons:
 					_effects = new() {
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strength)),
 							new Size(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new AttackSpeed(new DifficultyStrength(strength)),
 							new ProjectileVelocity(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						("asdsadasd", new List<EnchantmentEffect> {
 							new CriticalStrikeChance(new DifficultyStrength(strength)),
 							new AmmoCost(new DifficultyStrength(strength)),
 							new ManaUsage(new DifficultyStrength(strength))
@@ -81,15 +81,15 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Armor:
 					_effects = new() {
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strength)),
 							new Size(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new AttackSpeed(new DifficultyStrength(strength)),
 							new ProjectileVelocity(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new CriticalStrikeChance(new DifficultyStrength(strength)),
 							new AmmoCost(new DifficultyStrength(strength)),
 							new ManaUsage(new DifficultyStrength(strength))
@@ -116,15 +116,15 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Accessories:
 					_effects = new() {
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strength)),
 							new Size(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new AttackSpeed(new DifficultyStrength(strength)),
 							new ProjectileVelocity(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new CriticalStrikeChance(new DifficultyStrength(strength)),
 							new AmmoCost(new DifficultyStrength(strength)),
 							new ManaUsage(new DifficultyStrength(strength))
@@ -151,15 +151,15 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Tools:
 					_effects = new() {
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strength)),
 							new Size(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new AttackSpeed(new DifficultyStrength(strength)),
 							new ProjectileVelocity(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new CriticalStrikeChance(new DifficultyStrength(strength)),
 							new AmmoCost(new DifficultyStrength(strength)),
 							new ManaUsage(new DifficultyStrength(strength))
@@ -186,15 +186,15 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.FishingPoles:
 					_effects = new() {
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strength)),
 							new Size(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new AttackSpeed(new DifficultyStrength(strength)),
 							new ProjectileVelocity(new DifficultyStrength(strength))
 						}),
-						("", new List<EnchantmentEffect> {
+						(null, new List<EnchantmentEffect> {
 							new CriticalStrikeChance(new DifficultyStrength(strength)),
 							new AmmoCost(new DifficultyStrength(strength)),
 							new ManaUsage(new DifficultyStrength(strength))
@@ -265,11 +265,14 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		public string PerLevelEffectTooltip(int skillNum) {
 			string amalgamation = "";
-			if (_effects[skillNum].Item1 != "") return _effects[skillNum].Item1;
+			bool firstOne = true;
+			if (_effects[skillNum].Item1 != null) return _effects[skillNum].Item1;
 			foreach (EnchantmentEffect skillstats in _effects[skillNum].Item2)
             {
 				//amalgamation = amalgamation + " # " + skillstats.PerLevelTooltip;
-				amalgamation = amalgamation + " # ";
+				string and = " & ";
+				if (firstOne) { firstOne = false; and = ""; }
+				amalgamation = amalgamation + and;
 				if (skillstats is StatEffect statEffect) {
 					EnchantmentStat enchantmentStat = statEffect.statName == EnchantmentStat.DamageAfterDefenses ? EnchantmentStat.Damage : statEffect.statName;
 					amalgamation += statEffect.EStatModifier.PerLevelTooltip + " " + $"{enchantmentStat}".Lang(L_ID1.Tooltip, L_ID2.EffectDisplayName); ;
@@ -278,7 +281,7 @@ namespace WeaponEnchantments.Common.Utility
 					amalgamation += skillstats.Tooltip;
 				}
 			}
-			return amalgamation;
+			return amalgamation + " / level";
 		}
 
 		public void GetEffects(List<EnchantmentEffect> effects) {
