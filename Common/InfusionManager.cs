@@ -83,8 +83,6 @@ namespace WeaponEnchantments.Common
                 calamityAverageValues[i] = (calamityMinValues[i] + calamityMaxValues[i]) / 2;
 			}
 
-
-
             //Print list of items
 			if (PrintListOfItems[GetItemDictModeID.Weapon]) {
                 GetItemDict(GetItemDictModeID.Weapon, postSetupPrintList: true);
@@ -116,6 +114,16 @@ namespace WeaponEnchantments.Common
             for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
                 Item item = ContentSamples.ItemsByType[itemType];
                 if (item != null) {
+                    switch (item.Name) {
+                        case "Experimental Wulfrum Fusion Array":
+                            continue;
+					}
+
+                    switch (item.netID) {
+                        case ItemID.Count://Skip April Fools Joke
+                            continue;
+                    }
+
                     string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
                     bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
                     bool armorList = mode == GetItemDictModeID.Armor && EnchantedItemStaticMethods.IsArmorItem(item);

@@ -408,19 +408,19 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("Prevents messages showing up in your chat that ask you to: \n" +
             "\"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.\"")]
         [DefaultValue(false)]
-        public bool DisableAllErrorMessagesInChat { 
+        public bool DisableAllErrorMessagesInChat {
             set {
-				if (value) {
+                if (value) {
                     OnlyShowErrorMessagesInChatOnce = false;
                 }
-				else {
+                else {
                     LogMethods.LoggedChatMessagesIDs.Clear();
                 }
 
                 _disableAllErrorMessagesInChat = value;
             }
 
-            get => _disableAllErrorMessagesInChat; 
+            get => _disableAllErrorMessagesInChat;
         }
 
         [JsonIgnore]
@@ -428,7 +428,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Label("OnlyShowErrorMessagesInChatOnce")]
         [Tooltip("Messages will continue to show up in your chat, but only once during a game session.\n" +
-			"(The error message must be the exact same as a previous message to be prevented.)")]
+            "(The error message must be the exact same as a previous message to be prevented.)")]
         [DefaultValue(true)]
         public bool OnlyShowErrorMessagesInChatOnce {
             set {
@@ -459,8 +459,8 @@ namespace WeaponEnchantments.Common.Configs
         [Tooltip("The list is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
         [DefaultValue(false)]
         [ReloadRequired]
-        public bool PrintEnchantmentDrops; 
-        
+        public bool PrintEnchantmentDrops;
+
         [Label("Log all translation lists")]
         [Tooltip("The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs")]
         [DefaultValue(false)]
@@ -478,6 +478,13 @@ namespace WeaponEnchantments.Common.Configs
         [DefaultValue(false)]
         [ReloadRequired]
         public bool PrintWeaponInfusionPowers;
+
+        [Header("Mod Testing Tools")]
+        [Label("Enable swapping weapons with num keys (Weapons sorted by infusion power)")]
+        [Tooltip("Use num1 and num3 to swap between all weapons.  Use num4 and num6 to swap between only modded weapons.\n" +
+            "Will not replace enchanted or modified weapons.")]
+        [DefaultValue(false)]
+        public bool EnableSwappingWeapons;
     }
     public class Pair {
         [Tooltip("Only Select Enchantment Items.\nLikely to cause an error if selecting any other item.")]

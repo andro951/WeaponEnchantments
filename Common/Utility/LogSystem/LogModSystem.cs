@@ -22,6 +22,8 @@ using Terraria.GameContent.ItemDropRules;
 using WeaponEnchantments.Common.Utility.LogSystem;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
+using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -76,12 +78,14 @@ namespace WeaponEnchantments.Common.Utility
         private static int culture;
         private static bool numPad1 = false;
         private static bool numPad3 = false;
+		private static bool numPad4 = false;
+		private static bool numPad6 = false;
 
-        //Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
-        //public static string listOfAllEnchantmentTooltips = "";
+		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
+		//public static string listOfAllEnchantmentTooltips = "";
 
-        //Requires an input type to have properties: Texture
-        public override void OnWorldLoad() {
+		//Requires an input type to have properties: Texture
+		public override void OnWorldLoad() {
             PrintListOfEnchantmentTooltips();
 
             //Contributors  change to give exact file location when added to contributor.
@@ -93,17 +97,112 @@ namespace WeaponEnchantments.Common.Utility
 
             PrintNPCIDSwitch();
         }
-		/*public override void PostDrawInterface(SpriteBatch spriteBatch) {
-			Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+		public override void PostDrawInterface(SpriteBatch spriteBatch) {
+            if (!WEMod.clientConfig.EnableSwappingWeapons)
+                return;
+			
             bool newNumpad1 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad1);
             bool newNumpad3 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad3);
-			if (!newNumpad1 && numPad1) {
-                //next weapon
-            }
-            else if (newNumpad3) {
+			bool newNumpad4 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad4);
+			bool newNumpad6 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad6);
+            bool previousWeapon = newNumpad1 && !numPad1;
+            bool nextWeapon = newNumpad3 && !numPad3;
+            bool previousModdedWeapon = newNumpad4 && !numPad4;
+            bool nextModdedWeapon = newNumpad6 && !numPad6;
+            bool tryingToSwapWeapon = previousWeapon || nextWeapon || previousModdedWeapon || nextModdedWeapon;
+            if (tryingToSwapWeapon) {
+				bool skipVanilla = previousModdedWeapon || nextModdedWeapon;
+				bool increasing = nextWeapon || nextModdedWeapon;
+				Item lastHeldItem = Main.LocalPlayer.HeldItem;
+				//Only allow unmodified weapons to be replaced
+				int i;
+				if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
+					i = Main.LocalPlayer.selectedItem;
+				}
+				else {
+					for (i = 0; i < 40; i++) {
+						if (Main.LocalPlayer.inventory[i].NullOrAir())
+							break;
+					}
+				}
 
+				if (i < 40) {
+					Item newItem = NextWeapon(lastHeldItem.type, increasing, skipVanilla);
+					if (!newItem.NullOrAir()) {
+						Main.LocalPlayer.inventory[i] = newItem;
+						Main.LocalPlayer.selectedItem = i;
+						Main.NewText(newItem.S());
+					}
+					else {
+						Main.NewText("newItem was air.");
+					}
+				}
+			}
+
+			numPad1 = newNumpad1;
+            numPad3 = newNumpad3;
+            numPad4 = newNumpad4;
+            numPad6 = newNumpad6;
+		}
+        private static Item NextWeapon(int type, bool increasing, bool skipVanilla) {
+            int[] ignoreItemTypes = new int[] {
+                ItemID.Count
+            };
+            string[] ignoreItemNames = new string[] {
+				"Experimental Wulfrum Fusion Array"
+			};
+            int[] itemTypes = new int[ItemLoader.ItemCount];
+            for (int i = 0; i < itemTypes.Length; i++) {
+                itemTypes[i] = i;
             }
-		}*/
+
+            int[] weaponTypes = itemTypes
+				.Select(type => ContentSamples.ItemsByType[type])
+                .Where(item => IsWeaponItem(item) && !ignoreItemTypes.Contains(item.type) && !ignoreItemNames.Contains(item.Name))
+                .Select(item => item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) ? enchantedWeapon : null)
+                .Where(enchantedWeapon => enchantedWeapon != null)
+                .OrderBy(enchantedWeapon => enchantedWeapon.GetInfusionPower())
+                .Select(enchantedWeapon => enchantedWeapon.Item.type)
+                .ToArray();
+
+			int newType = type;
+			int index;
+			int count = weaponTypes.Length;
+			for (index = 0; index < count; index++) {
+				int weaponType = weaponTypes[index];
+				if (weaponType == type)
+					break;
+			}
+
+			//Handle i == count
+
+			int startingIndex = index;
+			bool gettingType = true;
+			Item sampleItem = new();
+			while (gettingType) {
+				index += increasing ? 1 : -1;
+				if (index < 0) {
+					index = count - 1;
+				}
+				else if (index >= count) {
+					index = 0;
+				}
+				else if (index == startingIndex) {
+					gettingType = false;
+					break;
+				}
+
+				newType = weaponTypes[index];
+
+				sampleItem = ContentSamples.ItemsByType[newType];
+				if (!skipVanilla || sampleItem.ModItem != null) {
+					gettingType = false;
+					break;
+				}
+			}
+
+			return index != startingIndex && newType != type ? new Item(newType, sampleItem.maxStack) : new Item(ItemID.None);
+		}
 		public static void UpdateContributorsList<T>(T modTypeWithTexture, string sharedName = null) {
             if (!printListOfContributors)
                 return;
