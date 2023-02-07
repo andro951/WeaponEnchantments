@@ -61,6 +61,6 @@ namespace WeaponEnchantments.Effects
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
 		public override string Tooltip => StandardTooltip;
 		public override string TooltipValue => EStatModifier.PercentMult100Tooltip;
-		public override EnchantmentStat statName => EnchantmentStat.None;
+		public override EnchantmentStat statName => EnchantmentStat.BonusCoins;
 	}
 }
