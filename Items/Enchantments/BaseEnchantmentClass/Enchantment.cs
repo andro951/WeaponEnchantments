@@ -554,16 +554,16 @@ namespace WeaponEnchantments.Items
 			if (!foundIndividualStrength) {
 				bool foundRarityStrength = false;
 				float rarityMultiplier = RarityEnchantmentStrengthMultipliers[EnchantmentTier];
+				float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
 				if (rarityMultiplier >= 0f) {
 					foundRarityStrength = true;
-					strengths[0] = GetStrengthApplyScalePercent(rarityMultiplier);
+					strengths[0] = GetStrengthApplyScalePercent(defaultStrength, rarityMultiplier, ScalePercent);
 					if (UsesTierStrengthData)
 						tierStrengths[0] = tierStrengthPercentage * rarityMultiplier;
 				}
 
 				if (!foundRarityStrength) {
 					if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
-						strengths = new float[4];
 						tierStrengths = new float[4];
 					}
 
@@ -571,24 +571,39 @@ namespace WeaponEnchantments.Items
 					for (int i = 0; i < count; i++) {
 						//Global
 						float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
-
-						//Apply Scale Percent
-						strengths[i] = GetStrengthApplyScalePercent(multiplier);
-
 						if (UsesTierStrengthData)
 							tierStrengths[i] = tierStrengthPercentage * multiplier;
 					}
+
+					strengths = GetDifficultyStrengthValues(defaultStrength, ScalePercent);
 				}
 			}
 
 			TierStrengthData = new DifficultyStrength(tierStrengths);
 			EnchantmentStrengthData = new DifficultyStrength(strengths);
 		}
-		private float GetStrengthApplyScalePercent(float multiplier) {
-			float defaultStrength = defaultEnchantmentStrengths[StrengthGroup].enchantmentTierStrength[EnchantmentTier];
-			float scale = Math.Abs(ScalePercent);
+		public static float[] GetDifficultyStrengthValues(float defaultStrength, float scalePercent = 1f) {
+			
+			float[] strengths = new float[1];
+			if (WEMod.serverConfig.presetData.AutomaticallyMatchPreseTtoWorldDifficulty) {
+				strengths = new float[4];
+			}
+
+			int count = strengths.Length;
+			for (int i = 0; i < count; i++) {
+				//Global
+				float multiplier = count == 1 ? GlobalStrengthMultiplier : PresetMultipliers[i];
+
+				//Apply Scale Percent
+				strengths[i] = GetStrengthApplyScalePercent(defaultStrength, multiplier, scalePercent);
+			}
+
+			return strengths;
+		}
+		public static float GetStrengthApplyScalePercent(float defaultStrength, float multiplier, float scalePercent) {
+			float scale = Math.Abs(scalePercent);
 			float strength;
-			if (ScalePercent < 0f) {
+			if (scalePercent < 0f) {
 				strength = 1f + (1f - scale) * (defaultStrength - 1f) + (defaultStrength - 1f) * multiplier * scale;
 			}
 			else {

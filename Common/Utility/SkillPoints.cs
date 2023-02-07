@@ -9,6 +9,7 @@ using Terraria.GameContent.UI.Elements;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Effects;
+using WeaponEnchantments.Items;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -42,39 +43,40 @@ namespace WeaponEnchantments.Common.Utility
 				_itemType = enchantedItem.ItemType;
 			}
 
-			float strength = 0.4f * ConfigValues.GlobalStrengthMultiplier;
+			//float strength = 0.4f * ConfigValues.GlobalStrengthMultiplier;
+			float[] strengths = Enchantment.GetDifficultyStrengthValues(0.4f);
 			switch (_itemType) {
 				case EItemType.Weapons:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strength)),
-							new Size(new DifficultyStrength(strength))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strength)),
-							new ProjectileVelocity(new DifficultyStrength(strength))
+							new AttackSpeed(new DifficultyStrength(strengths)),
+							new ProjectileVelocity(new DifficultyStrength(strengths))
 						}),
 						("asdsadasd", new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strength)),
-							new AmmoCost(new DifficultyStrength(strength)),
-							new ManaUsage(new DifficultyStrength(strength))
+							new CriticalStrikeChance(new DifficultyStrength(strengths)),
+							new AmmoCost(new DifficultyStrength(strengths)),
+							new ManaUsage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
 						new() {
-							new DamageAfterDefenses(new DifficultyStrength(strength / 5f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 2f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 1f))
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 5f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 2f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new AttackSpeed(new DifficultyStrength(strength / 5f)),
-							new AttackSpeed(new DifficultyStrength(strength / 2f)),
-							new AttackSpeed(new DifficultyStrength(strength / 1f))
+							new AttackSpeed(new DifficultyStrength(strengths) / 5f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 2f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new CriticalStrikeChance(new DifficultyStrength(strength / 5f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 2f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 1f))
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 5f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 2f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 1f)
 						}
 					};
 					break;
@@ -82,34 +84,34 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.Armor:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strength)),
-							new Size(new DifficultyStrength(strength))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strength)),
-							new ProjectileVelocity(new DifficultyStrength(strength))
+							new AttackSpeed(new DifficultyStrength(strengths)),
+							new ProjectileVelocity(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strength)),
-							new AmmoCost(new DifficultyStrength(strength)),
-							new ManaUsage(new DifficultyStrength(strength))
+							new CriticalStrikeChance(new DifficultyStrength(strengths)),
+							new AmmoCost(new DifficultyStrength(strengths)),
+							new ManaUsage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
 						new() {
-							new DamageAfterDefenses(new DifficultyStrength(strength / 5f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 2f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 1f))
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 5f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 2f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new AttackSpeed(new DifficultyStrength(strength / 5f)),
-							new AttackSpeed(new DifficultyStrength(strength / 2f)),
-							new AttackSpeed(new DifficultyStrength(strength / 1f))
+							new AttackSpeed(new DifficultyStrength(strengths) / 5f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 2f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new CriticalStrikeChance(new DifficultyStrength(strength / 5f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 2f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 1f))
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 5f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 2f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 1f)
 						}
 					};
 					break;
@@ -117,34 +119,34 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.Accessories:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strength)),
-							new Size(new DifficultyStrength(strength))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strength)),
-							new ProjectileVelocity(new DifficultyStrength(strength))
+							new AttackSpeed(new DifficultyStrength(strengths)),
+							new ProjectileVelocity(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strength)),
-							new AmmoCost(new DifficultyStrength(strength)),
-							new ManaUsage(new DifficultyStrength(strength))
+							new CriticalStrikeChance(new DifficultyStrength(strengths)),
+							new AmmoCost(new DifficultyStrength(strengths)),
+							new ManaUsage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
 						new() {
-							new DamageAfterDefenses(new DifficultyStrength(strength / 5f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 2f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 1f))
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 5f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 2f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new AttackSpeed(new DifficultyStrength(strength / 5f)),
-							new AttackSpeed(new DifficultyStrength(strength / 2f)),
-							new AttackSpeed(new DifficultyStrength(strength / 1f))
+							new AttackSpeed(new DifficultyStrength(strengths) / 5f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 2f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new CriticalStrikeChance(new DifficultyStrength(strength / 5f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 2f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 1f))
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 5f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 2f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 1f)
 						}
 					};
 					break;
@@ -152,34 +154,34 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.Tools:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strength)),
-							new Size(new DifficultyStrength(strength))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strength)),
-							new ProjectileVelocity(new DifficultyStrength(strength))
+							new AttackSpeed(new DifficultyStrength(strengths)),
+							new ProjectileVelocity(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strength)),
-							new AmmoCost(new DifficultyStrength(strength)),
-							new ManaUsage(new DifficultyStrength(strength))
+							new CriticalStrikeChance(new DifficultyStrength(strengths)),
+							new AmmoCost(new DifficultyStrength(strengths)),
+							new ManaUsage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
 						new() {
-							new DamageAfterDefenses(new DifficultyStrength(strength / 5f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 2f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 1f))
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 5f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 2f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new AttackSpeed(new DifficultyStrength(strength / 5f)),
-							new AttackSpeed(new DifficultyStrength(strength / 2f)),
-							new AttackSpeed(new DifficultyStrength(strength / 1f))
+							new AttackSpeed(new DifficultyStrength(strengths) / 5f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 2f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new CriticalStrikeChance(new DifficultyStrength(strength / 5f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 2f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 1f))
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 5f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 2f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 1f)
 						}
 					};
 					break;
@@ -187,34 +189,34 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.FishingPoles:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strength)),
-							new Size(new DifficultyStrength(strength))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strength)),
-							new ProjectileVelocity(new DifficultyStrength(strength))
+							new AttackSpeed(new DifficultyStrength(strengths)),
+							new ProjectileVelocity(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strength)),
-							new AmmoCost(new DifficultyStrength(strength)),
-							new ManaUsage(new DifficultyStrength(strength))
+							new CriticalStrikeChance(new DifficultyStrength(strengths)),
+							new AmmoCost(new DifficultyStrength(strengths)),
+							new ManaUsage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
 						new() {
-							new DamageAfterDefenses(new DifficultyStrength(strength / 5f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 2f)),
-							new DamageAfterDefenses(new DifficultyStrength(strength / 1f))
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 5f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 2f),
+							new DamageAfterDefenses(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new AttackSpeed(new DifficultyStrength(strength / 5f)),
-							new AttackSpeed(new DifficultyStrength(strength / 2f)),
-							new AttackSpeed(new DifficultyStrength(strength / 1f))
+							new AttackSpeed(new DifficultyStrength(strengths) / 5f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 2f),
+							new AttackSpeed(new DifficultyStrength(strengths) / 1f)
 						},
 						new() {
-							new CriticalStrikeChance(new DifficultyStrength(strength / 5f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 2f)),
-							new CriticalStrikeChance(new DifficultyStrength(strength / 1f))
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 5f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 2f),
+							new CriticalStrikeChance(new DifficultyStrength(strengths) / 1f)
 						}
 					};
 					break;
