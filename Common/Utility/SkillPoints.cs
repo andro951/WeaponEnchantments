@@ -84,17 +84,13 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.Armor:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strengths)),
-							new Size(new DifficultyStrength(strengths))
+							new DamageReduction(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strengths)),
-							new ProjectileVelocity(new DifficultyStrength(strengths))
+							new LifeRegeneration(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strengths)),
-							new AmmoCost(new DifficultyStrength(strengths)),
-							new ManaUsage(new DifficultyStrength(strengths))
+							new MovementSpeed(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
@@ -118,18 +114,18 @@ namespace WeaponEnchantments.Common.Utility
 
 				case EItemType.Accessories:
 					_effects = new() {
-						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strengths)),
-							new Size(new DifficultyStrength(strengths))
+						("+somethigng", new List<EnchantmentEffect> {
+							new MovementSpeed(new DifficultyStrength(strengths)),
+							new MaxFallSpeed(new DifficultyStrength(strengths)),
+							new JumpSpeed(new DifficultyStrength(strengths)),
+							new MovementAcceleration(new DifficultyStrength(strengths)),
+							new MovementSlowdown(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strengths)),
-							new ProjectileVelocity(new DifficultyStrength(strengths))
+							new BonusCoins(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strengths)),
-							new AmmoCost(new DifficultyStrength(strengths)),
-							new ManaUsage(new DifficultyStrength(strengths))
+							new Luck(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
@@ -154,17 +150,14 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.Tools:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new MiningSpeed(new DifficultyStrength(strengths))
+						}),
+						(null, new List<EnchantmentEffect> {
 							new Size(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strengths)),
-							new ProjectileVelocity(new DifficultyStrength(strengths))
-						}),
-						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strengths)),
-							new AmmoCost(new DifficultyStrength(strengths)),
-							new ManaUsage(new DifficultyStrength(strengths))
+							new DamageAfterDefenses(new DifficultyStrength(strengths)),
+							new CriticalStrikeDamage(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
@@ -189,17 +182,13 @@ namespace WeaponEnchantments.Common.Utility
 				case EItemType.FishingPoles:
 					_effects = new() {
 						(null, new List<EnchantmentEffect> {
-							new DamageAfterDefenses(new DifficultyStrength(strengths)),
-							new Size(new DifficultyStrength(strengths))
+							new FishingPower(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new AttackSpeed(new DifficultyStrength(strengths)),
-							new ProjectileVelocity(new DifficultyStrength(strengths))
+							new AmmoCost(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new CriticalStrikeChance(new DifficultyStrength(strengths)),
-							new AmmoCost(new DifficultyStrength(strengths)),
-							new ManaUsage(new DifficultyStrength(strengths))
+							new CrateChance(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
