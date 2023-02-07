@@ -87,8 +87,7 @@ namespace WeaponEnchantments.Items
 			Lighting.AddLight(Item.Center, glowColor.ToVector3() * intensity * Main.essScale);
 		}
 
-		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-		{
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI) {
 			// Add glow mask
 			Texture2D texture = TextureAssets.Item[Item.type].Value;
 
@@ -121,7 +120,7 @@ namespace WeaponEnchantments.Items
 		public override void SetDefaults() {
 			SetupStaticValues();
 			Item.value = (int)values[EssenceTier];
-			Item.maxStack = 9999;
+			Item.maxStack = 999999;
 			Item.width = entitySize;
 			Item.height = entitySize;
 			Item.rare = GetRarityFromTier(EssenceTier);

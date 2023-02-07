@@ -113,8 +113,33 @@ namespace WeaponEnchantments.Common.Globals
             };
 
             postPlanteraBossNames = new() {
+                //Calamity
+				"The Leviathan",
+				"Astrum Aureus",
+				"The Plaguebringer Goliath",
+				"Ravager",
+				"Astrum Deus",
+				"The Dragonfolly",
+				"Providence, the Profaned Goddess",
+				"Ceaseless Void",
+				"Storm Weaver",
+				"Signus, Envoy of the Devourer",
+				"Polterghast",
+				"The Old Duke",
+				"The Devourer of Gods",
+				"Jungle Dragon, Yharon",
+				"XF-09 Ares",
+				"Supreme Calamitas",
 
-            };
+                //Stars Above
+				"Penthesilea, the Witch of Ink",
+				"Arbitration",
+				"The Warrior Of Light",
+				"Tsukiyomi, the First Starfarer"
+
+                //Thorium
+
+			};
 
             multipleSegmentBossTypes = new SortedDictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },
