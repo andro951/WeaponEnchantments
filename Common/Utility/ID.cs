@@ -79,6 +79,8 @@ namespace WeaponEnchantments.Common.Utility
         MaxMP,
 		Melee,
 		MiningSpeed,
+		TileRange,
+		DodgeChance,
 		MovementAcceleration,
         MovementSlowdown,
         MovementSpeed,

@@ -1649,6 +1649,12 @@ namespace WeaponEnchantments
                 case EnchantmentStat.WhipRange:
                     Player.whipRangeMultiplier = sm.ApplyTo(Player.whipRangeMultiplier);
                     break;
+                case EnchantmentStat.TileRange:
+                    Player.blockRange = (int)sm.ApplyTo(Player.blockRange);
+                    break;
+                /*case EnchantmentStat.DodgeChance:
+                    Player.BrainOfConfusionDodge = (int)sm.ApplyTo(Player.blockRange);
+                    break;*/
                 case EnchantmentStat.MaxKi:
                     if (WEMod.dbtEnabled)
                     {

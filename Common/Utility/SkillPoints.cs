@@ -90,7 +90,7 @@ namespace WeaponEnchantments.Common.Utility
 							new LifeRegeneration(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new MovementSpeed(new DifficultyStrength(strengths))
+							new DodgeChance(new DifficultyStrength(strengths))
 						})
 					};
 					_milestoneEffects = new() {
@@ -153,7 +153,7 @@ namespace WeaponEnchantments.Common.Utility
 							new MiningSpeed(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
-							new Size(new DifficultyStrength(strengths))
+							new TileRange(new DifficultyStrength(strengths))
 						}),
 						(null, new List<EnchantmentEffect> {
 							new DamageAfterDefenses(new DifficultyStrength(strengths)),
