@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
 using IL.Terraria;
 using Terraria.ID;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.Common.Configs
 {
@@ -479,13 +480,22 @@ namespace WeaponEnchantments.Common.Configs
         [ReloadRequired]
         public bool PrintWeaponInfusionPowers;
 
+        //Mod Testing Tools
         [Header("Mod Testing Tools")]
         [Label("Enable swapping weapons with num keys (Weapons sorted by infusion power)")]
         [Tooltip("Use num1 and num3 to swap between all weapons.  Use num4 and num6 to swap between only modded weapons.\n" +
             "Will not replace enchanted or modified weapons.")]
         [DefaultValue(false)]
         public bool EnableSwappingWeapons;
-    }
+
+        [Label("Enable Target Dummy Dps calculation and logging")]
+        [Tooltip($"Tracks damage to targets from all sources and tracks them.  Press num0 to start then again to stop.\n" +
+            $"Press num8 to print all stored dps values to the client.log\\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs\n" +
+            $"Starting a new test by pressing num0 resets the previous dps data for the held item to allow re-doing a test.")]
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool LogDummyDPS;
+	}
     public class Pair {
         [Tooltip("Only Select Enchantment Items.\nLikely to cause an error if selecting any other item.")]
         [Label("Enchantment")]

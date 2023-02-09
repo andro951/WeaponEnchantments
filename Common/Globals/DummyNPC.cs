@@ -1,64 +1,87 @@
-﻿using System;
+﻿using Steamworks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Common.Globals
 {
 	public class DummyNPC : GlobalNPC
 	{
-		private double dps => damage / (ticks / 60d);
-		private static int ticks = 300;
-		private int startingTick;
+		public static uint ticks => Main.GameUpdateCount - startingTick;
+		private static uint startingTick;
 		private static bool startDPSCheck;
 		public static bool StartDPSCheck {
 			get => startDPSCheck;
 			set {
 				startDPSCheck = value;
-				if (startDPSCheck)
+				if (value)
 					startingTick = Main.GameUpdateCount;
 			}
 		}
-		private Dictionary<string, double> totalItemDamages = new();
+		public static bool StopDPSCheck = true;
+		private Dictionary<string, long> totalItemDamages = new();
+		public static SortedDictionary<string, double> allTotalItemDamages = new();
+		private bool NotCheckingDPS => !WEMod.clientConfig.LogDummyDPS || !StartDPSCheck;
+		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(NPC entity, bool lateInstantiation) {
-			return entity.IsDummy();
+			return !entity.townNPC && WEMod.clientConfig.LogDummyDPS;
 		}
-
 		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
-			if (!WEMod.clientConfig.LogDummyDPS || !StartDPSCheck)
+			if (NotCheckingDPS)
 				return;
-			
-			OnHitNPCWithAny(npc, item, damage, knockback, crit);
+
+			int actualDamage = (int)Main.CalculateDamageNPCsTake((int)damage, npc.defense);
+			OnHitNPCWithAny(npc, item, actualDamage);
 		}
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) {
-			if (!WEMod.clientConfig.LogDummyDPS || !StartDPSCheck)
+			if (NotCheckingDPS)
 				return;
-			
+
 			projectile.TryGetGlobalProjectile(out WEProjectile weProj);
-            		Item item = weProj?.sourceItem;
-			OnHitNPCWithAny(npc, item, damage, knockback, crit, projectile);
+            Item item = weProj?.sourceItem;
+			int actualDamage = (int)Main.CalculateDamageNPCsTake(damage, npc.defense) * (crit ? 2 : 1);
+			OnHitNPCWithAny(npc, item, actualDamage, projectile);
 		}
-		private void OnHitNPCWith(NPC npc, Item item, float knockback, bool crit, Projectile projectile = null) {
+		private void OnHitNPCWithAny(NPC npc, Item item, int damage, Projectile projectile = null) {
 			//TODO: Check if damage includes crit or not for both melee and projectile
-			if (!totalItemDamages.ContainsKey(item.Name)) {
+			totalItemDamages.AddOrCombineAddCheckOverflow(item.Name, (long)damage);
+			/*if (!totalItemDamages.ContainsKey(item.Name)) {
 				totalItemDamages.Add(item.Name, damage);
 			}
 			else {
-				totalItemDamages[item.Name] += damage;
-			}
+				totalItemDamages[item.Name].AddCheckOverflow(damage);
+			}*/
 		}
-		private void CheckEndDPSCheck() {
-			//TODO: put thisinto an on tick method
-			if (Main.GameUpdateCount >= startingTick + ticks) {
-				StartDPSCheck = false;
-				foreach (KeyValuePair<string, double> pair in totalItemDamages) {
-					$"Dummy {NPC.whoAmI}, {pair.Key}, {pair.Value}".LogSimple();
-				}
-				
-				totalItemDamages.Empty();
+		public override void UpdateLifeRegen(NPC npc, ref int damage) {
+			if (NotCheckingDPS)
+				return;
+
+			if (npc.lifeRegen < 0)
+				totalItemDamages.SetValue("Life Regen", (long)-npc.lifeRegen);
+
+			CheckEndDPSCheck(npc);
+		}
+		private void CheckEndDPSCheck(NPC npc) {
+			if (totalItemDamages.Count < 1)
+				return;
+
+			if (StopDPSCheck) {
+				if (totalItemDamages.Count > 1)
+					totalItemDamages.Add("Total", WEMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
+
+				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.FullName} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
+				msg.LogSimple();
+				Main.NewText(msg);
+				string key = totalItemDamages.Count > 1 ? totalItemDamages.Keys.Where(k => k != "Total" && k != "Life Regen").First() : totalItemDamages.Keys.First();
+				double damage = totalItemDamages.Values.Last() / (ticks / 60d);
+				allTotalItemDamages.AddOrCombineAddCheckOverflow(key, damage);
+				totalItemDamages.Clear();
 			}
 		}
 		//TODO: Add damage from loss of life

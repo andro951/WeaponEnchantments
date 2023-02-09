@@ -76,7 +76,9 @@ namespace WeaponEnchantments.Common.Utility
 	    private static List<string> labels;
         private static Dictionary<string, ModTranslation> translations;
         private static int culture;
-        private static bool numPad1 = false;
+		private static bool numPad0 = false;
+		private static bool numPad8 = false;
+		private static bool numPad1 = false;
         private static bool numPad3 = false;
 		private static bool numPad4 = false;
 		private static bool numPad6 = false;
@@ -98,51 +100,79 @@ namespace WeaponEnchantments.Common.Utility
             PrintNPCIDSwitch();
         }
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            if (!WEMod.clientConfig.EnableSwappingWeapons)
-                return;
-			
-            bool newNumpad1 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad1);
-            bool newNumpad3 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad3);
-			bool newNumpad4 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad4);
-			bool newNumpad6 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad6);
-            bool previousWeapon = newNumpad1 && !numPad1;
-            bool nextWeapon = newNumpad3 && !numPad3;
-            bool previousModdedWeapon = newNumpad4 && !numPad4;
-            bool nextModdedWeapon = newNumpad6 && !numPad6;
-            bool tryingToSwapWeapon = previousWeapon || nextWeapon || previousModdedWeapon || nextModdedWeapon;
-            if (tryingToSwapWeapon) {
-				bool skipVanilla = previousModdedWeapon || nextModdedWeapon;
-				bool increasing = nextWeapon || nextModdedWeapon;
-				Item lastHeldItem = Main.LocalPlayer.HeldItem;
-				//Only allow unmodified weapons to be replaced
-				int i;
-				if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
-					i = Main.LocalPlayer.selectedItem;
-				}
-				else {
-					for (i = 0; i < 40; i++) {
-						if (Main.LocalPlayer.inventory[i].NullOrAir())
-							break;
-					}
-				}
-
-				if (i < 40) {
-					Item newItem = NextWeapon(lastHeldItem.type, increasing, skipVanilla);
-					if (!newItem.NullOrAir()) {
-						Main.LocalPlayer.inventory[i] = newItem;
-						Main.LocalPlayer.selectedItem = i;
-						Main.NewText(newItem.S());
+            if (WEMod.clientConfig.EnableSwappingWeapons) {
+				bool newNumPad1 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad1);
+				bool newNumPad3 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad3);
+				bool newNumPad4 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad4);
+				bool newNumPad6 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad6);
+				bool previousWeapon = newNumPad1 && !numPad1;
+				bool nextWeapon = newNumPad3 && !numPad3;
+				bool previousModdedWeapon = newNumPad4 && !numPad4;
+				bool nextModdedWeapon = newNumPad6 && !numPad6;
+				bool tryingToSwapWeapon = previousWeapon || nextWeapon || previousModdedWeapon || nextModdedWeapon;
+				if (tryingToSwapWeapon) {
+					bool skipVanilla = previousModdedWeapon || nextModdedWeapon;
+					bool increasing = nextWeapon || nextModdedWeapon;
+					Item lastHeldItem = Main.LocalPlayer.HeldItem;
+					//Only allow unmodified weapons to be replaced
+					int i;
+					if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
+						i = Main.LocalPlayer.selectedItem;
 					}
 					else {
-						Main.NewText("newItem was air.");
+						for (i = 0; i < 40; i++) {
+							if (Main.LocalPlayer.inventory[i].NullOrAir())
+								break;
+						}
+					}
+
+					if (i < 40) {
+						Item newItem = NextWeapon(lastHeldItem.type, increasing, skipVanilla);
+						if (!newItem.NullOrAir()) {
+							Main.LocalPlayer.inventory[i] = newItem;
+							Main.LocalPlayer.selectedItem = i;
+							Main.NewText(newItem.S());
+						}
+						else {
+							Main.NewText("newItem was air.");
+						}
 					}
 				}
+
+				numPad1 = newNumPad1;
+				numPad3 = newNumPad3;
+				numPad4 = newNumPad4;
+				numPad6 = newNumPad6;
 			}
 
-			numPad1 = newNumpad1;
-            numPad3 = newNumpad3;
-            numPad4 = newNumpad4;
-            numPad6 = newNumpad6;
+			if (WEMod.clientConfig.LogDummyDPS) {
+                if (DummyNPC.StopDPSCheck)
+                    DummyNPC.StartDPSCheck = false;
+
+				bool newNumPad0 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad0);
+				bool newNumPad8 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad8);
+				if (newNumPad0 && !numPad0) {
+                    if (!DummyNPC.StartDPSCheck) {
+						string heldItemName = Main.LocalPlayer.HeldItem.Name;
+						if (DummyNPC.allTotalItemDamages.ContainsKey(heldItemName))
+							DummyNPC.allTotalItemDamages.Remove(heldItemName);
+
+						DummyNPC.StopDPSCheck = false;
+						DummyNPC.StartDPSCheck = true;
+					}
+                    else {
+						DummyNPC.StopDPSCheck = true;
+					}
+				}
+
+                if (newNumPad8 && !numPad8) {
+                    string msg = "\n" + DummyNPC.allTotalItemDamages.Select(pair => $"{pair.Key}, {pair.Value.ToString("F5")}").JoinList("\n");
+                    msg.LogSimple();
+				}
+
+				numPad0 = newNumPad0;
+                numPad8= newNumPad8;
+			}
 		}
         private static Item NextWeapon(int type, bool increasing, bool skipVanilla) {
             int[] ignoreItemTypes = new int[] {

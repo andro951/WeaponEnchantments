@@ -1260,7 +1260,7 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
             
             //dummy goto debug
-            if (target.netID == NPCID.TargetDummy || target.FullName == "Super Dummy")
+            if (target.IsDummy())
                 goto debugBeforeReturn;
 
             //friendly goto debug

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static WeaponEnchantments.Common.Utility.UtilityMethods;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -170,6 +171,44 @@ namespace WeaponEnchantments.Common.Utility
 		public static float MultiplyCheckOverflow(float n1, float n2) {
 			n1.MultiplyCheckOverflow(n2);
 			return n1;
+		}
+
+		/// <summary>
+		/// Adds n2 to n1 and caps n1 at int.MaxValue.
+		/// </summary>
+		public static double AddCheckOverflow(this double n1, double n2) {
+			double maxN2 = double.MaxValue - n1;
+			if (n2 > maxN2) {
+				n1 = double.MaxValue;
+				return n1;
+			}
+			
+			return n1 += n2;
+		}
+		public static dynamic AddCheckOverflow(dynamic n1, dynamic n2) {
+			dynamic maxValue = (dynamic)n1.GetType().GetField("MaxValue").GetValue(null);
+			dynamic maxN2 = maxValue - n1;
+			if (n2 > maxN2) {
+				n1 = maxValue;
+				return n1;
+			}
+
+			return n1 += n2;
+		}
+		public static dynamic SumCheckOverFlow(dynamic enumerable) {
+			dynamic maxValue = (dynamic)enumerable[0].GetType().GetField("MaxValue").GetValue(null);
+			dynamic total = 0;
+			foreach(dynamic value in enumerable) {
+				dynamic max = maxValue - total;
+				if (value > max) {
+					total = maxValue;
+					return total;
+				}
+
+				total += value;
+			}
+
+			return total;
 		}
 
 		#endregion

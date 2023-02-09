@@ -15,6 +15,7 @@ using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using WeaponEnchantments.Effects;
 using Terraria.Localization;
 using WeaponEnchantments.Tiles;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -687,6 +688,23 @@ namespace WeaponEnchantments.Common.Utility
             }
             else {
                 dict1.Add(key, pair.Item2);
+            }
+        }
+
+        public static void AddOrCombineAddCheckOverflow<TKey, T>(this IDictionary<TKey, T> dictionary, TKey key, T newValue) {
+			if (dictionary.ContainsKey(key)) {
+				dictionary[key] = WEMath.AddCheckOverflow(newValue, dictionary[key]);
+			}
+			else {
+				dictionary.Add(key, newValue);
+			}
+		}
+        public static void SetValue<TKey, T>(this Dictionary<TKey, T> dictionary, TKey key, T value) {
+            if (dictionary.ContainsKey(key)) {
+                dictionary[key] = value;
+            }
+            else {
+                dictionary.Add(key, value);
             }
         }
 
