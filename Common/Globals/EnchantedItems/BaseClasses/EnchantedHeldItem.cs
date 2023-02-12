@@ -43,12 +43,7 @@ namespace WeaponEnchantments.Common.Globals
 			//Calamity Rogue weapon Attackspeed fix
 			if (WEMod.calamityEnabled && attackSpeed != 1f && !findingUseSpeed) {
 				if (ContentSamples.ItemsByType[item.type].DamageType == CalamityValues.rogue) {
-					findingUseSpeed = true;
-					float multiplier = CombinedHooks.TotalUseTimeMultiplier(player, item);
-					Item sampleItem = ContentSamples.ItemsByType[item.type];
-					item.useTime = Math.Max(1, (int)Math.Round(sampleItem.useTime * multiplier));
-					item.useAnimation = Math.Max(1, (int)Math.Round(sampleItem.useAnimation * multiplier));
-					findingUseSpeed = false;
+					player.GetAttackSpeed(CalamityValues.rogue) *= attackSpeed;
 					return 1f;
 				}
 			}

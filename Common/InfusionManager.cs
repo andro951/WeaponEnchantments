@@ -1429,6 +1429,9 @@ namespace WeaponEnchantments.Common
                         case "Celestial Princess' Genesis"://Stars Above
                             rarity = 10.6f;
                             break;
+						case "Hell's Sun"://Calamity
+                            rarity = 11.05f;
+                            break;
 						case "Vermilion Riposte"://Stars Above
                         case "Light Unrelenting"://Stars Above
                         case "The Everlasting Pickaxe"://Stars Above
@@ -1444,7 +1447,10 @@ namespace WeaponEnchantments.Common
 							rarity = 11.6f;
                             break;
 						case "Mjölnir"://Thorium
-                            rarity = 13f;
+							rarity = 13f;
+                            break;
+                        case "God's Paranoia"://Calamity
+                            rarity = 15f;
                             break;
 						default:
                             if (useCalamiryValuesOnly) {

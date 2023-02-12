@@ -43,10 +43,11 @@ namespace WeaponEnchantments.Common.Globals
 			if (NotCheckingDPS)
 				return;
 
-			projectile.TryGetGlobalProjectile(out WEProjectile weProj);
-            Item item = weProj?.sourceItem;
-			int actualDamage = (int)Main.CalculateDamageNPCsTake(damage, npc.defense) * (crit ? 2 : 1);
-			OnHitNPCWithAny(npc, item, actualDamage, projectile);
+			if (projectile.TryGetGlobalProjectile(out WEProjectile weProj) && weProj?.sourceItem != null) {
+				Item item = weProj?.sourceItem;
+				int actualDamage = (int)Main.CalculateDamageNPCsTake(damage, npc.defense) * (crit ? 2 : 1);
+				OnHitNPCWithAny(npc, item, actualDamage, projectile);
+			}
 		}
 		private void OnHitNPCWithAny(NPC npc, Item item, int damage, Projectile projectile = null) {
 			//TODO: Check if damage includes crit or not for both melee and projectile
