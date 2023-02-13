@@ -50,14 +50,7 @@ namespace WeaponEnchantments.Common.Globals
 			}
 		}
 		private void OnHitNPCWithAny(NPC npc, Item item, int damage, Projectile projectile = null) {
-			//TODO: Check if damage includes crit or not for both melee and projectile
 			totalItemDamages.AddOrCombineAddCheckOverflow(item.Name, (long)damage);
-			/*if (!totalItemDamages.ContainsKey(item.Name)) {
-				totalItemDamages.Add(item.Name, damage);
-			}
-			else {
-				totalItemDamages[item.Name].AddCheckOverflow(damage);
-			}*/
 		}
 		public override void UpdateLifeRegen(NPC npc, ref int damage) {
 			if (NotCheckingDPS)
@@ -85,6 +78,5 @@ namespace WeaponEnchantments.Common.Globals
 				totalItemDamages.Clear();
 			}
 		}
-		//TODO: Add damage from loss of life
 	}
 }

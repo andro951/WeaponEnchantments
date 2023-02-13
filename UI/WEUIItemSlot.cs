@@ -155,10 +155,10 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static bool UseEnchantmentSlot(Item item, int slot, bool utilitySlot = false) {
+		public static bool UseEnchantmentSlot(Item item, int slot, bool utilitySlot = false, bool useHighestTableTier = false) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
-			if (slot > wePlayer.enchantingTableTier && !utilitySlot)
+			if (slot > (useHighestTableTier ? wePlayer.highestTableTierUsed : wePlayer.enchantingTableTier) && !utilitySlot)
 				return false;
 
 			return SlotAllowedByConfig(item, slot);

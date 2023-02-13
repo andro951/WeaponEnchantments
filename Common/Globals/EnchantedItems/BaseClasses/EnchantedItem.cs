@@ -832,15 +832,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 		public override void OnCreate(Item item, ItemCreationContext context) {
 			if(context is RecipeCreationContext recipeCreationContext) {
-                if(recipeCreationContext.ConsumedItems?.Count > 0) {
-                    item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
-                }
-				else {
-                    //Temporary for Magic storage
-                    item.CombineEnchantedItems(ref WEMod.consumedItems);
-				}
-                //Temporary for Magic storage
-                WEMod.consumedItems.Clear();
+				item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
             }
 		}
 		public bool OnStack(Item item1, Item item2) {
@@ -1474,7 +1466,7 @@ namespace WeaponEnchantments.Common.Globals
                             int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
                             //int slotToUse = enchantment.Utility && iGlobal.enchantments[j].IsAir ? 4 : j;
-                            if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 1))
+                            if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 1, true))
                                 cantFit = true;
 
                             if (!cantFit && !WEUIItemSlot.EnchantmentAllowedOnItem(item, enchantment))

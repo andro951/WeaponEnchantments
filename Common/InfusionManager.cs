@@ -636,7 +636,25 @@ namespace WeaponEnchantments.Common
                             rarity = -0.05f;
                             break;
 						case "Primary Zenith"://Primary Zenith
-                            rarity = 0f;
+                        case "Wulfrum Blunderbuss"://Calamity
+                        case "Wulfrum Controller"://Calamity
+						case "Wulfrum Drill"://Calamity
+						case "Wulfrum Prosthesis"://Calamity
+						case "Wulfrum Screwdriver"://Calamity
+                        case "Aquatic Discharge"://Calamity
+						case "Barinade"://Calamity
+						case "Cnidarian"://Calamity
+						case "Coral Spout"://Calamity
+						case "Fishbone Boomerang"://Calamity
+						case "Greatbay Pickaxe"://Calamity
+						case "Redtide Spear"://Calamity
+						case "Reed Blowgun"://Calamity
+						case "Reefclaw Hamaxe"://Calamity
+						case "Scourge of the Desert"://Calamity
+						case "Seabound Staff"://Calamity
+						case "Storm Spray"://Calamity
+						case "Urchin Mace"://Calamity
+							rarity = 0f;
                             break;
                         case "Sparkling Empress"://Calamity
                             rarity = 0.05f;
@@ -732,8 +750,6 @@ namespace WeaponEnchantments.Common
                         case "Ashen Stalactite"://Calamity
 						case "Crystalline"://Calamity
 							rarity = 1.3f;
-                            break;
-                            rarity = 1.35f;
                             break;
 						case "Burnt Sienna"://Calamity
                             rarity = 1.4f;
@@ -860,6 +876,7 @@ namespace WeaponEnchantments.Common
 							rarity = 2.6f;
                             break;
 						case "Atomic Annie"://Calamity
+						case "Fractured Ark"://Calamity
 							rarity = 3f;
 							break;
                         case "Gel Dart"://Calamity
@@ -1236,7 +1253,6 @@ namespace WeaponEnchantments.Common
                             break;
 						case "Nullification Pistol"://Calamity
                         case "Wingman"://Calamity
-                        case "Plaguenade"://Calamity
 							rarity = 7.8f;
 							break;
                         case "Tenebreus Tides"://Calamity
@@ -1303,6 +1319,9 @@ namespace WeaponEnchantments.Common
 						case "Ultimus Cleaver"://Calamity
 						case "Realm Ravager"://Calamity
                             rarity = 8.7f;
+                            break;
+						case "Plaguenade"://Calamity
+                            rarity = 8.8f;
                             break;
 						case "Conference Call"://Calamity
                         case "Vortexpopper"://Calamity
@@ -1400,6 +1419,19 @@ namespace WeaponEnchantments.Common
 						case "Shard of Antumbra"://Calamity
 							rarity = 9.95f;
 							break;
+						case "Energy Staff"://Calamity
+						case "Arterial Assault"://Calamity
+                        case "Blood Boiler"://Calamity
+						case "Bloodsoaked Crasher"://Calamity
+						case "Claret Cannon"://Calamity
+						case "Devil's Sunrise"://Calamity
+						case "Dragonblood Disgorger"://Calamity
+						case "Lacerator"://Calamity
+						case "Sanguine Flare"://Calamity
+						case "The Mutilator"://Calamity
+						case "Viscera"://Calamity
+							rarity = 10.05f;
+                            break;
 						case "Yunlai Stiletto"://Stars Above
                         case "Twin Stars of Albiero"://Stars Above
                         case "Rex Lapis"://Stars Above
@@ -1413,6 +1445,7 @@ namespace WeaponEnchantments.Common
                         case "Soul Reaver"://Stars Above
 							rarity = 10.15f;
                             break;
+						case "Relic of Deliverance"://Calamity
 							rarity = 10.2f;
                             break;
 						case "Virtue's Edge"://Stars Above
@@ -1426,11 +1459,59 @@ namespace WeaponEnchantments.Common
                         case "Hullwrought MK. II"://Stars Above
 							rarity = 10.4f;
                             break;
-                        case "Celestial Princess' Genesis"://Stars Above
+						case "Gilded Proboscis"://Calamity
+						case "Golden Eagle"://Calamity
+						case "Mad Alchemist's Cocktail Glove"://Calamity
+						case "Rouge Slash"://Calamity
+						case "Swordsplosion"://Calamity
+							rarity = 10.5f;
+                            break;
+						case "Celestial Princess' Genesis"://Stars Above
                             rarity = 10.6f;
+                            break;
+						case "Blissful Bombardier"://Calamity
+						case "Dazzling Stabber Staff"://Calamity
+						case "Galactus Blade"://Calamity
+						case "Guidelight of Oblivion"://Calamity
+						case "Handheld Tank"://Calamity
+						case "Holy Collider"://Calamity
+						case "Molten Amputator"://Calamity
+						case "Mourningstar"://Calamity
+						case "Pristine Fury"://Calamity
+						case "Purge Guzzler"://Calamity
+						case "Solar Flare"://Calamity
+						case "Telluric Glare"://Calamity
+						case "The Prince"://Calamity
+						case "Shattered Sun"://Calamity
+							rarity = 10.8f;
                             break;
 						case "Hell's Sun"://Calamity
                             rarity = 11.05f;
+                            break;
+						case "Alpha Virus"://Calamity
+						case "Biofusillade"://Calamity
+						case "Blossom Pickaxe"://Calamity
+						case "Grax"://Calamity
+						case "Heavy Laser Rifle"://Calamity
+						case "Lifehunt Scythe"://Calamity
+						case "Nettlevine Greatbow"://Calamity
+						case "Plasma Caster"://Calamity
+						case "Plasma Rifle"://Calamity
+						case "Profaned Partisan"://Calamity
+						case "Pulse Dragon"://Calamity
+						case "Seeking Scorcher"://Calamity
+						case "Snake Eyes"://Calamity
+						case "Spyker"://Calamity
+						case "Thorn Blossom"://Calamity
+						case "True Tyrant's Ultisword"://Calamity
+						case "Verdant"://Calamity
+						case "Virid Vanguard"://Calamity
+						case "Angelic Shotgun"://Calamity
+						case "Divine Retribution"://Calamity
+                        case "Wave Pounder"://Calamity
+                        case "Terratomere"://Calamity
+						case "Auralis"://Calamity
+							rarity = 11.1f;
                             break;
 						case "Vermilion Riposte"://Stars Above
                         case "Light Unrelenting"://Stars Above
@@ -1440,17 +1521,233 @@ namespace WeaponEnchantments.Common
 							rarity = 11.3f;
                             break;
                         case "Bury The Light"://Stars Above
-                            rarity = 11.4f;
+						case "Magnetic Meltdown"://Calamity
+						case "Molecular Manipulator"://Calamity
+						case "Sealed Singularity"://Calamity
+						case "Tactician's Trump Card"://Calamity
+						case "Void Concentration Staff"://Calamity
+						case "Mirror Blade"://Calamity
+						case "Mistlestorm"://Calamity
+							rarity = 11.4f;
                             break;
 						case "Architect's Luminance"://Stars Above
 						case "Cosmic Destroyer"://Stars Above
 							rarity = 11.6f;
                             break;
+						case "Storm Dragoon"://Calamity
+						case "The Storm"://Calamity
+						case "Deific Thunderbolt"://Calamity
+						case "Thunderstorm"://Calamity
+						case "Seadragon"://Calamity
+                            rarity = 11.7f;
+                            break;
+						case "Tarragon Throwing Dart"://Calamity
+						case "Aether's Whisper"://Calamity
+						case "Cosmic Kunai"://Calamity
+						case "Cosmilamp"://Calamity
+						case "The Sevens Striker"://Calamity
+							rarity = 12f;
+                            break;
+						case "Banshee Hook"://Calamity
+						case "Daemon's Flame"://Calamity
+						case "Dark Spark"://Calamity
+						case "Death's Ascension"://Calamity
+						case "Deep Sea Dumbbell"://Calamity
+						case "Dodu's Handcannon"://Calamity
+						case "Fate's Reveal"://Calamity
+						case "Galileo Gladius"://Calamity
+						case "Ghastly Visage"://Calamity
+						case "Ghoulish Gouger"://Calamity
+						case "Lion Heart"://Calamity
+						case "Monsoon"://Calamity
+						case "Neptune's Bounty"://Calamity
+						case "Night's Gaze"://Calamity
+						case "Phantasmal Ruin"://Calamity
+						case "Soul Edge"://Calamity
+						case "Terror Blade"://Calamity
+						case "The Last Mourning"://Calamity
+						case "The Maelstrom"://Calamity
+						case "Time Bolt"://Calamity
+						case "Valediction"://Calamity
+						case "Warloks' Moon Fist"://Calamity
+						case "Jaws of Oblivion"://Calamity
+						case "Calamari's Lament"://Calamity
+						case "Clamor Noctus"://Calamity
+						case "Crescent Moon"://Calamity
+						case "Eidolic Wail"://Calamity
+						case "Eidolon Staff"://Calamity
+						case "Ethereal Subjugator"://Calamity
+						case "Halley's Inferno"://Calamity
+						case "Phantasmal Fury"://Calamity
+						case "Shadowbolt Staff"://Calamity
+						case "Venusian Trident"://Calamity
+						case "Sirius"://Calamity
+							rarity = 12.3f;
+                            break;
+						case "Gamma Heart"://Calamity
+						case "Phosphorescent Gauntlet"://Calamity
+						case "Sulphuric Acid Cannon"://Calamity
+                            rarity = 12.6f;
+                            break;
 						case "Mjölnir"://Thorium
+						case "Cadaverous Carrion"://Calamity
+						case "Fetid Emesis"://Calamity
+						case "Insidious Impaler"://Calamity
+						case "Septic Skewer"://Calamity
+						case "The Old Reaper"://Calamity
+						case "Toxicant Twister"://Calamity
+						case "Vitriolic Viper"://Calamity
 							rarity = 13f;
                             break;
-                        case "God's Paranoia"://Calamity
-                            rarity = 15f;
+						case "Alpha Ray"://Calamity
+						case "Anti-materiel Rifle"://Calamity
+						case "Cleansing Blaze"://Calamity
+						case "Corvid Harbinger Staff"://Calamity
+						case "Cosmic Shiv"://Calamity
+						case "Cosmic Viper Engine"://Calamity
+						case "Deathhail Staff"://Calamity
+						case "Deathwind"://Calamity
+						case "Eclipse's Fall"://Calamity
+						case "Empyrean Knives"://Calamity
+						case "Endo Hydra Staff"://Calamity
+						case "Eradicator"://Calamity
+						case "Essence Flayer"://Calamity
+						case "Excelsus"://Calamity
+						case "Executioner's Blade"://Calamity
+						case "Face Melter"://Calamity
+						case "Galaxia"://Calamity
+						case "Galaxy Smasher"://Calamity
+						case "Greatsword of Blah"://Calamity
+						case "Hypothermia"://Calamity
+						case "Ice Barrage"://Calamity
+						case "Infinity"://Calamity
+						case "Light God's Brilliance"://Calamity
+						case "Norfleet"://Calamity
+						case "Onyxia"://Calamity
+						case "Penumbra"://Calamity
+						case "Phangasm"://Calamity
+						case "Primordial Ancient"://Calamity
+						case "Prismatic Breaker"://Calamity
+						case "Recitation of the Beast"://Calamity
+						case "Rubico Prime"://Calamity
+						case "Saros Possession"://Calamity
+						case "Scorched Earth"://Calamity
+						case "Scourge of the Cosmos"://Calamity
+						case "SDFMG"://Calamity
+						case "Soul Piercer"://Calamity
+						case "Staff of the Mechworm"://Calamity
+						case "Starmada"://Calamity
+						case "Stream Gouge"://Calamity
+						case "The Enforcer"://Calamity
+						case "The Obliterator"://Calamity
+						case "The Pack"://Calamity
+						case "Ultima"://Calamity
+						case "Voltaic Climax"://Calamity
+						case "Cosmic Discharge"://Calamity
+						case "Nadir"://Calamity
+						case "Event Horizon"://Calamity
+						case "Alluvion"://Calamity
+						case "Karasawa"://Calamity
+						case "Devil's Devastation"://Calamity
+							rarity = 13.5f;
+							break;
+						case "Phaseslayer"://Calamity
+						case "Plasma Grenade"://Calamity
+						case "Pole Warper"://Calamity
+						case "Pulse Rifle"://Calamity
+						case "Tesla Cannon"://Calamity
+						case "The Anomaly's Nanogun"://Calamity
+						case "Universal Genesis"://Calamity
+							rarity = 14f;
+							break;
+						case "Aetherflux Cannon"://Calamity
+						case "Ataraxia"://Calamity
+						case "Chicken Cannon"://Calamity
+						case "Dragon Pow"://Calamity
+						case "Dragon Rage"://Calamity
+						case "Dragon's Breath"://Calamity
+						case "Drataliornus"://Calamity
+						case "Dynamic Pursuer"://Calamity
+						case "Helium Flash"://Calamity
+						case "Midnight Sun Beacon"://Calamity
+						case "Minigun"://Calamity
+						case "Murasama"://Calamity
+						case "Phoenix Flame Barrage"://Calamity
+						case "Seraphim"://Calamity
+						case "The Burning Sky"://Calamity
+						case "The Final Dawn"://Calamity
+						case "The Oracle"://Calamity
+						case "The Wand"://Calamity
+						case "Tyranny's End"://Calamity
+						case "Void Vortex"://Calamity
+						case "Wrathwing"://Calamity
+						case "Yharim's Crystal"://Calamity
+						case "Yharon's Kindle Staff"://Calamity
+						case "Seared Pan"://Calamity
+						case "Ace's High"://Calamity
+						case "Ark of the Cosmos"://Calamity
+						case "God's Paranoia"://Calamity
+							rarity = 14.5f;
+							break;
+						case "Atlas Munitions Beacon"://Calamity
+						case "Celestus"://Calamity
+						case "Cosmic Immaterializer"://Calamity
+						case "Exoblade"://Calamity
+						case "Magnomaly Cannon"://Calamity
+						case "Photon Ripper"://Calamity
+						case "Photoviscerator"://Calamity
+						case "Refraction Rotor"://Calamity
+						case "Spine of Thanatos"://Calamity
+						case "Subsuming Vortex"://Calamity
+						case "Supernova"://Calamity
+						case "Surge Driver"://Calamity
+						case "The Jailor"://Calamity
+						case "Vivid Clarity"://Calamity
+						case "Ares' Exoskeleton"://Calamity
+						case "The Atom Splitter"://Calamity
+						case "Heavenly Gale"://Calamity
+							rarity = 15f;
+							break;
+						case "Apotheosis"://Calamity
+						case "Azathoth"://Calamity
+						case "Contagion"://Calamity
+						case "Crystyl Crusher"://Calamity
+						case "Draconic Destruction"://Calamity
+						case "Earth"://Calamity
+						case "Endogenesis"://Calamity
+						case "Fabstaff"://Calamity
+						case "Flamsteed Ring"://Calamity
+						case "Illustrious Knives"://Calamity
+						case "Nanoblack Reaper"://Calamity
+						case "Rainbow Party Cannon"://Calamity
+						case "Red Sun"://Calamity
+						case "Soma Prime"://Calamity
+						case "Staff of Blushie"://Calamity
+						case "Svantechnical"://Calamity
+						case "Temporal Umbrella"://Calamity
+						case "The Dance of Light"://Calamity
+						case "Triactis' True Paladinian Mage-Hammer of Might"://Calamity
+						case "Universe Splitter"://Calamity
+						case "Voidragon"://Calamity
+						case "Scarlet Devil"://Calamity
+						case "Elemental Excalibur"://Calamity
+						case "Eternity"://Calamity
+						case "Halibut Cannon"://Calamity
+							rarity = 16f;
+                            break;
+						case "Cinders of Lament"://Calamity
+						case "Condemnation"://Calamity
+						case "Gael's Greatsword"://Calamity
+						case "Gruesome Eminence"://Calamity
+						case "Heresy"://Calamity
+						case "Metastasis"://Calamity
+						case "Perdition"://Calamity
+						case "Rancor"://Calamity
+						case "Sacrifice"://Calamity
+						case "Vehemence"://Calamity
+						case "Violence"://Calamity
+						case "Vigilance"://Calamity
+							rarity = 17f;
                             break;
 						default:
                             if (useCalamiryValuesOnly) {

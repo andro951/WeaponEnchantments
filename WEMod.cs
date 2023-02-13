@@ -36,7 +36,6 @@ namespace WeaponEnchantments
 		public static bool dbtEnabled = false;
 		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
 		public static bool thoriumEnabled = ModLoader.TryGetMod("ThoriumMod", out Mod _);
-		public static List<Item> consumedItems = new List<Item>();
 
 		public override void Load() {
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
