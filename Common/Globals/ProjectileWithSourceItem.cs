@@ -126,7 +126,10 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            return bestMatch >= 0 ? Main.projectile[bestMatch].GetGlobalProjectile<ProjectileWithSourceItem>().sourceItem : null;
+            if (bestMatch >= 0 && Main.projectile[bestMatch].TryGetGlobalProjectile(out ProjectileWithSourceItem projectileWithSourceItem))
+                return projectileWithSourceItem.sourceItem;
+
+            return null;
         }
         public virtual bool UpdateProjectile(Projectile projectile) {
             if (!ItemSourceSet) {
