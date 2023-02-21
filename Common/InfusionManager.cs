@@ -703,7 +703,7 @@ namespace WeaponEnchantments.Common
                         case "Meteor Fist"://Calamity
 							rarity = 0.5f;
 							break;
-                        case "Pumpler"://Calamity
+						case "Pumpler"://Calamity
                             rarity = 0.7f;
                             break;
 						case "Aegis Driver":
@@ -1289,8 +1289,6 @@ namespace WeaponEnchantments.Common
 						case "The Blood Blade"://Stars Above
                         case "Kroniic Principality"://Stars Above
 							rarity = 8.1f;
-                            break;
-							rarity = 8.25f;
                             break;
 						case "Phantom in the Mirror"://Stars Above
                         case "Hollowheart Albion"://Stars Above

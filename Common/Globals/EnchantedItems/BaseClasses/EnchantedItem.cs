@@ -942,22 +942,42 @@ namespace WeaponEnchantments.Common.Globals
             if (item.NullOrAir())
                 return false;
 
-            bool isWeapon;
+            if (item.ModItem != null) {
+				//Manually prevent calamity items from being weapons
+				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == "CalamityMod") {
+					switch (item.Name) {
+						case "Biome Globe":
+							return false;
+					}
+				}
+
+				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
+					switch (item.Name) {
+						case "Hive Mind":
+							return false;
+						case "Technique: Hidden Blade":
+						case "Technique: Blood Lotus":
+						case "Technique: Cobra's Bite":
+						case "Technique: Sticky Explosive":
+						case "Technique: Shadow Clone":
+                        case "Gauze":
+							return true;
+					}
+
+					//Some Thorium non-weapon consumables were counting as weapons.
+					if (item.consumable && item.damage <= 0 && item.mana <= 0)
+						return false;
+				}
+			}
+
+			bool isWeapon;
             switch (item.type) {
                 case ItemID.ExplosiveBunny:
                     isWeapon = false;
                     break;
                 default:
-                    isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0) && item.ammo == 0;
+                    isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0 || item.crit > 0) && item.ammo == 0;
                     break;
-            }
-
-            //Manually prevent calamity items from being weapons
-            if (WEMod.calamityEnabled) {
-                switch (item.Name) {
-                    case "Biome Globe":
-						return false;
-                }
             }
 
             return isWeapon && !item.accessory;

@@ -99,15 +99,6 @@ namespace WeaponEnchantments.Items
 		}
 
 		public override void AddRecipes() {
-			
-			/*string previousTierName = null; //Will never be used as null. Set if enchanting table tier is > 0
-			if (enchantingTableTier > 0) {
-				//recipe.AddTile(TileID.WorkBenches);
-				previousTierName = GetTableName(enchantingTableTier - 1);
-				recipe.AddIngredient(Mod, previousTierName, 1);
-			}*/
-
-			
 			for (int i = -1; i < enchantingTableTier; i++) {
 				if (!ConfigValues.useAllRecipes && i < enchantingTableTier - 1)
 					continue;

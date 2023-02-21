@@ -71,8 +71,11 @@ namespace WeaponEnchantments.Items
                     recipie.AddRecipeGroup("WeaponEnchantments:CommonGems", 4);
                 }
                 else {
-                    recipie.AddIngredient(ItemID.Glass, glass[tier]);
+                    int glassNum = glass[tier];
+                    if (glassNum > 0)
+					    recipie.AddIngredient(ItemID.Glass, glassNum);
                 }
+
                 recipie.AddIngredient(barIDs[i,tier], bars);
                 recipie.Register();
             }
