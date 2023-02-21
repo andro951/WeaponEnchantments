@@ -44,7 +44,7 @@ namespace WeaponEnchantments.ModIntegration
 			//Need to add a way to handle item.value (bool pauseAddingItemValue in EnchantedItem?)
 
 			//Check if talking to NPC
-			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName : "";
+			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName() : "";
 			if (npcTalking != "Calamitas the Brimstone Witch") {
 				//Clear cloned item list after timer expires
 				if (mouseItemClones.Count > 0) {
