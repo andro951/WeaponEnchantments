@@ -425,13 +425,13 @@ namespace WeaponEnchantments.UI
             if (essence.IsAir || item.IsAir)
                 return;
 
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return;
 
-            if(iGlobal.Experience < int.MaxValue) {
+            if(enchantedItem.Experience < int.MaxValue) {
                 essence.stack--;
                 int xp = (int)EnchantmentEssence.xpPerEssence[tier];
-                iGlobal.GainXP(item, xp);
+                enchantedItem.GainXP(item, xp);
                 SoundEngine.PlaySound(SoundID.MenuTick);
             }
             else {
@@ -465,7 +465,7 @@ namespace WeaponEnchantments.UI
             }
 
             if (item?.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) == true && WEMod.serverConfig.ReduceOfferEfficiencyByBaseInfusionPower) {
-                float infusionPower = Math.Min((float)enchantedWeapon.infusionPower, 1100f);
+                float infusionPower = Math.Min((float)enchantedWeapon.InfusionPower, 1100f);
                 xpCounter = (int)Math.Round((float)xpCounter * (1f - 0.2f * (infusionPower / 1100f)));
             }
 
@@ -607,19 +607,19 @@ namespace WeaponEnchantments.UI
             if (itemInUI.IsAir)
                 return;
 
-            if (!itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return;
 
             int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
             int smallestXpPerEssence = (int)EnchantmentEssence.xpPerEssence[0];
             int minimumXPToSyphon = maxLevelXP + smallestXpPerEssence;
-            if (iGlobal.Experience < minimumXPToSyphon) {
+            if (enchantedItem.Experience < minimumXPToSyphon) {
                 Main.NewText($"You can only Syphon an item if it is max level and over {minimumXPToSyphon} experience.");
             }
             else {
-                int xp = iGlobal.Experience - maxLevelXP;
+                int xp = enchantedItem.Experience - maxLevelXP;
                 if (WEMod.magicStorageEnabled) $"Syphon(), itemInUI: {itemInUI.S()}".Log();
-                iGlobal.Experience -= ConvertXPToEssence(xp, item: itemInUI);
+                enchantedItem.Experience -= ConvertXPToEssence(xp, item: itemInUI);
             }
         }
         private static void LootAll() {
@@ -629,7 +629,7 @@ namespace WeaponEnchantments.UI
             pressedLootAll = true;
 
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal);
+            wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem);
 
             //Take all enchantments first
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
@@ -673,12 +673,12 @@ namespace WeaponEnchantments.UI
         private static void LevelUp() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return;
 
             int xpAvailable = 0;
 		    int nonFavoriteXpAvailable = 0;
-            if(iGlobal.levelBeforeBooster == EnchantedItem.MAX_Level) {
+            if(enchantedItem.levelBeforeBooster == EnchantedItem.MAX_Level) {
                 Main.NewText("Your " + tableItem.Name + " is already max level.");
                 return;
             }
@@ -692,10 +692,10 @@ namespace WeaponEnchantments.UI
             }
 
             //xpNeeded
-            int xpNeeded = WEModSystem.levelXps[iGlobal.levelBeforeBooster] - iGlobal.Experience;
+            int xpNeeded = WEModSystem.levelXps[enchantedItem.levelBeforeBooster] - enchantedItem.Experience;
 		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
             if (xpAvailable < xpNeeded) {
-                Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (iGlobal.levelBeforeBooster + 1).ToString() + " you only have " + xpAvailable + " available.");
+                Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (enchantedItem.levelBeforeBooster + 1).ToString() + " you only have " + xpAvailable + " available.");
                 return;
             }
 
@@ -732,7 +732,7 @@ namespace WeaponEnchantments.UI
                     int xpTransfered = xpPerEssence * numberEssenceTransfered;
                     xpNeeded -= xpTransfered;
                     essenceItem.stack -= numberEssenceTransfered;
-                    iGlobal.GainXP(tableItem, xpTransfered);
+                    enchantedItem.GainXP(tableItem, xpTransfered);
                 }
             }
         }

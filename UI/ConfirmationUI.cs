@@ -132,11 +132,11 @@ namespace WeaponEnchantments.UI
                 if (player.inventory[i].favorited)
                     continue;
 
-                if (!player.inventory[i].TryGetEnchantedItem(out EnchantedItem iGlobal))
+                if (!player.inventory[i].TryGetEnchantedItem(out EnchantedItem enchantedItem))
                     continue;
 
                 //Offer the inventory item
-                if (player.inventory[i].type == type && !iGlobal.Modified)
+                if (player.inventory[i].type == type && !enchantedItem.Modified)
                     OfferItem(ref player.inventory[i], false, true);
             }
 
@@ -217,7 +217,7 @@ namespace WeaponEnchantments.UI
 
             int type = item.type;
             bool stop = false;
-            if (!item.TryGetEnchantedItem(out EnchantedItem iGlobal))
+            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return -1;
 
             //Enchantments
@@ -225,8 +225,8 @@ namespace WeaponEnchantments.UI
                 if (!nonTableItem && !wePlayer.EnchantmentInUI(i).IsAir) {
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                 }
-                else if (!iGlobal.enchantments[i].IsAir) {
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), iGlobal.enchantments[i]);
+                else if (!enchantedItem.enchantments[i].IsAir) {
+                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), enchantedItem.enchantments[i]);
                 }
 
                 if (!nonTableItem && !wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.IsAir)
@@ -237,15 +237,15 @@ namespace WeaponEnchantments.UI
                 return -1;
 
             //Power Booster
-            if (iGlobal.PowerBoosterInstalled)
+            if (enchantedItem.PowerBoosterInstalled)
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>());
 
             //Ultra Power Booster
-            if (iGlobal.UltraPowerBoosterInstalled)
+            if (enchantedItem.UltraPowerBoosterInstalled)
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
-            int xp = iGlobal.Experience;
-            float value = item.value - iGlobal.lastValueBonus;
+            int xp = enchantedItem.Experience;
+            float value = item.value - enchantedItem.lastValueBonus;
 
             //Xp -> Essence
             if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
@@ -335,7 +335,7 @@ namespace WeaponEnchantments.UI
             }
             if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
 
-            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                 promptText.SetText($"Non-Enchantable item detected in table.\n" +
 					$"WARNING, DO NOT PRESS CONFIRM.\n" +
 					$"Please report this issue to andro951(Weapon Enchantments)");
@@ -363,13 +363,13 @@ namespace WeaponEnchantments.UI
                 oreAndEssencePercent = TableTextID.ExchangeEssenceAndOres.ToString().Lang(L_ID1.TableText, new object[] { (1f - percentEss).PercentString(), percentEss.PercentString() });
             }
             /*
-            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your level {iGlobal.level}\n" +
+            promptText.SetText($"Are you sure you want to PERMENANTLY DESTROY your level {enchantedItem.level}\n" +
 				$"{wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name} {oreAndEssencePercent}\n" +
 				(percentEss < 1f ? $"{oreString}\n" : "") +
 				$"(Based on item value/experience.  Enchantments will be returned.)"
             );
             */
-            object[] args = new object[] { iGlobal.level.ToString(), wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name, oreAndEssencePercent, percentEss < 1f ? $"{oreString}\n" : "" };
+            object[] args = new object[] { enchantedItem.level.ToString(), wePlayer.enchantingTableUI.itemSlotUI[0].Item.Name, oreAndEssencePercent, percentEss < 1f ? $"{oreString}\n" : "" };
             promptText.SetText(TableTextID.AreYouSure.ToString().Lang(L_ID1.TableText, args));
         }
     }

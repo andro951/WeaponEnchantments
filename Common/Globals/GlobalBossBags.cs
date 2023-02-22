@@ -101,8 +101,8 @@ namespace WeaponEnchantments.Common.Globals
             //Find the boss that drops the modded boss bag
             for (int i = 0; i < NPCLoader.NPCCount; i++) {
                 NPC sampleNPC = ContentSamples.NpcsByNetId[i];
-                string sampleNPCName = sampleNPC.FullName;
-                if (supportedNPCsThatDropBags.ContainsKey(sampleNPCName)) {
+                string sampleNPCName = sampleNPC.FullName();
+				if (supportedNPCsThatDropBags.ContainsKey(sampleNPCName)) {
                     int bagType = supportedNPCsThatDropBags[sampleNPCName];
                     if (!bossBagNPCIDs.ContainsKey(bagType)) {
 						bossBagNPCIDs.Add(bagType, new() { sampleNPC.netID });

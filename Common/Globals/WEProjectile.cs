@@ -267,7 +267,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
             projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            if (sourceItem.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+            if (sourceItem.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                 bool summonDamage = sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid;
 
                 //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.

@@ -41,7 +41,7 @@ namespace WeaponEnchantments
         private bool dayTime = Main.dayTime;
 
         public override void OnModLoad() {
-            if (!Main.dedServ) {
+			if (!Main.dedServ) {
                 weModSystemUI = new UserInterface();
                 promptInterface = new UserInterface();
                 mouseoverUIInterface = new UserInterface();
@@ -60,7 +60,11 @@ namespace WeaponEnchantments
             if (WEMod.playerSwapperModEnabled)
                 updatedPlayerNames = new List<string>();
         }
-        public override void Unload() {
+		public override void OnWorldLoad() {
+			InfusionManager.SetUpVanillaWeaponInfusionPowers();
+			InfusionProgression.PostSetupContent();
+		}
+		public override void Unload() {
             if (!Main.dedServ) {
                 weModSystemUI = null;
                 mouseoverUIInterface = null;

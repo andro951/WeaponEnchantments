@@ -426,8 +426,8 @@ namespace WeaponEnchantments.Common.Globals
                 AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
-                bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName);
-                bool postPlanteraBoss = postPlanteraBossTypes.Contains(npc.netID) || postPlanteraBossNames.Contains(npc.FullName);
+                bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName());
+                bool postPlanteraBoss = postPlanteraBossTypes.Contains(npc.netID) || postPlanteraBossNames.Contains(npc.FullName());
                 if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !preHardModeBoss) {
                     denominator = (int)(100000f / total);
                     if (denominator < 1)
@@ -578,7 +578,7 @@ namespace WeaponEnchantments.Common.Globals
             else {
                 total = hp * 2.6f;
                 //Thorium bags for Dark Mage and Ogre only drop at a 25% rate.
-                if (WEMod.thoriumEnabled && (npc.FullName == "Dark Mage" || npc.FullName == "Ogre"))
+                if (WEMod.thoriumEnabled && (npc.FullName() == "Dark Mage" || npc.FullName() == "Ogre"))
                     total *= 4f;
             }
 
@@ -851,7 +851,7 @@ namespace WeaponEnchantments.Common.Globals
         public static bool IsWorm(this NPC npc) {
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
-        public static bool IsDummy(this NPC npc) => npc.netID == NPCID.TargetDummy || WEMod.calamityEnabled && npc.FullName == "Super Dummy";
+        public static bool IsDummy(this NPC npc) => npc.netID == NPCID.TargetDummy || WEMod.calamityEnabled && npc.FullName() == "Super Dummy";
 
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
@@ -901,5 +901,24 @@ namespace WeaponEnchantments.Common.Globals
 				Main.npc[npc.realLife].value += value;
 			}
         }
+
+		//Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
+		public static string FullName(this NPC npc) {
+			if (WEMod.calamityEnabled) {
+				string sampleModNPCFullName = npc.ModNPC?.FullName;
+				switch (sampleModNPCFullName) {
+					case "CalamityMod/ThanatosBody1":
+					case "CalamityMod/ThanatosBody2":
+						return "Draedon";
+					case "CalamityMod/ThanatosTail":
+						return "XM-05 Thanatos";
+					default:
+						return npc.FullName;
+				}
+			}
+			else {
+				return npc.FullName;
+			}
+		}
 	}
 }

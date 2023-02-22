@@ -241,8 +241,8 @@ namespace WeaponEnchantments.Common.Globals
 
             return tooltip;
         }
-        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {infusionPower}   Infused Item: {infusedItemName}";
-        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {item.GetWeaponInfusionPower()}";
+        protected override string GetInfusedItemTooltip(Item item) => $"Infusion Power: {InfusionPower}   Infused Item: {infusedItemName}";
+        protected override string GetInfusionTooltip(Item item) => $"Infusion Power: {InfusionPower}";
         protected override string GetNewInfusedItemTooltip(Item item, WEPlayer wePlayer) {
             return
                 $"*New Infusion Power: {wePlayer.infusionConsumeItem.GetWeaponInfusionPower()}   " +

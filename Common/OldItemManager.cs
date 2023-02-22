@@ -185,7 +185,7 @@ namespace WeaponEnchantments.Common
                     string className = "EnchantedItem";
 
                     if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] globalItems && globalItems.Length != 0) {
-                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+                        if (item.TryGetEnchantedItemSearchAll(out EnchantedItem foundEnchantedItem)) {
                             foreach (GlobalItem g in globalItems.Select(i => i.Instance).Where(i => i is UnloadedGlobalItem)) {
                                 if (dataFieldInfo.GetValue(g) is IList<TagCompound> tagList) {
                                     foreach (TagCompound tagCompound in tagList) {
@@ -194,8 +194,8 @@ namespace WeaponEnchantments.Common
                                             string name = tagCompound.Get<string>("name");
                                             if (name == className) {
                                                 TagCompound dataTag = tagCompound.Get<TagCompound>("data");
-                                                enchantedItem.LoadData(item, dataTag);
-                                                enchantedItem.SaveData(item, dataTag);
+                                                foundEnchantedItem.LoadData(item, dataTag);
+                                                foundEnchantedItem.SaveData(item, dataTag);
                                             }
                                         }
                                     }
@@ -232,9 +232,9 @@ namespace WeaponEnchantments.Common
                     }
                 }
 
-                if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                        Item enchantmentItem = iGlobal.enchantments[i];
+                        Item enchantmentItem = enchantedItem.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
                             ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);
                         }

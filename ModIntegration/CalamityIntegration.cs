@@ -44,7 +44,7 @@ namespace WeaponEnchantments.ModIntegration
 			//Need to add a way to handle item.value (bool pauseAddingItemValue in EnchantedItem?)
 
 			//Check if talking to NPC
-			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName : "";
+			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName() : "";
 			if (npcTalking != "Calamitas the Brimstone Witch") {
 				//Clear cloned item list after timer expires
 				if (mouseItemClones.Count > 0) {
@@ -101,8 +101,8 @@ namespace WeaponEnchantments.ModIntegration
 						Item clone = mouseItemClones[i];
 						if (mouseItem.IsSameEnchantedItem(clone) && mouseItem.HoverName != clone.HoverName) {
 							//Force recalculate UpdateItemStats()
-							if(mouseItem.TryGetEnchantedItem(out EnchantedItem miGlobal))
-								miGlobal.prefix = -1;
+							if(mouseItem.TryGetEnchantedItem(out EnchantedItem menchantedItem))
+								menchantedItem.prefix = -1;
 
 							//Remove from list
 							mouseItemClones.RemoveAt(i);
@@ -152,8 +152,8 @@ namespace WeaponEnchantments.ModIntegration
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()
-				if(item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-					iGlobal.prefix = -1;
+				if(item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+					enchantedItem.prefix = -1;
 					return true;
 				}
 			}

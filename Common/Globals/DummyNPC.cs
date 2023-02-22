@@ -69,7 +69,7 @@ namespace WeaponEnchantments.Common.Globals
 				if (totalItemDamages.Count > 1)
 					totalItemDamages.Add("Total", WEMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
 
-				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.FullName} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
+				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.FullName()} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
 				msg.LogSimple();
 				Main.NewText(msg);
 				string key = totalItemDamages.Count > 1 ? totalItemDamages.Keys.Where(k => k != "Total" && k != "Life Regen").First() : totalItemDamages.Keys.First();

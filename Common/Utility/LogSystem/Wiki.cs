@@ -854,14 +854,14 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                         file = $"NPC_{npc.netID}".ToPNG();
                 }
 
-                name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces(true) : npc.FullName;
+                name = npc.netID < 0 ? NPCID.Search.GetName(npc.netID).AddSpaces(true) : npc.FullName();
                 if (link)
-                    pngLinkString = $"https://terraria.fandom.com/wiki/{npc.FullName.Replace(" ", "_")}".ToExternalLink(name);
+                    pngLinkString = $"https://terraria.fandom.com/wiki/{npc.FullName().Replace(" ", "_")}".ToExternalLink(name);
             }
             else {
                 ModNPC modNPC = npc.ModNPC;
                 if (modNPC == null) {
-                    name = npc.FullName;
+                    name = npc.FullName();
                 }
                 else {
                     name = modNPC.Name.AddSpaces();
