@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Common.Globals
 
 					Main.AnglerQuestSwap();
 					int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-					Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +
+					Main.NewText($"Quest turned in.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.  Quests finished: {Main.LocalPlayer.anglerQuestsFinished}\n" +
 						$"{Lang.AnglerQuestChat(false)}");
 				}
 			}
