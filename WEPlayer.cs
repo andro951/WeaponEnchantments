@@ -1489,10 +1489,21 @@ namespace WeaponEnchantments
             uint endTime = Main.GameUpdateCount + (uint)duration;
             OnTickBuffTimers.Add(id, endTime);
         }
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit) {
-            if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult))
-                damage = (int)((float)damage * (1f - mult));
-        }
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter) {
+			if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult)) {
+				float damageMultiplier = 1f - mult;
+				if (WEMod.serverConfig.CalculateDamageReductionBeforeDefense) {
+					damage = (int)((float)damage * damageMultiplier);
+				}
+                else {
+                    int damagePlayerTakes = (int)Main.CalculateDamagePlayersTake(damage, Player.statDefense);
+                    int damageReductionFromDefense = damage - damagePlayerTakes;
+                    damage = (int)(damagePlayerTakes * damageMultiplier + damageReductionFromDefense);
+                }
+			}
+
+            return true;
+		}
 
 		#endregion
 
