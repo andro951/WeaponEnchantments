@@ -682,16 +682,33 @@ namespace WeaponEnchantments.Common.Utility
                 dict1.Add(key, pair.Value);
 			}
 		}
-        public static void AddOrCombine(this Dictionary<int, int> dict1, (int, int) pair) {
-            int key = pair.Item1;
-            if (dict1.ContainsKey(key)) {
-                dict1[key] += pair.Item2;
+        public static void AddOrCombine<T>(this IDictionary<T, int> dict1, (T, int) pair) =>
+            dict1.AddOrCombine(pair.Item1, pair.Item2);
+        public static void AddOrCombine<T>(this IDictionary<T, int> dict, T key, int value) {
+            if (dict.ContainsKey(key)) {
+                dict[key] += value;
             }
             else {
-                dict1.Add(key, pair.Item2);
+                dict.Add(key, value);
             }
         }
-        public static void AddOrCombineSetOrKeepHigher<TKey, TKey2>(this SortedDictionary<TKey, Dictionary<TKey2, int>> dict, TKey key, Dictionary<TKey2, int> dict2) {
+        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, T value) {
+            if (dict.ContainsKey(key)) {
+                dict[key].Add(value);
+            }
+            else {
+                dict.Add(key, new() { value });
+            }
+        }
+		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, HashSet<T> value) {
+			if (dict.ContainsKey(key)) {
+				dict[key] = dict[key].Concat(value).ToHashSet();
+			}
+			else {
+				dict.Add(key, value);
+			}
+		}
+		public static void AddOrCombineSetOrKeepHigher<TKey, TKey2>(this SortedDictionary<TKey, Dictionary<TKey2, int>> dict, TKey key, Dictionary<TKey2, int> dict2) {
             if (dict.ContainsKey(key)) {
                 foreach(TKey2 key2 in dict2.Keys) {
                     dict[key].SetOrKeepHigher(key2, dict2[key2]);
@@ -734,7 +751,39 @@ namespace WeaponEnchantments.Common.Utility
             else {
                 dictionary.Add(key, value);
             }
+		}
+		public static bool ContainsHashSet(this HashSet<HashSet<int>> ingredients, HashSet<int> requiredItemType) {
+			bool contains = false;
+			foreach (HashSet<int> ingredientType in ingredients) {
+				contains = true;
+				if (ingredientType.Count != requiredItemType.Count) {
+					contains = false;
+				}
+				else {
+					foreach (int eachIngredientType in ingredientType) {
+						if (!requiredItemType.Contains(eachIngredientType)) {
+							contains = false;
+							break;
+						}
+					}
+				}
+
+				if (contains)
+					break;
+			}
+
+			return contains;
+		}
+		public static void CombineHashSet(this HashSet<HashSet<int>> set1, HashSet<HashSet<int>> set2) {
+            foreach (HashSet<int> set in set2) {
+                if (!set1.ContainsHashSet(set))
+                    set1.Add(set);
+            }
         }
+        public static void TryAdd(this HashSet<HashSet<int>> sets, HashSet<int> newSet) {
+			if (!sets.ContainsHashSet(newSet))
+				sets.Add(newSet);
+		}
 
         #endregion
 
@@ -776,12 +825,12 @@ namespace WeaponEnchantments.Common.Utility
         public static void Clamp(this ref float value, float min = 0f, float max = 1f) {
             value = value < min ? min : value > max ? max : value;
         }
-        public static void CombineLists(this List<Item> list1, List<Item> list2, bool noDuplicates = false) {
+        public static void CombineLists(this List<Item> list1, IEnumerable<Item> list2, bool noDuplicates = false) {
             List<int> list1Types = list1.Select(i => i.type).ToList();
             List<int> list2Types = list2.Select(i => i.type).ToList();
-            for(int i = 0; i < list2Types.Count; i++) {
-                if (!noDuplicates || !list1Types.Contains(list2Types[i]))
-                    list1.Add(list2[i]);
+            foreach (Item item2 in list2) {
+                if (!noDuplicates || !list1Types.Contains(item2.type))
+                    list1.Add(item2);
 			}
 		}
         public static Type TypeAboveModItem(this Item item) {

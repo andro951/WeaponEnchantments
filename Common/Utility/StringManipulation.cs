@@ -35,7 +35,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.netID}, {item.ModItem?.Mod?.Name}" : "<Air>" : "null";
+        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.netID}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
 
         /// <summary>
         /// Convert to a string

@@ -38,6 +38,7 @@ namespace WeaponEnchantments
 		public static bool thoriumEnabled = ModLoader.TryGetMod("ThoriumMod", out Mod _);
 
 		public override void Load() {
+			//int numVanillaRecipies = Recipe.numRecipes;
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
 			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
 			HookEndpointManager.Add<hook_ModifyHitNPC>(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour);

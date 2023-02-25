@@ -16,6 +16,7 @@ using static WeaponEnchantments.Common.InfusionProgression;
 using IL.Terraria.DataStructures;
 using Mono.Cecil;
 using System.Reflection;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.Common
 {
@@ -105,7 +106,8 @@ namespace WeaponEnchantments.Common
 			get {
 				switch (itemSource.ItemSourceType) {
 					case ItemSourceType.Craft:
-						return baseCraftingInfusionPower + infusionPowerOffset;
+						int infusionPower = baseCraftingInfusionPower + infusionPowerOffset;
+						return infusionPower > 0 ? infusionPower : 0;
 					default:
 						return -1;
 				}
@@ -166,13 +168,16 @@ namespace WeaponEnchantments.Common
 	public static class InfusionProgression
 	{
 		private static bool guessingInfusionPowers = true;
-		public const int VANILLA_RECIPE_COUNT = 2700;
+		public const int VANILLA_RECIPE_COUNT = 2691;
 		private static bool finishedSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponSources { get; private set; } = new();//Not cleared
 		public static SortedDictionary<InfusionPowerSource, int> SourceInfusionPowers { get; private set; } = new();//Not cleared
-		private static SortedDictionary<int, HashSet<int>> allWeaponRecipies = new();
+		private static SortedDictionary<int, HashSet<HashSet<int>>> allWeaponRecipies = new();
 		private static HashSet<int> weaponsList = new();
+		private static HashSet<int> craftingStations = new();
 		public static HashSet<int> weaponIngredients = new();
+		private static SortedDictionary<int, HashSet<int>> requiredTileIngredients = new();
+		private static SortedDictionary<int, HashSet<int>> reverseCraftableIngredients = new();
 		public static SortedDictionary<int, int> VanillaCraftingItemSourceInfusionPowers = new() {
 			{ ItemID.Wood, 0 },
 			{ ItemID.Acorn, 0 },
@@ -183,10 +188,6 @@ namespace WeaponEnchantments.Common
 			{ ItemID.PalmWood, 0 },
 			{ ItemID.Gel, 5 },
 			{ ItemID.Cobweb, 8 },
-			{ ItemID.CrystalShard, 8 },
-			{ ItemID.SoulofLight, 8 },
-			{ ItemID.BonePlatform, 8 },
-			{ ItemID.BoneBlockWall, 8 },
 			{ ItemID.CopperBar, 10 },
 			{ ItemID.RedBrick, 10 },
 			{ ItemID.Cactus, 10 },
@@ -194,8 +195,6 @@ namespace WeaponEnchantments.Common
 			{ ItemID.IronBar, 20 },
 			{ ItemID.Bomb, 20 },
 			{ ItemID.WaterBucket, 20 },
-			{ ItemID.IllegalGunParts, 20 },
-			{ ItemID.SoulofFright, 20 },
 			{ ItemID.LeadBar, 20 },
 			{ ItemID.VilePowder, 25 },
 			{ ItemID.Silk, 25 },
@@ -203,12 +202,9 @@ namespace WeaponEnchantments.Common
 			{ ItemID.IceBlock, 25 },
 			{ ItemID.ViciousPowder, 25 },
 			{ ItemID.Shiverthorn, 30 },
-			{ ItemID.MeteoriteBar, 50 },
 			{ ItemID.Amethyst, 50 },
-			{ ItemID.Grenade, 51 },
 			{ ItemID.SilverBar, 55 },
 			{ ItemID.Topaz, 55 },
-			{ ItemID.AntlionMandible, 55 },
 			{ ItemID.TungstenBar, 55 },
 			{ ItemID.Sapphire, 60 },
 			{ ItemID.JungleRose, 60 },
@@ -217,40 +213,39 @@ namespace WeaponEnchantments.Common
 			{ ItemID.GoldBar, 75 },
 			{ ItemID.Ruby, 75 },
 			{ ItemID.PlatinumBar, 75 },
-			{ ItemID.Mace, 78 },
 			{ ItemID.LifeCrystal, 85 },
 			{ ItemID.Diamond, 85 },
-			{ ItemID.FlinxFur, 90 },
-			{ ItemID.Amber, 100 },
+			{ ItemID.FlinxFur, 95 },
+			{ ItemID.Stinger, 96 },
+			{ ItemID.JungleSpores, 96 },
 			{ ItemID.FossilOre, 100 },
-			{ ItemID.DemoniteBar, 105 },
-			{ ItemID.HellstoneBar, 105 },
-			{ ItemID.Stinger, 105 },
-			{ ItemID.Vine, 105 },
-			{ ItemID.SoulofMight, 105 },
-			{ ItemID.SoulofSight, 105 },
-			{ ItemID.ChlorophyteBar, 105 },
-			{ ItemID.HallowedBar, 105 },
-			{ ItemID.CrimtaneBar, 105 },
+			{ ItemID.Ale, 101 },
+			{ ItemID.Vine, 118 },
+			{ ItemID.DemoniteBar, 120 },
 			{ ItemID.CorruptSeeds, 120 },
 			{ ItemID.BottledWater, 120 },
 			{ ItemID.HallowedSeeds, 120 },
 			{ ItemID.EbonsandBlock, 120 },
 			{ ItemID.PixieDust, 120 },
 			{ ItemID.CrimsandBlock, 120 },
+			{ ItemID.CrimtaneBar, 120 },
 			{ ItemID.CrimsonSeeds, 120 },
+			{ ItemID.MeteoriteBar, 122 },
+			{ ItemID.Amber, 129 },
 			{ ItemID.FallenStar, 157 },
+			{ ItemID.AntlionMandible, 159 },
+			{ ItemID.IllegalGunParts, 159 },
 			{ ItemID.TissueSample, 160 },
 			{ ItemID.ShadowScale, 162 },
+			{ ItemID.BonePlatform, 200 },
+			{ ItemID.BoneBlockWall, 200 },
 			{ ItemID.Minishark, 222 },
 			{ ItemID.BeeWax, 243 },
-			{ ItemID.MagicMissile, 251 },
-			{ ItemID.Muramasa, 251 },
-			{ ItemID.Handgun, 251 },
-			{ ItemID.EnchantedSword, 258 },
+			{ ItemID.HellstoneBar, 306 },
 			{ ItemID.Pearlwood, 400 },
 			{ ItemID.CobaltBar, 418 },
 			{ ItemID.AdamantiteBar, 420 },
+			{ ItemID.CrystalShard, 420 },
 			{ ItemID.SoulofNight, 420 },
 			{ ItemID.SpiderFang, 420 },
 			{ ItemID.AncientBattleArmorMaterial, 420 },
@@ -258,20 +253,26 @@ namespace WeaponEnchantments.Common
 			{ ItemID.PalladiumBar, 424 },
 			{ ItemID.MythrilBar, 427 },
 			{ ItemID.OrichalcumBar, 433 },
+			{ ItemID.SoulofLight, 440 },
 			{ ItemID.TitaniumBar, 442 },
 			{ ItemID.DarkShard, 453 },
 			{ ItemID.LightShard, 453 },
 			{ ItemID.CursedFlame, 460 },
 			{ ItemID.SpellTome, 460 },
-			{ ItemID.PoisonStaff, 460 },
 			{ ItemID.Ichor, 460 },
 			{ ItemID.FrostCore, 460 },
 			{ ItemID.Shotgun, 467 },
+			{ ItemID.HallowedBar, 598 },
+			{ ItemID.SoulofMight, 603 },
 			{ ItemID.SharkFin, 606 },
+			{ ItemID.SoulofFright, 616 },
 			{ ItemID.BlackLens, 628 },
 			{ ItemID.Harp, 628 },
 			{ ItemID.UnicornHorn, 628 },
+			{ ItemID.SoulofSight, 628 },
+			{ ItemID.ChlorophyteBar, 653 },
 			{ ItemID.ShroomiteBar, 678 },
+			{ ItemID.BrokenHeroSword, 725 },
 			{ ItemID.SpectreBar, 734 },
 			{ ItemID.FragmentVortex, 1007 },
 			{ ItemID.FragmentNebula, 1007 },
@@ -282,100 +283,82 @@ namespace WeaponEnchantments.Common
 			{ ItemID.StarWrath, 1100 }
 		};//Not cleared
 		public static SortedDictionary<string, int> ModdedCraftingItemSourceInfusionPowers = new() {
-			{ "Aerialite Bar", 0 },
-			{ "Core of Calamity", 0 },
-			{ "Cosmilite Bar", 0 },
-			{ "Life Alloy", 0 },
-			{ "Astral Bar", 0 },
-			{ "Auric Bar", 10 },
-			{ "Dark Plasma", 10 },
-			{ "Lumenyl", 10 },
-			{ "Meld Construct", 10 },
-			{ "Uelibloom Bar", 10 },
-			{ "Voidstone", 10 },
-			{ "Depth Cells", 20 },
-			{ "Divine Geode", 20 },
-			{ "Essence of Sunlight", 20 },
-			{ "Pearl Shard", 20 },
-			{ "Plague Cell Canister", 20 },
-			{ "Ruinous Soul", 20 },
-			{ "Unholy Core", 20 },
-			{ "Exodium Cluster", 20 },
-			{ "Sea Prism", 20 },
-			{ "Sulphurous Sand", 20 },
-			{ "Bloodstone Core", 25 },
-			{ "Desert Feather", 25 },
-			{ "Endothermic Energy", 25 },
-			{ "Shadowspec Bar", 25 },
-			{ "Core of Sunlight", 30 },
-			{ "Cryonic Bar", 30 },
-			{ "Essence of Havoc", 30 },
 			{ "Wulfrum Metal Scrap", 40 },
 			{ "Energy Core", 43 },
-			{ "Depth Crusher", 47 },
-			{ "Corroded Fossil", 55 },
-			{ "Sulphuric Scale", 55 },
-			{ "Navystone", 55 },
-			{ "Phantoplasm", 60 },
-			{ "Unholy Essence", 60 },
+			{ "Desert Feather", 63 },
 			{ "Sea Remains", 87 },
-			{ "Scourge of the Desert", 87 },
+			{ "Pearl Shard", 97 },
 			{ "Stormlion Mandible", 97 },
-			{ "Armored Shell", 100 },
-			{ "Core of Havoc", 105 },
-			{ "Perennial Bar", 105 },
+			{ "Navystone", 97 },
+			{ "Sea Prism", 97 },
 			{ "Astral Monolith", 120 },
 			{ "Astral Sand", 120 },
+			{ "Sulphuric Scale", 125 },
 			{ "Acidwood", 125 },
-			{ "Blighted Gel", 160 },
 			{ "Blood Sample", 215 },
 			{ "Rotten Matter", 215 },
+			{ "Aerialite Bar", 230 },
 			{ "Dubious Plating", 235 },
 			{ "Mysterious Circuitry", 235 },
-			{ "Bladecrest Oathsword", 245 },
-			{ "Glaive", 245 },
-			{ "Staff of Necrosteocytes", 250 },
-			{ "Meowthrower", 415 },
-			{ "P90", 415 },
-			{ "Blast Barrel", 415 },
-			{ "Needler", 420 },
+			{ "Purified Gel", 280 },
+			{ "Essence of Eleum", 420 },
+			{ "Essence of Havoc", 420 },
+			{ "Essence of Sunlight", 420 },
+			{ "Mollusk Husk", 420 },
+			{ "Stardust", 420 },
 			{ "Prototype Plasma Drive Core", 440 },
 			{ "Suspicious Scrap", 440 },
-			{ "Flak Toxicannon", 600 },
+			{ "Unholy Core", 450 },
+			{ "Cryonic Bar", 585 },
+			{ "Corroded Fossil", 600 },
 			{ "Hoarfrost Bow", 600 },
+			{ "Solar Veil", 615 },
 			{ "Ashes of Calamity", 700 },
-			{ "Crushsaw Crasher", 700 },
+			{ "Depth Cells", 710 },
+			{ "Lumenyl", 710 },
 			{ "Smooth Voidstone", 710 },
+			{ "Sulphurous Sand", 710 },
+			{ "Voidstone", 710 },
+			{ "Living Shard", 725 },
+			{ "Perennial Bar", 725 },
 			{ "Core of Eleum", 750 },
+			{ "Core of Havoc", 750 },
+			{ "Core of Sunlight", 750 },
+			{ "Grand Scale", 775 },
+			{ "Core of Calamity", 860 },
 			{ "Infected Armor Plating", 860 },
+			{ "Life Alloy", 860 },
 			{ "Scoria Bar", 860 },
-			{ "Nullification Pistol", 880 },
+			{ "Plague Cell Canister", 880 },
 			{ "Planty Mush", 885 },
-			{ "Wrath of the Ancients", 900 },
-			{ "Utensil Poker", 1070 },
+			{ "Meld Construct", 995 },
+			{ "Galactica Singularity", 1005 },
+			{ "Astral Bar", 1010 },
+			{ "Auric Bar", 1100 },
+			{ "Bloodstone Core", 1105 },
 			{ "Demonic Bone Ash", 1105 },
 			{ "Effulgent Feather", 1150 },
-			{ "Golden Eagle", 1150 },
-			{ "Purge Guzzler", 1180 },
-			{ "Blissful Bombardier", 1180 },
-			{ "Telluric Glare", 1180 },
-			{ "Molten Amputator", 1180 },
+			{ "Divine Geode", 1180 },
+			{ "Unholy Essence", 1180 },
+			{ "Uelibloom Bar", 1200 },
 			{ "Aureus Cell", 1210 },
-			{ "The Storm", 1270 },
+			{ "Dark Plasma", 1240 },
+			{ "Armored Shell", 1270 },
+			{ "Phantoplasm", 1270 },
 			{ "Twisting Nether", 1300 },
-			{ "Cosmic Kunai", 1300 },
 			{ "Reaper Tooth", 1330 },
-			{ "Ghoulish Gouger", 1330 },
-			{ "Calamari's Lament", 1330 },
-			{ "Ethereal Subjugator", 1330 },
-			{ "Fetid Emesis", 1400 },
+			{ "Ruinous Soul", 1330 },
+			{ "Exodium Cluster", 1330 },
+			{ "Cosmilite Bar", 1400 },
+			{ "Darksun Fragment", 1450 },
+			{ "Endothermic Energy", 1450 },
 			{ "Nightmare Fuel", 1450 },
-			{ "Excelsus", 1450 },
 			{ "The Obliterator", 1450 },
 			{ "Eradicator", 1450 },
 			{ "Ascendant Spirit Essence", 1500 },
 			{ "Yharon Soul Fragment", 1550 },
-			{ "Wrathwing", 1550 },
+			{ "Miracle Matter", 1600 },
+			{ "Shadowspec Bar", 1700 },
 			{ "Abombination", 1700 },
 			{ "Heresy", 1700 }
 		};//Not cleared
@@ -410,37 +393,47 @@ namespace WeaponEnchantments.Common
 				//For each weapon
 				if (sampleWeapon.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon)) {
 					int infusionPowerWeapon = enchantedWeapon.GetWeaponInfusionPower();
-					foreach (int ingredientType in allWeaponRecipies[weaponType]) {
-						//Check if weapon's infusion power lowers the infusion power of the ingredient
-						Item ingredientSampleItem = ingredientType.CSI();
-						//If already an entry in VanillaCraftingItemSourceInfusionPowers or ModdedCraftingItemSourceInfusionPowers, use it instead of guessing
-						if (VanillaCraftingItemSourceInfusionPowers.ContainsKey(ingredientType)) {
-							if (!guessedSourceInfusionPowers.ContainsKey(ingredientType))
-								guessedSourceInfusionPowers.Add(ingredientType, VanillaCraftingItemSourceInfusionPowers[ingredientType]);
+					foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponType]) {
+						foreach (int ingredientType in ingredientTypes) {
+							//Check if weapon's infusion power lowers the infusion power of the ingredient
+							Item ingredientSampleItem = ingredientType.CSI();
+							//If already an entry in VanillaCraftingItemSourceInfusionPowers or ModdedCraftingItemSourceInfusionPowers, use it instead of guessing
+							if (VanillaCraftingItemSourceInfusionPowers.ContainsKey(ingredientType)) {
+								if (!guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
+									guessedSourceInfusionPowers.Add(ingredientType, VanillaCraftingItemSourceInfusionPowers[ingredientType]);
+									$"{ingredientSampleItem.S()} = {VanillaCraftingItemSourceInfusionPowers[ingredientType]} IP from {sampleWeapon.S()} (already existed)".LogSimple();
+								}
 
-							continue;
-						}
-						else if (ModdedCraftingItemSourceInfusionPowers.ContainsKey(ingredientSampleItem.Name)) {
-							if (!guessedSourceInfusionPowers.ContainsKey(ingredientType))
-								guessedSourceInfusionPowers.Add(ingredientType, ModdedCraftingItemSourceInfusionPowers[ingredientSampleItem.Name]);
+								continue;
+							}
+							else if (ModdedCraftingItemSourceInfusionPowers.ContainsKey(ingredientSampleItem.Name)) {
+								if (!guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
 
-							continue;
-						}
+									guessedSourceInfusionPowers.Add(ingredientType, ModdedCraftingItemSourceInfusionPowers[ingredientSampleItem.Name]);
+									$"{ingredientSampleItem.S()} = {ModdedCraftingItemSourceInfusionPowers[ingredientSampleItem.Name]} IP from {sampleWeapon.S()} (already existed)".LogSimple();
+								}
 
-						int infusionPower = infusionPowerWeapon;
-						if (ingredientSampleItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeaponIngredient))
-							infusionPower = enchantedWeaponIngredient.GetWeaponInfusionPower();
+								continue;
+							}
 
-						if (ingredientType < ItemID.Count && weaponType >= ItemID.Count)//Don't allow modded weapon recipies to affect vanilla ingredients
-							continue;
+							int infusionPower = infusionPowerWeapon;
+							if (ingredientSampleItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeaponIngredient))
+								infusionPower = enchantedWeaponIngredient.GetWeaponInfusionPower();
 
-						if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
-							int currentInfusionPower = guessedSourceInfusionPowers[ingredientType];
-							if (currentInfusionPower > infusionPower)
-								guessedSourceInfusionPowers[ingredientType] = infusionPower;
-						}
-						else {
-							guessedSourceInfusionPowers.Add(ingredientType, infusionPower);
+							if (ingredientType < ItemID.Count && weaponType >= ItemID.Count)//Don't allow modded weapon recipies to affect vanilla ingredients
+								continue;
+
+							if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
+								int currentInfusionPower = guessedSourceInfusionPowers[ingredientType];
+								if (currentInfusionPower > infusionPower) {
+									guessedSourceInfusionPowers[ingredientType] = infusionPower;
+									$"{ingredientSampleItem.S()} = {infusionPower} IP from {sampleWeapon.S()}".LogSimple();
+								}
+							}
+							else {
+								guessedSourceInfusionPowers.Add(ingredientType, infusionPower);
+								$"{ingredientSampleItem.S()} = {infusionPower} IP from {sampleWeapon.S()}".LogSimple();
+							}
 						}
 					}
 				}
@@ -455,19 +448,19 @@ namespace WeaponEnchantments.Common
 				foreach (int weaponKey in allWeaponRecipies.Keys) {
 					bool isLimmitingItemForThisItem = true;
 					string weaponName = weaponKey.CSI().Name;//temp
-					if (!allWeaponRecipies[weaponKey].Contains(key))
+					if (!allWeaponRecipies[weaponKey].SelectMany(t => t).Contains(key))
 						continue;
 
-					foreach (int ingredientType in allWeaponRecipies[weaponKey]) {
-						if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
-							int ingredientInfusionPower = guessedSourceInfusionPowers[ingredientType];
-							string ingredientName = ingredientType.CSI().Name;//temp
-							if (ingredientName == "Staff of the Mechworm")//temp
-								Main.NewText("Staff of the Mechworm");//temp
+					foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponKey]) {
+						foreach (int ingredientType in ingredientTypes) {
+							if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
+								int ingredientInfusionPower = guessedSourceInfusionPowers[ingredientType];
+								//string ingredientName = ingredientType.CSI().Name;//temp
 
-							if (infusionPower < ingredientInfusionPower) {// || infusionPower == ingredientInfusionPower && IsWeaponItem(key.CSI())) {//Works but not needed?
-								isLimmitingItemForThisItem = false;
-								break;
+								if (infusionPower < ingredientInfusionPower) {// || infusionPower == ingredientInfusionPower && IsWeaponItem(key.CSI())) {//Works but not needed?
+									isLimmitingItemForThisItem = false;
+									break;
+								}
 							}
 						}
 					}
@@ -477,7 +470,7 @@ namespace WeaponEnchantments.Common
 						break;
 					}
 				}
-				//Not working
+
 				if (!isLimmitingItem)
 					guessedSourceInfusionPowers.Remove(key);
 			}
@@ -512,6 +505,8 @@ namespace WeaponEnchantments.Common
 		}
 		private static void SetupTempDictionaries() {
 			SetupWeaponsList();
+			SetupReverseCraftableIngredients();
+			//GetAllRequiredTileIngredients();
 			GetAllWeaponIngredients();
 			GetAllCraftingResources();
 		}
@@ -527,29 +522,143 @@ namespace WeaponEnchantments.Common
 			//allWeapons.LogSimple();
 			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
+		private static void SetupReverseCraftableIngredients() {
+			//reverseCraftableIngredients
+			SortedDictionary<int, HashSet<int>> allRecipes = new();
+			foreach (Recipe r in Main.recipe) {
+				allRecipes.AddOrCombine(r.createItem.type, r.requiredItem.Select(i => i.type).ToHashSet());
+			}
+			/*
+			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+				HashSet<int> ingredients = Main.recipe.Select(r => r.requiredItem.Select(i => i.type)).SelectMany(t => t).ToHashSet();
+				if (ingredients.Any())
+					allRecipes.Add(i, ingredients);
+			}
+			*/
+
+			foreach (int createItemType in allRecipes.Keys) {
+				foreach (int ingredient in allRecipes[createItemType]) {
+					if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType))
+						reverseCraftableIngredients.AddOrCombine(createItemType, ingredient);
+				}
+			}
+
+			//$"\nreverseCraftableIngredients:\n{reverseCraftableIngredients.Select(pair => $"{pair.Key.CSI().S()}: {pair.Value.Select(t => t.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
+		}
+		private static bool CraftedFromAnyInList(this int ingredientType, IEnumerable<int> createdItemTypes) {
+			foreach (int ingredient in Main.recipe.Where(r => createdItemTypes.Contains(r.createItem.type)).Select(r => r.requiredItem.Select(i => i.type)).SelectMany(t => t)) {
+				if (ingredient == ingredientType)
+					return true;
+			}
+
+			return false;
+		}
+		private static void GetAllRequiredTileIngredients() {//TODO: Continue to check required tile ingredients like TryGetAllCraftingIngredientTypes.  Maybe just merge the 2
+			/*
+			//requiredTileIngredients
+			SortedDictionary<int, int> tileTypeToItemType = new();
+			foreach (int tileType in Main.recipe.Select(recipe => recipe.requiredTile).SelectMany(tiles => tiles).ToHashSet()) {
+				int itemType = WEGlobalTile.GetDroppedItem(tileType);
+				if (itemType <= 0) {
+					if (tileType > TileID.Count) {
+						if (TryGetModTileName(tileType, out string modTileName) && TryGetModTileItemType(modTileName, out int modTileItemType)) {
+							itemType = modTileItemType;
+						}
+						else {
+							$"Failed to find find modded tile name for tile: {tileType}, modTileName: {modTileName}".LogSimple();
+						}
+					}
+					else {
+						$"Failed to find find vanilla tile type: {tileType}".LogSimple();
+					}
+				}
+
+				if (itemType > 0)
+					tileTypeToItemType.Add(tileType, itemType);
+			}
+			*/
+			HashSet<int> requiredTileTypes = Main.recipe.Select(recipe => recipe.requiredTile).SelectMany(tiles => tiles).ToHashSet();
+
+			foreach (int tileType in requiredTileTypes) {
+				int itemType = WEGlobalTile.GetDroppedItem(tileType);
+				if (itemType <= 0)
+					continue;
+
+				Item temp = itemType.CSI();//Temp
+										   //int createItemType in Main.recipe.Select(r => r.requiredTile).SelectMany(t => t).ToHashSet().Where(type => tileTypeToItemType.ContainsKey(type))
+				IEnumerable<Recipe> recipies = Main.recipe.Where(r => r.createItem.type == itemType);
+				if (recipies.Any()) {
+					HashSet<int> ingredients = recipies.First().requiredItem.Select(i => i.type).ToHashSet();
+					string temp2 = ingredients.Select(type => $"{type.CSI().S()}").JoinList(", ");
+					requiredTileIngredients.Add(tileType, ingredients);
+				}
+			}
+
+			//$"\n{requiredTileIngredients.Select(pair => $"{(TileLoader.GetTile(pair.Key) != null ? TileLoader.GetTile(pair.Key).Name : WEGlobalTile.GetDroppedItem(pair.Key).CSI().S())}: {pair.Value.Select(type => type.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
+		}
 		private static void GetAllWeaponIngredients() {
 			foreach (Recipe recipe in Main.recipe.Where((r, index) => weaponsList.Contains(r.createItem.type) && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT))) {
 				foreach (int type in recipe.requiredItem.Select(i => i.type)) {
 					weaponIngredients.Add(type);
 				}
+
+				foreach (int type in recipe.requiredTile.Select(tileType => WEGlobalTile.GetDroppedItem(tileType)).Where(type => type > 0)) {
+					weaponIngredients.Add(type);
+					craftingStations.Add(type);
+				}
 			}
+			/*
+			SortedDictionary<int, int> weaponIngredientCounts = new();
+			foreach (Recipe recipe in Main.recipe.Where((r, index) => weaponsList.Contains(r.createItem.type) && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT))) {
+				foreach (int type in recipe.requiredItem.Select(i => i.type)) {
+					weaponIngredientCounts.AddOrCombine(type, 1);
+				}
+
+				foreach (int type in recipe.requiredTile.Select(tileType => WEGlobalTile.GetDroppedItem(tileType)).Where(type => type > 0)) {
+					weaponIngredientCounts.AddOrCombine(type, 1);
+					craftingStations.Add(type);
+				}
+			}
+
+			weaponIngredients = weaponIngredientCounts.Where(pair => pair.Value > 1 || IsWeaponItem(pair.Key.CSI())).Select(pair => pair.Key).ToHashSet();
+			*/
+
+			/*
+			HashSet<string> requiredTiles = new();
+			foreach (Recipe recipe in Main.recipe) {
+				foreach (int type in recipe.requiredTile) {
+					if (TileID.Search.TryGetName(type, out string tileName)) {
+						requiredTiles.Add(tileName);
+					}
+					//ItemID.Search.TryGetName(sourceItem.Key, out string name)
+				}
+			}
+			
+			//$"\n{requiredTiles.Select(tileName => $"\t\tcase TileID.{tileName}:\n\t\t\tdropItem = ItemID.{tileName};\n\t\t\tbreak;").JoinList("\n")}".LogSimple();
+			$"\n{Main.recipe
+				.Select(recipe => recipe.requiredTile
+				.Where(tile => tile >= TileID.Count))
+				.SelectMany(t => t)
+				.ToHashSet()
+				.Select(type => TileLoader.GetTile(type))
+				.Where(modTile => modTile != null)
+				.Select(modTile => $"\t\tcase {"\""}{modTile.Name}{"\""}, {modTile.FullName}:\n\t\t\tdropItemName = {"\""}{modTile.Name}{"\""};\n\t\t\tbreak;")
+				.JoinList("\n")}".LogSimple();
+			*/
 		}
 		private static void GetAllCraftingResources() {
 			foreach (int weaponType in weaponsList) {
-				if (TryGetAllCraftingIngredientTypes(weaponType, out HashSet<int> ingredients))
+				if (TryGetAllCraftingIngredientTypes(weaponType, out HashSet<HashSet<int>> ingredients))
 					allWeaponRecipies.Add(weaponType, ingredients);
 			}
 
 			if (guessingInfusionPowers) {
-				$"\n{
-					allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{
-						weapon.Value.Select(ingredient => $" {ingredient.CSI().Name}").JoinList(", ")
-					}").JoinList("\n")
-				}".LogSimple();
+				$"\n{allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{weapon.Value.Select(ingredient => $" {ingredient.Select(i => i.CSI().Name).JoinList(" or ")}").JoinList(", ")}").JoinList("\n")}".LogSimple();
 			}
 		}
 		public static List<int> typesQue = new();
 		public static int weaponBeingChecked = -1;
+		/*
 		public static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<int> ingredients) {
 			if (LogMethods.debugging) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
 			bool isOriginal = false;
@@ -591,29 +700,293 @@ namespace WeaponEnchantments.Common
 
 			return ingredients.Count > 0;
 		}
+		*/
+		/*
+		public static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<int> ingredients) {
+			if (LogMethods.debugging) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+			bool isOriginal = false;
+			if (weaponBeingChecked == -1) {
+				weaponBeingChecked = createItemType;
+				isOriginal = true;
+			}
+			else if (typesQue.Any() && !weaponIngredients.Contains(createItemType) || typesQue.Contains(createItemType)) {
+				ingredients = null;
+				if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); Removed, {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+
+				return false;
+			}
+
+			typesQue.Add(createItemType);
+			bool isWeapon = IsWeaponItem(createItemType.CSI());
+			ingredients = Main.recipe
+				.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT))
+				.Select(r => 
+					r.requiredItem.Concat(
+						r.requiredTile
+							.Select(tile => WEGlobalTile.GetDroppedItem(tile))
+							.Where(type => type > 0)
+							.Select(type => type.CSI())
+					).ToHashSet()
+				.Select(item =>
+					!typesQue.Contains(item.type) ?
+						(isWeapon || !IsWeaponItem(item)) && TryGetAllCraftingIngredientTypes(item.type, out HashSet<int> ingredientSet) ?
+							ingredientSet
+						:
+							isWeapon ?
+								new HashSet<int>() { item.type }
+							:
+								new HashSet<int>()
+					:
+						new HashSet<int>()))
+				.SelectMany(hashSetList => hashSetList)
+				.SelectMany(hashSet => hashSet)
+				.ToHashSet();
+
+			if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}; {ingredients.Select(i => i.CSI().Name).JoinList(", ")}".Log();
+			if (isOriginal) {
+				weaponBeingChecked = -1;
+				typesQue.Clear();
+			}
+
+			return ingredients.Count > 0;
+		}
+		*/
+		/*
+		public static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<int> ingredients) {
+			//Try splitting this into more simple functions?
+			if (LogMethods.debugging) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+			bool isOriginal = false;
+			string name = createItemType.CSI().Name;//Temp
+			if (weaponBeingChecked == -1) {
+				weaponBeingChecked = createItemType;
+				isOriginal = true;
+			}
+			else if (typesQue.Any() && !weaponIngredients.Contains(createItemType)) {
+				ingredients = null;
+				if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); Removed, {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+
+				return false;
+			}
+			else if (reverseCraftableIngredients.Keys.Contains(createItemType)) {
+				if (reverseCraftableIngredients[createItemType].Where(t => typesQue.Contains(t)).Any()) {
+					ingredients = null;
+					if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); Removed, {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+
+					return false;
+				}
+			}
+
+			bool isWeapon = IsWeaponItem(createItemType.CSI());
+			bool isCraftingStation = craftingStations.Contains(createItemType);
+			bool isUniqueItem = isWeapon || isCraftingStation;
+			if (!isWeapon)
+				typesQue.Add(createItemType);
+
+			ingredients = Main.recipe
+				.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT))
+				.Select(r =>
+					r.requiredItem.Concat(
+						r.requiredTile
+							.Select(tile => WEGlobalTile.GetDroppedItem(tile))
+							.Where(type => type > 0)
+							.Select(type => type.CSI())
+					).ToHashSet()
+				.Select(item =>
+					!typesQue.Contains(item.type) ?
+						(isWeapon || !IsWeaponItem(item)) && TryGetAllCraftingIngredientTypes(item.type, out HashSet<int> ingredientSet) ?
+							ingredientSet
+						:
+							isWeapon ?
+								new HashSet<int>() { item.type }
+							:
+								new HashSet<int>()
+					:
+						new HashSet<int>()))
+				.SelectMany(hashSetList => hashSetList)
+				.SelectMany(hashSet => hashSet)
+				.ToHashSet();
+
+			if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}; {ingredients.Select(i => i.CSI().Name).JoinList(", ")}".Log();
+			if (isOriginal) {
+				weaponBeingChecked = -1;
+				typesQue.Clear();
+			}
+
+			return ingredients.Count > 0;
+		}
+		*/
+		private static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<HashSet<int>> ingredients) {
+			ingredients = new();
+			Item createItem = createItemType.CSI();
+			string name = createItemType.CSI().Name;//Temp
+			bool isWeapon = IsWeaponItem(createItem);
+			//IEnumerable<Recipe> recipies = Main.recipe.Where(r => r.createItem.type == createItemType);//Swap to this after all testing
+			IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
+			HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
+			foreach (Recipe recipe in recipies) {
+				if (!isWeapon && recipe.IsReverseCraftable())
+					continue;
+
+				HashSet<HashSet<int>> requiredItemTypes = new();
+				foreach (Item ingredientItem in recipe.requiredItem) {
+					int ingredientType = ingredientItem.type;
+					if (weaponIngredients.Contains(ingredientType)) {
+						if (TryGetAllCraftingIngredientTypes(ingredientType, out HashSet<HashSet<int>> ingredientTypes)) {
+							string ingredientTypesNames = ingredientTypes.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ");
+							requiredItemTypes.CombineHashSet(ingredientTypes);
+						}
+						else {
+							requiredItemTypes.TryAdd(new() { ingredientType });
+						}
+
+						if (requiredItemTypes.Count <= 0)
+							continue;
+
+						//ingredients.CombineHashSet(requiredItemTypes);
+
+						foreach (Item requiredTyleItem in recipe.requiredTile.Select(tile => WEGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).Select(type => type.CSI())) {
+							int requiredTyleItemType = requiredTyleItem.type;
+							//if (weaponIngredients.Contains(ingredientType))
+							requiredItemTypes.TryAdd(new() { requiredTyleItemType });
+						}
+
+						requiredItemTypeLists.Add(requiredItemTypes);
+					}
+					else {
+						ingredients.TryAdd(new() { ingredientType });
+					}
+				}
+			}
+
+			ingredients = ingredients.CombineIngredientLists(requiredItemTypeLists);
+
+			string ingredientTypesNames2 = $"{createItem.S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}";
+			return ingredients.Count > 0;
+			/*
+			//Try splitting this into more simple functions?
+			if (LogMethods.debugging) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+			bool isOriginal = false;
+			if (weaponBeingChecked == -1) {
+				weaponBeingChecked = createItemType;
+				isOriginal = true;
+			}
+			else if (typesQue.Any() && !weaponIngredients.Contains(createItemType)) {
+				ingredients = null;
+				if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); Removed, {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+
+				return false;
+			}
+			else if (reverseCraftableIngredients.Keys.Contains(createItemType)) {
+				if (reverseCraftableIngredients[createItemType].Where(t => typesQue.Contains(t)).Any()) {
+					ingredients = null;
+					if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); Removed, {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
+
+					return false;
+				}
+			}
+
+			bool isWeapon = IsWeaponItem(createItemType.CSI());
+			bool isCraftingStation = craftingStations.Contains(createItemType);
+			bool isUniqueItem = isWeapon || isCraftingStation;
+			if (!isWeapon)
+				typesQue.Add(createItemType);
+
+			ingredients = Main.recipe
+				.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT))
+				.Select(r =>
+					r.requiredItem.Concat(
+						r.requiredTile
+							.Select(tile => WEGlobalTile.GetDroppedItem(tile))
+							.Where(type => type > 0)
+							.Select(type => type.CSI())
+					).ToHashSet()
+				.Select(item =>
+					!typesQue.Contains(item.type) ?
+						(isWeapon || !IsWeaponItem(item)) && TryGetAllCraftingIngredientTypes(item.type, out HashSet<int> ingredientSet) ?
+							ingredientSet
+						:
+							isWeapon ?
+								new HashSet<int>() { item.type }
+							:
+								new HashSet<int>()
+					:
+						new HashSet<int>()))
+				.SelectMany(hashSetList => hashSetList)
+				.SelectMany(hashSet => hashSet)
+				.ToHashSet();
+
+			if (LogMethods.debugging) $"/\\TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}; {ingredients.Select(i => i.CSI().Name).JoinList(", ")}".Log();
+			if (isOriginal) {
+				weaponBeingChecked = -1;
+				typesQue.Clear();
+			}
+
+			return ingredients.Count > 0;
+			*/
+		}
+		public static HashSet<HashSet<int>> CombineIngredientLists(this HashSet<HashSet<int>> ingredientsArg, HashSet<HashSet<HashSet<int>>> requiredItemTypeLists) {
+			HashSet<HashSet<int>> ingredients = ingredientsArg;
+			foreach (HashSet<HashSet<int>> requiredItemTypes in requiredItemTypeLists) {
+				if (ingredients.Count <= 0) {
+					ingredients = requiredItemTypes;
+					continue;
+				}
+
+				HashSet<HashSet<int>> failedMatches = new();
+				HashSet<int> failedMatch = new();
+				foreach (HashSet<int> requiredItemType in requiredItemTypes) {
+					bool contains = ingredients.ContainsHashSet(requiredItemType);
+
+					if (contains) {
+						continue;
+					}
+					else {
+						failedMatches.Add(requiredItemType);
+						failedMatch = requiredItemType;
+					}
+				}
+
+				if (failedMatches.Count == 1 && requiredItemTypes.Count == ingredients.Count) {
+					foreach (HashSet<int> ingredientType in ingredients) {
+						if (!requiredItemTypes.Contains(ingredientType)) {
+							ingredients.Remove(ingredientType);
+							ingredients.Add(ingredientType.Concat(failedMatch).ToHashSet());
+							break;
+						}
+					}
+				}
+				else {
+					ingredients.CombineHashSet(failedMatches);
+				}
+			}
+
+			return ingredients;
+		}
 		private static void PopulateCraftingWeaponSources() {
 			foreach (int weaponType in allWeaponRecipies.Keys) {
 				InfusionPowerSource highestInfusionPowerSource = new();
 				int infusionPower = -1;
-				foreach (int ingredientType in allWeaponRecipies[weaponType]) {
-					bool found = false;
-					ItemSource itemSource = new(weaponType, ItemSourceType.Craft, ingredientType);
-					InfusionPowerSource infusionPowerSource = new(itemSource);
-					if (ingredientType < ItemID.Count) {
-						if (VanillaCraftingItemSourceInfusionPowers.ContainsKey(ingredientType))
-							found = true;
-					}
-					else {
-						Item sampleIngredientItem = ingredientType.CSI();
-						if (ModdedCraftingItemSourceInfusionPowers.ContainsKey(sampleIngredientItem.Name))
-							found = true;
-					}
+				foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponType]) {
+					foreach (int ingredientType in ingredientTypes) {
+						bool found = false;
+						ItemSource itemSource = new(weaponType, ItemSourceType.Craft, ingredientType);
+						InfusionPowerSource infusionPowerSource = new(itemSource);
+						if (ingredientType < ItemID.Count) {
+							if (VanillaCraftingItemSourceInfusionPowers.ContainsKey(ingredientType))
+								found = true;
+						}
+						else {
+							Item sampleIngredientItem = ingredientType.CSI();
+							if (ModdedCraftingItemSourceInfusionPowers.ContainsKey(sampleIngredientItem.Name))
+								found = true;
+						}
 
-					if (found) {
-						int newInfusionPower = infusionPowerSource.InfusionPower;
-						if (newInfusionPower > infusionPower) {
-							infusionPower = newInfusionPower;
-							highestInfusionPowerSource = infusionPowerSource;
+						if (found) {
+							int newInfusionPower = infusionPowerSource.InfusionPower;
+							if (newInfusionPower > infusionPower) {
+								infusionPower = newInfusionPower;
+								highestInfusionPowerSource = infusionPowerSource;
+							}
 						}
 					}
 				}
@@ -624,6 +997,7 @@ namespace WeaponEnchantments.Common
 		}
 		private static void ClearTempDictionaries() {
 			weaponsList.Clear();
+			craftingStations.Clear();
 			allWeaponRecipies.Clear();
 			weaponIngredients.Clear();
 			finishedSetup = true;
@@ -631,13 +1005,23 @@ namespace WeaponEnchantments.Common
 
 		public static bool TryGetBaseInfusionPower(Item item, out int baseInfusionPower) {
 			int weaponType = item.type;
-			if (WeaponSources.ContainsKey(weaponType)) {
+			if (false && WeaponSources.ContainsKey(weaponType)) {
 				baseInfusionPower = WeaponSources[weaponType].InfusionPower;
 
 				return true;
 			}
 
 			baseInfusionPower = 0;
+			return false;
+		}
+		private static bool IsReverseCraftable(this Recipe recipe) {
+			int createItemType = recipe.createItem.type;
+			string temp = $"createItem {recipe.createItem.S()}: {recipe.requiredItem.Select(i => i.S()).JoinList(", ")}";
+			if (reverseCraftableIngredients.Keys.Contains(createItemType)) {
+				if (reverseCraftableIngredients[createItemType].Where(ingredientType => recipe.requiredItem.Select(item => item.type).Contains(ingredientType)).Any())
+					return true;
+			}
+
 			return false;
 		}
 	}

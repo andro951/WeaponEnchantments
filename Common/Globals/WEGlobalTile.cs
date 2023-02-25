@@ -6,6 +6,9 @@ using WeaponEnchantments.Tiles;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static Terraria.ID.TileID;
 using WeaponEnchantments.Common.Utility;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -13,6 +16,16 @@ namespace WeaponEnchantments.Common.Globals
     {
 		public static int tileType = -1;
 		public static Item dropItem = new Item();
+		private static SortedDictionary<int, int> tileTypeToItemType = null;
+		private static SortedDictionary<int, int> TileTypeToItemType {
+			get {
+				if (tileTypeToItemType == null)
+					SetupTileTypeToItemType();
+
+				return tileTypeToItemType;
+			}
+		}
+		private static bool tileTypeToItemTypesSetup = false;
 		public override bool CanPlace(int i, int j, int type) {
 			int mainTile = Main.tile[i, j].TileType;
 			for (int k = 0; k < Items.EnchantingTableItem.enchantingTableNames.Length; k++) {
@@ -81,7 +94,7 @@ namespace WeaponEnchantments.Common.Globals
 			int damage = wePlayer.Player.hitTile.AddDamage(hitBufferIndex, damageAmount, false);
 			if (damage >= 100) {
 				tileType = tileTarget.TileType;
-				dropItem = new Item(GetDroppedItem(tileTarget, type));
+				dropItem = new Item(GetDroppedItem(type, tileTarget.TileFrameX, true));
 			}
 
 			return true;
@@ -141,9 +154,9 @@ namespace WeaponEnchantments.Common.Globals
 			tileType = -1;
 			dropItem = new Item();
         }
-		public static int GetDroppedItem(Tile tileCache, int type) {
+		public static int GetDroppedItem(int type, int frame = 0, bool forMining = false) {
 			int dropItem = 0;
-			switch (tileCache.TileType) {
+			switch (type) {
 				//Coin Piles
 				case TileID.CopperCoinPile:
 					dropItem = ItemID.CopperCoin;
@@ -228,7 +241,7 @@ namespace WeaponEnchantments.Common.Globals
 
 				//Gems and crystals
 				case TileID.Crystals:
-					if (tileCache.TileFrameX >= 324)
+					if (frame >= 324)
 						dropItem = ItemID.QueenSlimeCrystal;
 					else
 						dropItem = ItemID.CrystalShard;
@@ -266,7 +279,6 @@ namespace WeaponEnchantments.Common.Globals
 					dropItem = ItemID.Amber;
 					break;
 				case TileID.ExposedGems:
-					int frame = tileCache.TileFrameX / 18;
 					switch (frame) {
 						case 0:
 							dropItem = ItemID.Amethyst;
@@ -289,21 +301,140 @@ namespace WeaponEnchantments.Common.Globals
 						case 6:
 							dropItem = ItemID.Amber;
 							break;
-						default:
-
-							ModTile modTile = TileLoader.GetTile(type);
-							//Get item dropped by the tile
-							if (modTile != null && TileID.Sets.Ore[tileType]) {
-								//Modded ore
-								dropItem = ItemLoader.GetItem(modTile.ItemDrop).Item.type;
-							}
-							else {
-								($"Failed to determine the dropItem of tile: tileCache.LiquidType: {tileCache.LiquidType}, tileCache.TileFrameX: {tileCache.TileFrameX}, " +
-									$"tileCache.TileFrameY: {tileCache.TileFrameY}.").LogNT(ChatMessagesIDs.FailedDetermineDropItem);
-							}
-
-							break;
 					}
+					break;
+				case TileID.CrystalBall:
+					dropItem = ItemID.CrystalBall;
+					break;
+				case TileID.Loom:
+					dropItem = ItemID.Loom;
+					break;
+				case TileID.Anvils:
+					dropItem = ItemID.IronAnvil;
+					break;
+				case TileID.Furnaces:
+					dropItem = ItemID.Furnace;
+					break;
+				case TileID.Kegs:
+					dropItem = ItemID.Keg;
+					break;
+				case TileID.CookingPots:
+					dropItem = ItemID.CookingPot;
+					break;
+				case TileID.WorkBenches:
+					dropItem = ItemID.WorkBench;
+					break;
+				case TileID.TeaKettle:
+					dropItem = ItemID.TeaKettle;
+					break;
+				case TileID.Bottles:
+					dropItem = ItemID.Bottle;
+					break;
+				case TileID.ImbuingStation:
+					dropItem = ItemID.ImbuingStation;
+					break;
+				case TileID.MythrilAnvil:
+					dropItem = ItemID.MythrilAnvil;
+					break;
+				case TileID.Autohammer:
+					dropItem = ItemID.Autohammer;
+					break;
+				case TileID.LivingLoom:
+					dropItem = ItemID.LivingLoom;
+					break;
+				case TileID.HeavyWorkBench:
+					dropItem = ItemID.HeavyWorkBench;
+					break;
+				case TileID.Blendomatic:
+					dropItem = ItemID.BlendOMatic;
+					break;
+				case TileID.Sawmill:
+					dropItem = ItemID.Sawmill;
+					break;
+				case TileID.LunarCraftingStation:
+					dropItem = ItemID.LunarCraftingStation;
+					break;
+				case TileID.AdamantiteForge:
+					dropItem = ItemID.AdamantiteForge;
+					break;
+				case TileID.Solidifier:
+					dropItem = ItemID.Solidifier;
+					break;
+				case TileID.MeatGrinder:
+					dropItem = ItemID.MeatGrinder;
+					break;
+				case TileID.LesionStation:
+					dropItem = ItemID.LesionStation;
+					break;
+				case TileID.GlassKiln:
+					dropItem = ItemID.GlassKiln;
+					break;
+				case TileID.HoneyDispenser:
+					dropItem = ItemID.HoneyDispenser;
+					break;
+				case TileID.SkyMill:
+					dropItem = ItemID.SkyMill;
+					break;
+				case TileID.LihzahrdFurnace:
+					dropItem = ItemID.LihzahrdFurnace;
+					break;
+				case TileID.IceMachine:
+					dropItem = ItemID.IceMachine;
+					break;
+				case TileID.SteampunkBoiler:
+					dropItem = ItemID.SteampunkBoiler;
+					break;
+				case TileID.FleshCloningVat:
+					dropItem = ItemID.FleshCloningVaat;
+					break;
+				case TileID.BoneWelder:
+					dropItem = ItemID.BoneWelder;
+					break;
+				case TileID.Hellforge:
+					dropItem = ItemID.Hellforge;
+					break;
+				case TileID.DyeVat:
+					dropItem = ItemID.DyeVat;
+					break;
+				case TileID.TinkerersWorkbench:
+					dropItem = ItemID.TinkerersWorkshop;
+					break;
+				case TileID.Tables:
+					dropItem = ItemID.WoodenTable;
+					break;
+				case TileID.Chairs:
+					dropItem = ItemID.WoodenChair;
+					break;
+				case TileID.Bookcases:
+					dropItem = ItemID.Bookcase;
+					break;
+				case TileID.AlchemyTable:
+					dropItem = ItemID.AlchemyTable;
+					break;
+				case TileID.DemonAltar:
+					if (WEMod.magicStorageEnabled && TileTypeToItemType.Keys.Contains(type))
+						dropItem = TileTypeToItemType[type];
+
+					break;
+				default:
+					ModTile modTile = TileLoader.GetTile(type);
+					//Get item dropped by the tile
+					if (modTile != null && (!forMining || TileID.Sets.Ore[tileType])) {
+						if (modTile.ItemDrop > 0) {
+							dropItem = modTile.ItemDrop;
+						}
+						else if (TileTypeToItemType.Keys.Contains(type)) {
+							dropItem = TileTypeToItemType[type];
+						}
+						else if (tileTypeToItemTypesSetup) {
+							$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+						}
+
+					}
+					else {
+						$"Failed to determine the dropItem of tile: {type}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+					}
+
 					break;
 			}
 
@@ -508,5 +639,62 @@ namespace WeaponEnchantments.Common.Globals
 			David 👻 [Crowd Control Mod] — Today at 5:34 PM
 			I'm not too too familiar. You create a struct that implements ITileData. Then with a tile instance you can do ref tile.Get<YourStruct>().
 		}*/
+		private static void SetupTileTypeToItemType() {
+			tileTypeToItemType = new();
+			foreach (int tileType in Main.recipe.Select(recipe => recipe.requiredTile).SelectMany(tiles => tiles).ToHashSet()) {
+				int itemType = GetDroppedItem(tileType);
+				if (itemType <= 0) {
+					if (tileType > TileID.Count || WEMod.magicStorageEnabled && tileType == TileID.DemonAltar) {
+						if (TryGetModTileName(tileType, out string modTileName) && TryGetModTileItemType(modTileName, out int modTileItemType)) {
+							itemType = modTileItemType;
+						}
+						else {
+							$"Failed to find find modded tile name for tile: {tileType}, modTileName: {modTileName}".LogSimple();
+						}
+					}
+					else {
+						$"Failed to find find vanilla tile type: {tileType}".LogSimple();
+					}
+				}
+
+				if (itemType > 0)
+					tileTypeToItemType.Add(tileType, itemType);
+			}
+
+			tileTypeToItemTypesSetup = true;
+			//$"\n{tileTypeToItemType.Select(t => $"{t.Key}: {t.Value.CSI().S()}").JoinList("\n")}".LogSimple();
+		}
+		private static bool TryGetModTileName(int tileType, out string modTileName) {
+			modTileName = "";
+			if (WEMod.magicStorageEnabled && tileType == TileID.DemonAltar) {
+				modTileName = "DemonAltar";
+				return true;
+			}
+
+			if (tileType < TileID.Count)
+				return false;
+
+			ModTile modTile = TileLoader.GetTile(tileType);
+			if (modTile == null)
+				return false;
+
+			modTileName = modTile.Name;
+			return true;
+		}
+		private static bool TryGetModTileItemType(string modTileName, out int modTileItemType) {//TODO: change to fullname instead of name
+			modTileItemType = 0;
+			for (int type = ItemID.Count; type < ItemLoader.ItemCount; type++) {
+				ModItem modItem = ContentSamples.ItemsByType[type].ModItem;
+				if (modItem == null)
+					continue;
+
+				if (modTileName == modItem.Name) {
+					modTileItemType = modItem.Type;
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
