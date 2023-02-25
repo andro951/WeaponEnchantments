@@ -276,6 +276,11 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		public bool DamageReductionPerLevelDisabled;
 
+        [Label("Calculate Damage Reduction before player defense")]
+        [Tooltip("By default, damage reduction is applied after player defense.  Select this to apply before.\nBefore will cause you to take much less damage.")]
+        [DefaultValue(false)]
+        public bool CalculateDamageReductionBeforeDefense;
+
 		[ReloadRequired]
         [Label("Armor and accessory Damage Reductions")]
         public List<ArmorDamageReduction> ArmorDamageReductions = new() { new(0), new(1), new(2), new(3) };
