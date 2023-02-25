@@ -656,8 +656,8 @@ namespace WeaponEnchantments.Common
 				$"\n{allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{weapon.Value.Select(ingredient => $" {ingredient.Select(i => i.CSI().Name).JoinList(" or ")}").JoinList(", ")}").JoinList("\n")}".LogSimple();
 			}
 		}
-		public static List<int> typesQue = new();
-		public static int weaponBeingChecked = -1;
+		//public static List<int> typesQue = new();
+		//public static int weaponBeingChecked = -1;
 		/*
 		public static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<int> ingredients) {
 			if (LogMethods.debugging) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().Name}); {typesQue.Select(t => t.CSI().Name).JoinList(", ")}".Log();
