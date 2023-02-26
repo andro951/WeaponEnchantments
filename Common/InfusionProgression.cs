@@ -246,13 +246,14 @@ namespace WeaponEnchantments.Common
 	}
 	public static class InfusionProgression
 	{
-		private static bool guessingInfusionPowers = true;
+		private static bool guessingInfusionPowers = false;
 		public const int VANILLA_RECIPE_COUNT = 2691;
 		private static bool finishedSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponSources { get; private set; } = new();//Not cleared
 		public static SortedDictionary<InfusionPowerSource, int> SourceInfusionPowers { get; private set; } = new();//Not cleared
 		private static SortedDictionary<int, HashSet<HashSet<int>>> allWeaponRecipies = new();
 		private static SortedSet<int> weaponsList = new();
+		private static SortedSet<int> weaponCraftingIngredients = new();
 		public static SortedDictionary<int, HashSet<HashSet<int>>> allExpandedRecepies = new();
 		private static SortedDictionary<int, HashSet<int>> reverseCraftableIngredients = new();
 		public static SortedDictionary<int, int> OreInfusionPowers = new() {
@@ -503,10 +504,10 @@ namespace WeaponEnchantments.Common
 			ClearTempDictionaries();
 		}
 		private static void SetupTempDictionaries() {
-			SetupProgressionGroups();
 			SetupWeaponsList();
 			SetupReverseCraftableIngredients();
 			GetAllCraftingResources();
+			SetupProgressionGroups();
 		}
 		private static void SetupProgressionGroups() {
 			SetupMinedOreInfusionPowers();
@@ -525,7 +526,7 @@ namespace WeaponEnchantments.Common
 		private static void SetupInfusionPowerTiles() {
 			infusionPowerTiles = new();
 			for (int tileType = 0; tileType < TileID.Count; tileType++) {
-				int itemType = WEGlobalTile.GetDroppedItem(tileType);
+				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
 				if (itemType <= 0)
 					continue;
 
@@ -540,14 +541,18 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			$"\ninfusionPowerTiles:\n{infusionPowerTiles.Select(i => $"infusionPower: {i.Key}, pickPower: {i.Value.pickPower}, value: {i.Value.value}").JoinList("\n")}".LogSimple();
+			//$"\ninfusionPowerTiles:\n{infusionPowerTiles.Select(i => $"infusionPower: {i.Key}, pickPower: {i.Value.pickPower}, value: {i.Value.value}").JoinList("\n")}".LogSimple();
 		}
 		private static void SetupMinedOreInfusionPowers() {
-			SortedSet<int> oreInfusionPowerSet = new(OreInfusionPowers.Select(p => p.Value));
-			//SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new(); 
+			//TODO: Foreach modded ore name, find itemType and add to OreInfusionPowers.  Make new dict string, int
+
+			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new(); 
 			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
-				int itemType = WEGlobalTile.GetDroppedItem(tileType);
+				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
 				if (itemType <= 0)
+					continue;
+
+				if (OreInfusionPowers.ContainsKey(itemType))
 					continue;
 
 				Item item = itemType.CSI();
@@ -557,14 +562,18 @@ namespace WeaponEnchantments.Common
 					int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
 					float mineResist = modTile.MineResist;
 					float value = item.value;
-					if (ore || ((requiredPickaxePower > 0 || mineResist > 0) && value > 0)) {
-						//int infusionPower = GetOreInfusionPower(requiredPickaxePower, value);
+					if (ore || ((requiredPickaxePower > 0 || mineResist > 1) && value > 0)) {//Try getting rid of mineResist.
+						if (!weaponCraftingIngredients.Contains(itemType))
+							continue;
+
+						int infusionPower = GetOreInfusionPower(requiredPickaxePower, value);
+						OreInfusionPowers.Add(itemType, infusionPower);
+						$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
 					}
 				}
 			}
-			foreach (KeyValuePair<int, int> pair in OreInfusionPowers) {
 
-			}
+			//$"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
 
 			foreach (KeyValuePair<int, int> pair in OreInfusionPowers) {
 				VanillaCraftingItemSourceInfusionPowers.Add(pair.Key, pair.Value);
@@ -624,9 +633,7 @@ namespace WeaponEnchantments.Common
 
 			return -1;
 		}
-		private static void AddProgressionGroup(ProgressionGroup progressionGroup) {
-			progressionGroups.Add(progressionGroup.ID, progressionGroup);
-		}
+		private static void AddProgressionGroup(ProgressionGroup progressionGroup) => progressionGroups.Add(progressionGroup.ID, progressionGroup);
 		private static void GuessInfusionPowers() {
 			//Guess crafting source infusion powers
 			SortedDictionary<int, int> guessedSourceInfusionPowers = new();
@@ -759,20 +766,21 @@ namespace WeaponEnchantments.Common
 
 			//allWeapons.LogSimple();
 			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
+			/*
+			foreach (int weapon in weaponsList) {
+				if (TryGetAllCraftingIngredientTypes(weapon, out HashSet<HashSet<int>> ingredientTypes)) {
+					foreach (int ingredient in ingredientTypes.SelectMany(t => t)) {
+						weaponCraftingIngredients.Add(ingredient);
+					}
+				}
+			}
+			*/
 		}
 		private static void SetupReverseCraftableIngredients() {
-			//reverseCraftableIngredients
 			SortedDictionary<int, HashSet<int>> allRecipes = new();
 			foreach (Recipe r in Main.recipe) {
 				allRecipes.AddOrCombine(r.createItem.type, r.requiredItem.Select(i => i.type).ToHashSet());
 			}
-			/*
-			for (int i = 0; i < ItemLoader.ItemCount; i++) {
-				HashSet<int> ingredients = Main.recipe.Select(r => r.requiredItem.Select(i => i.type)).SelectMany(t => t).ToHashSet();
-				if (ingredients.Any())
-					allRecipes.Add(i, ingredients);
-			}
-			*/
 
 			foreach (int createItemType in allRecipes.Keys) {
 				foreach (int ingredient in allRecipes[createItemType]) {
@@ -787,6 +795,10 @@ namespace WeaponEnchantments.Common
 			foreach (int weaponType in weaponsList) {
 				if (TryGetAllCraftingIngredientTypes(weaponType, out HashSet<HashSet<int>> ingredients))
 					allWeaponRecipies.Add(weaponType, ingredients);
+			}
+
+			foreach (int ingredient in allWeaponRecipies.Select(p => p.Value).SelectMany(t => t).SelectMany(t => t)) {
+				weaponCraftingIngredients.Add(ingredient);
 			}
 
 			if (guessingInfusionPowers) $"\n{allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{weapon.Value.Select(ingredient => $" {ingredient.Select(i => i.CSI().Name).JoinList(" or ")}").JoinList(", ")}").JoinList("\n")}".LogSimple();
@@ -926,6 +938,7 @@ namespace WeaponEnchantments.Common
 		private static void ClearTempDictionaries() {
 			progressionGroups.Clear();
 			weaponsList.Clear();
+			weaponCraftingIngredients.Clear();
 			allWeaponRecipies.Clear();
 			allExpandedRecepies.Clear();
 			infusionPowerTiles = null;

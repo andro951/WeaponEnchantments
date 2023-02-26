@@ -154,8 +154,11 @@ namespace WeaponEnchantments.Common.Globals
 			tileType = -1;
 			dropItem = new Item();
         }
-		public static int GetDroppedItem(int type, int frame = 0, bool forMining = false) {
+		public static int GetDroppedItem(int type, int frame = 0, bool forMining = false, bool ignoreError = false) {
 			int dropItem = 0;
+			if (TileID.Sets.Ore[type])
+				ignoreError = false;
+
 			switch (type) {
 				//Coin Piles
 				case TileID.CopperCoinPile:
@@ -426,12 +429,11 @@ namespace WeaponEnchantments.Common.Globals
 						else if (TileTypeToItemType.Keys.Contains(type)) {
 							dropItem = TileTypeToItemType[type];
 						}
-						else if (tileTypeToItemTypesSetup) {
+						else if (tileTypeToItemTypesSetup && !ignoreError) {
 							$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 						}
-
 					}
-					else {
+					else if (!ignoreError) {
 						$"Failed to determine the dropItem of tile: {type}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 					}
 
@@ -690,7 +692,13 @@ namespace WeaponEnchantments.Common.Globals
 							itemType = modTileItemType;
 						}
 						else {
-							$"Failed to find find modded tile name for tile: {tileType}, modTileName: {modTileName}".LogSimple();
+							switch (modTileName) {
+								case "SCalAltar":
+									break;//No dropped item, don't log.
+								default:
+									$"Failed to find find modded tile name for tile: {tileType}, modTileName: {modTileName}".LogSimple();
+									break;
+							}
 						}
 					}
 					else {
@@ -729,7 +737,18 @@ namespace WeaponEnchantments.Common.Globals
 				if (modItem == null)
 					continue;
 
-				if (modTileName == modItem.Name) {
+				if (modItem.Name == modTileName) {
+					modTileItemType = modItem.Type;
+					return true;
+				}
+			}
+
+			for (int type = ItemID.Count; type < ItemLoader.ItemCount; type++) {
+				ModItem modItem = ContentSamples.ItemsByType[type].ModItem;
+				if (modItem == null)
+					continue;
+
+				if (modItem.Name.Contains(modTileName)) {
 					modTileItemType = modItem.Type;
 					return true;
 				}
