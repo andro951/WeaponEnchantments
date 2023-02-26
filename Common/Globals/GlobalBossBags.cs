@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Common.Globals
     public class GlobalBossBags : GlobalItem
     {
         public static bool modBossBagIntegrationSetup = false;
-        public static bool printNPCNameOnHitForBossBagSupport = false && Debugger.IsAttached;
+        public static bool printNPCNameOnHitForBossBagSupport => false && Debugger.IsAttached;
         public static SortedDictionary<int, List<int>> bossBagNPCIDs = new SortedDictionary<int, List<int>>() {
             { ItemID.KingSlimeBossBag, new() { NPCID.KingSlime } },
             { ItemID.EyeOfCthulhuBossBag, new() { NPCID.EyeofCthulhu } },
@@ -263,9 +263,11 @@ namespace WeaponEnchantments.Common.Globals
                     return "Astrum Deus";
                 case "BrimstoneWaifuBag":
                     return "Brimstone Elemental";
-                case "CalamitasBag":
-                    return "Calamitas";
-                case "CeaselessVoidBag":
+                case "CalamitasCloneBag":
+                    return "Calamitas Clone";
+				case "CalamitasCoffer":
+					return "Supreme Witch, Calamitas";
+				case "CeaselessVoidBag":
                     return "Ceaseless Void";
                 case "CrabulonBag":
                     return "Crabulon";
@@ -275,10 +277,10 @@ namespace WeaponEnchantments.Common.Globals
                     return "Desert Scourge";
                 case "DevourerofGodsBag":
                     return "The Devourer of Gods";
-                case "DragonfollyBag":
+				case "DraedonBag":
+					return "XF-09 Ares";
+				case "DragonfollyBag":
                     return "The Dragonfolly";
-                case "DraedonBag":
-                    return "XF-09 Ares";
                 case "HiveMindBag":
                     return "The Hive Mind";
                 case "LeviathanBag":
@@ -301,8 +303,6 @@ namespace WeaponEnchantments.Common.Globals
                     return "The Slime God";
                 case "StormWeaverBag":
                     return "Storm Weaver";
-                case "SupremeCalamitasCoffer":
-                    return "Supreme Calamitas";
                 case "YharonBag":
                     return "Jungle Dragon, Yharon";
                 // /\Calamity contributed by SnarkyEspresso
