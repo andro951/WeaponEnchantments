@@ -73,8 +73,10 @@ namespace WeaponEnchantments.Common.Globals
         public string infusedItemName = "";
         public int InfusionPower {
             get {
-                if (infusionPower == -1)
-                    infusionPower = this.GetWeaponInfusionPower();
+                if (infusionPower == -1) {
+                    if (Item != null)
+						infusionPower = Item.GetWeaponInfusionPower();
+				}
 
                 return infusionPower;
             }

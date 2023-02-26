@@ -440,8 +440,49 @@ namespace WeaponEnchantments.Common.Globals
 
 			return dropItem;
 		}
-		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget) {
+		public static int GetRequiredPickaxePower(int type, bool forInfusionPower = false) {
+			ModTile modTile = TileLoader.GetTile(type);
+			if (modTile != null)
+				return modTile.MinPick;
 
+			switch (type) {
+				case Meteorite:
+					if (forInfusionPower)
+						return 60;//Not correct for vanilla.  Needed it to be changed.
+
+					return 50;
+				case Demonite:
+				case Crimtane:
+				case Obsidian:
+					return 55;
+				case Ebonstone:
+				case Crimstone:
+				case Pearlstone:
+				case Hellstone:
+				case Hellforge:
+					return 65;
+				case Cobalt:
+				case Palladium:
+					return 100;
+				case Mythril:
+				case Orichalcum:
+					return 110;
+				case Adamantite:
+				case Titanium:
+					return 150;
+				case Chlorophyte:
+					return 200;
+				case LihzahrdBrick:
+				case LihzahrdAltar:
+					return 210;
+				default:
+					if (Main.tileDungeon[type])
+						return 100;
+
+					return 0;
+			}
+		}
+		private int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget) {
 			//All copied from Vanilla souce code.
 			Player player = Main.LocalPlayer;
 			int num = 0;

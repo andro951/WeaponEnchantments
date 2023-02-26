@@ -142,7 +142,7 @@ namespace WeaponEnchantments.Common
                             Item clone = item.Clone();
 							float rarity = GetAdjustedItemRarity(clone);
 							float valueRarity = GetValueRarity(clone, rarity);
-							int infusionPower = GetWeaponInfusionPower(clone);
+							int infusionPower = clone.GetWeaponInfusionPower();
                             ItemDetails itemDetails = new ItemDetails(clone, rarity, valueRarity);
                             if (!infusionPowers.ContainsKey(infusionPower)) {
                                 infusionPowers.Add(infusionPower, new SortedDictionary<string, ItemDetails>() { { clone.Name, itemDetails } });
@@ -1861,6 +1861,14 @@ namespace WeaponEnchantments.Common
 
 			return multiplier > 1f || WEMod.clientConfig.AllowInfusingToLowerPower ? multiplier : 1f;
 		}
+		public static int GetWeaponInfusionPower(this Item item) {
+			if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.infusedItemName != "") {
+				return enchantedItem.InfusionPower;
+			}
+			else {
+				return GetBaseInfusionPower(item);
+			}
+		}
 		public static int GetWeaponInfusionPower(this EnchantedItem enchantedItem) {
             if (enchantedItem.infusedItemName != "") {
                 return enchantedItem.InfusionPower;
@@ -1873,12 +1881,6 @@ namespace WeaponEnchantments.Common
 			if (!InfusionProgression.TryGetBaseInfusionPower(weapon, out int infusionPower))
 				infusionPower = GetInfusionPowerFromRarityAndValue(weapon);
 			return infusionPower;
-		}
-        public static int GetWeaponInfusionPower(this Item weapon) {
-            if (!weapon.TryGetEnchantedItem(out EnchantedItem enchantedItem))
-                return 0;
-
-            return enchantedItem.GetWeaponInfusionPower();
 		}
         public static string GetInfusionItemName(this Item item) {
             if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.infusedItemName != "") {
