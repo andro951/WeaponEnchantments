@@ -266,6 +266,7 @@ namespace WeaponEnchantments.Common.Utility
         public static string RemovePrevent(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool ContainsInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
         public static Item CSI(this int type) => ContentSamples.ItemsByType[type];
+        public static NPC CSNPC(this int netID) => ContentSamples.NpcsByNetId[netID];
 
         #endregion
 

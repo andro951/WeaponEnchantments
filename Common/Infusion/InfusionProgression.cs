@@ -19,6 +19,8 @@ using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics;
+using Terraria.GameContent.ItemDropRules;
+using static Humanizer.On;
 
 namespace WeaponEnchantments.Common
 {
@@ -65,7 +67,7 @@ namespace WeaponEnchantments.Common
 		Deer = 380,
 		Wall = 420,
 		FrostLegeon = 450,
-		Priates = 545,
+		Pirates = 545,
 		Eclipse = 560,
 		QueenSlime = 575,
 		Destroyer = 605,
@@ -166,7 +168,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 
-		
+
 		private InfusionOffset infusionOffset;
 		private ItemSource itemSource;
 		public string ModdedSourceName => itemSource.ModdedSourceName;
@@ -174,7 +176,7 @@ namespace WeaponEnchantments.Common
 		public int ResultItemID => itemSource.ResultItemID;
 		public Item ResultItem => itemSource.ResultItem;
 		private int baseCraftingInfusionPower => itemSource.Modded ? ModdedCraftingItemSourceInfusionPowers[ModdedSourceName] : VanillaCraftingItemSourceInfusionPowers[SourceID];
-		private int infusionPowerOffset { 
+		private int infusionPowerOffset {
 			get {
 				switch (infusionOffset) {
 					case InfusionOffset.Consumable:
@@ -225,6 +227,7 @@ namespace WeaponEnchantments.Common
 			underground = Underground;
 			easyObtainAfter = EasyObtainAfter;
 			obtainAfter = ObtainAfter;
+			bossNetIDs = GetBossType(id);
 		}
 
 		public ProgressionGroupID ID { get; private set; }
@@ -233,6 +236,7 @@ namespace WeaponEnchantments.Common
 		int underground;
 		int easyObtainAfter;
 		int obtainAfter;
+		SortedSet<int> bossNetIDs;
 		SortedSet<int> itemTypes = new();
 		SortedSet<int> npcTypes = new();
 		SortedSet<ChestID> chests = new();
@@ -243,10 +247,151 @@ namespace WeaponEnchantments.Common
 		public void Add(IEnumerable<CrateID> newCrates) => crates.UnionWith(newCrates);
 		public void Add(IEnumerable<Item> newItems) => AddItems(newItems.Select(i => i.type));
 		public void Add(IEnumerable<NPC> newNPCs) => AddNPCs(newNPCs.Select(npc => npc.netID));
+		public static SortedSet<int> GetBossType(ProgressionGroupID id) {
+			int npcid = NPCID.NegativeIDCount;
+			switch (id) {
+				case ProgressionGroupID.KingSlime:
+					npcid = NPCID.KingSlime;
+					break;
+				case ProgressionGroupID.Eye:
+					npcid = NPCID.EyeofCthulhu;
+					break;
+				case ProgressionGroupID.EaterBrain:
+					return new() { NPCID.EaterofWorldsHead, NPCID.BrainofCthulhu };
+				case ProgressionGroupID.Bee:
+					npcid = NPCID.QueenBee;
+					break;
+				case ProgressionGroupID.Skeletron:
+					npcid = NPCID.Skeleton;
+					break;
+				case ProgressionGroupID.Deer:
+					npcid = NPCID.Deerclops;
+					break;
+				case ProgressionGroupID.Wall:
+					npcid = NPCID.WallofFlesh;
+					break;
+				case ProgressionGroupID.QueenSlime:
+					npcid = NPCID.QueenSlimeBoss;
+					break;
+				case ProgressionGroupID.Destroyer:
+					npcid = NPCID.TheDestroyer;
+					break;
+				case ProgressionGroupID.SkeletronPrime:
+					npcid = NPCID.SkeletronPrime;
+					break;
+				case ProgressionGroupID.Twins:
+					return new() { NPCID.Retinazer, NPCID.Spazmatism };
+				case ProgressionGroupID.Plantera:
+					npcid = NPCID.Plantera;
+					break;
+				case ProgressionGroupID.Betsey:
+					npcid = NPCID.DD2Betsy;
+					break;
+				case ProgressionGroupID.Golem:
+					npcid = NPCID.Golem;
+					break;
+				case ProgressionGroupID.MartianSaucer:
+					npcid = NPCID.MartianSaucer;
+					break;
+				case ProgressionGroupID.DukeFishron:
+					npcid = NPCID.DukeFishron;
+					break;
+				case ProgressionGroupID.Empress:
+					npcid = NPCID.HallowBoss;
+					break;
+				case ProgressionGroupID.LunaticCultist:
+					npcid = NPCID.CultistBoss;
+					break;
+				case ProgressionGroupID.MoonLord:
+					npcid = NPCID.MoonLordCore;
+					break;
+			}
+
+			if (npcid > NPCID.NegativeIDCount)
+				return new() { npcid };
+
+			return new();
+		}
+		public bool TryGetBossType(out SortedSet<int> type) {
+			type = null;
+			if (bossNetIDs.Count <= 0)
+				return false;
+
+			type = bossNetIDs;
+			return true;
+		}
+		public bool TryGetSpawnConditions(out NPCSpawnInfo nPCSpawnInfo) {
+			nPCSpawnInfo = new();
+			switch (ID) {
+				case ProgressionGroupID.Forest:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Desert:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.GiantTree:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Beach:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Snow:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Ocean:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Jungle:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Evil:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Granite:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Marble:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.BloodMoon:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.GoblinArmy:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Dungeon:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.FrostLegeon:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Pirates:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.Eclipse:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.PumpkinMoon:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.FrostMoon:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.MartianInvasion:
+					nPCSpawnInfo = new();
+					break;
+				case ProgressionGroupID.LunarInvasion:
+					nPCSpawnInfo = new();
+					break;
+				default:
+					return false;
+			}
+
+			return true;
+		}
 	}
-	public static class InfusionProgression
-	{
-		private static bool guessingInfusionPowers = false;
+	public static class InfusionProgression {
+		private static bool guessingInfusionPowers => false;
 		public const int VANILLA_RECIPE_COUNT = 2691;
 		private static bool finishedSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponSources { get; private set; } = new();//Not cleared
@@ -268,15 +413,18 @@ namespace WeaponEnchantments.Common
 			{ ItemID.Obsidian, 80 },
 			{ ItemID.DemoniteOre, 120 },
 			{ ItemID.CrimtaneOre, 120 },
-			{ ItemID.Meteorite, 205 },//Needs to be post EaterOfWorlds/BrainOfCthulhu instead?
-			{ ItemID.Hellstone, 306 },
-			{ ItemID.CobaltOre, 420 },
-			{ ItemID.MythrilOre, 420 },
+			{ ItemID.Meteorite, 210 },//Needs to be post EaterOfWorlds/BrainOfCthulhu instead?
+			{ ItemID.Hellstone, 220 },
+			{ ItemID.CobaltOre, 430 },
 			{ ItemID.PalladiumOre, 430 },
-			{ ItemID.OrichalcumOre, 430 },
-			{ ItemID.AdamantiteOre, 440 },
-			{ ItemID.TitaniumOre, 440 },
+			{ ItemID.MythrilOre, 440 },
+			{ ItemID.OrichalcumOre, 440 },
+			{ ItemID.AdamantiteOre, 450 },
+			{ ItemID.TitaniumOre, 450 },
 			{ ItemID.ChlorophyteOre, 653 }
+		};
+		public static SortedDictionary<string, int> ModOreInfusionPowers = new() {
+
 		};
 		public static SortedDictionary<int, int> VanillaCraftingItemSourceInfusionPowers = new() {
 			//{ ItemID.Wood, 0 },
@@ -441,6 +589,10 @@ namespace WeaponEnchantments.Common
 			{ "Abombination", 1700 },
 			{ "Heresy", 1700 }
 		};//Not cleared
+		public static SortedDictionary<int, SortedSet<int>> weaponsFromNPCs = new();
+		public static SortedDictionary<int, SortedSet<int>> ingredientsFromNPCs = new();
+		public static SortedDictionary<int, SortedSet<int>> weaponsFromLootItems = new();
+		public static SortedDictionary<int, SortedSet<int>> ingredientsFromLootItems = new();
 		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = new();
 		public static SortedDictionary<ProgressionGroupID, SortedSet<int>> gatherItemBiome = new() {
 			{ ProgressionGroupID.Forest, new() { ItemID.Wood, ItemID.Acorn, ItemID.StoneBlock } },
@@ -448,7 +600,7 @@ namespace WeaponEnchantments.Common
 			{ ProgressionGroupID.Beach, new() { ItemID.PalmWood } },
 			{ ProgressionGroupID.Snow, new() { ItemID.Shiverthorn, ItemID.BorealWood } },
 			{ ProgressionGroupID.Jungle, new() { ItemID.RichMahogany, ItemID.JungleSpores } },
-			{ ProgressionGroupID.Evil, new() { ItemID.Ebonwood, ItemID.Shadewood, ItemID.EbonsandBlock, 
+			{ ProgressionGroupID.Evil, new() { ItemID.Ebonwood, ItemID.Shadewood, ItemID.EbonsandBlock,
 				ItemID.CrimsandBlock, ItemID.ViciousMushroom, ItemID.VileMushroom } },
 			//{ ProgressionGroupID., new() { ItemID. } },
 			//{ ProgressionGroupID., new() { ItemID. } },
@@ -472,7 +624,7 @@ namespace WeaponEnchantments.Common
 			{ ProgressionGroupID.Forest, new() { ItemID.FallenStar } }
 		};
 		private static SortedDictionary<int, (int pickPower, float value)> infusionPowerTiles = null;
-		public static SortedDictionary<int, (int pickPower, float value)> InfusionPowerTiles { 
+		public static SortedDictionary<int, (int pickPower, float value)> InfusionPowerTiles {
 			get {
 				if (infusionPowerTiles == null)
 					SetupInfusionPowerTiles();
@@ -507,10 +659,13 @@ namespace WeaponEnchantments.Common
 			SetupWeaponsList();
 			SetupReverseCraftableIngredients();
 			GetAllCraftingResources();
+			SetupItemsFromNPCs();
+			SetupItemsFromLootItems();
 			SetupProgressionGroups();
 		}
 		private static void SetupProgressionGroups() {
 			SetupMinedOreInfusionPowers();
+			CheckNPCSpawns();
 			AddProgressionGroup(new(ProgressionGroupID.Forest, Night: 5));
 			AddProgressionGroup(new(ProgressionGroupID.Desert, Underground: 80));
 			AddProgressionGroup(new(ProgressionGroupID.Snow, Underground: 30));
@@ -544,9 +699,14 @@ namespace WeaponEnchantments.Common
 			//$"\ninfusionPowerTiles:\n{infusionPowerTiles.Select(i => $"infusionPower: {i.Key}, pickPower: {i.Value.pickPower}, value: {i.Value.value}").JoinList("\n")}".LogSimple();
 		}
 		private static void SetupMinedOreInfusionPowers() {
-			//TODO: Foreach modded ore name, find itemType and add to OreInfusionPowers.  Make new dict string, int
+			for (int itemType = ItemID.Count; itemType < ItemLoader.ItemCount; itemType++) {
+				Item item = itemType.CSI();
+				string itemName = item.Name;
+				if (ModOreInfusionPowers.ContainsKey(itemName))
+					OreInfusionPowers.Add(itemType, ModOreInfusionPowers[itemName]);
+			}
 
-			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new(); 
+			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();
 			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
 				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
 				if (itemType <= 0)
@@ -577,6 +737,24 @@ namespace WeaponEnchantments.Common
 
 			foreach (KeyValuePair<int, int> pair in OreInfusionPowers) {
 				VanillaCraftingItemSourceInfusionPowers.Add(pair.Key, pair.Value);
+			}
+		}
+		private static void CheckNPCSpawns() {
+			foreach (var pGroup in progressionGroups) {
+				if (!pGroup.Value.TryGetSpawnConditions(out NPCSpawnInfo spawnInfo))
+					continue;
+
+				SortedSet<int> npcs = new();
+				for (int netID = NPCID.Count; netID < NPCLoader.NPCCount; netID++) {
+					ModNPC modNPC = netID.CSNPC().ModNPC;
+					if (modNPC != null) {
+						float weight = modNPC.SpawnChance(spawnInfo);
+						if (weight > 0f)
+							npcs.Add(netID);
+					}
+				}
+
+				progressionGroups[pGroup.Key].AddNPCs(npcs);
 			}
 		}
 		public static int GetOreInfusionPower(int requiredPickaxePower, float value) {
@@ -766,15 +944,6 @@ namespace WeaponEnchantments.Common
 
 			//allWeapons.LogSimple();
 			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
-			/*
-			foreach (int weapon in weaponsList) {
-				if (TryGetAllCraftingIngredientTypes(weapon, out HashSet<HashSet<int>> ingredientTypes)) {
-					foreach (int ingredient in ingredientTypes.SelectMany(t => t)) {
-						weaponCraftingIngredients.Add(ingredient);
-					}
-				}
-			}
-			*/
 		}
 		private static void SetupReverseCraftableIngredients() {
 			SortedDictionary<int, HashSet<int>> allRecipes = new();
@@ -863,6 +1032,66 @@ namespace WeaponEnchantments.Common
 			//string ingredientTypesNames2 = $"{createItem.S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}";
 			//ingredientTypesNames2.LogSimple();
 			return ingredients.Count > 0;
+		}
+		private static void SetupItemsFromNPCs() {
+			foreach (KeyValuePair<int, NPC> npcPair in ContentSamples.NpcsByNetId) {
+				int netID = npcPair.Key;
+				NPC npc = npcPair.Value;
+				foreach (IItemDropRule dropRule in Main.ItemDropsDB.GetRulesForNPCID(netID)) {
+					List<DropRateInfo> dropRates = new();
+					DropRateInfoChainFeed dropRateInfoChainFeed = new(1f);
+					dropRule.ReportDroprates(dropRates, dropRateInfoChainFeed);
+					foreach (DropRateInfo dropRate in dropRates) {
+						int itemType = dropRate.itemId;
+						if (weaponsList.Contains(itemType)) {
+							if (weaponsFromNPCs.ContainsKey(itemType)) {
+								weaponsFromNPCs[itemType].Add(netID);
+							}
+							else {
+								weaponsFromNPCs.Add(itemType, new() { netID });
+							}
+						}
+						else if (weaponCraftingIngredients.Contains(itemType)) {
+							if (ingredientsFromNPCs.ContainsKey(itemType)) {
+								ingredientsFromNPCs[itemType].Add(netID);
+							}
+							else {
+								ingredientsFromNPCs.Add(itemType, new() { netID });
+							}
+						}
+					}
+				}
+			}
+		}
+		private static void SetupItemsFromLootItems() {
+			foreach (KeyValuePair<int, Item> lootItemPair in ContentSamples.ItemsByType) {
+				int type = lootItemPair.Key;
+				Item item = lootItemPair.Value;
+				foreach (IItemDropRule dropRule in Main.ItemDropsDB.GetRulesForItemID(type)) {
+					List<DropRateInfo> dropRates = new();
+					DropRateInfoChainFeed dropRateInfoChainFeed = new(1f);
+					dropRule.ReportDroprates(dropRates, dropRateInfoChainFeed);
+					foreach (DropRateInfo dropRate in dropRates) {
+						int itemType = dropRate.itemId;
+						if (weaponsList.Contains(itemType)) {
+							if (weaponsFromLootItems.ContainsKey(itemType)) {
+								weaponsFromLootItems[itemType].Add(type);
+							}
+							else {
+								weaponsFromLootItems.Add(itemType, new() { type });
+							}
+						}
+						else if (weaponCraftingIngredients.Contains(itemType)) {
+							if (ingredientsFromLootItems.ContainsKey(itemType)) {
+								ingredientsFromLootItems[itemType].Add(type);
+							}
+							else {
+								ingredientsFromLootItems.Add(itemType, new() { type });
+							}
+						}
+					}
+				}
+			}
 		}
 		public static HashSet<HashSet<int>> CombineIngredientLists(this HashSet<HashSet<int>> ingredientsArg, HashSet<HashSet<HashSet<int>>> requiredItemTypeLists) {
 			HashSet<HashSet<int>> ingredients = ingredientsArg;
@@ -965,8 +1194,56 @@ namespace WeaponEnchantments.Common
 
 			return false;
 		}
-	}
+		public static (int[], bool[]) EncodeNPCSpawnInfo(this NPCSpawnInfo info) {
+			int[] spawnInfoCodeInts = new int[6];
+			bool[] spawnInfoCodeBools = new bool[12];
+			spawnInfoCodeInts[0] = info.Player.whoAmI;
+			spawnInfoCodeInts[1] = info.PlayerFloorX;
+			spawnInfoCodeInts[2] = info.PlayerFloorY;
+			spawnInfoCodeInts[3] = info.SpawnTileType;
+			spawnInfoCodeInts[4] = info.SpawnTileX;
+			spawnInfoCodeInts[5] = info.SpawnTileY;
+			spawnInfoCodeBools[0] = info.DesertCave;
+			spawnInfoCodeBools[1] = info.Granite;
+			spawnInfoCodeBools[2] = info.Invasion;
+			spawnInfoCodeBools[3] = info.Lihzahrd;
+			spawnInfoCodeBools[4] = info.Marble;
+			spawnInfoCodeBools[5] = info.PlanteraDefeated;
+			spawnInfoCodeBools[6] = info.PlayerInTown;
+			spawnInfoCodeBools[7] = info.PlayerSafe;
+			spawnInfoCodeBools[8] = info.SafeRangeX;
+			spawnInfoCodeBools[9] = info.Sky;
+			spawnInfoCodeBools[10] = info.SpiderCave;
+			spawnInfoCodeBools[11] = info.Water;
 
+			return (spawnInfoCodeInts, spawnInfoCodeBools);
+		}
+		public static NPCSpawnInfo DecodeNPCSpawnInfo(this (int[], bool[]) spawnInfoCode) {
+			NPCSpawnInfo info = new NPCSpawnInfo();
+			int[] ints = spawnInfoCode.Item1;
+			bool[] bools = spawnInfoCode.Item2;
+			info.DesertCave = bools[0];
+			info.Granite = bools[1];
+			info.Invasion = bools[2];
+			info.Lihzahrd = bools[3];
+			info.Marble = bools[4];
+			info.PlanteraDefeated = bools[5];
+			info.PlayerInTown = bools[6];
+			info.PlayerSafe = bools[7];
+			info.SafeRangeX = bools[8];
+			info.Sky = bools[9];
+			info.SpiderCave = bools[10];
+			info.Water = bools[11];
+			info.Player = Main.player[ints[0]] ?? Main.LocalPlayer;
+			info.PlayerFloorX = ints[1];
+			info.PlayerFloorY = ints[2];
+			info.SpawnTileType = ints[3];
+			info.SpawnTileX = ints[4];
+			info.SpawnTileY = ints[5];
+
+			return info;
+		}
+	}
 	public static class InfusionProgressionTests {
 		private static bool shouldRunTests = true;
 		public static void RunTests() {

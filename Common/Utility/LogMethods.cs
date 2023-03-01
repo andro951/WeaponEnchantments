@@ -26,6 +26,7 @@ namespace WeaponEnchantments.Common.Utility
         public const int LowDamagePerHitXPBoost = 12;
         public const int DetectedNonEnchantmentItem = 13;
         public const int OreInfusionPowerNotSetup = 14;
+        public const int NPCSpawnSourceNotSetup = 15;
     }
     public static class LogMethods
     {

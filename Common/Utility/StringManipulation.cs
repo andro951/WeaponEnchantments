@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
 
@@ -80,7 +83,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this bool b) => b ? "True" : "False";
+        public static string S(this bool b) => b ? "true" : "false";
 		
         /// <summary>
         /// Convert to a string
@@ -128,10 +131,26 @@ namespace WeaponEnchantments.Common.Utility
 
 			return newStr;
 		}
+		public static string S(this NPCSpawnInfo nPCSpawnInfo) => nPCSpawnInfo.EncodeNPCSpawnInfo().S();
+		public static string S(this (int[], bool[]) spawnInfoCode) => $"(new int[]{"{"} {spawnInfoCode.Item1.Select(i => $"{i}").JoinList(", ")} {"}"}, new bool[]{"{"} {spawnInfoCode.Item2.Select(b => b.S()).JoinList(", ")} {"}"})";
+        public static string S(this IEnumerable<string> strings, string nameAndType = "", int tabs = 2) => $"\n{tabs.Tabs()}{nameAndType} {"{"}\n{tabs.Tabs(1)}{strings.JoinList($",\n{tabs.Tabs(1)}")}\n{tabs.Tabs()}{"}"};";
+        public delegate string sDelegate<T>(T par);
+		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, T>> dict, string name, sDelegate<T> valueFunction, string typeStringOverride = null, int tabs = 2) =>
+			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {valueFunction(i.Value)}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
+			$"{dict.Where(i => i.Key >= NPCID.Count).Select(i => $"{i.Key.GetNPCNameString()}, {valueFunction(i.Value)}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
+		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, IEnumerable<T>>> dict, string name, sDelegate<T> valueFunction, string typeStringOverride = null, int tabs = 2) =>
+			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {i.Value.Select(i => valueFunction(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
+			$"{dict.Where(i => i.Key >= NPCID.Count).Select(i => $"{i.Key.GetNPCNameString()}, {i.Value.Select(i => valueFunction(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
+		public static string Brackets(this string s) => "{ " + s + " }";
+        public static string Quotes(this string s) => "\"" + s + "\"";
+        public static string GetItemIDName(this int itemType) => ItemID.Search.TryGetName(itemType, out string name) ? $"ItemID.{name}" : $"FailedToFindItemName{itemType}";
+        public static string GetNPCIDName(this int netId) => NPCID.Search.TryGetName(netId, out string name) ? $"NPCID.{name}" : $"FailedToFindNPCName{netId}";
+        public static string GetItemNameString(this int itemType) => ContentSamples.ItemsByType[itemType].Name.Quotes();
+        public static string GetNPCNameString(this int netId) => ContentSamples.NpcsByNetId[netId].FullName().Quotes();
 
-		#endregion
+        #endregion
 
-		public static bool IsUpper(this char c) {
+        public static bool IsUpper(this char c) {
             foreach (char upper in upperCase) {
                 if (upper == c)
                     return true;
@@ -555,5 +574,7 @@ namespace WeaponEnchantments.Common.Utility
             }
 		}
         public static bool StartsWith(this string original, string startString) => original.Length >= startString.Length && original.Substring(0, startString.Length) == startString;
-    }
+		public static string Tabs(this int num) => num > 0 ? new string('\t', num) : "";
+		public static string Tabs(this int num, int numAdd) => num + numAdd > 0 ? new string('\t', num + numAdd) : "";
+	}
 }
