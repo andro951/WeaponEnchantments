@@ -523,7 +523,6 @@ namespace WeaponEnchantments.Common.Globals
 
             return itemDropRules;
 		}
-
 		private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
             //Setup mod boss bag support (Relies on NPC loot being set up before boss bag loot)
             if (!GlobalBossBags.modBossBagIntegrationSetup) {
@@ -852,7 +851,7 @@ namespace WeaponEnchantments.Common.Globals
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
         public static bool IsDummy(this NPC npc) => npc.netID == NPCID.TargetDummy || WEMod.calamityEnabled && npc.FullName() == "Super Dummy";
-
+        public static bool IsBoss(this NPC npc) => npc.boss || WEGlobalNPC.multipleSegmentBossTypes.ContainsKey(npc.netID) || WEGlobalNPC.normalNpcsThatDropsBags.Contains(npc.netID);
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
 

@@ -24,6 +24,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using WeaponEnchantments.Common.Infusion;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -77,11 +78,12 @@ namespace WeaponEnchantments.Common.Utility
         private static Dictionary<string, ModTranslation> translations;
         private static int culture;
 		private static bool numPad0 = false;
-		private static bool numPad8 = false;
 		private static bool numPad1 = false;
         private static bool numPad3 = false;
 		private static bool numPad4 = false;
 		private static bool numPad6 = false;
+		private static bool numPad7 = false;
+		private static bool numPad8 = false;
 
 		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
 		//public static string listOfAllEnchantmentTooltips = "";
@@ -172,6 +174,16 @@ namespace WeaponEnchantments.Common.Utility
 
 				numPad0 = newNumPad0;
                 numPad8= newNumPad8;
+			}
+
+            if (InfusionGlobalNPC.StoreNPCSpawnInfo && Debugger.IsAttached) {
+				bool newNumPad7 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad7);
+                bool logAndClearNPCs = newNumPad7 && !numPad7;
+                if (logAndClearNPCs) {
+                    //TODO: Make this log just a list of NPCS that spawned since last press.
+                }
+
+                numPad7 = newNumPad7;
 			}
 		}
         private static Item NextWeapon(int type, bool increasing, bool skipVanilla) {

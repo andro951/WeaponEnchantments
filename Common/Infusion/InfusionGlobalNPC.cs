@@ -29,8 +29,13 @@ namespace WeaponEnchantments.Common.Infusion
 			started = true;
 		}
 		public override void OnSpawn(NPC npc, IEntitySource source) {
-			if (!started)
+			if (!started || npc.IsBoss())
 				return;
+
+			if (!InfusionProgression.NPCsThatDropWeaponsOrIngredients.Contains(npc.netID)) {
+				$"{npc.S()} has no weapon or weapon ingredient drops".LogSimple();//temp
+				return;
+			}
 
 			int netID = npc.netID;
 			if (StoreNPCSpawnInfo) {
@@ -40,13 +45,15 @@ namespace WeaponEnchantments.Common.Infusion
 				else {
 					CompairUpdateSpawnInfo(StoredNPCSpawnInfo, netID, lastSpawnInfo);
 				}
-
-				StoredNPCSpawnInfo.NPCDictionaryStrings("NPCSpawnRules", ((NPCSpawnInfo, NPCSpawnInfo) info) => $"({info.Item1.S()}, {info.Item2.S()})", "((int[], bool[]), (int[], bool[]))").LogSimple();
 			}
 			else if (!npcsThatAreSetup.Contains(netID)) {
 				$"{netID.GetNPCNameString()}, {lastSpawnInfo.S()}, source: {source.Context}, WorldSize: {""}".LogNT(ChatMessagesIDs.NPCSpawnSourceNotSetup);
 				npcsThatAreSetup.Add(netID);
 			}
+		}
+		public static void SaveWorldData() {
+			if (StoreNPCSpawnInfo)
+				StoredNPCSpawnInfo.NPCDictionaryStrings("NPCSpawnRules", ((NPCSpawnInfo, NPCSpawnInfo) info) => $"({info.Item1.S()}, {info.Item2.S()})", "((int[], bool[]), (int[], bool[]))").LogSimple();
 		}
 		private static void CompairUpdateSpawnInfo(SortedDictionary<int, (NPCSpawnInfo, NPCSpawnInfo)> dict, int netID, NPCSpawnInfo newInfo) {
 			(NPCSpawnInfo, NPCSpawnInfo) info = dict[netID];

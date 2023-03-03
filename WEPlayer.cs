@@ -277,7 +277,7 @@ namespace WeaponEnchantments
             tag["highestTableTierUsed"] = highestTableTierUsed;
             tag["versionUpdate"] = versionUpdate;
         }
-        public override void LoadData(TagCompound tag) {
+		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
                 if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir) {
                     enchantingTable.item[i] = new Item();

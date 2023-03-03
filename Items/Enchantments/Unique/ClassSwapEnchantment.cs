@@ -150,5 +150,4 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class KiClassSwapEnchantmentRare : KiClassSwapEnchantment { }
 	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
 	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
-
 }

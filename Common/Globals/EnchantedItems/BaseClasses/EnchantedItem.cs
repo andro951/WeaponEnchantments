@@ -1050,6 +1050,10 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.BugNet:
                 case ItemID.GoldenBugNet:
                 case ItemID.FireproofBugNet:
+                case ItemID.BottomlessBucket:
+                case ItemID.BottomlessLavaBucket:
+                case ItemID.SuperAbsorbantSponge:
+                case ItemID.LavaAbsorbantSponge:
                     return true;
                 default:
                     return item.mana > 0 && !IsWeaponItem(item);

@@ -422,19 +422,21 @@ namespace WeaponEnchantments.Common.Globals
 				default:
 					ModTile modTile = TileLoader.GetTile(type);
 					//Get item dropped by the tile
-					if (modTile != null && (!forMining || TileID.Sets.Ore[tileType])) {
-						if (modTile.ItemDrop > 0) {
-							dropItem = modTile.ItemDrop;
+					if ((!forMining || TileID.Sets.Ore[type])) {
+						if (modTile != null) {
+							if (modTile.ItemDrop > 0) {
+								dropItem = modTile.ItemDrop;
+							}
+							else if (TileTypeToItemType.Keys.Contains(type)) {
+								dropItem = TileTypeToItemType[type];
+							}
+							else if (tileTypeToItemTypesSetup && !ignoreError) {
+								$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+							}
 						}
-						else if (TileTypeToItemType.Keys.Contains(type)) {
-							dropItem = TileTypeToItemType[type];
+						else if (!ignoreError) {
+							$"Failed to determine the dropItem of tile: {type}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 						}
-						else if (tileTypeToItemTypesSetup && !ignoreError) {
-							$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
-						}
-					}
-					else if (!ignoreError) {
-						$"Failed to determine the dropItem of tile: {type}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 					}
 
 					break;
@@ -711,7 +713,7 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
 			tileTypeToItemTypesSetup = true;
-			//$"\n{tileTypeToItemType.Select(t => $"{t.Key}: {t.Value.CSI().S()}").JoinList("\n")}".LogSimple();
+			//$"\n{tileTypeToItemType.Select(t => $"{t.Key}, {(t.Key >= TileID.Count ? TileLoader.GetTile(t.Key).Name : "")}: {t.Value.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
 		private static bool TryGetModTileName(int tileType, out string modTileName) {
 			modTileName = "";
