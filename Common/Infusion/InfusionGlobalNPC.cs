@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Common.Infusion
 		private static NPCSpawnInfo lastSpawnInfo;
 		private static bool started = false;
 		public static SortedDictionary<int, (NPCSpawnInfo, NPCSpawnInfo)> StoredNPCSpawnInfo { private set; get; }
-		private static SortedSet<int> npcsThatAreSetup = new();//TODO: needs to be populated by SpawnGroups
+		//private static SortedSet<int> npcsThatAreSetup = new();//TODO: needs to be populated by SpawnGroups
 
 		public override void Load() {
 			if (StoreNPCSpawnInfo)
@@ -35,7 +35,7 @@ namespace WeaponEnchantments.Common.Infusion
 				return;
 
 			if (!InfusionProgression.NPCsThatDropWeaponsOrIngredients.Contains(npc.netID)) {
-				$"{npc.S()} has no weapon or weapon ingredient drops".LogSimple();//temp
+				//$"{npc.S()} has no weapon or weapon ingredient drops".LogSimple();//temp
 				return;
 			}
 
@@ -48,14 +48,18 @@ namespace WeaponEnchantments.Common.Infusion
 					CompairUpdateSpawnInfo(StoredNPCSpawnInfo, netID, lastSpawnInfo);
 				}
 			}
+			/*
+			//TODO: Get rid of this when done testing
 			else if (!npcsThatAreSetup.Contains(netID)) {
-				//TODO: Add both of these back, but make it print a lot less data.  No need for the spawnsource
 				//$"{netID.GetNPCNameString()}, {lastSpawnInfo.S()}, source: {source?.Context}, WorldSize: {""}".LogNT(ChatMessagesIDs.NPCSpawnSourceNotSetup);
 				//npcsThatAreSetup.Add(netID);
 			}
+			*/
 
 			if (StoreSpawnedNPCs) {
-				if (!StoredSpawnedNPCs.Contains(netID) && !npcsThatAreSetup.Contains(netID))
+				bool inStoredSpawnedNPCs = StoredSpawnedNPCs.Contains(netID);
+				bool inNPCsThatAreSetup = InfusionProgression.NPCsThatAreSetup.Contains(netID);
+				if (!inStoredSpawnedNPCs && !inNPCsThatAreSetup)
 					StoredSpawnedNPCs.Add(netID);
 			}
 		}
