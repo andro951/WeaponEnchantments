@@ -14,7 +14,9 @@ namespace WeaponEnchantments.Common.Infusion
 {
 	public class InfusionGlobalNPC : GlobalNPC
 	{
-		public static bool StoreNPCSpawnInfo => true;
+		public static bool StoreNPCSpawnInfo => false;
+		public static bool StoreSpawnedNPCs => true;
+		public static SortedSet<int> StoredSpawnedNPCs { private set; get; } = new();
 		private static NPCSpawnInfo lastSpawnInfo;
 		private static bool started = false;
 		public static SortedDictionary<int, (NPCSpawnInfo, NPCSpawnInfo)> StoredNPCSpawnInfo { private set; get; }
@@ -47,11 +49,24 @@ namespace WeaponEnchantments.Common.Infusion
 				}
 			}
 			else if (!npcsThatAreSetup.Contains(netID)) {
-				$"{netID.GetNPCNameString()}, {lastSpawnInfo.S()}, source: {source.Context}, WorldSize: {""}".LogNT(ChatMessagesIDs.NPCSpawnSourceNotSetup);
-				npcsThatAreSetup.Add(netID);
+				//TODO: Add both of these back, but make it print a lot less data.  No need for the spawnsource
+				//$"{netID.GetNPCNameString()}, {lastSpawnInfo.S()}, source: {source?.Context}, WorldSize: {""}".LogNT(ChatMessagesIDs.NPCSpawnSourceNotSetup);
+				//npcsThatAreSetup.Add(netID);
+			}
+
+			if (StoreSpawnedNPCs) {
+				if (!StoredSpawnedNPCs.Contains(netID) && !npcsThatAreSetup.Contains(netID))
+					StoredSpawnedNPCs.Add(netID);
 			}
 		}
-		public static void SaveWorldData() {
+		public static void PrintAndClearSpawnedNPCs() {
+			if (!StoreSpawnedNPCs)
+				return;
+
+			StoredSpawnedNPCs.NPCListString(name: "npc", isArgument: true, tabs: 4).LogSimple();
+			StoredSpawnedNPCs.Clear();
+		}
+		public static void PrintStoredNPCSpawnInfo() {
 			if (StoreNPCSpawnInfo)
 				StoredNPCSpawnInfo.NPCDictionaryStrings("NPCSpawnRules", ((NPCSpawnInfo, NPCSpawnInfo) info) => $"({info.Item1.S()}, {info.Item2.S()})", "((int[], bool[]), (int[], bool[]))").LogSimple();
 		}

@@ -176,12 +176,11 @@ namespace WeaponEnchantments.Common.Utility
                 numPad8= newNumPad8;
 			}
 
-            if (InfusionGlobalNPC.StoreNPCSpawnInfo && Debugger.IsAttached) {
+            if (InfusionGlobalNPC.StoreSpawnedNPCs && Debugger.IsAttached) {
 				bool newNumPad7 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad7);
                 bool logAndClearNPCs = newNumPad7 && !numPad7;
-                if (logAndClearNPCs) {
-                    //TODO: Make this log just a list of NPCS that spawned since last press.
-                }
+                if (logAndClearNPCs)
+                    InfusionGlobalNPC.PrintAndClearSpawnedNPCs();
 
                 numPad7 = newNumPad7;
 			}

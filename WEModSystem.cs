@@ -790,7 +790,7 @@ namespace WeaponEnchantments
         public override void SaveWorldData(TagCompound tag) {
             tag["versionUpdate"] = versionUpdate;
 
-            InfusionGlobalNPC.SaveWorldData();
+            InfusionGlobalNPC.PrintStoredNPCSpawnInfo();
         }
         public override void PostUpdateTime() {
             if (Main.dayTime && !dayTime) {

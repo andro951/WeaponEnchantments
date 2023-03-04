@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,16 +134,19 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		public static string S(this NPCSpawnInfo nPCSpawnInfo) => nPCSpawnInfo.EncodeNPCSpawnInfo().S();
 		public static string S(this (int[], bool[]) spawnInfoCode) => $"(new int[]{"{"} {spawnInfoCode.Item1.Select(i => $"{i}").JoinList(", ")} {"}"}, new bool[]{"{"} {spawnInfoCode.Item2.Select(b => b.S()).JoinList(", ")} {"}"})";
-        public static string S(this IEnumerable<string> strings, string nameAndType = "", int tabs = 2) => $"\n{tabs.Tabs()}{nameAndType} {"{"}\n{tabs.Tabs(1)}{strings.JoinList($",\n{tabs.Tabs(1)}")}\n{tabs.Tabs()}{"}"};";
-        public delegate string sDelegate<T>(T par);
-
-        //TODO: Make 2 for Items as well
-		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, T>> dict, string name, sDelegate<T> valueFunction, string typeStringOverride = null, int tabs = 2) =>
-			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {valueFunction(i.Value)}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
-			$"{dict.Where(i => i.Key >= NPCID.Count).OrderBy(i => i.Key.GetNPCNameString()).Select(i => $"{i.Key.GetNPCNameString()}, {valueFunction(i.Value)}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
-		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, IEnumerable<T>>> dict, string name, sDelegate<T> valueFunction, string typeStringOverride = null, int tabs = 2) =>
-			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {i.Value.Select(i => valueFunction(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
-			$"{dict.Where(i => i.Key >= NPCID.Count).OrderBy(i => i.Key.GetNPCNameString()).Select(i => $"{i.Key.GetNPCNameString()}, {i.Value.Select(i => valueFunction(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
+        public static string S(this IEnumerable<string> strings, string nameAndType = "", int tabs = 2, bool isArgument = false) => $"{(isArgument ? "," : "")}\n{tabs.Tabs()}{nameAndType} {"{"}\n{tabs.Tabs(1)}{strings.JoinList($",\n{tabs.Tabs(1)}")}\n{tabs.Tabs()}{"}"}{(isArgument ? "" : ";")}";
+        public delegate string ToStringDelegate<T>(T t);
+        public static string S<T>(this IEnumerable<T> list, ToStringDelegate<T> toString, string nameAndType = "", int tabs = 2) => list.Select(i => toString(i)).S(nameAndType, tabs);
+        public static string NPCListString(this IEnumerable<int> list, string name = null, bool isArgument = false, int tabs = 2) =>
+			$"{list.Where(i => i < NPCID.Count).Select(i => $"{i.GetNPCIDName()}").S($"{(isArgument ? $"{name}Types:" : $"SortedSet<int> {name}Types =")} new SortedSet<int>()", tabs, isArgument)}" +
+			$"{list.Where(i => i >= NPCID.Count).Select(i => $"{i.GetNPCNameString()}").OrderBy(i => i).S($"{(isArgument ? $"{name}Names:" : $"SortedSet<string> {name}Types =")} new SortedSet<string>()", tabs, isArgument)}";
+		//TODO: Make 2 for Items as well
+		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, T>> dict, string name, ToStringDelegate<T> toString, string typeStringOverride = null, int tabs = 2) =>
+			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {toString(i.Value)}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
+			$"{dict.Where(i => i.Key >= NPCID.Count).OrderBy(i => i.Key.GetNPCNameString()).Select(i => $"{i.Key.GetNPCNameString()}, {toString(i.Value)}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
+		public static string NPCDictionaryStrings<T>(this IEnumerable<KeyValuePair<int, IEnumerable<T>>> dict, string name, ToStringDelegate<T> toString, string typeStringOverride = null, int tabs = 2) =>
+			$"{dict.Where(i => i.Key < NPCID.Count).Select(i => $"{i.Key.GetNPCIDName()}, {i.Value.Select(i => toString(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<int, {typeStringOverride ?? typeof(T).Name}> {name}Types = new()", tabs)}" +
+			$"{dict.Where(i => i.Key >= NPCID.Count).OrderBy(i => i.Key.GetNPCNameString()).Select(i => $"{i.Key.GetNPCNameString()}, {i.Value.Select(i => toString(i)).JoinList(", ")}".Brackets()).S($"SortedDictionary<string, {typeStringOverride ?? typeof(T).Name}> Mod{name}Names = new()", tabs)}";
 		public static string Brackets(this string s) => "{ " + s + " }";
         public static string Quotes(this string s) => "\"" + s + "\"";
         public static string GetItemIDName(this int itemType) => ItemID.Search.TryGetName(itemType, out string name) ? $"ItemID.{name}" : $"FailedToFindItemName{itemType}";

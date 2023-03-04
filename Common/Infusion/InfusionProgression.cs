@@ -66,6 +66,7 @@ namespace WeaponEnchantments.Common
 		ShadowChest = 350,
 		Deer = 380,
 		Wall = 420,
+		HardModeNight,
 		FrostLegeon = 450,
 		Pirates = 545,
 		Eclipse = 560,
@@ -220,8 +221,8 @@ namespace WeaponEnchantments.Common
 		}
 	}
 	public class ProgressionGroup {
-		public ProgressionGroup(ProgressionGroupID id, int InfusionPower, ProgressionGroup parent = null, IEnumerable<int> itemTypes = null, 
-				IEnumerable<int> npcTypes = null, IEnumerable<ChestID> chests = null, IEnumerable<CrateID> crates = null) {
+		public ProgressionGroup(ProgressionGroupID id, int InfusionPower, ProgressionGroup parent = null, IEnumerable<int> itemTypes = null, IEnumerable<string> itemNames = null, 
+				IEnumerable<int> npcTypes = null, IEnumerable<string> npcNames = null, IEnumerable<ChestID> chests = null, IEnumerable<CrateID> crates = null) {
 			Parent = parent;
 			ID = id;
 			infusionPower = InfusionPower;
@@ -229,8 +230,14 @@ namespace WeaponEnchantments.Common
 			if (itemTypes != null)
 				AddItems(itemTypes);
 
+			if (itemNames != null)
+				AddItems(itemNames);
+
 			if (npcTypes != null)
 				AddNPCs(npcTypes);
+
+			if (npcNames != null)
+				AddNPCs(npcNames);
 
 			if (chests != null)
 				Add(chests);
@@ -677,6 +684,7 @@ namespace WeaponEnchantments.Common
 			{ ProgressionGroupID.LunarInvasion, new() { NPCID. } }
 			*/
 		};
+		/*
 		private static SortedDictionary<int, ((int[], bool[]), (int[], bool[]))> NPCSpawnRulesTypes = new() {
 			{ NPCID.BigRainZombie, ((new int[]{ 0, 3774, 259, 41, 3690, 244 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, false }), (new int[]{ 0, 3837, 264, 712, 3911, 269 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, false })) },
 			{ NPCID.BigHeadacheSkeleton, ((new int[]{ 0, 2486, 758, 1, 2461, 713 }, new bool[]{ false, false, false, false, false, false, false, false, true, false, false, true }), (new int[]{ 0, 2486, 758, 1, 2461, 713 }, new bool[]{ false, false, false, false, false, false, false, false, true, false, false, true })) },
@@ -1164,6 +1172,7 @@ namespace WeaponEnchantments.Common
 			{ "Sea Minnow", ((new int[]{ 0, 1760, 600, 0, 1676, 628 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, true }), (new int[]{ 0, 1937, 807, 1376, 1955, 843 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, true })) },
 			{ "Archmage", ((new int[]{ 0, 3038, 272, 147, 3112, 301 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, true }), (new int[]{ 0, 3038, 272, 147, 3112, 301 }, new bool[]{ false, false, false, false, false, false, false, false, false, false, false, true })) }
 		};
+		*/
 		public static void PostSetupContent() {
 			if (finishedSetup)
 				return;
@@ -1198,12 +1207,16 @@ namespace WeaponEnchantments.Common
 		private static void SetupProgressionGroups() {
 			SetupMinedOreInfusionPowers();
 			CheckNPCSpawns();
-			AddProgressionGroup(new(ProgressionGroupID.Forest, 5, npcTypes: new SortedSet<int>() { NPCID.BlueSlime }));
+			AddProgressionGroup(new(ProgressionGroupID.Forest, 5,
+				npcTypes: new SortedSet<int>() {
+					NPCID.BlueSlime
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.Desert, 10));//, Underground: 80));
 			AddProgressionGroup(new(ProgressionGroupID.Snow, 35));//, Underground: 30));
 			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50));//, Underground: 20));
 			AddProgressionGroup(new(ProgressionGroupID.Jungle, 75));//, Underground: 25));
 			AddProgressionGroup(new(ProgressionGroupID.Empress, 970));//, Night: -60));
+			AddProgressionGroup(new(ProgressionGroupID.HardModeNight, 430));
 
 			/*
 			foreach (var id in Enum.GetValues(typeof(ProgressionGroupID)).Cast<ProgressionGroupID>()) {
