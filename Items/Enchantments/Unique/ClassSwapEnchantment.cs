@@ -134,6 +134,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 
 	public abstract class KiClassSwapEnchantment : ClassSwapEnchantment
 	{
+		public override void GetMyStats() {
+			base.GetMyStats();
+			Effects.Add(new KiDamage());
+		}
 		protected override DamageClass MyDamageClass => DBZMODPORTIntegration.Enabled ? DamageClass.Generic : DamageClass.Magic;
 		public override string CustomTooltip => DBZMODPORTIntegration.DBTName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
@@ -141,10 +145,6 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
 	{
-		public override void GetMyStats() {
-			base.GetMyStats();
-			Effects.Add(new KiDamage());
-		}
 		public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
 			new(NPCID.Golem, 9f)
