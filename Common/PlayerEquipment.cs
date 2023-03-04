@@ -194,6 +194,7 @@ namespace WeaponEnchantments.Common {
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
             wePlayer.CombinedOnTickBuffs = CombineBuffEffectDictionaries(wePlayer.OnTickBuffs, enchantedHeldItem.OnTickBuffs);
             wePlayer.CombinedBoolEffects = CombineBoolEffectDictionaries(wePlayer.CombinedBoolEffects, enchantedHeldItem.BoolEffects);
+            wePlayer.CombinedPassiveEffects = CombinePassiveEffectDictionaries(wePlayer.PassiveEffects, enchantedHeldItem.PassiveEffects);
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
@@ -236,7 +237,16 @@ namespace WeaponEnchantments.Common {
 
             return result;
         }
-        public IEnumerable<Item> GetAllArmor() {
+        private List<IPassiveEffect> CombinePassiveEffectDictionaries(List<IPassiveEffect> playerList, List<IPassiveEffect> heldItemList) {
+			List<IPassiveEffect> result = new List<IPassiveEffect>(playerList);
+            foreach (IPassiveEffect passiveEffect in heldItemList) {
+                result.Add(passiveEffect);
+            }
+
+            return result;
+		}
+
+		public IEnumerable<Item> GetAllArmor() {
             Item[] items = new Item[Armor.Length + Accesories.Length];
             Armor.CopyTo(items, 0);
             Accesories.CopyTo(items, Armor.Length);
