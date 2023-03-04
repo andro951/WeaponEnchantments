@@ -121,7 +121,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override SellCondition SellCondition => WEMod.calamityEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.calamityEnabled ? new () {
 			new(NPCID.KingSlime, 9f)
 		} : null;
@@ -141,7 +141,11 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class KiClassSwapEnchantmentBasic : KiClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override void GetMyStats() {
+			base.GetMyStats();
+			Effects.Add(new KiDamage());
+		}
+		public override SellCondition SellCondition => WEMod.dbtEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<DropData> NpcDropTypes => WEMod.dbtEnabled ? new() {
 			new(NPCID.Golem, 9f)
 		} : null;

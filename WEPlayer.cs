@@ -108,12 +108,14 @@ namespace WeaponEnchantments
         public SortedDictionary<short, BuffStats> CombinedOnTickBuffs { set; get; } = new SortedDictionary<short, BuffStats>();
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
         public List<IModifyShootStats> CombinedModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
+		public List<IPassiveEffect> CombinedPassiveEffects { set; get; } = new List<IPassiveEffect>();
 
-        #endregion
 
-        #region IL
+		#endregion
 
-        public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
+		#region IL
+
+		public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
             //Make vanilla crit roll 0
             var c = new ILCursor(il);
 
@@ -1516,7 +1518,7 @@ namespace WeaponEnchantments
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
                 UpdateEnchantmentEffects();
-
+                /*
                 PassiveEffects = new List<IPassiveEffect>();
                 StatEffects = new List<StatEffect>();
 
@@ -1528,13 +1530,14 @@ namespace WeaponEnchantments
                     if (effect is StatEffect statEffect)
                         StatEffects.Add(statEffect);
                 }
+                */
             }
 
             LastPlayerEquipment.CombineDictionaries();
             LastPlayerEquipment.CombineOnHitDictionaries();
 
             // Apply all PostUpdateMiscEffects
-            foreach (IPassiveEffect effect in PassiveEffects) {
+            foreach (IPassiveEffect effect in CombinedPassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
 

@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Effects.CustomEffects
                 var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
                 var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { wePlayer.Player });
                 var KiDamage = (float)DbtPlayerClass.GetField("KiDamage").GetValue(DbtPlayer);
-                wePlayer.Player.GetDamage(DamageClass.Default) *= KiDamage;
+                wePlayer.Player.GetDamage(DamageClass.Generic) *= KiDamage;
             }
         }
 
