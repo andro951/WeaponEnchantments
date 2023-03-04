@@ -40,55 +40,55 @@ namespace WeaponEnchantments.Common
 		CraftFromWeapon
 	}
 	public enum ProgressionGroupID {
-		Forest = 0,
-		Desert = 10,
-		GiantTree = 20,
-		Beach = 30,
-		Snow = 35,
-		Ocean = 50,
+		Forest,
+		Desert,
+		GiantTree,
+		Beach,
+		Snow,
+		Ocean,
 		//UndergroundSnow = 65,
 		//DeepOcean = 70,
-		Jungle = 75,
-		Evil = 80,
-		KingSlime = 85,
+		Jungle,
+		Evil,
+		KingSlime,
 		//UndergroundDesert = 90,
 		//UndergroundJungle = 100,
-		Granite = 105,
-		Marble = 110,
-		Eye = 120,
-		BloodMoon = 150,
-		GoblinArmy = 180,
-		EaterBrain = 200,
+		Granite,
+		Marble,
+		Eye,
+		BloodMoon,
+		GoblinArmy,
+		EaterBrain,
 		//OldOne army T1 post EaterBrain
-		Bee = 250,
-		Skeletron = 300,
-		Dungeon = 320,
-		ShadowChest = 350,
-		Deer = 380,
-		Wall = 420,
+		Bee,
+		Skeletron,
+		Dungeon,
+		ShadowChest,
+		Deer,
+		Wall,
 		HardModeNight,
-		FrostLegeon = 450,
-		Pirates = 545,
-		Eclipse = 560,
-		QueenSlime = 575,
-		Destroyer = 605,
+		FrostLegeon,
+		Pirates,
+		Eclipse,
+		QueenSlime,
+		Destroyer,
 		//OldOne army T2 post Destroyer
-		SkeletronPrime = 615,
-		Twins = 630,
-		Plantera = 725,
-		PumpkinMoon = 820,
-		FrostMoon = 825,
-		Betsey = 840,
-		Golem = 845,
+		SkeletronPrime,
+		Twins,
+		Plantera,
+		PumpkinMoon,
+		FrostMoon,
+		Betsey,
+		Golem,
 		//OldOne army T3 Easy post Golem - 10
-		MartianInvasion = 860,
-		MartianSaucer = 880,
-		DukeFishron = 940,
+		MartianInvasion,
+		MartianSaucer,
+		DukeFishron,
 		//EmpressNight = 910,
-		Empress = 970,//Night = -60
-		LunaticCultist = 975,
-		LunarInvasion = 1005,
-		MoonLord = 1100,//Easy obtain -50
+		Empress,//Night = -60
+		LunaticCultist,
+		LunarInvasion,
+		MoonLord,//Easy obtain -50
 	}
 	public struct ItemSource {
 		public ItemSource(int resultItem, ItemSourceType itemSourceType, int ingredientItem) {
@@ -258,7 +258,7 @@ namespace WeaponEnchantments.Common
 					return infusionPower;
 				}
 			}
-		}
+		}//TODO: Give +5 if from an npc when converting this to ItemSource or InfusionSource
 		SortedSet<int> bossNetIDs;
 		public SortedSet<int> ItemTypes { get; private set; } = new();
 		public SortedSet<string> ItemNames { get; private set; } = new();
@@ -1207,16 +1207,50 @@ namespace WeaponEnchantments.Common
 		private static void SetupProgressionGroups() {
 			SetupMinedOreInfusionPowers();
 			CheckNPCSpawns();
-			AddProgressionGroup(new(ProgressionGroupID.Forest, 5,
+			AddProgressionGroup(new(ProgressionGroupID.Forest, 0,
 				npcTypes: new SortedSet<int>() {
 					NPCID.BlueSlime
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Desert, 10));//, Underground: 80));
+			AddProgressionGroup(new(ProgressionGroupID.GiantTree, 20));
+			AddProgressionGroup(new(ProgressionGroupID.Beach, 30));
 			AddProgressionGroup(new(ProgressionGroupID.Snow, 35));//, Underground: 30));
 			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50));//, Underground: 20));
 			AddProgressionGroup(new(ProgressionGroupID.Jungle, 75));//, Underground: 25));
-			AddProgressionGroup(new(ProgressionGroupID.Empress, 970));//, Night: -60));
+			AddProgressionGroup(new(ProgressionGroupID.Evil, 80));
+			AddProgressionGroup(new(ProgressionGroupID.KingSlime, 85));
+			AddProgressionGroup(new(ProgressionGroupID.Granite, 105));
+			AddProgressionGroup(new(ProgressionGroupID.Marble, 105));
+			AddProgressionGroup(new(ProgressionGroupID.Eye, 120));
+			AddProgressionGroup(new(ProgressionGroupID.BloodMoon, 150));
+			AddProgressionGroup(new(ProgressionGroupID.GoblinArmy, 180));
+			AddProgressionGroup(new(ProgressionGroupID.EaterBrain, 200));
+			AddProgressionGroup(new(ProgressionGroupID.Bee, 250));
+			AddProgressionGroup(new(ProgressionGroupID.Skeletron, 300));
+			AddProgressionGroup(new(ProgressionGroupID.Dungeon, 320));
+			AddProgressionGroup(new(ProgressionGroupID.ShadowChest, 350));
+			AddProgressionGroup(new(ProgressionGroupID.Deer, 380));
+			AddProgressionGroup(new(ProgressionGroupID.Wall, 420));
 			AddProgressionGroup(new(ProgressionGroupID.HardModeNight, 430));
+			AddProgressionGroup(new(ProgressionGroupID.FrostLegeon, 450));
+			AddProgressionGroup(new(ProgressionGroupID.Pirates, 545));
+			AddProgressionGroup(new(ProgressionGroupID.Eclipse, 560));
+			AddProgressionGroup(new(ProgressionGroupID.QueenSlime, 575));
+			AddProgressionGroup(new(ProgressionGroupID.Destroyer, 605));
+			AddProgressionGroup(new(ProgressionGroupID.SkeletronPrime, 615));
+			AddProgressionGroup(new(ProgressionGroupID.Twins, 630));
+			AddProgressionGroup(new(ProgressionGroupID.Plantera, 725));
+			AddProgressionGroup(new(ProgressionGroupID.PumpkinMoon, 820));
+			AddProgressionGroup(new(ProgressionGroupID.FrostMoon, 820));
+			AddProgressionGroup(new(ProgressionGroupID.Betsey, 840));
+			AddProgressionGroup(new(ProgressionGroupID.Golem, 845));
+			AddProgressionGroup(new(ProgressionGroupID.MartianInvasion, 860));
+			AddProgressionGroup(new(ProgressionGroupID.MartianSaucer, 880));
+			AddProgressionGroup(new(ProgressionGroupID.DukeFishron, 940));
+			AddProgressionGroup(new(ProgressionGroupID.Empress, 970));//, Night: -60));
+			AddProgressionGroup(new(ProgressionGroupID.LunaticCultist, 975));
+			AddProgressionGroup(new(ProgressionGroupID.LunarInvasion, 1005));
+			AddProgressionGroup(new(ProgressionGroupID.MoonLord, 1100));
 
 			/*
 			foreach (var id in Enum.GetValues(typeof(ProgressionGroupID)).Cast<ProgressionGroupID>()) {
