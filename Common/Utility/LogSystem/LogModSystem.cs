@@ -84,6 +84,7 @@ namespace WeaponEnchantments.Common.Utility
 		private static bool numPad6 = false;
 		private static bool numPad7 = false;
 		private static bool numPad8 = false;
+		private static bool numPad9 = false;
 
 		//Only used to print the full list of enchantment tooltips in WEPlayer OnEnterWorld()  (Normally commented out there)
 		//public static string listOfAllEnchantmentTooltips = "";
@@ -178,11 +179,17 @@ namespace WeaponEnchantments.Common.Utility
 
             if (InfusionGlobalNPC.StoreSpawnedNPCs && Debugger.IsAttached) {
 				bool newNumPad7 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad7);
-                bool logAndClearNPCs = newNumPad7 && !numPad7;
+				bool newNumPad9 = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad9);
+				bool logAndClearNPCs = newNumPad7 && !numPad7;
+                bool resetProgressionGroups = newNumPad9 && !numPad9;
                 if (logAndClearNPCs)
                     InfusionGlobalNPC.PrintAndClearSpawnedNPCs();
 
-                numPad7 = newNumPad7;
+                if (resetProgressionGroups)
+                    InfusionProgression.ResetAndSetupProgressionGroups();
+
+				numPad7 = newNumPad7;
+                numPad9 = newNumPad9;
 			}
 		}
         private static Item NextWeapon(int type, bool increasing, bool skipVanilla) {

@@ -51,10 +51,12 @@ namespace WeaponEnchantments.Common.Globals
 					}
 
 					Main.anglerQuestFinished = true;
-					if (Main.netMode == 1)
-						NetMessage.SendData(75);
-					else
+					if (Main.netMode == NetmodeID.MultiplayerClient) {
+						NetMessage.SendData(MessageID.AnglerQuestFinished);
+					}
+					else {
 						Main.anglerWhoFinishedToday.Add(player.name);
+					}
 
 					AchievementsHelper.HandleAnglerService();
 

@@ -68,6 +68,9 @@ namespace WeaponEnchantments.Common.Infusion
 				return;
 
 			StoredSpawnedNPCs.NPCListString(name: "npc", isArgument: true, tabs: 4).LogSimple();
+			ClearSpawnedNPCs();
+		}
+		public static void ClearSpawnedNPCs() {
 			StoredSpawnedNPCs.Clear();
 		}
 		public static void PrintStoredNPCSpawnInfo() {

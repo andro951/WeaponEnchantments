@@ -21,6 +21,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics;
 using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
+using WeaponEnchantments.Common.Infusion;
 
 namespace WeaponEnchantments.Common
 {
@@ -41,14 +42,17 @@ namespace WeaponEnchantments.Common
 	}
 	public enum ProgressionGroupID {
 		None = -1,
-		Forest,
+		ForestPreHardMode,
+		ForestPreHardModeNight,
 		Desert,
 		GiantTree,
 		Beach,
 		Snow,
+		ForestPreHardModeRare,
 		Ocean,
 		UndergroundSnow,
 		DeepOcean,
+		ForestPreHardModeVeryRare,
 		Jungle,
 		Evil,
 		KingSlime,
@@ -661,7 +665,7 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, SortedSet<int>> IngredientsFromLootItems { get; private set; } = new();//Not cleared
 		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = new();
 		public static SortedDictionary<ProgressionGroupID, SortedSet<int>> gatherItemBiome = new() {
-			{ ProgressionGroupID.Forest, new() { ItemID.Wood, ItemID.Acorn, ItemID.StoneBlock } },
+			{ ProgressionGroupID.ForestPreHardMode, new() { ItemID.Wood, ItemID.Acorn, ItemID.StoneBlock } },
 			{ ProgressionGroupID.Desert, new() { ItemID.Cactus, ItemID.SandBlock, ItemID.Amber } },
 			{ ProgressionGroupID.Beach, new() { ItemID.PalmWood } },
 			{ ProgressionGroupID.Snow, new() { ItemID.Shiverthorn, ItemID.BorealWood } },
@@ -687,7 +691,7 @@ namespace WeaponEnchantments.Common
 			*/
 		};
 		public static SortedDictionary<ProgressionGroupID, SortedSet<int>> nightItems = new() {
-			{ ProgressionGroupID.Forest, new() { ItemID.FallenStar } }
+			{ ProgressionGroupID.ForestPreHardMode, new() { ItemID.FallenStar } }
 		};
 		private static SortedDictionary<int, (int pickPower, float value)> infusionPowerTiles = null;
 		public static SortedDictionary<int, (int pickPower, float value)> InfusionPowerTiles {
@@ -911,18 +915,30 @@ namespace WeaponEnchantments.Common
 		}
 		*/
 		private static void SetupProgressionGroups() {
-			AddProgressionGroup(new(ProgressionGroupID.Forest, 0,
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardMode, 0,
 				npcTypes: new SortedSet<int>() {
-					NPCID.BlueSlime
+					NPCID.BlueSlime,
+					NPCID.PurpleSlime,
+					NPCID.GreenSlime
 				}));
-			AddProgressionGroup(new(ProgressionGroupID.Desert, 10));//, Underground: 80));
+			AddProgressionGroup(new(ProgressionGroupID.Desert, 10));
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeNight, 20));
 			AddProgressionGroup(new(ProgressionGroupID.GiantTree, 20));
 			AddProgressionGroup(new(ProgressionGroupID.Beach, 30));
-			AddProgressionGroup(new(ProgressionGroupID.Snow, 35));//, Underground: 30));
-			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50));//, Underground: 20));
+			AddProgressionGroup(new(ProgressionGroupID.Snow, 35));
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeRare, 40,
+				npcNames: new SortedSet<string>() {
+					"Wulfrum Amplifier",
+					"Wulfrum Drone",
+					"Wulfrum Gyrator",
+					"Wulfrum Hovercraft",
+					"Wulfrum Rover"
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50));
 			AddProgressionGroup(new(ProgressionGroupID.UndergroundSnow, 65));
 			AddProgressionGroup(new(ProgressionGroupID.DeepOcean, 70));
-			AddProgressionGroup(new(ProgressionGroupID.Jungle, 75));//, Underground: 25));
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeVeryRare, 70));
+			AddProgressionGroup(new(ProgressionGroupID.Jungle, 75));
 			AddProgressionGroup(new(ProgressionGroupID.Evil, 80));
 			AddProgressionGroup(new(ProgressionGroupID.KingSlime, 85));
 			AddProgressionGroup(new(ProgressionGroupID.UndergroundDesert, 90));
@@ -965,7 +981,6 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.PostMoonLordEasy, -50, ProgressionGroupID.MoonLord));
 			AddProgressionGroup(new(ProgressionGroupID.MoonLord, 1100));
 			//AddProgressionGroup(new(ProgressionGroupID., ));
-
 		}
 		private static void PopulateNPCsThatAreSetup() {
 			foreach (ProgressionGroup progressionGroup in progressionGroups.Values) {
@@ -1214,6 +1229,11 @@ namespace WeaponEnchantments.Common
 
 			return info;
 		}
+		public static void ResetAndSetupProgressionGroups() {
+			InfusionGlobalNPC.PrintAndClearSpawnedNPCs();
+			progressionGroups.Clear();
+			SetupProgressionGroups();
+		}
 
 
 		#endregion
@@ -1374,8 +1394,8 @@ namespace WeaponEnchantments.Common
 		}
 		private static void ClearTempDictionaries() {
 			progressionGroups.Clear();
-			WeaponsList.Clear();
-			weaponCraftingIngredients.Clear();
+			//WeaponsList.Clear();//Uncomment after finished setting up
+			//weaponCraftingIngredients.Clear();//Uncomment after finished setting up
 			allWeaponRecipies.Clear();
 			allExpandedRecepies.Clear();
 			infusionPowerTiles = null;
