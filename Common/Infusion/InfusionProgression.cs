@@ -22,6 +22,7 @@ using System.Diagnostics;
 using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
 using WeaponEnchantments.Common.Infusion;
+using Ionic.Zlib;
 
 namespace WeaponEnchantments.Common
 {
@@ -49,13 +50,20 @@ namespace WeaponEnchantments.Common
 		Beach,
 		Snow,
 		ForestPreHardModeRare,
+		Underground,
 		Ocean,
+		Amethyst,
+		Topaz,
+		Sapphire,
 		UndergroundSnow,
+		Emerald,
 		DeepOcean,
 		ForestPreHardModeVeryRare,
 		Jungle,
+		Ruby,
 		Evil,
 		KingSlime,
+		Diamond,
 		UndergroundDesert,
 		UndergroundJungle,
 		Granite,
@@ -65,14 +73,22 @@ namespace WeaponEnchantments.Common
 		GoblinArmy,
 		EaterBrain,
 		OldOneArmyT1,
+		HellMining,
 		Bee,
 		Skeletron,
+		PostSkeletronEasy,
 		Dungeon,
 		ShadowChest,
 		Deer,
+		HardMode,
 		Wall,
+		Hallow,
 		HardModeNight,
+		MushroomHardMode,
+		UndergroundHallow,
+		UndergroundEvil,
 		FrostLegeon,
+		HardModeSulphurousSea,
 		Pirates,
 		Eclipse,
 		QueenSlime,
@@ -296,11 +312,11 @@ namespace WeaponEnchantments.Common
 		//public void AddNPCs(IEnumerable<string> newNPCs) => NpcNames.UnionWith(newNPCs);
 		public void AddNPCs(IEnumerable<string> newNPCs) {
 			SortedSet<string> newNpcsSet = new SortedSet<string>(newNPCs);
-			foreach (int itemType in WeaponsList) {
-				string itemName = itemType.CSI().Name;
-				if (newNpcsSet.Contains(itemName)) {
-					NpcTypes.Add(itemType);
-					newNpcsSet.Remove(itemName);
+			foreach (int netID in NPCsThatDropWeaponsOrIngredients.Keys) {
+				string npcName = netID.CSNPC().FullName();
+				if (newNpcsSet.Contains(npcName)) {
+					NpcTypes.Add(netID);
+					newNpcsSet.Remove(npcName);
 				}
 
 				if (newNpcsSet.Count < 1)
@@ -495,89 +511,51 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<string, int> ModOreInfusionPowers = new() {
 
 		};
-		public static SortedSet<int> NPCsThatDropWeaponsOrIngredients { get; private set; } = new();//Not cleared
+		public static SortedDictionary<int, SortedSet<int>> NPCsThatDropWeaponsOrIngredients { get; private set; } = new();//Not cleared
 		public static SortedDictionary<int, int> VanillaCraftingItemSourceInfusionPowers = new() {
-			//{ ItemID.Wood, 0 },
-			//{ ItemID.StoneBlock, 0 },
-			{ ItemID.Gel, 5 },//Slime
-			//{ ItemID.FallenStar, 5 },//Night
-			{ ItemID.Cobweb, 8 },//Cavern
-			//{ ItemID.Cactus, 10 },
-			//{ ItemID.SandBlock, 10 },
-			//{ ItemID.PalmWood, 30 },
-			//{ ItemID.Shiverthorn, 30 },
-			//{ ItemID.BorealWood, 30 },
-			{ ItemID.Grenade, 40 },
-			{ ItemID.Amethyst, 50 },
-			{ ItemID.Topaz, 55 },
-			{ ItemID.Sapphire, 60 },
-			{ ItemID.FlinxFur, 65 },
-			{ ItemID.Emerald, 65 },
-			{ ItemID.PinkGel, 70 },
-			{ ItemID.Ruby, 75 },
-			{ ItemID.Mace, 80 },
-			//{ ItemID.EbonsandBlock, 80 },
-			//{ ItemID.CrimsandBlock, 80 },
-			//{ ItemID.VileMushroom, 80 },
-			//{ ItemID.ViciousMushroom, 80 },
-			//{ ItemID.Ebonwood, 80 },
-			//{ ItemID.Shadewood, 80 },
+			//{ ItemID.FlinxFur, 65 },
+			{ ItemID.Mace, 80 },//Gold Chest
 			//{ ItemID.RichMahogany, 80 },
-			{ ItemID.LifeCrystal, 85 },
-			{ ItemID.Diamond, 85 },
-			//{ ItemID.Amber, 90 },
-			{ ItemID.FossilOre, 95 },//Drop
-			{ ItemID.AntlionMandible, 95 },//Drop
-			//{ ItemID.JungleSpores, 100 },
-			{ ItemID.Stinger, 105 },//Drop
-			{ ItemID.Vine, 105 },//Drop
-			{ ItemID.CorruptSeeds, 120 },
-			{ ItemID.HallowedSeeds, 120 },
-			{ ItemID.CrimsonSeeds, 120 },
+			//{ ItemID.FossilOre, 95 },//Drop
+			//{ ItemID.AntlionMandible, 95 },//Drop
+			//{ ItemID.Stinger, 105 },//Drop
+			//{ ItemID.Vine, 105 },//Drop
+			//{ ItemID.CorruptSeeds, 120 },
+			//{ ItemID.CrimsonSeeds, 120 },
 			{ ItemID.IllegalGunParts, 160 },
 			{ ItemID.Minishark, 190 },
-			{ ItemID.TissueSample, 200 },//Needs to be EaterOfWorlds/BrainOfCthulhu instead
-			{ ItemID.ShadowScale, 200 },//Needs to be EaterOfWorlds/BrainOfCthulhu instead
-			{ ItemID.Hellforge, 205 },//Needs to be post EaterOfWorlds/BrainOfCthulhu instead
-			{ ItemID.Bone, 200 },//Post Skeletron
-			{ ItemID.BeeWax, 243 },
-			{ ItemID.PixieDust, 400 },
-			{ ItemID.Pearlwood, 400 },
-			{ ItemID.CrystalShard, 420 },
-			{ ItemID.SoulofNight, 420 },
-			{ ItemID.SpiderFang, 420 },
-			{ ItemID.AncientBattleArmorMaterial, 420 },
-			{ ItemID.DjinnLamp, 420 },
-			{ ItemID.SoulofLight, 440 },
-			{ ItemID.DarkShard, 453 },
-			{ ItemID.LightShard, 453 },
-			{ ItemID.Book, 460 },
-			{ ItemID.CursedFlame, 460 },
-			{ ItemID.SpellTome, 460 },
-			{ ItemID.Ichor, 460 },
-			{ ItemID.FrostCore, 460 },
-			{ ItemID.Shotgun, 467 },
-			{ ItemID.HallowedBar, 598 },
-			{ ItemID.SoulofMight, 603 },
-			{ ItemID.SharkFin, 606 },
-			{ ItemID.SoulofFright, 616 },
-			{ ItemID.Lens, 628 },
-			{ ItemID.BlackLens, 628 },
-			{ ItemID.Harp, 628 },
-			{ ItemID.UnicornHorn, 628 },
-			{ ItemID.SoulofSight, 628 },
-			{ ItemID.GlowingMushroom, 678 },
-			{ ItemID.Autohammer, 678 },
-			{ ItemID.BrokenHeroSword, 725 },
-			{ ItemID.Ectoplasm, 734 },
-			{ ItemID.FragmentVortex, 1007 },
-			{ ItemID.FragmentNebula, 1007 },
-			{ ItemID.FragmentSolar, 1007 },
-			{ ItemID.FragmentStardust, 1007 },
-			{ ItemID.LunarCraftingStation, 1007 },
-			{ ItemID.LunarOre, 1020 },
-			{ ItemID.Meowmere, 1100 },
-			{ ItemID.StarWrath, 1100 }
+			//{ ItemID.TissueSample, 200 },//Needs to be EaterOfWorlds/BrainOfCthulhu instead
+			//{ ItemID.ShadowScale, 200 },//Needs to be EaterOfWorlds/BrainOfCthulhu instead
+			//{ ItemID.BeeWax, 243 },//Drop
+			//{ ItemID.Bone, 290 },//Drop
+			//{ ItemID.PixieDust, 400 },//Drop
+			{ ItemID.HallowedSeeds, 400 },//Dryad
+			//{ ItemID.SpiderFang, 420 },//Drop
+			//{ ItemID.AncientBattleArmorMaterial, 420 },Drop
+			//{ ItemID.DjinnLamp, 420 },//Drop
+			//{ ItemID.DarkShard, 453 },//Drop
+			//{ ItemID.LightShard, 453 },//Drop
+			//{ ItemID.CursedFlame, 460 },//Drop
+			{ ItemID.SpellTome, 460 },//Wizard Shop
+			//{ ItemID.Ichor, 460 },//Drop
+			//{ ItemID.FrostCore, 460 },//Drop
+			{ ItemID.Shotgun, 467 },//Shop?
+			//{ ItemID.HallowedBar, 598 },//Drop
+			//{ ItemID.SoulofMight, 603 },//Drop
+			//{ ItemID.SharkFin, 606 },//Drop
+			//{ ItemID.SoulofFright, 616 },//Drop
+			//{ ItemID.Lens, 628 },//Drop
+			//{ ItemID.BlackLens, 628 },//Drop
+			{ ItemID.Harp, 628 },//Shop
+			//{ ItemID.UnicornHorn, 628 },//Drop
+			//{ ItemID.SoulofSight, 628 },//Drop
+			{ ItemID.Autohammer, 678 },//Truffle Shop
+			//{ ItemID.BrokenHeroSword, 725 },//Drop
+			//{ ItemID.Ectoplasm, 734 },//Drop
+			//{ ItemID.LunarCraftingStation, 1007 },//Drop
+			//{ ItemID.LunarOre, 1020 },//Drop
+			//{ ItemID.Meowmere, 1100 },//Drop
+			//{ ItemID.StarWrath, 1100 }//Drop
 		};//Not cleared
 		public static SortedDictionary<string, int> ModdedCraftingItemSourceInfusionPowers = new() {
 			{ "Wulfrum Metal Scrap", 40 },
@@ -702,7 +680,7 @@ namespace WeaponEnchantments.Common
 				return infusionPowerTiles;
 			}
 		}
-		public static SortedSet<int> NPCsThatAreSetup { get; private set; } = new();
+		public static SortedSet<int> ItemsThatAreSetup { get; private set; } = new();
 		public static void PostSetupContent() {
 			if (finishedSetup)
 				return;
@@ -738,7 +716,7 @@ namespace WeaponEnchantments.Common
 			SetupMinedOreInfusionPowers();
 			//CheckNPCSpawns();
 			SetupProgressionGroups();
-			PopulateNPCsThatAreSetup();
+			PopulateItemsThatAreSetup();
 		}
 		private static void SetupWeaponsList() {
 			//string allWeapons = $"\nAll Items:";
@@ -813,13 +791,13 @@ namespace WeaponEnchantments.Common
 
 			foreach (KeyValuePair<int, SortedSet<int>> weapon in WeaponsFromNPCs) {
 				foreach (int netID in weapon.Value) {
-					NPCsThatDropWeaponsOrIngredients.Add(netID);
+					NPCsThatDropWeaponsOrIngredients.AddOrCombine(netID, weapon.Key);
 				}
 			}
 
 			foreach (KeyValuePair<int, SortedSet<int>> ingredient in IngredientsFromNPCs) {
 				foreach (int netID in ingredient.Value) {
-					NPCsThatDropWeaponsOrIngredients.Add(netID);
+					NPCsThatDropWeaponsOrIngredients.AddOrCombine(netID, ingredient.Key);
 				}
 			}
 		}
@@ -916,33 +894,112 @@ namespace WeaponEnchantments.Common
 		*/
 		private static void SetupProgressionGroups() {
 			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardMode, 0,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Wood,
+					ItemID.StoneBlock
+				},
 				npcTypes: new SortedSet<int>() {
-					NPCID.BlueSlime,
-					NPCID.PurpleSlime,
-					NPCID.GreenSlime
+					NPCID.BlueSlime
 				}));
-			AddProgressionGroup(new(ProgressionGroupID.Desert, 10));
-			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeNight, 20));
+			AddProgressionGroup(new(ProgressionGroupID.Desert, 10,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Cactus,
+					ItemID.SandBlock
+				},
+				npcTypes: new SortedSet<int>() {
+					NPCID.Vulture,
+					NPCID.Antlion
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeNight, 20,
+				itemTypes: new SortedSet<int>() {
+					ItemID.FallenStar
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.GiantTree, 20));
-			AddProgressionGroup(new(ProgressionGroupID.Beach, 30));
-			AddProgressionGroup(new(ProgressionGroupID.Snow, 35));
+			AddProgressionGroup(new(ProgressionGroupID.Beach, 30,
+				itemTypes: new SortedSet<int>() {
+					ItemID.PalmWood
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Snow, 35,
+				itemTypes: new SortedSet<int>() {
+					ItemID.BorealWood,
+					ItemID.Shiverthorn
+				},
+				npcNames: new SortedSet<string>() {
+					"Rimehound"
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeRare, 40,
 				npcNames: new SortedSet<string>() {
-					"Wulfrum Amplifier",
-					"Wulfrum Drone",
-					"Wulfrum Gyrator",
-					"Wulfrum Hovercraft",
-					"Wulfrum Rover"
+					"Wulfrum Amplifier"
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Underground, 45,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Cobweb,
+					ItemID.Grenade
+				},
+				npcTypes: new SortedSet<int>() {
+					NPCID.UndeadMiner,
+					NPCID.CaveBat,
+					NPCID.PantlessSkeleton,
+					NPCID.Salamander6
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Ocean, 50));
+			AddProgressionGroup(new(ProgressionGroupID.Amethyst, 50,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Amethyst
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Topaz, 55,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Topaz
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Sapphire, 60,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Sapphire
+				}));
+
 			AddProgressionGroup(new(ProgressionGroupID.UndergroundSnow, 65));
+			AddProgressionGroup(new(ProgressionGroupID.Emerald, 65,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Emerald
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.DeepOcean, 70));
-			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeVeryRare, 70));
+			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeVeryRare, 70,
+				npcTypes: new SortedSet<int>() {
+					NPCID.Pinky
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.Jungle, 75));
-			AddProgressionGroup(new(ProgressionGroupID.Evil, 80));
+			AddProgressionGroup(new(ProgressionGroupID.Ruby, 75,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Ruby
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.Evil, 80,
+				itemTypes: new SortedSet<int>() {
+					ItemID.EbonsandBlock,
+					ItemID.CrimsandBlock,
+					ItemID.VileMushroom,
+					ItemID.ViciousMushroom,
+					ItemID.Ebonwood,
+					ItemID.Shadewood
+				},
+				npcTypes: new SortedSet<int>() {
+					NPCID.EaterofSouls
+				},
+				npcNames: new SortedSet<string>() {
+					"Ebonian Blight Slime"
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.KingSlime, 85));
-			AddProgressionGroup(new(ProgressionGroupID.UndergroundDesert, 90));
-			AddProgressionGroup(new(ProgressionGroupID.UndergroundJungle, 100));
+			AddProgressionGroup(new(ProgressionGroupID.Diamond, 85,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Diamond,
+					ItemID.LifeCrystal
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.UndergroundDesert, 90,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Amber
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.UndergroundJungle, 100,
+				itemTypes: new SortedSet<int>() {
+					ItemID.JungleSpores
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.Granite, 105));
 			AddProgressionGroup(new(ProgressionGroupID.Marble, 105));
 			AddProgressionGroup(new(ProgressionGroupID.Eye, 120));
@@ -950,14 +1007,41 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.GoblinArmy, 180));
 			AddProgressionGroup(new(ProgressionGroupID.EaterBrain, 200));
 			AddProgressionGroup(new(ProgressionGroupID.OldOneArmyT1, -10, ProgressionGroupID.EaterBrain));
+			AddProgressionGroup(new(ProgressionGroupID.HellMining, 20, ProgressionGroupID.EaterBrain,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Hellforge
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.Bee, 250));
 			AddProgressionGroup(new(ProgressionGroupID.Skeletron, 300));
+			AddProgressionGroup(new(ProgressionGroupID.PostSkeletronEasy, -10, ProgressionGroupID.Skeletron,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Book
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.Dungeon, 320));
 			AddProgressionGroup(new(ProgressionGroupID.ShadowChest, 350));
 			AddProgressionGroup(new(ProgressionGroupID.Deer, 380));
+			AddProgressionGroup(new(ProgressionGroupID.HardMode, 400));
 			AddProgressionGroup(new(ProgressionGroupID.Wall, 420));
+			AddProgressionGroup(new(ProgressionGroupID.Hallow, 420,
+				itemTypes: new SortedSet<int>() {
+					ItemID.Pearlwood
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.HardModeNight, 430));
+			AddProgressionGroup(new(ProgressionGroupID.MushroomHardMode, 435,
+				itemTypes: new SortedSet<int>() {
+					ItemID.GlowingMushroom
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.UndergroundHallow, 440,
+				itemTypes: new SortedSet<int>() {
+					ItemID.SoulofLight,
+					ItemID.CrystalShard
+				}));
+			AddProgressionGroup(new(ProgressionGroupID.UndergroundEvil, 440,
+				itemTypes: new SortedSet<int>() {
+					ItemID.SoulofNight
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.FrostLegeon, 450));
+			AddProgressionGroup(new(ProgressionGroupID.HardModeSulphurousSea, 480));
 			AddProgressionGroup(new(ProgressionGroupID.Pirates, 545));
 			AddProgressionGroup(new(ProgressionGroupID.Eclipse, 560));
 			AddProgressionGroup(new(ProgressionGroupID.QueenSlime, 575));
@@ -977,19 +1061,51 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.DukeFishron, 940));
 			AddProgressionGroup(new(ProgressionGroupID.Empress, 970));
 			AddProgressionGroup(new(ProgressionGroupID.LunaticCultist, 975));
-			AddProgressionGroup(new(ProgressionGroupID.LunarInvasion, 1005));
+			AddProgressionGroup(new(ProgressionGroupID.LunarInvasion, 1005,
+				itemTypes: new SortedSet<int>() {
+					ItemID.FragmentNebula,
+					ItemID.FragmentSolar,
+					ItemID.FragmentStardust,
+					ItemID.FragmentVortex
+				}));
 			AddProgressionGroup(new(ProgressionGroupID.PostMoonLordEasy, -50, ProgressionGroupID.MoonLord));
 			AddProgressionGroup(new(ProgressionGroupID.MoonLord, 1100));
 			//AddProgressionGroup(new(ProgressionGroupID., ));
 		}
-		private static void PopulateNPCsThatAreSetup() {
+		private static void PopulateItemsThatAreSetup() {
 			foreach (ProgressionGroup progressionGroup in progressionGroups.Values) {
-				foreach (int npcType in progressionGroup.NpcTypes) {
-					if (!NPCsThatAreSetup.Contains(npcType)) {
-						NPCsThatAreSetup.Add(npcType);
+				foreach (int itemType in progressionGroup.ItemTypes) {
+					if (!ItemsThatAreSetup.Contains(itemType)) {
+						ItemsThatAreSetup.Add(itemType);
 					}
 					else {
-						$"{npcType.CSNPC().S()} already exists in Progression Group: {progressionGroup.ID}".LogSimple();
+						$"ItemsThatAreSetup already contains item: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
+					}
+				}
+
+				foreach (int netID in progressionGroup.NpcTypes) {
+					if (NPCsThatDropWeaponsOrIngredients.ContainsKey(netID)) {
+						SortedSet<int> itemTypes = NPCsThatDropWeaponsOrIngredients[netID];
+						bool added = false;
+						NPC npc = netID.CSNPC();
+						foreach (int itemType in itemTypes) {
+							if (!ItemsThatAreSetup.Contains(itemType)) {
+								Item item = itemType.CSI();
+								ItemsThatAreSetup.Add(itemType);
+								added = true;
+							}
+							/*
+							else {
+								$"{itemType.CSNPC().S()} already exists in Progression Group: {progressionGroup.ID}".LogSimple();
+							}
+							*/
+						}
+
+						if (!added)
+							$"Detected an npc in a Progression group that has no unique weapons or ingredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
+					}
+					else {
+						$"Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 					}
 				}
 			}
@@ -1232,7 +1348,9 @@ namespace WeaponEnchantments.Common
 		public static void ResetAndSetupProgressionGroups() {
 			InfusionGlobalNPC.PrintAndClearSpawnedNPCs();
 			progressionGroups.Clear();
+			ItemsThatAreSetup.Clear();
 			SetupProgressionGroups();
+			PopulateItemsThatAreSetup();
 		}
 
 

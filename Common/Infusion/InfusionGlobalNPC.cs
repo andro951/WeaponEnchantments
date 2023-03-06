@@ -34,7 +34,7 @@ namespace WeaponEnchantments.Common.Infusion
 			if (!started || npc.IsBoss())
 				return;
 
-			if (!InfusionProgression.NPCsThatDropWeaponsOrIngredients.Contains(npc.netID)) {
+			if (!InfusionProgression.NPCsThatDropWeaponsOrIngredients.Keys.Contains(npc.netID)) {
 				//$"{npc.S()} has no weapon or weapon ingredient drops".LogSimple();//temp
 				return;
 			}
@@ -57,10 +57,21 @@ namespace WeaponEnchantments.Common.Infusion
 			*/
 
 			if (StoreSpawnedNPCs) {
+				string name = npc.FullName();//Temp
+				//Check dropped items instead of npcs.
 				bool inStoredSpawnedNPCs = StoredSpawnedNPCs.Contains(netID);
-				bool inNPCsThatAreSetup = InfusionProgression.NPCsThatAreSetup.Contains(netID);
-				if (!inStoredSpawnedNPCs && !inNPCsThatAreSetup)
-					StoredSpawnedNPCs.Add(netID);
+				if (!inStoredSpawnedNPCs) {
+					SortedSet<int> itemTypes = InfusionProgression.NPCsThatDropWeaponsOrIngredients[netID];
+					foreach (int itemType in itemTypes) {
+						Item item = itemType.CSI();//Temp
+						bool inItemsThatAreSetup = InfusionProgression.ItemsThatAreSetup.Contains(itemType);
+						if (!inItemsThatAreSetup) {
+							Main.NewText($"{npc.S()}, {item.S()}");
+							InfusionProgression.ItemsThatAreSetup.Add(itemType);
+							StoredSpawnedNPCs.Add(netID);
+						}
+					}
+				}
 			}
 		}
 		public static void PrintAndClearSpawnedNPCs() {

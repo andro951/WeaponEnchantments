@@ -701,6 +701,14 @@ namespace WeaponEnchantments.Common.Utility
                 dict.Add(key, new() { value });
             }
         }
+		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, SortedSet<T>> dict, TKey key, T value) {
+			if (dict.ContainsKey(key)) {
+				dict[key].Add(value);
+			}
+			else {
+				dict.Add(key, new() { value });
+			}
+		}
 		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, HashSet<T> value) {
 			if (dict.ContainsKey(key)) {
 				dict[key] = dict[key].Concat(value).ToHashSet();
