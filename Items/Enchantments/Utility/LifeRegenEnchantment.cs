@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
     {
         public override SellCondition SellCondition => SellCondition.AnyTime;
         public override List<DropData> NpcDropTypes => new() {
-            new(NPCID.Zombie, 0.2f)
+            new(NPCID.Zombie, chance: 0.005f)
         };
         public override List<DropData> ChestDrops => new() {
             new(ChestID.Chest_Normal, 0.5f)
