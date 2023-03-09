@@ -64,10 +64,10 @@ namespace WeaponEnchantments.Common.Infusion
 					SortedSet<int> itemTypes = InfusionProgression.NPCsThatDropWeaponsOrIngredients[netID];
 					foreach (int itemType in itemTypes) {
 						Item item = itemType.CSI();//Temp
-						bool inItemsThatAreSetup = InfusionProgression.ItemsThatAreSetup.Contains(itemType);
+						bool inItemsThatAreSetup = InfusionProgression.ItemInfusionPowers.ContainsKey(itemType);
 						if (!inItemsThatAreSetup) {
 							Main.NewText($"{npc.S()}, {item.S()}");
-							InfusionProgression.ItemsThatAreSetup.Add(itemType);
+							InfusionProgression.ItemInfusionPowers.Add(itemType, -1);
 							StoredSpawnedNPCs.Add(netID);
 						}
 					}

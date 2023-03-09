@@ -227,7 +227,7 @@ namespace WeaponEnchantments.Content.NPCs
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopEnchantments.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.DuplicateItemInWitchsShop);
+					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
 					i--;
 					list.Remove(type);
 					continue;

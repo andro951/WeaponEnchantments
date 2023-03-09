@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.netID}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
+        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -54,7 +54,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this NPC npc, bool stats = false) => npc != null ? $"name: {npc.FullName()} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
+        public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}{(npc.type >= NPCID.Count ? $" name: {npc.FullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -153,6 +153,8 @@ namespace WeaponEnchantments.Common.Utility
         public static string GetNPCIDName(this int netId) => NPCID.Search.TryGetName(netId, out string name) ? $"NPCID.{name}" : $"FailedToFindNPCName{netId}";
         public static string GetItemNameString(this int itemType) => ContentSamples.ItemsByType[itemType].Name.Quotes();
         public static string GetNPCNameString(this int netId) => ContentSamples.NpcsByNetId[netId].FullName().Quotes();
+        public static string GetItemIDOrName(this int itemType) => itemType < ItemID.Count ? itemType.GetItemIDName() : itemType.GetItemNameString();
+        public static string GetNPCIDOrName(this int netId) => netId < NPCID.Count ? netId.GetNPCIDName() : netId.GetNPCNameString();
 
         #endregion
 

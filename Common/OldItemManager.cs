@@ -345,7 +345,7 @@ namespace WeaponEnchantments.Common
                                         ReplaceItem(ref item, enchantment.Item.type + typeOffset);
                                     }
 									else {
-                                        $"Failed to replace old item: {name}".LogNT(ChatMessagesIDs.FailedToReplaceOldItem);
+                                        $"Failed to replace old item: {name}".LogNT(ChatMessagesIDs.AlwaysShowFailedToReplaceOldItem);
 									}
 
                                     return true;
