@@ -1013,6 +1013,8 @@ namespace WeaponEnchantments.Common.Globals
 			bool isWeapon;
             switch (item.type) {
                 case ItemID.ExplosiveBunny:
+                case ItemID.TreeGlobe:
+                case ItemID.WorldGlobe:
                     isWeapon = false;
                     break;
                 default:

@@ -64,6 +64,7 @@ namespace WeaponEnchantments
 		public override void OnWorldLoad() {
 			InfusionManager.SetUpVanillaWeaponInfusionPowers();
 			InfusionProgression.PostSetupContent();
+            InfusionManager.LogAllInfusionPowers();
 		}
 		public override void Unload() {
             if (!Main.dedServ) {

@@ -82,19 +82,20 @@ namespace WeaponEnchantments.Common
 
                 calamityAverageValues[i] = (calamityMinValues[i] + calamityMaxValues[i]) / 2;
 			}
-
-            //Print list of items
-			if (PrintListOfItems[GetItemDictModeID.Weapon]) {
-                GetItemDict(GetItemDictModeID.Weapon, postSetupPrintList: true);
-
-                string msg = "\nRarity, Average, Min, Max";
-                for (int i = 0; i < numRarities; i++) {
-                    msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
-                }
-
-                msg.Log();
-            }
         }
+        public static void LogAllInfusionPowers() {
+			//Print list of items
+			if (PrintListOfItems[GetItemDictModeID.Weapon]) {
+				GetItemDict(GetItemDictModeID.Weapon, postSetupPrintList: true);
+
+				string msg = "\nRarity, Average, Min, Max";
+				for (int i = 0; i < numRarities; i++) {
+					msg += $"\n{i}, {averageValues[i]}, {minValues[i]}, {maxValues[i]}";
+				}
+
+				msg.Log();
+			}
+		}
         private struct ItemDetails {
             public Item Item;
             public float Rarity;

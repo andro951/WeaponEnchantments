@@ -671,8 +671,7 @@ namespace WeaponEnchantments.Common.Utility
 		MultiplicativePartOf1
 	}
 
-	public static class NPCIDMethods
-	{
+	public static class NPCIDMethods {
         public static string GetNPCPNGLink(this int id) {
 			switch (id) {
 				case NPCID.BigHornetStingy://-65 Hornet
