@@ -1488,20 +1488,20 @@ namespace WeaponEnchantments.Common.Globals
                 if (consumedItem.IsAir)
                     continue;
 
-                if (!consumedItem.TryGetEnchantedItem(out EnchantedItem cGlobal))
+                if (!consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem))
                     continue;
 
-                if (!cGlobal.Modified)
+                if (!consumedEnchantedItem.Modified)
                     continue;
 
                 if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                     item.CheckConvertExcessExperience(consumedItem);
-                    if (enchantedItem.InfusionPower < cGlobal.InfusionPower && item.GetWeaponInfusionPower() < cGlobal.InfusionPower) {
+                    if (enchantedItem.InfusionPower < consumedEnchantedItem.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedItem.InfusionPower) {
                         item.TryInfuseItem(consumedItem);
                         item.TryInfuseItem(consumedItem, false, true);
                     }
 
-                    if (cGlobal.PowerBoosterInstalled) {
+                    if (consumedEnchantedItem.PowerBoosterInstalled) {
                         if (!enchantedItem.PowerBoosterInstalled) {
                             enchantedItem.PowerBoosterInstalled = true;
                         }
@@ -1510,7 +1510,7 @@ namespace WeaponEnchantments.Common.Globals
                         }
                     }
 
-                    if (cGlobal.UltraPowerBoosterInstalled) {
+                    if (consumedEnchantedItem.UltraPowerBoosterInstalled) {
                         if (!enchantedItem.UltraPowerBoosterInstalled) {
                             enchantedItem.UltraPowerBoosterInstalled = true;
                         }
@@ -1527,8 +1527,8 @@ namespace WeaponEnchantments.Common.Globals
                             break;
                     }
                     for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
-                        if (!cGlobal.enchantments[k].IsAir) {
-                            Enchantment enchantment = ((Enchantment)cGlobal.enchantments[k].ModItem);
+                        if (!consumedEnchantedItem.enchantments[k].IsAir) {
+                            Enchantment enchantment = ((Enchantment)consumedEnchantedItem.enchantments[k].ModItem);
                             int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
                             //int slotToUse = enchantment.Utility && enchantedItem.enchantments[j].IsAir ? 4 : j;
@@ -1540,12 +1540,12 @@ namespace WeaponEnchantments.Common.Globals
 
                             if (!cantFit && enchantment.GetCapacityCost() <= enchantedItem.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && iGlobal.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
-                                        iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
+                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
+										enchantedItem.enchantments[4] = consumedEnchantedItem.enchantments[k].Clone();
                                         item.ApplyEnchantment(4);
                                     }
                                     else if (j < 4) {
-                                        enchantedItem.enchantments[j] = cGlobal.enchantments[k].Clone();
+                                        enchantedItem.enchantments[j] = consumedEnchantedItem.enchantments[k].Clone();
                                         item.ApplyEnchantment(j);
                                         j++;
                                     }
@@ -1562,10 +1562,10 @@ namespace WeaponEnchantments.Common.Globals
                             }
 
                             if (cantFit)
-                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), consumedEnchantedItem.enchantments[k].type, 1);
                         }
 
-                        cGlobal.enchantments[k] = new Item();
+                        consumedEnchantedItem.enchantments[k] = new Item();
                     }
                 }
                 else {
@@ -1583,15 +1583,15 @@ namespace WeaponEnchantments.Common.Globals
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssenceBasic.IDs[tier], numberEssenceRecieved);
                     }
 
-                    if (cGlobal.PowerBoosterInstalled)
+                    if (consumedEnchantedItem.PowerBoosterInstalled)
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<PowerBooster>(), 1);
 
-                    if (cGlobal.UltraPowerBoosterInstalled)
+                    if (consumedEnchantedItem.UltraPowerBoosterInstalled)
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>(), 1);
 
                     for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
-                        if (!cGlobal.enchantments[k].IsAir) {
-                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), cGlobal.enchantments[k].type, 1);
+                        if (!consumedEnchantedItem.enchantments[k].IsAir) {
+                            Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), consumedEnchantedItem.enchantments[k].type, 1);
                         }
                     }
                 }
