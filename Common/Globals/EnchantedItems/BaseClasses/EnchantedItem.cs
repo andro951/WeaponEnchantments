@@ -1496,7 +1496,7 @@ namespace WeaponEnchantments.Common.Globals
                                 if (uniqueItemSlot == -1) {
                                     if ((RemoveEnchantmentRestrictions || enchantment.Utility) && iGlobal.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
                                         iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
-                                        item.ApplyEnchantment(j);
+                                        item.ApplyEnchantment(4);
                                     }
                                     else if (j < 4) {
                                         iGlobal.enchantments[j] = cGlobal.enchantments[k].Clone();
