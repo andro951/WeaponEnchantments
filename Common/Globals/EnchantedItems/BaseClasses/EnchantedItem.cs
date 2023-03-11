@@ -1540,9 +1540,9 @@ namespace WeaponEnchantments.Common.Globals
 
                             if (!cantFit && enchantment.GetCapacityCost() <= enchantedItem.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
-                                        enchantedItem.enchantments[4] = cGlobal.enchantments[k].Clone();
-                                        item.ApplyEnchantment(j);
+                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && iGlobal.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
+                                        iGlobal.enchantments[4] = cGlobal.enchantments[k].Clone();
+                                        item.ApplyEnchantment(4);
                                     }
                                     else if (j < 4) {
                                         enchantedItem.enchantments[j] = cGlobal.enchantments[k].Clone();
