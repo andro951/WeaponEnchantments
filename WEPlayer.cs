@@ -950,8 +950,18 @@ namespace WeaponEnchantments
         private void ApplyMinionDamageModifications(Item item, ref int damage, Projectile projectile) {
             //Stardust dragon scale damage multiplier correction//Stardust Dragon
             if (projectile != null) {
-                //Minion, item damage doesn't apply to minions
-                if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && (projectile.minion || projectile.DamageType == DamageClass.Summon))
+                //Some weapons aren't affected by changing their damage stat.
+                bool notAffectedByDamageStat = false;
+                switch (item.type) {
+                    case ItemID.LastPrism:
+                    //case ItemID.AbigailsFlower:
+                    //case ItemID.StormTigerStaff:
+                        notAffectedByDamageStat = true;
+						break;
+                }
+
+				//Minion, item damage doesn't apply to minions
+				if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && (projectile.minion || projectile.DamageType == DamageClass.Summon || notAffectedByDamageStat))
                     damage = (int)Math.Round((float)damage * enchantedWeapon.infusionDamageMultiplier);
 
                 if (ProjectileID.Sets.StardustDragon[projectile.type]) {
