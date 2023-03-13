@@ -127,9 +127,13 @@ namespace WeaponEnchantments.Common.Globals
 				"Polterghast",
 				"The Old Duke",
 				"The Devourer of Gods",
-				"Jungle Dragon, Yharon",
+				"Yharon, Dragon of Rebirth",
 				"XF-09 Ares",
-				"Supreme Calamitas",
+				"Supreme Witch, Calamitas",
+				"Cryogen",
+				"Calamitas Clone",
+				"Brimstone Elemental",
+				"Aquatic Scourge",
 
                 //Stars Above
 				"Penthesilea, the Witch of Ink",

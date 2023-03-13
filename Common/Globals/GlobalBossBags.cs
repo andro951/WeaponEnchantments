@@ -35,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
             { ItemID.BossBagOgre/*Unobtainable*/, new() { NPCID.DD2OgreT2 } },
             { ItemID.BossBagBetsy, new() { NPCID.DD2Betsy } }
 		};
+        public static SortedDictionary<string, int> BossTypes = new();
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
 
             int type = item.type;
@@ -106,6 +107,7 @@ namespace WeaponEnchantments.Common.Globals
                     int bagType = supportedNPCsThatDropBags[sampleNPCName];
                     if (!bossBagNPCIDs.ContainsKey(bagType)) {
 						bossBagNPCIDs.Add(bagType, new() { sampleNPC.netID });
+                        BossTypes.Add(sampleNPC.FullName(), sampleNPC.netID);
 					}
                     else {
                         bossBagNPCIDs[bagType].Add(sampleNPC.netID);
@@ -304,7 +306,7 @@ namespace WeaponEnchantments.Common.Globals
                 case "StormWeaverBag":
                     return "Storm Weaver";
                 case "YharonBag":
-                    return "Jungle Dragon, Yharon";
+                    return "Yharon, Dragon of Rebirth";
                 // /\Calamity contributed by SnarkyEspresso
 
                 // \/Fargo's Souls contributed by SnarkyEspresso

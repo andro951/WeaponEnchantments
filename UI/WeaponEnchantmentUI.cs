@@ -542,7 +542,7 @@ namespace WeaponEnchantments.UI
                     //Prevent specific items from being consumed for infusion.
                     switch (tableItem.Name) {
                         case "Murasama":
-                            Main.NewText("Murasama cannot be consumed for infusion until a check for the Jungle Dragon, Yharon being defeated can be added.");
+                            Main.NewText("Murasama cannot be consumed for infusion until a check for the Yharon, Dragon of Rebirth being defeated can be added.");
                             break;
                         default:
                             canConsume = true;
