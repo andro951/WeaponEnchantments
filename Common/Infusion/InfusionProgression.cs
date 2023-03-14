@@ -151,7 +151,7 @@ namespace WeaponEnchantments.Common
 		Twins,
 		PostAllMechanicalBossesShop,
 		ChlorophyteOre,
-		PostPlanteraShop,
+		PostPlanteraEasy,
 		Plantera,
 		DungeonPostPlantera,
 		DungeonPostPlanteraRare,
@@ -214,7 +214,6 @@ namespace WeaponEnchantments.Common
 		Ravager,
 		PostAstrumDeusEasy,
 		AstrumDeus,
-		UnholyEssence,
 		PostMoonLord,
 		ProfanedGuardians,
 		DragonFolly,
@@ -231,6 +230,7 @@ namespace WeaponEnchantments.Common
 		OldDuke,
 		DevouererOfGods,
 		AscendentSpirit,
+		PostYharonEasy,
 		Yharon,
 		ExoMechs,
 		SupremeCalamitas,
@@ -260,6 +260,7 @@ namespace WeaponEnchantments.Common
 		public ItemSourceType ItemSourceType;
 		public int ResultItemID;
 		public int SourceID;
+		public int InfusionPowerOverride = -1;
 		//private int ingredientItemStack;
 		public string ModdedSourceName => Modded ? SourceID.CSI().Name : null;
 		public bool Modded => SourceID >= ItemID.Count;
@@ -320,7 +321,7 @@ namespace WeaponEnchantments.Common
 
 
 		private InfusionOffset infusionOffset;
-		private ItemSource itemSource;
+		public ItemSource itemSource;
 		public string ModdedSourceName => itemSource.ModdedSourceName;
 		public int SourceID => itemSource.SourceID;
 		public int ResultItemID => itemSource.ResultItemID;
@@ -369,17 +370,20 @@ namespace WeaponEnchantments.Common
 	public class ProgressionGroup {
 		public ProgressionGroup(ProgressionGroupID id, int InfusionPower, ProgressionGroupID parent = ProgressionGroupID.None, 
 				IEnumerable<int> itemTypes = null, IEnumerable<string> itemNames = null, IEnumerable<int> npcTypes = null, 
-				IEnumerable<string> npcNames = null, IEnumerable<ChestID> chests = null, IEnumerable<CrateID> crates = null, IEnumerable<int> lootItemTypes = null) {
+				IEnumerable<string> npcNames = null, IEnumerable<ChestID> chests = null, IEnumerable<CrateID> crates = null, IEnumerable<int> lootItemTypes = null,
+				IEnumerable<int> ignoredItemTypes = null) {
 			parentID = parent;
 			ID = id;
 			infusionPower = InfusionPower;
 			bossNetIDs = GetBossType(id);
+			if (ignoredItemTypes != null)
+				addedItems = new(ignoredItemTypes);
+
 			if (TryGetLootBagFromBoss(out SortedSet<int> lootBags))
 				AddLootItems(lootBags);
 
 			//if (bossNetIDs != null)
 			//	AddNPCs(bossNetIDs);//TODO make this boss bags instead because boss bags always drop all items.
-
 			if (itemTypes != null)
 				AddItems(itemTypes);
 
@@ -449,12 +453,29 @@ namespace WeaponEnchantments.Common
 						ItemTypes.Add(itemType);
 						addedItems.Add(itemType);
 					}
-					
+
 					newItemsSet.Remove(itemName);
 				}
 
 				if (newItemsSet.Count < 1)
 					break;
+			}
+
+			if (newItemsSet.Count > 0) {
+				for (int itemType = 0; itemType < ItemLoader.ItemCount; itemType++) {
+					string itemName = itemType.CSI().Name;
+					if (newItemsSet.Contains(itemName)) {
+						if (!addedItems.Contains(itemType)) {
+							ItemTypes.Add(itemType);
+							addedItems.Add(itemType);
+						}
+
+						newItemsSet.Remove(itemName);
+					}
+
+					if (newItemsSet.Count < 1)
+						break;
+				}
 			}
 
 			if (newItemsSet.Count > 0)
@@ -842,6 +863,7 @@ namespace WeaponEnchantments.Common
 		private static bool guessingInfusionPowers => false;
 		public const int VANILLA_RECIPE_COUNT = 2691;
 		private static bool finishedSetup = false;
+		private static bool finishedRecipeSetup = false;
 		public static SortedDictionary<int, InfusionPowerSource> WeaponInfusionPowers { get; private set; } = new();//Not cleared
 		public static SortedDictionary<InfusionPowerSource, int> SourceInfusionPowers { get; private set; } = new();//Not cleared
 		private static SortedDictionary<int, HashSet<HashSet<int>>> allWeaponRecipies = new();
@@ -863,87 +885,7 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, SortedSet<int>> NPCsThatDropWeaponsOrIngredients { get; private set; } = new();//Not cleared
 		public static SortedDictionary<int, int> VanillaItemSourceInfusionPowers = new();//Not cleared
 		public static SortedDictionary<string, int> ModdedItemSourceInfusionPowers = new() {
-			{ "April Fools Joke", 0 }
-			/*
-			{ "Wulfrum Metal Scrap", 40 },
-			{ "Energy Core", 43 },
-			{ "Desert Feather", 63 },
-			{ "Sea Remains", 87 },
-			{ "Pearl Shard", 97 },
-			{ "Stormlion Mandible", 97 },
-			{ "Navystone", 97 },
-			{ "Sea Prism", 97 },
-			{ "Astral Monolith", 120 },
-			{ "Astral Sand", 120 },
-			{ "Sulphuric Scale", 125 },
-			{ "Acidwood", 125 },
-			{ "Blood Sample", 215 },
-			{ "Rotten Matter", 215 },
-			{ "Aerialite Bar", 230 },
-			{ "Dubious Plating", 235 },
-			{ "Mysterious Circuitry", 235 },
-			{ "Purified Gel", 280 },
-			{ "Essence of Eleum", 420 },
-			{ "Essence of Havoc", 420 },
-			{ "Essence of Sunlight", 420 },
-			{ "Mollusk Husk", 420 },
-			{ "Stardust", 420 },
-			{ "Prototype Plasma Drive Core", 440 },
-			{ "Suspicious Scrap", 440 },
-			{ "Unholy Core", 450 },
-			{ "Cryonic Bar", 585 },
-			{ "Corroded Fossil", 600 },
-			{ "Hoarfrost Bow", 600 },
-			{ "Solar Veil", 615 },
-			{ "Ashes of Calamity", 700 },
-			{ "Depth Cells", 710 },
-			{ "Lumenyl", 710 },
-			{ "Smooth Voidstone", 710 },
-			{ "Sulphurous Sand", 710 },
-			{ "Voidstone", 710 },
-			{ "Living Shard", 725 },
-			{ "Perennial Bar", 725 },
-			{ "Core of Eleum", 750 },
-			{ "Core of Havoc", 750 },
-			{ "Core of Sunlight", 750 },
-			{ "Grand Scale", 775 },
-			{ "Core of Calamity", 860 },
-			{ "Infected Armor Plating", 860 },
-			{ "Life Alloy", 860 },
-			{ "Scoria Bar", 860 },
-			{ "Plague Cell Canister", 880 },
-			{ "Planty Mush", 885 },
-			{ "Meld Construct", 995 },
-			{ "Galactica Singularity", 1005 },
-			{ "Astral Bar", 1010 },
-			{ "Auric Bar", 1100 },
-			{ "Bloodstone Core", 1105 },
-			{ "Demonic Bone Ash", 1105 },
-			{ "Effulgent Feather", 1150 },
-			{ "Divine Geode", 1180 },
-			{ "Unholy Essence", 1180 },
-			{ "Uelibloom Bar", 1200 },
-			{ "Aureus Cell", 1210 },
-			{ "Dark Plasma", 1240 },
-			{ "Armored Shell", 1270 },
-			{ "Phantoplasm", 1270 },
-			{ "Twisting Nether", 1300 },
-			{ "Reaper Tooth", 1330 },
-			{ "Ruinous Soul", 1330 },
-			{ "Exodium Cluster", 1330 },
-			{ "Cosmilite Bar", 1400 },
-			{ "Darksun Fragment", 1450 },
-			{ "Endothermic Energy", 1450 },
-			{ "Nightmare Fuel", 1450 },
-			{ "The Obliterator", 1450 },
-			{ "Eradicator", 1450 },
-			{ "Ascendant Spirit Essence", 1500 },
-			{ "Yharon Soul Fragment", 1550 },
-			{ "Miracle Matter", 1600 },
-			{ "Shadowspec Bar", 1700 },
-			{ "Abombination", 1700 },
-			{ "Heresy", 1700 }
-			*/
+			//{ "April Fools Joke", 0 }
 		};//Not cleared
 		public static SortedDictionary<int, SortedSet<int>> WeaponsFromNPCs { get; private set; } = new();//Not cleared
 		public static SortedDictionary<int, SortedSet<int>> IngredientsFromNPCs { get; private set; } = new();//Not cleared
@@ -966,7 +908,7 @@ namespace WeaponEnchantments.Common
 				return;
 
 			//Get all dictionaries
-			SetupTempDictionaries();
+			SetupDictionaries();
 
 			PopulateCraftingWeaponSources();
 			//TODO: Include required tile in crafted item recipes.  Set to crafted from incredients for the tile item
@@ -985,9 +927,9 @@ namespace WeaponEnchantments.Common
 			ClearSetupData();
 		}
 
-		#region SetupTempDictionaries
+		#region SetupDictionaries
 
-		private static void SetupTempDictionaries() {
+		private static void SetupDictionaries() {
 			SetupWeaponsList();
 			SetupReverseCraftableIngredients();
 			GetAllCraftingResources();
@@ -995,8 +937,8 @@ namespace WeaponEnchantments.Common
 			SetupItemsFromLootItems();
 			//CheckNPCSpawns();
 			SetupProgressionGroups();
-			SetupMinedOreInfusionPowers();
 			PopulateItemInfusionPowers();
+			GuessMinedOreInfusionPowers();
 		}
 		private static void SetupWeaponsList() {
 			//string allWeapons = $"\nAll Items:";
@@ -1031,6 +973,7 @@ namespace WeaponEnchantments.Common
 					allWeaponRecipies.Add(weaponType, ingredients);
 			}
 
+			finishedRecipeSetup = true;
 			foreach (int ingredient in allWeaponRecipies.Select(p => p.Value).SelectMany(t => t).SelectMany(t => t)) {
 				WeaponCraftingIngredients.Add(ingredient);
 			}
@@ -1097,7 +1040,7 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			$"{conditionItems.DictionaryOfItemLists("ConditionItems", (s) => s)}".LogSimple();
+			//$"{conditionItems.DictionaryOfItemLists("ConditionItems", (s) => s)}".LogSimple();
 
 			foreach (KeyValuePair<int, SortedSet<int>> weapon in WeaponsFromNPCs) {
 				foreach (int netID in weapon.Value) {
@@ -1185,7 +1128,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Mushroom,
 					ItemID.Acorn,
 					ItemID.ClayBlock,
-					ItemID.Tombstone
+					ItemID.Tombstone,
+					ItemID.Count//April Fools Joke
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.BlueSlime,
@@ -1317,7 +1261,10 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.DeepOcean, 70,
 				itemTypes: new SortedSet<int>() {
 					ItemID.BreathingReed,
-					ItemID.Trident
+					ItemID.Trident,
+					ItemID.Starfish,
+					ItemID.Coral,
+					ItemID.Seashell
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Shark
@@ -1409,7 +1356,6 @@ namespace WeaponEnchantments.Common
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.WalkingAntlion,
-					NPCID.DesertBeast,
 					NPCID.TombCrawlerHead
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Fishing, 95,
@@ -1561,8 +1507,7 @@ namespace WeaponEnchantments.Common
 					ItemID.TragicUmbrella
 				},
 				npcTypes: new SortedSet<int>() {
-					NPCID.Mechanic,
-					NPCID.Clothier
+					NPCID.Mechanic
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Skeletron, 300));
 			AddProgressionGroup(new(ProgressionGroupID.Dungeon, 320,
@@ -1787,7 +1732,7 @@ namespace WeaponEnchantments.Common
 				itemTypes: new SortedSet<int>() {
 					ItemID.ChlorophyteOre
 				}));
-			AddProgressionGroup(new(ProgressionGroupID.PostPlanteraShop, -10, ProgressionGroupID.Plantera,
+			AddProgressionGroup(new(ProgressionGroupID.PostPlanteraEasy, -10, ProgressionGroupID.Plantera,
 				itemTypes: new SortedSet<int>() {
 					ItemID.Autohammer,
 					ItemID.Nanites,//Cyborg
@@ -1916,6 +1861,79 @@ namespace WeaponEnchantments.Common
 					new SortedSet<string>() {
 						"Wulfrum Amplifier"
 					});//40
+				progressionGroups[ProgressionGroupID.Evil].AddNPCs(
+					new SortedSet<string>() {
+						"Ebonian Blight Slime"
+					});//80
+				progressionGroups[ProgressionGroupID.UndergroundDesert].AddNPCs(
+					new SortedSet<string>() {
+						"Stormlion"
+					});//90
+				progressionGroups[ProgressionGroupID.Fishing].AddItems(
+					new SortedSet<string>() {
+						"Spadefish",
+						"Sparkling Empress"
+					});//90
+				progressionGroups[ProgressionGroupID.Hell].AddItems(
+					new SortedSet<string>() {
+						"Dragoon Drizzlefish"
+					});//90
+				progressionGroups[ProgressionGroupID.PostSkeletronShop].AddItems(
+					new SortedSet<string>() {
+						"Cinquedea",
+						"Glaive",
+						"Kylie"
+					});//290
+				progressionGroups[ProgressionGroupID.HardmodeShopItems].AddItems(
+					new SortedSet<string>() {
+						"P90",
+						"Slick Cane"
+					});//400
+				progressionGroups[ProgressionGroupID.HardMode].AddItems(
+					new SortedSet<string>() {
+						"Essence of Havoc",
+						"Essence of Eleum",
+						"Essence of Sunlight",
+						"Clothier's Wrath"
+					});//400
+				progressionGroups[ProgressionGroupID.HardModeUnderground].AddNPCs(
+					new SortedSet<string>() {
+						"Ice Clasper"
+					});//410
+				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
+					new SortedSet<string>() {
+						"Evil Smasher"
+					});//410
+				progressionGroups[ProgressionGroupID.HardModeRare].AddNPCs(
+					new SortedSet<string>() {
+						"Earth Elemental",
+						"Cloud Elemental"
+					});//460
+				progressionGroups[ProgressionGroupID.PostAllMechanicalBossesShop].AddItems(
+					new SortedSet<string>() {
+						"Arctic Bear Paw",
+						"Cryophobia",
+						"Cryogenic Staff"
+					});//640
+				progressionGroups[ProgressionGroupID.PostAllMechanicalBossesShop].AddItems(
+					new SortedSet<string>() {
+						"Frosty Flare"
+					});//640
+				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
+					new SortedSet<string>() {
+						"Mantis Claws",
+						"Perennial Ore",
+						"Monkey Darts"
+					});//715
+				progressionGroups[ProgressionGroupID.PostGolemShop].AddItems(
+					new SortedSet<string>() {
+						"Scoria Ore"
+					});//835
+				progressionGroups[ProgressionGroupID.PostMoonLordEasy].AddItems(
+					new SortedSet<string>() {
+						"Celestial Reaper",
+						"Phantoplasm"
+					});//1050
 				AddProgressionGroup(new(ProgressionGroupID.ArsenalLabs, 70,
 					itemNames: new SortedSet<string>() {
 						"Dubious Plating",
@@ -1928,15 +1946,7 @@ namespace WeaponEnchantments.Common
 						"Acidwood",
 						"Sulphurous Sand"
 					}));
-				progressionGroups[ProgressionGroupID.Evil].AddNPCs(
-					new SortedSet<string>() {
-						"Ebonian Blight Slime"
-					});//80
 				AddProgressionGroup(new(ProgressionGroupID.DesertScourge, 87));
-				progressionGroups[ProgressionGroupID.UndergroundDesert].AddNPCs(
-					new SortedSet<string>() {
-						"Stormlion"
-					});//90
 				AddProgressionGroup(new(ProgressionGroupID.SunkenSea, 92,
 					itemNames: new SortedSet<string>() {
 						"Navystone"
@@ -1966,31 +1976,35 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.AerialiteOre, -10, ProgressionGroupID.HiveMind,
 					itemNames: new SortedSet<string>() {
 						"Aerialite Ore"
+					}));//215
+				AddProgressionGroup(new(ProgressionGroupID.HiveMind, 225,
+					ignoredItemTypes: new SortedSet<int>() {
+						ItemID.CursedFlame
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.HiveMind, 225));
-				AddProgressionGroup(new(ProgressionGroupID.Perforators, 225));
+				AddProgressionGroup(new(ProgressionGroupID.Perforators, 225,
+					ignoredItemTypes: new SortedSet<int>() {
+						ItemID.Ichor
+					}));
 				AddProgressionGroup(new(ProgressionGroupID.AbyssT1, 260,
 					itemNames: new SortedSet<string>() {
-						"Planty Mush"
+						"Planty Mush",
+						"Black Anurian",
+						"Ball O' Fugu",
+						"Archerfish",
+						"Lionfish",
+						"Herring Staff"
 					},
 					npcNames: new SortedSet<string>() {
 						"Box Jellyfish"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.SlimeGod, 390));
-				progressionGroups[ProgressionGroupID.HardmodeShopItems].AddItems(
-					new SortedSet<string>() {
-						"P90"
-					});//400
-				progressionGroups[ProgressionGroupID.HardModeUnderground].AddNPCs(
-					new SortedSet<string>() {
-						"Ice Clasper"
-					});//410
 				AddProgressionGroup(new(ProgressionGroupID.AstraulInfection, 420,
 					itemNames: new SortedSet<string>() {
-						"Astral Grass Seeds"
-					},
-					npcNames: new SortedSet<string>() {
-						"Nova"
+						"Astral Grass Seeds",
+						"Polaris Parrotfish",
+						"Gacruxian Mollusk",
+						"Glorious End",
+						"Stardust"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.HardModeSunkenSea, 420,
 					itemNames: new SortedSet<string>() {
@@ -2011,11 +2025,6 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						"Infernal Suevite"
 					}));
-				progressionGroups[ProgressionGroupID.HardModeRare].AddNPCs(
-					new SortedSet<string>() {
-						"Earth Elemental",
-						"Cloud Elemental"
-					});//460
 				AddProgressionGroup(new(ProgressionGroupID.HardModeSulphurousSea, 480));
 				AddProgressionGroup(new(ProgressionGroupID.Voidstone, 480,
 					itemNames: new SortedSet<string>() {
@@ -2029,17 +2038,9 @@ namespace WeaponEnchantments.Common
 						"Ice Star"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Cryogen, 590));
-				progressionGroups[ProgressionGroupID.PostAllMechanicalBossesShop].AddItems(
-					new SortedSet<string>() {
-						"Arctic Bear Paw",
-						"Cryophobia",
-						"Cryogenic Staff"
-					});//640
 				AddProgressionGroup(new(ProgressionGroupID.PostAquaticScourgeEasy, -10, ProgressionGroupID.AquaticScourge,
 					npcNames: new SortedSet<string>() {
-						"Belching Coral",
-						"Baby Flak Crabs",
-						"Anthozoan Crabs"
+						"Belching Coral"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AquaticScourge, 600));
 				AddProgressionGroup(new(ProgressionGroupID.AcidRainT2, 0, ProgressionGroupID.AquaticScourge,
@@ -2060,18 +2061,15 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.PostCalamitasCloneEasy, -10, ProgressionGroupID.CalamitasClone,
 					itemNames: new SortedSet<string>() {
 						"Depth Cells",
-						"Lumenyl"
+						"Lumenyl",
+						"Deep Wounder"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.CalamitasClone, 700,
 					npcNames: new SortedSet<string>() {
 						"Cataclysm",
-						"Catastrophe"
+						"Catastrophe",
+						"Calamitas Clone"
 					}));
-				progressionGroups[ProgressionGroupID.PostPlanteraShop].AddItems(
-					new SortedSet<string>() {
-						"Mantis Claws",
-						"Perennial Ore"
-					});//715
 				AddProgressionGroup(new(ProgressionGroupID.GreatSandShark, 750,
 					npcNames: new SortedSet<string>() {
 						"Great Sand Shark"
@@ -2082,15 +2080,9 @@ namespace WeaponEnchantments.Common
 						"Eternal Blizzard",
 						"Winter's Fury"
 					}));//815
-				progressionGroups[ProgressionGroupID.PostGolemShop].AddItems(
-					new SortedSet<string>() {
-						"Scoria Ore"
-					});//835
 				AddProgressionGroup(new(ProgressionGroupID.Leviathan, 835));
 				AddProgressionGroup(new(ProgressionGroupID.PostAstrumAuresEasy, -10, ProgressionGroupID.AstrumAures,
 					itemNames: new SortedSet<string>() {
-						"Aureus Cells",
-						"Starbuster Core",
 						"Aegis Blade",
 						"Titan Arm",
 						"Astral Scythe",
@@ -2112,10 +2104,10 @@ namespace WeaponEnchantments.Common
 						"Astral Ore"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AstrumDeus, 1010));
-				AddProgressionGroup(new(ProgressionGroupID.UnholyEssence, 1105));
 				AddProgressionGroup(new(ProgressionGroupID.PostMoonLord, 1110,
 					itemNames: new SortedSet<string>() {
-						"Exodium Cluster"
+						"Exodium Cluster",
+						"Unholy Essence"
 					},
 					npcNames: new SortedSet<string>() {
 						"Impious Immolator"
@@ -2128,7 +2120,6 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.PostProvidenceEasy, -10, ProgressionGroupID.Providence,
 					itemNames: new SortedSet<string>() {
 						"Bloodstone",
-						"Necromantic Geodes",
 						"Guidelight of Oblivion"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Providence, 1180));
@@ -2158,14 +2149,30 @@ namespace WeaponEnchantments.Common
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostOldDukeEasy, -10, ProgressionGroupID.OldDuke,
 					itemNames: new SortedSet<string>() {
-						"Bloodworm"
+						//"Bloodworm"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.OldDuke, 1400));
 				AddProgressionGroup(new(ProgressionGroupID.DevouererOfGods, 1450));
-				AddProgressionGroup(new(ProgressionGroupID.AscendentSpirit, 1500));
-				AddProgressionGroup(new(ProgressionGroupID.Yharon, 1550));
+				AddProgressionGroup(new(ProgressionGroupID.AscendentSpirit, 1500,
+					itemNames: new SortedSet<string>() {
+						"Ascendant Spirit Essence"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.PostYharonEasy, -10, ProgressionGroupID.Yharon,
+					itemNames: new SortedSet<string>() {
+						"Auric Ore"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.Yharon, 1550,
+					itemNames: new SortedSet<string>() {
+						"Murasama"
+					}));
 				AddProgressionGroup(new(ProgressionGroupID.ExoMechs, 1600));
 				AddProgressionGroup(new(ProgressionGroupID.SupremeCalamitas, 1700,
+					itemNames: new SortedSet<string>() {
+						"Gruesome Eminence",
+						"Rancor",
+						"Cinders of Lament",
+						"Metastasis"
+					},
 					npcNames: new SortedSet<string>() {
 						"Supreme Witch, Calamitas"
 					}));
@@ -2173,7 +2180,6 @@ namespace WeaponEnchantments.Common
 					npcNames: new SortedSet<string>() {
 						"Adult Eidolon Wyrm"
 					}));
-				//AddProgressionGroup(new(ProgressionGroupID., ));
 			}
 
 			#endregion
@@ -2190,52 +2196,8 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 		}
-		private static void SetupMinedOreInfusionPowers() {
-			/*
-			for (int itemType = ItemID.Count; itemType < ItemLoader.ItemCount; itemType++) {
-				Item item = itemType.CSI();
-				string itemName = item.Name;
-				if (ModOreInfusionPowers.ContainsKey(itemName))
-					OreInfusionPowers.Add(itemType, ModOreInfusionPowers[itemName]);
-			}
-			*/
-
-			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();
-			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
-				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
-				if (itemType <= 0)
-					continue;
-
-				if (OreInfusionPowers.ContainsKey(itemType))
-					continue;
-
-				Item item = itemType.CSI();
-				ModTile modTile = TileLoader.GetTile(tileType);
-				if (itemType > 0 && modTile != null) {
-					bool ore = TileID.Sets.Ore[tileType];
-					int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
-					float mineResist = modTile.MineResist;
-					float value = item.value;
-					if (ore || ((requiredPickaxePower > 0 || mineResist > 1) && value > 0)) {//Try getting rid of mineResist.
-						if (!WeaponCraftingIngredients.Contains(itemType))
-							continue;
-
-						int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
-						OreInfusionPowers.Add(itemType, infusionPower);
-						$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
-					}
-				}
-			}
-
-			//$"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
-			/* No longer needed
-			foreach (KeyValuePair<int, int> pair in OreInfusionPowers) {
-				VanillaItemSourceInfusionPowers.Add(pair.Key, pair.Value);
-			}
-			*/
-		}
 		private static void PopulateItemInfusionPowers() {
-			foreach (ProgressionGroup progressionGroup in progressionGroups.Values) {
+			foreach (ProgressionGroup progressionGroup in progressionGroups.Values.OrderBy(g => g.InfusionPower)) {
 				int infusionPower = progressionGroup.InfusionPower;
 				foreach (int itemType in progressionGroup.ItemTypes) {
 					if (!ItemInfusionPowers.ContainsKey(itemType)) {
@@ -2277,7 +2239,7 @@ namespace WeaponEnchantments.Common
 					if (!ItemInfusionPowers.ContainsKey(itemType)) {
 						ItemInfusionPowers.Add(itemType, infusionPower);
 					}
-					else {
+					else if (Debugger.IsAttached) {
 						$"ItemsThatAreSetup already contains item from boss bag: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
 					}
 				}
@@ -2316,10 +2278,6 @@ namespace WeaponEnchantments.Common
 			}
 
 			HashSet<string> ignoredList = new();
-			if (WEMod.calamityEnabled) {
-				ignoredList.Add("Experimental Wulfrum Fusion Array");
-			}
-
 			IEnumerable<int> weaponsNotSetup = WeaponsList.Where(t => !allWeaponRecipies.ContainsKey(t) && !VanillaItemSourceInfusionPowers.ContainsKey(t) && !ModdedItemSourceInfusionPowers.ContainsKey(t.CSI().Name) && !ignoredList.Contains(t.CSI().Name));
 			if (weaponsNotSetup.Any())
 				$"\nWeapon infusion powers not setup:\n{weaponsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
@@ -2328,13 +2286,57 @@ namespace WeaponEnchantments.Common
 			if (ingredientsNotSetup.Any())
 				$"\nIngredient infusion powers not setup:\n{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 		}
+		private static void GuessMinedOreInfusionPowers() {
+			/*
+			for (int itemType = ItemID.Count; itemType < ItemLoader.ItemCount; itemType++) {
+				Item item = itemType.CSI();
+				string itemName = item.Name;
+				if (ModOreInfusionPowers.ContainsKey(itemName))
+					OreInfusionPowers.Add(itemType, ModOreInfusionPowers[itemName]);
+			}
+			*/
+
+			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();
+			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
+				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
+				if (itemType <= 0)
+					continue;
+
+				if (ItemInfusionPowers.ContainsKey(itemType))
+					continue;
+
+				Item item = itemType.CSI();
+				ModTile modTile = TileLoader.GetTile(tileType);
+				if (itemType > 0 && modTile != null) {
+					bool ore = TileID.Sets.Ore[tileType];
+					int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
+					float mineResist = modTile.MineResist;
+					float value = item.value;
+					if (ore || ((requiredPickaxePower > 0 || mineResist > 1) && value > 0)) {//Try getting rid of mineResist.
+						if (!WeaponCraftingIngredients.Contains(itemType))
+							continue;
+
+						int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
+						ItemInfusionPowers.Add(itemType, infusionPower);
+						$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
+					}
+				}
+			}
+
+			//$"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
+			/* No longer needed
+			foreach (KeyValuePair<int, int> pair in OreInfusionPowers) {
+				VanillaItemSourceInfusionPowers.Add(pair.Key, pair.Value);
+			}
+			*/
+		}
 
 		//Supporting Functions
 		private static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<HashSet<int>> ingredients) {
 			//Item createItem = createItemType.CSI();
 			//$"TryGetAllCraftingIngredientTypes({createItem.S()})".LogSimple();
 			HashSet<HashSet<int>> resultIngredients = new();
-			if (finishedSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
+			if (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
 				//IEnumerable<Recipe> recipies = Main.recipe.Where(r => r.createItem.type == createItemType);//Swap to this after all testing
 				IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
@@ -2376,11 +2378,11 @@ namespace WeaponEnchantments.Common
 				}
 
 				resultIngredients = resultIngredients.CombineIngredientLists(requiredItemTypeLists);
-				if (!finishedSetup)
+				if (!finishedRecipeSetup)
 					allExpandedRecepies.Add(createItemType, resultIngredients);
 			}
 
-			if (finishedSetup) {
+			if (finishedRecipeSetup) {
 				ingredients = resultIngredients;
 			}
 			else {
@@ -2640,11 +2642,38 @@ namespace WeaponEnchantments.Common
 
 
 		private static void PopulateCraftingWeaponSources() {
+			int mechBossHighestSoul = Math.Max(Math.Max(
+				progressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 
+				progressionGroups[ProgressionGroupID.Destroyer].InfusionPower), 
+				progressionGroups[ProgressionGroupID.Twins].InfusionPower
+			) + 20;
+			SortedDictionary<int, SortedSet<int>> OverridenInfusionPowerList = new() {
+				{ mechBossHighestSoul, new SortedSet<int>() { ItemID.SoulofFright, ItemID.SoulofMight, ItemID.SoulofSight } }
+			};
+
+			//string ItemInfusionPowersString = ItemInfusionPowers.Select(p => p.Key.CSI().S()).JoinList(", ");
+			//ItemInfusionPowersString.LogSimple();
+			foreach (KeyValuePair<int, int> pair in ItemInfusionPowers) {
+				int itemType = pair.Key;
+				Item item = itemType.CSI();
+				if (IsWeaponItem(item))
+					continue;
+
+				if (TryGetAllCraftingIngredientTypes(itemType, out HashSet<HashSet<int>> ingredients)) {
+					SortedSet<int> ingredientTypes = new(ingredients.Select(i => i.First()));
+					string temp = ingredientTypes.Select(t => t.CSI().S()).JoinList(", ");
+					if (ingredientTypes.Count > 1)
+						OverridenInfusionPowerList.Add(ItemInfusionPowers[itemType], ingredientTypes);
+				}
+			}
+
 			foreach (int weaponType in WeaponsList) {
 				if (allWeaponRecipies.ContainsKey(weaponType)) {
 					InfusionPowerSource highestInfusionPowerSource = new();
 					int infusionPower = -1;
-					foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponType]) {
+					HashSet<HashSet<int>> ingredientTypeLists = allWeaponRecipies[weaponType];
+
+					foreach (HashSet<int> ingredientTypes in ingredientTypeLists) {
 						foreach (int ingredientType in ingredientTypes) {
 							bool found = false;
 							ItemSource itemSource = new(weaponType, ItemSourceType.Craft, ingredientType);
@@ -2683,6 +2712,26 @@ namespace WeaponEnchantments.Common
 					}
 				}
 			}
+			SortedDictionary<int, InfusionPowerSource> weaponInfusionPowersWithRecipies = new(WeaponInfusionPowers);
+			foreach (KeyValuePair<int, InfusionPowerSource> pair in weaponInfusionPowersWithRecipies.Where(p => allWeaponRecipies.ContainsKey(p.Key))) {
+				int weaponType = pair.Key;
+				HashSet<HashSet<int>> ingredientTypeLists = allWeaponRecipies[weaponType];
+				SortedSet<int> firstTypeList = new(ingredientTypeLists.Select(i => i.First()));
+				int infusionPower = -1;
+				foreach (KeyValuePair<int, SortedSet<int>> overridenList in OverridenInfusionPowerList) {
+					string ingredientTypesString = firstTypeList.Count > 0 ? firstTypeList.Select(t => t.CSI().S()).JoinList(", ") : "";
+					string overridenListString = overridenList.Value.Count > 0 ? overridenList.Value.Select(t => t.CSI().S()).JoinList(", ") : "";
+					if (overridenList.Value.IsSubsetOf(firstTypeList)) {
+						infusionPower = overridenList.Key;
+						if (infusionPower > pair.Value.InfusionPower)
+							WeaponInfusionPowers[pair.Key] = new(WeaponInfusionPowers[pair.Key].itemSource, infusionPower);
+						break;
+					}
+				}
+			}
+
+			$"\nVanillaItemSourceInfusionPowers:\n{VanillaItemSourceInfusionPowers.OrderBy(p => p.Value).Select(p => $"{p.Key.CSI().S()}: {p.Value}").S()}".LogSimple();
+			$"\nModdedItemSourceInfusionPowers:\n{ModdedItemSourceInfusionPowers.OrderBy(p => p.Value).Select(p => $"{p.Key}: {p.Value}").S()}".LogSimple();
 		}
 		private static void GuessInfusionPowers() {
 			//Guess crafting source infusion powers
@@ -2819,7 +2868,7 @@ namespace WeaponEnchantments.Common
 		}
 		public static bool TryGetBaseInfusionPower(Item item, out int baseInfusionPower) {
 			int weaponType = item.type;
-			if (item.type < ItemID.Count && WeaponInfusionPowers.ContainsKey(weaponType)) {
+			if (WeaponInfusionPowers.ContainsKey(weaponType)) {
 				baseInfusionPower = WeaponInfusionPowers[weaponType].InfusionPower;
 
 				return true;

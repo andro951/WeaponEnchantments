@@ -196,9 +196,7 @@ namespace WeaponEnchantments.Common.Utility
             int[] ignoreItemTypes = new int[] {
                 ItemID.Count
             };
-            string[] ignoreItemNames = new string[] {
-				"Experimental Wulfrum Fusion Array"
-			};
+
             int[] itemTypes = new int[ItemLoader.ItemCount];
             for (int i = 0; i < itemTypes.Length; i++) {
                 itemTypes[i] = i;
@@ -206,7 +204,7 @@ namespace WeaponEnchantments.Common.Utility
 
             int[] weaponTypes = itemTypes
 				.Select(type => ContentSamples.ItemsByType[type])
-                .Where(item => IsWeaponItem(item) && !ignoreItemTypes.Contains(item.type) && !ignoreItemNames.Contains(item.Name))
+                .Where(item => IsWeaponItem(item) && !ignoreItemTypes.Contains(item.type))
                 .Select(item => item.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) ? enchantedWeapon : null)
                 .Where(enchantedWeapon => enchantedWeapon != null)
                 .OrderBy(enchantedWeapon => enchantedWeapon.GetWeaponInfusionPower())

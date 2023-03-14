@@ -115,11 +115,6 @@ namespace WeaponEnchantments.Common
             for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
                 Item item = ContentSamples.ItemsByType[itemType];
                 if (item != null) {
-                    switch (item.Name) {
-                        case "Experimental Wulfrum Fusion Array":
-                            continue;
-					}
-
                     switch (item.netID) {
                         case ItemID.Count://Skip April Fools Joke
                             continue;

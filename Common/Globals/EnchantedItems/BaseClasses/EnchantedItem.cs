@@ -15,6 +15,7 @@ using Terraria.Utilities;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.ModIntegration;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.EnchantingRarity;
@@ -956,9 +957,9 @@ namespace WeaponEnchantments.Common.Globals
 
             if (item.ModItem != null) {
 				//Manually prevent calamity items from being weapons
-				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == "CalamityMod") {
+				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == CalamityIntegration.calamityName) {
 					switch (item.Name) {
-						case "Biome Globe":
+                        case "Experimental Wulfrum Fusion Array":
 							return false;
 					}
 				}
