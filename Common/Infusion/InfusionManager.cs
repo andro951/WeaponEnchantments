@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.ConstrainedExecution;
 using Terraria;
 using Terraria.ID;
@@ -126,8 +127,7 @@ namespace WeaponEnchantments.Common
                     bool accessory = mode == GetItemDictModeID.Accessory && EnchantedItemStaticMethods.IsAccessoryItem(item);
                     if ( weaponList || armorList || accessory) {
                         int[] itemStats = { item.rare, item.value, item.damage };
-                        if (item.rare >= numRarities && modName != "CalamityMod")
-                            $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".LogSimple();
+                        //if (Debugger.IsAttached && item.rare >= numRarities && modName != "CalamityMod") $"Item above max supported rarities detected: {item.S()}, rare: {item.rare}, value: {item.value}.  It will be treated as rarity {numRarities - 1} for Infusion.".LogSimple();
 
                         if (!itemsDict.ContainsKey(modName))
                             itemsDict.Add(modName, new List<int[]>());

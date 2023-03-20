@@ -5,6 +5,7 @@ using static WeaponEnchantments.Common.Globals.WEGlobalNPC;
 using System.Collections.Generic;
 using WeaponEnchantments.Common.Utility;
 using System.Diagnostics;
+using System.Linq;
 
 namespace WeaponEnchantments.Common.Globals
 {

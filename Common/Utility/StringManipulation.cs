@@ -132,7 +132,6 @@ namespace WeaponEnchantments.Common.Utility
 
 			return newStr;
 		}
-		public static string S(this NPCSpawnInfo nPCSpawnInfo) => nPCSpawnInfo.EncodeNPCSpawnInfo().S();
 		public static string S(this (int[], bool[]) spawnInfoCode) => $"(new int[]{"{"} {spawnInfoCode.Item1.Select(i => $"{i}").JoinList(", ")} {"}"}, new bool[]{"{"} {spawnInfoCode.Item2.Select(b => b.S()).JoinList(", ")} {"}"})";
         public static string S(this IEnumerable<string> strings, string nameAndType = "", int tabs = 2, bool isArgument = false) => $"{(isArgument ? "," : "")}\n{tabs.Tabs()}{nameAndType} {"{"}\n{tabs.Tabs(1)}{strings.JoinList($",\n{tabs.Tabs(1)}")}\n{tabs.Tabs()}{"}"}{(isArgument ? "" : ";")}";
         public delegate string ToStringDelegate<T>(T t);
@@ -163,10 +162,11 @@ namespace WeaponEnchantments.Common.Utility
         public static string GetNPCNameString(this int netId) => ContentSamples.NpcsByNetId[netId].FullName().Quotes();
         public static string GetItemIDOrName(this int itemType) => itemType < ItemID.Count ? itemType.GetItemIDName() : itemType.GetItemNameString();
         public static string GetNPCIDOrName(this int netId) => netId < NPCID.Count ? netId.GetNPCIDName() : netId.GetNPCNameString();
+		public static string StringList<T>(this IEnumerable<T> enumerable, ToStringDelegate<T> toString, string name = null) => $"{(name != null ? $"{name} " : "")}{enumerable.Select(v => toString(v)).JoinList(", ").Brackets()}";
 
-        #endregion
+		#endregion
 
-        public static bool IsUpper(this char c) {
+		public static bool IsUpper(this char c) {
             foreach (char upper in upperCase) {
                 if (upper == c)
                     return true;

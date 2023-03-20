@@ -944,7 +944,7 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedItemStaticMethods {
         public static bool IsEnchantable(Item item) {
-            if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
+            if (IsArmorItem(item) || IsWeaponItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
                 return true;
             }
             else {
@@ -965,8 +965,17 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
 				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
+					if (IsArmorItem(item))
+						return false;
+
 					switch (item.Name) {
 						case "Hive Mind":
+                        case "Inspiration Note":
+                        case "Purity Tester":
+						case "Text Tester":
+                        case "Empowerment Tester":
+                        case "Pious Banner":
+                        case "Precision Banner":
 							return false;
 						case "Technique: Hidden Blade":
 						case "Technique: Blood Lotus":

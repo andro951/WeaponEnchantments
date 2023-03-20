@@ -36,6 +36,7 @@ namespace WeaponEnchantments
 		public static bool dbtEnabled = false;
 		public static bool recursiveCraftEnabled = ModLoader.TryGetMod("RecursiveCraft", out Mod _);
 		public static bool thoriumEnabled = ModLoader.TryGetMod("ThoriumMod", out Mod _);
+		public static bool starsAboveEnabled = ModLoader.TryGetMod("StarsAbove", out Mod _);
 
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
