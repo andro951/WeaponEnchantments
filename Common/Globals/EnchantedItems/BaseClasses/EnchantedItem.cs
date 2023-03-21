@@ -944,7 +944,7 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class EnchantedItemStaticMethods {
         public static bool IsEnchantable(Item item) {
-            if (IsWeaponItem(item) || IsArmorItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
+            if (IsArmorItem(item) || IsWeaponItem(item) || IsAccessoryItem(item) || IsFishingRod(item) || IsTool(item)) {
                 return true;
             }
             else {
@@ -963,10 +963,18 @@ namespace WeaponEnchantments.Common.Globals
 							return false;
 					}
 				}
+				else if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
+					if (IsArmorItem(item))
+						return false;
 
-				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
 					switch (item.Name) {
 						case "Hive Mind":
+                        case "Inspiration Note":
+                        case "Purity Tester":
+						case "Text Tester":
+                        case "Empowerment Tester":
+                        case "Pious Banner":
+                        case "Precision Banner":
 							return false;
 						case "Technique: Hidden Blade":
 						case "Technique: Blood Lotus":
@@ -980,6 +988,12 @@ namespace WeaponEnchantments.Common.Globals
 					//Some Thorium non-weapon consumables were counting as weapons.
 					if (item.consumable && item.damage <= 0 && item.mana <= 0)
 						return false;
+				}
+                else if (WEMod.fargosEnabled && item.ModItem.Mod.Name == "Fargowiltas") {
+					switch (item.Name) {
+						case "Brittle Bone":
+							return false;
+					}
 				}
 			}
 

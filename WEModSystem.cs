@@ -10,7 +10,6 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
-using WeaponEnchantments.Common.Infusion;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
@@ -790,8 +789,6 @@ namespace WeaponEnchantments
         }
         public override void SaveWorldData(TagCompound tag) {
             tag["versionUpdate"] = versionUpdate;
-
-            InfusionGlobalNPC.PrintStoredNPCSpawnInfo();
         }
         public override void PostUpdateTime() {
             if (Main.dayTime && !dayTime) {

@@ -431,7 +431,13 @@ namespace WeaponEnchantments.Common.Globals
 								dropItem = TileTypeToItemType[type];
 							}
 							else if (tileTypeToItemTypesSetup && !ignoreError) {
-								$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+								switch (modTile.Name) {
+									case "SCalAltar":
+										break;//No dropped item, don't log.
+									default:
+										$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+										break;
+								}
 							}
 						}
 						else if (!ignoreError) {
