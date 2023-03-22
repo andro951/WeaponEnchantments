@@ -527,13 +527,8 @@ namespace WeaponEnchantments.Common
 			SortedSet<string> newNpcsSet = new SortedSet<string>(newNPCs);
 			foreach (int netID in NPCsThatDropWeaponsOrIngredients.Keys) {
 				string npcName = netID.CSNPC().FullName();
-				if (newNpcsSet.Contains(npcName)) {
+				if (newNpcsSet.Contains(npcName))
 					NpcTypes.Add(netID);
-					newNpcsSet.Remove(npcName);
-				}
-
-				if (newNpcsSet.Count < 1)
-					break;
 			}
 
 			if (Debugger.IsAttached && newNpcsSet.Count > 0)
@@ -908,43 +903,6 @@ namespace WeaponEnchantments.Common
 
 			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
-		/*
-		private static void SetupReverseCraftableIngredients() {
-			SortedDictionary<int, HashSet<int>> allRecipes = new();
-			foreach (Recipe r in Main.recipe) {
-				if (r.createItem.type <= ItemID.None)
-					continue;
-
-				HashSet<int> ingredients = r.requiredItem.Select(i => i.type).Concat(r.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t))).Where(t => t > 0).ToHashSet();
-				//string ingredientsString = $"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}";
-				//ingredientsString.LogSimple();
-				allRecipes.AddOrCombine(r.createItem.type, ingredients);
-			}
-
-			foreach (int createItemType in allRecipes.Keys) {
-				bool isReverseCraftable = false;
-				int reverseCraftableIngredient = 0;
-				if (allRecipes[createItemType].Contains(createItemType)) {
-					isReverseCraftable = true;
-					reverseCraftableIngredient = createItemType;
-				}
-				else {
-					foreach (int ingredient in allRecipes[createItemType]) {
-						if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType)) {
-							isReverseCraftable = true;
-							reverseCraftableIngredient = ingredient;
-							break;
-						}
-					}
-				}
-
-				if (isReverseCraftable)
-					reverseCraftableIngredients.AddOrCombine(createItemType, reverseCraftableIngredient);
-			}
-
-			//$"\nreverseCraftableIngredients:\n{reverseCraftableIngredients.Select(pair => $"{pair.Key.CSI().S()}: {pair.Value.Select(t => t.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
-		}
-		*/
 		private static void SetupReverseCraftableIngredients() {
 			SortedDictionary<int, HashSet<int>> allRecipes = new();
 			foreach (Recipe r in Main.recipe) {
@@ -954,14 +912,21 @@ namespace WeaponEnchantments.Common
 				allRecipes.AddOrCombine(r.createItem.type, ingredients);
 			}
 
-			foreach (int createItemType in allRecipes.Keys) {
-				foreach (int ingredient in allRecipes[createItemType]) {
+			foreach (int createItemType in allRecipes.Keys.Where(createItemType => !WEGlobalTile.TileTypeToItemType.ContainsValue(createItemType))) {
+				foreach (int ingredient in allRecipes[createItemType].Where(i => !WEGlobalTile.TileTypeToItemType.ContainsValue(i))) {
 					if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType))
 						reverseCraftableIngredients.AddOrCombine(createItemType, ingredient);
 				}
 			}
 
-			$"\nreverseCraftableIngredients:\n{reverseCraftableIngredients.Select(pair => $"{pair.Key.CSI().S()}: {pair.Value.Select(t => t.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
+			foreach (int createItemType in allRecipes.Keys.Where(createItemType => WEGlobalTile.TileTypeToItemType.ContainsValue(createItemType))) {
+				foreach (int ingredient in allRecipes[createItemType]) {
+					if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType) && !reverseCraftableIngredients.ContainsKey(ingredient))
+						reverseCraftableIngredients.AddOrCombine(createItemType, ingredient);
+				}
+			}
+
+			//$"\nreverseCraftableIngredients:\n{reverseCraftableIngredients.Select(pair => $"{pair.Key.CSI().S()}: {pair.Value.Select(t => t.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
 		}
 		private static void GetAllCraftingResources() {
 			foreach (int weaponType in WeaponsList) {
@@ -993,20 +958,10 @@ namespace WeaponEnchantments.Common
 						bool inWeaponsList = WeaponsList.Contains(itemType);
 						bool inInhredientList = WeaponCraftingIngredients.Contains(itemType);
 						if (inWeaponsList) {
-							if (WeaponsFromNPCs.ContainsKey(itemType)) {
-								WeaponsFromNPCs[itemType].Add(netID);
-							}
-							else {
-								WeaponsFromNPCs.Add(itemType, new() { netID });
-							}
+							WeaponsFromNPCs.AddOrCombine(itemType, netID);
 						}
 						else if (inInhredientList) {
-							if (IngredientsFromNPCs.ContainsKey(itemType)) {
-								IngredientsFromNPCs[itemType].Add(netID);
-							}
-							else {
-								IngredientsFromNPCs.Add(itemType, new() { netID });
-							}
+							IngredientsFromNPCs.AddOrCombine(itemType, netID);
 						}
 
 						if (Debugger.IsAttached && item.ModItem != null && (inWeaponsList || inInhredientList)) {
@@ -1037,15 +992,21 @@ namespace WeaponEnchantments.Common
 
 			foreach (KeyValuePair<int, SortedSet<int>> weapon in WeaponsFromNPCs) {
 				foreach (int netID in weapon.Value) {
+					Item item = weapon.Key.CSI();
+					NPC npc = netID.CSNPC();
 					NPCsThatDropWeaponsOrIngredients.AddOrCombine(netID, weapon.Key);
 				}
 			}
 
 			foreach (KeyValuePair<int, SortedSet<int>> ingredient in IngredientsFromNPCs) {
 				foreach (int netID in ingredient.Value) {
+					Item item = ingredient.Key.CSI();
+					NPC npc = netID.CSNPC();
 					NPCsThatDropWeaponsOrIngredients.AddOrCombine(netID, ingredient.Key);
 				}
 			}
+
+			//$"{NPCsThatDropWeaponsOrIngredients.Select(p => p.Value.StringList(i => i.CSI().S(), p.Key.CSNPC().S())).S("NPCsThatDropWeaponsOrIngredients")}".LogSimple();
 		}
 		private static void SetupItemsFromLootItems() {
 			foreach (KeyValuePair<int, Item> lootItemPair in ContentSamples.ItemsByType) {
@@ -2296,7 +2257,8 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						"Essence of the Hollowheart",
 						"Essence of the Hunt",
-						"Essence of the Phantom"
+						"Essence of the Phantom",
+						"Essence of Lightning"
 					}));
 				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
 					new SortedSet<string>() {
@@ -2822,6 +2784,13 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.Primordials, 1200));
 			}
 
+			if (WEMod.magicStorageEnabled) {
+				progressionGroups[ProgressionGroupID.Evil].AddItems(
+					new SortedSet<string>() {
+						"Demon Altar"
+					});//80
+			}
+
 			if (WEMod.fargosEnabled) {
 				progressionGroups[ProgressionGroupID.MerchantShop].AddItems(
 					new SortedSet<string>() {
@@ -2831,6 +2800,13 @@ namespace WeaponEnchantments.Common
 
 			if (WEMod.fargosSoulsEnabled) {
 
+			}
+
+			if (WEMod.avaliRaceEnabled) {
+				progressionGroups[ProgressionGroupID.ForestPreHardMode].AddItems(
+					new SortedSet<string>() {
+						"Avali Central Printer"
+					});//0
 			}
 		}
 		private static void PopulateItemInfusionPowers() {
@@ -2855,8 +2831,8 @@ namespace WeaponEnchantments.Common
 						bool added = false;
 						NPC npc = netID.CSNPC();
 						foreach (int itemType in itemTypes) {
+							Item item = itemType.CSI();
 							if (!ItemInfusionPowers.ContainsKey(itemType)) {
-								Item item = itemType.CSI();
 								ItemInfusionPowers.Add(itemType, infusionPower);
 								added = true;
 							}

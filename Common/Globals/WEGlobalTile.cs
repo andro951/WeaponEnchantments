@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Common.Globals
 		public static int tileType = -1;
 		public static Item dropItem = new Item();
 		private static SortedDictionary<int, int> tileTypeToItemType = null;
-		private static SortedDictionary<int, int> TileTypeToItemType {
+		public static SortedDictionary<int, int> TileTypeToItemType {
 			get {
 				if (tileTypeToItemType == null)
 					SetupTileTypeToItemType();

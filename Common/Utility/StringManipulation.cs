@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
+        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}, type: {item.type}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
 
         /// <summary>
         /// Convert to a string
@@ -54,7 +54,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}{(npc.type >= NPCID.Count ? $" name: {npc.FullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
+        public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}, netID: {npc.netID}{(npc.type >= NPCID.Count ? $" name: {npc.FullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
 
         /// <summary>
         /// Convert to a string
