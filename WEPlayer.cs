@@ -1040,7 +1040,8 @@ namespace WeaponEnchantments
             if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return;
 
-			WEGlobalNPC weGlobalNPC = target.GetWEGlobalNPC();
+            if (!target.TryGetWEGlobalNPC(out WEGlobalNPC weGlobalNPC))
+                return;
 
             //Remove target.myWarReduction if hit by non-minion
             TryResetWarReduction(target, projectile, weGlobalNPC);

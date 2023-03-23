@@ -350,8 +350,11 @@ namespace WeaponEnchantments
                     SoundEngine.PlaySound(SoundID.MenuClose);
             }
 
-            weModSystemUI.SetState(null);
-            promptInterface.SetState(null);
+            if (weModSystemUI != null)
+                weModSystemUI.SetState(null);
+
+            if (promptInterface != null)
+                promptInterface.SetState(null);
 
             ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
         }

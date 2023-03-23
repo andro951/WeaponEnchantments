@@ -11,6 +11,7 @@ using Terraria.ID;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Debuffs;
+using Terraria.ModLoader;
 
 namespace WeaponEnchantments.ModLib.KokoLib
 {
@@ -60,7 +61,8 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		}
 
 		public void NetResetWarReduction(NPC npc) {
-			npc.GetWEGlobalNPC().ResetWarReduction();
+			if (!npc.TryGetWEGlobalNPC(out WEGlobalNPC weGlobalNPC))
+				weGlobalNPC.ResetWarReduction();
 
 			if (Main.netMode == NetmodeID.Server) {
 				Net.IgnoreClient = WhoAmI;
