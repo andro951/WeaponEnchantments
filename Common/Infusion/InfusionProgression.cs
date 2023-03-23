@@ -835,7 +835,7 @@ namespace WeaponEnchantments.Common
 		public static SortedSet<int> WeaponsList { get; private set; } = new();
 		public static SortedSet<int> WeaponCraftingIngredients { get; private set; } = new();
 		public static SortedDictionary<int, HashSet<HashSet<int>>> allExpandedRecepies = new();
-		private static SortedDictionary<int, HashSet<int>> reverseCraftableIngredients = new();
+		private static SortedSet<int> reverseCraftableRecipes = new();
 		private static SortedDictionary<int, int> oreInfusionPowers = null;
 		public static SortedDictionary<int, int> OreInfusionPowers {
 			get {
@@ -904,29 +904,110 @@ namespace WeaponEnchantments.Common
 			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
 		private static void SetupReverseCraftableIngredients() {
-			SortedDictionary<int, HashSet<int>> allRecipes = new();
-			foreach (Recipe r in Main.recipe) {
-				HashSet<int> ingredients = r.requiredItem.Select(i => i.type).Concat(r.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t))).Where(t => t > 0).ToHashSet();
+			SortedSet<int> originalWeaponIngredients = new();
+			SortedDictionary<int, (int, HashSet<int>, HashSet<int>)> allRecipes = new();
+			for (int i = 0; i < Main.recipe.Length; i++) {
+				Recipe r = Main.recipe[i];
+
+				if (r.createItem.NullOrAir())
+					continue;
+
+				HashSet<int> ingredients = r.requiredItem.Select(i => i.type).Where(t => t > 0).ToHashSet();
+				HashSet<int> tiles = r.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).ToHashSet();
 				//string ingredientsString = $"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}";
 				//ingredientsString.LogSimple();
-				allRecipes.AddOrCombine(r.createItem.type, ingredients);
+
+				allRecipes.Add(i, (r.createItem.type, ingredients, tiles));
+				if (IsWeaponItem(r.createItem))
+					originalWeaponIngredients.UnionWith(ingredients);
 			}
 
-			foreach (int createItemType in allRecipes.Keys.Where(createItemType => !WEGlobalTile.TileTypeToItemType.ContainsValue(createItemType))) {
-				foreach (int ingredient in allRecipes[createItemType].Where(i => !WEGlobalTile.TileTypeToItemType.ContainsValue(i))) {
-					if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType))
-						reverseCraftableIngredients.AddOrCombine(createItemType, ingredient);
+
+			SortedSet<int> weaponIngredients = new(originalWeaponIngredients);
+			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
+				int createItemType = recipe.Value.createItemType;
+				int recipeNum = recipe.Key;
+				HashSet<int> requiredItemTypes = recipe.Value.ingredients;
+				HashSet<int> requiredTileTypes = recipe.Value.tiles;
+
+				Item createItem = createItemType.CSI();
+				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
+				bool added = reverseCraftableRecipes.Contains(recipeNum);
+				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in allRecipes) {
+					int otherCreateItemType = otherRecipe.Value.createItemType;
+					int otherRecipeNum = otherRecipe.Key;
+					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
+					HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
+					Item otherCreateItem = otherCreateItemType.CSI();
+					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
+
+					if (createItemType == otherCreateItemType)
+						continue;
+
+					if (!requiredItemTypes.Contains(otherCreateItemType))
+						continue;
+
+					if (!otherRequiredItemTypes.Contains(createItemType))
+						continue;
+
+					bool modRecipe = recipe.Key >= VANILLA_RECIPE_COUNT;
+					bool otherModRecipe = otherRecipe.Key >= VANILLA_RECIPE_COUNT;
+					bool isWeapon = WeaponsList.Contains(createItemType);
+					bool otherIsWeapon = WeaponsList.Contains(otherCreateItemType);
+					//bool reverse = !isWeapon && (modRecipe || !otherModRecipe);
+					//bool otherReverse = !otherIsWeapon && (otherModRecipe || !modRecipe);
+					bool reverse = !isWeapon && (modRecipe || !otherModRecipe) || isWeapon && !modRecipe && !otherModRecipe;
+					bool otherReverse = !otherIsWeapon && (otherModRecipe || !modRecipe) || otherIsWeapon && !otherModRecipe && !modRecipe;
+
+					if (reverse && !added) {
+						reverseCraftableRecipes.Add(recipeNum);
+						added = true;
+					}
+
+					if (otherReverse)
+						reverseCraftableRecipes.Add(otherRecipeNum);
+				}
+
+				if (requiredTileTypes.Contains(createItemType))
+					reverseCraftableRecipes.Add(recipeNum);
+			}
+
+			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
+				int createItemType = recipe.Value.createItemType;
+				int recipeNum = recipe.Key;
+				HashSet<int> requiredItemTypes = recipe.Value.ingredients;
+				HashSet<int> requiredTileTypes = recipe.Value.tiles;
+				
+				if (reverseCraftableRecipes.Contains(recipeNum))
+					continue;
+
+				Item createItem = createItemType.CSI();
+				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
+				bool added = reverseCraftableRecipes.Contains(recipeNum);
+				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in allRecipes) {
+					int otherCreateItemType = otherRecipe.Value.createItemType;
+					int otherRecipeNum = otherRecipe.Key;
+					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
+					HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
+					Item otherCreateItem = otherCreateItemType.CSI();
+					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
+
+					if (reverseCraftableRecipes.Contains(otherRecipeNum))
+						continue;
+
+					if (createItemType == otherCreateItemType)
+						continue;
+
+					if (!requiredItemTypes.Contains(otherCreateItemType))
+						continue;
+
+					if (otherRequiredTileTypes.Contains(createItemType))
+						reverseCraftableRecipes.Add(recipeNum);
 				}
 			}
 
-			foreach (int createItemType in allRecipes.Keys.Where(createItemType => WEGlobalTile.TileTypeToItemType.ContainsValue(createItemType))) {
-				foreach (int ingredient in allRecipes[createItemType]) {
-					if (allRecipes.ContainsKey(ingredient) && allRecipes[ingredient].Contains(createItemType) && !reverseCraftableIngredients.ContainsKey(ingredient))
-						reverseCraftableIngredients.AddOrCombine(createItemType, ingredient);
-				}
-			}
-
-			//$"\nreverseCraftableIngredients:\n{reverseCraftableIngredients.Select(pair => $"{pair.Key.CSI().S()}: {pair.Value.Select(t => t.CSI().S()).JoinList(", ")}").JoinList("\n")}".LogSimple();
+			//allRecipes.Select(pair => $"{pair.Key}: {Main.recipe[pair.Key].createItem.S()}, {Main.recipe[pair.Key].requiredItem.StringList(i => i.S())}, {Main.recipe[pair.Key].requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).StringList(t => t.CSI().S())}").S("allRecipes").LogSimple();
+			//reverseCraftableRecipes.Select(i =>  $"{i}: {Main.recipe[i].createItem.S()}, {Main.recipe[i].requiredItem.StringList(i => i.S())}").S("reverseCraftableRecipes").LogSimple();
 		}
 		private static void GetAllCraftingResources() {
 			foreach (int weaponType in WeaponsList) {
@@ -2805,7 +2886,8 @@ namespace WeaponEnchantments.Common
 			if (WEMod.avaliRaceEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardMode].AddItems(
 					new SortedSet<string>() {
-						"Avali Central Printer"
+						"Avali Central Printer",
+						"PL-1 Pilot Pistol"
 					});//0
 			}
 		}
@@ -2919,15 +3001,17 @@ namespace WeaponEnchantments.Common
 			HashSet<HashSet<int>> resultIngredients = new();
 			if (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
-				IEnumerable <Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType && (r.createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
+				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
-				foreach (Recipe recipe in recipies) {
-					if (recipe.IsReverseCraftable())
+				foreach (int recipeNum in recipeNumbers) {
+					Recipe recipe = Main.recipe[recipeNum];
+					if (reverseCraftableRecipes.Contains(recipeNum))
 						continue;
 
 					HashSet<HashSet<int>> requiredItemTypes = new();
 					foreach (Item ingredientItem in recipe.requiredItem) {
 						int ingredientType = ingredientItem.type;
+						//$"|ingredient| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}".LogSimple();
 						if (TryGetAllCraftingIngredientTypes(ingredientType, out HashSet<HashSet<int>> ingredientTypes)) {
 							requiredItemTypes.CombineHashSet(ingredientTypes);
 						}
@@ -2941,6 +3025,7 @@ namespace WeaponEnchantments.Common
 
 					foreach (Item requiredTileItem in recipe.requiredTile.Select(tile => WEGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).Select(type => type.CSI())) {
 						int requiredTileItemType = requiredTileItem.type;
+						//$"|tile| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}".LogSimple();
 						if (TryGetAllCraftingIngredientTypes(requiredTileItemType, out HashSet<HashSet<int>> tileIngredientTypes)) {
 							requiredItemTypes.CombineHashSet(tileIngredientTypes);
 						}
@@ -3005,6 +3090,7 @@ namespace WeaponEnchantments.Common
 
 			return ingredients;
 		}
+		/*
 		private static bool IsReverseCraftable(this Recipe recipe) {
 			int createItemType = recipe.createItem.type;
 			if (reverseCraftableIngredients.Keys.Contains(createItemType)) {
@@ -3018,6 +3104,7 @@ namespace WeaponEnchantments.Common
 
 			return false;
 		}
+		*/
 		private static void AddProgressionGroup(ProgressionGroup progressionGroup) => progressionGroups.Add(progressionGroup.ID, progressionGroup);
 		public static int GuessOreInfusionPower(int requiredPickaxePower, float value) {
 			if (value < 0)
@@ -3308,7 +3395,7 @@ namespace WeaponEnchantments.Common
 			WeaponCraftingIngredients.Clear();
 			allWeaponRecipies.Clear();
 			allExpandedRecepies.Clear();
-			reverseCraftableIngredients.Clear();
+			reverseCraftableRecipes.Clear();
 			LootItemTypes.Clear();
 			ProgressionGroup.ClearSetupData();
 			infusionPowerTiles = null;

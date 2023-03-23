@@ -39,6 +39,7 @@ namespace WeaponEnchantments
 		public static bool starsAboveEnabled = ModLoader.TryGetMod("StarsAbove", out Mod _);
 		public static bool fargosEnabled = ModLoader.TryGetMod("Fargowiltas", out Mod _);
 		public static bool fargosSoulsEnabled = ModLoader.TryGetMod("FargowiltasSouls", out Mod _);
+		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
 
 		public override void Load() {

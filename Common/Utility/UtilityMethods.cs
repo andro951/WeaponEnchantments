@@ -717,6 +717,15 @@ namespace WeaponEnchantments.Common.Utility
 				dict.Add(key, value);
 			}
 		}
+		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, (HashSet<T>, HashSet<T>)> dict, TKey key, (HashSet<T>, HashSet<T>) value) {
+			if (dict.ContainsKey(key)) {
+                dict[key].Item1.UnionWith(value.Item1);
+                dict[key].Item2.UnionWith(value.Item2);
+			}
+			else {
+				dict.Add(key, value);
+			}
+		}
 		public static void AddOrCombineSetOrKeepHigher<TKey, TKey2>(this SortedDictionary<TKey, Dictionary<TKey2, int>> dict, TKey key, Dictionary<TKey2, int> dict2) {
             if (dict.ContainsKey(key)) {
                 foreach(TKey2 key2 in dict2.Keys) {
