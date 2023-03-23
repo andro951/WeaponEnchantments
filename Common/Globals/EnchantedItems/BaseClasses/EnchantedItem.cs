@@ -955,7 +955,10 @@ namespace WeaponEnchantments.Common.Globals
             if (item.NullOrAir())
                 return false;
 
-            if (item.ModItem != null) {
+			if (IsArmorItem(item))
+				return false;
+
+			if (item.ModItem != null) {
 				//Manually prevent calamity items from being weapons
 				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == CalamityIntegration.calamityName) {
 					switch (item.Name) {
@@ -965,9 +968,6 @@ namespace WeaponEnchantments.Common.Globals
 				}
 
 				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
-					if (IsArmorItem(item))
-						return false;
-
 					switch (item.Name) {
 						case "Hive Mind":
                         case "Inspiration Note":
