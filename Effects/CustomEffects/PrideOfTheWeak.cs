@@ -18,19 +18,27 @@ namespace WeaponEnchantments.Effects
         public PrideOfTheWeak(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
 		}
-		public PrideOfTheWeak(EStatModifier eStatModifier, DamageClass dc, EnchantedItem enchantedItem) : base(eStatModifier, dc) {
-			EnchantedItem = enchantedItem;
+		public PrideOfTheWeak(EStatModifier eStatModifier, DamageClass dc, EnchantedWeapon enchantedWeapon) : base(eStatModifier, dc) {
+			EnchantedWeapon = enchantedWeapon;
 		}
 		public override EnchantmentEffect Clone() {
-			return new PrideOfTheWeak(EStatModifier.Clone(), damageClass, EnchantedItem);
+			return new PrideOfTheWeak(EStatModifier.Clone(), damageClass, EnchantedWeapon);
 		}
-		public override float EffectStrength => EnchantedItem == null ? EStatModifier.Strength : 1f + (EStatModifier.Strength - 1f) * EnchantedItem.GetPrideOfTheWeakMultiplier();
+		public override float EffectStrength => EnchantedWeapon == null ? EStatModifier.Strength : 1f + (EStatModifier.Strength - 1f) * EnchantedWeapon.GetPrideOfTheWeakMultiplier();
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };
-		public override string TooltipValue => EStatModifier.GetTootlip(true, false, false, multiplier: EnchantedItem?.GetPrideOfTheWeakMultiplier());
+		public override string TooltipValue => EStatModifier.GetTootlip(true, false, false, multiplier: EnchantedWeapon?.GetPrideOfTheWeakMultiplier());
 		public override string Tooltip => StandardTooltip;
-		public EnchantedItem EnchantedItem { get; set; } = null;
+		public EnchantedWeapon EnchantedWeapon { get; set; } = null;
+		public EnchantedItem EnchantedItem {
+			get => EnchantedWeapon;
+			set {
+				if (value is EnchantedWeapon enchantedWeapon)
+					EnchantedWeapon = enchantedWeapon;
+			}
+		}
 		public void AddDynamicEffects(List<EnchantmentEffect> effects, EnchantedItem enchantedItem) {
-			effects.Add(new DamageAfterDefenses(multiplicative: new DifficultyStrength(1f + (EStatModifier.Strength - 1f) * enchantedItem.GetPrideOfTheWeakMultiplier())));
+			if (enchantedItem is EnchantedWeapon enchantedWeapon)
+				effects.Add(new DamageAfterDefenses(multiplicative: new DifficultyStrength(1f + (EStatModifier.Strength - 1f) * enchantedWeapon.GetPrideOfTheWeakMultiplier())));
 		}
 		public override EnchantmentStat statName => EnchantmentStat.PrideOfTheWeak;
 	}

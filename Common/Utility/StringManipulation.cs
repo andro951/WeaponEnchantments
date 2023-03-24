@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
+        public static string S(this Item item) => item != null ? !item.IsAir ? item.type > ItemLoader.ItemCount ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "Item over ItemCount" : "<Air>" : "null";
 
         /// <summary>
         /// Convert to a string

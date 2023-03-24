@@ -54,11 +54,23 @@ namespace WeaponEnchantments.Common.Globals
         public DamageClass damageType = DamageClass.Default;
         public DamageClass baseDamageType = DamageClass.Default;
 
-        #endregion
+		#endregion
 
-        #region Infusion
+		#region Infusion
 
-        public float infusionDamageMultiplier = 1f;
+		public int InfusionPower {
+			get {
+				if (infusionPower == -1) {
+					if (Item != null)
+						infusionPower = Item.GetWeaponInfusionPower();
+				}
+
+				return infusionPower;
+			}
+			set => infusionPower = value;
+		}
+		private int infusionPower = -1;
+		public float infusionDamageMultiplier = 1f;
 
         #endregion
 
@@ -98,9 +110,6 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapons;
-        public override void Load() {
-
-        }
         public override void HoldItem(Item item, Player player) {
 
         }
@@ -124,11 +133,12 @@ namespace WeaponEnchantments.Common.Globals
                 clone.damageType = damageType;
                 clone.baseDamageType = baseDamageType;
 
-                #endregion
+				#endregion
 
-                #region Infusion
+				#region Infusion
 
-                clone.infusionDamageMultiplier = infusionDamageMultiplier;
+				clone.InfusionPower = InfusionPower;
+				clone.infusionDamageMultiplier = infusionDamageMultiplier;
 
                 #endregion
 
@@ -147,9 +157,16 @@ namespace WeaponEnchantments.Common.Globals
         public override void LoadData(Item item, TagCompound tag) {
             base.LoadData(item, tag);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            Stack0 = tag.Get<bool>("stack0");
+			if (infusedItemName != "" && tag.TryGet<int>("infusedPower", out int infusionPower))
+				InfusionPower = infusionPower;
+
+			#endregion
+
+			#region Tracking (instance)
+
+			Stack0 = tag.Get<bool>("stack0");
 
             #endregion
 
@@ -157,27 +174,55 @@ namespace WeaponEnchantments.Common.Globals
         public override void SaveData(Item item, TagCompound tag) {
             base.SaveData(item, tag);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            tag["stack0"] = Stack0;
+			if (infusedItemName != "") {
+				tag["infusedPower"] = InfusionPower;
+			}
+
+			#endregion
+
+			#region Tracking (instance)
+
+			tag["stack0"] = Stack0;
 
             #endregion
+
         }
         public override void NetSend(Item item, BinaryWriter writer) {
             base.NetSend(item, writer);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            writer.Write(Stack0);
+			bool noName = infusedItemName == "";
+			writer.Write(noName);
+			if (!noName) {
+				writer.Write(InfusionPower);
+			}
+
+			#endregion
+
+			#region Tracking (instance)
+
+			writer.Write(Stack0);
 
             #endregion
         }
         public override void NetReceive(Item item, BinaryReader reader) {
             base.NetReceive(item, reader);
 
-            #region Tracking (instance)
+			#region Infusion
 
-            Stack0 = reader.ReadBoolean();
+			bool noName = reader.ReadBoolean();
+			if (!noName) {
+				InfusionPower = reader.ReadInt32();
+			}
+
+			#endregion
+
+			#region Tracking (instance)
+
+			Stack0 = reader.ReadBoolean();
 
             #endregion
         }
@@ -393,6 +438,7 @@ namespace WeaponEnchantments.Common.Globals
         public static float GetReductionFactor(int hp) {
             float factor = hp < 7000 ? hp / 1000f + 1f : 8f;
             return factor;
-        }
-    }
+		}
+		public static float GetPrideOfTheWeakMultiplier(this EnchantedWeapon enchantedWeapon) => 1f - enchantedWeapon.GetWeaponInfusionPower() / 500f;
+	}
 }
