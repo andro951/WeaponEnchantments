@@ -955,7 +955,10 @@ namespace WeaponEnchantments.Common.Globals
             if (item.NullOrAir())
                 return false;
 
-            if (item.ModItem != null) {
+			if (IsArmorItem(item))
+				return false;
+
+			if (item.ModItem != null) {
 				//Manually prevent calamity items from being weapons
 				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == CalamityIntegration.calamityName) {
 					switch (item.Name) {
@@ -963,10 +966,8 @@ namespace WeaponEnchantments.Common.Globals
 							return false;
 					}
 				}
-				else if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
-					if (IsArmorItem(item))
-						return false;
 
+				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
 					switch (item.Name) {
 						case "Hive Mind":
                         case "Inspiration Note":
@@ -988,12 +989,6 @@ namespace WeaponEnchantments.Common.Globals
 					//Some Thorium non-weapon consumables were counting as weapons.
 					if (item.consumable && item.damage <= 0 && item.mana <= 0)
 						return false;
-				}
-                else if (WEMod.fargosEnabled && item.ModItem.Mod.Name == "Fargowiltas") {
-					switch (item.Name) {
-						case "Brittle Bone":
-							return false;
-					}
 				}
 			}
 
