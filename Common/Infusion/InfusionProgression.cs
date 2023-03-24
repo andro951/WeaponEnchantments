@@ -914,14 +914,19 @@ namespace WeaponEnchantments.Common
 
 				HashSet<int> ingredients = r.requiredItem.Select(i => i.type).Where(t => t > 0).ToHashSet();
 				HashSet<int> tiles = r.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).ToHashSet();
-				//string ingredientsString = $"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}";
-				//ingredientsString.LogSimple();
+				//$"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}".LogSimple();
 
 				allRecipes.Add(i, (r.createItem.type, ingredients, tiles));
 				if (IsWeaponItem(r.createItem))
 					originalWeaponIngredients.UnionWith(ingredients);
 			}
 
+			SortedDictionary<int, SortedSet<int>> recipeNumbersByCraftedItem = new();
+			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
+				recipeNumbersByCraftedItem.AddOrCombine(recipe.Value.createItemType, recipe.Key);
+			}
+
+			//$"{reicpeNumbersByRequiredItems.Select(p => p.Value.StringList(n => $"{n}", $"{p.Key.CSI().S()}")).S("reicpeNumbersByRequiredItems")}".LogSimple();
 
 			SortedSet<int> weaponIngredients = new(originalWeaponIngredients);
 			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
@@ -933,19 +938,14 @@ namespace WeaponEnchantments.Common
 				Item createItem = createItemType.CSI();
 				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
 				bool added = reverseCraftableRecipes.Contains(recipeNum);
-				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in allRecipes) {
+				IEnumerable<KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)>> otherRecipes = recipeNumbersByCraftedItem.Where(p => requiredItemTypes.Contains(p.Key)).Select(p => p.Value.Select(n => new KeyValuePair<int, (int, HashSet<int>, HashSet<int>)>(n, allRecipes[n]))).SelectMany(p => p);
+				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in otherRecipes) {
 					int otherCreateItemType = otherRecipe.Value.createItemType;
 					int otherRecipeNum = otherRecipe.Key;
 					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
 					HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
 					Item otherCreateItem = otherCreateItemType.CSI();
 					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
-
-					if (createItemType == otherCreateItemType)
-						continue;
-
-					if (!requiredItemTypes.Contains(otherCreateItemType))
-						continue;
 
 					if (!otherRequiredItemTypes.Contains(createItemType))
 						continue;
@@ -954,8 +954,6 @@ namespace WeaponEnchantments.Common
 					bool otherModRecipe = otherRecipe.Key >= VANILLA_RECIPE_COUNT;
 					bool isWeapon = WeaponsList.Contains(createItemType);
 					bool otherIsWeapon = WeaponsList.Contains(otherCreateItemType);
-					//bool reverse = !isWeapon && (modRecipe || !otherModRecipe);
-					//bool otherReverse = !otherIsWeapon && (otherModRecipe || !modRecipe);
 					bool reverse = !isWeapon && (modRecipe || !otherModRecipe) || isWeapon && !modRecipe && !otherModRecipe;
 					bool otherReverse = !otherIsWeapon && (otherModRecipe || !modRecipe) || otherIsWeapon && !otherModRecipe && !modRecipe;
 
@@ -984,7 +982,8 @@ namespace WeaponEnchantments.Common
 				Item createItem = createItemType.CSI();
 				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
 				bool added = reverseCraftableRecipes.Contains(recipeNum);
-				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in allRecipes) {
+				IEnumerable<KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)>> otherRecipes = recipeNumbersByCraftedItem.Where(p => requiredItemTypes.Contains(p.Key)).Select(p => p.Value.Select(n => new KeyValuePair<int, (int, HashSet<int>, HashSet<int>)>(n, allRecipes[n]))).SelectMany(p => p);
+				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in otherRecipes) {
 					int otherCreateItemType = otherRecipe.Value.createItemType;
 					int otherRecipeNum = otherRecipe.Key;
 					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
@@ -993,12 +992,6 @@ namespace WeaponEnchantments.Common
 					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
 
 					if (reverseCraftableRecipes.Contains(otherRecipeNum))
-						continue;
-
-					if (createItemType == otherCreateItemType)
-						continue;
-
-					if (!requiredItemTypes.Contains(otherCreateItemType))
 						continue;
 
 					if (otherRequiredTileTypes.Contains(createItemType))
