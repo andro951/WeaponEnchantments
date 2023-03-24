@@ -72,18 +72,6 @@ namespace WeaponEnchantments.Common.Globals
         #region Infusion
 
         public string infusedItemName = "";
-        public int InfusionPower {
-            get {
-                if (infusionPower == -1) {
-                    if (Item != null)
-						infusionPower = Item.GetWeaponInfusionPower();
-				}
-
-                return infusionPower;
-            }
-            set => infusionPower = value;
-        }
-        private int infusionPower = -1;
         protected int _infusionValueAdded = 0;
         public int InfusionValueAdded {
             get { return _infusionValueAdded; }
@@ -233,7 +221,6 @@ namespace WeaponEnchantments.Common.Globals
                 #region Infusion
 
                 clone.infusedItemName = infusedItemName;
-                clone.InfusionPower = InfusionPower;
                 clone.InfusionValueAdded = InfusionValueAdded;
 
                 #endregion
@@ -325,8 +312,6 @@ namespace WeaponEnchantments.Common.Globals
             #region Infusion
 
             infusedItemName = tag.Get<string>("infusedItemName");
-            if (infusedItemName != "" && tag.TryGet<int>("infusedPower", out int infusionPower))
-                InfusionPower = infusionPower;
 
             #endregion
 
@@ -360,9 +345,9 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
 
             #region Infusion
+
             if (infusedItemName != "") {
 				tag["infusedItemName"] = infusedItemName;
-				tag["infusedPower"] = InfusionPower;
 			}
 
             #endregion
@@ -411,7 +396,6 @@ namespace WeaponEnchantments.Common.Globals
             writer.Write(noName);
             if (!noName) {
                 writer.Write(infusedItemName);
-                writer.Write(InfusionPower);
             }
 
             #endregion
@@ -469,7 +453,6 @@ namespace WeaponEnchantments.Common.Globals
             bool noName = reader.ReadBoolean();
             if (!noName) {
                 infusedItemName = reader.ReadString();
-                InfusionPower = reader.ReadInt32();
             }
 
             #endregion
@@ -952,7 +935,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static bool IsWeaponItem(Item item) {
-            if (item.NullOrAir())
+			if (item.NullOrAir())
                 return false;
 
 			if (IsArmorItem(item))
@@ -1506,10 +1489,12 @@ namespace WeaponEnchantments.Common.Globals
 
                 if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                     item.CheckConvertExcessExperience(consumedItem);
-                    if (enchantedItem.InfusionPower < consumedEnchantedItem.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedItem.InfusionPower) {
-                        item.TryInfuseItem(consumedItem);
-                        item.TryInfuseItem(consumedItem, false, true);
-                    }
+                    if (enchantedItem is EnchantedWeapon enchantedWeapon && consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon) {
+						if (enchantedWeapon.InfusionPower < consumedEnchantedWeapon.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedWeapon.InfusionPower) {
+							item.TryInfuseItem(consumedItem);
+							item.TryInfuseItem(consumedItem, false, true);
+						}
+					}
 
                     if (consumedEnchantedItem.PowerBoosterInstalled) {
                         if (!enchantedItem.PowerBoosterInstalled) {
@@ -1773,6 +1758,5 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }//d
-		public static float GetPrideOfTheWeakMultiplier(this EnchantedItem enchantedItem) => 1f - enchantedItem.GetWeaponInfusionPower() / 500f;
 	}
 }

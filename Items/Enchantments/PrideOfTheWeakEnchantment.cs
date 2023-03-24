@@ -25,8 +25,15 @@ namespace WeaponEnchantments.Items.Enchantments
 		}
 
 		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
-		public EnchantedItem EnchantedItem { get; set; }
-		public override float EnchantmentStrength => EnchantedItem != null ? 1f + (EnchantmentStrengthData.Value - 1f) * EnchantedItem.GetPrideOfTheWeakMultiplier() : EnchantmentStrengthData.Value;
+		public EnchantedWeapon EnchantedWeapon { get; set; }
+		public EnchantedItem EnchantedItem {
+			get => EnchantedWeapon;
+			set {
+				if (value is EnchantedWeapon enchantedWeapon)
+					EnchantedWeapon = enchantedWeapon;
+			}
+		}
+		public override float EnchantmentStrength => EnchantedWeapon != null ? 1f + (EnchantmentStrengthData.Value - 1f) * EnchantedWeapon.GetPrideOfTheWeakMultiplier() : EnchantmentStrengthData.Value;
 		public override string Artist => "Zorutan";
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
