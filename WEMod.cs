@@ -24,6 +24,7 @@ using OnProjectile = On.Terraria.Projectile;
 using OnPlayer = On.Terraria.Player;
 using WeaponEnchantments.Content.NPCs;
 using System.Linq;
+using WeaponEnchantments.ModIntegration;
 
 namespace WeaponEnchantments
 {
@@ -41,6 +42,10 @@ namespace WeaponEnchantments
 		public static bool fargosSoulsEnabled = ModLoader.TryGetMod("FargowiltasSouls", out Mod _);
 		public static bool imkSushisModEnabled = ModLoader.TryGetMod("imkSushisMod", out Mod _);
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
+		public static bool qwertyModEnabled = ModLoader.TryGetMod("QwertyMod", out Mod _);
+		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
+
+		public static bool StartedPostSetupContent = false;
 
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
@@ -58,12 +63,15 @@ namespace WeaponEnchantments
 			IL.Terraria.Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
+		public override void Unload() {
+			BossChecklistIntegration.UnloadBossChecklistIntegration();
+		}
 		public override void PostSetupContent() {
+			StartedPostSetupContent = true;
 			if (ModLoader.TryGetMod("Census", out Mod Census)) {
 				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
 					Census.Call("TownNPCCondition", modNPC.NPC.netID, ((INPCWikiInfo)modNPC).SpawnCondition);
 				}
-				//Census.Call("TownNPCCondition", ModContent.NPCType<Witch>(), "Have an enchantment in your inventory or on your equipment.");
 			}
 			
 			if (ModLoader.TryGetMod("Wikithis", out Mod wikiThis))

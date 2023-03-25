@@ -22,16 +22,93 @@ using KokoLib;
 using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.Common.Configs;
+using System.Diagnostics;
+using WeaponEnchantments.ModIntegration;
+using static WeaponEnchantments.ModIntegration.BossChecklistIntegration;
 
 namespace WeaponEnchantments.Common.Globals
 {
     public class WEGlobalNPC : GlobalNPC {
         #region Static
 
-        public static List<int> preHardModeBossTypes;
-        public static List<int> postPlanteraBossTypes;
-        public static List<string> preHardModeModBossNames;
-        public static List<string> postPlanteraBossNames;
+        private static SortedSet<int> preHardModeBossTypes = null;
+		public static SortedSet<int> PreHardModeBossTypes {
+            get {
+                TryBossChecklistSetup();
+				if (preHardModeBossTypes == null)
+                    DefaultBossSetup();
+
+                return preHardModeBossTypes;
+			}
+        }
+		private static SortedSet<int> postPlanteraBossTypes = null;
+		public static SortedSet<int> PostPlanteraBossTypes {
+			get {
+				TryBossChecklistSetup();
+				if (postPlanteraBossTypes == null)
+					DefaultBossSetup();
+
+				return postPlanteraBossTypes;
+			}
+		}
+		private static void DefaultBossSetup() {
+            if (preHardModeBossTypes == null || postPlanteraBossTypes == null) {
+				preHardModeBossTypes = new() {
+					NPCID.EyeofCthulhu,
+					NPCID.EaterofWorldsBody,
+					NPCID.EaterofWorldsHead,
+					NPCID.EaterofWorldsTail,
+					NPCID.BrainofCthulhu,
+					NPCID.KingSlime,
+					NPCID.Deerclops,
+					NPCID.QueenBee,
+					NPCID.SkeletronHead
+				};
+
+				postPlanteraBossTypes = new() {
+					NPCID.HallowBoss,
+					NPCID.CultistBoss,
+					NPCID.MoonLordCore,
+					NPCID.MoonLordHead,
+					NPCID.Plantera,
+					NPCID.Golem,
+					NPCID.DukeFishron,
+					NPCID.MartianSaucer
+				};
+			}
+        }
+        private static void TryBossChecklistSetup() {
+            if (!WEMod.bossChecklistEnabled)
+                return;
+
+            if (!ShouldSetupBossPowerBoosterDrops)
+                return;
+
+			preHardModeBossTypes = new();
+			postPlanteraBossTypes = new();
+			if (!BossInfoNetIDKeys.TryGetValue(NPCID.WallofFlesh, out string wallKey) || !BossInfos.TryGetValue(wallKey, out BossChecklistBossInfo wallInfo) || !BossInfoNetIDKeys.TryGetValue(NPCID.Plantera, out string planteraKey) || !BossInfos.TryGetValue(planteraKey, out BossChecklistBossInfo planteraInfo)) {
+                "Failed to determine the progression of Wall of Flesh and Plantera from BossChecklistData".LogSimple();
+                return;
+            }
+
+            float wallOfFleshProgression = wallInfo.progression;
+            float planteraProgression = planteraInfo.progression;
+			foreach (KeyValuePair<string, BossChecklistBossInfo> bossInfoPair in BossInfos.Where(p => p.Value.isBoss || p.Value.isMiniboss)) {
+                float progression = bossInfoPair.Value.progression;
+                List<int> netIDs = bossInfoPair.Value.npcIDs;
+                NPC npc = netIDs.First().CSNPC();
+                if (progression < wallOfFleshProgression) {
+                    preHardModeBossTypes.UnionWith(netIDs);
+				}
+                else if (progression >= planteraProgression) {
+                    postPlanteraBossTypes.UnionWith(netIDs);
+                }
+            }
+
+            //if (Debugger.IsAttached) $"{BossInfos.OrderBy(i => i.Value.progression).Select(i => $"Key: {i.Key}, internalName: {i.Value.internalName}, progression: {i.Value.progression}, netIDs: {i.Value.npcIDs.StringList(netID => netID.GetNPCIDOrName())}").S("BossChecklist BossInfos")}".LogSimple();
+
+            UsedBossChecklistForBossPowerBoosterDrops = true;
+		}
         public static SortedDictionary<int, float> multipleSegmentBossTypes;
         public static List<int> normalNpcsThatDropsBags;
 
@@ -40,9 +117,20 @@ namespace WeaponEnchantments.Common.Globals
         public static SortedDictionary<int, List<DropData>> npcDropTypes = new();
         public static SortedDictionary<int, List<DropData>> npcAIDrops = new();
 
-        #endregion
+		private static SortedDictionary<int, List<(int, float)>> allItemDropsFromNpcs = null;
+		public static SortedDictionary<int, List<(int, float)>> AllItemDropsFromNpcs {
+			get {
+				if (allItemDropsFromNpcs == null)
+					GetAllNpcDrops();
 
-        private Item _sourceItem;
+				return allItemDropsFromNpcs;
+			}
+		}
+        public static bool UsedBossChecklist = false;
+
+		#endregion
+
+		private Item _sourceItem;
         public Item SourceItem {
             get => _sourceItem;
             set {
@@ -64,86 +152,6 @@ namespace WeaponEnchantments.Common.Globals
         public override bool InstancePerEntity => true;
         public override void Load() {
             IL.Terraria.Projectile.Damage += HookDamage;
-
-            preHardModeBossTypes = new List<int>() {
-                NPCID.EyeofCthulhu,
-                NPCID.EaterofWorldsBody,
-                NPCID.EaterofWorldsHead,
-                NPCID.EaterofWorldsTail,
-                NPCID.BrainofCthulhu,
-                NPCID.KingSlime,
-                NPCID.Deerclops,
-                NPCID.QueenBee,
-                NPCID.SkeletronHead
-            };
-
-            preHardModeModBossNames = new List<string>() {
-                "Desert Scourge",//Calamity
-                "Crabulon",//Calamity
-                "The Hive Mind",//Calamity
-                "The Perforator Hive",//Calamity
-                "The Slime God",//Calamity
-                "Trojan Squirrel",//Fargo's
-                "Deviantt",//Fargo's
-                "The Storm Cloud",//Vitality
-                "Gemstone Elemental",//Vitality
-                "The Grand Antlion",//Vitality
-                "Moonlight Dragonfly",//Vitality
-                "Polar Exterminator",//Querty's Bosses and Items 2
-                "The Divine Light",//Querty's Bosses and Items 2
-                "Ancient Machine",//Querty's Bosses and Items 2
-                "Noehtnap",//Querty's Bosses and Items 2
-                "The Grand Thunder Bird",//Thorium
-				"Queen Jellyfish",//Thorium
-				"Viscount",//Thorium
-				"Granite Energy Storm",//Thorium
-				"Buried Champion",//Thorium
-				"Star Scouter"//Thorium
-			};
-
-            postPlanteraBossTypes = new() {
-                NPCID.HallowBoss,
-                NPCID.CultistBoss,
-                NPCID.MoonLordCore,
-                NPCID.MoonLordHead,
-                NPCID.Plantera,
-                NPCID.Golem,
-                NPCID.DukeFishron,
-                NPCID.MartianSaucer
-            };
-
-            postPlanteraBossNames = new() {
-                //Calamity
-				"The Leviathan",
-				"Astrum Aureus",
-				"The Plaguebringer Goliath",
-				"Ravager",
-				"Astrum Deus",
-				"The Dragonfolly",
-				"Providence, the Profaned Goddess",
-				"Ceaseless Void",
-				"Storm Weaver",
-				"Signus, Envoy of the Devourer",
-				"Polterghast",
-				"The Old Duke",
-				"The Devourer of Gods",
-				"Yharon, Dragon of Rebirth",
-				"XF-09 Ares",
-				"Supreme Witch, Calamitas",
-				"Cryogen",
-				"Calamitas Clone",
-				"Brimstone Elemental",
-				"Aquatic Scourge",
-
-                //Stars Above
-				"Penthesilea, the Witch of Ink",
-				"Arbitration",
-				"The Warrior Of Light",
-				"Tsukiyomi, the First Starfarer"
-
-                //Thorium
-
-			};
 
             multipleSegmentBossTypes = new SortedDictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },
@@ -430,16 +438,11 @@ namespace WeaponEnchantments.Common.Globals
                 AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Power Booster
-                bool preHardModeBoss = preHardModeBossTypes.Contains(npc.netID) || preHardModeModBossNames.Contains(npc.FullName());
-                bool postPlanteraBoss = postPlanteraBossTypes.Contains(npc.netID) || postPlanteraBossNames.Contains(npc.FullName());
-                if (!WEMod.serverConfig.PreventPowerBoosterFromPreHardMode || !preHardModeBoss) {
-                    denominator = (int)(100000f / total);
-                    if (denominator < 1)
-                        denominator = 1;
-
-                    dropRule = postPlanteraBoss ? ItemDropRule.Common(ModContent.ItemType<UltraPowerBooster>(), denominator, 1, 1) : ItemDropRule.Common(ModContent.ItemType<PowerBooster>(), denominator, 1, 1);
-                    AddBossLoot(loot, npc, dropRule, bossBag);
-                }
+                bool preHardModeBoss = PreHardModeBossTypes.Contains(npc.netID);
+                bool postPlanteraBoss = PostPlanteraBossTypes.Contains(npc.netID);
+                float powerBoosterDropChance = total / 100000f;
+                dropRule = new PowerBoosterDropRule(npc.netID, powerBoosterDropChance);
+				AddBossLoot(loot, npc, dropRule, bossBag);
 
                 //Enchantments
                 if (npcDropTypes.ContainsKey(npc.netID)) {
@@ -453,7 +456,7 @@ namespace WeaponEnchantments.Common.Globals
 						AddBossLoot(loot, npc, rule, bossBag);
 					}
 
-					if (LogModSystem.printEnchantmentDrops && (bossBag || !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID)))
+					if (LogModSystem.printEnchantmentDrops && (bossBag || !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
             }
@@ -528,13 +531,7 @@ namespace WeaponEnchantments.Common.Globals
             return itemDropRules;
 		}
 		private static void AddBossLoot(ILoot loot, NPC npc, IItemDropRule dropRule, bool bossBag) {
-            //Setup mod boss bag support (Relies on NPC loot being set up before boss bag loot)
-            if (!GlobalBossBags.modBossBagIntegrationSetup) {
-                GlobalBossBags.SetupModBossBagIntegration();
-                GlobalBossBags.modBossBagIntegrationSetup = true;
-            }
-
-            bool bossCantDropBossBags;
+            bool bossCantDropBossBags = false;
 
             switch (npc.netID) {
                 //UnobtainableBossBags
@@ -542,9 +539,6 @@ namespace WeaponEnchantments.Common.Globals
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2OgreT2:
                     bossCantDropBossBags = !WEMod.thoriumEnabled;
-                    break;
-                default:
-                    bossCantDropBossBags = !GlobalBossBags.bossBagNPCIDs.Values.SelectMany(l => l).Contains(npc.netID);
                     break;
             }
 
@@ -847,6 +841,45 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public void ResetWarReduction() => myWarReduction = 1f;
+		private static void GetAllNpcDrops() {
+            if (!WEModSystem.StartedWorldLoad)
+                return;
+
+			allItemDropsFromNpcs = new();
+            SortedDictionary<string, (int, float)> manuallySetModBossBags = new();
+			foreach (KeyValuePair<int, NPC> npcPair in ContentSamples.NpcsByNetId) {
+				int netID = npcPair.Key;
+				NPC npc = npcPair.Value;
+				IEnumerable<IItemDropRule> dropRules = Main.ItemDropsDB.GetRulesForNPCID(netID, false);
+				foreach (IItemDropRule dropRule in dropRules) {
+					List<DropRateInfo> dropRates = new();
+					DropRateInfoChainFeed dropRateInfoChainFeed = new(1f);
+					dropRule.ReportDroprates(dropRates, dropRateInfoChainFeed);
+					foreach (DropRateInfo dropRate in dropRates) {
+						int itemType = dropRate.itemId;
+                        float chance = dropRate.dropRate;
+						//Item item = itemType.CSI();
+						allItemDropsFromNpcs.AddOrCombine(itemType, (netID, chance));
+					}
+				}
+
+                if (GlobalBossBags.ManuallySetModBossBags.TryGetValue(npc.ModFullName(), out (string bagModName, float chance) value))
+                    manuallySetModBossBags.Add(value.bagModName, (netID, value.chance));
+			}
+
+			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+				if (manuallySetModBossBags.Count <= 0)
+					break;
+
+				string modFullName = i.CSI().ModFullName();
+				if (manuallySetModBossBags.TryGetValue(modFullName, out (int netID, float chance) value)) {
+                    allItemDropsFromNpcs.AddOrCombine(i, (value.netID, value.chance));
+					manuallySetModBossBags.Remove(modFullName);
+				}
+			}
+
+			//if (Debugger.IsAttached) allItemDropsFromNpcs.Select(p => p.Value.StringList(n => $"{n.Item1.CSNPC().S()} : {n.Item2.PercentString()}" , p.Key.CSI().S())).S("allItemDropsFromNpcs").LogSimple();
+		}
 	}
 
     public static class NPCStaticMethods
@@ -923,5 +956,6 @@ namespace WeaponEnchantments.Common.Globals
 				return npc.FullName;
 			}
 		}
+        public static string ModFullName(this NPC npc) => npc.ModNPC?.FullName ?? npc.type.GetNPCIDOrName();
 	}
 }

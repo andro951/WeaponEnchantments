@@ -54,9 +54,10 @@ namespace WeaponEnchantments.Common
 		}
 
 		public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo) {
-			drops.Add(new DropRateInfo(itemID, 1, 1, dropChance));
+			float chance = dropChance * ratesInfo.parentDroprateChance;
+			drops.Add(new DropRateInfo(itemID, 1, 1, chance));
 
-			Chains.ReportDroprates(ChainedRules, dropChance, drops, ratesInfo);
+			Chains.ReportDroprates(ChainedRules, chance, drops, ratesInfo);
 		}
 	}
 }

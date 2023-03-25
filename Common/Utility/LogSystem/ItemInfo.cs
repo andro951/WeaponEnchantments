@@ -172,7 +172,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     int minDropped = enemyDrops[type][npcNetID].stackMin;
                     int maxDropped = enemyDrops[type][npcNetID].stackMax;
                     float chance = enemyDrops[type][npcNetID].dropRate;
-                    bool configDrop = WEModItem.ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                    bool configDrop = WEModItem.ConfigOnlyDrop && WEGlobalNPC.PreHardModeBossTypes.Contains(npcNetID);
                     string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
                     List<string> dropInfo = new() { $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                     allDropInfo.Add(dropInfo);
@@ -219,7 +219,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                     int minDropped = enemyDrops[itemType][npcNetID].stackMin;
                     int maxDropped = enemyDrops[itemType][npcNetID].stackMax;
                     float chance = enemyDrops[itemType][npcNetID].dropRate;
-                    bool configDrop = modItem is WEModItem weModItem && weModItem.ConfigOnlyDrop && WEGlobalNPC.preHardModeBossTypes.Contains(npcNetID);
+                    bool configDrop = modItem is WEModItem weModItem && weModItem.ConfigOnlyDrop && WEGlobalNPC.PreHardModeBossTypes.Contains(npcNetID);
                     string chanceString = $"{(configDrop ? "(" : "")}{chance.PercentString()}{(configDrop ? ")<br/>if config enabled" : "")}";
                     List<string> dropInfo = new() { itemPNG, $"{npcNetID.ToNpcPNG(link: true)}", (minDropped != maxDropped ? $"{minDropped}-{maxDropped}" : $"{minDropped}"), chanceString };//Make vanilla link option to vanilla wiki
                     allDropInfo.Add(dropInfo);

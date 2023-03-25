@@ -419,6 +419,9 @@ namespace WeaponEnchantments.Common.Globals
 						dropItem = TileTypeToItemType[type];
 
 					break;
+				case TileID.Tombstones:
+					dropItem = ItemID.Tombstone;
+					break;
 				default:
 					ModTile modTile = TileLoader.GetTile(type);
 					//Get item dropped by the tile
@@ -691,8 +694,10 @@ namespace WeaponEnchantments.Common.Globals
 			I'm not too too familiar. You create a struct that implements ITileData. Then with a tile instance you can do ref tile.Get<YourStruct>().
 		}*/
 		private static void SetupTileTypeToItemType() {
+			//TODO: for all the failed ones, have them search for the item name in the tile name.
 			tileTypeToItemType = new();
-			foreach (int tileType in Main.recipe.Select(recipe => recipe.requiredTile).SelectMany(tiles => tiles).ToHashSet()) {
+			HashSet<int> tileTypes = Main.recipe.Select(recipe => recipe.requiredTile).SelectMany(tiles => tiles).ToHashSet();
+			foreach (int tileType in tileTypes) {
 				int itemType = GetDroppedItem(tileType);
 				if (itemType <= 0) {
 					if (tileType > TileID.Count || WEMod.magicStorageEnabled && tileType == TileID.DemonAltar) {
@@ -718,6 +723,16 @@ namespace WeaponEnchantments.Common.Globals
 					tileTypeToItemType.Add(tileType, itemType);
 			}
 
+			foreach (int tileType in tileTypes.Where(t => !tileTypeToItemType.ContainsKey(t))) {//Didn't work
+				if (tileType <= TileID.Count) {
+					$"Didn't search for vanilla tile by name: {tileType}".LogSimple();
+					continue;
+				}
+
+				if (TryGetModTileName(tileType, out string modTileName) && TryGetModTileItemType(modTileName, out int modTileItemType, true))
+					tileTypeToItemType.Add(tileType, modTileItemType);
+			}
+
 			tileTypeToItemTypesSetup = true;
 			//$"\n{tileTypeToItemType.Select(t => $"{t.Key}, {(t.Key >= TileID.Count ? TileLoader.GetTile(t.Key).Name : "")}: {t.Value.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
@@ -727,6 +742,13 @@ namespace WeaponEnchantments.Common.Globals
 				modTileName = "DemonAltar";
 				return true;
 			}
+
+			/* TODO: make manual switch for these
+			 [00:43:18.508] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1428, modTileName: OmnistationSheet
+[00:43:18.514] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1429, modTileName: OmnistationSheet2
+[00:43:18.521] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1426, modTileName: GoldenDippingVatSheet
+[00:43:18.527] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1422, modTileName: CrucibleCosmosSheet
+			 */
 
 			if (tileType < TileID.Count)
 				return false;
@@ -738,14 +760,14 @@ namespace WeaponEnchantments.Common.Globals
 			modTileName = modTile.Name;
 			return true;
 		}
-		private static bool TryGetModTileItemType(string modTileName, out int modTileItemType) {//TODO: change to fullname instead of name
+		private static bool TryGetModTileItemType(string modTileName, out int modTileItemType, bool searchInName = false) {//TODO: change to fullname instead of name
 			modTileItemType = 0;
 			for (int type = ItemID.Count; type < ItemLoader.ItemCount; type++) {
 				ModItem modItem = ContentSamples.ItemsByType[type].ModItem;
 				if (modItem == null)
 					continue;
-
-				if (modItem.Name == modTileName) {
+				bool match = searchInName ? modItem.Name.Contains(modTileName) : modItem.Name == modTileName;//Didn't work
+				if (match) {
 					modTileItemType = modItem.Type;
 					return true;
 				}

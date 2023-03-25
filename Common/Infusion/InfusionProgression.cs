@@ -468,7 +468,7 @@ namespace WeaponEnchantments.Common
 			SortedSet<string> newItemsSet = new SortedSet<string>(newItems);
 			IEnumerable<int> weaponList = WeaponsList.Concat(WeaponCraftingIngredients);
 			foreach (int itemType in weaponList) {
-				string itemName = itemType.CSI().Name;
+				string itemName = itemType.CSI().ModFullName();
 				if (newItemsSet.Contains(itemName)) {
 					if (!addedItems.Contains(itemType)) {
 						ItemTypes.Add(itemType);
@@ -526,7 +526,7 @@ namespace WeaponEnchantments.Common
 		public void AddNPCs(IEnumerable<string> newNPCs) {
 			SortedSet<string> newNpcsSet = new SortedSet<string>(newNPCs);
 			foreach (int netID in NPCsThatDropWeaponsOrIngredients.Keys) {
-				string npcName = netID.CSNPC().FullName();
+				string npcName = netID.CSNPC().ModFullName();
 				if (newNpcsSet.Contains(npcName))
 					NpcTypes.Add(netID);
 			}
@@ -598,6 +598,7 @@ namespace WeaponEnchantments.Common
 					break;
 				case >= ProgressionGroupID.DesertScourge:
 					string bossName = null;
+					/*
 					switch (id) {
 						//Calamity
 						case ProgressionGroupID.AquaticScourge:
@@ -741,6 +742,152 @@ namespace WeaponEnchantments.Common
 						case ProgressionGroupID.Viscount:
 							bossName = "Viscount";
 							break;
+					}
+					*/
+					switch (id) {
+						//Calamity
+						case ProgressionGroupID.AquaticScourge:
+							bossName = "CalamityMod/AquaticScourgeHead";
+							break;
+						case ProgressionGroupID.AstrumAures:
+							bossName = "CalamityMod/AstrumAureus";
+							break;
+						case ProgressionGroupID.AstrumDeus:
+							bossName = "CalamityMod/AstrumDeusHead";
+							break;
+						case ProgressionGroupID.BrimstoneElemental:
+							bossName = "CalamityMod/BrimstoneElemental";
+							break;
+						case ProgressionGroupID.CalamitasClone:
+							bossName = "CalamityMod/CalamitasClone";
+							break;
+						case ProgressionGroupID.SupremeCalamitas:
+							bossName = "CalamityMod/SupremeCalamitas";
+							break;
+						case ProgressionGroupID.CeaselessVoid:
+							bossName = "CalamityMod/CeaselessVoid";
+							break;
+						case ProgressionGroupID.Crabulon:
+							bossName = "CalamityMod/Crabulon";
+							break;
+						case ProgressionGroupID.Cryogen:
+							bossName = "CalamityMod/Cryogen";
+							break;
+						case ProgressionGroupID.DesertScourge:
+							bossName = "CalamityMod/DesertScourgeHead";
+							break;
+						case ProgressionGroupID.DevouererOfGods:
+							bossName = "CalamityMod/DevourerofGodsHead";
+							break;
+						case ProgressionGroupID.ExoMechs:
+							bossName = "CalamityMod/AresBody";
+							break;
+						case ProgressionGroupID.DragonFolly:
+							bossName = "CalamityMod/Bumblefuck";
+							break;
+						case ProgressionGroupID.HiveMind:
+							bossName = "CalamityMod/HiveMind";
+							break;
+						case ProgressionGroupID.Leviathan:
+							bossName = "CalamityMod/Leviathan";
+							break;
+						case ProgressionGroupID.OldDuke:
+							bossName = "CalamityMod/OldDuke";
+							break;
+						case ProgressionGroupID.Perforators:
+							bossName = "CalamityMod/PerforatorHive";
+							break;
+						case ProgressionGroupID.PlaguebringerGoliath:
+							bossName = "CalamityMod/PlaguebringerGoliath";
+							break;
+						case ProgressionGroupID.Polterghast:
+							bossName = "CalamityMod/Polterghast";
+							break;
+						case ProgressionGroupID.Providence:
+							bossName = "CalamityMod/Providence";
+							break;
+						case ProgressionGroupID.Ravager:
+							bossName = "CalamityMod/RavagerBody";
+							break;
+						case ProgressionGroupID.Signus:
+							bossName = "CalamityMod/Signus";
+							break;
+						case ProgressionGroupID.SlimeGod:
+							bossName = "CalamityMod/SlimeGodCore";
+							break;
+						case ProgressionGroupID.StormWeaver:
+							bossName = "CalamityMod/StormWeaverHead";
+							break;
+						case ProgressionGroupID.Yharon:
+							bossName = "CalamityMod/Yharon";
+							break;
+
+						//Stars Above
+						case ProgressionGroupID.Vagrant:
+							bossName = "StarsAbove/VagrantBoss";
+							break;
+						case ProgressionGroupID.Nalhaun:
+							bossName = "Nalhaun, The Burnished King";
+							break;
+						case ProgressionGroupID.Penthesilea:
+							bossName = "StarsAbove/Penthesilea";
+							break;
+						case ProgressionGroupID.Arbitration:
+							bossName = "StarsAbove/Arbitration";
+							break;
+						case ProgressionGroupID.WarriorOfLight:
+							bossName = "StarsAbove/WarriorOfLight";
+							break;
+
+						//ThoriumMod
+						case ProgressionGroupID.ForgottenOne:
+							bossName = "ThoriumMod/Abyssion";
+							break;
+						case ProgressionGroupID.LunaticCultistThorium:
+							bossName = "Lunatic Cultist";
+							break;
+						case ProgressionGroupID.BoreanStrider:
+							bossName = "ThoriumMod/BoreanStrider";
+							break;
+						case ProgressionGroupID.DarkMageThorium:
+							bossName = "Dark Mage";
+							break;
+						case ProgressionGroupID.OgreThorium:
+							bossName = "Ogre";
+							break;
+						case ProgressionGroupID.Primordials:
+							bossName = "ThoriumMod/RealityBreaker";
+							break;
+						case ProgressionGroupID.GraniteEnergyStorm:
+							bossName = "ThoriumMod/GraniteEnergyStorm";
+							break;
+						case ProgressionGroupID.FallenBeholder:
+							bossName = "ThoriumMod/FallenDeathBeholder";
+							break;
+						case ProgressionGroupID.BuriedChampion:
+							bossName = "ThoriumMod/TheBuriedWarrior";
+							break;
+						case ProgressionGroupID.Lich:
+							bossName = "ThoriumMod/Lich";
+							break;
+						case ProgressionGroupID.FlyingDutchmanThorium:
+							bossName = "Flying Dutchman";
+							break;
+						case ProgressionGroupID.MartianSaucerThorium:
+							bossName = "Martian Saucer";
+							break;
+						case ProgressionGroupID.QueenJellyfish:
+							bossName = "ThoriumMod/QueenJelly";
+							break;
+						case ProgressionGroupID.StarScouter:
+							bossName = "ThoriumMod/ThePrimeScouter";
+							break;
+						case ProgressionGroupID.GrandThunderBird:
+							bossName = "ThoriumMod/TheGrandThunderBirdv2";
+							break;
+						case ProgressionGroupID.Viscount:
+							bossName = "ThoriumMod/Viscount";
+							break;
 							/*
 						case ProgressionGroupID.:
 							bossName = "";
@@ -776,17 +923,14 @@ namespace WeaponEnchantments.Common
 			if (!TryGetBossType(out SortedSet<int> netIds))
 				return false;
 
+			if (WEGlobalNPC.AllItemDropsFromNpcs == null)
+				return false;
+
 			foreach (int netId in netIds) {
 				int bossBagType = -1;
-				foreach (KeyValuePair<int, List<int>> bossBagNPCID in GlobalBossBags.bossBagNPCIDs) {
-					foreach (int bossBagNPCNetId in bossBagNPCID.Value) {
-						NPC npc = netId.CSNPC();
-						NPC bagNPC = bossBagNPCNetId.CSNPC();
-						if (netId == bossBagNPCNetId) {
-							bossBagType = bossBagNPCID.Key;
-							lootItemTypes.Add(bossBagType);
-						}
-					}
+				if (GlobalBossBags.BossBagNPCs.ContainsKey(netId)) {
+					bossBagType = GlobalBossBags.BossBagNPCs[netId];
+					lootItemTypes.Add(bossBagType);
 				}
 			}
 
@@ -826,7 +970,6 @@ namespace WeaponEnchantments.Common
 		}
 	}
 	public static class InfusionProgression {
-		private static bool guessingInfusionPowers => false;
 		public const int VANILLA_RECIPE_COUNT = 2691;
 		private static bool finishedSetup = false;
 		private static bool finishedRecipeSetup = false;
@@ -873,11 +1016,11 @@ namespace WeaponEnchantments.Common
 			PopulateInfusionPowerSources();
 			//TODO: Allow modded recipies for vanilla weapons to affect their infusion power.   (example slime staff)
 
-			if (guessingInfusionPowers)
-				GuessInfusionPowers();
-
 			if (Debugger.IsAttached)
 				InfusionProgressionTests.RunTests();
+
+			if (Debugger.IsAttached)
+				UpdateAndPrintString();
 
 			ClearSetupData();
 		}
@@ -901,7 +1044,7 @@ namespace WeaponEnchantments.Common
 					WeaponsList.Add(i);
 			}
 
-			//$"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
+			//if (Debugger.IsAttached) $"\nweaponsList:\n{weaponsList.Select(type => $"{type.CSI().S()}").JoinList("\n")}".LogSimple();
 		}
 		private static void SetupReverseCraftableIngredients() {
 			SortedSet<int> originalWeaponIngredients = new();
@@ -914,7 +1057,7 @@ namespace WeaponEnchantments.Common
 
 				HashSet<int> ingredients = r.requiredItem.Select(i => i.type).Where(t => t > 0).ToHashSet();
 				HashSet<int> tiles = r.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).ToHashSet();
-				//$"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}".LogSimple();
+				//if (Debugger.IsAttached) $"{ingredients.StringList(i => i.CSI().S(), $"createItem: {r.createItem.S()}")}".LogSimple();
 
 				allRecipes.Add(i, (r.createItem.type, ingredients, tiles));
 				if (IsWeaponItem(r.createItem))
@@ -926,7 +1069,7 @@ namespace WeaponEnchantments.Common
 				recipeNumbersByCraftedItem.AddOrCombine(recipe.Value.createItemType, recipe.Key);
 			}
 
-			//$"{reicpeNumbersByRequiredItems.Select(p => p.Value.StringList(n => $"{n}", $"{p.Key.CSI().S()}")).S("reicpeNumbersByRequiredItems")}".LogSimple();
+			//if (Debugger.IsAttached) $"{reicpeNumbersByRequiredItems.Select(p => p.Value.StringList(n => $"{n}", $"{p.Key.CSI().S()}")).S("reicpeNumbersByRequiredItems")}".LogSimple();
 
 			SortedSet<int> weaponIngredients = new(originalWeaponIngredients);
 			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
@@ -935,17 +1078,17 @@ namespace WeaponEnchantments.Common
 				HashSet<int> requiredItemTypes = recipe.Value.ingredients;
 				HashSet<int> requiredTileTypes = recipe.Value.tiles;
 
-				Item createItem = createItemType.CSI();
-				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
+				//Item createItem = createItemType.CSI();
+				//string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
 				bool added = reverseCraftableRecipes.Contains(recipeNum);
 				IEnumerable<KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)>> otherRecipes = recipeNumbersByCraftedItem.Where(p => requiredItemTypes.Contains(p.Key)).Select(p => p.Value.Select(n => new KeyValuePair<int, (int, HashSet<int>, HashSet<int>)>(n, allRecipes[n]))).SelectMany(p => p);
 				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in otherRecipes) {
 					int otherCreateItemType = otherRecipe.Value.createItemType;
 					int otherRecipeNum = otherRecipe.Key;
 					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
-					HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
-					Item otherCreateItem = otherCreateItemType.CSI();
-					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
+					//HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
+					//Item otherCreateItem = otherCreateItemType.CSI();
+					//string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
 
 					if (!otherRequiredItemTypes.Contains(createItemType))
 						continue;
@@ -954,8 +1097,8 @@ namespace WeaponEnchantments.Common
 					bool otherModRecipe = otherRecipe.Key >= VANILLA_RECIPE_COUNT;
 					bool isWeapon = WeaponsList.Contains(createItemType);
 					bool otherIsWeapon = WeaponsList.Contains(otherCreateItemType);
-					bool reverse = !isWeapon && (modRecipe || !otherModRecipe) || isWeapon && !modRecipe && !otherModRecipe;
-					bool otherReverse = !otherIsWeapon && (otherModRecipe || !modRecipe) || otherIsWeapon && !otherModRecipe && !modRecipe;
+					bool reverse = isWeapon ? modRecipe ? otherIsWeapon /*&& recipeNumbersByCraftedItem[createItemType].Count <= recipeNumbersByCraftedItem[otherCreateItemType].Count*/ : !otherModRecipe : modRecipe || !otherModRecipe;
+					bool otherReverse = otherIsWeapon ? otherModRecipe ? isWeapon /*&& recipeNumbersByCraftedItem[otherCreateItemType].Count <= recipeNumbersByCraftedItem[createItemType].Count*/ : !modRecipe : otherModRecipe || !modRecipe;
 
 					if (reverse && !added) {
 						reverseCraftableRecipes.Add(recipeNum);
@@ -966,7 +1109,7 @@ namespace WeaponEnchantments.Common
 						reverseCraftableRecipes.Add(otherRecipeNum);
 				}
 
-				if (requiredTileTypes.Contains(createItemType))
+				if (requiredTileTypes.Contains(createItemType) && !added)
 					reverseCraftableRecipes.Add(recipeNum);
 			}
 
@@ -974,22 +1117,21 @@ namespace WeaponEnchantments.Common
 				int createItemType = recipe.Value.createItemType;
 				int recipeNum = recipe.Key;
 				HashSet<int> requiredItemTypes = recipe.Value.ingredients;
-				HashSet<int> requiredTileTypes = recipe.Value.tiles;
+				//HashSet<int> requiredTileTypes = recipe.Value.tiles;
 				
 				if (reverseCraftableRecipes.Contains(recipeNum))
 					continue;
 
-				Item createItem = createItemType.CSI();
-				string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
-				bool added = reverseCraftableRecipes.Contains(recipeNum);
+				//Item createItem = createItemType.CSI();
+				//string requiredItemTypesString = requiredItemTypes.StringList(i => i.CSI().S());
 				IEnumerable<KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)>> otherRecipes = recipeNumbersByCraftedItem.Where(p => requiredItemTypes.Contains(p.Key)).Select(p => p.Value.Select(n => new KeyValuePair<int, (int, HashSet<int>, HashSet<int>)>(n, allRecipes[n]))).SelectMany(p => p);
 				foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> otherRecipe in otherRecipes) {
-					int otherCreateItemType = otherRecipe.Value.createItemType;
+					//int otherCreateItemType = otherRecipe.Value.createItemType;
 					int otherRecipeNum = otherRecipe.Key;
-					HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
+					//HashSet<int> otherRequiredItemTypes = otherRecipe.Value.ingredients;
 					HashSet<int> otherRequiredTileTypes = otherRecipe.Value.tiles;
-					Item otherCreateItem = otherCreateItemType.CSI();
-					string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
+					//Item otherCreateItem = otherCreateItemType.CSI();
+					//string otherRequiredItemTypesString = otherRequiredItemTypes.StringList(i => i.CSI().S());
 
 					if (reverseCraftableRecipes.Contains(otherRecipeNum))
 						continue;
@@ -999,11 +1141,12 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			//allRecipes.Select(pair => $"{pair.Key}: {Main.recipe[pair.Key].createItem.S()}, {Main.recipe[pair.Key].requiredItem.StringList(i => i.S())}, {Main.recipe[pair.Key].requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).StringList(t => t.CSI().S())}").S("allRecipes").LogSimple();
-			//reverseCraftableRecipes.Select(i =>  $"{i}: {Main.recipe[i].createItem.S()}, {Main.recipe[i].requiredItem.StringList(i => i.S())}").S("reverseCraftableRecipes").LogSimple();
+			//if (Debugger.IsAttached) allRecipes.Select(pair => $"{pair.Key}: {Main.recipe[pair.Key].createItem.S()}, {Main.recipe[pair.Key].requiredItem.StringList(i => i.S())}, {Main.recipe[pair.Key].requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).StringList(t => t.CSI().S())}").S("allRecipes").LogSimple();
+			//if (Debugger.IsAttached) reverseCraftableRecipes.Select(i =>  $"{i}: {Main.recipe[i].createItem.S()}, {Main.recipe[i].requiredItem.StringList(i => i.S())}").S("reverseCraftableRecipes").LogSimple();
 		}
 		private static void GetAllCraftingResources() {
 			foreach (int weaponType in WeaponsList) {
+				string temp = weaponType.CSI().ModFullName();
 				if (TryGetAllCraftingIngredientTypes(weaponType, out HashSet<HashSet<int>> ingredients))
 					allWeaponRecipies.Add(weaponType, ingredients);
 			}
@@ -1013,8 +1156,7 @@ namespace WeaponEnchantments.Common
 				WeaponCraftingIngredients.Add(ingredient);
 			}
 
-			if (guessingInfusionPowers)
-				$"\n{allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{weapon.Value.Select(ingredient => $" {ingredient.Select(i => i.CSI().Name).JoinList(" or ")}").JoinList(", ")}").JoinList("\n")}".LogSimple();
+			//if (Debugger.IsAttached) $"\n{allWeaponRecipies.Select(weapon => $"{weapon.Key.CSI().S()}:{weapon.Value.Select(ingredient => $" {ingredient.Select(i => i.CSI().Name).JoinList(" or ")}").JoinList(", ")}").JoinList("\n")}".LogSimple();
 		}
 		private static void SetupItemsFromNPCs() {
 			SortedDictionary<string, SortedSet<int>> conditionItems = new();
@@ -1080,7 +1222,7 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			//$"{NPCsThatDropWeaponsOrIngredients.Select(p => p.Value.StringList(i => i.CSI().S(), p.Key.CSNPC().S())).S("NPCsThatDropWeaponsOrIngredients")}".LogSimple();
+			//if (Debugger.IsAttached) $"{NPCsThatDropWeaponsOrIngredients.Select(p => p.Value.StringList(i => i.CSI().S(), p.Key.CSNPC().S())).S("NPCsThatDropWeaponsOrIngredients")}".LogSimple();
 		}
 		private static void SetupItemsFromLootItems() {
 			foreach (KeyValuePair<int, Item> lootItemPair in ContentSamples.ItemsByType) {
@@ -1119,8 +1261,8 @@ namespace WeaponEnchantments.Common
 				LootItemTypes.Add(lootItemType);
 			}
 
-			//$"\nWeaponsFromLootItems:\n{WeaponsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
-			//$"\nIngredientsFromLootItems:\n{IngredientsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
+			//if (Debugger.IsAttached) $"\nWeaponsFromLootItems:\n{WeaponsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
+			//if (Debugger.IsAttached) $"\nIngredientsFromLootItems:\n{IngredientsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
 		}
 		private static void SetupProgressionGroups() {
 
@@ -1908,122 +2050,122 @@ namespace WeaponEnchantments.Common
 			if (WEMod.calamityEnabled) {
 				progressionGroups[ProgressionGroupID.Beach].AddNPCs(
 					new SortedSet<string>() {
-						"Sea Urchin",
-						"Moray Eel"
+						"CalamityMod/SeaUrchin",
+						"CalamityMod/MorayEel"
 					});//30
 				progressionGroups[ProgressionGroupID.Snow].AddNPCs(
 					new SortedSet<string>() {
-						"Rimehound"
+						"CalamityMod/Rimehound"
 					});//35
 				progressionGroups[ProgressionGroupID.ForestPreHardModeRare].AddNPCs(
 					new SortedSet<string>() {
-						"Wulfrum Amplifier"
+						"CalamityMod/WulfrumAmplifier"
 					});//40
 				progressionGroups[ProgressionGroupID.Evil].AddNPCs(
 					new SortedSet<string>() {
-						"Ebonian Blight Slime"
+						"CalamityMod/EbonianBlightSlime"
 					});//80
 				progressionGroups[ProgressionGroupID.UndergroundDesert].AddNPCs(
 					new SortedSet<string>() {
-						"Stormlion"
+						"CalamityMod/Stormlion"
 					});//90
 				progressionGroups[ProgressionGroupID.Fishing].AddItems(
 					new SortedSet<string>() {
-						"Spadefish",
-						"Sparkling Empress"
+						"CalamityMod/Spadefish",
+						"CalamityMod/SparklingEmpress"
 					});//90
 				progressionGroups[ProgressionGroupID.Hell].AddItems(
 					new SortedSet<string>() {
-						"Dragoon Drizzlefish"
+						"CalamityMod/DragoonDrizzlefish"
 					});//90
 				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
 					new SortedSet<string>() {
-						"Cinquedea",
-						"Glaive",
-						"Kylie"
+						"CalamityMod/Cinquedea",
+						"CalamityMod/Glaive",
+						"CalamityMod/Kylie"
 					});//290
 				progressionGroups[ProgressionGroupID.HardmodeShopItems].AddItems(
 					new SortedSet<string>() {
-						"P90",
-						"Slick Cane"
+						"CalamityMod/P90",
+						"CalamityMod/SlickCane"
 					});//400
 				progressionGroups[ProgressionGroupID.HardMode].AddItems(
 					new SortedSet<string>() {
-						"Essence of Havoc",
-						"Essence of Eleum",
-						"Essence of Sunlight",
-						"Clothier's Wrath"
+						"CalamityMod/EssenceofHavoc",
+						"CalamityMod/EssenceofEleum",
+						"CalamityMod/EssenceofSunlight",
+						"CalamityMod/ClothiersWrath"
 					});//400
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddNPCs(
 					new SortedSet<string>() {
-						"Ice Clasper"
+						"CalamityMod/IceClasper"
 					});//410
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
 					new SortedSet<string>() {
-						"Evil Smasher"
+						"CalamityMod/EvilSmasher"
 					});//410
 				progressionGroups[ProgressionGroupID.HardModeRare].AddNPCs(
 					new SortedSet<string>() {
-						"Earth Elemental",
-						"Cloud Elemental"
+						"CalamityMod/Horse",
+						"CalamityMod/ThiccWaifu"
 					});//460
 				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
 					new SortedSet<string>() {
-						"Mantis Claws",
-						"Perennial Ore",
-						"Monkey Darts"
+						"CalamityMod/MantisClaws",
+						"CalamityMod/PerennialOre",
+						"CalamityMod/MonkeyDarts"
 					});//715
 				progressionGroups[ProgressionGroupID.PostGolemEasy].AddItems(
 					new SortedSet<string>() {
-						"Scoria Ore"
+						"CalamityMod/ScoriaOre"
 					});//835
 				progressionGroups[ProgressionGroupID.PostMoonLordEasy].AddItems(
 					new SortedSet<string>() {
-						"Celestial Reaper",
-						"Phantoplasm"
+						"CalamityMod/CelestialReaper",
+						"CalamityMod/Phantoplasm"
 					});//1050
 				AddProgressionGroup(new(ProgressionGroupID.ArsenalLabs, 70,
 					itemNames: new SortedSet<string>() {
-						"Dubious Plating",
-						"Mysterious Circuitry",
-						"Prototype Plasma Drive Core",
-						"Suspicious Scrap"
+						"CalamityMod/DubiousPlating",
+						"CalamityMod/MysteriousCircuitry",
+						"CalamityMod/PlasmaDriveCore",
+						"CalamityMod/SuspiciousScrap"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.SulfurousSea, 80,
 					itemNames: new SortedSet<string>() {
-						"Acidwood",
-						"Sulphurous Sand"
+						"CalamityMod/Acidwood",
+						"CalamityMod/SulphurousSand"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.DesertScourge, 87));
 				AddProgressionGroup(new(ProgressionGroupID.SunkenSea, 92,
 					itemNames: new SortedSet<string>() {
-						"Navystone"
+						"CalamityMod/Navystone"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.GiantClam, 97));
 				AddProgressionGroup(new(ProgressionGroupID.SeaKingShop, 105,
 					itemNames: new SortedSet<string>() {
-						"Shellshooter",
-						"Snap Clam",
-						"Sand Dollar",
-						"Waywasher",
-						"Coral Cannon",
-						"Urchin Flail",
-						"Amidias' Trident",
-						"Enchanted Conch",
-						"Polyp Launcher"
+						"CalamityMod/Shellshooter",
+						"CalamityMod/SnapClam",
+						"CalamityMod/SandDollar",
+						"CalamityMod/Waywasher",
+						"CalamityMod/CoralCannon",
+						"CalamityMod/UrchinFlail",
+						"CalamityMod/AmidiasTrident",
+						"CalamityMod/EnchantedConch",
+						"CalamityMod/PolypLauncher"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PrismShard, 120,
 					itemNames: new SortedSet<string>() {
-						"Prism Shard"
+						"CalamityMod/PrismShard"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AcidRainT1, 125,
 					npcNames: new SortedSet<string>() {
-						"Nuclear Toad"
+						"CalamityMod/NuclearToad"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Crabulon, 150));
 				AddProgressionGroup(new(ProgressionGroupID.AerialiteOre, -10, ProgressionGroupID.HiveMind,
 					itemNames: new SortedSet<string>() {
-						"Aerialite Ore"
+						"CalamityMod/AerialiteOre"
 					}));//215
 				AddProgressionGroup(new(ProgressionGroupID.HiveMind, 225,
 					ignoredItemTypes: new SortedSet<int>() {
@@ -2035,175 +2177,175 @@ namespace WeaponEnchantments.Common
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AbyssT1, 260,
 					itemNames: new SortedSet<string>() {
-						"Planty Mush",
-						"Black Anurian",
-						"Ball O' Fugu",
-						"Archerfish",
-						"Lionfish",
-						"Herring Staff"
+						"CalamityMod/PlantyMush",
+						"CalamityMod/BlackAnurian",
+						"CalamityMod/BallOFugu",
+						"CalamityMod/Archerfish",
+						"CalamityMod/Lionfish",
+						"CalamityMod/HerringStaff"
 					},
 					npcNames: new SortedSet<string>() {
-						"Box Jellyfish"
+						"CalamityMod/BoxJellyfish"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.SlimeGod, 390));
 				AddProgressionGroup(new(ProgressionGroupID.AstraulInfection, 420,
 					itemNames: new SortedSet<string>() {
-						"Astral Grass Seeds",
-						"Polaris Parrotfish",
-						"Gacruxian Mollusk",
-						"Glorious End",
-						"Stardust"
+						"CalamityMod/AstralGrassSeeds",
+						"CalamityMod/PolarisParrotfish",
+						"CalamityMod/GacruxianMollusk",
+						"CalamityMod/GloriousEnd",
+						"CalamityMod/Stardust"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.HardModeSunkenSea, 420,
 					itemNames: new SortedSet<string>() {
-						"Mollusk Husk"
+						"CalamityMod/MolluskHusk"
 					},
 					npcNames: new SortedSet<string>() {
-						"Sea Serpent",
-						"Blinded Angler"
+						"CalamityMod/SeaSerpent1",
+						"CalamityMod/BlindedAngler"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.GiantClamHardMode, 425,
 					itemNames: new SortedSet<string>() {
-						"Poseidon",
-						"Clam Crusher",
-						"Clamor Rifle",
-						"Shellfish Staff"
+						"CalamityMod/Poseidon",
+						"CalamityMod/ClamCrusher",
+						"CalamityMod/ClamorRifle",
+						"CalamityMod/ShellfishStaff"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.InfernalSuevite, 450,
 					itemNames: new SortedSet<string>() {
-						"Infernal Suevite"
+						"CalamityMod/InfernalSuevite"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.HardModeSulphurousSea, 480));
 				AddProgressionGroup(new(ProgressionGroupID.Voidstone, 480,
 					itemNames: new SortedSet<string>() {
-						"Voidstone"
+						"CalamityMod/Voidstone"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostCryogenEasy, -10, ProgressionGroupID.Cryogen,
 					itemNames: new SortedSet<string>() {
-						"Cryonic Ore",
-						"Frostbite Blaster",
-						"Icicle Trident",
-						"Ice Star"
+						"CalamityMod/CryonicOre",
+						"CalamityMod/FrostbiteBlaster",
+						"CalamityMod/IcicleTrident",
+						"CalamityMod/IceStar"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Cryogen, 590));
 				AddProgressionGroup(new(ProgressionGroupID.PostAquaticScourgeEasy, -10, ProgressionGroupID.AquaticScourge,
 					npcNames: new SortedSet<string>() {
-						"Belching Coral"
+						"CalamityMod/BelchingCoral"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AquaticScourge, 600));
 				AddProgressionGroup(new(ProgressionGroupID.AcidRainT2, 0, ProgressionGroupID.AquaticScourge,
 					itemNames: new SortedSet<string>() {
-						"Slithering Eels",
-						"Skyfin Bombers"
+						"CalamityMod/SlitheringEels",
+						"CalamityMod/SkyfinBombers"
 					},
 					npcNames: new SortedSet<string>() {
-						"Sulphurous Skater",
-						"Flak Crab",
-						"Orthocera"
+						"CalamityMod/SulphurousSkater",
+						"CalamityMod/FlakCrab",
+						"CalamityMod/Orthocera"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.CragmawMire, 610,
 					npcNames: new SortedSet<string>() {
-						"Cragmaw Mire"
+						"CalamityMod/CragmawMire"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.BrimstoneElemental, 625));
 				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddItems(
 					new SortedSet<string>() {
-						"Arctic Bear Paw",
-						"Cryophobia",
-						"Cryogenic Staff"
+						"CalamityMod/ArcticBearPaw",
+						"CalamityMod/Cryophobia",
+						"CalamityMod/CryogenicStaff"
 					});//640
 				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddItems(
 					new SortedSet<string>() {
-						"Frosty Flare"
+						"CalamityMod/FrostyFlare"
 					});//640
 				AddProgressionGroup(new(ProgressionGroupID.PostCalamitasCloneEasy, -10, ProgressionGroupID.CalamitasClone,
 					itemNames: new SortedSet<string>() {
-						"Depth Cells",
-						"Lumenyl",
-						"Deep Wounder"
+						"CalamityMod/DepthCells",
+						"CalamityMod/Lumenyl",
+						"CalamityMod/DeepWounder"
 					}));//690
 				AddProgressionGroup(new(ProgressionGroupID.CalamitasClone, 700,
 					npcNames: new SortedSet<string>() {
-						"Cataclysm",
-						"Catastrophe",
-						"Calamitas Clone"
+						"CalamityMod/Cataclysm",
+						"CalamityMod/Catastrophe",
+						"CalamityMod/CalamitasClone"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.GreatSandShark, 750,
 					npcNames: new SortedSet<string>() {
-						"Great Sand Shark"
+						"CalamityMod/GreatSandShark"
 					}));
 				progressionGroups[ProgressionGroupID.PostFrostMoonEasy].AddItems(
 					new SortedSet<string>() {
-						"Absolute Zero",
-						"Eternal Blizzard",
-						"Winter's Fury"
+						"CalamityMod/AbsoluteZero",
+						"CalamityMod/EternalBlizzard",
+						"CalamityMod/WintersFury"
 					});//640
 				AddProgressionGroup(new(ProgressionGroupID.Leviathan, 835));
 				AddProgressionGroup(new(ProgressionGroupID.PostAstrumAuresEasy, -10, ProgressionGroupID.AstrumAures,
 					itemNames: new SortedSet<string>() {
-						"Aegis Blade",
-						"Titan Arm",
-						"Astral Scythe",
-						"Astralachnea Staff",
-						"Stellar Cannon",
-						"Hive Pod",
-						"Abandoned Slime Staff",
-						"Stellar Knife"
+						"CalamityMod/AegisBlade",
+						"CalamityMod/TitanArm",
+						"CalamityMod/AstralScythe",
+						"CalamityMod/AstralachneaStaff",
+						"CalamityMod/StellarCannon",
+						"CalamityMod/HivePod",
+						"CalamityMod/AbandonedSlimeStaff",
+						"CalamityMod/StellarKnife"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AstrumAures, 840));
 				AddProgressionGroup(new(ProgressionGroupID.PostAstrumAures, 10, ProgressionGroupID.AstrumAures,
 					itemNames: new SortedSet<string>() {
-						"Heavenfallen Stardisk"
+						"CalamityMod/HeavenfallenStardisk"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PlaguebringerGoliath, 900));
 				AddProgressionGroup(new(ProgressionGroupID.Ravager, 970));
 				AddProgressionGroup(new(ProgressionGroupID.PostAstrumDeusEasy, -10, ProgressionGroupID.AstrumDeus,
 					itemNames: new SortedSet<string>() {
-						"Astral Ore"
+						"CalamityMod/AstralOre"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AstrumDeus, 1010));
 				AddProgressionGroup(new(ProgressionGroupID.PostMoonLord, 1110,
 					itemNames: new SortedSet<string>() {
-						"Exodium Cluster",
-						"Unholy Essence"
+						"CalamityMod/ExodiumCluster",
+						"CalamityMod/UnholyEssence"
 					},
 					npcNames: new SortedSet<string>() {
-						"Impious Immolator"
+						"CalamityMod/ImpiousImmolator"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.ProfanedGuardians, 1120,
 					npcNames: new SortedSet<string>() {
-						"Guardian Commander"
+						"CalamityMod/ProfanedGuardianCommander"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.DragonFolly, 1150));
 				AddProgressionGroup(new(ProgressionGroupID.PostProvidenceEasy, -10, ProgressionGroupID.Providence,
 					itemNames: new SortedSet<string>() {
-						"Bloodstone",
-						"Guidelight of Oblivion"
+						"CalamityMod/Bloodstone",
+						"CalamityMod/GuidelightofOblivion"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Providence, 1180));
 				AddProgressionGroup(new(ProgressionGroupID.UelibloomBar, 30, ProgressionGroupID.Providence,
 					itemNames: new SortedSet<string>() {
-						"Uelibloom Ore"
+						"CalamityMod/UelibloomOre"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.CeaselessVoid, 1240));
 				AddProgressionGroup(new(ProgressionGroupID.StormWeaver, 1270));
 				AddProgressionGroup(new(ProgressionGroupID.Signus, 1300));
 				AddProgressionGroup(new(ProgressionGroupID.PostPolterghastEasy, -10, ProgressionGroupID.Polterghast,
 					itemNames: new SortedSet<string>() {
-						"Eidolic Wail",
-						"Eidolon Staff",
-						"Soul Edge",
-						"Reaper Tooth",
-						"Valediction",
-						"Deep Sea Dumbbell",
-						"Calamari's Lament",
-						"Lion Heart"
+						"CalamityMod/EidolicWail",
+						"CalamityMod/EidolonStaff",
+						"CalamityMod/SoulEdge",
+						"CalamityMod/ReaperTooth",
+						"CalamityMod/Valediction",
+						"CalamityMod/DeepSeaDumbbell",
+						"CalamityMod/CalamarisLament",
+						"CalamityMod/LionHeart"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Polterghast, 1330));
 				AddProgressionGroup(new(ProgressionGroupID.AcidRainT3, 30, ProgressionGroupID.Polterghast,
 					npcNames: new SortedSet<string>() {
-						"Nuclear Terror",
-						"Mauler"
+						"CalamityMod/NuclearTerror",
+						"CalamityMod/Mauler"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostOldDukeEasy, -10, ProgressionGroupID.OldDuke,
 					itemNames: new SortedSet<string>() {
@@ -2213,259 +2355,259 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.DevouererOfGods, 1450));
 				AddProgressionGroup(new(ProgressionGroupID.AscendentSpirit, 1500,
 					itemNames: new SortedSet<string>() {
-						"Ascendant Spirit Essence"
+						"CalamityMod/AscendantSpiritEssence"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostYharonEasy, -10, ProgressionGroupID.Yharon,
 					itemNames: new SortedSet<string>() {
-						"Auric Ore"
+						"CalamityMod/AuricOre"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Yharon, 1550,
 					itemNames: new SortedSet<string>() {
-						"Murasama"
+						"CalamityMod/Murasama"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.ExoMechs, 1600));
 				AddProgressionGroup(new(ProgressionGroupID.SupremeCalamitas, 1700,
 					itemNames: new SortedSet<string>() {
-						"Gruesome Eminence",
-						"Rancor",
-						"Cinders of Lament",
-						"Metastasis"
+						"CalamityMod/GruesomeEminence",
+						"CalamityMod/Rancor",
+						"CalamityMod/CindersOfLament",
+						"CalamityMod/Metastasis"
 					},
 					npcNames: new SortedSet<string>() {
-						"Supreme Witch, Calamitas"
+						"CalamityMod/SupremeCalamitas"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AdultEidolon, 1700,
 					npcNames: new SortedSet<string>() {
-						"Adult Eidolon Wyrm"
+						"CalamityMod/AdultEidolonWyrmHead"
 					}));
 			}
 
 			if (WEMod.starsAboveEnabled) {
 				progressionGroups[ProgressionGroupID.GraveYard].AddItems(
 					new SortedSet<string>() {
-						"Essence of Farewells",
-						"Essence of Offseeing"
+						"StarsAbove/EssenceOfFarewells",
+						"StarsAbove/EssenceOfOffseeing"
 					});//65
 				progressionGroups[ProgressionGroupID.PostKingSlimeEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Style",
-						"Essence of the Aegis"
+						"StarsAbove/EssenceOfStyle",
+						"StarsAbove/EssenceOfTheAegis"
 					});//75
 				progressionGroups[ProgressionGroupID.PostEyeEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of the Dark Moon",
-						"Essence of the Gardener"
+						"StarsAbove/EssenceOfTheDarkMoon",
+						"StarsAbove/EssenceOfTheGardener"
 					});//110
 				AddProgressionGroup(new(ProgressionGroupID.StellaglyphT2, -10, ProgressionGroupID.Eye,
 					itemNames: new SortedSet<string>() {
-						"Essence of Nature"
+						"StarsAbove/EssenceOfNature"
 					}));//110
 				progressionGroups[ProgressionGroupID.PostEaterBrainEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Ash",
-						"Essence of Outer Gods",
-						"Essence of the Anomaly"
+						"StarsAbove/EssenceOfAsh",
+						"StarsAbove/EssenceOfOuterGods",
+						"StarsAbove/EssenceOfTheAnomaly"
 					});//190
 				progressionGroups[ProgressionGroupID.PostBeeEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Bitterfrost",
-						"Essence of Fingers"
+						"StarsAbove/EssenceOfBitterfrost",
+						"StarsAbove/EssenceOfFingers"
 					});//240
 				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Misery",
-						"Essence of The Freeshooter",
-						"Essence of the Ocean",
-						"Essence of The Sharpshooter",
-						"Essence of The Underworld Goddess",
-						"Essence of the Automaton",
-						"Essence of The Pegasus"
+						"StarsAbove/EssenceOfMisery",
+						"StarsAbove/EssenceOfTheFreeshooter",
+						"StarsAbove/EssenceOfTheOcean",
+						"StarsAbove/EssenceOfTheSharpshooter",
+						"StarsAbove/EssenceOfTheUnderworldGoddess",
+						"StarsAbove/EssenceOfTheAutomaton",
+						"StarsAbove/EssenceOfThePegasus"
 					});//290
 				AddProgressionGroup(new(ProgressionGroupID.PostDeerEasy, -10, ProgressionGroupID.Deer,
 					itemNames: new SortedSet<string>() {
-						"Essence of Vampirism"
+						"StarsAbove/EssenceOfVampirism"
 					}));//370
 				progressionGroups[ProgressionGroupID.HardMode].AddItems(
 					new SortedSet<string>() {
-						"Essence of Blasting",
-						"Essence of Perfection",
-						"Essence of Silver Ash",
-						"Essence of the Observatory"
+						"StarsAbove/EssenceOfBlasting",
+						"StarsAbove/EssenceOfPerfection",
+						"StarsAbove/EssenceOfSilverAsh",
+						"StarsAbove/EssenceOfTheObservatory"
 					});//400
 				progressionGroups[ProgressionGroupID.Hallow].AddItems(
 					new SortedSet<string>() {
-						"Essence of Gold"
+						"StarsAbove/EssenceOfGold"
 					});//420
 				AddProgressionGroup(new(ProgressionGroupID.Vagrant, 500,
 					itemNames: new SortedSet<string>() {
-						"Essence of Izanagi",
-						"Essence of the Hawkmoon",
-						"Essence of the Watch"
+						"StarsAbove/EssenceOfIzanagi",
+						"StarsAbove/EssenceOfTheHawkmoon",
+						"StarsAbove/EssenceOfTheWatch"
 					}));
 				progressionGroups[ProgressionGroupID.PostPiratesEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Piracy"
+						"StarsAbove/EssenceOfPiracy"
 					});//535
 				AddProgressionGroup(new(ProgressionGroupID.PostQueenSlimeEasy, -10, ProgressionGroupID.QueenSlime,
 					itemNames: new SortedSet<string>() {
-						"Essence of Absolute Chaos",
-						"Essence of the Hunt",
-						"Essence of Chemtech",
-						"Essence of Static Shock"
+						"StarsAbove/EssenceOfAbsoluteChaos",
+						"StarsAbove/EssenceOfTheHunt",
+						"StarsAbove/EssenceOfChemtech",
+						"StarsAbove/EssenceOfStaticShock"
 					}));//565
 				progressionGroups[ProgressionGroupID.PostMechanicalBoss].AddItems(
 					new SortedSet<string>() {
-						"Essence of Death's Apprentice",
-						"Essence of the Aerial Ace",
-						"Essence of the Bionis",
-						"Essence of the Bull",
-						"Essence of Butterflies"
+						"StarsAbove/EssenceOfDeathsApprentice",
+						"StarsAbove/EssenceOfTheAerialAce",
+						"StarsAbove/EssenceOfTheBionis",
+						"StarsAbove/EssenceOfTheBull",
+						"StarsAbove/EssenceOfButterflies"
 					});//595
 				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddItems(
 					new SortedSet<string>() {
-						"Essence of the Dragonslayer",
-						"Essence of the Gunlance",
-						"Essence of the Renegade"
+						"StarsAbove/EssenceOfTheDragonslayer",
+						"StarsAbove/EssenceOfTheGunlance",
+						"StarsAbove/EssenceOfTheRenegade"
 					});//640
 				AddProgressionGroup(new(ProgressionGroupID.Nalhaun, 660,
 					itemNames: new SortedSet<string>() {
-						"Essence of the Hollowheart",
-						"Essence of the Hunt",
-						"Essence of the Phantom",
-						"Essence of Lightning"
+						"StarsAbove/EssenceOfTheHollowheart",
+						"StarsAbove/EssenceOfTheHunt",
+						"StarsAbove/EssenceOfThePhantom",
+						"StarsAbove/EssenceOfLightning"
 					}));
 				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Foxfire",
-						"Essence of the Fallen",
-						"Essence of the Swarm"
+						"StarsAbove/EssenceOfFoxfire",
+						"StarsAbove/EssenceOfTheFallen",
+						"StarsAbove/EssenceOfTheSwarm"
 					});//715
 				AddProgressionGroup(new(ProgressionGroupID.Penthesilea, 810,
 					itemNames: new SortedSet<string>() {
-						"Essence of Time",
-						"Essence of Euthymia",
-						"Essence of Ink"
+						"StarsAbove/EssenceOfTime",
+						"StarsAbove/EssenceOfEuthymia",
+						"StarsAbove/EssenceOfInk"
 					}));
 				progressionGroups[ProgressionGroupID.PostFrostMoonEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Duality",
-						"Essence of Hope"
+						"StarsAbove/EssenceOfDuality",
+						"StarsAbove/EssenceOfIRyS"
 					});//810
 				AddProgressionGroup(new(ProgressionGroupID.PostPumpkinMoonEasy, -10, ProgressionGroupID.PumpkinMoon,
 					itemNames: new SortedSet<string>() {
-						"Essence of Lifethirsting"
+						"StarsAbove/EssenceOfLifethirsting"
 					}));//810
 				progressionGroups[ProgressionGroupID.PostGolemEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Blood",
-						"Essence of Explosions",
-						"Essence of Silence",
-						"Essence of the Harbinger",
-						"Essence of The Moonlit Adepti"
+						"StarsAbove/EssenceOfBlood",
+						"StarsAbove/EssenceOfExplosions",
+						"StarsAbove/EssenceOfSilence",
+						"StarsAbove/EssenceOfTheHarbinger",
+						"StarsAbove/EssenceOfTheMoonlitAdepti"
 					});//835
 				AddProgressionGroup(new(ProgressionGroupID.PostMartianSaucerEasy, -10, ProgressionGroupID.MartianSaucer,
 					itemNames: new SortedSet<string>() {
-						"Essence of the Behemoth Typhoon"
+						"StarsAbove/EssenceOfTheBehemothTyphoon"
 					}));//870
 				AddProgressionGroup(new(ProgressionGroupID.PostEmpressEasy, -10, ProgressionGroupID.EmpressNight,
 					itemNames: new SortedSet<string>() {
-						"Essence of Sakura",
-						"Essence of Technology"
+						"StarsAbove/EssenceOfSakura",
+						"StarsAbove/EssenceOfTechnology"
 					}));//900
 				AddProgressionGroup(new(ProgressionGroupID.PostDukeFishronEasy, -10, ProgressionGroupID.DukeFishron,
 					itemNames: new SortedSet<string>() {
-						"Essence of Sin",
-						"Essence of the Alpha"
+						"StarsAbove/EssenceOfSin",
+						"StarsAbove/EssenceOfAlpha"
 					}));//930
 				AddProgressionGroup(new(ProgressionGroupID.PostLunaticCultistEasy, -10, ProgressionGroupID.LunaticCultist,
 					itemNames: new SortedSet<string>() {
-						"Essence of Driving Thunder",
-						"Essence of Quantum",
-						"Essence of the Ascendant",
-						"Essence of the Timeless",
-						"Essence of the Unyielding Earth",
-						"Essence of Twin Stars"
+						"StarsAbove/EssenceOfDrivingThunder",
+						"StarsAbove/EssenceOfQuantum",
+						"StarsAbove/EssenceOfTheAscendant",
+						"StarsAbove/EssenceOfTheTimeless",
+						"StarsAbove/EssenceOfTheUnyieldingEarth",
+						"StarsAbove/EssenceOfTwinStars"
 					}));//965
 				AddProgressionGroup(new(ProgressionGroupID.Arbitration, 1010,
 					itemNames: new SortedSet<string>() {
-						"Essence of Liberation",
-						"Essence of Radiance",
-						"Essence of Azakana"
+						"StarsAbove/EssenceOfLiberation",
+						"StarsAbove/EssenceOfRadiance",
+						"StarsAbove/EssenceOfAzakana"
 					}));
 				progressionGroups[ProgressionGroupID.PostMoonLordEasy].AddItems(
 					new SortedSet<string>() {
-						"Essence of Adagium",
-						"Essence of Destiny",
-						"Essence of Eternity",
-						"Essence of Lunar Dominion",
-						"Essence of Souls",
-						"Essence of Starsong",
-						"Essence of the Chimera",
-						"Essence of the Cosmos"
+						"StarsAbove/EssenceOfAdagium",
+						"StarsAbove/EssenceOfDestiny",
+						"StarsAbove/EssenceOfEternity",
+						"StarsAbove/EssenceOfLunarDominion",
+						"StarsAbove/EssenceOfSouls",
+						"StarsAbove/EssenceOfStarsong",
+						"StarsAbove/EssenceOfTheChimera",
+						"StarsAbove/EssenceOfTheCosmos"
 					});//1050
 				AddProgressionGroup(new(ProgressionGroupID.WarriorOfLight, 1130,
 					itemNames: new SortedSet<string>() {
-						"Essence of Surpassing Limits",
-						"Essence of the Abyss",
-						"Essence of the Beginning and End",
-						"Essence of the Overwhelming Blaze",
-						"Essence of the Treasury",
-						"Essence of Balance"
+						"StarsAbove/EssenceOfSurpassingLimits",
+						"StarsAbove/EssenceOfTheAbyss",
+						"StarsAbove/EssenceOfTheBeginningAndEnd",
+						"StarsAbove/EssenceOfTheOverwhelmingBlaze",
+						"StarsAbove/EssenceOfTheTreasury",
+						"StarsAbove/EssenceOfBalance"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.FirstStarfarer, 1160,
 					itemNames: new SortedSet<string>() {
-						"Essence of Luminance",
-						"Essence of the Future"
+						"StarsAbove/EssenceOfLuminance",
+						"StarsAbove/EssenceOfTheFuture"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.SpatialMemoriam, 1200,
 					itemNames: new SortedSet<string>() {
-						"Spatial Memoriam"
+						"StarsAbove/SpatialMemoriam"
 					}));
 			}
 
 			if (WEMod.thoriumEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddItems(
 					new SortedSet<string>() {
-						"Arcane Dust"
+						"ThoriumMod/ArcaneDust"
 					});//10
 				progressionGroups[ProgressionGroupID.Presents].AddItems(
 					new SortedSet<string>() {
-						"Family Heirloom"
+						"ThoriumMod/FamilyHeirloom"
 					});//10
 				progressionGroups[ProgressionGroupID.MerchantShop].AddItems(
 					new SortedSet<string>() {
-						"Crude Bat"
+						"ThoriumMod/BaseballBat"
 					});//10
 				progressionGroups[ProgressionGroupID.NormalChest].AddItems(
 					new SortedSet<string>() {
-						"Flute",
-						"Recovery Wand"
+						"ThoriumMod/Flute",
+						"ThoriumMod/RecoveryWand"
 					});//20
 				progressionGroups[ProgressionGroupID.Underground].AddNPCs(
 					new SortedSet<string>() {
-						"Baby Spider"
+						"ThoriumMod/BabySpider"
 					});//45
 				progressionGroups[ProgressionGroupID.Underground].AddItems(
 					new SortedSet<string>() {
-						"Smooth Coal"
+						"ThoriumMod/SmoothCoal"
 					});//45
 				AddProgressionGroup(new(ProgressionGroupID.Opal, 53,
 					itemNames: new SortedSet<string>() {
-						"Opal"
+						"ThoriumMod/Opal"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.Aquamarine, 58,
 					itemNames: new SortedSet<string>() {
-						"Aquamarine"
+						"ThoriumMod/Aquamarine"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostGrandThunderBirdEasy, -10, ProgressionGroupID.GrandThunderBird,
 					itemNames: new SortedSet<string>() {
-						"Eighth Plague Staff",
-						"Scorpain",
-						"Blank Technique Scroll"
+						"ThoriumMod/EighthPlagueStaff",
+						"ThoriumMod/Scorpain",
+						"ThoriumMod/TechniqueBlankScroll"
 					}));//70
 				AddProgressionGroup(new(ProgressionGroupID.LifeQuartz, 75,
 					itemNames: new SortedSet<string>() {
-						"Life Quartz"
+						"ThoriumMod/LifeQuartz"
 					}));
 				progressionGroups[ProgressionGroupID.PostKingSlimeEasy].AddItems(
 					new SortedSet<string>() {
@@ -2474,401 +2616,409 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.GrandThunderBird, 80));
 				progressionGroups[ProgressionGroupID.TownNPCDrops].AddNPCs(
 					new SortedSet<string>() {
-						"Cobbler"
+						"ThoriumMod/Cobbler"
 					});//80
 				progressionGroups[ProgressionGroupID.GoldChest].AddItems(
 					new SortedSet<string>() {
-						"Enchanted Staff",
-						"Webgun"
+						"ThoriumMod/EnchantedStaff",
+						"ThoriumMod/Webgun"
 					});//80
 				progressionGroups[ProgressionGroupID.PreHardmodeUncommonShops].AddItems(
 					new SortedSet<string>() {
-						"Trapper"
+						"ThoriumMod/Trapper"
 					});//80
 				progressionGroups[ProgressionGroupID.Fishing].AddItems(
 					new SortedSet<string>() {
-						"Rotten Cod",
-						"Brain Coral",
-						"Riveting Tadpole",
-						"Heartstriker",
-						"Spittin' Fish"
+						"ThoriumMod/RottenCod",
+						"ThoriumMod/BrainCoral",
+						"ThoriumMod/RivetingTadpole",
+						"ThoriumMod/Heartstriker",
+						"ThoriumMod/SpittingFish"
 					});//95
 				progressionGroups[ProgressionGroupID.UndergroundJungle].AddItems(
 					new SortedSet<string>() {
-						"Petal",
-						"Living Leaf",
-						"The Digester",
-						"Forest Ocarina"
+						"ThoriumMod/Petal",
+						"ThoriumMod/LivingLeaf",
+						"ThoriumMod/TheDigester",
+						"ThoriumMod/ForestOcarina"
 					});//100
 				AddProgressionGroup(new(ProgressionGroupID.ThoriumOre, 105,
 					itemNames: new SortedSet<string>() {
-						"Thorium Ore"
+						"ThoriumMod/ThoriumOre"
 					}));
 				progressionGroups[ProgressionGroupID.PostEyeEasy].AddNPCs(
 					new SortedSet<string>() {
-						"Blacksmith"
+						"ThoriumMod/Blacksmith"
 					});//110
 				progressionGroups[ProgressionGroupID.PostEyeEasy].AddItems(
 					new SortedSet<string>() {
-						"War Forger",
-						"Arcane Armor Fabricator",
-						"Steel Pickaxe",
-						"Steel Axe",
-						"Steel Hammer",
-						"Steel Blade",
-						"Steel Throwing Axe",
-						"Steel Bow",
-						"Fork",
-						"Spoon",
-						"Kitchen Knife",
-						"Spud Bomber"
+						"ThoriumMod/WarForger",
+						"ThoriumMod/ArcaneArmorFabricator",
+						"ThoriumMod/SteelPickaxe",
+						"ThoriumMod/SteelAxe",
+						"ThoriumMod/SteelHammer",
+						"ThoriumMod/SteelBlade",
+						"ThoriumMod/SteelBattleAxe",
+						"ThoriumMod/SteelBow",
+						"ThoriumMod/Fork",
+						"ThoriumMod/Spoon",
+						"ThoriumMod/Knife",
+						"ThoriumMod/SpudBomber"
 					});//110
 				AddProgressionGroup(new(ProgressionGroupID.ScarletChest, 110,
 					itemNames: new SortedSet<string>() {
-						"Enchanted Pickaxe"
+						"ThoriumMod/EnchantedPickaxe"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.EnchantedPickaxeShrine, 110,
 					itemNames: new SortedSet<string>() {
-						"Deep Staff"
+						"ThoriumMod/DeepStaff"
 					}));
 				progressionGroups[ProgressionGroupID.BloodMoon].AddItems(
 					new SortedSet<string>() {
-						"Unholy Shards"
+						"ThoriumMod/UnholyShards"
 					});//150
 				progressionGroups[ProgressionGroupID.BloodMoon].AddNPCs(
 					new SortedSet<string>() {
-						"Grave Limb"
+						"ThoriumMod/GraveLimb"
 					});//150
 				AddProgressionGroup(new(ProgressionGroupID.TrackerContractT1, 10, ProgressionGroupID.Eye,
 					itemNames: new SortedSet<string>() {
-						"Tracker's Skinning Blade",
-						"Rosy Slime Staff",
-						"Grim Pedestal",
-						"Whip",
-						"Totem Caller"
+						"ThoriumMod/TrackerBlade",
+						"ThoriumMod/RosySlimeStaff",
+						"ThoriumMod/GrimPedestal",
+						"ThoriumMod/Whip",
+						"ThoriumMod/HagTotemCaller"
 					}));//130
 				AddProgressionGroup(new(ProgressionGroupID.PatchWerk, 10, ProgressionGroupID.BloodMoon,
 					itemNames: new SortedSet<string>() {
-						"Leech Bolt",
-						"Bent Zombie Arm",
-						"Vicious Mockery"
+						"ThoriumMod/LeechBolt",
+						"ThoriumMod/BentZombieArm",
+						"ThoriumMod/ViciousMockery"
 					},
 					npcNames: new SortedSet<string>() {
-						"Patch Werk"
+						"ThoriumMod/PatchWerk"
 					}));//160
 				progressionGroups[ProgressionGroupID.GoblinArmy].AddNPCs(
 					new SortedSet<string>() {
-						"Goblin Trapper"
+						"ThoriumMod/GoblinTrapper"
 					});//180
 				AddProgressionGroup(new(ProgressionGroupID.ThoriumUnobtainableItems, 180,
 					itemNames: new SortedSet<string>() {
-						"Artificer's Extractor",
-						"Unassuming Purple Stone",
-						"Projectile Tester",
-						"Basic Pickaxe",
-						"Arcane Spike",
-						"Destiny Weaver"
+						"ThoriumMod/ArtificersExtractor",
+						"ThoriumMod/StonePurple",
+						"ThoriumMod/TesterProjectile",
+						"ThoriumMod/BasicPickaxe",
+						"ThoriumMod/ArcaneSpike",
+						"ThoriumMod/DyingRealityWhisper"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AquaticDepths, 180,
 					itemNames: new SortedSet<string>() {
-						"Aquaite",
-						"Steel Drum",
-						"Magic Conch"
+						"ThoriumMod/Aquaite",
+						"ThoriumMod/SteelDrum",
+						"ThoriumMod/MagicConch"
 					},
 					npcNames: new SortedSet<string>() {
-						"Man o' War",
-						"Hammerhead",
-						"Giga Clam"
+						"ThoriumMod/ManofWar",
+						"ThoriumMod/Hammerhead",
+						"ThoriumMod/GigaClam"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.PostQueenJellyfishEasy, -10, ProgressionGroupID.QueenJellyfish,
 					itemNames: new SortedSet<string>() {
-						
+
 					}));//180
 				progressionGroups[ProgressionGroupID.BloodMoonFishing].AddItems(
 					new SortedSet<string>() {
-						"Vampire Pickaxe"
+						"ThoriumMod/VampirePickaxe"
 					});//190
 				AddProgressionGroup(new(ProgressionGroupID.QueenJellyfish, 190));
 				progressionGroups[ProgressionGroupID.PostEaterBrainEasy].AddItems(
 					new SortedSet<string>() {
-						"Jar O' Mayo",
-						"Large Popcorn",
-						"Chi Lantern",
-						"Divine Lotus",
-						"Samsara Lotus"
+						"ThoriumMod/JarOMayo",
+						"ThoriumMod/LargePopcorn",
+						"ThoriumMod/ChiLantern",
+						"ThoriumMod/DivineLotus",
+						"ThoriumMod/SamsaraLotus"
 					});//190
 				progressionGroups[ProgressionGroupID.PostEaterBrainEasy].AddNPCs(
 					new SortedSet<string>() {
-						"Wind Elemental"
+						"ThoriumMod/WindElemental"
 					});//190
 				AddProgressionGroup(new(ProgressionGroupID.DarkMageThorium, 0, ProgressionGroupID.OldOneArmyT1));//190
 				AddProgressionGroup(new(ProgressionGroupID.Viscount, 210));
 				progressionGroups[ProgressionGroupID.MeteoriteOre].AddNPCs(
 					new SortedSet<string>() {
-						"U.F.O."
+						"ThoriumMod/UFO"
 					});//210
 				progressionGroups[ProgressionGroupID.HellstoneOre].AddItems(
 					new SortedSet<string>() {
-						"Thor's Hammer: Magic",
-						"Thor's Hammer: Ranged"
+						"ThoriumMod/MagicThorHammer",
+						"ThoriumMod/RangedThorHammer"
 					});//220
 				progressionGroups[ProgressionGroupID.PostBeeEasy].AddItems(
 					new SortedSet<string>() {
-						"Mantis Cane"
+						"ThoriumMod/MantisCane"
 					});//240
 				AddProgressionGroup(new(ProgressionGroupID.CorpseBloom, -10, ProgressionGroupID.Skeletron,
 					itemNames: new SortedSet<string>() {
-						"Life Disperser"
+						"ThoriumMod/LifeDisperser"
 					},
 					npcNames: new SortedSet<string>() {
-						"Corpse Bloom"
+						"ThoriumMod/CorpseBloom"
 					}));//290
 				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
 					new SortedSet<string>() {
-						"Whirlpool Saber",
-						"Eel-rod",
-						"Marine Launcher",
-						"Wack Wrench",
-						"Yarn Ball"
+						"ThoriumMod/WhirlpoolSaber",
+						"ThoriumMod/Eelrod",
+						"ThoriumMod/MarineLauncher",
+						"ThoriumMod/WackWrench",
+						"ThoriumMod/YarnBall"
 					});//290
 				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
 					new SortedSet<string>() {
-						"Microphone",
-						"Subwoofer"
+						"ThoriumMod/Microphone",
+						"ThoriumMod/Subwoofer"
 					});//320
 				progressionGroups[ProgressionGroupID.Dungeon].AddItems(
 					new SortedSet<string>() {
-						"Stream Sting",
-						"High Tide",
-						"Naiad's Shiv",
-						"Bone Reaper",
-						"Strongest Link"
+						"ThoriumMod/StreamSting",
+						"ThoriumMod/HighTide",
+						"ThoriumMod/NaiadShiv",
+						"ThoriumMod/BoneReaper",
+						"ThoriumMod/StrongestLink"
 					});//320
 				progressionGroups[ProgressionGroupID.Dungeon].AddNPCs(
 					new SortedSet<string>() {
-						"Raging Minotaur"
+						"ThoriumMod/RagingMinotaur"
 					});//320
 				progressionGroups[ProgressionGroupID.ShadowChest].AddItems(
 					new SortedSet<string>() {
-						"Nocturne",
-						"Light's Lament",
-						"Eternal Night"
+						"ThoriumMod/Nocturne",
+						"ThoriumMod/LightsLament",
+						"ThoriumMod/EternalNight"
 					});//350
 				AddProgressionGroup(new(ProgressionGroupID.PostBuriedChampionEasy, -10, ProgressionGroupID.BuriedChampion,
 					itemNames: new SortedSet<string>() {
-						"Sentinel's Wand",
-						"Redeemer's Staff"
+						"ThoriumMod/SentinelWand",
+						"ThoriumMod/RedeemerStaff"
 					}));//375
 				AddProgressionGroup(new(ProgressionGroupID.GraniteEnergyStorm, 385));
 				AddProgressionGroup(new(ProgressionGroupID.BuriedChampion, 385));
 				AddProgressionGroup(new(ProgressionGroupID.StarScouter, 395));
 				progressionGroups[ProgressionGroupID.HardMode].AddNPCs(
 					new SortedSet<string>() {
-						"Vile Floater",
-						"Blizzard Bat",
-						"Frost Burnt",
-						"Chilled Spitter",
-						"Coldling",
-						"Hostile Invader"
+						"ThoriumMod/VileFloater",
+						"ThoriumMod/BlizzardBat",
+						"ThoriumMod/FrostBurntFlayer",
+						"ThoriumMod/ChilledSpitter",
+						"ThoriumMod/Coldling",
+						"ThoriumMod/Invader"
 					});//400
 				progressionGroups[ProgressionGroupID.HardmodeShopItems].AddItems(
 					new SortedSet<string>() {
-						"Durasteel Drill",
-						"Durasteel Chainsaw",
-						"Durasteel Jackhammer",
-						"Durasteel Blade",
-						"Durasteel Throwing Spear",
-						"Durasteel Repeater",
-						"Kunai",
-						"Bundle of Benign Balloons",
-						"Sacrificial Dagger",
-						"Grim Flayer",
-						"Heavenly Cloud Scepter",
-						"Chum",
-						"Playing Card",
-						"Hex Wand",
-						"Staff of Mycelium",
-						"Staff of Overgrowth",
-						"Flan Platter",
-						"Scholar's Harp",
-						"Tranquil Lyre"
+						"ThoriumMod/DurasteelDrill",
+						"ThoriumMod/DurasteelChainsaw",
+						"ThoriumMod/DurasteelJackhammer",
+						"ThoriumMod/DurasteelBlade",
+						"ThoriumMod/DurasteelJavelin",
+						"ThoriumMod/DurasteelRepeater",
+						"ThoriumMod/Kunai",
+						"ThoriumMod/BenignBalloon",
+						"ThoriumMod/SacrificialDagger",
+						"ThoriumMod/GrimFlayer",
+						"ThoriumMod/HealingRain",
+						"ThoriumMod/Chum",
+						"ThoriumMod/MagicCard",
+						"ThoriumMod/HexWand",
+						"ThoriumMod/StaffofMycelium",
+						"ThoriumMod/StaffofOvergrowth",
+						"ThoriumMod/FlanPlatter",
+						"ThoriumMod/ScholarsHarp",
+						"ThoriumMod/TranquilLyre"
 					});//400
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
 					new SortedSet<string>() {
-						"Soul of Plight",
-						"Pharaoh's Breath",
+						"ThoriumMod/SoulofPlight",
+						"ThoriumMod/PharaohsBreath",
 						""
 					});//410
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddNPCs(
 					new SortedSet<string>() {
-						"Bone Flayer",
-						"Molten Mortar"
+						"ThoriumMod/BoneFlayer",
+						"ThoriumMod/MoltenMortar"
 					});//410
 				AddProgressionGroup(new(ProgressionGroupID.AquaticDepthsHardMode, 420,
 					npcNames: new SortedSet<string>() {
-						"Volt Eel"
+						"ThoriumMod/VoltEelHead"
 					}));
 				progressionGroups[ProgressionGroupID.HardModeNight].AddNPCs(
 					new SortedSet<string>() {
-						"Lycan"
+						"ThoriumMod/Lycan"
 					});//430
 				progressionGroups[ProgressionGroupID.HardModeBloodMoon].AddNPCs(
 					new SortedSet<string>() {
-						"Bloody Warg",
-						"Blood Mage"
+						"ThoriumMod/Warg",
+						"ThoriumMod/BloodMage"
 					});//440
 				progressionGroups[ProgressionGroupID.HardModeBloodMoon].AddItems(
 					new SortedSet<string>() {
-						"Blood Drinker",
-						"Rifle Spear",
-						"Blood Feaster Staff"
+						"ThoriumMod/BloodDrinker",
+						"ThoriumMod/RifleSpear",
+						"ThoriumMod/BloodFeasterStaff"
 					});//440
 				progressionGroups[ProgressionGroupID.UndergroundHallow].AddNPCs(
 					new SortedSet<string>() {
-						"Spectrumite"
+						"ThoriumMod/Spectrumite"
 					});//440
 				AddProgressionGroup(new(ProgressionGroupID.PostBoreanStriderEasy, -10, ProgressionGroupID.BoreanStrider,
 					npcNames: new SortedSet<string>() {
-						"Tarantula"
+						"ThoriumMod/Tarantula"
 					}));//435
 				progressionGroups[ProgressionGroupID.UndergroundEvil].AddItems(
 					new SortedSet<string>() {
-						"Cursed Hammer"
+						"ThoriumMod/CursedHammer"
 					});//440
 				AddProgressionGroup(new(ProgressionGroupID.BoreanStrider, 445));
 				progressionGroups[ProgressionGroupID.FrostLegeon].AddNPCs(
 					new SortedSet<string>() {
-						"Snow Singa"
+						"ThoriumMod/SnowSinga"
 					});//450
 				progressionGroups[ProgressionGroupID.HardModeRare].AddItems(
 					new SortedSet<string>() {
-						"Icy Gaze"
+						"ThoriumMod/IcyGaze"
 					});//460
 				progressionGroups[ProgressionGroupID.HardModeRare].AddNPCs(
 					new SortedSet<string>() {
-						"Lihzahrd Mimic",
-						"Underworld Pot"
+						"ThoriumMod/LihzardMimic",
+						"ThoriumMod/UnderworldPot1"
 					});//460
 				progressionGroups[ProgressionGroupID.GoblinArmyHardMode].AddItems(
 					new SortedSet<string>() {
-						"Shadow-Purge Caltrop"
+						"ThoriumMod/ShadowPurgeCaltrop"
 					});//490
 				progressionGroups[ProgressionGroupID.BigMimics].AddNPCs(
 					new SortedSet<string>() {
-						"Submerged Mimic",
-						"Mycelium Mimic",
-						"Hell Bringer Mimic"
+						"ThoriumMod/DepthMimic",
+						"ThoriumMod/MyceliumMimic",
+						"ThoriumMod/HellBringerMimic"
 					});//500
 				progressionGroups[ProgressionGroupID.PostPiratesEasy].AddItems(
 					new SortedSet<string>() {
-						"Midas' Gavel"
+						"ThoriumMod/MidasGavel"
 					});//535
 				progressionGroups[ProgressionGroupID.Pirates].AddNPCs(
 					new SortedSet<string>() {
-						"Sea-Shanty Singer"
+						"ThoriumMod/SeaShantySinger"
 					});//545
 				AddProgressionGroup(new(ProgressionGroupID.PostFallenBeholderEasy, -10, ProgressionGroupID.FallenBeholder,
 					itemNames: new SortedSet<string>() {
-						"Lodestone Chunk",
-						"Valadium Chunk",
-						"Void Heart",
-						"Recuperate",
-						"Li'l Cherub's Wand",
-						"Li'l Devil's Wand",
-						"The Sea Mine",
-						"Kinetic Knife",
-						"Armor Bane",
-						"Bullet Storm",
-						"Scalper",
-						"Executioner",
-						"Rapier",
-						"Kazoo"
+						"ThoriumMod/LodeStoneChunk",
+						"ThoriumMod/ValadiumChunk",
+						"ThoriumMod/VoidHeart",
+						"ThoriumMod/Recuperate",
+						"ThoriumMod/AngelStaff",
+						"ThoriumMod/DevilStaff",
+						"ThoriumMod/TheSeaMine",
+						"ThoriumMod/KineticKnife",
+						"ThoriumMod/ArmorBane",
+						"ThoriumMod/BulletStorm",
+						"ThoriumMod/Scalper",
+						"ThoriumMod/Executioner",
+						"ThoriumMod/Rapier",
+						"ThoriumMod/Kazoo"
 					}));//550
 				AddProgressionGroup(new(ProgressionGroupID.FlyingDutchmanThorium, 10, ProgressionGroupID.Pirates));//555
 				progressionGroups[ProgressionGroupID.Eclipse].AddNPCs(
 					new SortedSet<string>() {
-						"Le Fantome"
+						"ThoriumMod/Phantom"
 					});//560
 				AddProgressionGroup(new(ProgressionGroupID.FallenBeholder, 560));
 				AddProgressionGroup(new(ProgressionGroupID.OgreThorium, 0, ProgressionGroupID.OldOneArmyT2));//595
 				progressionGroups[ProgressionGroupID.PostMechanicalBoss].AddItems(
 					new SortedSet<string>() {
-						"Steam Battery",
-						"Baritone Saxophone",
-						"One-man Quartet",
-						"Life Pulse Staff",
-						"Aeon Staff",
-						"Teslanator",
-						"Steamgunner Controller"
+						"ThoriumMod/Battery",
+						"ThoriumMod/BaritoneSaxophone",
+						"ThoriumMod/OnemanQuartet",
+						"ThoriumMod/LifePulseStaff",
+						"ThoriumMod/AeonStaff",
+						"ThoriumMod/Teslanator",
+						"ThoriumMod/SteamgunnerController"
 					});//595
 				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddNPCs(
 					new SortedSet<string>() {
-						"Scissor Stalker"
+						"ThoriumMod/ScissorStalker"
 					});//640
 				AddProgressionGroup(new(ProgressionGroupID.Lich, 660));
 				AddProgressionGroup(new(ProgressionGroupID.AquaticDepthsPostPlantera, -10, ProgressionGroupID.Plantera,
 					npcNames: new SortedSet<string>() {
-						"Aquatic Hallucination"
+						"ThoriumMod/AquaticHallucination"
 					}));//715
 				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
 					new SortedSet<string>() {
-						"Solar Pebble",
-						"Corrodling Staff",
-						"Illumite Chunk",
-						"Bud Bomb",
-						"Dream Megaphone",
-						"The Bopper",
-						"Lethal Injection",
-						"Supersonic Bomber",
-						"Micro Launcher",
-						"P.L.G. 8999"
+						"ThoriumMod/SolarPebble",
+						"ThoriumMod/CorrodlingStaff",
+						"ThoriumMod/IllumiteChunk",
+						"ThoriumMod/BudBomb",
+						"ThoriumMod/DreamMegaphone",
+						"ThoriumMod/TheBopper",
+						"ThoriumMod/LethalInjection",
+						"ThoriumMod/SupersonicBomber",
+						"ThoriumMod/PhaseLauncher",
+						"ThoriumMod/PLG"
 					});//715
 				progressionGroups[ProgressionGroupID.DungeonPostPlanteraRare].AddItems(
 					new SortedSet<string>() {
-						"The Black Blade",
-						"The Black Bow",
-						"The Black Staff",
-						"The Black Cane",
-						"The Black Dagger",
-						"The Black Scythe",
-						"The Black Otamatone"
+						"ThoriumMod/BlackBlade",
+						"ThoriumMod/BlackBow",
+						"ThoriumMod/BlackStaff",
+						"ThoriumMod/BlackCane",
+						"ThoriumMod/BlackDagger",
+						"ThoriumMod/BlackScythe",
+						"ThoriumMod/BlackOtamatone"
 					});//775
 				progressionGroups[ProgressionGroupID.BiomeChests].AddItems(
 					new SortedSet<string>() {
-						"Fishbone",
-						"Pharaoh's Slab",
-						"Phoenix Staff"
+						"ThoriumMod/Fishbone",
+						"ThoriumMod/PharaohsSlab",
+						"ThoriumMod/PhoenixStaff"
 					});//800
 				progressionGroups[ProgressionGroupID.EclipsePostPlantera].AddItems(
 					new SortedSet<string>() {
-						"God Killer"
+						"ThoriumMod/GodKiller"
 					});//800
 				progressionGroups[ProgressionGroupID.PostGolemEasy].AddItems(
 					new SortedSet<string>() {
-						"Wyvern Slayer"
+						"ThoriumMod/WyvernSlayer"
 					});//830
 				AddProgressionGroup(new(ProgressionGroupID.MartianSaucerThorium, 0, ProgressionGroupID.MartianSaucer));//880
 				AddProgressionGroup(new(ProgressionGroupID.PostForgottenOneEasy, -10, ProgressionGroupID.ForgottenOne,
 					itemNames: new SortedSet<string>() {
-						"The Whirlpool",
-						"Hydro Pump"
+						"ThoriumMod/TheWhirlpool",
+						"ThoriumMod/HydroPump"
 					}));//890
 				AddProgressionGroup(new(ProgressionGroupID.ForgottenOne, 900));
 				AddProgressionGroup(new(ProgressionGroupID.LunaticCultistThorium, 0, ProgressionGroupID.LunaticCultist));//975
-				AddProgressionGroup(new(ProgressionGroupID.Primordials, 1200));
+				AddProgressionGroup(new(ProgressionGroupID.Primordials, 1200,
+					itemNames: new SortedSet<string>() {
+						""
+					},
+					npcNames: new SortedSet<string>() {
+						"ThoriumMod/Aquaius",
+						"ThoriumMod/Omnicide",
+						"ThoriumMod/SlagFury"
+					}));
 			}
 
 			if (WEMod.magicStorageEnabled) {
 				progressionGroups[ProgressionGroupID.Evil].AddItems(
 					new SortedSet<string>() {
-						"Demon Altar"
+						"MagicStorage/DemonAltar"
 					});//80
 			}
 
 			if (WEMod.fargosEnabled) {
 				progressionGroups[ProgressionGroupID.MerchantShop].AddItems(
 					new SortedSet<string>() {
-						"The Lumber Jaxe"
+						"Fargowiltas/LumberJaxe"
 					});//10
 			}
 
@@ -2879,8 +3029,8 @@ namespace WeaponEnchantments.Common
 			if (WEMod.avaliRaceEnabled) {
 				progressionGroups[ProgressionGroupID.ForestPreHardMode].AddItems(
 					new SortedSet<string>() {
-						"Avali Central Printer",
-						"PL-1 Pilot Pistol"
+						"AvaliRace/CentralPrinterAvali",
+						"AvaliRace/PilotPistolAvali"
 					});//0
 			}
 		}
@@ -2892,9 +3042,7 @@ namespace WeaponEnchantments.Common
 					if (!ItemInfusionPowers.ContainsKey(itemType)) {
 						ItemInfusionPowers.Add(itemType, infusionPower);
 					}
-					else if (Debugger.IsAttached) {
-						$"ItemInfusionPowers already contains item: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
-					}
+					else if (Debugger.IsAttached) $"ItemInfusionPowers already contains item: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 
@@ -2911,17 +3059,12 @@ namespace WeaponEnchantments.Common
 								ItemInfusionPowers.Add(itemType, infusionPower);
 								added = true;
 							}
-							else {
-								$"ItemInfusionPowers already contains {itemType.CSI().S()}. Skipped drop from {npc.S()}".LogSimple();
-							}
+							//else if (Debugger.IsAttached) $"ItemInfusionPowers already contains {itemType.CSI().S()}. Skipped drop from {npc.S()}".LogSimple();
 						}
 
-						if (Debugger.IsAttached && !added)
-							$"Detected an npc in a Progression group that has no unique weapons or ingredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
+						if (Debugger.IsAttached && !added) $"Detected an npc in a Progression group that has no unique weapons or ingredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 					}
-					else if (Debugger.IsAttached) {
-						$"Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
-					}
+					else if (Debugger.IsAttached) $"Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 
@@ -2932,9 +3075,7 @@ namespace WeaponEnchantments.Common
 					if (!ItemInfusionPowers.ContainsKey(itemType)) {
 						ItemInfusionPowers.Add(itemType, infusionPower);
 					}
-					else if (Debugger.IsAttached) {
-						$"ItemInfusionPowers already contains item from boss bag: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
-					}
+					//else if (Debugger.IsAttached) $"ItemInfusionPowers already contains item from boss bag: {itemType.CSI().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 
@@ -2985,12 +3126,20 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			//$"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
+			//if (Debugger.IsAttached) $"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
 		}
 
-		//Supporting Functions
+		#region Supporting Functions
+		private static int recursionCounter = 0;
 		private static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<HashSet<int>> ingredients) {
-			//$"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().S()})".LogSimple();
+			//if (Debugger.IsAttached) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().S()})".LogSimple();
+			bool first = recursionCounter == 0;
+			recursionCounter++;
+			if (recursionCounter > 110) {
+				ingredients = null;
+				return false;
+			}
+
 			HashSet<HashSet<int>> resultIngredients = new();
 			if (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
@@ -3004,7 +3153,9 @@ namespace WeaponEnchantments.Common
 					HashSet<HashSet<int>> requiredItemTypes = new();
 					foreach (Item ingredientItem in recipe.requiredItem) {
 						int ingredientType = ingredientItem.type;
-						//$"|ingredient| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}".LogSimple();
+						if (recursionCounter > 100)
+							$"|ingredient {ingredientType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => WEGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple();
+
 						if (TryGetAllCraftingIngredientTypes(ingredientType, out HashSet<HashSet<int>> ingredientTypes)) {
 							requiredItemTypes.CombineHashSet(ingredientTypes);
 						}
@@ -3018,7 +3169,9 @@ namespace WeaponEnchantments.Common
 
 					foreach (Item requiredTileItem in recipe.requiredTile.Select(tile => WEGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).Select(type => type.CSI())) {
 						int requiredTileItemType = requiredTileItem.type;
-						//$"|tile| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}".LogSimple();
+						if (recursionCounter > 100)
+							$"|tile {requiredTileItemType.CSI().S()}| {recipe.requiredItem.StringList(i => i.S(), $"{recipeNum} {recipe.createItem.S()}:")}, {recipe.requiredTile.Select(tile => WEGlobalTile.GetDroppedItem(tile)).Where(type => type > 0).StringList(i => i.CSI().S(), "tiles")}".LogSimple();
+
 						if (TryGetAllCraftingIngredientTypes(requiredTileItemType, out HashSet<HashSet<int>> tileIngredientTypes)) {
 							requiredItemTypes.CombineHashSet(tileIngredientTypes);
 						}
@@ -3042,7 +3195,15 @@ namespace WeaponEnchantments.Common
 				ingredients = allExpandedRecepies[createItemType];
 			}
 
-			//$"/\\{createItemType.CSI().S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}".LogSimple();
+			//if (Debugger.IsAttached) $"/\\{createItemType.CSI().S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}".LogSimple();
+
+			if (first) {
+				recursionCounter = 0;
+			}
+			else {
+				recursionCounter--;
+			}
+			
 			return ingredients.Count > 0;
 		}
 		public static HashSet<HashSet<int>> CombineIngredientLists(this HashSet<HashSet<int>> ingredientsArg, HashSet<HashSet<HashSet<int>>> requiredItemTypeLists) {
@@ -3083,21 +3244,6 @@ namespace WeaponEnchantments.Common
 
 			return ingredients;
 		}
-		/*
-		private static bool IsReverseCraftable(this Recipe recipe) {
-			int createItemType = recipe.createItem.type;
-			if (reverseCraftableIngredients.Keys.Contains(createItemType)) {
-				if (reverseCraftableIngredients[createItemType].Where(ingredientType => recipe.requiredItem.Select(item => item.type).Contains(ingredientType)).Any())
-					return true;
-
-				if (recipe.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).Contains(createItemType))
-				//if (reverseCraftableIngredients[createItemType].Where(ingredientType => ingredientType > 0 && recipe.requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).Contains(ingredientType)).Any())
-					return true;
-			}
-
-			return false;
-		}
-		*/
 		private static void AddProgressionGroup(ProgressionGroup progressionGroup) => progressionGroups.Add(progressionGroup.ID, progressionGroup);
 		public static int GuessOreInfusionPower(int requiredPickaxePower, float value) {
 			if (value < 0)
@@ -3171,7 +3317,7 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			//$"\ninfusionPowerTiles:\n{infusionPowerTiles.Select(i => $"infusionPower: {i.Key}, pickPower: {i.Value.pickPower}, value: {i.Value.value}").JoinList("\n")}".LogSimple();
+			//if (Debugger.IsAttached) $"\ninfusionPowerTiles:\n{infusionPowerTiles.Select(i => $"infusionPower: {i.Key}, pickPower: {i.Value.pickPower}, value: {i.Value.value}").JoinList("\n")}".LogSimple();
 		}
 		public static void ResetAndSetupProgressionGroups() {
 			progressionGroups.Clear();
@@ -3179,6 +3325,8 @@ namespace WeaponEnchantments.Common
 			SetupProgressionGroups();
 			PopulateItemInfusionPowers();
 		}
+
+		#endregion
 
 		#endregion
 
@@ -3193,7 +3341,7 @@ namespace WeaponEnchantments.Common
 				{ mechBossHighestSoul, new SortedSet<int>() { ItemID.SoulofFright, ItemID.SoulofMight, ItemID.SoulofSight } }
 			};
 
-			//ItemInfusionPowers.Select(p => p.Key.CSI().S()).JoinList(", ").LogSimple();
+			//if (Debugger.IsAttached) ItemInfusionPowers.Select(p => p.Key.CSI().S()).JoinList(", ").LogSimple();
 			foreach (KeyValuePair<int, int> pair in ItemInfusionPowers) {
 				int itemType = pair.Key;
 				Item item = itemType.CSI();
@@ -3270,117 +3418,40 @@ namespace WeaponEnchantments.Common
 
 			//if (Debugger.IsAttached) $"\nItemInfusionPowers:\n{ItemInfusionPowers.OrderBy(p => p.Value).Select(p => $"{p.Key.CSI().S()}: {p.Value}").S()}".LogSimple();
 		}
-		private static void GuessInfusionPowers() {
-			//Guess crafting source infusion powers
-			SortedDictionary<int, int> guessedSourceInfusionPowers = new();
-			for (int weaponType = 0; weaponType < ItemLoader.ItemCount; weaponType++) {
-				if (!allWeaponRecipies.ContainsKey(weaponType))
-					continue;
+		private static void UpdateAndPrintString() {
+			if (!Debugger.IsAttached)
+				return;
 
-				Item sampleWeapon = weaponType.CSI();
-				//For each weapon
-				if (sampleWeapon.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon)) {
-					int infusionPowerWeapon = sampleWeapon.GetWeaponInfusionPower();
-					foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponType]) {
-						foreach (int ingredientType in ingredientTypes) {
-							//Check if weapon's infusion power lowers the infusion power of the ingredient
-							Item ingredientSampleItem = ingredientType.CSI();
-							//If already an entry in VanillaCraftingItemSourceInfusionPowers or ModdedCraftingItemSourceInfusionPowers, use it instead of guessing
-							if (ItemInfusionPowers.ContainsKey(ingredientType)) {
-								if (!guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
-									guessedSourceInfusionPowers.Add(ingredientType, ItemInfusionPowers[ingredientType]);
-									$"{ingredientSampleItem.S()} = {ItemInfusionPowers[ingredientType]} IP from {sampleWeapon.S()} (already existed)".LogSimple();
-								}
-
-								continue;
-							}
-
-							int infusionPower = infusionPowerWeapon;
-							if (ingredientSampleItem.TryGetEnchantedItem(out EnchantedWeapon enchantedWeaponIngredient))
-								infusionPower = ingredientSampleItem.GetWeaponInfusionPower();
-
-							if (ingredientType < ItemID.Count && weaponType >= ItemID.Count)//Don't allow modded weapon recipies to affect vanilla ingredients
-								continue;
-
-							if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
-								int currentInfusionPower = guessedSourceInfusionPowers[ingredientType];
-								if (currentInfusionPower > infusionPower) {
-									guessedSourceInfusionPowers[ingredientType] = infusionPower;
-									$"{ingredientSampleItem.S()} = {infusionPower} IP from {sampleWeapon.S()}".LogSimple();
-								}
-							}
-							else {
-								guessedSourceInfusionPowers.Add(ingredientType, infusionPower);
-								$"{ingredientSampleItem.S()} = {infusionPower} IP from {sampleWeapon.S()}".LogSimple();
-							}
-						}
-					}
-				}
-			}
-
-			//Remove non-limmiting ingredients
-			foreach (KeyValuePair<int, int> sourceItem in new SortedDictionary<int, int>(guessedSourceInfusionPowers)) {
-				int key = sourceItem.Key;
-				string sourceItemName = key.CSI().Name;//temp
-				int infusionPower = sourceItem.Value;
-				bool isLimmitingItem = false;
-				foreach (int weaponKey in allWeaponRecipies.Keys) {
-					bool isLimmitingItemForThisItem = true;
-					string weaponName = weaponKey.CSI().Name;//temp
-					if (!allWeaponRecipies[weaponKey].SelectMany(t => t).Contains(key))
+			string stringToConvert = "";
+			bool any = stringToConvert != "";
+			bool npcs = any && true;
+			bool items = any && false;
+			if (npcs) {
+				for (int netID = NPCID.Count; netID < NPCLoader.NPCCount; netID++) {
+					NPC npc = netID.CSNPC();
+					string fullName = npc.FullName();
+					if (fullName == "" || fullName == " ")
 						continue;
 
-					foreach (HashSet<int> ingredientTypes in allWeaponRecipies[weaponKey]) {
-						foreach (int ingredientType in ingredientTypes) {
-							if (guessedSourceInfusionPowers.ContainsKey(ingredientType)) {
-								int ingredientInfusionPower = guessedSourceInfusionPowers[ingredientType];
-								//string ingredientName = ingredientType.CSI().Name;//temp
-
-								if (infusionPower < ingredientInfusionPower) {// || infusionPower == ingredientInfusionPower && IsWeaponItem(key.CSI())) {//Works but not needed?
-									isLimmitingItemForThisItem = false;
-									break;
-								}
-							}
-						}
-					}
-
-					if (isLimmitingItemForThisItem) {
-						isLimmitingItem = true;
-						break;
-					}
-				}
-
-				if (!isLimmitingItem)
-					guessedSourceInfusionPowers.Remove(key);
-			}
-
-			//Print guessedSourceInfusionPowers as VanillaCraftingItemSourceInfusionPowers and ModdedCraftingItemSourceInfusionPowers
-			SortedDictionary<int, int> guessedVanillaCraftingItemSourceInfusionPowers = new();
-			SortedDictionary<int, int> guessedModdedCraftingItemSourceInfusionPowers = new();
-			foreach (KeyValuePair<int, int> sourceItem in guessedSourceInfusionPowers) {
-				int soureItemType = sourceItem.Key;
-				int infusionPower = sourceItem.Value;// - (values.stack <= 1 ? 10 : 0);
-				if (soureItemType < ItemID.Count) {
-					guessedVanillaCraftingItemSourceInfusionPowers.Add(soureItemType, infusionPower);
-				}
-				else {
-					guessedModdedCraftingItemSourceInfusionPowers.Add(soureItemType, infusionPower);
+					string newName = npc.ModFullName();
+					stringToConvert = stringToConvert.Replace(fullName, newName);
 				}
 			}
 
-			string txt = "\npublic static SortedDictionary<int, int> VanillaCraftingItemSourceInfusionPowers = new() {";
-			txt += guessedVanillaCraftingItemSourceInfusionPowers
-				.OrderBy(sourcItem => sourcItem.Value)
-				.Select(sourceItem => ItemID.Search.TryGetName(sourceItem.Key, out string name) ?
-					$"\n\t{"{"} ItemID.{name}, {sourceItem.Value} {"}"}" :
-					$"Failed to find a name for item: {sourceItem.Key.CSI().S()}")
-				.JoinList(",");
-			txt += "\n};//Not cleared\npublic static SortedDictionary<string, int> ModdedCraftingItemSourceInfusionPowers = new() {";
-			txt += guessedModdedCraftingItemSourceInfusionPowers
-				.OrderBy(sourcItem => sourcItem.Value)
-				.Select(sourceItem => $"\n\t{"{"} \"{sourceItem.Key.CSI().Name}\", {sourceItem.Value} {"}"}").JoinList(",");
-			txt += "\n};//Not cleared";
-			txt.LogSimple();
+			if (items) {
+				for (int itemType = ItemID.Count + 1; itemType < ItemLoader.ItemCount; itemType++) {
+					Item item = itemType.CSI();
+					string fullName = item.Name;
+					if (fullName == "" || fullName == " ")
+						continue;
+
+					string newName = item.ModFullName();
+					stringToConvert = stringToConvert.Replace(fullName, newName);
+				}
+			}
+
+			if (npcs || items)
+				$"stringToConvert:\n{stringToConvert}".LogSimple();
 		}
 		private static void ClearSetupData() {
 			progressionGroups.Clear();
@@ -3416,7 +3487,7 @@ namespace WeaponEnchantments.Common
 	public static class InfusionProgressionTests {
 		private static bool shouldRunTests = true;
 		public static void RunTests() {
-			if (!shouldRunTests)
+			if (!Debugger.IsAttached || !shouldRunTests)
 				return;
 
 			//Test_GetOreInfusionPower();

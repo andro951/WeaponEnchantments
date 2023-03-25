@@ -16,7 +16,7 @@ namespace WeaponEnchantments.Common.Utility
         public const int GainXPPreventedLoosingExperience = 1;
         public const int DamageNPCPreventLoosingXP = 2;
         public const int DamageNPCPreventLoosingXP2 = 3;
-        public const int BossBagNameNull = 4;
+        public const int BossBagDropsFailToFind = 4;
         public const int FailedDetermineDropItem = 5;
         public const int FailedInfuseItem = 6;
         public const int UpdatedInfusionDamageAgain = 7;

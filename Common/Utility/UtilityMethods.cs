@@ -65,16 +65,16 @@ namespace WeaponEnchantments.Common.Utility
             if (projectile.TryGetGlobalProjectile(out WEProjectile wEProjectile)) {
                 projectileWithSourceItem = wEProjectile;
                 return true;
-			}
+            }
 
             if (projectile.TryGetGlobalProjectile(out BobberProjectile bobberProjectile)) {
                 projectileWithSourceItem = bobberProjectile;
                 return true;
-			}
+            }
 
             projectileWithSourceItem = null;
             return false;
-		}
+        }
         public static WEGlobalNPC GetWEGlobalNPC(this NPC npc) => npc.GetGlobalNPC<WEGlobalNPC>();
         public static bool TryGetWEGlobalNPC(this NPC npc, out WEGlobalNPC weGlobalNPC) => npc.TryGetGlobalNPC(out weGlobalNPC);
         public static bool TryGetEnchantedItem(this Item item) => item != null && (item.TryGetGlobalItem(out EnchantedWeapon w) || item.TryGetGlobalItem(out EnchantedArmor a) || item.TryGetGlobalItem(out EnchantedAccessory ac) || item.TryGetGlobalItem(out EnchantedFishingPole fp) || item.TryGetGlobalItem(out EnchantedTool t));
@@ -347,7 +347,7 @@ namespace WeaponEnchantments.Common.Utility
             //If the chance is less than the generated float, return new.
             return new T();
         }
-        public static T GetOneFromWeightedList<T>(this List<(float, T)> options, float chance) where T : new () {
+        public static T GetOneFromWeightedList<T>(this List<(float, T)> options, float chance) where T : new() {
             if (options.Count == 0)
                 return new T();
 
@@ -360,26 +360,26 @@ namespace WeaponEnchantments.Common.Utility
             float randFloat = Main.rand.NextFloat();
             if (randFloat <= chance) {
                 float total = 0f;
-                foreach((float, T) pair in options) {
+                foreach ((float, T) pair in options) {
                     total += pair.Item1;
-				}
+                }
 
                 total *= randFloat / chance;
 
-                foreach((float, T) pair in options) {
+                foreach ((float, T) pair in options) {
                     total -= pair.Item1;
                     if (total <= 0f)
                         return pair.Item2;
-				}
-			}
+                }
+            }
 
             return new T();
         }
         public static T GetOneFromWeightedList<T>(this SortedList<int, T> options, float chance) where T : new() {
             List<(float, T)> newList = new List<(float, T)>();
-            foreach(KeyValuePair<int, T> pair in options) {
+            foreach (KeyValuePair<int, T> pair in options) {
                 newList.Add(((float)pair.Key, pair.Value));
-			}
+            }
 
             return newList.GetOneFromWeightedList(chance);
         }
@@ -411,44 +411,44 @@ namespace WeaponEnchantments.Common.Utility
 
             return 0;
         }
-		public static int GetOneFromWeightedList(this IEnumerable<DropData> options, float chance) {
-			if (options.Count() == 0)
-				return 0;
+        public static int GetOneFromWeightedList(this IEnumerable<DropData> options, float chance) {
+            if (options.Count() == 0)
+                return 0;
 
-			if (chance <= 0f)
-				return 0;
+            if (chance <= 0f)
+                return 0;
 
-			if (chance > 1f)
-				chance = 1f;
+            if (chance > 1f)
+                chance = 1f;
 
-			float randFloat = Main.rand.NextFloat();
-			if (randFloat <= chance) {
-				float total = 0f;
-				foreach (DropData pair in options) {
-					total += pair.Weight;
-				}
+            float randFloat = Main.rand.NextFloat();
+            if (randFloat <= chance) {
+                float total = 0f;
+                foreach (DropData pair in options) {
+                    total += pair.Weight;
+                }
 
-				total *= randFloat / chance;
+                total *= randFloat / chance;
 
-				foreach (DropData pair in options) {
-					total -= pair.Weight;
-					if (total <= 0f)
-						return pair.ID;
-				}
-			}
+                foreach (DropData pair in options) {
+                    total -= pair.Weight;
+                    if (total <= 0f)
+                        return pair.ID;
+                }
+            }
 
-			return 0;
-		}
-		public static float Percent(this float value) => value * 100f;
+            return 0;
+        }
+        public static float Percent(this float value) => value * 100f;
         public static string PercentString(this float value) => $"{(value * 100).S()}%";
-		public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
+        public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
         public static bool Lang(this string s, out string result, string m) {
             string key = $"Mods.WeaponEnchantments.{m}.{s}";
             result = Language.GetTextValue(key);
 
             if (result == key) {
                 return false;
-			}
+            }
 
             return true;
         }
@@ -497,7 +497,7 @@ namespace WeaponEnchantments.Common.Utility
             return true;
         }
         public static string Lang(this int i, L_ID_V id) {
-			switch (id) {
+            switch (id) {
                 case L_ID_V.Item:
                     return Terraria.Lang.GetItemNameValue(i);
                 case L_ID_V.NPC:
@@ -506,10 +506,10 @@ namespace WeaponEnchantments.Common.Utility
                     return Terraria.Lang.GetBuffName(i);
                 case L_ID_V.BuffDescription:
                     return Terraria.Lang.GetBuffDescription(i);
-			}
+            }
 
             return null;
-		}
+        }
 
         public static string Lang(this string s, string m, IEnumerable<string> args) => s.Lang(out string result, m, args) ? result : "";
         public static bool Lang(this string s, out string result, string m, IEnumerable<string> args) {
@@ -575,8 +575,8 @@ namespace WeaponEnchantments.Common.Utility
             return "";
         }
         public static string GetTextValue(this string key, IEnumerable<object> args) {
-			return Language.GetTextValue(key, args);
-		}
+            return Language.GetTextValue(key, args);
+        }
 
         #region AddOrCombine
 
@@ -602,23 +602,23 @@ namespace WeaponEnchantments.Common.Utility
             if (dictionary.ContainsKey(key)) {
                 if (dictionary[key] && !newValue.EnableStat)
                     dictionary[key] = false;
-			}
-			else {
+            }
+            else {
                 dictionary.Add(key, newValue.EnableStat);
-			}
-		}
+            }
+        }
         public static void AddOrCombine(this SortedDictionary<EnchantmentStat, bool> dictionary, (EnchantmentStat, bool) newValue) {
             EnchantmentStat key = newValue.Item1;
             if (dictionary.ContainsKey(key)) {
                 if (dictionary.ContainsKey(key)) {
                     if (dictionary[key] && !newValue.Item2)
                         dictionary[key] = false;
-				}
-			}
-			else {
+                }
+            }
+            else {
                 dictionary.Add(newValue.Item1, newValue.Item2);
-			}
-		}
+            }
+        }
         public static void AddOrCombine(this Dictionary<byte, int> dictionary, byte key, int newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key] = newValue + dictionary[key];
@@ -639,10 +639,10 @@ namespace WeaponEnchantments.Common.Utility
             short key = buffEffect.BuffStats.BuffID;
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].CombineNoReturn(buffEffect.BuffStats.Clone());
-			}
-			else {
+            }
+            else {
                 dictionary.Add(key, buffEffect.BuffStats.Clone());
-			}
+            }
         }
         public static void AddOrCombine(this SortedDictionary<short, BuffStats> dictionary, BuffStats buffStat) {
             short key = buffStat.BuffID;
@@ -656,33 +656,33 @@ namespace WeaponEnchantments.Common.Utility
         public static void AddOrCombine<TKey>(this SortedDictionary<TKey, List<DropData>> dictionary, TKey key, DropData newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].Add(newValue);
-			}
-			else {
+            }
+            else {
                 dictionary.Add(key, new List<DropData>() { newValue });
-			}
-		}
+            }
+        }
         public static void AddOrCombine<TKey, T>(this SortedDictionary<TKey, List<(T, List<DropData>)>> dictionary, TKey key, (T, List<DropData>) newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].Add(newValue);
-			}
-			else {
+            }
+            else {
                 dictionary.Add(key, new List<(T, List<DropData>)>() { newValue });
             }
-		}
+        }
         public static void AddOrCombine(this Dictionary<int, int> dict1, Dictionary<int, int> dict2) {
-            foreach(var pair in dict2) {
+            foreach (var pair in dict2) {
                 dict1.AddOrCombine(pair);
-			}
-		}
+            }
+        }
         public static void AddOrCombine(this Dictionary<int, int> dict1, KeyValuePair<int, int> pair) {
             int key = pair.Key;
             if (dict1.ContainsKey(key)) {
                 dict1[key] += pair.Value;
-			}
-			else {
+            }
+            else {
                 dict1.Add(key, pair.Value);
-			}
-		}
+            }
+        }
         public static void AddOrCombine<T>(this IDictionary<T, int> dict1, (T, int) pair) =>
             dict1.AddOrCombine(pair.Item1, pair.Item2);
         public static void AddOrCombine<T>(this IDictionary<T, int> dict, T key, int value) {
@@ -701,31 +701,39 @@ namespace WeaponEnchantments.Common.Utility
                 dict.Add(key, new() { value });
             }
         }
-		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, SortedSet<T>> dict, TKey key, T value) {
-			if (dict.ContainsKey(key)) {
-				dict[key].Add(value);
-			}
-			else {
-				dict.Add(key, new() { value });
-			}
-		}
-		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, HashSet<T> value) {
-			if (dict.ContainsKey(key)) {
-				dict[key] = dict[key].Concat(value).ToHashSet();
-			}
-			else {
-				dict.Add(key, value);
-			}
-		}
-		public static void AddOrCombine<TKey, T>(this IDictionary<TKey, (HashSet<T>, HashSet<T>)> dict, TKey key, (HashSet<T>, HashSet<T>) value) {
-			if (dict.ContainsKey(key)) {
+        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, SortedSet<T>> dict, TKey key, T value) {
+            if (dict.ContainsKey(key)) {
+                dict[key].Add(value);
+            }
+            else {
+                dict.Add(key, new() { value });
+            }
+        }
+        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, HashSet<T>> dict, TKey key, HashSet<T> value) {
+            if (dict.ContainsKey(key)) {
+                dict[key] = dict[key].Concat(value).ToHashSet();
+            }
+            else {
+                dict.Add(key, value);
+            }
+        }
+        public static void AddOrCombine<TKey, T>(this IDictionary<TKey, (HashSet<T>, HashSet<T>)> dict, TKey key, (HashSet<T>, HashSet<T>) value) {
+            if (dict.ContainsKey(key)) {
                 dict[key].Item1.UnionWith(value.Item1);
                 dict[key].Item2.UnionWith(value.Item2);
-			}
-			else {
-				dict.Add(key, value);
-			}
-		}
+            }
+            else {
+                dict.Add(key, value);
+            }
+        }
+        public static void AddOrCombine<TKey, T1, T2>(this IDictionary<TKey, List<(T1, T2)>> dict, TKey key, (T1, T2) value) {
+            if (dict.ContainsKey(key)) {
+                dict[key].Add(value);
+            }
+            else {
+                dict.Add(key, new List<(T1, T2)> { value });
+            }
+        }
 		public static void AddOrCombineSetOrKeepHigher<TKey, TKey2>(this SortedDictionary<TKey, Dictionary<TKey2, int>> dict, TKey key, Dictionary<TKey2, int> dict2) {
             if (dict.ContainsKey(key)) {
                 foreach(TKey2 key2 in dict2.Keys) {

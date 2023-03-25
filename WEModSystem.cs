@@ -39,8 +39,9 @@ namespace WeaponEnchantments
 
         private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
+		public static bool StartedWorldLoad { get; private set; } = false;
 
-        public override void OnModLoad() {
+		public override void OnModLoad() {
 			if (!Main.dedServ) {
                 weModSystemUI = new UserInterface();
                 promptInterface = new UserInterface();
@@ -61,6 +62,7 @@ namespace WeaponEnchantments
                 updatedPlayerNames = new List<string>();
         }
 		public override void OnWorldLoad() {
+			StartedWorldLoad = true;
 			InfusionManager.SetUpVanillaWeaponInfusionPowers();
 			InfusionProgression.PostSetupContent();
             InfusionManager.LogAllInfusionPowers();
@@ -74,6 +76,10 @@ namespace WeaponEnchantments
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!wePlayer.Player.HeldItem.NullOrAir()) {//temp
+                string temp = wePlayer.Player.HeldItem.ModFullName();
+			}
+
             if (wePlayer.usingEnchantingTable) {
                 //Disable Left Shift to Quick trash
                 if (ItemSlot.Options.DisableLeftShiftTrashCan) {

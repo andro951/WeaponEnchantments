@@ -158,8 +158,8 @@ namespace WeaponEnchantments.Common.Utility
         public static string Quotes(this string s) => "\"" + s + "\"";
         public static string GetItemIDName(this int itemType) => ItemID.Search.TryGetName(itemType, out string name) ? $"ItemID.{name}" : $"FailedToFindItemName{itemType}";
         public static string GetNPCIDName(this int netId) => NPCID.Search.TryGetName(netId, out string name) ? $"NPCID.{name}" : $"FailedToFindNPCName{netId}";
-        public static string GetItemNameString(this int itemType) => ContentSamples.ItemsByType[itemType].Name.Quotes();
-        public static string GetNPCNameString(this int netId) => ContentSamples.NpcsByNetId[netId].FullName().Quotes();
+        public static string GetItemNameString(this int itemType) => ContentSamples.ItemsByType[itemType].ModFullName().Quotes();
+        public static string GetNPCNameString(this int netId) => ContentSamples.NpcsByNetId[netId].ModFullName().Quotes();
         public static string GetItemIDOrName(this int itemType) => itemType < ItemID.Count ? itemType.GetItemIDName() : itemType.GetItemNameString();
         public static string GetNPCIDOrName(this int netId) => netId < NPCID.Count ? netId.GetNPCIDName() : netId.GetNPCNameString();
 		public static string StringList<T>(this IEnumerable<T> enumerable, ToStringDelegate<T> toString, string name = null) => $"{(name != null ? $"{name} " : "")}{enumerable.Select(v => toString(v)).JoinList(", ").Brackets()}";

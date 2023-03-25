@@ -942,15 +942,24 @@ namespace WeaponEnchantments.Common.Globals
 				return false;
 
 			if (item.ModItem != null) {
+                string modName = item.ModItem.Mod.Name;
 				//Manually prevent calamity items from being weapons
-				if (WEMod.calamityEnabled && item.ModItem.Mod.Name == CalamityIntegration.calamityName) {
+				if (WEMod.calamityEnabled && modName == CalamityIntegration.calamityName) {
 					switch (item.Name) {
                         case "Experimental Wulfrum Fusion Array":
 							return false;
 					}
 				}
 
-				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
+				//Manually prevent magic storage items from being weapons
+				if (WEMod.magicStorageEnabled && modName == "MagicStorage") {
+					switch (item.Name) {
+						case "Biome Globe":
+							return false;
+					}
+				}
+
+				if (WEMod.thoriumEnabled && modName == "ThoriumMod") {
 					switch (item.Name) {
 						case "Hive Mind":
                         case "Inspiration Note":
@@ -973,34 +982,14 @@ namespace WeaponEnchantments.Common.Globals
 					if (item.consumable && item.damage <= 0 && item.mana <= 0)
 						return false;
 				}
-			}
 
-            if (item.ModItem != null) {
-				//Manually prevent magic storage items from being weapons
-				if (WEMod.magicStorageEnabled && item.ModItem.Mod.Name == "MagicStorage") {
-					switch (item.Name) {
-						case "Biome Globe":
-							return false;
-					}
-				}
-                
-				if (WEMod.thoriumEnabled && item.ModItem.Mod.Name == "ThoriumMod") {
-					switch (item.Name) {
-						case "Hive Mind":
-							return false;
-						case "Technique: Hidden Blade":
-						case "Technique: Blood Lotus":
-						case "Technique: Cobra's Bite":
-						case "Technique: Sticky Explosive":
-						case "Technique: Shadow Clone":
-                        case "Gauze":
-							return true;
-					}
+                if (WEMod.fargosEnabled && modName == "Fargowiltas") {
+                    switch (item.ModFullName()) {
+                        case "Fargowiltas/BrittleBone":
+                            return false;
 
-					//Some Thorium non-weapon consumables were counting as weapons.
-					if (item.consumable && item.damage <= 0 && item.mana <= 0)
-						return false;
-				}
+					}
+                }
 			}
 
 			bool isWeapon;
@@ -1758,5 +1747,6 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }//d
+        public static string ModFullName(this Item item) => item.ModItem?.FullName ?? item.Name;
 	}
 }
