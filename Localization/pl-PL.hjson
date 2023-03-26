@@ -330,8 +330,503 @@ Mods: {
 			Witch: Czarownica jest brzydką i niegodziwą damą i zajmuje się dalszymi niegodziwymi rzeczami. Handluje wątpliwymi materiałami używanymi do ulepszania wyposażenia o tajemniczych efektach.
 		}
 		Config: {
+			AccessoryDRValues: "Accessory {0}% ({1}% at 40)"
+			ArmorDRValues: "Armor {0}% ({1}% at 40)"
+			Automatic: Automatic
+			Custom: Custom
+			DisplaySettings: Display Settings
+			EnchantingTableOptions: Enchanting Table Options
+			Enchantment: Enchantment
+			EnchantmentDropRates(%): Enchantment Drop Rates(%)
+			EnchantmentSettings: Enchantment Settings
+			ErrorMessages: Error Messages
+			EssenceandExperience: Essence and Experience
+			Expert: Expert
+			GeneralGameChanges: General Game Changes
+			IndividualEnchantmentStrengths: Individual Enchantment Strengths
+			Journey: Journey
+			LoggingInformation: Logging Information
+			Master: Master
+			ModTestingTools: Mod Testing Tools
+			Multipliers: Multipliers
+			NoneSelected: None Selected
+			Normal: Normal
+			OtherDropRates: Other Drop Rates
+			Presets: Presets
+			RandomExtraStuff: Random Extra Stuff
+			RarityEnchantmentStrengthMultipliers: Rarity Enchantment Strength Multipliers
+			ServerConfig: Server Config
+			AccessoryDamageReductionPerLevel: {
+				Label: Accessory DR Per Level (100000 = 1%)
+				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+			}
+			AffectOnVanillaLifeStealLimmit: {
+				Label: Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)
+				Tooltip: 
+					'''
+					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
+					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
+					It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.
+					The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.
+					This config value changes how much the life you heal from lifesteal enchantments affects this limit.
+					Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.
+					It will take 320/36(330/30) seconds -> 8.9(11) seconds for the pool to be positive again so you can gain life from lifesteal again.
+					Note: the mechanic does not have a cap on how much you can gain at once.  It will just take longer to recover the more you gain.
+					'''
+			}
+			AllowCraftingIntoLowerTier: {
+				Label: Allow crafting enchantments into lower tier enchantments.
+			}
+			AllowCriticalChancePast100: {
+				Label: Critical hit chance effective over 100% chance
+				Tooltip: 
+					'''
+					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
+					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.
+					'''
+			}
+			AllowHighTierOres: {
+				Label: Recieve ores up to Chlorophyte from Offering items.
+				Tooltip: 
+					'''
+					Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).
+					(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)
+					'''
+			}
+			AllowInfusingToLowerPower: {
+				Label: Allow Infusing items to lower infusion Powers
+				Tooltip: Warning: This will allow you to consume a weak weapon to downgrade a strong weapon.
+			}
+			AllowShiftClickMoveFavoritedItems: {
+				Label: Allow shift click to move favorited items into the enchanting table.
+			}
+			AlwaysDisplayInfusionPower: {
+				Label: Always display Infusion Power
+				Tooltip: Enable to display item's Infusion Power always instead of just when the enchanting table is open.
+			}
+			AlwaysOverrideDamageType: {
+				Label: Damage type converting enchantments always override.
+				Tooltip: 
+					'''
+					Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.
+					If not selected, the damage type will only be changed if the weapon is currently it's original damage type.
+					'''
+			}
+			AmaterasuSelfGrowthPerTick: {
+				Label: Amaterasu Self Growth Per Tick
+				Tooltip: Affects how quickly Amaterasu damage will go up naturally (Not when being hit again with a World Ablaze weapon.)
+			}
+			ArmorDamageReductionPerLevel: {
+				Label: Armor DR Per Level (100000 = 1%)
+				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+			}
+			ArmorDamageReductions: {
+				Label: Armor and accessory Damage Reductions
+			}
+			ArmorPenetration: {
+				Label: Convert excess armor penetration to bonus damage
+				Tooltip: 
+					'''
+					Example: Enemy has 4 defense, Your weapon has 10 armor penetration.
+					10 - 4 = 6 excess armor penetration (not doing anything)
+					Gain 3 bonus damage (6/2 = 3)
+					'''
+			}
+			AttackSpeedEnchantmentAutoReuseSetpoint: {
+				Label: Speed Enchantment Auto Reuse Enabled (%)
+				Tooltip: 
+					'''
+					The strength that a Speed Enchantment will start giving the Auto Reuse stat.
+					Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)
+					'''
+			}
+			AutomaticallyMatchPreseTtoWorldDifficulty: {
+				Label: Automatically Match Preset to World Difficulty
+			}
+			AutoReuseDisabledOnMagicMissile: {
+				Label: Auto Reuse Disabled on Magic Missile type weapons
+				Tooltip: Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.
+			}
+			BasicEnchantmentStrengthMultiplier: {
+				Label: Basic
+				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+			}
+			BossEnchantmentDropChance: {
+				Label: Boss Enchantment Drop Rate(%)
+				Tooltip: 
+					'''
+					Adjust the drop rate of enchantments from bosses.
+					(Default is 50%)
+					'''
+			}
+			BossEssenceMultiplier: {
+				Label: Boss Essence Multiplier(%)
+				Tooltip: Modify the ammount of essence recieved from bosses.
+			}
+			BossExperienceMultiplier: {
+				Label: Boss Experience Multiplier(%)
+				Tooltip: Modify the ammount of experience recieved from bosses.
+			}
+			BuffDuration: {
+				Label: Buff cooldown duration (seconds)
+				Tooltip: Affects buff cooldown and duration.
+			}
+			CalculateDamageReductionBeforeDefense: {
+				Label: Calculate Damage Reduction before player defense
+				Tooltip: 
+					'''
+					By default, damage reduction is applied after player defense.  Select this to apply before.
+					Before will cause you to take much less damage.
+					'''
+			}
+			ChestSpawnChance: {
+				Label: Chest Enchantment Spawn Chance(%)
+				Tooltip: Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)
+			}
+			ClientConfig: {
+				Label: ClientConfig
+			}
+			CommonEnchantmentStrengthMultiplier: {
+				Label: Common
+				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+			}
+			ConfigCapacityCostMultiplier: {
+				Label: Enchantment Capacity Cost Multiplier(%)
+				Tooltip: Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.
+			}
+			CrateDropChance: {
+				Label: Crate Enchantment Drop Chance Multiplier(%)
+				Tooltip: Adjust the chance of finding enchantments in fishing crates.
+			}
+			CritPerLevelDisabled: {
+				Label: Disable Weapon critical strike chance per level
+				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
+			}
+			DamagePerLevelInstead: {
+				Label: Damage instead of critical chance per level
+				Tooltip: Weapons gain damage per level instead of critical strike chance equal to their level * Global Enchantment Strength Multiplier
+			}
+			DamageReductionPerLevelDisabled: {
+				Label: Disable armor and accessory damage reduction per level
+				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
+			}
+			DCUStart: {
+				Label: Start with a Drill Containment Unit
+				Tooltip: 
+					'''
+					All players will get a Drill Containment Unit when they first spawn.
+					This is just for fun when you feel like a faster playthrough.
+					'''
+			}
+			DisableAllErrorMessagesInChat: {
+				Label: Disable All Error Messages In Chat
+				Tooltip: 
+					'''
+					Prevents messages showing up in your chat that ask you to: 
+					"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time."
+					'''
+			}
+			DisableArmorInfusion: {
+				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
+			}
+			DisableMinionCrits: {
+				Label: Disable Minion Critical hits
+				Tooltip: 
+					'''
+					In vanilla, minions arent affected by weapon critical chance.
+					Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.
+					This option disables the crits(vanilla mechanics)
+					'''
+			}
+			DisableResearch: {
+				Label: Disable Ability to research Weapon Enchantment items
+			}
+			DisplayApproximateWeaponDamageTooltip: {
+				Label: Display approximate weapon damage in the tooltip
+				Tooltip: 
+					'''
+					Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.
+					This displays the damage against a 0 armor enemy.
+					'''
+			}
+			EnableSwappingWeapons: {
+				Label: Enable swapping weapons with num keys (Weapons sorted by infusion power)
+				Tooltip: 
+					'''
+					Use num1 and num3 to swap between all weapons.  Use num4 and num6 to swap between only modded weapons.
+					Will not replace enchanted or modified weapons.
+					'''
+			}
+			EnchantmentDropChance: {
+				Label: Non-Boss Enchantment Drop Rate(%)
+				Tooltip: 
+					'''
+					Adjust the drop rate of enchantments from non -boss enemies.
+					(Default is 100%)
+					'''
+			}
+			EnchantmentSlotsOnAccessories: {
+				Label: Enchantment Slots On Accissories
+				Tooltip: 
+					'''
+					1st slot is a normal slot.
+					2nd slot is the utility slot.
+					3rd-5th are normal slots.
+					'''
+			}
+			EnchantmentSlotsOnArmor: {
+				Label: Enchantment Slots On Armor
+				Tooltip: 
+					'''
+					1st slot is a normal slot.
+					2nd slot is the utility slot.
+					3rd-5th are normal slots.
+					'''
+			}
+			EnchantmentSlotsOnFishingPoles: {
+				Label: Enchantment Slots On Fishing Poles
+				Tooltip: 
+					'''
+					1st slot is a normal slot.
+					2nd slot is the utility slot.
+					3rd-5th are normal slots.
+					'''
+			}
+			EnchantmentSlotsOnTools: {
+				Label: Enchantment Slots On Tools
+				Tooltip: 
+					'''
+					1st slot is a normal slot.
+					2nd slot is the utility slot.
+					3rd-5th are normal slots.
+					The Clentaminator is the only tool so far.
+					'''
+			}
+			EnchantmentSlotsOnWeapons: {
+				Label: Enchantment Slots On Weapons
+				Tooltip: 
+					'''
+					1st slot is a normal slot.
+					2nd slot is the utility slot.
+					3rd-5th are normal slots.
+					'''
+			}
+			EpicEnchantmentStrengthMultiplier: {
+				Label: Epic
+				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+			}
+			EssenceGrabRange: {
+				Label: Essence Grab Range Multiplier
+				Tooltip: Affects how far the essence can be away from the player when it starts moving towards the player.
+			}
+			EssenceMultiplier: {
+				Label: Non-Boss Essence Multiplier(%)
+				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
+			}
+			ExperienceMultiplier: {
+				Label: Non-Boss Experience Multiplier(%)
+				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
+			}
+			GatheringExperienceMultiplier: {
+				Label: Gathering Experience Multiplier(%)
+				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
+			}
+			GlobalEnchantmentStrengthMultiplier: {
+				Label: Global Enchantment Strength Multiplier (%)
+				Tooltip: 
+					'''
+					Adjusts all enchantment strengths based on recomended enchantment changes.
+					Uses the same calculations as the presets but allows you to pick a different number.
+					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
+					'''
+			}
+			individualStrengths: {
+				Label: Individual Strengths
+				Tooltip: 
+					'''
+					Modify individual enchantment strengths by value
+					(NOT PERCENTAGE!)
+					(Overrides all other options)
+					'''
+			}
 			individualStrengthsEnabled: {
 				Label: Włączone indywidualne mocne strony
+				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
+			}
+			InfusionDamageMultiplier: {
+				Label: Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)
+				Tooltip: 
+					'''
+					Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
+					Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.
+					Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage.
+					Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons.
+					'''
+			}
+			itemDefinition: {
+				Label: Enchantment
+				Tooltip: 
+					'''
+					Only Select Enchantment Items.
+					Likely to cause an error if selecting any other item.
+					'''
+			}
+			LegendaryEnchantmentStrengthMultiplier: {
+				Label: Legendary
+				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+			}
+			LogDummyDPS: {
+				Label: Enable Target Dummy Dps calculation and logging
+				Tooltip: 
+					'''
+					Tracks damage to targets from all sources and tracks them.  Press num0 to start then again to stop.
+					Press num8 to print all stored dps values to the client.log\nThe client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Starting a new test by pressing num0 resets the previous dps data for the held item to allow re-doing a test.
+					'''
+			}
+			MinionLifeStealMultiplier: {
+				Label: Minion Life Steal Multiplier (%)
+				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
+			}
+			MultiplicativeCriticalHits: {
+				Label: Multiplicative critical hits past the first.
+				Tooltip: 
+					'''
+					Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.
+					By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....
+					Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... 
+					'''
+			}
+			OfferAll: {
+				Label: Offer all of the same item.
+				Tooltip: Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.
+			}
+			OnlyShowErrorMessagesInChatOnce: {
+				Label: OnlyShowErrorMessagesInChatOnce
+				Tooltip: 
+					'''
+					Messages will continue to show up in your chat, but only once during a game session.
+					(The error message must be the exact same as a previous message to be prevented.)
+					'''
+			}
+			PercentOfferEssence: {
+				Label: Percentage of offered Item value converted to essence.
+			}
+			Preset: {
+				Tooltip: 
+					'''
+					Journey, Normal, Expert, Master, Automatic, Custom 
+					(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)
+					'''
+			}
+			presetData: {
+				Label: Presets and Multipliers
+			}
+			PreventPowerBoosterFromPreHardMode: {
+				Label: Prevent pre-hard mode bosses from dropping power boosters.
+				Tooltip: Does not include wall of flesh.
+			}
+			PrintEnchantmentDrops: {
+				Label: Log a List of Enchantment Drop sources
+				Tooltip: 
+					'''
+					The list is printed to the client.log when you enter a world.
+					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					'''
+			}
+			PrintEnchantmentTooltips: {
+				Label: Log a List of Enchantment Tooltips
+				Tooltip: 
+					'''
+					The list is printed to the client.log when you enter a world.
+					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					'''
+			}
+			PrintLocalizationLists: {
+				Label: Log all translation lists
+				Tooltip: 
+					'''
+					The lists are printed to the client.log when you enter a world.
+					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					'''
+			}
+			PrintWeaponInfusionPowers: {
+				Label: Log all weapon infusion powers
+				Tooltip: 
+					'''
+					The info is printed to the client.log when you enter a world.
+					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					'''
+			}
+			PrintWikiInfo: {
+				Label: Log all wiki info
+				Tooltip: 
+					'''
+					The info is printed to the client.log when you enter a world.
+					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					'''
+			}
+			RareEnchantmentStrengthMultiplier: {
+				Label: Rare
+				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+			}
+			ReduceOfferEfficiencyByBaseInfusionPower: {
+				Label: Reduce Offer Efficiency By Base Infusion Power
+				Tooltip: 
+					'''
+					When offering items, you recieve essence equivelent to the experience on the item.
+					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
+					'''
+			}
+			ReduceOfferEfficiencyByTableTier: {
+				Label: Reduce Offer Efficiency By Table Tier
+				Tooltip: 
+					'''
+					When offering items, you recieve essence equivelent to the experience on the item.
+					Enabling this will cause the wood table to be 60% efficient.
+					Each table gains 10% efficiency.  100% with Ultimate table.
+					'''
+			}
+			ReduceRecipesToMinimum: {
+				Label: Reduce recipes to minimum.
+				Tooltip: 
+					'''
+					Removes all recipes that jump between tiers to reduce clutter when viewing recipes.
+					Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.
+					'''
+			}
+			RemoveEnchantmentRestrictions: {
+				Label: Remove enchantment restrictions (Use at your own risk!)
+				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
+			}
+			ServerConfig: {
+				Label: Server Config
+			}
+			Strength: {
+				Label: Strength (1000 = 1, 10 = 1%)
+				Tooltip: 
+					'''
+					Take care when adjusting this value.
+					Strength is the exact value used.
+					Example 40% Damage enchantment is 0.4
+					10 Defense is 10
+					'''
+			}
+			teleportEssence: {
+				Label: Automatically send essence to UI
+				Tooltip: 
+					'''
+					Automatically send essence from your inventory to the UI essence slots.
+					(Disables while the UI is open.)
+					'''
+			}
+			UseAlternateEnchantmentEssenceTextures: {
+				Label: Use Alternate Enchantment Essence Textures
+				Tooltip: The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept.
+			}
+			UsePointsAsTooltip: {
+				Label: "\"Points\" instead of \"Enchantment Capacity\""
+				Tooltip: Tooltips will show Points Available instead of Enchantment Capacity Available
 			}
 		}
 		Dialogue: {
