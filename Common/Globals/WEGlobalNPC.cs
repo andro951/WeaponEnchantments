@@ -463,7 +463,7 @@ namespace WeaponEnchantments.Common.Globals
 						AddBossLoot(loot, npc, rule, bossBag);
 					}
 
-					if (LogModSystem.printEnchantmentDrops && (bossBag || !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
+					if (LogModSystem.printEnchantmentDrops && (bossBag || AllItemDropsFromNpcs != null && !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
                         LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
                 }
             }
