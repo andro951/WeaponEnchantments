@@ -364,7 +364,7 @@ Mods: {
 				Label: Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)
 				Tooltip: 
 					'''
-					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
+					Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.
 					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
 					It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.
 					The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.
@@ -382,14 +382,14 @@ Mods: {
 				Tooltip: 
 					'''
 					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
-					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.
+					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damage.  See the next config option for more info.
 					'''
 			}
 			AllowHighTierOres: {
-				Label: Recieve ores up to Chlorophyte from Offering items.
+				Label: Receive ores up to Chlorophyte from Offering items.
 				Tooltip: 
 					'''
-					Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).
+					Disabling this option only allows you to receive Iron, Silver, Gold (Or their equivalents based on world gen.).
 					(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)
 					'''
 			}
@@ -465,7 +465,7 @@ Mods: {
 			}
 			BasicEnchantmentStrengthMultiplier: {
 				Label: Basic
-				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+				Tooltip: Affects the strength of all Basic Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			BossEnchantmentDropChance: {
 				Label: Boss Enchantment Drop Rate(%)
@@ -477,11 +477,11 @@ Mods: {
 			}
 			BossEssenceMultiplier: {
 				Label: Boss Essence Multiplier(%)
-				Tooltip: Modify the ammount of essence recieved from bosses.
+				Tooltip: Modify the amount of essence received from bosses.
 			}
 			BossExperienceMultiplier: {
 				Label: Boss Experience Multiplier(%)
-				Tooltip: Modify the ammount of experience recieved from bosses.
+				Tooltip: Modify the amount of experience received from bosses.
 			}
 			BuffDuration: {
 				Label: Buff cooldown duration (seconds)
@@ -504,7 +504,7 @@ Mods: {
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Common
-				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+				Tooltip: Affects the strength of all Common Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ConfigCapacityCostMultiplier: {
 				Label: Enchantment Capacity Cost Multiplier(%)
@@ -516,7 +516,7 @@ Mods: {
 			}
 			CritPerLevelDisabled: {
 				Label: Disable Weapon critical strike chance per level
-				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
+				Tooltip: Weapons gain critical strike chance equal to their level * Global Enchantment Strength Multiplier.
 			}
 			DamagePerLevelInstead: {
 				Label: Damage instead of critical chance per level
@@ -524,7 +524,7 @@ Mods: {
 			}
 			DamageReductionPerLevelDisabled: {
 				Label: Disable armor and accessory damage reduction per level
-				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
+				Tooltip: Armor and accessories gain damage reduction equal to their level * the appropriate setpoint below for the world difficulty.
 			}
 			DCUStart: {
 				Label: Start with a Drill Containment Unit
@@ -539,11 +539,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Prevents messages showing up in your chat that ask you to: 
-					"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time."
+					"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time."
 					'''
 			}
 			DisableArmorInfusion: {
-				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
+				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonuses.
 			}
 			DisableMinionCrits: {
 				Label: Disable Minion Critical hits
@@ -582,7 +582,7 @@ Mods: {
 					'''
 			}
 			EnchantmentSlotsOnAccessories: {
-				Label: Enchantment Slots On Accissories
+				Label: Enchantment Slots On Accessories
 				Tooltip: 
 					'''
 					1st slot is a normal slot.
@@ -629,7 +629,7 @@ Mods: {
 			}
 			EpicEnchantmentStrengthMultiplier: {
 				Label: Epic
-				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+				Tooltip: Affects the strength of all Epic Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			EssenceGrabRange: {
 				Label: Essence Grab Range Multiplier
@@ -637,23 +637,23 @@ Mods: {
 			}
 			EssenceMultiplier: {
 				Label: Non-Boss Essence Multiplier(%)
-				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
+				Tooltip: Modify the amount of essence received from non-boss enemies.
 			}
 			ExperienceMultiplier: {
 				Label: Non-Boss Experience Multiplier(%)
-				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
+				Tooltip: Modify the amount of experience received from non-boss enemies.
 			}
 			GatheringExperienceMultiplier: {
 				Label: Gathering Experience Multiplier(%)
-				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
+				Tooltip: Modify the amount of experience received from Mining/chopping/fishing
 			}
 			GlobalEnchantmentStrengthMultiplier: {
 				Label: Global Enchantment Strength Multiplier (%)
 				Tooltip: 
 					'''
-					Adjusts all enchantment strengths based on recomended enchantment changes.
+					Adjusts all enchantment strengths based on recommended enchantment changes.
 					Uses the same calculations as the presets but allows you to pick a different number.
-					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
+					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overrides Preset)
 					'''
 			}
 			individualStrengths: {
@@ -667,7 +667,7 @@ Mods: {
 			}
 			individualStrengthsEnabled: {
 				Label: Individual Strengths Enabled
-				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
+				Tooltip: Enabling this will cause the Individual strength values selected below to override all other settings.
 			}
 			InfusionDamageMultiplier: {
 				Label: Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)
@@ -689,7 +689,7 @@ Mods: {
 			}
 			LegendaryEnchantmentStrengthMultiplier: {
 				Label: Legendary
-				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+				Tooltip: Affects the strength of all Legendary Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			LogDummyDPS: {
 				Label: Enable Target Dummy Dps calculation and logging
@@ -702,7 +702,7 @@ Mods: {
 			}
 			MinionLifeStealMultiplier: {
 				Label: Minion Life Steal Multiplier (%)
-				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
+				Tooltip: Allows you to reduce the amount of healing received by minions with the Lifesteal Enchantment.
 			}
 			MultiplicativeCriticalHits: {
 				Label: Multiplicative critical hits past the first.
@@ -784,13 +784,13 @@ Mods: {
 			}
 			RareEnchantmentStrengthMultiplier: {
 				Label: Rare
-				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
+				Tooltip: Affects the strength of all Rare Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ReduceOfferEfficiencyByBaseInfusionPower: {
 				Label: Reduce Offer Efficiency By Base Infusion Power
 				Tooltip: 
 					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
+					When offering items, you receive essence equivalent to the experience on the item.
 					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
 					'''
 			}
@@ -798,7 +798,7 @@ Mods: {
 				Label: Reduce Offer Efficiency By Table Tier
 				Tooltip: 
 					'''
-					When offering items, you recieve essence equivelent to the experience on the item.
+					When offering items, you receive essence equivalent to the experience on the item.
 					Enabling this will cause the wood table to be 60% efficient.
 					Each table gains 10% efficiency.  100% with Ultimate table.
 					'''
@@ -848,7 +848,7 @@ Mods: {
 		Dialogue: {
 			Witch: {
 				BirthdayParty: WHY AM I FORCED TO DRESS PINK?! THIS LOOKS AWFUL, THIS PARTY STINKS!
-				BloodMoon: I'm truely sorry for my prior behavior. I wasn't at my best back then, and if I came off as rude, I apologize.
+				BloodMoon: I'm truly sorry for my prior behavior. I wasn't at my best back then, and if I came off as rude, I apologize.
 				Corrupt: Oooh! The grime here is lovely! I can't wait to embrace new discovery!
 				Crimson: Oooh! The gore here is lovely! I can't wait to embrace new discovery!
 				Dryad: "This... {0} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!"
@@ -1146,7 +1146,7 @@ Mods: {
 				BuffDuration: 
 					'''
 					{0}
-					(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)
+					(Duration is continuously increased while the buff is active, not upon first gaining the buff.)
 					'''
 				EnemySpawnRate: 
 					'''
@@ -1164,7 +1164,7 @@ Mods: {
 					(Bonus damage not affected by LifeSteal)
 					'''
 				ItemCooldown: "(Item CD equal to {0} use speed)"
-				LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"
+				LavaFishing: "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other sources.)"
 				LifeSteal: "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)"
 				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
 				Multishot: "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)"
@@ -1219,9 +1219,9 @@ Mods: {
 			Witch: {
 				Content: Life here is bearable. No strife, no drama, it's not so horrible.
 				DislikeBiome: It's incredible how here is so tame, no evil, no creepies, it's so lame!
-				DislikeCrowded: How am I to consentrate with all this noise!
+				DislikeCrowded: How am I to concentrate with all this noise!
 				DislikeNPC: "This... {NPCName} person is so cliche! 'Save the world from evil' The evils are deep-rooted, and here to stay!"
-				FarFromHome: I had to venture far to find new reagants.While my home is pleasant, I can brew a new concoction with these last ingredients.
+				FarFromHome: I had to venture far to find new reagents.  While my home is pleasant, I can brew a new concoction with these last ingredients.
 				HateBiome: Yikes! This place is so bright, that above all I spite!
 				HateCrowded: I can't deal with this here traffic! Get me out or kick them out, make it quick!
 				HateNPC: "{NPCName} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!"

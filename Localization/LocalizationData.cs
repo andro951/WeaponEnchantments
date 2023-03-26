@@ -32,7 +32,7 @@ namespace WeaponEnchantments.Localization
 		private static SortedDictionary<string, SData> all;
 
 		static CultureName CultureName = CultureName.Unknown;
-		
+
 		public static bool ContainsTextVAlue(string s, CultureName cultureName) {
 			if (cultureName != CultureName)
 				LanguageManager.Instance.SetLanguage((int)cultureName);
@@ -60,7 +60,7 @@ namespace WeaponEnchantments.Localization
 		};
 
 		private static SortedDictionary<string, SData> allData;
-		public static SortedDictionary<string, SData> AllData { 
+		public static SortedDictionary<string, SData> AllData {
 			get {
 				if (allData == null) {
 					allData = new() {
@@ -118,7 +118,7 @@ namespace WeaponEnchantments.Localization
 									{ typeof(BonusCoins).Name, "{0} (Hitting an enemy will increase the number of coins it will drop on death\nbased on damage dealt, enemy max health, enemy base value, and luck.)" },
 									{ typeof(BuffDuration).Name,
 										"{0}\n" +
-										"(Duration is continuously increased while the buff is active, not uppon first gaining the buff.)"
+										"(Duration is continuously increased while the buff is active, not upon first gaining the buff.)"
 									},
 									{ typeof(EnemySpawnRate).Name,
 										"{0}\n" +
@@ -128,20 +128,20 @@ namespace WeaponEnchantments.Localization
 										"(Enemies spawned will be immune to lava/traps)"},
 									{ typeof(FishingEnemySpawnChance).Name, "{0} (Reduced by 5x during the day.  Affected by Chum Caster.  Can also spawn Duke Fishron.)" },
 									{ typeof(GodSlayer).Name, "{0}\n(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)" },
-									{ typeof(LavaFishing).Name, "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other souces.)"},
+									{ typeof(LavaFishing).Name, "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other sources.)"},
 									{ typeof(LifeSteal).Name, "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)" },
 									{ typeof(MinionAttackTarget).Name, "Enemies hit become the minion attack target.  Same effect as whips."},
 									{ typeof(Multishot).Name, "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)" },
 									{ typeof(OneForAll).Name, "{0}\n(Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)" },
 									{ typeof(OnHitSpawnProjectile).Name, "Spawns a projectile when hitting an enemy: {0}"},
 									{ typeof(PrideOfTheWeak).Name, "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)" },
-									{ typeof(QuestFishChance).Name, "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"}
+									{ typeof(QuestFishChance).Name, "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limit.)"}
 								}
 							) },
 							{ L_ID2.EnchantmentCustomTooltips.ToString(), new(dict: new() {
 								{ typeof(WorldAblazeEnchantment).Name.ToEnchantmentTypeName(),
 									 "(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)\n" +
-									"(None shall survive the unstopable flames of Amaterasu)\n" +
+									"(None shall survive the unstoppable flames of Amaterasu)\n" +
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
@@ -179,7 +179,7 @@ namespace WeaponEnchantments.Localization
 								{ $"{DialogueID.StandardDialogue}0", "I've learned this recipe, it's really neat, I'll keep it later for your treat!" },
 								{ $"{DialogueID.StandardDialogue}1", "Why do I talk all the time, it's really hard to make these rhyme!" },
 								{ $"{DialogueID.StandardDialogue}2", "I'm still here, I watch you play, but I can't think of much to say!" },
-								{ $"{DialogueID.BloodMoon}", "I'm truely sorry for my prior behavior. I wasn't at my best back then, and if I came off as rude, I apologize." },
+								{ $"{DialogueID.BloodMoon}", "I'm truly sorry for my prior behavior. I wasn't at my best back then, and if I came off as rude, I apologize." },
 								{ $"{DialogueID.BirthdayParty}", "WHY AM I FORCED TO DRESS PINK?! THIS LOOKS AWFUL, THIS PARTY STINKS!" },
 								{ $"{DialogueID.Storm}", "Hah! Thunder is the best when it comes to creating new magical nonsense! Let the grand witching hour commence!" },
 								{ $"{DialogueID.QueenBee}", "The jungle has the best ingredients for brewing. Too bad a giant buzzy pest is infesting!" },
@@ -199,8 +199,8 @@ namespace WeaponEnchantments.Localization
 								{ $"{DialogueID.Content}", "Life here is bearable. No strife, no drama, it's not so horrible." },
 								{ DialogueID.NoHome.ToString(), "I can't hold all my wares, these are unstable please beware!" },
 								{ DialogueID.LoveSpace.ToString(), "With everyone now gone, finally my experiments can carry on!" },
-								{ DialogueID.FarFromHome.ToString(), "I had to venture far to find new reagants.While my home is pleasant, I can brew a new concoction with these last ingredients." },
-								{ DialogueID.DislikeCrowded.ToString(), "How am I to consentrate with all this noise!" },
+								{ DialogueID.FarFromHome.ToString(), "I had to venture far to find new reagents.  While my home is pleasant, I can brew a new concoction with these last ingredients." },
+								{ DialogueID.DislikeCrowded.ToString(), "How am I to concentrate with all this noise!" },
 								{ DialogueID.HateCrowded.ToString(), "I can't deal with this here traffic! Get me out or kick them out, make it quick!" },
 								{ DialogueID.LikeBiome.ToString(), "This place is full of critters and muck, time to make a quick buck!" },
 								{ DialogueID.LoveBiome.ToString(), "This place reminds me of my old lair. Very grim, very magic, what a flair!" },
@@ -292,7 +292,7 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.individualStrengthsEnabled), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Individual Strengths Enabled" },
-								{ L_ID3.Tooltip.ToString(), "Enabling this will cause the Indvidual strength values selected below to overite all other settings." }
+								{ L_ID3.Tooltip.ToString(), "Enabling this will cause the Individual strength values selected below to override all other settings." }
 							}) },
 							{ nameof(ServerConfig.individualStrengths), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Individual Strengths" },
@@ -305,7 +305,7 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.AffectOnVanillaLifeStealLimmit), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)" },
-								{ L_ID3.Tooltip.ToString(), "Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.\n" +
+								{ L_ID3.Tooltip.ToString(), "Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.\n" +
 													"Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)\n" +
 													"It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.\n" +
 													"The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.\n" +
@@ -346,23 +346,23 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.BossEssenceMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Boss Essence Multiplier(%)" },
-								{ L_ID3.Tooltip.ToString(), "Modify the ammount of essence recieved from bosses." }
+								{ L_ID3.Tooltip.ToString(), "Modify the amount of essence received from bosses." }
 							}) },
 							{ nameof(ServerConfig.EssenceMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Non-Boss Essence Multiplier(%)" },
-								{ L_ID3.Tooltip.ToString(), "Modify the ammount of essence recieved from non-boss enemies." }
+								{ L_ID3.Tooltip.ToString(), "Modify the amount of essence received from non-boss enemies." }
 							}) },
 							{ nameof(ServerConfig.BossExperienceMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Boss Experience Multiplier(%)" },
-								{ L_ID3.Tooltip.ToString(), "Modify the ammount of experience recieved from bosses." }
+								{ L_ID3.Tooltip.ToString(), "Modify the amount of experience received from bosses." }
 							}) },
 							{ nameof(ServerConfig.ExperienceMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Non-Boss Experience Multiplier(%)" },
-								{ L_ID3.Tooltip.ToString(), "Modify the ammount of experience recieved from non-boss enemies." }
+								{ L_ID3.Tooltip.ToString(), "Modify the amount of experience received from non-boss enemies." }
 							}) },
 							{ nameof(ServerConfig.GatheringExperienceMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Gathering Experience Multiplier(%)" },
-								{ L_ID3.Tooltip.ToString(), "Modify the ammount of experience recieved from Mining/chopping/fishing" }
+								{ L_ID3.Tooltip.ToString(), "Modify the amount of experience received from Mining/chopping/fishing" }
 							}) },
 							{ nameof(ServerConfig.EssenceGrabRange), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Essence Grab Range Multiplier" },
@@ -389,8 +389,8 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Tooltip.ToString(), "Does not include wall of flesh." }
 							}) },
 							{ nameof(ServerConfig.AllowHighTierOres), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Recieve ores up to Chlorophyte from Offering items." },
-								{ L_ID3.Tooltip.ToString(), "Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).\n" +
+								{ L_ID3.Label.ToString(), "Receive ores up to Chlorophyte from Offering items." },
+								{ L_ID3.Tooltip.ToString(), "Disabling this option only allows you to receive Iron, Silver, Gold (Or their equivalents based on world gen.).\n" +
 													"(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)" }
 							}) },
 							{ nameof(ServerConfig.EnchantmentSlotsOnWeapons), new(dict: new() {
@@ -406,7 +406,7 @@ namespace WeaponEnchantments.Localization
 													"3rd-5th are normal slots." }
 							}) },
 							{ nameof(ServerConfig.EnchantmentSlotsOnAccessories), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Enchantment Slots On Accissories" },
+								{ L_ID3.Label.ToString(), "Enchantment Slots On Accessories" },
 								{ L_ID3.Tooltip.ToString(), "1st slot is a normal slot.\n" +
 													"2nd slot is the utility slot.\n" +
 													"3rd-5th are normal slots." }
@@ -426,13 +426,13 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.ReduceOfferEfficiencyByTableTier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Reduce Offer Efficiency By Table Tier" },
-								{ L_ID3.Tooltip.ToString(), "When offering items, you recieve essence equivelent to the experience on the item.\n" +
+								{ L_ID3.Tooltip.ToString(), "When offering items, you receive essence equivalent to the experience on the item.\n" +
 													"Enabling this will cause the wood table to be 60% efficient.\n" +
 													"Each table gains 10% efficiency.  100% with Ultimate table." }
 							}) },
 							{ nameof(ServerConfig.ReduceOfferEfficiencyByBaseInfusionPower), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Reduce Offer Efficiency By Base Infusion Power" },
-								{ L_ID3.Tooltip.ToString(), "When offering items, you recieve essence equivelent to the experience on the item.\n" +
+								{ L_ID3.Tooltip.ToString(), "When offering items, you receive essence equivalent to the experience on the item.\n" +
 													"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above)." }
 							}) },
 							{ nameof(ServerConfig.ArmorPenetration), new(dict: new() {
@@ -448,7 +448,7 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.CritPerLevelDisabled), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable Weapon critical strike chance per level" },
-								{ L_ID3.Tooltip.ToString(), "Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier." }
+								{ L_ID3.Tooltip.ToString(), "Weapons gain critical strike chance equal to their level * Global Enchantment Strength Multiplier." }
 							}) },
 							{ nameof(ServerConfig.DamagePerLevelInstead), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Damage instead of critical chance per level" },
@@ -456,7 +456,7 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ServerConfig.DamageReductionPerLevelDisabled), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable armor and accessory damage reduction per level" },
-								{ L_ID3.Tooltip.ToString(), "Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty." }
+								{ L_ID3.Tooltip.ToString(), "Armor and accessories gain damage reduction equal to their level * the appropriate setpoint below for the world difficulty." }
 							}) },
 							{ nameof(ServerConfig.CalculateDamageReductionBeforeDefense), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Calculate Damage Reduction before player defense" },
@@ -468,7 +468,7 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ServerConfig.AllowCriticalChancePast100), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Critical hit chance effective over 100% chance" },
 								{ L_ID3.Tooltip.ToString(), "Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.\n" +
-													"120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info." }
+													"120% critical chance is 100% to double the damage then 20% chance to crit to increase the damage.  See the next config option for more info." }
 							}) },
 							{ nameof(ServerConfig.MultiplicativeCriticalHits), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Multiplicative critical hits past the first." },
@@ -484,11 +484,11 @@ namespace WeaponEnchantments.Localization
 													"Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons." }
 							}) },
 							{ nameof(ServerConfig.DisableArmorInfusion), new(dict: new() {
-								{ L_ID3.Tooltip.ToString(), "This will prevent you from infusing armor items and will ignore infused set bonues." }
+								{ L_ID3.Tooltip.ToString(), "This will prevent you from infusing armor items and will ignore infused set bonuses." }
 							}) },
 							{ nameof(ServerConfig.MinionLifeStealMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Minion Life Steal Multiplier (%)" },
-								{ L_ID3.Tooltip.ToString(), "Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment." }
+								{ L_ID3.Tooltip.ToString(), "Allows you to reduce the amount of healing received by minions with the Lifesteal Enchantment." }
 							}) },
 							{ nameof(ServerConfig.DCUStart), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Start with a Drill Containment Unit" },
@@ -557,7 +557,7 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
 								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to: \n" +
-													"\"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time.\"" }
+													"\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"" }
 							}) },
 							{ nameof(ClientConfig.OnlyShowErrorMessagesInChatOnce), new(dict: new() {
 								{ L_ID3.Label.ToString(), "OnlyShowErrorMessagesInChatOnce" },
@@ -619,29 +619,29 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(PresetData.GlobalEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Global Enchantment Strength Multiplier (%)" },
-								{ L_ID3.Tooltip.ToString(), "Adjusts all enchantment strengths based on recomended enchantment changes.\n" +
+								{ L_ID3.Tooltip.ToString(), "Adjusts all enchantment strengths based on recommended enchantment changes.\n" +
 													"Uses the same calculations as the presets but allows you to pick a different number.\n" +
-													"preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)" }
+													"preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overrides Preset)" }
 							}) },
 							{ nameof(PresetData.BasicEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Basic" },
-								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Basic Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) },
 							{ nameof(PresetData.CommonEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Common" },
-								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Common Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) },
 							{ nameof(PresetData.RareEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Rare" },
-								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Rare Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) },
 							{ nameof(PresetData.EpicEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Epic" },
-								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Epic Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) },
 							{ nameof(PresetData.LegendaryEnchantmentStrengthMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Legendary" },
-								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
+								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Legendary Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) }
 							}, dict: new() {
 								{ "ServerConfig", "Server Config" },
@@ -725,7 +725,7 @@ namespace WeaponEnchantments.Localization
 
 					string damageClassKey = L_ID2.DamageClassNames.ToString();
 					List<string> ignoredNames = new() { DamageClassID.Default.ToString(), DamageClassID.MeleeNoSpeed.ToString(), DamageClassID.MagicSummonHybrid.ToString() };
-					foreach(string damageClassName in Enum.GetNames(typeof(DamageClassID)).Where(n => !ignoredNames.Contains(n))) {
+					foreach (string damageClassName in Enum.GetNames(typeof(DamageClassID)).Where(n => !ignoredNames.Contains(n))) {
 						allData[tooltipKey].Children[damageClassKey].Values.Add(damageClassName);
 					}
 
@@ -777,7 +777,7 @@ namespace WeaponEnchantments.Localization
 				}
 
 				return allData;
-			} 
+			}
 		}
 
 		private static List<string> changedData;
@@ -979,7 +979,8 @@ namespace WeaponEnchantments.Localization
 			},
 		};
 	}
-	public class SData {
+	public class SData
+	{
 		public List<string> Values;
 		public SortedDictionary<string, string> Dict;
 		public SortedDictionary<string, SData> Children;
