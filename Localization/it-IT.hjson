@@ -402,11 +402,11 @@ Mods: {
 			}
 			AlwaysDisplayAccessoryLevelUpMessages: {
 				Label: Always Display Accessory Level Up Messages
-				Tooltip: Only displays accessory level up messages when using the enchanting tabl if this option is off.
+				Tooltip: Only displays accessory level up messages when using the enchanting table if this option is off.
 			}
 			AlwaysDisplayArmorLevelUpMessages: {
 				Label: Always Display Armor Level Up Messages
-				Tooltip: Only displays armor level up messages when using the enchanting tabl if this option is off.
+				Tooltip: Only displays armor level up messages when using the enchanting table if this option is off.
 			}
 			AlwaysDisplayInfusionPower: {
 				Label: Always display Infusion Power
@@ -414,11 +414,11 @@ Mods: {
 			}
 			AlwaysDisplayToolLevelUpMessages: {
 				Label: Always Display Tool Level Up Messages
-				Tooltip: Only displays tool level up messages when using the enchanting tabl if this option is off.
+				Tooltip: Only displays tool level up messages when using the enchanting table if this option is off.
 			}
 			AlwaysDisplayWeaponLevelUpMessages: {
 				Label: Always Display Weapon Level Up Messages
-				Tooltip: Only displays weapon level up messages when using the enchanting tabl if this option is off.
+				Tooltip: Only displays weapon level up messages when using the enchanting table if this option is off.
 			}
 			AlwaysOverrideDamageType: {
 				Label: Damage type converting enchantments always override.
@@ -538,8 +538,8 @@ Mods: {
 				Label: Disable All Error Messages In Chat
 				Tooltip: 
 					'''
-					Prevents messages showing up in your chat that ask you to: 
-					"Please report this to andro951(Weapon Enchantments) allong with a description of what you were doing at the time."
+					Prevents messages showing up in your chat that ask you to 
+					"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time."
 					'''
 			}
 			DisableArmorInfusion: {

@@ -663,12 +663,12 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Level up message
-            if (levelBeforeBooster > currentLevel && wePlayer.usingEnchantingTable && (
+            if (levelBeforeBooster > currentLevel && (wePlayer.usingEnchantingTable || (
                     IsWeaponItem(item) && WEMod.clientConfig.AlwaysDisplayWeaponLevelUpMessages || 
                     IsArmorItem(item) && WEMod.clientConfig.AlwaysDisplayArmorLevelUpMessages ||
                     IsAccessoryItem(item) && WEMod.clientConfig.AlwaysDisplayAccessoryLevelUpMessages ||
-                    IsTool(item) && WEMod.clientConfig.AlwaysDisplayToolLevelUpMessages)) {
-                if(levelBeforeBooster >= MAX_Level) {
+                    (IsTool(item) || IsFishingRod(item)) && WEMod.clientConfig.AlwaysDisplayToolLevelUpMessages))) {
+                if (levelBeforeBooster >= MAX_Level) {
                     SoundEngine.PlaySound(SoundID.Unlock);
                     Main.NewText($"Congratulations!  {wePlayer.Player.name}'s {item.Name} reached the maximum level, " +
 						$"{levelBeforeBooster} ({WEModSystem.levelXps[levelBeforeBooster - 1]} xp).");

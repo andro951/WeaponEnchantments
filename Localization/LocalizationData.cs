@@ -556,7 +556,7 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
-								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to: \n" +
+								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to \n" +
 													"\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"" }
 							}) },
 							{ nameof(ClientConfig.OnlyShowErrorMessagesInChatOnce), new(dict: new() {
