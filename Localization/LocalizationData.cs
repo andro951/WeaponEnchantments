@@ -538,6 +538,22 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Tooltip.ToString(), "Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.\n" +
 													"This displays the damage against a 0 armor enemy." }
 							}) },
+							{ nameof(ClientConfig.AlwaysDisplayWeaponLevelUpMessages), new(dict: new() {
+								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayWeaponLevelUpMessages).AddSpaces() },
+								{ L_ID3.Tooltip.ToString(), "Only displays weapon level up messages when using the enchanting table if this option is off." }
+							}) },
+							{ nameof(ClientConfig.AlwaysDisplayArmorLevelUpMessages), new(dict: new() {
+								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayArmorLevelUpMessages).AddSpaces() },
+								{ L_ID3.Tooltip.ToString(), "Only displays armor level up messages when using the enchanting table if this option is off." }
+							}) },
+							{ nameof(ClientConfig.AlwaysDisplayAccessoryLevelUpMessages), new(dict: new() {
+								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayAccessoryLevelUpMessages).AddSpaces() },
+								{ L_ID3.Tooltip.ToString(), "Only displays accessory level up messages when using the enchanting table if this option is off." }
+							}) },
+							{ nameof(ClientConfig.AlwaysDisplayToolLevelUpMessages), new(dict: new() {
+								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayToolLevelUpMessages).AddSpaces() },
+								{ L_ID3.Tooltip.ToString(), "Only displays tool level up messages when using the enchanting table if this option is off." }
+							}) },
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
 								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to: \n" +

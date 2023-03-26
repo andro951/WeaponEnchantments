@@ -375,6 +375,26 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(true)]
 		public bool DisplayApproximateWeaponDamageTooltip;
 
+		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip")]
+		[DefaultValue(false)]
+		public bool AlwaysDisplayWeaponLevelUpMessages;
+
+		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip")]
+		[DefaultValue(false)]
+		public bool AlwaysDisplayArmorLevelUpMessages;
+
+		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip")]
+		[DefaultValue(false)]
+		public bool AlwaysDisplayAccessoryLevelUpMessages;
+
+		[Label("$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip")]
+		[DefaultValue(false)]
+		public bool AlwaysDisplayToolLevelUpMessages;
+
 		//Error messages
 		[Header("$Mods.WeaponEnchantments.Config.ErrorMessages")]
 		[Label("$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label")]

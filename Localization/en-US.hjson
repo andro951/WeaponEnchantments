@@ -400,9 +400,25 @@ Mods: {
 			AllowShiftClickMoveFavoritedItems: {
 				Label: Allow shift click to move favorited items into the enchanting table.
 			}
+			AlwaysDisplayAccessoryLevelUpMessages: {
+				Label: Always Display Accessory Level Up Messages
+				Tooltip: Only displays accessory level up messages when using the enchanting tabl if this option is off.
+			}
+			AlwaysDisplayArmorLevelUpMessages: {
+				Label: Always Display Armor Level Up Messages
+				Tooltip: Only displays armor level up messages when using the enchanting tabl if this option is off.
+			}
 			AlwaysDisplayInfusionPower: {
 				Label: Always display Infusion Power
 				Tooltip: Enable to display item's Infusion Power always instead of just when the enchanting table is open.
+			}
+			AlwaysDisplayToolLevelUpMessages: {
+				Label: Always Display Tool Level Up Messages
+				Tooltip: Only displays tool level up messages when using the enchanting tabl if this option is off.
+			}
+			AlwaysDisplayWeaponLevelUpMessages: {
+				Label: Always Display Weapon Level Up Messages
+				Tooltip: Only displays weapon level up messages when using the enchanting tabl if this option is off.
 			}
 			AlwaysOverrideDamageType: {
 				Label: Damage type converting enchantments always override.
@@ -1113,7 +1129,7 @@ Mods: {
 				WorldAblaze: 
 					'''
 					(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)
-					(None shall survive the unstopable flames of Amaterasu)
+					(None shall survive the unstoppable flames of Amaterasu)
 					(Inflict a unique fire debuff to enemies that never stops)
 					(The damage from the debuff grows over time and from dealing more damage to the target)
 					(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)
@@ -1160,7 +1176,7 @@ Mods: {
 					'''
 				OnHitSpawnProjectile: "Spawns a projectile when hitting an enemy: {0}"
 				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
-				QuestFishChance: "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limmit.)"
+				QuestFishChance: "{0} (Quest fish caught will be automatically turned in and start a new quest, bypassing the 1 per day limit.)"
 				BoolEffect: {
 					Enabled: "{0}: Enabled"
 					Prevented: "{0}: Prevented"

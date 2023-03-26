@@ -400,9 +400,25 @@ Mods: {
 			AllowShiftClickMoveFavoritedItems: {
 				Label: Allow shift click to move favorited items into the enchanting table.
 			}
+			AlwaysDisplayAccessoryLevelUpMessages: {
+				Label: Always Display Accessory Level Up Messages
+				Tooltip: Only displays accessory level up messages when using the enchanting tabl if this option is off.
+			}
+			AlwaysDisplayArmorLevelUpMessages: {
+				Label: Always Display Armor Level Up Messages
+				Tooltip: Only displays armor level up messages when using the enchanting tabl if this option is off.
+			}
 			AlwaysDisplayInfusionPower: {
 				Label: Always display Infusion Power
 				Tooltip: Enable to display item's Infusion Power always instead of just when the enchanting table is open.
+			}
+			AlwaysDisplayToolLevelUpMessages: {
+				Label: Always Display Tool Level Up Messages
+				Tooltip: Only displays tool level up messages when using the enchanting tabl if this option is off.
+			}
+			AlwaysDisplayWeaponLevelUpMessages: {
+				Label: Always Display Weapon Level Up Messages
+				Tooltip: Only displays weapon level up messages when using the enchanting tabl if this option is off.
 			}
 			AlwaysOverrideDamageType: {
 				Label: Damage type converting enchantments always override.
