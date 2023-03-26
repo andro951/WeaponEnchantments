@@ -154,8 +154,8 @@ namespace WeaponEnchantments.Common.Utility
         public static string DictionaryOfItemLists<T>(this IEnumerable<KeyValuePair<T, SortedSet<int>>> dict, string name, ToStringDelegate<T> toString, string typeStringOverride = null, int tabs = 2) =>
             $"{(dict.SelectMany(p => p.Value).Where(i => i < ItemID.Count).Any() ? dict.Where(p => p.Value.Where(i => i < ItemID.Count).Any()).Select(p => $"{toString(p.Key)}, {p.Value.Where(i => i < ItemID.Count).Select(i => i.GetItemIDName()).JoinList(", ")}".Brackets()).S($"SortedDictionary<{typeStringOverride ?? typeof(T).Name}, SortedSet<int>> {name}Types = new()", tabs) : "")}" +
 			$"{(dict.SelectMany(p => p.Value).Where(i => i >= ItemID.Count).Any() ? dict.Where(p => p.Value.Where(i => i >= ItemID.Count).Any()).Select(p => $"{toString(p.Key)}, {p.Value.Where(i => i >= ItemID.Count).Select(i => i.GetItemNameString()).JoinList(", ")}".Brackets()).S($"SortedDictionary<{typeStringOverride ?? typeof(T).Name}, SortedSet<string>> Mod{name}Names = new()", tabs) : "")}";
-		public static string Brackets(this string s) => "{ " + s + " }";
-        public static string Quotes(this string s) => "\"" + s + "\"";
+		public static string Brackets(this string s, bool spaces = true) => "{" + (spaces ? " " : "") + s + (spaces ? " " : "") + " }";
+		public static string Quotes(this string s) => "\"" + s + "\"";
         public static string GetItemIDName(this int itemType) => ItemID.Search.TryGetName(itemType, out string name) ? $"ItemID.{name}" : $"FailedToFindItemName{itemType}";
         public static string GetNPCIDName(this int netId) => NPCID.Search.TryGetName(netId, out string name) ? $"NPCID.{name}" : $"FailedToFindNPCName{netId}";
         public static string GetItemNameString(this int itemType) => ContentSamples.ItemsByType[itemType].ModFullName().Quotes();
