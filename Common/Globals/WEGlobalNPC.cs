@@ -109,7 +109,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
 
-            //if (Debugger.IsAttached) $"{BossInfos.OrderBy(i => i.Value.progression).Select(i => $"Key: {i.Key}, internalName: {i.Value.internalName}, progression: {i.Value.progression}, netIDs: {i.Value.npcIDs.StringList(netID => netID.GetNPCIDOrName())}").S("BossChecklist BossInfos")}".LogSimple();
+            if (Debugger.IsAttached) $"{BossInfos.OrderBy(i => i.Value.progression).Select(i => $"Key: {i.Key}, internalName: {i.Value.internalName}, progression: {i.Value.progression}, netIDs: {i.Value.npcIDs.StringList(netID => netID.GetNPCIDOrName())}").S("BossChecklist BossInfos")}".LogSimple();
 
             UsedBossChecklistForBossPowerBoosterDrops = true;
 		}

@@ -49,7 +49,7 @@ namespace WeaponEnchantments.ModIntegration
 						collection = boss.Value.ContainsKey("collection") ? boss.Value["collection"] as List<int> : new List<int>(),
 					}));
 
-					BossInfoNetIDKeys = new(bossInfos.Where(boss => boss.Value.isBoss || boss.Value.isMiniboss).ToDictionary(boss => boss.Value.npcIDs.First(), boss => boss.Key));
+					BossInfoNetIDKeys = new(bossInfos.Where(boss => boss.Value.isBoss || boss.Value.isMiniboss).Where(boss => boss.Value.npcIDs.Count > 0).ToDictionary(boss => boss.Value.npcIDs.First(), boss => boss.Key));
 					return true;
 				}
 			}

@@ -291,6 +291,17 @@ namespace WeaponEnchantments.Common
 		ThoriumOre,
 		Viscount,
 		//Thorium
+
+		//Fargos Souls
+		TrojanSquirrel,
+		AbomBoss,
+		DeviBoss,
+		CosmosChampion,
+		MutantBoss,
+		LieFlight,
+		FargosUnobtainableItems,
+		Energizers,
+		//Fargos Souls
 	}
 	public struct ItemSource {
 		public ItemSource(int resultItem, ItemSourceType itemSourceType, int sourceItem) {
@@ -401,7 +412,8 @@ namespace WeaponEnchantments.Common
 			parentID = parent;
 			ID = id;
 			infusionPower = InfusionPower;
-			bossNetIDs = GetBossType(id);
+			BossNetIDs = GetBossType(id);
+			NpcTypes = new(BossNetIDs);
 			if (ignoredItemTypes != null)
 				addedItems = new(ignoredItemTypes);
 
@@ -448,7 +460,7 @@ namespace WeaponEnchantments.Common
 				}
 			}
 		}
-		SortedSet<int> bossNetIDs;
+		public SortedSet<int> BossNetIDs { get; private set; }
 		public SortedSet<int> ItemTypes { get; private set; } = new();
 		public SortedSet<int> NpcTypes { get; private set; } = new();
 		public SortedSet<ChestID> Chests { get; private set; } = new();
@@ -871,10 +883,27 @@ namespace WeaponEnchantments.Common
 						case ProgressionGroupID.Viscount:
 							bossName = "ThoriumMod/Viscount";
 							break;
-							/*
-						case ProgressionGroupID.:
-							bossName = "";
+
+						//Fargos Souls
+						case ProgressionGroupID.TrojanSquirrel:
+							bossName = "FargowiltasSouls/TrojanSquirrel";
 							break;
+						case ProgressionGroupID.AbomBoss:
+							bossName = "FargowiltasSouls/AbomBoss";
+							break;
+						case ProgressionGroupID.DeviBoss:
+							bossName = "FargowiltasSouls/DeviBoss";
+							break;
+						case ProgressionGroupID.CosmosChampion:
+							bossName = "FargowiltasSouls/CosmosChampion";
+							break;
+						case ProgressionGroupID.MutantBoss:
+							bossName = "FargowiltasSouls/MutantBoss";
+							break;
+						case ProgressionGroupID.LieFlight:
+							bossName = "FargowiltasSouls/LifeChallenger";
+							break;
+							/*
 						case ProgressionGroupID.:
 							bossName = "";
 							break;
@@ -894,10 +923,10 @@ namespace WeaponEnchantments.Common
 		}
 		public bool TryGetBossType(out SortedSet<int> type) {
 			type = null;
-			if (bossNetIDs.Count <= 0)
+			if (BossNetIDs.Count <= 0)
 				return false;
 
-			type = bossNetIDs;
+			type = BossNetIDs;
 			return true;
 		}
 		public bool TryGetLootBagFromBoss(out SortedSet<int> lootItemTypes) {
@@ -1294,7 +1323,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Shuriken,
 					ItemID.Sickle,
 					ItemID.ThrowingKnife,
-					ItemID.Cardinal
+					ItemID.Cardinal,
+					ItemID.Squirrel
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.ForestPreHardModeNight, 20,
 				itemTypes: new SortedSet<int>() {
@@ -1306,7 +1336,8 @@ namespace WeaponEnchantments.Common
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.GiantTree, 20,
 				itemTypes: new SortedSet<int>() {
-					ItemID.BabyBirdStaff
+					ItemID.BabyBirdStaff,
+					ItemID.LivingLoom
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.NormalChest, 20,
 				itemTypes: new SortedSet<int>() {
@@ -1519,7 +1550,9 @@ namespace WeaponEnchantments.Common
 					ItemID.FrostDaggerfish,
 					ItemID.Rockfish,
 					ItemID.ReaverShark,
-					ItemID.SawtoothShark
+					ItemID.SawtoothShark,
+					ItemID.ZephyrFish,
+					ItemID.GoldenFishingRod
 				},
 				lootItemTypes: new SortedSet<int>() {
 					ItemID.IronCrate,
@@ -1535,7 +1568,9 @@ namespace WeaponEnchantments.Common
 					ItemID.HoneyBlock,
 					ItemID.JungleRose,
 					ItemID.NaturesGift,
-					ItemID.FeralClaws
+					ItemID.FeralClaws,
+					ItemID.HoneyBucket,
+					ItemID.HoneyDispenser
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Hornet,
@@ -1692,7 +1727,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Flamelash,
 					ItemID.DarkLance,
 					ItemID.HellwingBow,
-					ItemID.TreasureMagnet
+					ItemID.TreasureMagnet,
+					ItemID.BoneWelder
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.Deer, 380));
 			AddProgressionGroup(new(ProgressionGroupID.HardMode, 400,
@@ -1721,7 +1757,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Gradient,//Skeleton Merchant
 					ItemID.FormatC,//Skeleton Merchant
 					ItemID.ExplosivePowder,//Demolitionist
-					ItemID.CowboyHat//Clothier
+					ItemID.CowboyHat,//Clothier
+					ItemID.GoldDust//Merchant
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.HardModeUnderground, 10, ProgressionGroupID.HardMode,
 				itemTypes: new SortedSet<int>() {
@@ -1749,7 +1786,8 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.HardModeFishing, 420,
 				itemTypes: new SortedSet<int>() {
 					ItemID.Anchor,
-					ItemID.ObsidianSwordfish
+					ItemID.ObsidianSwordfish,
+					ItemID.ScalyTruffle
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.HardModeNight, 430));
 			AddProgressionGroup(new(ProgressionGroupID.CobaltOre, 430,
@@ -1890,6 +1928,10 @@ namespace WeaponEnchantments.Common
 					ItemID.MushroomSpear,//Truffle
 					ItemID.Hammush,//Truffle
 					ItemID.Cog,//SteamPunker
+					ItemID.BlendOMatic,//SteamPunker
+					ItemID.FleshCloningVaat,//SteamPunker
+					ItemID.SteampunkBoiler,//SteamPunker
+					ItemID.LesionStation,//SteamPunker
 					ItemID.Code2//Traveling Merchant
 				},
 				npcTypes: new SortedSet<int>() {
@@ -1919,7 +1961,8 @@ namespace WeaponEnchantments.Common
 					ItemID.Nanites,//Cyborg
 					ItemID.ProximityMineLauncher,//Cyborg
 					ItemID.VialofVenom,
-					ItemID.RocketIV
+					ItemID.RocketIV,
+					ItemID.LihzahrdFurnace
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Princess
@@ -3001,7 +3044,29 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (WEMod.fargosSoulsEnabled) {
-
+				AddProgressionGroup(new(ProgressionGroupID.Energizers, 1000,
+					itemTypes:
+						ContentSamples.ItemsByType.Where(p => p.Value.type > ItemID.Count && p.Value.ModItem?.Mod.Name == "Fargowiltas" && p.Value.Name.Contains("Energizer")).Select(p => p.Value.type)
+					));
+				AddProgressionGroup(new(ProgressionGroupID.TrojanSquirrel, 70));
+				AddProgressionGroup(new(ProgressionGroupID.FargosUnobtainableItems, 200,
+					itemNames: new SortedSet<string>() {
+						"FargowiltasSouls/SpiritLongbow"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.DeviBoss, 395));
+				AddProgressionGroup(new(ProgressionGroupID.LieFlight, 650));
+				AddProgressionGroup(new(ProgressionGroupID.CosmosChampion, 1120));
+				AddProgressionGroup(new(ProgressionGroupID.AbomBoss, 1330,
+					itemNames: new SortedSet<string>() {
+						"FargowiltasSouls/StaffOfUnleashedOcean",
+						"FargowiltasSouls/BrokenHilt"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.MutantBoss, 1700,
+					itemNames: new SortedSet<string>() {
+						"FargowiltasSouls/BrokenBlade",
+						"FargowiltasSouls/PhantasmalEnergy",
+						"FargowiltasSouls/EternalEnergy"
+					}));
 			}
 
 			if (WEMod.avaliRaceEnabled) {
@@ -3040,9 +3105,9 @@ namespace WeaponEnchantments.Common
 							//else if (Debugger.IsAttached) $"ItemInfusionPowers already contains {itemType.CSI().S()}. Skipped drop from {npc.S()}".LogSimple();
 						}
 
-						if (Debugger.IsAttached && !added) $"Detected an npc in a Progression group that has no unique weapons or ingredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
+						if (Debugger.IsAttached && !added && netID > NPCID.Count && !progressionGroup.BossNetIDs.Contains(netID)) $"Detected an npc in a Progression group that has no unique weapons or ingredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 					}
-					else if (Debugger.IsAttached) $"Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
+					else if (Debugger.IsAttached && netID > NPCID.Count) $"Detected an npc in a Progression group that is not in NPCsThatDropWeaponsOrIngredients.  {netID.CSNPC().S()}, {progressionGroup.ID}".LogSimple();
 				}
 			}
 

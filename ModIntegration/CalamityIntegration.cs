@@ -42,10 +42,12 @@ namespace WeaponEnchantments.ModIntegration
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public void HandleOnTickEvents() {
 			//Need to add a way to handle item.value (bool pauseAddingItemValue in EnchantedItem?)
+			if (Main.LocalPlayer.talkNPC < 0)
+				return;
 
 			//Check if talking to NPC
-			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].FullName() : "";
-			if (npcTalking != "Calamitas the Brimstone Witch") {
+			string npcTalking = Main.LocalPlayer.talkNPC != -1 ? Main.npc[Main.LocalPlayer.talkNPC].ModFullName() : "";
+			if (npcTalking != "CalamityMod/WITCH") {
 				//Clear cloned item list after timer expires
 				if (mouseItemClones.Count > 0) {
 					if (closeInventoryTimerEnd == 0) {

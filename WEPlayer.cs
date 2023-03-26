@@ -888,7 +888,7 @@ namespace WeaponEnchantments
             //Called from WEMod detours
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.FullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
 
             #endregion
 
@@ -924,7 +924,7 @@ namespace WeaponEnchantments
             #region Debug
 
             debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.FullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
 
             #endregion
         }
@@ -1159,7 +1159,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.FullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
+            if (LogMethods.debugging) ($"\\/ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit})").Log();
 
             #endregion
 
@@ -1239,7 +1239,7 @@ namespace WeaponEnchantments
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.FullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log();
+            if (LogMethods.debugging) ($"/\\ActivateOneForAll(npc: {target.ModFullName()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}) total: {total}").Log();
 
             #endregion
 

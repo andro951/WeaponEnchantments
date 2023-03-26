@@ -12,8 +12,7 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
-        //public static bool modBossBagIntegrationSetup = false;
-        public static bool printNPCNameOnHitForBossBagSupport => true && Debugger.IsAttached;
+        public static bool printNPCNameOnHitForBossBagSupport => false && Debugger.IsAttached;
         private static SortedDictionary<string, (string, float)> manuallySetModBossBags = null;
 		public static SortedDictionary<string, (string, float)> ManuallySetModBossBags {
             get {
@@ -107,6 +106,8 @@ namespace WeaponEnchantments.Common.Globals
                     //if (Debugger.IsAttached && !addedToBossBagNPCs) $"{netID.CSNPC().S()} already in bossBagNPCs.  New: {bossBagType}, current: {bossBagNPCs[netID]}".LogSimple();
 				}
             }
+
+            if (Debugger.IsAttached) bossBagNPCs.Select(p => $"{p.Key.GetNPCIDOrName()} : {p.Value.GetItemIDOrName()}").S("bossBagNPCs").LogSimple();
         }
 	}
 }

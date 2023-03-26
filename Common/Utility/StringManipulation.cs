@@ -54,7 +54,7 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}, netID: {npc.netID}{(npc.type >= NPCID.Count ? $" name: {npc.FullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
+        public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}, netID: {npc.netID}{(npc.type >= NPCID.Count ? $" name: {npc.ModFullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
 
         /// <summary>
         /// Convert to a string
