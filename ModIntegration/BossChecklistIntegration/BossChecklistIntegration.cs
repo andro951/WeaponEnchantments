@@ -49,7 +49,23 @@ namespace WeaponEnchantments.ModIntegration
 						collection = boss.Value.ContainsKey("collection") ? boss.Value["collection"] as List<int> : new List<int>(),
 					}));
 
-					BossInfoNetIDKeys = new(bossInfos.Where(boss => boss.Value.isBoss || boss.Value.isMiniboss).Where(boss => boss.Value.npcIDs.Count > 0).ToDictionary(boss => boss.Value.npcIDs.First(), boss => boss.Key));
+					BossInfoNetIDKeys = new();
+					foreach (var bossInfo in bossInfos.Where(boss => boss.Value.isBoss || boss.Value.isMiniboss)) {
+						List<int> npcIDs = bossInfo.Value.npcIDs;
+						if (npcIDs.Count < 1) {
+							$"Skipping bossInfo, npcIDs.Count < 1: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}".LogSimple();
+							continue;
+						}
+
+						int netID = npcIDs.First();
+						bool added = BossInfoNetIDKeys.TryAdd(netID, bossInfo.Key);
+						if (!added) {
+							string currentKey = BossInfoNetIDKeys[netID];
+							BossChecklistBossInfo currentInfo = bossInfos[currentKey];
+							$"bossInfo netID already exists new: {bossInfo.Key}, {bossInfo.Value.internalName}, {bossInfo.Value.progression}\ncurrent: {currentKey}, {currentInfo.internalName}, {currentInfo.progression}".LogSimple();
+						}
+					}
+
 					return true;
 				}
 			}
