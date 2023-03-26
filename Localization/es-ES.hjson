@@ -237,11 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Encantamiento de Ladrón de monedas Épico
 			PennyPinchingEnchantmentLegendary: Encantamiento de Ladrón de monedas Legendario
 			PennyPinchingEnchantmentRare: Encantamiento de Ladrón de monedas Raro
-			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
-			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
-			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
-			PrideOfTheWeakEnchantmentLegendary: Pride Of The Weak Enchantment Legendary
-			PrideOfTheWeakEnchantmentRare: Pride Of The Weak Enchantment Rare
+			PrideOfTheWeakEnchantmentBasic: Orgullo de los débiles Encantamiento básico
+			PrideOfTheWeakEnchantmentCommon: Orgullo de los débiles Encantamiento Común
+			PrideOfTheWeakEnchantmentEpic: Orgullo de los débiles Encantamiento épico
+			PrideOfTheWeakEnchantmentLegendary: Orgullo de los débiles Encantamiento Legendario
+			PrideOfTheWeakEnchantmentRare: Orgullo de los débiles Encantamiento raro
 			ProjectileVelocityEnchantmentBasic: Encantamiento de velocidad de proyectil Básico
 			ProjectileVelocityEnchantmentCommon: Encantamiento de velocidad de proyectil Común
 			ProjectileVelocityEnchantmentEpic: Encantamiento de velocidad de proyectil Épico
@@ -262,11 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Encantamiento de cambio a clase pícaro Épico
 			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio a clase pícaro Legendario
 			RogueClassSwapEnchantmentRare: Encantamiento de cambio a clase de pícaro Raro
-			ShineEnchantmentBasic: Shine Enchantment Basic
-			ShineEnchantmentCommon: Shine Enchantment Common
-			ShineEnchantmentEpic: Shine Enchantment Epic
-			ShineEnchantmentLegendary: Shine Enchantment Legendary
-			ShineEnchantmentRare: Shine Enchantment Rare
+			ShineEnchantmentBasic: Brillo Encantamiento Básico
+			ShineEnchantmentCommon: Shine Encantamiento Común
+			ShineEnchantmentEpic: Epopeya de encantamiento brillante
+			ShineEnchantmentLegendary: Shine Encantamiento Legendario
+			ShineEnchantmentRare: Shine Encantamiento Raro
 			SizeEnchantmentBasic: Encantamiento de tamaño Básico
 			SizeEnchantmentCommon: Encantamiento de tamaño Común
 			SizeEnchantmentEpic: Encantamiento de tamaño Épico
@@ -328,6 +328,11 @@ Mods: {
 		}
 		Bestiary: {
 			Witch: La Bruja es una dama fea y malvada y se ocupa de otras cosas malvadas. Comercia con materiales dudosos utilizados para mejorar equipos con efectos misteriosos.
+		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: Fortalezas individuales habilitadas
+			}
 		}
 		Dialogue: {
 			Witch: {
@@ -584,13 +589,13 @@ Mods: {
 				OnHitSpawnProjectile: Proyectil de engendro al golpear
 				Peace: Paz
 				PennyPinching: Ladrón de Monedas
-				PrideOfTheWeak: Pride Of The Weak
+				PrideOfTheWeak: Orgullo de los débiles
 				ProjectileVelocity: Velocidad del proyectil
 				QuestFishChance: Probabilidad de Pescado de Misión
 				RangedClassSwap: Intercambio de clase a distancia
 				ReducedManaUsage: Uso de maná reducido
 				RogueClassSwap: Cambio de clase a pícaro
-				Shine: Shine
+				Shine: Brillar
 				Size: Tamaño
 				SolarDash: Embestida solar
 				Sonar: Sonar
@@ -659,7 +664,7 @@ Mods: {
 					(Solo se activa con el primer impacto de un proyectil).
 					'''
 				OnHitSpawnProjectile: "Genera un proyectil al golpear a un enemigo: {0}"
-				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
+				PrideOfTheWeak: "{0} Aumenta el daño infligido por armas débiles. (100 % efectivo con 0 de poder de infusión. 0 % efectivo con 500 de poder de infusión)."
 				QuestFishChance: "{0} (Los peces de la misión capturados se entregarán automáticamente y se iniciará una nueva misión, superando el límite de 1 por día)."
 				BoolEffect: {
 					Enabled: "{0}: Habilitado"

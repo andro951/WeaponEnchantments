@@ -20,7 +20,7 @@ namespace WeaponEnchantments.Localization
 {
 	public class LocalizationData
 	{
-		public static SortedDictionary<string, SData> All { 
+		public static SortedDictionary<string, SData> All {
 			get {
 				if (all == null)
 					all = AllData;
@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Localization
 			{ CultureName.Polish , "(Google Translated.  No contribuions yet)" },
 			{ CultureName.Portuguese , "Contributors: @Ninguém#8017, @pedro_123444#8294" },
 			{ CultureName.Russian , "Contributed by @4sent4" },
-			{ CultureName.Chinese , "Contributed by @An unilolusiality  (All others Google Translated.  Needs review)" }
+			{ CultureName.Chinese , "1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality" }
 		};
 
 		private static SortedDictionary<string, SData> allData;
@@ -281,8 +281,12 @@ namespace WeaponEnchantments.Localization
 								{ $"{TableTextID.enchantment4}", "Requires {0} or Better to use this slot." },
 								{ $"{TableTextID.utility0}", "Only utility Enchantments can go here." },
 								{ $"{TableTextID.essence0}", "Place {0} here." },
-							}
-						) }
+						}) },
+						{ L_ID1.Config.ToString(), new(children: new() {
+							{ nameof(WEMod.serverConfig.individualStrengthsEnabled), new(dict: new() {
+								{ L_ID3.Label.ToString(), "Individual Strengths Enabled" }
+							}) }
+						}) }
 					};
 
 					IEnumerable<Type> types = null;

@@ -329,6 +329,11 @@ Mods: {
 		Bestiary: {
 			Witch: La strega è una donna brutta e malvagia e si occupa di altre cose malvagie. Commercia materiali dubbi utilizzati per migliorare l'equipaggiamento con effetti misteriosi.
 		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: Punti di forza individuali abilitati
+			}
+		}
 		Dialogue: {
 			Witch: {
 				BirthdayParty: PERCHE' SONO COSTRETTA A VESTIRE DI ROSA?! QUESTO Sembra orribile, QUESTA FESTA PUZZA!

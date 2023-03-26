@@ -1,4 +1,4 @@
-#Contributed by 1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality
+#Contributed by @An unilolusiality  (All others Google Translated.  Needs review)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -328,6 +328,11 @@ Mods: {
 		}
 		Bestiary: {
 			Witch: 女巫是一位丑陋而邪恶的女士，从事更多邪恶的事情。她买卖可疑的材料，用于改进具有神秘效果的设备。
+		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: 启用个人优势
+			}
 		}
 		Dialogue: {
 			Witch: {

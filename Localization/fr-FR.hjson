@@ -237,11 +237,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantement épique
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantement Légendaire
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantement Rare
-			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
-			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
-			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
-			PrideOfTheWeakEnchantmentLegendary: Pride Of The Weak Enchantment Legendary
-			PrideOfTheWeakEnchantmentRare: Pride Of The Weak Enchantment Rare
+			PrideOfTheWeakEnchantmentBasic: Fierté de l'enchantement faible de base
+			PrideOfTheWeakEnchantmentCommon: Fierté de l'enchantement faible commun
+			PrideOfTheWeakEnchantmentEpic: Fierté de l'épopée d'enchantement faible
+			PrideOfTheWeakEnchantmentLegendary: Fierté du faible Enchantement Légendaire
+			PrideOfTheWeakEnchantmentRare: Fierté du faible Enchantement Rare
 			ProjectileVelocityEnchantmentBasic: Enchantement de vitesse de tir de base
 			ProjectileVelocityEnchantmentCommon: Enchantement de vitesse de tir Commun
 			ProjectileVelocityEnchantmentEpic: Épique d'enchantement de vitesse de projectile
@@ -262,11 +262,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
 			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantement Rare
-			ShineEnchantmentBasic: Shine Enchantment Basic
-			ShineEnchantmentCommon: Shine Enchantment Common
-			ShineEnchantmentEpic: Shine Enchantment Epic
-			ShineEnchantmentLegendary: Shine Enchantment Legendary
-			ShineEnchantmentRare: Shine Enchantment Rare
+			ShineEnchantmentBasic: Shine Enchantement Basique
+			ShineEnchantmentCommon: Enchantement de brillance commun
+			ShineEnchantmentEpic: Épopée d'enchantement brillant
+			ShineEnchantmentLegendary: Brillance Enchantement Légendaire
+			ShineEnchantmentRare: Brillance Enchantement Rare
 			SizeEnchantmentBasic: Enchantement de taille de base
 			SizeEnchantmentCommon: Enchantement de taille Commun
 			SizeEnchantmentEpic: Taille Enchantement Épique
@@ -328,6 +328,11 @@ Mods: {
 		}
 		Bestiary: {
 			Witch: La sorcière est une femme laide et méchante et s'occupe d'autres choses méchantes. Elle fait le commerce de matériaux douteux utilisés pour améliorer des équipements aux effets mystérieux.
+		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: Forces individuelles activées
+			}
 		}
 		Dialogue: {
 			Witch: {
@@ -584,13 +589,13 @@ Mods: {
 				OnHitSpawnProjectile: Projectile d'apparition sur coup
 				Peace: Paix
 				PennyPinching: Penny pincement
-				PrideOfTheWeak: Pride Of The Weak
+				PrideOfTheWeak: La fierté des faibles
 				ProjectileVelocity: Vitesse du projectile
 				QuestFishChance: Chance de poisson de quête
 				RangedClassSwap: Échange de classe à distance
 				ReducedManaUsage: Utilisation de mana réduite
 				RogueClassSwap: Échange de classe Rogue
-				Shine: Shine
+				Shine: Briller
 				Size: Taille
 				SolarDash: Tiret solaire
 				Sonar: Sonar
@@ -659,7 +664,7 @@ Mods: {
 					(S'active uniquement au premier coup d'un projectile.)
 					'''
 				OnHitSpawnProjectile: "Génère un projectile en touchant un ennemi : {0}"
-				PrideOfTheWeak: "{0} Increases damage dealt by weak weapons.  (100% effective at 0 infusion power.  0% effective at 500 infusion power.)"
+				PrideOfTheWeak: "{0} Augmente les dégâts infligés par les armes faibles. (100 % efficace à 0 puissance d'infusion. 0 % efficace à 500 puissance d'infusion.)"
 				QuestFishChance: "{0} (Les poissons de quête capturés seront automatiquement rendus et commenceront une nouvelle quête, en contournant la limite de 1 par jour.)"
 				BoolEffect: {
 					Enabled: "{0} : Activé"

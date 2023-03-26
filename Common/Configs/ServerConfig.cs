@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Common.Configs
 
         [Header("Individual Enchantment Strengths")]
 
-        [Label("Individual Strengths Enabled")]
+        [Label("$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label")]
         [Tooltip("Enabling this will cause the Indvidual strength values selected below to overite all other settings.")]
         [ReloadRequired]
         [DefaultValue(false)]

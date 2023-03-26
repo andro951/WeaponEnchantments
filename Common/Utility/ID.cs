@@ -400,8 +400,7 @@ namespace WeaponEnchantments.Common.Utility
         SkeletonMerchant = 453,
         OldMan = 37
     }
-    public enum L_ID1
-	{
+    public enum L_ID1 {
 		ItemName,
 		ItemTooltip,
 		Tooltip,
@@ -411,10 +410,10 @@ namespace WeaponEnchantments.Common.Utility
         Bestiary,
         TownNPCMood,
 		Ores,
-		TableText
+		TableText,
+		Config
 	}
-    public enum L_ID2
-	{
+    public enum L_ID2 {
         None,
         Witch,
         EffectDisplayName,
@@ -426,10 +425,14 @@ namespace WeaponEnchantments.Common.Utility
 		ItemType,
 		ArmorSlotNames,
 		DamageClassNames,
-		VanillaBuffs
+		VanillaBuffs,
+		Header
 	}
-    public enum L_ID_V
-	{
+	public enum L_ID3 {
+		Label,
+		Tooltip
+	}
+    public enum L_ID_V {
         Item,
         Projectile,
         NPC,

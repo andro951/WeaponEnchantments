@@ -3373,7 +3373,6 @@ namespace WeaponEnchantments.Common
 
 		#endregion
 
-
 		private static void PopulateInfusionPowerSources() {
 			int mechBossHighestSoul = Math.Max(Math.Max(
 				progressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 

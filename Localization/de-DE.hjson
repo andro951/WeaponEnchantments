@@ -329,6 +329,11 @@ Mods: {
 		Bestiary: {
 			Witch: Die Hexe ist eine hässliche und böse Dame und handelt mit weiteren bösen Dingen. Sie handelt mit dubiosen Materialien, die verwendet werden, um Ausrüstung mit mysteriösen Effekten zu verbessern.
 		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: Individuelle Stärken aktiviert
+			}
+		}
 		Dialogue: {
 			Witch: {
 				BirthdayParty: WARUM BIN ICH GEZWUNGEN, ROSA ZU KLEIDEN?! DAS SIEHT SCHRECKLICH AUS, DIESE PARTY STINK!

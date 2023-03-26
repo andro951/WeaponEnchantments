@@ -329,6 +329,11 @@ Mods: {
 		Bestiary: {
 			Witch: Czarownica jest brzydką i niegodziwą damą i zajmuje się dalszymi niegodziwymi rzeczami. Handluje wątpliwymi materiałami używanymi do ulepszania wyposażenia o tajemniczych efektach.
 		}
+		Config: {
+			individualStrengthsEnabled: {
+				Label: Włączone indywidualne mocne strony
+			}
+		}
 		Dialogue: {
 			Witch: {
 				BirthdayParty: DLACZEGO JESTEM ZMUSZONY UBIERAĆ SIĘ NA RÓŻ?! TO WYGLĄDA STRASZNIE, TO PRZYJĘCIE śmierdzi!
