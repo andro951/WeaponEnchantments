@@ -100,6 +100,9 @@ namespace WeaponEnchantments.Common.Globals
 			foreach (KeyValuePair<string, BossChecklistBossInfo> bossInfoPair in BossInfos.Where(p => p.Value.isBoss || p.Value.isMiniboss)) {
                 float progression = bossInfoPair.Value.progression;
                 List<int> netIDs = bossInfoPair.Value.npcIDs;
+                if (netIDs.Count < 1)
+                    continue;
+
                 NPC npc = netIDs.First().CSNPC();
                 if (progression < wallOfFleshProgression) {
                     preHardModeBossTypes.UnionWith(netIDs);

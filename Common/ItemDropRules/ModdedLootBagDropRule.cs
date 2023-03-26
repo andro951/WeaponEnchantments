@@ -56,7 +56,7 @@ namespace WeaponEnchantments.Common
 							$"Unable to determine the npc that drops this boss bag: {item.Name}, {item.ModFullName()}.".LogNT(ChatMessagesIDs.BossBagDropsFailToFind);
 						}
 					}
-					else {
+					else if (npcs.Count > 0) {
 						NPC npc = npcs.First().Item1.CSNPC();
 						WEGlobalNPC.GetLoot(newModdedBagLoot, npc, true);
 					}
