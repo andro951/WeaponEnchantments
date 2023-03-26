@@ -13,7 +13,7 @@ namespace WeaponEnchantments.Common.Globals
     public class GlobalBossBags : GlobalItem
     {
         //public static bool modBossBagIntegrationSetup = false;
-        public static bool printNPCNameOnHitForBossBagSupport => false && Debugger.IsAttached;
+        public static bool printNPCNameOnHitForBossBagSupport => true && Debugger.IsAttached;
         private static SortedDictionary<string, (string, float)> manuallySetModBossBags = null;
 		public static SortedDictionary<string, (string, float)> ManuallySetModBossBags {
             get {
@@ -88,17 +88,23 @@ namespace WeaponEnchantments.Common.Globals
             bossBagNPCs = new();
 			foreach (int bossBagType in BossBags) {
                 if (!AllItemDropsFromNpcs.ContainsKey(bossBagType)) {
-                    $"Boss bag not in AllItemDropsFromNpcs: {bossBagType.CSI().S()}".LogSimple();
+                    switch (bossBagType) {
+                        case ItemID.CultistBossBag:
+                            break;
+                        default:
+							$"Boss bag not in AllItemDropsFromNpcs: {bossBagType.CSI().S()}".LogSimple();
+							break;
+                    }
+                    
                     continue;
                 }
 
                 foreach (int netID in AllItemDropsFromNpcs[bossBagType].Select(p => p.Item1)) {
 					string name = netID.CSNPC().ModFullName();
-                    if (!bossTypes.TryAdd(name, netID))
-                        $"{name} already in bossTypes.  new: {netID}, current: {bossTypes[name]}".LogSimple();
-
-                    if (!bossBagNPCs.TryAdd(netID, bossBagType))
-                        $"{netID.CSNPC().S()} already in bossBagNPCs.  New: {bossBagType}, current: {bossBagNPCs[netID]}".LogSimple();
+                    bool addedToBossTypes = bossTypes.TryAdd(name, netID);
+                    //if (Debugger.IsAttached && !addedToBossTypes) $"{name} already in bossTypes.  new: {netID}, current: {bossTypes[name]}".LogSimple();
+                    bool addedToBossBagNPCs = bossBagNPCs.TryAdd(netID, bossBagType);
+                    //if (Debugger.IsAttached && !addedToBossBagNPCs) $"{netID.CSNPC().S()} already in bossBagNPCs.  New: {bossBagType}, current: {bossBagNPCs[netID]}".LogSimple();
 				}
             }
         }

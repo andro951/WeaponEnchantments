@@ -39,7 +39,7 @@ namespace WeaponEnchantments
 
         private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
-		public static bool StartedWorldLoad { get; private set; } = false;
+		public static bool StartedPostAddRecipes { get; private set; } = false;
 
 		public override void OnModLoad() {
 			if (!Main.dedServ) {
@@ -61,11 +61,14 @@ namespace WeaponEnchantments
             if (WEMod.playerSwapperModEnabled)
                 updatedPlayerNames = new List<string>();
         }
-		public override void OnWorldLoad() {
-			StartedWorldLoad = true;
+		public override void PostAddRecipes() {
+			SetupInfusion();
+		}
+		public static void SetupInfusion() {
+			StartedPostAddRecipes = true;
 			InfusionManager.SetUpVanillaWeaponInfusionPowers();
 			InfusionProgression.PostSetupContent();
-            InfusionManager.LogAllInfusionPowers();
+			InfusionManager.LogAllInfusionPowers();
 		}
 		public override void Unload() {
             if (!Main.dedServ) {

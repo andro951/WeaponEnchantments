@@ -45,8 +45,6 @@ namespace WeaponEnchantments
 		public static bool qwertyModEnabled = ModLoader.TryGetMod("QwertyMod", out Mod _);
 		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
 
-		public static bool StartedPostSetupContent = false;
-
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
 			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
@@ -67,7 +65,6 @@ namespace WeaponEnchantments
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
 		}
 		public override void PostSetupContent() {
-			StartedPostSetupContent = true;
 			if (ModLoader.TryGetMod("Census", out Mod Census)) {
 				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
 					Census.Call("TownNPCCondition", modNPC.NPC.netID, ((INPCWikiInfo)modNPC).SpawnCondition);

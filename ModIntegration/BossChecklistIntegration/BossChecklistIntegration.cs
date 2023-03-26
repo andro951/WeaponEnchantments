@@ -25,7 +25,7 @@ namespace WeaponEnchantments.ModIntegration
 		}
 		public static SortedDictionary<int, string> BossInfoNetIDKeys = new();
 		public static bool DoBossChecklistIntegration(Mod mod) {
-			if (!WEMod.StartedPostSetupContent)
+			if (!WEModSystem.StartedPostAddRecipes)
 				return false;
 
 			bossInfos = null;

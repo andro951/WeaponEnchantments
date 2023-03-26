@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Terraria.ID;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,8 +51,10 @@ namespace WeaponEnchantments.Common
 				if (count <= 0) {
 					ModdedBagLoot newModdedBagLoot = new();
 					if (!WEGlobalNPC.AllItemDropsFromNpcs.TryGetValue(bagType, out List<(int, float)> npcs)) {
-						Item item = bagType.CSI();
-						$"Unable to determine the npc that drops this boss bag: {item.Name}, {item.ModFullName()}.".LogNT(ChatMessagesIDs.BossBagDropsFailToFind);
+						if (bagType > ItemID.Count) {
+							Item item = bagType.CSI();
+							$"Unable to determine the npc that drops this boss bag: {item.Name}, {item.ModFullName()}.".LogNT(ChatMessagesIDs.BossBagDropsFailToFind);
+						}
 					}
 					else {
 						NPC npc = npcs.First().Item1.CSNPC();

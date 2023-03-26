@@ -466,8 +466,8 @@ namespace WeaponEnchantments.Common
 		}
 		public void AddItems(IEnumerable<string> newItems) {
 			SortedSet<string> newItemsSet = new SortedSet<string>(newItems);
-			IEnumerable<int> weaponList = WeaponsList.Concat(WeaponCraftingIngredients);
-			foreach (int itemType in weaponList) {
+			IEnumerable<int> weaponAndIngredientList = WeaponsList.Concat(WeaponCraftingIngredients);
+			foreach (int itemType in weaponAndIngredientList) {
 				string itemName = itemType.CSI().ModFullName();
 				if (newItemsSet.Contains(itemName)) {
 					if (!addedItems.Contains(itemType)) {
@@ -500,39 +500,22 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (newItemsSet.Count > 0)
-				$"Couldn't find Items with the names: {newItemsSet.JoinList(", ")}".LogSimple();
-		}
-		public void AddLootItems(IEnumerable<string> newLootItems) {
-			SortedSet<string> newLootItemsSet = new SortedSet<string>(newLootItems);
-			foreach (int itemType in LootItemTypes) {
-				string itemName = itemType.CSI().Name;
-				if (newLootItemsSet.Contains(itemName)) {
-					if (!addedItems.Contains(itemType)) {
-						LootItemTypes.Add(itemType);
-						addedItems.Add(itemType);
-					}
-
-					newLootItemsSet.Remove(itemName);
-				}
-
-				if (newLootItemsSet.Count < 1)
-					break;
-			}
-
-			if (newLootItemsSet.Count > 0)
-				$"Couldn't find Items with the names: {newLootItemsSet.JoinList(", ")}".LogSimple();
+				$"Couldn't find Items in WeaponsList or WeaponCraftingIngredients with the names: {newItemsSet.JoinList(", ")}".LogSimple();
 		}
 		public void AddNPCs(IEnumerable<int> newNPCs) => NpcTypes.UnionWith(newNPCs);
 		public void AddNPCs(IEnumerable<string> newNPCs) {
 			SortedSet<string> newNpcsSet = new SortedSet<string>(newNPCs);
+			SortedSet<string> notFoundSet = new SortedSet<string>(newNpcsSet);
 			foreach (int netID in NPCsThatDropWeaponsOrIngredients.Keys) {
 				string npcName = netID.CSNPC().ModFullName();
-				if (newNpcsSet.Contains(npcName))
+				if (newNpcsSet.Contains(npcName)) {
 					NpcTypes.Add(netID);
+					notFoundSet.Remove(npcName);
+				}
 			}
 
-			if (Debugger.IsAttached && newNpcsSet.Count > 0)
-				$"Couldn't find Npcs with the names: {newNpcsSet.JoinList(", ")}".LogSimple();
+			if (Debugger.IsAttached && notFoundSet.Count > 0)
+				$"Couldn't find Npcs in NPCsThatDropWeaponsOrIngredients with the names: {newNpcsSet.JoinList(", ")}".LogSimple();
 		}
 		public void Add(IEnumerable<ChestID> newChests) => Chests.UnionWith(newChests);
 		public void Add(IEnumerable<CrateID> newCrates) => Crates.UnionWith(newCrates);
@@ -844,16 +827,16 @@ namespace WeaponEnchantments.Common
 							bossName = "ThoriumMod/Abyssion";
 							break;
 						case ProgressionGroupID.LunaticCultistThorium:
-							bossName = "Lunatic Cultist";
+							bossName = "NPCID.CultistBoss";
 							break;
 						case ProgressionGroupID.BoreanStrider:
 							bossName = "ThoriumMod/BoreanStrider";
 							break;
 						case ProgressionGroupID.DarkMageThorium:
-							bossName = "Dark Mage";
+							bossName = "NPCID.DD2DarkMageT1";
 							break;
 						case ProgressionGroupID.OgreThorium:
-							bossName = "Ogre";
+							bossName = "NPCID.DD2OgreT2";
 							break;
 						case ProgressionGroupID.Primordials:
 							bossName = "ThoriumMod/RealityBreaker";
@@ -1069,7 +1052,7 @@ namespace WeaponEnchantments.Common
 				recipeNumbersByCraftedItem.AddOrCombine(recipe.Value.createItemType, recipe.Key);
 			}
 
-			//if (Debugger.IsAttached) $"{reicpeNumbersByRequiredItems.Select(p => p.Value.StringList(n => $"{n}", $"{p.Key.CSI().S()}")).S("reicpeNumbersByRequiredItems")}".LogSimple();
+			//if (Debugger.IsAttached) $"{reicpeNumbersByCraftedItem.Select(p => p.Value.StringList(n => $"{n}", $"{p.Key.CSI().S()}")).S("reicpeNumbersByRequiredItems")}".LogSimple();
 
 			SortedSet<int> weaponIngredients = new(originalWeaponIngredients);
 			foreach (KeyValuePair<int, (int createItemType, HashSet<int> ingredients, HashSet<int> tiles)> recipe in allRecipes) {
@@ -1141,7 +1124,7 @@ namespace WeaponEnchantments.Common
 				}
 			}
 
-			//if (Debugger.IsAttached) allRecipes.Select(pair => $"{pair.Key}: {Main.recipe[pair.Key].createItem.S()}, {Main.recipe[pair.Key].requiredItem.StringList(i => i.S())}, {Main.recipe[pair.Key].requiredTile.Select(t => WEGlobalTile.GetDroppedItem(t)).Where(t => t > 0).StringList(t => t.CSI().S())}").S("allRecipes").LogSimple();
+			//if (Debugger.IsAttached) allRecipes.Select(pair => $"{pair.Key}: {Main.recipe[pair.Key].createItem.S()}, {Main.recipe[pair.Key].requiredItem.StringList(i => i.S())}, {Main.recipe[pair.Key].requiredTile.Select(t => $"{WEGlobalTile.GetDroppedItem(t).CSI().S()}-{t.GetTileIDOrName()}").JoinList(", ")}").S("allRecipes").LogSimple();
 			//if (Debugger.IsAttached) reverseCraftableRecipes.Select(i =>  $"{i}: {Main.recipe[i].createItem.S()}, {Main.recipe[i].requiredItem.StringList(i => i.S())}").S("reverseCraftableRecipes").LogSimple();
 		}
 		private static void GetAllCraftingResources() {
@@ -1699,7 +1682,7 @@ namespace WeaponEnchantments.Common
 					ItemID.AlchemyTable
 				},
 				npcTypes: new SortedSet<int>() {
-					NPCID.DungeonSlime,
+					//NPCID.DungeonSlime,
 					NPCID.CursedSkull
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.ShadowChest, 350,
@@ -2053,10 +2036,6 @@ namespace WeaponEnchantments.Common
 						"CalamityMod/SeaUrchin",
 						"CalamityMod/MorayEel"
 					});//30
-				progressionGroups[ProgressionGroupID.Snow].AddNPCs(
-					new SortedSet<string>() {
-						"CalamityMod/Rimehound"
-					});//35
 				progressionGroups[ProgressionGroupID.ForestPreHardModeRare].AddNPCs(
 					new SortedSet<string>() {
 						"CalamityMod/WulfrumAmplifier"
@@ -2353,10 +2332,12 @@ namespace WeaponEnchantments.Common
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.OldDuke, 1400));
 				AddProgressionGroup(new(ProgressionGroupID.DevouererOfGods, 1450));
+				/*
 				AddProgressionGroup(new(ProgressionGroupID.AscendentSpirit, 1500,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/AscendantSpiritEssence"
 					}));
+				*/
 				AddProgressionGroup(new(ProgressionGroupID.PostYharonEasy, -10, ProgressionGroupID.Yharon,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/AuricOre"
@@ -2383,11 +2364,13 @@ namespace WeaponEnchantments.Common
 			}
 
 			if (WEMod.starsAboveEnabled) {
+				/*Not used to make weapons
 				progressionGroups[ProgressionGroupID.GraveYard].AddItems(
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfFarewells",
 						"StarsAbove/EssenceOfOffseeing"
 					});//65
+				*/
 				progressionGroups[ProgressionGroupID.PostKingSlimeEasy].AddItems(
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfStyle",
@@ -2685,7 +2668,7 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						"ThoriumMod/TrackerBlade",
 						"ThoriumMod/RosySlimeStaff",
-						"ThoriumMod/GrimPedestal",
+						//"ThoriumMod/GrimPedestal",
 						"ThoriumMod/Whip",
 						"ThoriumMod/HagTotemCaller"
 					}));//130
@@ -2998,13 +2981,8 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.ForgottenOne, 900));
 				AddProgressionGroup(new(ProgressionGroupID.LunaticCultistThorium, 0, ProgressionGroupID.LunaticCultist));//975
 				AddProgressionGroup(new(ProgressionGroupID.Primordials, 1200,
-					itemNames: new SortedSet<string>() {
-						""
-					},
 					npcNames: new SortedSet<string>() {
-						"ThoriumMod/Aquaius",
-						"ThoriumMod/Omnicide",
-						"ThoriumMod/SlagFury"
+						"ThoriumMod/Aquaius"
 					}));
 			}
 
@@ -3082,21 +3060,21 @@ namespace WeaponEnchantments.Common
 			if (Debugger.IsAttached) {
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> weaponsFromNPCs = WeaponsFromNPCs.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (weaponsFromNPCs.Any())
-					$"\nItems from WeaponsFromNPCs not included in ItemInfusionPowers:\n{weaponsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{weaponsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S("Items from WeaponsFromNPCs not included in ItemInfusionPowers")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 				IEnumerable<KeyValuePair<int, SortedSet<int>>> ingredientsFromNPCs = IngredientsFromNPCs.Where(w => !ItemInfusionPowers.ContainsKey(w.Key));
 				if (ingredientsFromNPCs.Any())
-					$"\nItems from IngredientsFromNPCs not included in ItemInfusionPowers:\n{ingredientsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+					$"{ingredientsFromNPCs.OrderBy(w => w.Key.CSI().GetWeaponInfusionPower()).Select(w => $"{w.Key.CSI().S()}: {w.Value.Select(n => n.CSNPC().S()).JoinList(", ")}").S("Items from IngredientsFromNPCs not included in ItemInfusionPowers")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 			}
 
 			HashSet<string> ignoredList = new();
 			IEnumerable<int> weaponsNotSetup = WeaponsList.Where(t => !allWeaponRecipies.ContainsKey(t) && !ItemInfusionPowers.ContainsKey(t) && !ignoredList.Contains(t.CSI().Name));
 			if (weaponsNotSetup.Any())
-				$"\nWeapon infusion powers not setup:\n{weaponsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+				$"{weaponsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S("Weapon infusion powers not setup")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 
 			IEnumerable<int> ingredientsNotSetup = WeaponCraftingIngredients.Where(t => !ItemInfusionPowers.ContainsKey(t) && !ignoredList.Contains(t.CSI().Name));
 			if (ingredientsNotSetup.Any())
-				$"\nIngredient infusion powers not setup:\n{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S()}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S("Ingredient infusion powers not setup")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 		}
 		private static void GuessMinedOreInfusionPowers() {
 			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();

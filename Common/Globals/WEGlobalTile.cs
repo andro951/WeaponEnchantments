@@ -422,6 +422,9 @@ namespace WeaponEnchantments.Common.Globals
 				case TileID.Tombstones:
 					dropItem = ItemID.Tombstone;
 					break;
+				case TileID.Presents:
+					dropItem = ItemID.Present;
+					break;
 				default:
 					ModTile modTile = TileLoader.GetTile(type);
 					//Get item dropped by the tile
@@ -438,13 +441,13 @@ namespace WeaponEnchantments.Common.Globals
 									case "SCalAltar":
 										break;//No dropped item, don't log.
 									default:
-										$"Failed to determine the dropItem of tile: {type}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+										$"Failed to determine the dropItem of tile: {type.GetTileIDOrName()}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 										break;
 								}
 							}
 						}
 						else if (!ignoreError) {
-							$"Failed to determine the dropItem of tile: {type}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+							$"Failed to determine the dropItem of tile: {type.GetTileIDOrName()}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 						}
 					}
 
@@ -709,28 +712,18 @@ namespace WeaponEnchantments.Common.Globals
 								case "SCalAltar":
 									break;//No dropped item, don't log.
 								default:
-									$"Failed to find find modded tile name for tile: {tileType}, modTileName: {modTileName}".LogSimple();
+									$"Failed to find find modded tile name for tile: {tileType.GetTileIDOrName()}, modTileName: {modTileName}".LogSimple();
 									break;
 							}
 						}
 					}
 					else {
-						$"Failed to find find vanilla tile type: {tileType}".LogSimple();
+						$"Failed to find find vanilla tile type: {tileType.GetTileIDOrName()}".LogSimple();
 					}
 				}
 
 				if (itemType > 0)
 					tileTypeToItemType.Add(tileType, itemType);
-			}
-
-			foreach (int tileType in tileTypes.Where(t => !tileTypeToItemType.ContainsKey(t))) {//Didn't work
-				if (tileType <= TileID.Count) {
-					$"Didn't search for vanilla tile by name: {tileType}".LogSimple();
-					continue;
-				}
-
-				if (TryGetModTileName(tileType, out string modTileName) && TryGetModTileItemType(modTileName, out int modTileItemType, true))
-					tileTypeToItemType.Add(tileType, modTileItemType);
 			}
 
 			tileTypeToItemTypesSetup = true;
@@ -739,16 +732,9 @@ namespace WeaponEnchantments.Common.Globals
 		private static bool TryGetModTileName(int tileType, out string modTileName) {
 			modTileName = "";
 			if (WEMod.magicStorageEnabled && tileType == TileID.DemonAltar) {
-				modTileName = "DemonAltar";
+				modTileName = "MagicStorage/DemonAltar";
 				return true;
 			}
-
-			/* TODO: make manual switch for these
-			 [00:43:18.508] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1428, modTileName: OmnistationSheet
-[00:43:18.514] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1429, modTileName: OmnistationSheet2
-[00:43:18.521] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1426, modTileName: GoldenDippingVatSheet
-[00:43:18.527] [.NET ThreadPool Worker/INFO] [WeaponEnchantments]: Failed to find find modded tile name for tile: 1422, modTileName: CrucibleCosmosSheet
-			 */
 
 			if (tileType < TileID.Count)
 				return false;
@@ -757,16 +743,17 @@ namespace WeaponEnchantments.Common.Globals
 			if (modTile == null)
 				return false;
 
-			modTileName = modTile.Name;
+			modTileName = modTile.FullName;
 			return true;
 		}
-		private static bool TryGetModTileItemType(string modTileName, out int modTileItemType, bool searchInName = false) {//TODO: change to fullname instead of name
+		private static bool TryGetModTileItemType(string modTileName, out int modTileItemType) {
 			modTileItemType = 0;
 			for (int type = ItemID.Count; type < ItemLoader.ItemCount; type++) {
 				ModItem modItem = ContentSamples.ItemsByType[type].ModItem;
 				if (modItem == null)
 					continue;
-				bool match = searchInName ? modItem.Name.Contains(modTileName) : modItem.Name == modTileName;//Didn't work
+
+				bool match = modItem.FullName == modTileName;
 				if (match) {
 					modTileItemType = modItem.Type;
 					return true;
@@ -778,7 +765,8 @@ namespace WeaponEnchantments.Common.Globals
 				if (modItem == null)
 					continue;
 
-				if (modItem.Name.Contains(modTileName)) {
+				bool match = modTileName.Contains(modItem.Name);
+				if (match) {
 					modTileItemType = modItem.Type;
 					return true;
 				}

@@ -575,7 +575,7 @@ namespace WeaponEnchantments.Common.Globals
             else {
                 total = hp * 2.6f;
                 //Thorium bags for Dark Mage and Ogre only drop at a 25% rate.
-                if (WEMod.thoriumEnabled && (npc.FullName() == "Dark Mage" || npc.FullName() == "Ogre"))
+                if (WEMod.thoriumEnabled && (npc.type == NPCID.DD2OgreT2 || npc.type == NPCID.DD2OgreT3 || npc.type == NPCID.DD2DarkMageT1 || npc.type == NPCID.DD2DarkMageT3))
                     total *= 4f;
             }
 
@@ -842,7 +842,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public void ResetWarReduction() => myWarReduction = 1f;
 		private static void GetAllNpcDrops() {
-            if (!WEModSystem.StartedWorldLoad)
+            if (!WEModSystem.StartedPostAddRecipes)
                 return;
 
 			allItemDropsFromNpcs = new();
@@ -887,7 +887,7 @@ namespace WeaponEnchantments.Common.Globals
         public static bool IsWorm(this NPC npc) {
             return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
         }
-        public static bool IsDummy(this NPC npc) => npc.netID == NPCID.TargetDummy || WEMod.calamityEnabled && npc.FullName() == "Super Dummy";
+        public static bool IsDummy(this NPC npc) => npc.netID < NPCID.Count ? npc.netID == NPCID.TargetDummy : npc.ModFullName() is string modFullName && (WEMod.calamityEnabled && modFullName == "CalamityMod/SuperDummyNPC" || WEMod.fargosEnabled && modFullName == "Fargowiltas/SuperDummy");
         public static bool IsBoss(this NPC npc) => npc.boss || WEGlobalNPC.multipleSegmentBossTypes.ContainsKey(npc.netID) || WEGlobalNPC.normalNpcsThatDropsBags.Contains(npc.netID);
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
 			target.RemoveNPCBuffImunities(debuffs, dontDissableImmunitiy);
