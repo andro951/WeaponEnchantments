@@ -78,8 +78,12 @@ namespace WeaponEnchantments.Common.Globals
 			}
         }
         private static void TryBossChecklistSetup() {
-            if (!WEMod.bossChecklistEnabled)
-                return;
+            if (!WEMod.bossChecklistEnabled) {
+                if (preHardModeBossTypes == null || postPlanteraBossTypes == null)
+                    $"BossChecklist mod is not enabled.  Weapon Enchantments uses BossChecklist to determin which bosses determin Power Booster drops from Modded bosses.  Since BossChecklist is not enabled, all Modded bosses will drop the regular Power Booster.".LogSimple();
+
+				return;
+			}
 
             if (!ShouldSetupBossPowerBoosterDrops)
                 return;
