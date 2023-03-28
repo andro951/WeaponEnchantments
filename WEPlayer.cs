@@ -1088,7 +1088,7 @@ namespace WeaponEnchantments
                     }
 
                     if (Main.netMode == NetmodeID.MultiplayerClient)
-                        Net<INetOnHitEffects>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
+                        Net<INetMethods>.Proxy.NetDebuffs(target, amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
 
                     target.HandleOnHitNPCBuffs(amaterasuDamageAdded, weGlobalNPC.amaterasuStrength, debuffs, dontDissableImmunitiy);
 				}
@@ -1146,7 +1146,7 @@ namespace WeaponEnchantments
 				weGlobalNPC.ResetWarReduction();
 
 				if (Main.netMode == NetmodeID.MultiplayerClient)
-					Net<INetOnHitEffects>.Proxy.NetResetWarReduction(target);
+					Net<INetMethods>.Proxy.NetResetWarReduction(target);
 			}
 		}
 		private int ActivateOneForAll(NPC target, Item item, int damage, float knockback, bool crit, Projectile projectile, bool dummyOnly) {
@@ -1232,7 +1232,7 @@ namespace WeaponEnchantments
             }
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
-                Net<INetOnHitEffects>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
+                Net<INetMethods>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
 
             if (weProjectile != null)
                 weProjectile.activatedOneForAll = true;
@@ -1318,7 +1318,7 @@ namespace WeaponEnchantments
 
             //Hit npc
             if (Main.netMode is NetmodeID.SinglePlayer or NetmodeID.MultiplayerClient) {
-                Net<INetOnHitEffects>.Proxy.NetStrikeNPC(target, godSlayerDamageInt, crit);
+                Net<INetMethods>.Proxy.NetStrikeNPC(target, godSlayerDamageInt, crit);
             }
             else {
                 $"ActivateGodSlayer called from server.".Log();

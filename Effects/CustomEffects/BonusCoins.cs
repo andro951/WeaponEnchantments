@@ -55,7 +55,7 @@ namespace WeaponEnchantments.Effects
 			if (coins <= 0)
 				coins = 1;
 
-			Net<INetOnHitEffects>.Proxy.NetAddNPCValue(npc, coins);
+			Net<INetMethods>.Proxy.NetAddNPCValue(npc, coins);
 		}
 
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };

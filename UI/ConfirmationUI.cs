@@ -13,6 +13,8 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Tiles;
+using KokoLib;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments.UI
 {
@@ -141,6 +143,7 @@ namespace WeaponEnchantments.UI
 
             if (FindEnchantingTable(player, out Point tablePoint)) {
                 if (FindChestsInRange(tablePoint.X, tablePoint.Y, out List<int> chests, xRangeLeft: 2, xRangeRight: 2, yRangeUp: -1, yRangeDown: 1, exactPoints: true)) {
+					SortedDictionary<int, SortedSet<short>> offeredChestItemSlots = new();
                     foreach(int chestNum in chests) {
                         int chestLength = Main.chest[chestNum].item.Length;
                         for (int i = 0; i < chestLength; i++) {
@@ -154,13 +157,28 @@ namespace WeaponEnchantments.UI
                              if (enchantedItem.Modified)
                                 continue;
 
-                            OfferItem(ref Main.chest[chestNum].item[i], false, true);
-                        }
+                            if (OfferItem(ref Main.chest[chestNum].item[i], false, true) > -1 && Main.netMode == NetmodeID.MultiplayerClient)
+                                offeredChestItemSlots.AddOrCombine(chestNum, (short)i);
+						}
 					}
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        Net<INetMethods>.Proxy.NetOfferChestItems(offeredChestItemSlots);
 				}
 			}
         }
-        public static bool FindEnchantingTable(Player player, out Point table) {
+        public static void OfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems) {
+            if (Main.netMode != NetmodeID.Server)
+                return;
+
+            foreach (KeyValuePair<int, SortedSet<short>> chest in chestItems) {
+                foreach (int itemIndex in chest.Value) {
+                    Main.chest[chest.Key].item[itemIndex] = new();
+				}
+            }
+        }
+
+		public static bool FindEnchantingTable(Player player, out Point table) {
             table = new();
             Point clicked = player.GetWEPlayer().enchantingTableLocation;
             if (clicked.X == -1 && clicked.Y == -1)
@@ -215,12 +233,12 @@ namespace WeaponEnchantments.UI
             }
 
             int type = item.type;
-            bool stop = false;
             if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return -1;
 
-            //Enchantments
-            for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++) {
+            bool stop = false;
+			//Enchantments
+			for (int i = 0; i < EnchantingTable.maxEnchantments && !stop; i++) {
                 if (!nonTableItem && !wePlayer.EnchantmentInUI(i).IsAir) {
                     wePlayer.EnchantmentUISlot(i).Item = wePlayer.Player.GetItem(Main.myPlayer, wePlayer.EnchantmentInUI(i), GetItemSettings.LootAllSettings);
                 }
