@@ -182,7 +182,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Multishot
-            bool notAMultishotProjectile = !(source is EntitySource_Parent parentSource) || !(parentSource.Entity is Projectile parentProjectile) || parentProjectile.type != projectile.type;
+            bool notAMultishotProjectile = source is not EntitySource_Parent parentSource || parentSource.Entity is not Projectile parentProjectile || parentProjectile.type != projectile.type;
             if (notAMultishotProjectile) {
                 int projectiles = (int)multishotChance;
                 float randFloat = Main.rand.NextFloat();
@@ -202,7 +202,7 @@ namespace WeaponEnchantments.Common.Globals
                         //Vector2 position = projectile.position.RotatedBy(spread * rotation);
                         Vector2 position = projectile.position;
                         Vector2 velocity = projectile.velocity.RotatedBy(spread * rotation);
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1]);
                         invert = !invert;
                     }
                 }

@@ -121,7 +121,6 @@ namespace WeaponEnchantments.UI
             if (type <= 0)
                 return;
 
-
             if (!WEMod.clientConfig.OfferAll)
                 return;
 
