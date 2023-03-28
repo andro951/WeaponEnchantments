@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -79,7 +80,7 @@ namespace WeaponEnchantments
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (!wePlayer.Player.HeldItem.NullOrAir()) {//temp
+            if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
                 string temp = wePlayer.Player.HeldItem.ModFullName();
 			}
 
@@ -366,7 +367,8 @@ namespace WeaponEnchantments
                 promptInterface.SetState(null);
 
             ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
-        }
+			Recipe.FindRecipes();
+		}
         public static void OpenWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             wePlayer.usingEnchantingTable = true;

@@ -129,7 +129,6 @@ namespace WeaponEnchantments.Tiles
 			if (wePlayer.usingEnchantingTable) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
 				WEModSystem.CloseWeaponEnchantmentUI();
-				Recipe.FindRecipes();
 			}
 			else {
 				if (MagicStorageIntegration.MagicStorageIsOpen())
