@@ -2180,7 +2180,7 @@ namespace WeaponEnchantments.Common
 						"CalamityMod/AstralOre"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.AstrumDeus, 1010));
-				AddProgressionGroup(new(ProgressionGroupID.PostMoonLord, 1110,
+				AddProgressionGroup(new(ProgressionGroupID.PostMoonLord, 1105,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/ExodiumCluster",
 						"CalamityMod/UnholyEssence"
@@ -2188,24 +2188,24 @@ namespace WeaponEnchantments.Common
 					npcNames: new SortedSet<string>() {
 						"CalamityMod/ImpiousImmolator"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.ProfanedGuardians, 1120,
+				AddProgressionGroup(new(ProgressionGroupID.ProfanedGuardians, 1110,
 					npcNames: new SortedSet<string>() {
 						"CalamityMod/ProfanedGuardianCommander"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.DragonFolly, 1150));
+				AddProgressionGroup(new(ProgressionGroupID.DragonFolly, 1130));
 				AddProgressionGroup(new(ProgressionGroupID.PostProvidenceEasy, -10, ProgressionGroupID.Providence,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/Bloodstone",
 						"CalamityMod/GuidelightofOblivion"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.Providence, 1180));
-				AddProgressionGroup(new(ProgressionGroupID.UelibloomBar, 30, ProgressionGroupID.Providence,
+				AddProgressionGroup(new(ProgressionGroupID.Providence, 1145));
+				AddProgressionGroup(new(ProgressionGroupID.UelibloomBar, 15, ProgressionGroupID.Providence,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/UelibloomOre"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.CeaselessVoid, 1240));
-				AddProgressionGroup(new(ProgressionGroupID.StormWeaver, 1270));
-				AddProgressionGroup(new(ProgressionGroupID.Signus, 1300));
+				AddProgressionGroup(new(ProgressionGroupID.CeaselessVoid, 1180));
+				AddProgressionGroup(new(ProgressionGroupID.StormWeaver, 1200));
+				AddProgressionGroup(new(ProgressionGroupID.Signus, 1215));
 				AddProgressionGroup(new(ProgressionGroupID.PostPolterghastEasy, -10, ProgressionGroupID.Polterghast,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/EidolicWail",
@@ -2217,8 +2217,8 @@ namespace WeaponEnchantments.Common
 						"CalamityMod/CalamarisLament",
 						"CalamityMod/LionHeart"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.Polterghast, 1330));
-				AddProgressionGroup(new(ProgressionGroupID.AcidRainT3, 30, ProgressionGroupID.Polterghast,
+				AddProgressionGroup(new(ProgressionGroupID.Polterghast, 1235));
+				AddProgressionGroup(new(ProgressionGroupID.AcidRainT3, 15, ProgressionGroupID.Polterghast,
 					npcNames: new SortedSet<string>() {
 						"CalamityMod/NuclearTerror",
 						"CalamityMod/Mauler"
@@ -2227,8 +2227,8 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						//"Bloodworm"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.OldDuke, 1400));
-				AddProgressionGroup(new(ProgressionGroupID.DevouererOfGods, 1450));
+				AddProgressionGroup(new(ProgressionGroupID.OldDuke, 1275));
+				AddProgressionGroup(new(ProgressionGroupID.DevouererOfGods, 1305));
 				/*
 				AddProgressionGroup(new(ProgressionGroupID.AscendentSpirit, 1500,
 					itemNames: new SortedSet<string>() {
@@ -2239,12 +2239,12 @@ namespace WeaponEnchantments.Common
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/AuricOre"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.Yharon, 1550,
+				AddProgressionGroup(new(ProgressionGroupID.Yharon, 1360,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/Murasama"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.ExoMechs, 1600));
-				AddProgressionGroup(new(ProgressionGroupID.SupremeCalamitas, 1700,
+				AddProgressionGroup(new(ProgressionGroupID.ExoMechs, 1390));
+				AddProgressionGroup(new(ProgressionGroupID.SupremeCalamitas, 1450,
 					itemNames: new SortedSet<string>() {
 						"CalamityMod/GruesomeEminence",
 						"CalamityMod/Rancor",
@@ -2254,7 +2254,7 @@ namespace WeaponEnchantments.Common
 					npcNames: new SortedSet<string>() {
 						"CalamityMod/SupremeCalamitas"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.AdultEidolon, 1700,
+				AddProgressionGroup(new(ProgressionGroupID.AdultEidolon, 1450,
 					npcNames: new SortedSet<string>() {
 						"CalamityMod/AdultEidolonWyrmHead"
 					}));
@@ -2909,13 +2909,13 @@ namespace WeaponEnchantments.Common
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.DeviBoss, 395));
 				AddProgressionGroup(new(ProgressionGroupID.LieFlight, 650));
-				AddProgressionGroup(new(ProgressionGroupID.CosmosChampion, 1120));
-				AddProgressionGroup(new(ProgressionGroupID.AbomBoss, 1330,
+				AddProgressionGroup(new(ProgressionGroupID.CosmosChampion, 1115));
+				AddProgressionGroup(new(ProgressionGroupID.AbomBoss, 1235,
 					itemNames: new SortedSet<string>() {
 						"FargowiltasSouls/StaffOfUnleashedOcean",
 						"FargowiltasSouls/BrokenHilt"
 					}));
-				AddProgressionGroup(new(ProgressionGroupID.MutantBoss, 1700,
+				AddProgressionGroup(new(ProgressionGroupID.MutantBoss, 1450,
 					itemNames: new SortedSet<string>() {
 						"FargowiltasSouls/BrokenBlade",
 						"FargowiltasSouls/PhantasmalEnergy",

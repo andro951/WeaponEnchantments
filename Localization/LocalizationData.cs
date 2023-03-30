@@ -425,6 +425,9 @@ namespace WeaponEnchantments.Localization
 													"3rd-5th are normal slots.\n" +
 													"The Clentaminator is the only tool so far." }
 							}) },
+							{ nameof(ServerConfig.PercentOfferEssence), new(dict: new() {
+								{ L_ID3.Label.ToString(), "Percentage of offered Item value converted to essence." }
+							}) },
 							{ nameof(ServerConfig.ReduceOfferEfficiencyByTableTier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Reduce Offer Efficiency By Table Tier" },
 								{ L_ID3.Tooltip.ToString(), "When offering items, you receive essence equivalent to the experience on the item.\n" +
@@ -516,9 +519,6 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ClientConfig.AlwaysDisplayInfusionPower), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Always display Infusion Power" },
 								{ L_ID3.Tooltip.ToString(), "Enable to display item's Infusion Power always instead of just when the enchanting table is open." }
-							}) },
-							{ nameof(ClientConfig.PercentOfferEssence), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Percentage of offered Item value converted to essence." }
 							}) },
 							{ nameof(ClientConfig.AllowCraftingIntoLowerTier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Allow crafting enchantments into lower tier enchantments." }

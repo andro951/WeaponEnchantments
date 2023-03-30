@@ -210,6 +210,11 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public int EnchantmentSlotsOnTools;
 
+		[Label("$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label")]
+		[DefaultValue(50)]
+		[Range(0, 100)]
+		public int PercentOfferEssence;
+
 		[Label("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip")]
 		[DefaultValue(false)]
@@ -341,11 +346,6 @@ namespace WeaponEnchantments.Common.Configs
 		[Tooltip("$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip")]
 		[DefaultValue(true)]
 		public bool AlwaysDisplayInfusionPower;
-
-		[Label("$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label")]
-		[DefaultValue(50)]
-		[Range(0, 100)]
-		public int PercentOfferEssence;
 
 		[Label("$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label")]
 		[DefaultValue(true)]
@@ -567,7 +567,6 @@ namespace WeaponEnchantments.Common.Configs
 				$", {"AccessoryDRValues".Lang(L_ID1.Config, new object[] { (AccessoryDamageReductionPerLevel / 100000f).S(5), (AccessoryDamageReductionPerLevel / 2500f).S(5) })}";
 		}
 	}
-
 	public class PresetData
 	{
 		[JsonIgnore]

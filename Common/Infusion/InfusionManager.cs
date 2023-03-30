@@ -19,14 +19,14 @@ namespace WeaponEnchantments.Common
     public static class InfusionManager
     {
         public const int numVanillaWeaponRarities = 11;
-        public const int numRarities = 18;
+        public const int numRarities = 15;
         public static float[] averageValues = new float[numRarities];
         public static int[] minValues = new int[numRarities];
         public static int[] maxValues = new int[numRarities];
         public static int[] calamityAverageValues = new int[numRarities];
         public static int[] calamityMinValues = new int[numRarities];
 		//                                                 0     1      2      3      4       5       6       7       8       9       10       11       12       13       14       15       16       17
-		public static int[] calamityMaxValues = new int[] { 23000, 52000, 87000, 128000, 175000, 240000, 360000, 480000, 600000, 800000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000, 2500000 };
+		public static int[] calamityMaxValues = new int[] { 23000, 52000, 87000, 128000, 175000, 240000, 360000, 480000, 600000, 800000, 1000000, 1200000, 1400000, 2000000, 3000000 };
 		//public static int[] calamityMaxValues = new int[] {5000, 10000, 20000, 40000, 120000, 240000, 360000, 480000, 600000, 800000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000, 2500000};
 		public const float minMaxValueMultiplier = 0.25f;
 

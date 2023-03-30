@@ -31,7 +31,7 @@ namespace WeaponEnchantments.Common.Configs
 		public static float NormalXPMultiplier => serverConfig.ExperienceMultiplier / 100f;
 		public static float AffectOnVanillaLifeStealLimit => serverConfig.AffectOnVanillaLifeStealLimmit / 100f;
 		public static float AttackSpeedEnchantmentAutoReuseSetpoint = serverConfig.AttackSpeedEnchantmentAutoReuseSetpoint / 100f;
-		public static float PercentOfferEssence => clientConfig.PercentOfferEssence / 100f;
+		public static float PercentOfferEssence => serverConfig.PercentOfferEssence / 100f;
 		public static float ChestSpawnChance => serverConfig.ChestSpawnChance / 100f;
 		public static float CrateDropChance => serverConfig.CrateDropChance / 100f;
 		public static int AmaterasuSelfGrowthPerTick => serverConfig.AmaterasuSelfGrowthPerTick;
