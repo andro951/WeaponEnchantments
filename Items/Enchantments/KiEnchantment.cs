@@ -31,7 +31,7 @@ namespace WeaponEnchantments.Items.Enchantments
             };
         }
         public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
-        public override string CustomTooltip => DBZMODPORTIntegration.DBTName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+        public override string CustomTooltip => DBZMODPORTIntegration.DBT_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
         public override string Artist => "Vyklade";
         public override string ArtModifiedBy => null;
         public override string Designer => "Vyklade";

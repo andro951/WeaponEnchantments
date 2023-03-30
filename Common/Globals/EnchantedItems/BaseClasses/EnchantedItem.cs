@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KokoLib;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +17,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
+using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 using static WeaponEnchantments.Common.EnchantingRarity;
@@ -831,9 +833,8 @@ namespace WeaponEnchantments.Common.Globals
             return true;
         }
 		public override void OnCreate(Item item, ItemCreationContext context) {
-			if(context is RecipeCreationContext recipeCreationContext) {
-				item.CombineEnchantedItems(ref recipeCreationContext.ConsumedItems);
-            }
+			if(context is RecipeCreationContext recipeCreationContext)
+				item.CombineEnchantedItems(recipeCreationContext.ConsumedItems, true);
 		}
 		public bool OnStack(Item item1, Item item2) {
             //Check max stack and always allow combining in the 
@@ -878,7 +879,7 @@ namespace WeaponEnchantments.Common.Globals
             List<Item> list = new List<Item>();
             list.Add(item2);
             skipUpdateValue = true;
-            item1.CombineEnchantedItems(ref list);
+            item1.CombineEnchantedItems(list);
             skipUpdateValue = false;
 
             /*
@@ -927,6 +928,18 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
+        public void ResetGlobals(Item item) {
+			Item tempItem = new Item(item.type);
+			resetGlobals = true;
+			if (tempItem.TryGetEnchantedItem(out EnchantedWeapon tempEnchantedWeapon)) {
+				tempEnchantedWeapon.Clone(tempItem, item);
+			}
+			else if (tempItem.TryGetEnchantedItem(out EnchantedItem tempEnchantedItem)) {
+				tempEnchantedItem.Clone(tempItem, item);
+			}
+
+			resetGlobals = false;
+		}
 	}
 
     public static class EnchantedItemStaticMethods {
@@ -948,7 +961,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (item.ModItem != null) {
                 string modName = item.ModItem.Mod.Name;
 				//Manually prevent calamity items from being weapons
-				if (WEMod.calamityEnabled && modName == CalamityIntegration.calamityName) {
+				if (WEMod.calamityEnabled && modName == CalamityIntegration.CALAMITY_NAME) {
 					switch (item.Name) {
                         case "Experimental Wulfrum Fusion Array":
 							return false;
@@ -1465,22 +1478,46 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public static void CombineEnchantedItems(this Item item, ref List<Item> consumedItems) {
+        public static void CombineEnchantedItems(this Item item, List<Item> consumedItems, bool fromCraft = false) {
             if (consumedItems.Count <= 0)
                 return;
 
-            for (int c = 0; c < consumedItems.Count; c++) {
+			for (int c = 0; c < consumedItems.Count; c++) {
                 Item consumedItem = consumedItems[c];
                 if (consumedItem.IsAir)
                     continue;
 
-                if (!consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem))
+				if (!consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem))
                     continue;
 
-                if (!consumedEnchantedItem.Modified)
+                bool consumedModified = consumedEnchantedItem.Modified;
+                if (!consumedModified && (!fromCraft || Main.mouseItem.TryGetEnchantedItem(out EnchantedItem enchantedMouseItem) && !enchantedMouseItem.Modified))
                     continue;
 
-                if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                //Fix for Crafting with a modified enchanted weapon already as the mouse item.
+                if (!consumedModified && fromCraft)
+                    consumedItem = Main.mouseItem;
+
+				if (fromCraft && consumedItem.maxStack > 1) {
+					if (MagicStorageIntegration.MagicStorageEnabledAndOpen) {
+						if (MagicStorageIntegration.JustCraftedStackableItem) {
+							MagicStorageIntegration.JustCraftedStackableItem = false;
+						}
+						else {
+                            consumedEnchantedItem.ResetGlobals(consumedItem);
+						}
+					}
+                    else {
+						bool found = consumedItem.TryResetSameEnchantedItem(Main.LocalPlayer.inventory, out _);
+						if (!found && Main.LocalPlayer.chest > -1) {
+							found = consumedItem.TryResetSameEnchantedItem(Main.chest[Main.LocalPlayer.chest].item, out int index);
+							if (Main.netMode == NetmodeID.MultiplayerClient && found)
+								Net<INetMethods>.Proxy.NetResetEnchantedItemInChest(Main.LocalPlayer.chest, (short)index);
+						}
+					}
+				}
+
+				if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                     item.CheckConvertExcessExperience(consumedItem);
                     if (enchantedItem is EnchantedWeapon enchantedWeapon && consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon) {
 						if (enchantedWeapon.InfusionPower < consumedEnchantedWeapon.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedWeapon.InfusionPower) {
@@ -1584,8 +1621,6 @@ namespace WeaponEnchantments.Common.Globals
                     }
                 }
             }
-
-            consumedItems.Clear();
         }
         public static void CheckRemoveEnchantments(this Item item, Player player) {
             if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem) || RemoveEnchantmentRestrictions)
@@ -1752,5 +1787,28 @@ namespace WeaponEnchantments.Common.Globals
             }
         }//d
         public static string ModFullName(this Item item) => item.ModItem?.FullName ?? item.Name;
+        public static bool TryResetSameEnchantedItem(this Item item, IEnumerable<Item> storageItems, out int index) {
+            bool found = false;
+            index = -1;
+            int i = 0;
+			foreach (Item storageItem in storageItems) {
+				if (storageItem.IsSameEnchantedItem(item) && storageItem.TryGetEnchantedItem(out EnchantedItem storageEnchantedItem)) {
+					storageEnchantedItem.ResetGlobals(storageItem);
+                    found = true;
+                    index = i;
+				}
+
+                i++;
+			}
+
+            return found;
+		}
+        public static void ResetEnchantedItemInChestFromNet(int chestNum, short index) {
+            if (Main.netMode != NetmodeID.Server)
+                return;
+
+            if (Main.chest[chestNum].item[index].TryGetEnchantedItem(out EnchantedItem enchantedItem))
+                enchantedItem.ResetGlobals(Main.chest[chestNum].item[index]);
+        }
 	}
 }

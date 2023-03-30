@@ -22,7 +22,9 @@ namespace WeaponEnchantments.ModIntegration
         private Item lastHoverItem = new Item();
         private Item lastMouseItem = new Item();
         private int lastMouseItemStack = 0;
-        public override void Load() {
+		public static bool MagicStorageEnabledAndOpen => Enabled ? IsOpen() : false;
+        public static bool JustCraftedStackableItem = false;
+		public override void Load() {
             Enabled = ModLoader.HasMod(magicStorageName);
 
             WEMod.magicStorageEnabled = Enabled;
@@ -41,7 +43,6 @@ namespace WeaponEnchantments.ModIntegration
             if (MagicStorageIsOpen())
                 CloseMagicStorage();
         }
-
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void CloseMagicStorage() {

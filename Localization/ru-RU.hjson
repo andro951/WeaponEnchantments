@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Зачарование "Скорость" (Эпическое)
 			AttackSpeedEnchantmentLegendary: Зачарование "Скорость" (Легендарное)
 			AttackSpeedEnchantmentRare: Зачарование "Скорость" (Редкое)
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Зачарование ярости берсерков базовое
 			BerserkersRageEnchantmentCommon: Чары ярости берсерков
 			BerserkersRageEnchantmentEpic: Ярость берсерков Чары Эпические
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: Зачарование "Убийца Богов" (Эпическое)
 			GodSlayerEnchantmentLegendary: Зачарование "Убийца Богов" (Легендарное)
 			GodSlayerEnchantmentRare: Зачарование "Убийца Богов" (Редкое)
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Зачарование "Гнев Ада" (Базовое)
 			HellsWrathEnchantmentCommon: Зачарование "Гнев Ада" (Обычное)
 			HellsWrathEnchantmentEpic: Зачарование "Гнев Ада" (Эпическое)
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Зачарование "Спелеолог" (Эпическое)
 			SpelunkerEnchantmentLegendary: Зачарование "Спелеолог" (Легендарное)
 			SpelunkerEnchantmentRare: Зачарование "Спелеолог" (Редкое)
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Зачарование "Яд" (Базовое)
 			VenomEnchantmentCommon: Зачарование "Яд" (Обычное)
 			VenomEnchantmentEpic: Зачарование "Яд" (Эпическое)
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Пробивание брони
 				AttackSpeed: Скорость атаки
 				AutoReuse: Автоматическое использование
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Ярость берсерков
 				BonusCoins: Бонусные монеты
 				BuffDuration: Длительность эффекта
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Восстановление маны
 				Frostburn: Обжигающий холод
 				GodSlayer: Убийца Богов
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: Гнев Ада
 				Hunter: Охотник
 				Ichor: Ихор
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Солнечный рывок
 				Sonar: Сонар
 				Spelunker: Спелеолог
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Рывок ниндзя
 				VanillaDash2: Рывок щита Глаза Ктулху
 				VanillaDash3: Солнечный рывок
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Зачарование мода Calamity)
 				DBZMODPORT: (Зачарование Террарии Жемчуга Дракона)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))

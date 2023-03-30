@@ -112,18 +112,34 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class RangedClassSwapEnchantmentEpic : RangedClassSwapEnchantment { }
 	public class RangedClassSwapEnchantmentLegendary : RangedClassSwapEnchantment { }
 
-	
+	public abstract class ThrowingClassSwapEnchantment : ClassSwapEnchantment
+	{
+		protected override DamageClass MyDamageClass => DamageClass.Throwing;
+	}
+	public class ThrowingClassSwapEnchantmentBasic : ThrowingClassSwapEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+			new("ThoriumMod/TheGrandThunderBirdv2")
+		} : null;
+	}
+	public class ThrowingClassSwapEnchantmentCommon : ThrowingClassSwapEnchantment { }
+	public class ThrowingClassSwapEnchantmentRare : ThrowingClassSwapEnchantment { }
+	public class ThrowingClassSwapEnchantmentEpic : ThrowingClassSwapEnchantment { }
+	public class ThrowingClassSwapEnchantmentLegendary : ThrowingClassSwapEnchantment { }
+
+
 	public abstract class RogueClassSwapEnchantment : ClassSwapEnchantment
 	{
-		protected override DamageClass MyDamageClass => ModIntegration.CalamityValues.rogue ?? DamageClass.Throwing;
-		public override string CustomTooltip => CalamityIntegration.calamityName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		protected override DamageClass MyDamageClass => CalamityValues.rogue ?? DamageClass.Throwing;
+		public override string CustomTooltip => CalamityIntegration.CALAMITY_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override string Designer => "Vyklade";
 	}
 	public class RogueClassSwapEnchantmentBasic : RogueClassSwapEnchantment
 	{
 		public override SellCondition SellCondition => WEMod.calamityEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
-		public override List<DropData> NpcDropTypes => WEMod.calamityEnabled ? new () {
-			new(NPCID.KingSlime, 9f)
+		public override List<ModDropData> ModNpcDropNames => WEMod.calamityEnabled ? new() {
+			new("CalamityMod/DesertScourgeHead")
 		} : null;
 	}
 	public class RogueClassSwapEnchantmentCommon : RogueClassSwapEnchantment { }
@@ -139,7 +155,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 			Effects.Add(new KiDamage());
 		}
 		protected override DamageClass MyDamageClass => DBZMODPORTIntegration.Enabled ? DamageClass.Generic : DamageClass.Magic;
-		public override string CustomTooltip => DBZMODPORTIntegration.DBTName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+		public override string CustomTooltip => DBZMODPORTIntegration.DBT_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		protected override DamageClassID DamageClassNameOveride => DamageClassID.Ki;
 		public override string Designer => "Vyklade";
 	}
@@ -154,4 +170,39 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	public class KiClassSwapEnchantmentRare : KiClassSwapEnchantment { }
 	public class KiClassSwapEnchantmentEpic : KiClassSwapEnchantment { }
 	public class KiClassSwapEnchantmentLegendary : KiClassSwapEnchantment { }
+
+	public abstract class BardClassSwapEnchantment : ClassSwapEnchantment
+	{
+		protected override DamageClass MyDamageClass => ThoriumValues.bard ?? DamageClass.Melee;
+		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+	}
+	public class BardClassSwapEnchantmentBasic : BardClassSwapEnchantment
+	{
+		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+			new("ThoriumMod/QueenJelly")
+		} : null;
+	}
+	public class BardClassSwapEnchantmentCommon : BardClassSwapEnchantment { }
+	public class BardClassSwapEnchantmentRare : BardClassSwapEnchantment { }
+	public class BardClassSwapEnchantmentEpic : BardClassSwapEnchantment { }
+	public class BardClassSwapEnchantmentLegendary : BardClassSwapEnchantment { }
+
+	public abstract class HealerClassSwapEnchantment : ClassSwapEnchantment
+	{
+		protected override DamageClass MyDamageClass => ThoriumValues.healerRadiation ?? DamageClass.Ranged;
+		public override string CustomTooltip => ThoriumIntegration.THORIUM_NAME.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
+	}
+	public class HealerClassSwapEnchantmentBasic : HealerClassSwapEnchantment
+	{
+		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
+		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
+			new("ThoriumMod/GraniteEnergyStorm"),
+			new("ThoriumMod/TheBuriedWarrior")
+		} : null;
+	}
+	public class HealerClassSwapEnchantmentCommon : HealerClassSwapEnchantment { }
+	public class HealerClassSwapEnchantmentRare : HealerClassSwapEnchantment { }
+	public class HealerClassSwapEnchantmentEpic : HealerClassSwapEnchantment { }
+	public class HealerClassSwapEnchantmentLegendary : HealerClassSwapEnchantment { }
 }

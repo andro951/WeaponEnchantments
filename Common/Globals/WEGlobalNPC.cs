@@ -122,7 +122,8 @@ namespace WeaponEnchantments.Common.Globals
         static bool war = false;
         static float warReduction = 1f;
         public static SortedDictionary<int, List<DropData>> npcDropTypes = new();
-        public static SortedDictionary<int, List<DropData>> npcAIDrops = new();
+		public static SortedDictionary<string, List<DropData>> modNpcDropNames = new();
+		public static SortedDictionary<int, List<DropData>> npcAIDrops = new();
 
 		private static SortedDictionary<int, List<(int, float)>> allItemDropsFromNpcs = null;
 		public static SortedDictionary<int, List<(int, float)>> AllItemDropsFromNpcs {
@@ -367,7 +368,28 @@ namespace WeaponEnchantments.Common.Globals
 
             return chance;
         }
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+        public static float GetModNpcEnchantmentDropChance (string name, bool bossBag = false) {
+			float chance = BossEnchantmentDropChance;
+
+            if (chance > 1f)
+                chance = 1f;
+
+            return chance;
+		}
+        public static void AddBossEnchantmentLoot(NPC npc, float chance, ILoot loot, bool bossBag = false, string modFullName = null) {
+            List<DropData> dropData = modFullName != null ? modNpcDropNames[modFullName] : npcDropTypes[npc.netID];
+			if (dropData.Count == 1)
+				chance *= dropData[0].Weight;
+
+			List<IItemDropRule> dropRules = GetDropRules(chance, dropData, WEMod.serverConfig.BossEnchantmentDropChance);
+			foreach (IItemDropRule rule in dropRules) {
+				AddBossLoot(loot, npc, rule, bossBag);
+			}
+
+			if (LogModSystem.printEnchantmentDrops && (bossBag || AllItemDropsFromNpcs != null && !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
+				LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, dropData));
+		}
+		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
             GetLoot(npcLoot, npc);
         }
         public static void GetLoot(ILoot loot, NPC npc, bool bossBag = false) {
@@ -455,17 +477,14 @@ namespace WeaponEnchantments.Common.Globals
                 if (npcDropTypes.ContainsKey(npc.netID)) {
                     //Enchantment drop chance
                     float chance = GetEnchantmentDropChance(npc.netID, bossBag);
-                    if (npcDropTypes[npc.netID].Count == 1)
-                        chance *= npcDropTypes[npc.netID][0].Weight;
+                    AddBossEnchantmentLoot(npc, chance, loot, bossBag);
+				}
 
-                    List<IItemDropRule> dropRules = GetDropRules(chance, npcDropTypes[npc.netID], WEMod.serverConfig.BossEnchantmentDropChance);
-                    foreach(IItemDropRule rule in dropRules) {
-						AddBossLoot(loot, npc, rule, bossBag);
-					}
-
-					if (LogModSystem.printEnchantmentDrops && (bossBag || AllItemDropsFromNpcs != null && !AllItemDropsFromNpcs.Values.SelectMany(l => l).Select(p => p.Item1).Contains(npc.netID)))
-                        LogModSystem.npcEnchantmentDrops.AddOrCombine(npc.netID, (chance, npcDropTypes[npc.netID]));
-                }
+                if (npc.netID > NPCID.Count && npc.ModFullName() is string modFullName && modNpcDropNames.ContainsKey(modFullName)) {
+                    //Enchantment drop chance for modded npcs
+                    float chance = GetModNpcEnchantmentDropChance(modFullName, bossBag);
+					AddBossEnchantmentLoot(npc, chance, loot, bossBag, modFullName);
+				}
             }
             else {
                 //Non-boss drops

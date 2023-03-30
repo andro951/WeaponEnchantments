@@ -24,10 +24,10 @@ namespace WeaponEnchantments.Common.Utility
         public int ID;
 	}
 	public struct DropData {
-        public int ID;
-        public float Weight;
-        public float Chance;
-        public DropData(int id, float weight = 1f, float chance = -1f) {
+        public int ID;//Can be and is used used for item type or npc netID
+		public float Weight { get; private set; }
+		public float Chance { get; private set; }
+		public DropData(int id, float weight = 1f, float chance = -1f) {
             ID = id;
             Weight = weight;
             Chance = chance;
@@ -44,6 +44,19 @@ namespace WeaponEnchantments.Common.Utility
 		}
 		public override string ToString() {
 			return $"ID: {ID}, Weight: {Weight}, Chance: {Chance}";
+		}
+	}
+	public struct ModDropData {
+		public string Name;//Usually just used for npc modFullNames
+		public float Weight { get; private set; }
+        public float Chance { get; private set; }
+		public ModDropData(string name, float weight = 1f, float chance = -1f) {
+			Name = name;
+			Weight = weight;
+			Chance = chance;
+		}
+		public override string ToString() {
+			return $"Name: {Name}, Weight: {Weight}, Chance: {Chance}";
 		}
 	}
 }

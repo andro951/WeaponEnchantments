@@ -24,6 +24,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetAddNPCValue(NPC npc, float value);
 		public void NetResetWarReduction(NPC npc);
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems);
+		public void NetResetEnchantedItemInChest(int chestNum, short index);
 	}
 	public class NetManager : ModHandler<INetMethods>, INetMethods
 	{
@@ -75,6 +76,11 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems) {
 			if (Main.netMode == NetmodeID.Server)
 				ConfirmationUI.OfferChestItems(chestItems);
+		}
+
+		public void NetResetEnchantedItemInChest(int chestNum, short index) {
+			if (Main.netMode == NetmodeID.Server)
+				EnchantedItemStaticMethods.ResetEnchantedItemInChestFromNet(chestNum, index);
 		}
 	}
 }

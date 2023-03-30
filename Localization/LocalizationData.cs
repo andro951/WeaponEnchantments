@@ -145,8 +145,9 @@ namespace WeaponEnchantments.Localization
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
-								{ CalamityIntegration.calamityName, "(Calamity Mod Enchantment)" },
-								{ DBZMODPORTIntegration.DBTName, "(Dragon Ball Terraria Enchantment)"}
+								{ CalamityIntegration.CALAMITY_NAME, "(Calamity Mod Enchantment)" },
+								{ DBZMODPORTIntegration.DBT_NAME, "(Dragon Ball Terraria Enchantment)"},
+								{ ThoriumIntegration.THORIUM_NAME, "(Throium Mod Enchantment)" }
 							}) },
 							{ L_ID2.EnchantmentShortTooltip.ToString(), new(dict: new() {
 								{ typeof(OnTickPlayerBuffEnchantment).Name.ToEnchantmentTypeName(), "Passively grants {0} for {1} every {2}" }
@@ -506,7 +507,8 @@ namespace WeaponEnchantments.Localization
 							}) },
 							{ nameof(ClientConfig.OfferAll), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Offer all of the same item." },
-								{ L_ID3.Tooltip.ToString(), "Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed." }
+								{ L_ID3.Tooltip.ToString(), "Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.\n" +
+															"Also offers all items from chests touching the enchanting table." }
 							}) },
 							{ nameof(ClientConfig.AllowShiftClickMoveFavoritedItems), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Allow shift click to move favorited items into the enchanting table." }

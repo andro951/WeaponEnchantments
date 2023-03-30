@@ -14,15 +14,15 @@ using Terraria.ID;
 
 namespace WeaponEnchantments.ModIntegration
 {
-	[JITWhenModsEnabled(DBTName)]
+	[JITWhenModsEnabled(DBT_NAME)]
 	internal class DBZMODPORTIntegration : ModSystem
 	{
-		public const string DBTName = "DBZMODPORT";
+		public const string DBT_NAME = "DBZMODPORT";
 		public static bool Enabled { get; private set; }
 
 		public override void Load()
 		{
-			Enabled = ModLoader.TryGetMod(DBTName, out Mod _);
+			Enabled = ModLoader.TryGetMod(DBT_NAME, out Mod _);
 			WEMod.dbtEnabled = Enabled;
 		}
 

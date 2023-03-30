@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Angriffsgeschwindigkeitsverzauberung Epic
 			AttackSpeedEnchantmentLegendary: Angriffsgeschwindigkeitsverzauberung Legendär
 			AttackSpeedEnchantmentRare: Geschwindigkeit Verzauberung Selten
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Berserker Rage Enchantment Basic
 			BerserkersRageEnchantmentCommon: Berserker Rage Enchantment Common
 			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epos
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: God Slayer Enchantment Epos
 			GodSlayerEnchantmentLegendary: Gotttöter-Verzauberung Legendär
 			GodSlayerEnchantmentRare: Gotttöter Verzauberung Selten
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Höllen Zorn Verzauberung Basic
 			HellsWrathEnchantmentCommon: Höllen Zorn Verzauberung Gewöhnlich
 			HellsWrathEnchantmentEpic: Hells Wrath Enchantment-Epos
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Spelunker Enchantment Epos
 			SpelunkerEnchantmentLegendary: Höhlenforscher-Verzauberung Legendär
 			SpelunkerEnchantmentRare: Höhlenforscher-Verzauberung Selten
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Giftverzauberung Basic
 			VenomEnchantmentCommon: Giftverzauberung Allgemein
 			VenomEnchantmentEpic: Giftverzauberung Epic
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Rüstungsdurchdringung
 				AttackSpeed: Angriffsgeschwindigkeit
 				AutoReuse: Automatische Wiederverwendung
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Berserker-Wut
 				BonusCoins: Bonusmünzen
 				BuffDuration: Buff-Dauer
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Flach MP Regen
 				Frostburn: Frostbrand
 				GodSlayer: Gottestöter
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: Höllen Zorn
 				Hunter: Jäger
 				Ichor: Ichor
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Solar Dash
 				Sonar: Sonar
 				Spelunker: Höhlenforscher
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Auge von Cthulhu Shield Dash
 				VanillaDash3: Solar Dash
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
 				DBZMODPORT: (Dragon Ball Terraria-Verzauberung)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)

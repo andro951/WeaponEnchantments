@@ -14,10 +14,10 @@ using Terraria.ID;
 
 namespace WeaponEnchantments.ModIntegration
 {
-	[JITWhenModsEnabled(calamityName)]
+	[JITWhenModsEnabled(CALAMITY_NAME)]
 	internal class CalamityIntegration : ModSystem
 	{
-		public const string calamityName = "CalamityMod";
+		public const string CALAMITY_NAME = "CalamityMod";
 		public static bool Enabled { get; private set; }
 		private List<Item> mouseItemClones = new List<Item>();
 		private Item lastMouseItem = null;
@@ -25,7 +25,7 @@ namespace WeaponEnchantments.ModIntegration
 		private bool skipOnce = false;
 
 		public override void Load() {
-			Enabled = ModLoader.TryGetMod(calamityName, out Mod calamityMod);
+			Enabled = ModLoader.TryGetMod(CALAMITY_NAME, out Mod calamityMod);
 			WEMod.calamityEnabled = Enabled;
 			if (Enabled) {
 				calamityMod.TryFind("RogueDamageClass", out CalamityValues.rogue);

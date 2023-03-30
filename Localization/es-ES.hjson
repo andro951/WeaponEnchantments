@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Velocidad de ataque Encantamiento Épico
 			AttackSpeedEnchantmentLegendary: Velocidad de ataque Encantamiento Legendario
 			AttackSpeedEnchantmentRare: Velocidad de ataque Encantamiento Raro
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Berserkers Rabia Encantamiento Básico
 			BerserkersRageEnchantmentCommon: Berserkers Rabia Encantamiento Común
 			BerserkersRageEnchantmentEpic: Berserkers Rabia Encantamiento Épico
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: Encantamiento Matadioses Épico
 			GodSlayerEnchantmentLegendary: Encantamiento Matadioses Legendario
 			GodSlayerEnchantmentRare: Encantamiento Matadioses Raro
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Encantamiento de Furia del Infierno Básico
 			HellsWrathEnchantmentCommon: Encantamiento de Furia del Infierno Común
 			HellsWrathEnchantmentEpic: Encantamiento de Furia del Infierno Épico
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Encantamiento de espeleólogo Épico
 			SpelunkerEnchantmentLegendary: Encantamiento de espeleólogo Legendario
 			SpelunkerEnchantmentRare: Encantamiento de espeleólogo Raro
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Encantamiento de veneno básico
 			VenomEnchantmentCommon: Encantamiento de veneno Común
 			VenomEnchantmentEpic: Encantamiento de veneno Épica
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Penetración de armadura
 				AttackSpeed: Velocidad de ataque
 				AutoReuse: Reutilización automática
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Rabia de berserkers
 				BonusCoins: Monedas de bonificación
 				BuffDuration: "Extiende la duración de los beneficios en {0}"
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Regeneración MP plana
 				Frostburn: Quemadura de escarcha
 				GodSlayer: Dios asesino
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: Ira del infierno
 				Hunter: Cazador
 				Ichor: Icor
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Embestida solar
 				Sonar: Sonar
 				Spelunker: Espeleólogo
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Embestida de tabi ninja
 				VanillaDash2: Embestida del Escudo del Ojo de Cthulhu
 				VanillaDash3: Embestida solar
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Encantamiento Mod Calamity)
 				DBZMODPORT: (Encantamiento Dragon Ball Terraria)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).

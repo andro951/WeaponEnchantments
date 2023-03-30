@@ -661,7 +661,15 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, new List<DropData>() { newValue });
             }
         }
-        public static void AddOrCombine<TKey, T>(this SortedDictionary<TKey, List<(T, List<DropData>)>> dictionary, TKey key, (T, List<DropData>) newValue) {
+		public static void AddOrCombine<TKey>(this SortedDictionary<TKey, List<ModDropData>> dictionary, TKey key, ModDropData newValue) {
+			if (dictionary.ContainsKey(key)) {
+				dictionary[key].Add(newValue);
+			}
+			else {
+				dictionary.Add(key, new List<ModDropData>() { newValue });
+			}
+		}
+		public static void AddOrCombine<TKey, T>(this SortedDictionary<TKey, List<(T, List<DropData>)>> dictionary, TKey key, (T, List<DropData>) newValue) {
             if (dictionary.ContainsKey(key)) {
                 dictionary[key].Add(newValue);
             }

@@ -184,6 +184,7 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		public Dictionary<EItemType, float> AllowedList { protected set; get; }
 		public virtual List<DropData> NpcDropTypes { protected set; get; } = null;
+		public virtual List<ModDropData> ModNpcDropNames { protected set; get; } = null;
 		public virtual List<DropData> NpcAIDrops { protected set; get; } = null;
 		public virtual List<DropData> ChestDrops { protected set; get; } = null;
 		public virtual List<DropData> CrateDrops { protected set; get; } = null;
@@ -416,6 +417,14 @@ namespace WeaponEnchantments.Items
 					int npcType = dropData.ID;
 					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
 					WEGlobalNPC.npcDropTypes.AddOrCombine(npcType, enchantmentDropData);
+				}
+			}
+
+			if (ModNpcDropNames != null) {
+				foreach (ModDropData dropData in ModNpcDropNames) {
+					string modNpcName = dropData.Name;
+					DropData enchantmentDropData = new(Type, dropData.Weight, dropData.Chance);
+					WEGlobalNPC.modNpcDropNames.AddOrCombine(modNpcName, enchantmentDropData);
 				}
 			}
 

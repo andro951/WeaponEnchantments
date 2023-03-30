@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Vitesse d'attaque Enchantement Épique
 			AttackSpeedEnchantmentLegendary: Vitesse d'attaque Enchantement Légendaire
 			AttackSpeedEnchantmentRare: Enchantement de vitesse Rare
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basique
 			BerserkersRageEnchantmentCommon: Rage des berserkers Enchantement Commun
 			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: Épopée d'enchantement de God Slayer
 			GodSlayerEnchantmentLegendary: God Slayer Enchantement Légendaire
 			GodSlayerEnchantmentRare: Enchantement de Tueur de dieu Rare
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Enchantement de Colère infernale de base
 			HellsWrathEnchantmentCommon: Enchantement de Colère infernale Commun
 			HellsWrathEnchantmentEpic: Épopée d'enchantement de Hells Wrath
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Épopée d'enchantement de spéléologue
 			SpelunkerEnchantmentLegendary: Spéléologue Enchantement Légendaire
 			SpelunkerEnchantmentRare: Enchantement de spéléologue rare
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Enchantement de venin de base
 			VenomEnchantmentCommon: Enchantement de venin Commun
 			VenomEnchantmentEpic: Épique d'enchantement de venin
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Pénétration d'armure
 				AttackSpeed: Vitesse d'attaque
 				AutoReuse: Réutilisation automatique
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Rage des Berserkers
 				BonusCoins: Pièces bonus
 				BuffDuration: Durée du buff
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Régénération MP plate
 				Frostburn: Brûlure de givre
 				GodSlayer: Dieu tueur
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: Colère de l'enfer
 				Hunter: Chasseur
 				Ichor: Ichor
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Tiret solaire
 				Sonar: Sonar
 				Spelunker: Spéléologue
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Tiret de bouclier de l'œil de Cthulhu
 				VanillaDash3: Tiret solaire
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Enchantement Mod Calamité)
 				DBZMODPORT: (Enchantement Dragon Ball Terraria)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(Le debuff d'Amaterasu et les notes ci-dessous à ce sujet ne s'appliquent qu'au niveau d'enchantement 4.)

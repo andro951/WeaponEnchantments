@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Attack Speed Enchantment Epic
 			AttackSpeedEnchantmentLegendary: Attack Speed Enchantment Legendary
 			AttackSpeedEnchantmentRare: Attack Speed Enchantment Rare
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Berserkers Rage Enchantment Basic
 			BerserkersRageEnchantmentCommon: Berserkers Rage Enchantment Common
 			BerserkersRageEnchantmentEpic: Berserkers Rage Enchantment Epic
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: God Slayer Enchantment Epic
 			GodSlayerEnchantmentLegendary: God Slayer Enchantment Legendary
 			GodSlayerEnchantmentRare: God Slayer Enchantment Rare
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Hells Wrath Enchantment Basic
 			HellsWrathEnchantmentCommon: Hells Wrath Enchantment Common
 			HellsWrathEnchantmentEpic: Hells Wrath Enchantment Epic
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Spelunker Enchantment Epic
 			SpelunkerEnchantmentLegendary: Spelunker Enchantment Legendary
 			SpelunkerEnchantmentRare: Spelunker Enchantment Rare
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Venom Enchantment Basic
 			VenomEnchantmentCommon: Venom Enchantment Common
 			VenomEnchantmentEpic: Venom Enchantment Epic
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Armor Penetration
 				AttackSpeed: Attack Speed
 				AutoReuse: Auto Reuse
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Berserkers Rage
 				BonusCoins: Bonus Coins
 				BuffDuration: Buff Duration
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Flat MP Regen
 				Frostburn: Frostburn
 				GodSlayer: God Slayer
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: Hells Wrath
 				Hunter: Hunter
 				Ichor: Ichor
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Solar Dash
 				Sonar: Sonar
 				Spelunker: Spelunker
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Eye Of Cthulhu Shield Dash
 				VanillaDash3: Solar Dash
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Calamity Mod Enchantment)
 				DBZMODPORT: (Dragon Ball Terraria Enchantment)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)

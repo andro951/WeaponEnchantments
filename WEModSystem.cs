@@ -81,7 +81,11 @@ namespace WeaponEnchantments
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
-                string temp = wePlayer.Player.HeldItem.ModFullName();
+                Item item = wePlayer.Player.HeldItem;
+				string temp = item.ModFullName();
+                if (item.DamageType != DamageClass.Default) {
+					string temp2 = item.DamageType.Name;
+				}
 			}
 
             if (wePlayer.usingEnchantingTable) {

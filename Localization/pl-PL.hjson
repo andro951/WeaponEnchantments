@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Epickie zaklęcie szybkości ataku
 			AttackSpeedEnchantmentLegendary: Legendarne zaklęcie szybkości ataku
 			AttackSpeedEnchantmentRare: Rzadkie zaklęcie prędkości ataku
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: Podstawowe zaklęcie furii berserkerów
 			BerserkersRageEnchantmentCommon: Zaklęcie Szału Berserkerów Powszechne
 			BerserkersRageEnchantmentEpic: Epickie zaklęcie zaklęcia furii berserkerów
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: Epickie zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentLegendary: Legendarne zaklęcie Zabójcy Boga
 			GodSlayerEnchantmentRare: Zaklęcie Zabójcy Boga Rzadkie
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: Podstawowe zaklęcie piekielnego gniewu
 			HellsWrathEnchantmentCommon: Zaklęcie piekielnego gniewu Powszechne
 			HellsWrathEnchantmentEpic: Epickie zaklęcie piekielnego gniewu
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Epickie zaklęcie grotołazów
 			SpelunkerEnchantmentLegendary: Legendarne zaklęcie grotołazów
 			SpelunkerEnchantmentRare: Rzadkie zaklęcie grotołazów
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: Podstawowe zaklęcie jadu
 			VenomEnchantmentCommon: Zaklęcie Jadu Zwykłe
 			VenomEnchantmentEpic: Epickie zaklęcie jadu
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: Penetracja pancerza
 				AttackSpeed: Szybkość ataku
 				AutoReuse: Automatyczne ponowne użycie
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: Wściekłość berserkerów
 				BonusCoins: Monety bonusowe
 				BuffDuration: Czas trwania premii
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: Płaska regeneracja MP
 				Frostburn: Odmrożenie
 				GodSlayer: Zabójca Boga
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: piekielny gniew
 				Hunter: Łowca
 				Ichor: Posoka
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: Słoneczna kreska
 				Sonar: Sonar
 				Spelunker: grotołaz
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Zryw tarczy oka Cthulhu
 				VanillaDash3: Słoneczna kreska
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Zaklęcie Mody Katastrofy)
 				DBZMODPORT: (Zaklęcie Dragon Ball Terraria)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					(Osłabienie Amaterasu i poniższe uwagi na ten temat mają zastosowanie tylko na 4. poziomie zaklęcia)

@@ -22,6 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: 攻速附魔史诗
 			AttackSpeedEnchantmentLegendary: 攻速附魔传奇
 			AttackSpeedEnchantmentRare: 攻速附魔稀有
+			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
 			BerserkersRageEnchantmentBasic: 狂暴者之怒附魔基元
 			BerserkersRageEnchantmentCommon: 狂暴者之怒附魔普通
 			BerserkersRageEnchantmentEpic: 狂暴者之怒附魔史诗
@@ -117,6 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: 弑神者附魔史诗
 			GodSlayerEnchantmentLegendary: 弑神者附魔传奇
 			GodSlayerEnchantmentRare: 弑神者附魔稀有
+			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
 			HellsWrathEnchantmentBasic: 地狱之怒附魔基元
 			HellsWrathEnchantmentCommon: 地狱之怒附魔普通
 			HellsWrathEnchantmentEpic: 地狱之怒附魔史诗
@@ -287,6 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: 洞穴探险者附魔史诗
 			SpelunkerEnchantmentLegendary: 洞穴探险者附魔传奇
 			SpelunkerEnchantmentRare: 洞穴探险者附魔稀有
+			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
 			VenomEnchantmentBasic: 毒液附魔基元
 			VenomEnchantmentCommon: 毒液附魔普通
 			VenomEnchantmentEpic: 毒液附魔史诗
@@ -1012,6 +1027,7 @@ Mods: {
 				ArmorPenetration: 护甲穿透
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动使用
+				BardClassSwap: Bard Class Swap
 				BerserkersRage: 狂暴者之怒
 				BonusCoins: 奖励硬币
 				BuffDuration: 增益持续时间
@@ -1057,6 +1073,7 @@ Mods: {
 				FlatMPRegen: 加快魔力再生
 				Frostburn: 霜冻
 				GodSlayer: 弑神者
+				HealerClassSwap: Healer Class Swap
 				HellsWrath: 地狱之怒
 				Hunter: 猎人
 				Ichor: 脓液
@@ -1111,6 +1128,7 @@ Mods: {
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
 				Spelunker: 探险者
+				ThrowingClassSwap: Throwing Class Swap
 				VanillaDash1: 忍者袜短跑
 				VanillaDash2: 克苏鲁之眼盾冲刺
 				VanillaDash3: 太阳能短跑
@@ -1126,6 +1144,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: （灾厄模组附魔）
 				DBZMODPORT: (龙珠模组附魔)
+				ThoriumMod: (Throium Mod Enchantment)
 				WorldAblaze: 
 					'''
 					（天照减益和以下关于它的注释仅适用于附魔第4阶。）
