@@ -730,7 +730,11 @@ Mods: {
 			}
 			OfferAll: {
 				Label: Offer all of the same item.
-				Tooltip: Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.
+				Tooltip: 
+					'''
+					Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.
+					Also offers all items from chests touching the enchanting table.
+					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
 				Label: OnlyShowErrorMessagesInChatOnce

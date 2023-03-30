@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: Зачарование "Скорость" (Эпическое)
 			AttackSpeedEnchantmentLegendary: Зачарование "Скорость" (Легендарное)
 			AttackSpeedEnchantmentRare: Зачарование "Скорость" (Редкое)
-			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
-			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
-			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
-			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
-			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
+			BardClassSwapEnchantmentBasic: Базовое зачарование смены класса барда
+			BardClassSwapEnchantmentCommon: Зачарование смены класса барда обычное
+			BardClassSwapEnchantmentEpic: Эпическое зачарование смены класса барда
+			BardClassSwapEnchantmentLegendary: Легендарное заклинание смены класса барда
+			BardClassSwapEnchantmentRare: Зачарование смены класса барда Редкое
 			BerserkersRageEnchantmentBasic: Зачарование ярости берсерков базовое
 			BerserkersRageEnchantmentCommon: Чары ярости берсерков
 			BerserkersRageEnchantmentEpic: Ярость берсерков Чары Эпические
@@ -122,11 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: Зачарование "Убийца Богов" (Эпическое)
 			GodSlayerEnchantmentLegendary: Зачарование "Убийца Богов" (Легендарное)
 			GodSlayerEnchantmentRare: Зачарование "Убийца Богов" (Редкое)
-			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
-			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
-			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
-			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
-			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
+			HealerClassSwapEnchantmentBasic: Базовое зачарование смены класса целителя
+			HealerClassSwapEnchantmentCommon: Зачарование смены класса целителя Обычный
+			HealerClassSwapEnchantmentEpic: Эпическое заклинание смены класса целителя
+			HealerClassSwapEnchantmentLegendary: Зачарование смены класса целителя, легендарное
+			HealerClassSwapEnchantmentRare: Зачарование смены класса целителя, редкое
 			HellsWrathEnchantmentBasic: Зачарование "Гнев Ада" (Базовое)
 			HellsWrathEnchantmentCommon: Зачарование "Гнев Ада" (Обычное)
 			HellsWrathEnchantmentEpic: Зачарование "Гнев Ада" (Эпическое)
@@ -297,11 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: Зачарование "Спелеолог" (Эпическое)
 			SpelunkerEnchantmentLegendary: Зачарование "Спелеолог" (Легендарное)
 			SpelunkerEnchantmentRare: Зачарование "Спелеолог" (Редкое)
-			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
-			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
-			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
-			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
-			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
+			ThrowingClassSwapEnchantmentBasic: Бросок Зачарования Обмена Классом Базовый
+			ThrowingClassSwapEnchantmentCommon: Бросок чары смены класса Обычный
+			ThrowingClassSwapEnchantmentEpic: Эпическое зачарование смены класса
+			ThrowingClassSwapEnchantmentLegendary: Легендарное зачарование смены класса
+			ThrowingClassSwapEnchantmentRare: Бросок чары смены класса редкий
 			VenomEnchantmentBasic: Зачарование "Яд" (Базовое)
 			VenomEnchantmentCommon: Зачарование "Яд" (Обычное)
 			VenomEnchantmentEpic: Зачарование "Яд" (Эпическое)
@@ -345,38 +345,38 @@ Mods: {
 			Witch: Ведьма - уродливая карга, что занимается еще большими злодеяниями. Она торгует сомнительными материалами, которые можно использовать для улучшения снаряжения с загадочными эффектами.
 		}
 		Config: {
-			AccessoryDRValues: "Accessory {0}% ({1}% at 40)"
-			ArmorDRValues: "Armor {0}% ({1}% at 40)"
-			Automatic: Automatic
-			Custom: Custom
-			DisplaySettings: Display Settings
-			EnchantingTableOptions: Enchanting Table Options
-			Enchantment: Enchantment
-			EnchantmentDropRates(%): Enchantment Drop Rates(%)
-			EnchantmentSettings: Enchantment Settings
-			ErrorMessages: Error Messages
-			EssenceandExperience: Essence and Experience
-			Expert: Expert
-			GeneralGameChanges: General Game Changes
-			IndividualEnchantmentStrengths: Individual Enchantment Strengths
-			Journey: Journey
-			LoggingInformation: Logging Information
-			Master: Master
-			ModTestingTools: Mod Testing Tools
-			Multipliers: Multipliers
-			NoneSelected: None Selected
-			Normal: Normal
-			OtherDropRates: Other Drop Rates
-			Presets: Presets
-			RandomExtraStuff: Random Extra Stuff
-			RarityEnchantmentStrengthMultipliers: Rarity Enchantment Strength Multipliers
-			ServerConfig: Server Config
+			AccessoryDRValues: "Аксессуар {0}% ({1}% при 40)"
+			ArmorDRValues: "Броня {0}% ({1}% при 40)"
+			Automatic: автоматический
+			Custom: Обычай
+			DisplaySettings: Настройки отображения
+			EnchantingTableOptions: Варианты таблицы зачарования
+			Enchantment: Чары
+			EnchantmentDropRates(%): Шанс выпадения чар (%)
+			EnchantmentSettings: Настройки чар
+			ErrorMessages: Сообщения об ошибках
+			EssenceandExperience: Суть и опыт
+			Expert: Эксперт
+			GeneralGameChanges: Общие изменения в игре
+			IndividualEnchantmentStrengths: Индивидуальные сильные стороны чар
+			Journey: Путешествие
+			LoggingInformation: Регистрация информации
+			Master: Владелец
+			ModTestingTools: Инструменты тестирования модов
+			Multipliers: Множители
+			NoneSelected: Не выбрано, ничего не выбрано
+			Normal: Нормальный
+			OtherDropRates: Другие шансы выпадения
+			Presets: Пресеты
+			RandomExtraStuff: Случайные дополнительные вещи
+			RarityEnchantmentStrengthMultipliers: Множители силы зачарования редкости
+			ServerConfig: Конфигурация сервера
 			AccessoryDamageReductionPerLevel: {
-				Label: Accessory DR Per Level (100000 = 1%)
-				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+				Label: DR аксессуаров за уровень (100000 = 1%)
+				Tooltip: 250000 (2,5%) — это максимум, который будет 100% снижением урона на 40 уровне.
 			}
 			AffectOnVanillaLifeStealLimmit: {
-				Label: Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)
+				Label: Ограничение Life Steal Enchantment (влияет на ванильный лимит Life Steal) (%)
 				Tooltip: 
 					'''
 					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
@@ -390,10 +390,10 @@ Mods: {
 					'''
 			}
 			AllowCraftingIntoLowerTier: {
-				Label: Allow crafting enchantments into lower tier enchantments.
+				Label: Разрешить создание чар в чары более низкого уровня.
 			}
 			AllowCriticalChancePast100: {
-				Label: Critical hit chance effective over 100% chance
+				Label: Шанс критического удара эффективен более 100% шанса
 				Tooltip: 
 					'''
 					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
@@ -409,261 +409,261 @@ Mods: {
 					'''
 			}
 			AllowInfusingToLowerPower: {
-				Label: Allow Infusing items to lower infusion Powers
-				Tooltip: Warning: This will allow you to consume a weak weapon to downgrade a strong weapon.
+				Label: Разрешить вливание предметов для снижения силы вливания
+				Tooltip: Предупреждение: это позволит вам использовать слабое оружие, чтобы понизить сильное оружие.
 			}
 			AllowShiftClickMoveFavoritedItems: {
-				Label: Allow shift click to move favorited items into the enchanting table.
+				Label: Разрешить Shift, чтобы перемещать избранные предметы в таблицу зачарования.
 			}
 			AlwaysDisplayAccessoryLevelUpMessages: {
-				Label: Always Display Accessory Level Up Messages
-				Tooltip: Only displays accessory level up messages when using the enchanting table if this option is off.
+				Label: Всегда отображать сообщения о повышении уровня аксессуара
+				Tooltip: Отображает сообщения о повышении уровня аксессуара только при использовании таблицы зачарования, если эта опция отключена.
 			}
 			AlwaysDisplayArmorLevelUpMessages: {
-				Label: Always Display Armor Level Up Messages
-				Tooltip: Only displays armor level up messages when using the enchanting table if this option is off.
+				Label: Всегда отображать сообщения о повышении уровня брони
+				Tooltip: Отображает сообщения о повышении уровня брони только при использовании таблицы зачарования, если эта опция отключена.
 			}
 			AlwaysDisplayInfusionPower: {
-				Label: Always display Infusion Power
-				Tooltip: Enable to display item's Infusion Power always instead of just when the enchanting table is open.
+				Label: Всегда отображать мощность инфузии
+				Tooltip: Включите отображение Infusion Power предмета всегда, а не только тогда, когда открыт стол зачарования.
 			}
 			AlwaysDisplayToolLevelUpMessages: {
-				Label: Always Display Tool Level Up Messages
-				Tooltip: Only displays tool level up messages when using the enchanting table if this option is off.
+				Label: Всегда отображать сообщения о повышении уровня инструмента
+				Tooltip: Отображает сообщения о повышении уровня инструмента только при использовании таблицы зачарования, если эта опция отключена.
 			}
 			AlwaysDisplayWeaponLevelUpMessages: {
-				Label: Always Display Weapon Level Up Messages
-				Tooltip: Only displays weapon level up messages when using the enchanting table if this option is off.
+				Label: Всегда отображать сообщения о повышении уровня оружия
+				Tooltip: Отображает сообщения о повышении уровня оружия только при использовании таблицы зачарования, если эта опция отключена.
 			}
 			AlwaysOverrideDamageType: {
-				Label: Damage type converting enchantments always override.
+				Label: Зачарования, преобразующие тип урона, всегда переопределяют.
 				Tooltip: 
 					'''
-					Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.
-					If not selected, the damage type will only be changed if the weapon is currently it's original damage type.
+					Некоторые моды, такие как Stars Above, изменяют типы урона от оружия. Если эта опция включена, Чары, изменяющие тип урона, всегда будут изменять тип урона оружия.
+					Если не выбрано, тип урона будет изменен только в том случае, если оружие в настоящее время имеет исходный тип урона.
 					'''
 			}
 			AmaterasuSelfGrowthPerTick: {
-				Label: Amaterasu Self Growth Per Tick
-				Tooltip: Affects how quickly Amaterasu damage will go up naturally (Not when being hit again with a World Ablaze weapon.)
+				Label: Самостоятельный рост Аматэрасу за тик
+				Tooltip: Влияет на скорость естественного увеличения урона Аматэрасу (не при повторном ударе оружием Пылающего Мира).
 			}
 			ArmorDamageReductionPerLevel: {
-				Label: Armor DR Per Level (100000 = 1%)
-				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+				Label: СП брони за уровень (100000 = 1%)
+				Tooltip: 250000 (2,5%) — это максимум, который будет 100% снижением урона на 40 уровне.
 			}
 			ArmorDamageReductions: {
-				Label: Armor and accessory Damage Reductions
+				Label: Уменьшение урона брони и аксессуаров
 			}
 			ArmorPenetration: {
-				Label: Convert excess armor penetration to bonus damage
+				Label: Преобразование избыточного пробития брони в дополнительный урон
 				Tooltip: 
 					'''
-					Example: Enemy has 4 defense, Your weapon has 10 armor penetration.
-					10 - 4 = 6 excess armor penetration (not doing anything)
-					Gain 3 bonus damage (6/2 = 3)
+					Пример: У врага 4 защиты, у вашего оружия 10 бронепробития.
+					10 - 4 = 6 лишняя бронепробиваемость (ничего не делая)
+					Получите 3 дополнительного урона (6/2 = 3)
 					'''
 			}
 			AttackSpeedEnchantmentAutoReuseSetpoint: {
-				Label: Speed Enchantment Auto Reuse Enabled (%)
+				Label: Включено автоматическое повторное использование зачарования скорости (%)
 				Tooltip: 
 					'''
-					The strength that a Speed Enchantment will start giving the Auto Reuse stat.
-					Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)
+					Сила, с которой зачарование скорости начнет давать характеристику автоматического повторного использования.
+					Установите значение 0 для всех чар скорости, чтобы обеспечить автоматическое повторное использование. Установите значение 10000, чтобы предотвратить повторное использование авто (если только ваш множитель силы не огромен)
 					'''
 			}
 			AutomaticallyMatchPreseTtoWorldDifficulty: {
-				Label: Automatically Match Preset to World Difficulty
+				Label: Автоматически сопоставлять предустановку с мировой сложностью
 			}
 			AutoReuseDisabledOnMagicMissile: {
-				Label: Auto Reuse Disabled on Magic Missile type weapons
-				Tooltip: Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.
+				Label: Автоматическое повторное использование отключено на оружии типа Magic Missile.
+				Tooltip: Автоматическое повторное использование оружия, такого как Magic Missile, позволяет вам непрерывно стрелять снарядами, чтобы бесконечно накапливать урон.
 			}
 			BasicEnchantmentStrengthMultiplier: {
-				Label: Basic
+				Label: Базовый
 				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			BossEnchantmentDropChance: {
-				Label: Boss Enchantment Drop Rate(%)
+				Label: Шанс выпадения чар босса (%)
 				Tooltip: 
 					'''
-					Adjust the drop rate of enchantments from bosses.
-					(Default is 50%)
+					Отрегулируйте скорость выпадения чар с боссов.
+					(по умолчанию 50%)
 					'''
 			}
 			BossEssenceMultiplier: {
-				Label: Boss Essence Multiplier(%)
+				Label: Множитель сущности босса (%)
 				Tooltip: Modify the ammount of essence recieved from bosses.
 			}
 			BossExperienceMultiplier: {
-				Label: Boss Experience Multiplier(%)
+				Label: Множитель опыта босса (%)
 				Tooltip: Modify the ammount of experience recieved from bosses.
 			}
 			BuffDuration: {
-				Label: Buff cooldown duration (seconds)
-				Tooltip: Affects buff cooldown and duration.
+				Label: Длительность перезарядки баффа (секунды)
+				Tooltip: Влияет на перезарядку и продолжительность баффа.
 			}
 			CalculateDamageReductionBeforeDefense: {
-				Label: Calculate Damage Reduction before player defense
+				Label: Рассчитать снижение урона перед защитой игрока
 				Tooltip: 
 					'''
-					By default, damage reduction is applied after player defense.  Select this to apply before.
-					Before will cause you to take much less damage.
+					По умолчанию снижение урона применяется после защиты игрока. Выберите это, чтобы применить раньше.
+					До заставит вас получить гораздо меньше урона.
 					'''
 			}
 			ChestSpawnChance: {
-				Label: Chest Enchantment Spawn Chance(%)
-				Tooltip: Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)
+				Label: Шанс появления зачарованного сундука (%)
+				Tooltip: Отрегулируйте шанс найти чары в сундуках. Может быть больше 100%. Не влияет на сундуки биома. (Они всегда 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Конфигурация клиента
 			}
 			CommonEnchantmentStrengthMultiplier: {
-				Label: Common
+				Label: Общий
 				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ConfigCapacityCostMultiplier: {
-				Label: Enchantment Capacity Cost Multiplier(%)
-				Tooltip: Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.
+				Label: Множитель стоимости емкости зачарования (%)
+				Tooltip: Влияет на стоимость зачарования предмета. Базовые значения: 1/2/3/4/5 для полезности, 2/4/6/8/10 для обычного и 3/6/9/12/15 для уникального.
 			}
 			CrateDropChance: {
-				Label: Crate Enchantment Drop Chance Multiplier(%)
-				Tooltip: Adjust the chance of finding enchantments in fishing crates.
+				Label: Множитель шанса выпадения зачарованного ящика (%)
+				Tooltip: Отрегулируйте шанс найти чары в рыболовных ящиках.
 			}
 			CritPerLevelDisabled: {
-				Label: Disable Weapon critical strike chance per level
+				Label: Отключить шанс критического удара оружия за уровень
 				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
 			}
 			DamagePerLevelInstead: {
-				Label: Damage instead of critical chance per level
-				Tooltip: Weapons gain damage per level instead of critical strike chance equal to their level * Global Enchantment Strength Multiplier
+				Label: Урон вместо критического шанса за уровень
+				Tooltip: Оружие получает урон за уровень вместо шанса критического удара, равного его уровню * Global Enchantment Strength Multiplier
 			}
 			DamageReductionPerLevelDisabled: {
-				Label: Disable armor and accessory damage reduction per level
+				Label: Отключить уменьшение урона брони и аксессуаров за уровень
 				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
 			}
 			DCUStart: {
-				Label: Start with a Drill Containment Unit
+				Label: Начните с блока сдерживания бурения
 				Tooltip: 
 					'''
-					All players will get a Drill Containment Unit when they first spawn.
-					This is just for fun when you feel like a faster playthrough.
+					Все игроки получат блок сдерживания дрели при первом появлении.
+					Это просто для удовольствия, когда вы хотите более быстрого прохождения.
 					'''
 			}
 			DisableAllErrorMessagesInChat: {
-				Label: Disable All Error Messages In Chat
+				Label: Отключить все сообщения об ошибках в чате
 				Tooltip: 
 					'''
-					Prevents messages showing up in your chat that ask you to 
-					"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time."
+					Предотвращает появление в чате сообщений, в которых вас просят
+					«Пожалуйста, сообщите об этом andro951 (Зачарование оружия) вместе с описанием того, что вы делали в то время».
 					'''
 			}
 			DisableArmorInfusion: {
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
-				Label: Disable Minion Critical hits
+				Label: Отключить критические удары миньонов
 				Tooltip: 
 					'''
-					In vanilla, minions arent affected by weapon critical chance.
-					Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.
-					This option disables the crits(vanilla mechanics)
+					В ванили на миньонов не влияет шанс критического урона от оружия.
+					Чары для оружия дают миньонам шанс критического удара, основанный на шансе критического удара оружия.
+					Эта опция отключает криты (ванильная механика).
 					'''
 			}
 			DisableResearch: {
-				Label: Disable Ability to research Weapon Enchantment items
+				Label: Отключить возможность исследования предметов для зачарования оружия
 			}
 			DisplayApproximateWeaponDamageTooltip: {
-				Label: Display approximate weapon damage in the tooltip
+				Label: Отображать примерный урон оружия во всплывающей подсказке
 				Tooltip: 
 					'''
-					Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.
-					This displays the damage against a 0 armor enemy.
+					Чары урона рассчитываются после того, как вражеская броня уменьшает урон, а не напрямую изменяет урон предмета.
+					Отображает урон по врагу с 0 броней.
 					'''
 			}
 			EnableSwappingWeapons: {
-				Label: Enable swapping weapons with num keys (Weapons sorted by infusion power)
+				Label: Включить замену оружия с помощью цифровых клавиш (оружие отсортировано по мощности вливания)
 				Tooltip: 
 					'''
-					Use num1 and num3 to swap between all weapons.  Use num4 and num6 to swap between only modded weapons.
-					Will not replace enchanted or modified weapons.
+					Используйте num1 и num3 для переключения между всеми видами оружия. Используйте num4 и num6 для переключения только между модифицированным оружием.
+					Не заменит зачарованное или модифицированное оружие.
 					'''
 			}
 			EnchantmentDropChance: {
-				Label: Non-Boss Enchantment Drop Rate(%)
+				Label: Вероятность выпадения чар без боссов (%)
 				Tooltip: 
 					'''
-					Adjust the drop rate of enchantments from non -boss enemies.
-					(Default is 100%)
+					Отрегулируйте скорость выпадения чар из врагов, не являющихся боссами.
+					(по умолчанию 100%)
 					'''
 			}
 			EnchantmentSlotsOnAccessories: {
 				Label: Enchantment Slots On Accissories
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					1-й слот - обычный слот.
+					2-й слот - это слот утилиты.
+					3-5 - обычные слоты.
 					'''
 			}
 			EnchantmentSlotsOnArmor: {
-				Label: Enchantment Slots On Armor
+				Label: Слоты для чар на доспехах
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					1-й слот - обычный слот.
+					2-й слот - это слот утилиты.
+					3-5 - обычные слоты.
 					'''
 			}
 			EnchantmentSlotsOnFishingPoles: {
-				Label: Enchantment Slots On Fishing Poles
+				Label: Слоты для чар на удочках
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					1-й слот - обычный слот.
+					2-й слот - это слот утилиты.
+					3-5 - обычные слоты.
 					'''
 			}
 			EnchantmentSlotsOnTools: {
-				Label: Enchantment Slots On Tools
+				Label: Слоты зачарования на инструментах
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
-					The Clentaminator is the only tool so far.
+					1-й слот - обычный слот.
+					2-й слот - это слот утилиты.
+					3-5 - обычные слоты.
+					Clentaminator пока единственный инструмент.
 					'''
 			}
 			EnchantmentSlotsOnWeapons: {
-				Label: Enchantment Slots On Weapons
+				Label: Слоты зачарования на оружии
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					1-й слот - обычный слот.
+					2-й слот - это слот утилиты.
+					3-5 - обычные слоты.
 					'''
 			}
 			EpicEnchantmentStrengthMultiplier: {
-				Label: Epic
+				Label: Эпический
 				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			EssenceGrabRange: {
-				Label: Essence Grab Range Multiplier
-				Tooltip: Affects how far the essence can be away from the player when it starts moving towards the player.
+				Label: Множитель дальности захвата сущности
+				Tooltip: Влияет на то, насколько далеко сущность может быть от игрока, когда она начинает двигаться к игроку.
 			}
 			EssenceMultiplier: {
-				Label: Non-Boss Essence Multiplier(%)
+				Label: Множитель сущности без босса (%)
 				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
 			}
 			ExperienceMultiplier: {
-				Label: Non-Boss Experience Multiplier(%)
+				Label: Множитель опыта без боссов (%)
 				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
 			}
 			GatheringExperienceMultiplier: {
-				Label: Gathering Experience Multiplier(%)
+				Label: Множитель опыта сбора (%)
 				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
 			}
 			GlobalEnchantmentStrengthMultiplier: {
-				Label: Global Enchantment Strength Multiplier (%)
+				Label: Глобальный множитель силы чар (%)
 				Tooltip: 
 					'''
 					Adjusts all enchantment strengths based on recomended enchantment changes.
@@ -672,12 +672,12 @@ Mods: {
 					'''
 			}
 			individualStrengths: {
-				Label: Individual Strengths
+				Label: Индивидуальные сильные стороны
 				Tooltip: 
 					'''
-					Modify individual enchantment strengths by value
-					(NOT PERCENTAGE!)
-					(Overrides all other options)
+					Изменить силу отдельных чар по значению
+					(НЕ ПРОЦЕНТ!)
+					(Отменяет все остальные параметры)
 					'''
 			}
 			individualStrengthsEnabled: {
@@ -685,124 +685,128 @@ Mods: {
 				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
 			}
 			InfusionDamageMultiplier: {
-				Label: Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)
+				Label: Множитель урона от инфузии (делится на 1000, 1 -> 0,001)
 				Tooltip: 
 					'''
-					Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-					Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.
-					Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage.
-					Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons.
+					Изменяет множитель урона от вливания. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
+					Пример: Железный палаш, урон = 10, базовая сила наполнения = 31, наполненная Мяумиром, сила наполнения 1100.
+					Урон железного палаша = 10 * 1,3 ^ ((1100 - 31) / 100) = 10 * 1,3 ^ 10,69 = 10 * 16,52 = 165 единиц урона.
+					Установка этого множителя на 1000 не позволит вам закачивать оружие, а также не даст бонуса к урону уже заряженному оружию.
 					'''
 			}
 			itemDefinition: {
-				Label: Enchantment
+				Label: Чары
 				Tooltip: 
 					'''
-					Only Select Enchantment Items.
-					Likely to cause an error if selecting any other item.
+					Только избранные предметы чар.
+					Может вызвать ошибку при выборе любого другого элемента.
 					'''
 			}
 			LegendaryEnchantmentStrengthMultiplier: {
-				Label: Legendary
+				Label: Легендарный
 				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			LogDummyDPS: {
-				Label: Enable Target Dummy Dps calculation and logging
+				Label: Включить расчет и ведение журнала Target Dummy Dps.
 				Tooltip: 
 					'''
-					Tracks damage to targets from all sources and tracks them.  Press num0 to start then again to stop.
-					Press num8 to print all stored dps values to the client.log\nThe client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					Starting a new test by pressing num0 resets the previous dps data for the held item to allow re-doing a test.
+					Отслеживает повреждения целей из всех источников и отслеживает их. Нажмите num0, чтобы начать, затем еще раз, чтобы остановить.
+					Нажмите num8, чтобы распечатать все сохраненные значения dps в client.log\nПо умолчанию client.log находится в папке C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
+					Запуск нового теста нажатием num0 сбрасывает предыдущие данные dps для удерживаемого предмета, чтобы можно было повторить тест.
 					'''
 			}
 			MinionLifeStealMultiplier: {
-				Label: Minion Life Steal Multiplier (%)
+				Label: Множитель кражи здоровья приспешников (%)
 				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
 			}
 			MultiplicativeCriticalHits: {
-				Label: Multiplicative critical hits past the first.
+				Label: Мультипликативные критические попадания после первого.
 				Tooltip: 
 					'''
-					Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.
-					By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....
-					Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... 
+					Чары для оружия используют шанс критического удара выше 100%, чтобы позволить вам снова нанести критический удар.
+					По умолчанию это дополнительный бонус: 1-й крит 200% урона, 2-й 300% урона, 3-й 400% урона.....
+					Включение этого делает их мультипликативными вместо этого: 1-й крит 200% урона, 2-й крит 400% урона, 3-й крит 400% урона...
 					'''
 			}
 			OfferAll: {
-				Label: Offer all of the same item.
-				Tooltip: Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.
-			}
-			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Предложите один и тот же товар.
 				Tooltip: 
 					'''
-					Messages will continue to show up in your chat, but only once during a game session.
-					(The error message must be the exact same as a previous message to be prevented.)
+					Найдите в своем инвентаре все предметы того же типа, которые были предложены, и предложите их, если у них 0 опыта и не установлен усилитель мощности.
+					Также предлагает все предметы из сундуков, соприкасающихся со столом зачарования.
+					'''
+			}
+			OnlyShowErrorMessagesInChatOnce: {
+				Label: ТолькоШоверрормессажесинчатонсе
+				Tooltip: 
+					'''
+					Сообщения будут по-прежнему появляться в вашем чате, но только один раз за игровой сеанс.
+					(Сообщение об ошибке должно быть точно таким же, как и предыдущее сообщение, чтобы его нельзя было предотвратить.)
 					'''
 			}
 			PercentOfferEssence: {
-				Label: Percentage of offered Item value converted to essence.
+				Label: Процент стоимости предлагаемого предмета, преобразованный в эссенцию.
 			}
 			Preset: {
 				Tooltip: 
 					'''
-					Journey, Normal, Expert, Master, Automatic, Custom 
-					(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)
+					Путешествие, Обычный, Эксперт, Мастер, Автоматический, Пользовательский
+					(Пользовательский здесь выбрать нельзя. Он устанавливается автоматически при настройке Глобального множителя силы.)
 					'''
 			}
 			presetData: {
-				Label: Presets and Multipliers
+				Label: Предустановки и множители
 			}
 			PreventPowerBoosterFromPreHardMode: {
-				Label: Prevent pre-hard mode bosses from dropping power boosters.
-				Tooltip: Does not include wall of flesh.
+				Label: Не позволяйте боссам в предварительном сложном режиме сбрасывать усилители мощности.
+				Tooltip: Не включает стенку плоти.
 			}
 			PrintEnchantmentDrops: {
-				Label: Log a List of Enchantment Drop sources
+				Label: Зарегистрируйте список источников выпадения чар
 				Tooltip: 
 					'''
-					The list is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Список печатается в client.log при входе в мир.
+					Расположение по умолчанию client.log — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
 					'''
 			}
 			PrintEnchantmentTooltips: {
-				Label: Log a List of Enchantment Tooltips
+				Label: Зарегистрируйте список всплывающих подсказок по чарам
 				Tooltip: 
 					'''
-					The list is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Список печатается в client.log при входе в мир.
+					Расположение по умолчанию client.log — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
 					'''
 			}
 			PrintLocalizationLists: {
-				Label: Log all translation lists
+				Label: Журнал всех списков переводов
 				Tooltip: 
 					'''
-					The lists are printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Списки печатаются в client.log при входе в мир.
+					Расположение по умолчанию client.log — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
 					'''
 			}
 			PrintWeaponInfusionPowers: {
-				Label: Log all weapon infusion powers
+				Label: Зарегистрировать все способности вливания оружия
 				Tooltip: 
 					'''
-					The info is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Информация печатается в client.log, когда вы входите в мир.
+					Расположение по умолчанию client.log — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
 					'''
 			}
 			PrintWikiInfo: {
-				Label: Log all wiki info
+				Label: Записывать всю вики-информацию
 				Tooltip: 
 					'''
-					The info is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					Информация печатается в client.log, когда вы входите в мир.
+					Расположение по умолчанию client.log — C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs.
 					'''
 			}
 			RareEnchantmentStrengthMultiplier: {
-				Label: Rare
+				Label: Редкий
 				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ReduceOfferEfficiencyByBaseInfusionPower: {
-				Label: Reduce Offer Efficiency By Base Infusion Power
+				Label: Снижение эффективности предложения за счет базовой мощности инфузии
 				Tooltip: 
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
@@ -810,7 +814,7 @@ Mods: {
 					'''
 			}
 			ReduceOfferEfficiencyByTableTier: {
-				Label: Reduce Offer Efficiency By Table Tier
+				Label: Снижение эффективности предложений по уровням таблиц
 				Tooltip: 
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
@@ -819,45 +823,45 @@ Mods: {
 					'''
 			}
 			ReduceRecipesToMinimum: {
-				Label: Reduce recipes to minimum.
+				Label: Сократите количество рецептов до минимума.
 				Tooltip: 
 					'''
-					Removes all recipes that jump between tiers to reduce clutter when viewing recipes.
-					Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.
+					Удалены все рецепты, которые перескакивают между уровнями, чтобы уменьшить беспорядок при просмотре рецептов.
+					Также делает все рецепты эссенций 4 к 1 вместо масштабирования с уровнем стола зачаровывания.
 					'''
 			}
 			RemoveEnchantmentRestrictions: {
-				Label: Remove enchantment restrictions (Use at your own risk!)
-				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
+				Label: Снять ограничения на зачарование (Используйте на свой страх и риск!)
+				Tooltip: Удаляет такие вещи, как Unique, Max 1 и чары, специфичные для оружия или предмета.
 			}
 			ServerConfig: {
-				Label: Server Config
+				Label: Конфигурация сервера
 			}
 			Strength: {
-				Label: Strength (1000 = 1, 10 = 1%)
+				Label: Сила (1000 = 1, 10 = 1%)
 				Tooltip: 
 					'''
-					Take care when adjusting this value.
-					Strength is the exact value used.
-					Example 40% Damage enchantment is 0.4
-					10 Defense is 10
+					Будьте осторожны при настройке этого значения.
+					Сила - это точное используемое значение.
+					Пример зачарования 40% урона равно 0,4.
+					10 Защита 10
 					'''
 			}
 			teleportEssence: {
-				Label: Automatically send essence to UI
+				Label: Автоматически отправлять суть в пользовательский интерфейс
 				Tooltip: 
 					'''
-					Automatically send essence from your inventory to the UI essence slots.
-					(Disables while the UI is open.)
+					Автоматически отправляйте эссенцию из своего инвентаря в слоты эссенций пользовательского интерфейса.
+					(Отключается, когда пользовательский интерфейс открыт.)
 					'''
 			}
 			UseAlternateEnchantmentEssenceTextures: {
-				Label: Use Alternate Enchantment Essence Textures
-				Tooltip: The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept.
+				Label: Используйте альтернативные текстуры эссенции чар
+				Tooltip: Цвета по умолчанию подходят для дальтоников. Альтернативные текстуры имеют незначительные отличия, но проголосовали за сохранение.
 			}
 			UsePointsAsTooltip: {
-				Label: "\"Points\" instead of \"Enchantment Capacity\""
-				Tooltip: Tooltips will show Points Available instead of Enchantment Capacity Available
+				Label: "\"Очки\" вместо \"Вместимость чар\""
+				Tooltip: Подсказки будут отображать доступные очки вместо доступной емкости чар.
 			}
 		}
 		Dialogue: {
@@ -1027,7 +1031,7 @@ Mods: {
 				ArmorPenetration: Пробивание брони
 				AttackSpeed: Скорость атаки
 				AutoReuse: Автоматическое использование
-				BardClassSwap: Bard Class Swap
+				BardClassSwap: Смена класса барда
 				BerserkersRage: Ярость берсерков
 				BonusCoins: Бонусные монеты
 				BuffDuration: Длительность эффекта
@@ -1073,7 +1077,7 @@ Mods: {
 				FlatMPRegen: Восстановление маны
 				Frostburn: Обжигающий холод
 				GodSlayer: Убийца Богов
-				HealerClassSwap: Healer Class Swap
+				HealerClassSwap: Смена класса целителя
 				HellsWrath: Гнев Ада
 				Hunter: Охотник
 				Ichor: Ихор
@@ -1128,7 +1132,7 @@ Mods: {
 				SolarDash: Солнечный рывок
 				Sonar: Сонар
 				Spelunker: Спелеолог
-				ThrowingClassSwap: Throwing Class Swap
+				ThrowingClassSwap: Смена класса
 				VanillaDash1: Рывок ниндзя
 				VanillaDash2: Рывок щита Глаза Ктулху
 				VanillaDash3: Солнечный рывок
@@ -1144,7 +1148,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Зачарование мода Calamity)
 				DBZMODPORT: (Зачарование Террарии Жемчуга Дракона)
-				ThoriumMod: (Throium Mod Enchantment)
+				ThoriumMod: (Троиум Мод Чары)
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))

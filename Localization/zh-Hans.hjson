@@ -22,11 +22,11 @@ Mods: {
 			AttackSpeedEnchantmentEpic: 攻速附魔史诗
 			AttackSpeedEnchantmentLegendary: 攻速附魔传奇
 			AttackSpeedEnchantmentRare: 攻速附魔稀有
-			BardClassSwapEnchantmentBasic: Bard Class Swap Enchantment Basic
-			BardClassSwapEnchantmentCommon: Bard Class Swap Enchantment Common
-			BardClassSwapEnchantmentEpic: Bard Class Swap Enchantment Epic
-			BardClassSwapEnchantmentLegendary: Bard Class Swap Enchantment Legendary
-			BardClassSwapEnchantmentRare: Bard Class Swap Enchantment Rare
+			BardClassSwapEnchantmentBasic: 吟游诗人等级交换附魔基础
+			BardClassSwapEnchantmentCommon: Bard Class Swap 附魔 Common
+			BardClassSwapEnchantmentEpic: 吟游诗人等级交换附魔史诗
+			BardClassSwapEnchantmentLegendary: 吟游诗人等级交换结界传奇
+			BardClassSwapEnchantmentRare: 吟游诗人等级交换附魔稀有
 			BerserkersRageEnchantmentBasic: 狂暴者之怒附魔基元
 			BerserkersRageEnchantmentCommon: 狂暴者之怒附魔普通
 			BerserkersRageEnchantmentEpic: 狂暴者之怒附魔史诗
@@ -122,11 +122,11 @@ Mods: {
 			GodSlayerEnchantmentEpic: 弑神者附魔史诗
 			GodSlayerEnchantmentLegendary: 弑神者附魔传奇
 			GodSlayerEnchantmentRare: 弑神者附魔稀有
-			HealerClassSwapEnchantmentBasic: Healer Class Swap Enchantment Basic
-			HealerClassSwapEnchantmentCommon: Healer Class Swap Enchantment Common
-			HealerClassSwapEnchantmentEpic: Healer Class Swap Enchantment Epic
-			HealerClassSwapEnchantmentLegendary: Healer Class Swap Enchantment Legendary
-			HealerClassSwapEnchantmentRare: Healer Class Swap Enchantment Rare
+			HealerClassSwapEnchantmentBasic: 治疗师等级交换附魔基础
+			HealerClassSwapEnchantmentCommon: Healer Class Swap 附魔 Common
+			HealerClassSwapEnchantmentEpic: 治疗者等级交换附魔史诗
+			HealerClassSwapEnchantmentLegendary: 治疗师等级交换结界传奇
+			HealerClassSwapEnchantmentRare: 治疗者等级交换附魔稀有
 			HellsWrathEnchantmentBasic: 地狱之怒附魔基元
 			HellsWrathEnchantmentCommon: 地狱之怒附魔普通
 			HellsWrathEnchantmentEpic: 地狱之怒附魔史诗
@@ -297,11 +297,11 @@ Mods: {
 			SpelunkerEnchantmentEpic: 洞穴探险者附魔史诗
 			SpelunkerEnchantmentLegendary: 洞穴探险者附魔传奇
 			SpelunkerEnchantmentRare: 洞穴探险者附魔稀有
-			ThrowingClassSwapEnchantmentBasic: Throwing Class Swap Enchantment Basic
-			ThrowingClassSwapEnchantmentCommon: Throwing Class Swap Enchantment Common
-			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
-			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
-			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
+			ThrowingClassSwapEnchantmentBasic: 投掷类交换附魔基础
+			ThrowingClassSwapEnchantmentCommon: 投掷类交换附魔常见
+			ThrowingClassSwapEnchantmentEpic: 投掷类交换附魔史诗
+			ThrowingClassSwapEnchantmentLegendary: 投掷类交换结界传奇
+			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment 稀有
 			VenomEnchantmentBasic: 毒液附魔基元
 			VenomEnchantmentCommon: 毒液附魔普通
 			VenomEnchantmentEpic: 毒液附魔史诗
@@ -345,38 +345,38 @@ Mods: {
 			Witch: 女巫是一位丑陋而邪恶的女士，从事更多邪恶的事情。她买卖可疑的材料，用于改进具有神秘效果的设备。
 		}
 		Config: {
-			AccessoryDRValues: "Accessory {0}% ({1}% at 40)"
-			ArmorDRValues: "Armor {0}% ({1}% at 40)"
-			Automatic: Automatic
-			Custom: Custom
-			DisplaySettings: Display Settings
-			EnchantingTableOptions: Enchanting Table Options
-			Enchantment: Enchantment
-			EnchantmentDropRates(%): Enchantment Drop Rates(%)
-			EnchantmentSettings: Enchantment Settings
-			ErrorMessages: Error Messages
-			EssenceandExperience: Essence and Experience
-			Expert: Expert
-			GeneralGameChanges: General Game Changes
-			IndividualEnchantmentStrengths: Individual Enchantment Strengths
-			Journey: Journey
-			LoggingInformation: Logging Information
-			Master: Master
-			ModTestingTools: Mod Testing Tools
-			Multipliers: Multipliers
-			NoneSelected: None Selected
-			Normal: Normal
-			OtherDropRates: Other Drop Rates
-			Presets: Presets
-			RandomExtraStuff: Random Extra Stuff
-			RarityEnchantmentStrengthMultipliers: Rarity Enchantment Strength Multipliers
-			ServerConfig: Server Config
+			AccessoryDRValues: “配件 {0}%（40 时 {1}%）”
+			ArmorDRValues: “护甲 {0}%（40 时为 {1}%）”
+			Automatic: 自动的
+			Custom: 风俗
+			DisplaySettings: 显示设置
+			EnchantingTableOptions: 附魔桌选项
+			Enchantment: 魅力
+			EnchantmentDropRates(%): 附魔掉落率(%)
+			EnchantmentSettings: 附魔设置
+			ErrorMessages: 错误讯息
+			EssenceandExperience: 本质与经验
+			Expert: 专家
+			GeneralGameChanges: 一般游戏变化
+			IndividualEnchantmentStrengths: 个人魅力优势
+			Journey: 旅行
+			LoggingInformation: 记录信息
+			Master: 掌握
+			ModTestingTools: 模组测试工具
+			Multipliers: 乘数
+			NoneSelected: 未选择
+			Normal: 普通的
+			OtherDropRates: 其他掉率
+			Presets: 预设
+			RandomExtraStuff: 随机额外的东西
+			RarityEnchantmentStrengthMultipliers: 稀有附魔强度倍数
+			ServerConfig: 服务器配置
 			AccessoryDamageReductionPerLevel: {
-				Label: Accessory DR Per Level (100000 = 1%)
-				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+				Label: 每级饰品 DR（100000 = 1%）
+				Tooltip: 250000 (2.5%) 是最大值，即 40 级时 100% 的伤害减免。
 			}
 			AffectOnVanillaLifeStealLimmit: {
-				Label: Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)
+				Label: Life Steal Enchantment limiting (影响 Vanilla Life Steal Limit) (%)
 				Tooltip: 
 					'''
 					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
@@ -390,10 +390,10 @@ Mods: {
 					'''
 			}
 			AllowCraftingIntoLowerTier: {
-				Label: Allow crafting enchantments into lower tier enchantments.
+				Label: 允许将魔咒制作成较低层的魔咒。
 			}
 			AllowCriticalChancePast100: {
-				Label: Critical hit chance effective over 100% chance
+				Label: 暴击几率超过 100% 几率有效
 				Tooltip: 
 					'''
 					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
@@ -409,261 +409,261 @@ Mods: {
 					'''
 			}
 			AllowInfusingToLowerPower: {
-				Label: Allow Infusing items to lower infusion Powers
-				Tooltip: Warning: This will allow you to consume a weak weapon to downgrade a strong weapon.
+				Label: 允许注入物品以降低注入能力
+				Tooltip: 警告：这将允许你消耗弱武器来降级强武器。
 			}
 			AllowShiftClickMoveFavoritedItems: {
-				Label: Allow shift click to move favorited items into the enchanting table.
+				Label: 允许 shift 单击以将收藏的项目移动到附魔表中。
 			}
 			AlwaysDisplayAccessoryLevelUpMessages: {
-				Label: Always Display Accessory Level Up Messages
-				Tooltip: Only displays accessory level up messages when using the enchanting table if this option is off.
+				Label: 始终显示附件升级消息
+				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示配件升级消息。
 			}
 			AlwaysDisplayArmorLevelUpMessages: {
-				Label: Always Display Armor Level Up Messages
-				Tooltip: Only displays armor level up messages when using the enchanting table if this option is off.
+				Label: 始终显示装甲升级消息
+				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示护甲升级消息。
 			}
 			AlwaysDisplayInfusionPower: {
-				Label: Always display Infusion Power
-				Tooltip: Enable to display item's Infusion Power always instead of just when the enchanting table is open.
+				Label: 始终显示 Infusion Power
+				Tooltip: 启用以始终显示物品的注入能量，而不是仅在附魔台打开时显示。
 			}
 			AlwaysDisplayToolLevelUpMessages: {
-				Label: Always Display Tool Level Up Messages
-				Tooltip: Only displays tool level up messages when using the enchanting table if this option is off.
+				Label: 始终显示工具升级消息
+				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示工具升级消息。
 			}
 			AlwaysDisplayWeaponLevelUpMessages: {
-				Label: Always Display Weapon Level Up Messages
-				Tooltip: Only displays weapon level up messages when using the enchanting table if this option is off.
+				Label: 始终显示武器升级消息
+				Tooltip: 如果此选项关闭，则仅在使用附魔台时显示武器升级消息。
 			}
 			AlwaysOverrideDamageType: {
-				Label: Damage type converting enchantments always override.
+				Label: 伤害类型转换附魔总是覆盖。
 				Tooltip: 
 					'''
-					Some mods like Stars Above change weapon damage types.  If this option is enabled, Enchantments that change the damage type will always change the weapon's damage type.
-					If not selected, the damage type will only be changed if the weapon is currently it's original damage type.
+					某些模组（例如 Stars Above）会改变武器伤害类型。 如果启用此选项，改变伤害类型的附魔将始终改变武器的伤害类型。
+					如果未选择，则只有在武器当前为原始伤害类型时才会更改伤害类型。
 					'''
 			}
 			AmaterasuSelfGrowthPerTick: {
-				Label: Amaterasu Self Growth Per Tick
-				Tooltip: Affects how quickly Amaterasu damage will go up naturally (Not when being hit again with a World Ablaze weapon.)
+				Label: Amaterasu 每刻自我成长
+				Tooltip: 影响 Amaterasu 伤害自然上升的速度（不是在再次被 World Ablaze 武器击中时。）
 			}
 			ArmorDamageReductionPerLevel: {
-				Label: Armor DR Per Level (100000 = 1%)
-				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
+				Label: 每级护甲减免 (100000 = 1%)
+				Tooltip: 250000 (2.5%) 是最大值，即 40 级时 100% 的伤害减免。
 			}
 			ArmorDamageReductions: {
-				Label: Armor and accessory Damage Reductions
+				Label: 盔甲和配件伤害减少
 			}
 			ArmorPenetration: {
-				Label: Convert excess armor penetration to bonus damage
+				Label: 将多余的护甲穿透转化为额外伤害
 				Tooltip: 
 					'''
-					Example: Enemy has 4 defense, Your weapon has 10 armor penetration.
-					10 - 4 = 6 excess armor penetration (not doing anything)
-					Gain 3 bonus damage (6/2 = 3)
+					例子：敌人有 4 防御，你的武器有 10 护甲穿透。
+					10 - 4 = 6 额外护甲穿透（什么都不做）
+					获得 3 点额外伤害 (6/2 = 3)
 					'''
 			}
 			AttackSpeedEnchantmentAutoReuseSetpoint: {
-				Label: Speed Enchantment Auto Reuse Enabled (%)
+				Label: 启用速度附魔自动重用 (%)
 				Tooltip: 
 					'''
-					The strength that a Speed Enchantment will start giving the Auto Reuse stat.
-					Set to 0 for all Speed enchantments to give auto reuse.  Set to 10000 to to prevent any gaining auto reuse (unless you strength multiplier is huge)
+					速度附魔将开始提供自动重用统计数据的强度。
+					将所有速度附魔设置为 0 以提供自动重用。 设置为 10000 以防止任何获得自动重用（除非你的强度乘数很大）
 					'''
 			}
 			AutomaticallyMatchPreseTtoWorldDifficulty: {
-				Label: Automatically Match Preset to World Difficulty
+				Label: 自动匹配预设到世界难度
 			}
 			AutoReuseDisabledOnMagicMissile: {
-				Label: Auto Reuse Disabled on Magic Missile type weapons
-				Tooltip: Auto Reuse on weapons like Magic Missile allow you to continuously shoot the projectiles to stack up damage infinitely.
+				Label: 禁用魔法导弹类武器的自动重复使用
+				Tooltip: 魔法导弹等武器的自动重复使用可让您连续发射弹丸以无限叠加伤害。
 			}
 			BasicEnchantmentStrengthMultiplier: {
-				Label: Basic
+				Label: 基本的
 				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			BossEnchantmentDropChance: {
-				Label: Boss Enchantment Drop Rate(%)
+				Label: Boss附魔掉落率(%)
 				Tooltip: 
 					'''
-					Adjust the drop rate of enchantments from bosses.
-					(Default is 50%)
+					调整老板附魔的掉落率。
+					（默认为 50%）
 					'''
 			}
 			BossEssenceMultiplier: {
-				Label: Boss Essence Multiplier(%)
+				Label: Boss精华倍率(%)
 				Tooltip: Modify the ammount of essence recieved from bosses.
 			}
 			BossExperienceMultiplier: {
-				Label: Boss Experience Multiplier(%)
+				Label: Boss经验倍率(%)
 				Tooltip: Modify the ammount of experience recieved from bosses.
 			}
 			BuffDuration: {
-				Label: Buff cooldown duration (seconds)
-				Tooltip: Affects buff cooldown and duration.
+				Label: 增益冷却时间（秒）
+				Tooltip: 影响增益冷却时间和持续时间。
 			}
 			CalculateDamageReductionBeforeDefense: {
-				Label: Calculate Damage Reduction before player defense
+				Label: 计算玩家防御前的伤害减免
 				Tooltip: 
 					'''
-					By default, damage reduction is applied after player defense.  Select this to apply before.
-					Before will cause you to take much less damage.
+					默认情况下，伤害减免在玩家防御后应用。 选择此项以在之前应用。
+					之前会让你受到更少的伤害。
 					'''
 			}
 			ChestSpawnChance: {
-				Label: Chest Enchantment Spawn Chance(%)
-				Tooltip: Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)
+				Label: 宝箱附魔生成几率(%)
+				Tooltip: 调整在箱子里找到附魔的几率。 可以超过 100%。 不影响生物群系箱子。（它们总是 100%）
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: 客户端配置
 			}
 			CommonEnchantmentStrengthMultiplier: {
-				Label: Common
+				Label: 常见的
 				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ConfigCapacityCostMultiplier: {
-				Label: Enchantment Capacity Cost Multiplier(%)
-				Tooltip: Affects how much the enchantments cost to apply to an item.  Base values are 1/2/3/4/5 for utility, 2/4/6/8/10 for normal and 3/6/9/12/15 for unique.
+				Label: 附魔容量成本乘数(%)
+				Tooltip: 影响应用于物品的附魔成本。 实用程序的基本值为 1/2/3/4/5，普通为 2/4/6/8/10，独特为 3/6/9/12/15。
 			}
 			CrateDropChance: {
-				Label: Crate Enchantment Drop Chance Multiplier(%)
-				Tooltip: Adjust the chance of finding enchantments in fishing crates.
+				Label: 宝箱附魔掉落几率倍率(%)
+				Tooltip: 调整在钓鱼箱中找到附魔的几率。
 			}
 			CritPerLevelDisabled: {
-				Label: Disable Weapon critical strike chance per level
+				Label: 每级禁用武器暴击率
 				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
 			}
 			DamagePerLevelInstead: {
-				Label: Damage instead of critical chance per level
-				Tooltip: Weapons gain damage per level instead of critical strike chance equal to their level * Global Enchantment Strength Multiplier
+				Label: 每级伤害而不是暴击率
+				Tooltip: 武器每等级获得伤害而不是暴击率等于它们的等级 * 全局附魔强度乘数
 			}
 			DamageReductionPerLevelDisabled: {
-				Label: Disable armor and accessory damage reduction per level
+				Label: 每级禁用护甲和附件伤害减少
 				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
 			}
 			DCUStart: {
-				Label: Start with a Drill Containment Unit
+				Label: 从钻井控制单元开始
 				Tooltip: 
 					'''
-					All players will get a Drill Containment Unit when they first spawn.
-					This is just for fun when you feel like a faster playthrough.
+					所有玩家在首次重生时都会获得一个 Drill Containment Unit。
+					当您想要更快地通关时，这只是为了好玩。
 					'''
 			}
 			DisableAllErrorMessagesInChat: {
-				Label: Disable All Error Messages In Chat
+				Label: 禁用聊天中的所有错误消息
 				Tooltip: 
 					'''
-					Prevents messages showing up in your chat that ask you to 
-					"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time."
+					防止消息出现在您的聊天中，要求您
+					“请将此报告给 andro951（武器附魔），并说明您当时在做什么。”
 					'''
 			}
 			DisableArmorInfusion: {
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
-				Label: Disable Minion Critical hits
+				Label: 禁用小兵暴击
 				Tooltip: 
 					'''
-					In vanilla, minions arent affected by weapon critical chance.
-					Weapon Enchantments gives minions a critical hit chance based on weapon crit chance.
-					This option disables the crits(vanilla mechanics)
+					在原版中，小兵不受武器暴击率的影响。
+					武器附魔根据武器暴击率给小兵一个暴击率。
+					此选项禁用暴击（原版机制）
 					'''
 			}
 			DisableResearch: {
-				Label: Disable Ability to research Weapon Enchantment items
+				Label: 禁用研究武器附魔物品的能力
 			}
 			DisplayApproximateWeaponDamageTooltip: {
-				Label: Display approximate weapon damage in the tooltip
+				Label: 在工具提示中显示大概的武器伤害
 				Tooltip: 
 					'''
-					Damage enchantments are calculated after enemy armor reduces damage instead of directly changing the item's damage.
-					This displays the damage against a 0 armor enemy.
+					伤害附魔是在敌方护甲减少伤害后计算的，而不是直接改变物品的伤害。
+					这显示了对 0 护甲敌人的伤害。
 					'''
 			}
 			EnableSwappingWeapons: {
-				Label: Enable swapping weapons with num keys (Weapons sorted by infusion power)
+				Label: 使用数字键启用交换武器（武器按注入能力排序）
 				Tooltip: 
 					'''
-					Use num1 and num3 to swap between all weapons.  Use num4 and num6 to swap between only modded weapons.
-					Will not replace enchanted or modified weapons.
+					使用 num1 和 num3 在所有武器之间切换。 使用 num4 和 num6 仅在改装武器之间切换。
+					不会取代附魔或改装的武器。
 					'''
 			}
 			EnchantmentDropChance: {
-				Label: Non-Boss Enchantment Drop Rate(%)
+				Label: 非BOSS附魔掉落率(%)
 				Tooltip: 
 					'''
-					Adjust the drop rate of enchantments from non -boss enemies.
-					(Default is 100%)
+					调整非首领敌人的附魔掉落率。
+					（默认为 100%）
 					'''
 			}
 			EnchantmentSlotsOnAccessories: {
 				Label: Enchantment Slots On Accissories
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					第一个插槽是普通插槽。
+					第二个插槽是实用程序插槽。
+					第 3-5 个是普通插槽。
 					'''
 			}
 			EnchantmentSlotsOnArmor: {
-				Label: Enchantment Slots On Armor
+				Label: 盔甲上的附魔槽
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					第一个插槽是普通插槽。
+					第二个插槽是实用程序插槽。
+					第 3-5 个是普通插槽。
 					'''
 			}
 			EnchantmentSlotsOnFishingPoles: {
-				Label: Enchantment Slots On Fishing Poles
+				Label: 钓鱼竿上的附魔槽
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					第一个插槽是普通插槽。
+					第二个插槽是实用程序插槽。
+					第 3-5 个是普通插槽。
 					'''
 			}
 			EnchantmentSlotsOnTools: {
-				Label: Enchantment Slots On Tools
+				Label: 工具上的附魔槽
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
-					The Clentaminator is the only tool so far.
+					第一个插槽是普通插槽。
+					第二个插槽是实用程序插槽。
+					第 3-5 个是普通插槽。
+					环境改造器是迄今为止唯一的工具。
 					'''
 			}
 			EnchantmentSlotsOnWeapons: {
-				Label: Enchantment Slots On Weapons
+				Label: 武器附魔槽
 				Tooltip: 
 					'''
-					1st slot is a normal slot.
-					2nd slot is the utility slot.
-					3rd-5th are normal slots.
+					第一个插槽是普通插槽。
+					第二个插槽是实用程序插槽。
+					第 3-5 个是普通插槽。
 					'''
 			}
 			EpicEnchantmentStrengthMultiplier: {
-				Label: Epic
+				Label: 史诗
 				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			EssenceGrabRange: {
-				Label: Essence Grab Range Multiplier
-				Tooltip: Affects how far the essence can be away from the player when it starts moving towards the player.
+				Label: 精华获取范围倍增器
+				Tooltip: 影响本质开始向玩家移动时可以远离玩家的距离。
 			}
 			EssenceMultiplier: {
-				Label: Non-Boss Essence Multiplier(%)
+				Label: 非BOSS精华倍率(%)
 				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
 			}
 			ExperienceMultiplier: {
-				Label: Non-Boss Experience Multiplier(%)
+				Label: 非老板经验乘数(%)
 				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
 			}
 			GatheringExperienceMultiplier: {
-				Label: Gathering Experience Multiplier(%)
+				Label: 积累经验倍率(%)
 				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
 			}
 			GlobalEnchantmentStrengthMultiplier: {
-				Label: Global Enchantment Strength Multiplier (%)
+				Label: 全局附魔强度乘数 (%)
 				Tooltip: 
 					'''
 					Adjusts all enchantment strengths based on recomended enchantment changes.
@@ -672,12 +672,12 @@ Mods: {
 					'''
 			}
 			individualStrengths: {
-				Label: Individual Strengths
+				Label: 个人优势
 				Tooltip: 
 					'''
-					Modify individual enchantment strengths by value
-					(NOT PERCENTAGE!)
-					(Overrides all other options)
+					按值修改单个魔法强度
+					（不是百分比！）
+					（覆盖所有其他选项）
 					'''
 			}
 			individualStrengthsEnabled: {
@@ -685,124 +685,128 @@ Mods: {
 				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
 			}
 			InfusionDamageMultiplier: {
-				Label: Infusion Damage Multiplier (Divides by 1000, 1 -> 0.001)
+				Label: Infusion Damage Multiplier（除以 1000，1 -> 0.001）
 				Tooltip: 
 					'''
-					Changes the damage multiplier from infusion.  DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
-					Example: Iron Broadsword, Damage = 10, BaseInfusionPower = 31  infused with a Meowmere, Infusion Power 1100.
-					Iron Broadsword damage = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 damage.
-					Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons.
+					改变输液的伤害乘数。 DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
+					示例：Iron Broadsword，伤害 = 10，BaseInfusionPower = 31，注入了喵喵喵，注入能量 1100。
+					铁阔剑伤害 = 10 * 1.3^((1100 - 31) / 100) = 10 * 1.3^10.69 = 10 * 16.52 = 165 伤害。
+					将此乘数设置为 1000 将阻止您注入武器，并且不会为已经注入的武器提供伤害加成。
 					'''
 			}
 			itemDefinition: {
-				Label: Enchantment
+				Label: 魅力
 				Tooltip: 
 					'''
-					Only Select Enchantment Items.
-					Likely to cause an error if selecting any other item.
+					仅选择附魔物品。
+					如果选择任何其他项目，可能会导致错误。
 					'''
 			}
 			LegendaryEnchantmentStrengthMultiplier: {
-				Label: Legendary
+				Label: 传奇的
 				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			LogDummyDPS: {
-				Label: Enable Target Dummy Dps calculation and logging
+				Label: 启用目标虚拟 Dps 计算和记录
 				Tooltip: 
 					'''
-					Tracks damage to targets from all sources and tracks them.  Press num0 to start then again to stop.
-					Press num8 to print all stored dps values to the client.log\nThe client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
-					Starting a new test by pressing num0 resets the previous dps data for the held item to allow re-doing a test.
+					跟踪所有来源对目标的伤害并跟踪它们。 按 num0 开始然后再次停止。
+					按 num8 将所有存储的 dps 值打印到 client.log\nclient.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					按 num0 开始新测试会重置持有物品的先前 dps 数据，以允许重新进行测试。
 					'''
 			}
 			MinionLifeStealMultiplier: {
-				Label: Minion Life Steal Multiplier (%)
+				Label: 小兵生命偷取倍数 (%)
 				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
 			}
 			MultiplicativeCriticalHits: {
-				Label: Multiplicative critical hits past the first.
+				Label: 乘法暴击超过第一次。
 				Tooltip: 
 					'''
-					Weapon Enchantments makes use of critical strike chance past 100% to allow you to crit again.
-					By default, this is an additive bonus: 1st crit 200% damage, 2nd 300% damage, 3rd 400% damage.....
-					Enabling this makes them multiplicative instead: 1st crit 200% damage, 2nd crit 400% damage, 3rd crit 400% damage... 
+					武器附魔利用超过100%的暴击率让你再次暴击。
+					默认情况下，这是一个附加奖励：第一次暴击 200% 伤害，第二次 300% 伤害，第三次 400% 伤害.....
+					启用它会使它们变成乘法：第一次暴击 200% 伤害，第二次暴击 400% 伤害，第三次暴击 400% 伤害......
 					'''
 			}
 			OfferAll: {
-				Label: Offer all of the same item.
-				Tooltip: Search your inventory for all items of the same type that was offered and offer them too if they have 0 experience and no power booster installed.
+				Label: 提供所有相同的项目。
+				Tooltip: 
+					'''
+					在您的库存中搜索所提供的所有相同类型的物品，如果它们的经验为 0 且未安装功率助推器，则也提供它们。
+					还提供接触附魔台的箱子中的所有物品。
+					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
 				Label: OnlyShowErrorMessagesInChatOnce
 				Tooltip: 
 					'''
-					Messages will continue to show up in your chat, but only once during a game session.
-					(The error message must be the exact same as a previous message to be prevented.)
+					消息将继续出现在您的聊天中，但在游戏会话期间只会显示一次。
+					（错误消息必须与要防止的先前消息完全相同。）
 					'''
 			}
 			PercentOfferEssence: {
-				Label: Percentage of offered Item value converted to essence.
+				Label: 提供的物品价值转化为精华的百分比。
 			}
 			Preset: {
 				Tooltip: 
 					'''
-					Journey, Normal, Expert, Master, Automatic, Custom 
-					(Custom can't be selected here.  It is set automatically when adjusting the Global Strength Multiplier.)
+					旅程、普通、专家、大师、自动、自定义
+					（这里不能选择Custom，是在调整Global Strength Multiplier时自动设置的。）
 					'''
 			}
 			presetData: {
-				Label: Presets and Multipliers
+				Label: 预设和乘数
 			}
 			PreventPowerBoosterFromPreHardMode: {
-				Label: Prevent pre-hard mode bosses from dropping power boosters.
-				Tooltip: Does not include wall of flesh.
+				Label: 防止困难模式前的老板掉落能量助推器。
+				Tooltip: 不包括肉壁。
 			}
 			PrintEnchantmentDrops: {
-				Label: Log a List of Enchantment Drop sources
+				Label: 记录附魔掉落源列表
 				Tooltip: 
 					'''
-					The list is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					当您进入一个世界时，该列表将打印到 client.log。
+					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
 			PrintEnchantmentTooltips: {
-				Label: Log a List of Enchantment Tooltips
+				Label: 记录附魔工具提示列表
 				Tooltip: 
 					'''
-					The list is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					当您进入一个世界时，该列表将打印到 client.log。
+					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
 			PrintLocalizationLists: {
-				Label: Log all translation lists
+				Label: 记录所有翻译列表
 				Tooltip: 
 					'''
-					The lists are printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					当你进入一个世界时，列表会打印到 client.log 中。
+					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
 			PrintWeaponInfusionPowers: {
-				Label: Log all weapon infusion powers
+				Label: 记录所有武器注入能力
 				Tooltip: 
 					'''
-					The info is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					当你进入一个世界时，信息会打印到 client.log 中。
+					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
 			PrintWikiInfo: {
-				Label: Log all wiki info
+				Label: 记录所有维基信息
 				Tooltip: 
 					'''
-					The info is printed to the client.log when you enter a world.
-					The client.log default location is C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
+					当你进入一个世界时，信息会打印到 client.log 中。
+					client.log 默认位置是 C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
 			RareEnchantmentStrengthMultiplier: {
-				Label: Rare
+				Label: 稀有的
 				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 			ReduceOfferEfficiencyByBaseInfusionPower: {
-				Label: Reduce Offer Efficiency By Base Infusion Power
+				Label: 通过基础注入功率降低报价效率
 				Tooltip: 
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
@@ -810,7 +814,7 @@ Mods: {
 					'''
 			}
 			ReduceOfferEfficiencyByTableTier: {
-				Label: Reduce Offer Efficiency By Table Tier
+				Label: 按表层降低报价效率
 				Tooltip: 
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
@@ -819,45 +823,45 @@ Mods: {
 					'''
 			}
 			ReduceRecipesToMinimum: {
-				Label: Reduce recipes to minimum.
+				Label: 将食谱减少到最低限度。
 				Tooltip: 
 					'''
-					Removes all recipes that jump between tiers to reduce clutter when viewing recipes.
-					Also makes all essence recipes 4 to 1 instead of scaling with enchanting table tier.
+					删除所有在层之间跳转的食谱，以减少查看食谱时的混乱情况。
+					还使所有精华配方 4 比 1，而不是随附魔台层级缩放。
 					'''
 			}
 			RemoveEnchantmentRestrictions: {
-				Label: Remove enchantment restrictions (Use at your own risk!)
-				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
+				Label: 移除附魔限制（使用风险自负！）
+				Tooltip: 移除 Unique、Max 1 和武器或物品类型特定的附魔。
 			}
 			ServerConfig: {
-				Label: Server Config
+				Label: 服务器配置
 			}
 			Strength: {
-				Label: Strength (1000 = 1, 10 = 1%)
+				Label: 力量 (1000 = 1, 10 = 1%)
 				Tooltip: 
 					'''
-					Take care when adjusting this value.
-					Strength is the exact value used.
-					Example 40% Damage enchantment is 0.4
-					10 Defense is 10
+					调整该值时要小心。
+					强度是使用的确切值。
+					例如 40% 伤害附魔是 0.4
+					10防御是10
 					'''
 			}
 			teleportEssence: {
-				Label: Automatically send essence to UI
+				Label: 自动发送精华到UI
 				Tooltip: 
 					'''
-					Automatically send essence from your inventory to the UI essence slots.
-					(Disables while the UI is open.)
+					自动将物品栏中的精华发送到 UI 精华槽。
+					（在 UI 打开时禁用。）
 					'''
 			}
 			UseAlternateEnchantmentEssenceTextures: {
-				Label: Use Alternate Enchantment Essence Textures
-				Tooltip: The default colors are color blind friendly.  The alternate textures have minor differences, but were voted to be kept.
+				Label: 使用替代的附魔精华纹理
+				Tooltip: 默认颜色是色盲友好的。 备用纹理有细微差别，但被投票保留。
 			}
 			UsePointsAsTooltip: {
-				Label: "\"Points\" instead of \"Enchantment Capacity\""
-				Tooltip: Tooltips will show Points Available instead of Enchantment Capacity Available
+				Label: “\”Points\“而不是”Enchantment Capacity\“”
+				Tooltip: 工具提示将显示可用点数而不是可用附魔容量
 			}
 		}
 		Dialogue: {
@@ -1027,7 +1031,7 @@ Mods: {
 				ArmorPenetration: 护甲穿透
 				AttackSpeed: 攻击速度
 				AutoReuse: 自动使用
-				BardClassSwap: Bard Class Swap
+				BardClassSwap: 吟游诗人职业互换
 				BerserkersRage: 狂暴者之怒
 				BonusCoins: 奖励硬币
 				BuffDuration: 增益持续时间
@@ -1073,7 +1077,7 @@ Mods: {
 				FlatMPRegen: 加快魔力再生
 				Frostburn: 霜冻
 				GodSlayer: 弑神者
-				HealerClassSwap: Healer Class Swap
+				HealerClassSwap: 治疗者职业互换
 				HellsWrath: 地狱之怒
 				Hunter: 猎人
 				Ichor: 脓液
@@ -1128,7 +1132,7 @@ Mods: {
 				SolarDash: 太阳能短跑
 				Sonar: 声纳
 				Spelunker: 探险者
-				ThrowingClassSwap: Throwing Class Swap
+				ThrowingClassSwap: 投掷类交换
 				VanillaDash1: 忍者袜短跑
 				VanillaDash2: 克苏鲁之眼盾冲刺
 				VanillaDash3: 太阳能短跑
@@ -1144,7 +1148,7 @@ Mods: {
 			EnchantmentCustomTooltips: {
 				CalamityMod: （灾厄模组附魔）
 				DBZMODPORT: (龙珠模组附魔)
-				ThoriumMod: (Throium Mod Enchantment)
+				ThoriumMod: （Throium Mod 附魔）
 				WorldAblaze: 
 					'''
 					（天照减益和以下关于它的注释仅适用于附魔第4阶。）
