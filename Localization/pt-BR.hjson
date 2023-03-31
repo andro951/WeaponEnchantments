@@ -553,7 +553,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
-					"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento."
+					\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -871,7 +871,7 @@ Mods: {
 				Crimson: Oooh! A sanguinolência aqui é linda! Mal posso esperar para abraçar uma nova descoberta!
 				Dryad: "Essa... {0} pessoa é tão clichê! 'Salve o mundo do mal' Os males estão profundamente enraizados e vieram para ficar!"
 				DyeTrader: "{0} sempre me prende com os pretos mais escuros e os verdes mais assustadores! Essas cores me dão bastante brilho e me fazem parecer tão magra!"
-				Graveyard: Algumas pessoas podem achar os mortos assustadores, mas esse "silencio morto" é realmente muito animado! nyack nyack nyack!
+				Graveyard: "Algumas pessoas podem achar os mortos assustadores, mas esse \"silencio morto\" é realmente muito animado! nyack nyack nyack!"
 				Princess: "Eca! {0} está sempre no meu caso! Não sei o que é 'Ética' ou 'Moral', mas ela não sai do meu lugar!"
 				QueenBee: A selva tem os melhores ingredientes para a fabricação de cerveja. Pena que uma praga zunidora gigante está a infestando!
 				StandardDialogue0: Eu aprendi esta receita, é muito legal, vou guardá-la para mais tarde, para o seu deleite!
@@ -1162,8 +1162,8 @@ Mods: {
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
 					'''
-					"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)"
+					\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\"
 					'''
 				BuffDuration: 
 					'''

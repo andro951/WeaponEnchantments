@@ -553,7 +553,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impedisce la visualizzazione di messaggi nella tua chat che ti chiedono di farlo
-					"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento."
+					\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -871,7 +871,7 @@ Mods: {
 				Crimson: Ooh! Il sangue qui è adorabile! Non vedo l'ora di abbracciare una nuova scoperta!
 				Dryad: "Questa... {0} persona è così cliché! 'Salva il mondo dal male' I mali sono radicati e sono qui per restare!"
 				DyeTrader: "{0} mi attira sempre con i neri più scuri e i verdi più inquietanti! Questi colori mi danno abbastanza lucentezza e mi fanno sembrare così magro!"
-				Graveyard: Alcune persone potrebbero trovare i morti inquietanti, ma questo "tranquillo" in realtà è piuttosto vivace! Nyack nyack nyack!
+				Graveyard: "Alcune persone potrebbero trovare i morti inquietanti, ma questo \"tranquillo\" in realtà è piuttosto vivace! Nyack nyack nyack!"
 				Princess: "Ugh! {0} è sempre sul mio caso! Non so cosa siano 'Etica' o 'Morale', ma lei non lascerà il mio posto!"
 				QueenBee: La giungla ha i migliori ingredienti per la produzione della birra. Peccato che un gigantesco parassita ronzante stia infestando!
 				StandardDialogue0: Ho imparato questa ricetta, è davvero carina, la terrò più tardi per il tuo dolcetto!

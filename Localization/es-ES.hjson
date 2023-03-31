@@ -553,7 +553,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Evita que aparezcan mensajes en tu chat que te pidan que
-					"Informe esto a andro951 (Weapon Enchantments) junto con una descripción de lo que estaba haciendo en ese momento".
+					\"Informe esto a andro951 (Weapon Enchantments) junto con una descripción de lo que estaba haciendo en ese momento\".
 					'''
 			}
 			DisableArmorInfusion: {
@@ -871,7 +871,7 @@ Mods: {
 				Crimson: ¡Oooh! ¡La sangre aquí es encantadora! ¡No puedo esperar para abrazar nuevos descubrimientos!
 				Dryad: "Esta... {0} es todo un cliché. 'Salva al mundo del mal'. ¡Los males están profundamente arraigados y llegaron para quedarse!"
 				DyeTrader: "¡{0} siempre me engancha con los negros más oscuros y los verdes más espeluznantes! ¡Estos colores me dan mucho brillo y me hacen ver tan delgada!"
-				Graveyard: Algunas personas pueden encontrar a los muertos espeluznantes, ¡pero este "tranquilo silencio" es en realidad bastante lleno de vida! Nyack nyack nyack!
+				Graveyard: "Algunas personas pueden encontrar a los muertos espeluznantes, ¡pero este \"tranquilo silencio\" es en realidad bastante lleno de vida! Nyack nyack nyack!"
 				Princess: "¡Ugh! ¡{0} siempre está en mi caso! No sé qué es 'Ética' o 'Moral', ¡pero ella no se va de mi lugar!"
 				QueenBee: La selva tiene los mejores ingredientes para elaborar cerveza. ¡Lástima que una plaga zumbadora gigante esté infestando!
 				StandardDialogue0: Aprendí esta receta, es realmente genial, ¡la guardaré más tarde para tu regalo!

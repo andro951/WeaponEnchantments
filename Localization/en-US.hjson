@@ -553,7 +553,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Prevents messages showing up in your chat that ask you to 
-					"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time."
+					\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"
 					'''
 			}
 			DisableArmorInfusion: {
