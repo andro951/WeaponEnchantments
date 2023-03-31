@@ -370,7 +370,6 @@ Mods: {
 			Presets: Presety
 			RandomExtraStuff: Losowe dodatkowe rzeczy
 			RarityEnchantmentStrengthMultipliers: Mnożniki siły zaklęcia rzadkości
-			ServerConfig: Konfiguracja serwera
 			AccessoryDamageReductionPerLevel: {
 				Label: DR akcesoriów na poziom (100000 = 1%)
 				Tooltip: 250000 (2,5%) to maksimum, które oznaczałoby 100% redukcję obrażeń na poziomie 40.
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Wyświetl komunikaty o błędach na czacie tylko raz
 				Tooltip: 
 					'''
 					Wiadomości będą nadal pojawiać się na czacie, ale tylko raz podczas sesji gry.

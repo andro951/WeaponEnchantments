@@ -370,7 +370,6 @@ Mods: {
 			Presets: Préconfigurations
 			RandomExtraStuff: Trucs supplémentaires aléatoires
 			RarityEnchantmentStrengthMultipliers: Multiplicateurs de force d'enchantement de rareté
-			ServerConfig: Configuration du serveur
 			AccessoryDamageReductionPerLevel: {
 				Label: Accessoire DR par niveau (100000 = 1%)
 				Tooltip: 250000 (2,5%) est le maximum qui serait de 100% de réduction des dégâts au niveau 40.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Ajustez les chances de trouver des enchantements dans les coffres. Peut être supérieur à 100 %. N'affecte pas les coffres Biome. (Ils sont toujours à 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Configuration client
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Commun
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: N'afficher qu'une seule fois les messages d'erreur dans le chat
 				Tooltip: 
 					'''
 					Les messages continueront d'apparaître dans votre chat, mais une seule fois au cours d'une session de jeu.

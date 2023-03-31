@@ -370,7 +370,6 @@ Mods: {
 			Presets: Voreinstellungen
 			RandomExtraStuff: Zufälliges Extra-Zeug
 			RarityEnchantmentStrengthMultipliers: Seltenheits-Verzauberungsstärke-Multiplikatoren
-			ServerConfig: Server-Konfig
 			AccessoryDamageReductionPerLevel: {
 				Label: Zubehör-DR pro Stufe (100000 = 1 %)
 				Tooltip: 250000 (2,5 %) ist das Maximum, was 100 % Schadensreduzierung auf Stufe 40 entspräche.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Passen Sie die Chance an, Verzauberungen in Truhen zu finden. Kann über 100 % betragen. Wirkt sich nicht auf Biom-Truhen aus (sie sind immer 100 %).
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Client-Konfig
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Gemeinsam
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Fehlermeldungen im Chat nur einmal anzeigen
 				Tooltip: 
 					'''
 					Nachrichten werden weiterhin in Ihrem Chat angezeigt, jedoch nur einmal während einer Spielsitzung.

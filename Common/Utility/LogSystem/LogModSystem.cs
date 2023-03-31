@@ -24,6 +24,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Text.RegularExpressions;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -485,10 +486,10 @@ namespace WeaponEnchantments.Common.Utility
                 string s = null;
                 if (translations.ContainsKey(key)) {
                     s = translations[key].GetTranslation(culture);
-
-                    if (culture == (int)CultureName.English) {
-                        if (s != p.Value)
-                            LocalizationData.ChangedData.Add(key);
+					if (culture == (int)CultureName.English) {
+                        if (s != p.Value) {
+							LocalizationData.ChangedData.Add(key);
+						}
                     }
                     
                     if (LocalizationData.ChangedData.Contains(key))
@@ -519,15 +520,14 @@ namespace WeaponEnchantments.Common.Utility
 
                 //$"{key}: {s}".Log();
 
-                if (s == key) {
+                if (s == key)
                     s = p.Value;
-                }
 
                 bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || !LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
-				
-                if (s.Contains("{") && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n')) {
+
+				s = s.Replace("\"", "\\\"");
+				if ((s.Contains("{") || s.Contains("\"")) && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n'))
                     s = $"\"{s}\"";
-                }
 
                 if (zzzLocalizationForTesting) {
                     if (s[s.Length - 1] == '"') {

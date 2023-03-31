@@ -286,7 +286,7 @@ namespace WeaponEnchantments.Localization
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Server Config" }
+								{ L_ID3.Label.ToString(), nameof(ServerConfig).AddSpaces() }
 							}) },
 							{ nameof(ServerConfig.presetData), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Presets and Multipliers" }
@@ -502,7 +502,7 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), "Disable Ability to research Weapon Enchantment items" }
 							}) },
 							{ nameof(ClientConfig), new(dict: new() {
-								{ L_ID3.Label.ToString(), "ClientConfig" }
+								{ L_ID3.Label.ToString(), nameof(ClientConfig).AddSpaces() }
 							}) },
 							{ nameof(ClientConfig.teleportEssence), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Automatically send essence to UI" },
@@ -528,7 +528,7 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Tooltip.ToString(), "Warning: This will allow you to consume a weak weapon to downgrade a strong weapon." }
 							}) },
 							{ nameof(ClientConfig.UsePointsAsTooltip), new(dict: new() {
-								{ L_ID3.Label.ToString(), "\"\\\"Points\\\" instead of \\\"Enchantment Capacity\\\"\"" },
+								{ L_ID3.Label.ToString(), "\"Points\" instead of \"Enchantment Capacity\"" },
 								{ L_ID3.Tooltip.ToString(), "Tooltips will show Points Available instead of Enchantment Capacity Available" }
 							}) },
 							{ nameof(ClientConfig.UseAlternateEnchantmentEssenceTextures), new(dict: new() {
@@ -562,7 +562,7 @@ namespace WeaponEnchantments.Localization
 													"\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"" }
 							}) },
 							{ nameof(ClientConfig.OnlyShowErrorMessagesInChatOnce), new(dict: new() {
-								{ L_ID3.Label.ToString(), "OnlyShowErrorMessagesInChatOnce" },
+								{ L_ID3.Label.ToString(), "Only show error messages in chat once" },
 								{ L_ID3.Tooltip.ToString(), "Messages will continue to show up in your chat, but only once during a game session.\n" +
 													"(The error message must be the exact same as a previous message to be prevented.)" }
 							}) },
@@ -646,7 +646,6 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Tooltip.ToString(), "Affects the strength of all Legendary Enchantments.  Overrides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored." }
 							}) }
 							}, dict: new() {
-								{ "ServerConfig", "Server Config" },
 								{ "IndividualEnchantmentStrengths", "Individual Enchantment Strengths" },
 								{ "EnchantmentSettings", "Enchantment Settings" },
 								{ "EssenceandExperience", "Essence and Experience" },
@@ -843,6 +842,8 @@ namespace WeaponEnchantments.Localization
 					"Ninja Tabi Dash",
 					"Solar Dash",
 					"Crystal Ninja Dash",
+					"Normal",
+					"Basic"
 				}
 			},
 			{
@@ -859,6 +860,7 @@ namespace WeaponEnchantments.Localization
 					"Medusa",
 					"Mingella",
 					"No",
+					"Normal",
 					"Sabrina",
 					"Salem",
 					"Winifred",
@@ -897,6 +899,9 @@ namespace WeaponEnchantments.Localization
 					"Max Minions",
 					"Sonar",
 					"Ninja Tabi Dash",
+					"Expert",
+					"Normal",
+					"Rare"
 				}
 			},
 			{
@@ -960,6 +965,7 @@ namespace WeaponEnchantments.Localization
 					"Mary",
 					"Medusa",
 					"Morgana",
+					"Normal",
 					"Winifred",
 					"Item",
 					"Ki",

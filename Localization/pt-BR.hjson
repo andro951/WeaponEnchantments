@@ -370,7 +370,6 @@ Mods: {
 			Presets: Predefinições
 			RandomExtraStuff: Extras aleatórios
 			RarityEnchantmentStrengthMultipliers: Multiplicadores de força de encantamento de raridade
-			ServerConfig: Configuração do servidor
 			AccessoryDamageReductionPerLevel: {
 				Label: RD de acessórios por nível (100.000 = 1%)
 				Tooltip: 250000 (2,5%) é o máximo que seria 100% de redução de dano no nível 40.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Ajuste a chance de encontrar encantamentos em baús. Pode ser superior a 100%. Não afeta os baús do Bioma. (São sempre 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Configuração do cliente
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Comum
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Mostrar mensagens de erro no chat apenas uma vez
 				Tooltip: 
 					'''
 					As mensagens continuarão a aparecer no seu chat, mas apenas uma vez durante uma sessão de jogo.

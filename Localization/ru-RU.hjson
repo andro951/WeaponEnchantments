@@ -370,7 +370,6 @@ Mods: {
 			Presets: Пресеты
 			RandomExtraStuff: Случайные дополнительные вещи
 			RarityEnchantmentStrengthMultipliers: Множители силы зачарования редкости
-			ServerConfig: Конфигурация сервера
 			AccessoryDamageReductionPerLevel: {
 				Label: DR аксессуаров за уровень (100000 = 1%)
 				Tooltip: 250000 (2,5%) — это максимум, который будет 100% снижением урона на 40 уровне.
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: ТолькоШоверрормессажесинчатонсе
+				Label: Показывать сообщения об ошибках в чате только один раз
 				Tooltip: 
 					'''
 					Сообщения будут по-прежнему появляться в вашем чате, но только один раз за игровой сеанс.

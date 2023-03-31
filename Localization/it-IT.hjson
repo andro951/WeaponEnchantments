@@ -370,7 +370,6 @@ Mods: {
 			Presets: Preset
 			RandomExtraStuff: Cose extra casuali
 			RarityEnchantmentStrengthMultipliers: Moltiplicatori di forza dell'incantesimo di rarità
-			ServerConfig: Configurazione server
 			AccessoryDamageReductionPerLevel: {
 				Label: Accessorio RD per livello (100000 = 1%)
 				Tooltip: 250000 (2,5%) è il massimo che sarebbe una riduzione del danno del 100% al livello 40.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Regola la possibilità di trovare incantesimi nei forzieri. Può essere superiore al 100%. Non influisce sui forzieri del bioma. (Sono sempre al 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Configurazione client
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Comune
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Mostra i messaggi di errore in chat solo una volta
 				Tooltip: 
 					'''
 					I messaggi continueranno a comparire nella tua chat, ma solo una volta durante una sessione di gioco.

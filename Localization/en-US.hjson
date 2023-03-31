@@ -370,7 +370,6 @@ Mods: {
 			Presets: Presets
 			RandomExtraStuff: Random Extra Stuff
 			RarityEnchantmentStrengthMultipliers: Rarity Enchantment Strength Multipliers
-			ServerConfig: Server Config
 			AccessoryDamageReductionPerLevel: {
 				Label: Accessory DR Per Level (100000 = 1%)
 				Tooltip: 250000 (2.5%) is the maximum which would be 100% damage reduction at level 40.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Adjust the chance of finding enchantments in chests.  Can be over 100%.  Does not affect Biome chests.(They are always 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Client Config
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Common
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Only show error messages in chat once
 				Tooltip: 
 					'''
 					Messages will continue to show up in your chat, but only once during a game session.

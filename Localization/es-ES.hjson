@@ -370,7 +370,6 @@ Mods: {
 			Presets: Preajustes
 			RandomExtraStuff: Cosas adicionales aleatorias
 			RarityEnchantmentStrengthMultipliers: Multiplicadores de fuerza de encantamiento de rareza
-			ServerConfig: Configuración del servidor
 			AccessoryDamageReductionPerLevel: {
 				Label: Accesorio DR por nivel (100000 = 1%)
 				Tooltip: 250000 (2.5%) es el máximo que sería 100% de reducción de daño en el nivel 40.
@@ -515,7 +514,7 @@ Mods: {
 				Tooltip: Ajusta la posibilidad de encontrar encantamientos en los cofres. Puede ser superior al 100%. No afecta a los cofres de Bioma. (Siempre están al 100%)
 			}
 			ClientConfig: {
-				Label: ClientConfig
+				Label: Configuración del cliente
 			}
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Común
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: Solo mostrar mensajes de error en el chat una vez
 				Tooltip: 
 					'''
 					Los mensajes seguirán apareciendo en su chat, pero solo una vez durante una sesión de juego.

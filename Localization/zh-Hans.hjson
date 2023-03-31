@@ -370,7 +370,6 @@ Mods: {
 			Presets: 预设
 			RandomExtraStuff: 随机额外的东西
 			RarityEnchantmentStrengthMultipliers: 稀有附魔强度倍数
-			ServerConfig: 服务器配置
 			AccessoryDamageReductionPerLevel: {
 				Label: 每级饰品 DR（100000 = 1%）
 				Tooltip: 250000 (2.5%) 是最大值，即 40 级时 100% 的伤害减免。
@@ -737,7 +736,7 @@ Mods: {
 					'''
 			}
 			OnlyShowErrorMessagesInChatOnce: {
-				Label: OnlyShowErrorMessagesInChatOnce
+				Label: 仅在聊天中显示一次错误消息
 				Tooltip: 
 					'''
 					消息将继续出现在您的聊天中，但在游戏会话期间只会显示一次。
@@ -860,7 +859,7 @@ Mods: {
 				Tooltip: 默认颜色是色盲友好的。 备用纹理有细微差别，但被投票保留。
 			}
 			UsePointsAsTooltip: {
-				Label: “\”Points\“而不是”Enchantment Capacity\“”
+				Label: "\"Points\"而不是”Enchantment Capacity\""
 				Tooltip: 工具提示将显示可用点数而不是可用附魔容量
 			}
 		}
