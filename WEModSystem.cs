@@ -221,9 +221,9 @@ namespace WeaponEnchantments
             }
 
             //Fix for splitting stack of enchanted items in a chest
-            if (wePlayer.Player.chest != -1) {
+            if (wePlayer.Player.chest != -1 && Main.mouseRight) {
                 int chest = wePlayer.Player.chest;
-                if (Main.HoverItem.TryGetEnchantedItem()) {
+                if (Main.HoverItem.maxStack > 1 && Main.HoverItem.type == Main.mouseItem.type && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem enchantedHoverItem) && enchantedHoverItem.Modified && Main.mouseItem.TryGetEnchantedItem(out EnchantedItem enchantedMouseItem)) {
                     Player player = wePlayer.Player;
                     Item[] inventory;
                     switch (chest) {
@@ -253,27 +253,31 @@ namespace WeaponEnchantments
 
                     for (int i = 0; i < inventory.Length; i++) {
                         ref Item item = ref inventory[i];
-                        if (item.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
-                            if (item.IsSameEnchantedItem(Main.HoverItem) && item.stack == Main.HoverItem.stack) {
-                                int stack = item.stack;
-                                if (Main.mouseRight) {
-                                    Item mouseItem = Main.mouseItem;
-                                    int mouseItemStack = mouseItem.stack;
-                                    int maxStack = mouseItem.maxStack;
-                                    if (stack + mouseItemStack < maxStack) {
-                                        Main.mouseItem.stack += stack;
-                                        item = new Item();
-                                    }
-                                    else {
-                                        Main.mouseItem.stack = maxStack;
-                                        item.stack = stack + mouseItemStack - maxStack;
-                                    }
-                                }
+						if (item.IsSameEnchantedItem(Main.HoverItem) && item.stack == Main.HoverItem.stack) {
+							if (!item.IsSameEnchantedItem(Main.mouseItem))
+								Main.mouseItem.CombineEnchantedItems(new() { item });
 
-                                break;
-                            }
-                        }
-                    }
+							enchantedHoverItem.ResetGlobals(item);
+
+							/*
+							int stack = item.stack;
+							Item mouseItem = Main.mouseItem;
+							int mouseItemStack = mouseItem.stack;
+							int maxStack = mouseItem.maxStack;
+							if (stack + mouseItemStack < maxStack) {
+								Main.mouseItem.stack += stack;
+								Main.mouseItem.CombineEnchantedItems(new() { item });
+								item = new Item();
+							}
+							else {
+								Main.mouseItem.stack = maxStack;
+								item.stack = stack + mouseItemStack - maxStack;
+							}
+							*/
+
+							break;
+						}
+					}
                 }
             }
 
