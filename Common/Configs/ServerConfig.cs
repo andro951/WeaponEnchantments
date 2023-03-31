@@ -303,6 +303,24 @@ namespace WeaponEnchantments.Common.Configs
 		[ReloadRequired]
 		public bool DisableResearch;
 
+		[Label("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label")]
+		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip")]
+		[DefaultValue(false)]
+		[ReloadRequired]
+		public bool PrintWikiInfo {
+			set {
+				if (value) {
+					PreventPowerBoosterFromPreHardMode = false;
+					presetData.Preset = "Normal";
+				}
+
+				printWikiInfo = value;
+			}
+
+			get => printWikiInfo;
+		}
+		private bool printWikiInfo;
+
 		public ServerConfig() {
 			presetData = new PresetData();
 		}
@@ -457,12 +475,6 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		[ReloadRequired]
 		public bool PrintLocalizationLists;
-
-		[Label("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool PrintWikiInfo;
 
 		[Label("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip")]

@@ -860,22 +860,15 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             }
             else {
                 ModNPC modNPC = npc.ModNPC;
-                if (modNPC == null) {
-                    name = npc.FullName();
-                }
-                else {
-                    name = modNPC.Name.AddSpaces();
-                }
-
-                if (displayPNG)
-                    file = name.ToPNG();
+                string modNpcFullName = modNPC.FullName;
+				name = npc.FullName();
 
                 if (link)
-                    pngLinkString = name.ToLink();
+                    pngLinkString = modNpcFullName.GetModNpcLink().ToExternalLink(name);
             }
 
-            return $"{file}{(link ? " " + pngLinkString : displayName ? " " + name : "")}";
-        }
+            return $"{file}{(file != null && link ? " " : "")}{(link ? pngLinkString : displayName ? " " + name : "")}";
+		}
         public static string ToNpcPNG(this short npcNetID, bool link = false, bool displayName = true, bool displayPNG = true) =>
             ((int)npcNetID).ToNpcPNG(link, displayName, displayPNG);
         public static string GetCoinsPNG(this int sellPrice) {

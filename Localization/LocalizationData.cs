@@ -490,6 +490,10 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ServerConfig.DisableArmorInfusion), new(dict: new() {
 								{ L_ID3.Tooltip.ToString(), "This will prevent you from infusing armor items and will ignore infused set bonuses." }
 							}) },
+							{ nameof(ServerConfig.PrintWikiInfo), new(dict: new() {
+								{ L_ID3.Label.ToString(), "Log all wiki info" },
+								{ L_ID3.Tooltip.ToString(), "The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
+							}) },
 							{ nameof(ServerConfig.MinionLifeStealMultiplier), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Minion Life Steal Multiplier (%)" },
 								{ L_ID3.Tooltip.ToString(), "Allows you to reduce the amount of healing received by minions with the Lifesteal Enchantment." }
@@ -577,10 +581,6 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ClientConfig.PrintLocalizationLists), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Log all translation lists" },
 								{ L_ID3.Tooltip.ToString(), "The lists are printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
-							}) },
-							{ nameof(ClientConfig.PrintWikiInfo), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Log all wiki info" },
-								{ L_ID3.Tooltip.ToString(), "The info is printed to the client.log when you enter a world.\nThe client.log default location is C:\\Steam\\SteamApps\\common\\tModLoader\\tModLoader-Logs" }
 							}) },
 							{ nameof(ClientConfig.PrintWeaponInfusionPowers), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Log all weapon infusion powers" },

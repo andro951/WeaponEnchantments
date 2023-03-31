@@ -1610,7 +1610,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.MoonLordFreeEye://400 True Eye of Cthulhu
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/56/True_Eye_of_Cthulhu.png/revision/latest?cb=20150804093912&format=original";
 				case NPCID.MoonLordLeechBlob://401 Moon Leech Clot
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/1/16/Moon_Leech_Clot.png/revision/latest?cb=20150701095300&format=original";
 				case NPCID.StardustWormHead://402 Milkyway Weaver
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/0/0b/Milkyway_Weaver_%28Head%29.png/revision/latest?cb=20150701095415&format=original";
 				case NPCID.StardustWormBody://403 NPCName.StardustWormBody
@@ -1618,7 +1618,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.StardustWormTail://404 NPCName.StardustWormTail
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/38/Milkyway_Weaver_%28Tail%29.png/revision/latest?cb=20150701095427&format=original";
 				case NPCID.StardustCellBig://405 Star Cell
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Star_Cell.png/revision/latest?cb=20150701095341&format=original";
 				case NPCID.StardustCellSmall://406 Star Cell
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/4/43/Star_Cell.png/revision/latest?cb=20150701095341&format=original";
 				case NPCID.StardustJellyfishBig://407 Flow Invader
@@ -1682,7 +1682,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.ArmedZombieCenx://436 Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/2c/Armed_Female_Zombie.png/revision/latest?cb=20170422131225&format=original";
 				case NPCID.CultistTablet://437 Mysterious Tablet
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/53/Mysterious_Tablet.gif/revision/latest?cb=20190228020510&format=original";
 				case NPCID.CultistDevote://438 Lunatic Devotee
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/3/3a/Lunatic_Devotee.gif/revision/latest?cb=20150814182852&format=original";
 				case NPCID.CultistBoss://439 Lunatic Cultist
@@ -1750,7 +1750,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.CrimsonPenguin://470 Vicious Penguin
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/7/77/Vicious_Penguin.png/revision/latest?cb=20200730170604&format=original";
 				case NPCID.GoblinSummoner://471 Goblin Summoner
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/c/c4/Goblin_Summoner.png/revision/latest?cb=20200708163902&format=original";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/2/24/Goblin_Warlock.png/revision/latest?cb=20200708163902&format=original";
 				case NPCID.ShadowFlameApparition://472 Shadowflame Apparition
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/b/b1/Shadowflame_Apparition.png/revision/latest?cb=20150701103137&format=original";
 				case NPCID.BigMimicCorruption://473 Corrupt Mimic
@@ -1784,7 +1784,7 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Buggy://487 Buggy
 					return "";
 				case NPCID.TargetDummy://488 Target Dummy
-					return "";
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/0/06/Target_Dummy_%28placed%29.gif/revision/latest?cb=20150701180254&format=original";
 				case NPCID.BloodZombie://489 Blood Zombie
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/5/59/Blood_Zombie.png/revision/latest?cb=20171104201710&format=original";
 				case NPCID.Drippler://490 Drippler
@@ -2146,7 +2146,23 @@ namespace WeaponEnchantments.Common.Utility
 				case NPCID.Deerclops://668 Deerclops
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Deerclops.png/revision/latest?cb=20211118192944&format=original";
 				case NPCID.DeerclopsLeg://669 Deerclops Leg
+					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Deerclops_Leg.png/revision/latest?cb=20211120050422&format=original";
+				default:
 					return "";
+			}
+		}
+		public static string GetModNpcLink(this string modNpcFullName) {
+			switch (modNpcFullName) {
+				case "CalamityMod/DesertScourgeHead":
+					return "https://calamitymod.wiki.gg/wiki/Desert_Scourge";
+				case "ThoriumMod/TheGrandThunderBirdv2":
+					return "https://thoriummod.wiki.gg/wiki/The_Grand_Thunder_Bird";
+				case "ThoriumMod/TheBuriedWarrior":
+					return "https://thoriummod.wiki.gg/wiki/Buried_Champion";
+				case "ThoriumMod/GraniteEnergyStorm":
+					return "https://thoriummod.wiki.gg/wiki/Granite_Energy_Storm";
+				case "ThoriumMod/QueenJelly":
+					return "https://thoriummod.wiki.gg/wiki/Queen_Jellyfish";
 				default:
 					return "";
 			}

@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Common.Utility
         public static bool printLocalizationKeysAndValues => WEMod.clientConfig.PrintLocalizationLists && Debugger.IsAttached;
         private static int localizationValuesCharacterCount = 0;
         public static bool printEnchantmentDrops => WEMod.clientConfig.PrintEnchantmentDrops;
-        public static readonly bool printWiki = WEMod.clientConfig.PrintWikiInfo;
+        public static readonly bool printWiki = WEMod.serverConfig.PrintWikiInfo;
         public static readonly bool printNPCIDSwitch = false;
 
         public static class GetItemDictModeID {
