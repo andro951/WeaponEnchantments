@@ -259,22 +259,6 @@ namespace WeaponEnchantments
 
 							enchantedHoverItem.ResetGlobals(item);
 
-							/*
-							int stack = item.stack;
-							Item mouseItem = Main.mouseItem;
-							int mouseItemStack = mouseItem.stack;
-							int maxStack = mouseItem.maxStack;
-							if (stack + mouseItemStack < maxStack) {
-								Main.mouseItem.stack += stack;
-								Main.mouseItem.CombineEnchantedItems(new() { item });
-								item = new Item();
-							}
-							else {
-								Main.mouseItem.stack = maxStack;
-								item.stack = stack + mouseItemStack - maxStack;
-							}
-							*/
-
 							break;
 						}
 					}

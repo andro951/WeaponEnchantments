@@ -1484,7 +1484,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			for (int c = 0; c < consumedItems.Count; c++) {
                 Item consumedItem = consumedItems[c];
-                if (consumedItem.IsAir)
+                if (consumedItem.NullOrAir())
                     continue;
 
 				if (!consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem))

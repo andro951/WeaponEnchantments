@@ -310,7 +310,10 @@ namespace WeaponEnchantments.Common.Utility
                 }
             }
             else {
-                $"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);
+				if (consumedItem.NullOrAir())
+					return;
+
+				$"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
         }
 
