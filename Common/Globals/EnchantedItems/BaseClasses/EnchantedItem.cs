@@ -1494,10 +1494,6 @@ namespace WeaponEnchantments.Common.Globals
                 if (!consumedModified && (!fromCraft || Main.mouseItem.TryGetEnchantedItem(out EnchantedItem enchantedMouseItem) && !enchantedMouseItem.Modified))
                     continue;
 
-                //Fix for Crafting with a modified enchanted weapon already as the mouse item.
-                if (!consumedModified && fromCraft)
-                    consumedItem = Main.mouseItem;
-
 				if (fromCraft && consumedItem.maxStack > 1) {
 					if (MagicStorageIntegration.MagicStorageEnabledAndOpen) {
 						if (MagicStorageIntegration.JustCraftedStackableItem) {
@@ -1508,11 +1504,18 @@ namespace WeaponEnchantments.Common.Globals
 						}
 					}
                     else {
-						bool found = consumedItem.TryResetSameEnchantedItem(Main.LocalPlayer.inventory, out _);
-						if (!found && Main.LocalPlayer.chest > -1) {
-							found = consumedItem.TryResetSameEnchantedItem(Main.chest[Main.LocalPlayer.chest].item, out int index);
-							if (Main.netMode == NetmodeID.MultiplayerClient && found)
-								Net<INetMethods>.Proxy.NetResetEnchantedItemInChest(Main.LocalPlayer.chest, (short)index);
+                        if (!consumedModified) {
+							//Fix for Crafting with a modified enchanted weapon already as the mouse item.
+							//if (Main.HoverItem.type == Main.recipe[Main.focusRecipe].createItem.type)//If not tested
+								consumedItem = Main.mouseItem;
+						}
+                        else {
+							bool found = consumedItem.TryResetSameEnchantedItem(Main.LocalPlayer.inventory, out _);
+							if (!found && Main.LocalPlayer.chest > -1) {
+								found = consumedItem.TryResetSameEnchantedItem(Main.chest[Main.LocalPlayer.chest].item, out int index);
+								if (Main.netMode == NetmodeID.MultiplayerClient && found)
+									Net<INetMethods>.Proxy.NetResetEnchantedItemInChest(Main.LocalPlayer.chest, (short)index);
+							}
 						}
 					}
 				}
