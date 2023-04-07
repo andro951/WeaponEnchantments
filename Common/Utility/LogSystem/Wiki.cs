@@ -868,6 +868,9 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 string modNpcFullName = modNPC.FullName;
 				name = npc.FullName();
 
+                if (displayPNG && modNPC.Mod.Name == "WeaponEnchantments")
+                    file = name.ToPNG();
+
                 if (link)
                     pngLinkString = modNpcFullName.GetModNpcLink().ToExternalLink(name);
             }
