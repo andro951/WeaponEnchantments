@@ -262,7 +262,7 @@ namespace WeaponEnchantments.UI
                 Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
             int xp = enchantedItem.Experience;
-            float value = item.value - enchantedItem.lastValueBonus;
+            float value = (item.value - enchantedItem.lastValueBonus) * item.stack;
 
             //Xp -> Essence
             if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();

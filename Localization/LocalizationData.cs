@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Localization
 			{ CultureName.Spanish , "Contributors: @DaviReM#8740, @JoeDolca, @Haturok#8191, @Kokopai#2506  (All others Google Translated.  Needs review)" },
 			{ CultureName.French , "Contributors: @Soluna#1422, @Olixx12#5354  (All others Google Translated.  Needs review)" },
 			{ CultureName.Italian , "Contributors: @Tefra_K" },
-			{ CultureName.Polish , "(Google Translated.  No contribuions yet)" },
+			{ CultureName.Polish , "(Google Translated.  No contributions yet)" },
 			{ CultureName.Portuguese , "Contributors: @Ninguém#8017, @pedro_123444#8294" },
 			{ CultureName.Russian , "Contributed by @4sent4" },
 			{ CultureName.Chinese , "1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality" }
