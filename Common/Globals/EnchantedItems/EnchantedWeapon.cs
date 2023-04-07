@@ -190,7 +190,6 @@ namespace WeaponEnchantments.Common.Globals
 
         }
         public override void NetSend(Item item, BinaryWriter writer) {
-            base.NetSend(item, writer);
 
 			#region Infusion
 
@@ -206,16 +205,18 @@ namespace WeaponEnchantments.Common.Globals
 
 			writer.Write(Stack0);
 
-            #endregion
-        }
+			#endregion
+
+			//Important for infusionPower to be obtained before base
+			base.NetSend(item, writer);
+		}
         public override void NetReceive(Item item, BinaryReader reader) {
-            base.NetReceive(item, reader);
 
 			#region Infusion
 
 			bool noName = reader.ReadBoolean();
 			if (!noName) {
-				InfusionPower = reader.ReadInt32();
+				infusionPower = reader.ReadInt32();
 			}
 
 			#endregion
@@ -224,8 +225,11 @@ namespace WeaponEnchantments.Common.Globals
 
 			Stack0 = reader.ReadBoolean();
 
-            #endregion
-        }
+			#endregion
+
+            //Important for infusionPower to be obtained before base
+			base.NetReceive(item, reader);
+		}
         public override void UpdateInventory(Item item, Player player) {
             if (Modified) {
                 //Stars Above compatibility fix

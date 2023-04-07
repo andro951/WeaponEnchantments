@@ -313,19 +313,24 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             EnchantingTable.AddPNG("MusketTooltip");
 
             EnchantingTable.AddSubHeading("Offer " + "OfferButton".ToPNG());
-            EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" + 
-                $"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" + 
-                $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.  \n" + 
-                $"# Place the item you want to offer in the item slot." + 
-                $"# press the offer button." +
-				$"# Press confirm." +
-				$"# You receive the offer rewards items.");
+            EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" +
+                $"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" +
+                $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.  \n" +
+                $"# Place the item you want to offer in the item slot.\n" +
+                $"# press the offer button.\n" +
+                $"# Press confirm.\n" +
+                $"# You receive the offer rewards items.\n");
+            EnchantingTable.AddSubHeading($"Mass offer config option");
+            EnchantingTable.AddParagraph($"\"Offer all of the same item.\" under Client Config, Enchanting Table Options.\n" +
+                $"This option enables to methods of mass offering items.  (This will not offer any item that has experience/enchantments/power boosters/etc)\n" +
+                $"# When offering an item, all of the same item will be offered from your inventory.\n" +
+                $"# When offering an item, ALL items of ANY type from chests directly touching the enchanting table will be offered.  Be careful with your storage.");
 
             EnchantingTable.AddSubHeading("Syphon " + "SyphonButton".ToPNG());
             EnchantingTable.AddParagraph($"If you have a max level item (level 40), you can convert any excess experience on the item past level 40 " +
 				$"(past 100M experience) into essence.\n" +
-				$"# Place the max level item into the item slot." +
-				$"# Click syphon." +
+				$"# Place the max level item into the item slot.\n" +
+				$"# Click syphon.\n" +
 				$"# Essence will be deposited into the enchanting table interface.");
 
             EnchantingTable.AddSubHeading("Infusion " + "InfusionButton".ToPNG());
@@ -493,7 +498,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             itemInfo.AddInfo(PowerBooster);
             itemInfo.AddRecipes(PowerBooster);
             PowerBooster.AddParagraph($"<br/>\n" +
-                $"A Power Booster is a rare item obtained from defeating post Plantera bosses (inlcudes Plantera).  " +
+                $"A Power Booster is a rare item obtained from defeating post Plantera bosses (includes Plantera).  " +
                 $"It adds 20 levels to an item " +
                 $"(These levels do not count towards the level 40 cap or give critical strike chance.).  They can only be used once per item.  " +
                 $"To apply an ultra power booster to an item, place the item into the enchanting table then click the ultra power booster onto the item in the table as if you were " +
@@ -508,11 +513,11 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             npcInfo.AddStatistics(WitchPage);
             WitchPage.AddParagraph(
                 $"The Witch is a town npc that sells a variety of items.  " +
-				$"She sells containments and enchantment essence and a selection of enchantments.  The enchantents are " +
+				$"She sells containments and enchantment essence and a selection of enchantments.  The enchantments are " +
 				$"chosen randomly from the ones that are allowed to be sold.  This includes all enchantments with a sell condition " +
-				$"of \"Always\", 4 enchantments with a sell condtion of \"Any Time\", and 2 from the rare pool.  The rare pool " +
+				$"of \"Always\", 4 enchantments with a sell condition of \"Any Time\", and 2 from the rare pool.  The rare pool " +
 				$"consists of the \"Any Time Rare\" enchantments and all other enchantments if the sell condition for them is met.  " +
-				$"Her shop resets as soon as the the game changes from night to day.  This happens at 4:30 am normally, but if using " +
+				$"Her shop resets as soon as the game changes from night to day.  This happens at 4:30 am normally, but if using " +
 				$"some other effect to set time, it will trigger as well as long as the game registered it being night then day.  " +
 				$"The prices of enchantment essence and enchantments (except ones with a sell condition of \"Always\") are higher " +
 				$"than normal.  Enchantment essence is 2x higher for Tier 4(Legendary) while the lower tiers are multiplied by an " +

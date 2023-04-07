@@ -348,6 +348,7 @@ namespace WeaponEnchantments.Common
         private static int GetBaseInfusionPower(Item weapon) {
 			if (!InfusionProgression.TryGetBaseInfusionPower(weapon, out int infusionPower))
 				infusionPower = GetInfusionPowerFromRarityAndValue(weapon);
+
 			return infusionPower;
 		}
         public static string GetInfusionItemName(this Item item) {
