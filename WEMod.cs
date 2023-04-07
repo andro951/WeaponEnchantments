@@ -44,6 +44,7 @@ namespace WeaponEnchantments
 		public static bool avaliRaceEnabled = ModLoader.TryGetMod("AvaliRace", out Mod _);
 		public static bool qwertyModEnabled = ModLoader.TryGetMod("QwertyMod", out Mod _);
 		public static bool bossChecklistEnabled = ModLoader.TryGetMod("BossChecklist", out Mod _);
+		public static bool bountifulGoodieBagsEnabled = ModLoader.TryGetMod("BountifulGoodieBags", out Mod _);
 
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;

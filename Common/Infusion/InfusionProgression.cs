@@ -1462,7 +1462,11 @@ namespace WeaponEnchantments.Common
 			AddProgressionGroup(new(ProgressionGroupID.HolidayWeapons, 110,
 				itemTypes: new SortedSet<int>() {
 					ItemID.BloodyMachete,
-					ItemID.BladedGlove
+					ItemID.BladedGlove,
+					ItemID.FruitcakeChakram,
+					ItemID.CandyCaneSword,
+					ItemID.CnadyCanePickaxe,
+					ItemID.RedRyder
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.PostEyeEasy, -10, ProgressionGroupID.Eye,
 				itemTypes: new SortedSet<int>() {
@@ -1539,7 +1543,7 @@ namespace WeaponEnchantments.Common
 				itemTypes: new SortedSet<int>() {
 					ItemID.Blowgun,
 					ItemID.ImbuingStation
-				}));
+				}));//240
 			AddProgressionGroup(new(ProgressionGroupID.Bee, 250));
 			AddProgressionGroup(new(ProgressionGroupID.PostSkeletronEasy, -10, ProgressionGroupID.Skeletron,
 				itemTypes: new SortedSet<int>() {
@@ -1820,7 +1824,7 @@ namespace WeaponEnchantments.Common
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.Princess
-				}));
+				}));//715
 			AddProgressionGroup(new(ProgressionGroupID.Plantera, 725));
 			AddProgressionGroup(new(ProgressionGroupID.DungeonPostPlantera, 750,
 				itemTypes: new SortedSet<int>() {
@@ -1904,6 +1908,7 @@ namespace WeaponEnchantments.Common
 				itemTypes: new SortedSet<int>() {
 					ItemID.EmpressBlade
 				}));//970
+			AddProgressionGroup(new(ProgressionGroupID.PostLunaticCultistEasy, -10, ProgressionGroupID.LunaticCultist));
 			AddProgressionGroup(new(ProgressionGroupID.LunaticCultist, 975,
 				npcTypes: new SortedSet<int>() {
 					NPCID.CultistBoss
@@ -2399,15 +2404,15 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfSin",
 						"StarsAbove/EssenceOfAlpha"
 					}));//930
-				AddProgressionGroup(new(ProgressionGroupID.PostLunaticCultistEasy, -10, ProgressionGroupID.LunaticCultist,
-					itemNames: new SortedSet<string>() {
+				progressionGroups[ProgressionGroupID.PostLunaticCultistEasy].AddItems(
+					new SortedSet<string>() {
 						"StarsAbove/EssenceOfDrivingThunder",
 						"StarsAbove/EssenceOfQuantum",
 						"StarsAbove/EssenceOfTheAscendant",
 						"StarsAbove/EssenceOfTheTimeless",
 						"StarsAbove/EssenceOfTheUnyieldingEarth",
 						"StarsAbove/EssenceOfTwinStars"
-					}));//965
+					});//965
 				AddProgressionGroup(new(ProgressionGroupID.Arbitration, 1010,
 					itemNames: new SortedSet<string>() {
 						"StarsAbove/EssenceOfLiberation",
@@ -2929,6 +2934,67 @@ namespace WeaponEnchantments.Common
 						"AvaliRace/CentralPrinterAvali",
 						"AvaliRace/PilotPistolAvali"
 					});//0
+			}
+
+			if (WEMod.dbtEnabled) {
+				progressionGroups[ProgressionGroupID.ForestPreHardMode].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/StableKiCrystal"
+					});//0
+				progressionGroups[ProgressionGroupID.MerchantShop].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/ScrapMetal"
+					});//10
+				progressionGroups[ProgressionGroupID.PostEaterBrainEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/CalmKiCrystal",
+						"DBZMODPORT/EarthenShard"
+					});//190
+				progressionGroups[ProgressionGroupID.PostBeeEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/AstralEssentia"
+					});//240
+				progressionGroups[ProgressionGroupID.PostSkeletronEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/BlightedFang",
+						"DBZMODPORT/SkeletalEssence",
+						"DBZMODPORT/PridefulKiCrystal"
+					});//290
+				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/AngerKiCrystal"
+					});//410
+				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/SoulofEntity"
+					});//640
+				progressionGroups[ProgressionGroupID.PostPlanteraEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/PureKiCrystal"
+					});//715
+				progressionGroups[ProgressionGroupID.PostGolemEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/DemonicSoul"
+					});//835
+				progressionGroups[ProgressionGroupID.PostLunaticCultistEasy].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/CandyLaser"
+					});//965
+				progressionGroups[ProgressionGroupID.LunarInvasion].AddItems(
+					new SortedSet<string>() {
+						"DBZMODPORT/RadiantFragment"
+					});//1005
+			}
+
+			if (WEMod.bountifulGoodieBagsEnabled) {
+				progressionGroups[ProgressionGroupID.HolidayWeapons].AddItems(
+					new SortedSet<string>() {
+						"BountifulGoodieBags/CandyCornCarver",
+						"BountifulGoodieBags/CandyCornDrill",
+						"BountifulGoodieBags/CobwebChakram",
+						"BountifulGoodieBags/DextroseKunai",
+						"BountifulGoodieBags/SWModel15"
+					});//110
 			}
 		}
 		private static void PopulateItemInfusionPowers() {
