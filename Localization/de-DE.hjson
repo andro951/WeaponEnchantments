@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Klassentausch-Verzauberungs-Epos werfen
 			ThrowingClassSwapEnchantmentLegendary: Klassentauschverzauberung Legendär werfen
 			ThrowingClassSwapEnchantmentRare: Klassentausch-Verzauberung werfen Selten
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Giftverzauberung Basic
 			VenomEnchantmentCommon: Giftverzauberung Allgemein
 			VenomEnchantmentEpic: Giftverzauberung Epic
@@ -557,6 +562,7 @@ Mods: {
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Schadensreduzierung
 				DangerSense: Gefahr Sinn
 				Daybreak: Tagesanbruch
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Verteidigung
 				EnemyMaxSpawns: Feindlicher Max spawnt
 				EnemySpawnRate: Gegnerische Spawnrate
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Bewegungsgeschwindigkeit
 				MPBonusRegen: MP-Bonus-Regeneration
 				Multishot: Dauerfeuer
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Npc Kontakt Angler
 				NPCHitCooldown: NPC-Treffer-Cooldown
 				ObsidianSkin: Obsidian-Haut
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: Höhlenforscher
 				ThrowingClassSwap: Klassentausch werfen
+				Time: Time
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Auge von Cthulhu Shield Dash
 				VanillaDash3: Solar Dash
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
 				DBZMODPORT: (Dragon Ball Terraria-Verzauberung)
 				ThoriumMod: (Throium-Mod-Verzauberung)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)

@@ -1,4 +1,4 @@
-#(Google Translated.  No contribuions yet)
+#(Google Translated.  No contributions yet)
 Mods: {
 	WeaponEnchantments: {
 		ItemName: {
@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Rzucanie Zaklęcie Zamiana klas Epic
 			ThrowingClassSwapEnchantmentLegendary: Rzucanie Zaklęcie zamiany klas Legendarne
 			ThrowingClassSwapEnchantmentRare: Rzucanie Zaklęciem Zamiany Klas Rzadkie
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Podstawowe zaklęcie jadu
 			VenomEnchantmentCommon: Zaklęcie Jadu Zwykłe
 			VenomEnchantmentEpic: Epickie zaklęcie jadu
@@ -557,6 +562,7 @@ Mods: {
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Redukcja zniszczeń
 				DangerSense: Zmysł zagrożenia
 				Daybreak: Brzask
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Obrona
 				EnemyMaxSpawns: Maks. odradzanie wroga
 				EnemySpawnRate: Częstotliwość pojawiania się wrogów
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Prędkość ruchu
 				MPBonusRegen: Regeneracja premii MP
 				Multishot: Wielostrzałowy
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Wędkarz kontaktowy NPC
 				NPCHitCooldown: Czas odnowienia trafienia NPC
 				ObsidianSkin: Obsydianowa skórka
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: grotołaz
 				ThrowingClassSwap: Rzucanie Zamiana klas
+				Time: Time
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Zryw tarczy oka Cthulhu
 				VanillaDash3: Słoneczna kreska
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Zaklęcie Mody Katastrofy)
 				DBZMODPORT: (Zaklęcie Dragon Ball Terraria)
 				ThoriumMod: (Zaklęcie Modyfikujące Troium)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(Osłabienie Amaterasu i poniższe uwagi na ten temat mają zastosowanie tylko na 4. poziomie zaklęcia)

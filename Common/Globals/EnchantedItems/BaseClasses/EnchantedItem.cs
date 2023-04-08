@@ -1007,6 +1007,11 @@ namespace WeaponEnchantments.Common.Globals
 
 					}
                 }
+
+                if (WEMod.amuletOfManyMinionsEnabled && modName == "AmuletOfManyMinions") {
+                    if (item.Name.Contains("Bow of Friendship") || item.Name.Contains("Replica "))
+                        return false;
+                }
 			}
 
 			bool isWeapon;
@@ -1033,7 +1038,7 @@ namespace WeaponEnchantments.Common.Globals
             if (item.NullOrAir())
                 return false;
 
-            //Check for armor item is a fix for Reforgable armor mod setting armor to accessories
+            //Check for armor item is a fix for Reforge-able armor mod setting armor to accessories
             return item.accessory && !IsArmorItem(item);
         }
         public static bool IsFishingRod(Item item) {

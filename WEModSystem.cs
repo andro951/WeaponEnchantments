@@ -41,6 +41,7 @@ namespace WeaponEnchantments
         private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
 		public static bool StartedPostAddRecipes { get; private set; } = false;
+        private double lastTimeCheck = Main.time;
 
 		public override void OnModLoad() {
 			if (!Main.dedServ) {
@@ -816,5 +817,18 @@ namespace WeaponEnchantments
 
             dayTime = Main.dayTime;
         }
-    }
+		public override void ModifyTimeRate(ref double timeRate, ref double tileUpdateRate, ref double eventUpdateRate) {
+            /*
+            if (lastTimeCheck + 60 <= Main.time) {
+                return;
+            }
+            else {
+                lastTimeCheck = Main.time;
+				
+			}
+            */
+			if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer))
+				wePlayer.ModifyTimeRate(ref timeRate, ref tileUpdateRate, ref eventUpdateRate);
+		}
+	}
 }

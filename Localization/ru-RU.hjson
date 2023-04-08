@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Эпическое зачарование смены класса
 			ThrowingClassSwapEnchantmentLegendary: Легендарное зачарование смены класса
 			ThrowingClassSwapEnchantmentRare: Бросок чары смены класса редкий
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: "Зачарование \"Яд\" (Базовое)"
 			VenomEnchantmentCommon: "Зачарование \"Яд\" (Обычное)"
 			VenomEnchantmentEpic: "Зачарование \"Яд\" (Эпическое)"
@@ -553,10 +558,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Отключить сообщения в чате, которые просят:
-					\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"
+					\\\\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: Отключить возможность наполнения брони и игнорировать бонусы набора полученные наполнением.
 			}
 			DisableMinionCrits: {
@@ -1063,6 +1069,9 @@ Mods: {
 				DamageReduction: Уменьшение урона
 				DangerSense: Предчувствие
 				Daybreak: Солнечный ожог
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Защита
 				EnemyMaxSpawns: Максимальный спавн противников
 				EnemySpawnRate: Скорость спавна противников
@@ -1109,6 +1118,9 @@ Mods: {
 				MovementSpeed: Скорость передвижения
 				MPBonusRegen: Бонус восстановления маны
 				Multishot: Многострел
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Контакт с НИПом - Рыбак
 				NPCHitCooldown: Восстановление между ударами
 				ObsidianSkin: Обсидиановая кожа
@@ -1129,6 +1141,7 @@ Mods: {
 				Sonar: Сонар
 				Spelunker: Спелеолог
 				ThrowingClassSwap: Смена класса
+				Time: Time
 				VanillaDash1: Рывок ниндзя
 				VanillaDash2: Рывок щита Глаза Ктулху
 				VanillaDash3: Солнечный рывок
@@ -1145,13 +1158,14 @@ Mods: {
 				CalamityMod: (Зачарование мода Calamity)
 				DBZMODPORT: (Зачарование мода Dragon Ball Terraria)
 				ThoriumMod: (Троиум Мод Чары)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(Эффект Аматерасу применяется только при использовании легендарного зачарования (Уровень 4))
 					(Никому не пережить неотвратимое пламя Аматерасу)
 					(Наносит противникам уникальный огненный эффект, который никогда не прекращается)
 					(Урон от эффекта возрастает со временем и при нанесении противникам урона)
-					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \"Мир в огне\".)
+					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\"Мир в огне\\\\".)
 					'''
 			}
 			EnchantmentEffects: {
@@ -1159,8 +1173,8 @@ Mods: {
 				AttackSpeed: "{0} (Влияет на скорость стрельбы прислужников, если они стреляют. Влияет на скорость поклёва.)"
 				BonusCoins: 
 					'''
-					\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
-					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\"
+					\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
+					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\"
 					'''
 				BuffDuration: 
 					'''

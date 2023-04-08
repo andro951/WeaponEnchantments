@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Lançamento épico de encantamento de troca de classe
 			ThrowingClassSwapEnchantmentLegendary: Lançamento de troca de classe Encantamento Lendário
 			ThrowingClassSwapEnchantmentRare: Arremesso de encantamento de troca de classe raro
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Encantamento Veneno Básico
 			VenomEnchantmentCommon: Encantamento Veneno Comum
 			VenomEnchantmentEpic: Encantamento Veneno Épico
@@ -553,10 +558,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
-					\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\"
+					\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Redução de Dano
 				DangerSense: Sentido de Perigo
 				Daybreak: Aurora
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Defesa
 				EnemyMaxSpawns: Geração máxima de inimigos
 				EnemySpawnRate: Taxa de Geração de Inimigos
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Velocidade de movimento
 				MPBonusRegen: Bônus de Regeneração de mana
 				Multishot: Tiro múltiplo
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Contatar Pescador
 				NPCHitCooldown: Tempo de Recarga de acerto
 				ObsidianSkin: Pele de Obsidiana
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: Espeleólogo
 				ThrowingClassSwap: Jogando troca de classe
+				Time: Time
 				VanillaDash1: Investida da Tabi Ninja
 				VanillaDash2: Investida do Escudo de Cthulhu
 				VanillaDash3: Investida Solar
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Encantamento do Mod Calamidade)
 				DBZMODPORT: (Dragon Ball Terraria Encantamento)
 				ThoriumMod: (Encantamento Mod Throium)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(O efeito negativo de Amaterasu e as notas abaixo sobre isso só se aplicam ao nível 4 de Encantamento.)
@@ -1162,8 +1176,8 @@ Mods: {
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
 					'''
-					\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\"
+					\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\"
 					'''
 				BuffDuration: 
 					'''

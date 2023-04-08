@@ -13,6 +13,7 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Effects.CustomEffects;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
+using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.ModIntegration;
 using static Terraria.Localization.GameCulture;
@@ -56,7 +57,7 @@ namespace WeaponEnchantments.Localization
 			{ CultureName.Polish , "(Google Translated.  No contributions yet)" },
 			{ CultureName.Portuguese , "Contributors: @Ninguém#8017, @pedro_123444#8294" },
 			{ CultureName.Russian , "Contributed by @4sent4" },
-			{ CultureName.Chinese , "1090549930 Kiritan - Github, @2578359679#1491, and @An unilolusiality" }
+			{ CultureName.Chinese , "1090549930 Kiritan - Github, @2578359679#1491, @An unilolusiality, and @huamx1#1050" }
 		};
 
 		private static SortedDictionary<string, SData> allData;
@@ -145,6 +146,7 @@ namespace WeaponEnchantments.Localization
 									"(Inflict a unique fire debuff to enemies that never stops)\n" +
 									"(The damage from the debuff grows over time and from dealing more damage to the target)\n" +
 									"(Spreads to nearby enemies and prevents enemies from being immune to other World Ablaze debuffs.)" },
+								{ typeof(TimeEnchantment).Name.ToEnchantmentTypeName(), "Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate" },
 								{ CalamityIntegration.CALAMITY_NAME, "(Calamity Mod Enchantment)" },
 								{ DBZMODPORTIntegration.DBT_NAME, "(Dragon Ball Terraria Enchantment)"},
 								{ ThoriumIntegration.THORIUM_NAME, "(Throium Mod Enchantment)" }
@@ -488,6 +490,7 @@ namespace WeaponEnchantments.Localization
 													"Setting this multiplier to 1000 will prevent you from infusing weapons as well as provide no damage bonus to already infused weapons." }
 							}) },
 							{ nameof(ServerConfig.DisableArmorInfusion), new(dict: new() {
+								{ L_ID3.Label.ToString(), "Disable Armor Infusion" },
 								{ L_ID3.Tooltip.ToString(), "This will prevent you from infusing armor items and will ignore infused set bonuses." }
 							}) },
 							{ nameof(ServerConfig.PrintWikiInfo), new(dict: new() {
@@ -563,7 +566,7 @@ namespace WeaponEnchantments.Localization
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
 								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to \n" +
-													"\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"" }
+													"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time." }
 							}) },
 							{ nameof(ClientConfig.OnlyShowErrorMessagesInChatOnce), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Only show error messages in chat once" },

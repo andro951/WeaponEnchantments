@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Epopeya de encantamiento de cambio de clase de lanzamiento
 			ThrowingClassSwapEnchantmentLegendary: Lanzamiento Intercambio de clases Encantamiento Legendario
 			ThrowingClassSwapEnchantmentRare: Lanzamiento Intercambio de clases Encantamiento Raro
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Encantamiento de veneno básico
 			VenomEnchantmentCommon: Encantamiento de veneno Común
 			VenomEnchantmentEpic: Encantamiento de veneno Épica
@@ -553,10 +558,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Evita que aparezcan mensajes en tu chat que te pidan que
-					\"Informe esto a andro951 (Weapon Enchantments) junto con una descripción de lo que estaba haciendo en ese momento\".
+					\\\\"Informe esto a andro951 (Weapon Enchantments) junto con una descripción de lo que estaba haciendo en ese momento\\\\".
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Reducción del daño
 				DangerSense: Sentido de peligro
 				Daybreak: Alba
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Defensa
 				EnemyMaxSpawns: Máximo de engendros enemigos
 				EnemySpawnRate: Tasa de generación de enemigos
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Velocidad de movimiento
 				MPBonusRegen: Regeneración de bonificación de PM
 				Multishot: Disparo múltiple
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Pescador de contacto Npc
 				NPCHitCooldown: Enfriamiento de golpes de PNJ
 				ObsidianSkin: Piel de obsidiana
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: Espeleólogo
 				ThrowingClassSwap: Cambio de clase de lanzamiento
+				Time: Time
 				VanillaDash1: Embestida de tabi ninja
 				VanillaDash2: Embestida del Escudo del Ojo de Cthulhu
 				VanillaDash3: Embestida solar
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Encantamiento Mod Calamity)
 				DBZMODPORT: (Encantamiento Dragon Ball Terraria)
 				ThoriumMod: (Encantamiento de modificación Throium)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(El efecto negativo de Amaterasu y las notas a continuación al respecto solo se aplican en el nivel 4 de Encantamiento).

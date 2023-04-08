@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Lancio di classe Scambio di incantesimi epico
 			ThrowingClassSwapEnchantmentLegendary: Incantesimo di cambio di classe da lancio Leggendario
 			ThrowingClassSwapEnchantmentRare: Incantesimo di scambio di classe da lancio Raro
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Incantesimo Veleno Base
 			VenomEnchantmentCommon: Incantesimo Veleno Comune
 			VenomEnchantmentEpic: Incantesimo di veleno epico
@@ -553,10 +558,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Impedisce la visualizzazione di messaggi nella tua chat che ti chiedono di farlo
-					\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\"
+					\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Riduzione del danno
 				DangerSense: Senso di pericolo
 				Daybreak: Alba
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Difesa
 				EnemyMaxSpawns: Il massimo nemico si genera
 				EnemySpawnRate: Tasso di spawn dei nemici
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Velocità di movimento
 				MPBonusRegen: Rigenerazione bonus MP
 				Multishot: Spari multipli
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Pescatore di contatto Npc
 				NPCHitCooldown: Recupero colpo NPC
 				ObsidianSkin: Pelle di ossidiana
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: Speleologo
 				ThrowingClassSwap: Scambio di classe di lancio
+				Time: Time
 				VanillaDash1: Scatto Tabi Ninja
 				VanillaDash2: Occhio di Cthulhu Shield Dash
 				VanillaDash3: Scatto solare
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Incantesimo Mod Calamità)
 				DBZMODPORT: (Incantesimo Dragon Ball Terraria)
 				ThoriumMod: (Incantesimo Throium Mod)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)

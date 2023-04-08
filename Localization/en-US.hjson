@@ -302,6 +302,11 @@ Mods: {
 			ThrowingClassSwapEnchantmentEpic: Throwing Class Swap Enchantment Epic
 			ThrowingClassSwapEnchantmentLegendary: Throwing Class Swap Enchantment Legendary
 			ThrowingClassSwapEnchantmentRare: Throwing Class Swap Enchantment Rare
+			TimeEnchantmentBasic: Time Enchantment Basic
+			TimeEnchantmentCommon: Time Enchantment Common
+			TimeEnchantmentEpic: Time Enchantment Epic
+			TimeEnchantmentLegendary: Time Enchantment Legendary
+			TimeEnchantmentRare: Time Enchantment Rare
 			VenomEnchantmentBasic: Venom Enchantment Basic
 			VenomEnchantmentCommon: Venom Enchantment Common
 			VenomEnchantmentEpic: Venom Enchantment Epic
@@ -553,10 +558,11 @@ Mods: {
 				Tooltip: 
 					'''
 					Prevents messages showing up in your chat that ask you to 
-					\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\"
+					Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.
 					'''
 			}
 			DisableArmorInfusion: {
+				Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonuses.
 			}
 			DisableMinionCrits: {
@@ -1066,6 +1072,9 @@ Mods: {
 				DamageReduction: Damage Reduction
 				DangerSense: Danger Sense
 				Daybreak: Daybreak
+				DayEventUpdateRate: Day Event Update Rate
+				DayTileUpdateRate: Day Tile Update Rate
+				DayTimeRate: Day Time Rate
 				Defense: Defense
 				EnemyMaxSpawns: Enemy Max Spawns
 				EnemySpawnRate: Enemy Spawn Rate
@@ -1112,6 +1121,9 @@ Mods: {
 				MovementSpeed: Movement Speed
 				MPBonusRegen: MP Bonus Regen
 				Multishot: Multishot
+				NightEventUpdateRate: Night Event Update Rate
+				NightTileUpdateRate: Night Tile Update Rate
+				NightTimeRate: Night Time Rate
 				NpcContactAngler: Npc Contact Angler
 				NPCHitCooldown: NPC Hit Cooldown
 				ObsidianSkin: Obsidian Skin
@@ -1132,6 +1144,7 @@ Mods: {
 				Sonar: Sonar
 				Spelunker: Spelunker
 				ThrowingClassSwap: Throwing Class Swap
+				Time: Time
 				VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Eye Of Cthulhu Shield Dash
 				VanillaDash3: Solar Dash
@@ -1148,6 +1161,7 @@ Mods: {
 				CalamityMod: (Calamity Mod Enchantment)
 				DBZMODPORT: (Dragon Ball Terraria Enchantment)
 				ThoriumMod: (Throium Mod Enchantment)
+				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze: 
 					'''
 					(Amaterasu debuff and below notes about it only apply at Enchantment tier 4.)

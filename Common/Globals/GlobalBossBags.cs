@@ -12,7 +12,7 @@ namespace WeaponEnchantments.Common.Globals
 {
     public class GlobalBossBags : GlobalItem
     {
-        public static bool printNPCNameOnHitForBossBagSupport => false && Debugger.IsAttached;
+        public static bool printNPCNameOnHitForBossBagSupport => true && Debugger.IsAttached;
         private static SortedDictionary<string, (string, float)> manuallySetModBossBags = null;
 		public static SortedDictionary<string, (string, float)> ManuallySetModBossBags {
             get {
@@ -72,7 +72,7 @@ namespace WeaponEnchantments.Common.Globals
             for(int i = 0; i < ItemLoader.ItemCount; i++) {
                 Item sampleItem = ContentSamples.ItemsByType[i];
 				bool itemIsBossBag = ItemID.Sets.BossBag[i] || bossBagsNotIncludedInItemIdSets.Contains(i);
-
+                
                 if (!itemIsBossBag)
                     continue;
 

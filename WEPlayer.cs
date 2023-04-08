@@ -1513,10 +1513,32 @@ namespace WeaponEnchantments
 
             return true;
 		}
+        public void ModifyTimeRate(ref double timeRate, ref double tileUpdateRate, ref double eventUpdateRate) {
+            if (Main.dayTime) {
+				if (CheckEnchantmentStats(EnchantmentStat.DayTimeRate, out float timeRateMultiplier, 1f))
+					timeRate *= timeRateMultiplier;
+
+				if (CheckEnchantmentStats(EnchantmentStat.DayTileUpdateRate, out float tileUpdateRateMulitplier, 1f))
+					tileUpdateRate *= tileUpdateRateMulitplier;
+
+				if (CheckEnchantmentStats(EnchantmentStat.DayEventUpdateRate, out float eventUpdateRateMultiplier, 1f))
+					eventUpdateRate *= eventUpdateRateMultiplier;
+			}
+            else {
+				if (CheckEnchantmentStats(EnchantmentStat.NightTimeRate, out float timeRateMultiplier, 1f))
+					timeRate *= timeRateMultiplier;
+
+				if (CheckEnchantmentStats(EnchantmentStat.NightTileUpdateRate, out float tileUpdateRateMulitplier, 1f))
+					tileUpdateRate *= tileUpdateRateMulitplier;
+
+				if (CheckEnchantmentStats(EnchantmentStat.NightEventUpdateRate, out float eventUpdateRateMultiplier, 1f))
+					eventUpdateRate *= eventUpdateRateMultiplier;
+			}
+		}
 
 		#endregion
 
-		#region Enchantment Effect Managment
+		#region Enchantment Effect Management
 
 		public override void PostUpdateMiscEffects() {
             ApplyPostMiscEnchants();
