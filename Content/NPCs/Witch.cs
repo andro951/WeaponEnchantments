@@ -29,7 +29,8 @@ namespace WeaponEnchantments.Content.NPCs
 	public class Witch : ModNPC, INPCWikiInfo {
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
-		private Dictionary<int, float> shopEnchantments = new();
+		public static string EnchantmentShopName = "EnchantmentsShop";
+		private int firstNullOrAirItemIndex = 0;
 
 		public List<WikiTypeID> WikiNPCTypes => new() { WikiTypeID.NPC };
 
@@ -53,8 +54,6 @@ namespace WeaponEnchantments.Content.NPCs
 		public string SpawnCondition => "Have an enchantment in your inventory or on your equipment.";
 
 		public override void SetStaticDefaults() {
-			// DisplayName automatically assigned from localization files, but the commented line below is the normal approach.
-			DisplayName.SetDefault("Witch");
 			Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
 			
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs.
@@ -99,14 +98,14 @@ namespace WeaponEnchantments.Content.NPCs
 			AnimationType = NPCID.Guide;
 		}
 		public override bool UsesPartyHat() => false;
-		public override void HitEffect(int hitDirection, double damage) {
+		public override void HitEffect(NPC.HitInfo hit) {
 			int num = NPC.RealLife() > 0 ? 1 : 5;
 
 			for (int k = 0; k < num; k++) {
 				Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
 			}
 		}
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
+		public override bool CanTownNPCSpawn(int numTownNPCs) {
 			for (int k = 0; k < 255; k++) {
 				Player player = Main.player[k];
 				if (!player.active) {
@@ -172,22 +171,20 @@ namespace WeaponEnchantments.Content.NPCs
 			//button2 = "Help";
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;
-		public override void SetupShop(Chest shop, ref int nextSlot) {
-			if (resetShop || shopEnchantments.Count == 0) {
-				GetItemsForShop();
-				resetShop = false;
-			}
-
-			foreach (KeyValuePair<int, float> pair in shopEnchantments) {
-				Item item = shop.item[nextSlot];
-				item.SetDefaults(pair.Key);
-				float multiplier = pair.Value;
-				item.value = (int)((float)item.value * multiplier);
-				nextSlot++;
+		public override void AddShops() {
+			NPCShop witchShop = new NPCShop(Type, EnchantmentShopName);
+			witchShop.Register();
+		}
+		public override void ModifyActiveShop(string shopName, Item[] items) {
+			if (shopName == EnchantmentShopName) {
+				if (resetShop || firstNullOrAirItemIndex == 0) {
+					GetItemsForShop(ref items);
+					resetShop = false;
+				}
 			}
 		}
-		private void GetItemsForShop() {
-			shopEnchantments = new();
+		private void GetItemsForShop(ref Item[] items) {
+			firstNullOrAirItemIndex = 0;
 			List<ISoldByWitch> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell()).ToList();
 			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
 			List<ISoldByWitch> otherItems = allItems
@@ -198,7 +195,7 @@ namespace WeaponEnchantments.Content.NPCs
 				.ToList();
 
 			//Always
-			AddItemsToShop(otherItems);
+			AddItemsToShop(otherItems, ref items);
 
 			//Any Time
 			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
@@ -237,11 +234,14 @@ namespace WeaponEnchantments.Content.NPCs
 				list.Remove(type);
 			}
 		}
-		private void AddItemsToShop(List<ISoldByWitch> modItems) {
+		private void AddItemsToShop(List<ISoldByWitch> modItems, ref Item[] items) {
 			foreach(ISoldByWitch soldByWitch in modItems) {
 				ModItem modItem = (ModItem)soldByWitch;
 				float sellPriceModifier = soldByWitch.SellPriceModifier;
-				shopEnchantments.Add(modItem.Type, sellPriceModifier);
+				Item item = new(modItem.Type);
+				item.value = (int)Math.Round(item.value * sellPriceModifier);
+				items[firstNullOrAirItemIndex] = item;
+				firstNullOrAirItemIndex++;
 			}
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -277,7 +277,7 @@ namespace WeaponEnchantments.Content.NPCs
 				npcLoot.Add(ItemDropRule.Common(id));
 			}
 		}
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName) {
 			if (firstButton) {
 
 				// We want 3 different functionalities for chat buttons, so we use HasItem to change button 1 between a shop and upgrade action.
@@ -296,7 +296,7 @@ namespace WeaponEnchantments.Content.NPCs
 					return;
 				}
 				*/
-				shop = true;
+				shopName = EnchantmentShopName;
 			}
 
 			if (!firstButton) {

@@ -267,11 +267,11 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         private static void Autoload(TmodFile file) {
-            var modTranslationDictionary = new Dictionary<string, LocalizedText>();
+            var LocalizedTextDictionary = new Dictionary<string, LocalizedText>();
 
-            AutoloadTranslations(file, modTranslationDictionary);
+            AutoloadTranslations(file, LocalizedTextDictionary);
 
-            foreach (LocalizedText value in modTranslationDictionary.Values) {
+            foreach (LocalizedText value in LocalizedTextDictionary.Values) {
                 AddTranslation(value);
             }
         }

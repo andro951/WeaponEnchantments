@@ -1,5 +1,4 @@
-﻿using IL.Terraria.Localization;
-using MonoMod.RuntimeDetour.HookGen;
+﻿using MonoMod.RuntimeDetour.HookGen;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -20,11 +19,10 @@ using WeaponEnchantments.UI;
 using System.Runtime.CompilerServices;
 using WeaponEnchantments.Common.Utility;
 using KokoLib;
-using OnProjectile = On.Terraria.Projectile;
-using OnPlayer = On.Terraria.Player;
 using WeaponEnchantments.Content.NPCs;
 using System.Linq;
 using WeaponEnchantments.ModIntegration;
+using MonoMod.RuntimeDetour;
 
 namespace WeaponEnchantments
 {
@@ -48,24 +46,36 @@ namespace WeaponEnchantments
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 
+		List<Hook> hooks = new();
+
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
-			HookEndpointManager.Add<hook_ItemIOLoad>(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour);
-			HookEndpointManager.Add<hook_CanStack>(ModLoaderCanStackMethodInfo, CanStackDetour);
-			HookEndpointManager.Add<hook_ModifyHitNPC>(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour);
-			HookEndpointManager.Add<hook_ModifyHitNPCWithProj>(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour);
-			HookEndpointManager.Add<hook_UpdateArmorSet>(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour);
-			//HookEndpointManager.Add<hook_CaughtFishStack>(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour);
-			OnProjectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
-			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
-			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
-			IL.Terraria.Recipe.Create += HookCreate;
-			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
-			IL.Terraria.Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
-			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
+			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
+			hooks.Add(new(ModLoaderCanStackMethodInfo, CanStackDetour));
+			hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
+			hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
+			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
+			//hooks.Add(new(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour));
+			foreach (Hook hook in hooks) {
+				hook.Apply();
+			}
+
+			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
+			IL_Recipe.FindRecipes += HookFindRecipes;
+			IL_Recipe.Create += HookCreate;
+			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
+			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
+			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 		}
 		public override void Unload() {
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
+			foreach (Hook hook in hooks) {
+				hook?.Undo();
+			}
+
+			hooks.Clear();
+			hooks = null;
 		}
 		public override void PostSetupContent() {
 			if (ModLoader.TryGetMod("Census", out Mod Census)) {
@@ -151,7 +161,7 @@ namespace WeaponEnchantments
 		//private delegate void hook_CaughtFishStack(orig_CaughtFishStack orig, Item item);
 		//private static readonly MethodInfo ModLoaderCaughtFishStackMethodInfo = typeof(ItemLoader).GetMethod("CaughtFishStack");
 		//private void CaughtFishStackDetour(orig_CaughtFishStack orig, Item item) { orig(item); }
-		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(OnProjectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
+		private void OnProjectile_AI_061_FishingBobber_GiveItemToPlayer(On_Projectile.orig_AI_061_FishingBobber_GiveItemToPlayer orig, Projectile self, Player thePlayer, int itemType) {
 			if (thePlayer.HeldItem.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
 				int value = (int)((float)ContentSamples.ItemsByType[itemType].value / 10f * ConfigValues.GatheringExperienceMultiplier);
 				enchantedFishingPole.GainXP(thePlayer.HeldItem, value);
