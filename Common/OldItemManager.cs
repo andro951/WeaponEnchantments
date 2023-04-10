@@ -93,7 +93,7 @@ namespace WeaponEnchantments.Common
             int modSlotCount = player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
             var loader = LoaderManager.Get<AccessorySlotLoader>();
             for (int num = 0; num < modSlotCount; num++) {
-                if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
+                if (loader.ModdedIsItemSlotUnlockedAndUsable(num, player)) {
                     Item accessoryClone = loader.Get(num).FunctionalItem.Clone();
                     if (!accessoryClone.NullOrAir()) {
                         ReplaceOldItem(ref accessoryClone, player, 91);
@@ -390,7 +390,7 @@ namespace WeaponEnchantments.Common
             }
 
             Main.NewText($"{unloadedItemName} has been removed from Weapon Enchantments.  You've recieved {itemToSpawn.S()} as compensation.");
-            Main.LocalPlayer.QuickSpawnClonedItem(null, itemToSpawn, stack);
+            Main.LocalPlayer.QuickSpawnItem(null, itemToSpawn, stack);
 
             return true;
         }

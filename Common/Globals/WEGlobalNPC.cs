@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Common.Globals
         public float myWarReduction = 1f;
         public override bool InstancePerEntity => true;
         public override void Load() {
-            IL.Terraria.Projectile.Damage += HookDamage;
+            Terraria.IL_Projectile.Damage += HookDamage;
 
             multipleSegmentBossTypes = new SortedDictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },

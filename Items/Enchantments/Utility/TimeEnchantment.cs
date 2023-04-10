@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using System;
 using System.Collections.Generic;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -115,8 +116,8 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 
 			return true;
 		}
-		public override void OnCreate(ItemCreationContext context) {
-			if (context is RecipeCreationContext recipeCreationContext) {
+		public override void OnCreated(ItemCreationContext context) {
+			if (context is RecipeItemCreationContext recipeCreationContext) {
 				IEnumerable<TimeEnchantment> consumedTimeEnchantments = recipeCreationContext.ConsumedItems.Select(i => i.ModItem).OfType<TimeEnchantment>();
 				if (consumedTimeEnchantments.Any()) {
 					TimeEnchantment consumedTimeEnchantment = consumedTimeEnchantments.First();

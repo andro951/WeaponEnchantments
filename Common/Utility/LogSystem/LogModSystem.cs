@@ -75,7 +75,7 @@ namespace WeaponEnchantments.Common.Utility
         private static string localizationKeys = "";
 	    private static int tabs = 0;
 	    private static List<string> labels;
-        private static Dictionary<string, ModTranslation> translations;
+        private static Dictionary<string, LocalizedText> translations;
         private static int culture;
 		private static bool numPad0 = false;
 		private static bool numPad1 = false;
@@ -267,16 +267,16 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         private static void Autoload(TmodFile file) {
-            var modTranslationDictionary = new Dictionary<string, ModTranslation>();
+            var modTranslationDictionary = new Dictionary<string, LocalizedText>();
 
             AutoloadTranslations(file, modTranslationDictionary);
 
-            foreach (ModTranslation value in modTranslationDictionary.Values) {
+            foreach (LocalizedText value in modTranslationDictionary.Values) {
                 AddTranslation(value);
             }
         }
-        public static void AddTranslation(ModTranslation translation) => translations.Add(translation.Key, translation);
-        private static void AutoloadTranslations(TmodFile file, Dictionary<string, ModTranslation> modTranslationDictionary) {
+        public static void AddTranslation(LocalizedText translation) => translations.Add(translation.Key, translation);
+        private static void AutoloadTranslations(TmodFile file, Dictionary<string, LocalizedText> modTranslationDictionary) {
             
             foreach (var translationFile in file.Where(entry => Path.GetExtension(entry.Name) == ".hjson")) {
                 using var stream = file.GetStream(translationFile);
@@ -284,7 +284,7 @@ namespace WeaponEnchantments.Common.Utility
 
                 string translationFileContents = streamReader.ReadToEnd();
 
-                var culture = GameCulture.FromPath(translationFile.Name);
+                var culture = GameCulture.FromName(translationFile.Name);
 
                 // Parse HJSON and convert to standard JSON
                 string jsonString = HjsonValue.Parse(translationFileContents).ToString();
@@ -317,10 +317,10 @@ namespace WeaponEnchantments.Common.Utility
 
                 foreach (var (key, value) in flattened) {
                     string effectiveKey = key.Replace(".$parentVal", "");
-                    if (!modTranslationDictionary.TryGetValue(effectiveKey, out ModTranslation mt)) {
+                    if (!modTranslationDictionary.TryGetValue(effectiveKey, out LocalizedText mt)) {
                         // removing instances of .$parentVal is an easy way to make this special key assign its value
                         //  to the parent key instead (needed for some cases of .lang -> .hjson auto-conversion)
-                        modTranslationDictionary[effectiveKey] = mt = LocalizationLoader.CreateTranslation(effectiveKey);
+                        modTranslationDictionary[effectiveKey] = mt = Language.GetOrRegister(effectiveKey);
                     }
 
                     mt.AddTranslation(culture, value);

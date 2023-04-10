@@ -217,19 +217,19 @@ namespace WeaponEnchantments.UI
                 
                 switch (i) {
                     case 0:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(0);
+                        button[2 + i].OnLeftClick += (evt, element) => ConvertEssenceToXP(0);
                         break;
                     case 1:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(1);
+                        button[2 + i].OnLeftClick += (evt, element) => ConvertEssenceToXP(1);
                         break;
                     case 2:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(2);
+                        button[2 + i].OnLeftClick += (evt, element) => ConvertEssenceToXP(2);
                         break;
                     case 3:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(3);
+                        button[2 + i].OnLeftClick += (evt, element) => ConvertEssenceToXP(3);
                         break;
                     case 4:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(4);
+                        button[2 + i].OnLeftClick += (evt, element) => ConvertEssenceToXP(4);
                         break;
                 }
 
@@ -253,7 +253,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = bgColor
             };
 
-            button[ButtonID.LevelUp].OnClick += (evt, element) => LevelUp();
+            button[ButtonID.LevelUp].OnLeftClick += (evt, element) => LevelUp();
             UIText levelButonText = new UIText(TableTextID.LevelUp.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
@@ -273,7 +273,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = bgColor
             };
 
-            button[ButtonID.Syphon].OnClick += (evt, element) => Syphon();
+            button[ButtonID.Syphon].OnLeftClick += (evt, element) => Syphon();
             UIText syphonButonText = new UIText(TableTextID.Syphon.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -8f },
                 Left = { Pixels = -1f }
@@ -293,7 +293,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = bgColor
             };
 
-            button[ButtonID.Infusion].OnClick += (evt, element) => Infusion();
+            button[ButtonID.Infusion].OnLeftClick += (evt, element) => Infusion();
             string infusionText;
             if (wePlayer.infusionConsumeItem != null) {
                 if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir)
@@ -327,7 +327,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = bgColor
             };
 
-            button[ButtonID.LootAll].OnClick += (evt, element) => LootAll();
+            button[ButtonID.LootAll].OnLeftClick += (evt, element) => LootAll();
             UIText lootAllButonText = new UIText(TableTextID.LootAll.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = 5f }
@@ -349,7 +349,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = red
             };
 
-            button[ButtonID.Offer].OnClick += (evt, element) => Offer();
+            button[ButtonID.Offer].OnLeftClick += (evt, element) => Offer();
             UIText offerButtonText = new UIText(TableTextID.Offer.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }

@@ -1,357 +1,451 @@
-#Contributors: @Ninguém#8017, @pedro_123444#8294
+#
 Mods: {
 	WeaponEnchantments: {
-		ItemName: {
-			AllForOneEnchantmentBasic: Encantamento Todos Por um Básico
-			AllForOneEnchantmentCommon: Encantamento Todos Por Um Comum
-			AllForOneEnchantmentEpic: Encantamento Todos Por um Épico
-			AllForOneEnchantmentLegendary: Encantamento Todos Por um Lendário
-			AllForOneEnchantmentRare: Encantamento Tudos Por Um Raro
-			AmmoCostEnchantmentBasic: Encantamento Custo de Munição Básico
-			AmmoCostEnchantmentCommon: Encantamento Custo de munição comum
-			AmmoCostEnchantmentEpic: Encantamento Custo de munição Épico
-			AmmoCostEnchantmentLegendary: Encantamento Custo de munição Lendário
-			AmmoCostEnchantmentRare: Encantamento Custo de munição raro
-			ArmorPenetrationEnchantmentBasic: Encantamento Penetração de Armadura Básico
-			ArmorPenetrationEnchantmentCommon: Encantamento Penetração de Armadura Comum
-			ArmorPenetrationEnchantmentEpic: Encantamento Penetração de Armadura Épico
-			ArmorPenetrationEnchantmentLegendary: Encantamento Penetração de Armadura Lendário
-			ArmorPenetrationEnchantmentRare: Encantamento Penetração de Armadura Raro
-			AttackSpeedEnchantmentBasic: Encantamento Velocidade de Ataque Básico
-			AttackSpeedEnchantmentCommon: Encantamento Velocidade de Ataque Comum
-			AttackSpeedEnchantmentEpic: Encantamento Velocidade de Ataque Épico
-			AttackSpeedEnchantmentLegendary: Encantamento Velocidade de Ataque Lendário
-			AttackSpeedEnchantmentRare: Encantamento Velocidade de Ataque Raro
-			BardClassSwapEnchantmentBasic: Básico de Encantamento de Troca de Classe de Bardo
-			BardClassSwapEnchantmentCommon: Troca de Classe de Bardo Encantamento Comum
-			BardClassSwapEnchantmentEpic: Épico de Encantamento de Troca de Classe de Bardo
-			BardClassSwapEnchantmentLegendary: Bardo Troca de Classe Encantamento Lendário
-			BardClassSwapEnchantmentRare: Encantamento de Troca de Classe de Bardo Raro
-			BerserkersRageEnchantmentBasic: Berserkers Rage Encantamento Básico
-			BerserkersRageEnchantmentCommon: Encantamento Fúria Berserkers Comum
-			BerserkersRageEnchantmentEpic: Berserkers Rage Encantamento Épico
-			BerserkersRageEnchantmentLegendary: Berserkers Rage Encantamento Lendário
-			BerserkersRageEnchantmentRare: Berserkers Rage Encantamento Raro
-			CalmWatersEnchantmentBasic: Encantamento Águas Calmas Básico
-			CalmWatersEnchantmentCommon: Encantamento Águas Calmas Comum
-			CalmWatersEnchantmentEpic: Encantamento Águas Calmas Épico
-			CalmWatersEnchantmentLegendary: Encantamento Águas Calmas Lendário
-			CalmWatersEnchantmentRare: Encantamento Águas Calmas Raro
-			ChaoticFishingEnchantmentBasic: Encantamento de Pesca Caótica Básico
-			ChaoticFishingEnchantmentCommon: Encantamento de Pesca Caótica Comum
-			ChaoticFishingEnchantmentEpic: Encantamento de Pesca Caótica Épico
-			ChaoticFishingEnchantmentLegendary: Encantamento de Pesca Caótica Lendário
-			ChaoticFishingEnchantmentRare: Encantamento de Pesca Caótica Raro
-			ColdSteelEnchantmentBasic: Encantamento Aço Frio Básico
-			ColdSteelEnchantmentCommon: Encantamento Aço Frio Comum
-			ColdSteelEnchantmentEpic: Encantamento Aço Frio Épico
-			ColdSteelEnchantmentLegendary: Encantamento Aço Frio Lendário
-			ColdSteelEnchantmentRare: Encantamento Aço Frio Raro
-			CrateChanceEnchantmentBasic: Encantamento Chance de Caixa Básico
-			CrateChanceEnchantmentCommon: Encantamento Chance de Caixa Comum
-			CrateChanceEnchantmentEpic: Encantamento Chance de Caixa Épico
-			CrateChanceEnchantmentLegendary: Encantamento Chance de Caixa Lendário
-			CrateChanceEnchantmentRare: Encantamento Chance de Caixa Raro
-			CrateEnchantmentBasic: Encantamento Caixote Básico
-			CrateEnchantmentCommon: Encantamento Caixote Básico Comum
-			CrateEnchantmentEpic: Encantamento Caixote Básico Épico
-			CrateEnchantmentLegendary: Encantamento Caixote Básico Lendário
-			CrateEnchantmentRare: Encantamento Caixote Básico Raro
-			CriticalStrikeChanceEnchantmentBasic: Encantamento Chance de Acerto Crítico Básico
-			CriticalStrikeChanceEnchantmentCommon: Encantamento Chance de Acerto Crítico Comum
-			CriticalStrikeChanceEnchantmentEpic: Encantamento Chance de Acerto Crítico Épico
-			CriticalStrikeChanceEnchantmentLegendary: Encantamento Chance de Acerto Crítico Lendário
-			CriticalStrikeChanceEnchantmentRare: Encantamento Chance de Acerto Crítico Raro
-			CriticalStrikeDamageEnchantmentBasic: Encantamento Dano de Acerto Crítico Básico
-			CriticalStrikeDamageEnchantmentCommon: Encantamento Dano de Acerto Crítico Comum
-			CriticalStrikeDamageEnchantmentEpic: Encantamento Dano de Acerto Crítico Épico
-			CriticalStrikeDamageEnchantmentLegendary: Encantamento Dano de Acerto Crítico Lendário
-			CriticalStrikeDamageEnchantmentRare: Encantamento Dano de Acerto Crítico Raro
-			CursedInfernoEnchantmentBasic: Encantamento Inferno Amaldiçoado Básico
-			CursedInfernoEnchantmentCommon: Encantamento Inferno Amaldiçoado Comum
-			CursedInfernoEnchantmentEpic: Encantamento Inferno Amaldiçoado Épico
-			CursedInfernoEnchantmentLegendary: Encantamento Inferno Amaldiçoado Lendário
-			CursedInfernoEnchantmentRare: Encantamento Inferno Amaldiçoado Raro
-			DamageEnchantmentBasic: Encantamento Dano Básico
-			DamageEnchantmentCommon: Encantamento Dano Comum
-			DamageEnchantmentEpic: Encantamento Dano Épico
-			DamageEnchantmentLegendary: Encantamento Dano Lendário
-			DamageEnchantmentRare: Encantamento Dano Raro
-			DamageReductionEnchantmentBasic: Encantamento Redução de Dano Básico
-			DamageReductionEnchantmentCommon: Encantamento Redução de Dano Comum
-			DamageReductionEnchantmentEpic: Encantamento Redução de Dano Épico
-			DamageReductionEnchantmentLegendary: Encantamento Redução de Dano Lendário
-			DamageReductionEnchantmentRare: Encantamento Redução de Dano Raro
-			DangerSenseEnchantmentBasic: Encantamento Senso de Perigo Básico
-			DangerSenseEnchantmentCommon: Encantamento Senso de Perigo Comum
-			DangerSenseEnchantmentEpic: Encantamento Senso de Perigo Épico
-			DangerSenseEnchantmentLegendary: Encantamento Senso de Perigo Lendário
-			DangerSenseEnchantmentRare: Encantamento Senso de Perigo Raro
-			DaybreakEnchantmentBasic: Encantamento Alvorada Básico
-			DaybreakEnchantmentCommon: Encantamento Alvorada Comum
-			DaybreakEnchantmentEpic: Encantamento Alvorada Épico
-			DaybreakEnchantmentLegendary: Encantamento Alvorada Lendário
-			DaybreakEnchantmentRare: Encantamento Alvorada Raro
-			DefenseEnchantmentBasic: Encantamento Defesa Básico
-			DefenseEnchantmentCommon: Encantamento Defesa Comum
-			DefenseEnchantmentEpic: Encantamento Defesa Épico
-			DefenseEnchantmentLegendary: Encantamento Defesa Lendário
-			DefenseEnchantmentRare: Encantamento Defesa Raro
-			ExtraFishingLineEnchantmentBasic: Encantamento Linha de Pesca Extra Básico
-			ExtraFishingLineEnchantmentCommon: Encantamento Linha de Pesca Extra Comum
-			ExtraFishingLineEnchantmentEpic: Encantamento Linha de Pesca Extra Épico
-			ExtraFishingLineEnchantmentLegendary: Encantamento Linha de Pesca Extra Lendário
-			ExtraFishingLineEnchantmentRare: Encantamento Linha de Pesca Extra Raro
-			FishingEnchantmentBasic: Encantamento Pesca Básico
-			FishingEnchantmentCommon: Encantamento Pesca Comum
-			FishingEnchantmentEpic: Encantamento Pesca Épico
-			FishingEnchantmentLegendary: Encantamento Pesca Lendário
-			FishingEnchantmentRare: Encantamento Pesca Raro
-			FishingPowerEnchantmentBasic: Encantamento Poder de Pesca Básico
-			FishingPowerEnchantmentCommon: Encantamento Poder de Pesca Comum
-			FishingPowerEnchantmentEpic: Encantamento Poder de Pesca Épico
-			FishingPowerEnchantmentLegendary: Encantamento Poder de Pesca Lendário
-			FishingPowerEnchantmentRare: Encantamento Poder de Pesca Raro
-			FrostburnEnchantmentBasic: Encantamento Queimadura de Gelo Básico
-			FrostburnEnchantmentCommon: Encantamento Queimadura de Gelo Comum
-			FrostburnEnchantmentEpic: Encantamento Queimadura de Gelo Épico
-			FrostburnEnchantmentLegendary: Encantamento Queimadura de Gelo Lendário
-			FrostburnEnchantmentRare: Encantamento Queimadura de Gelo Raro
-			GodSlayerEnchantmentBasic: Encantamento Matador de Deuses Básico
-			GodSlayerEnchantmentCommon: Encantamento Matador de Deuses Comum
-			GodSlayerEnchantmentEpic: Encantamento Matador de Deuses Épico
-			GodSlayerEnchantmentLegendary: Encantamento Matador de Deuses Lendário
-			GodSlayerEnchantmentRare: Encantamento Matador de Deuses Raro
-			HealerClassSwapEnchantmentBasic: Básico de Encantamento de Troca de Classe de Curandeiro
-			HealerClassSwapEnchantmentCommon: Curandeiro Troca de Classe Encantamento Comum
-			HealerClassSwapEnchantmentEpic: Épico de encantamento de troca de classe de curandeiro
-			HealerClassSwapEnchantmentLegendary: Curandeiro Troca de Classe Encantamento Lendário
-			HealerClassSwapEnchantmentRare: Curandeiro Troca de Classe Encantamento Raro
-			HellsWrathEnchantmentBasic: Encantamento Ira do Inferno Básico
-			HellsWrathEnchantmentCommon: Encantamento Ira do Inferno Comum
-			HellsWrathEnchantmentEpic: Encantamento Ira do Inferno Épico
-			HellsWrathEnchantmentLegendary: Encantamento Ira do Inferno Lendário
-			HellsWrathEnchantmentRare: Encantamento Ira do Inferno Raro
-			HunterEnchantmentBasic: Encantamento Caçador Básico
-			HunterEnchantmentCommon: Encantamento Caçador Comum
-			HunterEnchantmentEpic: Encantamento Caçador Épico
-			HunterEnchantmentLegendary: Encantamento Caçador Lendário
-			HunterEnchantmentRare: Encantamento Caçador Raro
-			IchorEnchantmentBasic: Encantamento de Icor Básico
-			IchorEnchantmentCommon: Encantamento de Icor Comum
-			IchorEnchantmentEpic: Encantamento de Icor Épico
-			IchorEnchantmentLegendary: Encantamento de Icor Lendário
-			IchorEnchantmentRare: Encantamento de Icor Raro
-			JuicedEnchantmentBasic: Encantamento Espremido Básico
-			JuicedEnchantmentCommon: Juiced Enchantment Basic Comum
-			JuicedEnchantmentEpic: Juiced Enchantment Basic Épico
-			JuicedEnchantmentLegendary: Juiced Enchantment Basic Lendário
-			JuicedEnchantmentRare: Juiced Enchantment Basic Raro
-			JunglesFuryEnchantmentBasic: Encantamento Fúria da Selva Básico
-			JunglesFuryEnchantmentCommon: Encantamento Fúria da Selva Comum
-			JunglesFuryEnchantmentEpic: Encantamento Fúria da Selva Épico
-			JunglesFuryEnchantmentLegendary: Encantamento Fúria da Selva Lendário
-			JunglesFuryEnchantmentRare: Encantamento Fúria da Selva Raro
-			KiClassSwapEnchantmentBasic: Básico de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentCommon: Comum de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentEpic: Épico de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentLegendary: Encantamento de Troca de Classe Ki Lendário
-			KiClassSwapEnchantmentRare: Encantamento de Troca de Classe Ki Raro
-			KiEnchantmentBasic: Encantamento de Ki Básico
-			KiEnchantmentCommon: Encantamento de Ki Comum
-			KiEnchantmentEpic: Ki encantamento épico
-			KiEnchantmentLegendary: Encantamento de Ki Lendário
-			KiEnchantmentRare: Encantamento de Ki Raro
-			LavaFishingEnchantmentBasic: Encantamento Pesca na Lava Básico
-			LavaFishingEnchantmentCommon: Encantamento Pesca na Lava Comum
-			LavaFishingEnchantmentEpic: Encantamento Pesca na Lava Épico
-			LavaFishingEnchantmentLegendary: Encantamento Pesca na Lava lendário
-			LavaFishingEnchantmentRare: Encantamento Pesca na Lava Raro
-			LifeRegenEnchantmentBasic: Básico de Encantamento de Regeneração de Vida
-			LifeRegenEnchantmentCommon: Encantamento de Regeneração de Vida Comum
-			LifeRegenEnchantmentEpic: Épico de Encantamento de Regeneração de Vida
-			LifeRegenEnchantmentLegendary: Regeneração de Vida Encantamento Lendário
-			LifeRegenEnchantmentRare: Encantamento de Regeneração de Vida Raro
-			LifeStealEnchantmentBasic: Encantamento Roubo de Vida Básico
-			LifeStealEnchantmentCommon: Encantamento Roubo de Vida Comum
-			LifeStealEnchantmentEpic: Encantamento Roubo de Vida Épico
-			LifeStealEnchantmentLegendary: Encantamento Roubo de Vida Lendário
-			LifeStealEnchantmentRare: Encantamento Roubo de Vida Raro
-			LuckEnchantmentBasic: Encantamento Sorte Básico
-			LuckEnchantmentCommon: Encantamento Sorte Comum
-			LuckEnchantmentEpic: Encantamento Sorte Épico
-			LuckEnchantmentLegendary: Encantamento Sorte Lendário
-			LuckEnchantmentRare: Encantamento Sorte Raro
-			MagicClassSwapEnchantmentBasic: Encantamento Troca de Classe Mágica Básico
-			MagicClassSwapEnchantmentCommon: Encantamento Troca de Classe Mágica Comum
-			MagicClassSwapEnchantmentEpic: Encantamento Troca de Classe Mágica Épico
-			MagicClassSwapEnchantmentLegendary: Encantamento Troca de Classe Mágica Lendário
-			MagicClassSwapEnchantmentRare: Encantamento Troca de Classe Mágica Raro
-			MaxMinionsEnchantmentBasic: Encantamento Máximo de Minions Básico
-			MaxMinionsEnchantmentCommon: Encantamento Máximo de Minions Comum
-			MaxMinionsEnchantmentEpic: Encantamento Máximo de Minions Épico
-			MaxMinionsEnchantmentLegendary: Encantamento Máximo de Minions Lendário
-			MaxMinionsEnchantmentRare: Encantamento Máximo de Minions Raro
-			MeleeClassSwapEnchantmentBasic: Encantamento Troca de Classe Corpo a Corpo Básico
-			MeleeClassSwapEnchantmentCommon: Encantamento Troca de Classe Corpo a Corpo Comum
-			MeleeClassSwapEnchantmentEpic: Encantamento Troca de Classe Corpo a Corpo Épico
-			MeleeClassSwapEnchantmentLegendary: Encantamento Troca de Classe Corpo a Corpo Lendário
-			MeleeClassSwapEnchantmentRare: Encantamento Troca de Classe Corpo a Corpo Raro
-			MobilityControlEnchantmentBasic: Encantamento Controle de Mobilidade Básico
-			MobilityControlEnchantmentCommon: Encantamento Controle de Mobilidade Comum
-			MobilityControlEnchantmentEpic: Encantamento Controle de Mobilidade Épico
-			MobilityControlEnchantmentLegendary: Encantamento Controle de Mobilidade Lendário
-			MobilityControlEnchantmentRare: Encantamento Controle de Mobilidade Raro
-			MoonlightEnchantmentBasic: Encantamento Luar Básico
-			MoonlightEnchantmentCommon: Encantamento Luar Comum
-			MoonlightEnchantmentEpic: Encantamento Luar Épico
-			MoonlightEnchantmentLegendary: Encantamento Luar lendário
-			MoonlightEnchantmentRare: Encantamento Luar Raro
-			MovementSpeedEnchantmentBasic: Encantamento Velocidade de Movimento Básico
-			MovementSpeedEnchantmentCommon: Encantamento Velocidade de Movimento Comum
-			MovementSpeedEnchantmentEpic: Encantamento Velocidade de Movimento Épico
-			MovementSpeedEnchantmentLegendary: Encantamento Velocidade de Movimento Lendário
-			MovementSpeedEnchantmentRare: Encantamento Velocidade de Movimento Raro
-			MultishotEnchantmentBasic: Encantamento Tiro Múltiplo Básico
-			MultishotEnchantmentCommon: Encantamento Tiro Múltiplo comum
-			MultishotEnchantmentEpic: Encantamento Tiro Múltiplo Épico
-			MultishotEnchantmentLegendary: Encantamento Tiro Múltiplo Lendário
-			MultishotEnchantmentRare: Encantamento Tiro Múltiplo Raro
-			NpcContactAnglerEnchantmentBasic: Encantamento Contatar Pescador Básico
-			NpcContactAnglerEnchantmentCommon: Encantamento Contatar Pescador Comum
-			NpcContactAnglerEnchantmentEpic: Encantamento Contatar Pescador Épico
-			NpcContactAnglerEnchantmentLegendary: Encantamento Contatar Pescador Lendário
-			NpcContactAnglerEnchantmentRare: Encantamento Contatar Pescador Raro
-			ObsidianSkinEnchantmentBasic: Encanatamento Pele de Obisidiana Básico
-			ObsidianSkinEnchantmentCommon: Encanatamento Pele de Obisidiana Comum
-			ObsidianSkinEnchantmentEpic: Encanatamento Pele de Obisidiana Épico
-			ObsidianSkinEnchantmentLegendary: Encanatamento Pele de Obisidiana Lendário
-			ObsidianSkinEnchantmentRare: Encanatamento Pele de Obisidiana Raro
-			OneForAllEnchantmentBasic: Encantamento Um Por Todos Básico
-			OneForAllEnchantmentCommon: Encantamento Um Por Todos Comum
-			OneForAllEnchantmentEpic: Encantamento Um Por Todos Épico
-			OneForAllEnchantmentLegendary: Encantamento Um Por Todos Lendário
-			OneForAllEnchantmentRare: Encantamento Um Por Todos Raro
-			OnFireEnchantmentBasic: Encantamento Em Chamas Básico
-			OnFireEnchantmentCommon: Encantamento Em Chamas Comum
-			OnFireEnchantmentEpic: Encantamento Em Chamas Épico
-			OnFireEnchantmentLegendary: Encantamento Em Chamas Lendário
-			OnFireEnchantmentRare: Encantamento Em Chamas Raro
-			PeaceEnchantmentBasic: Encantamento Paz Básico
-			PeaceEnchantmentCommon: Encantamento Paz Comum
-			PeaceEnchantmentEpic: Encantamento Paz Épico
-			PeaceEnchantmentLegendary: Encantamento Paz Lendário
-			PeaceEnchantmentRare: Encantamento Paz Raro
-			PennyPinchingEnchantmentBasic: Encatamento Mão de vaca Básico
-			PennyPinchingEnchantmentCommon: Encatamento Mão de vaca Comum
-			PennyPinchingEnchantmentEpic: Encatamento Mão de vaca Épico
-			PennyPinchingEnchantmentLegendary: Encatamento Mão de vaca Lendário
-			PennyPinchingEnchantmentRare: Encatamento Mão de vaca Raro
-			PrideOfTheWeakEnchantmentBasic: Orgulho do Fraco Encantamento Básico
-			PrideOfTheWeakEnchantmentCommon: Orgulho do Fraco Encantamento Comum
-			PrideOfTheWeakEnchantmentEpic: Orgulho do Fraco Encantamento Épico
-			PrideOfTheWeakEnchantmentLegendary: Orgulho do Fraco Encantamento Lendário
-			PrideOfTheWeakEnchantmentRare: Orgulho do Fraco Encantamento Raro
-			ProjectileVelocityEnchantmentBasic: Encantamento velocidade de Disparo básico
-			ProjectileVelocityEnchantmentCommon: Encantamento Velocidade de Disparo Comum
-			ProjectileVelocityEnchantmentEpic: Encantamento velocidade de Disparo Épico
-			ProjectileVelocityEnchantmentLegendary: Encantamento velocidade de Disparo Lendário
-			ProjectileVelocityEnchantmentRare: Encantamento Velocidade de Disparo Raro
-			RangedClassSwapEnchantmentBasic: Encantamento Troca de Classe Atirador Básico
-			RangedClassSwapEnchantmentCommon: Encantamento Troca de Classe Atirador Comum
-			RangedClassSwapEnchantmentEpic: Encantamento Troca de Classe Atirador Épico
-			RangedClassSwapEnchantmentLegendary: Encantamento Troca de Classe Atirador Lendário
-			RangedClassSwapEnchantmentRare: Encantamento Troca de Classe Atirador Raro
-			ReducedManaUsageEnchantmentBasic: Encantamento Custo de Mana Básico
-			ReducedManaUsageEnchantmentCommon: Encantamento Custo de Mana Comum
-			ReducedManaUsageEnchantmentEpic: Encantamento Custo de Mana Épico
-			ReducedManaUsageEnchantmentLegendary: Encantamento Custo de Mana Lendário
-			ReducedManaUsageEnchantmentRare: Encantamento Custo de Mana Raro
-			RogueClassSwapEnchantmentBasic: Encantamento Troca de Classe Ladino Básico
-			RogueClassSwapEnchantmentCommon: Encantamento Troca de Classe Ladino Comum
-			RogueClassSwapEnchantmentEpic: Encantamento Troca de Classe Ladino Épico
-			RogueClassSwapEnchantmentLegendary: Encantamento Troca de Classe Ladino Lendário
-			RogueClassSwapEnchantmentRare: Encantamento Troca de Classe Ladino Raro
-			ShineEnchantmentBasic: Encantamento Brilhante Básico
-			ShineEnchantmentCommon: Encantamento Brilho Comum
-			ShineEnchantmentEpic: Épico de Encantamento Brilhante
-			ShineEnchantmentLegendary: Shine Encantamento Lendário
-			ShineEnchantmentRare: Encantamento Brilhante Raro
-			SizeEnchantmentBasic: Encantamento Tamanho Básico
-			SizeEnchantmentCommon: Encantamento Tamanho Comum
-			SizeEnchantmentEpic: Encantamento Tamanho Épico
-			SizeEnchantmentLegendary: Encantamento Tamanho Lendário
-			SizeEnchantmentRare: Encantamento Tamanho Raro
-			SolarDashEnchantmentBasic: Encantamento Investida Solar Básico
-			SolarDashEnchantmentCommon: Encantamento Investida Solar Comum
-			SolarDashEnchantmentEpic: Encantamento Investida Solar Épico
-			SolarDashEnchantmentLegendary: Encantamento Investida Solar Lendário
-			SolarDashEnchantmentRare: Encantamento Investida Solar Raro
-			SonarEnchantmentBasic: Encantamento Sonar Básico
-			SonarEnchantmentCommon: Encantamento Sonar Comum
-			SonarEnchantmentEpic: Encantamento Sonar Épico
-			SonarEnchantmentLegendary: Encantamento Sonar Lendário
-			SonarEnchantmentRare: Encantamento Sonar Raro
-			SpelunkerEnchantmentBasic: Encantamento Espeleólogo Básico
-			SpelunkerEnchantmentCommon: Encantamento Espeleólogo Comum
-			SpelunkerEnchantmentEpic: Encantamento Espeleólogo Épico
-			SpelunkerEnchantmentLegendary: Encantamento Espeleólogo Lendário
-			SpelunkerEnchantmentRare: Encantamento Espeleólogo Raro
-			ThrowingClassSwapEnchantmentBasic: Lançamento de encantamento de troca de classe básico
-			ThrowingClassSwapEnchantmentCommon: Lançamento de encantamento de troca de classe comum
-			ThrowingClassSwapEnchantmentEpic: Lançamento épico de encantamento de troca de classe
-			ThrowingClassSwapEnchantmentLegendary: Lançamento de troca de classe Encantamento Lendário
-			ThrowingClassSwapEnchantmentRare: Arremesso de encantamento de troca de classe raro
-			TimeEnchantmentBasic: Time Enchantment Basic
-			TimeEnchantmentCommon: Time Enchantment Common
-			TimeEnchantmentEpic: Time Enchantment Epic
-			TimeEnchantmentLegendary: Time Enchantment Legendary
-			TimeEnchantmentRare: Time Enchantment Rare
-			VenomEnchantmentBasic: Encantamento Veneno Básico
-			VenomEnchantmentCommon: Encantamento Veneno Comum
-			VenomEnchantmentEpic: Encantamento Veneno Épico
-			VenomEnchantmentLegendary: Encantamento Veneno Lendário
-			VenomEnchantmentRare: Encantamento Veneno Raro
-			WarEnchantmentBasic: Encantamento Guerra Básico
-			WarEnchantmentCommon: Encantamento Guerra Comum
-			WarEnchantmentEpic: Encantamento Guerra Épico
-			WarEnchantmentLegendary: Encantamento Guerra Lendário
-			WarEnchantmentRare: Encantamento Guerra Raro
-			WhipClassSwapEnchantmentBasic: Encantamento Troca de Classe Invocador Básico
-			WhipClassSwapEnchantmentCommon: Encantamento Troca de Classe Invocador Comum
-			WhipClassSwapEnchantmentEpic: Encantamento Troca de Classe Invocador Épico
-			WhipClassSwapEnchantmentLegendary: Encantamento Troca de Classe Invocador Lendário
-			WhipClassSwapEnchantmentRare: Encantamento Troca de Classe Invocador Raro
-			WorldAblazeEnchantmentBasic: Encantamento Mundo em Chamas Básico
-			WorldAblazeEnchantmentCommon: Encantamento Mundo em Chamas Comum
-			WorldAblazeEnchantmentEpic: Encantamento Mundo em Chamas Épico
-			WorldAblazeEnchantmentLegendary: Encantamento Mundo em Chamas Lendário
-			WorldAblazeEnchantmentRare: Encantamento Mundo em Chamas Raro
-			Containment: Contenção
-			MediumContainment: Contenção média
-			SuperiorContainment: Contenção Superior
-			DustyEnchantingTable: Mesa de Encantamento Empoeirada
-			HellishEnchantingTable: Mesa de Encantamento Infernal
-			SoulEnchantingTable: Mesa de Encantamento de Almas
-			UltimateEnchantingTable: Mesa de Encantamento Suprema
-			WoodEnchantingTable: Mesa de Encantamento de Madeira
-			EnchantmentEssenceBasic: Essência de Encantamento Básico
-			EnchantmentEssenceCommon: Essência de Encantamento Comum
-			EnchantmentEssenceEpic: Essência de Encantamento Épico
-			EnchantmentEssenceLegendary: Essência de Encantamento Lendário
-			EnchantmentEssenceRare: Essência de Encantamento Raro
-			PowerBooster: Impulsionador de potência
-			UltraPowerBooster: Impulsionador de Ultra Potência
+		Items: {
+			AllForOneEnchantmentBasic.DisplayName: Encantamento Todos Por um Básico
+			AllForOneEnchantmentCommon.DisplayName: Encantamento Todos Por Um Comum
+			AllForOneEnchantmentEpic.DisplayName: Encantamento Todos Por um Épico
+			AllForOneEnchantmentLegendary.DisplayName: Encantamento Todos Por um Lendário
+			AllForOneEnchantmentRare.DisplayName: Encantamento Tudos Por Um Raro
+			AmmoCostEnchantmentBasic.DisplayName: Encantamento Custo de Munição Básico
+			AmmoCostEnchantmentCommon.DisplayName: Encantamento Custo de munição comum
+			AmmoCostEnchantmentEpic.DisplayName: Encantamento Custo de munição Épico
+			AmmoCostEnchantmentLegendary.DisplayName: Encantamento Custo de munição Lendário
+			AmmoCostEnchantmentRare.DisplayName: Encantamento Custo de munição raro
+			ArmorPenetrationEnchantmentBasic.DisplayName: Encantamento Penetração de Armadura Básico
+			ArmorPenetrationEnchantmentCommon.DisplayName: Encantamento Penetração de Armadura Comum
+			ArmorPenetrationEnchantmentEpic.DisplayName: Encantamento Penetração de Armadura Épico
+			ArmorPenetrationEnchantmentLegendary.DisplayName: Encantamento Penetração de Armadura Lendário
+			ArmorPenetrationEnchantmentRare.DisplayName: Encantamento Penetração de Armadura Raro
+			AttackSpeedEnchantmentBasic.DisplayName: Encantamento Velocidade de Ataque Básico
+			AttackSpeedEnchantmentCommon.DisplayName: Encantamento Velocidade de Ataque Comum
+			AttackSpeedEnchantmentEpic.DisplayName: Encantamento Velocidade de Ataque Épico
+			AttackSpeedEnchantmentLegendary.DisplayName: Encantamento Velocidade de Ataque Lendário
+			AttackSpeedEnchantmentRare.DisplayName: Encantamento Velocidade de Ataque Raro
+			BardClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe de Bardo
+			BardClassSwapEnchantmentCommon.DisplayName: Troca de Classe de Bardo Encantamento Comum
+			BardClassSwapEnchantmentEpic.DisplayName: Épico de Encantamento de Troca de Classe de Bardo
+			BardClassSwapEnchantmentLegendary.DisplayName: Bardo Troca de Classe Encantamento Lendário
+			BardClassSwapEnchantmentRare.DisplayName: Encantamento de Troca de Classe de Bardo Raro
+			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Encantamento Básico
+			BerserkersRageEnchantmentCommon.DisplayName: Encantamento Fúria Berserkers Comum
+			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Encantamento Épico
+			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Encantamento Lendário
+			BerserkersRageEnchantmentRare.DisplayName: Berserkers Rage Encantamento Raro
+			CalmWatersEnchantmentBasic.DisplayName: Encantamento Águas Calmas Básico
+			CalmWatersEnchantmentCommon.DisplayName: Encantamento Águas Calmas Comum
+			CalmWatersEnchantmentEpic.DisplayName: Encantamento Águas Calmas Épico
+			CalmWatersEnchantmentLegendary.DisplayName: Encantamento Águas Calmas Lendário
+			CalmWatersEnchantmentRare.DisplayName: Encantamento Águas Calmas Raro
+			ChaoticFishingEnchantmentBasic.DisplayName: Encantamento de Pesca Caótica Básico
+			ChaoticFishingEnchantmentCommon.DisplayName: Encantamento de Pesca Caótica Comum
+			ChaoticFishingEnchantmentEpic.DisplayName: Encantamento de Pesca Caótica Épico
+			ChaoticFishingEnchantmentLegendary.DisplayName: Encantamento de Pesca Caótica Lendário
+			ChaoticFishingEnchantmentRare.DisplayName: Encantamento de Pesca Caótica Raro
+			ColdSteelEnchantmentBasic.DisplayName: Encantamento Aço Frio Básico
+			ColdSteelEnchantmentCommon.DisplayName: Encantamento Aço Frio Comum
+			ColdSteelEnchantmentEpic.DisplayName: Encantamento Aço Frio Épico
+			ColdSteelEnchantmentLegendary.DisplayName: Encantamento Aço Frio Lendário
+			ColdSteelEnchantmentRare.DisplayName: Encantamento Aço Frio Raro
+			CrateChanceEnchantmentBasic.DisplayName: Encantamento Chance de Caixa Básico
+			CrateChanceEnchantmentCommon.DisplayName: Encantamento Chance de Caixa Comum
+			CrateChanceEnchantmentEpic.DisplayName: Encantamento Chance de Caixa Épico
+			CrateChanceEnchantmentLegendary.DisplayName: Encantamento Chance de Caixa Lendário
+			CrateChanceEnchantmentRare.DisplayName: Encantamento Chance de Caixa Raro
+			CrateEnchantmentBasic.DisplayName: Encantamento Caixote Básico
+			CrateEnchantmentCommon.DisplayName: Encantamento Caixote Básico Comum
+			CrateEnchantmentEpic.DisplayName: Encantamento Caixote Básico Épico
+			CrateEnchantmentLegendary.DisplayName: Encantamento Caixote Básico Lendário
+			CrateEnchantmentRare.DisplayName: Encantamento Caixote Básico Raro
+			CriticalStrikeChanceEnchantmentBasic.DisplayName: Encantamento Chance de Acerto Crítico Básico
+			CriticalStrikeChanceEnchantmentCommon.DisplayName: Encantamento Chance de Acerto Crítico Comum
+			CriticalStrikeChanceEnchantmentEpic.DisplayName: Encantamento Chance de Acerto Crítico Épico
+			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Encantamento Chance de Acerto Crítico Lendário
+			CriticalStrikeChanceEnchantmentRare.DisplayName: Encantamento Chance de Acerto Crítico Raro
+			CriticalStrikeDamageEnchantmentBasic.DisplayName: Encantamento Dano de Acerto Crítico Básico
+			CriticalStrikeDamageEnchantmentCommon.DisplayName: Encantamento Dano de Acerto Crítico Comum
+			CriticalStrikeDamageEnchantmentEpic.DisplayName: Encantamento Dano de Acerto Crítico Épico
+			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Encantamento Dano de Acerto Crítico Lendário
+			CriticalStrikeDamageEnchantmentRare.DisplayName: Encantamento Dano de Acerto Crítico Raro
+			CursedInfernoEnchantmentBasic.DisplayName: Encantamento Inferno Amaldiçoado Básico
+			CursedInfernoEnchantmentCommon.DisplayName: Encantamento Inferno Amaldiçoado Comum
+			CursedInfernoEnchantmentEpic.DisplayName: Encantamento Inferno Amaldiçoado Épico
+			CursedInfernoEnchantmentLegendary.DisplayName: Encantamento Inferno Amaldiçoado Lendário
+			CursedInfernoEnchantmentRare.DisplayName: Encantamento Inferno Amaldiçoado Raro
+			DamageEnchantmentBasic.DisplayName: Encantamento Dano Básico
+			DamageEnchantmentCommon.DisplayName: Encantamento Dano Comum
+			DamageEnchantmentEpic.DisplayName: Encantamento Dano Épico
+			DamageEnchantmentLegendary.DisplayName: Encantamento Dano Lendário
+			DamageEnchantmentRare.DisplayName: Encantamento Dano Raro
+			DamageReductionEnchantmentBasic.DisplayName: Encantamento Redução de Dano Básico
+			DamageReductionEnchantmentCommon.DisplayName: Encantamento Redução de Dano Comum
+			DamageReductionEnchantmentEpic.DisplayName: Encantamento Redução de Dano Épico
+			DamageReductionEnchantmentLegendary.DisplayName: Encantamento Redução de Dano Lendário
+			DamageReductionEnchantmentRare.DisplayName: Encantamento Redução de Dano Raro
+			DangerSenseEnchantmentBasic.DisplayName: Encantamento Senso de Perigo Básico
+			DangerSenseEnchantmentCommon.DisplayName: Encantamento Senso de Perigo Comum
+			DangerSenseEnchantmentEpic.DisplayName: Encantamento Senso de Perigo Épico
+			DangerSenseEnchantmentLegendary.DisplayName: Encantamento Senso de Perigo Lendário
+			DangerSenseEnchantmentRare.DisplayName: Encantamento Senso de Perigo Raro
+			DaybreakEnchantmentBasic.DisplayName: Encantamento Alvorada Básico
+			DaybreakEnchantmentCommon.DisplayName: Encantamento Alvorada Comum
+			DaybreakEnchantmentEpic.DisplayName: Encantamento Alvorada Épico
+			DaybreakEnchantmentLegendary.DisplayName: Encantamento Alvorada Lendário
+			DaybreakEnchantmentRare.DisplayName: Encantamento Alvorada Raro
+			DefenseEnchantmentBasic.DisplayName: Encantamento Defesa Básico
+			DefenseEnchantmentCommon.DisplayName: Encantamento Defesa Comum
+			DefenseEnchantmentEpic.DisplayName: Encantamento Defesa Épico
+			DefenseEnchantmentLegendary.DisplayName: Encantamento Defesa Lendário
+			DefenseEnchantmentRare.DisplayName: Encantamento Defesa Raro
+			ExtraFishingLineEnchantmentBasic.DisplayName: Encantamento Linha de Pesca Extra Básico
+			ExtraFishingLineEnchantmentCommon.DisplayName: Encantamento Linha de Pesca Extra Comum
+			ExtraFishingLineEnchantmentEpic.DisplayName: Encantamento Linha de Pesca Extra Épico
+			ExtraFishingLineEnchantmentLegendary.DisplayName: Encantamento Linha de Pesca Extra Lendário
+			ExtraFishingLineEnchantmentRare.DisplayName: Encantamento Linha de Pesca Extra Raro
+			FishingEnchantmentBasic.DisplayName: Encantamento Pesca Básico
+			FishingEnchantmentCommon.DisplayName: Encantamento Pesca Comum
+			FishingEnchantmentEpic.DisplayName: Encantamento Pesca Épico
+			FishingEnchantmentLegendary.DisplayName: Encantamento Pesca Lendário
+			FishingEnchantmentRare.DisplayName: Encantamento Pesca Raro
+			FishingPowerEnchantmentBasic.DisplayName: Encantamento Poder de Pesca Básico
+			FishingPowerEnchantmentCommon.DisplayName: Encantamento Poder de Pesca Comum
+			FishingPowerEnchantmentEpic.DisplayName: Encantamento Poder de Pesca Épico
+			FishingPowerEnchantmentLegendary.DisplayName: Encantamento Poder de Pesca Lendário
+			FishingPowerEnchantmentRare.DisplayName: Encantamento Poder de Pesca Raro
+			FrostburnEnchantmentBasic.DisplayName: Encantamento Queimadura de Gelo Básico
+			FrostburnEnchantmentCommon.DisplayName: Encantamento Queimadura de Gelo Comum
+			FrostburnEnchantmentEpic.DisplayName: Encantamento Queimadura de Gelo Épico
+			FrostburnEnchantmentLegendary.DisplayName: Encantamento Queimadura de Gelo Lendário
+			FrostburnEnchantmentRare.DisplayName: Encantamento Queimadura de Gelo Raro
+			GodSlayerEnchantmentBasic.DisplayName: Encantamento Matador de Deuses Básico
+			GodSlayerEnchantmentCommon.DisplayName: Encantamento Matador de Deuses Comum
+			GodSlayerEnchantmentEpic.DisplayName: Encantamento Matador de Deuses Épico
+			GodSlayerEnchantmentLegendary.DisplayName: Encantamento Matador de Deuses Lendário
+			GodSlayerEnchantmentRare.DisplayName: Encantamento Matador de Deuses Raro
+			HealerClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe de Curandeiro
+			HealerClassSwapEnchantmentCommon.DisplayName: Curandeiro Troca de Classe Encantamento Comum
+			HealerClassSwapEnchantmentEpic.DisplayName: Épico de encantamento de troca de classe de curandeiro
+			HealerClassSwapEnchantmentLegendary.DisplayName: Curandeiro Troca de Classe Encantamento Lendário
+			HealerClassSwapEnchantmentRare.DisplayName: Curandeiro Troca de Classe Encantamento Raro
+			HellsWrathEnchantmentBasic.DisplayName: Encantamento Ira do Inferno Básico
+			HellsWrathEnchantmentCommon.DisplayName: Encantamento Ira do Inferno Comum
+			HellsWrathEnchantmentEpic.DisplayName: Encantamento Ira do Inferno Épico
+			HellsWrathEnchantmentLegendary.DisplayName: Encantamento Ira do Inferno Lendário
+			HellsWrathEnchantmentRare.DisplayName: Encantamento Ira do Inferno Raro
+			HunterEnchantmentBasic.DisplayName: Encantamento Caçador Básico
+			HunterEnchantmentCommon.DisplayName: Encantamento Caçador Comum
+			HunterEnchantmentEpic.DisplayName: Encantamento Caçador Épico
+			HunterEnchantmentLegendary.DisplayName: Encantamento Caçador Lendário
+			HunterEnchantmentRare.DisplayName: Encantamento Caçador Raro
+			IchorEnchantmentBasic.DisplayName: Encantamento de Icor Básico
+			IchorEnchantmentCommon.DisplayName: Encantamento de Icor Comum
+			IchorEnchantmentEpic.DisplayName: Encantamento de Icor Épico
+			IchorEnchantmentLegendary.DisplayName: Encantamento de Icor Lendário
+			IchorEnchantmentRare.DisplayName: Encantamento de Icor Raro
+			JuicedEnchantmentBasic.DisplayName: Encantamento Espremido Básico
+			JuicedEnchantmentCommon.DisplayName: Juiced Enchantment Basic Comum
+			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Basic Épico
+			JuicedEnchantmentLegendary.DisplayName: Juiced Enchantment Basic Lendário
+			JuicedEnchantmentRare.DisplayName: Juiced Enchantment Basic Raro
+			JunglesFuryEnchantmentBasic.DisplayName: Encantamento Fúria da Selva Básico
+			JunglesFuryEnchantmentCommon.DisplayName: Encantamento Fúria da Selva Comum
+			JunglesFuryEnchantmentEpic.DisplayName: Encantamento Fúria da Selva Épico
+			JunglesFuryEnchantmentLegendary.DisplayName: Encantamento Fúria da Selva Lendário
+			JunglesFuryEnchantmentRare.DisplayName: Encantamento Fúria da Selva Raro
+			KiClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentCommon.DisplayName: Comum de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentEpic.DisplayName: Épico de Encantamento de Troca de Classe Ki
+			KiClassSwapEnchantmentLegendary.DisplayName: Encantamento de Troca de Classe Ki Lendário
+			KiClassSwapEnchantmentRare.DisplayName: Encantamento de Troca de Classe Ki Raro
+			KiEnchantmentBasic.DisplayName: Encantamento de Ki Básico
+			KiEnchantmentCommon.DisplayName: Encantamento de Ki Comum
+			KiEnchantmentEpic.DisplayName: Ki encantamento épico
+			KiEnchantmentLegendary.DisplayName: Encantamento de Ki Lendário
+			KiEnchantmentRare.DisplayName: Encantamento de Ki Raro
+			LavaFishingEnchantmentBasic.DisplayName: Encantamento Pesca na Lava Básico
+			LavaFishingEnchantmentCommon.DisplayName: Encantamento Pesca na Lava Comum
+			LavaFishingEnchantmentEpic.DisplayName: Encantamento Pesca na Lava Épico
+			LavaFishingEnchantmentLegendary.DisplayName: Encantamento Pesca na Lava lendário
+			LavaFishingEnchantmentRare.DisplayName: Encantamento Pesca na Lava Raro
+			LifeRegenEnchantmentBasic.DisplayName: Básico de Encantamento de Regeneração de Vida
+			LifeRegenEnchantmentCommon.DisplayName: Encantamento de Regeneração de Vida Comum
+			LifeRegenEnchantmentEpic.DisplayName: Épico de Encantamento de Regeneração de Vida
+			LifeRegenEnchantmentLegendary.DisplayName: Regeneração de Vida Encantamento Lendário
+			LifeRegenEnchantmentRare.DisplayName: Encantamento de Regeneração de Vida Raro
+			LifeStealEnchantmentBasic.DisplayName: Encantamento Roubo de Vida Básico
+			LifeStealEnchantmentCommon.DisplayName: Encantamento Roubo de Vida Comum
+			LifeStealEnchantmentEpic.DisplayName: Encantamento Roubo de Vida Épico
+			LifeStealEnchantmentLegendary.DisplayName: Encantamento Roubo de Vida Lendário
+			LifeStealEnchantmentRare.DisplayName: Encantamento Roubo de Vida Raro
+			LuckEnchantmentBasic.DisplayName: Encantamento Sorte Básico
+			LuckEnchantmentCommon.DisplayName: Encantamento Sorte Comum
+			LuckEnchantmentEpic.DisplayName: Encantamento Sorte Épico
+			LuckEnchantmentLegendary.DisplayName: Encantamento Sorte Lendário
+			LuckEnchantmentRare.DisplayName: Encantamento Sorte Raro
+			MagicClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Mágica Básico
+			MagicClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Mágica Comum
+			MagicClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Mágica Épico
+			MagicClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Mágica Lendário
+			MagicClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Mágica Raro
+			MaxMinionsEnchantmentBasic.DisplayName: Encantamento Máximo de Minions Básico
+			MaxMinionsEnchantmentCommon.DisplayName: Encantamento Máximo de Minions Comum
+			MaxMinionsEnchantmentEpic.DisplayName: Encantamento Máximo de Minions Épico
+			MaxMinionsEnchantmentLegendary.DisplayName: Encantamento Máximo de Minions Lendário
+			MaxMinionsEnchantmentRare.DisplayName: Encantamento Máximo de Minions Raro
+			MeleeClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Corpo a Corpo Básico
+			MeleeClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Corpo a Corpo Comum
+			MeleeClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Corpo a Corpo Épico
+			MeleeClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Corpo a Corpo Lendário
+			MeleeClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Corpo a Corpo Raro
+			MobilityControlEnchantmentBasic.DisplayName: Encantamento Controle de Mobilidade Básico
+			MobilityControlEnchantmentCommon.DisplayName: Encantamento Controle de Mobilidade Comum
+			MobilityControlEnchantmentEpic.DisplayName: Encantamento Controle de Mobilidade Épico
+			MobilityControlEnchantmentLegendary.DisplayName: Encantamento Controle de Mobilidade Lendário
+			MobilityControlEnchantmentRare.DisplayName: Encantamento Controle de Mobilidade Raro
+			MoonlightEnchantmentBasic.DisplayName: Encantamento Luar Básico
+			MoonlightEnchantmentCommon.DisplayName: Encantamento Luar Comum
+			MoonlightEnchantmentEpic.DisplayName: Encantamento Luar Épico
+			MoonlightEnchantmentLegendary.DisplayName: Encantamento Luar lendário
+			MoonlightEnchantmentRare.DisplayName: Encantamento Luar Raro
+			MovementSpeedEnchantmentBasic.DisplayName: Encantamento Velocidade de Movimento Básico
+			MovementSpeedEnchantmentCommon.DisplayName: Encantamento Velocidade de Movimento Comum
+			MovementSpeedEnchantmentEpic.DisplayName: Encantamento Velocidade de Movimento Épico
+			MovementSpeedEnchantmentLegendary.DisplayName: Encantamento Velocidade de Movimento Lendário
+			MovementSpeedEnchantmentRare.DisplayName: Encantamento Velocidade de Movimento Raro
+			MultishotEnchantmentBasic.DisplayName: Encantamento Tiro Múltiplo Básico
+			MultishotEnchantmentCommon.DisplayName: Encantamento Tiro Múltiplo comum
+			MultishotEnchantmentEpic.DisplayName: Encantamento Tiro Múltiplo Épico
+			MultishotEnchantmentLegendary.DisplayName: Encantamento Tiro Múltiplo Lendário
+			MultishotEnchantmentRare.DisplayName: Encantamento Tiro Múltiplo Raro
+			NpcContactAnglerEnchantmentBasic.DisplayName: Encantamento Contatar Pescador Básico
+			NpcContactAnglerEnchantmentCommon.DisplayName: Encantamento Contatar Pescador Comum
+			NpcContactAnglerEnchantmentEpic.DisplayName: Encantamento Contatar Pescador Épico
+			NpcContactAnglerEnchantmentLegendary.DisplayName: Encantamento Contatar Pescador Lendário
+			NpcContactAnglerEnchantmentRare.DisplayName: Encantamento Contatar Pescador Raro
+			ObsidianSkinEnchantmentBasic.DisplayName: Encanatamento Pele de Obisidiana Básico
+			ObsidianSkinEnchantmentCommon.DisplayName: Encanatamento Pele de Obisidiana Comum
+			ObsidianSkinEnchantmentEpic.DisplayName: Encanatamento Pele de Obisidiana Épico
+			ObsidianSkinEnchantmentLegendary.DisplayName: Encanatamento Pele de Obisidiana Lendário
+			ObsidianSkinEnchantmentRare.DisplayName: Encanatamento Pele de Obisidiana Raro
+			OneForAllEnchantmentBasic.DisplayName: Encantamento Um Por Todos Básico
+			OneForAllEnchantmentCommon.DisplayName: Encantamento Um Por Todos Comum
+			OneForAllEnchantmentEpic.DisplayName: Encantamento Um Por Todos Épico
+			OneForAllEnchantmentLegendary.DisplayName: Encantamento Um Por Todos Lendário
+			OneForAllEnchantmentRare.DisplayName: Encantamento Um Por Todos Raro
+			OnFireEnchantmentBasic.DisplayName: Encantamento Em Chamas Básico
+			OnFireEnchantmentCommon.DisplayName: Encantamento Em Chamas Comum
+			OnFireEnchantmentEpic.DisplayName: Encantamento Em Chamas Épico
+			OnFireEnchantmentLegendary.DisplayName: Encantamento Em Chamas Lendário
+			OnFireEnchantmentRare.DisplayName: Encantamento Em Chamas Raro
+			PeaceEnchantmentBasic.DisplayName: Encantamento Paz Básico
+			PeaceEnchantmentCommon.DisplayName: Encantamento Paz Comum
+			PeaceEnchantmentEpic.DisplayName: Encantamento Paz Épico
+			PeaceEnchantmentLegendary.DisplayName: Encantamento Paz Lendário
+			PeaceEnchantmentRare.DisplayName: Encantamento Paz Raro
+			PennyPinchingEnchantmentBasic.DisplayName: Encatamento Mão de vaca Básico
+			PennyPinchingEnchantmentCommon.DisplayName: Encatamento Mão de vaca Comum
+			PennyPinchingEnchantmentEpic.DisplayName: Encatamento Mão de vaca Épico
+			PennyPinchingEnchantmentLegendary.DisplayName: Encatamento Mão de vaca Lendário
+			PennyPinchingEnchantmentRare.DisplayName: Encatamento Mão de vaca Raro
+			PrideOfTheWeakEnchantmentBasic.DisplayName: Orgulho do Fraco Encantamento Básico
+			PrideOfTheWeakEnchantmentCommon.DisplayName: Orgulho do Fraco Encantamento Comum
+			PrideOfTheWeakEnchantmentEpic.DisplayName: Orgulho do Fraco Encantamento Épico
+			PrideOfTheWeakEnchantmentLegendary.DisplayName: Orgulho do Fraco Encantamento Lendário
+			PrideOfTheWeakEnchantmentRare.DisplayName: Orgulho do Fraco Encantamento Raro
+			ProjectileVelocityEnchantmentBasic.DisplayName: Encantamento velocidade de Disparo básico
+			ProjectileVelocityEnchantmentCommon.DisplayName: Encantamento Velocidade de Disparo Comum
+			ProjectileVelocityEnchantmentEpic.DisplayName: Encantamento velocidade de Disparo Épico
+			ProjectileVelocityEnchantmentLegendary.DisplayName: Encantamento velocidade de Disparo Lendário
+			ProjectileVelocityEnchantmentRare.DisplayName: Encantamento Velocidade de Disparo Raro
+			RangedClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Atirador Básico
+			RangedClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Atirador Comum
+			RangedClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Atirador Épico
+			RangedClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Atirador Lendário
+			RangedClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Atirador Raro
+			ReducedManaUsageEnchantmentBasic.DisplayName: Encantamento Custo de Mana Básico
+			ReducedManaUsageEnchantmentCommon.DisplayName: Encantamento Custo de Mana Comum
+			ReducedManaUsageEnchantmentEpic.DisplayName: Encantamento Custo de Mana Épico
+			ReducedManaUsageEnchantmentLegendary.DisplayName: Encantamento Custo de Mana Lendário
+			ReducedManaUsageEnchantmentRare.DisplayName: Encantamento Custo de Mana Raro
+			RogueClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Ladino Básico
+			RogueClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Ladino Comum
+			RogueClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Ladino Épico
+			RogueClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Ladino Lendário
+			RogueClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Ladino Raro
+			ShineEnchantmentBasic.DisplayName: Encantamento Brilhante Básico
+			ShineEnchantmentCommon.DisplayName: Encantamento Brilho Comum
+			ShineEnchantmentEpic.DisplayName: Épico de Encantamento Brilhante
+			ShineEnchantmentLegendary.DisplayName: Shine Encantamento Lendário
+			ShineEnchantmentRare.DisplayName: Encantamento Brilhante Raro
+			SizeEnchantmentBasic.DisplayName: Encantamento Tamanho Básico
+			SizeEnchantmentCommon.DisplayName: Encantamento Tamanho Comum
+			SizeEnchantmentEpic.DisplayName: Encantamento Tamanho Épico
+			SizeEnchantmentLegendary.DisplayName: Encantamento Tamanho Lendário
+			SizeEnchantmentRare.DisplayName: Encantamento Tamanho Raro
+			SolarDashEnchantmentBasic.DisplayName: Encantamento Investida Solar Básico
+			SolarDashEnchantmentCommon.DisplayName: Encantamento Investida Solar Comum
+			SolarDashEnchantmentEpic.DisplayName: Encantamento Investida Solar Épico
+			SolarDashEnchantmentLegendary.DisplayName: Encantamento Investida Solar Lendário
+			SolarDashEnchantmentRare.DisplayName: Encantamento Investida Solar Raro
+			SonarEnchantmentBasic.DisplayName: Encantamento Sonar Básico
+			SonarEnchantmentCommon.DisplayName: Encantamento Sonar Comum
+			SonarEnchantmentEpic.DisplayName: Encantamento Sonar Épico
+			SonarEnchantmentLegendary.DisplayName: Encantamento Sonar Lendário
+			SonarEnchantmentRare.DisplayName: Encantamento Sonar Raro
+			SpelunkerEnchantmentBasic.DisplayName: Encantamento Espeleólogo Básico
+			SpelunkerEnchantmentCommon.DisplayName: Encantamento Espeleólogo Comum
+			SpelunkerEnchantmentEpic.DisplayName: Encantamento Espeleólogo Épico
+			SpelunkerEnchantmentLegendary.DisplayName: Encantamento Espeleólogo Lendário
+			SpelunkerEnchantmentRare.DisplayName: Encantamento Espeleólogo Raro
+			ThrowingClassSwapEnchantmentBasic.DisplayName: Lançamento de encantamento de troca de classe básico
+			ThrowingClassSwapEnchantmentCommon.DisplayName: Lançamento de encantamento de troca de classe comum
+			ThrowingClassSwapEnchantmentEpic.DisplayName: Lançamento épico de encantamento de troca de classe
+			ThrowingClassSwapEnchantmentLegendary.DisplayName: Lançamento de troca de classe Encantamento Lendário
+			ThrowingClassSwapEnchantmentRare.DisplayName: Arremesso de encantamento de troca de classe raro
+			/* TimeEnchantmentBasic.DisplayName: Time Enchantment Basic */
+			/* TimeEnchantmentCommon.DisplayName: Time Enchantment Common */
+			/* TimeEnchantmentEpic.DisplayName: Time Enchantment Epic */
+			/* TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary */
+			/* TimeEnchantmentRare.DisplayName: Time Enchantment Rare */
+			VenomEnchantmentBasic.DisplayName: Encantamento Veneno Básico
+			VenomEnchantmentCommon.DisplayName: Encantamento Veneno Comum
+			VenomEnchantmentEpic.DisplayName: Encantamento Veneno Épico
+			VenomEnchantmentLegendary.DisplayName: Encantamento Veneno Lendário
+			VenomEnchantmentRare.DisplayName: Encantamento Veneno Raro
+			WarEnchantmentBasic.DisplayName: Encantamento Guerra Básico
+			WarEnchantmentCommon.DisplayName: Encantamento Guerra Comum
+			WarEnchantmentEpic.DisplayName: Encantamento Guerra Épico
+			WarEnchantmentLegendary.DisplayName: Encantamento Guerra Lendário
+			WarEnchantmentRare.DisplayName: Encantamento Guerra Raro
+			WhipClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Invocador Básico
+			WhipClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Invocador Comum
+			WhipClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Invocador Épico
+			WhipClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Invocador Lendário
+			WhipClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Invocador Raro
+			WorldAblazeEnchantmentBasic.DisplayName: Encantamento Mundo em Chamas Básico
+			WorldAblazeEnchantmentCommon.DisplayName: Encantamento Mundo em Chamas Comum
+			WorldAblazeEnchantmentEpic.DisplayName: Encantamento Mundo em Chamas Épico
+			WorldAblazeEnchantmentLegendary.DisplayName: Encantamento Mundo em Chamas Lendário
+			WorldAblazeEnchantmentRare.DisplayName: Encantamento Mundo em Chamas Raro
+
+			Containment: {
+				DisplayName: Contenção
+				Tooltip: Usado para armazenar encantamentos básicos
+			}
+
+			MediumContainment: {
+				DisplayName: Contenção média
+				Tooltip: Usado para armazenar encantamentos comuns
+			}
+
+			SuperiorContainment: {
+				DisplayName: Contenção Superior
+				Tooltip: Usado para armazenar encantamentos raros
+			}
+
+			DustyEnchantingTable: {
+				DisplayName: Mesa de Encantamento Empoeirada
+				Tooltip: Usado para aplicar encantamentos a itens. (tier 1)
+			}
+
+			HellishEnchantingTable: {
+				DisplayName: Mesa de Encantamento Infernal
+				Tooltip: Usado para aplicar encantamentos a itens. (tier 2)
+			}
+
+			SoulEnchantingTable: {
+				DisplayName: Mesa de Encantamento de Almas
+				Tooltip: Usado para aplicar encantamentos a itens. (tier 3)
+			}
+
+			UltimateEnchantingTable: {
+				DisplayName: Mesa de Encantamento Suprema
+				Tooltip: Usado para aplicar encantamentos a itens. (tier 4)
+			}
+
+			WoodEnchantingTable: {
+				DisplayName: Mesa de Encantamento de Madeira
+				Tooltip: Usado para aplicar encantamentos a itens. (tier 0)
+			}
+
+			EnchantmentEssenceBasic: {
+				DisplayName: Essência de Encantamento Básico
+				Tooltip:
+					'''
+					Material básico usado para criar e aprimorar encantamentos.
+					Pode ser convertido em 400 de experiência em uma mesa de encantamento.
+					'''
+			}
+
+			EnchantmentEssenceCommon: {
+				DisplayName: Essência de Encantamento Comum
+				Tooltip:
+					'''
+					Material comum usado para criar e aprimorar encantamentos.
+					Pode ser convertido em 1600 de experiência em uma mesa de encantamento.
+					'''
+			}
+
+			EnchantmentEssenceEpic: {
+				DisplayName: Essência de Encantamento Épico
+				Tooltip:
+					'''
+					Material épico usado para criar e aprimorar encantamentos.
+					Pode ser convertido em 25600 de experiência em uma mesa de encantamento.
+					'''
+			}
+
+			EnchantmentEssenceLegendary: {
+				DisplayName: Essência de Encantamento Lendário
+				Tooltip:
+					'''
+					Material lendário usado para criar e aprimorar encantamentos.
+					Pode ser convertido em 102400 de experiência em uma mesa de encantamento.
+					'''
+			}
+
+			EnchantmentEssenceRare: {
+				DisplayName: Essência de Encantamento Raro
+				Tooltip:
+					'''
+					Material raro usado para criar e aprimorar encantamentos.
+					Pode ser convertido em 6400 de experiência em uma mesa de encantamento.
+					'''
+			}
+
+			PowerBooster: {
+				DisplayName: Impulsionador de potência
+				Tooltip:
+					'''
+					Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 10.
+					(Clique com o botão esquerdo no item que deseja fortalecer enquanto segura isso.)
+					Este item será devolvido se o item impulsionado for oferecido.
+					'''
+			}
+
+			UltraPowerBooster: {
+				DisplayName: Impulsionador de Ultra Potência
+				Tooltip:
+					'''
+					Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 20.
+					(Clique com o botão esquerdo no item que deseja fortalecer enquanto segura isso.)
+					Este item será devolvido se o item impulsionado for oferecido.
+					'''
+			}
 		}
-		BuffName: {
-			Amaterasu: Amaterasu
+
+		Buffs: {
+			Amaterasu: {
+				/* DisplayName: Amaterasu */
+				/* Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu */
+			}
 		}
-		Bestiary: {
-			Witch: A Bruxa é uma senhora feia e perversa e lida com outras coisas perversas. Ela comercializa materiais duvidosos usados para melhorar equipamentos com efeitos misteriosos.
-		}
+
+		Bestiary.Witch: A Bruxa é uma senhora feia e perversa e lida com outras coisas perversas. Ela comercializa materiais duvidosos usados para melhorar equipamentos com efeitos misteriosos.
+
 		Config: {
-			AccessoryDRValues: "Acessório {0}% ({1}% em 40)"
-			ArmorDRValues: "Armadura {0}% ({1}% em 40)"
+			AccessoryDRValues: Acessório {0}% ({1}% em 40)
+			ArmorDRValues: Armadura {0}% ({1}% em 40)
 			Automatic: Automático
 			Custom: Personalizado
 			DisplaySettings: Configurações do visor
@@ -370,18 +464,20 @@ Mods: {
 			ModTestingTools: Ferramentas de teste de mod
 			Multipliers: multiplicadores
 			NoneSelected: Nenhum selecionado
-			Normal: Normal
+			/* Normal: Normal */
 			OtherDropRates: Outras taxas de queda
 			Presets: Predefinições
 			RandomExtraStuff: Extras aleatórios
 			RarityEnchantmentStrengthMultipliers: Multiplicadores de força de encantamento de raridade
+
 			AccessoryDamageReductionPerLevel: {
 				Label: RD de acessórios por nível (100.000 = 1%)
 				Tooltip: 250000 (2,5%) é o máximo que seria 100% de redução de dano no nível 40.
 			}
+
 			AffectOnVanillaLifeStealLimmit: {
 				Label: Limitação de Encantamento de Roubo de Vida (Afeta no Limite de Roubo de Vida de Vanilla) (%)
-				Tooltip: 
+				Tooltip:
 					'''
 					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
 					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
@@ -393,244 +489,276 @@ Mods: {
 					Note: the mechanic does not have a cap on how much you can gain at once.  It will just take longer to recover the more you gain.
 					'''
 			}
-			AllowCraftingIntoLowerTier: {
-				Label: Permitir a criação de encantamentos em encantamentos de nível inferior.
-			}
+
+			AllowCraftingIntoLowerTier.Label: Permitir a criação de encantamentos em encantamentos de nível inferior.
+
 			AllowCriticalChancePast100: {
 				Label: Chance de acerto crítico efetiva acima de 100% de chance
-				Tooltip: 
+				Tooltip:
 					'''
 					Vanilla terraria caps critical hit chance at 100%.  By default, Weapon Enchantments calculates extra crits after 100%.
 					120% critical chance is 100% to double the damage then 20% chance to crit to increase the damge.  See the next config option for more info.
 					'''
 			}
+
 			AllowHighTierOres: {
 				Label: Recieve ores up to Chlorophyte from Offering items.
-				Tooltip: 
+				Tooltip:
 					'''
 					Disabling this option only allows you to recieve Iron, Silver, Gold (Or their equivelents based on world gen.).
 					(Only Works in hard mode.  Chlorophyte only after killing a mechanical boss.)
 					'''
 			}
+
 			AllowInfusingToLowerPower: {
 				Label: Permitir itens de infusão para diminuir os poderes de infusão
 				Tooltip: Aviso: Isso permitirá que você consuma uma arma fraca para rebaixar uma arma forte.
 			}
-			AllowShiftClickMoveFavoritedItems: {
-				Label: Permita que o clique da tecla shift mova os itens favoritos para a mesa encantadora.
-			}
+
+			AllowShiftClickMoveFavoritedItems.Label: Permita que o clique da tecla shift mova os itens favoritos para a mesa encantadora.
+
 			AlwaysDisplayAccessoryLevelUpMessages: {
 				Label: Sempre exibir mensagens de aumento de nível de acessório
 				Tooltip: Somente exibe mensagens de nível de acessório ao usar a mesa de encantamento se esta opção estiver desativada.
 			}
+
 			AlwaysDisplayArmorLevelUpMessages: {
 				Label: Sempre exibir mensagens de aumento de nível de armadura
 				Tooltip: Exibe apenas mensagens de aumento de nível de armadura ao usar a mesa de encantamento se esta opção estiver desativada.
 			}
+
 			AlwaysDisplayInfusionPower: {
 				Label: Sempre exibir o poder de infusão
 				Tooltip: Ative para exibir o poder de infusão do item sempre em vez de apenas quando a mesa de encantamento estiver aberta.
 			}
+
 			AlwaysDisplayToolLevelUpMessages: {
 				Label: Sempre exibir mensagens de subida de nível da ferramenta
 				Tooltip: Exibe apenas mensagens de aumento de nível da ferramenta ao usar a mesa de encantamento se esta opção estiver desativada.
 			}
+
 			AlwaysDisplayWeaponLevelUpMessages: {
 				Label: Sempre exibir mensagens de aumento de nível de arma
 				Tooltip: Exibe apenas mensagens de aumento de nível de arma ao usar a mesa de encantamento se esta opção estiver desativada.
 			}
+
 			AlwaysOverrideDamageType: {
 				Label: Encantamentos de conversão de tipo de dano sempre prevalecem.
-				Tooltip: 
+				Tooltip:
 					'''
 					Alguns mods como Stars Above alteram os tipos de dano das armas. Se esta opção estiver habilitada, os Encantamentos que alteram o tipo de dano sempre alterarão o tipo de dano da arma.
 					Se não selecionado, o tipo de dano só será alterado se a arma estiver com o tipo de dano original.
 					'''
 			}
+
 			AmaterasuSelfGrowthPerTick: {
 				Label: Amaterasu Autocrescimento por Tick
 				Tooltip: Afeta a rapidez com que o dano do Amaterasu aumentará naturalmente (não ao ser atingido novamente com uma arma World Ablaze).
 			}
+
 			ArmorDamageReductionPerLevel: {
 				Label: RD de Armadura por Nível (100000 = 1%)
 				Tooltip: 250000 (2,5%) é o máximo que seria 100% de redução de dano no nível 40.
 			}
-			ArmorDamageReductions: {
-				Label: Reduções de danos de armaduras e acessórios
-			}
+
+			ArmorDamageReductions.Label: Reduções de danos de armaduras e acessórios
+
 			ArmorPenetration: {
 				Label: Converta o excesso de penetração de armadura em dano bônus
-				Tooltip: 
+				Tooltip:
 					'''
 					Exemplo: Inimigo tem 4 de defesa, sua arma tem 10 de penetração de armadura.
 					10 - 4 = 6 penetração de armadura em excesso (sem fazer nada)
 					Ganhe 3 bônus de dano (6/2 = 3)
 					'''
 			}
+
 			AttackSpeedEnchantmentAutoReuseSetpoint: {
 				Label: Reutilização automática de encantamento de velocidade ativada (%)
-				Tooltip: 
+				Tooltip:
 					'''
 					A força que um Encantamento de Velocidade começará a dar ao status de Reutilização Automática.
 					Defina como 0 para todos os encantamentos de velocidade para dar reutilização automática. Defina como 10000 para evitar qualquer ganho de reutilização automática (a menos que seu multiplicador de força seja enorme)
 					'''
 			}
-			AutomaticallyMatchPreseTtoWorldDifficulty: {
-				Label: Combine automaticamente a predefinição com a dificuldade do mundo
-			}
+
+			AutomaticallyMatchPreseTtoWorldDifficulty.Label: Combine automaticamente a predefinição com a dificuldade do mundo
+
 			AutoReuseDisabledOnMagicMissile: {
 				Label: Reutilização automática desativada em armas do tipo Magic Missile
 				Tooltip: A reutilização automática em armas como Magic Missile permite que você atire continuamente nos projéteis para aumentar o dano infinitamente.
 			}
+
 			BasicEnchantmentStrengthMultiplier: {
 				Label: básico
 				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
+
 			BossEnchantmentDropChance: {
 				Label: Taxa de queda de encantamento de chefe (%)
-				Tooltip: 
+				Tooltip:
 					'''
 					Ajuste a taxa de queda de encantamentos dos chefes.
 					(O padrão é 50%)
 					'''
 			}
+
 			BossEssenceMultiplier: {
 				Label: Multiplicador de Essência do Chefe (%)
 				Tooltip: Modify the ammount of essence recieved from bosses.
 			}
+
 			BossExperienceMultiplier: {
 				Label: Multiplicador de experiência do chefe (%)
 				Tooltip: Modify the ammount of experience recieved from bosses.
 			}
+
 			BuffDuration: {
 				Label: Duração do cooldown do buff (segundos)
 				Tooltip: Afeta o cooldown e a duração do buff.
 			}
+
 			CalculateDamageReductionBeforeDefense: {
 				Label: Calcular redução de dano antes da defesa do jogador
-				Tooltip: 
+				Tooltip:
 					'''
 					Por padrão, a redução de dano é aplicada após a defesa do jogador. Selecione isto para aplicar antes.
 					Antes fará com que você tome muito menos dano.
 					'''
 			}
+
 			ChestSpawnChance: {
 				Label: Chance de Geração de Encantamento de Baú (%)
 				Tooltip: Ajuste a chance de encontrar encantamentos em baús. Pode ser superior a 100%. Não afeta os baús do Bioma. (São sempre 100%)
 			}
-			ClientConfig: {
-				Label: Configuração do cliente
-			}
+
+			ClientConfig.Label: Configuração do cliente
+
 			CommonEnchantmentStrengthMultiplier: {
 				Label: Comum
 				Tooltip: Affects the strength of all Common Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
+
 			ConfigCapacityCostMultiplier: {
 				Label: Multiplicador de custo de capacidade de encantamento (%)
 				Tooltip: Afeta quanto os encantamentos custam para serem aplicados a um item. Os valores básicos são 1/2/3/4/5 para utilidade, 2/4/6/8/10 para normal e 3/6/9/12/15 para exclusivo.
 			}
+
 			CrateDropChance: {
 				Label: Multiplicador de chance de queda de encantamento de caixa (%)
 				Tooltip: Ajuste a chance de encontrar encantamentos em caixas de pesca.
 			}
+
 			CritPerLevelDisabled: {
 				Label: Desativar a chance de acerto crítico da arma por nível
 				Tooltip: Weapons gain critical strike chance equal to thier level * Global Enchantment Strength Multiplier.
 			}
+
 			DamagePerLevelInstead: {
 				Label: Dano em vez de chance crítica por nível
 				Tooltip: Armas ganham dano por nível em vez de chance de acerto crítico igual ao seu nível * Multiplicador de Força de Encantamento Global
 			}
+
 			DamageReductionPerLevelDisabled: {
 				Label: Desative a redução de dano de armadura e acessório por nível
 				Tooltip: Armor and accessories gain damage reduction equal to thier level * the appropriate setpoint below for the world difficulty.
 			}
+
 			DCUStart: {
 				Label: Comece com uma Unidade de Contenção de Perfuração
-				Tooltip: 
+				Tooltip:
 					'''
 					Todos os jogadores receberão uma Drill Containment Unit quando aparecerem pela primeira vez.
 					Isso é apenas para diversão quando você se sentir como um jogo mais rápido.
 					'''
 			}
+
 			DisableAllErrorMessagesInChat: {
 				Label: Desativar todas as mensagens de erro no bate-papo
-				Tooltip: 
+				Tooltip:
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
 					\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\"
 					'''
 			}
+
 			DisableArmorInfusion: {
-				Label: Disable Armor Infusion
+				/* Label: Disable Armor Infusion */
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
+
 			DisableMinionCrits: {
 				Label: Desativar acertos críticos dos lacaios
-				Tooltip: 
+				Tooltip:
 					'''
 					No vanilla, os lacaios não são afetados pela chance crítica da arma.
 					Encantamentos de armas dão aos lacaios uma chance de acerto crítico com base na chance de acerto crítico da arma.
 					Esta opção desativa os crits (mecânica de baunilha)
 					'''
 			}
-			DisableResearch: {
-				Label: Desativar a capacidade de pesquisar itens de encantamento de armas
-			}
+
+			DisableResearch.Label: Desativar a capacidade de pesquisar itens de encantamento de armas
+
 			DisplayApproximateWeaponDamageTooltip: {
 				Label: Exibe o dano aproximado da arma na dica de ferramenta
-				Tooltip: 
+				Tooltip:
 					'''
 					Os encantamentos de dano são calculados depois que a armadura inimiga reduz o dano, em vez de alterar diretamente o dano do item.
 					Isso exibe o dano contra um inimigo de armadura 0.
 					'''
 			}
+
 			EnableSwappingWeapons: {
 				Label: Ativar a troca de armas com teclas numéricas (Armas classificadas por poder de infusão)
-				Tooltip: 
+				Tooltip:
 					'''
 					Use num1 e num3 para trocar entre todas as armas. Use num4 e num6 para trocar apenas entre armas modificadas.
 					Não substituirá armas encantadas ou modificadas.
 					'''
 			}
+
 			EnchantmentDropChance: {
 				Label: Taxa de queda de encantamento não chefe (%)
-				Tooltip: 
+				Tooltip:
 					'''
 					Ajuste a taxa de queda de encantamentos de inimigos não chefes.
 					(O padrão é 100%)
 					'''
 			}
+
 			EnchantmentSlotsOnAccessories: {
 				Label: Enchantment Slots On Accissories
-				Tooltip: 
+				Tooltip:
 					'''
 					O primeiro slot é um slot normal.
 					O segundo slot é o slot de utilitário.
 					3-5 são slots normais.
 					'''
 			}
+
 			EnchantmentSlotsOnArmor: {
 				Label: Slots de encantamento na armadura
-				Tooltip: 
+				Tooltip:
 					'''
 					O primeiro slot é um slot normal.
 					O segundo slot é o slot de utilitário.
 					3-5 são slots normais.
 					'''
 			}
+
 			EnchantmentSlotsOnFishingPoles: {
 				Label: Slots de encantamento em varas de pesca
-				Tooltip: 
+				Tooltip:
 					'''
 					O primeiro slot é um slot normal.
 					O segundo slot é o slot de utilitário.
 					3-5 são slots normais.
 					'''
 			}
+
 			EnchantmentSlotsOnTools: {
 				Label: Slots de encantamento em ferramentas
-				Tooltip: 
+				Tooltip:
 					'''
 					O primeiro slot é um slot normal.
 					O segundo slot é o slot de utilitário.
@@ -638,60 +766,70 @@ Mods: {
 					O Clentaminator é a única ferramenta até agora.
 					'''
 			}
+
 			EnchantmentSlotsOnWeapons: {
 				Label: Slots de encantamento em armas
-				Tooltip: 
+				Tooltip:
 					'''
 					O primeiro slot é um slot normal.
 					O segundo slot é o slot de utilitário.
 					3-5 são slots normais.
 					'''
 			}
+
 			EpicEnchantmentStrengthMultiplier: {
 				Label: Épico
 				Tooltip: Affects the strength of all Epic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
+
 			EssenceGrabRange: {
 				Label: Multiplicador de Alcance de Captura de Essência
 				Tooltip: Afeta o quão longe a essência pode estar do jogador quando começa a se mover em direção ao jogador.
 			}
+
 			EssenceMultiplier: {
 				Label: Multiplicador de Essência Não Chefe (%)
 				Tooltip: Modify the ammount of essence recieved from non-boss enemies.
 			}
+
 			ExperienceMultiplier: {
 				Label: Multiplicador de experiência não chefe (%)
 				Tooltip: Modify the ammount of experience recieved from non-boss enemies.
 			}
+
 			GatheringExperienceMultiplier: {
 				Label: Multiplicador de experiência de coleta (%)
 				Tooltip: Modify the ammount of experience recieved from Mining/chopping/fishing
 			}
+
 			GlobalEnchantmentStrengthMultiplier: {
 				Label: Multiplicador de Força de Encantamento Global (%)
-				Tooltip: 
+				Tooltip:
 					'''
 					Adjusts all enchantment strengths based on recomended enchantment changes.
 					Uses the same calculations as the presets but allows you to pick a different number.
 					preset values are; Journey: 250, Normal: 100, Expert: 50, Master: 25 (Overides Ppreset)
 					'''
 			}
+
 			individualStrengths: {
 				Label: Forças individuais
-				Tooltip: 
+				Tooltip:
 					'''
 					Modifique as forças de encantamento individuais por valor
 					(NÃO PORCENTAGEM!)
 					(Substitui todas as outras opções)
 					'''
 			}
+
 			individualStrengthsEnabled: {
 				Label: Forças individuais ativadas
 				Tooltip: Enabling this will cause the Indvidual strength values selected below to overite all other settings.
 			}
+
 			InfusionDamageMultiplier: {
 				Label: Multiplicador de dano de infusão (divide por 1000, 1 -> 0,001)
-				Tooltip: 
+				Tooltip:
 					'''
 					Altera o multiplicador de dano da infusão. DamageMultiplier = InfusionDamageMultiplier^((InfusionPower - BaseInfusionPower) / 100)
 					Exemplo: Iron Broadsword, Dano = 10, BaseInfusionPower = 31 infundido com um Meowmere, Infusion Power 1100.
@@ -699,152 +837,165 @@ Mods: {
 					Definir esse multiplicador para 1000 impedirá que você infunda armas, além de não fornecer nenhum bônus de dano a armas já infundidas.
 					'''
 			}
+
 			itemDefinition: {
 				Label: Encantamento
-				Tooltip: 
+				Tooltip:
 					'''
 					Selecione apenas itens de encantamento.
 					Provavelmente causará um erro ao selecionar qualquer outro item.
 					'''
 			}
+
 			LegendaryEnchantmentStrengthMultiplier: {
 				Label: Lendário
 				Tooltip: Affects the strength of all Legendary Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
+
 			LogDummyDPS: {
 				Label: Ativar cálculo e registro de Target Dummy Dps
-				Tooltip: 
+				Tooltip:
 					'''
 					Rastreia os danos aos alvos de todas as fontes e os rastreia. Pressione num0 para iniciar e novamente para parar.
 					Pressione num8 para imprimir todos os valores dps armazenados no client.log\nO local padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					Iniciar um novo teste pressionando num0 redefine os dados dps anteriores para o item retido para permitir refazer um teste.
 					'''
 			}
+
 			MinionLifeStealMultiplier: {
 				Label: Multiplicador de Roubo de Vida de Lacaios (%)
 				Tooltip: Allows you to reduce the ammount of healing recieved by minions with the Lifesteal Enchantment.
 			}
+
 			MultiplicativeCriticalHits: {
 				Label: Acertos críticos multiplicativos após o primeiro.
-				Tooltip: 
+				Tooltip:
 					'''
 					Encantamentos de armas fazem uso de chance de acerto crítico acima de 100% para permitir que você crite novamente.
 					Por padrão, este é um bônus aditivo: 1º crítico 200% de dano, 2º 300% de dano, 3º 400% de dano.....
 					Habilitar isso os torna multiplicativos: 1º crítico 200% de dano, 2º crítico 400% de dano, 3º crítico 400% de dano...
 					'''
 			}
+
 			OfferAll: {
 				Label: Ofereça tudo do mesmo item.
-				Tooltip: 
+				Tooltip:
 					'''
 					Pesquise em seu inventário todos os itens do mesmo tipo que foram oferecidos e ofereça-os também se tiverem 0 experiência e nenhum power booster instalado.
 					Também oferece todos os itens de baús tocando a mesa encantadora.
 					'''
 			}
+
 			OnlyShowErrorMessagesInChatOnce: {
 				Label: Mostrar mensagens de erro no chat apenas uma vez
-				Tooltip: 
+				Tooltip:
 					'''
 					As mensagens continuarão a aparecer no seu chat, mas apenas uma vez durante uma sessão de jogo.
 					(A mensagem de erro deve ser exatamente igual à mensagem anterior para ser evitada.)
 					'''
 			}
-			PercentOfferEssence: {
-				Label: Porcentagem do valor do item oferecido convertido em essência.
-			}
-			Preset: {
-				Tooltip: 
-					'''
-					Jornada, Normal, Especialista, Mestre, Automático, Personalizado
-					(Personalizado não pode ser selecionado aqui. Ele é definido automaticamente ao ajustar o Multiplicador de força global.)
-					'''
-			}
-			presetData: {
-				Label: Predefinições e multiplicadores
-			}
+
+			PercentOfferEssence.Label: Porcentagem do valor do item oferecido convertido em essência.
+			Preset.Tooltip:
+				'''
+				Jornada, Normal, Especialista, Mestre, Automático, Personalizado
+				(Personalizado não pode ser selecionado aqui. Ele é definido automaticamente ao ajustar o Multiplicador de força global.)
+				'''
+			presetData.Label: Predefinições e multiplicadores
+
 			PreventPowerBoosterFromPreHardMode: {
 				Label: Evite que os chefes do modo pré-difícil derrubem os reforços de energia.
 				Tooltip: Não inclui parede de carne.
 			}
+
 			PrintEnchantmentDrops: {
 				Label: Registre uma lista de fontes de queda de encantamento
-				Tooltip: 
+				Tooltip:
 					'''
 					A lista é impressa no client.log quando você entra em um mundo.
 					A localização padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
+
 			PrintEnchantmentTooltips: {
 				Label: Registrar uma lista de dicas de ferramenta de encantamento
-				Tooltip: 
+				Tooltip:
 					'''
 					A lista é impressa no client.log quando você entra em um mundo.
 					A localização padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
+
 			PrintLocalizationLists: {
 				Label: Registrar todas as listas de tradução
-				Tooltip: 
+				Tooltip:
 					'''
 					As listas são impressas no client.log quando você entra em um mundo.
 					A localização padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
+
 			PrintWeaponInfusionPowers: {
 				Label: Registre todos os poderes de infusão de armas
-				Tooltip: 
+				Tooltip:
 					'''
 					A informação é impressa no client.log quando você entra em um mundo.
 					A localização padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
+
 			PrintWikiInfo: {
 				Label: Registrar todas as informações do wiki
-				Tooltip: 
+				Tooltip:
 					'''
 					A informação é impressa no client.log quando você entra em um mundo.
 					A localização padrão do client.log é C:\Steam\SteamApps\common\tModLoader\tModLoader-Logs
 					'''
 			}
+
 			RareEnchantmentStrengthMultiplier: {
 				Label: Cru
 				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
+
 			ReduceOfferEfficiencyByBaseInfusionPower: {
 				Label: Reduza a eficiência da oferta por poder de infusão de base
-				Tooltip: 
+				Tooltip:
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
 					Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above).
 					'''
 			}
+
 			ReduceOfferEfficiencyByTableTier: {
 				Label: Reduzir a eficiência da oferta por nível de tabela
-				Tooltip: 
+				Tooltip:
 					'''
 					When offering items, you recieve essence equivelent to the experience on the item.
 					Enabling this will cause the wood table to be 60% efficient.
 					Each table gains 10% efficiency.  100% with Ultimate table.
 					'''
 			}
+
 			ReduceRecipesToMinimum: {
 				Label: Reduza as receitas ao mínimo.
-				Tooltip: 
+				Tooltip:
 					'''
 					Remove todas as receitas que saltam entre os níveis para reduzir a confusão ao visualizar as receitas.
 					Também torna todas as receitas de essência 4 para 1 em vez de escalar com nível de mesa encantador.
 					'''
 			}
+
 			RemoveEnchantmentRestrictions: {
 				Label: Remova as restrições de encantamento (use por sua conta e risco!)
 				Tooltip: Remove coisas como Unique, Max 1 e encantamentos específicos de tipo de arma ou item.
 			}
-			ServerConfig: {
-				Label: Configuração do servidor
-			}
+
+			ServerConfig.Label: Configuração do servidor
+
 			Strength: {
 				Label: Força (1000 = 1, 10 = 1%)
-				Tooltip: 
+				Tooltip:
 					'''
 					Tome cuidado ao ajustar este valor.
 					Força é o valor exato usado.
@@ -852,116 +1003,77 @@ Mods: {
 					10 Defesa é 10
 					'''
 			}
+
 			teleportEssence: {
 				Label: Enviar essência automaticamente para a interface do usuário
-				Tooltip: 
+				Tooltip:
 					'''
 					Envie automaticamente a essência do seu inventário para os slots de essência da interface do usuário.
 					(Desativa enquanto a IU está aberta.)
 					'''
 			}
+
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Use texturas de essência de encantamento alternativas
 				Tooltip: As cores padrão são compatíveis com daltônicos. As texturas alternativas têm pequenas diferenças, mas foram votadas para serem mantidas.
 			}
+
 			UsePointsAsTooltip: {
-				Label: "\"Pontos\" em vez de \"Capacidade de Encantamento\""
+				Label: '''"Pontos" em vez de "Capacidade de Encantamento"'''
 				Tooltip: As dicas de ferramentas mostrarão os pontos disponíveis em vez da capacidade de encantamento disponível
 			}
 		}
+
 		Dialogue: {
 			Witch: {
 				BirthdayParty: POR QUE SOU OBRIGADA A VESTIR ROSA?! ISSO PARECE HORRÍVEL, ESSA FESTA FEDE!
 				BloodMoon: Eu realmente sinto muito pelo meu comportamento anterior. Eu não estava no meu melhor naquela época, e se eu fui rude, peço desculpas.
 				Corrupt: Oooh! A sujeira aqui é linda! Mal posso esperar para abraçar uma nova descoberta!
 				Crimson: Oooh! A sanguinolência aqui é linda! Mal posso esperar para abraçar uma nova descoberta!
-				Dryad: "Essa... {0} pessoa é tão clichê! 'Salve o mundo do mal' Os males estão profundamente enraizados e vieram para ficar!"
+				Dryad: Essa... {0} pessoa é tão clichê! 'Salve o mundo do mal' Os males estão profundamente enraizados e vieram para ficar!
 				DyeTrader: "{0} sempre me prende com os pretos mais escuros e os verdes mais assustadores! Essas cores me dão bastante brilho e me fazem parecer tão magra!"
-				Graveyard: "Algumas pessoas podem achar os mortos assustadores, mas esse \"silencio morto\" é realmente muito animado! nyack nyack nyack!"
-				Princess: "Eca! {0} está sempre no meu caso! Não sei o que é 'Ética' ou 'Moral', mas ela não sai do meu lugar!"
+				Graveyard: Algumas pessoas podem achar os mortos assustadores, mas esse "silencio morto" é realmente muito animado! nyack nyack nyack!
+				Princess: Eca! {0} está sempre no meu caso! Não sei o que é 'Ética' ou 'Moral', mas ela não sai do meu lugar!
 				QueenBee: A selva tem os melhores ingredientes para a fabricação de cerveja. Pena que uma praga zunidora gigante está a infestando!
 				StandardDialogue0: Eu aprendi esta receita, é muito legal, vou guardá-la para mais tarde, para o seu deleite!
 				StandardDialogue1: Por que eu falo o tempo todo, é muito difícil fazer essas rimas!
 				StandardDialogue2: Eu ainda estou aqui, eu vejo você jogar, mas não consigo pensar em muito para dizer!
 				Storm: Ah! Trovões são os melhores quando se trata de criar novos absurdos mágicos! Deixe a grande hora das bruxas começar!
-				WitchDoctor: "Um colega usuário do caldeirão! {0} tem tantos truques estranhos, um verdadeiro sedutor!"
-				Wizard: "Enquanto {0} não se aventura fora do testado e comprovado, seu conhecimento arcano o classifica como um professor!"
+				WitchDoctor: Um colega usuário do caldeirão! {0} tem tantos truques estranhos, um verdadeiro sedutor!
+				Wizard: Enquanto {0} não se aventura fora do testado e comprovado, seu conhecimento arcano o classifica como um professor!
 				Zoologist: "{0} é uma meretriz tirânica que continua deixando cabelo em todos os lugares, vou fazê-la pagar na guerra!"
 			}
 		}
-		ItemTooltip: {
-			Containment: Usado para armazenar encantamentos básicos
-			DustyEnchantingTable: Usado para aplicar encantamentos a itens. (tier 1)
-			EnchantmentEssenceBasic: 
-				'''
-				Material básico usado para criar e aprimorar encantamentos.
-				Pode ser convertido em 400 de experiência em uma mesa de encantamento.
-				'''
-			EnchantmentEssenceCommon: 
-				'''
-				Material comum usado para criar e aprimorar encantamentos.
-				Pode ser convertido em 1600 de experiência em uma mesa de encantamento.
-				'''
-			EnchantmentEssenceEpic: 
-				'''
-				Material épico usado para criar e aprimorar encantamentos.
-				Pode ser convertido em 25600 de experiência em uma mesa de encantamento.
-				'''
-			EnchantmentEssenceLegendary: 
-				'''
-				Material lendário usado para criar e aprimorar encantamentos.
-				Pode ser convertido em 102400 de experiência em uma mesa de encantamento.
-				'''
-			EnchantmentEssenceRare: 
-				'''
-				Material raro usado para criar e aprimorar encantamentos.
-				Pode ser convertido em 6400 de experiência em uma mesa de encantamento.
-				'''
-			HellishEnchantingTable: Usado para aplicar encantamentos a itens. (tier 2)
-			MediumContainment: Usado para armazenar encantamentos comuns
-			PowerBooster: 
-				'''
-				Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 10.
-				(Clique com o botão esquerdo no item que deseja fortalecer enquanto segura isso.)
-				Este item será devolvido se o item impulsionado for oferecido.
-				'''
-			SoulEnchantingTable: Usado para aplicar encantamentos a itens. (tier 3)
-			SuperiorContainment: Usado para armazenar encantamentos raros
-			UltimateEnchantingTable: Usado para aplicar encantamentos a itens. (tier 4)
-			UltraPowerBooster: 
-				'''
-				Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 20.
-				(Clique com o botão esquerdo no item que deseja fortalecer enquanto segura isso.)
-				Este item será devolvido se o item impulsionado for oferecido.
-				'''
-			WoodEnchantingTable: Usado para aplicar encantamentos a itens. (tier 0)
-		}
+
 		NPCNames: {
 			Witch: {
 				Agatha: Ágata
-				Akko: Akko
-				Binx: Binx
-				Blobbelda: Blobbelda
-				Brentilda: Brentilda
-				Freyja: Freyja
-				Gruntilda: Gruntilda
+				/* Akko: Akko */
+				/* Binx: Binx */
+				/* Blobbelda: Blobbelda */
+				/* Brentilda: Brentilda */
+				/* Freyja: Freyja */
+				/* Gruntilda: Gruntilda */
 				Hazel: avelã
 				Jasminka: jasminka
-				Kyubey: Kyubey
+				/* Kyubey: Kyubey */
 				Maleficient: Maléfico
-				Mary: Mary
-				Medusa: Medusa
+				/* Mary: Mary */
+				/* Medusa: Medusa */
 				Melusine: Melusina
 				Mingella: Mingela
 				MissGulch: Senhorita Gulch
-				Morgana: Morgana
+				/* Morgana: Morgana */
 				Sabrina: sabrina
 				Salem: Salém
 				Sarah: Sara
 				Ursula: Úrsula
-				Winifred: Winifred
+				/* Winifred: Winifred */
 			}
 		}
+
+		/* NPCs.Witch.DisplayName: Witch */
+
 		Ores: {
 			adamantite: adamantina
 			chlorophyte: clorofita
@@ -981,6 +1093,7 @@ Mods: {
 			titanium: titânio
 			tungsten: tungstênio
 		}
+
 		TableText: {
 			Cancel: Cancelar
 			Finalize: Finalizar
@@ -992,35 +1105,37 @@ Mods: {
 			Syphon: Sifão
 			xp: exp
 			Yes: Sim
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Tem certeza de que deseja DESTRUIR PERMANENTEMENTE seu nível {0}
 				{1} {2}
 				{3}(Com base no valor/experiência do item.  Os encantamentos serão devolvidos.)
 				'''
 			enchantment0: Coloque Encantamentos aqui.
-			enchantment4: "Requer {0} ou melhor para usar este slot."
+			enchantment4: Requer {0} ou melhor para usar este slot.
 			Enchantments: Encantamentos
-			essence0: "Coloque {0} aqui."
+			essence0: Coloque {0} aqui.
 			ExchangeEssence: Em troca da essência?
-			ExchangeEssenceAndOres: "Em troca de minérios({0}) e essência({1})?"
+			ExchangeEssenceAndOres: Em troca de minérios({0}) e essência({1})?
 			ExchangeOres: Em troca de minérios?
 			general1: Atualizar o nível da mesa de encantamento desbloqueia mais slots de encantamento.
 			general2: Usando encantamentos de armas em armaduras ou acessórios
 			general3: fornece bônus reduzidos e vice-versa.
-			Item: Item
+			/* Item: Item */
 			utility0: Apenas encantamentos utilitários podem ir aqui.
 			weapon0: Coloque uma arma, peça de armadura ou acessório aqui.
 		}
+
 		Tooltip: {
 			ArmorSlotNames: {
 				Body: Corpo
 				Head: Cabeça
 				Legs: Pernas
 			}
+
 			DamageClassNames: {
 				Generic: Genérico
-				Ki: Ki
+				/* Ki: Ki */
 				Magic: Magia
 				Melee: Corpo a corpo
 				Ranged: À distância
@@ -1029,6 +1144,7 @@ Mods: {
 				Throwing: Arremesso
 				Whip: Chicote
 			}
+
 			EffectDisplayName: {
 				AllForOne: Todos por um
 				AmmoCost1: Chance de não consumir munição
@@ -1040,22 +1156,22 @@ Mods: {
 				BerserkersRage: Fúria do Berserker
 				BonusCoins: Moedas de bônus
 				BuffDuration: Duração do Efeito
-				BuffEffect0: "Concede passivamente {0} a você"
-				BuffEffect1: "Inflige passivamente {0} a você"
-				BuffEffect10: "Concede {0} aos inimigos ao acertar"
-				BuffEffect11: "Inflige {0} aos inimigos ao acertar"
-				BuffEffect12: "Concede {0} a jogadores próximos ao acertar"
-				BuffEffect13: "Inflige {0} a jogadores próximos ao acertar"
-				BuffEffect14: "Concede {0} a inimigos próximos ao acertar"
-				BuffEffect15: "Inflige passivamente {0} a inimigos próximos ao acertar"
-				BuffEffect2: "Concede passivamente {0} a jogadores próximos"
-				BuffEffect3: "Inflige passivamente {0} a jogadores próximos"
-				BuffEffect4: "Concede passivamente {0} ao inimigo"
-				BuffEffect5: "Inflige passivamente {0} ao inimigo"
-				BuffEffect6: "Concede passivamente {0} a inimigos próximos"
-				BuffEffect7: "Inflige passivamente {0} a inimigos próximos"
-				BuffEffect8: "Concede a você {0} ao acertar"
-				BuffEffect9: "Inflige {0} a você ao acertar"
+				BuffEffect0: Concede passivamente {0} a você
+				BuffEffect1: Inflige passivamente {0} a você
+				BuffEffect10: Concede {0} aos inimigos ao acertar
+				BuffEffect11: Inflige {0} aos inimigos ao acertar
+				BuffEffect12: Concede {0} a jogadores próximos ao acertar
+				BuffEffect13: Inflige {0} a jogadores próximos ao acertar
+				BuffEffect14: Concede {0} a inimigos próximos ao acertar
+				BuffEffect15: Inflige passivamente {0} a inimigos próximos ao acertar
+				BuffEffect2: Concede passivamente {0} a jogadores próximos
+				BuffEffect3: Inflige passivamente {0} a jogadores próximos
+				BuffEffect4: Concede passivamente {0} ao inimigo
+				BuffEffect5: Inflige passivamente {0} ao inimigo
+				BuffEffect6: Concede passivamente {0} a inimigos próximos
+				BuffEffect7: Inflige passivamente {0} a inimigos próximos
+				BuffEffect8: Concede a você {0} ao acertar
+				BuffEffect9: Inflige {0} a você ao acertar
 				CalmWaters: Águas calmas
 				CatastrophicRelease: Liberação Catastrófica
 				Channel: Canal
@@ -1068,13 +1184,13 @@ Mods: {
 				CursedInferno: Inferno Amaldiçoado
 				Damage: Dano
 				DamageAfterDefenses: Dano (Aplicado após as defesas. Não visível na dica de ferramenta da arma)
-				DamageClassSwap: "Converter tipo de dano para {0}"
+				DamageClassSwap: Converter tipo de dano para {0}
 				DamageReduction: Redução de Dano
 				DangerSense: Sentido de Perigo
 				Daybreak: Aurora
-				DayEventUpdateRate: Day Event Update Rate
-				DayTileUpdateRate: Day Tile Update Rate
-				DayTimeRate: Day Time Rate
+				/* DayEventUpdateRate: Day Event Update Rate */
+				/* DayTileUpdateRate: Day Tile Update Rate */
+				/* DayTimeRate: Day Time Rate */
 				Defense: Defesa
 				EnemyMaxSpawns: Geração máxima de inimigos
 				EnemySpawnRate: Taxa de Geração de Inimigos
@@ -1094,7 +1210,7 @@ Mods: {
 				Juiced: Espremido
 				JumpSpeed: Velocidade de salto
 				JunglesFury: Fúria da Selva
-				Ki: Ki
+				/* Ki: Ki */
 				KiClassSwap: Troca de Classe Ki
 				KiDamage: Dano de Ki
 				KiRegen: Regeneração de Ki
@@ -1107,7 +1223,7 @@ Mods: {
 				ManaUsage1: Uso de Mana Reduzido
 				ManaUsage2: Aumento do uso de mana
 				MaxFallSpeed: Velocidade máxima de queda
-				MaxKi: Max Ki
+				/* MaxKi: Max Ki */
 				MaxLife: Vida máxima
 				MaxMinions: Invocações Máximas
 				MaxMP: Mana Máximo
@@ -1121,9 +1237,9 @@ Mods: {
 				MovementSpeed: Velocidade de movimento
 				MPBonusRegen: Bônus de Regeneração de mana
 				Multishot: Tiro múltiplo
-				NightEventUpdateRate: Night Event Update Rate
-				NightTileUpdateRate: Night Tile Update Rate
-				NightTimeRate: Night Time Rate
+				/* NightEventUpdateRate: Night Event Update Rate */
+				/* NightTileUpdateRate: Night Tile Update Rate */
+				/* NightTimeRate: Night Time Rate */
 				NpcContactAngler: Contatar Pescador
 				NPCHitCooldown: Tempo de Recarga de acerto
 				ObsidianSkin: Pele de Obsidiana
@@ -1141,10 +1257,10 @@ Mods: {
 				Shine: Brilhar
 				Size: Tamanho
 				SolarDash: Investida Solar
-				Sonar: Sonar
+				/* Sonar: Sonar */
 				Spelunker: Espeleólogo
 				ThrowingClassSwap: Jogando troca de classe
-				Time: Time
+				/* Time: Time */
 				VanillaDash1: Investida da Tabi Ninja
 				VanillaDash2: Investida do Escudo de Cthulhu
 				VanillaDash3: Investida Solar
@@ -1157,12 +1273,13 @@ Mods: {
 				WorldAblaze: Mundo em chamas
 				YoyoStringLength: Comprimento da corda de Yoyo
 			}
+
 			EnchantmentCustomTooltips: {
 				CalamityMod: (Encantamento do Mod Calamidade)
 				DBZMODPORT: (Dragon Ball Terraria Encantamento)
 				ThoriumMod: (Encantamento Mod Throium)
-				Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
-				WorldAblaze: 
+				/* Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate */
+				WorldAblaze:
 					'''
 					(O efeito negativo de Amaterasu e as notas abaixo sobre isso só se aplicam ao nível 4 de Encantamento.)
 					(Ninguém deve sobreviver às chamas imparáveis de Amaterasu)
@@ -1171,20 +1288,21 @@ Mods: {
 					(Espalha-se para os inimigos próximos e impede que os inimigos sejam imunes a outros efeitos negativos do Mundo em Chamas.)
 					'''
 			}
+
 			EnchantmentEffects: {
 				AmmoCost: "{0} (Também economiza isca ao pescar)"
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
-				BonusCoins: 
+				BonusCoins:
 					'''
 					\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
 					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\"
 					'''
-				BuffDuration: 
+				BuffDuration:
 					'''
 					{0}
 					(A duração é continuamente aumentada enquanto o efeito está ativo, não ao ganhar o efeito pela primeira vez.)
 					'''
-				EnemySpawnRate: 
+				EnemySpawnRate:
 					'''
 					{0}
 					(O dano dos lacaios é reduzido pelo seu multiplicador de taxa de geração, de encantamentos, a menos que eles sejam seu alvo de ataque de lacaios)
@@ -1193,55 +1311,59 @@ Mods: {
 					(Inimigos gerados serão imunes a lava/armadilhas)
 					'''
 				FishingEnemySpawnChance: "{0} (Reduzido em 5x durante o dia. Afetado por Balde de Iscas. Também pode gerar Duque Peixe-dragão.)"
-				GodSlayer: 
+				GodSlayer:
 					'''
 					{0}
 					(Bônus de dano real baseado na vida máxima do inimigo)
 					(Dano bônus não afetado pelo roubo de vida)
 					'''
-				ItemCooldown: "(Tempo de recarga do item igual a {0} velocidade de uso)"
+				ItemCooldown: (Tempo de recarga do item igual a {0} velocidade de uso)
 				LavaFishing: "{0} (Permite pescar na lava e tem a chance de melhorar as taxas de captura na lava. Pilha com outras fontes.)"
 				LifeSteal: "{0} (o restante é salvo para evitar sempre o arredondamento para 0 para armas de baixo dano)"
 				MinionAttackTarget: Os inimigos atingidos tornam-se o alvo do ataque dos lacaios. Mesmo efeito dos chicotes.
 				Multishot: "{0} (Chance de produzir um projétil extra. Aplica-se a cada projétil criado.)"
-				OneForAll: 
+				OneForAll:
 					'''
 					{0}
 					(Acertar um inimigo causará dano a todos os inimigos próximos)
 					(Ativa apenas no primeiro golpe de um projétil.)
 					'''
-				OnHitSpawnProjectile: "Gera um projétil ao acertar um inimigo: {0}"
+				OnHitSpawnProjectile: Gera um projétil ao acertar um inimigo: {0}
 				PrideOfTheWeak: "{0} Aumenta o dano causado por armas fracas. (100% efetivo com poder de infusão 0. 0% efetivo com poder de infusão 500.)"
 				QuestFishChance: "{0} (Os peixes da missão capturados serão automaticamente entregues e iniciarão uma nova missão, ignorando o limite de 1 por dia.)"
+
 				BoolEffect: {
 					Enabled: "{0}: Habilitado"
 					Prevented: "{0}: Impedido"
 				}
+
 				BuffEffect: {
 					All: "{0} ({1}% de chance de se candidatar {2})"
 					OnTickPlayerBuff: "{0} ({1}% de chance de aplicar para {2} a cada {3})"
 				}
+
 				PlayerSetEffect: {
 					Enabled: "{0}: Habilitado"
 					Prevented: "{0}: Impedido"
 				}
 			}
+
 			EnchantmentGeneralTooltips: {
 				AllowedOn: Permitido em
 				And: e
 				ArmorSlotOnly: "{0} Somente slot de armadura"
-				LevelCost: "Custo de nível: {0}"
+				LevelCost: Custo de nível: {0}
 				Max1: Máximo de 1 por item
-				NotAllowed: "Não permitido em {0} armas"
+				NotAllowed: Não permitido em {0} armas
 				Only: "{0} Apenas"
 				OnlyAllowedOn: Permitido apenas em
 				Or: ou
 				Unique: Único (Limitado a 1 Encantamento Único)
 				Utility: Utilitário
 			}
-			EnchantmentShortTooltip: {
-				OnTickPlayerBuff: "Concede passivamente {0} para {1} a cada {2}"
-			}
+
+			EnchantmentShortTooltip.OnTickPlayerBuff: Concede passivamente {0} para {1} a cada {2}
+
 			ItemType: {
 				Accessories: Acessórios
 				Armor: Armaduras
@@ -1251,23 +1373,35 @@ Mods: {
 				Weapons: Armas
 			}
 		}
+
 		TownNPCMood: {
 			Witch: {
 				Content: A vida aqui é suportável. Sem conflitos, sem drama, não é tão horrível.
 				DislikeBiome: É incrível como aqui é tão manso, sem maldade, sem arrepiantes, é tão chato!
 				DislikeCrowded: Como vou me concentrar com todo esse barulho!
-				DislikeNPC: "Esse... {NPCName} é tão clichê! 'Salve o mundo do mal' Os males estão profundamente enraizados e vieram para ficar!"
+				DislikeNPC: Esse... {NPCName} é tão clichê! 'Salve o mundo do mal' Os males estão profundamente enraizados e vieram para ficar!
 				FarFromHome: Tive que me aventurar longe para encontrar novos reagentes. Embora minha casa seja agradável, posso preparar uma nova mistura com esses últimos ingredientes.
 				HateBiome: Caramba! Este lugar é tão brilhante, que acima de tudo eu desprezo!
 				HateCrowded: Eu não posso lidar com esse tráfego aqui! Tire-me ou expulse-os, seja rápido!
 				HateNPC: "{NPCName} jone é uma meretriz tirânica que fica deixando cabelo em todos os lugares, eu vou fazê-la pagar na guerra!"
 				LikeBiome: Este lugar está cheio de bichos e sujeira, hora de fazer um dinheirinho rápido!
-				LikeNPC: "Enquanto {NPCName} não se aventura fora do testado e comprovado, seu conhecimento arcano o classifica como um professor!"
+				LikeNPC: Enquanto {NPCName} não se aventura fora do testado e comprovado, seu conhecimento arcano o classifica como um professor!
 				LoveBiome: Este lugar me lembra meu antigo covil. Muito sombrio, muito mágico, que talento!
-				LoveNPC: "Um colega usuário do caldeirão! {NPCName} tem tantos truques estranhos, um verdadeiro sedutor!"
+				LoveNPC: Um colega usuário do caldeirão! {NPCName} tem tantos truques estranhos, um verdadeiro sedutor!
 				LoveSpace: Com todos agora desaparecidos, finalmente meus experimentos podem continuar!
 				NoHome: Eu não posso segurar todos os meus produtos, estes são instáveis, por favor, cuidado!
 			}
+		}
+
+		/* ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence */
+		/* ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled. */
+
+		Tiles: {
+			/* DustyEnchantingTable.MapEntry: Dusty Enchanting Table */
+			/* HellishEnchantingTable.MapEntry: Hellish Enchanting Table */
+			/* SoulEnchantingTable.MapEntry: Soul Enchanting Table */
+			/* UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table */
+			/* WoodEnchantingTable.MapEntry: Wood Enchanting Table */
 		}
 	}
 }

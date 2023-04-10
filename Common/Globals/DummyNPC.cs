@@ -32,14 +32,14 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool AppliesToEntity(NPC entity, bool lateInstantiation) {
 			return !entity.townNPC && WEMod.clientConfig.LogDummyDPS;
 		}
-		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit) {
+		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone) {
 			if (NotCheckingDPS)
 				return;
 
 			int actualDamage = (int)Main.CalculateDamageNPCsTake((int)damage, npc.defense);
 			OnHitNPCWithAny(npc, item, actualDamage);
 		}
-		public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit) {
+		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone) {
 			if (NotCheckingDPS)
 				return;
 

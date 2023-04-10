@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,6 @@ using System.Collections.Immutable;
 using System.Collections;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Common.InfusionProgression;
-using IL.Terraria.DataStructures;
 using Mono.Cecil;
 using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
@@ -22,7 +23,6 @@ using System.Diagnostics;
 using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
 using Ionic.Zlib;
-using IL.Terraria.GameContent.Bestiary;
 
 namespace WeaponEnchantments.Common
 {

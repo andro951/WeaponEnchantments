@@ -222,14 +222,14 @@ namespace WeaponEnchantments
         #region General Override Hooks
 
         public override void Load() {
-            IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
-            IL.Terraria.Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
+            Terraria.IL_Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+            Terraria.IL_Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
 		}
-        public override void OnEnterWorld(Player player) {
+        public override void OnEnterWorld() {
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
+            if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log();
 
 			#endregion
 
@@ -242,13 +242,13 @@ namespace WeaponEnchantments
             }
 
             OldItemManager.versionUpdate = versionUpdate;
-            OldItemManager.ReplaceAllPlayerOldItems(player);
+            OldItemManager.ReplaceAllPlayerOldItems(Player);
             if (versionUpdate < 1)
                 versionUpdate = 1;
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\OnEnterWorld({player.S()})").Log();
+            if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
 
             #endregion
         }
@@ -1027,22 +1027,25 @@ namespace WeaponEnchantments
 
         #region On Hit
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) {
-            OnHitNPCWithAny(item, target, damage, knockback, crit);
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */ {
+            OnHitNPCWithAny(item, target, hit);
         }
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit) {
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */ {
             proj.TryGetGlobalProjectile(out WEProjectile weProj);
             Item item = weProj.sourceItem;
 
-            OnHitNPCWithAny(item, target, damage, knockback, crit, proj);
+            OnHitNPCWithAny(item, target, hit, proj);
         }
-        private void OnHitNPCWithAny(Item item, NPC target, int damage, float knockback, bool crit, Projectile projectile = null) {
+        private void OnHitNPCWithAny(Item item, NPC target, NPC.HitInfo hit, Projectile projectile = null) {
             if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
                 return;
 
             if (!target.TryGetWEGlobalNPC(out WEGlobalNPC weGlobalNPC))
                 return;
 
+            int damage = hit.Damage;
+            float knockback = hit.Knockback;
+            bool crit = hit.Crit;
             //Remove target.myWarReduction if hit by non-minion
             TryResetWarReduction(target, projectile, weGlobalNPC);
 
@@ -1333,8 +1336,13 @@ namespace WeaponEnchantments
             return godSlayerDamageInt;
         }
         public static void StrikeNPC(int npcWhoAmI, int damage, bool crit) {
-            if (Main.npc[npcWhoAmI].active)
-                Main.npc[npcWhoAmI].StrikeNPC(damage, 0, 0, crit, false, true);
+            if (Main.npc[npcWhoAmI].active) {
+                NPC.HitInfo hit = new();
+                hit.Damage = damage;
+                hit.Crit = crit;
+                hit.SourceDamage = damage;
+				Main.npc[npcWhoAmI].StrikeNPC(hit, false, true);
+			}
         }
         private void UpdateNPCImmunity(NPC target) {
             //If projectile/npc doesn't use npc.immune, return
@@ -1498,20 +1506,16 @@ namespace WeaponEnchantments
             uint endTime = Main.GameUpdateCount + (uint)duration;
             OnTickBuffTimers.Add(id, endTime);
         }
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter) {
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */ {
 			if (CheckEnchantmentStats(EnchantmentStat.DamageReduction, out float mult)) {
 				float damageMultiplier = 1f - mult;
 				if (WEMod.serverConfig.CalculateDamageReductionBeforeDefense) {
-					damage = (int)((float)damage * damageMultiplier);
+                    modifiers.IncomingDamageMultiplier *= damageMultiplier;
 				}
                 else {
-                    int damagePlayerTakes = (int)Main.CalculateDamagePlayersTake(damage, Player.statDefense);
-                    int damageReductionFromDefense = damage - damagePlayerTakes;
-                    damage = (int)(damagePlayerTakes * damageMultiplier + damageReductionFromDefense);
-                }
+					modifiers.FinalDamage *= damageMultiplier;
+				}
 			}
-
-            return true;
 		}
         public void ModifyTimeRate(ref double timeRate, ref double tileUpdateRate, ref double eventUpdateRate) {
             if (Main.dayTime) {

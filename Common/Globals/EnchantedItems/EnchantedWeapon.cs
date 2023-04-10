@@ -419,8 +419,8 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit) {
-            item.DamageNPC(player, target, damage, crit, true);
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone) {
+            item.DamageNPC(player, target, hit, true);
         }
         public override void OnSpawn(Item item, IEntitySource source) {
             //Fargo's Mod fix for pirates that steal items

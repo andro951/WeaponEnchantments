@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
@@ -31,8 +32,8 @@ namespace WeaponEnchantments.Common.Globals
             return modItem is Enchantment or EnchantmentEssenceBasic;
 		}
 
-		public override void OnCreate(Item item, ItemCreationContext context) {
-            if (context is RecipeCreationContext recipeCreationContext) {
+		public override void OnCreated(Item item, ItemCreationContext context) {
+            if (context is RecipeItemCreationContext recipeCreationContext) {
                 if (recipeCreationContext.ConsumedItems == null)
                     return;
 

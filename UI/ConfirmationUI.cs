@@ -76,7 +76,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = red
             };
 
-            confirmationButton[ConfirmationButtonID.Yes].OnClick += (evt, element) => { ConfirmOffer(); };
+            confirmationButton[ConfirmationButtonID.Yes].OnLeftClick += (evt, element) => { ConfirmOffer(); };
             UIText yesButtonText = new UIText(TableTextID.Yes.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }
@@ -98,7 +98,7 @@ namespace WeaponEnchantments.UI
                 BackgroundColor = bgColor
             };
 
-            confirmationButton[ConfirmationButtonID.No].OnClick += (evt, element) => { DeclineOffer(); };
+            confirmationButton[ConfirmationButtonID.No].OnLeftClick += (evt, element) => { DeclineOffer(); };
             UIText noButtonText = new UIText(TableTextID.No.ToString().Lang(L_ID1.TableText)) {
                 Top = { Pixels = -4f },
                 Left = { Pixels = -6f }

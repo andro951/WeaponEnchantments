@@ -265,7 +265,7 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone) {
             projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
             if (sourceItem.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
                 bool summonDamage = sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid;
@@ -380,11 +380,11 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Gain xp
-                sourceItem.DamageNPC(Main.player[projectile.owner], target, damage, crit);
+                sourceItem.DamageNPC(Main.player[projectile.owner], target, hit);
             }
             else if (playerSource != null) {
                 //Non item based projectile like the Stardust Guardian
-                EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, damage, crit);
+                EnchantedItemStaticMethods.DamageNPC(null, Main.player[projectile.owner], target, hit);
             }
         }
     }

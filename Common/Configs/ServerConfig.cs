@@ -5,7 +5,6 @@ using Terraria.ModLoader.Config;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
-using IL.Terraria;
 using Terraria.ID;
 using WeaponEnchantments.Common.Globals;
 

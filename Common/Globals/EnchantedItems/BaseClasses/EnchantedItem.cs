@@ -832,8 +832,8 @@ namespace WeaponEnchantments.Common.Globals
 
             return true;
         }
-		public override void OnCreate(Item item, ItemCreationContext context) {
-			if(context is RecipeCreationContext recipeCreationContext)
+		public override void OnCreated(Item item, ItemCreationContext context) {
+			if(context is RecipeItemCreationContext recipeCreationContext)
 				item.CombineEnchantedItems(recipeCreationContext.ConsumedItems, true);
 		}
 		public bool OnStack(Item item1, Item item2) {
@@ -1313,16 +1313,18 @@ namespace WeaponEnchantments.Common.Globals
 
 			#endregion
 		}
-		public static void DamageNPC(this Item item, Player player, NPC target, int damage, bool crit, bool melee = false) {
+		public static void DamageNPC(this Item item, Player player, NPC target, NPC.HitInfo hit, bool melee = false) {
 
             #region Debug
 
             if (LogMethods.debugging) ($"\\/DamageNPC").Log();
 
             #endregion
-            
-            //dummy goto debug
-            if (target.IsDummy())
+
+            int damage = hit.Damage;
+            bool crit = hit.Crit;
+			//dummy goto debug
+			if (target.IsDummy())
                 goto debugBeforeReturn;
 
             //friendly goto debug

@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
@@ -64,8 +65,7 @@ namespace WeaponEnchantments.Tiles
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 
 			//Etc
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault(Items.EnchantingTableItem.enchantingTableNames[enchantingTableTier] + " Enchanting Table");
+			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
