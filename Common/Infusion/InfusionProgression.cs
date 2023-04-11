@@ -2448,6 +2448,10 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfOuterGods",
 						"StarsAbove/EssenceOfTheAnomaly"
 					});//190
+				progressionGroups[ProgressionGroupID.Hell].AddItems(
+					new SortedSet<string>() {
+						"StarsAbove/EssenceOfDespair"
+					});//190
 				progressionGroups[ProgressionGroupID.PostBeeEasy].AddItems(
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfBitterfrost",
@@ -3065,7 +3069,8 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.TrojanSquirrel, 70));
 				AddProgressionGroup(new(ProgressionGroupID.FargosUnobtainableItems, 200,
 					itemNames: new SortedSet<string>() {
-						"FargowiltasSouls/SpiritLongbow"
+						"FargowiltasSouls/SpiritLongbow",
+						"FargowiltasSouls/PrismaRegalia"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.DeviBoss, 395));
 				AddProgressionGroup(new(ProgressionGroupID.LieFlight, 650));
@@ -3369,6 +3374,7 @@ namespace WeaponEnchantments.Common
 
 		#region Supporting Functions
 		private static int recursionCounter = 0;
+		private static SortedSet<int> createItemTypesAlreadyBeingProcessed = new();
 		private static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<HashSet<int>> ingredients) {
 			//if (Debugger.IsAttached) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().S()})".LogSimple();
 			bool first = recursionCounter == 0;
@@ -3379,7 +3385,8 @@ namespace WeaponEnchantments.Common
 			}
 
 			HashSet<HashSet<int>> resultIngredients = new();
-			if (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
+			if (!createItemTypesAlreadyBeingProcessed.Contains(createItemType) && (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType))) {
+				createItemTypesAlreadyBeingProcessed.Add(createItemType);
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
 				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
@@ -3421,6 +3428,7 @@ namespace WeaponEnchantments.Common
 					requiredItemTypeLists.Add(requiredItemTypes);
 				}
 
+				createItemTypesAlreadyBeingProcessed.Remove(createItemType);
 				resultIngredients = resultIngredients.CombineIngredientLists(requiredItemTypeLists);
 				if (!finishedRecipeSetup)
 					allExpandedRecepies.Add(createItemType, resultIngredients);
@@ -3430,7 +3438,7 @@ namespace WeaponEnchantments.Common
 				ingredients = resultIngredients;
 			}
 			else {
-				ingredients = allExpandedRecepies[createItemType];
+				ingredients = allExpandedRecepies.TryGetValue(createItemType, out HashSet<HashSet<int>> value) ? value : new();
 			}
 
 			//if (Debugger.IsAttached) $"/\\{createItemType.CSI().S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}".LogSimple();
