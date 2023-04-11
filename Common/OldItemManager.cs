@@ -35,7 +35,8 @@ namespace WeaponEnchantments.Common
             { "Speed", "AttackSpeed" },
             { "Control", "MobilityControl" },
             { "MoveSpeed", "MovementSpeed" },
-	        { "PhaseJump", "SolarDash" }
+	        { "PhaseJump", "SolarDash" },
+            { "ArmorPenetration", "PercentArmorPenetraion" }
         };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> {
             { "SuperRare", 3 },
@@ -179,14 +180,14 @@ namespace WeaponEnchantments.Common
 
                 //Transfer and delete EnchantedItem data
                 if (versionUpdate < 1) {
-                    FieldInfo fieldInfo = typeof(Item).GetField("globalItems", BindingFlags.NonPublic | BindingFlags.Instance);
+                    FieldInfo fieldInfo = typeof(Item).GetField("_globals", BindingFlags.NonPublic | BindingFlags.Instance);
                     FieldInfo dataFieldInfo = typeof(UnloadedGlobalItem).GetField("data", BindingFlags.NonPublic | BindingFlags.Instance);
                     string modName = "WeaponEnchantments";
                     string className = "EnchantedItem";
 
-                    if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] globalItems && globalItems.Length != 0) {
+                    if (fieldInfo.GetValue(item) is GlobalItem[] globalItems && globalItems.Length != 0) {
                         if (item.TryGetEnchantedItemSearchAll(out EnchantedItem foundEnchantedItem)) {
-                            foreach (GlobalItem g in globalItems.Select(i => i.Instance).Where(i => i is UnloadedGlobalItem)) {
+                            foreach (GlobalItem g in globalItems.Where(i => i is UnloadedGlobalItem)) {
                                 if (dataFieldInfo.GetValue(g) is IList<TagCompound> tagList) {
                                     foreach (TagCompound tagCompound in tagList) {
                                         string mod = tagCompound.Get<string>("mod");
@@ -203,11 +204,11 @@ namespace WeaponEnchantments.Common
                             }
                         }
 
-                        if (fieldInfo.GetValue(item) is Instanced<GlobalItem>[] newGlobalItemsArray) {
-                            List<Instanced<GlobalItem>> newGlobalItems = newGlobalItemsArray.ToList();
+                        if (fieldInfo.GetValue(item) is GlobalItem[] newGlobalItemsArray) {
+                            List<GlobalItem> newGlobalItems = newGlobalItemsArray.ToList();
                             int count = newGlobalItems.Count;
                             for (int i = newGlobalItems.Count - 1; i >= 0; i--) {
-                                if (newGlobalItems[i].Instance is UnloadedGlobalItem unloadedGlobalItem) {
+                                if (newGlobalItems[i] is UnloadedGlobalItem unloadedGlobalItem) {
                                     if (dataFieldInfo.GetValue(unloadedGlobalItem) is IList<TagCompound> unloadedTagList) {
                                         foreach (TagCompound tagCompound in unloadedTagList) {
                                             //$"item: {item.S()}, tagCompound: {tagCompound}".Log();

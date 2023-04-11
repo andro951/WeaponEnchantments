@@ -718,7 +718,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public static void StrikeNPC(NPC npc, int damage, bool crit) {
             if (npc.active && npc.RealLife() > 0)
-                npc.StrikeNPC(damage, 0, 0, crit, false, true);
+                npc.SimpleStrikeNPC(damage, 0, crit: crit);
         }
         public override void OnSpawn(NPC npc, IEntitySource source) {
             if (!war || npc.friendly || npc.townNPC || npc.boss)

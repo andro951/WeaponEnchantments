@@ -1321,8 +1321,6 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            int damage = hit.Damage;
-            bool crit = hit.Crit;
 			//dummy goto debug
 			if (target.IsDummy())
                 goto debugBeforeReturn;
@@ -1359,24 +1357,8 @@ namespace WeaponEnchantments.Common.Globals
             //Experience Multiplier
             float experienceMultiplier = (1f + npcCharacteristicsFactor) * configMultiplier * balanceMultiplier;
 
-            //Armor Penetration
-            float armorPenetration = 0;
-            if (item != null) {
-                armorPenetration = target.checkArmorPenetration(player.GetWeaponArmorPenetration(item));
-            }
-
-            //Actual Defense
-            float actualDefense = target.defense / 2f - armorPenetration;
-            float actualDamage = damage;
-            if (!melee) {
-                actualDamage -= actualDefense;
-
-                if (crit)
-                    actualDamage *= 2f;
-            }
-
             //life vs damage check
-            int xpDamage = (int)actualDamage;
+            int xpDamage = hit.Damage;
             int life = target.RealLife();
             if (life < 0)
                 xpDamage += life;
@@ -1387,28 +1369,23 @@ namespace WeaponEnchantments.Common.Globals
 
             //Low damage per hit xp boost
             float lowDamagePerHitXPBoost;
-            if (item != null && target.defense > 0) {
-                //Remove 2x from crit
-                float effectiveDamagePerHit = actualDamage;
-                if (crit)
-                    effectiveDamagePerHit /= 2f;
-
-                //Apply affective crit multiplier
-                float critMultiplier = 1f + (player.GetWeaponCrit(item) % 100) / 100f;
-                effectiveDamagePerHit *= critMultiplier;
-
-                float effectiveBaseDamagePerHit = effectiveDamagePerHit + actualDefense;
-
-                lowDamagePerHitXPBoost = effectiveBaseDamagePerHit / effectiveDamagePerHit;
+            int damageBeforeCirt = hit.Damage / (hit.Crit ? 2 : 1);
+            if (item != null && damageBeforeCirt < hit.SourceDamage) {
+				lowDamagePerHitXPBoost = (float)hit.SourceDamage / (float)damageBeforeCirt;
+                if (hit.Crit) {
+					//Apply affective crit multiplier
+					float critMultiplier = 1f + (player.GetWeaponCrit(item) % 100) / 100f;
+					lowDamagePerHitXPBoost *= critMultiplier;
+				}
             }
             else {
                 lowDamagePerHitXPBoost = 1f;
             }
 
             if(lowDamagePerHitXPBoost < 1f) {
-                ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
+                ($"Prevented an issue that would cause your xp do be reduced.  (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode},\n" +
-					$"target.defense: {target.defense}, armorPenetration: {armorPenetration} xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, actualDefense: {actualDefense}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
+					$"target.defense: {target.defense}, xpDamage: {xpDamage}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}").LogNT(ChatMessagesIDs.LowDamagePerHitXPBoost);
                 lowDamagePerHitXPBoost = 1f;
 			}
 
@@ -1426,9 +1403,9 @@ namespace WeaponEnchantments.Common.Globals
                 xpInt = 1;
             }
             else if (xpInt < 0) {
-                ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, damage: {damage}, crit: {crit.S()}, " +
+                ($"Prevented an issue that would cause you to loose experience. (xpInt < 0) item: {item.S()}, target: {target.S()}, hit: {hit}, " +
                     $"melee: {melee.S()}, Main.GameMode: {Main.GameMode}, xpDamage: {xpDamage}, xpInt: {xpInt}, lowDamagePerHitXPBoost: {lowDamagePerHitXPBoost}, " +
-                    $"actualDefense: {actualDefense}, actualDamage: {actualDamage}").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
+                    $"").LogNT(ChatMessagesIDs.DamageNPCPreventLoosingXP2);
                 xpInt = 1;
             }
 
@@ -1458,7 +1435,7 @@ namespace WeaponEnchantments.Common.Globals
 				}
 				else {
                     int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
+                    if (loader.ModdedIsItemSlotUnlockedAndUsable(num, player)) {
                         armor = loader.Get(num).FunctionalItem;
                     }
 					else {

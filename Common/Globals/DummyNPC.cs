@@ -36,8 +36,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (NotCheckingDPS)
 				return;
 
-			int actualDamage = (int)Main.CalculateDamageNPCsTake((int)damage, npc.defense);
-			OnHitNPCWithAny(npc, item, actualDamage);
+			OnHitNPCWithAny(npc, item, hit);
 		}
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone) {
 			if (NotCheckingDPS)
@@ -45,12 +44,11 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (projectile.TryGetGlobalProjectile(out WEProjectile weProj) && weProj?.sourceItem != null) {
 				Item item = weProj?.sourceItem;
-				int actualDamage = (int)Main.CalculateDamageNPCsTake(damage, npc.defense) * (crit ? 2 : 1);
-				OnHitNPCWithAny(npc, item, actualDamage, projectile);
+				OnHitNPCWithAny(npc, item, hit, projectile);
 			}
 		}
-		private void OnHitNPCWithAny(NPC npc, Item item, int damage, Projectile projectile = null) {
-			totalItemDamages.AddOrCombineAddCheckOverflow(item.Name, (long)damage);
+		private void OnHitNPCWithAny(NPC npc, Item item, NPC.HitInfo hit, Projectile projectile = null) {
+			totalItemDamages.AddOrCombineAddCheckOverflow(item.Name, (long)hit.Damage);
 		}
 		public override void UpdateLifeRegen(NPC npc, ref int damage) {
 			if (NotCheckingDPS)

@@ -116,10 +116,8 @@ namespace WeaponEnchantments.Common
             for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
                 Item item = ContentSamples.ItemsByType[itemType];
                 if (item != null) {
-                    switch (item.netID) {
-                        case ItemID.Count://Skip April Fools Joke
-                            continue;
-                    }
+                    if (item.netID == ItemID.Count)//Skip April Fools Joke
+						continue;
 
                     string modName = item.ModItem != null ? item.ModItem.Mod.Name : "Terraria";
                     bool weaponList = mode == GetItemDictModeID.Weapon && EnchantedItemStaticMethods.IsWeaponItem(item);
