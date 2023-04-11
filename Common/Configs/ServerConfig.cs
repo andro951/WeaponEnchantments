@@ -226,11 +226,6 @@ namespace WeaponEnchantments.Common.Configs
 
 		//General Game Changes
 		[Header("$Mods.WeaponEnchantments.Config.GeneralGameChanges")]
-		[Label("$Mods.WeaponEnchantments.Config.ArmorPenetration.Label")]
-		[Tooltip("$Mods.WeaponEnchantments.Config.ArmorPenetration.Tooltip")]
-		[DefaultValue(true)]
-		public bool ArmorPenetration;
-
 		[Label("$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label")]
 		[Tooltip("$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip")]
 		[DefaultValue(false)]

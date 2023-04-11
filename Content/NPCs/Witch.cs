@@ -198,14 +198,14 @@ namespace WeaponEnchantments.Content.NPCs
 			AddItemsToShop(otherItems, ref items);
 
 			//Any Time
-			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
+			AddEnchantmentsToShop(enchanmtnets, ref items, SellCondition.AnyTime, 4);
 
-			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), SellCondition.IgnoreCondition, 2);
+			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), ref items, SellCondition.IgnoreCondition, 2);
 
 			if (Main.rand.Next(100) == 0)
-				AddEnchantmentsToShop(enchanmtnets, SellCondition.Luck, 1);
+				AddEnchantmentsToShop(enchanmtnets, ref items, SellCondition.Luck, 1);
 		}
-		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
+		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, ref Item[] items, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			List<int> list;
 			List<ISoldByWitch> filteredList;
 			if (condition == SellCondition.IgnoreCondition) {
@@ -223,14 +223,19 @@ namespace WeaponEnchantments.Content.NPCs
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
-				if (shopEnchantments.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
-					i--;
-					list.Remove(type);
-					continue;
+				for (int j = 0; j < firstNullOrAirItemIndex; j++) {
+					if (type == items[j].type) {
+						$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+						i--;
+						list.Remove(type);
+						continue;
+					}
 				}
 
-				shopEnchantments.Add(type, sellPriceModifier);
+				Item item = new(type);
+				item.value = (int)Math.Round(item.value * sellPriceModifier);
+				items[firstNullOrAirItemIndex] = item;
+				firstNullOrAirItemIndex++;
 				list.Remove(type);
 			}
 		}

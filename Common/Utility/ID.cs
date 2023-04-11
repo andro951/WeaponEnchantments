@@ -43,7 +43,7 @@ namespace WeaponEnchantments.Common.Utility
         AllForOne,
         AmmoCost,
         AttackSpeed,
-        ArmorPenetration,
+        PercentArmorPenetration,
         AutoReuse,
 		BonusManaRegen,
 		BuffDuration,
@@ -103,7 +103,7 @@ namespace WeaponEnchantments.Common.Utility
     {
         public static List<EnchantmentStat> WeaponStatDict = new List<EnchantmentStat>() {
             EnchantmentStat.AttackSpeed,
-            EnchantmentStat.ArmorPenetration,
+            EnchantmentStat.PercentArmorPenetration,
             EnchantmentStat.AutoReuse,
             EnchantmentStat.CriticalStrikeChance,
             EnchantmentStat.Damage,

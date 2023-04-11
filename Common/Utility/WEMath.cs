@@ -158,6 +158,14 @@ namespace WeaponEnchantments.Common.Utility
 		}
 
 		/// <summary>
+		/// Multiplies n1 by n2 and caps n1 at int.MaxValue.
+		/// </summary>
+		public static int MultiplyCheckOverflow(int n1, float n2) {
+			n1.MultiplyCheckOverflow(n2);
+			return n1;
+		}
+
+		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
 		public static float AddCheckOverflow(float n1, float n2) {

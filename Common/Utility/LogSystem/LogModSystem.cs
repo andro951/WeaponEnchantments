@@ -94,7 +94,7 @@ namespace WeaponEnchantments.Common.Utility
             //Contributors  change to give exact file location when added to contributor.
             PrintContributorsList();
 
-            PrintAllLocalization();
+            //PrintAllLocalization();
 
             Wiki.PrintWiki();
 
@@ -251,6 +251,7 @@ namespace WeaponEnchantments.Common.Utility
             if (sharedName != null)
                 namesAddedToContributorDictionary.Add(sharedName);
         }
+        /*
         private static void PrintAllLocalization() {
             if (!printLocalization && !printLocalizationKeysAndValues)
                 return;
@@ -607,6 +608,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return newString;
 		}
+        */
         private static void PrintListOfEnchantmentTooltips() {
 		if (!printListOfEnchantmentTooltips)
 			return;

@@ -11,7 +11,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override int StrengthGroup => 4;
 		public override void GetMyStats() {
 			Effects = new() {
-				new ArmorPenetration(@base: EnchantmentStrengthData),
+				new PercentArmorPenetration(@base: EnchantmentStrengthData),
 			};
 
 			AllowedList = new Dictionary<EItemType, float>() {

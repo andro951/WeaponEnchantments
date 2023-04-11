@@ -620,7 +620,7 @@ namespace WeaponEnchantments
                 }
                 else {
                     int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, Player) && !loader.Get(num).FunctionalItem.vanity) {
+                    if (loader.ModdedIsItemSlotUnlockedAndUsable(num, Player) && !loader.Get(num).FunctionalItem.vanity) {
                         currentEquipArmor[j] = loader.Get(num).FunctionalItem;
                     }
                     else {
@@ -884,51 +884,43 @@ namespace WeaponEnchantments
         //
         //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
         //}
-        public void ModifyHitNPCWithAny(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection, Projectile projectile = null) {
+        public void ModifyHitNPCWithAny(Item item, NPC target, ref NPC.HitModifiers modifiers, Projectile projectile = null) {
             //Called from WEMod detours
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"\\/HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
 
             #endregion
 
             LastPlayerEquipment.CombineOnHitDictionaries(item);
 
-            ApplyWarDamageRediction(projectile, target, ref damage, out bool multiShotConvertedToDamage);
+            ApplyWarDamageRediction(projectile, target, ref modifiers, out bool multiShotConvertedToDamage);
 
-            ApplyMinionDamageModifications(item, ref damage, projectile);
+            ApplyMinionDamageModifications(item, ref modifiers, projectile);
 
-            int armorPenetration = Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
+            if (GetPlayerModifierStrength(EnchantmentStat.PercentArmorPenetration, out float percentArmorPenetration))
+                modifiers.ScalingArmorPenetration += percentArmorPenetration;
 
-            //Prevent damage from being less than 1
-            if (damageReduction >= damage)
-                damageReduction = damage - 1;
+            if (GetPlayerModifierStrength(EnchantmentStat.DamageAfterDefenses, out float damageMultiplier, 1f))
+                modifiers.FinalDamage *= damageMultiplier;
 
-            damage -= damageReduction;
+            if (multiShotConvertedToDamage && GetPlayerModifierStrength(EnchantmentStat.Multishot, out float multishotDamageMultiplier, 1f))
+				modifiers.FinalDamage *= multishotDamageMultiplier;
 
-            ApplyExcessArmorPenetrationBonusDamage(target, item, ref damage, armorPenetration);
+            //modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
+			//	CalculateCriticalChance(item, ref hitInfo);
+			//};
 
-            GetPlayerModifierStrength(EnchantmentStat.DamageAfterDefenses, out float damageMultiplier, 1f);
-
-            if (multiShotConvertedToDamage)
-                GetPlayerModifierStrength(EnchantmentStat.Multishot, out damageMultiplier, damageMultiplier);
-
-            damage = (int)Math.Round((float)damage * damageMultiplier);
-
-            CalculateCriticalChance(item, ref damage, ref crit);
-
-            damage += damageReduction;
-
-            ApplyModifyHitEnchants(item, target, ref damage, ref knockback, ref crit, hitDirection, projectile);
+            ApplyModifyHitEnchants(item, target, ref modifiers, projectile);
 
             #region Debug
 
             debugBeforeReturn:
-            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, damage: {damage}, knockback: {knockback}, crit: {crit}, hitDirection: {hitDirection}, projectile: {projectile.S()})").Log();
+            if (LogMethods.debugging) ($"/\\HitNPC(target: {target.ModFullName()}, Player: {Player.S()}, item: {item.S()}, modifiers: {modifiers}, projectile: {projectile.S()})").Log();
 
             #endregion
         }
-        private void ApplyWarDamageRediction(Projectile projectile, NPC target, ref int damage, out bool multiShotConvertedToDamage) {
+        private void ApplyWarDamageRediction(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers, out bool multiShotConvertedToDamage) {
             multiShotConvertedToDamage = false;
 
             //Minion damage reduction from war enchantment
@@ -937,13 +929,13 @@ namespace WeaponEnchantments
                 WEProjectile wEProjectile = (WEProjectile)projectile.GetMyGlobalProjectile();
                 bool minionOrMinionChild = projectile.minion || projectile.type == ProjectileID.StardustGuardian || wEProjectile.parent != null && projectile.GetMyGlobalProjectile().parent.minion;
                 if (weGlobalNPC.myWarReduction > 1f && projectile != null && target.whoAmI != Player.MinionAttackTargetNPC && minionOrMinionChild) {
-                    damage = (int)Math.Round(damage / weGlobalNPC.myWarReduction);
+                    modifiers.FinalDamage /= weGlobalNPC.myWarReduction;
                 }
 
                 multiShotConvertedToDamage = wEProjectile.multiShotConvertedToDamage;
             }
         }
-        private void ApplyMinionDamageModifications(Item item, ref int damage, Projectile projectile) {
+        private void ApplyMinionDamageModifications(Item item, ref NPC.HitModifiers modifiers, Projectile projectile) {
             //Stardust dragon scale damage multiplier correction//Stardust Dragon
             if (projectile != null) {
                 //Some weapons aren't affected by changing their damage stat.
@@ -958,7 +950,7 @@ namespace WeaponEnchantments
 
 				//Minion, item damage doesn't apply to minions
 				if (item.TryGetEnchantedItem(out EnchantedWeapon enchantedWeapon) && (projectile.minion || projectile.DamageType == DamageClass.Summon || notAffectedByDamageStat))
-                    damage = (int)Math.Round((float)damage * enchantedWeapon.infusionDamageMultiplier);
+                    modifiers.SourceDamage *= enchantedWeapon.infusionDamageMultiplier;
 
                 if (ProjectileID.Sets.StardustDragon[projectile.type]) {
                     float enchantmentScaleMultiplier = GetVanillaModifierStrength(EnchantmentStat.Size);
@@ -970,30 +962,15 @@ namespace WeaponEnchantments
                         float correctedMultiplier = 1f + Utils.Clamp((scaleBeforeEnchantments - 1f) * 100f, 0f, 50f) * 0.23f;
                         float vanillaMultiplier = 1f + (Utils.Clamp((projectile.scale - 1f) * 100f, 0f, 50f)) * 0.23f;
                         float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
-                        damage = (int)Math.Round((float)damage * combinedMultiplier);
+                        modifiers.SourceDamage *= combinedMultiplier;
                     }
                 }
             }
         }
-        private void ApplyExcessArmorPenetrationBonusDamage(NPC target, Item item, ref int damage, int armorPenetration) {
-            //Armor penetration bonus damage
-            int defenseNoNegative = target.defense > 0 ? target.defense : 0;
-            if (WEMod.serverConfig.ArmorPenetration && armorPenetration > defenseNoNegative) {
-                int armorPenetrationBonusDamage = (int)Math.Round((float)(armorPenetration - defenseNoNegative) / 2f);
-                if (armorPenetrationBonusDamage > 50) {
-                    int maxArmorPenetration = 50 + (int)item.ApplyStatModifier("ArmorPenetration", 0f) / 2;
-                    if (armorPenetrationBonusDamage > maxArmorPenetration)
-                        armorPenetrationBonusDamage = maxArmorPenetration;
-                }
-
-                damage += armorPenetrationBonusDamage;
-            }
-        }
-        private void CalculateCriticalChance(Item item, ref int damage, ref bool crit) {
+        private void CalculateCriticalChance(Item item, ref NPC.HitInfo hit) {
             //Critical strike
             if ((item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid) || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = Player.GetWeaponCrit(item) + (crit ? 100 : 0);
-                crit = false;
+                int critChance = Player.GetWeaponCrit(item) + (hit.Crit ? 100 : 0);
                 int critLevel = critChance / 100;
                 critChance %= 100;
                 if (Main.rand.Next(0, 100) < critChance)
@@ -1001,7 +978,7 @@ namespace WeaponEnchantments
 
                 if (critLevel > 0) {
                     CheckEnchantmentStats(EnchantmentStat.CriticalStrikeDamage, out float critDamageMultiplier, 1f);
-                    crit = true;
+                    hit.Crit = true;
                     critLevel--;
 
                     if (AllowCriticalChancePast100 && critLevel > 0) {
@@ -1018,7 +995,7 @@ namespace WeaponEnchantments
                     }
 
                     if (critDamageMultiplier != 1f)
-                        damage.MultiplyCheckOverflow(critDamageMultiplier);
+                        hit.Damage = WEMath.MultiplyCheckOverflow(hit.Damage, critDamageMultiplier);
                 }//MultipleCritlevels
             }
         }
@@ -1053,7 +1030,10 @@ namespace WeaponEnchantments
 			if (GlobalBossBags.printNPCNameOnHitForBossBagSupport)
                 $"NPC hit by item: {item.Name}, target.Name: {target.ModFullName()}, target.ModNPC?.Name: {target.ModNPC?.Name}, target.boss: {target.boss}, target.netID: {target.netID}".LogSimple();
 
-            Player.GetArmorPenetrationAndDamageReduction(item, target, out int damageReduction);
+            int damageReduction = target.defense / 2;
+            if (damageReduction < 0)
+                damageReduction = 0;
+
             bool fromProjectile = projectile != null;
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
             bool dummyTarget = target.IsDummy();
@@ -1227,7 +1207,12 @@ namespace WeaponEnchantments
 
                 if (allForOneDamageInt > 0) {
                     //Hit target
-                    total += (int)ofaTarget.StrikeNPC(allForOneDamageInt, knockback * allForOneDamage / damage, Player.direction, crit);
+                    NPC.HitInfo hitInfo = new();
+                    hitInfo.Damage = allForOneDamageInt;
+                    hitInfo.Knockback = knockback * allForOneDamage / damage;
+                    hitInfo.HitDirection = Player.direction;
+                    hitInfo.Crit = crit;
+					total += (int)ofaTarget.StrikeNPC(hitInfo);
                     oneForAllNPCDictionary.Add(ofaTarget, (allForOneDamageInt, crit));
                 }
 
@@ -1612,9 +1597,6 @@ namespace WeaponEnchantments
             EnchantmentStat es = sm.StatType;
             DamageClass dc = DamageClass.Generic;
             switch (es) {
-                case EnchantmentStat.ArmorPenetration:
-                    Player.GetArmorPenetration(dc) = sm.ApplyTo(Player.GetArmorPenetration(dc));
-                    break;
                 case EnchantmentStat.AttackSpeed:
 					Player.GetAttackSpeed(dc) = sm.ApplyTo(Player.GetAttackSpeed(dc));//Not used
 					break;
@@ -1628,7 +1610,7 @@ namespace WeaponEnchantments
                     Player.GetDamage(dc) = sm.CombineWith(Player.GetDamage(dc));
                     break;
                 case EnchantmentStat.Defense:
-                    Player.statDefense = (int)sm.ApplyTo(Player.statDefense);
+                    Player.statDefense += (int)sm.ApplyTo(Player.statDefense.AdditiveBonus.Value);
                     break;
                 case EnchantmentStat.FishingPower:
                     Player.fishingSkill = (int)sm.ApplyTo(Player.fishingSkill);
@@ -1703,11 +1685,11 @@ namespace WeaponEnchantments
                     break;
             }
         }
-        public void ApplyModifyHitEnchants(Item item, NPC target, ref int damage, ref float knockback, ref bool crit, int hitDirection = 0, Projectile proj = null) {
+        public void ApplyModifyHitEnchants(Item item, NPC target, ref NPC.HitModifiers modifiers, Projectile proj = null) {
             // Not using hitDirection yet.
 
             foreach (IModifyHitEffect effect in EnchantmentEffects.OfType<IModifyHitEffect>()) {
-                effect.OnModifyHit(target, this, item, ref damage, ref knockback, ref crit, hitDirection, proj);
+                effect.OnModifyHit(target, this, item, ref modifiers, proj);
             }
         }
         public void ApplyOnHitEnchants(Item item, NPC target, int damage, float knockback, bool crit, Projectile proj = null) {
@@ -2597,18 +2579,5 @@ namespace WeaponEnchantments
                 }
             }
         }
-        public static int GetArmorPenetrationAndDamageReduction(this Player player, Item item, NPC target, out int damageReduction) {
-            int armorPenetration;
-            if (item != null) {
-                armorPenetration = player.GetWeaponArmorPenetration(item);
-            }
-			else {
-                armorPenetration = (int)player.GetTotalArmorPenetration(DamageClass.Generic);
-			}
-
-            damageReduction = target.defense / 2 - target.checkArmorPenetration(armorPenetration);
-
-            return armorPenetration;
-        }
-    }
+	}
 }

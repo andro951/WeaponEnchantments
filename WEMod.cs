@@ -55,6 +55,7 @@ namespace WeaponEnchantments
 			hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
 			hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
 			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
+			//hooks.Add(new(ModLoaderToHitInfoMethodInfo, ToHitInfoDetour));
 			//hooks.Add(new(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour));
 			foreach (Hook hook in hooks) {
 				hook.Apply();
@@ -135,26 +136,38 @@ namespace WeaponEnchantments
 			orig(player, head, body, legs);
 		}
 
-		private delegate void orig_ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit);
-		private delegate void hook_ModifyHitNPC(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit);
-		private static readonly MethodInfo ModLoaderModifyHitNPCMethodInfo = typeof(Terraria.ModLoader.ItemLoader).GetMethod("ModifyHitNPC");
-		private void ModifyHitNPCDetour(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref int damage, ref float knockback, ref bool crit) {
-			player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref player.direction);
-			orig(item, player, target, ref damage, ref knockback, ref crit);
+		/*
+		private delegate NPC.HitInfo orig_ToHitInfo(float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f);
+		private delegate NPC.HitInfo hook_ToHitInfo(orig_ToHitInfo orig, float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f);
+		private static readonly MethodInfo ModLoaderToHitInfoMethodInfo = typeof(Terraria.NPC.HitModifiers).GetMethod("ToHitInfo");
+		private void ToHitInfoDetour(this NPC.HitModifiers hitModifiers, orig_ToHitInfo orig, float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f) {
+			bool critOverride = (bool)typeof(NPC.HitModifiers).GetProperty("_critOverride").GetValue(hitModifiers);
+			if (critOverride && crit) {
+				hitModifiers.CritDamage *= 1.5f;
+			}
 		}
-		private delegate void orig_ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection);
-		private delegate void hook_ModifyHitNPCWithProj(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection);
+		*/
+
+		private delegate void orig_ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers);
+		private delegate void hook_ModifyHitNPC(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref NPC.HitModifiers modifiers);
+		private static readonly MethodInfo ModLoaderModifyHitNPCMethodInfo = typeof(Terraria.ModLoader.ItemLoader).GetMethod("ModifyHitNPC");
+		private void ModifyHitNPCDetour(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref NPC.HitModifiers modifiers) {
+			player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref modifiers);
+			orig(item, player, target, ref modifiers);
+		}
+		private delegate void orig_ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers);
+		private delegate void hook_ModifyHitNPCWithProj(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref NPC.HitModifiers modifiers);
 		private static readonly MethodInfo ModLoaderModifyHitNPCWithProjMethodInfo = typeof(Terraria.ModLoader.ProjectileLoader).GetMethod("ModifyHitNPC");
-		private void ModifyHitNPCWithProjDetour(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+		private void ModifyHitNPCWithProjDetour(orig_ModifyHitNPCWithProj orig, Projectile proj, NPC target, ref NPC.HitModifiers modifiers) {
 			Player player = Main.player[proj.owner];
 			Item item = null;
 			if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
 				item = weProj.sourceItem;
 
 			if (item != null)
-				player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
+				player.GetWEPlayer().ModifyHitNPCWithAny(item, target, ref modifiers, proj);
 
-			orig(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
+			orig(proj, target, ref modifiers);
 		}
 
 		//private delegate void orig_CaughtFishStack(Item item);

@@ -12,34 +12,17 @@ using WeaponEnchantments.Common.Utility;
 
 namespace WeaponEnchantments.Effects
 {
-	public class ArmorPenetration : ClassedStatEffect, IPermenantStat
+	public class PercentArmorPenetration : ClassedStatEffect, INonVanillaStat
 	{
-		public ArmorPenetration(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
+		public PercentArmorPenetration(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null, DamageClass dc = null) : base(additive, multiplicative, flat, @base, dc) {
 
 		}
-		public ArmorPenetration(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
+		public PercentArmorPenetration(EStatModifier eStatModifier, DamageClass dc) : base(eStatModifier, dc) { }
 		public override EnchantmentEffect Clone() {
-			return new ArmorPenetration(EStatModifier.Clone(), damageClass);
+			return new PercentArmorPenetration(EStatModifier.Clone(), damageClass);
 		}
 
-
-		public override EnchantmentStat statName => EnchantmentStat.ArmorPenetration;
+		public override EnchantmentStat statName => EnchantmentStat.PercentArmorPenetration;
 		public override string TooltipValue => EStatModifier.SignTooltip;
-
-
-		public void Update(ref Item item, bool reset = false) {
-			if (reset) {
-				Reset(ref item);
-			}
-			else {
-				ApplyTo(ref item);
-			}
-		}
-		public void ApplyTo(ref Item item) {
-			item.ArmorPenetration += (int)EStatModifier.Strength;
-		}
-		public void Reset(ref Item item) {
-			item.ArmorPenetration -= (int)EStatModifier.Strength;
-		}
 	}
 }

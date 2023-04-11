@@ -441,11 +441,6 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Tooltip.ToString(), "When offering items, you receive essence equivalent to the experience on the item.\n" +
 													"Enabling this will cause weapons to be 100% efficient at Infusion power of 0 to 80% efficient at infusion power of 1100 (and above)." }
 							}) },
-							{ nameof(ServerConfig.ArmorPenetration), new(dict: new() {
-								{ L_ID3.Label.ToString(), "Convert excess armor penetration to bonus damage" },
-								{ L_ID3.Tooltip.ToString(), "Example: Enemy has 4 defense, Your weapon has 10 armor penetration.\n" +
-													"10 - 4 = 6 excess armor penetration (not doing anything)\nGain 3 bonus damage (6/2 = 3)" }
-							}) },
 							{ nameof(ServerConfig.DisableMinionCrits), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable Minion Critical hits" },
 								{ L_ID3.Tooltip.ToString(), "In vanilla, minions arent affected by weapon critical chance.\n" +
