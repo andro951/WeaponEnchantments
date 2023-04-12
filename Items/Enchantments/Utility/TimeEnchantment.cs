@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {
-	public abstract class TimeEnchantment : Enchantment
+	public abstract class TimeEnchantment : Enchantment, IRerollableEnchantment
 	{
 		public override string CustomTooltip => EnchantmentTypeName.Lang(L_ID1.Tooltip, L_ID2.EnchantmentCustomTooltips);
 		public override int StrengthGroup => 2;
@@ -27,17 +27,7 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 		}
 		public override void SetDefaults() {
 			base.SetDefaults();
-			List<List<EnchantmentEffect>> possibleEffects = new() {
-				new() { new DayTimeRate(multiplicative: EnchantmentStrengthData), new DayTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
-				new() { new DayTileUpdateRate(multiplicative: EnchantmentStrengthData), new DayTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
-				new() { new DayEventUpdateRate(multiplicative: EnchantmentStrengthData), new DayEventUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
-				new() { new NightTimeRate(multiplicative: EnchantmentStrengthData), new NightTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
-				new() { new NightTileUpdateRate(multiplicative: EnchantmentStrengthData), new NightTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
-				new() { new NightEventUpdateRate(multiplicative: EnchantmentStrengthData), new NightEventUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) }
-			};
-
-			int minEffects = Main.gameMenu ? possibleEffects.Count : 1;
-			Effects = RandomEffectHandler.GetRandomEffects(possibleEffects, chance: 0.5f, minEffects: minEffects);
+			Reroll();
 		}
 		public override void LoadData(TagCompound tag) {
 			base.LoadData(tag);
@@ -124,6 +114,20 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 					SetMyEffects(consumedEnchantmentStats, inverted);
 				}
 			}
+		}
+
+		public void Reroll() {
+			List<List<EnchantmentEffect>> possibleEffects = new() {
+				new() { new DayTimeRate(multiplicative: EnchantmentStrengthData), new DayTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
+				new() { new DayTileUpdateRate(multiplicative: EnchantmentStrengthData), new DayTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
+				new() { new DayEventUpdateRate(multiplicative: EnchantmentStrengthData), new DayEventUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
+				new() { new NightTimeRate(multiplicative: EnchantmentStrengthData), new NightTimeRate(multiplicative: EnchantmentStrengthData.Invert()) },
+				new() { new NightTileUpdateRate(multiplicative: EnchantmentStrengthData), new NightTileUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) },
+				new() { new NightEventUpdateRate(multiplicative: EnchantmentStrengthData), new NightEventUpdateRate(multiplicative: EnchantmentStrengthData.Invert()) }
+			};
+
+			int minEffects = Main.gameMenu ? possibleEffects.Count : 1;
+			Effects = RandomEffectHandler.GetRandomEffects(possibleEffects, chance: 0.5f, minEffects: minEffects);
 		}
 
 		public override string ShortTooltip => GetShortTooltip(percent: false, multiply100: false, multiplicative: true);
