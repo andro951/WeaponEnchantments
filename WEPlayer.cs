@@ -37,6 +37,7 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
+        public static int levelsPerLevelUp;
         internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
@@ -278,7 +279,8 @@ namespace WeaponEnchantments
             tag["infusionConsumeItem"] = infusionConsumeItem;
             tag["highestTableTierUsed"] = highestTableTierUsed;
             tag["versionUpdate"] = versionUpdate;
-        }
+            tag["levelsPerLevelUp"] = levelsPerLevelUp;
+		}
 		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
                 if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir) {
@@ -304,7 +306,9 @@ namespace WeaponEnchantments
 
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
             versionUpdate = tag.Get<byte>("versionUpdate");
-        }
+            if (!tag.TryGet<int>("levelsPerLevelUp", out levelsPerLevelUp))
+                levelsPerLevelUp = 1;
+		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
             if (!usingEnchantingTable)
                 return false;
