@@ -303,16 +303,16 @@ namespace WeaponEnchantments.UI
 
 				switch (i) {
 					case 0:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 1;
+						button[levelSetButtonIndex].OnLeftClick += (evt, element) => WEPlayer.levelsPerLevelUp = 1;
 						break;
 					case 1:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 5;
+						button[levelSetButtonIndex].OnLeftClick += (evt, element) => WEPlayer.levelsPerLevelUp = 5;
 						break;
 					case 2:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 10;
+						button[levelSetButtonIndex].OnLeftClick += (evt, element) => WEPlayer.levelsPerLevelUp = 10;
 						break;
 					case 3:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = EnchantedItem.MAX_Level;
+						button[levelSetButtonIndex].OnLeftClick += (evt, element) => WEPlayer.levelsPerLevelUp = EnchantedItem.MAX_Level;
 						break;
 				}
 
