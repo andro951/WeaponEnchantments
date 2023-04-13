@@ -12,6 +12,8 @@ using System;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 
 namespace WeaponEnchantments.UI
 {
@@ -29,7 +31,11 @@ namespace WeaponEnchantments.UI
             public const int LevelUp = 7;
             public const int Syphon = 8;
             public const int Infusion = 9;
-            public const int Count = 10;
+            public const int LevelSet1 = 10;
+            public const int LevelSet5 = 11;
+            public const int LevelSet10 = 12;
+            public const int LevelSetMax = 13;
+            public const int Count = 14;
         }
 
         public class ItemSlotContext
@@ -37,6 +43,13 @@ namespace WeaponEnchantments.UI
             public const int Item = 0;
             public const int Enchantment = 1;
             public const int Essence = 2;
+        }
+
+        public class LevelSetButton : UIPanel {
+            public int Level { get; private set; }
+            public LevelSetButton(int level) : base() {
+                Level = level;
+            }
         }
 
         //public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
@@ -55,6 +68,7 @@ namespace WeaponEnchantments.UI
         private readonly static Color hoverRed = new Color(184, 103, 100);
         private readonly static Color bgColor = new Color(73, 94, 171);
         private readonly static Color hoverColor = new Color(100, 118, 184);
+        private readonly static Color levelSetColor = new Color(73, 170, 118);
 
         internal const int width = 530;
         internal const int height = 155;
@@ -206,7 +220,8 @@ namespace WeaponEnchantments.UI
                 Append(wePlayer.enchantingTableUI.essenceSlotUI[i]);
 
                 //XP+ buttons
-                button[2 + i] = new UIPanel() {
+                int xpButtonIndex = 2 + i;
+                button[xpButtonIndex] = new UIPanel() {
                     Top = { Pixels = nextElementY + 96 },
                     Left = { Pixels = -66f + 47.52f * i + xOffset },
                     Width = { Pixels = 40f },
@@ -217,19 +232,19 @@ namespace WeaponEnchantments.UI
                 
                 switch (i) {
                     case 0:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(0);
+                        button[xpButtonIndex].OnClick += (evt, element) => ConvertEssenceToXP(0);
                         break;
                     case 1:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(1);
+                        button[xpButtonIndex].OnClick += (evt, element) => ConvertEssenceToXP(1);
                         break;
                     case 2:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(2);
+                        button[xpButtonIndex].OnClick += (evt, element) => ConvertEssenceToXP(2);
                         break;
                     case 3:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(3);
+                        button[xpButtonIndex].OnClick += (evt, element) => ConvertEssenceToXP(3);
                         break;
                     case 4:
-                        button[2 + i].OnClick += (evt, element) => ConvertEssenceToXP(4);
+                        button[xpButtonIndex].OnClick += (evt, element) => ConvertEssenceToXP(4);
                         break;
                 }
 
@@ -238,9 +253,9 @@ namespace WeaponEnchantments.UI
                     Left = { Pixels = 0f }
                 };
 
-                button[2 + i].Append(xpButonText);
-                Append(button[2 + i]);
-                panels.Add(button[2 + i]);
+                button[xpButtonIndex].Append(xpButonText);
+                Append(button[xpButtonIndex]);
+                panels.Add(button[xpButtonIndex]);
             }
 
             //Level Up button
@@ -262,6 +277,54 @@ namespace WeaponEnchantments.UI
             button[ButtonID.LevelUp].Append(levelButonText);
             Append(button[ButtonID.LevelUp]);
             panels.Add(button[ButtonID.LevelUp]);
+
+            //Level Set Buttons
+            List<(int, int, int, int, int)> levelSetButtons = new() {
+                //ButtonID, level, x, y, xWidth
+                (ButtonID.LevelSet1, 1, 0, 0, 1),
+				(ButtonID.LevelSet5, 5, 0, 1, 1),
+				(ButtonID.LevelSet10, 10, 1, 0, 2),
+				(ButtonID.LevelSetMax, EnchantedItem.MAX_Level, 1, 1, 2)
+			};
+
+            for(int i = 0; i < levelSetButtons.Count; i++) {
+				int levelSetButtonIndex = ButtonID.LevelSet1 + i;
+                (int id, int level, int x, int y, int width) levelSetButton = levelSetButtons[i];
+                //Asset<Texture2D> tinyButton = ModContent.Request<Texture2D>("WeaponEnchantments/UI/Sprites/TinyButton");
+				//Asset<Texture2D> tinyButtonOutline = ModContent.Request<Texture2D>("WeaponEnchantments/UI/Sprites/TinyButtonOutline");
+				button[levelSetButtonIndex] = new LevelSetButton(levelSetButton.level) {
+					Top = { Pixels = nextElementY + 96f + 14f * levelSetButton.y + 2f },
+					Left = { Pixels = -66f + 47.52f + xOffset + 267f + 20f * levelSetButton.x },
+					Width = { Pixels = 12f * levelSetButton.width },
+					Height = { Pixels = 12f },
+					HAlign = 0.5f,
+					BackgroundColor = bgColor
+				};
+
+				switch (i) {
+					case 0:
+						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 1;
+						break;
+					case 1:
+						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 5;
+						break;
+					case 2:
+						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 10;
+						break;
+					case 3:
+						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = EnchantedItem.MAX_Level;
+						break;
+				}
+
+				UIText levelSetButtonText = new UIText($"{levelSetButton.level}", 0.6f) {
+					Top = { Pixels = -11f },
+					Left = { Pixels = -9f + 5f * levelSetButton.x - levelSetButton.y * 2 }
+				};
+
+				button[levelSetButtonIndex].Append(levelSetButtonText);
+				Append(button[levelSetButtonIndex]);
+				panels.Add(button[levelSetButtonIndex]);
+			}
 
             //Syphon button
             button[ButtonID.Syphon] = new UIPanel() {
@@ -296,10 +359,12 @@ namespace WeaponEnchantments.UI
             button[ButtonID.Infusion].OnClick += (evt, element) => Infusion();
             string infusionText;
             if (wePlayer.infusionConsumeItem != null) {
-                if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir)
-                    infusionText = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
-                else
-                    infusionText = TableTextID.Finalize.ToString().Lang(L_ID1.TableText);
+                if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir) {
+					infusionText = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
+				}
+                else {
+					infusionText = TableTextID.Finalize.ToString().Lang(L_ID1.TableText);
+				}
             }
             else {
                 infusionText = TableTextID.Infusion.ToString().Lang(L_ID1.TableText);
@@ -407,7 +472,15 @@ namespace WeaponEnchantments.UI
 
             //Change button color if hovering
             foreach (var panel in panels) {
-                if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor) {
+				if (panel is LevelSetButton levelSetButton) {
+                    if (WEPlayer.levelsPerLevelUp == levelSetButton.Level) {
+						panel.BackgroundColor = levelSetColor;
+					}
+                    else {
+						panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
+					}
+				}
+                else if (panel.BackgroundColor == bgColor || panel.BackgroundColor == hoverColor) {
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverColor : bgColor;
                 }
                 else if (panel.BackgroundColor == red || panel.BackgroundColor == hoverRed) {
@@ -671,6 +744,7 @@ namespace WeaponEnchantments.UI
             WEModSystem.promptInterface.SetState(state);
         }
         private static void LevelUp() {
+            //WEPlayer.levelsPerLevelUp;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
             if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem))
@@ -692,14 +766,17 @@ namespace WeaponEnchantments.UI
             }
 
             //xpNeeded
-            int xpNeeded = WEModSystem.levelXps[enchantedItem.levelBeforeBooster] - enchantedItem.Experience;
+            int targetLevel = enchantedItem.levelBeforeBooster + WEPlayer.levelsPerLevelUp - 1;
+            targetLevel.Clamp(max: EnchantedItem.MAX_Level - 1);
+            int xpNeeded = WEModSystem.levelXps[targetLevel] - enchantedItem.Experience;
 		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
             if (xpAvailable < xpNeeded) {
-                Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (enchantedItem.levelBeforeBooster + 1).ToString() + " you only have " + xpAvailable + " available.");
+                Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevel + 1).ToString() + " you only have " + xpAvailable + " available.");
                 return;
             }
 
             //Consume xp and convert to essence
+            int totalXPToGain = 0;
             for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--) {
                 Item essenceItem = wePlayer.EssenceInTable(i);
                 bool allowUsingThisEssence = !essenceItem.favorited || !enoughWithoutFavorite;
@@ -732,10 +809,13 @@ namespace WeaponEnchantments.UI
                     int xpTransfered = xpPerEssence * numberEssenceTransfered;
                     xpNeeded -= xpTransfered;
                     essenceItem.stack -= numberEssenceTransfered;
-                    enchantedItem.GainXP(tableItem, xpTransfered);
+                    totalXPToGain += xpTransfered;
                 }
             }
-        }
+
+            if (totalXPToGain > 0)
+				enchantedItem.GainXP(tableItem, totalXPToGain);
+		}
 
         //TODO
         //Add max level up button.                
