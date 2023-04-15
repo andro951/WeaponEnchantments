@@ -63,7 +63,7 @@ namespace WeaponEnchantments
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
-			IL_Recipe.FindRecipes += HookFindRecipes;
+			//IL_Recipe.FindRecipes += HookFindRecipes;
 			IL_Recipe.Create += HookCreate;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
@@ -107,7 +107,7 @@ namespace WeaponEnchantments
 			if (!orig(item1, item2))
 				return false;
 
-			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+			if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return true;
 
 			if (magicStorageEnabled) {
@@ -277,6 +277,7 @@ namespace WeaponEnchantments
 				}
 			});
 		}
+		/*
 		private static void HookFindRecipes(ILContext il)
 		{
 			var c = new ILCursor(il);
@@ -377,5 +378,6 @@ namespace WeaponEnchantments
 				}
 			});
 		}
+		*/
 	}
 }

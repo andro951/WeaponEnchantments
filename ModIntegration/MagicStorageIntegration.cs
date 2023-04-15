@@ -67,7 +67,7 @@ namespace WeaponEnchantments.ModIntegration
                 Item hoverItem = Main.HoverItem;
                 if (Main.mouseRight) {
                     if (lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1)) {
-                        if (lastHoverItem.TryGetEnchantedItem(out EnchantedItem henchantedItem) && henchantedItem.Enchanted) {
+                        if (lastHoverItem.TryGetEnchantedItemSearchAll(out EnchantedItem henchantedItem) && henchantedItem.Enchanted) {
                             if (mouseItem.stack == 1) {
                                 Main.mouseItem = new Item(mouseItem.type);
 			                }

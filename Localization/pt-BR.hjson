@@ -2,331 +2,1630 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Encantamento Todos Por um Básico
-			AllForOneEnchantmentCommon.DisplayName: Encantamento Todos Por Um Comum
-			AllForOneEnchantmentEpic.DisplayName: Encantamento Todos Por um Épico
-			AllForOneEnchantmentLegendary.DisplayName: Encantamento Todos Por um Lendário
-			AllForOneEnchantmentRare.DisplayName: Encantamento Tudos Por Um Raro
-			AmmoCostEnchantmentBasic.DisplayName: Encantamento Custo de Munição Básico
-			AmmoCostEnchantmentCommon.DisplayName: Encantamento Custo de munição comum
-			AmmoCostEnchantmentEpic.DisplayName: Encantamento Custo de munição Épico
-			AmmoCostEnchantmentLegendary.DisplayName: Encantamento Custo de munição Lendário
-			AmmoCostEnchantmentRare.DisplayName: Encantamento Custo de munição raro
-			ArmorPenetrationEnchantmentBasic.DisplayName: Encantamento Penetração de Armadura Básico
-			ArmorPenetrationEnchantmentCommon.DisplayName: Encantamento Penetração de Armadura Comum
-			ArmorPenetrationEnchantmentEpic.DisplayName: Encantamento Penetração de Armadura Épico
-			ArmorPenetrationEnchantmentLegendary.DisplayName: Encantamento Penetração de Armadura Lendário
-			ArmorPenetrationEnchantmentRare.DisplayName: Encantamento Penetração de Armadura Raro
-			AttackSpeedEnchantmentBasic.DisplayName: Encantamento Velocidade de Ataque Básico
-			AttackSpeedEnchantmentCommon.DisplayName: Encantamento Velocidade de Ataque Comum
-			AttackSpeedEnchantmentEpic.DisplayName: Encantamento Velocidade de Ataque Épico
-			AttackSpeedEnchantmentLegendary.DisplayName: Encantamento Velocidade de Ataque Lendário
-			AttackSpeedEnchantmentRare.DisplayName: Encantamento Velocidade de Ataque Raro
-			BardClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe de Bardo
-			BardClassSwapEnchantmentCommon.DisplayName: Troca de Classe de Bardo Encantamento Comum
-			BardClassSwapEnchantmentEpic.DisplayName: Épico de Encantamento de Troca de Classe de Bardo
-			BardClassSwapEnchantmentLegendary.DisplayName: Bardo Troca de Classe Encantamento Lendário
-			BardClassSwapEnchantmentRare.DisplayName: Encantamento de Troca de Classe de Bardo Raro
-			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Encantamento Básico
-			BerserkersRageEnchantmentCommon.DisplayName: Encantamento Fúria Berserkers Comum
-			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Encantamento Épico
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Encantamento Lendário
-			BerserkersRageEnchantmentRare.DisplayName: Berserkers Rage Encantamento Raro
-			CalmWatersEnchantmentBasic.DisplayName: Encantamento Águas Calmas Básico
-			CalmWatersEnchantmentCommon.DisplayName: Encantamento Águas Calmas Comum
-			CalmWatersEnchantmentEpic.DisplayName: Encantamento Águas Calmas Épico
-			CalmWatersEnchantmentLegendary.DisplayName: Encantamento Águas Calmas Lendário
-			CalmWatersEnchantmentRare.DisplayName: Encantamento Águas Calmas Raro
-			ChaoticFishingEnchantmentBasic.DisplayName: Encantamento de Pesca Caótica Básico
-			ChaoticFishingEnchantmentCommon.DisplayName: Encantamento de Pesca Caótica Comum
-			ChaoticFishingEnchantmentEpic.DisplayName: Encantamento de Pesca Caótica Épico
-			ChaoticFishingEnchantmentLegendary.DisplayName: Encantamento de Pesca Caótica Lendário
-			ChaoticFishingEnchantmentRare.DisplayName: Encantamento de Pesca Caótica Raro
-			ColdSteelEnchantmentBasic.DisplayName: Encantamento Aço Frio Básico
-			ColdSteelEnchantmentCommon.DisplayName: Encantamento Aço Frio Comum
-			ColdSteelEnchantmentEpic.DisplayName: Encantamento Aço Frio Épico
-			ColdSteelEnchantmentLegendary.DisplayName: Encantamento Aço Frio Lendário
-			ColdSteelEnchantmentRare.DisplayName: Encantamento Aço Frio Raro
-			CrateChanceEnchantmentBasic.DisplayName: Encantamento Chance de Caixa Básico
-			CrateChanceEnchantmentCommon.DisplayName: Encantamento Chance de Caixa Comum
-			CrateChanceEnchantmentEpic.DisplayName: Encantamento Chance de Caixa Épico
-			CrateChanceEnchantmentLegendary.DisplayName: Encantamento Chance de Caixa Lendário
-			CrateChanceEnchantmentRare.DisplayName: Encantamento Chance de Caixa Raro
-			CrateEnchantmentBasic.DisplayName: Encantamento Caixote Básico
-			CrateEnchantmentCommon.DisplayName: Encantamento Caixote Básico Comum
-			CrateEnchantmentEpic.DisplayName: Encantamento Caixote Básico Épico
-			CrateEnchantmentLegendary.DisplayName: Encantamento Caixote Básico Lendário
-			CrateEnchantmentRare.DisplayName: Encantamento Caixote Básico Raro
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Encantamento Chance de Acerto Crítico Básico
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Encantamento Chance de Acerto Crítico Comum
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Encantamento Chance de Acerto Crítico Épico
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Encantamento Chance de Acerto Crítico Lendário
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Encantamento Chance de Acerto Crítico Raro
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Encantamento Dano de Acerto Crítico Básico
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Encantamento Dano de Acerto Crítico Comum
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Encantamento Dano de Acerto Crítico Épico
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Encantamento Dano de Acerto Crítico Lendário
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Encantamento Dano de Acerto Crítico Raro
-			CursedInfernoEnchantmentBasic.DisplayName: Encantamento Inferno Amaldiçoado Básico
-			CursedInfernoEnchantmentCommon.DisplayName: Encantamento Inferno Amaldiçoado Comum
-			CursedInfernoEnchantmentEpic.DisplayName: Encantamento Inferno Amaldiçoado Épico
-			CursedInfernoEnchantmentLegendary.DisplayName: Encantamento Inferno Amaldiçoado Lendário
-			CursedInfernoEnchantmentRare.DisplayName: Encantamento Inferno Amaldiçoado Raro
-			DamageEnchantmentBasic.DisplayName: Encantamento Dano Básico
-			DamageEnchantmentCommon.DisplayName: Encantamento Dano Comum
-			DamageEnchantmentEpic.DisplayName: Encantamento Dano Épico
-			DamageEnchantmentLegendary.DisplayName: Encantamento Dano Lendário
-			DamageEnchantmentRare.DisplayName: Encantamento Dano Raro
-			DamageReductionEnchantmentBasic.DisplayName: Encantamento Redução de Dano Básico
-			DamageReductionEnchantmentCommon.DisplayName: Encantamento Redução de Dano Comum
-			DamageReductionEnchantmentEpic.DisplayName: Encantamento Redução de Dano Épico
-			DamageReductionEnchantmentLegendary.DisplayName: Encantamento Redução de Dano Lendário
-			DamageReductionEnchantmentRare.DisplayName: Encantamento Redução de Dano Raro
-			DangerSenseEnchantmentBasic.DisplayName: Encantamento Senso de Perigo Básico
-			DangerSenseEnchantmentCommon.DisplayName: Encantamento Senso de Perigo Comum
-			DangerSenseEnchantmentEpic.DisplayName: Encantamento Senso de Perigo Épico
-			DangerSenseEnchantmentLegendary.DisplayName: Encantamento Senso de Perigo Lendário
-			DangerSenseEnchantmentRare.DisplayName: Encantamento Senso de Perigo Raro
-			DaybreakEnchantmentBasic.DisplayName: Encantamento Alvorada Básico
-			DaybreakEnchantmentCommon.DisplayName: Encantamento Alvorada Comum
-			DaybreakEnchantmentEpic.DisplayName: Encantamento Alvorada Épico
-			DaybreakEnchantmentLegendary.DisplayName: Encantamento Alvorada Lendário
-			DaybreakEnchantmentRare.DisplayName: Encantamento Alvorada Raro
-			DefenseEnchantmentBasic.DisplayName: Encantamento Defesa Básico
-			DefenseEnchantmentCommon.DisplayName: Encantamento Defesa Comum
-			DefenseEnchantmentEpic.DisplayName: Encantamento Defesa Épico
-			DefenseEnchantmentLegendary.DisplayName: Encantamento Defesa Lendário
-			DefenseEnchantmentRare.DisplayName: Encantamento Defesa Raro
-			ExtraFishingLineEnchantmentBasic.DisplayName: Encantamento Linha de Pesca Extra Básico
-			ExtraFishingLineEnchantmentCommon.DisplayName: Encantamento Linha de Pesca Extra Comum
-			ExtraFishingLineEnchantmentEpic.DisplayName: Encantamento Linha de Pesca Extra Épico
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Encantamento Linha de Pesca Extra Lendário
-			ExtraFishingLineEnchantmentRare.DisplayName: Encantamento Linha de Pesca Extra Raro
-			FishingEnchantmentBasic.DisplayName: Encantamento Pesca Básico
-			FishingEnchantmentCommon.DisplayName: Encantamento Pesca Comum
-			FishingEnchantmentEpic.DisplayName: Encantamento Pesca Épico
-			FishingEnchantmentLegendary.DisplayName: Encantamento Pesca Lendário
-			FishingEnchantmentRare.DisplayName: Encantamento Pesca Raro
-			FishingPowerEnchantmentBasic.DisplayName: Encantamento Poder de Pesca Básico
-			FishingPowerEnchantmentCommon.DisplayName: Encantamento Poder de Pesca Comum
-			FishingPowerEnchantmentEpic.DisplayName: Encantamento Poder de Pesca Épico
-			FishingPowerEnchantmentLegendary.DisplayName: Encantamento Poder de Pesca Lendário
-			FishingPowerEnchantmentRare.DisplayName: Encantamento Poder de Pesca Raro
-			FrostburnEnchantmentBasic.DisplayName: Encantamento Queimadura de Gelo Básico
-			FrostburnEnchantmentCommon.DisplayName: Encantamento Queimadura de Gelo Comum
-			FrostburnEnchantmentEpic.DisplayName: Encantamento Queimadura de Gelo Épico
-			FrostburnEnchantmentLegendary.DisplayName: Encantamento Queimadura de Gelo Lendário
-			FrostburnEnchantmentRare.DisplayName: Encantamento Queimadura de Gelo Raro
-			GodSlayerEnchantmentBasic.DisplayName: Encantamento Matador de Deuses Básico
-			GodSlayerEnchantmentCommon.DisplayName: Encantamento Matador de Deuses Comum
-			GodSlayerEnchantmentEpic.DisplayName: Encantamento Matador de Deuses Épico
-			GodSlayerEnchantmentLegendary.DisplayName: Encantamento Matador de Deuses Lendário
-			GodSlayerEnchantmentRare.DisplayName: Encantamento Matador de Deuses Raro
-			HealerClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe de Curandeiro
-			HealerClassSwapEnchantmentCommon.DisplayName: Curandeiro Troca de Classe Encantamento Comum
-			HealerClassSwapEnchantmentEpic.DisplayName: Épico de encantamento de troca de classe de curandeiro
-			HealerClassSwapEnchantmentLegendary.DisplayName: Curandeiro Troca de Classe Encantamento Lendário
-			HealerClassSwapEnchantmentRare.DisplayName: Curandeiro Troca de Classe Encantamento Raro
-			HellsWrathEnchantmentBasic.DisplayName: Encantamento Ira do Inferno Básico
-			HellsWrathEnchantmentCommon.DisplayName: Encantamento Ira do Inferno Comum
-			HellsWrathEnchantmentEpic.DisplayName: Encantamento Ira do Inferno Épico
-			HellsWrathEnchantmentLegendary.DisplayName: Encantamento Ira do Inferno Lendário
-			HellsWrathEnchantmentRare.DisplayName: Encantamento Ira do Inferno Raro
-			HunterEnchantmentBasic.DisplayName: Encantamento Caçador Básico
-			HunterEnchantmentCommon.DisplayName: Encantamento Caçador Comum
-			HunterEnchantmentEpic.DisplayName: Encantamento Caçador Épico
-			HunterEnchantmentLegendary.DisplayName: Encantamento Caçador Lendário
-			HunterEnchantmentRare.DisplayName: Encantamento Caçador Raro
-			IchorEnchantmentBasic.DisplayName: Encantamento de Icor Básico
-			IchorEnchantmentCommon.DisplayName: Encantamento de Icor Comum
-			IchorEnchantmentEpic.DisplayName: Encantamento de Icor Épico
-			IchorEnchantmentLegendary.DisplayName: Encantamento de Icor Lendário
-			IchorEnchantmentRare.DisplayName: Encantamento de Icor Raro
-			JuicedEnchantmentBasic.DisplayName: Encantamento Espremido Básico
-			JuicedEnchantmentCommon.DisplayName: Juiced Enchantment Basic Comum
-			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Basic Épico
-			JuicedEnchantmentLegendary.DisplayName: Juiced Enchantment Basic Lendário
-			JuicedEnchantmentRare.DisplayName: Juiced Enchantment Basic Raro
-			JunglesFuryEnchantmentBasic.DisplayName: Encantamento Fúria da Selva Básico
-			JunglesFuryEnchantmentCommon.DisplayName: Encantamento Fúria da Selva Comum
-			JunglesFuryEnchantmentEpic.DisplayName: Encantamento Fúria da Selva Épico
-			JunglesFuryEnchantmentLegendary.DisplayName: Encantamento Fúria da Selva Lendário
-			JunglesFuryEnchantmentRare.DisplayName: Encantamento Fúria da Selva Raro
-			KiClassSwapEnchantmentBasic.DisplayName: Básico de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentCommon.DisplayName: Comum de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentEpic.DisplayName: Épico de Encantamento de Troca de Classe Ki
-			KiClassSwapEnchantmentLegendary.DisplayName: Encantamento de Troca de Classe Ki Lendário
-			KiClassSwapEnchantmentRare.DisplayName: Encantamento de Troca de Classe Ki Raro
-			KiEnchantmentBasic.DisplayName: Encantamento de Ki Básico
-			KiEnchantmentCommon.DisplayName: Encantamento de Ki Comum
-			KiEnchantmentEpic.DisplayName: Ki encantamento épico
-			KiEnchantmentLegendary.DisplayName: Encantamento de Ki Lendário
-			KiEnchantmentRare.DisplayName: Encantamento de Ki Raro
-			LavaFishingEnchantmentBasic.DisplayName: Encantamento Pesca na Lava Básico
-			LavaFishingEnchantmentCommon.DisplayName: Encantamento Pesca na Lava Comum
-			LavaFishingEnchantmentEpic.DisplayName: Encantamento Pesca na Lava Épico
-			LavaFishingEnchantmentLegendary.DisplayName: Encantamento Pesca na Lava lendário
-			LavaFishingEnchantmentRare.DisplayName: Encantamento Pesca na Lava Raro
-			LifeRegenEnchantmentBasic.DisplayName: Básico de Encantamento de Regeneração de Vida
-			LifeRegenEnchantmentCommon.DisplayName: Encantamento de Regeneração de Vida Comum
-			LifeRegenEnchantmentEpic.DisplayName: Épico de Encantamento de Regeneração de Vida
-			LifeRegenEnchantmentLegendary.DisplayName: Regeneração de Vida Encantamento Lendário
-			LifeRegenEnchantmentRare.DisplayName: Encantamento de Regeneração de Vida Raro
-			LifeStealEnchantmentBasic.DisplayName: Encantamento Roubo de Vida Básico
-			LifeStealEnchantmentCommon.DisplayName: Encantamento Roubo de Vida Comum
-			LifeStealEnchantmentEpic.DisplayName: Encantamento Roubo de Vida Épico
-			LifeStealEnchantmentLegendary.DisplayName: Encantamento Roubo de Vida Lendário
-			LifeStealEnchantmentRare.DisplayName: Encantamento Roubo de Vida Raro
-			LuckEnchantmentBasic.DisplayName: Encantamento Sorte Básico
-			LuckEnchantmentCommon.DisplayName: Encantamento Sorte Comum
-			LuckEnchantmentEpic.DisplayName: Encantamento Sorte Épico
-			LuckEnchantmentLegendary.DisplayName: Encantamento Sorte Lendário
-			LuckEnchantmentRare.DisplayName: Encantamento Sorte Raro
-			MagicClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Mágica Básico
-			MagicClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Mágica Comum
-			MagicClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Mágica Épico
-			MagicClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Mágica Lendário
-			MagicClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Mágica Raro
-			MaxMinionsEnchantmentBasic.DisplayName: Encantamento Máximo de Minions Básico
-			MaxMinionsEnchantmentCommon.DisplayName: Encantamento Máximo de Minions Comum
-			MaxMinionsEnchantmentEpic.DisplayName: Encantamento Máximo de Minions Épico
-			MaxMinionsEnchantmentLegendary.DisplayName: Encantamento Máximo de Minions Lendário
-			MaxMinionsEnchantmentRare.DisplayName: Encantamento Máximo de Minions Raro
-			MeleeClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Corpo a Corpo Básico
-			MeleeClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Corpo a Corpo Comum
-			MeleeClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Corpo a Corpo Épico
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Corpo a Corpo Lendário
-			MeleeClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Corpo a Corpo Raro
-			MobilityControlEnchantmentBasic.DisplayName: Encantamento Controle de Mobilidade Básico
-			MobilityControlEnchantmentCommon.DisplayName: Encantamento Controle de Mobilidade Comum
-			MobilityControlEnchantmentEpic.DisplayName: Encantamento Controle de Mobilidade Épico
-			MobilityControlEnchantmentLegendary.DisplayName: Encantamento Controle de Mobilidade Lendário
-			MobilityControlEnchantmentRare.DisplayName: Encantamento Controle de Mobilidade Raro
-			MoonlightEnchantmentBasic.DisplayName: Encantamento Luar Básico
-			MoonlightEnchantmentCommon.DisplayName: Encantamento Luar Comum
-			MoonlightEnchantmentEpic.DisplayName: Encantamento Luar Épico
-			MoonlightEnchantmentLegendary.DisplayName: Encantamento Luar lendário
-			MoonlightEnchantmentRare.DisplayName: Encantamento Luar Raro
-			MovementSpeedEnchantmentBasic.DisplayName: Encantamento Velocidade de Movimento Básico
-			MovementSpeedEnchantmentCommon.DisplayName: Encantamento Velocidade de Movimento Comum
-			MovementSpeedEnchantmentEpic.DisplayName: Encantamento Velocidade de Movimento Épico
-			MovementSpeedEnchantmentLegendary.DisplayName: Encantamento Velocidade de Movimento Lendário
-			MovementSpeedEnchantmentRare.DisplayName: Encantamento Velocidade de Movimento Raro
-			MultishotEnchantmentBasic.DisplayName: Encantamento Tiro Múltiplo Básico
-			MultishotEnchantmentCommon.DisplayName: Encantamento Tiro Múltiplo comum
-			MultishotEnchantmentEpic.DisplayName: Encantamento Tiro Múltiplo Épico
-			MultishotEnchantmentLegendary.DisplayName: Encantamento Tiro Múltiplo Lendário
-			MultishotEnchantmentRare.DisplayName: Encantamento Tiro Múltiplo Raro
-			NpcContactAnglerEnchantmentBasic.DisplayName: Encantamento Contatar Pescador Básico
-			NpcContactAnglerEnchantmentCommon.DisplayName: Encantamento Contatar Pescador Comum
-			NpcContactAnglerEnchantmentEpic.DisplayName: Encantamento Contatar Pescador Épico
-			NpcContactAnglerEnchantmentLegendary.DisplayName: Encantamento Contatar Pescador Lendário
-			NpcContactAnglerEnchantmentRare.DisplayName: Encantamento Contatar Pescador Raro
-			ObsidianSkinEnchantmentBasic.DisplayName: Encanatamento Pele de Obisidiana Básico
-			ObsidianSkinEnchantmentCommon.DisplayName: Encanatamento Pele de Obisidiana Comum
-			ObsidianSkinEnchantmentEpic.DisplayName: Encanatamento Pele de Obisidiana Épico
-			ObsidianSkinEnchantmentLegendary.DisplayName: Encanatamento Pele de Obisidiana Lendário
-			ObsidianSkinEnchantmentRare.DisplayName: Encanatamento Pele de Obisidiana Raro
-			OneForAllEnchantmentBasic.DisplayName: Encantamento Um Por Todos Básico
-			OneForAllEnchantmentCommon.DisplayName: Encantamento Um Por Todos Comum
-			OneForAllEnchantmentEpic.DisplayName: Encantamento Um Por Todos Épico
-			OneForAllEnchantmentLegendary.DisplayName: Encantamento Um Por Todos Lendário
-			OneForAllEnchantmentRare.DisplayName: Encantamento Um Por Todos Raro
-			OnFireEnchantmentBasic.DisplayName: Encantamento Em Chamas Básico
-			OnFireEnchantmentCommon.DisplayName: Encantamento Em Chamas Comum
-			OnFireEnchantmentEpic.DisplayName: Encantamento Em Chamas Épico
-			OnFireEnchantmentLegendary.DisplayName: Encantamento Em Chamas Lendário
-			OnFireEnchantmentRare.DisplayName: Encantamento Em Chamas Raro
-			PeaceEnchantmentBasic.DisplayName: Encantamento Paz Básico
-			PeaceEnchantmentCommon.DisplayName: Encantamento Paz Comum
-			PeaceEnchantmentEpic.DisplayName: Encantamento Paz Épico
-			PeaceEnchantmentLegendary.DisplayName: Encantamento Paz Lendário
-			PeaceEnchantmentRare.DisplayName: Encantamento Paz Raro
-			PennyPinchingEnchantmentBasic.DisplayName: Encatamento Mão de vaca Básico
-			PennyPinchingEnchantmentCommon.DisplayName: Encatamento Mão de vaca Comum
-			PennyPinchingEnchantmentEpic.DisplayName: Encatamento Mão de vaca Épico
-			PennyPinchingEnchantmentLegendary.DisplayName: Encatamento Mão de vaca Lendário
-			PennyPinchingEnchantmentRare.DisplayName: Encatamento Mão de vaca Raro
-			PrideOfTheWeakEnchantmentBasic.DisplayName: Orgulho do Fraco Encantamento Básico
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Orgulho do Fraco Encantamento Comum
-			PrideOfTheWeakEnchantmentEpic.DisplayName: Orgulho do Fraco Encantamento Épico
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Orgulho do Fraco Encantamento Lendário
-			PrideOfTheWeakEnchantmentRare.DisplayName: Orgulho do Fraco Encantamento Raro
-			ProjectileVelocityEnchantmentBasic.DisplayName: Encantamento velocidade de Disparo básico
-			ProjectileVelocityEnchantmentCommon.DisplayName: Encantamento Velocidade de Disparo Comum
-			ProjectileVelocityEnchantmentEpic.DisplayName: Encantamento velocidade de Disparo Épico
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Encantamento velocidade de Disparo Lendário
-			ProjectileVelocityEnchantmentRare.DisplayName: Encantamento Velocidade de Disparo Raro
-			RangedClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Atirador Básico
-			RangedClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Atirador Comum
-			RangedClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Atirador Épico
-			RangedClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Atirador Lendário
-			RangedClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Atirador Raro
-			ReducedManaUsageEnchantmentBasic.DisplayName: Encantamento Custo de Mana Básico
-			ReducedManaUsageEnchantmentCommon.DisplayName: Encantamento Custo de Mana Comum
-			ReducedManaUsageEnchantmentEpic.DisplayName: Encantamento Custo de Mana Épico
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Encantamento Custo de Mana Lendário
-			ReducedManaUsageEnchantmentRare.DisplayName: Encantamento Custo de Mana Raro
-			RogueClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Ladino Básico
-			RogueClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Ladino Comum
-			RogueClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Ladino Épico
-			RogueClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Ladino Lendário
-			RogueClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Ladino Raro
-			ShineEnchantmentBasic.DisplayName: Encantamento Brilhante Básico
-			ShineEnchantmentCommon.DisplayName: Encantamento Brilho Comum
-			ShineEnchantmentEpic.DisplayName: Épico de Encantamento Brilhante
-			ShineEnchantmentLegendary.DisplayName: Shine Encantamento Lendário
-			ShineEnchantmentRare.DisplayName: Encantamento Brilhante Raro
-			SizeEnchantmentBasic.DisplayName: Encantamento Tamanho Básico
-			SizeEnchantmentCommon.DisplayName: Encantamento Tamanho Comum
-			SizeEnchantmentEpic.DisplayName: Encantamento Tamanho Épico
-			SizeEnchantmentLegendary.DisplayName: Encantamento Tamanho Lendário
-			SizeEnchantmentRare.DisplayName: Encantamento Tamanho Raro
-			SolarDashEnchantmentBasic.DisplayName: Encantamento Investida Solar Básico
-			SolarDashEnchantmentCommon.DisplayName: Encantamento Investida Solar Comum
-			SolarDashEnchantmentEpic.DisplayName: Encantamento Investida Solar Épico
-			SolarDashEnchantmentLegendary.DisplayName: Encantamento Investida Solar Lendário
-			SolarDashEnchantmentRare.DisplayName: Encantamento Investida Solar Raro
-			SonarEnchantmentBasic.DisplayName: Encantamento Sonar Básico
-			SonarEnchantmentCommon.DisplayName: Encantamento Sonar Comum
-			SonarEnchantmentEpic.DisplayName: Encantamento Sonar Épico
-			SonarEnchantmentLegendary.DisplayName: Encantamento Sonar Lendário
-			SonarEnchantmentRare.DisplayName: Encantamento Sonar Raro
-			SpelunkerEnchantmentBasic.DisplayName: Encantamento Espeleólogo Básico
-			SpelunkerEnchantmentCommon.DisplayName: Encantamento Espeleólogo Comum
-			SpelunkerEnchantmentEpic.DisplayName: Encantamento Espeleólogo Épico
-			SpelunkerEnchantmentLegendary.DisplayName: Encantamento Espeleólogo Lendário
-			SpelunkerEnchantmentRare.DisplayName: Encantamento Espeleólogo Raro
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Lançamento de encantamento de troca de classe básico
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Lançamento de encantamento de troca de classe comum
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Lançamento épico de encantamento de troca de classe
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Lançamento de troca de classe Encantamento Lendário
-			ThrowingClassSwapEnchantmentRare.DisplayName: Arremesso de encantamento de troca de classe raro
-			/* TimeEnchantmentBasic.DisplayName: Time Enchantment Basic */
-			/* TimeEnchantmentCommon.DisplayName: Time Enchantment Common */
-			/* TimeEnchantmentEpic.DisplayName: Time Enchantment Epic */
-			/* TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary */
-			/* TimeEnchantmentRare.DisplayName: Time Enchantment Rare */
-			VenomEnchantmentBasic.DisplayName: Encantamento Veneno Básico
-			VenomEnchantmentCommon.DisplayName: Encantamento Veneno Comum
-			VenomEnchantmentEpic.DisplayName: Encantamento Veneno Épico
-			VenomEnchantmentLegendary.DisplayName: Encantamento Veneno Lendário
-			VenomEnchantmentRare.DisplayName: Encantamento Veneno Raro
-			WarEnchantmentBasic.DisplayName: Encantamento Guerra Básico
-			WarEnchantmentCommon.DisplayName: Encantamento Guerra Comum
-			WarEnchantmentEpic.DisplayName: Encantamento Guerra Épico
-			WarEnchantmentLegendary.DisplayName: Encantamento Guerra Lendário
-			WarEnchantmentRare.DisplayName: Encantamento Guerra Raro
-			WhipClassSwapEnchantmentBasic.DisplayName: Encantamento Troca de Classe Invocador Básico
-			WhipClassSwapEnchantmentCommon.DisplayName: Encantamento Troca de Classe Invocador Comum
-			WhipClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Invocador Épico
-			WhipClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Invocador Lendário
-			WhipClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Invocador Raro
-			WorldAblazeEnchantmentBasic.DisplayName: Encantamento Mundo em Chamas Básico
-			WorldAblazeEnchantmentCommon.DisplayName: Encantamento Mundo em Chamas Comum
-			WorldAblazeEnchantmentEpic.DisplayName: Encantamento Mundo em Chamas Épico
-			WorldAblazeEnchantmentLegendary.DisplayName: Encantamento Mundo em Chamas Lendário
-			WorldAblazeEnchantmentRare.DisplayName: Encantamento Mundo em Chamas Raro
+			AllForOneEnchantmentBasic: {
+				DisplayName: Encantamento Todos Por um Básico
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentCommon: {
+				DisplayName: Encantamento Todos Por Um Comum
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentEpic: {
+				DisplayName: Encantamento Todos Por um Épico
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentLegendary: {
+				DisplayName: Encantamento Todos Por um Lendário
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentRare: {
+				DisplayName: Encantamento Tudos Por Um Raro
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentBasic: {
+				DisplayName: Encantamento Custo de Munição Básico
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentCommon: {
+				DisplayName: Encantamento Custo de munição comum
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentEpic: {
+				DisplayName: Encantamento Custo de munição Épico
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentLegendary: {
+				DisplayName: Encantamento Custo de munição Lendário
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentRare: {
+				DisplayName: Encantamento Custo de munição raro
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentBasic: {
+				DisplayName: Encantamento Penetração de Armadura Básico
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentCommon: {
+				DisplayName: Encantamento Penetração de Armadura Comum
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentEpic: {
+				DisplayName: Encantamento Penetração de Armadura Épico
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentLegendary: {
+				DisplayName: Encantamento Penetração de Armadura Lendário
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentRare: {
+				DisplayName: Encantamento Penetração de Armadura Raro
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentBasic: {
+				DisplayName: Encantamento Velocidade de Ataque Básico
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentCommon: {
+				DisplayName: Encantamento Velocidade de Ataque Comum
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentEpic: {
+				DisplayName: Encantamento Velocidade de Ataque Épico
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentLegendary: {
+				DisplayName: Encantamento Velocidade de Ataque Lendário
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentRare: {
+				DisplayName: Encantamento Velocidade de Ataque Raro
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentBasic: {
+				DisplayName: Básico de Encantamento de Troca de Classe de Bardo
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentCommon: {
+				DisplayName: Troca de Classe de Bardo Encantamento Comum
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentEpic: {
+				DisplayName: Épico de Encantamento de Troca de Classe de Bardo
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentLegendary: {
+				DisplayName: Bardo Troca de Classe Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentRare: {
+				DisplayName: Encantamento de Troca de Classe de Bardo Raro
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentBasic: {
+				DisplayName: Berserkers Rage Encantamento Básico
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentCommon: {
+				DisplayName: Encantamento Fúria Berserkers Comum
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentEpic: {
+				DisplayName: Berserkers Rage Encantamento Épico
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentLegendary: {
+				DisplayName: Berserkers Rage Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentRare: {
+				DisplayName: Berserkers Rage Encantamento Raro
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentBasic: {
+				DisplayName: Encantamento Águas Calmas Básico
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentCommon: {
+				DisplayName: Encantamento Águas Calmas Comum
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentEpic: {
+				DisplayName: Encantamento Águas Calmas Épico
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentLegendary: {
+				DisplayName: Encantamento Águas Calmas Lendário
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentRare: {
+				DisplayName: Encantamento Águas Calmas Raro
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentBasic: {
+				DisplayName: Encantamento de Pesca Caótica Básico
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentCommon: {
+				DisplayName: Encantamento de Pesca Caótica Comum
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentEpic: {
+				DisplayName: Encantamento de Pesca Caótica Épico
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentLegendary: {
+				DisplayName: Encantamento de Pesca Caótica Lendário
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentRare: {
+				DisplayName: Encantamento de Pesca Caótica Raro
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentBasic: {
+				DisplayName: Encantamento Aço Frio Básico
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentCommon: {
+				DisplayName: Encantamento Aço Frio Comum
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentEpic: {
+				DisplayName: Encantamento Aço Frio Épico
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentLegendary: {
+				DisplayName: Encantamento Aço Frio Lendário
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentRare: {
+				DisplayName: Encantamento Aço Frio Raro
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentBasic: {
+				DisplayName: Encantamento Chance de Caixa Básico
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentCommon: {
+				DisplayName: Encantamento Chance de Caixa Comum
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentEpic: {
+				DisplayName: Encantamento Chance de Caixa Épico
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentLegendary: {
+				DisplayName: Encantamento Chance de Caixa Lendário
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentRare: {
+				DisplayName: Encantamento Chance de Caixa Raro
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentBasic: {
+				DisplayName: Encantamento Caixote Básico
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentCommon: {
+				DisplayName: Encantamento Caixote Básico Comum
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentEpic: {
+				DisplayName: Encantamento Caixote Básico Épico
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentLegendary: {
+				DisplayName: Encantamento Caixote Básico Lendário
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentRare: {
+				DisplayName: Encantamento Caixote Básico Raro
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentBasic: {
+				DisplayName: Encantamento Chance de Acerto Crítico Básico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentCommon: {
+				DisplayName: Encantamento Chance de Acerto Crítico Comum
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentEpic: {
+				DisplayName: Encantamento Chance de Acerto Crítico Épico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentLegendary: {
+				DisplayName: Encantamento Chance de Acerto Crítico Lendário
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentRare: {
+				DisplayName: Encantamento Chance de Acerto Crítico Raro
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentBasic: {
+				DisplayName: Encantamento Dano de Acerto Crítico Básico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentCommon: {
+				DisplayName: Encantamento Dano de Acerto Crítico Comum
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentEpic: {
+				DisplayName: Encantamento Dano de Acerto Crítico Épico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentLegendary: {
+				DisplayName: Encantamento Dano de Acerto Crítico Lendário
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentRare: {
+				DisplayName: Encantamento Dano de Acerto Crítico Raro
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentBasic: {
+				DisplayName: Encantamento Inferno Amaldiçoado Básico
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentCommon: {
+				DisplayName: Encantamento Inferno Amaldiçoado Comum
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentEpic: {
+				DisplayName: Encantamento Inferno Amaldiçoado Épico
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentLegendary: {
+				DisplayName: Encantamento Inferno Amaldiçoado Lendário
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentRare: {
+				DisplayName: Encantamento Inferno Amaldiçoado Raro
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentBasic: {
+				DisplayName: Encantamento Dano Básico
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentCommon: {
+				DisplayName: Encantamento Dano Comum
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentEpic: {
+				DisplayName: Encantamento Dano Épico
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentLegendary: {
+				DisplayName: Encantamento Dano Lendário
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentRare: {
+				DisplayName: Encantamento Dano Raro
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentBasic: {
+				DisplayName: Encantamento Redução de Dano Básico
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentCommon: {
+				DisplayName: Encantamento Redução de Dano Comum
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentEpic: {
+				DisplayName: Encantamento Redução de Dano Épico
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentLegendary: {
+				DisplayName: Encantamento Redução de Dano Lendário
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentRare: {
+				DisplayName: Encantamento Redução de Dano Raro
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentBasic: {
+				DisplayName: Encantamento Senso de Perigo Básico
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentCommon: {
+				DisplayName: Encantamento Senso de Perigo Comum
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentEpic: {
+				DisplayName: Encantamento Senso de Perigo Épico
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentLegendary: {
+				DisplayName: Encantamento Senso de Perigo Lendário
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentRare: {
+				DisplayName: Encantamento Senso de Perigo Raro
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentBasic: {
+				DisplayName: Encantamento Alvorada Básico
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentCommon: {
+				DisplayName: Encantamento Alvorada Comum
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentEpic: {
+				DisplayName: Encantamento Alvorada Épico
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentLegendary: {
+				DisplayName: Encantamento Alvorada Lendário
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentRare: {
+				DisplayName: Encantamento Alvorada Raro
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentBasic: {
+				DisplayName: Encantamento Defesa Básico
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentCommon: {
+				DisplayName: Encantamento Defesa Comum
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentEpic: {
+				DisplayName: Encantamento Defesa Épico
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentLegendary: {
+				DisplayName: Encantamento Defesa Lendário
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentRare: {
+				DisplayName: Encantamento Defesa Raro
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentBasic: {
+				DisplayName: Encantamento Linha de Pesca Extra Básico
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentCommon: {
+				DisplayName: Encantamento Linha de Pesca Extra Comum
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentEpic: {
+				DisplayName: Encantamento Linha de Pesca Extra Épico
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentLegendary: {
+				DisplayName: Encantamento Linha de Pesca Extra Lendário
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentRare: {
+				DisplayName: Encantamento Linha de Pesca Extra Raro
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentBasic: {
+				DisplayName: Encantamento Pesca Básico
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentCommon: {
+				DisplayName: Encantamento Pesca Comum
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentEpic: {
+				DisplayName: Encantamento Pesca Épico
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentLegendary: {
+				DisplayName: Encantamento Pesca Lendário
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentRare: {
+				DisplayName: Encantamento Pesca Raro
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentBasic: {
+				DisplayName: Encantamento Poder de Pesca Básico
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentCommon: {
+				DisplayName: Encantamento Poder de Pesca Comum
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentEpic: {
+				DisplayName: Encantamento Poder de Pesca Épico
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentLegendary: {
+				DisplayName: Encantamento Poder de Pesca Lendário
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentRare: {
+				DisplayName: Encantamento Poder de Pesca Raro
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentBasic: {
+				DisplayName: Encantamento Queimadura de Gelo Básico
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentCommon: {
+				DisplayName: Encantamento Queimadura de Gelo Comum
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentEpic: {
+				DisplayName: Encantamento Queimadura de Gelo Épico
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentLegendary: {
+				DisplayName: Encantamento Queimadura de Gelo Lendário
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentRare: {
+				DisplayName: Encantamento Queimadura de Gelo Raro
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentBasic: {
+				DisplayName: Encantamento Matador de Deuses Básico
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentCommon: {
+				DisplayName: Encantamento Matador de Deuses Comum
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentEpic: {
+				DisplayName: Encantamento Matador de Deuses Épico
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentLegendary: {
+				DisplayName: Encantamento Matador de Deuses Lendário
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentRare: {
+				DisplayName: Encantamento Matador de Deuses Raro
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentBasic: {
+				DisplayName: Básico de Encantamento de Troca de Classe de Curandeiro
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentCommon: {
+				DisplayName: Curandeiro Troca de Classe Encantamento Comum
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentEpic: {
+				DisplayName: Épico de encantamento de troca de classe de curandeiro
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentLegendary: {
+				DisplayName: Curandeiro Troca de Classe Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentRare: {
+				DisplayName: Curandeiro Troca de Classe Encantamento Raro
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentBasic: {
+				DisplayName: Encantamento Ira do Inferno Básico
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentCommon: {
+				DisplayName: Encantamento Ira do Inferno Comum
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentEpic: {
+				DisplayName: Encantamento Ira do Inferno Épico
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentLegendary: {
+				DisplayName: Encantamento Ira do Inferno Lendário
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentRare: {
+				DisplayName: Encantamento Ira do Inferno Raro
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentBasic: {
+				DisplayName: Encantamento Caçador Básico
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentCommon: {
+				DisplayName: Encantamento Caçador Comum
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentEpic: {
+				DisplayName: Encantamento Caçador Épico
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentLegendary: {
+				DisplayName: Encantamento Caçador Lendário
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentRare: {
+				DisplayName: Encantamento Caçador Raro
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentBasic: {
+				DisplayName: Encantamento de Icor Básico
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentCommon: {
+				DisplayName: Encantamento de Icor Comum
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentEpic: {
+				DisplayName: Encantamento de Icor Épico
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentLegendary: {
+				DisplayName: Encantamento de Icor Lendário
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentRare: {
+				DisplayName: Encantamento de Icor Raro
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentBasic: {
+				DisplayName: Encantamento Espremido Básico
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentCommon: {
+				DisplayName: Juiced Enchantment Basic Comum
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentEpic: {
+				DisplayName: Juiced Enchantment Basic Épico
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentLegendary: {
+				DisplayName: Juiced Enchantment Basic Lendário
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentRare: {
+				DisplayName: Juiced Enchantment Basic Raro
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentBasic: {
+				DisplayName: Encantamento Fúria da Selva Básico
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentCommon: {
+				DisplayName: Encantamento Fúria da Selva Comum
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentEpic: {
+				DisplayName: Encantamento Fúria da Selva Épico
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentLegendary: {
+				DisplayName: Encantamento Fúria da Selva Lendário
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentRare: {
+				DisplayName: Encantamento Fúria da Selva Raro
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentBasic: {
+				DisplayName: Básico de Encantamento de Troca de Classe Ki
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentCommon: {
+				DisplayName: Comum de Encantamento de Troca de Classe Ki
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentEpic: {
+				DisplayName: Épico de Encantamento de Troca de Classe Ki
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento de Troca de Classe Ki Lendário
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentRare: {
+				DisplayName: Encantamento de Troca de Classe Ki Raro
+				// Tooltip: ""
+			}
+
+			KiEnchantmentBasic: {
+				DisplayName: Encantamento de Ki Básico
+				// Tooltip: ""
+			}
+
+			KiEnchantmentCommon: {
+				DisplayName: Encantamento de Ki Comum
+				// Tooltip: ""
+			}
+
+			KiEnchantmentEpic: {
+				DisplayName: Ki encantamento épico
+				// Tooltip: ""
+			}
+
+			KiEnchantmentLegendary: {
+				DisplayName: Encantamento de Ki Lendário
+				// Tooltip: ""
+			}
+
+			KiEnchantmentRare: {
+				DisplayName: Encantamento de Ki Raro
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentBasic: {
+				DisplayName: Encantamento Pesca na Lava Básico
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentCommon: {
+				DisplayName: Encantamento Pesca na Lava Comum
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentEpic: {
+				DisplayName: Encantamento Pesca na Lava Épico
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentLegendary: {
+				DisplayName: Encantamento Pesca na Lava lendário
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentRare: {
+				DisplayName: Encantamento Pesca na Lava Raro
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentBasic: {
+				DisplayName: Básico de Encantamento de Regeneração de Vida
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentCommon: {
+				DisplayName: Encantamento de Regeneração de Vida Comum
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentEpic: {
+				DisplayName: Épico de Encantamento de Regeneração de Vida
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentLegendary: {
+				DisplayName: Regeneração de Vida Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentRare: {
+				DisplayName: Encantamento de Regeneração de Vida Raro
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentBasic: {
+				DisplayName: Encantamento Roubo de Vida Básico
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentCommon: {
+				DisplayName: Encantamento Roubo de Vida Comum
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentEpic: {
+				DisplayName: Encantamento Roubo de Vida Épico
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentLegendary: {
+				DisplayName: Encantamento Roubo de Vida Lendário
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentRare: {
+				DisplayName: Encantamento Roubo de Vida Raro
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentBasic: {
+				DisplayName: Encantamento Sorte Básico
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentCommon: {
+				DisplayName: Encantamento Sorte Comum
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentEpic: {
+				DisplayName: Encantamento Sorte Épico
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentLegendary: {
+				DisplayName: Encantamento Sorte Lendário
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentRare: {
+				DisplayName: Encantamento Sorte Raro
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentBasic: {
+				DisplayName: Encantamento Troca de Classe Mágica Básico
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentCommon: {
+				DisplayName: Encantamento Troca de Classe Mágica Comum
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentEpic: {
+				DisplayName: Encantamento Troca de Classe Mágica Épico
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento Troca de Classe Mágica Lendário
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentRare: {
+				DisplayName: Encantamento Troca de Classe Mágica Raro
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentBasic: {
+				DisplayName: Encantamento Máximo de Minions Básico
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentCommon: {
+				DisplayName: Encantamento Máximo de Minions Comum
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentEpic: {
+				DisplayName: Encantamento Máximo de Minions Épico
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentLegendary: {
+				DisplayName: Encantamento Máximo de Minions Lendário
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentRare: {
+				DisplayName: Encantamento Máximo de Minions Raro
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentBasic: {
+				DisplayName: Encantamento Troca de Classe Corpo a Corpo Básico
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentCommon: {
+				DisplayName: Encantamento Troca de Classe Corpo a Corpo Comum
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentEpic: {
+				DisplayName: Encantamento Troca de Classe Corpo a Corpo Épico
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento Troca de Classe Corpo a Corpo Lendário
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentRare: {
+				DisplayName: Encantamento Troca de Classe Corpo a Corpo Raro
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentBasic: {
+				DisplayName: Encantamento Controle de Mobilidade Básico
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentCommon: {
+				DisplayName: Encantamento Controle de Mobilidade Comum
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentEpic: {
+				DisplayName: Encantamento Controle de Mobilidade Épico
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentLegendary: {
+				DisplayName: Encantamento Controle de Mobilidade Lendário
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentRare: {
+				DisplayName: Encantamento Controle de Mobilidade Raro
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentBasic: {
+				DisplayName: Encantamento Luar Básico
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentCommon: {
+				DisplayName: Encantamento Luar Comum
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentEpic: {
+				DisplayName: Encantamento Luar Épico
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentLegendary: {
+				DisplayName: Encantamento Luar lendário
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentRare: {
+				DisplayName: Encantamento Luar Raro
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentBasic: {
+				DisplayName: Encantamento Velocidade de Movimento Básico
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentCommon: {
+				DisplayName: Encantamento Velocidade de Movimento Comum
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentEpic: {
+				DisplayName: Encantamento Velocidade de Movimento Épico
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentLegendary: {
+				DisplayName: Encantamento Velocidade de Movimento Lendário
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentRare: {
+				DisplayName: Encantamento Velocidade de Movimento Raro
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentBasic: {
+				DisplayName: Encantamento Tiro Múltiplo Básico
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentCommon: {
+				DisplayName: Encantamento Tiro Múltiplo comum
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentEpic: {
+				DisplayName: Encantamento Tiro Múltiplo Épico
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentLegendary: {
+				DisplayName: Encantamento Tiro Múltiplo Lendário
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentRare: {
+				DisplayName: Encantamento Tiro Múltiplo Raro
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentBasic: {
+				DisplayName: Encantamento Contatar Pescador Básico
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentCommon: {
+				DisplayName: Encantamento Contatar Pescador Comum
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentEpic: {
+				DisplayName: Encantamento Contatar Pescador Épico
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentLegendary: {
+				DisplayName: Encantamento Contatar Pescador Lendário
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentRare: {
+				DisplayName: Encantamento Contatar Pescador Raro
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentBasic: {
+				DisplayName: Encanatamento Pele de Obisidiana Básico
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentCommon: {
+				DisplayName: Encanatamento Pele de Obisidiana Comum
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentEpic: {
+				DisplayName: Encanatamento Pele de Obisidiana Épico
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentLegendary: {
+				DisplayName: Encanatamento Pele de Obisidiana Lendário
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentRare: {
+				DisplayName: Encanatamento Pele de Obisidiana Raro
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentBasic: {
+				DisplayName: Encantamento Um Por Todos Básico
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentCommon: {
+				DisplayName: Encantamento Um Por Todos Comum
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentEpic: {
+				DisplayName: Encantamento Um Por Todos Épico
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentLegendary: {
+				DisplayName: Encantamento Um Por Todos Lendário
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentRare: {
+				DisplayName: Encantamento Um Por Todos Raro
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentBasic: {
+				DisplayName: Encantamento Em Chamas Básico
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentCommon: {
+				DisplayName: Encantamento Em Chamas Comum
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentEpic: {
+				DisplayName: Encantamento Em Chamas Épico
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentLegendary: {
+				DisplayName: Encantamento Em Chamas Lendário
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentRare: {
+				DisplayName: Encantamento Em Chamas Raro
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentBasic: {
+				DisplayName: Encantamento Paz Básico
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentCommon: {
+				DisplayName: Encantamento Paz Comum
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentEpic: {
+				DisplayName: Encantamento Paz Épico
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentLegendary: {
+				DisplayName: Encantamento Paz Lendário
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentRare: {
+				DisplayName: Encantamento Paz Raro
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentBasic: {
+				DisplayName: Encatamento Mão de vaca Básico
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentCommon: {
+				DisplayName: Encatamento Mão de vaca Comum
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentEpic: {
+				DisplayName: Encatamento Mão de vaca Épico
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentLegendary: {
+				DisplayName: Encatamento Mão de vaca Lendário
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentRare: {
+				DisplayName: Encatamento Mão de vaca Raro
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentBasic: {
+				DisplayName: Orgulho do Fraco Encantamento Básico
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentCommon: {
+				DisplayName: Orgulho do Fraco Encantamento Comum
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentEpic: {
+				DisplayName: Orgulho do Fraco Encantamento Épico
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentLegendary: {
+				DisplayName: Orgulho do Fraco Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentRare: {
+				DisplayName: Orgulho do Fraco Encantamento Raro
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentBasic: {
+				DisplayName: Encantamento velocidade de Disparo básico
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentCommon: {
+				DisplayName: Encantamento Velocidade de Disparo Comum
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentEpic: {
+				DisplayName: Encantamento velocidade de Disparo Épico
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentLegendary: {
+				DisplayName: Encantamento velocidade de Disparo Lendário
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentRare: {
+				DisplayName: Encantamento Velocidade de Disparo Raro
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentBasic: {
+				DisplayName: Encantamento Troca de Classe Atirador Básico
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentCommon: {
+				DisplayName: Encantamento Troca de Classe Atirador Comum
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentEpic: {
+				DisplayName: Encantamento Troca de Classe Atirador Épico
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento Troca de Classe Atirador Lendário
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentRare: {
+				DisplayName: Encantamento Troca de Classe Atirador Raro
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentBasic: {
+				DisplayName: Encantamento Custo de Mana Básico
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentCommon: {
+				DisplayName: Encantamento Custo de Mana Comum
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentEpic: {
+				DisplayName: Encantamento Custo de Mana Épico
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentLegendary: {
+				DisplayName: Encantamento Custo de Mana Lendário
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentRare: {
+				DisplayName: Encantamento Custo de Mana Raro
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentBasic: {
+				DisplayName: Encantamento Troca de Classe Ladino Básico
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentCommon: {
+				DisplayName: Encantamento Troca de Classe Ladino Comum
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentEpic: {
+				DisplayName: Encantamento Troca de Classe Ladino Épico
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento Troca de Classe Ladino Lendário
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentRare: {
+				DisplayName: Encantamento Troca de Classe Ladino Raro
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentBasic: {
+				DisplayName: Encantamento Brilhante Básico
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentCommon: {
+				DisplayName: Encantamento Brilho Comum
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentEpic: {
+				DisplayName: Épico de Encantamento Brilhante
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentLegendary: {
+				DisplayName: Shine Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentRare: {
+				DisplayName: Encantamento Brilhante Raro
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentBasic: {
+				DisplayName: Encantamento Tamanho Básico
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentCommon: {
+				DisplayName: Encantamento Tamanho Comum
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentEpic: {
+				DisplayName: Encantamento Tamanho Épico
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentLegendary: {
+				DisplayName: Encantamento Tamanho Lendário
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentRare: {
+				DisplayName: Encantamento Tamanho Raro
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentBasic: {
+				DisplayName: Encantamento Investida Solar Básico
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentCommon: {
+				DisplayName: Encantamento Investida Solar Comum
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentEpic: {
+				DisplayName: Encantamento Investida Solar Épico
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentLegendary: {
+				DisplayName: Encantamento Investida Solar Lendário
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentRare: {
+				DisplayName: Encantamento Investida Solar Raro
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentBasic: {
+				DisplayName: Encantamento Sonar Básico
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentCommon: {
+				DisplayName: Encantamento Sonar Comum
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentEpic: {
+				DisplayName: Encantamento Sonar Épico
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentLegendary: {
+				DisplayName: Encantamento Sonar Lendário
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentRare: {
+				DisplayName: Encantamento Sonar Raro
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentBasic: {
+				DisplayName: Encantamento Espeleólogo Básico
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentCommon: {
+				DisplayName: Encantamento Espeleólogo Comum
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentEpic: {
+				DisplayName: Encantamento Espeleólogo Épico
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentLegendary: {
+				DisplayName: Encantamento Espeleólogo Lendário
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentRare: {
+				DisplayName: Encantamento Espeleólogo Raro
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentBasic: {
+				DisplayName: Lançamento de encantamento de troca de classe básico
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentCommon: {
+				DisplayName: Lançamento de encantamento de troca de classe comum
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentEpic: {
+				DisplayName: Lançamento épico de encantamento de troca de classe
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentLegendary: {
+				DisplayName: Lançamento de troca de classe Encantamento Lendário
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentRare: {
+				DisplayName: Arremesso de encantamento de troca de classe raro
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentBasic: {
+				// DisplayName: Time Enchantment Basic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentCommon: {
+				// DisplayName: Time Enchantment Common
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentEpic: {
+				// DisplayName: Time Enchantment Epic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentLegendary: {
+				// DisplayName: Time Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentRare: {
+				// DisplayName: Time Enchantment Rare
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentBasic: {
+				DisplayName: Encantamento Veneno Básico
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentCommon: {
+				DisplayName: Encantamento Veneno Comum
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentEpic: {
+				DisplayName: Encantamento Veneno Épico
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentLegendary: {
+				DisplayName: Encantamento Veneno Lendário
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentRare: {
+				DisplayName: Encantamento Veneno Raro
+				// Tooltip: ""
+			}
+
+			WarEnchantmentBasic: {
+				DisplayName: Encantamento Guerra Básico
+				// Tooltip: ""
+			}
+
+			WarEnchantmentCommon: {
+				DisplayName: Encantamento Guerra Comum
+				// Tooltip: ""
+			}
+
+			WarEnchantmentEpic: {
+				DisplayName: Encantamento Guerra Épico
+				// Tooltip: ""
+			}
+
+			WarEnchantmentLegendary: {
+				DisplayName: Encantamento Guerra Lendário
+				// Tooltip: ""
+			}
+
+			WarEnchantmentRare: {
+				DisplayName: Encantamento Guerra Raro
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentBasic: {
+				DisplayName: Encantamento Troca de Classe Invocador Básico
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentCommon: {
+				DisplayName: Encantamento Troca de Classe Invocador Comum
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentEpic: {
+				DisplayName: Encantamento Troca de Classe Invocador Épico
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentLegendary: {
+				DisplayName: Encantamento Troca de Classe Invocador Lendário
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentRare: {
+				DisplayName: Encantamento Troca de Classe Invocador Raro
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentBasic: {
+				DisplayName: Encantamento Mundo em Chamas Básico
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentCommon: {
+				DisplayName: Encantamento Mundo em Chamas Comum
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentEpic: {
+				DisplayName: Encantamento Mundo em Chamas Épico
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentLegendary: {
+				DisplayName: Encantamento Mundo em Chamas Lendário
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentRare: {
+				DisplayName: Encantamento Mundo em Chamas Raro
+				// Tooltip: ""
+			}
 
 			Containment: {
 				DisplayName: Contenção
@@ -436,8 +1735,8 @@ Mods: {
 
 		Buffs: {
 			Amaterasu: {
-				/* DisplayName: Amaterasu */
-				/* Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu */
+				// DisplayName: Amaterasu
+				// Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu
 			}
 		}
 
@@ -464,7 +1763,7 @@ Mods: {
 			ModTestingTools: Ferramentas de teste de mod
 			Multipliers: multiplicadores
 			NoneSelected: Nenhum selecionado
-			/* Normal: Normal */
+			// Normal: Normal
 			OtherDropRates: Outras taxas de queda
 			Presets: Predefinições
 			RandomExtraStuff: Extras aleatórios
@@ -683,7 +1982,7 @@ Mods: {
 			}
 
 			DisableArmorInfusion: {
-				/* Label: Disable Armor Infusion */
+				// Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 
@@ -1048,31 +2347,31 @@ Mods: {
 		NPCNames: {
 			Witch: {
 				Agatha: Ágata
-				/* Akko: Akko */
-				/* Binx: Binx */
-				/* Blobbelda: Blobbelda */
-				/* Brentilda: Brentilda */
-				/* Freyja: Freyja */
-				/* Gruntilda: Gruntilda */
+				// Akko: Akko
+				// Binx: Binx
+				// Blobbelda: Blobbelda
+				// Brentilda: Brentilda
+				// Freyja: Freyja
+				// Gruntilda: Gruntilda
 				Hazel: avelã
 				Jasminka: jasminka
-				/* Kyubey: Kyubey */
+				// Kyubey: Kyubey
 				Maleficient: Maléfico
-				/* Mary: Mary */
-				/* Medusa: Medusa */
+				// Mary: Mary
+				// Medusa: Medusa
 				Melusine: Melusina
 				Mingella: Mingela
 				MissGulch: Senhorita Gulch
-				/* Morgana: Morgana */
+				// Morgana: Morgana
 				Sabrina: sabrina
 				Salem: Salém
 				Sarah: Sara
 				Ursula: Úrsula
-				/* Winifred: Winifred */
+				// Winifred: Winifred
 			}
 		}
 
-		/* NPCs.Witch.DisplayName: Witch */
+		// NPCs.Witch.DisplayName: Witch
 
 		Ores: {
 			adamantite: adamantina
@@ -1121,7 +2420,7 @@ Mods: {
 			general1: Atualizar o nível da mesa de encantamento desbloqueia mais slots de encantamento.
 			general2: Usando encantamentos de armas em armaduras ou acessórios
 			general3: fornece bônus reduzidos e vice-versa.
-			/* Item: Item */
+			// Item: Item
 			utility0: Apenas encantamentos utilitários podem ir aqui.
 			weapon0: Coloque uma arma, peça de armadura ou acessório aqui.
 		}
@@ -1135,7 +2434,7 @@ Mods: {
 
 			DamageClassNames: {
 				Generic: Genérico
-				/* Ki: Ki */
+				// Ki: Ki
 				Magic: Magia
 				Melee: Corpo a corpo
 				Ranged: À distância
@@ -1188,9 +2487,9 @@ Mods: {
 				DamageReduction: Redução de Dano
 				DangerSense: Sentido de Perigo
 				Daybreak: Aurora
-				/* DayEventUpdateRate: Day Event Update Rate */
-				/* DayTileUpdateRate: Day Tile Update Rate */
-				/* DayTimeRate: Day Time Rate */
+				// DayEventUpdateRate: Day Event Update Rate
+				// DayTileUpdateRate: Day Tile Update Rate
+				// DayTimeRate: Day Time Rate
 				Defense: Defesa
 				EnemyMaxSpawns: Geração máxima de inimigos
 				EnemySpawnRate: Taxa de Geração de Inimigos
@@ -1210,7 +2509,7 @@ Mods: {
 				Juiced: Espremido
 				JumpSpeed: Velocidade de salto
 				JunglesFury: Fúria da Selva
-				/* Ki: Ki */
+				// Ki: Ki
 				KiClassSwap: Troca de Classe Ki
 				KiDamage: Dano de Ki
 				KiRegen: Regeneração de Ki
@@ -1223,7 +2522,7 @@ Mods: {
 				ManaUsage1: Uso de Mana Reduzido
 				ManaUsage2: Aumento do uso de mana
 				MaxFallSpeed: Velocidade máxima de queda
-				/* MaxKi: Max Ki */
+				// MaxKi: Max Ki
 				MaxLife: Vida máxima
 				MaxMinions: Invocações Máximas
 				MaxMP: Mana Máximo
@@ -1237,9 +2536,9 @@ Mods: {
 				MovementSpeed: Velocidade de movimento
 				MPBonusRegen: Bônus de Regeneração de mana
 				Multishot: Tiro múltiplo
-				/* NightEventUpdateRate: Night Event Update Rate */
-				/* NightTileUpdateRate: Night Tile Update Rate */
-				/* NightTimeRate: Night Time Rate */
+				// NightEventUpdateRate: Night Event Update Rate
+				// NightTileUpdateRate: Night Tile Update Rate
+				// NightTimeRate: Night Time Rate
 				NpcContactAngler: Contatar Pescador
 				NPCHitCooldown: Tempo de Recarga de acerto
 				ObsidianSkin: Pele de Obsidiana
@@ -1257,10 +2556,10 @@ Mods: {
 				Shine: Brilhar
 				Size: Tamanho
 				SolarDash: Investida Solar
-				/* Sonar: Sonar */
+				// Sonar: Sonar
 				Spelunker: Espeleólogo
 				ThrowingClassSwap: Jogando troca de classe
-				/* Time: Time */
+				// Time: Time
 				VanillaDash1: Investida da Tabi Ninja
 				VanillaDash2: Investida do Escudo de Cthulhu
 				VanillaDash3: Investida Solar
@@ -1278,7 +2577,7 @@ Mods: {
 				CalamityMod: (Encantamento do Mod Calamidade)
 				DBZMODPORT: (Dragon Ball Terraria Encantamento)
 				ThoriumMod: (Encantamento Mod Throium)
-				/* Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate */
+				// Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze:
 					'''
 					(O efeito negativo de Amaterasu e as notas abaixo sobre isso só se aplicam ao nível 4 de Encantamento.)
@@ -1393,15 +2692,15 @@ Mods: {
 			}
 		}
 
-		/* ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence */
-		/* ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled. */
+		// ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence
+		// ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled.
 
 		Tiles: {
-			/* DustyEnchantingTable.MapEntry: Dusty Enchanting Table */
-			/* HellishEnchantingTable.MapEntry: Hellish Enchanting Table */
-			/* SoulEnchantingTable.MapEntry: Soul Enchanting Table */
-			/* UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table */
-			/* WoodEnchantingTable.MapEntry: Wood Enchanting Table */
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 	}
 }

@@ -115,7 +115,7 @@ namespace WeaponEnchantments
 		#endregion
 
 		#region IL
-
+        /*
 		public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
             //Make vanilla crit roll 0
             var c = new ILCursor(il);
@@ -132,6 +132,23 @@ namespace WeaponEnchantments
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
         }
+        */
+        public static void HookProcessHitAgainstNPC(ILContext il) {
+			//Make vanilla crit roll 0
+			var c = new ILCursor(il);
+
+			if (!c.TryGotoNext(MoveType.After,
+				//i => i.MatchCall(out _),
+				//i => i.MatchLdcI4(1),
+				i => i.MatchLdcI4(101),
+				i => i.MatchCallvirt(out _),
+				i => i.MatchLdloc(8),
+				i => i.MatchBgt(out _),
+				i => i.MatchLdcI4(1)
+			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
+			c.Emit(OpCodes.Pop);
+			c.Emit(OpCodes.Ldc_I4_0);
+		}
         public static void HookFishingCheck_RollDropLevels(ILContext il) {
             var c = new ILCursor(il);
 
@@ -223,8 +240,9 @@ namespace WeaponEnchantments
         #region General Override Hooks
 
         public override void Load() {
-            Terraria.IL_Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
-            Terraria.IL_Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
+            IL_Player.ProcessHitAgainstNPC += HookProcessHitAgainstNPC;
+            //Terraria.IL_Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
+            IL_Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
 		}
         public override void OnEnterWorld() {
 
@@ -369,20 +387,20 @@ namespace WeaponEnchantments
             if (Main.mouseItem.IsAir) {
                 //Trash Item
                 if (!Player.trashItem.IsAir) {
-                    if (Player.trashItem.TryGetEnchantedItem(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
-                        if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal))
+                    if (Player.trashItem.TryGetEnchantedItemSearchAll(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
+                        if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal))
                             trackedTrashGlobal.trashItem = false;
 
                         tGlobal.trashItem = true;
                     }
                 }
-                else if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal)) {
+                else if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal)) {
                     trackedTrashGlobal.trashItem = false;
                 }
 
                 bool hoveringOverTrash = false;
                 if (!item.IsAir) {
-                    if(item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.trashItem)
+                    if(item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.trashItem)
                         hoveringOverTrash = true;
                 }
 
@@ -392,7 +410,7 @@ namespace WeaponEnchantments
                 if (!hoveringOverTrash && canMoveItem) {
                     Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
 
-                    if (item.type == PowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
+                    if (item.type == PowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItemSearchAll(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
                         //Power Booster
                         if (moveItem) {
                             tableItemGlobal.PowerBoosterInstalled = true;
@@ -827,12 +845,12 @@ namespace WeaponEnchantments
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (Player.difficulty == 1 || Player.difficulty == 2) {
                 for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (Player.inventory[i].TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                    if (Player.inventory[i].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                         enchantedItem.appliedStatModifiers.Clear();
                     }
                 }
                 for (int i = 0; i < Player.armor.Length; i++) {
-                    if (Player.armor[i].TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                    if (Player.armor[i].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                         enchantedItem.appliedStatModifiers.Clear();
                     }
                 }
@@ -856,7 +874,32 @@ namespace WeaponEnchantments
 
             return items;
         }
-        public override void ResetEffects() {
+		public override IEnumerable<Item> AddMaterialsForCrafting(out ItemConsumedCallback itemConsumedCallback) {
+            itemConsumedCallback = (item, index) => {
+                if (enchantingTableUI.enchantmentSlotUI[index]?.Item is Item essence) {
+					essence.stack -= item.stack;
+                    if (essence.stack < 1)
+                        essence = new();
+				}
+            };
+
+            return enchantingTableUI?.enchantmentSlotUI?.Select(s => s?.Item).Where(i => !i.NullOrAir() && i.stack > 0);
+			/*
+            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+				Item item = enchantingTableUI.essenceSlotUI[i].Item;
+				if (item != null && item.stack > 0) {
+                    
+					if (dictionary.ContainsKey(item.netID)) {
+						dictionary[item.netID] += item.stack;
+					}
+					else {
+						dictionary[item.netID] = item.stack;
+					}
+				}
+			}
+            */
+		}
+		public override void ResetEffects() {
             bool updatePlayerStat = false;
             foreach (string key in statModifiers.Keys) {
                 string name = key.RemoveInvert().RemovePrevent();
@@ -1018,7 +1061,7 @@ namespace WeaponEnchantments
             OnHitNPCWithAny(item, target, hit, proj);
         }
         private void OnHitNPCWithAny(Item item, NPC target, NPC.HitInfo hit, Projectile projectile = null) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             if (!target.TryGetWEGlobalNPC(out WEGlobalNPC weGlobalNPC))
@@ -1154,7 +1197,7 @@ namespace WeaponEnchantments
             int wormCounter = 0;
             Dictionary<NPC, (int, bool)> oneForAllNPCDictionary = new Dictionary<NPC, (int, bool)>();
 
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return 0;
 
 			//Range
@@ -1404,7 +1447,7 @@ namespace WeaponEnchantments
 			if (VanillaStats.ContainsKey(enchantmentStat))
 				VanillaStats[enchantmentStat].ApplyTo(ref strength);
 
-			if (item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem)) {
+			if (item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
 				if (enchantedHeldItem.VanillaStats.ContainsKey(enchantmentStat))
 					enchantedHeldItem.VanillaStats[enchantmentStat].ApplyTo(ref strength);
 			}
@@ -1714,7 +1757,7 @@ namespace WeaponEnchantments
                 if (previous.IsAir) {
                     return true;
                 }
-                else if (current.TryGetEnchantedItem(out EnchantedItem cGlobal)) {
+                else if (current.TryGetEnchantedItemSearchAll(out EnchantedItem cGlobal)) {
                     if (weapon) {
                         if (cGlobal is EnchantedWeapon enchantedWeapon && !enchantedWeapon.trackedWeapon)
                             return true;
@@ -1750,7 +1793,7 @@ namespace WeaponEnchantments
         }
         private void UpdatePotionBuff(ref Item item, bool remove = false) {
 
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             #region Debug
@@ -1990,7 +2033,7 @@ namespace WeaponEnchantments
             #endregion
         }
         private void UpdatePlayerDictionaries(Item item, bool remove = false) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             #region Debug
@@ -2027,7 +2070,7 @@ namespace WeaponEnchantments
             #endregion
         }
         public void UpdateItemStats(ref Item item) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             #region Debug

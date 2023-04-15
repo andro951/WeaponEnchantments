@@ -2,331 +2,1630 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Enchantement Tous pour un de base
-			AllForOneEnchantmentCommon.DisplayName: Enchantement Tous pour un commun
-			AllForOneEnchantmentEpic.DisplayName: Tout pour un enchantement épique
-			AllForOneEnchantmentLegendary.DisplayName: All For One Enchantement Légendaire
-			AllForOneEnchantmentRare.DisplayName: Enchantement Tous pour un rare
-			AmmoCostEnchantmentBasic.DisplayName: Enchantement de coût en munitions de base
-			AmmoCostEnchantmentCommon.DisplayName: Enchantement de coût en munitions Commun
-			AmmoCostEnchantmentEpic.DisplayName: Épique d'enchantement de coût de munitions
-			AmmoCostEnchantmentLegendary.DisplayName: Coût en munitions Enchantement Légendaire
-			AmmoCostEnchantmentRare.DisplayName: Enchantement de coût en munitions Rare
-			ArmorPenetrationEnchantmentBasic.DisplayName: Enchantement de pénétration d'armure de base
-			ArmorPenetrationEnchantmentCommon.DisplayName: Enchantement de pénétration d'armure Commun
-			ArmorPenetrationEnchantmentEpic.DisplayName: Pénétration d'armure Enchantement Épique
-			ArmorPenetrationEnchantmentLegendary.DisplayName: Pénétration d'armure Enchantement Légendaire
-			ArmorPenetrationEnchantmentRare.DisplayName: Enchantement de pénétration d'armure Rare
-			AttackSpeedEnchantmentBasic.DisplayName: Enchantement de vitesse de base
-			AttackSpeedEnchantmentCommon.DisplayName: Enchantement de vitesse Commun
-			AttackSpeedEnchantmentEpic.DisplayName: Vitesse d'attaque Enchantement Épique
-			AttackSpeedEnchantmentLegendary.DisplayName: Vitesse d'attaque Enchantement Légendaire
-			AttackSpeedEnchantmentRare.DisplayName: Enchantement de vitesse Rare
-			BardClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de barde de base
-			BardClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de barde Commun
-			BardClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de barde
-			BardClassSwapEnchantmentLegendary.DisplayName: Barde Échange de classe Enchantement Légendaire
-			BardClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de barde rare
-			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Enchantment Basique
-			BerserkersRageEnchantmentCommon.DisplayName: Rage des berserkers Enchantement Commun
-			/* BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epic */
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Enchantement Légendaire
-			BerserkersRageEnchantmentRare.DisplayName: Rage des Berserkers Enchantement Rare
-			CalmWatersEnchantmentBasic.DisplayName: Enchantement des eaux calmes de base
-			CalmWatersEnchantmentCommon.DisplayName: Eaux calmes Enchantement Commun
-			CalmWatersEnchantmentEpic.DisplayName: Épopée d'enchantement des eaux calmes
-			CalmWatersEnchantmentLegendary.DisplayName: Eaux calmes Enchantement Légendaire
-			CalmWatersEnchantmentRare.DisplayName: Eaux calmes Enchantement Rare
-			ChaoticFishingEnchantmentBasic.DisplayName: Enchantement de pêche chaotique de base
-			ChaoticFishingEnchantmentCommon.DisplayName: Pêche chaotique Enchantement Common
-			ChaoticFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche chaotique
-			ChaoticFishingEnchantmentLegendary.DisplayName: Pêche chaotique Enchantement Légendaire
-			ChaoticFishingEnchantmentRare.DisplayName: Pêche chaotique Enchantement Rare
-			ColdSteelEnchantmentBasic.DisplayName: Enchantement d'acier froid de base
-			ColdSteelEnchantmentCommon.DisplayName: Enchantement d'acier froid
-			ColdSteelEnchantmentEpic.DisplayName: Épopée d'enchantement d'acier froid
-			ColdSteelEnchantmentLegendary.DisplayName: Cold Steel Enchantement Légendaire
-			ColdSteelEnchantmentRare.DisplayName: Enchantement d'acier froid rare
-			CrateChanceEnchantmentBasic.DisplayName: Enchantement de chance de caisse de base
-			CrateChanceEnchantmentCommon.DisplayName: Chance de caisse Enchantement Commun
-			CrateChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de caisse
-			CrateChanceEnchantmentLegendary.DisplayName: Caisse Chance Enchantement Légendaire
-			CrateChanceEnchantmentRare.DisplayName: Caisse Chance Enchantement Rare
-			CrateEnchantmentBasic.DisplayName: Caisse d'enchantement de base
-			CrateEnchantmentCommon.DisplayName: Enchantement de caisse commun
-			CrateEnchantmentEpic.DisplayName: Épique d'enchantement de caisse
-			CrateEnchantmentLegendary.DisplayName: Caisse Enchantement Légendaire
-			CrateEnchantmentRare.DisplayName: Enchantement de caisse rare
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Enchantement de Chance de coup critique de base
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Enchantement de Chance de coup critique Commun
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Épique d'enchantement de chance de coup critique
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Chance de coup critique Enchantement Légendaire
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Enchantement de Chance de coup critique Rare
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Enchantement de dégâts de coup critique de base
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Enchantement de dégâts de coup critique
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts de coup critique
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Enchantement de dégâts de coup critique Légendaire
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Enchantement de dégâts de coup critique rare
-			CursedInfernoEnchantmentBasic.DisplayName: Enchantement de base de l'enfer maudit
-			CursedInfernoEnchantmentCommon.DisplayName: Inferno maudit Enchantement Common
-			CursedInfernoEnchantmentEpic.DisplayName: Épopée d'enchantement de l'enfer maudit
-			CursedInfernoEnchantmentLegendary.DisplayName: Inferno maudit Enchantement Légendaire
-			CursedInfernoEnchantmentRare.DisplayName: Inferno maudit Enchantement Rare
-			DamageEnchantmentBasic.DisplayName: Enchantement de dégâts de base
-			DamageEnchantmentCommon.DisplayName: Enchantement de dégâts Commun
-			DamageEnchantmentEpic.DisplayName: Épique d'enchantement de dégâts
-			DamageEnchantmentLegendary.DisplayName: Dégâts Enchantement Légendaire
-			DamageEnchantmentRare.DisplayName: Enchantement de dégâts Rare
-			DamageReductionEnchantmentBasic.DisplayName: Enchantement de réduction des dégâts de base
-			DamageReductionEnchantmentCommon.DisplayName: Enchantement de réduction des dégâts Commun
-			DamageReductionEnchantmentEpic.DisplayName: Enchantement épique de réduction des dégâts
-			DamageReductionEnchantmentLegendary.DisplayName: Enchantement de réduction des dégâts Légendaire
-			DamageReductionEnchantmentRare.DisplayName: Réduction des dégâts Enchantement Rare
-			DangerSenseEnchantmentBasic.DisplayName: Sens du danger Enchantement de base
-			DangerSenseEnchantmentCommon.DisplayName: Sens du danger Enchantement Commun
-			DangerSenseEnchantmentEpic.DisplayName: Épique d'enchantement Sens du danger
-			DangerSenseEnchantmentLegendary.DisplayName: Sens du danger Enchantement Légendaire
-			DangerSenseEnchantmentRare.DisplayName: Sens du danger Enchantement Rare
-			DaybreakEnchantmentBasic.DisplayName: Enchantement de l'aube de base
-			DaybreakEnchantmentCommon.DisplayName: Enchantement de l'aube Commun
-			DaybreakEnchantmentEpic.DisplayName: Épique d'enchantement de l'aube
-			DaybreakEnchantmentLegendary.DisplayName: Enchantement de l'aube Légendaire
-			DaybreakEnchantmentRare.DisplayName: Enchantement de l'aube rare
-			DefenseEnchantmentBasic.DisplayName: Enchantement de défense de base
-			DefenseEnchantmentCommon.DisplayName: Défense Enchantement Commun
-			DefenseEnchantmentEpic.DisplayName: Épique d'enchantement de défense
-			DefenseEnchantmentLegendary.DisplayName: Défense Enchantement Légendaire
-			DefenseEnchantmentRare.DisplayName: Défense Enchantement Rare
-			ExtraFishingLineEnchantmentBasic.DisplayName: Enchantement de ligne de pêche supplémentaire de base
-			ExtraFishingLineEnchantmentCommon.DisplayName: Enchantement de ligne de pêche supplémentaire
-			ExtraFishingLineEnchantmentEpic.DisplayName: Épique d'enchantement de ligne de pêche supplémentaire
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Ligne de pêche supplémentaire Enchantement Légendaire
-			ExtraFishingLineEnchantmentRare.DisplayName: Enchantement de ligne de pêche supplémentaire rare
-			FishingEnchantmentBasic.DisplayName: Enchantement de pêche de base
-			FishingEnchantmentCommon.DisplayName: Pêche Enchantement Commun
-			FishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche
-			FishingEnchantmentLegendary.DisplayName: Pêche Enchantement Légendaire
-			FishingEnchantmentRare.DisplayName: Pêche Enchantement Rare
-			FishingPowerEnchantmentBasic.DisplayName: Enchantement de puissance de pêche de base
-			FishingPowerEnchantmentCommon.DisplayName: Puissance de pêche Enchantement Commun
-			FishingPowerEnchantmentEpic.DisplayName: Épique d'enchantement de puissance de pêche
-			FishingPowerEnchantmentLegendary.DisplayName: Puissance de pêche Enchantement Légendaire
-			FishingPowerEnchantmentRare.DisplayName: Puissance de pêche Enchantement Rare
-			FrostburnEnchantmentBasic.DisplayName: Enchantement de base de brûlure de givre
-			FrostburnEnchantmentCommon.DisplayName: Enchantement de brûlure de givre
-			FrostburnEnchantmentEpic.DisplayName: Épique d'enchantement de brûlure de givre
-			FrostburnEnchantmentLegendary.DisplayName: Frostburn Enchantement Légendaire
-			FrostburnEnchantmentRare.DisplayName: Enchantement brûle-givre rare
-			GodSlayerEnchantmentBasic.DisplayName: Enchantement de Tueur de dieu de base
-			GodSlayerEnchantmentCommon.DisplayName: Enchantement de Tueur de dieu Commun
-			GodSlayerEnchantmentEpic.DisplayName: Épopée d'enchantement de God Slayer
-			GodSlayerEnchantmentLegendary.DisplayName: God Slayer Enchantement Légendaire
-			GodSlayerEnchantmentRare.DisplayName: Enchantement de Tueur de dieu Rare
-			HealerClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de guérisseur de base
-			HealerClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de guérisseur Commun
-			HealerClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de guérisseur
-			HealerClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe de guérisseur Légendaire
-			HealerClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de guérisseur rare
-			HellsWrathEnchantmentBasic.DisplayName: Enchantement de Colère infernale de base
-			HellsWrathEnchantmentCommon.DisplayName: Enchantement de Colère infernale Commun
-			HellsWrathEnchantmentEpic.DisplayName: Épopée d'enchantement de Hells Wrath
-			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantement Légendaire
-			HellsWrathEnchantmentRare.DisplayName: Enchantement de Colère infernale Rare
-			HunterEnchantmentBasic.DisplayName: Chasseur Enchantement de base
-			HunterEnchantmentCommon.DisplayName: Chasseur Enchantement Commun
-			HunterEnchantmentEpic.DisplayName: Épique d'enchantement de chasseur
-			HunterEnchantmentLegendary.DisplayName: Chasseur Enchantement Légendaire
-			HunterEnchantmentRare.DisplayName: Chasseur Enchantement Rare
-			IchorEnchantmentBasic.DisplayName: Ichor Enchantement Basique
-			IchorEnchantmentCommon.DisplayName: Ichor Enchantement Commun
-			IchorEnchantmentEpic.DisplayName: Épopée d'enchantement d'ichor
-			IchorEnchantmentLegendary.DisplayName: Ichor Enchantement Légendaire
-			IchorEnchantmentRare.DisplayName: Ichor Enchantement Rare
-			JuicedEnchantmentBasic.DisplayName: Enchantement jus de base
-			JuicedEnchantmentCommon.DisplayName: Enchantement de jus Commun
-			JuicedEnchantmentEpic.DisplayName: Jus d'enchantement épique
-			JuicedEnchantmentLegendary.DisplayName: Jus Enchantement Légendaire
-			JuicedEnchantmentRare.DisplayName: Enchantement jus Rare
-			JunglesFuryEnchantmentBasic.DisplayName: Enchantement de Fureur de la jungle de base
-			JunglesFuryEnchantmentCommon.DisplayName: Enchantement de Fureur de la jungle Commun
-			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Épique
-			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fureur Enchantement Légendaire
-			JunglesFuryEnchantmentRare.DisplayName: Enchantement de Fureur de la jungle Rare
-			KiClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Ki de base
-			KiClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Ki
-			KiClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Ki
-			KiClassSwapEnchantmentLegendary.DisplayName: Enchantement d'échange de classe Ki Légendaire
-			KiClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe Ki rare
-			KiEnchantmentBasic.DisplayName: Enchantement Ki de base
-			KiEnchantmentCommon.DisplayName: Ki Enchantement Commun
-			KiEnchantmentEpic.DisplayName: Épique d'enchantement de Ki
-			KiEnchantmentLegendary.DisplayName: Ki Enchantement Légendaire
-			KiEnchantmentRare.DisplayName: Ki Enchantement Rare
-			LavaFishingEnchantmentBasic.DisplayName: Enchantement de pêche à la lave de base
-			LavaFishingEnchantmentCommon.DisplayName: Enchantement de pêche à la lave Commun
-			LavaFishingEnchantmentEpic.DisplayName: Épopée d'enchantement de pêche à la lave
-			LavaFishingEnchantmentLegendary.DisplayName: Pêche à la lave Enchantement Légendaire
-			LavaFishingEnchantmentRare.DisplayName: Pêche à la lave Enchantement Rare
-			LifeRegenEnchantmentBasic.DisplayName: Enchantement de régénération de vie de base
-			LifeRegenEnchantmentCommon.DisplayName: Enchantement de régénération de vie
-			LifeRegenEnchantmentEpic.DisplayName: Épopée d'enchantement de régénération de vie
-			LifeRegenEnchantmentLegendary.DisplayName: Régénération de vie Enchantement Légendaire
-			LifeRegenEnchantmentRare.DisplayName: Enchantement de régénération de vie rare
-			LifeStealEnchantmentBasic.DisplayName: Enchantement de Vol de vie de base
-			LifeStealEnchantmentCommon.DisplayName: Enchantement de Vol de vie Commun
-			LifeStealEnchantmentEpic.DisplayName: Épique d'enchantement de vol de vie
-			LifeStealEnchantmentLegendary.DisplayName: Vol de vie Enchantement Légendaire
-			LifeStealEnchantmentRare.DisplayName: Enchantement de Vol de vie Rare
-			LuckEnchantmentBasic.DisplayName: Chance Enchantement Basique
-			LuckEnchantmentCommon.DisplayName: Chance Enchantement Commun
-			LuckEnchantmentEpic.DisplayName: Chance Enchantement Epic
-			LuckEnchantmentLegendary.DisplayName: Chance Enchantement Légendaire
-			LuckEnchantmentRare.DisplayName: Chance Enchantement Rare
-			MagicClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe magique de base
-			MagicClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe magique Commun
-			MagicClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe magique
-			MagicClassSwapEnchantmentLegendary.DisplayName: Échange de classe magique Enchantement Légendaire
-			MagicClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe magique rare
-			MaxMinionsEnchantmentBasic.DisplayName: Enchantement de Sbires max de base
-			MaxMinionsEnchantmentCommon.DisplayName: Enchantement de Sbires max Commun
-			MaxMinionsEnchantmentEpic.DisplayName: Épique d'enchantement Max Minions
-			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Enchantement Légendaire
-			MaxMinionsEnchantmentRare.DisplayName: Enchantement de Sbires max Rare
-			MeleeClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe de mêlée de base
-			MeleeClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de mêlée Commun
-			MeleeClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe de mêlée
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Échange de classe de mêlée Enchantement Légendaire
-			MeleeClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de mêlée rare
-			MobilityControlEnchantmentBasic.DisplayName: Enchantement de contrôle de la mobilité de base
-			MobilityControlEnchantmentCommon.DisplayName: Enchantement de contrôle de la mobilité Commun
-			MobilityControlEnchantmentEpic.DisplayName: Épopée d'enchantement de contrôle de la mobilité
-			MobilityControlEnchantmentLegendary.DisplayName: Contrôle de la mobilité Enchantement Légendaire
-			MobilityControlEnchantmentRare.DisplayName: Contrôle de la mobilité Enchantement Rare
-			MoonlightEnchantmentBasic.DisplayName: Enchantement de Clair de lune de base
-			MoonlightEnchantmentCommon.DisplayName: Enchantement de Clair de lune Commun
-			MoonlightEnchantmentEpic.DisplayName: Épopée d'enchantement au clair de lune
-			MoonlightEnchantmentLegendary.DisplayName: Enchantement au clair de lune Légendaire
-			MoonlightEnchantmentRare.DisplayName: Enchantement de Clair de lune rare
-			MovementSpeedEnchantmentBasic.DisplayName: Enchantement de Vitesse de déplacement de base
-			MovementSpeedEnchantmentCommon.DisplayName: Enchantement de Vitesse de déplacement Commun
-			MovementSpeedEnchantmentEpic.DisplayName: Vitesse de déplacement Enchantement Épique
-			MovementSpeedEnchantmentLegendary.DisplayName: Vitesse de déplacement Enchantement Légendaire
-			MovementSpeedEnchantmentRare.DisplayName: Enchantement de Vitesse de déplacement Rare
-			MultishotEnchantmentBasic.DisplayName: Enchantement de Multi-tir de base
-			MultishotEnchantmentCommon.DisplayName: Enchantement de Multi-tir Commun
-			MultishotEnchantmentEpic.DisplayName: Épique d'enchantement à plusieurs coups
-			MultishotEnchantmentLegendary.DisplayName: Enchantement Multishot Légendaire
-			MultishotEnchantmentRare.DisplayName: Enchantement de Multi-tir Rare
-			NpcContactAnglerEnchantmentBasic.DisplayName: Enchantement de base du pêcheur à la ligne de contact Npc
-			NpcContactAnglerEnchantmentCommon.DisplayName: PNJ Contact Pêcheur Enchantement Commun
-			/* NpcContactAnglerEnchantmentEpic.DisplayName: Npc Contact Angler Enchantment Epic */
-			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Pêcheur Enchantement Légendaire
-			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Pêcheur Enchantement Rare
-			ObsidianSkinEnchantmentBasic.DisplayName: Enchantement de peau d'obsidienne de base
-			ObsidianSkinEnchantmentCommon.DisplayName: Enchantement de peau d'obsidienne
-			ObsidianSkinEnchantmentEpic.DisplayName: Épopée d'enchantement de peau d'obsidienne
-			ObsidianSkinEnchantmentLegendary.DisplayName: Enchantement de peau d'obsidienne Légendaire
-			ObsidianSkinEnchantmentRare.DisplayName: Enchantement de peau d'obsidienne rare
-			OneForAllEnchantmentBasic.DisplayName: Enchantement Un pour tous de base
-			OneForAllEnchantmentCommon.DisplayName: Enchantement Un pour tous commun
-			OneForAllEnchantmentEpic.DisplayName: Épique d'enchantement One For All
-			OneForAllEnchantmentLegendary.DisplayName: Un pour tous Enchantement Légendaire
-			OneForAllEnchantmentRare.DisplayName: Enchantement Un pour tous rare
-			OnFireEnchantmentBasic.DisplayName: Enchantement de base en feu
-			OnFireEnchantmentCommon.DisplayName: Enchantement en feu Commun
-			OnFireEnchantmentEpic.DisplayName: Enchantement épique en feu
-			OnFireEnchantmentLegendary.DisplayName: Enchantement Enflammé Légendaire
-			OnFireEnchantmentRare.DisplayName: Enchantement Enflammé Rare
-			PeaceEnchantmentBasic.DisplayName: Enchantement de paix de base
-			PeaceEnchantmentCommon.DisplayName: Enchantement de paix Commun
-			PeaceEnchantmentEpic.DisplayName: Épopée d'enchantement de la paix
-			PeaceEnchantmentLegendary.DisplayName: Paix Enchantement Légendaire
-			PeaceEnchantmentRare.DisplayName: Enchantement de paix Rare
-			PennyPinchingEnchantmentBasic.DisplayName: Penny Pinching Enchantement Basique
-			PennyPinchingEnchantmentCommon.DisplayName: Penny Pincement Enchantement Commun
-			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantement épique
-			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantement Légendaire
-			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantement Rare
-			PrideOfTheWeakEnchantmentBasic.DisplayName: Fierté de l'enchantement faible de base
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Fierté de l'enchantement faible commun
-			PrideOfTheWeakEnchantmentEpic.DisplayName: Fierté de l'épopée d'enchantement faible
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Fierté du faible Enchantement Légendaire
-			PrideOfTheWeakEnchantmentRare.DisplayName: Fierté du faible Enchantement Rare
-			ProjectileVelocityEnchantmentBasic.DisplayName: Enchantement de vitesse de tir de base
-			ProjectileVelocityEnchantmentCommon.DisplayName: Enchantement de vitesse de tir Commun
-			ProjectileVelocityEnchantmentEpic.DisplayName: Épique d'enchantement de vitesse de projectile
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Vitesse du projectile Enchantement Légendaire
-			ProjectileVelocityEnchantmentRare.DisplayName: Enchantement de vitesse de tir Rare
-			RangedClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe à distance de base
-			RangedClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe à distance Commun
-			RangedClassSwapEnchantmentEpic.DisplayName: Épique d'enchantement d'échange de classe à distance
-			RangedClassSwapEnchantmentLegendary.DisplayName: Échange de classe à distance Enchantement Légendaire
-			RangedClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe à distance rare
-			ReducedManaUsageEnchantmentBasic.DisplayName: Enchantement de mana de base
-			ReducedManaUsageEnchantmentCommon.DisplayName: Enchantement de mana Commun
-			ReducedManaUsageEnchantmentEpic.DisplayName: Épique d'enchantement d'utilisation de mana réduite
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Réduction de l'utilisation du mana Enchantement Légendaire
-			ReducedManaUsageEnchantmentRare.DisplayName: Enchantement de mana Rare
-			RogueClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe voleur de base
-			RogueClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe Rogue Common
-			RogueClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe Rogue
-			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap Enchantement Légendaire
-			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantement Rare
-			ShineEnchantmentBasic.DisplayName: Shine Enchantement Basique
-			ShineEnchantmentCommon.DisplayName: Enchantement de brillance commun
-			ShineEnchantmentEpic.DisplayName: Épopée d'enchantement brillant
-			ShineEnchantmentLegendary.DisplayName: Brillance Enchantement Légendaire
-			ShineEnchantmentRare.DisplayName: Brillance Enchantement Rare
-			SizeEnchantmentBasic.DisplayName: Enchantement de taille de base
-			SizeEnchantmentCommon.DisplayName: Enchantement de taille Commun
-			SizeEnchantmentEpic.DisplayName: Taille Enchantement Épique
-			SizeEnchantmentLegendary.DisplayName: Taille Enchantement Légendaire
-			SizeEnchantmentRare.DisplayName: Enchantement de taille Rare
-			SolarDashEnchantmentBasic.DisplayName: Solar Dash Enchantement de base
-			SolarDashEnchantmentCommon.DisplayName: Enchantement Solar Dash Commun
-			SolarDashEnchantmentEpic.DisplayName: Épopée d'enchantement Solar Dash
-			SolarDashEnchantmentLegendary.DisplayName: Solar Dash Enchantement Légendaire
-			SolarDashEnchantmentRare.DisplayName: Élan solaire Enchantement Rare
-			SonarEnchantmentBasic.DisplayName: Enchantement de base du sonar
-			SonarEnchantmentCommon.DisplayName: Enchantement de sonar Commun
-			SonarEnchantmentEpic.DisplayName: Épopée d'enchantement de sonar
-			SonarEnchantmentLegendary.DisplayName: Sonar Enchantement Légendaire
-			SonarEnchantmentRare.DisplayName: Enchantement sonar rare
-			SpelunkerEnchantmentBasic.DisplayName: Enchantement de spéléologue de base
-			SpelunkerEnchantmentCommon.DisplayName: Enchantement de spéléologue Commun
-			SpelunkerEnchantmentEpic.DisplayName: Épopée d'enchantement de spéléologue
-			SpelunkerEnchantmentLegendary.DisplayName: Spéléologue Enchantement Légendaire
-			SpelunkerEnchantmentRare.DisplayName: Enchantement de spéléologue rare
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Lancer l'enchantement d'échange de classe de base
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Lancer l'enchantement d'échange de classe
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Lancer l'épopée d'enchantement d'échange de classe
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Lancer d'échange de classe Enchantement Légendaire
-			ThrowingClassSwapEnchantmentRare.DisplayName: Lancer d'échange de classe Enchantement Rare
-			/* TimeEnchantmentBasic.DisplayName: Time Enchantment Basic */
-			/* TimeEnchantmentCommon.DisplayName: Time Enchantment Common */
-			/* TimeEnchantmentEpic.DisplayName: Time Enchantment Epic */
-			/* TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary */
-			/* TimeEnchantmentRare.DisplayName: Time Enchantment Rare */
-			VenomEnchantmentBasic.DisplayName: Enchantement de venin de base
-			VenomEnchantmentCommon.DisplayName: Enchantement de venin Commun
-			VenomEnchantmentEpic.DisplayName: Épique d'enchantement de venin
-			VenomEnchantmentLegendary.DisplayName: Venin Enchantement Légendaire
-			VenomEnchantmentRare.DisplayName: Enchantement de venin rare
-			WarEnchantmentBasic.DisplayName: Enchantement de guerre de base
-			WarEnchantmentCommon.DisplayName: Enchantement de guerre Commun
-			WarEnchantmentEpic.DisplayName: Épopée d'enchantement de guerre
-			WarEnchantmentLegendary.DisplayName: Guerre Enchantement Légendaire
-			WarEnchantmentRare.DisplayName: Enchantement de guerre Rare
-			WhipClassSwapEnchantmentBasic.DisplayName: Enchantement d'échange de classe Whip Basic
-			WhipClassSwapEnchantmentCommon.DisplayName: Enchantement d'échange de classe de fouet Commun
-			WhipClassSwapEnchantmentEpic.DisplayName: Épopée d'enchantement d'échange de classe de fouet
-			WhipClassSwapEnchantmentLegendary.DisplayName: Échange de classe de fouet Enchantement Légendaire
-			WhipClassSwapEnchantmentRare.DisplayName: Enchantement d'échange de classe de fouet rare
-			WorldAblazeEnchantmentBasic.DisplayName: Enchantement du Monde Enflammé de base
-			WorldAblazeEnchantmentCommon.DisplayName: Enchantement du Monde Enflammé Commun
-			/* WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment Epic */
-			WorldAblazeEnchantmentLegendary.DisplayName: World Ablaze Enchantement Légendaire
-			WorldAblazeEnchantmentRare.DisplayName: Enchantement du Monde Enflammé Rare
+			AllForOneEnchantmentBasic: {
+				DisplayName: Enchantement Tous pour un de base
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentCommon: {
+				DisplayName: Enchantement Tous pour un commun
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentEpic: {
+				DisplayName: Tout pour un enchantement épique
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentLegendary: {
+				DisplayName: All For One Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentRare: {
+				DisplayName: Enchantement Tous pour un rare
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentBasic: {
+				DisplayName: Enchantement de coût en munitions de base
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentCommon: {
+				DisplayName: Enchantement de coût en munitions Commun
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de coût de munitions
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentLegendary: {
+				DisplayName: Coût en munitions Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentRare: {
+				DisplayName: Enchantement de coût en munitions Rare
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentBasic: {
+				DisplayName: Enchantement de pénétration d'armure de base
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentCommon: {
+				DisplayName: Enchantement de pénétration d'armure Commun
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentEpic: {
+				DisplayName: Pénétration d'armure Enchantement Épique
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentLegendary: {
+				DisplayName: Pénétration d'armure Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentRare: {
+				DisplayName: Enchantement de pénétration d'armure Rare
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentBasic: {
+				DisplayName: Enchantement de vitesse de base
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentCommon: {
+				DisplayName: Enchantement de vitesse Commun
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentEpic: {
+				DisplayName: Vitesse d'attaque Enchantement Épique
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentLegendary: {
+				DisplayName: Vitesse d'attaque Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentRare: {
+				DisplayName: Enchantement de vitesse Rare
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe de barde de base
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe de barde Commun
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe de barde
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentLegendary: {
+				DisplayName: Barde Échange de classe Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe de barde rare
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentBasic: {
+				DisplayName: Berserkers Rage Enchantment Basique
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentCommon: {
+				DisplayName: Rage des berserkers Enchantement Commun
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentEpic: {
+				// DisplayName: Berserkers Rage Enchantment Epic
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentLegendary: {
+				DisplayName: Berserkers Rage Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentRare: {
+				DisplayName: Rage des Berserkers Enchantement Rare
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentBasic: {
+				DisplayName: Enchantement des eaux calmes de base
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentCommon: {
+				DisplayName: Eaux calmes Enchantement Commun
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement des eaux calmes
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentLegendary: {
+				DisplayName: Eaux calmes Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentRare: {
+				DisplayName: Eaux calmes Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentBasic: {
+				DisplayName: Enchantement de pêche chaotique de base
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentCommon: {
+				DisplayName: Pêche chaotique Enchantement Common
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de pêche chaotique
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentLegendary: {
+				DisplayName: Pêche chaotique Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentRare: {
+				DisplayName: Pêche chaotique Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentBasic: {
+				DisplayName: Enchantement d'acier froid de base
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentCommon: {
+				DisplayName: Enchantement d'acier froid
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'acier froid
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentLegendary: {
+				DisplayName: Cold Steel Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentRare: {
+				DisplayName: Enchantement d'acier froid rare
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentBasic: {
+				DisplayName: Enchantement de chance de caisse de base
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentCommon: {
+				DisplayName: Chance de caisse Enchantement Commun
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de chance de caisse
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentLegendary: {
+				DisplayName: Caisse Chance Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentRare: {
+				DisplayName: Caisse Chance Enchantement Rare
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentBasic: {
+				DisplayName: Caisse d'enchantement de base
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentCommon: {
+				DisplayName: Enchantement de caisse commun
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de caisse
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentLegendary: {
+				DisplayName: Caisse Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentRare: {
+				DisplayName: Enchantement de caisse rare
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentBasic: {
+				DisplayName: Enchantement de Chance de coup critique de base
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentCommon: {
+				DisplayName: Enchantement de Chance de coup critique Commun
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de chance de coup critique
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentLegendary: {
+				DisplayName: Chance de coup critique Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentRare: {
+				DisplayName: Enchantement de Chance de coup critique Rare
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentBasic: {
+				DisplayName: Enchantement de dégâts de coup critique de base
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentCommon: {
+				DisplayName: Enchantement de dégâts de coup critique
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de dégâts de coup critique
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentLegendary: {
+				DisplayName: Enchantement de dégâts de coup critique Légendaire
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentRare: {
+				DisplayName: Enchantement de dégâts de coup critique rare
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentBasic: {
+				DisplayName: Enchantement de base de l'enfer maudit
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentCommon: {
+				DisplayName: Inferno maudit Enchantement Common
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de l'enfer maudit
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentLegendary: {
+				DisplayName: Inferno maudit Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentRare: {
+				DisplayName: Inferno maudit Enchantement Rare
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentBasic: {
+				DisplayName: Enchantement de dégâts de base
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentCommon: {
+				DisplayName: Enchantement de dégâts Commun
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de dégâts
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentLegendary: {
+				DisplayName: Dégâts Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentRare: {
+				DisplayName: Enchantement de dégâts Rare
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentBasic: {
+				DisplayName: Enchantement de réduction des dégâts de base
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentCommon: {
+				DisplayName: Enchantement de réduction des dégâts Commun
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentEpic: {
+				DisplayName: Enchantement épique de réduction des dégâts
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentLegendary: {
+				DisplayName: Enchantement de réduction des dégâts Légendaire
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentRare: {
+				DisplayName: Réduction des dégâts Enchantement Rare
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentBasic: {
+				DisplayName: Sens du danger Enchantement de base
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentCommon: {
+				DisplayName: Sens du danger Enchantement Commun
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentEpic: {
+				DisplayName: Épique d'enchantement Sens du danger
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentLegendary: {
+				DisplayName: Sens du danger Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentRare: {
+				DisplayName: Sens du danger Enchantement Rare
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentBasic: {
+				DisplayName: Enchantement de l'aube de base
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentCommon: {
+				DisplayName: Enchantement de l'aube Commun
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de l'aube
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentLegendary: {
+				DisplayName: Enchantement de l'aube Légendaire
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentRare: {
+				DisplayName: Enchantement de l'aube rare
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentBasic: {
+				DisplayName: Enchantement de défense de base
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentCommon: {
+				DisplayName: Défense Enchantement Commun
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de défense
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentLegendary: {
+				DisplayName: Défense Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentRare: {
+				DisplayName: Défense Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentBasic: {
+				DisplayName: Enchantement de ligne de pêche supplémentaire de base
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentCommon: {
+				DisplayName: Enchantement de ligne de pêche supplémentaire
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de ligne de pêche supplémentaire
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentLegendary: {
+				DisplayName: Ligne de pêche supplémentaire Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentRare: {
+				DisplayName: Enchantement de ligne de pêche supplémentaire rare
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentBasic: {
+				DisplayName: Enchantement de pêche de base
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentCommon: {
+				DisplayName: Pêche Enchantement Commun
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de pêche
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentLegendary: {
+				DisplayName: Pêche Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentRare: {
+				DisplayName: Pêche Enchantement Rare
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentBasic: {
+				DisplayName: Enchantement de puissance de pêche de base
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentCommon: {
+				DisplayName: Puissance de pêche Enchantement Commun
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de puissance de pêche
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentLegendary: {
+				DisplayName: Puissance de pêche Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentRare: {
+				DisplayName: Puissance de pêche Enchantement Rare
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentBasic: {
+				DisplayName: Enchantement de base de brûlure de givre
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentCommon: {
+				DisplayName: Enchantement de brûlure de givre
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de brûlure de givre
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentLegendary: {
+				DisplayName: Frostburn Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentRare: {
+				DisplayName: Enchantement brûle-givre rare
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentBasic: {
+				DisplayName: Enchantement de Tueur de dieu de base
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentCommon: {
+				DisplayName: Enchantement de Tueur de dieu Commun
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de God Slayer
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentLegendary: {
+				DisplayName: God Slayer Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentRare: {
+				DisplayName: Enchantement de Tueur de dieu Rare
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe de guérisseur de base
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe de guérisseur Commun
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe de guérisseur
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentLegendary: {
+				DisplayName: Enchantement d'échange de classe de guérisseur Légendaire
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe de guérisseur rare
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentBasic: {
+				DisplayName: Enchantement de Colère infernale de base
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentCommon: {
+				DisplayName: Enchantement de Colère infernale Commun
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de Hells Wrath
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentLegendary: {
+				DisplayName: Hells Wrath Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentRare: {
+				DisplayName: Enchantement de Colère infernale Rare
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentBasic: {
+				DisplayName: Chasseur Enchantement de base
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentCommon: {
+				DisplayName: Chasseur Enchantement Commun
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de chasseur
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentLegendary: {
+				DisplayName: Chasseur Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentRare: {
+				DisplayName: Chasseur Enchantement Rare
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentBasic: {
+				DisplayName: Ichor Enchantement Basique
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentCommon: {
+				DisplayName: Ichor Enchantement Commun
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'ichor
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentLegendary: {
+				DisplayName: Ichor Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentRare: {
+				DisplayName: Ichor Enchantement Rare
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentBasic: {
+				DisplayName: Enchantement jus de base
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentCommon: {
+				DisplayName: Enchantement de jus Commun
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentEpic: {
+				DisplayName: Jus d'enchantement épique
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentLegendary: {
+				DisplayName: Jus Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentRare: {
+				DisplayName: Enchantement jus Rare
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentBasic: {
+				DisplayName: Enchantement de Fureur de la jungle de base
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentCommon: {
+				DisplayName: Enchantement de Fureur de la jungle Commun
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentEpic: {
+				DisplayName: Jungles Fury Enchantment Épique
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentLegendary: {
+				DisplayName: Jungles Fureur Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentRare: {
+				DisplayName: Enchantement de Fureur de la jungle Rare
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe Ki de base
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe Ki
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe Ki
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentLegendary: {
+				DisplayName: Enchantement d'échange de classe Ki Légendaire
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe Ki rare
+				// Tooltip: ""
+			}
+
+			KiEnchantmentBasic: {
+				DisplayName: Enchantement Ki de base
+				// Tooltip: ""
+			}
+
+			KiEnchantmentCommon: {
+				DisplayName: Ki Enchantement Commun
+				// Tooltip: ""
+			}
+
+			KiEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de Ki
+				// Tooltip: ""
+			}
+
+			KiEnchantmentLegendary: {
+				DisplayName: Ki Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			KiEnchantmentRare: {
+				DisplayName: Ki Enchantement Rare
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentBasic: {
+				DisplayName: Enchantement de pêche à la lave de base
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentCommon: {
+				DisplayName: Enchantement de pêche à la lave Commun
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de pêche à la lave
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentLegendary: {
+				DisplayName: Pêche à la lave Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentRare: {
+				DisplayName: Pêche à la lave Enchantement Rare
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentBasic: {
+				DisplayName: Enchantement de régénération de vie de base
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentCommon: {
+				DisplayName: Enchantement de régénération de vie
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de régénération de vie
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentLegendary: {
+				DisplayName: Régénération de vie Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentRare: {
+				DisplayName: Enchantement de régénération de vie rare
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentBasic: {
+				DisplayName: Enchantement de Vol de vie de base
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentCommon: {
+				DisplayName: Enchantement de Vol de vie Commun
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de vol de vie
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentLegendary: {
+				DisplayName: Vol de vie Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentRare: {
+				DisplayName: Enchantement de Vol de vie Rare
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentBasic: {
+				DisplayName: Chance Enchantement Basique
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentCommon: {
+				DisplayName: Chance Enchantement Commun
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentEpic: {
+				DisplayName: Chance Enchantement Epic
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentLegendary: {
+				DisplayName: Chance Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentRare: {
+				DisplayName: Chance Enchantement Rare
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe magique de base
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe magique Commun
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe magique
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentLegendary: {
+				DisplayName: Échange de classe magique Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe magique rare
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentBasic: {
+				DisplayName: Enchantement de Sbires max de base
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentCommon: {
+				DisplayName: Enchantement de Sbires max Commun
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentEpic: {
+				DisplayName: Épique d'enchantement Max Minions
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentLegendary: {
+				DisplayName: Max Minions Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentRare: {
+				DisplayName: Enchantement de Sbires max Rare
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe de mêlée de base
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe de mêlée Commun
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentEpic: {
+				DisplayName: Épique d'enchantement d'échange de classe de mêlée
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentLegendary: {
+				DisplayName: Échange de classe de mêlée Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe de mêlée rare
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentBasic: {
+				DisplayName: Enchantement de contrôle de la mobilité de base
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentCommon: {
+				DisplayName: Enchantement de contrôle de la mobilité Commun
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de contrôle de la mobilité
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentLegendary: {
+				DisplayName: Contrôle de la mobilité Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentRare: {
+				DisplayName: Contrôle de la mobilité Enchantement Rare
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentBasic: {
+				DisplayName: Enchantement de Clair de lune de base
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentCommon: {
+				DisplayName: Enchantement de Clair de lune Commun
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement au clair de lune
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentLegendary: {
+				DisplayName: Enchantement au clair de lune Légendaire
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentRare: {
+				DisplayName: Enchantement de Clair de lune rare
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentBasic: {
+				DisplayName: Enchantement de Vitesse de déplacement de base
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentCommon: {
+				DisplayName: Enchantement de Vitesse de déplacement Commun
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentEpic: {
+				DisplayName: Vitesse de déplacement Enchantement Épique
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentLegendary: {
+				DisplayName: Vitesse de déplacement Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentRare: {
+				DisplayName: Enchantement de Vitesse de déplacement Rare
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentBasic: {
+				DisplayName: Enchantement de Multi-tir de base
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentCommon: {
+				DisplayName: Enchantement de Multi-tir Commun
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentEpic: {
+				DisplayName: Épique d'enchantement à plusieurs coups
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentLegendary: {
+				DisplayName: Enchantement Multishot Légendaire
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentRare: {
+				DisplayName: Enchantement de Multi-tir Rare
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentBasic: {
+				DisplayName: Enchantement de base du pêcheur à la ligne de contact Npc
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentCommon: {
+				DisplayName: PNJ Contact Pêcheur Enchantement Commun
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentEpic: {
+				// DisplayName: Npc Contact Angler Enchantment Epic
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentLegendary: {
+				DisplayName: Npc Contact Pêcheur Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentRare: {
+				DisplayName: Npc Contact Pêcheur Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentBasic: {
+				DisplayName: Enchantement de peau d'obsidienne de base
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentCommon: {
+				DisplayName: Enchantement de peau d'obsidienne
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de peau d'obsidienne
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentLegendary: {
+				DisplayName: Enchantement de peau d'obsidienne Légendaire
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentRare: {
+				DisplayName: Enchantement de peau d'obsidienne rare
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentBasic: {
+				DisplayName: Enchantement Un pour tous de base
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentCommon: {
+				DisplayName: Enchantement Un pour tous commun
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentEpic: {
+				DisplayName: Épique d'enchantement One For All
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentLegendary: {
+				DisplayName: Un pour tous Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentRare: {
+				DisplayName: Enchantement Un pour tous rare
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentBasic: {
+				DisplayName: Enchantement de base en feu
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentCommon: {
+				DisplayName: Enchantement en feu Commun
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentEpic: {
+				DisplayName: Enchantement épique en feu
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentLegendary: {
+				DisplayName: Enchantement Enflammé Légendaire
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentRare: {
+				DisplayName: Enchantement Enflammé Rare
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentBasic: {
+				DisplayName: Enchantement de paix de base
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentCommon: {
+				DisplayName: Enchantement de paix Commun
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de la paix
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentLegendary: {
+				DisplayName: Paix Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentRare: {
+				DisplayName: Enchantement de paix Rare
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentBasic: {
+				DisplayName: Penny Pinching Enchantement Basique
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentCommon: {
+				DisplayName: Penny Pincement Enchantement Commun
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentEpic: {
+				DisplayName: Penny Pinching Enchantement épique
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentLegendary: {
+				DisplayName: Penny Pinching Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentRare: {
+				DisplayName: Penny Pinching Enchantement Rare
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentBasic: {
+				DisplayName: Fierté de l'enchantement faible de base
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentCommon: {
+				DisplayName: Fierté de l'enchantement faible commun
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentEpic: {
+				DisplayName: Fierté de l'épopée d'enchantement faible
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentLegendary: {
+				DisplayName: Fierté du faible Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentRare: {
+				DisplayName: Fierté du faible Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentBasic: {
+				DisplayName: Enchantement de vitesse de tir de base
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentCommon: {
+				DisplayName: Enchantement de vitesse de tir Commun
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de vitesse de projectile
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentLegendary: {
+				DisplayName: Vitesse du projectile Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentRare: {
+				DisplayName: Enchantement de vitesse de tir Rare
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe à distance de base
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe à distance Commun
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentEpic: {
+				DisplayName: Épique d'enchantement d'échange de classe à distance
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentLegendary: {
+				DisplayName: Échange de classe à distance Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe à distance rare
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentBasic: {
+				DisplayName: Enchantement de mana de base
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentCommon: {
+				DisplayName: Enchantement de mana Commun
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentEpic: {
+				DisplayName: Épique d'enchantement d'utilisation de mana réduite
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentLegendary: {
+				DisplayName: Réduction de l'utilisation du mana Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentRare: {
+				DisplayName: Enchantement de mana Rare
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe voleur de base
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe Rogue Common
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe Rogue
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentLegendary: {
+				DisplayName: Rogue Class Swap Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentRare: {
+				DisplayName: Rogue Class Swap Enchantement Rare
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentBasic: {
+				DisplayName: Shine Enchantement Basique
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentCommon: {
+				DisplayName: Enchantement de brillance commun
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement brillant
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentLegendary: {
+				DisplayName: Brillance Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentRare: {
+				DisplayName: Brillance Enchantement Rare
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentBasic: {
+				DisplayName: Enchantement de taille de base
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentCommon: {
+				DisplayName: Enchantement de taille Commun
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentEpic: {
+				DisplayName: Taille Enchantement Épique
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentLegendary: {
+				DisplayName: Taille Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentRare: {
+				DisplayName: Enchantement de taille Rare
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentBasic: {
+				DisplayName: Solar Dash Enchantement de base
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentCommon: {
+				DisplayName: Enchantement Solar Dash Commun
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement Solar Dash
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentLegendary: {
+				DisplayName: Solar Dash Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentRare: {
+				DisplayName: Élan solaire Enchantement Rare
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentBasic: {
+				DisplayName: Enchantement de base du sonar
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentCommon: {
+				DisplayName: Enchantement de sonar Commun
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de sonar
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentLegendary: {
+				DisplayName: Sonar Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentRare: {
+				DisplayName: Enchantement sonar rare
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentBasic: {
+				DisplayName: Enchantement de spéléologue de base
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentCommon: {
+				DisplayName: Enchantement de spéléologue Commun
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de spéléologue
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentLegendary: {
+				DisplayName: Spéléologue Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentRare: {
+				DisplayName: Enchantement de spéléologue rare
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentBasic: {
+				DisplayName: Lancer l'enchantement d'échange de classe de base
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentCommon: {
+				DisplayName: Lancer l'enchantement d'échange de classe
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentEpic: {
+				DisplayName: Lancer l'épopée d'enchantement d'échange de classe
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentLegendary: {
+				DisplayName: Lancer d'échange de classe Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentRare: {
+				DisplayName: Lancer d'échange de classe Enchantement Rare
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentBasic: {
+				// DisplayName: Time Enchantment Basic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentCommon: {
+				// DisplayName: Time Enchantment Common
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentEpic: {
+				// DisplayName: Time Enchantment Epic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentLegendary: {
+				// DisplayName: Time Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentRare: {
+				// DisplayName: Time Enchantment Rare
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentBasic: {
+				DisplayName: Enchantement de venin de base
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentCommon: {
+				DisplayName: Enchantement de venin Commun
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentEpic: {
+				DisplayName: Épique d'enchantement de venin
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentLegendary: {
+				DisplayName: Venin Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentRare: {
+				DisplayName: Enchantement de venin rare
+				// Tooltip: ""
+			}
+
+			WarEnchantmentBasic: {
+				DisplayName: Enchantement de guerre de base
+				// Tooltip: ""
+			}
+
+			WarEnchantmentCommon: {
+				DisplayName: Enchantement de guerre Commun
+				// Tooltip: ""
+			}
+
+			WarEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement de guerre
+				// Tooltip: ""
+			}
+
+			WarEnchantmentLegendary: {
+				DisplayName: Guerre Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			WarEnchantmentRare: {
+				DisplayName: Enchantement de guerre Rare
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentBasic: {
+				DisplayName: Enchantement d'échange de classe Whip Basic
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentCommon: {
+				DisplayName: Enchantement d'échange de classe de fouet Commun
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentEpic: {
+				DisplayName: Épopée d'enchantement d'échange de classe de fouet
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentLegendary: {
+				DisplayName: Échange de classe de fouet Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentRare: {
+				DisplayName: Enchantement d'échange de classe de fouet rare
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentBasic: {
+				DisplayName: Enchantement du Monde Enflammé de base
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentCommon: {
+				DisplayName: Enchantement du Monde Enflammé Commun
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentEpic: {
+				// DisplayName: World Ablaze Enchantment Epic
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentLegendary: {
+				DisplayName: World Ablaze Enchantement Légendaire
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentRare: {
+				DisplayName: Enchantement du Monde Enflammé Rare
+				// Tooltip: ""
+			}
 
 			Containment: {
 				DisplayName: Conteneur
@@ -436,8 +1735,8 @@ Mods: {
 
 		Buffs: {
 			Amaterasu: {
-				/* DisplayName: Amaterasu */
-				/* Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu */
+				// DisplayName: Amaterasu
+				// Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu
 			}
 		}
 
@@ -455,7 +1754,7 @@ Mods: {
 			EnchantmentSettings: Paramètres d'enchantement
 			ErrorMessages: Messages d'erreur
 			EssenceandExperience: Essence et expérience
-			/* Expert: Expert */
+			// Expert: Expert
 			GeneralGameChanges: Modifications générales du jeu
 			IndividualEnchantmentStrengths: Forces d'enchantement individuelles
 			Journey: Voyage
@@ -464,7 +1763,7 @@ Mods: {
 			ModTestingTools: Outils de test de mod
 			Multipliers: Multiplicateurs
 			NoneSelected: Aucune sélection
-			/* Normal: Normal */
+			// Normal: Normal
 			OtherDropRates: Autres taux de drop
 			Presets: Préconfigurations
 			RandomExtraStuff: Trucs supplémentaires aléatoires
@@ -683,7 +1982,7 @@ Mods: {
 			}
 
 			DisableArmorInfusion: {
-				/* Label: Disable Armor Infusion */
+				// Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 
@@ -954,7 +2253,7 @@ Mods: {
 			}
 
 			RareEnchantmentStrengthMultiplier: {
-				/* Label: Rare */
+				// Label: Rare
 				Tooltip: Affects the strength of all Rare Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 
@@ -1048,15 +2347,15 @@ Mods: {
 		NPCNames: {
 			Witch: {
 				Agatha: Agathe
-				/* Akko: Akko */
-				/* Binx: Binx */
-				/* Blobbelda: Blobbelda */
-				/* Brentilda: Brentilda */
-				/* Freyja: Freyja */
-				/* Gruntilda: Gruntilda */
+				// Akko: Akko
+				// Binx: Binx
+				// Blobbelda: Blobbelda
+				// Brentilda: Brentilda
+				// Freyja: Freyja
+				// Gruntilda: Gruntilda
 				Hazel: Noisette
-				/* Jasminka: Jasminka */
-				/* Kyubey: Kyubey */
+				// Jasminka: Jasminka
+				// Kyubey: Kyubey
 				Maleficient: Maléfique
 				Mary: Marie
 				Medusa: Méduse
@@ -1064,29 +2363,29 @@ Mods: {
 				Mingella: Mingelle
 				MissGulch: Mlle Gulch
 				Morgana: Morgane
-				/* Sabrina: Sabrina */
-				/* Salem: Salem */
+				// Sabrina: Sabrina
+				// Salem: Salem
 				Sarah: Sara
 				Ursula: Ursule
-				/* Winifred: Winifred */
+				// Winifred: Winifred
 			}
 		}
 
-		/* NPCs.Witch.DisplayName: Witch */
+		// NPCs.Witch.DisplayName: Witch
 
 		Ores: {
-			/* adamantite: adamantite */
-			/* chlorophyte: chlorophyte */
-			/* cobalt: cobalt */
+			// adamantite: adamantite
+			// chlorophyte: chlorophyte
+			// cobalt: cobalt
 			copper: cuivre
-			/* crimtane: crimtane */
+			// crimtane: crimtane
 			demonite: démonite
 			gold: or
 			iron: le fer
 			lead: conduire
-			/* mythril: mythril */
+			// mythril: mythril
 			orichalcum: orichalque
-			/* palladium: palladium */
+			// palladium: palladium
 			platinum: platine
 			silver: argent
 			tin: étain
@@ -1097,7 +2396,7 @@ Mods: {
 		TableText: {
 			Cancel: Annuler
 			Finalize: Finaliser
-			/* Infusion: Infusion */
+			// Infusion: Infusion
 			LevelUp: Niveau supérieur
 			LootAll: Tout piller
 			No: Non
@@ -1135,7 +2434,7 @@ Mods: {
 
 			DamageClassNames: {
 				Generic: Générique
-				/* Ki: Ki */
+				// Ki: Ki
 				Magic: la magie
 				Melee: Mêlée
 				Ranged: À distance
@@ -1188,9 +2487,9 @@ Mods: {
 				DamageReduction: Réduction de dégats
 				DangerSense: Sens du danger
 				Daybreak: Aube
-				/* DayEventUpdateRate: Day Event Update Rate */
-				/* DayTileUpdateRate: Day Tile Update Rate */
-				/* DayTimeRate: Day Time Rate */
+				// DayEventUpdateRate: Day Event Update Rate
+				// DayTileUpdateRate: Day Tile Update Rate
+				// DayTimeRate: Day Time Rate
 				Defense: La défense
 				EnemyMaxSpawns: Le maximum d'ennemis apparaît
 				EnemySpawnRate: Taux d'apparition des ennemis
@@ -1204,16 +2503,16 @@ Mods: {
 				HealerClassSwap: Échange de classe de guérisseur
 				HellsWrath: Colère de l'enfer
 				Hunter: Chasseur
-				/* Ichor: Ichor */
+				// Ichor: Ichor
 				InfinitePenetration: Pénétration infinie
 				ItemCooldown: Temps de recharge de l'objet
 				Juiced: Jus
 				JumpSpeed: Vitesse de saut
 				JunglesFury: Fureur de la jungle
-				/* Ki: Ki */
+				// Ki: Ki
 				KiClassSwap: Échange de classe Ki
 				KiDamage: Dégâts Ki
-				/* KiRegen: Ki Regen */
+				// KiRegen: Ki Regen
 				LavaFishing: Pêche à la lave
 				LifeRegen: Régénération de vie
 				LifeRegeneration: Régénération de la vie
@@ -1223,9 +2522,9 @@ Mods: {
 				ManaUsage1: Utilisation de mana réduite
 				ManaUsage2: Augmentation de l'utilisation du mana
 				MaxFallSpeed: Vitesse de chute maximale
-				/* MaxKi: Max Ki */
+				// MaxKi: Max Ki
 				MaxLife: Durée de vie maximale
-				/* MaxMinions: Max Minions */
+				// MaxMinions: Max Minions
 				MaxMP: MP max
 				MeleeClassSwap: Échange de classe de mêlée
 				MiningSpeed: Vitesse de minage
@@ -1237,9 +2536,9 @@ Mods: {
 				MovementSpeed: Vitesse de mouvement
 				MPBonusRegen: Régénération du bonus MP
 				Multishot: Tir multiple
-				/* NightEventUpdateRate: Night Event Update Rate */
-				/* NightTileUpdateRate: Night Tile Update Rate */
-				/* NightTimeRate: Night Time Rate */
+				// NightEventUpdateRate: Night Event Update Rate
+				// NightTileUpdateRate: Night Tile Update Rate
+				// NightTimeRate: Night Time Rate
 				NpcContactAngler: CNP Contacter le pêcheur
 				NPCHitCooldown: Temps de recharge des coups de PNJ
 				ObsidianSkin: Peau d'obsidienne
@@ -1257,11 +2556,11 @@ Mods: {
 				Shine: Briller
 				Size: Taille
 				SolarDash: Tiret solaire
-				/* Sonar: Sonar */
+				// Sonar: Sonar
 				Spelunker: Spéléologue
 				ThrowingClassSwap: Lancer un échange de classe
-				/* Time: Time */
-				/* VanillaDash1: Ninja Tabi Dash */
+				// Time: Time
+				// VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Tiret de bouclier de l'œil de Cthulhu
 				VanillaDash3: Tiret solaire
 				VanillaDash5: Dash ninja de cristal
@@ -1278,7 +2577,7 @@ Mods: {
 				CalamityMod: (Enchantement Mod Calamité)
 				DBZMODPORT: (Enchantement Dragon Ball Terraria)
 				ThoriumMod: (Enchantement Mod Throium)
-				/* Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate */
+				// Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze:
 					'''
 					(Le debuff d'Amaterasu et les notes ci-dessous à ce sujet ne s'appliquent qu'au niveau d'enchantement 4.)
@@ -1393,15 +2692,15 @@ Mods: {
 			}
 		}
 
-		/* ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence */
-		/* ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled. */
+		// ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence
+		// ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled.
 
 		Tiles: {
-			/* DustyEnchantingTable.MapEntry: Dusty Enchanting Table */
-			/* HellishEnchantingTable.MapEntry: Hellish Enchanting Table */
-			/* SoulEnchantingTable.MapEntry: Soul Enchanting Table */
-			/* UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table */
-			/* WoodEnchantingTable.MapEntry: Wood Enchanting Table */
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 	}
 }

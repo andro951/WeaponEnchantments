@@ -350,7 +350,7 @@ namespace WeaponEnchantments.Common
 			return infusionPower;
 		}
         public static string GetInfusionItemName(this Item item) {
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.infusedItemName != "") {
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.infusedItemName != "") {
                 return enchantedItem.infusedItemName;
             }
 			else {
@@ -359,7 +359,7 @@ namespace WeaponEnchantments.Common
         }
         public static bool TryInfuseItem(this Item item, Item consumedItem, bool reset = false, bool finalize = false) {
             bool failedItemFind = false;
-            if (consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem) && consumedEnchantedItem.infusedItemName != "") {
+            if (consumedItem.TryGetEnchantedItemSearchAll(out EnchantedItem consumedEnchantedItem) && consumedEnchantedItem.infusedItemName != "") {
                 if (TryInfuseItem(item, consumedEnchantedItem.infusedItemName, reset, finalize)) {
                     return true;
                 }
@@ -368,7 +368,7 @@ namespace WeaponEnchantments.Common
                 }
             }
 
-            if(!item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if(!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 $"Failied to infuse item: {item.S()} with consumedItem: {consumedItem.S()}".LogNT(ChatMessagesIDs.FailedInfuseItem);
                 return false;
 			}

@@ -122,7 +122,7 @@ namespace WeaponEnchantments.Content.NPCs
 					return true;
 
 				foreach (Item item in player.inventory) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 						foreach (Item enchantment in enchantedItem.enchantments) {
 							if (!enchantment.NullOrAir())
 								return true;
@@ -131,7 +131,7 @@ namespace WeaponEnchantments.Content.NPCs
 				}
 
 				foreach (Item item in player.GetWEPlayer().Equipment.GetAllArmor()) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 						foreach (Item enchantment in enchantedItem.enchantments) {
 							if (!enchantment.NullOrAir())
 								return true;

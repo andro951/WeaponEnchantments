@@ -2,331 +2,1630 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Alle für einen Verzauberung Basic
-			AllForOneEnchantmentCommon.DisplayName: Alle für einen Verzauberung Gewöhnlich
-			AllForOneEnchantmentEpic.DisplayName: All For One Enchantment-Epos
-			AllForOneEnchantmentLegendary.DisplayName: All For One Verzauberung Legendär
-			AllForOneEnchantmentRare.DisplayName: Alle für einen Verzauberung Selten
-			AmmoCostEnchantmentBasic.DisplayName: Munitionskosten Verzauberung Basic
-			AmmoCostEnchantmentCommon.DisplayName: Munitionskosten Verzauberung Gewöhnlich
-			AmmoCostEnchantmentEpic.DisplayName: Munitionskosten-Verzauberung Epic
-			AmmoCostEnchantmentLegendary.DisplayName: Munitionskostenverzauberung Legendär
-			AmmoCostEnchantmentRare.DisplayName: Munitionskosten Verzauberung Selten
-			ArmorPenetrationEnchantmentBasic.DisplayName: Rüstungsdurchdringung Verzauberung Basic
-			ArmorPenetrationEnchantmentCommon.DisplayName: Rüstungsdurchdringung Verzauberung Gewöhnlich
-			ArmorPenetrationEnchantmentEpic.DisplayName: Rüstungsdurchdringungsverzauberung Epic
-			ArmorPenetrationEnchantmentLegendary.DisplayName: Rüstungsdurchdringungsverzauberung Legendär
-			ArmorPenetrationEnchantmentRare.DisplayName: Rüstungsdurchdringung Verzauberung Selten
-			AttackSpeedEnchantmentBasic.DisplayName: Geschwindigkeit Verzauberung Basic
-			AttackSpeedEnchantmentCommon.DisplayName: Geschwindigkeit Verzauberung Gewöhnlich
-			AttackSpeedEnchantmentEpic.DisplayName: Angriffsgeschwindigkeitsverzauberung Epic
-			AttackSpeedEnchantmentLegendary.DisplayName: Angriffsgeschwindigkeitsverzauberung Legendär
-			AttackSpeedEnchantmentRare.DisplayName: Geschwindigkeit Verzauberung Selten
-			BardClassSwapEnchantmentBasic.DisplayName: Barden-Klassentausch-Verzauberung Basic
-			BardClassSwapEnchantmentCommon.DisplayName: Barden-Klassentausch-Verzauberung Gewöhnlich
-			BardClassSwapEnchantmentEpic.DisplayName: Barden-Klassentausch-Verzauberungs-Epos
-			BardClassSwapEnchantmentLegendary.DisplayName: Barden-Klassentausch-Verzauberung Legendär
-			BardClassSwapEnchantmentRare.DisplayName: Barden-Klassentausch-Verzauberung Selten
-			BerserkersRageEnchantmentBasic.DisplayName: Berserker Rage Enchantment Basic
-			BerserkersRageEnchantmentCommon.DisplayName: Berserker Rage Enchantment Common
-			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epos
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserker Rage Enchantment Legendär
-			BerserkersRageEnchantmentRare.DisplayName: Berserker Rage Enchantment Selten
-			CalmWatersEnchantmentBasic.DisplayName: Ruhiges Wasser Verzauberung Basic
-			CalmWatersEnchantmentCommon.DisplayName: Ruhiges Wasser Verzauberung Common
-			CalmWatersEnchantmentEpic.DisplayName: Calm Waters Enchantment Epos
-			CalmWatersEnchantmentLegendary.DisplayName: Calm Waters Verzauberung Legendär
-			CalmWatersEnchantmentRare.DisplayName: Verzauberung der ruhigen Gewässer Selten
-			ChaoticFishingEnchantmentBasic.DisplayName: Chaotische Angelverzauberung Basic
-			ChaoticFishingEnchantmentCommon.DisplayName: Chaotische Angelverzauberung Häufig
-			ChaoticFishingEnchantmentEpic.DisplayName: Chaotic Fishing Enchantment Epos
-			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotische Angelverzauberung Legendär
-			ChaoticFishingEnchantmentRare.DisplayName: Chaotische Angelverzauberung Selten
-			ColdSteelEnchantmentBasic.DisplayName: Kalter Stahl Verzauberung Basic
-			ColdSteelEnchantmentCommon.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
-			ColdSteelEnchantmentEpic.DisplayName: Cold Steel Enchantment-Epos
-			ColdSteelEnchantmentLegendary.DisplayName: Legendäre Verzauberung von Cold Steel
-			ColdSteelEnchantmentRare.DisplayName: Kalter Stahl Verzauberung Gewöhnlich
-			CrateChanceEnchantmentBasic.DisplayName: Crate Chance Verzauberung Basic
-			CrateChanceEnchantmentCommon.DisplayName: Crate Chance Verzauberung Common
-			CrateChanceEnchantmentEpic.DisplayName: Crate Chance Enchantment Epos
-			CrateChanceEnchantmentLegendary.DisplayName: Kistenchance-Verzauberung Legendär
-			CrateChanceEnchantmentRare.DisplayName: Kisten-Chance-Verzauberung Selten
-			CrateEnchantmentBasic.DisplayName: Kistenverzauberung Basic
-			CrateEnchantmentCommon.DisplayName: Kistenverzauberung Gewöhnlich
-			CrateEnchantmentEpic.DisplayName: Kistenverzauberung Epos
-			CrateEnchantmentLegendary.DisplayName: Kistenverzauberung Legendär
-			CrateEnchantmentRare.DisplayName: Kistenverzauberung Selten
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Kritische Trefferchance Verzauberung Basic
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Kritische Trefferchance Verzauberung Gewöhnlich
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Verzauberungs-Epos mit kritischer Trefferchance
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Verzauberung mit kritischer Trefferchance Legendär
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Kritische Trefferchance Verzauberung Selten
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Kritische Trefferschaden-Verzauberung Basic
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Verzauberung für Schaden durch kritische Treffer Häufig
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Verzauberung mit kritischem Trefferschaden episch
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Verzauberung für kritischen Trefferschaden Legendär
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Verzauberung mit kritischem Trefferschaden Selten
-			CursedInfernoEnchantmentBasic.DisplayName: Verfluchte Inferno-Verzauberung Basic
-			CursedInfernoEnchantmentCommon.DisplayName: Verfluchte Inferno-Verzauberung
-			CursedInfernoEnchantmentEpic.DisplayName: Verfluchtes Inferno-Verzauberungs-Epos
-			CursedInfernoEnchantmentLegendary.DisplayName: Verfluchte Inferno-Verzauberung Legendär
-			CursedInfernoEnchantmentRare.DisplayName: Verfluchte Inferno-Verzauberung Selten
-			DamageEnchantmentBasic.DisplayName: Schaden Verzauberung Basic
-			DamageEnchantmentCommon.DisplayName: Schaden Verzauberung Gewöhnlich
-			DamageEnchantmentEpic.DisplayName: Schadensverzauberung Epic
-			DamageEnchantmentLegendary.DisplayName: Beschädigen Sie die Verzauberung Legendär
-			DamageEnchantmentRare.DisplayName: Schaden Verzauberung Selten
-			DamageReductionEnchantmentBasic.DisplayName: Grundlegende Verzauberung zur Schadensreduzierung
-			DamageReductionEnchantmentCommon.DisplayName: Verzauberung zur Schadensminderung Gewöhnlich
-			DamageReductionEnchantmentEpic.DisplayName: Epic-Verzauberung zur Schadensreduzierung
-			DamageReductionEnchantmentLegendary.DisplayName: Verzauberung zur Schadensreduzierung Legendär
-			DamageReductionEnchantmentRare.DisplayName: Verzauberung zur Schadensreduzierung Selten
-			DangerSenseEnchantmentBasic.DisplayName: Verzauberung der Gefahrenwahrnehmung Basic
-			DangerSenseEnchantmentCommon.DisplayName: Verzauberung der Gefahrenwahrnehmung Gewöhnlich
-			DangerSenseEnchantmentEpic.DisplayName: Danger Sense Enchantment Epos
-			DangerSenseEnchantmentLegendary.DisplayName: Verzauberung der Gefahrenwahrnehmung Legendär
-			DangerSenseEnchantmentRare.DisplayName: Verzauberung der Gefahrenwahrnehmung Selten
-			DaybreakEnchantmentBasic.DisplayName: Tagesanbruch-Verzauberung Basic
-			DaybreakEnchantmentCommon.DisplayName: Daybreak-Verzauberung Common
-			DaybreakEnchantmentEpic.DisplayName: Daybreak Enchantment-Epos
-			DaybreakEnchantmentLegendary.DisplayName: Daybreak-Verzauberung Legendär
-			DaybreakEnchantmentRare.DisplayName: Daybreak-Verzauberung Selten
-			DefenseEnchantmentBasic.DisplayName: Verteidigungsverzauberung Basic
-			DefenseEnchantmentCommon.DisplayName: Verzauberung der Verteidigung Gewöhnlich
-			DefenseEnchantmentEpic.DisplayName: Verteidigungszauber-Epos
-			DefenseEnchantmentLegendary.DisplayName: Verteidigungsverzauberung Legendär
-			DefenseEnchantmentRare.DisplayName: Verteidigungszauber Selten
-			ExtraFishingLineEnchantmentBasic.DisplayName: Zusätzliche Angelschnur-Verzauberung Basic
-			ExtraFishingLineEnchantmentCommon.DisplayName: Zusätzliche Angelschnur-Verzauberung
-			ExtraFishingLineEnchantmentEpic.DisplayName: Extra Angelschnur-Verzauberung Epic
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Zusätzliche Angelschnur-Verzauberung Legendär
-			ExtraFishingLineEnchantmentRare.DisplayName: Zusätzliche Angelschnur-Verzauberung Selten
-			FishingEnchantmentBasic.DisplayName: Fischen Verzauberung Basic
-			FishingEnchantmentCommon.DisplayName: Gemeinsame Angelverzauberung
-			FishingEnchantmentEpic.DisplayName: Fischen-Verzauberungs-Epos
-			FishingEnchantmentLegendary.DisplayName: Fischen Verzauberung Legendär
-			FishingEnchantmentRare.DisplayName: Angelverzauberung Selten
-			FishingPowerEnchantmentBasic.DisplayName: Angelkraft-Verzauberung Basic
-			FishingPowerEnchantmentCommon.DisplayName: Angelkraft Verzauberung Allgemein
-			FishingPowerEnchantmentEpic.DisplayName: Fischen Power Enchantment Epic
-			FishingPowerEnchantmentLegendary.DisplayName: Angelkraft-Verzauberung Legendär
-			FishingPowerEnchantmentRare.DisplayName: Angelkraft-Verzauberung Selten
-			FrostburnEnchantmentBasic.DisplayName: Frostbrand-Verzauberung Basic
-			FrostburnEnchantmentCommon.DisplayName: Frostbrand-Verzauberung Häufig
-			FrostburnEnchantmentEpic.DisplayName: Eisbrand-Verzauberung Epos
-			FrostburnEnchantmentLegendary.DisplayName: Frostbrand-Verzauberung Legendär
-			FrostburnEnchantmentRare.DisplayName: Frostbrand-Verzauberung Selten
-			GodSlayerEnchantmentBasic.DisplayName: Gotttöter Verzauberung Basic
-			GodSlayerEnchantmentCommon.DisplayName: Gotttöter Verzauberung Gewöhnlich
-			GodSlayerEnchantmentEpic.DisplayName: God Slayer Enchantment Epos
-			GodSlayerEnchantmentLegendary.DisplayName: Gotttöter-Verzauberung Legendär
-			GodSlayerEnchantmentRare.DisplayName: Gotttöter Verzauberung Selten
-			HealerClassSwapEnchantmentBasic.DisplayName: Heiler-Klassentausch-Verzauberung Basic
-			HealerClassSwapEnchantmentCommon.DisplayName: Heiler-Klassentausch-Verzauberung Häufig
-			HealerClassSwapEnchantmentEpic.DisplayName: Heiler-Klassentausch-Verzauberungs-Epos
-			HealerClassSwapEnchantmentLegendary.DisplayName: Heiler-Klassentausch-Verzauberung Legendär
-			HealerClassSwapEnchantmentRare.DisplayName: Heiler-Klassentausch-Verzauberung Selten
-			HellsWrathEnchantmentBasic.DisplayName: Höllen Zorn Verzauberung Basic
-			HellsWrathEnchantmentCommon.DisplayName: Höllen Zorn Verzauberung Gewöhnlich
-			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment-Epos
-			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath-Verzauberung Legendär
-			HellsWrathEnchantmentRare.DisplayName: Höllen Zorn Verzauberung Selten
-			HunterEnchantmentBasic.DisplayName: Jägerverzauberung Basic
-			HunterEnchantmentCommon.DisplayName: Jägerverzauberung Allgemein
-			HunterEnchantmentEpic.DisplayName: Hunter Enchantment Epos
-			HunterEnchantmentLegendary.DisplayName: Jägerverzauberung Legendär
-			HunterEnchantmentRare.DisplayName: Jägerverzauberung Selten
-			IchorEnchantmentBasic.DisplayName: Grundlegende Ichor-Verzauberung
-			IchorEnchantmentCommon.DisplayName: Ichor-Verzauberung
-			IchorEnchantmentEpic.DisplayName: Epos der Ichor-Verzauberung
-			IchorEnchantmentLegendary.DisplayName: Ichor-Verzauberung Legendär
-			IchorEnchantmentRare.DisplayName: Ichor-Verzauberung Selten
-			JuicedEnchantmentBasic.DisplayName: Entsaftete Verzauberung Basic
-			JuicedEnchantmentCommon.DisplayName: Entsaftete Verzauberung
-			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Epos
-			JuicedEnchantmentLegendary.DisplayName: Entsaftete Verzauberung Legendär
-			JuicedEnchantmentRare.DisplayName: Entsaftete Verzauberung Selten
-			JunglesFuryEnchantmentBasic.DisplayName: Jungle Zorn Verzauberung Basic
-			JunglesFuryEnchantmentCommon.DisplayName: Jungle Zorn Verzauberung Gewöhnlich
-			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Epos
-			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fury Enchantment Legendär
-			JunglesFuryEnchantmentRare.DisplayName: Jungle Zorn Verzauberung Selten
-			KiClassSwapEnchantmentBasic.DisplayName: Ki-Klassentausch-Verzauberung Basic
-			KiClassSwapEnchantmentCommon.DisplayName: Ki-Klassentausch-Verzauberung Gewöhnlich
-			KiClassSwapEnchantmentEpic.DisplayName: Ki-Klassentausch-Verzauberungs-Epos
-			KiClassSwapEnchantmentLegendary.DisplayName: Ki-Klassentausch-Verzauberung Legendär
-			KiClassSwapEnchantmentRare.DisplayName: Ki-Klassentausch-Verzauberung Selten
-			KiEnchantmentBasic.DisplayName: Ki-Verzauberung Basic
-			KiEnchantmentCommon.DisplayName: Ki Verzauberung Allgemein
-			KiEnchantmentEpic.DisplayName: Ki-Verzauberungs-Epos
-			KiEnchantmentLegendary.DisplayName: Ki-Verzauberung Legendär
-			KiEnchantmentRare.DisplayName: Ki-Verzauberung Selten
-			LavaFishingEnchantmentBasic.DisplayName: Lavafischen Verzauberung Basic
-			LavaFishingEnchantmentCommon.DisplayName: Lavafischen Verzauberung Allgemein
-			LavaFishingEnchantmentEpic.DisplayName: Epische Lavafischen-Verzauberung
-			LavaFishingEnchantmentLegendary.DisplayName: Lavafischen Verzauberung Legendär
-			LavaFishingEnchantmentRare.DisplayName: Lavafischen Verzauberung Selten
-			LifeRegenEnchantmentBasic.DisplayName: Lebensregenerierungs-Verzauberung Basic
-			LifeRegenEnchantmentCommon.DisplayName: Verzauberung der Lebensregeneration
-			LifeRegenEnchantmentEpic.DisplayName: Epische Lebensregenerierungsverzauberung
-			LifeRegenEnchantmentLegendary.DisplayName: Verzauberung der Lebensregeneration Legendär
-			LifeRegenEnchantmentRare.DisplayName: Verzauberung der Lebensregeneration Selten
-			LifeStealEnchantmentBasic.DisplayName: Lebensraub Verzauberung Basic
-			LifeStealEnchantmentCommon.DisplayName: Lebensraub Verzauberung Gewöhnlich
-			LifeStealEnchantmentEpic.DisplayName: Life Steal Enchantment-Epos
-			LifeStealEnchantmentLegendary.DisplayName: Lebensraub-Verzauberung Legendär
-			LifeStealEnchantmentRare.DisplayName: Lebensraub Verzauberung Selten
-			LuckEnchantmentBasic.DisplayName: Glücksverzauberung Basic
-			LuckEnchantmentCommon.DisplayName: Glücksverzauberung Common
-			LuckEnchantmentEpic.DisplayName: Glückszauber-Epos
-			LuckEnchantmentLegendary.DisplayName: Glücksverzauberung Legendär
-			LuckEnchantmentRare.DisplayName: Glücksverzauberung Selten
-			MagicClassSwapEnchantmentBasic.DisplayName: Magic Class Swap-Verzauberung Basic
-			MagicClassSwapEnchantmentCommon.DisplayName: Magische Klassentausch-Verzauberung Allgemein
-			MagicClassSwapEnchantmentEpic.DisplayName: Magische Klassentausch-Verzauberung Epic
-			MagicClassSwapEnchantmentLegendary.DisplayName: Magische Klassentausch-Verzauberung Legendär
-			MagicClassSwapEnchantmentRare.DisplayName: Magische Klassentausch-Verzauberung Selten
-			MaxMinionsEnchantmentBasic.DisplayName: Max Günstlinge Verzauberung Basic
-			MaxMinionsEnchantmentCommon.DisplayName: Max Günstlinge Verzauberung Gewöhnlich
-			MaxMinionsEnchantmentEpic.DisplayName: Max Minions Verzauberung Epic
-			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Verzauberung Legendär
-			MaxMinionsEnchantmentRare.DisplayName: Max Günstlinge Verzauberung Selten
-			MeleeClassSwapEnchantmentBasic.DisplayName: Nahkampf-Klassentausch-Verzauberung Basic
-			MeleeClassSwapEnchantmentCommon.DisplayName: Nahkampf-Klassentausch-Verzauberung Gewöhnlich
-			MeleeClassSwapEnchantmentEpic.DisplayName: Nahkampf-Klassentausch-Verzauberung Epic
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Nahkampf-Klassentausch-Verzauberung Legendär
-			MeleeClassSwapEnchantmentRare.DisplayName: Nahkampf-Klassentausch-Verzauberung Selten
-			MobilityControlEnchantmentBasic.DisplayName: Mobilitätskontrollverzauberung Basic
-			MobilityControlEnchantmentCommon.DisplayName: Verzauberung der Mobilitätskontrolle Gewöhnlich
-			/* MobilityControlEnchantmentEpic.DisplayName: Mobility Control Enchantment Epic */
-			MobilityControlEnchantmentLegendary.DisplayName: Mobilitätskontrolle Verzauberung Legendär
-			MobilityControlEnchantmentRare.DisplayName: Verzauberung zur Mobilitätskontrolle Selten
-			MoonlightEnchantmentBasic.DisplayName: Mondlicht Verzauberung Basic
-			MoonlightEnchantmentCommon.DisplayName: Mondlicht Verzauberung Gewöhnlich
-			MoonlightEnchantmentEpic.DisplayName: Mondschein-Verzauberungs-Epos
-			MoonlightEnchantmentLegendary.DisplayName: Mondlichtverzauberung Legendär
-			MoonlightEnchantmentRare.DisplayName: Mondlicht Verzauberung Selten
-			MovementSpeedEnchantmentBasic.DisplayName: Bewegungsgeschwindigkeit Verzauberung Basic
-			MovementSpeedEnchantmentCommon.DisplayName: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
-			MovementSpeedEnchantmentEpic.DisplayName: Bewegungsgeschwindigkeitsverzauberung Epic
-			MovementSpeedEnchantmentLegendary.DisplayName: Bewegungsgeschwindigkeitsverzauberung Legendär
-			MovementSpeedEnchantmentRare.DisplayName: Bewegungsgeschwindigkeit Verzauberung Selten
-			MultishotEnchantmentBasic.DisplayName: Multischuss Verzauberung Basic
-			MultishotEnchantmentCommon.DisplayName: Multischuss Verzauberung Gewöhnlich
-			MultishotEnchantmentEpic.DisplayName: Multishot-Verzauberung Epic
-			MultishotEnchantmentLegendary.DisplayName: Multishot-Verzauberung Legendär
-			MultishotEnchantmentRare.DisplayName: Multischuss Verzauberung Selten
-			NpcContactAnglerEnchantmentBasic.DisplayName: NPC Kontakt Angler Verzauberung Basic
-			NpcContactAnglerEnchantmentCommon.DisplayName: NPC Kontakt Angler Verzauberung Allgemein
-			NpcContactAnglerEnchantmentEpic.DisplayName: NPC Kontakt Angler Verzauberung Epic
-			NpcContactAnglerEnchantmentLegendary.DisplayName: NPC Kontakt Angler Verzauberung Legendär
-			NpcContactAnglerEnchantmentRare.DisplayName: NPC Kontakt Angler Verzauberung Selten
-			ObsidianSkinEnchantmentBasic.DisplayName: Obsidian-Haut-Verzauberung Basic
-			ObsidianSkinEnchantmentCommon.DisplayName: Obsidian-Haut-Verzauberung Gewöhnlich
-			ObsidianSkinEnchantmentEpic.DisplayName: Obsidian Skin Enchantment Episch
-			ObsidianSkinEnchantmentLegendary.DisplayName: Obsidian-Haut-Verzauberung Legendär
-			ObsidianSkinEnchantmentRare.DisplayName: Obsidian Skin Enchantment Selten
-			OneForAllEnchantmentBasic.DisplayName: Einer für alle Verzauberung Basic
-			OneForAllEnchantmentCommon.DisplayName: Einer für alle Verzauberung Gewöhnlich
-			OneForAllEnchantmentEpic.DisplayName: One For All Enchantment-Epos
-			OneForAllEnchantmentLegendary.DisplayName: One For All Verzauberung Legendär
-			OneForAllEnchantmentRare.DisplayName: Einer für alle Verzauberung Selten
-			OnFireEnchantmentBasic.DisplayName: On Fire Verzauberung Basic
-			OnFireEnchantmentCommon.DisplayName: Auf Feuer Verzauberung Common
-			OnFireEnchantmentEpic.DisplayName: On Fire Enchantment Epos
-			OnFireEnchantmentLegendary.DisplayName: On Fire Verzauberung Legendär
-			OnFireEnchantmentRare.DisplayName: On Fire Enchantment Selten
-			PeaceEnchantmentBasic.DisplayName: Frieden Verzauberung Basic
-			PeaceEnchantmentCommon.DisplayName: Frieden Verzauberung Gewöhnlich
-			PeaceEnchantmentEpic.DisplayName: Friedenszauber-Epos
-			PeaceEnchantmentLegendary.DisplayName: Friedensverzauberung Legendär
-			PeaceEnchantmentRare.DisplayName: Frieden Verzauberung Selten
-			/* PennyPinchingEnchantmentBasic.DisplayName: Penny Pinching Enchantment Basic */
-			PennyPinchingEnchantmentCommon.DisplayName: Penny Pinching-Verzauberung Common
-			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantment Epos
-			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantment Legendär
-			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantment Selten
-			PrideOfTheWeakEnchantmentBasic.DisplayName: Stolz der schwachen Verzauberung Basic
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Stolz der schwachen Verzauberung
-			PrideOfTheWeakEnchantmentEpic.DisplayName: Stolz der schwachen Verzauberung Epos
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Stolz der schwachen Verzauberung Legendär
-			PrideOfTheWeakEnchantmentRare.DisplayName: Stolz der schwachen Verzauberung Selten
-			ProjectileVelocityEnchantmentBasic.DisplayName: Schussgeschwindigkeit ​​Verzauberung Basic
-			ProjectileVelocityEnchantmentCommon.DisplayName: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
-			ProjectileVelocityEnchantmentEpic.DisplayName: Projektilgeschwindigkeitsverzauberung Epos
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Geschossgeschwindigkeitsverzauberung Legendär
-			ProjectileVelocityEnchantmentRare.DisplayName: Schussgeschwindigkeit ​​Verzauberung Selten
-			RangedClassSwapEnchantmentBasic.DisplayName: Fernkampf-Klassentausch-Verzauberung Basic
-			RangedClassSwapEnchantmentCommon.DisplayName: Fernkampf-Klassentausch-Verzauberung Gewöhnlich
-			RangedClassSwapEnchantmentEpic.DisplayName: Fernkampf-Klassentausch-Verzauberungs-Epos
-			RangedClassSwapEnchantmentLegendary.DisplayName: Fernkampf-Klassentausch-Verzauberung Legendär
-			RangedClassSwapEnchantmentRare.DisplayName: Fernkampf-Klassentausch-Verzauberung Selten
-			ReducedManaUsageEnchantmentBasic.DisplayName: Mana Verzauberung Basic
-			ReducedManaUsageEnchantmentCommon.DisplayName: Mana Verzauberung Gewöhnlich
-			ReducedManaUsageEnchantmentEpic.DisplayName: Epic-Verzauberung mit reduziertem Manaverbrauch
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendäre Verzauberung mit reduziertem Manaverbrauch
-			ReducedManaUsageEnchantmentRare.DisplayName: Mana Verzauberung Selten
-			RogueClassSwapEnchantmentBasic.DisplayName: Rogue Class Swap-Verzauberung Basic
-			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Class Swap Verzauberung Common
-			/* RogueClassSwapEnchantmentEpic.DisplayName: Rogue Class Swap Enchantment Epic */
-			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap-Verzauberung Legendär
-			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Selten
-			ShineEnchantmentBasic.DisplayName: Glänzen Sie Verzauberung Basic
-			ShineEnchantmentCommon.DisplayName: Glänzende Verzauberung
-			ShineEnchantmentEpic.DisplayName: Shine Enchantment Episch
-			ShineEnchantmentLegendary.DisplayName: Glänzende Verzauberung Legendär
-			ShineEnchantmentRare.DisplayName: Glanzverzauberung Selten
-			SizeEnchantmentBasic.DisplayName: Skalierung Verzauberung Basic
-			SizeEnchantmentCommon.DisplayName: Skalierung Verzauberung Gewöhnlich
-			SizeEnchantmentEpic.DisplayName: Größe Verzauberung Epic
-			SizeEnchantmentLegendary.DisplayName: Größe Verzauberung Legendär
-			SizeEnchantmentRare.DisplayName: Skalierung Verzauberung Selten
-			SolarDashEnchantmentBasic.DisplayName: Solar Dash-Verzauberung Basic
-			SolarDashEnchantmentCommon.DisplayName: Solar Dash-Verzauberung Häufig
-			SolarDashEnchantmentEpic.DisplayName: Solar Dash Enchantment Epos
-			SolarDashEnchantmentLegendary.DisplayName: Solar Dash-Verzauberung Legendär
-			SolarDashEnchantmentRare.DisplayName: Solar Dash-Verzauberung Selten
-			SonarEnchantmentBasic.DisplayName: Sonar-Verzauberung Basic
-			SonarEnchantmentCommon.DisplayName: Sonar-Verzauberung Häufig
-			SonarEnchantmentEpic.DisplayName: Epos der Sonar-Verzauberung
-			SonarEnchantmentLegendary.DisplayName: Sonar-Verzauberung Legendär
-			SonarEnchantmentRare.DisplayName: Sonar-Verzauberung Selten
-			SpelunkerEnchantmentBasic.DisplayName: Höhlenforscher-Verzauberung Basic
-			SpelunkerEnchantmentCommon.DisplayName: Höhlenforscher-Verzauberung Gewöhnlich
-			SpelunkerEnchantmentEpic.DisplayName: Spelunker Enchantment Epos
-			SpelunkerEnchantmentLegendary.DisplayName: Höhlenforscher-Verzauberung Legendär
-			SpelunkerEnchantmentRare.DisplayName: Höhlenforscher-Verzauberung Selten
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Klassentausch-Verzauberung werfen Basic
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Klasse tauschen Verzauberung werfen Gewöhnlich
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Klassentausch-Verzauberungs-Epos werfen
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Klassentauschverzauberung Legendär werfen
-			ThrowingClassSwapEnchantmentRare.DisplayName: Klassentausch-Verzauberung werfen Selten
-			/* TimeEnchantmentBasic.DisplayName: Time Enchantment Basic */
-			/* TimeEnchantmentCommon.DisplayName: Time Enchantment Common */
-			/* TimeEnchantmentEpic.DisplayName: Time Enchantment Epic */
-			/* TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary */
-			/* TimeEnchantmentRare.DisplayName: Time Enchantment Rare */
-			VenomEnchantmentBasic.DisplayName: Giftverzauberung Basic
-			VenomEnchantmentCommon.DisplayName: Giftverzauberung Allgemein
-			VenomEnchantmentEpic.DisplayName: Giftverzauberung Epic
-			VenomEnchantmentLegendary.DisplayName: Giftverzauberung Legendär
-			VenomEnchantmentRare.DisplayName: Giftverzauberung Selten
-			WarEnchantmentBasic.DisplayName: Krieg Verzauberung Basic
-			WarEnchantmentCommon.DisplayName: Krieg Verzauberung Gewöhnlich
-			WarEnchantmentEpic.DisplayName: Epos der Kriegsverzauberung
-			WarEnchantmentLegendary.DisplayName: Kriegsverzauberung Legendär
-			WarEnchantmentRare.DisplayName: Krieg Verzauberung Selten
-			WhipClassSwapEnchantmentBasic.DisplayName: Peitschen-Klassentausch-Verzauberung Basic
-			WhipClassSwapEnchantmentCommon.DisplayName: Peitschen-Klassentausch-Verzauberung Gewöhnlich
-			WhipClassSwapEnchantmentEpic.DisplayName: Peitschen-Klassentausch-Verzauberung Epic
-			WhipClassSwapEnchantmentLegendary.DisplayName: Peitschen-Klassentausch-Verzauberung Legendär
-			WhipClassSwapEnchantmentRare.DisplayName: Peitschenklassentausch-Verzauberung Selten
-			WorldAblazeEnchantmentBasic.DisplayName: Welt in Flammen Verzauberung Basic
-			WorldAblazeEnchantmentCommon.DisplayName: Welt in Flammen Verzauberung Gewöhnlich
-			WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment-Epos
-			WorldAblazeEnchantmentLegendary.DisplayName: Legendäre Verzauberung der Welt
-			WorldAblazeEnchantmentRare.DisplayName: Welt in Flammen Verzauberung Selten
+			AllForOneEnchantmentBasic: {
+				DisplayName: Alle für einen Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentCommon: {
+				DisplayName: Alle für einen Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentEpic: {
+				DisplayName: All For One Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentLegendary: {
+				DisplayName: All For One Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentRare: {
+				DisplayName: Alle für einen Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentBasic: {
+				DisplayName: Munitionskosten Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentCommon: {
+				DisplayName: Munitionskosten Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentEpic: {
+				DisplayName: Munitionskosten-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentLegendary: {
+				DisplayName: Munitionskostenverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentRare: {
+				DisplayName: Munitionskosten Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentBasic: {
+				DisplayName: Rüstungsdurchdringung Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentCommon: {
+				DisplayName: Rüstungsdurchdringung Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentEpic: {
+				DisplayName: Rüstungsdurchdringungsverzauberung Epic
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentLegendary: {
+				DisplayName: Rüstungsdurchdringungsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentRare: {
+				DisplayName: Rüstungsdurchdringung Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentBasic: {
+				DisplayName: Geschwindigkeit Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentCommon: {
+				DisplayName: Geschwindigkeit Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentEpic: {
+				DisplayName: Angriffsgeschwindigkeitsverzauberung Epic
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentLegendary: {
+				DisplayName: Angriffsgeschwindigkeitsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentRare: {
+				DisplayName: Geschwindigkeit Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentBasic: {
+				DisplayName: Barden-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentCommon: {
+				DisplayName: Barden-Klassentausch-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentEpic: {
+				DisplayName: Barden-Klassentausch-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentLegendary: {
+				DisplayName: Barden-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentRare: {
+				DisplayName: Barden-Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentBasic: {
+				DisplayName: Berserker Rage Enchantment Basic
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentCommon: {
+				DisplayName: Berserker Rage Enchantment Common
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentEpic: {
+				DisplayName: Berserkers Rage Enchantment Epos
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentLegendary: {
+				DisplayName: Berserker Rage Enchantment Legendär
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentRare: {
+				DisplayName: Berserker Rage Enchantment Selten
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentBasic: {
+				DisplayName: Ruhiges Wasser Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentCommon: {
+				DisplayName: Ruhiges Wasser Verzauberung Common
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentEpic: {
+				DisplayName: Calm Waters Enchantment Epos
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentLegendary: {
+				DisplayName: Calm Waters Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentRare: {
+				DisplayName: Verzauberung der ruhigen Gewässer Selten
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentBasic: {
+				DisplayName: Chaotische Angelverzauberung Basic
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentCommon: {
+				DisplayName: Chaotische Angelverzauberung Häufig
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentEpic: {
+				DisplayName: Chaotic Fishing Enchantment Epos
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentLegendary: {
+				DisplayName: Chaotische Angelverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentRare: {
+				DisplayName: Chaotische Angelverzauberung Selten
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentBasic: {
+				DisplayName: Kalter Stahl Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentCommon: {
+				DisplayName: Kalter Stahl Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentEpic: {
+				DisplayName: Cold Steel Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentLegendary: {
+				DisplayName: Legendäre Verzauberung von Cold Steel
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentRare: {
+				DisplayName: Kalter Stahl Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentBasic: {
+				DisplayName: Crate Chance Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentCommon: {
+				DisplayName: Crate Chance Verzauberung Common
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentEpic: {
+				DisplayName: Crate Chance Enchantment Epos
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentLegendary: {
+				DisplayName: Kistenchance-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentRare: {
+				DisplayName: Kisten-Chance-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentBasic: {
+				DisplayName: Kistenverzauberung Basic
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentCommon: {
+				DisplayName: Kistenverzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentEpic: {
+				DisplayName: Kistenverzauberung Epos
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentLegendary: {
+				DisplayName: Kistenverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentRare: {
+				DisplayName: Kistenverzauberung Selten
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentBasic: {
+				DisplayName: Kritische Trefferchance Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentCommon: {
+				DisplayName: Kritische Trefferchance Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentEpic: {
+				DisplayName: Verzauberungs-Epos mit kritischer Trefferchance
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentLegendary: {
+				DisplayName: Verzauberung mit kritischer Trefferchance Legendär
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentRare: {
+				DisplayName: Kritische Trefferchance Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentBasic: {
+				DisplayName: Kritische Trefferschaden-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentCommon: {
+				DisplayName: Verzauberung für Schaden durch kritische Treffer Häufig
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentEpic: {
+				DisplayName: Verzauberung mit kritischem Trefferschaden episch
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentLegendary: {
+				DisplayName: Verzauberung für kritischen Trefferschaden Legendär
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentRare: {
+				DisplayName: Verzauberung mit kritischem Trefferschaden Selten
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentBasic: {
+				DisplayName: Verfluchte Inferno-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentCommon: {
+				DisplayName: Verfluchte Inferno-Verzauberung
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentEpic: {
+				DisplayName: Verfluchtes Inferno-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentLegendary: {
+				DisplayName: Verfluchte Inferno-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentRare: {
+				DisplayName: Verfluchte Inferno-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentBasic: {
+				DisplayName: Schaden Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentCommon: {
+				DisplayName: Schaden Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentEpic: {
+				DisplayName: Schadensverzauberung Epic
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentLegendary: {
+				DisplayName: Beschädigen Sie die Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentRare: {
+				DisplayName: Schaden Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentBasic: {
+				DisplayName: Grundlegende Verzauberung zur Schadensreduzierung
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentCommon: {
+				DisplayName: Verzauberung zur Schadensminderung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentEpic: {
+				DisplayName: Epic-Verzauberung zur Schadensreduzierung
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentLegendary: {
+				DisplayName: Verzauberung zur Schadensreduzierung Legendär
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentRare: {
+				DisplayName: Verzauberung zur Schadensreduzierung Selten
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentBasic: {
+				DisplayName: Verzauberung der Gefahrenwahrnehmung Basic
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentCommon: {
+				DisplayName: Verzauberung der Gefahrenwahrnehmung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentEpic: {
+				DisplayName: Danger Sense Enchantment Epos
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentLegendary: {
+				DisplayName: Verzauberung der Gefahrenwahrnehmung Legendär
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentRare: {
+				DisplayName: Verzauberung der Gefahrenwahrnehmung Selten
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentBasic: {
+				DisplayName: Tagesanbruch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentCommon: {
+				DisplayName: Daybreak-Verzauberung Common
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentEpic: {
+				DisplayName: Daybreak Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentLegendary: {
+				DisplayName: Daybreak-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentRare: {
+				DisplayName: Daybreak-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentBasic: {
+				DisplayName: Verteidigungsverzauberung Basic
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentCommon: {
+				DisplayName: Verzauberung der Verteidigung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentEpic: {
+				DisplayName: Verteidigungszauber-Epos
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentLegendary: {
+				DisplayName: Verteidigungsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentRare: {
+				DisplayName: Verteidigungszauber Selten
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentBasic: {
+				DisplayName: Zusätzliche Angelschnur-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentCommon: {
+				DisplayName: Zusätzliche Angelschnur-Verzauberung
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentEpic: {
+				DisplayName: Extra Angelschnur-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentLegendary: {
+				DisplayName: Zusätzliche Angelschnur-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentRare: {
+				DisplayName: Zusätzliche Angelschnur-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentBasic: {
+				DisplayName: Fischen Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentCommon: {
+				DisplayName: Gemeinsame Angelverzauberung
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentEpic: {
+				DisplayName: Fischen-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentLegendary: {
+				DisplayName: Fischen Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentRare: {
+				DisplayName: Angelverzauberung Selten
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentBasic: {
+				DisplayName: Angelkraft-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentCommon: {
+				DisplayName: Angelkraft Verzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentEpic: {
+				DisplayName: Fischen Power Enchantment Epic
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentLegendary: {
+				DisplayName: Angelkraft-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentRare: {
+				DisplayName: Angelkraft-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentBasic: {
+				DisplayName: Frostbrand-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentCommon: {
+				DisplayName: Frostbrand-Verzauberung Häufig
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentEpic: {
+				DisplayName: Eisbrand-Verzauberung Epos
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentLegendary: {
+				DisplayName: Frostbrand-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentRare: {
+				DisplayName: Frostbrand-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentBasic: {
+				DisplayName: Gotttöter Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentCommon: {
+				DisplayName: Gotttöter Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentEpic: {
+				DisplayName: God Slayer Enchantment Epos
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentLegendary: {
+				DisplayName: Gotttöter-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentRare: {
+				DisplayName: Gotttöter Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentBasic: {
+				DisplayName: Heiler-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentCommon: {
+				DisplayName: Heiler-Klassentausch-Verzauberung Häufig
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentEpic: {
+				DisplayName: Heiler-Klassentausch-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentLegendary: {
+				DisplayName: Heiler-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentRare: {
+				DisplayName: Heiler-Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentBasic: {
+				DisplayName: Höllen Zorn Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentCommon: {
+				DisplayName: Höllen Zorn Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentEpic: {
+				DisplayName: Hells Wrath Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentLegendary: {
+				DisplayName: Hells Wrath-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentRare: {
+				DisplayName: Höllen Zorn Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentBasic: {
+				DisplayName: Jägerverzauberung Basic
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentCommon: {
+				DisplayName: Jägerverzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentEpic: {
+				DisplayName: Hunter Enchantment Epos
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentLegendary: {
+				DisplayName: Jägerverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentRare: {
+				DisplayName: Jägerverzauberung Selten
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentBasic: {
+				DisplayName: Grundlegende Ichor-Verzauberung
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentCommon: {
+				DisplayName: Ichor-Verzauberung
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentEpic: {
+				DisplayName: Epos der Ichor-Verzauberung
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentLegendary: {
+				DisplayName: Ichor-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentRare: {
+				DisplayName: Ichor-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentBasic: {
+				DisplayName: Entsaftete Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentCommon: {
+				DisplayName: Entsaftete Verzauberung
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentEpic: {
+				DisplayName: Juiced Enchantment Epos
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentLegendary: {
+				DisplayName: Entsaftete Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentRare: {
+				DisplayName: Entsaftete Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentBasic: {
+				DisplayName: Jungle Zorn Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentCommon: {
+				DisplayName: Jungle Zorn Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentEpic: {
+				DisplayName: Jungles Fury Enchantment Epos
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentLegendary: {
+				DisplayName: Jungles Fury Enchantment Legendär
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentRare: {
+				DisplayName: Jungle Zorn Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentBasic: {
+				DisplayName: Ki-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentCommon: {
+				DisplayName: Ki-Klassentausch-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentEpic: {
+				DisplayName: Ki-Klassentausch-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentLegendary: {
+				DisplayName: Ki-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentRare: {
+				DisplayName: Ki-Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			KiEnchantmentBasic: {
+				DisplayName: Ki-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			KiEnchantmentCommon: {
+				DisplayName: Ki Verzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			KiEnchantmentEpic: {
+				DisplayName: Ki-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			KiEnchantmentLegendary: {
+				DisplayName: Ki-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			KiEnchantmentRare: {
+				DisplayName: Ki-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentBasic: {
+				DisplayName: Lavafischen Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentCommon: {
+				DisplayName: Lavafischen Verzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentEpic: {
+				DisplayName: Epische Lavafischen-Verzauberung
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentLegendary: {
+				DisplayName: Lavafischen Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentRare: {
+				DisplayName: Lavafischen Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentBasic: {
+				DisplayName: Lebensregenerierungs-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentCommon: {
+				DisplayName: Verzauberung der Lebensregeneration
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentEpic: {
+				DisplayName: Epische Lebensregenerierungsverzauberung
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentLegendary: {
+				DisplayName: Verzauberung der Lebensregeneration Legendär
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentRare: {
+				DisplayName: Verzauberung der Lebensregeneration Selten
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentBasic: {
+				DisplayName: Lebensraub Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentCommon: {
+				DisplayName: Lebensraub Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentEpic: {
+				DisplayName: Life Steal Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentLegendary: {
+				DisplayName: Lebensraub-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentRare: {
+				DisplayName: Lebensraub Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentBasic: {
+				DisplayName: Glücksverzauberung Basic
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentCommon: {
+				DisplayName: Glücksverzauberung Common
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentEpic: {
+				DisplayName: Glückszauber-Epos
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentLegendary: {
+				DisplayName: Glücksverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentRare: {
+				DisplayName: Glücksverzauberung Selten
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentBasic: {
+				DisplayName: Magic Class Swap-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentCommon: {
+				DisplayName: Magische Klassentausch-Verzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentEpic: {
+				DisplayName: Magische Klassentausch-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentLegendary: {
+				DisplayName: Magische Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentRare: {
+				DisplayName: Magische Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentBasic: {
+				DisplayName: Max Günstlinge Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentCommon: {
+				DisplayName: Max Günstlinge Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentEpic: {
+				DisplayName: Max Minions Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentLegendary: {
+				DisplayName: Max Minions Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentRare: {
+				DisplayName: Max Günstlinge Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentBasic: {
+				DisplayName: Nahkampf-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentCommon: {
+				DisplayName: Nahkampf-Klassentausch-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentEpic: {
+				DisplayName: Nahkampf-Klassentausch-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentLegendary: {
+				DisplayName: Nahkampf-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentRare: {
+				DisplayName: Nahkampf-Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentBasic: {
+				DisplayName: Mobilitätskontrollverzauberung Basic
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentCommon: {
+				DisplayName: Verzauberung der Mobilitätskontrolle Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentEpic: {
+				// DisplayName: Mobility Control Enchantment Epic
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentLegendary: {
+				DisplayName: Mobilitätskontrolle Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentRare: {
+				DisplayName: Verzauberung zur Mobilitätskontrolle Selten
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentBasic: {
+				DisplayName: Mondlicht Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentCommon: {
+				DisplayName: Mondlicht Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentEpic: {
+				DisplayName: Mondschein-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentLegendary: {
+				DisplayName: Mondlichtverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentRare: {
+				DisplayName: Mondlicht Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentBasic: {
+				DisplayName: Bewegungsgeschwindigkeit Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentCommon: {
+				DisplayName: Bewegungsgeschwindigkeit Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentEpic: {
+				DisplayName: Bewegungsgeschwindigkeitsverzauberung Epic
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentLegendary: {
+				DisplayName: Bewegungsgeschwindigkeitsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentRare: {
+				DisplayName: Bewegungsgeschwindigkeit Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentBasic: {
+				DisplayName: Multischuss Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentCommon: {
+				DisplayName: Multischuss Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentEpic: {
+				DisplayName: Multishot-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentLegendary: {
+				DisplayName: Multishot-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentRare: {
+				DisplayName: Multischuss Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentBasic: {
+				DisplayName: NPC Kontakt Angler Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentCommon: {
+				DisplayName: NPC Kontakt Angler Verzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentEpic: {
+				DisplayName: NPC Kontakt Angler Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentLegendary: {
+				DisplayName: NPC Kontakt Angler Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentRare: {
+				DisplayName: NPC Kontakt Angler Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentBasic: {
+				DisplayName: Obsidian-Haut-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentCommon: {
+				DisplayName: Obsidian-Haut-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentEpic: {
+				DisplayName: Obsidian Skin Enchantment Episch
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentLegendary: {
+				DisplayName: Obsidian-Haut-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentRare: {
+				DisplayName: Obsidian Skin Enchantment Selten
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentBasic: {
+				DisplayName: Einer für alle Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentCommon: {
+				DisplayName: Einer für alle Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentEpic: {
+				DisplayName: One For All Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentLegendary: {
+				DisplayName: One For All Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentRare: {
+				DisplayName: Einer für alle Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentBasic: {
+				DisplayName: On Fire Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentCommon: {
+				DisplayName: Auf Feuer Verzauberung Common
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentEpic: {
+				DisplayName: On Fire Enchantment Epos
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentLegendary: {
+				DisplayName: On Fire Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentRare: {
+				DisplayName: On Fire Enchantment Selten
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentBasic: {
+				DisplayName: Frieden Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentCommon: {
+				DisplayName: Frieden Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentEpic: {
+				DisplayName: Friedenszauber-Epos
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentLegendary: {
+				DisplayName: Friedensverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentRare: {
+				DisplayName: Frieden Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentBasic: {
+				// DisplayName: Penny Pinching Enchantment Basic
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentCommon: {
+				DisplayName: Penny Pinching-Verzauberung Common
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentEpic: {
+				DisplayName: Penny Pinching Enchantment Epos
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentLegendary: {
+				DisplayName: Penny Pinching Enchantment Legendär
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentRare: {
+				DisplayName: Penny Pinching Enchantment Selten
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentBasic: {
+				DisplayName: Stolz der schwachen Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentCommon: {
+				DisplayName: Stolz der schwachen Verzauberung
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentEpic: {
+				DisplayName: Stolz der schwachen Verzauberung Epos
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentLegendary: {
+				DisplayName: Stolz der schwachen Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentRare: {
+				DisplayName: Stolz der schwachen Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentBasic: {
+				DisplayName: Schussgeschwindigkeit ​​Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentCommon: {
+				DisplayName: Schussgeschwindigkeit ​​Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentEpic: {
+				DisplayName: Projektilgeschwindigkeitsverzauberung Epos
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentLegendary: {
+				DisplayName: Geschossgeschwindigkeitsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentRare: {
+				DisplayName: Schussgeschwindigkeit ​​Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentBasic: {
+				DisplayName: Fernkampf-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentCommon: {
+				DisplayName: Fernkampf-Klassentausch-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentEpic: {
+				DisplayName: Fernkampf-Klassentausch-Verzauberungs-Epos
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentLegendary: {
+				DisplayName: Fernkampf-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentRare: {
+				DisplayName: Fernkampf-Klassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentBasic: {
+				DisplayName: Mana Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentCommon: {
+				DisplayName: Mana Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentEpic: {
+				DisplayName: Epic-Verzauberung mit reduziertem Manaverbrauch
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentLegendary: {
+				DisplayName: Legendäre Verzauberung mit reduziertem Manaverbrauch
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentRare: {
+				DisplayName: Mana Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentBasic: {
+				DisplayName: Rogue Class Swap-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentCommon: {
+				DisplayName: Rogue Class Swap Verzauberung Common
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentEpic: {
+				// DisplayName: Rogue Class Swap Enchantment Epic
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentLegendary: {
+				DisplayName: Rogue Class Swap-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentRare: {
+				DisplayName: Rogue Class Swap Enchantment Selten
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentBasic: {
+				DisplayName: Glänzen Sie Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentCommon: {
+				DisplayName: Glänzende Verzauberung
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentEpic: {
+				DisplayName: Shine Enchantment Episch
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentLegendary: {
+				DisplayName: Glänzende Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentRare: {
+				DisplayName: Glanzverzauberung Selten
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentBasic: {
+				DisplayName: Skalierung Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentCommon: {
+				DisplayName: Skalierung Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentEpic: {
+				DisplayName: Größe Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentLegendary: {
+				DisplayName: Größe Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentRare: {
+				DisplayName: Skalierung Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentBasic: {
+				DisplayName: Solar Dash-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentCommon: {
+				DisplayName: Solar Dash-Verzauberung Häufig
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentEpic: {
+				DisplayName: Solar Dash Enchantment Epos
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentLegendary: {
+				DisplayName: Solar Dash-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentRare: {
+				DisplayName: Solar Dash-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentBasic: {
+				DisplayName: Sonar-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentCommon: {
+				DisplayName: Sonar-Verzauberung Häufig
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentEpic: {
+				DisplayName: Epos der Sonar-Verzauberung
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentLegendary: {
+				DisplayName: Sonar-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentRare: {
+				DisplayName: Sonar-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentBasic: {
+				DisplayName: Höhlenforscher-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentCommon: {
+				DisplayName: Höhlenforscher-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentEpic: {
+				DisplayName: Spelunker Enchantment Epos
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentLegendary: {
+				DisplayName: Höhlenforscher-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentRare: {
+				DisplayName: Höhlenforscher-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentBasic: {
+				DisplayName: Klassentausch-Verzauberung werfen Basic
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentCommon: {
+				DisplayName: Klasse tauschen Verzauberung werfen Gewöhnlich
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentEpic: {
+				DisplayName: Klassentausch-Verzauberungs-Epos werfen
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentLegendary: {
+				DisplayName: Klassentauschverzauberung Legendär werfen
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentRare: {
+				DisplayName: Klassentausch-Verzauberung werfen Selten
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentBasic: {
+				// DisplayName: Time Enchantment Basic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentCommon: {
+				// DisplayName: Time Enchantment Common
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentEpic: {
+				// DisplayName: Time Enchantment Epic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentLegendary: {
+				// DisplayName: Time Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentRare: {
+				// DisplayName: Time Enchantment Rare
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentBasic: {
+				DisplayName: Giftverzauberung Basic
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentCommon: {
+				DisplayName: Giftverzauberung Allgemein
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentEpic: {
+				DisplayName: Giftverzauberung Epic
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentLegendary: {
+				DisplayName: Giftverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentRare: {
+				DisplayName: Giftverzauberung Selten
+				// Tooltip: ""
+			}
+
+			WarEnchantmentBasic: {
+				DisplayName: Krieg Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			WarEnchantmentCommon: {
+				DisplayName: Krieg Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			WarEnchantmentEpic: {
+				DisplayName: Epos der Kriegsverzauberung
+				// Tooltip: ""
+			}
+
+			WarEnchantmentLegendary: {
+				DisplayName: Kriegsverzauberung Legendär
+				// Tooltip: ""
+			}
+
+			WarEnchantmentRare: {
+				DisplayName: Krieg Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentBasic: {
+				DisplayName: Peitschen-Klassentausch-Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentCommon: {
+				DisplayName: Peitschen-Klassentausch-Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentEpic: {
+				DisplayName: Peitschen-Klassentausch-Verzauberung Epic
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentLegendary: {
+				DisplayName: Peitschen-Klassentausch-Verzauberung Legendär
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentRare: {
+				DisplayName: Peitschenklassentausch-Verzauberung Selten
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentBasic: {
+				DisplayName: Welt in Flammen Verzauberung Basic
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentCommon: {
+				DisplayName: Welt in Flammen Verzauberung Gewöhnlich
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentEpic: {
+				DisplayName: World Ablaze Enchantment-Epos
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentLegendary: {
+				DisplayName: Legendäre Verzauberung der Welt
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentRare: {
+				DisplayName: Welt in Flammen Verzauberung Selten
+				// Tooltip: ""
+			}
 
 			Containment: {
 				DisplayName: Eindämmung
@@ -436,8 +1735,8 @@ Mods: {
 
 		Buffs: {
 			Amaterasu: {
-				/* DisplayName: Amaterasu */
-				/* Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu */
+				// DisplayName: Amaterasu
+				// Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu
 			}
 		}
 
@@ -464,7 +1763,7 @@ Mods: {
 			ModTestingTools: Mod-Test-Tools
 			Multipliers: Multiplikatoren
 			NoneSelected: Nichts ausgewählt
-			/* Normal: Normal */
+			// Normal: Normal
 			OtherDropRates: Andere Dropraten
 			Presets: Voreinstellungen
 			RandomExtraStuff: Zufälliges Extra-Zeug
@@ -590,7 +1889,7 @@ Mods: {
 			}
 
 			BasicEnchantmentStrengthMultiplier: {
-				/* Label: Basic */
+				// Label: Basic
 				Tooltip: Affects the strength of all Basic Enchantments.  Overides all multipliers except individual enchantment strength multipliers.  Set to -1 for this multiplier to be ignored.
 			}
 
@@ -683,7 +1982,7 @@ Mods: {
 			}
 
 			DisableArmorInfusion: {
-				/* Label: Disable Armor Infusion */
+				// Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 
@@ -1047,32 +2346,32 @@ Mods: {
 
 		NPCNames: {
 			Witch: {
-				/* Agatha: Agatha */
-				/* Akko: Akko */
-				/* Binx: Binx */
-				/* Blobbelda: Blobbelda */
-				/* Brentilda: Brentilda */
-				/* Freyja: Freyja */
-				/* Gruntilda: Gruntilda */
+				// Agatha: Agatha
+				// Akko: Akko
+				// Binx: Binx
+				// Blobbelda: Blobbelda
+				// Brentilda: Brentilda
+				// Freyja: Freyja
+				// Gruntilda: Gruntilda
 				Hazel: Hasel
-				/* Jasminka: Jasminka */
-				/* Kyubey: Kyubey */
+				// Jasminka: Jasminka
+				// Kyubey: Kyubey
 				Maleficient: Bösartig
 				Mary: Maria
 				Medusa: Meduse
-				/* Melusine: Melusine */
-				/* Mingella: Mingella */
+				// Melusine: Melusine
+				// Mingella: Mingella
 				MissGulch: Fräulein Gulch
-				/* Morgana: Morgana */
-				/* Sabrina: Sabrina */
+				// Morgana: Morgana
+				// Sabrina: Sabrina
 				Salem: Verkauf
-				/* Sarah: Sarah */
-				/* Ursula: Ursula */
-				/* Winifred: Winifred */
+				// Sarah: Sarah
+				// Ursula: Ursula
+				// Winifred: Winifred
 			}
 		}
 
-		/* NPCs.Witch.DisplayName: Witch */
+		// NPCs.Witch.DisplayName: Witch
 
 		Ores: {
 			adamantite: Adamantit
@@ -1097,7 +2396,7 @@ Mods: {
 		TableText: {
 			Cancel: Absagen
 			Finalize: Abschließen
-			/* Infusion: Infusion */
+			// Infusion: Infusion
 			LevelUp: Aufleveln
 			LootAll: Alles plündern
 			No: Nein
@@ -1135,7 +2434,7 @@ Mods: {
 
 			DamageClassNames: {
 				Generic: Generisch
-				/* Ki: Ki */
+				// Ki: Ki
 				Magic: Magie
 				Melee: Nahkampf
 				Ranged: Reichweite
@@ -1188,9 +2487,9 @@ Mods: {
 				DamageReduction: Schadensreduzierung
 				DangerSense: Gefahr Sinn
 				Daybreak: Tagesanbruch
-				/* DayEventUpdateRate: Day Event Update Rate */
-				/* DayTileUpdateRate: Day Tile Update Rate */
-				/* DayTimeRate: Day Time Rate */
+				// DayEventUpdateRate: Day Event Update Rate
+				// DayTileUpdateRate: Day Tile Update Rate
+				// DayTimeRate: Day Time Rate
 				Defense: Verteidigung
 				EnemyMaxSpawns: Feindlicher Max spawnt
 				EnemySpawnRate: Gegnerische Spawnrate
@@ -1204,16 +2503,16 @@ Mods: {
 				HealerClassSwap: Heiler-Klassentausch
 				HellsWrath: Höllen Zorn
 				Hunter: Jäger
-				/* Ichor: Ichor */
+				// Ichor: Ichor
 				InfinitePenetration: Unendliche Durchdringung
 				ItemCooldown: Abklingzeit des Gegenstands
 				Juiced: Entsaftet
 				JumpSpeed: Sprunggeschwindigkeit
 				JunglesFury: Dschungel-Wut
-				/* Ki: Ki */
+				// Ki: Ki
 				KiClassSwap: Ki-Klassentausch
 				KiDamage: Ki-Schaden
-				/* KiRegen: Ki Regen */
+				// KiRegen: Ki Regen
 				LavaFishing: Lavafischen
 				LifeRegen: Lebensregeneration
 				LifeRegeneration: Lebensregeneration
@@ -1223,7 +2522,7 @@ Mods: {
 				ManaUsage1: Reduzierter Manaverbrauch
 				ManaUsage2: Erhöhter Manaverbrauch
 				MaxFallSpeed: Maximale Fallgeschwindigkeit
-				/* MaxKi: Max Ki */
+				// MaxKi: Max Ki
 				MaxLife: Maximales Leben
 				MaxMinions: Maximale Schergen
 				MaxMP: Abklingzeit des Gegenstands
@@ -1237,9 +2536,9 @@ Mods: {
 				MovementSpeed: Bewegungsgeschwindigkeit
 				MPBonusRegen: MP-Bonus-Regeneration
 				Multishot: Dauerfeuer
-				/* NightEventUpdateRate: Night Event Update Rate */
-				/* NightTileUpdateRate: Night Tile Update Rate */
-				/* NightTimeRate: Night Time Rate */
+				// NightEventUpdateRate: Night Event Update Rate
+				// NightTileUpdateRate: Night Tile Update Rate
+				// NightTimeRate: Night Time Rate
 				NpcContactAngler: Npc Kontakt Angler
 				NPCHitCooldown: NPC-Treffer-Cooldown
 				ObsidianSkin: Obsidian-Haut
@@ -1256,15 +2555,15 @@ Mods: {
 				RogueClassSwap: Rogue-Klassentausch
 				Shine: Scheinen
 				Size: Größe
-				/* SolarDash: Solar Dash */
-				/* Sonar: Sonar */
+				// SolarDash: Solar Dash
+				// Sonar: Sonar
 				Spelunker: Höhlenforscher
 				ThrowingClassSwap: Klassentausch werfen
-				/* Time: Time */
-				/* VanillaDash1: Ninja Tabi Dash */
+				// Time: Time
+				// VanillaDash1: Ninja Tabi Dash
 				VanillaDash2: Auge von Cthulhu Shield Dash
-				/* VanillaDash3: Solar Dash */
-				/* VanillaDash5: Crystal Ninja Dash */
+				// VanillaDash3: Solar Dash
+				// VanillaDash5: Crystal Ninja Dash
 				Venom: Gift
 				War: Krieg
 				WhipClassSwap: Peitschenklassentausch
@@ -1278,7 +2577,7 @@ Mods: {
 				CalamityMod: (Kalamity-Mod-Verzauberung)
 				DBZMODPORT: (Dragon Ball Terraria-Verzauberung)
 				ThoriumMod: (Throium-Mod-Verzauberung)
-				/* Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate */
+				// Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze:
 					'''
 					(Amaterasu-Debuff und die folgenden Anmerkungen dazu gelten nur für Verzauberungsstufe 4.)
@@ -1393,15 +2692,15 @@ Mods: {
 			}
 		}
 
-		/* ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence */
-		/* ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled. */
+		// ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence
+		// ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled.
 
 		Tiles: {
-			/* DustyEnchantingTable.MapEntry: Dusty Enchanting Table */
-			/* HellishEnchantingTable.MapEntry: Hellish Enchanting Table */
-			/* SoulEnchantingTable.MapEntry: Soul Enchanting Table */
-			/* UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table */
-			/* WoodEnchantingTable.MapEntry: Wood Enchanting Table */
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 	}
 }

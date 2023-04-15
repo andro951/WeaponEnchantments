@@ -54,7 +54,7 @@ namespace WeaponEnchantments.UI
 			if (item.IsAir)
 				return true;
 
-			wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem);
+			wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem);
 			Item itemInUI = wePlayer.ItemInUI();
 
 			switch (_itemContext) {
@@ -147,7 +147,7 @@ namespace WeaponEnchantments.UI
 			if (RemoveEnchantmentRestrictions)
 				return true;
 
-			if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+			if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 				bool allowedOnItem = enchantment.AllowedList.ContainsKey(enchantedItem.ItemType);
 
 				return allowedOnItem;
@@ -176,7 +176,7 @@ namespace WeaponEnchantments.UI
 			if (item == null || item.IsAir) {
 				configSlots = configSlotSettings.Max();
 			}
-			else if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+			else if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 				configSlots = configSlotSettings[(int)enchantedItem.ItemType - 1];
 			}
 			else {
@@ -197,7 +197,7 @@ namespace WeaponEnchantments.UI
 			if (Valid(Main.mouseItem)) {
 				if (Main.mouseItem.type == PowerBooster.ID) {
 					Item itemInUI = wePlayer.ItemInUI();
-					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && !enchantedItem.PowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
 						if (Main.mouseItem.stack > 1) {
 							Main.mouseItem.stack--;
 						}
@@ -211,7 +211,7 @@ namespace WeaponEnchantments.UI
 				}
 				else if (Main.mouseItem.type == UltraPowerBooster.ID) {
 					Item itemInUI = wePlayer.ItemInUI();
-					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.UltraPowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
+					if (_itemContext == ItemSlotContext.Item && !itemInUI.IsAir && itemInUI.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && !enchantedItem.UltraPowerBoosterInstalled && Main.mouseLeft && Main.mouseLeftRelease) {
 						if (Main.mouseItem.stack > 1) {
 							Main.mouseItem.stack--;
 						}
@@ -271,7 +271,7 @@ namespace WeaponEnchantments.UI
 				return -1;
 
 			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-				if(item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				if(item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 					if (!enchantedItem.enchantments[i].IsAir) {
 						Enchantment appliedEnchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
 						if (appliedEnchantment != null && (enchantement.Unique && appliedEnchantment.Unique || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName)) {
@@ -321,7 +321,7 @@ namespace WeaponEnchantments.UI
 							if (Main.mouseItem.IsAir) {
 								Main.mouseItem = Item.Clone();
 							}
-							else if (Main.mouseItem.TryGetEnchantedItem(out EnchantedItem mGlobal) && mGlobal.CanStack(Main.mouseItem, Item)) {
+							else if (Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem mGlobal) && mGlobal.CanStack(Main.mouseItem, Item)) {
 								Main.mouseItem.stack++;
 							}
 

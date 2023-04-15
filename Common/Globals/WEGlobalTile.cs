@@ -110,7 +110,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			Item heldItem = wePlayer.Player.HeldItem;
 
-			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
+			if (!heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem hGlobal))
 				return;
 
 			if (heldItem.pick <= 0 && heldItem.axe <= 0 && heldItem.hammer <= 0)

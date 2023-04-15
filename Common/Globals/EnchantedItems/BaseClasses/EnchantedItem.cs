@@ -200,7 +200,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             if (cloneReforgedItem || resetGlobals) {
-                if (itemClone.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                if (itemClone.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                     clone = enchantedItem;
                 }
                 else {
@@ -728,7 +728,7 @@ namespace WeaponEnchantments.Common.Globals
                 Main.mouseItem.stack++;
             }
 
-            if(Main.mouseItem.TryGetEnchantedItem(out EnchantedItem mGlobal))
+            if(Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem mGlobal))
                 mGlobal.Stack = Main.mouseItem.stack;
 
             //Update Item Value if stack changed.
@@ -749,7 +749,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (LogMethods.debugging) {
                 string s = $"reforgeItem: {reforgeItem.S()}, prefix: {reforgeItem.prefix}, Enchantments: ";
-                if(reforgeItem.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                if(reforgeItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                     foreach (Item enchantment in enchantedItem.enchantments) {
                         s += enchantment.S();
                     }
@@ -800,9 +800,9 @@ namespace WeaponEnchantments.Common.Globals
             #endregion
         }
         public static void ReforgeItem(ref Item item, Player player, bool needCloneGlobals = false) {
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 //Calamity
-                if (needCloneGlobals && reforgeItem.TryGetEnchantedItem(out EnchantedItem rGlobal)) {
+                if (needCloneGlobals && reforgeItem.TryGetEnchantedItemSearchAll(out EnchantedItem rGlobal)) {
                     cloneReforgedItem = true;
                     rGlobal.Clone(reforgeItem, item);
                     cloneReforgedItem = false;
@@ -838,11 +838,11 @@ namespace WeaponEnchantments.Common.Globals
 		}
 		public bool OnStack(Item item1, Item item2) {
             //Check max stack and always allow combining in the 
-            if (!item1.TryGetEnchantedItem(out EnchantedItem i1Global) || item1.maxStack < 2)
+            if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem i1Global) || item1.maxStack < 2)
                 return true;
 
             //item1 already tested for try.
-            if (!item2.TryGetEnchantedItem(out EnchantedItem i2Global))
+            if (!item2.TryGetEnchantedItemSearchAll(out EnchantedItem i2Global))
                 return true;
 
             bool modified1 = i1Global.Modified;
@@ -920,7 +920,7 @@ namespace WeaponEnchantments.Common.Globals
                 //Reset item2 globals
                 Item tempItem = new Item(item1.type);
                 resetGlobals = true;
-                if (tempItem.TryGetEnchantedItem(out EnchantedItem tempGlobal))
+                if (tempItem.TryGetEnchantedItemSearchAll(out EnchantedItem tempGlobal))
                     tempGlobal.Clone(tempItem, item2);
 
                 resetGlobals = false;
@@ -934,7 +934,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (tempItem.TryGetEnchantedItem(out EnchantedWeapon tempEnchantedWeapon)) {
 				tempEnchantedWeapon.Clone(tempItem, item);
 			}
-			else if (tempItem.TryGetEnchantedItem(out EnchantedItem tempEnchantedItem)) {
+			else if (tempItem.TryGetEnchantedItemSearchAll(out EnchantedItem tempEnchantedItem)) {
 				tempEnchantedItem.Clone(tempItem, item);
 			}
 
@@ -1069,7 +1069,7 @@ namespace WeaponEnchantments.Common.Globals
             if (item == null || otherItem == null)
                 return false;
 
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && otherItem.TryGetEnchantedItem(out EnchantedItem otherEnchantedItem))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && otherItem.TryGetEnchantedItemSearchAll(out EnchantedItem otherEnchantedItem))
                 return IsSameEnchantedType(enchantedItem, otherEnchantedItem);
 
             return false;
@@ -1078,7 +1078,7 @@ namespace WeaponEnchantments.Common.Globals
             if (item == null)
                 return false;
 
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return IsSameEnchantedType(enchantedItem, otherEnchantedItem);
 
             return false;
@@ -1087,7 +1087,7 @@ namespace WeaponEnchantments.Common.Globals
             if (otherItem == null)
                 return false;
 
-            if (otherItem.TryGetEnchantedItem(out EnchantedItem otherEnchantedItem))
+            if (otherItem.TryGetEnchantedItemSearchAll(out EnchantedItem otherEnchantedItem))
                 return IsSameEnchantedType(enchantedItem, otherEnchantedItem);
 
             return false;
@@ -1097,7 +1097,7 @@ namespace WeaponEnchantments.Common.Globals
 		}
         public static void SetupGlobals(this Item item) {
             //Not EnchantedItem return
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             //Update Enchantments
@@ -1129,7 +1129,7 @@ namespace WeaponEnchantments.Common.Globals
 			#endregion
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 Enchantment enchantment = (Enchantment)enchantedItem.enchantments[i].ModItem;
                 item.UpdateEnchantment(ref enchantment, i);
                 wePlayer.UpdateItemStats(ref item);
@@ -1157,7 +1157,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item item = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 Enchantment enchantment = (Enchantment)(enchantedItem.enchantments[i].ModItem);
                 enchantedItem.enchantments[i] = new Item();
                 item.UpdateEnchantment(ref enchantment, i, true);
@@ -1176,7 +1176,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Not EnchantedItem return
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
 			#region Debug
@@ -1410,7 +1410,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //Gain XP (Item)
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 enchantedItem.GainXP(item, xpInt);
 
             //Gain XP (Armor)
@@ -1444,7 +1444,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Gain xp on each armor
-                if (!armor.vanity && armor.TryGetEnchantedItem(out EnchantedItem aGlobal)) {
+                if (!armor.vanity && armor.TryGetEnchantedItemSearchAll(out EnchantedItem aGlobal)) {
                     float reductionFactor;
                     if (IsArmorItem(armor)) {
                         reductionFactor = 2f;
@@ -1471,11 +1471,11 @@ namespace WeaponEnchantments.Common.Globals
                 if (consumedItem.NullOrAir())
                     continue;
 
-				if (!consumedItem.TryGetEnchantedItem(out EnchantedItem consumedEnchantedItem))
+				if (!consumedItem.TryGetEnchantedItemSearchAll(out EnchantedItem consumedEnchantedItem))
                     continue;
 
                 bool consumedModified = consumedEnchantedItem.Modified;
-                if (!consumedModified && (!fromCraft || Main.mouseItem.TryGetEnchantedItem(out EnchantedItem enchantedMouseItem) && !enchantedMouseItem.Modified))
+                if (!consumedModified && (!fromCraft || Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedMouseItem) && !enchantedMouseItem.Modified))
                     continue;
 
 				if (fromCraft && consumedItem.maxStack > 1) {
@@ -1504,7 +1504,7 @@ namespace WeaponEnchantments.Common.Globals
 					}
 				}
 
-				if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                     item.CheckConvertExcessExperience(consumedItem);
                     if (enchantedItem is EnchantedWeapon enchantedWeapon && consumedEnchantedItem is EnchantedWeapon consumedEnchantedWeapon) {
 						if (enchantedWeapon.InfusionPower < consumedEnchantedWeapon.InfusionPower && item.GetWeaponInfusionPower() < consumedEnchantedWeapon.InfusionPower) {
@@ -1610,7 +1610,7 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static void CheckRemoveEnchantments(this Item item, Player player) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem) || RemoveEnchantmentRestrictions)
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) || RemoveEnchantmentRestrictions)
                 return;
 
             //Check config
@@ -1698,7 +1698,7 @@ namespace WeaponEnchantments.Common.Globals
             Main.NewText(msg);
         }
         public static bool IsSameEnchantedItem(this Item item1, Item item2) {
-            if (!item1.TryGetEnchantedItem(out EnchantedItem global1) || !item2.TryGetEnchantedItem(out EnchantedItem global2))
+            if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem global1) || !item2.TryGetEnchantedItemSearchAll(out EnchantedItem global2))
                 return false;
 
             if (item1.type != item2.type || item1.prefix != item2.prefix)
@@ -1779,7 +1779,7 @@ namespace WeaponEnchantments.Common.Globals
             index = -1;
             int i = 0;
 			foreach (Item storageItem in storageItems) {
-				if (storageItem.IsSameEnchantedItem(item) && storageItem.TryGetEnchantedItem(out EnchantedItem storageEnchantedItem)) {
+				if (storageItem.IsSameEnchantedItem(item) && storageItem.TryGetEnchantedItemSearchAll(out EnchantedItem storageEnchantedItem)) {
 					storageEnchantedItem.ResetGlobals(storageItem);
                     found = true;
                     index = i;
@@ -1794,7 +1794,7 @@ namespace WeaponEnchantments.Common.Globals
             if (Main.netMode != NetmodeID.Server)
                 return;
 
-            if (Main.chest[chestNum].item[index].TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (Main.chest[chestNum].item[index].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 enchantedItem.ResetGlobals(Main.chest[chestNum].item[index]);
         }
 	}

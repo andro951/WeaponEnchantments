@@ -117,7 +117,7 @@ namespace WeaponEnchantments.Common.Utility
 					Item lastHeldItem = Main.LocalPlayer.HeldItem;
 					//Only allow unmodified weapons to be replaced
 					int i;
-					if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
+					if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
 						i = Main.LocalPlayer.selectedItem;
 					}
 					else {

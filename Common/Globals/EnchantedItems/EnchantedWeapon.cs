@@ -108,7 +108,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => lateInstantiation && IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapons;
         public override void HoldItem(Item item, Player player) {
 

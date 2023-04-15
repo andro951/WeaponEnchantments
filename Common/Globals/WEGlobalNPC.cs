@@ -189,12 +189,14 @@ namespace WeaponEnchantments.Common.Globals
 
             //Find location of where crit chance is calculated.
             if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchLdloc(36),
-                i => i.MatchBrfalse(out _),
+				//i => i.MatchLdloc(8),//i => i.MatchLdloc(36),
+				//i => i.MatchBrfalse(out _),
                 i => i.MatchLdarg(0),
                 i => i.MatchCall(out _),
-                i => i.MatchCallvirt(out _)
-            )) { throw new Exception("Failed to find instructions HookDamage"); }
+                i => i.MatchCallvirt(out _),
+				i => i.MatchBrfalse(out _),
+				i => i.MatchCall(out _)
+			)) { throw new Exception("Failed to find instructions HookDamage"); }
 
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
 

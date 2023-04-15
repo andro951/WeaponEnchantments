@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Common.Utility
         #region GetModClasses
 
         public static EnchantedItem GetEnchantedItem(this Item item) {
-            if (item != null && item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (item != null && item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 enchantedItem.Item = item;
                 return enchantedItem;
             }
@@ -106,6 +106,28 @@ namespace WeaponEnchantments.Common.Utility
 
             return false;
         }
+        public static bool TryGetEnchantedHeldItem(this Item item, out EnchantedHeldItem enchantedHeldItem) {
+			enchantedHeldItem = null;
+			if (item == null)
+				return false;
+
+			if (item.TryGetGlobalItem(out EnchantedWeapon enchantedWeapon)) {
+				enchantedHeldItem = enchantedWeapon;
+			}
+			else if (item.TryGetGlobalItem(out EnchantedFishingPole enchantedFishingPole)) {
+				enchantedHeldItem = enchantedFishingPole;
+			}
+			else if (item.TryGetGlobalItem(out EnchantedTool enchantedTool)) {
+				enchantedHeldItem = enchantedTool;
+			}
+
+			if (enchantedHeldItem != null) {
+				enchantedHeldItem.Item = item;
+				return true;
+			}
+
+			return false;
+		}
         public static bool TryGetEnchantedEquipItem(this Item item, out EnchantedEquipItem enchantedItem) {
             enchantedItem = null;
             if (item == null)
@@ -157,9 +179,9 @@ namespace WeaponEnchantments.Common.Utility
         }
         public static bool TryGetEnchantedItem<T>(this Item item, out T enchantedItem) where T : EnchantedItem {
             enchantedItem = null;
-            if (item == null || item.IsAir)
+            if (item.NullOrAir())
                 return false;
-
+            
             item.TryGetGlobalItem(out enchantedItem);
             if (enchantedItem == null) {
                 item.TryGetEnchantedItemSearchAll(out EnchantedItem searchAllEnchantedItem);
@@ -173,15 +195,14 @@ namespace WeaponEnchantments.Common.Utility
 
             return false;
         }
-
         public static Item Enchantments(this Item item, int i) {
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return enchantedItem.enchantments[i];
 
             return null;
         }
         public static Enchantment EnchantmentsModItem(this Item item, int i) {
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return (Enchantment)enchantedItem.enchantments[i].ModItem;
 
             return null;
@@ -210,7 +231,7 @@ namespace WeaponEnchantments.Common.Utility
         #region Stats
 
         public static float ApplyStatModifier(this Item item, string key, float value) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return value;
             if (enchantedItem.appliedStatModifiers.ContainsKey(key))
                 return enchantedItem.appliedStatModifiers[key].ApplyTo(value);
@@ -218,7 +239,7 @@ namespace WeaponEnchantments.Common.Utility
             return value;
         }
         public static float ApplyEStat(this Item item, string key, float value) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return value;
 
             if (enchantedItem.appliedEStats.ContainsKey(key))
@@ -232,7 +253,7 @@ namespace WeaponEnchantments.Common.Utility
             if (wePlayer.eStats.ContainsKey(key))
                 return true;
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
+            if (weapon.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
                 return true;
             return false;
         }
@@ -243,7 +264,7 @@ namespace WeaponEnchantments.Common.Utility
                 combinedStatModifier = wePlayer.eStats[key];
 
             Item weapon = wePlayer.trackedWeapon;
-            if (weapon.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
+            if (weapon.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(enchantedItem.eStats[key]);
 
             return combinedStatModifier.ApplyTo(value);
@@ -254,14 +275,14 @@ namespace WeaponEnchantments.Common.Utility
             if (wePlayer.eStats.ContainsKey(key))
                 combinedStatModifier = wePlayer.eStats[key];
 
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
                 combinedStatModifier = combinedStatModifier.CombineWith(enchantedItem.eStats[key]);
 
             return combinedStatModifier.ApplyTo(value);
         }
-        public static bool ContainsEStat(this Item item, string key) => item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
+        public static bool ContainsEStat(this Item item, string key) => item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
         public static bool ContainsEStat(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
-        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
+        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
         public static string RemoveInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
         public static string RemovePrevent(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
         public static bool ContainsInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
@@ -298,7 +319,7 @@ namespace WeaponEnchantments.Common.Utility
             }
         }
         public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
-            if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && consumedItem.TryGetEnchantedItem(out EnchantedItem cGlobal)) {
+            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && consumedItem.TryGetEnchantedItemSearchAll(out EnchantedItem cGlobal)) {
                 long xp = (long)enchantedItem.Experience + (long)cGlobal.Experience;
                 if (xp <= (long)int.MaxValue) {
                     enchantedItem.Experience += cGlobal.Experience;

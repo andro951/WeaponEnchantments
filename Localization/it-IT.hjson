@@ -2,331 +2,1630 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic.DisplayName: Tutto per un incantesimo di base
-			AllForOneEnchantmentCommon.DisplayName: Tutti per un incantesimo comune
-			AllForOneEnchantmentEpic.DisplayName: Tutto per un incantesimo epico
-			AllForOneEnchantmentLegendary.DisplayName: Tutto per un incantesimo Leggendario
-			AllForOneEnchantmentRare.DisplayName: Incantesimo All For One Raro
-			AmmoCostEnchantmentBasic.DisplayName: Costo munizioni incantesimo base
-			AmmoCostEnchantmentCommon.DisplayName: Costo munizioni incantesimo Comune
-			AmmoCostEnchantmentEpic.DisplayName: Incantesimo costo munizioni epico
-			AmmoCostEnchantmentLegendary.DisplayName: Incantesimo costo munizioni Leggendario
-			AmmoCostEnchantmentRare.DisplayName: Incantesimo costo munizioni raro
-			ArmorPenetrationEnchantmentBasic.DisplayName: Incantesimo di penetrazione dell'armatura di base
-			ArmorPenetrationEnchantmentCommon.DisplayName: Incantesimo di penetrazione dell'armatura Comune
-			ArmorPenetrationEnchantmentEpic.DisplayName: Incantesimo di penetrazione dell'armatura epico
-			ArmorPenetrationEnchantmentLegendary.DisplayName: Incantesimo di penetrazione dell'armatura Leggendario
-			ArmorPenetrationEnchantmentRare.DisplayName: Incantesimo di penetrazione dell'armatura Raro
-			AttackSpeedEnchantmentBasic.DisplayName: Incantesimo di velocità d'attacco di base
-			AttackSpeedEnchantmentCommon.DisplayName: Incantesimo velocità d'attacco Comune
-			AttackSpeedEnchantmentEpic.DisplayName: Incantesimo velocità d'attacco epico
-			AttackSpeedEnchantmentLegendary.DisplayName: Incantesimo velocità d'attacco Leggendario
-			AttackSpeedEnchantmentRare.DisplayName: Incantesimo velocità d'attacco Raro
-			BardClassSwapEnchantmentBasic.DisplayName: Incantamento di base per lo scambio di classe del bardo
-			BardClassSwapEnchantmentCommon.DisplayName: Bardo Scambio di classe Incantesimo Comune
-			BardClassSwapEnchantmentEpic.DisplayName: Bard Class Swap Incantesimo Epico
-			BardClassSwapEnchantmentLegendary.DisplayName: Incantamento di scambio di classe del bardo Leggendario
-			BardClassSwapEnchantmentRare.DisplayName: Incantamento di scambio di classe del bardo Raro
-			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Incantesimo di base
-			BerserkersRageEnchantmentCommon.DisplayName: Berserker Rabbia Incantesimo Comune
-			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Incantesimo Epico
-			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rabbia Incantesimo Leggendario
-			BerserkersRageEnchantmentRare.DisplayName: Berserker Rabbia Incantesimo Raro
-			CalmWatersEnchantmentBasic.DisplayName: Incantesimo di acque calme di base
-			CalmWatersEnchantmentCommon.DisplayName: Incantesimo acque calme comune
-			CalmWatersEnchantmentEpic.DisplayName: Epopea dell'incantesimo delle acque calme
-			CalmWatersEnchantmentLegendary.DisplayName: Incantesimo Acque Calme Leggendario
-			CalmWatersEnchantmentRare.DisplayName: Incantesimo Acque Calme Raro
-			ChaoticFishingEnchantmentBasic.DisplayName: Incantesimo di pesca caotico di base
-			ChaoticFishingEnchantmentCommon.DisplayName: Incantesimo di pesca caotico Comune
-			ChaoticFishingEnchantmentEpic.DisplayName: Incantesimo di pesca caotico epico
-			ChaoticFishingEnchantmentLegendary.DisplayName: Incantesimo di pesca caotico Leggendario
-			ChaoticFishingEnchantmentRare.DisplayName: Incantesimo di pesca caotico Raro
-			ColdSteelEnchantmentBasic.DisplayName: Incantesimo Acciaio Freddo Base
-			ColdSteelEnchantmentCommon.DisplayName: Incantesimo Acciaio Freddo Comune
-			ColdSteelEnchantmentEpic.DisplayName: Epopea dell'incantesimo d'acciaio freddo
-			ColdSteelEnchantmentLegendary.DisplayName: Incantesimo Acciaio Freddo Leggendario
-			ColdSteelEnchantmentRare.DisplayName: Incantesimo Acciaio Freddo Raro
-			CrateChanceEnchantmentBasic.DisplayName: Cassa Incantesimo Probabilità Base
-			CrateChanceEnchantmentCommon.DisplayName: Cassa Incantesimo Probabilità Comune
-			CrateChanceEnchantmentEpic.DisplayName: Epopea dell'incantesimo della probabilità della cassa
-			CrateChanceEnchantmentLegendary.DisplayName: Incantesimo probabilità cassa Leggendario
-			CrateChanceEnchantmentRare.DisplayName: Incantesimo probabilità cassa Raro
-			CrateEnchantmentBasic.DisplayName: Incantesimo di cassa di base
-			CrateEnchantmentCommon.DisplayName: Incantesimo di cassa comune
-			CrateEnchantmentEpic.DisplayName: Epopea dell'incantesimo della cassa
-			CrateEnchantmentLegendary.DisplayName: Incantesimo della cassa Leggendario
-			CrateEnchantmentRare.DisplayName: Incantesimo della cassa Raro
-			CriticalStrikeChanceEnchantmentBasic.DisplayName: Probabilità di colpo critico Incantesimo Base
-			CriticalStrikeChanceEnchantmentCommon.DisplayName: Probabilità di colpo critico Incantesimo Comune
-			CriticalStrikeChanceEnchantmentEpic.DisplayName: Probabilità di colpo critico Incantesimo epico
-			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Probabilità di colpo critico Incantesimo Leggendario
-			CriticalStrikeChanceEnchantmentRare.DisplayName: Probabilità di colpo critico Incantesimo Raro
-			CriticalStrikeDamageEnchantmentBasic.DisplayName: Incantesimo del danno da colpo critico di base
-			CriticalStrikeDamageEnchantmentCommon.DisplayName: Colpo critico Danno Incantesimo Comune
-			CriticalStrikeDamageEnchantmentEpic.DisplayName: Epico incantesimo con danno da colpo critico
-			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Incantesimo con danno da colpo critico Leggendario
-			CriticalStrikeDamageEnchantmentRare.DisplayName: Incantesimo con danno da colpo critico Raro
-			CursedInfernoEnchantmentBasic.DisplayName: Incantesimo Inferno Maledetto di base
-			CursedInfernoEnchantmentCommon.DisplayName: Incantesimo Inferno Maledetto Comune
-			CursedInfernoEnchantmentEpic.DisplayName: Incantesimo Inferno Maledetto Epico
-			CursedInfernoEnchantmentLegendary.DisplayName: Incantesimo Inferno Maledetto Leggendario
-			CursedInfernoEnchantmentRare.DisplayName: Incantesimo Inferno Maledetto Raro
-			DamageEnchantmentBasic.DisplayName: Danno incantesimo di base
-			DamageEnchantmentCommon.DisplayName: Danno incantesimo Comune
-			DamageEnchantmentEpic.DisplayName: Danno incantesimo epico
-			DamageEnchantmentLegendary.DisplayName: Danno incantesimo Leggendario
-			DamageEnchantmentRare.DisplayName: Danno incantesimo Raro
-			DamageReductionEnchantmentBasic.DisplayName: Incantesimo di riduzione del danno di base
-			DamageReductionEnchantmentCommon.DisplayName: Incantesimo di riduzione del danno Comune
-			DamageReductionEnchantmentEpic.DisplayName: Incantesimo di riduzione del danno epico
-			DamageReductionEnchantmentLegendary.DisplayName: Incantesimo di riduzione del danno Leggendario
-			DamageReductionEnchantmentRare.DisplayName: Incantesimo di riduzione del danno Raro
-			DangerSenseEnchantmentBasic.DisplayName: Pericolo Senso Incantesimo Base
-			DangerSenseEnchantmentCommon.DisplayName: Pericolo Senso Incantesimo Comune
-			DangerSenseEnchantmentEpic.DisplayName: Pericolo Senso Incantesimo Epico
-			DangerSenseEnchantmentLegendary.DisplayName: Incantesimo del senso di pericolo Leggendario
-			DangerSenseEnchantmentRare.DisplayName: Pericolo Senso Incantesimo Raro
-			DaybreakEnchantmentBasic.DisplayName: Incantesimo dell'alba di base
-			DaybreakEnchantmentCommon.DisplayName: Incantesimo dell'alba Comune
-			DaybreakEnchantmentEpic.DisplayName: Epopea dell'incantesimo dell'alba
-			DaybreakEnchantmentLegendary.DisplayName: Incantesimo dell'alba Leggendario
-			DaybreakEnchantmentRare.DisplayName: Incantesimo dell'alba Raro
-			DefenseEnchantmentBasic.DisplayName: Incantesimo di difesa di base
-			DefenseEnchantmentCommon.DisplayName: Incantesimo di difesa comune
-			DefenseEnchantmentEpic.DisplayName: Incantesimo di difesa epico
-			DefenseEnchantmentLegendary.DisplayName: Incantesimo di difesa leggendario
-			DefenseEnchantmentRare.DisplayName: Incantesimo di difesa Raro
-			ExtraFishingLineEnchantmentBasic.DisplayName: Incantesimo di lenza extra Basic
-			ExtraFishingLineEnchantmentCommon.DisplayName: Incantesimo di lenza extra comune
-			ExtraFishingLineEnchantmentEpic.DisplayName: Epico incantesimo della lenza extra
-			ExtraFishingLineEnchantmentLegendary.DisplayName: Incantesimo della lenza extra Leggendario
-			ExtraFishingLineEnchantmentRare.DisplayName: Incantesimo della lenza extra Raro
-			FishingEnchantmentBasic.DisplayName: Incantesimo di pesca di base
-			FishingEnchantmentCommon.DisplayName: Incantesimo di pesca comune
-			FishingEnchantmentEpic.DisplayName: Incantesimo di pesca epico
-			FishingEnchantmentLegendary.DisplayName: Incantesimo di pesca Leggendario
-			FishingEnchantmentRare.DisplayName: Incantesimo di pesca Raro
-			FishingPowerEnchantmentBasic.DisplayName: Incantesimo del potere di pesca di base
-			FishingPowerEnchantmentCommon.DisplayName: Incantesimo del potere di pesca Comune
-			FishingPowerEnchantmentEpic.DisplayName: Epopea dell'incantesimo del potere della pesca
-			FishingPowerEnchantmentLegendary.DisplayName: Incantesimo del potere della pesca Leggendario
-			FishingPowerEnchantmentRare.DisplayName: Incantesimo del potere di pesca Raro
-			FrostburnEnchantmentBasic.DisplayName: Incantesimo Frostburn Basic
-			FrostburnEnchantmentCommon.DisplayName: Incantesimo Bruciore di Gelo Comune
-			FrostburnEnchantmentEpic.DisplayName: Incantesimo di Gelo Epico
-			FrostburnEnchantmentLegendary.DisplayName: Incantesimo Frostburn Leggendario
-			FrostburnEnchantmentRare.DisplayName: Incantesimo Bruciore di Gelo Raro
-			GodSlayerEnchantmentBasic.DisplayName: Incantesimo dell'uccisore di dio di base
-			GodSlayerEnchantmentCommon.DisplayName: Incantesimo dell'uccisore di dio comune
-			GodSlayerEnchantmentEpic.DisplayName: Epopea dell'incantesimo dell'uccisore di dio
-			GodSlayerEnchantmentLegendary.DisplayName: Incantesimo Ammazzadio Leggendario
-			GodSlayerEnchantmentRare.DisplayName: Incantesimo dell'uccisore di dio raro
-			HealerClassSwapEnchantmentBasic.DisplayName: Healer Class Swap Incantesimo Base
-			HealerClassSwapEnchantmentCommon.DisplayName: Guaritore Scambio classe Incantesimo Comune
-			HealerClassSwapEnchantmentEpic.DisplayName: Healer Class Swap Incantesimo Epico
-			HealerClassSwapEnchantmentLegendary.DisplayName: Incantamento di cambio di classe del guaritore Leggendario
-			HealerClassSwapEnchantmentRare.DisplayName: Incantesimo Scambio Classe Guaritore Raro
-			HellsWrathEnchantmentBasic.DisplayName: Incantesimo di Hells Wrath Basic
-			HellsWrathEnchantmentCommon.DisplayName: Incantesimo dell'Ira Infernale Comune
-			HellsWrathEnchantmentEpic.DisplayName: Incantesimo epico dell'ira dell'inferno
-			HellsWrathEnchantmentLegendary.DisplayName: Incantesimo dell'Ira Infernale Leggendario
-			HellsWrathEnchantmentRare.DisplayName: Incantesimo dell'ira dell'inferno Raro
-			HunterEnchantmentBasic.DisplayName: Incantesimo del cacciatore di base
-			HunterEnchantmentCommon.DisplayName: Incantesimo del cacciatore comune
-			HunterEnchantmentEpic.DisplayName: Epopea dell'incantesimo del cacciatore
-			HunterEnchantmentLegendary.DisplayName: Incantesimo del cacciatore leggendario
-			HunterEnchantmentRare.DisplayName: Incantesimo del cacciatore Raro
-			IchorEnchantmentBasic.DisplayName: Icore Incantesimo Base
-			IchorEnchantmentCommon.DisplayName: Incantesimo Icore Comune
-			IchorEnchantmentEpic.DisplayName: Epopea dell'incantesimo di Icore
-			IchorEnchantmentLegendary.DisplayName: Incantesimo Icore Leggendario
-			IchorEnchantmentRare.DisplayName: Incantesimo Icore Raro
-			JuicedEnchantmentBasic.DisplayName: Incantesimo succo di base
-			JuicedEnchantmentCommon.DisplayName: Incantesimo Succo Comune
-			JuicedEnchantmentEpic.DisplayName: Epopea dell'incantesimo spremuto
-			JuicedEnchantmentLegendary.DisplayName: Incantesimo Juiced Leggendario
-			JuicedEnchantmentRare.DisplayName: Incantesimo Juiced Raro
-			JunglesFuryEnchantmentBasic.DisplayName: Jungles Fury Incantesimo di base
-			JunglesFuryEnchantmentCommon.DisplayName: Giungla Furia Incantesimo Comune
-			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Incantesimo Epico
-			JunglesFuryEnchantmentLegendary.DisplayName: Incantesimo Furia della Giungla Leggendario
-			JunglesFuryEnchantmentRare.DisplayName: Incantesimo Furia della Giungla Raro
-			KiClassSwapEnchantmentBasic.DisplayName: Ki Class Swap Incantesimo di base
-			KiClassSwapEnchantmentCommon.DisplayName: Incantesimo di scambio di classe Ki Comune
-			KiClassSwapEnchantmentEpic.DisplayName: Ki Class Swap Incantesimo Epico
-			KiClassSwapEnchantmentLegendary.DisplayName: Incantesimo di scambio di classe Ki Leggendario
-			KiClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe Ki Raro
-			KiEnchantmentBasic.DisplayName: Ki Incantesimo di base
-			KiEnchantmentCommon.DisplayName: Ki Incantesimo Comune
-			KiEnchantmentEpic.DisplayName: Ki Incantesimo epico
-			KiEnchantmentLegendary.DisplayName: Ki Incantesimo Leggendario
-			KiEnchantmentRare.DisplayName: Ki Incantesimo Raro
-			LavaFishingEnchantmentBasic.DisplayName: Incantesimo Pesca alla lava Base
-			LavaFishingEnchantmentCommon.DisplayName: Incantesimo Pesca di Lava Comune
-			LavaFishingEnchantmentEpic.DisplayName: Incantesimo di pesca alla lava epico
-			LavaFishingEnchantmentLegendary.DisplayName: Incantesimo Pesca di lava Leggendario
-			LavaFishingEnchantmentRare.DisplayName: Incantesimo Pesca alla Lava Raro
-			LifeRegenEnchantmentBasic.DisplayName: Vita Regen Incantesimo di base
-			LifeRegenEnchantmentCommon.DisplayName: Vita Regen Incantesimo Comune
-			LifeRegenEnchantmentEpic.DisplayName: Life Regen Incantesimo Epico
-			LifeRegenEnchantmentLegendary.DisplayName: Incantesimo di rigenerazione della vita Leggendario
-			LifeRegenEnchantmentRare.DisplayName: Incantesimo Rigenera Vita Raro
-			LifeStealEnchantmentBasic.DisplayName: Incantesimo ruba vita di base
-			LifeStealEnchantmentCommon.DisplayName: Incantesimo Ruba Vita Comune
-			LifeStealEnchantmentEpic.DisplayName: Incantesimo rubavita epico
-			LifeStealEnchantmentLegendary.DisplayName: Incantesimo rubavita Leggendario
-			LifeStealEnchantmentRare.DisplayName: Incantesimo ruba vita Raro
-			LuckEnchantmentBasic.DisplayName: Incantesimo di fortuna di base
-			LuckEnchantmentCommon.DisplayName: Incantesimo fortuna comune
-			LuckEnchantmentEpic.DisplayName: Fortuna incantesimo epico
-			LuckEnchantmentLegendary.DisplayName: Incantesimo della fortuna Leggendario
-			LuckEnchantmentRare.DisplayName: Incantesimo fortuna raro
-			MagicClassSwapEnchantmentBasic.DisplayName: Incantesimo di scambio di classe magica di base
-			MagicClassSwapEnchantmentCommon.DisplayName: Scambio di classe magica Incantesimo Comune
-			MagicClassSwapEnchantmentEpic.DisplayName: Magic Class Swap Incantesimo Epico
-			MagicClassSwapEnchantmentLegendary.DisplayName: Incantesimo di scambio di classe magica Leggendario
-			MagicClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe magica Raro
-			MaxMinionsEnchantmentBasic.DisplayName: Max Minion Incantesimo di base
-			MaxMinionsEnchantmentCommon.DisplayName: Max Minion Incantesimo Comune
-			MaxMinionsEnchantmentEpic.DisplayName: Max Minion Incantesimo Epico
-			MaxMinionsEnchantmentLegendary.DisplayName: Incantesimo Max Minion Leggendario
-			MaxMinionsEnchantmentRare.DisplayName: Incantesimo Max Minion Raro
-			MeleeClassSwapEnchantmentBasic.DisplayName: Melee Class Swap Incantesimo Base
-			MeleeClassSwapEnchantmentCommon.DisplayName: Melee Class Swap Incantesimo Comune
-			MeleeClassSwapEnchantmentEpic.DisplayName: Melee Class Swap Incantesimo Epico
-			MeleeClassSwapEnchantmentLegendary.DisplayName: Incantesimo di scambio di classe da mischia Leggendario
-			MeleeClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe da mischia Raro
-			MobilityControlEnchantmentBasic.DisplayName: Incantesimo di controllo della mobilità di base
-			MobilityControlEnchantmentCommon.DisplayName: Incantesimo di controllo della mobilità Comune
-			MobilityControlEnchantmentEpic.DisplayName: Incantesimo di controllo della mobilità epico
-			MobilityControlEnchantmentLegendary.DisplayName: Incantesimo di controllo della mobilità Leggendario
-			MobilityControlEnchantmentRare.DisplayName: Incantesimo di controllo della mobilità Raro
-			MoonlightEnchantmentBasic.DisplayName: Incantesimo chiaro di luna di base
-			MoonlightEnchantmentCommon.DisplayName: Incantesimo al chiaro di luna comune
-			MoonlightEnchantmentEpic.DisplayName: Incantesimo al chiaro di luna epico
-			MoonlightEnchantmentLegendary.DisplayName: Incantesimo al chiaro di luna Leggendario
-			MoonlightEnchantmentRare.DisplayName: Incantesimo al chiaro di luna Raro
-			MovementSpeedEnchantmentBasic.DisplayName: Incantesimo di velocità di movimento di base
-			MovementSpeedEnchantmentCommon.DisplayName: Velocità di movimento Incantesimo Comune
-			MovementSpeedEnchantmentEpic.DisplayName: Velocità di movimento incantesimo epico
-			MovementSpeedEnchantmentLegendary.DisplayName: Incantesimo velocità di movimento Leggendario
-			MovementSpeedEnchantmentRare.DisplayName: Incantesimo di velocità di movimento Raro
-			MultishotEnchantmentBasic.DisplayName: Incantesimo multicolpo di base
-			MultishotEnchantmentCommon.DisplayName: Incantesimo Multishot Comune
-			MultishotEnchantmentEpic.DisplayName: Epopea dell'incantesimo a colpi multipli
-			MultishotEnchantmentLegendary.DisplayName: Incantesimo Multishot Leggendario
-			MultishotEnchantmentRare.DisplayName: Incantesimo Multishot Raro
-			NpcContactAnglerEnchantmentBasic.DisplayName: Npc Contatto Pescatore Incantesimo Base
-			NpcContactAnglerEnchantmentCommon.DisplayName: Npc Contatto Pescatore Incantesimo Comune
-			NpcContactAnglerEnchantmentEpic.DisplayName: Npc contatto pescatore incantesimo epico
-			NpcContactAnglerEnchantmentLegendary.DisplayName: Incantesimo del pescatore di contatto Npc Leggendario
-			NpcContactAnglerEnchantmentRare.DisplayName: Incantesimo del pescatore di contatto Npc Raro
-			ObsidianSkinEnchantmentBasic.DisplayName: Incantesimo pelle di ossidiana di base
-			ObsidianSkinEnchantmentCommon.DisplayName: Incantesimo della pelle di ossidiana Comune
-			ObsidianSkinEnchantmentEpic.DisplayName: Epopea dell'incantesimo della pelle di ossidiana
-			ObsidianSkinEnchantmentLegendary.DisplayName: Incantesimo della pelle di ossidiana Leggendario
-			ObsidianSkinEnchantmentRare.DisplayName: Incantesimo della pelle di ossidiana Raro
-			OneForAllEnchantmentBasic.DisplayName: Uno per tutti l'incantesimo di base
-			OneForAllEnchantmentCommon.DisplayName: Uno per tutti incantesimo comune
-			OneForAllEnchantmentEpic.DisplayName: Uno per tutti incantesimo epico
-			OneForAllEnchantmentLegendary.DisplayName: Incantesimo One For All Leggendario
-			OneForAllEnchantmentRare.DisplayName: Incantesimo Uno per Tutti Raro
-			OnFireEnchantmentBasic.DisplayName: Sull'incantesimo di fuoco di base
-			OnFireEnchantmentCommon.DisplayName: Incantesimo di fuoco comune
-			OnFireEnchantmentEpic.DisplayName: L'epopea dell'incantesimo di fuoco
-			OnFireEnchantmentLegendary.DisplayName: Incantesimo di fuoco leggendario
-			OnFireEnchantmentRare.DisplayName: Incantesimo di fuoco raro
-			PeaceEnchantmentBasic.DisplayName: Incantesimo di pace di base
-			PeaceEnchantmentCommon.DisplayName: Incantesimo di pace comune
-			PeaceEnchantmentEpic.DisplayName: Epopea dell'incantesimo della pace
-			PeaceEnchantmentLegendary.DisplayName: Incantesimo della pace leggendario
-			PeaceEnchantmentRare.DisplayName: Incantesimo di pace raro
-			PennyPinchingEnchantmentBasic.DisplayName: Penny che pizzica l'incantesimo di base
-			PennyPinchingEnchantmentCommon.DisplayName: Penny Pizzica Incantesimo Comune
-			PennyPinchingEnchantmentEpic.DisplayName: Penny Pizzicando Incantesimo Epico
-			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pizzicando Incantesimo Leggendario
-			PennyPinchingEnchantmentRare.DisplayName: Penny Pizzica Incantesimo Raro
-			PrideOfTheWeakEnchantmentBasic.DisplayName: L'orgoglio dei deboli Incantesimo di base
-			PrideOfTheWeakEnchantmentCommon.DisplayName: Orgoglio dei deboli Incantesimo comune
-			PrideOfTheWeakEnchantmentEpic.DisplayName: L'epopea dell'incanto dell'orgoglio dei deboli
-			PrideOfTheWeakEnchantmentLegendary.DisplayName: Orgoglio dei deboli Incantesimo Leggendario
-			PrideOfTheWeakEnchantmentRare.DisplayName: L'orgoglio dei deboli Incantesimo raro
-			ProjectileVelocityEnchantmentBasic.DisplayName: Incantesimo velocità proiettile di base
-			ProjectileVelocityEnchantmentCommon.DisplayName: Incantesimo velocità proiettile Comune
-			ProjectileVelocityEnchantmentEpic.DisplayName: Epopea dell'incantesimo della velocità del proiettile
-			ProjectileVelocityEnchantmentLegendary.DisplayName: Incantesimo velocità proiettile Leggendario
-			ProjectileVelocityEnchantmentRare.DisplayName: Incantesimo velocità proiettile Raro
-			RangedClassSwapEnchantmentBasic.DisplayName: Incantesimo di scambio di classe a distanza di base
-			RangedClassSwapEnchantmentCommon.DisplayName: Incantesimo di scambio di classe a distanza Comune
-			RangedClassSwapEnchantmentEpic.DisplayName: Incantesimo di scambio di classe a distanza epico
-			RangedClassSwapEnchantmentLegendary.DisplayName: Incantesimo di scambio di classe a distanza Leggenda
-			RangedClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe a distanza Raro
-			ReducedManaUsageEnchantmentBasic.DisplayName: Utilizzo di mana ridotto Incantesimo di base
-			ReducedManaUsageEnchantmentCommon.DisplayName: Utilizzo di mana ridotto Incantesimo Comune
-			ReducedManaUsageEnchantmentEpic.DisplayName: Ridotto utilizzo del mana incantesimo epico
-			ReducedManaUsageEnchantmentLegendary.DisplayName: Incantesimo a consumo di mana ridotto Leggendario
-			ReducedManaUsageEnchantmentRare.DisplayName: Incantesimo a consumo di mana ridotto Raro
-			RogueClassSwapEnchantmentBasic.DisplayName: Incantesimo di scambio di classe Rogue Basic
-			RogueClassSwapEnchantmentCommon.DisplayName: Incantesimo di scambio di classe ladro Comune
-			RogueClassSwapEnchantmentEpic.DisplayName: Rogue Class Swap Incantesimo Epico
-			RogueClassSwapEnchantmentLegendary.DisplayName: Incantesimo di scambio di classe ladro Leggendario
-			RogueClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe ladro Raro
-			ShineEnchantmentBasic.DisplayName: Shine Incantesimo Base
-			ShineEnchantmentCommon.DisplayName: Brillare Incantesimo Comune
-			ShineEnchantmentEpic.DisplayName: Brillare Incantesimo epico
-			ShineEnchantmentLegendary.DisplayName: Brillare Incantesimo Leggendario
-			ShineEnchantmentRare.DisplayName: Brillare Incantesimo Raro
-			SizeEnchantmentBasic.DisplayName: Dimensione Incantesimo Base
-			SizeEnchantmentCommon.DisplayName: Dimensione Incantesimo Comune
-			SizeEnchantmentEpic.DisplayName: Dimensioni incantesimo epico
-			SizeEnchantmentLegendary.DisplayName: Dimensioni Incantesimo Leggendario
-			SizeEnchantmentRare.DisplayName: Dimensione Incantesimo Raro
-			SolarDashEnchantmentBasic.DisplayName: Incantesimo Solar Dash Basic
-			SolarDashEnchantmentCommon.DisplayName: Incantesimo Solar Dash Comune
-			SolarDashEnchantmentEpic.DisplayName: Incantesimo Solar Dash Epico
-			SolarDashEnchantmentLegendary.DisplayName: Incantesimo Solar Dash Leggendario
-			SolarDashEnchantmentRare.DisplayName: Incantesimo Solar Dash Raro
-			SonarEnchantmentBasic.DisplayName: Sonar incantesimo di base
-			SonarEnchantmentCommon.DisplayName: Sonar incantesimo comune
-			SonarEnchantmentEpic.DisplayName: Sonar incantesimo epico
-			SonarEnchantmentLegendary.DisplayName: Incantesimo Sonar Leggendario
-			SonarEnchantmentRare.DisplayName: Incantesimo sonar raro
-			SpelunkerEnchantmentBasic.DisplayName: Incantesimo Spelunker Basic
-			SpelunkerEnchantmentCommon.DisplayName: Incantesimo Spelunker Comune
-			SpelunkerEnchantmentEpic.DisplayName: Spelunker Incantesimo Epico
-			SpelunkerEnchantmentLegendary.DisplayName: Incantesimo Spelunker Leggendario
-			SpelunkerEnchantmentRare.DisplayName: Incantesimo Spelunker Raro
-			ThrowingClassSwapEnchantmentBasic.DisplayName: Incantamento di scambio di classe da lancio di base
-			ThrowingClassSwapEnchantmentCommon.DisplayName: Lancio Scambio di classe Incantesimo Comune
-			ThrowingClassSwapEnchantmentEpic.DisplayName: Lancio di classe Scambio di incantesimi epico
-			ThrowingClassSwapEnchantmentLegendary.DisplayName: Incantesimo di cambio di classe da lancio Leggendario
-			ThrowingClassSwapEnchantmentRare.DisplayName: Incantesimo di scambio di classe da lancio Raro
-			/* TimeEnchantmentBasic.DisplayName: Time Enchantment Basic */
-			/* TimeEnchantmentCommon.DisplayName: Time Enchantment Common */
-			/* TimeEnchantmentEpic.DisplayName: Time Enchantment Epic */
-			/* TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary */
-			/* TimeEnchantmentRare.DisplayName: Time Enchantment Rare */
-			VenomEnchantmentBasic.DisplayName: Incantesimo Veleno Base
-			VenomEnchantmentCommon.DisplayName: Incantesimo Veleno Comune
-			VenomEnchantmentEpic.DisplayName: Incantesimo di veleno epico
-			VenomEnchantmentLegendary.DisplayName: Incantesimo Veleno Leggendario
-			VenomEnchantmentRare.DisplayName: Incantesimo Veleno Raro
-			WarEnchantmentBasic.DisplayName: Incantesimo di guerra di base
-			WarEnchantmentCommon.DisplayName: Incantesimo di guerra comune
-			WarEnchantmentEpic.DisplayName: Epopea dell'incantesimo di guerra
-			WarEnchantmentLegendary.DisplayName: Incantesimo di guerra leggendario
-			WarEnchantmentRare.DisplayName: Incantesimo di guerra raro
-			WhipClassSwapEnchantmentBasic.DisplayName: Frusta Scambio di classe Incantesimo Base
-			WhipClassSwapEnchantmentCommon.DisplayName: Frusta Scambio di classe Incantesimo Comune
-			WhipClassSwapEnchantmentEpic.DisplayName: Frusta Scambio di classe Incantesimo Epico
-			WhipClassSwapEnchantmentLegendary.DisplayName: Frusta Scambio di classe Incantesimo Leggendario
-			WhipClassSwapEnchantmentRare.DisplayName: Frusta Scambio di classe Incantesimo Raro
-			WorldAblazeEnchantmentBasic.DisplayName: Incantesimo World Ablaze Basic
-			WorldAblazeEnchantmentCommon.DisplayName: Incantesimo del mondo in fiamme comune
-			WorldAblazeEnchantmentEpic.DisplayName: Epopea dell'incantesimo World Ablaze
-			WorldAblazeEnchantmentLegendary.DisplayName: Incantesimo World Ablaze Leggendario
-			WorldAblazeEnchantmentRare.DisplayName: Incantesimo World Ablaze Raro
+			AllForOneEnchantmentBasic: {
+				DisplayName: Tutto per un incantesimo di base
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentCommon: {
+				DisplayName: Tutti per un incantesimo comune
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentEpic: {
+				DisplayName: Tutto per un incantesimo epico
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentLegendary: {
+				DisplayName: Tutto per un incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			AllForOneEnchantmentRare: {
+				DisplayName: Incantesimo All For One Raro
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentBasic: {
+				DisplayName: Costo munizioni incantesimo base
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentCommon: {
+				DisplayName: Costo munizioni incantesimo Comune
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentEpic: {
+				DisplayName: Incantesimo costo munizioni epico
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentLegendary: {
+				DisplayName: Incantesimo costo munizioni Leggendario
+				// Tooltip: ""
+			}
+
+			AmmoCostEnchantmentRare: {
+				DisplayName: Incantesimo costo munizioni raro
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentBasic: {
+				DisplayName: Incantesimo di penetrazione dell'armatura di base
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentCommon: {
+				DisplayName: Incantesimo di penetrazione dell'armatura Comune
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentEpic: {
+				DisplayName: Incantesimo di penetrazione dell'armatura epico
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentLegendary: {
+				DisplayName: Incantesimo di penetrazione dell'armatura Leggendario
+				// Tooltip: ""
+			}
+
+			ArmorPenetrationEnchantmentRare: {
+				DisplayName: Incantesimo di penetrazione dell'armatura Raro
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentBasic: {
+				DisplayName: Incantesimo di velocità d'attacco di base
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentCommon: {
+				DisplayName: Incantesimo velocità d'attacco Comune
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentEpic: {
+				DisplayName: Incantesimo velocità d'attacco epico
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentLegendary: {
+				DisplayName: Incantesimo velocità d'attacco Leggendario
+				// Tooltip: ""
+			}
+
+			AttackSpeedEnchantmentRare: {
+				DisplayName: Incantesimo velocità d'attacco Raro
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentBasic: {
+				DisplayName: Incantamento di base per lo scambio di classe del bardo
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentCommon: {
+				DisplayName: Bardo Scambio di classe Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentEpic: {
+				DisplayName: Bard Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentLegendary: {
+				DisplayName: Incantamento di scambio di classe del bardo Leggendario
+				// Tooltip: ""
+			}
+
+			BardClassSwapEnchantmentRare: {
+				DisplayName: Incantamento di scambio di classe del bardo Raro
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentBasic: {
+				DisplayName: Berserkers Rage Incantesimo di base
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentCommon: {
+				DisplayName: Berserker Rabbia Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentEpic: {
+				DisplayName: Berserkers Rage Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentLegendary: {
+				DisplayName: Berserkers Rabbia Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			BerserkersRageEnchantmentRare: {
+				DisplayName: Berserker Rabbia Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentBasic: {
+				DisplayName: Incantesimo di acque calme di base
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentCommon: {
+				DisplayName: Incantesimo acque calme comune
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo delle acque calme
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentLegendary: {
+				DisplayName: Incantesimo Acque Calme Leggendario
+				// Tooltip: ""
+			}
+
+			CalmWatersEnchantmentRare: {
+				DisplayName: Incantesimo Acque Calme Raro
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentBasic: {
+				DisplayName: Incantesimo di pesca caotico di base
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentCommon: {
+				DisplayName: Incantesimo di pesca caotico Comune
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentEpic: {
+				DisplayName: Incantesimo di pesca caotico epico
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentLegendary: {
+				DisplayName: Incantesimo di pesca caotico Leggendario
+				// Tooltip: ""
+			}
+
+			ChaoticFishingEnchantmentRare: {
+				DisplayName: Incantesimo di pesca caotico Raro
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentBasic: {
+				DisplayName: Incantesimo Acciaio Freddo Base
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentCommon: {
+				DisplayName: Incantesimo Acciaio Freddo Comune
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo d'acciaio freddo
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentLegendary: {
+				DisplayName: Incantesimo Acciaio Freddo Leggendario
+				// Tooltip: ""
+			}
+
+			ColdSteelEnchantmentRare: {
+				DisplayName: Incantesimo Acciaio Freddo Raro
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentBasic: {
+				DisplayName: Cassa Incantesimo Probabilità Base
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentCommon: {
+				DisplayName: Cassa Incantesimo Probabilità Comune
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo della probabilità della cassa
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentLegendary: {
+				DisplayName: Incantesimo probabilità cassa Leggendario
+				// Tooltip: ""
+			}
+
+			CrateChanceEnchantmentRare: {
+				DisplayName: Incantesimo probabilità cassa Raro
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentBasic: {
+				DisplayName: Incantesimo di cassa di base
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentCommon: {
+				DisplayName: Incantesimo di cassa comune
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo della cassa
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentLegendary: {
+				DisplayName: Incantesimo della cassa Leggendario
+				// Tooltip: ""
+			}
+
+			CrateEnchantmentRare: {
+				DisplayName: Incantesimo della cassa Raro
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentBasic: {
+				DisplayName: Probabilità di colpo critico Incantesimo Base
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentCommon: {
+				DisplayName: Probabilità di colpo critico Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentEpic: {
+				DisplayName: Probabilità di colpo critico Incantesimo epico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentLegendary: {
+				DisplayName: Probabilità di colpo critico Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			CriticalStrikeChanceEnchantmentRare: {
+				DisplayName: Probabilità di colpo critico Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentBasic: {
+				DisplayName: Incantesimo del danno da colpo critico di base
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentCommon: {
+				DisplayName: Colpo critico Danno Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentEpic: {
+				DisplayName: Epico incantesimo con danno da colpo critico
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentLegendary: {
+				DisplayName: Incantesimo con danno da colpo critico Leggendario
+				// Tooltip: ""
+			}
+
+			CriticalStrikeDamageEnchantmentRare: {
+				DisplayName: Incantesimo con danno da colpo critico Raro
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentBasic: {
+				DisplayName: Incantesimo Inferno Maledetto di base
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentCommon: {
+				DisplayName: Incantesimo Inferno Maledetto Comune
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentEpic: {
+				DisplayName: Incantesimo Inferno Maledetto Epico
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentLegendary: {
+				DisplayName: Incantesimo Inferno Maledetto Leggendario
+				// Tooltip: ""
+			}
+
+			CursedInfernoEnchantmentRare: {
+				DisplayName: Incantesimo Inferno Maledetto Raro
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentBasic: {
+				DisplayName: Danno incantesimo di base
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentCommon: {
+				DisplayName: Danno incantesimo Comune
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentEpic: {
+				DisplayName: Danno incantesimo epico
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentLegendary: {
+				DisplayName: Danno incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			DamageEnchantmentRare: {
+				DisplayName: Danno incantesimo Raro
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentBasic: {
+				DisplayName: Incantesimo di riduzione del danno di base
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentCommon: {
+				DisplayName: Incantesimo di riduzione del danno Comune
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentEpic: {
+				DisplayName: Incantesimo di riduzione del danno epico
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentLegendary: {
+				DisplayName: Incantesimo di riduzione del danno Leggendario
+				// Tooltip: ""
+			}
+
+			DamageReductionEnchantmentRare: {
+				DisplayName: Incantesimo di riduzione del danno Raro
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentBasic: {
+				DisplayName: Pericolo Senso Incantesimo Base
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentCommon: {
+				DisplayName: Pericolo Senso Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentEpic: {
+				DisplayName: Pericolo Senso Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentLegendary: {
+				DisplayName: Incantesimo del senso di pericolo Leggendario
+				// Tooltip: ""
+			}
+
+			DangerSenseEnchantmentRare: {
+				DisplayName: Pericolo Senso Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentBasic: {
+				DisplayName: Incantesimo dell'alba di base
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentCommon: {
+				DisplayName: Incantesimo dell'alba Comune
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo dell'alba
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentLegendary: {
+				DisplayName: Incantesimo dell'alba Leggendario
+				// Tooltip: ""
+			}
+
+			DaybreakEnchantmentRare: {
+				DisplayName: Incantesimo dell'alba Raro
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentBasic: {
+				DisplayName: Incantesimo di difesa di base
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentCommon: {
+				DisplayName: Incantesimo di difesa comune
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentEpic: {
+				DisplayName: Incantesimo di difesa epico
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentLegendary: {
+				DisplayName: Incantesimo di difesa leggendario
+				// Tooltip: ""
+			}
+
+			DefenseEnchantmentRare: {
+				DisplayName: Incantesimo di difesa Raro
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentBasic: {
+				DisplayName: Incantesimo di lenza extra Basic
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentCommon: {
+				DisplayName: Incantesimo di lenza extra comune
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentEpic: {
+				DisplayName: Epico incantesimo della lenza extra
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentLegendary: {
+				DisplayName: Incantesimo della lenza extra Leggendario
+				// Tooltip: ""
+			}
+
+			ExtraFishingLineEnchantmentRare: {
+				DisplayName: Incantesimo della lenza extra Raro
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentBasic: {
+				DisplayName: Incantesimo di pesca di base
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentCommon: {
+				DisplayName: Incantesimo di pesca comune
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentEpic: {
+				DisplayName: Incantesimo di pesca epico
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentLegendary: {
+				DisplayName: Incantesimo di pesca Leggendario
+				// Tooltip: ""
+			}
+
+			FishingEnchantmentRare: {
+				DisplayName: Incantesimo di pesca Raro
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentBasic: {
+				DisplayName: Incantesimo del potere di pesca di base
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentCommon: {
+				DisplayName: Incantesimo del potere di pesca Comune
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo del potere della pesca
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentLegendary: {
+				DisplayName: Incantesimo del potere della pesca Leggendario
+				// Tooltip: ""
+			}
+
+			FishingPowerEnchantmentRare: {
+				DisplayName: Incantesimo del potere di pesca Raro
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentBasic: {
+				DisplayName: Incantesimo Frostburn Basic
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentCommon: {
+				DisplayName: Incantesimo Bruciore di Gelo Comune
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentEpic: {
+				DisplayName: Incantesimo di Gelo Epico
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentLegendary: {
+				DisplayName: Incantesimo Frostburn Leggendario
+				// Tooltip: ""
+			}
+
+			FrostburnEnchantmentRare: {
+				DisplayName: Incantesimo Bruciore di Gelo Raro
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentBasic: {
+				DisplayName: Incantesimo dell'uccisore di dio di base
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentCommon: {
+				DisplayName: Incantesimo dell'uccisore di dio comune
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo dell'uccisore di dio
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentLegendary: {
+				DisplayName: Incantesimo Ammazzadio Leggendario
+				// Tooltip: ""
+			}
+
+			GodSlayerEnchantmentRare: {
+				DisplayName: Incantesimo dell'uccisore di dio raro
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentBasic: {
+				DisplayName: Healer Class Swap Incantesimo Base
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentCommon: {
+				DisplayName: Guaritore Scambio classe Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentEpic: {
+				DisplayName: Healer Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentLegendary: {
+				DisplayName: Incantamento di cambio di classe del guaritore Leggendario
+				// Tooltip: ""
+			}
+
+			HealerClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo Scambio Classe Guaritore Raro
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentBasic: {
+				DisplayName: Incantesimo di Hells Wrath Basic
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentCommon: {
+				DisplayName: Incantesimo dell'Ira Infernale Comune
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentEpic: {
+				DisplayName: Incantesimo epico dell'ira dell'inferno
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentLegendary: {
+				DisplayName: Incantesimo dell'Ira Infernale Leggendario
+				// Tooltip: ""
+			}
+
+			HellsWrathEnchantmentRare: {
+				DisplayName: Incantesimo dell'ira dell'inferno Raro
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentBasic: {
+				DisplayName: Incantesimo del cacciatore di base
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentCommon: {
+				DisplayName: Incantesimo del cacciatore comune
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo del cacciatore
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentLegendary: {
+				DisplayName: Incantesimo del cacciatore leggendario
+				// Tooltip: ""
+			}
+
+			HunterEnchantmentRare: {
+				DisplayName: Incantesimo del cacciatore Raro
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentBasic: {
+				DisplayName: Icore Incantesimo Base
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentCommon: {
+				DisplayName: Incantesimo Icore Comune
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo di Icore
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentLegendary: {
+				DisplayName: Incantesimo Icore Leggendario
+				// Tooltip: ""
+			}
+
+			IchorEnchantmentRare: {
+				DisplayName: Incantesimo Icore Raro
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentBasic: {
+				DisplayName: Incantesimo succo di base
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentCommon: {
+				DisplayName: Incantesimo Succo Comune
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo spremuto
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentLegendary: {
+				DisplayName: Incantesimo Juiced Leggendario
+				// Tooltip: ""
+			}
+
+			JuicedEnchantmentRare: {
+				DisplayName: Incantesimo Juiced Raro
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentBasic: {
+				DisplayName: Jungles Fury Incantesimo di base
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentCommon: {
+				DisplayName: Giungla Furia Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentEpic: {
+				DisplayName: Jungles Fury Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentLegendary: {
+				DisplayName: Incantesimo Furia della Giungla Leggendario
+				// Tooltip: ""
+			}
+
+			JunglesFuryEnchantmentRare: {
+				DisplayName: Incantesimo Furia della Giungla Raro
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentBasic: {
+				DisplayName: Ki Class Swap Incantesimo di base
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentCommon: {
+				DisplayName: Incantesimo di scambio di classe Ki Comune
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentEpic: {
+				DisplayName: Ki Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di scambio di classe Ki Leggendario
+				// Tooltip: ""
+			}
+
+			KiClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe Ki Raro
+				// Tooltip: ""
+			}
+
+			KiEnchantmentBasic: {
+				DisplayName: Ki Incantesimo di base
+				// Tooltip: ""
+			}
+
+			KiEnchantmentCommon: {
+				DisplayName: Ki Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			KiEnchantmentEpic: {
+				DisplayName: Ki Incantesimo epico
+				// Tooltip: ""
+			}
+
+			KiEnchantmentLegendary: {
+				DisplayName: Ki Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			KiEnchantmentRare: {
+				DisplayName: Ki Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentBasic: {
+				DisplayName: Incantesimo Pesca alla lava Base
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentCommon: {
+				DisplayName: Incantesimo Pesca di Lava Comune
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentEpic: {
+				DisplayName: Incantesimo di pesca alla lava epico
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentLegendary: {
+				DisplayName: Incantesimo Pesca di lava Leggendario
+				// Tooltip: ""
+			}
+
+			LavaFishingEnchantmentRare: {
+				DisplayName: Incantesimo Pesca alla Lava Raro
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentBasic: {
+				DisplayName: Vita Regen Incantesimo di base
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentCommon: {
+				DisplayName: Vita Regen Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentEpic: {
+				DisplayName: Life Regen Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentLegendary: {
+				DisplayName: Incantesimo di rigenerazione della vita Leggendario
+				// Tooltip: ""
+			}
+
+			LifeRegenEnchantmentRare: {
+				DisplayName: Incantesimo Rigenera Vita Raro
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentBasic: {
+				DisplayName: Incantesimo ruba vita di base
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentCommon: {
+				DisplayName: Incantesimo Ruba Vita Comune
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentEpic: {
+				DisplayName: Incantesimo rubavita epico
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentLegendary: {
+				DisplayName: Incantesimo rubavita Leggendario
+				// Tooltip: ""
+			}
+
+			LifeStealEnchantmentRare: {
+				DisplayName: Incantesimo ruba vita Raro
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentBasic: {
+				DisplayName: Incantesimo di fortuna di base
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentCommon: {
+				DisplayName: Incantesimo fortuna comune
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentEpic: {
+				DisplayName: Fortuna incantesimo epico
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentLegendary: {
+				DisplayName: Incantesimo della fortuna Leggendario
+				// Tooltip: ""
+			}
+
+			LuckEnchantmentRare: {
+				DisplayName: Incantesimo fortuna raro
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentBasic: {
+				DisplayName: Incantesimo di scambio di classe magica di base
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentCommon: {
+				DisplayName: Scambio di classe magica Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentEpic: {
+				DisplayName: Magic Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di scambio di classe magica Leggendario
+				// Tooltip: ""
+			}
+
+			MagicClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe magica Raro
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentBasic: {
+				DisplayName: Max Minion Incantesimo di base
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentCommon: {
+				DisplayName: Max Minion Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentEpic: {
+				DisplayName: Max Minion Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentLegendary: {
+				DisplayName: Incantesimo Max Minion Leggendario
+				// Tooltip: ""
+			}
+
+			MaxMinionsEnchantmentRare: {
+				DisplayName: Incantesimo Max Minion Raro
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentBasic: {
+				DisplayName: Melee Class Swap Incantesimo Base
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentCommon: {
+				DisplayName: Melee Class Swap Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentEpic: {
+				DisplayName: Melee Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di scambio di classe da mischia Leggendario
+				// Tooltip: ""
+			}
+
+			MeleeClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe da mischia Raro
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentBasic: {
+				DisplayName: Incantesimo di controllo della mobilità di base
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentCommon: {
+				DisplayName: Incantesimo di controllo della mobilità Comune
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentEpic: {
+				DisplayName: Incantesimo di controllo della mobilità epico
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentLegendary: {
+				DisplayName: Incantesimo di controllo della mobilità Leggendario
+				// Tooltip: ""
+			}
+
+			MobilityControlEnchantmentRare: {
+				DisplayName: Incantesimo di controllo della mobilità Raro
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentBasic: {
+				DisplayName: Incantesimo chiaro di luna di base
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentCommon: {
+				DisplayName: Incantesimo al chiaro di luna comune
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentEpic: {
+				DisplayName: Incantesimo al chiaro di luna epico
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentLegendary: {
+				DisplayName: Incantesimo al chiaro di luna Leggendario
+				// Tooltip: ""
+			}
+
+			MoonlightEnchantmentRare: {
+				DisplayName: Incantesimo al chiaro di luna Raro
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentBasic: {
+				DisplayName: Incantesimo di velocità di movimento di base
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentCommon: {
+				DisplayName: Velocità di movimento Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentEpic: {
+				DisplayName: Velocità di movimento incantesimo epico
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentLegendary: {
+				DisplayName: Incantesimo velocità di movimento Leggendario
+				// Tooltip: ""
+			}
+
+			MovementSpeedEnchantmentRare: {
+				DisplayName: Incantesimo di velocità di movimento Raro
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentBasic: {
+				DisplayName: Incantesimo multicolpo di base
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentCommon: {
+				DisplayName: Incantesimo Multishot Comune
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo a colpi multipli
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentLegendary: {
+				DisplayName: Incantesimo Multishot Leggendario
+				// Tooltip: ""
+			}
+
+			MultishotEnchantmentRare: {
+				DisplayName: Incantesimo Multishot Raro
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentBasic: {
+				DisplayName: Npc Contatto Pescatore Incantesimo Base
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentCommon: {
+				DisplayName: Npc Contatto Pescatore Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentEpic: {
+				DisplayName: Npc contatto pescatore incantesimo epico
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentLegendary: {
+				DisplayName: Incantesimo del pescatore di contatto Npc Leggendario
+				// Tooltip: ""
+			}
+
+			NpcContactAnglerEnchantmentRare: {
+				DisplayName: Incantesimo del pescatore di contatto Npc Raro
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentBasic: {
+				DisplayName: Incantesimo pelle di ossidiana di base
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentCommon: {
+				DisplayName: Incantesimo della pelle di ossidiana Comune
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo della pelle di ossidiana
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentLegendary: {
+				DisplayName: Incantesimo della pelle di ossidiana Leggendario
+				// Tooltip: ""
+			}
+
+			ObsidianSkinEnchantmentRare: {
+				DisplayName: Incantesimo della pelle di ossidiana Raro
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentBasic: {
+				DisplayName: Uno per tutti l'incantesimo di base
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentCommon: {
+				DisplayName: Uno per tutti incantesimo comune
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentEpic: {
+				DisplayName: Uno per tutti incantesimo epico
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentLegendary: {
+				DisplayName: Incantesimo One For All Leggendario
+				// Tooltip: ""
+			}
+
+			OneForAllEnchantmentRare: {
+				DisplayName: Incantesimo Uno per Tutti Raro
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentBasic: {
+				DisplayName: Sull'incantesimo di fuoco di base
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentCommon: {
+				DisplayName: Incantesimo di fuoco comune
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentEpic: {
+				DisplayName: L'epopea dell'incantesimo di fuoco
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentLegendary: {
+				DisplayName: Incantesimo di fuoco leggendario
+				// Tooltip: ""
+			}
+
+			OnFireEnchantmentRare: {
+				DisplayName: Incantesimo di fuoco raro
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentBasic: {
+				DisplayName: Incantesimo di pace di base
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentCommon: {
+				DisplayName: Incantesimo di pace comune
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo della pace
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentLegendary: {
+				DisplayName: Incantesimo della pace leggendario
+				// Tooltip: ""
+			}
+
+			PeaceEnchantmentRare: {
+				DisplayName: Incantesimo di pace raro
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentBasic: {
+				DisplayName: Penny che pizzica l'incantesimo di base
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentCommon: {
+				DisplayName: Penny Pizzica Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentEpic: {
+				DisplayName: Penny Pizzicando Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentLegendary: {
+				DisplayName: Penny Pizzicando Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			PennyPinchingEnchantmentRare: {
+				DisplayName: Penny Pizzica Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentBasic: {
+				DisplayName: L'orgoglio dei deboli Incantesimo di base
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentCommon: {
+				DisplayName: Orgoglio dei deboli Incantesimo comune
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentEpic: {
+				DisplayName: L'epopea dell'incanto dell'orgoglio dei deboli
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentLegendary: {
+				DisplayName: Orgoglio dei deboli Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			PrideOfTheWeakEnchantmentRare: {
+				DisplayName: L'orgoglio dei deboli Incantesimo raro
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentBasic: {
+				DisplayName: Incantesimo velocità proiettile di base
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentCommon: {
+				DisplayName: Incantesimo velocità proiettile Comune
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo della velocità del proiettile
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentLegendary: {
+				DisplayName: Incantesimo velocità proiettile Leggendario
+				// Tooltip: ""
+			}
+
+			ProjectileVelocityEnchantmentRare: {
+				DisplayName: Incantesimo velocità proiettile Raro
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentBasic: {
+				DisplayName: Incantesimo di scambio di classe a distanza di base
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentCommon: {
+				DisplayName: Incantesimo di scambio di classe a distanza Comune
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentEpic: {
+				DisplayName: Incantesimo di scambio di classe a distanza epico
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di scambio di classe a distanza Leggenda
+				// Tooltip: ""
+			}
+
+			RangedClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe a distanza Raro
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentBasic: {
+				DisplayName: Utilizzo di mana ridotto Incantesimo di base
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentCommon: {
+				DisplayName: Utilizzo di mana ridotto Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentEpic: {
+				DisplayName: Ridotto utilizzo del mana incantesimo epico
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentLegendary: {
+				DisplayName: Incantesimo a consumo di mana ridotto Leggendario
+				// Tooltip: ""
+			}
+
+			ReducedManaUsageEnchantmentRare: {
+				DisplayName: Incantesimo a consumo di mana ridotto Raro
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentBasic: {
+				DisplayName: Incantesimo di scambio di classe Rogue Basic
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentCommon: {
+				DisplayName: Incantesimo di scambio di classe ladro Comune
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentEpic: {
+				DisplayName: Rogue Class Swap Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di scambio di classe ladro Leggendario
+				// Tooltip: ""
+			}
+
+			RogueClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe ladro Raro
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentBasic: {
+				DisplayName: Shine Incantesimo Base
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentCommon: {
+				DisplayName: Brillare Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentEpic: {
+				DisplayName: Brillare Incantesimo epico
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentLegendary: {
+				DisplayName: Brillare Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			ShineEnchantmentRare: {
+				DisplayName: Brillare Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentBasic: {
+				DisplayName: Dimensione Incantesimo Base
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentCommon: {
+				DisplayName: Dimensione Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentEpic: {
+				DisplayName: Dimensioni incantesimo epico
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentLegendary: {
+				DisplayName: Dimensioni Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			SizeEnchantmentRare: {
+				DisplayName: Dimensione Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentBasic: {
+				DisplayName: Incantesimo Solar Dash Basic
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentCommon: {
+				DisplayName: Incantesimo Solar Dash Comune
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentEpic: {
+				DisplayName: Incantesimo Solar Dash Epico
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentLegendary: {
+				DisplayName: Incantesimo Solar Dash Leggendario
+				// Tooltip: ""
+			}
+
+			SolarDashEnchantmentRare: {
+				DisplayName: Incantesimo Solar Dash Raro
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentBasic: {
+				DisplayName: Sonar incantesimo di base
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentCommon: {
+				DisplayName: Sonar incantesimo comune
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentEpic: {
+				DisplayName: Sonar incantesimo epico
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentLegendary: {
+				DisplayName: Incantesimo Sonar Leggendario
+				// Tooltip: ""
+			}
+
+			SonarEnchantmentRare: {
+				DisplayName: Incantesimo sonar raro
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentBasic: {
+				DisplayName: Incantesimo Spelunker Basic
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentCommon: {
+				DisplayName: Incantesimo Spelunker Comune
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentEpic: {
+				DisplayName: Spelunker Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentLegendary: {
+				DisplayName: Incantesimo Spelunker Leggendario
+				// Tooltip: ""
+			}
+
+			SpelunkerEnchantmentRare: {
+				DisplayName: Incantesimo Spelunker Raro
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentBasic: {
+				DisplayName: Incantamento di scambio di classe da lancio di base
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentCommon: {
+				DisplayName: Lancio Scambio di classe Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentEpic: {
+				DisplayName: Lancio di classe Scambio di incantesimi epico
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentLegendary: {
+				DisplayName: Incantesimo di cambio di classe da lancio Leggendario
+				// Tooltip: ""
+			}
+
+			ThrowingClassSwapEnchantmentRare: {
+				DisplayName: Incantesimo di scambio di classe da lancio Raro
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentBasic: {
+				// DisplayName: Time Enchantment Basic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentCommon: {
+				// DisplayName: Time Enchantment Common
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentEpic: {
+				// DisplayName: Time Enchantment Epic
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentLegendary: {
+				// DisplayName: Time Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			TimeEnchantmentRare: {
+				// DisplayName: Time Enchantment Rare
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentBasic: {
+				DisplayName: Incantesimo Veleno Base
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentCommon: {
+				DisplayName: Incantesimo Veleno Comune
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentEpic: {
+				DisplayName: Incantesimo di veleno epico
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentLegendary: {
+				DisplayName: Incantesimo Veleno Leggendario
+				// Tooltip: ""
+			}
+
+			VenomEnchantmentRare: {
+				DisplayName: Incantesimo Veleno Raro
+				// Tooltip: ""
+			}
+
+			WarEnchantmentBasic: {
+				DisplayName: Incantesimo di guerra di base
+				// Tooltip: ""
+			}
+
+			WarEnchantmentCommon: {
+				DisplayName: Incantesimo di guerra comune
+				// Tooltip: ""
+			}
+
+			WarEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo di guerra
+				// Tooltip: ""
+			}
+
+			WarEnchantmentLegendary: {
+				DisplayName: Incantesimo di guerra leggendario
+				// Tooltip: ""
+			}
+
+			WarEnchantmentRare: {
+				DisplayName: Incantesimo di guerra raro
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentBasic: {
+				DisplayName: Frusta Scambio di classe Incantesimo Base
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentCommon: {
+				DisplayName: Frusta Scambio di classe Incantesimo Comune
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentEpic: {
+				DisplayName: Frusta Scambio di classe Incantesimo Epico
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentLegendary: {
+				DisplayName: Frusta Scambio di classe Incantesimo Leggendario
+				// Tooltip: ""
+			}
+
+			WhipClassSwapEnchantmentRare: {
+				DisplayName: Frusta Scambio di classe Incantesimo Raro
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentBasic: {
+				DisplayName: Incantesimo World Ablaze Basic
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentCommon: {
+				DisplayName: Incantesimo del mondo in fiamme comune
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentEpic: {
+				DisplayName: Epopea dell'incantesimo World Ablaze
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentLegendary: {
+				DisplayName: Incantesimo World Ablaze Leggendario
+				// Tooltip: ""
+			}
+
+			WorldAblazeEnchantmentRare: {
+				DisplayName: Incantesimo World Ablaze Raro
+				// Tooltip: ""
+			}
 
 			Containment: {
 				DisplayName: Contenimento
@@ -436,8 +1735,8 @@ Mods: {
 
 		Buffs: {
 			Amaterasu: {
-				/* DisplayName: Amaterasu */
-				/* Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu */
+				// DisplayName: Amaterasu
+				// Description: Mods.WeaponEnchantments.BuffDescription.Amaterasu
 			}
 		}
 
@@ -683,7 +1982,7 @@ Mods: {
 			}
 
 			DisableArmorInfusion: {
-				/* Label: Disable Armor Infusion */
+				// Label: Disable Armor Infusion
 				Tooltip: This will prevent you from infusing armor items and will ignore infused set bonues.
 			}
 
@@ -1048,31 +2347,31 @@ Mods: {
 		NPCNames: {
 			Witch: {
 				Agatha: Agata
-				/* Akko: Akko */
-				/* Binx: Binx */
-				/* Blobbelda: Blobbelda */
+				// Akko: Akko
+				// Binx: Binx
+				// Blobbelda: Blobbelda
 				Brentilda: Brentilde
 				Freyja: Freia
-				/* Gruntilda: Gruntilda */
+				// Gruntilda: Gruntilda
 				Hazel: Nocciola
-				/* Jasminka: Jasminka */
-				/* Kyubey: Kyubey */
+				// Jasminka: Jasminka
+				// Kyubey: Kyubey
 				Maleficient: Malefico
 				Mary: Maria
-				/* Medusa: Medusa */
+				// Medusa: Medusa
 				Melusine: Melusina
-				/* Mingella: Mingella */
+				// Mingella: Mingella
 				MissGulch: Signorina Gulch
-				/* Morgana: Morgana */
-				/* Sabrina: Sabrina */
-				/* Salem: Salem */
+				// Morgana: Morgana
+				// Sabrina: Sabrina
+				// Salem: Salem
 				Sarah: Sara
 				Ursula: Orsola
-				/* Winifred: Winifred */
+				// Winifred: Winifred
 			}
 		}
 
-		/* NPCs.Witch.DisplayName: Witch */
+		// NPCs.Witch.DisplayName: Witch
 
 		Ores: {
 			adamantite: Adamantio
@@ -1100,10 +2399,10 @@ Mods: {
 			Infusion: Infusione
 			LevelUp: Sali di livello
 			LootAll: Saccheggia tutto
-			/* No: No */
+			// No: No
 			Offer: Offerta
 			Syphon: Sifone
-			/* xp: xp */
+			// xp: xp
 			Yes: sì
 			AreYouSure:
 				'''
@@ -1135,7 +2434,7 @@ Mods: {
 
 			DamageClassNames: {
 				Generic: Generico
-				/* Ki: Ki */
+				// Ki: Ki
 				Magic: Magia
 				Melee: Mischia
 				Ranged: A distanza
@@ -1188,9 +2487,9 @@ Mods: {
 				DamageReduction: Riduzione del danno
 				DangerSense: Senso di pericolo
 				Daybreak: Alba
-				/* DayEventUpdateRate: Day Event Update Rate */
-				/* DayTileUpdateRate: Day Tile Update Rate */
-				/* DayTimeRate: Day Time Rate */
+				// DayEventUpdateRate: Day Event Update Rate
+				// DayTileUpdateRate: Day Tile Update Rate
+				// DayTimeRate: Day Time Rate
 				Defense: Difesa
 				EnemyMaxSpawns: Il massimo nemico si genera
 				EnemySpawnRate: Tasso di spawn dei nemici
@@ -1210,10 +2509,10 @@ Mods: {
 				Juiced: Succo
 				JumpSpeed: Velocità di salto
 				JunglesFury: Furia della giungla
-				/* Ki: Ki */
+				// Ki: Ki
 				KiClassSwap: Scambio di classe Ki
 				KiDamage: Ki Danni
-				/* KiRegen: Ki Regen */
+				// KiRegen: Ki Regen
 				LavaFishing: Pesca alla lava
 				LifeRegen: Vita rigenerata
 				LifeRegeneration: Rigenerazione della vita
@@ -1223,7 +2522,7 @@ Mods: {
 				ManaUsage1: Consumo di mana ridotto
 				ManaUsage2: Aumento del consumo di mana
 				MaxFallSpeed: Velocità massima di caduta
-				/* MaxKi: Max Ki */
+				// MaxKi: Max Ki
 				MaxLife: Massimo Vita
 				MaxMinions: Max Minion
 				MaxMP: MP massimo
@@ -1237,9 +2536,9 @@ Mods: {
 				MovementSpeed: Velocità di movimento
 				MPBonusRegen: Rigenerazione bonus MP
 				Multishot: Spari multipli
-				/* NightEventUpdateRate: Night Event Update Rate */
-				/* NightTileUpdateRate: Night Tile Update Rate */
-				/* NightTimeRate: Night Time Rate */
+				// NightEventUpdateRate: Night Event Update Rate
+				// NightTileUpdateRate: Night Tile Update Rate
+				// NightTimeRate: Night Time Rate
 				NpcContactAngler: Pescatore di contatto Npc
 				NPCHitCooldown: Recupero colpo NPC
 				ObsidianSkin: Pelle di ossidiana
@@ -1257,10 +2556,10 @@ Mods: {
 				Shine: Splendere
 				Size: Dimensione
 				SolarDash: Scatto solare
-				/* Sonar: Sonar */
+				// Sonar: Sonar
 				Spelunker: Speleologo
 				ThrowingClassSwap: Scambio di classe di lancio
-				/* Time: Time */
+				// Time: Time
 				VanillaDash1: Scatto Tabi Ninja
 				VanillaDash2: Occhio di Cthulhu Shield Dash
 				VanillaDash3: Scatto solare
@@ -1278,7 +2577,7 @@ Mods: {
 				CalamityMod: (Incantesimo Mod Calamità)
 				DBZMODPORT: (Incantesimo Dragon Ball Terraria)
 				ThoriumMod: (Incantesimo Throium Mod)
-				/* Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate */
+				// Time: Time effects are randomized with 6 options, Day/Night Time Rate, Tile Update Rate, Event Update Rate
 				WorldAblaze:
 					'''
 					(Il debuff di Amaterasu e le note seguenti si applicano solo al livello 4 dell'incantesimo.)
@@ -1393,15 +2692,15 @@ Mods: {
 			}
 		}
 
-		/* ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence */
-		/* ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled. */
+		// ModuleName.Enchanting_Table_Essence: Enchanting  Table  Essence
+		// ModuleDisabled.Enchanting_Table_Essence: This module is currently disabled.
 
 		Tiles: {
-			/* DustyEnchantingTable.MapEntry: Dusty Enchanting Table */
-			/* HellishEnchantingTable.MapEntry: Hellish Enchanting Table */
-			/* SoulEnchantingTable.MapEntry: Soul Enchanting Table */
-			/* UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table */
-			/* WoodEnchantingTable.MapEntry: Wood Enchanting Table */
+			// DustyEnchantingTable.MapEntry: Dusty Enchanting Table
+			// HellishEnchantingTable.MapEntry: Hellish Enchanting Table
+			// SoulEnchantingTable.MapEntry: Soul Enchanting Table
+			// UltimateEnchantingTable.MapEntry: Ultimate Enchanting Table
+			// WoodEnchantingTable.MapEntry: Wood Enchanting Table
 		}
 	}
 }

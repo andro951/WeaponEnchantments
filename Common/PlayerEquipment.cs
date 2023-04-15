@@ -188,7 +188,7 @@ namespace WeaponEnchantments.Common {
 		    return result;
 	    }
         public void CombineDictionaries() {
-			if (!HeldItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+			if (!HeldItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
 				enchantedHeldItem = new EnchantedWeapon();
 
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
@@ -198,7 +198,7 @@ namespace WeaponEnchantments.Common {
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
-            if (!item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (!item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 enchantedHeldItem = new EnchantedWeapon();
 
             wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedHeldItem.ModifyShootStatEffects).ToList();
@@ -272,10 +272,10 @@ namespace WeaponEnchantments.Common {
         }
 
         private EnchantedHeldItem GetEnchantedHeldItem(Item item) {
-            if (item != null && item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (item != null && item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return enchantedHeldItem;
 
-            if (HeldItem.TryGetEnchantedItem(out enchantedHeldItem))
+            if (HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
                 return enchantedHeldItem;
 
             return null;

@@ -133,7 +133,7 @@ namespace WeaponEnchantments.UI
                 if (player.inventory[i].favorited)
                     continue;
 
-                if (!player.inventory[i].TryGetEnchantedItem(out EnchantedItem enchantedItem))
+                if (!player.inventory[i].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                     continue;
 
                 //Offer the inventory item
@@ -151,7 +151,7 @@ namespace WeaponEnchantments.UI
                             if (item.favorited)
                                 continue;
 
-                            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+                            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                                 continue;
 
                              if (enchantedItem.Modified)
@@ -233,7 +233,7 @@ namespace WeaponEnchantments.UI
             }
 
             int type = item.type;
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return -1;
 
             bool stop = false;
@@ -352,7 +352,7 @@ namespace WeaponEnchantments.UI
             }
             if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
 
-            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (!wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 promptText.SetText($"Non-Enchantable item detected in table.\n" +
 					$"WARNING, DO NOT PRESS CONFIRM.\n" +
 					$"Please report this issue to andro951(Weapon Enchantments)");

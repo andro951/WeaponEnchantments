@@ -128,7 +128,7 @@ namespace WeaponEnchantments
                     Item itemBeingEnchanted = wePlayer.itemBeingEnchanted;
                     favorited = itemBeingEnchanted.favorited;
                     itemBeingEnchanted.favorited = false;
-                    if (itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal)) {
+                    if (itemBeingEnchanted.TryGetEnchantedItemSearchAll(out EnchantedItem iBEGlobal)) {
                         iBEGlobal.inEnchantingTable = true;
                         wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
                         if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
@@ -141,7 +141,7 @@ namespace WeaponEnchantments
 							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
 					}
 
-                    if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                    if (wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal)) {
                         for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                             if (iGlobal.enchantments[i] != null) {//For each enchantment in the global item,
                                 wePlayer.EnchantmentUISlot(i).Item = iGlobal.enchantments[i].Clone();//copy enchantments to the enchantmentSlots
@@ -159,7 +159,7 @@ namespace WeaponEnchantments
                 for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                     Item tableEnchantment = wePlayer.EnchantmentInUI(i);
                     Item itemEnchantment = new Item();
-                    if (itemInUI.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                    if (itemInUI.TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal))
                         itemEnchantment = iGlobal.enchantments[i];
 
                     if (tableEnchantment.IsAir) {
@@ -228,7 +228,7 @@ namespace WeaponEnchantments
             //Fix for splitting stack of enchanted items in a chest
             if (wePlayer.Player.chest != -1 && Main.mouseRight) {
                 int chest = wePlayer.Player.chest;
-                if (Main.HoverItem.maxStack > 1 && Main.HoverItem.type == Main.mouseItem.type && Main.HoverItem.TryGetEnchantedItem(out EnchantedItem enchantedHoverItem) && enchantedHoverItem.Modified && Main.mouseItem.TryGetEnchantedItem(out EnchantedItem enchantedMouseItem)) {
+                if (Main.HoverItem.maxStack > 1 && Main.HoverItem.type == Main.mouseItem.type && Main.HoverItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedHoverItem) && enchantedHoverItem.Modified && Main.mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedMouseItem)) {
                     Player player = wePlayer.Player;
                     Item[] inventory;
                     switch (chest) {
@@ -425,7 +425,7 @@ namespace WeaponEnchantments
             //Fargos pirates that steal items
             if (stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
-                if (itemToClear != null && itemToClear.TryGetEnchantedItem(out EnchantedItem iGlobal)) {
+                if (itemToClear != null && itemToClear.TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal)) {
                     iGlobal.lastValueBonus = 0;
                     iGlobal.prefix = -1;
                 }
@@ -447,7 +447,7 @@ namespace WeaponEnchantments
                 Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
                 //For each enchantment in the enchantmentSlots,
                 if (enchantmentInUI != null) {
-                    if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iGlobal))
+                    if (wePlayer.itemBeingEnchanted.TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal))
                         iGlobal.enchantments[i] = enchantmentInUI.Clone();//copy enchantments to the global item
                 }
 
@@ -462,7 +462,7 @@ namespace WeaponEnchantments
                 wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Cancel.ToString().Lang(L_ID1.TableText));
             }
 
-            if (wePlayer.itemBeingEnchanted.TryGetEnchantedItem(out EnchantedItem iBEGlobal))
+            if (wePlayer.itemBeingEnchanted.TryGetEnchantedItemSearchAll(out EnchantedItem iBEGlobal))
                 iBEGlobal.inEnchantingTable = false;
 
             wePlayer.itemBeingEnchanted.favorited = favorited;

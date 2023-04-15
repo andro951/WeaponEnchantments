@@ -498,7 +498,7 @@ namespace WeaponEnchantments.UI
             if (essence.IsAir || item.IsAir)
                 return;
 
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             if(enchantedItem.Experience < int.MaxValue) {
@@ -632,7 +632,7 @@ namespace WeaponEnchantments.UI
                         infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
                     }
                     else {
-                        if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+                        if (wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
                             Main.NewText("Favorited items cannot be consumed for infusion.");
                             return;
                         }
@@ -680,7 +680,7 @@ namespace WeaponEnchantments.UI
             if (itemInUI.IsAir)
                 return;
 
-            if (!itemInUI.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!itemInUI.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             int maxLevelXP = WEModSystem.levelXps[EnchantedItem.MAX_Level - 1];
@@ -702,7 +702,7 @@ namespace WeaponEnchantments.UI
             pressedLootAll = true;
 
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem);
+            wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem);
 
             //Take all enchantments first
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
@@ -733,7 +733,7 @@ namespace WeaponEnchantments.UI
             if (wePlayer.ItemInUI().IsAir)
                 return;
 
-            if (wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+            if (wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
                 Main.NewText("Favorited items cannot be offerd.");
                 return;
 			}
@@ -747,7 +747,7 @@ namespace WeaponEnchantments.UI
             //WEPlayer.levelsPerLevelUp;
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item tableItem = wePlayer.enchantingTableUI.itemSlotUI[0].Item;
-            if (!wePlayer.ItemInUI().TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             int xpAvailable = 0;

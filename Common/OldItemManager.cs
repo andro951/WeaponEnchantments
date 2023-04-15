@@ -233,7 +233,7 @@ namespace WeaponEnchantments.Common
                     }
                 }
 
-                if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+                if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                     for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                         Item enchantmentItem = enchantedItem.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
