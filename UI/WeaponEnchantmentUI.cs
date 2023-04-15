@@ -303,16 +303,44 @@ namespace WeaponEnchantments.UI
 
 				switch (i) {
 					case 0:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 1;
+						button[levelSetButtonIndex].OnClick += (evt, element) => {
+                            if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer weP)) {
+                                weP.levelsPerLevelUp = 1;
+                            }
+                            else {
+                                wePlayer.levelsPerLevelUp = 1;
+							}
+						};
 						break;
 					case 1:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 5;
+						button[levelSetButtonIndex].OnClick += (evt, element) => {
+							if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer weP)) {
+								weP.levelsPerLevelUp = 5;
+							}
+							else {
+								wePlayer.levelsPerLevelUp = 5;
+							}
+						};
 						break;
 					case 2:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = 10;
+						button[levelSetButtonIndex].OnClick += (evt, element) => {
+							if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer weP)) {
+								weP.levelsPerLevelUp = 10;
+							}
+							else {
+								wePlayer.levelsPerLevelUp = 10;
+							}
+						};
 						break;
 					case 3:
-						button[levelSetButtonIndex].OnClick += (evt, element) => WEPlayer.levelsPerLevelUp = EnchantedItem.MAX_Level;
+						button[levelSetButtonIndex].OnClick += (evt, element) => {
+							if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer weP)) {
+                                weP.levelsPerLevelUp = EnchantedItem.MAX_Level;
+							}
+							else {
+								wePlayer.levelsPerLevelUp = EnchantedItem.MAX_Level;
+							}
+						};
 						break;
 				}
 
@@ -473,7 +501,7 @@ namespace WeaponEnchantments.UI
             //Change button color if hovering
             foreach (var panel in panels) {
 				if (panel is LevelSetButton levelSetButton) {
-                    if (WEPlayer.levelsPerLevelUp == levelSetButton.Level) {
+                    if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer) && wePlayer.levelsPerLevelUp == levelSetButton.Level) {
 						panel.BackgroundColor = levelSetColor;
 					}
                     else {
@@ -766,7 +794,7 @@ namespace WeaponEnchantments.UI
             }
 
             //xpNeeded
-            int targetLevel = enchantedItem.levelBeforeBooster + WEPlayer.levelsPerLevelUp - 1;
+            int targetLevel = enchantedItem.levelBeforeBooster + wePlayer.levelsPerLevelUp - 1;
             targetLevel.Clamp(max: EnchantedItem.MAX_Level - 1);
             int xpNeeded = WEModSystem.levelXps[targetLevel] - enchantedItem.Experience;
 		    bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
