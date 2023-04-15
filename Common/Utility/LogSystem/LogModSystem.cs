@@ -75,7 +75,7 @@ namespace WeaponEnchantments.Common.Utility
         private static string localizationKeys = "";
 	    private static int tabs = 0;
 	    private static List<string> labels;
-        private static Dictionary<string, LocalizedText> translations;
+        private static SortedDictionary<int, SortedDictionary<string, string>> translations;
         private static int culture;
 		private static bool numPad0 = false;
 		private static bool numPad1 = false;
@@ -94,7 +94,7 @@ namespace WeaponEnchantments.Common.Utility
             //Contributors  change to give exact file location when added to contributor.
             PrintContributorsList();
 
-            //PrintAllLocalization();
+            PrintAllLocalization();
 
             Wiki.PrintWiki();
 
@@ -251,7 +251,6 @@ namespace WeaponEnchantments.Common.Utility
             if (sharedName != null)
                 namesAddedToContributorDictionary.Add(sharedName);
         }
-        /*
         private static void PrintAllLocalization() {
             if (!printLocalization && !printLocalizationKeysAndValues)
                 return;
@@ -261,12 +260,25 @@ namespace WeaponEnchantments.Common.Utility
             Mod mod = ModContent.GetInstance<WEMod>();
             TmodFile file = (TmodFile)typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mod);
             translations = new();
-            Autoload(file);
-            
-            foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
-                PrintLocalization((CultureName)i);
+            //Autoload(file);
+            IEnumerable<int> cultures = Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n);
+            MethodInfo loadTranslationsInfo = typeof(LocalizationLoader).GetMethod("LoadTranslations", BindingFlags.NonPublic | BindingFlags.Static);
+            foreach (int i in cultures) {
+                SortedDictionary<string, string> cultureTranslations = new();
+                GameCulture gameCulture = GameCulture.FromLegacyId(i);
+                List<(string, string)> loadedTranslationsList = (List<(string, string)>)loadTranslationsInfo.Invoke(null, new object[] { mod, gameCulture });
+                foreach((string key, string value) t in loadedTranslationsList) {
+                    cultureTranslations.Add(t.key, t.value);
+				}
+
+				translations.Add(i, cultureTranslations);
+			}
+
+			foreach (int i in cultures) {
+                PrintLocalization(i);
             }
         }
+        /*
         private static void Autoload(TmodFile file) {
             var LocalizedTextDictionary = new Dictionary<string, LocalizedText>();
 
@@ -324,12 +336,14 @@ namespace WeaponEnchantments.Common.Utility
                         modTranslationDictionary[effectiveKey] = mt = Language.GetOrRegister(effectiveKey);
                     }
 
+                    mt.
                     mt.AddTranslation(culture, value);
                 }
             }
         }
-        public static void PrintLocalization(CultureName cultureName) {
-            Start(cultureName);
+        */
+        public static void PrintLocalization(int cultureName) {
+            Start((CultureName)cultureName);
 	        
 	        AddLabel(L_ID1.ItemName.ToString());
             Mod weMod = ModContent.GetInstance<WEMod>();
@@ -485,8 +499,8 @@ namespace WeaponEnchantments.Common.Utility
             foreach (KeyValuePair<string, string> p in dict) {
                 string key = $"{allLabels}.{p.Key}";
                 string s = null;
-                if (translations.ContainsKey(key)) {
-                    s = translations[key].GetTranslation(culture);
+                if (translations[culture].ContainsKey(key)) {
+                    s = translations[culture][key];
 					if (culture == (int)CultureName.English) {
                         if (s != p.Value) {
 							LocalizationData.ChangedData.Add(key);
@@ -501,7 +515,7 @@ namespace WeaponEnchantments.Common.Utility
                         if (LocalizationData.RenamedKeys.ContainsKey(p.Key)) {
                             string renamedKey = LocalizationData.RenamedKeys[p.Key];
                             string newKey = $"{allLabels}.{renamedKey}";
-                            string newS = translations[newKey].GetTranslation(culture);
+                            string newS = translations[culture][newKey];
                             if (newS != renamedKey.AddSpaces())
                                 LocalizationData.RenamedFullKeys.Add(key, newKey);
                         }
@@ -509,10 +523,10 @@ namespace WeaponEnchantments.Common.Utility
 
                     if (LocalizationData.RenamedFullKeys.ContainsKey(key)) {
                         string newKey = LocalizationData.RenamedFullKeys[key];
-                        string newS = translations[newKey].GetTranslation(culture);
+                        string newS = translations[culture][newKey];
                         if (newS != newKey) {
                             key = newKey;
-                            s = translations[key].GetTranslation(culture);
+                            s = translations[culture][key];
                         }
                     }
                 }
@@ -608,7 +622,6 @@ namespace WeaponEnchantments.Common.Utility
 
             return newString;
 		}
-        */
         private static void PrintListOfEnchantmentTooltips() {
 		if (!printListOfEnchantmentTooltips)
 			return;
