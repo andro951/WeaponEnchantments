@@ -1731,6 +1731,31 @@ Mods: {
 					如果提升等级的物品被熔炼，该物品将会退还。
 					'''
 			}
+
+			PercentArmorPenetrationEnchantmentBasic: {
+				// DisplayName: Percent Armor Penetration Enchantment Basic
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentCommon: {
+				// DisplayName: Percent Armor Penetration Enchantment Common
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentEpic: {
+				// DisplayName: Percent Armor Penetration Enchantment Epic
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentLegendary: {
+				// DisplayName: Percent Armor Penetration Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentRare: {
+				// DisplayName: Percent Armor Penetration Enchantment Rare
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {

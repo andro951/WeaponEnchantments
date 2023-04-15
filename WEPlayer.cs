@@ -27,6 +27,7 @@ using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
+using Terraria.WorldBuilding;
 
 namespace WeaponEnchantments
 {
@@ -115,24 +116,6 @@ namespace WeaponEnchantments
 		#endregion
 
 		#region IL
-        /*
-		public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
-            //Make vanilla crit roll 0
-            var c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchCall(out _),
-                i => i.MatchLdcI4(1),
-                i => i.MatchLdcI4(101),
-                i => i.MatchCallvirt(out _),
-                i => i.MatchLdloc(7),
-                i => i.MatchBgt(out _),
-                i => i.MatchLdcI4(1)
-            )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
-            c.Emit(OpCodes.Pop);
-            c.Emit(OpCodes.Ldc_I4_0);
-        }
-        */
         public static void HookProcessHitAgainstNPC(ILContext il) {
 			//Make vanilla crit roll 0
 			var c = new ILCursor(il);
@@ -145,9 +128,43 @@ namespace WeaponEnchantments
 				i => i.MatchLdloc(8),
 				i => i.MatchBgt(out _),
 				i => i.MatchLdcI4(1)
-			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
+			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs 1/2"); }
 			c.Emit(OpCodes.Pop);
 			c.Emit(OpCodes.Ldc_I4_0);
+
+            if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchLdarg(3)
+                //i => i.MatchLdloc(7),
+                //i => i.MatchLdarg(3),
+                //i => i.MatchLdcI4(1),
+                //i => i.MatchLdarg(0),
+                //i => i.MatchLdfld<Player>("luck")
+			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs 2/2"); }
+            c.Emit(OpCodes.Ldloc, 7);
+            c.Emit(OpCodes.Ldarga, 0);
+            c.Emit(OpCodes.Ldarga, 1);
+            c.Emit(OpCodes.Ldloca, 0);
+
+            c.EmitDelegate((ref NPC.HitModifiers hitModifiers, bool crit, ref Player player, ref Item item, ref NPC target) => {
+				if (player.TryGetWEPlayer(out WEPlayer wePlayer)) {
+					FieldInfo info = typeof(NPC.HitModifiers).GetField("_critOverride", BindingFlags.NonPublic | BindingFlags.Instance);
+					bool? critOverride = (bool?)info.GetValue(hitModifiers);
+					wePlayer.CalculateCriticalChance(item, ref hitModifiers, crit, critOverride);
+				}
+
+				return ref hitModifiers;
+            });
+			/*
+            c.EmitDelegate((NPC.HitModifiers hitModifiers, bool crit, Item item, NPC target) => {
+                if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer)) {
+					FieldInfo info = typeof(NPC.HitModifiers).GetField("_critOverride", BindingFlags.NonPublic | BindingFlags.Instance);
+					bool? critOverride = (bool?)info.GetValue(hitModifiers);
+					wePlayer.ModifyHitNPCWithAny(item, target, ref hitModifiers);
+				}
+
+                return hitModifiers;
+			});
+            */
 		}
         public static void HookFishingCheck_RollDropLevels(ILContext il) {
             var c = new ILCursor(il);
@@ -905,24 +922,25 @@ namespace WeaponEnchantments
 			cursedEssenceCount = 0;
         }
 
-        #endregion
+		#endregion
 
-        #region Modify Hit
+		#region Modify Hit
 
-        //public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
-        //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref Player.direction);
-        //}
-        //public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-        //    Item item = null;
-        //    if (proj.TryGetGlobalProjectile(out WEProjectile weProj)) // Try not using a global for this maybe
-        //        item = weProj.sourceItem;
-        //
-        //    if (item == null)
-        //        return;
-        //
-        //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref hitDirection, proj);
-        //}
-        public void ModifyHitNPCWithAny(Item item, NPC target, ref NPC.HitModifiers modifiers, Projectile projectile = null) {
+		public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers) {
+            ModifyHitNPCWithAny(item, target, ref modifiers);
+		}
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers) {
+			Player player = Main.player[proj.owner];
+			Item item = null;
+			if (proj.TryGetGlobalProjectile(out WEProjectile weProj))
+				item = weProj.sourceItem;
+
+            if (item.NullOrAir())
+                return;
+
+			ModifyHitNPCWithAny(item, target, ref modifiers, proj);
+		}
+		public void ModifyHitNPCWithAny(Item item, NPC target, ref NPC.HitModifiers modifiers, Projectile projectile = null) {
             //Called from WEMod detours
             #region Debug
 
@@ -944,10 +962,6 @@ namespace WeaponEnchantments
 
             if (multiShotConvertedToDamage && GetPlayerModifierStrength(EnchantmentStat.Multishot, out float multishotDamageMultiplier, 1f))
 				modifiers.FinalDamage *= multishotDamageMultiplier;
-
-            //modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
-			//	CalculateCriticalChance(item, ref hitInfo);
-			//};
 
             ApplyModifyHitEnchants(item, target, ref modifiers, projectile);
 
@@ -1005,10 +1019,13 @@ namespace WeaponEnchantments
                 }
             }
         }
-        private void CalculateCriticalChance(Item item, ref NPC.HitInfo hit) {
+        private void CalculateCriticalChance(Item item, ref NPC.HitModifiers hitModifiers, bool crit, bool? critOverride) {
+            if (critOverride == false)
+                return;
+
             //Critical strike
             if ((item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid) || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = Player.GetWeaponCrit(item) + (hit.Crit ? 100 : 0);
+                int critChance = Player.GetWeaponCrit(item) + (crit ? 100 : 0) + (critOverride == true ? 100 : 0);
                 int critLevel = critChance / 100;
                 critChance %= 100;
                 if (Main.rand.Next(0, 100) < critChance)
@@ -1016,7 +1033,7 @@ namespace WeaponEnchantments
 
                 if (critLevel > 0) {
                     CheckEnchantmentStats(EnchantmentStat.CriticalStrikeDamage, out float critDamageMultiplier, 1f);
-                    hit.Crit = true;
+                    hitModifiers.SetCrit();
                     critLevel--;
 
                     if (AllowCriticalChancePast100 && critLevel > 0) {
@@ -1033,7 +1050,7 @@ namespace WeaponEnchantments
                     }
 
                     if (critDamageMultiplier != 1f)
-                        hit.Damage = WEMath.MultiplyCheckOverflow(hit.Damage, critDamageMultiplier);
+                        hitModifiers.CritDamage *= critDamageMultiplier;
                 }//MultipleCritlevels
             }
         }

@@ -1731,6 +1731,31 @@ Mods: {
 					Усилитель будет возвращен, если усиленный предмет будет пожертвован.
 					'''
 			}
+
+			PercentArmorPenetrationEnchantmentBasic: {
+				// DisplayName: Percent Armor Penetration Enchantment Basic
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentCommon: {
+				// DisplayName: Percent Armor Penetration Enchantment Common
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentEpic: {
+				// DisplayName: Percent Armor Penetration Enchantment Epic
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentLegendary: {
+				// DisplayName: Percent Armor Penetration Enchantment Legendary
+				// Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentRare: {
+				// DisplayName: Percent Armor Penetration Enchantment Rare
+				// Tooltip: ""
+			}
 		}
 
 		Buffs: {

@@ -1731,6 +1731,31 @@ Mods: {
 					This item will be returned if the boosted item is offered.
 					'''
 			}
+
+			PercentArmorPenetrationEnchantmentBasic: {
+				DisplayName: Percent Armor Penetration Enchantment Basic
+				Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentCommon: {
+				DisplayName: Percent Armor Penetration Enchantment Common
+				Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentEpic: {
+				DisplayName: Percent Armor Penetration Enchantment Epic
+				Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentLegendary: {
+				DisplayName: Percent Armor Penetration Enchantment Legendary
+				Tooltip: ""
+			}
+
+			PercentArmorPenetrationEnchantmentRare: {
+				DisplayName: Percent Armor Penetration Enchantment Rare
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {

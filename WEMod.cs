@@ -52,8 +52,8 @@ namespace WeaponEnchantments
 			//int numVanillaRecipies = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
 			hooks.Add(new(ModLoaderCanStackMethodInfo, CanStackDetour));
-			hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
-			hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
+			//hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
+			//hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
 			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
 			//hooks.Add(new(ModLoaderToHitInfoMethodInfo, ToHitInfoDetour));
 			//hooks.Add(new(ModLoaderCaughtFishStackMethodInfo, CaughtFishStackDetour));
@@ -138,14 +138,14 @@ namespace WeaponEnchantments
 		private delegate NPC.HitInfo orig_ToHitInfo(float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f);
 		private delegate NPC.HitInfo hook_ToHitInfo(orig_ToHitInfo orig, float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f);
 		private static readonly MethodInfo ModLoaderToHitInfoMethodInfo = typeof(Terraria.NPC.HitModifiers).GetMethod("ToHitInfo");
-		private void ToHitInfoDetour(this NPC.HitModifiers hitModifiers, orig_ToHitInfo orig, float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f) {
+		private void ToHitInfoDetour(NPC.HitModifiers hitModifiers, orig_ToHitInfo orig, float baseDamage, bool crit, float baseKnockback, bool damageVariation = false, float luck = 0f) {
 			bool critOverride = (bool)typeof(NPC.HitModifiers).GetProperty("_critOverride").GetValue(hitModifiers);
 			if (critOverride && crit) {
 				hitModifiers.CritDamage *= 1.5f;
 			}
 		}
 		*/
-
+		/*
 		private delegate void orig_ModifyHitNPC(Item item, Player player, NPC target, ref NPC.HitModifiers modifiers);
 		private delegate void hook_ModifyHitNPC(orig_ModifyHitNPC orig, Item item, Player player, NPC target, ref NPC.HitModifiers modifiers);
 		private static readonly MethodInfo ModLoaderModifyHitNPCMethodInfo = typeof(Terraria.ModLoader.ItemLoader).GetMethod("ModifyHitNPC");
@@ -167,6 +167,7 @@ namespace WeaponEnchantments
 
 			orig(proj, target, ref modifiers);
 		}
+		*/
 
 		//private delegate void orig_CaughtFishStack(Item item);
 		//private delegate void hook_CaughtFishStack(orig_CaughtFishStack orig, Item item);

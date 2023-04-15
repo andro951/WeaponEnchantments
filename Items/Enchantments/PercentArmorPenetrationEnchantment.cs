@@ -6,7 +6,7 @@ using WeaponEnchantments.Effects;
 
 namespace WeaponEnchantments.Items.Enchantments
 {
-	public abstract class ArmorPenetrationEnchantment : Enchantment
+	public abstract class PercentArmorPenetrationEnchantment : Enchantment
 	{
 		public override int StrengthGroup => 4;
 		public override void GetMyStats() {
@@ -24,7 +24,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => null;
 		public override string Designer => "andro951";
 	}
-	public class ArmorPenetrationEnchantmentBasic : ArmorPenetrationEnchantment
+	public class PercentArmorPenetrationEnchantmentBasic : PercentArmorPenetrationEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.PostSkeletron;
 		public override List<DropData> NpcDropTypes => new() {
@@ -38,8 +38,8 @@ namespace WeaponEnchantments.Items.Enchantments
 			new(CrateID.Obsidian_LockBox, 0.05f)
 		};
 	}
-	public class ArmorPenetrationEnchantmentCommon : ArmorPenetrationEnchantment { }
-	public class ArmorPenetrationEnchantmentRare : ArmorPenetrationEnchantment { }
-	public class ArmorPenetrationEnchantmentEpic : ArmorPenetrationEnchantment { }
-	public class ArmorPenetrationEnchantmentLegendary : ArmorPenetrationEnchantment { }
+	public class PercentArmorPenetrationEnchantmentCommon : PercentArmorPenetrationEnchantment { }
+	public class PercentArmorPenetrationEnchantmentRare : PercentArmorPenetrationEnchantment { }
+	public class PercentArmorPenetrationEnchantmentEpic : PercentArmorPenetrationEnchantment { }
+	public class PercentArmorPenetrationEnchantmentLegendary : PercentArmorPenetrationEnchantment { }
 }
