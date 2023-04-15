@@ -875,29 +875,20 @@ namespace WeaponEnchantments
             return items;
         }
 		public override IEnumerable<Item> AddMaterialsForCrafting(out ItemConsumedCallback itemConsumedCallback) {
-            itemConsumedCallback = (item, index) => {
-                if (enchantingTableUI.enchantmentSlotUI[index]?.Item is Item essence) {
-					essence.stack -= item.stack;
-                    if (essence.stack < 1)
-                        essence = new();
+			itemConsumedCallback = null;
+			if (usingEnchantingTable) {
+				List<Item> items = new();
+				for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+					Item item = enchantingTableUI.essenceSlotUI[i].Item;
+					if (item != null && item.stack > 0) {
+						items.Add(enchantingTableUI.essenceSlotUI[i].Item);
+					}
 				}
-            };
 
-            return enchantingTableUI?.enchantmentSlotUI?.Select(s => s?.Item).Where(i => !i.NullOrAir() && i.stack > 0);
-			/*
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-				Item item = enchantingTableUI.essenceSlotUI[i].Item;
-				if (item != null && item.stack > 0) {
-                    
-					if (dictionary.ContainsKey(item.netID)) {
-						dictionary[item.netID] += item.stack;
-					}
-					else {
-						dictionary[item.netID] = item.stack;
-					}
-				}
+				return items;
 			}
-            */
+
+            return null;
 		}
 		public override void ResetEffects() {
             bool updatePlayerStat = false;
