@@ -37,7 +37,7 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
-        public static int levelsPerLevelUp;
+        public int levelsPerLevelUp;
         internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
