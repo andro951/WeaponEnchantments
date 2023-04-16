@@ -159,7 +159,7 @@ namespace WeaponEnchantments.Common.Globals
         public float myWarReduction = 1f;
         public override bool InstancePerEntity => true;
         public override void Load() {
-            Terraria.IL_Projectile.Damage += HookDamage;
+            IL_Projectile.Damage += HookDamage;
 
             multipleSegmentBossTypes = new SortedDictionary<int, float>() {
                 { NPCID.EaterofWorldsHead, 100f },
@@ -195,17 +195,43 @@ namespace WeaponEnchantments.Common.Globals
                 i => i.MatchCall(out _),
                 i => i.MatchCallvirt(out _),
 				i => i.MatchBrfalse(out _),
-				i => i.MatchCall(out _)
-			)) { throw new Exception("Failed to find instructions HookDamage"); }
+				i => i.MatchCall(out _),
+                i => i.MatchLdcI4(100),
+                i => i.MatchCallvirt(out _),
+                i => i.MatchLdarg(0),
+                i => i.MatchCall(out _)
+			)) { throw new Exception("Failed to find instructions HookDamage 1/2"); }
 
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " Instruction: " + c.Next.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + c.Index.ToString() + " exception: " + e.ToString()); }
 
             if (debuggingHookDamage) try { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " Instruction: " + c.Prev.ToString()); } catch (Exception e) { ModContent.GetInstance<WEMod>().Logger.Info("c.Index: " + (c.Index - 1).ToString() + " exception: " + e.ToString()); }
 
-            //Set crit roll to zero.
+            //Set crit chance to zero.
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
-        }
+
+			if (!c.TryGotoNext(MoveType.Before,
+                i => i.MatchCall(out _),
+				i => i.MatchStloc(39)
+			//i => i.MatchLdloc(7),
+			//i => i.MatchLdarg(3),
+			//i => i.MatchLdcI4(1),
+			//i => i.MatchLdarg(0),
+			//i => i.MatchLdfld<Player>("luck")
+			)) { throw new Exception("Failed to find instructions HookDamage 2/2"); }
+
+            c.Emit(OpCodes.Ldloca, 28);
+			c.Emit(OpCodes.Ldloc, 30);
+			c.Emit(OpCodes.Ldarg, 0);
+
+			c.EmitDelegate((ref NPC.HitModifiers hitModifiers, bool crit, Projectile projectile) => {
+                if (projectile.TryGetWEPlayer(out WEPlayer wePlayer) && projectile.TryGetWEProjectile(out WEProjectile weProjectile) && weProjectile.sourceItem is Item item && !item.NullOrAir()) {
+					FieldInfo info = typeof(NPC.HitModifiers).GetField("_critOverride", BindingFlags.NonPublic | BindingFlags.Instance);
+					bool? critOverride = (bool?)info.GetValue(hitModifiers);
+					wePlayer.CalculateCriticalChance(item, ref hitModifiers, crit, critOverride, projectile);
+				}
+			});
+		}
         public static float GetMultiSegmentBossMultiplier(int npcType) {
             if (multipleSegmentBossTypes.ContainsKey(npcType))
                 return multipleSegmentBossTypes[npcType];

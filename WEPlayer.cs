@@ -143,9 +143,8 @@ namespace WeaponEnchantments
             c.Emit(OpCodes.Ldloc, 7);
             c.Emit(OpCodes.Ldarga, 0);
             c.Emit(OpCodes.Ldarga, 1);
-            c.Emit(OpCodes.Ldloca, 0);
 
-            c.EmitDelegate((ref NPC.HitModifiers hitModifiers, bool crit, ref Player player, ref Item item, ref NPC target) => {
+            c.EmitDelegate((ref NPC.HitModifiers hitModifiers, bool crit, ref Player player, ref Item item) => {
 				if (player.TryGetWEPlayer(out WEPlayer wePlayer)) {
 					FieldInfo info = typeof(NPC.HitModifiers).GetField("_critOverride", BindingFlags.NonPublic | BindingFlags.Instance);
 					bool? critOverride = (bool?)info.GetValue(hitModifiers);
@@ -1019,13 +1018,13 @@ namespace WeaponEnchantments
                 }
             }
         }
-        private void CalculateCriticalChance(Item item, ref NPC.HitModifiers hitModifiers, bool crit, bool? critOverride) {
+        public void CalculateCriticalChance(Item item, ref NPC.HitModifiers hitModifiers, bool crit, bool? critOverride, Projectile projectile = null) {
             if (critOverride == false)
                 return;
 
             //Critical strike
             if ((item.DamageType != DamageClass.Summon && item.DamageType != DamageClass.MagicSummonHybrid) || !WEMod.serverConfig.DisableMinionCrits) {
-                int critChance = Player.GetWeaponCrit(item) + (crit ? 100 : 0) + (critOverride == true ? 100 : 0);
+                int critChance = (projectile?.CritChance ?? Player.GetWeaponCrit(item)) + (crit ? 100 : 0) + (critOverride == true ? 100 : 0);
                 int critLevel = critChance / 100;
                 critChance %= 100;
                 if (Main.rand.Next(0, 100) < critChance)
