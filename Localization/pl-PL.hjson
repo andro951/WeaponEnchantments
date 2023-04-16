@@ -2,1630 +2,331 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic: {
-				DisplayName: Wszystko za jednego Podstawowe zaklęcie
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentCommon: {
-				DisplayName: Wszystko za jedno zaklęcie wspólne
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentEpic: {
-				DisplayName: Epopeja zaklęcia „Wszystko za jednego”
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Wszystko za jednego
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentRare: {
-				DisplayName: Wszystko za jednego zaklęcie rzadkie
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie kosztu amunicji
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentCommon: {
-				DisplayName: Koszt amunicji Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentEpic: {
-				DisplayName: Koszt amunicji Zaklęcie Epic
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie kosztu amunicji
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentRare: {
-				DisplayName: Koszt amunicji Zaklęcie Rzadkie
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie penetracji pancerza
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentCommon: {
-				DisplayName: Zaklęcie przebicia pancerza Zwykłe
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie penetracji pancerza
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie przebicia pancerza
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentRare: {
-				DisplayName: Zaklęcie przebicia pancerza Rzadkie
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentBasic: {
-				DisplayName: Podstawowe zaklinanie szybkości ataku
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentCommon: {
-				DisplayName: Zaklęcie szybkości ataku Powszechne
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie szybkości ataku
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie szybkości ataku
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie prędkości ataku
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmiany klasy barda
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentCommon: {
-				DisplayName: Zaklęcie Zamiany Klas Barda Powszechne
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentEpic: {
-				DisplayName: Epickie Zaklęcie Zamiany Klas Bardów
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentLegendary: {
-				DisplayName: Zaklęcie zamiany klas bardów Legendarne
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zmiany klasy barda
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie furii berserkerów
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentCommon: {
-				DisplayName: Zaklęcie Szału Berserkerów Powszechne
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie zaklęcia furii berserkerów
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentLegendary: {
-				DisplayName: Zaklęcie Szału Berserkerów Legendarne
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie furii berserkerów
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie spokojnych wód
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentCommon: {
-				DisplayName: Zaklęcie spokojnych wód Powszechne
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentEpic: {
-				DisplayName: Epic zaklęcia spokojnych wód
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie spokojnych wód
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie spokojnych wód
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie chaotycznego wędkowania
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentCommon: {
-				DisplayName: Chaotyczne zaklęcie wędkarskie Powszechne
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentEpic: {
-				DisplayName: Chaotyczne zaklęcie wędkarskie Epic
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentLegendary: {
-				DisplayName: Chaotyczne zaklęcie wędkarskie Legendarne
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentRare: {
-				DisplayName: Chaotyczne zaklęcie wędkarskie Rzadkie
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zimnej stali
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentCommon: {
-				DisplayName: Zwykłe zaklęcie zimnej stali
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentEpic: {
-				DisplayName: Epicka opowieść o zaklęciu zimnej stali
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie zimnej stali
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zimnej stali
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentBasic: {
-				DisplayName: Szansa na skrzynkę Podstawowe zaklęcie
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentCommon: {
-				DisplayName: Skrzynia Szansa Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentEpic: {
-				DisplayName: Skrzynia Szansa Zaklęcia Epic
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentLegendary: {
-				DisplayName: Legendarna szansa na zaklęcie skrzyni
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentRare: {
-				DisplayName: Szansa na zaklęcie skrzyni Rzadkie
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie skrzynek
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentCommon: {
-				DisplayName: Skrzynia Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentEpic: {
-				DisplayName: Epic Zaklęcie Skrzynki
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentLegendary: {
-				DisplayName: Skrzynia Legendarne Zaklęcie
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentRare: {
-				DisplayName: Zaklęcie w skrzyni Rzadkie
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie szansy na trafienie krytyczne
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentCommon: {
-				DisplayName: Szansa na trafienie krytyczne Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Szansa na trafienie krytyczne
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Szansa na trafienie krytyczne
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentRare: {
-				DisplayName: Zaklęcie Szansa na Trafienie Krytyczne Rzadkie
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie obrażeń od trafień krytycznych
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentCommon: {
-				DisplayName: Zaklęcie obrażeń od trafień krytycznych Powszechne
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie obrażeń od trafień krytycznych
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie obrażeń od trafień krytycznych
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentRare: {
-				DisplayName: Zaklęcie obrażeń od trafień krytycznych Rzadkie
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie przeklętego piekła
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentCommon: {
-				DisplayName: Zaklęcie Przeklętego Piekła Zwykłe
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentEpic: {
-				DisplayName: Epickie Zaklęcie Przeklętego Piekła
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Przeklętego Inferno
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentRare: {
-				DisplayName: Zaklęcie Przeklętego Piekła Rzadkie
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie obrażeń
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentCommon: {
-				DisplayName: Zaklęcie obrażeń Zwykłe
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie obrażeń
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie obrażeń
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentRare: {
-				DisplayName: Zaklęcie Obrażeń Rzadkie
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie redukcji obrażeń
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentCommon: {
-				DisplayName: Redukcja obrażeń Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie redukcji obrażeń
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie redukcji obrażeń
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentRare: {
-				DisplayName: Zaklęcie redukcji obrażeń Rzadkie
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmysłu zagrożenia
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentCommon: {
-				DisplayName: Zaklęcie poczucia zagrożenia Powszechne
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie zmysłu zagrożenia
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie zmysłu zagrożenia
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zmysłu zagrożenia
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie świtu
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentCommon: {
-				DisplayName: Zaklęcie świtu Powszechne
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie brzasku
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Brzasku
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie brzasku
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie obrony
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentCommon: {
-				DisplayName: Zaklęcie Obronne Powszechne
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie obrony
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie obrony
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentRare: {
-				DisplayName: Zaklęcie Obronne Rzadkie
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentBasic: {
-				DisplayName: Dodatkowe zaklęcie żyłki Basic
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentCommon: {
-				DisplayName: Dodatkowe zaklęcie żyłki Wspólne
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentEpic: {
-				DisplayName: Dodatkowe zaklęcie żyłki Epic
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentLegendary: {
-				DisplayName: Dodatkowe zaklęcie żyłki Legendarne
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentRare: {
-				DisplayName: Dodatkowe zaklęcie żyłki Rzadkie
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie wędkarskie
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentCommon: {
-				DisplayName: Zaklęcie wędkarskie Zwykłe
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie wędkarskie
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie wędkarskie
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentRare: {
-				DisplayName: Zaklęcie wędkarskie Rzadkie
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentBasic: {
-				DisplayName: Podstawowe zaklinanie mocy wędkarskiej
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentCommon: {
-				DisplayName: Zaklinanie mocy rybackiej Powszechne
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentEpic: {
-				DisplayName: Epicka moc zaklęcia wędkarskiego
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie wędkarskiej mocy
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentRare: {
-				DisplayName: Rzadkie zaklinanie mocy wędkarskiej
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Frostburn
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentCommon: {
-				DisplayName: Zaklęcie Frostburn Zwykłe
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Frostburn
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Frostburn
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentRare: {
-				DisplayName: Zaklęcie Mrozu Rzadkie
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Zabójcy Boga
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentCommon: {
-				DisplayName: Zaklęcie Zabójcy Bogów Powszechne
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Zabójcy Boga
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Zabójcy Boga
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentRare: {
-				DisplayName: Zaklęcie Zabójcy Boga Rzadkie
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmiany klasy uzdrowiciela
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentCommon: {
-				DisplayName: Zaklęcie Zamiany Klasy Uzdrowiciela Powszechne
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie zmiany klasy uzdrowiciela
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentLegendary: {
-				DisplayName: Zaklęcie zamiany klas uzdrowicieli Legendarne
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentRare: {
-				DisplayName: Zaklęcie zmiany klasy uzdrowiciela Rzadko
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie piekielnego gniewu
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentCommon: {
-				DisplayName: Zaklęcie piekielnego gniewu Powszechne
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie piekielnego gniewu
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Hells Wrath
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentRare: {
-				DisplayName: Zaklęcie piekielnego gniewu rzadkie
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie łowcy
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentCommon: {
-				DisplayName: Zaklęcie Łowcy Zwykłe
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie łowcy
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie łowcy
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentRare: {
-				DisplayName: Zaklęcie Łowcy Rzadkie
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Ichor
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentCommon: {
-				DisplayName: Zaklęcie Ichor Powszechne
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentEpic: {
-				DisplayName: Epic zaklęcia Ichor
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Ichor
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentRare: {
-				DisplayName: Zaklęcie Ichor Rzadkie
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie soku
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentCommon: {
-				DisplayName: Sok Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentEpic: {
-				DisplayName: Epic zaklęcia soku
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie z sokiem
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentRare: {
-				DisplayName: Sok Zaklęcie Rzadkie
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie furii dżungli
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentCommon: {
-				DisplayName: Zaklęcie Furii Dżungli Zwykłe
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentEpic: {
-				DisplayName: Epickie Zaklęcie Furii Dżungli
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentLegendary: {
-				DisplayName: Legendarne Zaklęcie Furii Dżungli
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentRare: {
-				DisplayName: Zaklęcie Furii Dżungli Rzadkie
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zamiany klas Ki
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentCommon: {
-				DisplayName: Zwykłe zaklęcie zamiany klas Ki
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentEpic: {
-				DisplayName: Epicki zaklęcie zamiany klas Ki
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentLegendary: {
-				DisplayName: Zaklęcie zamiany klas Ki Legendarne
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zamiany klas Ki
-				// Tooltip: ""
-			}
-
-			KiEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Ki
-				// Tooltip: ""
-			}
-
-			KiEnchantmentCommon: {
-				DisplayName: Wspólne Zaklęcie Ki
-				// Tooltip: ""
-			}
-
-			KiEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Ki
-				// Tooltip: ""
-			}
-
-			KiEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Ki
-				// Tooltip: ""
-			}
-
-			KiEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie Ki
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie na lawę
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentCommon: {
-				DisplayName: Zaklęcie łowienia lawy Powszechne
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie do połowów lawy
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie do połowu lawy
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentRare: {
-				DisplayName: Zaklęcie łowienia lawy Rzadkie
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie regeneracji życia
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentCommon: {
-				DisplayName: Zwykłe zaklęcie regeneracji życia
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentEpic: {
-				DisplayName: Epicki zaklęcie regeneracji życia
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie regeneracji życia
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie regeneracji życia
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie kradzieży życia
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentCommon: {
-				DisplayName: Zaklęcie kradzieży życia Zwykłe
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentEpic: {
-				DisplayName: Epic zaklęcia kradzieży życia
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie kradzieży życia
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentRare: {
-				DisplayName: Zaklęcie kradzieży życia Rzadkie
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie szczęścia
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentCommon: {
-				DisplayName: Szczęście Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie szczęścia
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie szczęścia
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie szczęścia
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zamiany klasy magii
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentCommon: {
-				DisplayName: Zmiana klasy magii Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentEpic: {
-				DisplayName: Epicka zamiana klas magicznych
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentLegendary: {
-				DisplayName: Legendarna zamiana klasy magii Legendarne zaklęcie
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentRare: {
-				DisplayName: Zaklęcie zamiany klasy magii Rzadkie
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentBasic: {
-				DisplayName: Podstawowe zaklinanie maks. stworów
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentCommon: {
-				DisplayName: Maksimum stworów Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Max Minions
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Max Minions
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie maksymalnych stworów
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmiany klasy w zwarciu
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentCommon: {
-				DisplayName: Zmiana klasy w zwarciu Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentEpic: {
-				DisplayName: Epicka zamiana klas w zwarciu
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie do zamiany klas w zwarciu
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zmiany klasy w zwarciu
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie kontroli mobilności
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentCommon: {
-				DisplayName: Zaklęcie kontroli mobilności Często
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie kontroli mobilności
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie kontroli mobilności
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentRare: {
-				DisplayName: Zaklęcie kontroli mobilności Rzadkie
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie księżyca
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentCommon: {
-				DisplayName: Zaklęcie Księżyca Zwykłe
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie księżycowego światła
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie księżycowego światła
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentRare: {
-				DisplayName: Zaklęcie Księżyca Rzadkie
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie szybkości ruchu
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentCommon: {
-				DisplayName: Zaklęcie prędkości ruchu Zwykłe
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie prędkości ruchu
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie szybkości ruchu
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentRare: {
-				DisplayName: Zaklęcie prędkości ruchu Rzadkie
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie wielostrzałowe
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentCommon: {
-				DisplayName: Zaklęcie wielostrzałowe Zwykłe
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentEpic: {
-				DisplayName: Wielostrzałowy Epicki Zaklęcie
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie wielostrzałowe
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentRare: {
-				DisplayName: Zaklęcie Wielostrzałowe Rzadkie
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Npc Contact Angler
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentCommon: {
-				DisplayName: Npc Zaklęcie Wędkarza Kontaktowego Powszechne
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentEpic: {
-				DisplayName: Npc Kontakt Wędkarz Zaklęcie Epic
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentLegendary: {
-				DisplayName: Npc Contact Angler Legendarne Enchantment
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentRare: {
-				DisplayName: Npc Contact Angler Enchantment Rzadkie
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie obsydianowej skóry
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentCommon: {
-				DisplayName: Obsydianowe zaklęcie skóry Często
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Obsydianowej Skórki
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Obsydianowej Skórki
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie obsydianowej skóry
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentBasic: {
-				DisplayName: Jeden za wszystkich Podstawowe zaklęcie
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentCommon: {
-				DisplayName: Jeden za wszystkich Zaklęcie wspólne
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentEpic: {
-				DisplayName: Jeden za wszystkich epicki zaklęcie
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentLegendary: {
-				DisplayName: Jeden za wszystkich Legendarne zaklęcie
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentRare: {
-				DisplayName: Jeden za wszystkich zaklęcie rzadkie
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie w ogniu
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentCommon: {
-				DisplayName: Zaklęcie w ogniu Zwykłe
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie w ogniu
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie w ogniu
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentRare: {
-				DisplayName: Zaklęcie w ogniu Rzadkie
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie pokoju
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentCommon: {
-				DisplayName: Zaklęcie pokoju Powszechne
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie pokoju
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie pokoju
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentRare: {
-				DisplayName: Zaklęcie Pokoju Rzadkie
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie szczypania grosza
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentCommon: {
-				DisplayName: Uszczypnięcie grosza Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie szczypiące grosz
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentLegendary: {
-				DisplayName: Penny Szczypanie Zaklęcie Legendarne
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentRare: {
-				DisplayName: Zaklęcie Szczypiące Penny Rzadkie
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Duma słabych
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentCommon: {
-				DisplayName: Duma Słabego Zaklęcia Wspólne
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentEpic: {
-				DisplayName: Epicka duma słabych zaklęć
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Duma słabych
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentRare: {
-				DisplayName: Duma słabego zaklęcia Rzadkie
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie prędkości pocisku
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentCommon: {
-				DisplayName: Zaklęcie prędkości pocisku Powszechne
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie prędkości pocisku
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie prędkości pocisku
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie prędkości pocisku
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmiany klasy dystansowej
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentCommon: {
-				DisplayName: Zmiana klasy dystansowej Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentEpic: {
-				DisplayName: Epicka zmiana klas dystansowych
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie do wymiany klas dystansowych
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentRare: {
-				DisplayName: Zaklęcie zmiany klasy dystansowej Rzadkie
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmniejszone zużycie many
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentCommon: {
-				DisplayName: Zmniejszone zużycie many Zaklęcie powszechne
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentEpic: {
-				DisplayName: Epic zaklęcia o zredukowanym zużyciu many
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie zmniejszone zużycie many
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zmniejszonego zużycia many
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie zmiany klasy łotrzyka
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentCommon: {
-				DisplayName: Rogue Zmiana klasy Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentEpic: {
-				DisplayName: Epic zaklęcie zaklęcia łotrzyka
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie zaklęcia łotrzyka
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie zmiany klasy Rzadkie
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie blasku
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentCommon: {
-				DisplayName: Pospolity zaklęcie blasku
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie blasku
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie blasku
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentRare: {
-				DisplayName: Rzadkie Zaklęcie Połysku
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie rozmiaru
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentCommon: {
-				DisplayName: Rozmiar Zaklęcie Powszechne
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentEpic: {
-				DisplayName: Epicki rozmiar zaklęcia
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie rozmiaru
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie rozmiaru
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie słonecznej kreski
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentCommon: {
-				DisplayName: Zaklęcie Słonecznej Odskoku Zwykłe
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie Solar Dash
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie Solar Dash
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie Słonecznej kreski
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie sonaru
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentCommon: {
-				DisplayName: Zaklęcie sonaru Powszechne
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie sonaru
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie sonaru
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentRare: {
-				DisplayName: Zaklęcie sonaru Rzadkie
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie grotołazów
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentCommon: {
-				DisplayName: Zaklęcie grotołazów Zwykłe
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie grotołazów
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie grotołazów
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentRare: {
-				DisplayName: Rzadkie zaklęcie grotołazów
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentBasic: {
-				DisplayName: Rzucanie Podstawowe zaklęcie zamiany klas
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentCommon: {
-				DisplayName: Rzucanie Zamiana klas Zaklęcie Powszechne
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentEpic: {
-				DisplayName: Rzucanie Zaklęcie Zamiana klas Epic
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentLegendary: {
-				DisplayName: Rzucanie Zaklęcie zamiany klas Legendarne
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentRare: {
-				DisplayName: Rzucanie Zaklęciem Zamiany Klas Rzadkie
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentBasic: {
-				// DisplayName: Time Enchantment Basic
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentCommon: {
-				// DisplayName: Time Enchantment Common
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentEpic: {
-				// DisplayName: Time Enchantment Epic
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentLegendary: {
-				// DisplayName: Time Enchantment Legendary
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentRare: {
-				// DisplayName: Time Enchantment Rare
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie jadu
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentCommon: {
-				DisplayName: Zaklęcie Jadu Zwykłe
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie jadu
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentLegendary: {
-				DisplayName: Legendarne Zaklęcie Jadu
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentRare: {
-				DisplayName: Zaklęcie Jadu Rzadkie
-				// Tooltip: ""
-			}
-
-			WarEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie wojenne
-				// Tooltip: ""
-			}
-
-			WarEnchantmentCommon: {
-				DisplayName: Zaklęcie wojenne Powszechne
-				// Tooltip: ""
-			}
-
-			WarEnchantmentEpic: {
-				DisplayName: Epickie zaklęcie wojny
-				// Tooltip: ""
-			}
-
-			WarEnchantmentLegendary: {
-				DisplayName: Legendarne zaklęcie wojenne
-				// Tooltip: ""
-			}
-
-			WarEnchantmentRare: {
-				DisplayName: Zaklęcie Wojenne Rzadkie
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentBasic: {
-				DisplayName: Bicz Zmiana klasy Podstawowe zaklęcie
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentCommon: {
-				DisplayName: Bicz Zamiana klas Zaklęcie Zwykłe
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentEpic: {
-				DisplayName: Bicz Zamień Zaklęcie Epic
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentLegendary: {
-				DisplayName: Bicz Zmiana klasy Legendarne zaklęcie
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentRare: {
-				DisplayName: Bicz Zamiana klasy Rzadkie zaklęcie
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentBasic: {
-				DisplayName: Podstawowe zaklęcie Płomienia Świata
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentCommon: {
-				DisplayName: Zaklęcie Płomienia Świata Powszechne
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentEpic: {
-				DisplayName: Epickie Zaklęcie Płomienia Świata
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentLegendary: {
-				DisplayName: Legendarne Zaklęcie Płomienia Świata
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentRare: {
-				DisplayName: Zaklęcie Płomienia Świata Rzadkie
-				// Tooltip: ""
-			}
+			AllForOneEnchantmentBasic.DisplayName: Wszystko za jednego Podstawowe zaklęcie
+			AllForOneEnchantmentCommon.DisplayName: Wszystko za jedno zaklęcie wspólne
+			AllForOneEnchantmentEpic.DisplayName: Epopeja zaklęcia „Wszystko za jednego”
+			AllForOneEnchantmentLegendary.DisplayName: Legendarne zaklęcie Wszystko za jednego
+			AllForOneEnchantmentRare.DisplayName: Wszystko za jednego zaklęcie rzadkie
+			AmmoCostEnchantmentBasic.DisplayName: Podstawowe zaklęcie kosztu amunicji
+			AmmoCostEnchantmentCommon.DisplayName: Koszt amunicji Zaklęcie Zwykłe
+			AmmoCostEnchantmentEpic.DisplayName: Koszt amunicji Zaklęcie Epic
+			AmmoCostEnchantmentLegendary.DisplayName: Legendarne zaklęcie kosztu amunicji
+			AmmoCostEnchantmentRare.DisplayName: Koszt amunicji Zaklęcie Rzadkie
+			ArmorPenetrationEnchantmentBasic.DisplayName: Podstawowe zaklęcie penetracji pancerza
+			ArmorPenetrationEnchantmentCommon.DisplayName: Zaklęcie przebicia pancerza Zwykłe
+			ArmorPenetrationEnchantmentEpic.DisplayName: Epickie zaklęcie penetracji pancerza
+			ArmorPenetrationEnchantmentLegendary.DisplayName: Legendarne zaklęcie przebicia pancerza
+			ArmorPenetrationEnchantmentRare.DisplayName: Zaklęcie przebicia pancerza Rzadkie
+			AttackSpeedEnchantmentBasic.DisplayName: Podstawowe zaklinanie szybkości ataku
+			AttackSpeedEnchantmentCommon.DisplayName: Zaklęcie szybkości ataku Powszechne
+			AttackSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie szybkości ataku
+			AttackSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ataku
+			AttackSpeedEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości ataku
+			BardClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy barda
+			BardClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klas Barda Powszechne
+			BardClassSwapEnchantmentEpic.DisplayName: Epickie Zaklęcie Zamiany Klas Bardów
+			BardClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas bardów Legendarne
+			BardClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy barda
+			BerserkersRageEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii berserkerów
+			BerserkersRageEnchantmentCommon.DisplayName: Zaklęcie Szału Berserkerów Powszechne
+			BerserkersRageEnchantmentEpic.DisplayName: Epickie zaklęcie zaklęcia furii berserkerów
+			BerserkersRageEnchantmentLegendary.DisplayName: Zaklęcie Szału Berserkerów Legendarne
+			BerserkersRageEnchantmentRare.DisplayName: Rzadkie zaklęcie furii berserkerów
+			CalmWatersEnchantmentBasic.DisplayName: Podstawowe zaklęcie spokojnych wód
+			CalmWatersEnchantmentCommon.DisplayName: Zaklęcie spokojnych wód Powszechne
+			CalmWatersEnchantmentEpic.DisplayName: Epic zaklęcia spokojnych wód
+			CalmWatersEnchantmentLegendary.DisplayName: Legendarne zaklęcie spokojnych wód
+			CalmWatersEnchantmentRare.DisplayName: Rzadkie zaklęcie spokojnych wód
+			ChaoticFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie chaotycznego wędkowania
+			ChaoticFishingEnchantmentCommon.DisplayName: Chaotyczne zaklęcie wędkarskie Powszechne
+			ChaoticFishingEnchantmentEpic.DisplayName: Chaotyczne zaklęcie wędkarskie Epic
+			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotyczne zaklęcie wędkarskie Legendarne
+			ChaoticFishingEnchantmentRare.DisplayName: Chaotyczne zaklęcie wędkarskie Rzadkie
+			ColdSteelEnchantmentBasic.DisplayName: Podstawowe zaklęcie zimnej stali
+			ColdSteelEnchantmentCommon.DisplayName: Zwykłe zaklęcie zimnej stali
+			ColdSteelEnchantmentEpic.DisplayName: Epicka opowieść o zaklęciu zimnej stali
+			ColdSteelEnchantmentLegendary.DisplayName: Legendarne zaklęcie zimnej stali
+			ColdSteelEnchantmentRare.DisplayName: Rzadkie zaklęcie zimnej stali
+			CrateChanceEnchantmentBasic.DisplayName: Szansa na skrzynkę Podstawowe zaklęcie
+			CrateChanceEnchantmentCommon.DisplayName: Skrzynia Szansa Zaklęcie Zwykłe
+			CrateChanceEnchantmentEpic.DisplayName: Skrzynia Szansa Zaklęcia Epic
+			CrateChanceEnchantmentLegendary.DisplayName: Legendarna szansa na zaklęcie skrzyni
+			CrateChanceEnchantmentRare.DisplayName: Szansa na zaklęcie skrzyni Rzadkie
+			CrateEnchantmentBasic.DisplayName: Podstawowe zaklęcie skrzynek
+			CrateEnchantmentCommon.DisplayName: Skrzynia Zaklęcie Zwykłe
+			CrateEnchantmentEpic.DisplayName: Epic Zaklęcie Skrzynki
+			CrateEnchantmentLegendary.DisplayName: Skrzynia Legendarne Zaklęcie
+			CrateEnchantmentRare.DisplayName: Zaklęcie w skrzyni Rzadkie
+			CriticalStrikeChanceEnchantmentBasic.DisplayName: Podstawowe zaklęcie szansy na trafienie krytyczne
+			CriticalStrikeChanceEnchantmentCommon.DisplayName: Szansa na trafienie krytyczne Zaklęcie Zwykłe
+			CriticalStrikeChanceEnchantmentEpic.DisplayName: Epickie zaklęcie Szansa na trafienie krytyczne
+			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Legendarne zaklęcie Szansa na trafienie krytyczne
+			CriticalStrikeChanceEnchantmentRare.DisplayName: Zaklęcie Szansa na Trafienie Krytyczne Rzadkie
+			CriticalStrikeDamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń od trafień krytycznych
+			CriticalStrikeDamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń od trafień krytycznych Powszechne
+			CriticalStrikeDamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń od trafień krytycznych
+			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń od trafień krytycznych
+			CriticalStrikeDamageEnchantmentRare.DisplayName: Zaklęcie obrażeń od trafień krytycznych Rzadkie
+			CursedInfernoEnchantmentBasic.DisplayName: Podstawowe zaklęcie przeklętego piekła
+			CursedInfernoEnchantmentCommon.DisplayName: Zaklęcie Przeklętego Piekła Zwykłe
+			CursedInfernoEnchantmentEpic.DisplayName: Epickie Zaklęcie Przeklętego Piekła
+			CursedInfernoEnchantmentLegendary.DisplayName: Legendarne zaklęcie Przeklętego Inferno
+			CursedInfernoEnchantmentRare.DisplayName: Zaklęcie Przeklętego Piekła Rzadkie
+			DamageEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrażeń
+			DamageEnchantmentCommon.DisplayName: Zaklęcie obrażeń Zwykłe
+			DamageEnchantmentEpic.DisplayName: Epickie zaklęcie obrażeń
+			DamageEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrażeń
+			DamageEnchantmentRare.DisplayName: Zaklęcie Obrażeń Rzadkie
+			DamageReductionEnchantmentBasic.DisplayName: Podstawowe zaklęcie redukcji obrażeń
+			DamageReductionEnchantmentCommon.DisplayName: Redukcja obrażeń Zaklęcie Zwykłe
+			DamageReductionEnchantmentEpic.DisplayName: Epickie zaklęcie redukcji obrażeń
+			DamageReductionEnchantmentLegendary.DisplayName: Legendarne zaklęcie redukcji obrażeń
+			DamageReductionEnchantmentRare.DisplayName: Zaklęcie redukcji obrażeń Rzadkie
+			DangerSenseEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmysłu zagrożenia
+			DangerSenseEnchantmentCommon.DisplayName: Zaklęcie poczucia zagrożenia Powszechne
+			DangerSenseEnchantmentEpic.DisplayName: Epickie zaklęcie zmysłu zagrożenia
+			DangerSenseEnchantmentLegendary.DisplayName: Legendarne zaklęcie zmysłu zagrożenia
+			DangerSenseEnchantmentRare.DisplayName: Rzadkie zaklęcie zmysłu zagrożenia
+			DaybreakEnchantmentBasic.DisplayName: Podstawowe zaklęcie świtu
+			DaybreakEnchantmentCommon.DisplayName: Zaklęcie świtu Powszechne
+			DaybreakEnchantmentEpic.DisplayName: Epickie zaklęcie brzasku
+			DaybreakEnchantmentLegendary.DisplayName: Legendarne zaklęcie Brzasku
+			DaybreakEnchantmentRare.DisplayName: Rzadkie zaklęcie brzasku
+			DefenseEnchantmentBasic.DisplayName: Podstawowe zaklęcie obrony
+			DefenseEnchantmentCommon.DisplayName: Zaklęcie Obronne Powszechne
+			DefenseEnchantmentEpic.DisplayName: Epickie zaklęcie obrony
+			DefenseEnchantmentLegendary.DisplayName: Legendarne zaklęcie obrony
+			DefenseEnchantmentRare.DisplayName: Zaklęcie Obronne Rzadkie
+			ExtraFishingLineEnchantmentBasic.DisplayName: Dodatkowe zaklęcie żyłki Basic
+			ExtraFishingLineEnchantmentCommon.DisplayName: Dodatkowe zaklęcie żyłki Wspólne
+			ExtraFishingLineEnchantmentEpic.DisplayName: Dodatkowe zaklęcie żyłki Epic
+			ExtraFishingLineEnchantmentLegendary.DisplayName: Dodatkowe zaklęcie żyłki Legendarne
+			ExtraFishingLineEnchantmentRare.DisplayName: Dodatkowe zaklęcie żyłki Rzadkie
+			FishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie wędkarskie
+			FishingEnchantmentCommon.DisplayName: Zaklęcie wędkarskie Zwykłe
+			FishingEnchantmentEpic.DisplayName: Epickie zaklęcie wędkarskie
+			FishingEnchantmentLegendary.DisplayName: Legendarne zaklęcie wędkarskie
+			FishingEnchantmentRare.DisplayName: Zaklęcie wędkarskie Rzadkie
+			FishingPowerEnchantmentBasic.DisplayName: Podstawowe zaklinanie mocy wędkarskiej
+			FishingPowerEnchantmentCommon.DisplayName: Zaklinanie mocy rybackiej Powszechne
+			FishingPowerEnchantmentEpic.DisplayName: Epicka moc zaklęcia wędkarskiego
+			FishingPowerEnchantmentLegendary.DisplayName: Legendarne zaklęcie wędkarskiej mocy
+			FishingPowerEnchantmentRare.DisplayName: Rzadkie zaklinanie mocy wędkarskiej
+			FrostburnEnchantmentBasic.DisplayName: Podstawowe zaklęcie Frostburn
+			FrostburnEnchantmentCommon.DisplayName: Zaklęcie Frostburn Zwykłe
+			FrostburnEnchantmentEpic.DisplayName: Epickie zaklęcie Frostburn
+			FrostburnEnchantmentLegendary.DisplayName: Legendarne zaklęcie Frostburn
+			FrostburnEnchantmentRare.DisplayName: Zaklęcie Mrozu Rzadkie
+			GodSlayerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Zabójcy Boga
+			GodSlayerEnchantmentCommon.DisplayName: Zaklęcie Zabójcy Bogów Powszechne
+			GodSlayerEnchantmentEpic.DisplayName: Epickie zaklęcie Zabójcy Boga
+			GodSlayerEnchantmentLegendary.DisplayName: Legendarne zaklęcie Zabójcy Boga
+			GodSlayerEnchantmentRare.DisplayName: Zaklęcie Zabójcy Boga Rzadkie
+			HealerClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy uzdrowiciela
+			HealerClassSwapEnchantmentCommon.DisplayName: Zaklęcie Zamiany Klasy Uzdrowiciela Powszechne
+			HealerClassSwapEnchantmentEpic.DisplayName: Epickie zaklęcie zmiany klasy uzdrowiciela
+			HealerClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas uzdrowicieli Legendarne
+			HealerClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy uzdrowiciela Rzadko
+			HellsWrathEnchantmentBasic.DisplayName: Podstawowe zaklęcie piekielnego gniewu
+			HellsWrathEnchantmentCommon.DisplayName: Zaklęcie piekielnego gniewu Powszechne
+			HellsWrathEnchantmentEpic.DisplayName: Epickie zaklęcie piekielnego gniewu
+			HellsWrathEnchantmentLegendary.DisplayName: Legendarne zaklęcie Hells Wrath
+			HellsWrathEnchantmentRare.DisplayName: Zaklęcie piekielnego gniewu rzadkie
+			HunterEnchantmentBasic.DisplayName: Podstawowe zaklęcie łowcy
+			HunterEnchantmentCommon.DisplayName: Zaklęcie Łowcy Zwykłe
+			HunterEnchantmentEpic.DisplayName: Epickie zaklęcie łowcy
+			HunterEnchantmentLegendary.DisplayName: Legendarne zaklęcie łowcy
+			HunterEnchantmentRare.DisplayName: Zaklęcie Łowcy Rzadkie
+			IchorEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ichor
+			IchorEnchantmentCommon.DisplayName: Zaklęcie Ichor Powszechne
+			IchorEnchantmentEpic.DisplayName: Epic zaklęcia Ichor
+			IchorEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ichor
+			IchorEnchantmentRare.DisplayName: Zaklęcie Ichor Rzadkie
+			JuicedEnchantmentBasic.DisplayName: Podstawowe zaklęcie soku
+			JuicedEnchantmentCommon.DisplayName: Sok Zaklęcie Zwykłe
+			JuicedEnchantmentEpic.DisplayName: Epic zaklęcia soku
+			JuicedEnchantmentLegendary.DisplayName: Legendarne zaklęcie z sokiem
+			JuicedEnchantmentRare.DisplayName: Sok Zaklęcie Rzadkie
+			JunglesFuryEnchantmentBasic.DisplayName: Podstawowe zaklęcie furii dżungli
+			JunglesFuryEnchantmentCommon.DisplayName: Zaklęcie Furii Dżungli Zwykłe
+			JunglesFuryEnchantmentEpic.DisplayName: Epickie Zaklęcie Furii Dżungli
+			JunglesFuryEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Furii Dżungli
+			JunglesFuryEnchantmentRare.DisplayName: Zaklęcie Furii Dżungli Rzadkie
+			KiClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentCommon.DisplayName: Zwykłe zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentEpic.DisplayName: Epicki zaklęcie zamiany klas Ki
+			KiClassSwapEnchantmentLegendary.DisplayName: Zaklęcie zamiany klas Ki Legendarne
+			KiClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zamiany klas Ki
+			KiEnchantmentBasic.DisplayName: Podstawowe zaklęcie Ki
+			KiEnchantmentCommon.DisplayName: Wspólne Zaklęcie Ki
+			KiEnchantmentEpic.DisplayName: Epickie zaklęcie Ki
+			KiEnchantmentLegendary.DisplayName: Legendarne zaklęcie Ki
+			KiEnchantmentRare.DisplayName: Rzadkie zaklęcie Ki
+			LavaFishingEnchantmentBasic.DisplayName: Podstawowe zaklęcie na lawę
+			LavaFishingEnchantmentCommon.DisplayName: Zaklęcie łowienia lawy Powszechne
+			LavaFishingEnchantmentEpic.DisplayName: Epickie zaklęcie do połowów lawy
+			LavaFishingEnchantmentLegendary.DisplayName: Legendarne zaklęcie do połowu lawy
+			LavaFishingEnchantmentRare.DisplayName: Zaklęcie łowienia lawy Rzadkie
+			LifeRegenEnchantmentBasic.DisplayName: Podstawowe zaklęcie regeneracji życia
+			LifeRegenEnchantmentCommon.DisplayName: Zwykłe zaklęcie regeneracji życia
+			LifeRegenEnchantmentEpic.DisplayName: Epicki zaklęcie regeneracji życia
+			LifeRegenEnchantmentLegendary.DisplayName: Legendarne zaklęcie regeneracji życia
+			LifeRegenEnchantmentRare.DisplayName: Rzadkie zaklęcie regeneracji życia
+			LifeStealEnchantmentBasic.DisplayName: Podstawowe zaklęcie kradzieży życia
+			LifeStealEnchantmentCommon.DisplayName: Zaklęcie kradzieży życia Zwykłe
+			LifeStealEnchantmentEpic.DisplayName: Epic zaklęcia kradzieży życia
+			LifeStealEnchantmentLegendary.DisplayName: Legendarne zaklęcie kradzieży życia
+			LifeStealEnchantmentRare.DisplayName: Zaklęcie kradzieży życia Rzadkie
+			LuckEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczęścia
+			LuckEnchantmentCommon.DisplayName: Szczęście Zaklęcie Zwykłe
+			LuckEnchantmentEpic.DisplayName: Epickie zaklęcie szczęścia
+			LuckEnchantmentLegendary.DisplayName: Legendarne zaklęcie szczęścia
+			LuckEnchantmentRare.DisplayName: Rzadkie zaklęcie szczęścia
+			MagicClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zamiany klasy magii
+			MagicClassSwapEnchantmentCommon.DisplayName: Zmiana klasy magii Zaklęcie Zwykłe
+			MagicClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas magicznych
+			MagicClassSwapEnchantmentLegendary.DisplayName: Legendarna zamiana klasy magii Legendarne zaklęcie
+			MagicClassSwapEnchantmentRare.DisplayName: Zaklęcie zamiany klasy magii Rzadkie
+			MaxMinionsEnchantmentBasic.DisplayName: Podstawowe zaklinanie maks. stworów
+			MaxMinionsEnchantmentCommon.DisplayName: Maksimum stworów Zaklęcie Zwykłe
+			MaxMinionsEnchantmentEpic.DisplayName: Epickie zaklęcie Max Minions
+			MaxMinionsEnchantmentLegendary.DisplayName: Legendarne zaklęcie Max Minions
+			MaxMinionsEnchantmentRare.DisplayName: Rzadkie zaklęcie maksymalnych stworów
+			MeleeClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy w zwarciu
+			MeleeClassSwapEnchantmentCommon.DisplayName: Zmiana klasy w zwarciu Zaklęcie Zwykłe
+			MeleeClassSwapEnchantmentEpic.DisplayName: Epicka zamiana klas w zwarciu
+			MeleeClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do zamiany klas w zwarciu
+			MeleeClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy w zwarciu
+			MobilityControlEnchantmentBasic.DisplayName: Podstawowe zaklęcie kontroli mobilności
+			MobilityControlEnchantmentCommon.DisplayName: Zaklęcie kontroli mobilności Często
+			MobilityControlEnchantmentEpic.DisplayName: Epickie zaklęcie kontroli mobilności
+			MobilityControlEnchantmentLegendary.DisplayName: Legendarne zaklęcie kontroli mobilności
+			MobilityControlEnchantmentRare.DisplayName: Zaklęcie kontroli mobilności Rzadkie
+			MoonlightEnchantmentBasic.DisplayName: Podstawowe zaklęcie księżyca
+			MoonlightEnchantmentCommon.DisplayName: Zaklęcie Księżyca Zwykłe
+			MoonlightEnchantmentEpic.DisplayName: Epickie zaklęcie księżycowego światła
+			MoonlightEnchantmentLegendary.DisplayName: Legendarne zaklęcie księżycowego światła
+			MoonlightEnchantmentRare.DisplayName: Zaklęcie Księżyca Rzadkie
+			MovementSpeedEnchantmentBasic.DisplayName: Podstawowe zaklęcie szybkości ruchu
+			MovementSpeedEnchantmentCommon.DisplayName: Zaklęcie prędkości ruchu Zwykłe
+			MovementSpeedEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości ruchu
+			MovementSpeedEnchantmentLegendary.DisplayName: Legendarne zaklęcie szybkości ruchu
+			MovementSpeedEnchantmentRare.DisplayName: Zaklęcie prędkości ruchu Rzadkie
+			MultishotEnchantmentBasic.DisplayName: Podstawowe zaklęcie wielostrzałowe
+			MultishotEnchantmentCommon.DisplayName: Zaklęcie wielostrzałowe Zwykłe
+			MultishotEnchantmentEpic.DisplayName: Wielostrzałowy Epicki Zaklęcie
+			MultishotEnchantmentLegendary.DisplayName: Legendarne zaklęcie wielostrzałowe
+			MultishotEnchantmentRare.DisplayName: Zaklęcie Wielostrzałowe Rzadkie
+			NpcContactAnglerEnchantmentBasic.DisplayName: Podstawowe zaklęcie Npc Contact Angler
+			NpcContactAnglerEnchantmentCommon.DisplayName: Npc Zaklęcie Wędkarza Kontaktowego Powszechne
+			NpcContactAnglerEnchantmentEpic.DisplayName: Npc Kontakt Wędkarz Zaklęcie Epic
+			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Angler Legendarne Enchantment
+			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Angler Enchantment Rzadkie
+			ObsidianSkinEnchantmentBasic.DisplayName: Podstawowe zaklęcie obsydianowej skóry
+			ObsidianSkinEnchantmentCommon.DisplayName: Obsydianowe zaklęcie skóry Często
+			ObsidianSkinEnchantmentEpic.DisplayName: Epickie zaklęcie Obsydianowej Skórki
+			ObsidianSkinEnchantmentLegendary.DisplayName: Legendarne zaklęcie Obsydianowej Skórki
+			ObsidianSkinEnchantmentRare.DisplayName: Rzadkie zaklęcie obsydianowej skóry
+			OneForAllEnchantmentBasic.DisplayName: Jeden za wszystkich Podstawowe zaklęcie
+			OneForAllEnchantmentCommon.DisplayName: Jeden za wszystkich Zaklęcie wspólne
+			OneForAllEnchantmentEpic.DisplayName: Jeden za wszystkich epicki zaklęcie
+			OneForAllEnchantmentLegendary.DisplayName: Jeden za wszystkich Legendarne zaklęcie
+			OneForAllEnchantmentRare.DisplayName: Jeden za wszystkich zaklęcie rzadkie
+			OnFireEnchantmentBasic.DisplayName: Podstawowe zaklęcie w ogniu
+			OnFireEnchantmentCommon.DisplayName: Zaklęcie w ogniu Zwykłe
+			OnFireEnchantmentEpic.DisplayName: Epickie zaklęcie w ogniu
+			OnFireEnchantmentLegendary.DisplayName: Legendarne zaklęcie w ogniu
+			OnFireEnchantmentRare.DisplayName: Zaklęcie w ogniu Rzadkie
+			PeaceEnchantmentBasic.DisplayName: Podstawowe zaklęcie pokoju
+			PeaceEnchantmentCommon.DisplayName: Zaklęcie pokoju Powszechne
+			PeaceEnchantmentEpic.DisplayName: Epickie zaklęcie pokoju
+			PeaceEnchantmentLegendary.DisplayName: Legendarne zaklęcie pokoju
+			PeaceEnchantmentRare.DisplayName: Zaklęcie Pokoju Rzadkie
+			PennyPinchingEnchantmentBasic.DisplayName: Podstawowe zaklęcie szczypania grosza
+			PennyPinchingEnchantmentCommon.DisplayName: Uszczypnięcie grosza Zaklęcie Zwykłe
+			PennyPinchingEnchantmentEpic.DisplayName: Epickie zaklęcie szczypiące grosz
+			PennyPinchingEnchantmentLegendary.DisplayName: Penny Szczypanie Zaklęcie Legendarne
+			PennyPinchingEnchantmentRare.DisplayName: Zaklęcie Szczypiące Penny Rzadkie
+			PrideOfTheWeakEnchantmentBasic.DisplayName: Podstawowe zaklęcie Duma słabych
+			PrideOfTheWeakEnchantmentCommon.DisplayName: Duma Słabego Zaklęcia Wspólne
+			PrideOfTheWeakEnchantmentEpic.DisplayName: Epicka duma słabych zaklęć
+			PrideOfTheWeakEnchantmentLegendary.DisplayName: Legendarne zaklęcie Duma słabych
+			PrideOfTheWeakEnchantmentRare.DisplayName: Duma słabego zaklęcia Rzadkie
+			ProjectileVelocityEnchantmentBasic.DisplayName: Podstawowe zaklęcie prędkości pocisku
+			ProjectileVelocityEnchantmentCommon.DisplayName: Zaklęcie prędkości pocisku Powszechne
+			ProjectileVelocityEnchantmentEpic.DisplayName: Epickie zaklęcie prędkości pocisku
+			ProjectileVelocityEnchantmentLegendary.DisplayName: Legendarne zaklęcie prędkości pocisku
+			ProjectileVelocityEnchantmentRare.DisplayName: Rzadkie zaklęcie prędkości pocisku
+			RangedClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy dystansowej
+			RangedClassSwapEnchantmentCommon.DisplayName: Zmiana klasy dystansowej Zaklęcie Zwykłe
+			RangedClassSwapEnchantmentEpic.DisplayName: Epicka zmiana klas dystansowych
+			RangedClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie do wymiany klas dystansowych
+			RangedClassSwapEnchantmentRare.DisplayName: Zaklęcie zmiany klasy dystansowej Rzadkie
+			ReducedManaUsageEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmniejszone zużycie many
+			ReducedManaUsageEnchantmentCommon.DisplayName: Zmniejszone zużycie many Zaklęcie powszechne
+			ReducedManaUsageEnchantmentEpic.DisplayName: Epic zaklęcia o zredukowanym zużyciu many
+			ReducedManaUsageEnchantmentLegendary.DisplayName: Legendarne zaklęcie zmniejszone zużycie many
+			ReducedManaUsageEnchantmentRare.DisplayName: Rzadkie zaklęcie zmniejszonego zużycia many
+			RogueClassSwapEnchantmentBasic.DisplayName: Podstawowe zaklęcie zmiany klasy łotrzyka
+			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Zmiana klasy Zaklęcie Zwykłe
+			RogueClassSwapEnchantmentEpic.DisplayName: Epic zaklęcie zaklęcia łotrzyka
+			RogueClassSwapEnchantmentLegendary.DisplayName: Legendarne zaklęcie zaklęcia łotrzyka
+			RogueClassSwapEnchantmentRare.DisplayName: Rzadkie zaklęcie zmiany klasy Rzadkie
+			ShineEnchantmentBasic.DisplayName: Podstawowe zaklęcie blasku
+			ShineEnchantmentCommon.DisplayName: Pospolity zaklęcie blasku
+			ShineEnchantmentEpic.DisplayName: Epickie zaklęcie blasku
+			ShineEnchantmentLegendary.DisplayName: Legendarne zaklęcie blasku
+			ShineEnchantmentRare.DisplayName: Rzadkie Zaklęcie Połysku
+			SizeEnchantmentBasic.DisplayName: Podstawowe zaklęcie rozmiaru
+			SizeEnchantmentCommon.DisplayName: Rozmiar Zaklęcie Powszechne
+			SizeEnchantmentEpic.DisplayName: Epicki rozmiar zaklęcia
+			SizeEnchantmentLegendary.DisplayName: Legendarne zaklęcie rozmiaru
+			SizeEnchantmentRare.DisplayName: Rzadkie zaklęcie rozmiaru
+			SolarDashEnchantmentBasic.DisplayName: Podstawowe zaklęcie słonecznej kreski
+			SolarDashEnchantmentCommon.DisplayName: Zaklęcie Słonecznej Odskoku Zwykłe
+			SolarDashEnchantmentEpic.DisplayName: Epickie zaklęcie Solar Dash
+			SolarDashEnchantmentLegendary.DisplayName: Legendarne zaklęcie Solar Dash
+			SolarDashEnchantmentRare.DisplayName: Rzadkie zaklęcie Słonecznej kreski
+			SonarEnchantmentBasic.DisplayName: Podstawowe zaklęcie sonaru
+			SonarEnchantmentCommon.DisplayName: Zaklęcie sonaru Powszechne
+			SonarEnchantmentEpic.DisplayName: Epickie zaklęcie sonaru
+			SonarEnchantmentLegendary.DisplayName: Legendarne zaklęcie sonaru
+			SonarEnchantmentRare.DisplayName: Zaklęcie sonaru Rzadkie
+			SpelunkerEnchantmentBasic.DisplayName: Podstawowe zaklęcie grotołazów
+			SpelunkerEnchantmentCommon.DisplayName: Zaklęcie grotołazów Zwykłe
+			SpelunkerEnchantmentEpic.DisplayName: Epickie zaklęcie grotołazów
+			SpelunkerEnchantmentLegendary.DisplayName: Legendarne zaklęcie grotołazów
+			SpelunkerEnchantmentRare.DisplayName: Rzadkie zaklęcie grotołazów
+			ThrowingClassSwapEnchantmentBasic.DisplayName: Rzucanie Podstawowe zaklęcie zamiany klas
+			ThrowingClassSwapEnchantmentCommon.DisplayName: Rzucanie Zamiana klas Zaklęcie Powszechne
+			ThrowingClassSwapEnchantmentEpic.DisplayName: Rzucanie Zaklęcie Zamiana klas Epic
+			ThrowingClassSwapEnchantmentLegendary.DisplayName: Rzucanie Zaklęcie zamiany klas Legendarne
+			ThrowingClassSwapEnchantmentRare.DisplayName: Rzucanie Zaklęciem Zamiany Klas Rzadkie
+			// TimeEnchantmentBasic.DisplayName: Time Enchantment Basic
+			// TimeEnchantmentCommon.DisplayName: Time Enchantment Common
+			// TimeEnchantmentEpic.DisplayName: Time Enchantment Epic
+			// TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary
+			// TimeEnchantmentRare.DisplayName: Time Enchantment Rare
+			VenomEnchantmentBasic.DisplayName: Podstawowe zaklęcie jadu
+			VenomEnchantmentCommon.DisplayName: Zaklęcie Jadu Zwykłe
+			VenomEnchantmentEpic.DisplayName: Epickie zaklęcie jadu
+			VenomEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Jadu
+			VenomEnchantmentRare.DisplayName: Zaklęcie Jadu Rzadkie
+			WarEnchantmentBasic.DisplayName: Podstawowe zaklęcie wojenne
+			WarEnchantmentCommon.DisplayName: Zaklęcie wojenne Powszechne
+			WarEnchantmentEpic.DisplayName: Epickie zaklęcie wojny
+			WarEnchantmentLegendary.DisplayName: Legendarne zaklęcie wojenne
+			WarEnchantmentRare.DisplayName: Zaklęcie Wojenne Rzadkie
+			WhipClassSwapEnchantmentBasic.DisplayName: Bicz Zmiana klasy Podstawowe zaklęcie
+			WhipClassSwapEnchantmentCommon.DisplayName: Bicz Zamiana klas Zaklęcie Zwykłe
+			WhipClassSwapEnchantmentEpic.DisplayName: Bicz Zamień Zaklęcie Epic
+			WhipClassSwapEnchantmentLegendary.DisplayName: Bicz Zmiana klasy Legendarne zaklęcie
+			WhipClassSwapEnchantmentRare.DisplayName: Bicz Zamiana klasy Rzadkie zaklęcie
+			WorldAblazeEnchantmentBasic.DisplayName: Podstawowe zaklęcie Płomienia Świata
+			WorldAblazeEnchantmentCommon.DisplayName: Zaklęcie Płomienia Świata Powszechne
+			WorldAblazeEnchantmentEpic.DisplayName: Epickie Zaklęcie Płomienia Świata
+			WorldAblazeEnchantmentLegendary.DisplayName: Legendarne Zaklęcie Płomienia Świata
+			WorldAblazeEnchantmentRare.DisplayName: Zaklęcie Płomienia Świata Rzadkie
 
 			Containment: {
 				DisplayName: Powstrzymywanie
@@ -1732,30 +433,11 @@ Mods: {
 					'''
 			}
 
-			PercentArmorPenetrationEnchantmentBasic: {
-				// DisplayName: Percent Armor Penetration Enchantment Basic
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentCommon: {
-				// DisplayName: Percent Armor Penetration Enchantment Common
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentEpic: {
-				// DisplayName: Percent Armor Penetration Enchantment Epic
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentLegendary: {
-				// DisplayName: Percent Armor Penetration Enchantment Legendary
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentRare: {
-				// DisplayName: Percent Armor Penetration Enchantment Rare
-				// Tooltip: ""
-			}
+			// PercentArmorPenetrationEnchantmentBasic.DisplayName: Percent Armor Penetration Enchantment Basic
+			// PercentArmorPenetrationEnchantmentCommon.DisplayName: Percent Armor Penetration Enchantment Common
+			// PercentArmorPenetrationEnchantmentEpic.DisplayName: Percent Armor Penetration Enchantment Epic
+			// PercentArmorPenetrationEnchantmentLegendary.DisplayName: Percent Armor Penetration Enchantment Legendary
+			// PercentArmorPenetrationEnchantmentRare.DisplayName: Percent Armor Penetration Enchantment Rare
 		}
 
 		Buffs: {

@@ -2,1630 +2,331 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic: {
-				DisplayName: Зачарование "Все за одного" (Базовое)
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentCommon: {
-				DisplayName: Зачарование "Все за одного" (Обычное)
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentEpic: {
-				DisplayName: Зачарование "Все за одного" (Эпическое)
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentLegendary: {
-				DisplayName: Зачарование "Все за одного" (Легендарное)
-				// Tooltip: ""
-			}
-
-			AllForOneEnchantmentRare: {
-				DisplayName: Зачарование "Все за одного" (Редкое)
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentBasic: {
-				DisplayName: Зачарование "Расход боеприпасов" (Базовое)
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentCommon: {
-				DisplayName: Зачарование "Расход боеприпасов" (Обычное)
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentEpic: {
-				DisplayName: Зачарование "Расход боеприпасов" (Эпическое)
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentLegendary: {
-				DisplayName: Зачарование "Расход боеприпасов" (Легендарное)
-				// Tooltip: ""
-			}
-
-			AmmoCostEnchantmentRare: {
-				DisplayName: Зачарование "Расход боеприпасов" (Редкое)
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentBasic: {
-				DisplayName: Зачарование "Пробивание брони" (Базовое)
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentCommon: {
-				DisplayName: Зачарование "Пробивание брони" (Обычное)
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentEpic: {
-				DisplayName: Зачарование "Пробивание брони" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentLegendary: {
-				DisplayName: Зачарование "Пробивание брони" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentRare: {
-				DisplayName: Зачарование "Пробивание брони" (Редкое)
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentBasic: {
-				DisplayName: Зачарование "Скорость" (Базовое)
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentCommon: {
-				DisplayName: Зачарование "Скорость" (Обычное)
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentEpic: {
-				DisplayName: Зачарование "Скорость" (Эпическое)
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentLegendary: {
-				DisplayName: Зачарование "Скорость" (Легендарное)
-				// Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentRare: {
-				DisplayName: Зачарование "Скорость" (Редкое)
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentBasic: {
-				DisplayName: Базовое зачарование смены класса барда
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование смены класса барда обычное
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentEpic: {
-				DisplayName: Эпическое зачарование смены класса барда
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentLegendary: {
-				DisplayName: Легендарное заклинание смены класса барда
-				// Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentRare: {
-				DisplayName: Зачарование смены класса барда Редкое
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentBasic: {
-				DisplayName: Зачарование "Ярость Берсерка" (Базовое)
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentCommon: {
-				DisplayName: Зачарование "Ярость Берсерка" (Обычное)
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentEpic: {
-				DisplayName: Зачарование "Ярость Берсерка" (Эпическое)
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentLegendary: {
-				DisplayName: Зачарование "Ярость Берсерка" (Легендарное)
-				// Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentRare: {
-				DisplayName: Зачарование "Ярость Берсерка" (Редкое)
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentBasic: {
-				DisplayName: Зачарование "Спокойные воды" (Базовое)
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentCommon: {
-				DisplayName: Зачарование "Спокойные воды" (Обычное)
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentEpic: {
-				DisplayName: Зачарование "Спокойные воды" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentLegendary: {
-				DisplayName: Зачарование "Спокойные воды" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CalmWatersEnchantmentRare: {
-				DisplayName: Зачарование "Спокойные воды" (Редкое)
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentBasic: {
-				DisplayName: Зачарование "Хаотичная рыбалка" (Базовое)
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentCommon: {
-				DisplayName: Зачарование "Хаотичная рыбалка" (Обычное)
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentEpic: {
-				DisplayName: Зачарование "Хаотичная рыбалка" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentLegendary: {
-				DisplayName: Зачарование "Хаотичная рыбалка" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentRare: {
-				DisplayName: Зачарование "Хаотичная рыбалка" (Редкое)
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentBasic: {
-				DisplayName: Зачарование "Хладная сталь" (Базовое)
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentCommon: {
-				DisplayName: Зачарование "Хладная сталь" (Обычное)
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentEpic: {
-				DisplayName: Зачарование "Хладная сталь" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentLegendary: {
-				DisplayName: Зачарование "Хладная сталь" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ColdSteelEnchantmentRare: {
-				DisplayName: Зачарование "Хладная сталь" (Редкое)
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentBasic: {
-				DisplayName: Зачарование "Шанс ящика" (Базовое)
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentCommon: {
-				DisplayName: Зачарование "Шанс ящика" (Обычное)
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentEpic: {
-				DisplayName: Зачарование "Шанс ящика" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentLegendary: {
-				DisplayName: Зачарование "Шанс ящика" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CrateChanceEnchantmentRare: {
-				DisplayName: Зачарование "Шанс ящика" (Редкое)
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentBasic: {
-				DisplayName: Зачарование "Ящик" (Базовое)
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentCommon: {
-				DisplayName: Зачарование "Ящик" (Обычное)
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentEpic: {
-				DisplayName: Зачарование "Ящик" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentLegendary: {
-				DisplayName: Зачарование "Ящик" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CrateEnchantmentRare: {
-				DisplayName: Зачарование "Ящик" (Редкое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentBasic: {
-				DisplayName: Зачарование "Шанс критического удара" (Базовое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentCommon: {
-				DisplayName: Зачарование "Шанс критического удара" (Обычное)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentEpic: {
-				DisplayName: Зачарование "Шанс критического удара" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentLegendary: {
-				DisplayName: Зачарование "Шанс критического удара" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentRare: {
-				DisplayName: Зачарование "Шанс критического удара" (Редкое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentBasic: {
-				DisplayName: Зачарование "Урон критического удара" (Базовое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentCommon: {
-				DisplayName: Зачарование "Урон критического удара" (Обычное)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentEpic: {
-				DisplayName: Зачарование "Урон критического удара" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentLegendary: {
-				DisplayName: Зачарование "Урон критического удара" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentRare: {
-				DisplayName: Зачарование "Урон критического удара" (Редкое)
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentBasic: {
-				DisplayName: Зачарование "Проклятое пекло" (Базовое)
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentCommon: {
-				DisplayName: Зачарование "Проклятое пекло" (Обычное)
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentEpic: {
-				DisplayName: Зачарование "Проклятое пекло" (Эпическое)
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentLegendary: {
-				DisplayName: Зачарование "Проклятое пекло" (Легендарное)
-				// Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentRare: {
-				DisplayName: Зачарование "Проклятое пекло" (Редкое)
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentBasic: {
-				DisplayName: Зачарование "Урон" (Базовое)
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentCommon: {
-				DisplayName: Зачарование "Урон" (Обычное)
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentEpic: {
-				DisplayName: Зачарование "Урон" (Эпическое)
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentLegendary: {
-				DisplayName: Зачарование "Урон" (Легендарное)
-				// Tooltip: ""
-			}
-
-			DamageEnchantmentRare: {
-				DisplayName: Зачарование "Урон" (Редкое)
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentBasic: {
-				DisplayName: Зачарование "Уменьшение урона" (Базовое)
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentCommon: {
-				DisplayName: Зачарование "Уменьшение урона" (Обычное)
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentEpic: {
-				DisplayName: Зачарование "Уменьшение урона" (Эпическое)
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentLegendary: {
-				DisplayName: Зачарование "Уменьшение урона" (Легендарное)
-				// Tooltip: ""
-			}
-
-			DamageReductionEnchantmentRare: {
-				DisplayName: Зачарование "Уменьшение урона" (Редкое)
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentBasic: {
-				DisplayName: Зачарование "Предчувствие" (Базовое)
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentCommon: {
-				DisplayName: Зачарование "Предчувствие" (Обычное)
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentEpic: {
-				DisplayName: Зачарование "Предчувствие" (Эпическое)
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentLegendary: {
-				DisplayName: Зачарование "Предчувствие" (Легендарное)
-				// Tooltip: ""
-			}
-
-			DangerSenseEnchantmentRare: {
-				DisplayName: Зачарование "Предчувствие" (Редкое)
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentBasic: {
-				DisplayName: Зачарование "Солнечный ожог" (Базовое)
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentCommon: {
-				DisplayName: Зачарование "Солнечный ожог" (Обычное)
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentEpic: {
-				DisplayName: Зачарование "Солнечный ожог" (Эпическое)
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentLegendary: {
-				DisplayName: Зачарование "Солнечный ожог" (Легендарное)
-				// Tooltip: ""
-			}
-
-			DaybreakEnchantmentRare: {
-				DisplayName: Зачарование "Солнечный ожог" (Редкое)
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentBasic: {
-				DisplayName: Зачарование "Защита" (Базовое)
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentCommon: {
-				DisplayName: Зачарование "Защита" (Обычное)
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentEpic: {
-				DisplayName: Зачарование "Защита" (Эпическое)
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentLegendary: {
-				DisplayName: Зачарование "Защита" (Легендарное)
-				// Tooltip: ""
-			}
-
-			DefenseEnchantmentRare: {
-				DisplayName: Зачарование "Защита" (Редкое)
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentBasic: {
-				DisplayName: Зачарование "Дополнительный поплавок" (Базовое)
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentCommon: {
-				DisplayName: Зачарование "Дополнительный поплавок" (Обычное)
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentEpic: {
-				DisplayName: Зачарование "Дополнительный поплавок" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentLegendary: {
-				DisplayName: Зачарование "Дополнительный поплавок" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentRare: {
-				DisplayName: Зачарование "Дополнительный поплавок" (Редкое)
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentBasic: {
-				DisplayName: Зачарование "Рыбалка" (Базовое)
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentCommon: {
-				DisplayName: Зачарование "Рыбалка" (Обычное)
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentEpic: {
-				DisplayName: Зачарование "Рыбалка" (Эпическое)
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentLegendary: {
-				DisplayName: Зачарование "Рыбалка" (Легендарное)
-				// Tooltip: ""
-			}
-
-			FishingEnchantmentRare: {
-				DisplayName: Зачарование "Рыбалка" (Редкое)
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentBasic: {
-				DisplayName: Зачарование "Навык рыбной ловли" (Базовое)
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentCommon: {
-				DisplayName: Зачарование "Навык рыбной ловли" (Обычное)
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentEpic: {
-				DisplayName: Зачарование "Навык рыбной ловли" (Эпическое)
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentLegendary: {
-				DisplayName: Зачарование "Навык рыбной ловли" (Легендарное)
-				// Tooltip: ""
-			}
-
-			FishingPowerEnchantmentRare: {
-				DisplayName: Зачарование "Навык рыбной ловли" (Редкое)
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentBasic: {
-				DisplayName: Зачарование "Обжигающий холод" (Базовое)
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentCommon: {
-				DisplayName: Зачарование "Обжигающий холод" (Обычное)
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentEpic: {
-				DisplayName: Зачарование "Обжигающий холод" (Эпическое)
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentLegendary: {
-				DisplayName: Зачарование "Обжигающий холод" (Легендарное)
-				// Tooltip: ""
-			}
-
-			FrostburnEnchantmentRare: {
-				DisplayName: Зачарование "Обжигающий холод" (Редкое)
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentBasic: {
-				DisplayName: Зачарование "Убийца Богов" (Базовое)
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentCommon: {
-				DisplayName: Зачарование "Убийца Богов" (Обычное)
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentEpic: {
-				DisplayName: Зачарование "Убийца Богов" (Эпическое)
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentLegendary: {
-				DisplayName: Зачарование "Убийца Богов" (Легендарное)
-				// Tooltip: ""
-			}
-
-			GodSlayerEnchantmentRare: {
-				DisplayName: Зачарование "Убийца Богов" (Редкое)
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentBasic: {
-				DisplayName: Базовое зачарование смены класса целителя
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование смены класса целителя Обычный
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentEpic: {
-				DisplayName: Эпическое заклинание смены класса целителя
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование смены класса целителя, легендарное
-				// Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentRare: {
-				DisplayName: Зачарование смены класса целителя, редкое
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentBasic: {
-				DisplayName: Зачарование "Гнев Ада" (Базовое)
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentCommon: {
-				DisplayName: Зачарование "Гнев Ада" (Обычное)
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentEpic: {
-				DisplayName: Зачарование "Гнев Ада" (Эпическое)
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentLegendary: {
-				DisplayName: Зачарование "Гнев Ада" (Легендарное)
-				// Tooltip: ""
-			}
-
-			HellsWrathEnchantmentRare: {
-				DisplayName: Зачарование "Гнев Ада" (Редкое)
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentBasic: {
-				DisplayName: Зачарование "Охотник" (Базовое)
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentCommon: {
-				DisplayName: Зачарование "Охотник" (Обычное)
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentEpic: {
-				DisplayName: Зачарование "Охотник" (Эпическое)
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentLegendary: {
-				DisplayName: Зачарование "Охотник" (Легендарное)
-				// Tooltip: ""
-			}
-
-			HunterEnchantmentRare: {
-				DisplayName: Зачарование "Охотник" (Редкое)
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentBasic: {
-				DisplayName: Зачарование "Ихор" (Базовое)
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentCommon: {
-				DisplayName: Зачарование "Ихор" (Обычное)
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentEpic: {
-				DisplayName: Зачарование "Ихор" (Эпическое)
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentLegendary: {
-				DisplayName: Зачарование "Ихор" (Легендарное)
-				// Tooltip: ""
-			}
-
-			IchorEnchantmentRare: {
-				DisplayName: Зачарование "Ихор" (Редкое)
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentBasic: {
-				DisplayName: Зачарование "Выжатый" (Базовое)
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentCommon: {
-				DisplayName: Зачарование "Выжатый" (Обычное)
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentEpic: {
-				DisplayName: Зачарование "Выжатый" (Эпическое)
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentLegendary: {
-				DisplayName: Зачарование "Выжатый" (Легендарное)
-				// Tooltip: ""
-			}
-
-			JuicedEnchantmentRare: {
-				DisplayName: Зачарование "Выжатый" (Редкое)
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentBasic: {
-				DisplayName: Зачарование "Ярость джунглей" (Базовое)
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentCommon: {
-				DisplayName: Зачарование "Ярость джунглей" (Обычное)
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentEpic: {
-				DisplayName: Зачарование "Ярость джунглей" (Эпическое)
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentLegendary: {
-				DisplayName: Зачарование "Ярость джунглей" (Легендарное)
-				// Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentRare: {
-				DisplayName: Зачарование "Ярость джунглей" (Редкое)
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Ки" (Базовое)
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Ки" (Обычное)
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Ки" (Эпическое)
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Ки" (Легендарное)
-				// Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Ки" (Редкое)
-				// Tooltip: ""
-			}
-
-			KiEnchantmentBasic: {
-				DisplayName: Зачарование "Ки" (Базовое)
-				// Tooltip: ""
-			}
-
-			KiEnchantmentCommon: {
-				DisplayName: Зачарование "Ки" (Обычное)
-				// Tooltip: ""
-			}
-
-			KiEnchantmentEpic: {
-				DisplayName: Зачарование "Ки" (Эпическое)
-				// Tooltip: ""
-			}
-
-			KiEnchantmentLegendary: {
-				DisplayName: Зачарование "Ки" (Легендарное)
-				// Tooltip: ""
-			}
-
-			KiEnchantmentRare: {
-				DisplayName: Зачарование "Ки" (Редкое)
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentBasic: {
-				DisplayName: Зачарование "Рыбалка в лаве" (Базовое)
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentCommon: {
-				DisplayName: Зачарование "Рыбалка в лаве" (Обычное)
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentEpic: {
-				DisplayName: Зачарование "Рыбалка в лаве" (Эпическое)
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentLegendary: {
-				DisplayName: Зачарование "Рыбалка в лаве" (Легендарное)
-				// Tooltip: ""
-			}
-
-			LavaFishingEnchantmentRare: {
-				DisplayName: Зачарование "Рыбалка в лаве" (Редкое)
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentBasic: {
-				DisplayName: Зачарование Регенерации Жизни Базовое
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentCommon: {
-				DisplayName: Чары Регенерации Жизни Обычный
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentEpic: {
-				DisplayName: Эпическое зачарование регенерации жизни
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentLegendary: {
-				DisplayName: Чары Регенерации Жизни Легендарные
-				// Tooltip: ""
-			}
-
-			LifeRegenEnchantmentRare: {
-				DisplayName: Чары регенерации здоровья Редкие
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentBasic: {
-				DisplayName: Зачарование "Похищение жизни" (Базовое)
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentCommon: {
-				DisplayName: Зачарование "Похищение жизни" (Обычное)
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentEpic: {
-				DisplayName: Зачарование "Похищение жизни" (Эпическое)
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentLegendary: {
-				DisplayName: Зачарование "Похищение жизни" (Легендарное)
-				// Tooltip: ""
-			}
-
-			LifeStealEnchantmentRare: {
-				DisplayName: Зачарование "Похищение жизни" (Редкое)
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentBasic: {
-				DisplayName: Зачарование "Удача" (Базовое)
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentCommon: {
-				DisplayName: Зачарование "Удача" (Обычное)
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentEpic: {
-				DisplayName: Зачарование "Удача" (Эпическое)
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentLegendary: {
-				DisplayName: Зачарование "Удача" (Легендарное)
-				// Tooltip: ""
-			}
-
-			LuckEnchantmentRare: {
-				DisplayName: Зачарование "Удача" (Редкое)
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Маг" (Базовое)
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Маг" (Обычное)
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Маг" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Маг" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Маг" (Редкое)
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentBasic: {
-				DisplayName: Зачарование "Максимум прислужников" (Базовое)
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentCommon: {
-				DisplayName: Зачарование "Максимум прислужников" (Обычное)
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentEpic: {
-				DisplayName: Зачарование "Максимум прислужников" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentLegendary: {
-				DisplayName: Зачарование "Максимум прислужников" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentRare: {
-				DisplayName: Зачарование "Максимум прислужников" (Редкое)
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Воин" (Базовое)
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Воин" (Обычное)
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Воин" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Воин" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Воин" (Редкое)
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentBasic: {
-				DisplayName: Зачарование "Контроль подвижности" (Базовое)
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentCommon: {
-				DisplayName: Зачарование "Контроль подвижности" (Обычное)
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentEpic: {
-				DisplayName: Зачарование "Контроль подвижности" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentLegendary: {
-				DisplayName: Зачарование "Контроль подвижности" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MobilityControlEnchantmentRare: {
-				DisplayName: Зачарование "Контроль подвижности" (Редкое)
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentBasic: {
-				DisplayName: Зачарование "Лунный свет" (Базовое)
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentCommon: {
-				DisplayName: Зачарование "Лунный свет" (Обычное)
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentEpic: {
-				DisplayName: Зачарование "Лунный свет" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentLegendary: {
-				DisplayName: Зачарование "Лунный свет" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MoonlightEnchantmentRare: {
-				DisplayName: Зачарование "Лунный свет" (Редкое)
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentBasic: {
-				DisplayName: Зачарование "Скорость передвижения" (Базовое)
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentCommon: {
-				DisplayName: Зачарование "Скорость передвижения" (Обычное)
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentEpic: {
-				DisplayName: Зачарование "Скорость передвижения" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentLegendary: {
-				DisplayName: Зачарование "Скорость передвижения" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentRare: {
-				DisplayName: Зачарование "Скорость передвижения" (Редкое)
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentBasic: {
-				DisplayName: Зачарование "Многострел" (Базовое)
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentCommon: {
-				DisplayName: Зачарование "Многострел" (Обычное)
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentEpic: {
-				DisplayName: Зачарование "Многострел" (Эпическое)
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentLegendary: {
-				DisplayName: Зачарование "Многострел" (Легендарное)
-				// Tooltip: ""
-			}
-
-			MultishotEnchantmentRare: {
-				DisplayName: Зачарование "Многострел" (Редкое)
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentBasic: {
-				DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Базовое)
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentCommon: {
-				DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Обычное)
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentEpic: {
-				DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Эпическое)
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentLegendary: {
-				DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Легендарное)
-				// Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentRare: {
-				DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Редкое)
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentBasic: {
-				DisplayName: Зачарование "Обсидиановая кожа" (Базовое)
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentCommon: {
-				DisplayName: Зачарование "Обсидиановая кожа" (Обычное)
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentEpic: {
-				DisplayName: Зачарование "Обсидиановая кожа" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentLegendary: {
-				DisplayName: Зачарование "Обсидиановая кожа" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentRare: {
-				DisplayName: Зачарование "Обсидиановая кожа" (Редкое)
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentBasic: {
-				DisplayName: Зачарование "Один за всех" (Базовое)
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentCommon: {
-				DisplayName: Зачарование "Один за всех" (Обычное)
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentEpic: {
-				DisplayName: Зачарование "Один за всех" (Эпическое)
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentLegendary: {
-				DisplayName: Зачарование "Один за всех" (Легендарное)
-				// Tooltip: ""
-			}
-
-			OneForAllEnchantmentRare: {
-				DisplayName: Зачарование "Один за всех" (Редкое)
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentBasic: {
-				DisplayName: Зачарование "В огне" (Базовое)
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentCommon: {
-				DisplayName: Зачарование "В огне" (Обычное)
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentEpic: {
-				DisplayName: Зачарование "В огне" (Эпическое)
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentLegendary: {
-				DisplayName: Зачарование "В огне" (Легендарное)
-				// Tooltip: ""
-			}
-
-			OnFireEnchantmentRare: {
-				DisplayName: Зачарование "В огне" (Редкое)
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentBasic: {
-				DisplayName: Зачарование "Мир" (Базовое)
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentCommon: {
-				DisplayName: Зачарование "Мир" (Обычное)
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentEpic: {
-				DisplayName: Зачарование "Мир" (Эпическое)
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentLegendary: {
-				DisplayName: Зачарование "Мир" (Легендарное)
-				// Tooltip: ""
-			}
-
-			PeaceEnchantmentRare: {
-				DisplayName: Зачарование "Мир" (Редкое)
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentBasic: {
-				DisplayName: Зачарование "Скупость" (Базовое)
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentCommon: {
-				DisplayName: Зачарование "Скупость" (Обычное)
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentEpic: {
-				DisplayName: Зачарование "Скупость" (Эпическое)
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentLegendary: {
-				DisplayName: Зачарование "Скупость" (Легендарное)
-				// Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentRare: {
-				DisplayName: Зачарование "Скупость" (Редкое)
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentBasic: {
-				DisplayName: Зачарование "Гордость слабых" (Базовое)
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentCommon: {
-				DisplayName: Зачарование "Гордость слабых" (Обычное)
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentEpic: {
-				DisplayName: Зачарование "Гордость слабых" (Эпическое)
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentLegendary: {
-				DisplayName: Зачарование "Гордость слабых" (Легендарное)
-				// Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentRare: {
-				DisplayName: Зачарование "Гордость слабых" (Редкое)
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentBasic: {
-				DisplayName: Зачарование "Скорость снаряда" (Базовое)
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentCommon: {
-				DisplayName: Зачарование "Скорость снаряда" (Обычное)
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentEpic: {
-				DisplayName: Зачарование "Скорость снаряда" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentLegendary: {
-				DisplayName: Зачарование "Скорость снаряда" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentRare: {
-				DisplayName: Зачарование "Скорость снаряда" (Редкое)
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Стрелок" (Базовое)
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Стрелок" (Обычное)
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Стрелок" (Эпическое)
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Стрелок" (Легендарное)
-				// Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Стрелок" (Редкое)
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentBasic: {
-				DisplayName: Зачарование "Снижение расхода маны" (Базовое)
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentCommon: {
-				DisplayName: Зачарование "Снижение расхода маны" (Обычное)
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentEpic: {
-				DisplayName: Зачарование "Снижение расхода маны" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentLegendary: {
-				DisplayName: Зачарование "Снижение расхода маны" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentRare: {
-				DisplayName: Зачарование "Снижение расхода маны" (Редкое)
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Разбойник" (Базовое)
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Разбойник" (Обычное)
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Разбойник" (Эпическое)
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Разбойник" (Легендарное)
-				// Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Разбойник" (Редкое)
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentBasic: {
-				DisplayName: Зачарование "Сияние" (Базовое)
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentCommon: {
-				DisplayName: Зачарование "Сияние" (Обычное)
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentEpic: {
-				DisplayName: Зачарование "Сияние" (Эпическое)
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentLegendary: {
-				DisplayName: Зачарование "Сияние" (Легендарное)
-				// Tooltip: ""
-			}
-
-			ShineEnchantmentRare: {
-				DisplayName: Зачарование "Сияние" (Редкое)
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentBasic: {
-				DisplayName: Зачарование "Размер" (Базовое)
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentCommon: {
-				DisplayName: Зачарование "Размер" (Обычное)
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentEpic: {
-				DisplayName: Зачарование "Размер" (Эпическое)
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentLegendary: {
-				DisplayName: Зачарование "Размер" (Легендарное)
-				// Tooltip: ""
-			}
-
-			SizeEnchantmentRare: {
-				DisplayName: Зачарование "Размер" (Редкое)
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentBasic: {
-				DisplayName: Зачарование "Солнечный рывок" (Базовое)
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentCommon: {
-				DisplayName: Зачарование "Солнечный рывок" (Обычное)
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentEpic: {
-				DisplayName: Зачарование "Солнечный рывок" (Эпическое)
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentLegendary: {
-				DisplayName: Зачарование "Солнечный рывок" (Легендарное)
-				// Tooltip: ""
-			}
-
-			SolarDashEnchantmentRare: {
-				DisplayName: Зачарование "Солнечный рывок" (Редкое)
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentBasic: {
-				DisplayName: Зачарование "Сонар" (Базовое)
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentCommon: {
-				DisplayName: Зачарование "Сонар" (Обычное)
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentEpic: {
-				DisplayName: Зачарование "Сонар" (Эпическое)
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentLegendary: {
-				DisplayName: Зачарование "Сонар" (Легендарное)
-				// Tooltip: ""
-			}
-
-			SonarEnchantmentRare: {
-				DisplayName: Зачарование "Сонар" (Редкое)
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentBasic: {
-				DisplayName: Зачарование "Спелеолог" (Базовое)
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentCommon: {
-				DisplayName: Зачарование "Спелеолог" (Обычное)
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentEpic: {
-				DisplayName: Зачарование "Спелеолог" (Эпическое)
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentLegendary: {
-				DisplayName: Зачарование "Спелеолог" (Легендарное)
-				// Tooltip: ""
-			}
-
-			SpelunkerEnchantmentRare: {
-				DisplayName: Зачарование "Спелеолог" (Редкое)
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentBasic: {
-				DisplayName: Бросок Зачарования Обмена Классом Базовый
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentCommon: {
-				DisplayName: Бросок чары смены класса Обычный
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentEpic: {
-				DisplayName: Эпическое зачарование смены класса
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentLegendary: {
-				DisplayName: Легендарное зачарование смены класса
-				// Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentRare: {
-				DisplayName: Бросок чары смены класса редкий
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentBasic: {
-				// DisplayName: Time Enchantment Basic
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentCommon: {
-				// DisplayName: Time Enchantment Common
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentEpic: {
-				// DisplayName: Time Enchantment Epic
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentLegendary: {
-				// DisplayName: Time Enchantment Legendary
-				// Tooltip: ""
-			}
-
-			TimeEnchantmentRare: {
-				// DisplayName: Time Enchantment Rare
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentBasic: {
-				DisplayName: Зачарование "Яд" (Базовое)
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentCommon: {
-				DisplayName: Зачарование "Яд" (Обычное)
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentEpic: {
-				DisplayName: Зачарование "Яд" (Эпическое)
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentLegendary: {
-				DisplayName: Зачарование "Яд" (Легендарное)
-				// Tooltip: ""
-			}
-
-			VenomEnchantmentRare: {
-				DisplayName: Зачарование "Яд" (Редкое)
-				// Tooltip: ""
-			}
-
-			WarEnchantmentBasic: {
-				DisplayName: Зачарование "Война" (Базовое)
-				// Tooltip: ""
-			}
-
-			WarEnchantmentCommon: {
-				DisplayName: Зачарование "Война" (Обычное)
-				// Tooltip: ""
-			}
-
-			WarEnchantmentEpic: {
-				DisplayName: Зачарование "Война" (Эпическое)
-				// Tooltip: ""
-			}
-
-			WarEnchantmentLegendary: {
-				DisplayName: Зачарование "Война" (Легендарное)
-				// Tooltip: ""
-			}
-
-			WarEnchantmentRare: {
-				DisplayName: Зачарование "Война" (Редкое)
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentBasic: {
-				DisplayName: Зачарование "Замена класса - Кнут" (Базовое)
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentCommon: {
-				DisplayName: Зачарование "Замена класса - Кнут" (Обычное)
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentEpic: {
-				DisplayName: Зачарование "Замена класса - Кнут" (Эпическое)
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentLegendary: {
-				DisplayName: Зачарование "Замена класса - Кнут" (Легендарное)
-				// Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentRare: {
-				DisplayName: Зачарование "Замена класса - Кнут" (Редкое)
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentBasic: {
-				DisplayName: Зачарование "Мир в огне" (Базовое)
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentCommon: {
-				DisplayName: Зачарование "Мир в огне" (Обычное)
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentEpic: {
-				DisplayName: Зачарование "Мир в огне" (Эпическое)
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentLegendary: {
-				DisplayName: Зачарование "Мир в огне" (Легендарное)
-				// Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentRare: {
-				DisplayName: Зачарование "Мир в огне" (Редкое)
-				// Tooltip: ""
-			}
+			AllForOneEnchantmentBasic.DisplayName: Зачарование "Все за одного" (Базовое)
+			AllForOneEnchantmentCommon.DisplayName: Зачарование "Все за одного" (Обычное)
+			AllForOneEnchantmentEpic.DisplayName: Зачарование "Все за одного" (Эпическое)
+			AllForOneEnchantmentLegendary.DisplayName: Зачарование "Все за одного" (Легендарное)
+			AllForOneEnchantmentRare.DisplayName: Зачарование "Все за одного" (Редкое)
+			AmmoCostEnchantmentBasic.DisplayName: Зачарование "Расход боеприпасов" (Базовое)
+			AmmoCostEnchantmentCommon.DisplayName: Зачарование "Расход боеприпасов" (Обычное)
+			AmmoCostEnchantmentEpic.DisplayName: Зачарование "Расход боеприпасов" (Эпическое)
+			AmmoCostEnchantmentLegendary.DisplayName: Зачарование "Расход боеприпасов" (Легендарное)
+			AmmoCostEnchantmentRare.DisplayName: Зачарование "Расход боеприпасов" (Редкое)
+			ArmorPenetrationEnchantmentBasic.DisplayName: Зачарование "Пробивание брони" (Базовое)
+			ArmorPenetrationEnchantmentCommon.DisplayName: Зачарование "Пробивание брони" (Обычное)
+			ArmorPenetrationEnchantmentEpic.DisplayName: Зачарование "Пробивание брони" (Эпическое)
+			ArmorPenetrationEnchantmentLegendary.DisplayName: Зачарование "Пробивание брони" (Легендарное)
+			ArmorPenetrationEnchantmentRare.DisplayName: Зачарование "Пробивание брони" (Редкое)
+			AttackSpeedEnchantmentBasic.DisplayName: Зачарование "Скорость" (Базовое)
+			AttackSpeedEnchantmentCommon.DisplayName: Зачарование "Скорость" (Обычное)
+			AttackSpeedEnchantmentEpic.DisplayName: Зачарование "Скорость" (Эпическое)
+			AttackSpeedEnchantmentLegendary.DisplayName: Зачарование "Скорость" (Легендарное)
+			AttackSpeedEnchantmentRare.DisplayName: Зачарование "Скорость" (Редкое)
+			BardClassSwapEnchantmentBasic.DisplayName: Базовое зачарование смены класса барда
+			BardClassSwapEnchantmentCommon.DisplayName: Зачарование смены класса барда обычное
+			BardClassSwapEnchantmentEpic.DisplayName: Эпическое зачарование смены класса барда
+			BardClassSwapEnchantmentLegendary.DisplayName: Легендарное заклинание смены класса барда
+			BardClassSwapEnchantmentRare.DisplayName: Зачарование смены класса барда Редкое
+			BerserkersRageEnchantmentBasic.DisplayName: Зачарование "Ярость Берсерка" (Базовое)
+			BerserkersRageEnchantmentCommon.DisplayName: Зачарование "Ярость Берсерка" (Обычное)
+			BerserkersRageEnchantmentEpic.DisplayName: Зачарование "Ярость Берсерка" (Эпическое)
+			BerserkersRageEnchantmentLegendary.DisplayName: Зачарование "Ярость Берсерка" (Легендарное)
+			BerserkersRageEnchantmentRare.DisplayName: Зачарование "Ярость Берсерка" (Редкое)
+			CalmWatersEnchantmentBasic.DisplayName: Зачарование "Спокойные воды" (Базовое)
+			CalmWatersEnchantmentCommon.DisplayName: Зачарование "Спокойные воды" (Обычное)
+			CalmWatersEnchantmentEpic.DisplayName: Зачарование "Спокойные воды" (Эпическое)
+			CalmWatersEnchantmentLegendary.DisplayName: Зачарование "Спокойные воды" (Легендарное)
+			CalmWatersEnchantmentRare.DisplayName: Зачарование "Спокойные воды" (Редкое)
+			ChaoticFishingEnchantmentBasic.DisplayName: Зачарование "Хаотичная рыбалка" (Базовое)
+			ChaoticFishingEnchantmentCommon.DisplayName: Зачарование "Хаотичная рыбалка" (Обычное)
+			ChaoticFishingEnchantmentEpic.DisplayName: Зачарование "Хаотичная рыбалка" (Эпическое)
+			ChaoticFishingEnchantmentLegendary.DisplayName: Зачарование "Хаотичная рыбалка" (Легендарное)
+			ChaoticFishingEnchantmentRare.DisplayName: Зачарование "Хаотичная рыбалка" (Редкое)
+			ColdSteelEnchantmentBasic.DisplayName: Зачарование "Хладная сталь" (Базовое)
+			ColdSteelEnchantmentCommon.DisplayName: Зачарование "Хладная сталь" (Обычное)
+			ColdSteelEnchantmentEpic.DisplayName: Зачарование "Хладная сталь" (Эпическое)
+			ColdSteelEnchantmentLegendary.DisplayName: Зачарование "Хладная сталь" (Легендарное)
+			ColdSteelEnchantmentRare.DisplayName: Зачарование "Хладная сталь" (Редкое)
+			CrateChanceEnchantmentBasic.DisplayName: Зачарование "Шанс ящика" (Базовое)
+			CrateChanceEnchantmentCommon.DisplayName: Зачарование "Шанс ящика" (Обычное)
+			CrateChanceEnchantmentEpic.DisplayName: Зачарование "Шанс ящика" (Эпическое)
+			CrateChanceEnchantmentLegendary.DisplayName: Зачарование "Шанс ящика" (Легендарное)
+			CrateChanceEnchantmentRare.DisplayName: Зачарование "Шанс ящика" (Редкое)
+			CrateEnchantmentBasic.DisplayName: Зачарование "Ящик" (Базовое)
+			CrateEnchantmentCommon.DisplayName: Зачарование "Ящик" (Обычное)
+			CrateEnchantmentEpic.DisplayName: Зачарование "Ящик" (Эпическое)
+			CrateEnchantmentLegendary.DisplayName: Зачарование "Ящик" (Легендарное)
+			CrateEnchantmentRare.DisplayName: Зачарование "Ящик" (Редкое)
+			CriticalStrikeChanceEnchantmentBasic.DisplayName: Зачарование "Шанс критического удара" (Базовое)
+			CriticalStrikeChanceEnchantmentCommon.DisplayName: Зачарование "Шанс критического удара" (Обычное)
+			CriticalStrikeChanceEnchantmentEpic.DisplayName: Зачарование "Шанс критического удара" (Эпическое)
+			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Зачарование "Шанс критического удара" (Легендарное)
+			CriticalStrikeChanceEnchantmentRare.DisplayName: Зачарование "Шанс критического удара" (Редкое)
+			CriticalStrikeDamageEnchantmentBasic.DisplayName: Зачарование "Урон критического удара" (Базовое)
+			CriticalStrikeDamageEnchantmentCommon.DisplayName: Зачарование "Урон критического удара" (Обычное)
+			CriticalStrikeDamageEnchantmentEpic.DisplayName: Зачарование "Урон критического удара" (Эпическое)
+			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Зачарование "Урон критического удара" (Легендарное)
+			CriticalStrikeDamageEnchantmentRare.DisplayName: Зачарование "Урон критического удара" (Редкое)
+			CursedInfernoEnchantmentBasic.DisplayName: Зачарование "Проклятое пекло" (Базовое)
+			CursedInfernoEnchantmentCommon.DisplayName: Зачарование "Проклятое пекло" (Обычное)
+			CursedInfernoEnchantmentEpic.DisplayName: Зачарование "Проклятое пекло" (Эпическое)
+			CursedInfernoEnchantmentLegendary.DisplayName: Зачарование "Проклятое пекло" (Легендарное)
+			CursedInfernoEnchantmentRare.DisplayName: Зачарование "Проклятое пекло" (Редкое)
+			DamageEnchantmentBasic.DisplayName: Зачарование "Урон" (Базовое)
+			DamageEnchantmentCommon.DisplayName: Зачарование "Урон" (Обычное)
+			DamageEnchantmentEpic.DisplayName: Зачарование "Урон" (Эпическое)
+			DamageEnchantmentLegendary.DisplayName: Зачарование "Урон" (Легендарное)
+			DamageEnchantmentRare.DisplayName: Зачарование "Урон" (Редкое)
+			DamageReductionEnchantmentBasic.DisplayName: Зачарование "Уменьшение урона" (Базовое)
+			DamageReductionEnchantmentCommon.DisplayName: Зачарование "Уменьшение урона" (Обычное)
+			DamageReductionEnchantmentEpic.DisplayName: Зачарование "Уменьшение урона" (Эпическое)
+			DamageReductionEnchantmentLegendary.DisplayName: Зачарование "Уменьшение урона" (Легендарное)
+			DamageReductionEnchantmentRare.DisplayName: Зачарование "Уменьшение урона" (Редкое)
+			DangerSenseEnchantmentBasic.DisplayName: Зачарование "Предчувствие" (Базовое)
+			DangerSenseEnchantmentCommon.DisplayName: Зачарование "Предчувствие" (Обычное)
+			DangerSenseEnchantmentEpic.DisplayName: Зачарование "Предчувствие" (Эпическое)
+			DangerSenseEnchantmentLegendary.DisplayName: Зачарование "Предчувствие" (Легендарное)
+			DangerSenseEnchantmentRare.DisplayName: Зачарование "Предчувствие" (Редкое)
+			DaybreakEnchantmentBasic.DisplayName: Зачарование "Солнечный ожог" (Базовое)
+			DaybreakEnchantmentCommon.DisplayName: Зачарование "Солнечный ожог" (Обычное)
+			DaybreakEnchantmentEpic.DisplayName: Зачарование "Солнечный ожог" (Эпическое)
+			DaybreakEnchantmentLegendary.DisplayName: Зачарование "Солнечный ожог" (Легендарное)
+			DaybreakEnchantmentRare.DisplayName: Зачарование "Солнечный ожог" (Редкое)
+			DefenseEnchantmentBasic.DisplayName: Зачарование "Защита" (Базовое)
+			DefenseEnchantmentCommon.DisplayName: Зачарование "Защита" (Обычное)
+			DefenseEnchantmentEpic.DisplayName: Зачарование "Защита" (Эпическое)
+			DefenseEnchantmentLegendary.DisplayName: Зачарование "Защита" (Легендарное)
+			DefenseEnchantmentRare.DisplayName: Зачарование "Защита" (Редкое)
+			ExtraFishingLineEnchantmentBasic.DisplayName: Зачарование "Дополнительный поплавок" (Базовое)
+			ExtraFishingLineEnchantmentCommon.DisplayName: Зачарование "Дополнительный поплавок" (Обычное)
+			ExtraFishingLineEnchantmentEpic.DisplayName: Зачарование "Дополнительный поплавок" (Эпическое)
+			ExtraFishingLineEnchantmentLegendary.DisplayName: Зачарование "Дополнительный поплавок" (Легендарное)
+			ExtraFishingLineEnchantmentRare.DisplayName: Зачарование "Дополнительный поплавок" (Редкое)
+			FishingEnchantmentBasic.DisplayName: Зачарование "Рыбалка" (Базовое)
+			FishingEnchantmentCommon.DisplayName: Зачарование "Рыбалка" (Обычное)
+			FishingEnchantmentEpic.DisplayName: Зачарование "Рыбалка" (Эпическое)
+			FishingEnchantmentLegendary.DisplayName: Зачарование "Рыбалка" (Легендарное)
+			FishingEnchantmentRare.DisplayName: Зачарование "Рыбалка" (Редкое)
+			FishingPowerEnchantmentBasic.DisplayName: Зачарование "Навык рыбной ловли" (Базовое)
+			FishingPowerEnchantmentCommon.DisplayName: Зачарование "Навык рыбной ловли" (Обычное)
+			FishingPowerEnchantmentEpic.DisplayName: Зачарование "Навык рыбной ловли" (Эпическое)
+			FishingPowerEnchantmentLegendary.DisplayName: Зачарование "Навык рыбной ловли" (Легендарное)
+			FishingPowerEnchantmentRare.DisplayName: Зачарование "Навык рыбной ловли" (Редкое)
+			FrostburnEnchantmentBasic.DisplayName: Зачарование "Обжигающий холод" (Базовое)
+			FrostburnEnchantmentCommon.DisplayName: Зачарование "Обжигающий холод" (Обычное)
+			FrostburnEnchantmentEpic.DisplayName: Зачарование "Обжигающий холод" (Эпическое)
+			FrostburnEnchantmentLegendary.DisplayName: Зачарование "Обжигающий холод" (Легендарное)
+			FrostburnEnchantmentRare.DisplayName: Зачарование "Обжигающий холод" (Редкое)
+			GodSlayerEnchantmentBasic.DisplayName: Зачарование "Убийца Богов" (Базовое)
+			GodSlayerEnchantmentCommon.DisplayName: Зачарование "Убийца Богов" (Обычное)
+			GodSlayerEnchantmentEpic.DisplayName: Зачарование "Убийца Богов" (Эпическое)
+			GodSlayerEnchantmentLegendary.DisplayName: Зачарование "Убийца Богов" (Легендарное)
+			GodSlayerEnchantmentRare.DisplayName: Зачарование "Убийца Богов" (Редкое)
+			HealerClassSwapEnchantmentBasic.DisplayName: Базовое зачарование смены класса целителя
+			HealerClassSwapEnchantmentCommon.DisplayName: Зачарование смены класса целителя Обычный
+			HealerClassSwapEnchantmentEpic.DisplayName: Эпическое заклинание смены класса целителя
+			HealerClassSwapEnchantmentLegendary.DisplayName: Зачарование смены класса целителя, легендарное
+			HealerClassSwapEnchantmentRare.DisplayName: Зачарование смены класса целителя, редкое
+			HellsWrathEnchantmentBasic.DisplayName: Зачарование "Гнев Ада" (Базовое)
+			HellsWrathEnchantmentCommon.DisplayName: Зачарование "Гнев Ада" (Обычное)
+			HellsWrathEnchantmentEpic.DisplayName: Зачарование "Гнев Ада" (Эпическое)
+			HellsWrathEnchantmentLegendary.DisplayName: Зачарование "Гнев Ада" (Легендарное)
+			HellsWrathEnchantmentRare.DisplayName: Зачарование "Гнев Ада" (Редкое)
+			HunterEnchantmentBasic.DisplayName: Зачарование "Охотник" (Базовое)
+			HunterEnchantmentCommon.DisplayName: Зачарование "Охотник" (Обычное)
+			HunterEnchantmentEpic.DisplayName: Зачарование "Охотник" (Эпическое)
+			HunterEnchantmentLegendary.DisplayName: Зачарование "Охотник" (Легендарное)
+			HunterEnchantmentRare.DisplayName: Зачарование "Охотник" (Редкое)
+			IchorEnchantmentBasic.DisplayName: Зачарование "Ихор" (Базовое)
+			IchorEnchantmentCommon.DisplayName: Зачарование "Ихор" (Обычное)
+			IchorEnchantmentEpic.DisplayName: Зачарование "Ихор" (Эпическое)
+			IchorEnchantmentLegendary.DisplayName: Зачарование "Ихор" (Легендарное)
+			IchorEnchantmentRare.DisplayName: Зачарование "Ихор" (Редкое)
+			JuicedEnchantmentBasic.DisplayName: Зачарование "Выжатый" (Базовое)
+			JuicedEnchantmentCommon.DisplayName: Зачарование "Выжатый" (Обычное)
+			JuicedEnchantmentEpic.DisplayName: Зачарование "Выжатый" (Эпическое)
+			JuicedEnchantmentLegendary.DisplayName: Зачарование "Выжатый" (Легендарное)
+			JuicedEnchantmentRare.DisplayName: Зачарование "Выжатый" (Редкое)
+			JunglesFuryEnchantmentBasic.DisplayName: Зачарование "Ярость джунглей" (Базовое)
+			JunglesFuryEnchantmentCommon.DisplayName: Зачарование "Ярость джунглей" (Обычное)
+			JunglesFuryEnchantmentEpic.DisplayName: Зачарование "Ярость джунглей" (Эпическое)
+			JunglesFuryEnchantmentLegendary.DisplayName: Зачарование "Ярость джунглей" (Легендарное)
+			JunglesFuryEnchantmentRare.DisplayName: Зачарование "Ярость джунглей" (Редкое)
+			KiClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Ки" (Базовое)
+			KiClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Ки" (Обычное)
+			KiClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Ки" (Эпическое)
+			KiClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Ки" (Легендарное)
+			KiClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Ки" (Редкое)
+			KiEnchantmentBasic.DisplayName: Зачарование "Ки" (Базовое)
+			KiEnchantmentCommon.DisplayName: Зачарование "Ки" (Обычное)
+			KiEnchantmentEpic.DisplayName: Зачарование "Ки" (Эпическое)
+			KiEnchantmentLegendary.DisplayName: Зачарование "Ки" (Легендарное)
+			KiEnchantmentRare.DisplayName: Зачарование "Ки" (Редкое)
+			LavaFishingEnchantmentBasic.DisplayName: Зачарование "Рыбалка в лаве" (Базовое)
+			LavaFishingEnchantmentCommon.DisplayName: Зачарование "Рыбалка в лаве" (Обычное)
+			LavaFishingEnchantmentEpic.DisplayName: Зачарование "Рыбалка в лаве" (Эпическое)
+			LavaFishingEnchantmentLegendary.DisplayName: Зачарование "Рыбалка в лаве" (Легендарное)
+			LavaFishingEnchantmentRare.DisplayName: Зачарование "Рыбалка в лаве" (Редкое)
+			LifeRegenEnchantmentBasic.DisplayName: Зачарование Регенерации Жизни Базовое
+			LifeRegenEnchantmentCommon.DisplayName: Чары Регенерации Жизни Обычный
+			LifeRegenEnchantmentEpic.DisplayName: Эпическое зачарование регенерации жизни
+			LifeRegenEnchantmentLegendary.DisplayName: Чары Регенерации Жизни Легендарные
+			LifeRegenEnchantmentRare.DisplayName: Чары регенерации здоровья Редкие
+			LifeStealEnchantmentBasic.DisplayName: Зачарование "Похищение жизни" (Базовое)
+			LifeStealEnchantmentCommon.DisplayName: Зачарование "Похищение жизни" (Обычное)
+			LifeStealEnchantmentEpic.DisplayName: Зачарование "Похищение жизни" (Эпическое)
+			LifeStealEnchantmentLegendary.DisplayName: Зачарование "Похищение жизни" (Легендарное)
+			LifeStealEnchantmentRare.DisplayName: Зачарование "Похищение жизни" (Редкое)
+			LuckEnchantmentBasic.DisplayName: Зачарование "Удача" (Базовое)
+			LuckEnchantmentCommon.DisplayName: Зачарование "Удача" (Обычное)
+			LuckEnchantmentEpic.DisplayName: Зачарование "Удача" (Эпическое)
+			LuckEnchantmentLegendary.DisplayName: Зачарование "Удача" (Легендарное)
+			LuckEnchantmentRare.DisplayName: Зачарование "Удача" (Редкое)
+			MagicClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Маг" (Базовое)
+			MagicClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Маг" (Обычное)
+			MagicClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Маг" (Эпическое)
+			MagicClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Маг" (Легендарное)
+			MagicClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Маг" (Редкое)
+			MaxMinionsEnchantmentBasic.DisplayName: Зачарование "Максимум прислужников" (Базовое)
+			MaxMinionsEnchantmentCommon.DisplayName: Зачарование "Максимум прислужников" (Обычное)
+			MaxMinionsEnchantmentEpic.DisplayName: Зачарование "Максимум прислужников" (Эпическое)
+			MaxMinionsEnchantmentLegendary.DisplayName: Зачарование "Максимум прислужников" (Легендарное)
+			MaxMinionsEnchantmentRare.DisplayName: Зачарование "Максимум прислужников" (Редкое)
+			MeleeClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Воин" (Базовое)
+			MeleeClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Воин" (Обычное)
+			MeleeClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Воин" (Эпическое)
+			MeleeClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Воин" (Легендарное)
+			MeleeClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Воин" (Редкое)
+			MobilityControlEnchantmentBasic.DisplayName: Зачарование "Контроль подвижности" (Базовое)
+			MobilityControlEnchantmentCommon.DisplayName: Зачарование "Контроль подвижности" (Обычное)
+			MobilityControlEnchantmentEpic.DisplayName: Зачарование "Контроль подвижности" (Эпическое)
+			MobilityControlEnchantmentLegendary.DisplayName: Зачарование "Контроль подвижности" (Легендарное)
+			MobilityControlEnchantmentRare.DisplayName: Зачарование "Контроль подвижности" (Редкое)
+			MoonlightEnchantmentBasic.DisplayName: Зачарование "Лунный свет" (Базовое)
+			MoonlightEnchantmentCommon.DisplayName: Зачарование "Лунный свет" (Обычное)
+			MoonlightEnchantmentEpic.DisplayName: Зачарование "Лунный свет" (Эпическое)
+			MoonlightEnchantmentLegendary.DisplayName: Зачарование "Лунный свет" (Легендарное)
+			MoonlightEnchantmentRare.DisplayName: Зачарование "Лунный свет" (Редкое)
+			MovementSpeedEnchantmentBasic.DisplayName: Зачарование "Скорость передвижения" (Базовое)
+			MovementSpeedEnchantmentCommon.DisplayName: Зачарование "Скорость передвижения" (Обычное)
+			MovementSpeedEnchantmentEpic.DisplayName: Зачарование "Скорость передвижения" (Эпическое)
+			MovementSpeedEnchantmentLegendary.DisplayName: Зачарование "Скорость передвижения" (Легендарное)
+			MovementSpeedEnchantmentRare.DisplayName: Зачарование "Скорость передвижения" (Редкое)
+			MultishotEnchantmentBasic.DisplayName: Зачарование "Многострел" (Базовое)
+			MultishotEnchantmentCommon.DisplayName: Зачарование "Многострел" (Обычное)
+			MultishotEnchantmentEpic.DisplayName: Зачарование "Многострел" (Эпическое)
+			MultishotEnchantmentLegendary.DisplayName: Зачарование "Многострел" (Легендарное)
+			MultishotEnchantmentRare.DisplayName: Зачарование "Многострел" (Редкое)
+			NpcContactAnglerEnchantmentBasic.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Базовое)
+			NpcContactAnglerEnchantmentCommon.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Обычное)
+			NpcContactAnglerEnchantmentEpic.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Эпическое)
+			NpcContactAnglerEnchantmentLegendary.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Легендарное)
+			NpcContactAnglerEnchantmentRare.DisplayName: Зачарование "Контакт с НИПом - Рыбак" (Редкое)
+			ObsidianSkinEnchantmentBasic.DisplayName: Зачарование "Обсидиановая кожа" (Базовое)
+			ObsidianSkinEnchantmentCommon.DisplayName: Зачарование "Обсидиановая кожа" (Обычное)
+			ObsidianSkinEnchantmentEpic.DisplayName: Зачарование "Обсидиановая кожа" (Эпическое)
+			ObsidianSkinEnchantmentLegendary.DisplayName: Зачарование "Обсидиановая кожа" (Легендарное)
+			ObsidianSkinEnchantmentRare.DisplayName: Зачарование "Обсидиановая кожа" (Редкое)
+			OneForAllEnchantmentBasic.DisplayName: Зачарование "Один за всех" (Базовое)
+			OneForAllEnchantmentCommon.DisplayName: Зачарование "Один за всех" (Обычное)
+			OneForAllEnchantmentEpic.DisplayName: Зачарование "Один за всех" (Эпическое)
+			OneForAllEnchantmentLegendary.DisplayName: Зачарование "Один за всех" (Легендарное)
+			OneForAllEnchantmentRare.DisplayName: Зачарование "Один за всех" (Редкое)
+			OnFireEnchantmentBasic.DisplayName: Зачарование "В огне" (Базовое)
+			OnFireEnchantmentCommon.DisplayName: Зачарование "В огне" (Обычное)
+			OnFireEnchantmentEpic.DisplayName: Зачарование "В огне" (Эпическое)
+			OnFireEnchantmentLegendary.DisplayName: Зачарование "В огне" (Легендарное)
+			OnFireEnchantmentRare.DisplayName: Зачарование "В огне" (Редкое)
+			PeaceEnchantmentBasic.DisplayName: Зачарование "Мир" (Базовое)
+			PeaceEnchantmentCommon.DisplayName: Зачарование "Мир" (Обычное)
+			PeaceEnchantmentEpic.DisplayName: Зачарование "Мир" (Эпическое)
+			PeaceEnchantmentLegendary.DisplayName: Зачарование "Мир" (Легендарное)
+			PeaceEnchantmentRare.DisplayName: Зачарование "Мир" (Редкое)
+			PennyPinchingEnchantmentBasic.DisplayName: Зачарование "Скупость" (Базовое)
+			PennyPinchingEnchantmentCommon.DisplayName: Зачарование "Скупость" (Обычное)
+			PennyPinchingEnchantmentEpic.DisplayName: Зачарование "Скупость" (Эпическое)
+			PennyPinchingEnchantmentLegendary.DisplayName: Зачарование "Скупость" (Легендарное)
+			PennyPinchingEnchantmentRare.DisplayName: Зачарование "Скупость" (Редкое)
+			PrideOfTheWeakEnchantmentBasic.DisplayName: Зачарование "Гордость слабых" (Базовое)
+			PrideOfTheWeakEnchantmentCommon.DisplayName: Зачарование "Гордость слабых" (Обычное)
+			PrideOfTheWeakEnchantmentEpic.DisplayName: Зачарование "Гордость слабых" (Эпическое)
+			PrideOfTheWeakEnchantmentLegendary.DisplayName: Зачарование "Гордость слабых" (Легендарное)
+			PrideOfTheWeakEnchantmentRare.DisplayName: Зачарование "Гордость слабых" (Редкое)
+			ProjectileVelocityEnchantmentBasic.DisplayName: Зачарование "Скорость снаряда" (Базовое)
+			ProjectileVelocityEnchantmentCommon.DisplayName: Зачарование "Скорость снаряда" (Обычное)
+			ProjectileVelocityEnchantmentEpic.DisplayName: Зачарование "Скорость снаряда" (Эпическое)
+			ProjectileVelocityEnchantmentLegendary.DisplayName: Зачарование "Скорость снаряда" (Легендарное)
+			ProjectileVelocityEnchantmentRare.DisplayName: Зачарование "Скорость снаряда" (Редкое)
+			RangedClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Стрелок" (Базовое)
+			RangedClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Стрелок" (Обычное)
+			RangedClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Стрелок" (Эпическое)
+			RangedClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Стрелок" (Легендарное)
+			RangedClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Стрелок" (Редкое)
+			ReducedManaUsageEnchantmentBasic.DisplayName: Зачарование "Снижение расхода маны" (Базовое)
+			ReducedManaUsageEnchantmentCommon.DisplayName: Зачарование "Снижение расхода маны" (Обычное)
+			ReducedManaUsageEnchantmentEpic.DisplayName: Зачарование "Снижение расхода маны" (Эпическое)
+			ReducedManaUsageEnchantmentLegendary.DisplayName: Зачарование "Снижение расхода маны" (Легендарное)
+			ReducedManaUsageEnchantmentRare.DisplayName: Зачарование "Снижение расхода маны" (Редкое)
+			RogueClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Разбойник" (Базовое)
+			RogueClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Разбойник" (Обычное)
+			RogueClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Разбойник" (Эпическое)
+			RogueClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Разбойник" (Легендарное)
+			RogueClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Разбойник" (Редкое)
+			ShineEnchantmentBasic.DisplayName: Зачарование "Сияние" (Базовое)
+			ShineEnchantmentCommon.DisplayName: Зачарование "Сияние" (Обычное)
+			ShineEnchantmentEpic.DisplayName: Зачарование "Сияние" (Эпическое)
+			ShineEnchantmentLegendary.DisplayName: Зачарование "Сияние" (Легендарное)
+			ShineEnchantmentRare.DisplayName: Зачарование "Сияние" (Редкое)
+			SizeEnchantmentBasic.DisplayName: Зачарование "Размер" (Базовое)
+			SizeEnchantmentCommon.DisplayName: Зачарование "Размер" (Обычное)
+			SizeEnchantmentEpic.DisplayName: Зачарование "Размер" (Эпическое)
+			SizeEnchantmentLegendary.DisplayName: Зачарование "Размер" (Легендарное)
+			SizeEnchantmentRare.DisplayName: Зачарование "Размер" (Редкое)
+			SolarDashEnchantmentBasic.DisplayName: Зачарование "Солнечный рывок" (Базовое)
+			SolarDashEnchantmentCommon.DisplayName: Зачарование "Солнечный рывок" (Обычное)
+			SolarDashEnchantmentEpic.DisplayName: Зачарование "Солнечный рывок" (Эпическое)
+			SolarDashEnchantmentLegendary.DisplayName: Зачарование "Солнечный рывок" (Легендарное)
+			SolarDashEnchantmentRare.DisplayName: Зачарование "Солнечный рывок" (Редкое)
+			SonarEnchantmentBasic.DisplayName: Зачарование "Сонар" (Базовое)
+			SonarEnchantmentCommon.DisplayName: Зачарование "Сонар" (Обычное)
+			SonarEnchantmentEpic.DisplayName: Зачарование "Сонар" (Эпическое)
+			SonarEnchantmentLegendary.DisplayName: Зачарование "Сонар" (Легендарное)
+			SonarEnchantmentRare.DisplayName: Зачарование "Сонар" (Редкое)
+			SpelunkerEnchantmentBasic.DisplayName: Зачарование "Спелеолог" (Базовое)
+			SpelunkerEnchantmentCommon.DisplayName: Зачарование "Спелеолог" (Обычное)
+			SpelunkerEnchantmentEpic.DisplayName: Зачарование "Спелеолог" (Эпическое)
+			SpelunkerEnchantmentLegendary.DisplayName: Зачарование "Спелеолог" (Легендарное)
+			SpelunkerEnchantmentRare.DisplayName: Зачарование "Спелеолог" (Редкое)
+			ThrowingClassSwapEnchantmentBasic.DisplayName: Бросок Зачарования Обмена Классом Базовый
+			ThrowingClassSwapEnchantmentCommon.DisplayName: Бросок чары смены класса Обычный
+			ThrowingClassSwapEnchantmentEpic.DisplayName: Эпическое зачарование смены класса
+			ThrowingClassSwapEnchantmentLegendary.DisplayName: Легендарное зачарование смены класса
+			ThrowingClassSwapEnchantmentRare.DisplayName: Бросок чары смены класса редкий
+			// TimeEnchantmentBasic.DisplayName: Time Enchantment Basic
+			// TimeEnchantmentCommon.DisplayName: Time Enchantment Common
+			// TimeEnchantmentEpic.DisplayName: Time Enchantment Epic
+			// TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary
+			// TimeEnchantmentRare.DisplayName: Time Enchantment Rare
+			VenomEnchantmentBasic.DisplayName: Зачарование "Яд" (Базовое)
+			VenomEnchantmentCommon.DisplayName: Зачарование "Яд" (Обычное)
+			VenomEnchantmentEpic.DisplayName: Зачарование "Яд" (Эпическое)
+			VenomEnchantmentLegendary.DisplayName: Зачарование "Яд" (Легендарное)
+			VenomEnchantmentRare.DisplayName: Зачарование "Яд" (Редкое)
+			WarEnchantmentBasic.DisplayName: Зачарование "Война" (Базовое)
+			WarEnchantmentCommon.DisplayName: Зачарование "Война" (Обычное)
+			WarEnchantmentEpic.DisplayName: Зачарование "Война" (Эпическое)
+			WarEnchantmentLegendary.DisplayName: Зачарование "Война" (Легендарное)
+			WarEnchantmentRare.DisplayName: Зачарование "Война" (Редкое)
+			WhipClassSwapEnchantmentBasic.DisplayName: Зачарование "Замена класса - Кнут" (Базовое)
+			WhipClassSwapEnchantmentCommon.DisplayName: Зачарование "Замена класса - Кнут" (Обычное)
+			WhipClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Кнут" (Эпическое)
+			WhipClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Кнут" (Легендарное)
+			WhipClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Кнут" (Редкое)
+			WorldAblazeEnchantmentBasic.DisplayName: Зачарование "Мир в огне" (Базовое)
+			WorldAblazeEnchantmentCommon.DisplayName: Зачарование "Мир в огне" (Обычное)
+			WorldAblazeEnchantmentEpic.DisplayName: Зачарование "Мир в огне" (Эпическое)
+			WorldAblazeEnchantmentLegendary.DisplayName: Зачарование "Мир в огне" (Легендарное)
+			WorldAblazeEnchantmentRare.DisplayName: Зачарование "Мир в огне" (Редкое)
 
 			Containment: {
 				DisplayName: Контейнер
@@ -1732,30 +433,11 @@ Mods: {
 					'''
 			}
 
-			PercentArmorPenetrationEnchantmentBasic: {
-				// DisplayName: Percent Armor Penetration Enchantment Basic
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentCommon: {
-				// DisplayName: Percent Armor Penetration Enchantment Common
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentEpic: {
-				// DisplayName: Percent Armor Penetration Enchantment Epic
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentLegendary: {
-				// DisplayName: Percent Armor Penetration Enchantment Legendary
-				// Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentRare: {
-				// DisplayName: Percent Armor Penetration Enchantment Rare
-				// Tooltip: ""
-			}
+			// PercentArmorPenetrationEnchantmentBasic.DisplayName: Percent Armor Penetration Enchantment Basic
+			// PercentArmorPenetrationEnchantmentCommon.DisplayName: Percent Armor Penetration Enchantment Common
+			// PercentArmorPenetrationEnchantmentEpic.DisplayName: Percent Armor Penetration Enchantment Epic
+			// PercentArmorPenetrationEnchantmentLegendary.DisplayName: Percent Armor Penetration Enchantment Legendary
+			// PercentArmorPenetrationEnchantmentRare.DisplayName: Percent Armor Penetration Enchantment Rare
 		}
 
 		Buffs: {

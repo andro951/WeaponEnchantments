@@ -43,10 +43,6 @@ namespace WeaponEnchantments.Localization
 			LanguageManager.Instance.SetLanguage((int)CultureName.English);
 			return returnValue;
 		}
-		//public static bool ContainsText(string s, ) => s == Language.GetText(s).;
-		public static List<string> autoFill = new() {
-			"EnchantmentEffects"
-		};
 
 		public static Dictionary<CultureName, string> LocalizationComments = new() {
 			{ CultureName.German, "Contributors: @Shiro ᵘʷᵘ#6942, @Fischstäbchen#2603  (All others Google Translated.  Needs review)" },
@@ -65,7 +61,10 @@ namespace WeaponEnchantments.Localization
 			get {
 				if (allData == null) {
 					allData = new() {
-						{ L_ID1.ItemTooltip.ToString(), new(dict: new() {
+						{ L_ID1.Items.ToString(), new(children: new() {
+							//Intentionally empty.  Filled automatically
+						}) },
+						{ L_ID1.Buffs.ToString(), new(children: new() {
 							//Intentionally empty.  Filled automatically
 						}) },
 						{ L_ID1.Tooltip.ToString(), new(children: new() {
@@ -98,6 +97,9 @@ namespace WeaponEnchantments.Localization
 								{ $"{typeof(VanillaDash).Name}{(int)DashID.CrystalNinjaDash}", $"{DashID.CrystalNinjaDash}".AddSpaces() }
 							}) },
 							{ L_ID2.EnchantmentEffects.ToString(), new(
+								values: new(){
+									//Intentionally empty.  Filled automatically
+								},
 								children: new() {
 									{ typeof(BoolEffect).Name, new(dict: new() {
 										{ "Enabled", "{0}: Enabled" },
@@ -687,6 +689,16 @@ namespace WeaponEnchantments.Localization
 						}) }
 					};
 
+					Mod weMod = ModContent.GetInstance<WEMod>();
+					IEnumerable<ModItem> modItems = weMod.GetContent<ModItem>();
+					foreach (ModItem modItem in modItems) {
+						allData[L_ID1.Items.ToString()].Children.Add(modItem.Name, new(dict: new() { { L_ID2.DisplayName.ToString(), modItem.Name.AddSpaces() } }));
+					}
+
+					foreach (string buffName in weMod.GetContent<ModBuff>().Select(b => b.Name)) {
+						allData[L_ID1.Buffs.ToString()].Children.Add(buffName, new(dict: new() { { L_ID2.DisplayName.ToString(), buffName } }));
+					}
+
 					IEnumerable<Type> types = null;
 					try {
 						types = Assembly.GetExecutingAssembly().GetTypes();
@@ -695,16 +707,34 @@ namespace WeaponEnchantments.Localization
 						types = e.Types.Where(t => t != null);
 					}
 
+					/*
+					List<string> list = types.Where(t => t.GetType() == Type.GetType("EnchantmentEffects"))
+						.Where(t => !t.IsAbstract)
+						.Select(t => t.Name)
+						.ToList();
+
+					SortedDictionary<string, string> dict = pair.Value.Dict;
+					foreach (string s in list) {
+						if (!dict.ContainsKey(s))
+							dict.Add(s, s.AddSpaces());
+					}
+					*/
+
 					Type enchantmentEffectType = typeof(EnchantmentEffect);
 					IEnumerable<Type> effectTypes = types.Where(t => !t.IsAbstract && t.IsAssignableTo(enchantmentEffectType) && t != enchantmentEffectType);
 
 					string tooltipKey = L_ID1.Tooltip.ToString();
 					string displayNameKey = L_ID2.EffectDisplayName.ToString();
+					string enchantmentEffectsKey = L_ID2.EnchantmentEffects.ToString();
 					SortedDictionary<string, string> dict = allData[tooltipKey].Children[displayNameKey].Dict;
+					SortedDictionary<string, string> enchantmentEffectsDict = allData[tooltipKey].Children[enchantmentEffectsKey].Dict;
 					foreach (Type effectType in effectTypes) {
 						string name = effectType.Name;
 						if (!dict.ContainsKey(name) && !dict.ContainsKey(name + "1"))
 							dict.Add(name, name.AddSpaces());
+
+						if (!enchantmentEffectsDict.ContainsKey(name))
+							enchantmentEffectsDict.Add(name, name.AddSpaces());
 					}
 
 					foreach (string enchantmentTypeName in ModContent.GetContent<Enchantment>().Where(e => e.EnchantmentTier == 0).Select(e => e.EnchantmentTypeName)) {
@@ -810,9 +840,6 @@ namespace WeaponEnchantments.Localization
 
 		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {
 			{ CultureName.German, new() {
-					"Mobility Control Enchantment Epic",
-					"Penny Pinching Enchantment Basic",
-					"Rogue Class Swap Enchantment Epic",
 					"Amaterasu",
 					"Agatha",
 					"Akko",
@@ -1000,8 +1027,8 @@ namespace WeaponEnchantments.Localization
 	public static class LocalizationDataStaticMethods
 	{
 		public static void AddLocalizationTooltip(this ModItem modItem, string tooltip) {
-			if ((LogModSystem.printLocalization || LogModSystem.printLocalizationKeysAndValues) && !LocalizationData.AllData[L_ID1.ItemTooltip.ToString()].Dict.ContainsKey(modItem.Name)) {
-				LocalizationData.AllData[L_ID1.ItemTooltip.ToString()].Dict.Add(modItem.Name, tooltip);
+			if ((LogModSystem.printLocalization || LogModSystem.printLocalizationKeysAndValues) && !LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.ContainsKey(L_ID1.Tooltip.ToString())) {
+				LocalizationData.AllData[L_ID1.Items.ToString()].Children[modItem.Name].Dict.Add(L_ID1.Tooltip.ToString(), tooltip);
 			}
 		}
 	}

@@ -2,1630 +2,331 @@
 Mods: {
 	WeaponEnchantments: {
 		Items: {
-			AllForOneEnchantmentBasic: {
-				DisplayName: All For One Enchantment Basic
-				Tooltip: ""
-			}
-
-			AllForOneEnchantmentCommon: {
-				DisplayName: All For One Enchantment Common
-				Tooltip: ""
-			}
-
-			AllForOneEnchantmentEpic: {
-				DisplayName: All For One Enchantment Epic
-				Tooltip: ""
-			}
-
-			AllForOneEnchantmentLegendary: {
-				DisplayName: All For One Enchantment Legendary
-				Tooltip: ""
-			}
-
-			AllForOneEnchantmentRare: {
-				DisplayName: All For One Enchantment Rare
-				Tooltip: ""
-			}
-
-			AmmoCostEnchantmentBasic: {
-				DisplayName: Ammo Cost Enchantment Basic
-				Tooltip: ""
-			}
-
-			AmmoCostEnchantmentCommon: {
-				DisplayName: Ammo Cost Enchantment Common
-				Tooltip: ""
-			}
-
-			AmmoCostEnchantmentEpic: {
-				DisplayName: Ammo Cost Enchantment Epic
-				Tooltip: ""
-			}
-
-			AmmoCostEnchantmentLegendary: {
-				DisplayName: Ammo Cost Enchantment Legendary
-				Tooltip: ""
-			}
-
-			AmmoCostEnchantmentRare: {
-				DisplayName: Ammo Cost Enchantment Rare
-				Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentBasic: {
-				DisplayName: Armor Penetration Enchantment Basic
-				Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentCommon: {
-				DisplayName: Armor Penetration Enchantment Common
-				Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentEpic: {
-				DisplayName: Armor Penetration Enchantment Epic
-				Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentLegendary: {
-				DisplayName: Armor Penetration Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ArmorPenetrationEnchantmentRare: {
-				DisplayName: Armor Penetration Enchantment Rare
-				Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentBasic: {
-				DisplayName: Attack Speed Enchantment Basic
-				Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentCommon: {
-				DisplayName: Attack Speed Enchantment Common
-				Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentEpic: {
-				DisplayName: Attack Speed Enchantment Epic
-				Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentLegendary: {
-				DisplayName: Attack Speed Enchantment Legendary
-				Tooltip: ""
-			}
-
-			AttackSpeedEnchantmentRare: {
-				DisplayName: Attack Speed Enchantment Rare
-				Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentBasic: {
-				DisplayName: Bard Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentCommon: {
-				DisplayName: Bard Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentEpic: {
-				DisplayName: Bard Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentLegendary: {
-				DisplayName: Bard Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			BardClassSwapEnchantmentRare: {
-				DisplayName: Bard Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentBasic: {
-				DisplayName: Berserkers Rage Enchantment Basic
-				Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentCommon: {
-				DisplayName: Berserkers Rage Enchantment Common
-				Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentEpic: {
-				DisplayName: Berserkers Rage Enchantment Epic
-				Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentLegendary: {
-				DisplayName: Berserkers Rage Enchantment Legendary
-				Tooltip: ""
-			}
-
-			BerserkersRageEnchantmentRare: {
-				DisplayName: Berserkers Rage Enchantment Rare
-				Tooltip: ""
-			}
-
-			CalmWatersEnchantmentBasic: {
-				DisplayName: Calm Waters Enchantment Basic
-				Tooltip: ""
-			}
-
-			CalmWatersEnchantmentCommon: {
-				DisplayName: Calm Waters Enchantment Common
-				Tooltip: ""
-			}
-
-			CalmWatersEnchantmentEpic: {
-				DisplayName: Calm Waters Enchantment Epic
-				Tooltip: ""
-			}
-
-			CalmWatersEnchantmentLegendary: {
-				DisplayName: Calm Waters Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CalmWatersEnchantmentRare: {
-				DisplayName: Calm Waters Enchantment Rare
-				Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentBasic: {
-				DisplayName: Chaotic Fishing Enchantment Basic
-				Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentCommon: {
-				DisplayName: Chaotic Fishing Enchantment Common
-				Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentEpic: {
-				DisplayName: Chaotic Fishing Enchantment Epic
-				Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentLegendary: {
-				DisplayName: Chaotic Fishing Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ChaoticFishingEnchantmentRare: {
-				DisplayName: Chaotic Fishing Enchantment Rare
-				Tooltip: ""
-			}
-
-			ColdSteelEnchantmentBasic: {
-				DisplayName: Cold Steel Enchantment Basic
-				Tooltip: ""
-			}
-
-			ColdSteelEnchantmentCommon: {
-				DisplayName: Cold Steel Enchantment Common
-				Tooltip: ""
-			}
-
-			ColdSteelEnchantmentEpic: {
-				DisplayName: Cold Steel Enchantment Epic
-				Tooltip: ""
-			}
-
-			ColdSteelEnchantmentLegendary: {
-				DisplayName: Cold Steel Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ColdSteelEnchantmentRare: {
-				DisplayName: Cold Steel Enchantment Rare
-				Tooltip: ""
-			}
-
-			CrateChanceEnchantmentBasic: {
-				DisplayName: Crate Chance Enchantment Basic
-				Tooltip: ""
-			}
-
-			CrateChanceEnchantmentCommon: {
-				DisplayName: Crate Chance Enchantment Common
-				Tooltip: ""
-			}
-
-			CrateChanceEnchantmentEpic: {
-				DisplayName: Crate Chance Enchantment Epic
-				Tooltip: ""
-			}
-
-			CrateChanceEnchantmentLegendary: {
-				DisplayName: Crate Chance Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CrateChanceEnchantmentRare: {
-				DisplayName: Crate Chance Enchantment Rare
-				Tooltip: ""
-			}
-
-			CrateEnchantmentBasic: {
-				DisplayName: Crate Enchantment Basic
-				Tooltip: ""
-			}
-
-			CrateEnchantmentCommon: {
-				DisplayName: Crate Enchantment Common
-				Tooltip: ""
-			}
-
-			CrateEnchantmentEpic: {
-				DisplayName: Crate Enchantment Epic
-				Tooltip: ""
-			}
-
-			CrateEnchantmentLegendary: {
-				DisplayName: Crate Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CrateEnchantmentRare: {
-				DisplayName: Crate Enchantment Rare
-				Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentBasic: {
-				DisplayName: Critical Strike Chance Enchantment Basic
-				Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentCommon: {
-				DisplayName: Critical Strike Chance Enchantment Common
-				Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentEpic: {
-				DisplayName: Critical Strike Chance Enchantment Epic
-				Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentLegendary: {
-				DisplayName: Critical Strike Chance Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CriticalStrikeChanceEnchantmentRare: {
-				DisplayName: Critical Strike Chance Enchantment Rare
-				Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentBasic: {
-				DisplayName: Critical Strike Damage Enchantment Basic
-				Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentCommon: {
-				DisplayName: Critical Strike Damage Enchantment Common
-				Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentEpic: {
-				DisplayName: Critical Strike Damage Enchantment Epic
-				Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentLegendary: {
-				DisplayName: Critical Strike Damage Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CriticalStrikeDamageEnchantmentRare: {
-				DisplayName: Critical Strike Damage Enchantment Rare
-				Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentBasic: {
-				DisplayName: Cursed Inferno Enchantment Basic
-				Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentCommon: {
-				DisplayName: Cursed Inferno Enchantment Common
-				Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentEpic: {
-				DisplayName: Cursed Inferno Enchantment Epic
-				Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentLegendary: {
-				DisplayName: Cursed Inferno Enchantment Legendary
-				Tooltip: ""
-			}
-
-			CursedInfernoEnchantmentRare: {
-				DisplayName: Cursed Inferno Enchantment Rare
-				Tooltip: ""
-			}
-
-			DamageEnchantmentBasic: {
-				DisplayName: Damage Enchantment Basic
-				Tooltip: ""
-			}
-
-			DamageEnchantmentCommon: {
-				DisplayName: Damage Enchantment Common
-				Tooltip: ""
-			}
-
-			DamageEnchantmentEpic: {
-				DisplayName: Damage Enchantment Epic
-				Tooltip: ""
-			}
-
-			DamageEnchantmentLegendary: {
-				DisplayName: Damage Enchantment Legendary
-				Tooltip: ""
-			}
-
-			DamageEnchantmentRare: {
-				DisplayName: Damage Enchantment Rare
-				Tooltip: ""
-			}
-
-			DamageReductionEnchantmentBasic: {
-				DisplayName: Damage Reduction Enchantment Basic
-				Tooltip: ""
-			}
-
-			DamageReductionEnchantmentCommon: {
-				DisplayName: Damage Reduction Enchantment Common
-				Tooltip: ""
-			}
-
-			DamageReductionEnchantmentEpic: {
-				DisplayName: Damage Reduction Enchantment Epic
-				Tooltip: ""
-			}
-
-			DamageReductionEnchantmentLegendary: {
-				DisplayName: Damage Reduction Enchantment Legendary
-				Tooltip: ""
-			}
-
-			DamageReductionEnchantmentRare: {
-				DisplayName: Damage Reduction Enchantment Rare
-				Tooltip: ""
-			}
-
-			DangerSenseEnchantmentBasic: {
-				DisplayName: Danger Sense Enchantment Basic
-				Tooltip: ""
-			}
-
-			DangerSenseEnchantmentCommon: {
-				DisplayName: Danger Sense Enchantment Common
-				Tooltip: ""
-			}
-
-			DangerSenseEnchantmentEpic: {
-				DisplayName: Danger Sense Enchantment Epic
-				Tooltip: ""
-			}
-
-			DangerSenseEnchantmentLegendary: {
-				DisplayName: Danger Sense Enchantment Legendary
-				Tooltip: ""
-			}
-
-			DangerSenseEnchantmentRare: {
-				DisplayName: Danger Sense Enchantment Rare
-				Tooltip: ""
-			}
-
-			DaybreakEnchantmentBasic: {
-				DisplayName: Daybreak Enchantment Basic
-				Tooltip: ""
-			}
-
-			DaybreakEnchantmentCommon: {
-				DisplayName: Daybreak Enchantment Common
-				Tooltip: ""
-			}
-
-			DaybreakEnchantmentEpic: {
-				DisplayName: Daybreak Enchantment Epic
-				Tooltip: ""
-			}
-
-			DaybreakEnchantmentLegendary: {
-				DisplayName: Daybreak Enchantment Legendary
-				Tooltip: ""
-			}
-
-			DaybreakEnchantmentRare: {
-				DisplayName: Daybreak Enchantment Rare
-				Tooltip: ""
-			}
-
-			DefenseEnchantmentBasic: {
-				DisplayName: Defense Enchantment Basic
-				Tooltip: ""
-			}
-
-			DefenseEnchantmentCommon: {
-				DisplayName: Defense Enchantment Common
-				Tooltip: ""
-			}
-
-			DefenseEnchantmentEpic: {
-				DisplayName: Defense Enchantment Epic
-				Tooltip: ""
-			}
-
-			DefenseEnchantmentLegendary: {
-				DisplayName: Defense Enchantment Legendary
-				Tooltip: ""
-			}
-
-			DefenseEnchantmentRare: {
-				DisplayName: Defense Enchantment Rare
-				Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentBasic: {
-				DisplayName: Extra Fishing Line Enchantment Basic
-				Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentCommon: {
-				DisplayName: Extra Fishing Line Enchantment Common
-				Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentEpic: {
-				DisplayName: Extra Fishing Line Enchantment Epic
-				Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentLegendary: {
-				DisplayName: Extra Fishing Line Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ExtraFishingLineEnchantmentRare: {
-				DisplayName: Extra Fishing Line Enchantment Rare
-				Tooltip: ""
-			}
-
-			FishingEnchantmentBasic: {
-				DisplayName: Fishing Enchantment Basic
-				Tooltip: ""
-			}
-
-			FishingEnchantmentCommon: {
-				DisplayName: Fishing Enchantment Common
-				Tooltip: ""
-			}
-
-			FishingEnchantmentEpic: {
-				DisplayName: Fishing Enchantment Epic
-				Tooltip: ""
-			}
-
-			FishingEnchantmentLegendary: {
-				DisplayName: Fishing Enchantment Legendary
-				Tooltip: ""
-			}
-
-			FishingEnchantmentRare: {
-				DisplayName: Fishing Enchantment Rare
-				Tooltip: ""
-			}
-
-			FishingPowerEnchantmentBasic: {
-				DisplayName: Fishing Power Enchantment Basic
-				Tooltip: ""
-			}
-
-			FishingPowerEnchantmentCommon: {
-				DisplayName: Fishing Power Enchantment Common
-				Tooltip: ""
-			}
-
-			FishingPowerEnchantmentEpic: {
-				DisplayName: Fishing Power Enchantment Epic
-				Tooltip: ""
-			}
-
-			FishingPowerEnchantmentLegendary: {
-				DisplayName: Fishing Power Enchantment Legendary
-				Tooltip: ""
-			}
-
-			FishingPowerEnchantmentRare: {
-				DisplayName: Fishing Power Enchantment Rare
-				Tooltip: ""
-			}
-
-			FrostburnEnchantmentBasic: {
-				DisplayName: Frostburn Enchantment Basic
-				Tooltip: ""
-			}
-
-			FrostburnEnchantmentCommon: {
-				DisplayName: Frostburn Enchantment Common
-				Tooltip: ""
-			}
-
-			FrostburnEnchantmentEpic: {
-				DisplayName: Frostburn Enchantment Epic
-				Tooltip: ""
-			}
-
-			FrostburnEnchantmentLegendary: {
-				DisplayName: Frostburn Enchantment Legendary
-				Tooltip: ""
-			}
-
-			FrostburnEnchantmentRare: {
-				DisplayName: Frostburn Enchantment Rare
-				Tooltip: ""
-			}
-
-			GodSlayerEnchantmentBasic: {
-				DisplayName: God Slayer Enchantment Basic
-				Tooltip: ""
-			}
-
-			GodSlayerEnchantmentCommon: {
-				DisplayName: God Slayer Enchantment Common
-				Tooltip: ""
-			}
-
-			GodSlayerEnchantmentEpic: {
-				DisplayName: God Slayer Enchantment Epic
-				Tooltip: ""
-			}
-
-			GodSlayerEnchantmentLegendary: {
-				DisplayName: God Slayer Enchantment Legendary
-				Tooltip: ""
-			}
-
-			GodSlayerEnchantmentRare: {
-				DisplayName: God Slayer Enchantment Rare
-				Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentBasic: {
-				DisplayName: Healer Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentCommon: {
-				DisplayName: Healer Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentEpic: {
-				DisplayName: Healer Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentLegendary: {
-				DisplayName: Healer Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			HealerClassSwapEnchantmentRare: {
-				DisplayName: Healer Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			HellsWrathEnchantmentBasic: {
-				DisplayName: Hells Wrath Enchantment Basic
-				Tooltip: ""
-			}
-
-			HellsWrathEnchantmentCommon: {
-				DisplayName: Hells Wrath Enchantment Common
-				Tooltip: ""
-			}
-
-			HellsWrathEnchantmentEpic: {
-				DisplayName: Hells Wrath Enchantment Epic
-				Tooltip: ""
-			}
-
-			HellsWrathEnchantmentLegendary: {
-				DisplayName: Hells Wrath Enchantment Legendary
-				Tooltip: ""
-			}
-
-			HellsWrathEnchantmentRare: {
-				DisplayName: Hells Wrath Enchantment Rare
-				Tooltip: ""
-			}
-
-			HunterEnchantmentBasic: {
-				DisplayName: Hunter Enchantment Basic
-				Tooltip: ""
-			}
-
-			HunterEnchantmentCommon: {
-				DisplayName: Hunter Enchantment Common
-				Tooltip: ""
-			}
-
-			HunterEnchantmentEpic: {
-				DisplayName: Hunter Enchantment Epic
-				Tooltip: ""
-			}
-
-			HunterEnchantmentLegendary: {
-				DisplayName: Hunter Enchantment Legendary
-				Tooltip: ""
-			}
-
-			HunterEnchantmentRare: {
-				DisplayName: Hunter Enchantment Rare
-				Tooltip: ""
-			}
-
-			IchorEnchantmentBasic: {
-				DisplayName: Ichor Enchantment Basic
-				Tooltip: ""
-			}
-
-			IchorEnchantmentCommon: {
-				DisplayName: Ichor Enchantment Common
-				Tooltip: ""
-			}
-
-			IchorEnchantmentEpic: {
-				DisplayName: Ichor Enchantment Epic
-				Tooltip: ""
-			}
-
-			IchorEnchantmentLegendary: {
-				DisplayName: Ichor Enchantment Legendary
-				Tooltip: ""
-			}
-
-			IchorEnchantmentRare: {
-				DisplayName: Ichor Enchantment Rare
-				Tooltip: ""
-			}
-
-			JuicedEnchantmentBasic: {
-				DisplayName: Juiced Enchantment Basic
-				Tooltip: ""
-			}
-
-			JuicedEnchantmentCommon: {
-				DisplayName: Juiced Enchantment Common
-				Tooltip: ""
-			}
-
-			JuicedEnchantmentEpic: {
-				DisplayName: Juiced Enchantment Epic
-				Tooltip: ""
-			}
-
-			JuicedEnchantmentLegendary: {
-				DisplayName: Juiced Enchantment Legendary
-				Tooltip: ""
-			}
-
-			JuicedEnchantmentRare: {
-				DisplayName: Juiced Enchantment Rare
-				Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentBasic: {
-				DisplayName: Jungles Fury Enchantment Basic
-				Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentCommon: {
-				DisplayName: Jungles Fury Enchantment Common
-				Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentEpic: {
-				DisplayName: Jungles Fury Enchantment Epic
-				Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentLegendary: {
-				DisplayName: Jungles Fury Enchantment Legendary
-				Tooltip: ""
-			}
-
-			JunglesFuryEnchantmentRare: {
-				DisplayName: Jungles Fury Enchantment Rare
-				Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentBasic: {
-				DisplayName: Ki Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentCommon: {
-				DisplayName: Ki Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentEpic: {
-				DisplayName: Ki Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentLegendary: {
-				DisplayName: Ki Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			KiClassSwapEnchantmentRare: {
-				DisplayName: Ki Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			KiEnchantmentBasic: {
-				DisplayName: Ki Enchantment Basic
-				Tooltip: ""
-			}
-
-			KiEnchantmentCommon: {
-				DisplayName: Ki Enchantment Common
-				Tooltip: ""
-			}
-
-			KiEnchantmentEpic: {
-				DisplayName: Ki Enchantment Epic
-				Tooltip: ""
-			}
-
-			KiEnchantmentLegendary: {
-				DisplayName: Ki Enchantment Legendary
-				Tooltip: ""
-			}
-
-			KiEnchantmentRare: {
-				DisplayName: Ki Enchantment Rare
-				Tooltip: ""
-			}
-
-			LavaFishingEnchantmentBasic: {
-				DisplayName: Lava Fishing Enchantment Basic
-				Tooltip: ""
-			}
-
-			LavaFishingEnchantmentCommon: {
-				DisplayName: Lava Fishing Enchantment Common
-				Tooltip: ""
-			}
-
-			LavaFishingEnchantmentEpic: {
-				DisplayName: Lava Fishing Enchantment Epic
-				Tooltip: ""
-			}
-
-			LavaFishingEnchantmentLegendary: {
-				DisplayName: Lava Fishing Enchantment Legendary
-				Tooltip: ""
-			}
-
-			LavaFishingEnchantmentRare: {
-				DisplayName: Lava Fishing Enchantment Rare
-				Tooltip: ""
-			}
-
-			LifeRegenEnchantmentBasic: {
-				DisplayName: Life Regen Enchantment Basic
-				Tooltip: ""
-			}
-
-			LifeRegenEnchantmentCommon: {
-				DisplayName: Life Regen Enchantment Common
-				Tooltip: ""
-			}
-
-			LifeRegenEnchantmentEpic: {
-				DisplayName: Life Regen Enchantment Epic
-				Tooltip: ""
-			}
-
-			LifeRegenEnchantmentLegendary: {
-				DisplayName: Life Regen Enchantment Legendary
-				Tooltip: ""
-			}
-
-			LifeRegenEnchantmentRare: {
-				DisplayName: Life Regen Enchantment Rare
-				Tooltip: ""
-			}
-
-			LifeStealEnchantmentBasic: {
-				DisplayName: Life Steal Enchantment Basic
-				Tooltip: ""
-			}
-
-			LifeStealEnchantmentCommon: {
-				DisplayName: Life Steal Enchantment Common
-				Tooltip: ""
-			}
-
-			LifeStealEnchantmentEpic: {
-				DisplayName: Life Steal Enchantment Epic
-				Tooltip: ""
-			}
-
-			LifeStealEnchantmentLegendary: {
-				DisplayName: Life Steal Enchantment Legendary
-				Tooltip: ""
-			}
-
-			LifeStealEnchantmentRare: {
-				DisplayName: Life Steal Enchantment Rare
-				Tooltip: ""
-			}
-
-			LuckEnchantmentBasic: {
-				DisplayName: Luck Enchantment Basic
-				Tooltip: ""
-			}
-
-			LuckEnchantmentCommon: {
-				DisplayName: Luck Enchantment Common
-				Tooltip: ""
-			}
-
-			LuckEnchantmentEpic: {
-				DisplayName: Luck Enchantment Epic
-				Tooltip: ""
-			}
-
-			LuckEnchantmentLegendary: {
-				DisplayName: Luck Enchantment Legendary
-				Tooltip: ""
-			}
-
-			LuckEnchantmentRare: {
-				DisplayName: Luck Enchantment Rare
-				Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentBasic: {
-				DisplayName: Magic Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentCommon: {
-				DisplayName: Magic Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentEpic: {
-				DisplayName: Magic Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentLegendary: {
-				DisplayName: Magic Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MagicClassSwapEnchantmentRare: {
-				DisplayName: Magic Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentBasic: {
-				DisplayName: Max Minions Enchantment Basic
-				Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentCommon: {
-				DisplayName: Max Minions Enchantment Common
-				Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentEpic: {
-				DisplayName: Max Minions Enchantment Epic
-				Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentLegendary: {
-				DisplayName: Max Minions Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MaxMinionsEnchantmentRare: {
-				DisplayName: Max Minions Enchantment Rare
-				Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentBasic: {
-				DisplayName: Melee Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentCommon: {
-				DisplayName: Melee Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentEpic: {
-				DisplayName: Melee Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentLegendary: {
-				DisplayName: Melee Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MeleeClassSwapEnchantmentRare: {
-				DisplayName: Melee Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			MobilityControlEnchantmentBasic: {
-				DisplayName: Mobility Control Enchantment Basic
-				Tooltip: ""
-			}
-
-			MobilityControlEnchantmentCommon: {
-				DisplayName: Mobility Control Enchantment Common
-				Tooltip: ""
-			}
-
-			MobilityControlEnchantmentEpic: {
-				DisplayName: Mobility Control Enchantment Epic
-				Tooltip: ""
-			}
-
-			MobilityControlEnchantmentLegendary: {
-				DisplayName: Mobility Control Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MobilityControlEnchantmentRare: {
-				DisplayName: Mobility Control Enchantment Rare
-				Tooltip: ""
-			}
-
-			MoonlightEnchantmentBasic: {
-				DisplayName: Moonlight Enchantment Basic
-				Tooltip: ""
-			}
-
-			MoonlightEnchantmentCommon: {
-				DisplayName: Moonlight Enchantment Common
-				Tooltip: ""
-			}
-
-			MoonlightEnchantmentEpic: {
-				DisplayName: Moonlight Enchantment Epic
-				Tooltip: ""
-			}
-
-			MoonlightEnchantmentLegendary: {
-				DisplayName: Moonlight Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MoonlightEnchantmentRare: {
-				DisplayName: Moonlight Enchantment Rare
-				Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentBasic: {
-				DisplayName: Movement Speed Enchantment Basic
-				Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentCommon: {
-				DisplayName: Movement Speed Enchantment Common
-				Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentEpic: {
-				DisplayName: Movement Speed Enchantment Epic
-				Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentLegendary: {
-				DisplayName: Movement Speed Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MovementSpeedEnchantmentRare: {
-				DisplayName: Movement Speed Enchantment Rare
-				Tooltip: ""
-			}
-
-			MultishotEnchantmentBasic: {
-				DisplayName: Multishot Enchantment Basic
-				Tooltip: ""
-			}
-
-			MultishotEnchantmentCommon: {
-				DisplayName: Multishot Enchantment Common
-				Tooltip: ""
-			}
-
-			MultishotEnchantmentEpic: {
-				DisplayName: Multishot Enchantment Epic
-				Tooltip: ""
-			}
-
-			MultishotEnchantmentLegendary: {
-				DisplayName: Multishot Enchantment Legendary
-				Tooltip: ""
-			}
-
-			MultishotEnchantmentRare: {
-				DisplayName: Multishot Enchantment Rare
-				Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentBasic: {
-				DisplayName: Npc Contact Angler Enchantment Basic
-				Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentCommon: {
-				DisplayName: Npc Contact Angler Enchantment Common
-				Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentEpic: {
-				DisplayName: Npc Contact Angler Enchantment Epic
-				Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentLegendary: {
-				DisplayName: Npc Contact Angler Enchantment Legendary
-				Tooltip: ""
-			}
-
-			NpcContactAnglerEnchantmentRare: {
-				DisplayName: Npc Contact Angler Enchantment Rare
-				Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentBasic: {
-				DisplayName: Obsidian Skin Enchantment Basic
-				Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentCommon: {
-				DisplayName: Obsidian Skin Enchantment Common
-				Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentEpic: {
-				DisplayName: Obsidian Skin Enchantment Epic
-				Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentLegendary: {
-				DisplayName: Obsidian Skin Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ObsidianSkinEnchantmentRare: {
-				DisplayName: Obsidian Skin Enchantment Rare
-				Tooltip: ""
-			}
-
-			OneForAllEnchantmentBasic: {
-				DisplayName: One For All Enchantment Basic
-				Tooltip: ""
-			}
-
-			OneForAllEnchantmentCommon: {
-				DisplayName: One For All Enchantment Common
-				Tooltip: ""
-			}
-
-			OneForAllEnchantmentEpic: {
-				DisplayName: One For All Enchantment Epic
-				Tooltip: ""
-			}
-
-			OneForAllEnchantmentLegendary: {
-				DisplayName: One For All Enchantment Legendary
-				Tooltip: ""
-			}
-
-			OneForAllEnchantmentRare: {
-				DisplayName: One For All Enchantment Rare
-				Tooltip: ""
-			}
-
-			OnFireEnchantmentBasic: {
-				DisplayName: On Fire Enchantment Basic
-				Tooltip: ""
-			}
-
-			OnFireEnchantmentCommon: {
-				DisplayName: On Fire Enchantment Common
-				Tooltip: ""
-			}
-
-			OnFireEnchantmentEpic: {
-				DisplayName: On Fire Enchantment Epic
-				Tooltip: ""
-			}
-
-			OnFireEnchantmentLegendary: {
-				DisplayName: On Fire Enchantment Legendary
-				Tooltip: ""
-			}
-
-			OnFireEnchantmentRare: {
-				DisplayName: On Fire Enchantment Rare
-				Tooltip: ""
-			}
-
-			PeaceEnchantmentBasic: {
-				DisplayName: Peace Enchantment Basic
-				Tooltip: ""
-			}
-
-			PeaceEnchantmentCommon: {
-				DisplayName: Peace Enchantment Common
-				Tooltip: ""
-			}
-
-			PeaceEnchantmentEpic: {
-				DisplayName: Peace Enchantment Epic
-				Tooltip: ""
-			}
-
-			PeaceEnchantmentLegendary: {
-				DisplayName: Peace Enchantment Legendary
-				Tooltip: ""
-			}
-
-			PeaceEnchantmentRare: {
-				DisplayName: Peace Enchantment Rare
-				Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentBasic: {
-				DisplayName: Penny Pinching Enchantment Basic
-				Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentCommon: {
-				DisplayName: Penny Pinching Enchantment Common
-				Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentEpic: {
-				DisplayName: Penny Pinching Enchantment Epic
-				Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentLegendary: {
-				DisplayName: Penny Pinching Enchantment Legendary
-				Tooltip: ""
-			}
-
-			PennyPinchingEnchantmentRare: {
-				DisplayName: Penny Pinching Enchantment Rare
-				Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentBasic: {
-				DisplayName: Pride Of The Weak Enchantment Basic
-				Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentCommon: {
-				DisplayName: Pride Of The Weak Enchantment Common
-				Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentEpic: {
-				DisplayName: Pride Of The Weak Enchantment Epic
-				Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentLegendary: {
-				DisplayName: Pride Of The Weak Enchantment Legendary
-				Tooltip: ""
-			}
-
-			PrideOfTheWeakEnchantmentRare: {
-				DisplayName: Pride Of The Weak Enchantment Rare
-				Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentBasic: {
-				DisplayName: Projectile Velocity Enchantment Basic
-				Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentCommon: {
-				DisplayName: Projectile Velocity Enchantment Common
-				Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentEpic: {
-				DisplayName: Projectile Velocity Enchantment Epic
-				Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentLegendary: {
-				DisplayName: Projectile Velocity Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ProjectileVelocityEnchantmentRare: {
-				DisplayName: Projectile Velocity Enchantment Rare
-				Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentBasic: {
-				DisplayName: Ranged Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentCommon: {
-				DisplayName: Ranged Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentEpic: {
-				DisplayName: Ranged Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentLegendary: {
-				DisplayName: Ranged Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			RangedClassSwapEnchantmentRare: {
-				DisplayName: Ranged Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentBasic: {
-				DisplayName: Reduced Mana Usage Enchantment Basic
-				Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentCommon: {
-				DisplayName: Reduced Mana Usage Enchantment Common
-				Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentEpic: {
-				DisplayName: Reduced Mana Usage Enchantment Epic
-				Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentLegendary: {
-				DisplayName: Reduced Mana Usage Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ReducedManaUsageEnchantmentRare: {
-				DisplayName: Reduced Mana Usage Enchantment Rare
-				Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentBasic: {
-				DisplayName: Rogue Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentCommon: {
-				DisplayName: Rogue Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentEpic: {
-				DisplayName: Rogue Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentLegendary: {
-				DisplayName: Rogue Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			RogueClassSwapEnchantmentRare: {
-				DisplayName: Rogue Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			ShineEnchantmentBasic: {
-				DisplayName: Shine Enchantment Basic
-				Tooltip: ""
-			}
-
-			ShineEnchantmentCommon: {
-				DisplayName: Shine Enchantment Common
-				Tooltip: ""
-			}
-
-			ShineEnchantmentEpic: {
-				DisplayName: Shine Enchantment Epic
-				Tooltip: ""
-			}
-
-			ShineEnchantmentLegendary: {
-				DisplayName: Shine Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ShineEnchantmentRare: {
-				DisplayName: Shine Enchantment Rare
-				Tooltip: ""
-			}
-
-			SizeEnchantmentBasic: {
-				DisplayName: Size Enchantment Basic
-				Tooltip: ""
-			}
-
-			SizeEnchantmentCommon: {
-				DisplayName: Size Enchantment Common
-				Tooltip: ""
-			}
-
-			SizeEnchantmentEpic: {
-				DisplayName: Size Enchantment Epic
-				Tooltip: ""
-			}
-
-			SizeEnchantmentLegendary: {
-				DisplayName: Size Enchantment Legendary
-				Tooltip: ""
-			}
-
-			SizeEnchantmentRare: {
-				DisplayName: Size Enchantment Rare
-				Tooltip: ""
-			}
-
-			SolarDashEnchantmentBasic: {
-				DisplayName: Solar Dash Enchantment Basic
-				Tooltip: ""
-			}
-
-			SolarDashEnchantmentCommon: {
-				DisplayName: Solar Dash Enchantment Common
-				Tooltip: ""
-			}
-
-			SolarDashEnchantmentEpic: {
-				DisplayName: Solar Dash Enchantment Epic
-				Tooltip: ""
-			}
-
-			SolarDashEnchantmentLegendary: {
-				DisplayName: Solar Dash Enchantment Legendary
-				Tooltip: ""
-			}
-
-			SolarDashEnchantmentRare: {
-				DisplayName: Solar Dash Enchantment Rare
-				Tooltip: ""
-			}
-
-			SonarEnchantmentBasic: {
-				DisplayName: Sonar Enchantment Basic
-				Tooltip: ""
-			}
-
-			SonarEnchantmentCommon: {
-				DisplayName: Sonar Enchantment Common
-				Tooltip: ""
-			}
-
-			SonarEnchantmentEpic: {
-				DisplayName: Sonar Enchantment Epic
-				Tooltip: ""
-			}
-
-			SonarEnchantmentLegendary: {
-				DisplayName: Sonar Enchantment Legendary
-				Tooltip: ""
-			}
-
-			SonarEnchantmentRare: {
-				DisplayName: Sonar Enchantment Rare
-				Tooltip: ""
-			}
-
-			SpelunkerEnchantmentBasic: {
-				DisplayName: Spelunker Enchantment Basic
-				Tooltip: ""
-			}
-
-			SpelunkerEnchantmentCommon: {
-				DisplayName: Spelunker Enchantment Common
-				Tooltip: ""
-			}
-
-			SpelunkerEnchantmentEpic: {
-				DisplayName: Spelunker Enchantment Epic
-				Tooltip: ""
-			}
-
-			SpelunkerEnchantmentLegendary: {
-				DisplayName: Spelunker Enchantment Legendary
-				Tooltip: ""
-			}
-
-			SpelunkerEnchantmentRare: {
-				DisplayName: Spelunker Enchantment Rare
-				Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentBasic: {
-				DisplayName: Throwing Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentCommon: {
-				DisplayName: Throwing Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentEpic: {
-				DisplayName: Throwing Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentLegendary: {
-				DisplayName: Throwing Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			ThrowingClassSwapEnchantmentRare: {
-				DisplayName: Throwing Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			TimeEnchantmentBasic: {
-				DisplayName: Time Enchantment Basic
-				Tooltip: ""
-			}
-
-			TimeEnchantmentCommon: {
-				DisplayName: Time Enchantment Common
-				Tooltip: ""
-			}
-
-			TimeEnchantmentEpic: {
-				DisplayName: Time Enchantment Epic
-				Tooltip: ""
-			}
-
-			TimeEnchantmentLegendary: {
-				DisplayName: Time Enchantment Legendary
-				Tooltip: ""
-			}
-
-			TimeEnchantmentRare: {
-				DisplayName: Time Enchantment Rare
-				Tooltip: ""
-			}
-
-			VenomEnchantmentBasic: {
-				DisplayName: Venom Enchantment Basic
-				Tooltip: ""
-			}
-
-			VenomEnchantmentCommon: {
-				DisplayName: Venom Enchantment Common
-				Tooltip: ""
-			}
-
-			VenomEnchantmentEpic: {
-				DisplayName: Venom Enchantment Epic
-				Tooltip: ""
-			}
-
-			VenomEnchantmentLegendary: {
-				DisplayName: Venom Enchantment Legendary
-				Tooltip: ""
-			}
-
-			VenomEnchantmentRare: {
-				DisplayName: Venom Enchantment Rare
-				Tooltip: ""
-			}
-
-			WarEnchantmentBasic: {
-				DisplayName: War Enchantment Basic
-				Tooltip: ""
-			}
-
-			WarEnchantmentCommon: {
-				DisplayName: War Enchantment Common
-				Tooltip: ""
-			}
-
-			WarEnchantmentEpic: {
-				DisplayName: War Enchantment Epic
-				Tooltip: ""
-			}
-
-			WarEnchantmentLegendary: {
-				DisplayName: War Enchantment Legendary
-				Tooltip: ""
-			}
-
-			WarEnchantmentRare: {
-				DisplayName: War Enchantment Rare
-				Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentBasic: {
-				DisplayName: Whip Class Swap Enchantment Basic
-				Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentCommon: {
-				DisplayName: Whip Class Swap Enchantment Common
-				Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentEpic: {
-				DisplayName: Whip Class Swap Enchantment Epic
-				Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentLegendary: {
-				DisplayName: Whip Class Swap Enchantment Legendary
-				Tooltip: ""
-			}
-
-			WhipClassSwapEnchantmentRare: {
-				DisplayName: Whip Class Swap Enchantment Rare
-				Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentBasic: {
-				DisplayName: World Ablaze Enchantment Basic
-				Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentCommon: {
-				DisplayName: World Ablaze Enchantment Common
-				Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentEpic: {
-				DisplayName: World Ablaze Enchantment Epic
-				Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentLegendary: {
-				DisplayName: World Ablaze Enchantment Legendary
-				Tooltip: ""
-			}
-
-			WorldAblazeEnchantmentRare: {
-				DisplayName: World Ablaze Enchantment Rare
-				Tooltip: ""
-			}
+			AllForOneEnchantmentBasic.DisplayName: All For One Enchantment Basic
+			AllForOneEnchantmentCommon.DisplayName: All For One Enchantment Common
+			AllForOneEnchantmentEpic.DisplayName: All For One Enchantment Epic
+			AllForOneEnchantmentLegendary.DisplayName: All For One Enchantment Legendary
+			AllForOneEnchantmentRare.DisplayName: All For One Enchantment Rare
+			AmmoCostEnchantmentBasic.DisplayName: Ammo Cost Enchantment Basic
+			AmmoCostEnchantmentCommon.DisplayName: Ammo Cost Enchantment Common
+			AmmoCostEnchantmentEpic.DisplayName: Ammo Cost Enchantment Epic
+			AmmoCostEnchantmentLegendary.DisplayName: Ammo Cost Enchantment Legendary
+			AmmoCostEnchantmentRare.DisplayName: Ammo Cost Enchantment Rare
+			ArmorPenetrationEnchantmentBasic.DisplayName: Armor Penetration Enchantment Basic
+			ArmorPenetrationEnchantmentCommon.DisplayName: Armor Penetration Enchantment Common
+			ArmorPenetrationEnchantmentEpic.DisplayName: Armor Penetration Enchantment Epic
+			ArmorPenetrationEnchantmentLegendary.DisplayName: Armor Penetration Enchantment Legendary
+			ArmorPenetrationEnchantmentRare.DisplayName: Armor Penetration Enchantment Rare
+			AttackSpeedEnchantmentBasic.DisplayName: Attack Speed Enchantment Basic
+			AttackSpeedEnchantmentCommon.DisplayName: Attack Speed Enchantment Common
+			AttackSpeedEnchantmentEpic.DisplayName: Attack Speed Enchantment Epic
+			AttackSpeedEnchantmentLegendary.DisplayName: Attack Speed Enchantment Legendary
+			AttackSpeedEnchantmentRare.DisplayName: Attack Speed Enchantment Rare
+			BardClassSwapEnchantmentBasic.DisplayName: Bard Class Swap Enchantment Basic
+			BardClassSwapEnchantmentCommon.DisplayName: Bard Class Swap Enchantment Common
+			BardClassSwapEnchantmentEpic.DisplayName: Bard Class Swap Enchantment Epic
+			BardClassSwapEnchantmentLegendary.DisplayName: Bard Class Swap Enchantment Legendary
+			BardClassSwapEnchantmentRare.DisplayName: Bard Class Swap Enchantment Rare
+			BerserkersRageEnchantmentBasic.DisplayName: Berserkers Rage Enchantment Basic
+			BerserkersRageEnchantmentCommon.DisplayName: Berserkers Rage Enchantment Common
+			BerserkersRageEnchantmentEpic.DisplayName: Berserkers Rage Enchantment Epic
+			BerserkersRageEnchantmentLegendary.DisplayName: Berserkers Rage Enchantment Legendary
+			BerserkersRageEnchantmentRare.DisplayName: Berserkers Rage Enchantment Rare
+			CalmWatersEnchantmentBasic.DisplayName: Calm Waters Enchantment Basic
+			CalmWatersEnchantmentCommon.DisplayName: Calm Waters Enchantment Common
+			CalmWatersEnchantmentEpic.DisplayName: Calm Waters Enchantment Epic
+			CalmWatersEnchantmentLegendary.DisplayName: Calm Waters Enchantment Legendary
+			CalmWatersEnchantmentRare.DisplayName: Calm Waters Enchantment Rare
+			ChaoticFishingEnchantmentBasic.DisplayName: Chaotic Fishing Enchantment Basic
+			ChaoticFishingEnchantmentCommon.DisplayName: Chaotic Fishing Enchantment Common
+			ChaoticFishingEnchantmentEpic.DisplayName: Chaotic Fishing Enchantment Epic
+			ChaoticFishingEnchantmentLegendary.DisplayName: Chaotic Fishing Enchantment Legendary
+			ChaoticFishingEnchantmentRare.DisplayName: Chaotic Fishing Enchantment Rare
+			ColdSteelEnchantmentBasic.DisplayName: Cold Steel Enchantment Basic
+			ColdSteelEnchantmentCommon.DisplayName: Cold Steel Enchantment Common
+			ColdSteelEnchantmentEpic.DisplayName: Cold Steel Enchantment Epic
+			ColdSteelEnchantmentLegendary.DisplayName: Cold Steel Enchantment Legendary
+			ColdSteelEnchantmentRare.DisplayName: Cold Steel Enchantment Rare
+			CrateChanceEnchantmentBasic.DisplayName: Crate Chance Enchantment Basic
+			CrateChanceEnchantmentCommon.DisplayName: Crate Chance Enchantment Common
+			CrateChanceEnchantmentEpic.DisplayName: Crate Chance Enchantment Epic
+			CrateChanceEnchantmentLegendary.DisplayName: Crate Chance Enchantment Legendary
+			CrateChanceEnchantmentRare.DisplayName: Crate Chance Enchantment Rare
+			CrateEnchantmentBasic.DisplayName: Crate Enchantment Basic
+			CrateEnchantmentCommon.DisplayName: Crate Enchantment Common
+			CrateEnchantmentEpic.DisplayName: Crate Enchantment Epic
+			CrateEnchantmentLegendary.DisplayName: Crate Enchantment Legendary
+			CrateEnchantmentRare.DisplayName: Crate Enchantment Rare
+			CriticalStrikeChanceEnchantmentBasic.DisplayName: Critical Strike Chance Enchantment Basic
+			CriticalStrikeChanceEnchantmentCommon.DisplayName: Critical Strike Chance Enchantment Common
+			CriticalStrikeChanceEnchantmentEpic.DisplayName: Critical Strike Chance Enchantment Epic
+			CriticalStrikeChanceEnchantmentLegendary.DisplayName: Critical Strike Chance Enchantment Legendary
+			CriticalStrikeChanceEnchantmentRare.DisplayName: Critical Strike Chance Enchantment Rare
+			CriticalStrikeDamageEnchantmentBasic.DisplayName: Critical Strike Damage Enchantment Basic
+			CriticalStrikeDamageEnchantmentCommon.DisplayName: Critical Strike Damage Enchantment Common
+			CriticalStrikeDamageEnchantmentEpic.DisplayName: Critical Strike Damage Enchantment Epic
+			CriticalStrikeDamageEnchantmentLegendary.DisplayName: Critical Strike Damage Enchantment Legendary
+			CriticalStrikeDamageEnchantmentRare.DisplayName: Critical Strike Damage Enchantment Rare
+			CursedInfernoEnchantmentBasic.DisplayName: Cursed Inferno Enchantment Basic
+			CursedInfernoEnchantmentCommon.DisplayName: Cursed Inferno Enchantment Common
+			CursedInfernoEnchantmentEpic.DisplayName: Cursed Inferno Enchantment Epic
+			CursedInfernoEnchantmentLegendary.DisplayName: Cursed Inferno Enchantment Legendary
+			CursedInfernoEnchantmentRare.DisplayName: Cursed Inferno Enchantment Rare
+			DamageEnchantmentBasic.DisplayName: Damage Enchantment Basic
+			DamageEnchantmentCommon.DisplayName: Damage Enchantment Common
+			DamageEnchantmentEpic.DisplayName: Damage Enchantment Epic
+			DamageEnchantmentLegendary.DisplayName: Damage Enchantment Legendary
+			DamageEnchantmentRare.DisplayName: Damage Enchantment Rare
+			DamageReductionEnchantmentBasic.DisplayName: Damage Reduction Enchantment Basic
+			DamageReductionEnchantmentCommon.DisplayName: Damage Reduction Enchantment Common
+			DamageReductionEnchantmentEpic.DisplayName: Damage Reduction Enchantment Epic
+			DamageReductionEnchantmentLegendary.DisplayName: Damage Reduction Enchantment Legendary
+			DamageReductionEnchantmentRare.DisplayName: Damage Reduction Enchantment Rare
+			DangerSenseEnchantmentBasic.DisplayName: Danger Sense Enchantment Basic
+			DangerSenseEnchantmentCommon.DisplayName: Danger Sense Enchantment Common
+			DangerSenseEnchantmentEpic.DisplayName: Danger Sense Enchantment Epic
+			DangerSenseEnchantmentLegendary.DisplayName: Danger Sense Enchantment Legendary
+			DangerSenseEnchantmentRare.DisplayName: Danger Sense Enchantment Rare
+			DaybreakEnchantmentBasic.DisplayName: Daybreak Enchantment Basic
+			DaybreakEnchantmentCommon.DisplayName: Daybreak Enchantment Common
+			DaybreakEnchantmentEpic.DisplayName: Daybreak Enchantment Epic
+			DaybreakEnchantmentLegendary.DisplayName: Daybreak Enchantment Legendary
+			DaybreakEnchantmentRare.DisplayName: Daybreak Enchantment Rare
+			DefenseEnchantmentBasic.DisplayName: Defense Enchantment Basic
+			DefenseEnchantmentCommon.DisplayName: Defense Enchantment Common
+			DefenseEnchantmentEpic.DisplayName: Defense Enchantment Epic
+			DefenseEnchantmentLegendary.DisplayName: Defense Enchantment Legendary
+			DefenseEnchantmentRare.DisplayName: Defense Enchantment Rare
+			ExtraFishingLineEnchantmentBasic.DisplayName: Extra Fishing Line Enchantment Basic
+			ExtraFishingLineEnchantmentCommon.DisplayName: Extra Fishing Line Enchantment Common
+			ExtraFishingLineEnchantmentEpic.DisplayName: Extra Fishing Line Enchantment Epic
+			ExtraFishingLineEnchantmentLegendary.DisplayName: Extra Fishing Line Enchantment Legendary
+			ExtraFishingLineEnchantmentRare.DisplayName: Extra Fishing Line Enchantment Rare
+			FishingEnchantmentBasic.DisplayName: Fishing Enchantment Basic
+			FishingEnchantmentCommon.DisplayName: Fishing Enchantment Common
+			FishingEnchantmentEpic.DisplayName: Fishing Enchantment Epic
+			FishingEnchantmentLegendary.DisplayName: Fishing Enchantment Legendary
+			FishingEnchantmentRare.DisplayName: Fishing Enchantment Rare
+			FishingPowerEnchantmentBasic.DisplayName: Fishing Power Enchantment Basic
+			FishingPowerEnchantmentCommon.DisplayName: Fishing Power Enchantment Common
+			FishingPowerEnchantmentEpic.DisplayName: Fishing Power Enchantment Epic
+			FishingPowerEnchantmentLegendary.DisplayName: Fishing Power Enchantment Legendary
+			FishingPowerEnchantmentRare.DisplayName: Fishing Power Enchantment Rare
+			FrostburnEnchantmentBasic.DisplayName: Frostburn Enchantment Basic
+			FrostburnEnchantmentCommon.DisplayName: Frostburn Enchantment Common
+			FrostburnEnchantmentEpic.DisplayName: Frostburn Enchantment Epic
+			FrostburnEnchantmentLegendary.DisplayName: Frostburn Enchantment Legendary
+			FrostburnEnchantmentRare.DisplayName: Frostburn Enchantment Rare
+			GodSlayerEnchantmentBasic.DisplayName: God Slayer Enchantment Basic
+			GodSlayerEnchantmentCommon.DisplayName: God Slayer Enchantment Common
+			GodSlayerEnchantmentEpic.DisplayName: God Slayer Enchantment Epic
+			GodSlayerEnchantmentLegendary.DisplayName: God Slayer Enchantment Legendary
+			GodSlayerEnchantmentRare.DisplayName: God Slayer Enchantment Rare
+			HealerClassSwapEnchantmentBasic.DisplayName: Healer Class Swap Enchantment Basic
+			HealerClassSwapEnchantmentCommon.DisplayName: Healer Class Swap Enchantment Common
+			HealerClassSwapEnchantmentEpic.DisplayName: Healer Class Swap Enchantment Epic
+			HealerClassSwapEnchantmentLegendary.DisplayName: Healer Class Swap Enchantment Legendary
+			HealerClassSwapEnchantmentRare.DisplayName: Healer Class Swap Enchantment Rare
+			HellsWrathEnchantmentBasic.DisplayName: Hells Wrath Enchantment Basic
+			HellsWrathEnchantmentCommon.DisplayName: Hells Wrath Enchantment Common
+			HellsWrathEnchantmentEpic.DisplayName: Hells Wrath Enchantment Epic
+			HellsWrathEnchantmentLegendary.DisplayName: Hells Wrath Enchantment Legendary
+			HellsWrathEnchantmentRare.DisplayName: Hells Wrath Enchantment Rare
+			HunterEnchantmentBasic.DisplayName: Hunter Enchantment Basic
+			HunterEnchantmentCommon.DisplayName: Hunter Enchantment Common
+			HunterEnchantmentEpic.DisplayName: Hunter Enchantment Epic
+			HunterEnchantmentLegendary.DisplayName: Hunter Enchantment Legendary
+			HunterEnchantmentRare.DisplayName: Hunter Enchantment Rare
+			IchorEnchantmentBasic.DisplayName: Ichor Enchantment Basic
+			IchorEnchantmentCommon.DisplayName: Ichor Enchantment Common
+			IchorEnchantmentEpic.DisplayName: Ichor Enchantment Epic
+			IchorEnchantmentLegendary.DisplayName: Ichor Enchantment Legendary
+			IchorEnchantmentRare.DisplayName: Ichor Enchantment Rare
+			JuicedEnchantmentBasic.DisplayName: Juiced Enchantment Basic
+			JuicedEnchantmentCommon.DisplayName: Juiced Enchantment Common
+			JuicedEnchantmentEpic.DisplayName: Juiced Enchantment Epic
+			JuicedEnchantmentLegendary.DisplayName: Juiced Enchantment Legendary
+			JuicedEnchantmentRare.DisplayName: Juiced Enchantment Rare
+			JunglesFuryEnchantmentBasic.DisplayName: Jungles Fury Enchantment Basic
+			JunglesFuryEnchantmentCommon.DisplayName: Jungles Fury Enchantment Common
+			JunglesFuryEnchantmentEpic.DisplayName: Jungles Fury Enchantment Epic
+			JunglesFuryEnchantmentLegendary.DisplayName: Jungles Fury Enchantment Legendary
+			JunglesFuryEnchantmentRare.DisplayName: Jungles Fury Enchantment Rare
+			KiClassSwapEnchantmentBasic.DisplayName: Ki Class Swap Enchantment Basic
+			KiClassSwapEnchantmentCommon.DisplayName: Ki Class Swap Enchantment Common
+			KiClassSwapEnchantmentEpic.DisplayName: Ki Class Swap Enchantment Epic
+			KiClassSwapEnchantmentLegendary.DisplayName: Ki Class Swap Enchantment Legendary
+			KiClassSwapEnchantmentRare.DisplayName: Ki Class Swap Enchantment Rare
+			KiEnchantmentBasic.DisplayName: Ki Enchantment Basic
+			KiEnchantmentCommon.DisplayName: Ki Enchantment Common
+			KiEnchantmentEpic.DisplayName: Ki Enchantment Epic
+			KiEnchantmentLegendary.DisplayName: Ki Enchantment Legendary
+			KiEnchantmentRare.DisplayName: Ki Enchantment Rare
+			LavaFishingEnchantmentBasic.DisplayName: Lava Fishing Enchantment Basic
+			LavaFishingEnchantmentCommon.DisplayName: Lava Fishing Enchantment Common
+			LavaFishingEnchantmentEpic.DisplayName: Lava Fishing Enchantment Epic
+			LavaFishingEnchantmentLegendary.DisplayName: Lava Fishing Enchantment Legendary
+			LavaFishingEnchantmentRare.DisplayName: Lava Fishing Enchantment Rare
+			LifeRegenEnchantmentBasic.DisplayName: Life Regen Enchantment Basic
+			LifeRegenEnchantmentCommon.DisplayName: Life Regen Enchantment Common
+			LifeRegenEnchantmentEpic.DisplayName: Life Regen Enchantment Epic
+			LifeRegenEnchantmentLegendary.DisplayName: Life Regen Enchantment Legendary
+			LifeRegenEnchantmentRare.DisplayName: Life Regen Enchantment Rare
+			LifeStealEnchantmentBasic.DisplayName: Life Steal Enchantment Basic
+			LifeStealEnchantmentCommon.DisplayName: Life Steal Enchantment Common
+			LifeStealEnchantmentEpic.DisplayName: Life Steal Enchantment Epic
+			LifeStealEnchantmentLegendary.DisplayName: Life Steal Enchantment Legendary
+			LifeStealEnchantmentRare.DisplayName: Life Steal Enchantment Rare
+			LuckEnchantmentBasic.DisplayName: Luck Enchantment Basic
+			LuckEnchantmentCommon.DisplayName: Luck Enchantment Common
+			LuckEnchantmentEpic.DisplayName: Luck Enchantment Epic
+			LuckEnchantmentLegendary.DisplayName: Luck Enchantment Legendary
+			LuckEnchantmentRare.DisplayName: Luck Enchantment Rare
+			MagicClassSwapEnchantmentBasic.DisplayName: Magic Class Swap Enchantment Basic
+			MagicClassSwapEnchantmentCommon.DisplayName: Magic Class Swap Enchantment Common
+			MagicClassSwapEnchantmentEpic.DisplayName: Magic Class Swap Enchantment Epic
+			MagicClassSwapEnchantmentLegendary.DisplayName: Magic Class Swap Enchantment Legendary
+			MagicClassSwapEnchantmentRare.DisplayName: Magic Class Swap Enchantment Rare
+			MaxMinionsEnchantmentBasic.DisplayName: Max Minions Enchantment Basic
+			MaxMinionsEnchantmentCommon.DisplayName: Max Minions Enchantment Common
+			MaxMinionsEnchantmentEpic.DisplayName: Max Minions Enchantment Epic
+			MaxMinionsEnchantmentLegendary.DisplayName: Max Minions Enchantment Legendary
+			MaxMinionsEnchantmentRare.DisplayName: Max Minions Enchantment Rare
+			MeleeClassSwapEnchantmentBasic.DisplayName: Melee Class Swap Enchantment Basic
+			MeleeClassSwapEnchantmentCommon.DisplayName: Melee Class Swap Enchantment Common
+			MeleeClassSwapEnchantmentEpic.DisplayName: Melee Class Swap Enchantment Epic
+			MeleeClassSwapEnchantmentLegendary.DisplayName: Melee Class Swap Enchantment Legendary
+			MeleeClassSwapEnchantmentRare.DisplayName: Melee Class Swap Enchantment Rare
+			MobilityControlEnchantmentBasic.DisplayName: Mobility Control Enchantment Basic
+			MobilityControlEnchantmentCommon.DisplayName: Mobility Control Enchantment Common
+			MobilityControlEnchantmentEpic.DisplayName: Mobility Control Enchantment Epic
+			MobilityControlEnchantmentLegendary.DisplayName: Mobility Control Enchantment Legendary
+			MobilityControlEnchantmentRare.DisplayName: Mobility Control Enchantment Rare
+			MoonlightEnchantmentBasic.DisplayName: Moonlight Enchantment Basic
+			MoonlightEnchantmentCommon.DisplayName: Moonlight Enchantment Common
+			MoonlightEnchantmentEpic.DisplayName: Moonlight Enchantment Epic
+			MoonlightEnchantmentLegendary.DisplayName: Moonlight Enchantment Legendary
+			MoonlightEnchantmentRare.DisplayName: Moonlight Enchantment Rare
+			MovementSpeedEnchantmentBasic.DisplayName: Movement Speed Enchantment Basic
+			MovementSpeedEnchantmentCommon.DisplayName: Movement Speed Enchantment Common
+			MovementSpeedEnchantmentEpic.DisplayName: Movement Speed Enchantment Epic
+			MovementSpeedEnchantmentLegendary.DisplayName: Movement Speed Enchantment Legendary
+			MovementSpeedEnchantmentRare.DisplayName: Movement Speed Enchantment Rare
+			MultishotEnchantmentBasic.DisplayName: Multishot Enchantment Basic
+			MultishotEnchantmentCommon.DisplayName: Multishot Enchantment Common
+			MultishotEnchantmentEpic.DisplayName: Multishot Enchantment Epic
+			MultishotEnchantmentLegendary.DisplayName: Multishot Enchantment Legendary
+			MultishotEnchantmentRare.DisplayName: Multishot Enchantment Rare
+			NpcContactAnglerEnchantmentBasic.DisplayName: Npc Contact Angler Enchantment Basic
+			NpcContactAnglerEnchantmentCommon.DisplayName: Npc Contact Angler Enchantment Common
+			NpcContactAnglerEnchantmentEpic.DisplayName: Npc Contact Angler Enchantment Epic
+			NpcContactAnglerEnchantmentLegendary.DisplayName: Npc Contact Angler Enchantment Legendary
+			NpcContactAnglerEnchantmentRare.DisplayName: Npc Contact Angler Enchantment Rare
+			ObsidianSkinEnchantmentBasic.DisplayName: Obsidian Skin Enchantment Basic
+			ObsidianSkinEnchantmentCommon.DisplayName: Obsidian Skin Enchantment Common
+			ObsidianSkinEnchantmentEpic.DisplayName: Obsidian Skin Enchantment Epic
+			ObsidianSkinEnchantmentLegendary.DisplayName: Obsidian Skin Enchantment Legendary
+			ObsidianSkinEnchantmentRare.DisplayName: Obsidian Skin Enchantment Rare
+			OneForAllEnchantmentBasic.DisplayName: One For All Enchantment Basic
+			OneForAllEnchantmentCommon.DisplayName: One For All Enchantment Common
+			OneForAllEnchantmentEpic.DisplayName: One For All Enchantment Epic
+			OneForAllEnchantmentLegendary.DisplayName: One For All Enchantment Legendary
+			OneForAllEnchantmentRare.DisplayName: One For All Enchantment Rare
+			OnFireEnchantmentBasic.DisplayName: On Fire Enchantment Basic
+			OnFireEnchantmentCommon.DisplayName: On Fire Enchantment Common
+			OnFireEnchantmentEpic.DisplayName: On Fire Enchantment Epic
+			OnFireEnchantmentLegendary.DisplayName: On Fire Enchantment Legendary
+			OnFireEnchantmentRare.DisplayName: On Fire Enchantment Rare
+			PeaceEnchantmentBasic.DisplayName: Peace Enchantment Basic
+			PeaceEnchantmentCommon.DisplayName: Peace Enchantment Common
+			PeaceEnchantmentEpic.DisplayName: Peace Enchantment Epic
+			PeaceEnchantmentLegendary.DisplayName: Peace Enchantment Legendary
+			PeaceEnchantmentRare.DisplayName: Peace Enchantment Rare
+			PennyPinchingEnchantmentBasic.DisplayName: Penny Pinching Enchantment Basic
+			PennyPinchingEnchantmentCommon.DisplayName: Penny Pinching Enchantment Common
+			PennyPinchingEnchantmentEpic.DisplayName: Penny Pinching Enchantment Epic
+			PennyPinchingEnchantmentLegendary.DisplayName: Penny Pinching Enchantment Legendary
+			PennyPinchingEnchantmentRare.DisplayName: Penny Pinching Enchantment Rare
+			PrideOfTheWeakEnchantmentBasic.DisplayName: Pride Of The Weak Enchantment Basic
+			PrideOfTheWeakEnchantmentCommon.DisplayName: Pride Of The Weak Enchantment Common
+			PrideOfTheWeakEnchantmentEpic.DisplayName: Pride Of The Weak Enchantment Epic
+			PrideOfTheWeakEnchantmentLegendary.DisplayName: Pride Of The Weak Enchantment Legendary
+			PrideOfTheWeakEnchantmentRare.DisplayName: Pride Of The Weak Enchantment Rare
+			ProjectileVelocityEnchantmentBasic.DisplayName: Projectile Velocity Enchantment Basic
+			ProjectileVelocityEnchantmentCommon.DisplayName: Projectile Velocity Enchantment Common
+			ProjectileVelocityEnchantmentEpic.DisplayName: Projectile Velocity Enchantment Epic
+			ProjectileVelocityEnchantmentLegendary.DisplayName: Projectile Velocity Enchantment Legendary
+			ProjectileVelocityEnchantmentRare.DisplayName: Projectile Velocity Enchantment Rare
+			RangedClassSwapEnchantmentBasic.DisplayName: Ranged Class Swap Enchantment Basic
+			RangedClassSwapEnchantmentCommon.DisplayName: Ranged Class Swap Enchantment Common
+			RangedClassSwapEnchantmentEpic.DisplayName: Ranged Class Swap Enchantment Epic
+			RangedClassSwapEnchantmentLegendary.DisplayName: Ranged Class Swap Enchantment Legendary
+			RangedClassSwapEnchantmentRare.DisplayName: Ranged Class Swap Enchantment Rare
+			ReducedManaUsageEnchantmentBasic.DisplayName: Reduced Mana Usage Enchantment Basic
+			ReducedManaUsageEnchantmentCommon.DisplayName: Reduced Mana Usage Enchantment Common
+			ReducedManaUsageEnchantmentEpic.DisplayName: Reduced Mana Usage Enchantment Epic
+			ReducedManaUsageEnchantmentLegendary.DisplayName: Reduced Mana Usage Enchantment Legendary
+			ReducedManaUsageEnchantmentRare.DisplayName: Reduced Mana Usage Enchantment Rare
+			RogueClassSwapEnchantmentBasic.DisplayName: Rogue Class Swap Enchantment Basic
+			RogueClassSwapEnchantmentCommon.DisplayName: Rogue Class Swap Enchantment Common
+			RogueClassSwapEnchantmentEpic.DisplayName: Rogue Class Swap Enchantment Epic
+			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap Enchantment Legendary
+			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Rare
+			ShineEnchantmentBasic.DisplayName: Shine Enchantment Basic
+			ShineEnchantmentCommon.DisplayName: Shine Enchantment Common
+			ShineEnchantmentEpic.DisplayName: Shine Enchantment Epic
+			ShineEnchantmentLegendary.DisplayName: Shine Enchantment Legendary
+			ShineEnchantmentRare.DisplayName: Shine Enchantment Rare
+			SizeEnchantmentBasic.DisplayName: Size Enchantment Basic
+			SizeEnchantmentCommon.DisplayName: Size Enchantment Common
+			SizeEnchantmentEpic.DisplayName: Size Enchantment Epic
+			SizeEnchantmentLegendary.DisplayName: Size Enchantment Legendary
+			SizeEnchantmentRare.DisplayName: Size Enchantment Rare
+			SolarDashEnchantmentBasic.DisplayName: Solar Dash Enchantment Basic
+			SolarDashEnchantmentCommon.DisplayName: Solar Dash Enchantment Common
+			SolarDashEnchantmentEpic.DisplayName: Solar Dash Enchantment Epic
+			SolarDashEnchantmentLegendary.DisplayName: Solar Dash Enchantment Legendary
+			SolarDashEnchantmentRare.DisplayName: Solar Dash Enchantment Rare
+			SonarEnchantmentBasic.DisplayName: Sonar Enchantment Basic
+			SonarEnchantmentCommon.DisplayName: Sonar Enchantment Common
+			SonarEnchantmentEpic.DisplayName: Sonar Enchantment Epic
+			SonarEnchantmentLegendary.DisplayName: Sonar Enchantment Legendary
+			SonarEnchantmentRare.DisplayName: Sonar Enchantment Rare
+			SpelunkerEnchantmentBasic.DisplayName: Spelunker Enchantment Basic
+			SpelunkerEnchantmentCommon.DisplayName: Spelunker Enchantment Common
+			SpelunkerEnchantmentEpic.DisplayName: Spelunker Enchantment Epic
+			SpelunkerEnchantmentLegendary.DisplayName: Spelunker Enchantment Legendary
+			SpelunkerEnchantmentRare.DisplayName: Spelunker Enchantment Rare
+			ThrowingClassSwapEnchantmentBasic.DisplayName: Throwing Class Swap Enchantment Basic
+			ThrowingClassSwapEnchantmentCommon.DisplayName: Throwing Class Swap Enchantment Common
+			ThrowingClassSwapEnchantmentEpic.DisplayName: Throwing Class Swap Enchantment Epic
+			ThrowingClassSwapEnchantmentLegendary.DisplayName: Throwing Class Swap Enchantment Legendary
+			ThrowingClassSwapEnchantmentRare.DisplayName: Throwing Class Swap Enchantment Rare
+			TimeEnchantmentBasic.DisplayName: Time Enchantment Basic
+			TimeEnchantmentCommon.DisplayName: Time Enchantment Common
+			TimeEnchantmentEpic.DisplayName: Time Enchantment Epic
+			TimeEnchantmentLegendary.DisplayName: Time Enchantment Legendary
+			TimeEnchantmentRare.DisplayName: Time Enchantment Rare
+			VenomEnchantmentBasic.DisplayName: Venom Enchantment Basic
+			VenomEnchantmentCommon.DisplayName: Venom Enchantment Common
+			VenomEnchantmentEpic.DisplayName: Venom Enchantment Epic
+			VenomEnchantmentLegendary.DisplayName: Venom Enchantment Legendary
+			VenomEnchantmentRare.DisplayName: Venom Enchantment Rare
+			WarEnchantmentBasic.DisplayName: War Enchantment Basic
+			WarEnchantmentCommon.DisplayName: War Enchantment Common
+			WarEnchantmentEpic.DisplayName: War Enchantment Epic
+			WarEnchantmentLegendary.DisplayName: War Enchantment Legendary
+			WarEnchantmentRare.DisplayName: War Enchantment Rare
+			WhipClassSwapEnchantmentBasic.DisplayName: Whip Class Swap Enchantment Basic
+			WhipClassSwapEnchantmentCommon.DisplayName: Whip Class Swap Enchantment Common
+			WhipClassSwapEnchantmentEpic.DisplayName: Whip Class Swap Enchantment Epic
+			WhipClassSwapEnchantmentLegendary.DisplayName: Whip Class Swap Enchantment Legendary
+			WhipClassSwapEnchantmentRare.DisplayName: Whip Class Swap Enchantment Rare
+			WorldAblazeEnchantmentBasic.DisplayName: World Ablaze Enchantment Basic
+			WorldAblazeEnchantmentCommon.DisplayName: World Ablaze Enchantment Common
+			WorldAblazeEnchantmentEpic.DisplayName: World Ablaze Enchantment Epic
+			WorldAblazeEnchantmentLegendary.DisplayName: World Ablaze Enchantment Legendary
+			WorldAblazeEnchantmentRare.DisplayName: World Ablaze Enchantment Rare
 
 			Containment: {
 				DisplayName: Containment
@@ -1732,30 +433,11 @@ Mods: {
 					'''
 			}
 
-			PercentArmorPenetrationEnchantmentBasic: {
-				DisplayName: Percent Armor Penetration Enchantment Basic
-				Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentCommon: {
-				DisplayName: Percent Armor Penetration Enchantment Common
-				Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentEpic: {
-				DisplayName: Percent Armor Penetration Enchantment Epic
-				Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentLegendary: {
-				DisplayName: Percent Armor Penetration Enchantment Legendary
-				Tooltip: ""
-			}
-
-			PercentArmorPenetrationEnchantmentRare: {
-				DisplayName: Percent Armor Penetration Enchantment Rare
-				Tooltip: ""
-			}
+			PercentArmorPenetrationEnchantmentBasic.DisplayName: Percent Armor Penetration Enchantment Basic
+			PercentArmorPenetrationEnchantmentCommon.DisplayName: Percent Armor Penetration Enchantment Common
+			PercentArmorPenetrationEnchantmentEpic.DisplayName: Percent Armor Penetration Enchantment Epic
+			PercentArmorPenetrationEnchantmentLegendary.DisplayName: Percent Armor Penetration Enchantment Legendary
+			PercentArmorPenetrationEnchantmentRare.DisplayName: Percent Armor Penetration Enchantment Rare
 		}
 
 		Buffs: {

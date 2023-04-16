@@ -407,10 +407,9 @@ namespace WeaponEnchantments.Common.Utility
         OldMan = 37
     }
     public enum L_ID1 {
-		ItemName,
-		ItemTooltip,
+		Items,
 		Tooltip,
-		BuffName,
+		Buffs,
 		Dialogue,
         NPCNames,
         Bestiary,
@@ -432,7 +431,8 @@ namespace WeaponEnchantments.Common.Utility
 		ArmorSlotNames,
 		DamageClassNames,
 		VanillaBuffs,
-		Header
+		Header,
+		DisplayName
 	}
 	public enum L_ID3 {
 		Label,

@@ -248,6 +248,7 @@ namespace WeaponEnchantments.Items
 		/// </summary>
 		public virtual string CustomTooltip { protected set; get; } = "";
 		public virtual string ShortTooltip => GetShortTooltip();
+		public override LocalizedText Tooltip => LocalizedText.Empty;
 
 		//public string FullToolTip { private set; get; }
 		//public Dictionary<EItemType, string> AllowedListTooltips { private set; get; } = new Dictionary<EItemType, string>();
@@ -262,7 +263,6 @@ namespace WeaponEnchantments.Items
 				return types;
 			}
 		}
-		public override bool DynamicTooltip => true;
 		public override int CreativeItemSacrifice => 1;
 		public string TierName => tierNames[EnchantmentTier];
 
