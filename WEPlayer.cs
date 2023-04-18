@@ -329,7 +329,7 @@ namespace WeaponEnchantments
             tag["levelsPerLevelUp"] = levelsPerLevelUp;
             tag["enchantmentStorageItems"] = enchantmentStorageItems;
             tag["enchantmentStorageUILocationX"] = enchantmentStorageUILocationX;
-			tag["enchantmentStorageUILocationX"] = enchantmentStorageUILocationX;
+			tag["enchantmentStorageUILocationY"] = enchantmentStorageUILocationY;
 		}
 		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {

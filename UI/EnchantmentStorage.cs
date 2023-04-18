@@ -21,7 +21,7 @@ namespace WeaponEnchantments.UI
 		public static int enchantmentStorageUIDefaultX => Main.screenWidth / 2;
 		public static int enchantmentStorageUIDefaultY => 300;
 		public static void PoseDrawInterface(SpriteBatch spriteBatch, WEPlayer wePlayer) {
-			if (wePlayer.displayEnchantmentStorage || true) {
+			if (wePlayer.displayEnchantmentStorage) {
 				int columns = 10;
 				int rows = 4;//wePlayer.enchantmentStorageItems.Length / columns
 				int itemSlotSpaceing = (4f * Main.inventoryScale).RoundNearest(2);
