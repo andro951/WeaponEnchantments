@@ -148,7 +148,7 @@ namespace WeaponEnchantments.Common.Utility
             return false;
         }
         public static bool TryGetEnchantedWeapon(this Item item, out EnchantedWeapon w) {
-            if (item != null && item.TryGetGlobalItem(out w)) {
+            if (!item.NullOrAir() && item.TryGetGlobalItem(out w)) {
                 w.Item = item;
                 return true;
             }
@@ -842,8 +842,16 @@ namespace WeaponEnchantments.Common.Utility
 			if (!sets.ContainsHashSet(newSet))
 				sets.Add(newSet);
 		}
+        public static int RoundNearest(this float f, int mult) {
+            float r = f % mult;
+            int result = (int)(f - r);
+            if (r >= mult / 2f)
+                result += mult;
 
-        #endregion
+            return result;
+        }
+
+		#endregion
 
 		/*
         public static void Combine<T>(this List<T> list, List<T> list2) {

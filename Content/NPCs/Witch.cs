@@ -36,6 +36,7 @@ namespace WeaponEnchantments.Content.NPCs
 		public static bool mouseRerollEnchantment = false;
 		public static float rerollScale = 1f;
 		public static string EnchantmentShopName = "EnchantmentsShop";
+		public static string FullEnchantmentShopName = $"WeaponEnchantments/Witch/{EnchantmentShopName}";
 		private int firstNullOrAirItemIndex = 0;
 
 		public List<WikiTypeID> WikiNPCTypes => new() { WikiTypeID.NPC };
@@ -212,9 +213,10 @@ namespace WeaponEnchantments.Content.NPCs
 		public override void AddShops() {
 			NPCShop witchShop = new NPCShop(Type, EnchantmentShopName);
 			witchShop.Register();
+			//resetShop = true;
 		}
 		public override void ModifyActiveShop(string shopName, Item[] items) {
-			if (shopName == EnchantmentShopName) {
+			if (shopName == FullEnchantmentShopName) {
 				if (resetShop || firstNullOrAirItemIndex == 0) {
 					GetItemsForShop(ref items);
 					resetShop = false;

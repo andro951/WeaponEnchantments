@@ -88,30 +88,8 @@ namespace WeaponEnchantments.Tiles
 			num = fail ? 1 : 3;
 		}
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
-			if (enchantingTableTier > -1) {
-				int tableType = -1;
-                switch (enchantingTableTier) {
-					case 0:
-						tableType = ModContent.ItemType<Items.WoodEnchantingTable>();
-						break;
-					case 1:
-						tableType = ModContent.ItemType<Items.DustyEnchantingTable>();
-						break;
-					case 2:
-						tableType = ModContent.ItemType<Items.HellishEnchantingTable>();
-						break;
-					case 3:
-						tableType = ModContent.ItemType<Items.SoulEnchantingTable>();
-						break;
-					case 4:
-						tableType = ModContent.ItemType<Items.UltimateEnchantingTable>();
-						break;
-				}
-
-				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
-
+			if (enchantingTableTier > -1)
 				WEModSystem.CloseWeaponEnchantmentUI();
-			}
 		}
 		public override bool RightClick(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

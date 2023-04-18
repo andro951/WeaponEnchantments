@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Common.Globals
 			WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
 
 			//Prevent using items when hoving over enchanting table ui
-			if (wePlayer.usingEnchantingTable && WeaponEnchantmentUI.preventItemUse)
+			if (UIManager.HoveringOverUI)
 				return false;
 
 			return true;

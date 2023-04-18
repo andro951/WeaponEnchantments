@@ -23,6 +23,12 @@ using WeaponEnchantments.Content.NPCs;
 using System.Linq;
 using WeaponEnchantments.ModIntegration;
 using MonoMod.RuntimeDetour;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Microsoft.Xna.Framework;
+using Terraria.GameInput;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace WeaponEnchantments
 {

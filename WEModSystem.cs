@@ -1,11 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,6 +27,7 @@ using WeaponEnchantments.Items.Enchantments.Unique;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.Tiles;
+using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
 
 namespace WeaponEnchantments
@@ -84,8 +89,9 @@ namespace WeaponEnchantments
             }
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
+            WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			UIManager.PostDrawInterface(spriteBatch, wePlayer);
+			if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
                 Item item = wePlayer.Player.HeldItem;
 				string temp = item.ModFullName();
                 if (item.DamageType != DamageClass.Default) {
@@ -270,10 +276,11 @@ namespace WeaponEnchantments
                 }
             }
 
+            //Enchantment Storage
+            EnchantmentStorage.PoseDrawInterface(spriteBatch, wePlayer);
+
 			//Witch Re-roll ItemSlot
 			if (Witch.rerollUI) {
-                //float inventoryScale = Main.inventoryScale;
-                Main.inventoryScale = 0.86f;
                 int talkNPC = Main.LocalPlayer.talkNPC;
 				if (talkNPC < 0 || Main.npc[talkNPC].ModFullName() != "WeaponEnchantments/Witch") {
                     Witch.rerollUI = false;
@@ -441,7 +448,7 @@ namespace WeaponEnchantments
                     updatedPlayerNames.Add(playerName);
                 }
             }
-        }
+		}
         public static void RemoveTableItem(WEPlayer wePlayer) {
             for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
                 Item enchantmentInUI = wePlayer.EnchantmentInUI(i);
@@ -470,6 +477,9 @@ namespace WeaponEnchantments
         }
         public static void CloseWeaponEnchantmentUI(bool noSound = false) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            if (!wePlayer.usingEnchantingTable)
+                return;
+
             Item itemInUI = wePlayer.ItemInUI();
             if (itemInUI != null && !itemInUI.IsAir) {
                 //Give item in table back to player

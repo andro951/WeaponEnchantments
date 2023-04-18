@@ -38,7 +38,17 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
-        public int levelsPerLevelUp;
+		public static WEPlayer LocalWEPlayer {
+			get {
+				if (localWEPlayer == null) {
+					localWEPlayer = Main.LocalPlayer.GetWEPlayer();
+				}
+
+				return localWEPlayer;
+			}
+		}
+		private static WEPlayer localWEPlayer = null;
+		public int levelsPerLevelUp;
         internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
@@ -65,6 +75,10 @@ namespace WeaponEnchantments
         public Point enchantingTableLocation = new Point(-1, -1);
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
+        public Item[] enchantmentStorageItems;
+        public int enchantmentStorageUILocationX;
+		public int enchantmentStorageUILocationY;
+        public bool displayEnchantmentStorage;
 
 		#endregion
 
@@ -121,8 +135,6 @@ namespace WeaponEnchantments
 			var c = new ILCursor(il);
 
 			if (!c.TryGotoNext(MoveType.After,
-				//i => i.MatchCall(out _),
-				//i => i.MatchLdcI4(1),
 				i => i.MatchLdcI4(101),
 				i => i.MatchCallvirt(out _),
 				i => i.MatchLdloc(8),
@@ -134,11 +146,6 @@ namespace WeaponEnchantments
 
             if (!c.TryGotoNext(MoveType.Before,
                 i => i.MatchLdarg(3)
-                //i => i.MatchLdloc(7),
-                //i => i.MatchLdarg(3),
-                //i => i.MatchLdcI4(1),
-                //i => i.MatchLdarg(0),
-                //i => i.MatchLdfld<Player>("luck")
 			)) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs 2/2"); }
             c.Emit(OpCodes.Ldloc, 7);
             c.Emit(OpCodes.Ldarga, 0);
@@ -153,17 +160,6 @@ namespace WeaponEnchantments
 
 				return ref hitModifiers;
             });
-			/*
-            c.EmitDelegate((NPC.HitModifiers hitModifiers, bool crit, Item item, NPC target) => {
-                if (Main.LocalPlayer.TryGetWEPlayer(out WEPlayer wePlayer)) {
-					FieldInfo info = typeof(NPC.HitModifiers).GetField("_critOverride", BindingFlags.NonPublic | BindingFlags.Instance);
-					bool? critOverride = (bool?)info.GetValue(hitModifiers);
-					wePlayer.ModifyHitNPCWithAny(item, target, ref hitModifiers);
-				}
-
-                return hitModifiers;
-			});
-            */
 		}
         public static void HookFishingCheck_RollDropLevels(ILContext il) {
             var c = new ILCursor(il);
@@ -250,15 +246,32 @@ namespace WeaponEnchantments
             c.Emit(OpCodes.Ldarg_0);
             c.EmitDelegate((float stringLength, Projectile projectile) => ModifyYoyoStringLength(stringLength, projectile));
         }
+        public static void HookTrySwitchingLoadout(ILContext il) {
+			var c = new ILCursor(il);
 
-        #endregion
+			if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchStloc(0),
+				i => i.MatchLdarg(0)
+			)) { throw new Exception("Failed to find instructions HookTrySwitchingLoadout"); }
+			c.Emit(OpCodes.Ldarga, 0);
+			c.Emit(OpCodes.Ldarg, 1);
 
-        #region General Override Hooks
+			c.EmitDelegate((ref Player player, int loadoutIndex) => {
+				if (player.TryGetWEPlayer(out WEPlayer wePlayer)) {
+                    wePlayer.OnSwapEquipmentLoadout(loadoutIndex);
+				}
+			});
+		}
 
-        public override void Load() {
+		#endregion
+
+		#region General Override Hooks
+
+		public override void Load() {
             IL_Player.ProcessHitAgainstNPC += HookProcessHitAgainstNPC;
             //Terraria.IL_Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
             IL_Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
+            IL_Player.TrySwitchingLoadout += HookTrySwitchingLoadout;
 		}
         public override void OnEnterWorld() {
 
@@ -314,6 +327,9 @@ namespace WeaponEnchantments
             tag["highestTableTierUsed"] = highestTableTierUsed;
             tag["versionUpdate"] = versionUpdate;
             tag["levelsPerLevelUp"] = levelsPerLevelUp;
+            tag["enchantmentStorageItems"] = enchantmentStorageItems;
+            tag["enchantmentStorageUILocationX"] = enchantmentStorageUILocationX;
+			tag["enchantmentStorageUILocationX"] = enchantmentStorageUILocationX;
 		}
 		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
@@ -340,8 +356,24 @@ namespace WeaponEnchantments
 
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
             versionUpdate = tag.Get<byte>("versionUpdate");
-            if (!tag.TryGet<int>("levelsPerLevelUp", out levelsPerLevelUp))
-                levelsPerLevelUp = 1;
+			levelsPerLevelUp = tag.Get<int>("levelsPerLevelUp");
+			if (levelsPerLevelUp < 1)
+				levelsPerLevelUp = 1;
+
+            if (!tag.TryGet<Item[]>("enchantmentStorageItems", out enchantmentStorageItems))
+                enchantmentStorageItems = Enumerable.Repeat(new Item(), 100).ToArray();
+
+			for (int i = 0; i < enchantmentStorageItems.Length; i++) {
+                if (enchantmentStorageItems[i] == null)
+                    enchantmentStorageItems[i] = new();
+			}
+
+            enchantmentStorageUILocationX = tag.Get<int>("enchantmentStorageUILocationX");
+			enchantmentStorageUILocationY = tag.Get<int>("enchantmentStorageUILocationY");
+            if (enchantmentStorageUILocationX == 0 && enchantmentStorageUILocationY == 0) {
+                enchantmentStorageUILocationX = EnchantmentStorage.enchantmentStorageUIDefaultX;
+				enchantmentStorageUILocationY = EnchantmentStorage.enchantmentStorageUIDefaultY;
+			}
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
             if (!usingEnchantingTable)
@@ -919,6 +951,10 @@ namespace WeaponEnchantments
                 UpdatePlayerStat();
 		
 			cursedEssenceCount = 0;
+        }
+        public void OnSwapEquipmentLoadout(int loadoutIndex) {
+            //Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
+
         }
 
 		#endregion

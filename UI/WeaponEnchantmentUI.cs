@@ -77,7 +77,7 @@ namespace WeaponEnchantments.UI
         internal int RelativeTop => Main.screenHeight / 2 + 42;
 
         public override void OnInitialize() {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+            WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
             Width.Pixels = width;
             Height.Pixels = height;
             Top.Pixels = int.MaxValue / 2;

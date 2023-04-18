@@ -118,7 +118,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	}
 	public class ThrowingClassSwapEnchantmentBasic : ThrowingClassSwapEnchantment
 	{
-		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
+		public override SellCondition SellCondition => WEMod.thoriumEnabled ? SellCondition.AnyTimeRare : SellCondition.Never;
 		public override List<ModDropData> ModNpcDropNames => WEMod.thoriumEnabled ? new() {
 			new("ThoriumMod/TheGrandThunderBirdv2")
 		} : null;
