@@ -14,6 +14,7 @@ using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System.Linq;
 
 namespace WeaponEnchantments.UI
 {
@@ -52,8 +53,6 @@ namespace WeaponEnchantments.UI
             }
         }
 
-        //public static string[] ButtonNames = new string[] { "Enchant", "Disenchant", "Offer", "Level", "Syphon" };
-        public static bool preventItemUse = false;
         public static bool pressedLootAll = true;
 
         private UIText titleText;
@@ -73,17 +72,23 @@ namespace WeaponEnchantments.UI
         internal const int width = 530;
         internal const int height = 155;
 
-        internal int RelativeLeft => Main.screenWidth / 2 - width / 2;
-        internal int RelativeTop => Main.screenHeight / 2 + 42;
-
-        public override void OnInitialize() {
+        public static int RelativeLeft => Main.screenWidth / 2 - width / 2;
+        public static int RelativeTop => Main.screenHeight / 2 + 42;
+        private bool hoveringOverBorder => !button.Any(b => b.IsMouseHovering) && !itemSlotUI.Any(i => i.IsMouseHovering) && !enchantmentSlotUI.Any(e => e.IsMouseHovering) && !essenceSlotUI.Any(e => e.IsMouseHovering);
+		private static int ID = UI_ID.EnchantingTable;
+		public override void OnInitialize() {
             WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-            Width.Pixels = width;
-            Height.Pixels = height;
-            Top.Pixels = int.MaxValue / 2;
-            Left.Pixels = int.MaxValue / 2;
+			Width.Pixels = width;
+			Height.Pixels = height;
+			Left.Pixels = wePlayer.enchantingTableUILocationX;
+			Top.Pixels = wePlayer.enchantingTableUILocationY;
+			OnLeftMouseDown += (evt, element) => {
+                if (UIManager.MouseHovering(IsMouseHovering, ID) && hoveringOverBorder) {
+                    UIManager.StartDraggingUI(this, ID);
+				}
+			};
 
-            panels = new List<UIPanel>();
+			panels = new List<UIPanel>();
 
             float xOffset = -20;
             float nextElementY = -PaddingTop / 2;
@@ -451,12 +456,20 @@ namespace WeaponEnchantments.UI
             button[ButtonID.Offer].Append(offerButtonText);
             Append(button[ButtonID.Offer]);
             panels.Add(button[ButtonID.Offer]);
-        }
-        public override void OnActivate() {
+            UpdateUISizeAndLocations();
+		}
+		public void UpdateUISizeAndLocations() {
+			if (UIManager.ShouldDragUI(ID))
+				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILocationX, out WEPlayer.LocalWEPlayer.enchantingTableUILocationY);
+
+			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationX;
+			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationY;
+		}
+		public override void OnActivate() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             //Get item(s) left in enchanting table
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
+				wePlayer.enchantingTableUI.itemSlotUI[i].Item = wePlayer.enchantingTable.item[i].Clone();
             }
 
             //Get enchantments left in enchanting table
@@ -494,9 +507,7 @@ namespace WeaponEnchantments.UI
             }
         }
         public override void Update(GameTime gameTime) {
-            Left.Pixels = RelativeLeft;
-            Top.Pixels = RelativeTop;
-            preventItemUse = false;
+			UpdateUISizeAndLocations();
 
             //Change button color if hovering
             foreach (var panel in panels) {
@@ -517,8 +528,8 @@ namespace WeaponEnchantments.UI
             }
 
             if (IsMouseHovering)
-                preventItemUse = true;
-        }
+				Main.LocalPlayer.mouseInterface = true;
+		}
         private static void ConvertEssenceToXP(int tier) {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Item essence = wePlayer.enchantingTableUI.essenceSlotUI[tier].Item;

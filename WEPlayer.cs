@@ -76,9 +76,11 @@ namespace WeaponEnchantments
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
         public Item[] enchantmentStorageItems;
-        public int enchantmentStorageUILocationX;
-		public int enchantmentStorageUILocationY;
+        public int enchantmentStorageUILeft;
+		public int enchantmentStorageUITop;
         public bool displayEnchantmentStorage;
+        public int enchantingTableUILocationX;
+		public int enchantingTableUILocationY;
 
 		#endregion
 
@@ -328,8 +330,10 @@ namespace WeaponEnchantments
             tag["versionUpdate"] = versionUpdate;
             tag["levelsPerLevelUp"] = levelsPerLevelUp;
             tag["enchantmentStorageItems"] = enchantmentStorageItems;
-            tag["enchantmentStorageUILocationX"] = enchantmentStorageUILocationX;
-			tag["enchantmentStorageUILocationY"] = enchantmentStorageUILocationY;
+            tag["enchantmentStorageUILocationX"] = enchantmentStorageUILeft;
+			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
+            tag["enchantingTableUILocationX"] = enchantingTableUILocationX;
+            tag["enchantingTableUILocationY"] = enchantingTableUILocationY;
 		}
 		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
@@ -368,12 +372,13 @@ namespace WeaponEnchantments
                     enchantmentStorageItems[i] = new();
 			}
 
-            enchantmentStorageUILocationX = tag.Get<int>("enchantmentStorageUILocationX");
-			enchantmentStorageUILocationY = tag.Get<int>("enchantmentStorageUILocationY");
-            if (enchantmentStorageUILocationX == 0 && enchantmentStorageUILocationY == 0) {
-                enchantmentStorageUILocationX = EnchantmentStorage.enchantmentStorageUIDefaultX;
-				enchantmentStorageUILocationY = EnchantmentStorage.enchantmentStorageUIDefaultY;
-			}
+            enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
+			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.enchantmentStorageUIDefaultX, EnchantmentStorage.enchantmentStorageUIDefaultY);
+
+            enchantingTableUILocationX = tag.Get<int>("enchantingTableUILocationX");
+            enchantingTableUILocationY = tag.Get<int>("enchantingTableUILocationY");
+			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILocationX, ref enchantingTableUILocationY, WeaponEnchantmentUI.RelativeLeft, WeaponEnchantmentUI.RelativeTop);
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
             if (!usingEnchantingTable)

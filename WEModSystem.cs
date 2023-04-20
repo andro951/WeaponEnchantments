@@ -89,8 +89,8 @@ namespace WeaponEnchantments
             }
         }
         public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			UIManager.PostDrawInterface(spriteBatch, wePlayer);
+            UIManager.PostDrawInterface(spriteBatch);
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
                 Item item = wePlayer.Player.HeldItem;
 				string temp = item.ModFullName();

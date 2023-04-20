@@ -11,70 +11,84 @@ using Terraria;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Common.Utility;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
+using Terraria.UI.Chat;
+using Microsoft.CodeAnalysis;
 
 namespace WeaponEnchantments.UI
 {
-	public class EnchantmentStorage
+	public static class EnchantmentStorage
 	{
-		private static bool movingEnchantmentStorageUI = false;
-		public static bool hoveringEnchantmentStorageUI = false;
+		public class EnchantmentStorageButtonID
+		{
+			public const int LootAll = 0;
+			public const int DepositAll = 1;
+			public const int QuickStack = 2;
+			public const int Restock = 3;
+			public const int Sort = 4;
+			public const int RenameChest = 5;
+			public const int RenameChestCancel = 6;
+			public const int ToggleVacuum = 7;
+			public static readonly int Count = 7;
+		}
+		public static int ID => UI_ID.EnchantmentStorage;
 		public static int enchantmentStorageUIDefaultX => Main.screenWidth / 2;
 		public static int enchantmentStorageUIDefaultY => 300;
-		public static void PoseDrawInterface(SpriteBatch spriteBatch, WEPlayer wePlayer) {
-			if (wePlayer.displayEnchantmentStorage) {
-				int columns = 10;
-				int rows = 4;//wePlayer.enchantmentStorageItems.Length / columns
-				int itemSlotSpaceing = (4f * Main.inventoryScale).RoundNearest(2);
-				int itemSlotTextureHeight = (TextureAssets.InventoryBack.Height() * Main.inventoryScale).RoundNearest(2);
-				int itemSlotTextureWidth = (TextureAssets.InventoryBack.Width() * Main.inventoryScale).RoundNearest(2);
-				int itemSlotSpaceHeight = itemSlotTextureHeight + itemSlotSpaceing;
-				int itemSlotSpaceWidth = itemSlotTextureWidth + itemSlotSpaceing;
-				int itemSlotsHeight = (rows - 1) * itemSlotSpaceHeight + itemSlotTextureHeight;
-				int itemSlotsWidth = (columns - 1) * itemSlotSpaceWidth + itemSlotTextureWidth;
-				int itemSlotsTopY = wePlayer.enchantmentStorageUILocationY - itemSlotsHeight / 2;
-				int itemSlotsLeftX = wePlayer.enchantmentStorageUILocationX - itemSlotsWidth / 2;
-				int itemSlotY = itemSlotsTopY;
-				bool notHoveringOverAnItemSlot = true;
+		private static int spacing => 4;
+		private static int panelBorder => 10;
+		public const float buttonScaleMinimum = 0.75f;
+		public const float buttonScaleMaximum = 1f;
+		public static float[] ButtonScale = new float[EnchantmentStorageButtonID.Count];
+		public static void PostDrawInterface(SpriteBatch spriteBatch) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			if (wePlayer.displayEnchantmentStorage || true) {
+				//ItemSlots Measurements
+				int itemSlotColumns = 10;
+				int itemSlotRows = 4;//wePlayer.enchantmentStorageItems.Length / columns
+				int itemSlotSpaceWidth = UIManager.ItemSlotSize + spacing;
+				int itemSlotSpaceHeight = UIManager.ItemSlotSize + spacing;
+				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + UIManager.ItemSlotSize;
+				int itemSlotsHeight = (itemSlotRows - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
+				int itemSlotsLeft = wePlayer.enchantmentStorageUILeft + panelBorder;
+				int itemSlotsTop = wePlayer.enchantmentStorageUITop + panelBorder;
+
+				//Name Data
+				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang(L_ID1.EnchantmentStorageText);
+				name = "Enchantment Storage Name Test";
+				int textsLeft = itemSlotsLeft + itemSlotsWidth + spacing;
+				Vector2 vector = FontAssets.MouseText.Value.MeasureString(name);
+				int nameX = (int)vector.X;
+				int nameY = (int)vector.Y;
+
+				//Text buttons Data
+
+
+				//Panel Data
+				int panelBorderRight = spacing + nameX + panelBorder;
+				int panelWidth = itemSlotsWidth + panelBorder + panelBorderRight;
+				int panelHeight = itemSlotsHeight + panelBorder * 2;
+				UIPanelData panel = new(ID, wePlayer.enchantmentStorageUILeft, wePlayer.enchantmentStorageUITop, panelWidth, panelHeight);
+
+				//Panel Draw
+				UIManager.DrawUIPanel(spriteBatch, panel, new Color(26, 2, 56, 100));
+
+				//ItemSlots Draw
+				int itemSlotY = itemSlotsTop;
 				int itemSlotIndex = 0;
 				int startRow = 0;
 				int endRow = startRow + 4;
-
-				//UIPannel
-				int panelBorderTop = 10;
-				int panelBorderBottom = 10;
-				int panelBorderLeft = 10;
-				int panelBorderRight = 100;
-				int panelHeight = itemSlotsHeight + panelBorderTop + panelBorderBottom;
-				int panelWidth = itemSlotsWidth + panelBorderLeft + panelBorderRight;
-				int cornerSize = 12;
-				Point panelTopLeft = new Point(wePlayer.enchantmentStorageUILocationX - panelBorderLeft - itemSlotsWidth / 2, wePlayer.enchantmentStorageUILocationY - panelBorderTop - itemSlotsHeight / 2);
-				Point panelBottomRight = new Point(panelTopLeft.X + panelWidth - cornerSize, panelTopLeft.Y + panelHeight - cornerSize);
-
-				UIManager.DrawUIPanel(spriteBatch, cornerSize, panelTopLeft, panelBottomRight, new Color(26, 2, 56));
-
-				//ItemSlots
 				for (int row = startRow; row < endRow; row++) {
-					int itemSlotX = itemSlotsLeftX;
-					for (int column = 0; column < columns; column++) {
+					int itemSlotX = itemSlotsLeft;
+					for (int column = 0; column < itemSlotColumns; column++) {
 						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
-						if (notHoveringOverAnItemSlot) {
-							if (Main.mouseX >= itemSlotX && Main.mouseX <= itemSlotX + itemSlotTextureWidth && Main.mouseY >= itemSlotY && Main.mouseY <= itemSlotY + itemSlotTextureHeight && !PlayerInput.IgnoreMouseInterface) {
-								Main.LocalPlayer.mouseInterface = true;
-								Main.craftingHide = true;
-								if (Main.mouseItem.NullOrAir() || Main.mouseItem?.ModItem is WEModItem weModItem && weModItem is not EnchantmentEssence) {
-									ItemSlot.LeftClick(ref item, 30);
-									if (Main.mouseLeftRelease && Main.mouseLeft)
-										Recipe.FindRecipes();
-
-									ItemSlot.RightClick(ref item, 30);
-									ItemSlot.MouseHover(ref item, 30);
-								}
-
-								notHoveringOverAnItemSlot = false;
-							}
+						if (UIManager.MouseHoveringItemSlot(itemSlotX, itemSlotY, UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex)) {
+							if (Main.mouseItem.NullOrAir() || Main.mouseItem?.ModItem is WEModItem weModItem && weModItem is not EnchantmentEssence)
+								UIManager.ItemSlotClickInteractions(ref item);
 						}
 
-						ItemSlot.Draw(spriteBatch, ref item, 5, new Vector2(itemSlotX, itemSlotY));
+						UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY);
 						itemSlotX += itemSlotSpaceWidth;
 						itemSlotIndex++;
 					}
@@ -82,30 +96,22 @@ namespace WeaponEnchantments.UI
 					itemSlotY += itemSlotSpaceHeight;
 				}
 
-				//Right click storage button to recenter it.
+				//Name
+				Color color = Color.White * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
+				color.A = byte.MaxValue;
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, name, new Vector2(textsLeft, itemSlotsTop), color, 0f, Vector2.Zero, Vector2.One, -1f, 1.5f);
 
-				if (Main.mouseX >= panelTopLeft.X && Main.mouseX <= panelBottomRight.X && Main.mouseY >= panelTopLeft.Y && Main.mouseY <= panelBottomRight.Y && !PlayerInput.IgnoreMouseInterface) {
-					hoveringEnchantmentStorageUI = true;
-					if (notHoveringOverAnItemSlot && !movingEnchantmentStorageUI && Main.mouseLeft && !UIManager.lastMouseLeft) {
-						movingEnchantmentStorageUI = true;
-						UIManager.mouseOffsetX = wePlayer.enchantmentStorageUILocationX - Main.mouseX;
-						UIManager.mouseOffsetY = wePlayer.enchantmentStorageUILocationY - Main.mouseY;
-					}
-				}
-				else {
-					hoveringEnchantmentStorageUI = false;
-				}
 
-				if (movingEnchantmentStorageUI) {
-					if (!Main.mouseLeft) {
-						movingEnchantmentStorageUI = false;
-					}
-					else {
-						wePlayer.enchantmentStorageUILocationY = Main.mouseY + UIManager.mouseOffsetY;
-						wePlayer.enchantmentStorageUILocationX = Main.mouseX + UIManager.mouseOffsetX;
-					}
+				//Buttons
+
+
+				//Panel Hover and Drag
+				if (UIManager.MouseHovering(panel)) {
+					UIManager.TryStartDraggingUI(panel);
 				}
 
+				if (UIManager.ShouldDragUI(panel))
+					UIManager.DragUI(out wePlayer.enchantmentStorageUILeft, out wePlayer.enchantmentStorageUITop);
 			}
 		}
 	}

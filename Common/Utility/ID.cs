@@ -416,6 +416,7 @@ namespace WeaponEnchantments.Common.Utility
         TownNPCMood,
 		Ores,
 		TableText,
+		EnchantmentStorageText,
 		Config
 	}
     public enum L_ID2 {
@@ -485,6 +486,9 @@ namespace WeaponEnchantments.Common.Utility
 		enchantment4,
 		utility0,
 		essence0,
+	}
+	public enum EnchantmentStorageTextID {
+		EnchantmentStorage
 	}
 	public enum DialogueID {
         StandardDialogue,

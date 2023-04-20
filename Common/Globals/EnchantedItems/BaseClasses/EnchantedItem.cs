@@ -734,7 +734,7 @@ namespace WeaponEnchantments.Common.Globals
             //Update Item Value if stack changed.
             Stack = item.stack;
         }
-		public override bool PreReforge(Item item) {
+		public override void PreReforge(Item item) {
 
 			#region Debug
 
@@ -760,8 +760,6 @@ namespace WeaponEnchantments.Common.Globals
             }
 
 			#endregion
-
-			return true;
         }
         public override void PostReforge(Item item) {
 

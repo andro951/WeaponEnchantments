@@ -15,6 +15,8 @@ using static WeaponEnchantments.Common.Configs.ConfigValues;
 using WeaponEnchantments.Tiles;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
+using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WeaponEnchantments.UI
 {
@@ -42,15 +44,23 @@ namespace WeaponEnchantments.UI
 
         internal int RelativeLeft => Main.screenWidth / 2 - width / 2 + 35;
         internal int RelativeTop => Main.screenHeight / 2 + 42;
+        private bool hoveringOverBorder => !confirmationButton.Any(b => b.IsMouseHovering);
+        private static int ID = UI_ID.Offer;
         public override void OnInitialize() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             Width.Pixels = width;
             Height.Pixels = height;
-            Top.Pixels = int.MaxValue / 2;
-            Left.Pixels = int.MaxValue / 2 + 100 - 25;
-            BackgroundColor = red;
+			Left.Pixels = RelativeLeft + 100 - 25;
+			Top.Pixels = RelativeTop;
+			BackgroundColor = red;
 
-            confirmationPanels = new List<UIPanel>();
+			OnLeftMouseDown += (evt, element) => {
+				if (UIManager.MouseHovering(IsMouseHovering, ID) && hoveringOverBorder) {
+					UIManager.StartDraggingUI(this, ID);
+				}
+			};
+
+			confirmationPanels = new List<UIPanel>();
 
             float nextElementY = -PaddingTop / 2;
             //Confirmation label
@@ -107,12 +117,21 @@ namespace WeaponEnchantments.UI
             confirmationButton[ConfirmationButtonID.No].Append(noButtonText);
             Append(confirmationButton[ConfirmationButtonID.No]);
             confirmationPanels.Add(confirmationButton[ConfirmationButtonID.No]);
-        }
-        private static void DeclineOffer() {
+            UpdateUISizeAndLocations();
+		}
+		private void UpdateUISizeAndLocations() {
+			if (UIManager.ShouldDragUI(ID))
+				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILocationX, out WEPlayer.LocalWEPlayer.enchantingTableUILocationY);
+
+			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationX;
+			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationY;
+		}
+		private static void DeclineOffer() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             WEModSystem.promptInterface.SetState(null);
             UIState state = new UIState();
-            state.Append(wePlayer.enchantingTableUI);
+            wePlayer.enchantingTableUI.UpdateUISizeAndLocations();
+			state.Append(wePlayer.enchantingTableUI);
             WEModSystem.weModSystemUI.SetState(state);
         }
         public static void ConfirmOffer() {
@@ -177,7 +196,6 @@ namespace WeaponEnchantments.UI
 				}
             }
         }
-
 		public static bool FindEnchantingTable(Player player, out Point table) {
             table = new();
             Point clicked = player.GetWEPlayer().enchantingTableLocation;
@@ -336,10 +354,8 @@ namespace WeaponEnchantments.UI
             return type;
         }
         public override void Update(GameTime gameTime) {
-            WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-            Left.Pixels = RelativeLeft + 100 - 25;
-            Top.Pixels = RelativeTop;
-            WeaponEnchantmentUI.preventItemUse = false;
+			UpdateUISizeAndLocations();
+			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
             //Change button color if hovering
             foreach (var panel in confirmationPanels) {
@@ -350,9 +366,11 @@ namespace WeaponEnchantments.UI
                     panel.BackgroundColor = panel.IsMouseHovering ? hoverRed : red;
                 }
             }
-            if (IsMouseHovering) WeaponEnchantmentUI.preventItemUse = true;
 
-            if (!wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+            if (IsMouseHovering)
+				Main.LocalPlayer.mouseInterface = true;
+
+			if (!wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 promptText.SetText($"Non-Enchantable item detected in table.\n" +
 					$"WARNING, DO NOT PRESS CONFIRM.\n" +
 					$"Please report this issue to andro951(Weapon Enchantments)");

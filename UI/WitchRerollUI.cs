@@ -22,7 +22,7 @@ namespace WeaponEnchantments.UI
 {
 	public class WitchRerollUI
 	{
-		public static void PoseDrawInterface(SpriteBatch spriteBatch, WEPlayer wePlayer) {
+		public static void PoseDrawInterface(SpriteBatch spriteBatch) {
 			//Witch Re-roll ItemSlot
 			if (Witch.rerollUI) {
 				int talkNPC = Main.LocalPlayer.talkNPC;
@@ -32,7 +32,7 @@ namespace WeaponEnchantments.UI
 						Witch.rerollItem.position = Main.LocalPlayer.Center;
 						Item item2 = Main.LocalPlayer.GetItem(Main.myPlayer, Witch.rerollItem, GetItemSettings.GetItemInDropItemCheck);
 						if (item2.stack > 0)
-							Main.LocalPlayer.QuickSpawnClonedItem(Main.LocalPlayer.GetSource_DropAsItem("Drop from Witch Re-Roll UI"), item2, item2.stack);
+							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_DropAsItem("Drop from Witch Re-Roll UI"), item2, item2.stack);
 
 						Witch.rerollItem = new Item();
 						Recipe.FindRecipes();
@@ -106,7 +106,7 @@ namespace WeaponEnchantments.UI
 						if (num66)
 							value4 = TextureAssets.Reforge[1].Value;
 
-						spriteBatch.Draw(value4, new Vector2(num64, num65), null, Microsoft.Xna.Framework.Color.White, 0f, value4.Size() / 2f, Witch.rerollScale, SpriteEffects.None, 0f);
+						spriteBatch.Draw(value4, new Vector2(num64, num65), null, Color.White, 0f, value4.Size() / 2f, Witch.rerollScale, SpriteEffects.None, 0f);
 						UILinkPointNavigator.SetPosition(304, new Vector2(num64, num65) + value4.Size() / 4f);
 						if (num66) {
 							Main.hoverItemName = "Re-roll";//Lang.inter[19].Value;
@@ -116,7 +116,7 @@ namespace WeaponEnchantments.UI
 							Witch.mouseRerollEnchantment = true;
 							Main.LocalPlayer.mouseInterface = true;
 
-							if (Main.mouseLeftRelease && Main.mouseLeft && Main.LocalPlayer.CanBuyItem(num58) && Witch.rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
+							if (Main.mouseLeftRelease && Main.mouseLeft && Main.LocalPlayer.CanAfford(num58) && Witch.rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
 								Main.LocalPlayer.BuyItem(num58);
 								rerollableEnchantment.Reroll();
 								Witch.rerollItem.position.X = Main.LocalPlayer.position.X + (float)(Main.LocalPlayer.width / 2) - (float)(Witch.rerollItem.width / 2);
@@ -143,21 +143,14 @@ namespace WeaponEnchantments.UI
 						}
 					}
 
-					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(num56 + 50, num57), new Microsoft.Xna.Framework.Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One);
-					if (Main.mouseX >= num56 && (float)Main.mouseX <= (float)num56 + (float)TextureAssets.InventoryBack.Width() * Main.inventoryScale && Main.mouseY >= num57 && (float)Main.mouseY <= (float)num57 + (float)TextureAssets.InventoryBack.Height() * Main.inventoryScale && !PlayerInput.IgnoreMouseInterface) {
-						Main.LocalPlayer.mouseInterface = true;
-						Main.craftingHide = true;
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(num56 + 50, num57), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One);
+					if (UIManager.MouseHoveringItemSlot(num56, num57, UI_ID.WitchRerollItemSlot)) {
 						if (Main.mouseItem.NullOrAir() || Main.mouseItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
-							ItemSlot.LeftClick(ref Witch.rerollItem, 30);
-							if (Main.mouseLeftRelease && Main.mouseLeft)
-								Recipe.FindRecipes();
-
-							ItemSlot.RightClick(ref Witch.rerollItem, 30);
-							ItemSlot.MouseHover(ref Witch.rerollItem, 30);
+							UIManager.ItemSlotClickInteractions(ref Witch.rerollItem);
 						}
 					}
 
-					ItemSlot.Draw(spriteBatch, ref Witch.rerollItem, 5, new Vector2(num56, num57));
+					UIManager.DrawItemSlot(spriteBatch, ref Witch.rerollItem, num56, num57);
 				}
 			}
 		}

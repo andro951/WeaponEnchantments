@@ -16,6 +16,7 @@ using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.ModIntegration;
+using WeaponEnchantments.UI;
 using static Terraria.Localization.GameCulture;
 
 namespace WeaponEnchantments.Localization
@@ -287,6 +288,10 @@ namespace WeaponEnchantments.Localization
 								{ $"{TableTextID.enchantment4}", "Requires {0} or Better to use this slot." },
 								{ $"{TableTextID.utility0}", "Only utility Enchantments can go here." },
 								{ $"{TableTextID.essence0}", "Place {0} here." },
+						}) },
+						{ L_ID1.EnchantmentStorageText.ToString(), new(
+							values: new() {
+								{ $"{EnchantmentStorageTextID.EnchantmentStorage}" }
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {
