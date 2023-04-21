@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -34,6 +35,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override void OnCreated(Item item, ItemCreationContext context) {
             if (context is RecipeItemCreationContext recipeCreationContext) {
+                List<Item> ConsumedItems = (List<Item>)typeof(RecipeLoader).GetField("ConsumedItems", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
                 if (recipeCreationContext.ConsumedItems == null)
                     return;
 

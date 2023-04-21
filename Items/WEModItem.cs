@@ -23,7 +23,7 @@ namespace WeaponEnchantments.Items
 		public virtual string LocalizationTooltip { protected set; get; }
 		protected string localizationTooltip;
 		public abstract int CreativeItemSacrifice { get; }
-
+		public virtual bool CanBeStoredInEnchantmentStroage => false;
 		public override void SetStaticDefaults() {
 			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1)
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = CreativeItemSacrifice;

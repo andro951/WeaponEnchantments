@@ -291,7 +291,10 @@ namespace WeaponEnchantments.Localization
 						}) },
 						{ L_ID1.EnchantmentStorageText.ToString(), new(
 							values: new() {
-								{ $"{EnchantmentStorageTextID.EnchantmentStorage}" }
+								//Filled Automatically
+							},
+							dict: new() {
+								//Ready for values to be added if needed
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {
@@ -767,6 +770,12 @@ namespace WeaponEnchantments.Localization
 					foreach (string tableText in Enum.GetNames(typeof(TableTextID))) {
 						if (!allData[tableTextKey].Dict.ContainsKey(tableText))
 							allData[tableTextKey].Values.Add(tableText);
+					}
+
+					string EnchantmentStorageTextKey = L_ID1.EnchantmentStorageText.ToString();
+					foreach (string enchantmentStroageText in Enum.GetNames(typeof(EnchantmentStorageTextID))) {
+						if (!allData[EnchantmentStorageTextKey].Dict.ContainsKey(enchantmentStroageText))
+							allData[EnchantmentStorageTextKey].Values.Add(enchantmentStroageText);
 					}
 
 					/*

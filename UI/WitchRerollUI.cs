@@ -144,7 +144,7 @@ namespace WeaponEnchantments.UI
 					}
 
 					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(num56 + 50, num57), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One);
-					if (UIManager.MouseHoveringItemSlot(num56, num57, UI_ID.WitchRerollItemSlot)) {
+					if (UIManager.MouseHoveringItemSlot(num56, num57, UI_ID.WitchReroll)) {
 						if (Main.mouseItem.NullOrAir() || Main.mouseItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
 							UIManager.ItemSlotClickInteractions(ref Witch.rerollItem);
 						}

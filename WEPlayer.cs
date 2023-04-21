@@ -81,6 +81,8 @@ namespace WeaponEnchantments
         public bool displayEnchantmentStorage;
         public int enchantingTableUILocationX;
 		public int enchantingTableUILocationY;
+        public bool vacuumItemsIntoEnchantmentStorage;
+        public SortedSet<int> trashEnchantments;
 
 		#endregion
 
@@ -334,6 +336,8 @@ namespace WeaponEnchantments
 			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
             tag["enchantingTableUILocationX"] = enchantingTableUILocationX;
             tag["enchantingTableUILocationY"] = enchantingTableUILocationY;
+            tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
+            tag["trashEnchantments"] = trashEnchantments.ToArray();
 		}
 		public override void LoadData(TagCompound tag) {
             for (int i = 0; i < EnchantingTable.maxItems; i++) {
@@ -368,8 +372,9 @@ namespace WeaponEnchantments
                 enchantmentStorageItems = Enumerable.Repeat(new Item(), 100).ToArray();
 
 			for (int i = 0; i < enchantmentStorageItems.Length; i++) {
-                if (enchantmentStorageItems[i] == null)
-                    enchantmentStorageItems[i] = new();
+                if (enchantmentStorageItems[i] == null || enchantmentStorageItems[i].stack < 1 || enchantmentStorageItems[i].IsAir) {
+					enchantmentStorageItems[i] = new();
+				}
 			}
 
             enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
@@ -379,6 +384,9 @@ namespace WeaponEnchantments
             enchantingTableUILocationX = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUILocationY = tag.Get<int>("enchantingTableUILocationY");
 			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILocationX, ref enchantingTableUILocationY, WeaponEnchantmentUI.RelativeLeft, WeaponEnchantmentUI.RelativeTop);
+
+            vacuumItemsIntoEnchantmentStorage = tag.Get<bool>("vacuumItemsIntoEnchantmentStorage");
+            trashEnchantments = new(tag.Get<int[]>("trashEnchantments"));
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
             if (!usingEnchantingTable)
@@ -929,19 +937,25 @@ namespace WeaponEnchantments
         }
 		public override IEnumerable<Item> AddMaterialsForCrafting(out ItemConsumedCallback itemConsumedCallback) {
 			itemConsumedCallback = null;
+			List<Item> items = new();
 			if (usingEnchantingTable) {
-				List<Item> items = new();
 				for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-					Item item = enchantingTableUI.essenceSlotUI[i].Item;
-					if (item != null && item.stack > 0) {
-						items.Add(enchantingTableUI.essenceSlotUI[i].Item);
-					}
+					ref Item item = ref enchantingTableUI.essenceSlotUI[i].Item;
+					if (!item.NullOrAir() && item.stack > 0)
+						items.Add(item);
 				}
 
-				return items;
 			}
 
-            return null;
+            if (displayEnchantmentStorage || EnchantmentStorage.uncratingTrash) {
+                for (int i = 0; i < enchantmentStorageItems.Length; i++) {
+                    ref Item item = ref enchantmentStorageItems[i];
+                    if (!item.NullOrAir() && item.stack > 0)
+                        items.Add(item);
+                }
+            }
+
+            return items.Count > 0 ? items : null;
 		}
 		public override void ResetEffects() {
             bool updatePlayerStat = false;

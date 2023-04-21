@@ -487,7 +487,16 @@ namespace WeaponEnchantments.Common.Utility
 		utility0,
 		essence0,
 	}
-	public enum EnchantmentStorageTextID {
+	public enum EnchantmentStorageTextID
+	{
+		LootAll,
+		DepositAll,
+		QuickStack,
+		Sort,
+		ToggleVacuum,
+		ToggleMarkTrash,
+		UncraftAllTrash,
+		//Do not place anything besides buttons before this
 		EnchantmentStorage
 	}
 	public enum DialogueID {

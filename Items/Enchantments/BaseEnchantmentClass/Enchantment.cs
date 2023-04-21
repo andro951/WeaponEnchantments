@@ -265,6 +265,7 @@ namespace WeaponEnchantments.Items
 		}
 		public override int CreativeItemSacrifice => 1;
 		public string TierName => tierNames[EnchantmentTier];
+		public override bool CanBeStoredInEnchantmentStroage => true;
 
 		#endregion
 
