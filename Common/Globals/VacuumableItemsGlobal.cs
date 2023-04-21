@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Common.Globals
 {
 	public class VacuumableItemsGlobal : GlobalItem
 	{
-		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && (!WEPlayer.LocalWEPlayer.displayEnchantmentStorage || EnchantmentStorage.uncratingTrash);
+		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && (!WEPlayer.LocalWEPlayer.displayEnchantmentStorage || EnchantmentStorage.uncrafting);
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return EnchantmentStorage.CanBeStored(entity);
 		}

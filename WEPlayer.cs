@@ -947,7 +947,7 @@ namespace WeaponEnchantments
 
 			}
 
-            if (displayEnchantmentStorage || EnchantmentStorage.uncratingTrash) {
+            if (displayEnchantmentStorage || EnchantmentStorage.uncrafting) {
                 for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                     ref Item item = ref enchantmentStorageItems[i];
                     if (!item.NullOrAir() && item.stack > 0)

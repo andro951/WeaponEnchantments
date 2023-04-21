@@ -899,115 +899,90 @@ namespace WeaponEnchantments.Items
 			return defaultBuffDuration * ((uint)EnchantmentTier + 1);
 		}
 		public override void AddRecipes() {
-			for (int i = EnchantmentTier; i < tierNames.Length; i++) {
-				if (!useAllRecipes && i != EnchantmentTier)
+			for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
+				if (!useAllRecipes && j != EnchantmentTier)
 					continue;
 
-				//Lowest Craftable Tier
-				if (EnchantmentTier < LowestCraftableTier)
-					continue;
+				Recipe recipe = CreateRecipe();
 
-				Recipe recipe;
-
-				for (int j = LowestCraftableTier; j <= EnchantmentTier; j++) {
-					if (!useAllRecipes && j != EnchantmentTier)
-						continue;
-
-					recipe = CreateRecipe();
-
-					//Essence
-					for (int k = j; k <= EnchantmentTier; k++) {
-						int essenceNumber = Utility ? 5 : 10;
-						recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
-					}
-
-					//Enchantment
-					if (j > 0) {
-						recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
-					}
-
-					//Containment
-					if (EnchantmentTier < 3) {
-						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
-					}
-					else if (j < 3) {
-						recipe.AddIngredient(Mod, ContainmentItem.sizes[2] + "Containment", 1);
-					}
-
-					//Gems
-					if (EnchantmentTier == 3) {
-						recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
-					}
-					if (EnchantmentTier == 4) {
-						recipe.AddRecipeGroup("WeaponEnchantments:RareGems");
-					}
-
-					//Enchanting Table
-					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-
-					if (j == 0)
-						EditTier0Recipies(recipe);
-
-					EditRecipe(recipe);
-
-					recipe.Register();
+				//Essence
+				for (int k = j; k <= EnchantmentTier; k++) {
+					int essenceNumber = Utility ? 5 : 10;
+					recipe.AddIngredient(Mod, "EnchantmentEssence" + tierNames[k], essenceNumber);
 				}
+
+				//Enchantment
+				if (j > 0) {
+					recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j - 1], 1);
+				}
+
+				//Containment
+				if (EnchantmentTier < 3) {
+					recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
+				}
+				else if (j < 3) {
+					recipe.AddIngredient(Mod, ContainmentItem.sizes[2] + "Containment", 1);
+				}
+
+				//Gems
+				if (EnchantmentTier == 3) {
+					recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
+				}
+				if (EnchantmentTier == 4) {
+					recipe.AddRecipeGroup("WeaponEnchantments:RareGems");
+				}
+
+				//Enchanting Table
+				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
+
+				if (j == 0)
+					EditTier0Recipies(recipe);
+
+				EditRecipe(recipe);
+
+				recipe.Register();
 			}
 
 			if (!WEMod.clientConfig.AllowCraftingIntoLowerTier || EnchantmentValueTierReduction != 0)
 				return;
 
-			for (int i = 0; i < tierNames.Length; i++) {
-				if (!useAllRecipes && i != EnchantmentTier)
+			for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
+				if (!useAllRecipes && j != EnchantmentTier + 1)
 					continue;
 
-				if (EnchantmentTier == tierNames.Length)
-					continue;
+				Recipe recipe = CreateRecipe();
 
-				Recipe recipe;
-				for (int j = EnchantmentTier + 1; j < tierNames.Length; j++) {
-					if (!useAllRecipes && j != EnchantmentTier + 1)
-						continue;
+				//Enchantment
+				recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j], 1);
 
-					recipe = CreateRecipe();
-
-					//Enchantment
-					recipe.AddIngredient(Mod, EnchantmentTypeName + "Enchantment" + tierNames[j], 1);
-
-					//Containment
-					if (EnchantmentTier < 2) {
-						recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
-					}
-
-					//Enchanting Table
-					recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-
-					//Gems
-					if (EnchantmentTier == 3) {
-						recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
-					}
-
-					recipe.Register();
+				//Containment
+				if (EnchantmentTier < 2) {
+					recipe.AddIngredient(Mod, ContainmentItem.sizes[EnchantmentTier] + "Containment", 1);
 				}
 
-				if (!useAllRecipes && EnchantmentTier != 0)
-					continue;
-
-				//Basic Essence Recipe
-				Recipe containmentRecipe = CreateRecipe();
-
-				//Basic Essence
-				containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
-
-				//This enchantment
-				containmentRecipe.AddIngredient(Type);
-
 				//Enchanting Table
-				containmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[i] + "EnchantingTable");
-				containmentRecipe.Register();
+				recipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[EnchantmentTier] + "EnchantingTable");
+
+				//Gems
+				if (EnchantmentTier == 3) {
+					recipe.AddRecipeGroup("WeaponEnchantments:CommonGems", 2);
+				}
+
+				recipe.Register();
 			}
 
+			//Basic Essence Recipe
+			Recipe containmentRecipe = CreateRecipe();
 
+			//Basic Essence
+			containmentRecipe.createItem = new Item(ModContent.ItemType<EnchantmentEssenceBasic>(), Utility ? 5 : 10);
+
+			//This enchantment
+			containmentRecipe.AddIngredient(Type);
+
+			//Enchanting Table
+			containmentRecipe.AddTile(Mod, EnchantingTableItem.enchantingTableNames[0] + "EnchantingTable");
+			containmentRecipe.Register();
 		}
 
 		/// <summary>

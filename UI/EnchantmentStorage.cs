@@ -49,9 +49,10 @@ namespace WeaponEnchantments.UI
 		private static bool markingTrash = false;
 		private static int glowTime = 0;
 		private static float glowHue = 0f;
-		public static bool uncratingTrash = false;
+		public static bool uncrafting = false;
+		public static SortedDictionary<int, int> uncraftedItems = new();
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
-			//WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
+			WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.displayEnchantmentStorage || true) {
 				if (glowTime > 0) {
@@ -130,8 +131,8 @@ namespace WeaponEnchantments.UI
 						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
 						if (UIManager.MouseHoveringItemSlot(itemSlotX, itemSlotY, UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex)) {
 							if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
-								if (markingTrash && Main.mouseItem.NullOrAir()) {
-									if (UIManager.LeftMouseClicked && item.ModItem is Enchantment) {
+								if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
+									if (UIManager.LeftMouseClicked) {
 										if (wePlayer.trashEnchantments.Contains(item.type)) {
 											wePlayer.trashEnchantments.Remove(item.type);
 										}
@@ -321,7 +322,8 @@ namespace WeaponEnchantments.UI
 			markingTrash = !markingTrash;
 		}
 		private static void UncraftAllTrash() {
-			uncratingTrash = true;
+			uncrafting = true;
+			uncraftedItems.Clear();
 			Dictionary<int, HashSet<int>> storageIndexes = new();
 			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
 				ref Item item = ref WEPlayer.LocalWEPlayer.enchantmentStorageItems[i];
@@ -337,7 +339,6 @@ namespace WeaponEnchantments.UI
 					recipeNumbers.Add(type, i);
 			}
 
-			bool anyUncrafted = false;
 			foreach (KeyValuePair<int, HashSet<int>> itemType in storageIndexes) {
 				int type = itemType.Key;
 				if (recipeNumbers.TryGetValue(type, out int recipeNum)) {
@@ -345,22 +346,33 @@ namespace WeaponEnchantments.UI
 					foreach (int slot in itemType.Value) {
 						int stack = WEPlayer.LocalWEPlayer.enchantmentStorageItems[slot].stack;
 						for (int i = 0; i < stack; i++) {
-							Item crafted = r.createItem.Clone();
-							crafted.Prefix(-1);
-							r.Create();
-							RecipeLoader.OnCraft(crafted, r, new Item());
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), crafted, crafted.stack);
-							PopupText.NewText(PopupTextContext.ItemCraft, crafted, crafted.stack);
-							anyUncrafted = true;
+							Recipe.FindRecipes();
+							for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
+								int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
+								if (recipeNum == availableRecipeNum) {
+									Item crafted = r.createItem.Clone();
+									crafted.Prefix(-1);
+									r.Create();
+									RecipeLoader.OnCraft(crafted, r, new Item());
+									uncraftedItems.AddOrCombine(crafted.type, crafted.stack);
+									break;
+								}
+							}
 						}
 					}
 				}
 			}
 
-			if (anyUncrafted)
+			if (uncraftedItems.Count > 0) {
 				SoundEngine.PlaySound(SoundID.Grab);
+				foreach (KeyValuePair<int, int> item in uncraftedItems) {
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item.Key, item.Value);
+				}
+				
+				uncraftedItems.Clear();
+			}
 
-			uncratingTrash = false;
+			uncrafting = false;
 			Recipe.FindRecipes();
 		}
 		public static bool ItemSpace(Item item) {

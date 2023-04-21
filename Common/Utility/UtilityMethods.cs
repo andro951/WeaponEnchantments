@@ -701,12 +701,12 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, new List<(T, List<DropData>)>() { newValue });
             }
         }
-        public static void AddOrCombine(this Dictionary<int, int> dict1, Dictionary<int, int> dict2) {
+        public static void AddOrCombine(this IDictionary<int, int> dict1, IDictionary<int, int> dict2) {
             foreach (var pair in dict2) {
                 dict1.AddOrCombine(pair);
             }
         }
-        public static void AddOrCombine(this Dictionary<int, int> dict1, KeyValuePair<int, int> pair) {
+        public static void AddOrCombine(this IDictionary<int, int> dict1, KeyValuePair<int, int> pair) {
             int key = pair.Key;
             if (dict1.ContainsKey(key)) {
                 dict1[key] += pair.Value;

@@ -69,7 +69,7 @@ namespace WeaponEnchantments.Tiles
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
-			if (!ConfigValues.useAllRecipes && enchantingTableTier > 0)
+			if (enchantingTableTier > 0)
 				adjTiles.AddRange(TableTypes.GetRange(0, enchantingTableTier));
 
 			AdjTiles = adjTiles.ToArray();

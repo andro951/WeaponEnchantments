@@ -53,7 +53,6 @@ namespace WeaponEnchantments
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 
 		List<Hook> hooks = new();
-
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
