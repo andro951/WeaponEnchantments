@@ -275,7 +275,10 @@ namespace WeaponEnchantments.Common {
             if (item != null && item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return enchantedHeldItem;
 
-            if (HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
+            if (Main.mouseItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
+                return enchantedHeldItem;
+
+			if (HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
                 return enchantedHeldItem;
 
             return null;
@@ -312,7 +315,7 @@ namespace WeaponEnchantments.Common {
                 return false;
 
             for (int i = 0; i < count; i++) {
-                    Item ci = myItems.ElementAt(i);
+                Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
                 if (ci.NullOrAir() && ci2.NullOrAir())
                     continue;

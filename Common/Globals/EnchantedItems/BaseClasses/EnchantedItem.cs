@@ -1696,8 +1696,10 @@ namespace WeaponEnchantments.Common.Globals
             Main.NewText(msg);
         }
         public static bool IsSameEnchantedItem(this Item item1, Item item2) {
-            if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem global1) || !item2.TryGetEnchantedItemSearchAll(out EnchantedItem global2))
-                return false;
+            bool isEnchantedItem1 = item1.TryGetEnchantedItemSearchAll(out EnchantedItem global1);
+            bool isEnchantedItem2 = item2.TryGetEnchantedItemSearchAll(out EnchantedItem global2);
+            if (!isEnchantedItem1)
+                return !isEnchantedItem2;
 
             if (item1.type != item2.type || item1.prefix != item2.prefix)
                 return false;
