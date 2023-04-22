@@ -496,6 +496,7 @@ namespace WeaponEnchantments.Common.Utility
 		ToggleVacuum,
 		ToggleMarkTrash,
 		UncraftAllTrash,
+		RevertAllToBasic,
 		//Do not place anything besides buttons before this
 		EnchantmentStorage
 	}

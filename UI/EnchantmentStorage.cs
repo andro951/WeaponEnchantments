@@ -36,7 +36,8 @@ namespace WeaponEnchantments.UI
 			public const int ToggleVacuum = 4;
 			public const int ToggleMarkTrash = 5;
 			public const int UncraftAllTrash = 6;
-			public const int Count = 7;
+			public const int RevertAllToBasic = 7;
+			public const int Count = 8;
 		}
 		public static int ID => UI_ID.EnchantmentStorage;
 		public static int enchantmentStorageUIDefaultX => Main.screenWidth / 2;
@@ -107,17 +108,17 @@ namespace WeaponEnchantments.UI
 					UITextData thisButton = new(UI_ID.EnchantmentStorageLootAll + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
 					textButtons[buttonIndex] = thisButton;
 					longestButtonNameWidth = Math.Max(longestButtonNameWidth, thisButton.Width);
-					currentButtonTop += thisButton.BaseHeight;
+					currentButtonTop += (int)(thisButton.BaseHeight * 0.87f);
 				}
 
 				//Panel Data 2/2
 				int panelBorderRight = spacing + longestButtonNameWidth + panelBorder;
 				int panelWidth = itemSlotsWidth + panelBorder + panelBorderRight;
 				int panelHeight = itemSlotsHeight + panelBorder + panelBorderTop;
-				UIPanelData panel = new(ID, wePlayer.enchantmentStorageUILeft, wePlayer.enchantmentStorageUITop, panelWidth, panelHeight);
+				UIPanelData panel = new(ID, wePlayer.enchantmentStorageUILeft, wePlayer.enchantmentStorageUITop, panelWidth, panelHeight, new Color(26, 2, 56, 100));
 
 				//Panel Draw
-				UIManager.DrawUIPanel(spriteBatch, panel, new Color(26, 2, 56, 100));
+				panel.Draw(spriteBatch);
 
 				//ItemSlots Draw
 				int itemSlotY = itemSlotsTop;
@@ -128,7 +129,8 @@ namespace WeaponEnchantments.UI
 					int itemSlotX = itemSlotsLeft;
 					for (int column = 0; column < itemSlotColumns; column++) {
 						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
-						if (UIManager.MouseHoveringItemSlot(itemSlotX, itemSlotY, UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex)) {
+						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex, itemSlotX, itemSlotY);
+						if (slotData.MouseHoveringItemSlot()) {
 							if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
 								if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
 									if (UIManager.LeftMouseClicked) {
@@ -141,16 +143,16 @@ namespace WeaponEnchantments.UI
 									}
 								}
 								else {
-									UIManager.ItemSlotClickInteractions(ref item);
+									slotData.ClickInteractions(ref item);
 								}
 							}
 						}
 
 						if (wePlayer.trashEnchantments.Contains(item.type) && !item.favorited) {
-							UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							slotData.Draw(spriteBatch, ref item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 						}
 						else {
-							UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY, hue: glowHue, glowTime: glowTime);
+							slotData.Draw(spriteBatch, ref item, ItemSlotContextID.Normal, glowHue, glowTime);
 						}
 
 						itemSlotX += itemSlotSpaceWidth;
@@ -196,6 +198,9 @@ namespace WeaponEnchantments.UI
 								case EnchantmentStorageButtonID.UncraftAllTrash:
 									UncraftAllTrash();
 									break;
+								case EnchantmentStorageButtonID.RevertAllToBasic:
+									RevertAllToBasic();
+									break;
 							}
 						}
 					}
@@ -208,11 +213,11 @@ namespace WeaponEnchantments.UI
 				}
 
 				//Panel Hover and Drag
-				if (UIManager.MouseHovering(panel)) {
-					UIManager.TryStartDraggingUI(panel);
+				if (panel.MouseHovering()) {
+					panel.TryStartDraggingUI();
 				}
 
-				if (UIManager.ShouldDragUI(panel))
+				if (panel.ShouldDragUI())
 					UIManager.DragUI(out wePlayer.enchantmentStorageUILeft, out wePlayer.enchantmentStorageUITop);
 			}
 		}
@@ -374,6 +379,59 @@ namespace WeaponEnchantments.UI
 			uncrafting = false;
 			Recipe.FindRecipes();
 		}
+		private static void RevertAllToBasic() {
+			uncrafting = true;
+			uncraftedItems.Clear();
+			Dictionary<int, HashSet<int>> storageIndexes = new();
+			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
+				ref Item item = ref WEPlayer.LocalWEPlayer.enchantmentStorageItems[i];
+				if (item.ModItem is Enchantment enchantment && enchantment.EnchantmentTier > 0)
+					storageIndexes.AddOrCombine(item.type, i);
+			}
+
+			Dictionary<int, int> recipeNumbers = new();
+			for (int i = 0; i < Main.recipe.Length; i++) {
+				Recipe r = Main.recipe[i];
+				if (r.createItem.ModItem is Enchantment enchantment && enchantment.EnchantmentTier == 0 && r.requiredItem.Count > 0 && r.requiredItem.First().type is int type && storageIndexes.ContainsKey(type) && !recipeNumbers.ContainsKey(type))
+					recipeNumbers.Add(type, i);
+			}
+
+			foreach (KeyValuePair<int, HashSet<int>> itemType in storageIndexes) {
+				int type = itemType.Key;
+				if (recipeNumbers.TryGetValue(type, out int recipeNum)) {
+					Recipe r = Main.recipe[recipeNum];
+					foreach (int slot in itemType.Value) {
+						int stack = WEPlayer.LocalWEPlayer.enchantmentStorageItems[slot].stack;
+						for (int i = 0; i < stack; i++) {
+							Recipe.FindRecipes();
+							for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
+								int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
+								if (recipeNum == availableRecipeNum) {
+									Item crafted = r.createItem.Clone();
+									crafted.Prefix(-1);
+									r.Create();
+									RecipeLoader.OnCraft(crafted, r, new Item());
+									uncraftedItems.AddOrCombine(crafted.type, crafted.stack);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (uncraftedItems.Count > 0) {
+				SoundEngine.PlaySound(SoundID.Grab);
+				foreach (KeyValuePair<int, int> item in uncraftedItems) {
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item.Key, item.Value);
+				}
+
+				uncraftedItems.Clear();
+			}
+
+			uncrafting = false;
+			Recipe.FindRecipes();
+		}//TODO: Issue with Time Enchantment.  Causes reroll
 		public static bool ItemSpace(Item item) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {

@@ -122,7 +122,6 @@ namespace WeaponEnchantments.UI
 				uiY = defaultY;
 			}
 		}
-
 		public static void DrawUIPanel(SpriteBatch spriteBatch, UIPanelData panel, Color panelColor) {
 			DrawUIPanel(spriteBatch, panel.TopLeft.X, panel.TopLeft.Y, panel.BottomRight.X, panel.BottomRight.Y, panelColor);
 		}
@@ -153,6 +152,9 @@ namespace WeaponEnchantments.UI
 				spriteBatch.Draw(texture, new Rectangle(Right, Top + cornerSize, cornerSize, height), new Rectangle(cornerSize + _barSize, cornerSize, cornerSize, _barSize), color);
 				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Top + cornerSize, width, height), new Rectangle(cornerSize, cornerSize, _barSize, _barSize), color);
 			}
+		}
+		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, UIItemSlotData slot, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+			DrawItemSlot(spriteBatch, ref item, slot.TopLeft.X, slot.TopLeft.Y, context, hue, glowTime);
 		}
 		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
 			//ItemSlot.Draw(spriteBatch, ref item, context, new Vector2(itemSlotX, itemSlotY));
@@ -276,18 +278,25 @@ namespace WeaponEnchantments.UI
 		public Point TopLeft;
 		public Point BottomRight;
 		public int ID;
-		public UIPanelData(int id, int left, int top, int width, int height) {
+		public Color Color;
+		public UIPanelData(int id, int left, int top, int width, int height, Color color) {
 			ID = id;
 			TopLeft = new Point(left, top);
 			BottomRight = new Point(left + width, top + height);
+			Color = color;
 		}
-		public UIPanelData(int id, Point topLeft, Point bottomRight) {
+		public UIPanelData(int id, Point topLeft, Point bottomRight, Color color) {
 			ID = id;
 			TopLeft = topLeft;
 			BottomRight = bottomRight;
+			Color = color;
 		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y && Main.mouseY <= BottomRight.Y && !PlayerInput.IgnoreMouseInterface;
 		public Point Center => new((TopLeft.X + BottomRight.X) / 2, (TopLeft.Y + BottomRight.Y) / 2);
+		public void Draw(SpriteBatch spriteBatch) => UIManager.DrawUIPanel(spriteBatch, this, Color);
+		public bool MouseHovering() => UIManager.MouseHovering(this);
+		public void TryStartDraggingUI() => UIManager.TryStartDraggingUI(this);
+		public bool ShouldDragUI() => UIManager.ShouldDragUI(this);
 	}
 	public struct UITextData {
 		public int ID;
@@ -406,6 +415,28 @@ namespace WeaponEnchantments.UI
 			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, TopLeft + Borders, Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
 		}
 	}
+	public struct UIItemSlotData {
+		public Point TopLeft;
+		public Point BottomRight;
+		public int ID;
+		public UIItemSlotData(int id, int left, int top) {
+			ID = id;
+			TopLeft = new Point(left, top);
+			BottomRight = new Point(left + UIManager.ItemSlotSize, top + UIManager.ItemSlotSize);
+		}
+		public UIItemSlotData(int id, Point topLeft) {
+			ID = id;
+			TopLeft = topLeft;
+			BottomRight = new Point(TopLeft.X + UIManager.ItemSlotSize, TopLeft.Y + UIManager.ItemSlotSize);
+		}
+		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y && Main.mouseY <= BottomRight.Y && !PlayerInput.IgnoreMouseInterface;
+		public Point Center => new((TopLeft.X + BottomRight.X) / 2, (TopLeft.Y + BottomRight.Y) / 2);
+		public void Draw(SpriteBatch spriteBatch, ref Item item, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+			UIManager.DrawItemSlot(spriteBatch, ref item, this, context, hue, glowTime);
+		}
+		public bool MouseHoveringItemSlot() => UIManager.MouseHoveringItemSlot(TopLeft.X, TopLeft.Y, ID);
+		public void ClickInteractions(ref Item item) => UIManager.ItemSlotClickInteractions(ref item);
+	}
 	public static class UI_ID {
 		public const int None = 0;
 		public const int EnchantingTable = 1;
@@ -422,7 +453,12 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTableSyphon = 12;
 		public const int EnchantingTableInfusion = 13;
 		public const int EnchantingTableLevelUp = 14;
+		public const int EnchantingTableItemSlot = 15;
 
+		public const int EnchantingTableEnchantment0 = 780;
+		public const int EnchantingTableEnchantmentLast = 789;
+		public const int EnchantingTableEssence0 = 790;
+		public const int EnchantingTableEssenceLast = 799;
 		public const int EnchantingTableLevelsPerLevelUp0 = 800;
 		public const int EnchantingTableLevelsPerLevelUpLast = 803;
 

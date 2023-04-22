@@ -186,16 +186,21 @@ namespace WeaponEnchantments.UI
 				//Panel Data
 				Point panelTopLeft = new(wePlayer.enchantingTableUILeft, wePlayer.enchantingTableUITop);
 				Point panelBottomRight = new(rightPanelButtonsRightEdge + PanelBorder, xpButtonTop + xpData[0].Height + PanelBorder);
-				UIPanelData panel = new(UI_ID.EnchantingTable, panelTopLeft, panelBottomRight);
+				UIPanelData panel = new(UI_ID.EnchantingTable, panelTopLeft, panelBottomRight, BackGroundColor);
 
 				//Panel Draw
-				UIManager.DrawUIPanel(spriteBatch, panel, BackGroundColor);
+				panel.Draw(spriteBatch);
 
 				//Item Label Draw
 				itemLabelData.Draw(spriteBatch);
 
 				//Enchanting Item Slot Draw
-				UIManager.DrawItemSlot(spriteBatch, ref wePlayer.enchantingTableItem, enchantingItemSlotLeft, enchantingItemSlotTop, ItemSlotContextID.Gold);
+				UIItemSlotData enchantingItemSlotData = new(UI_ID.EnchantingTableItemSlot, enchantingItemSlotLeft, enchantingItemSlotTop);
+				if (enchantingItemSlotData.MouseHoveringItemSlot()) {
+					enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
+				}
+
+				enchantingItemSlotData.Draw(spriteBatch, ref wePlayer.enchantingTableItem, ItemSlotContextID.Gold);
 
 				//Loot All Button Draw
 				lootAllData.Draw(spriteBatch);
@@ -213,19 +218,31 @@ namespace WeaponEnchantments.UI
 
 				//EnchantmentSlots Draw
 				for (int i = 0; i < enchantmentSlotsCount; i++) {
-					UIManager.DrawItemSlot(spriteBatch, ref wePlayer.enchantingTableEnchantments[i], middleSlotsLefts[i], enchantingItemSlotTop);
+					UIItemSlotData enchantmentSlot = new(UI_ID.EnchantingTableEnchantment0 + i, middleSlotsLefts[i], enchantingItemSlotTop);
+					if (enchantmentSlot.MouseHoveringItemSlot())
+						enchantmentSlot.ClickInteractions(ref wePlayer.enchantingTableEnchantments[i]);
+
+					enchantmentSlot.Draw(spriteBatch, ref wePlayer.enchantingTableEnchantments[i]);
 				}
 
 				//EssenceSlots Draw
 				for (int i = 0; i < MaxEssenceSlots; i++) {
-					UIManager.DrawItemSlot(spriteBatch, ref wePlayer.enchantingTableEssence[i], middleSlotsLefts[i], essenecSlotsTop, ItemSlotContextID.Purple);
+					UIItemSlotData essenceSlot = new(UI_ID.EnchantingTableEssence0 + i, middleSlotsLefts[i], essenecSlotsTop);
+					if (essenceSlot.MouseHoveringItemSlot())
+						essenceSlot.ClickInteractions(ref wePlayer.enchantingTableEssence[i]);
+
+					essenceSlot.Draw(spriteBatch, ref wePlayer.enchantingTableEssence[i], ItemSlotContextID.Purple);
 				}
 
 				//Utility Label Draw
 				utilityLabelData.Draw(spriteBatch);
 
 				//Utility Slot Draw
-				UIManager.DrawItemSlot(spriteBatch, ref wePlayer.enchantingTableEnchantments[MaxEnchantmentSlots - 1], utilityCenterX - UIManager.ItemSlotSize / 2, enchantingItemSlotTop, ItemSlotContextID.Favorited);
+				UIItemSlotData utilitySlotData = new(UI_ID.EnchantingTableEssence0 + enchantmentSlotsCount, utilityCenterX - UIManager.ItemSlotSize / 2, enchantingItemSlotTop);
+				if (utilitySlotData.MouseHoveringItemSlot())
+					utilitySlotData.ClickInteractions(ref wePlayer.enchantingTableEnchantments[enchantmentSlotsCount]);
+
+				utilitySlotData.Draw(spriteBatch, ref wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], ItemSlotContextID.Favorited);
 
 				//Syphon Button Draw
 				syphonData.Draw(spriteBatch);
@@ -241,13 +258,11 @@ namespace WeaponEnchantments.UI
 					levelsPerData[i].Draw(spriteBatch);
 				}
 
-
-
-				if (UIManager.MouseHovering(panel)) {
-					UIManager.TryStartDraggingUI(panel);
+				if (panel.MouseHovering()) {
+					panel.TryStartDraggingUI();
 				}
 
-				if (UIManager.ShouldDragUI(panel))
+				if (panel.ShouldDragUI())
 					UIManager.DragUI(out wePlayer.enchantingTableUILeft, out wePlayer.enchantingTableUITop);
 			}
 		}
