@@ -29,6 +29,9 @@ namespace WeaponEnchantments.UI
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.usingEnchantingTable || true) {
+				wePlayer.enchantingTableEnchantments = wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) ? enchantedItem.enchantments: wePlayer.emptyEnchantments;
+
+				//Start of UI
 				Color mouseColor = UIManager.MouseColor;
 
 				//Item Label Data 1/2
@@ -196,13 +199,18 @@ namespace WeaponEnchantments.UI
 
 				//Enchanting Item Slot Draw
 				UIItemSlotData enchantingItemSlotData = new(UI_ID.EnchantingTableItemSlot, enchantingItemSlotLeft, enchantingItemSlotTop);
-				if (enchantingItemSlotData.MouseHoveringItemSlot()) {
+				if (enchantingItemSlotData.MouseHovering()) {
 					enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
 				}
 
-				enchantingItemSlotData.Draw(spriteBatch, ref wePlayer.enchantingTableItem, ItemSlotContextID.Gold);
+				enchantingItemSlotData.Draw(spriteBatch, wePlayer.enchantingTableItem, ItemSlotContextID.Gold);
 
 				//Loot All Button Draw
+				if (lootAllData.MouseHovering()) {
+					if (UIManager.LeftMouseClicked)
+						LootAll();
+				}
+
 				lootAllData.Draw(spriteBatch);
 
 				//Offer Button Draw
@@ -219,19 +227,19 @@ namespace WeaponEnchantments.UI
 				//EnchantmentSlots Draw
 				for (int i = 0; i < enchantmentSlotsCount; i++) {
 					UIItemSlotData enchantmentSlot = new(UI_ID.EnchantingTableEnchantment0 + i, middleSlotsLefts[i], enchantingItemSlotTop);
-					if (enchantmentSlot.MouseHoveringItemSlot())
-						enchantmentSlot.ClickInteractions(ref wePlayer.enchantingTableEnchantments[i]);
+					if (enchantmentSlot.MouseHovering())
+						enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, i);
 
-					enchantmentSlot.Draw(spriteBatch, ref wePlayer.enchantingTableEnchantments[i]);
+					enchantmentSlot.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[i]);
 				}
 
 				//EssenceSlots Draw
 				for (int i = 0; i < MaxEssenceSlots; i++) {
 					UIItemSlotData essenceSlot = new(UI_ID.EnchantingTableEssence0 + i, middleSlotsLefts[i], essenecSlotsTop);
-					if (essenceSlot.MouseHoveringItemSlot())
+					if (essenceSlot.MouseHovering())
 						essenceSlot.ClickInteractions(ref wePlayer.enchantingTableEssence[i]);
 
-					essenceSlot.Draw(spriteBatch, ref wePlayer.enchantingTableEssence[i], ItemSlotContextID.Purple);
+					essenceSlot.Draw(spriteBatch, wePlayer.enchantingTableEssence[i], ItemSlotContextID.Purple);
 				}
 
 				//Utility Label Draw
@@ -239,10 +247,10 @@ namespace WeaponEnchantments.UI
 
 				//Utility Slot Draw
 				UIItemSlotData utilitySlotData = new(UI_ID.EnchantingTableEssence0 + enchantmentSlotsCount, utilityCenterX - UIManager.ItemSlotSize / 2, enchantingItemSlotTop);
-				if (utilitySlotData.MouseHoveringItemSlot())
-					utilitySlotData.ClickInteractions(ref wePlayer.enchantingTableEnchantments[enchantmentSlotsCount]);
+				if (utilitySlotData.MouseHovering())
+					utilitySlotData.ClickInteractions(wePlayer.enchantingTableEnchantments, enchantmentSlotsCount);
 
-				utilitySlotData.Draw(spriteBatch, ref wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], ItemSlotContextID.Favorited);
+				utilitySlotData.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], ItemSlotContextID.Favorited);
 
 				//Syphon Button Draw
 				syphonData.Draw(spriteBatch);
@@ -264,6 +272,27 @@ namespace WeaponEnchantments.UI
 
 				if (panel.ShouldDragUI())
 					UIManager.DragUI(out wePlayer.enchantingTableUILeft, out wePlayer.enchantingTableUITop);
+			}
+		}
+		private static void LootAll() {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			Player player = wePlayer.Player;
+			GetItemSettings lootSettings = GetItemSettings.LootAllSettings;
+			for (int i = 0; i < MaxEnchantmentSlots; i++) {
+				Item enchantmentItem = wePlayer.enchantingTableEnchantments[i];
+				if (!enchantmentItem.IsAir) {
+					enchantmentItem.position = player.Center;
+					enchantmentItem = player.GetItem(Main.myPlayer, enchantmentItem, lootSettings);
+					wePlayer.enchantingTableEnchantments[i] = enchantmentItem;
+					if (!enchantmentItem.IsAir)
+						return;
+				}
+			}
+
+			ref Item item = ref wePlayer.enchantingTableItem;
+			if (!item.IsAir) {
+				item.position = player.Center;
+				item = player.GetItem(Main.myPlayer, item, lootSettings);
 			}
 		}
 	}

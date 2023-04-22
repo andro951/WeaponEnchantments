@@ -226,74 +226,13 @@ namespace WeaponEnchantments.Common.Utility
             return false;
         }
 
-        #endregion
+		#endregion
 
-        #region Stats
+		#region General
 
-        public static float ApplyStatModifier(this Item item, string key, float value) {
-            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-                return value;
-            if (enchantedItem.appliedStatModifiers.ContainsKey(key))
-                return enchantedItem.appliedStatModifiers[key].ApplyTo(value);
-
-            return value;
-        }
-        public static float ApplyEStat(this Item item, string key, float value) {
-            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-                return value;
-
-            if (enchantedItem.appliedEStats.ContainsKey(key))
-                return enchantedItem.appliedEStats[key].ApplyTo(value);
-
-            return value;
-            //Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key) ? item.G().eStats[key].ApplyTo(value) : value;
-        }
-        public static bool ContainsEStatOnPlayer(this Player player, string key) {
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            if (wePlayer.eStats.ContainsKey(key))
-                return true;
-            Item weapon = wePlayer.trackedWeapon;
-            if (weapon.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
-                return true;
-            return false;
-        }
-        public static float ApplyEStatFromPlayer(this Player player, string key, float value) {
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            StatModifier combinedStatModifier = StatModifier.Default;
-            if (wePlayer.eStats.ContainsKey(key))
-                combinedStatModifier = wePlayer.eStats[key];
-
-            Item weapon = wePlayer.trackedWeapon;
-            if (weapon.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
-                combinedStatModifier = combinedStatModifier.CombineWith(enchantedItem.eStats[key]);
-
-            return combinedStatModifier.ApplyTo(value);
-        }
-        public static float ApplyEStatFromPlayer(this Player player, Item item, string key, float value) {
-            WEPlayer wePlayer = player.GetModPlayer<WEPlayer>();
-            StatModifier combinedStatModifier = StatModifier.Default;
-            if (wePlayer.eStats.ContainsKey(key))
-                combinedStatModifier = wePlayer.eStats[key];
-
-            if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key))
-                combinedStatModifier = combinedStatModifier.CombineWith(enchantedItem.eStats[key]);
-
-            return combinedStatModifier.ApplyTo(value);
-        }
-        public static bool ContainsEStat(this Item item, string key) => item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
-        public static bool ContainsEStat(string key) => Main.LocalPlayer.GetModPlayer<WEPlayer>().eStats.ContainsKey(key);
-        public static bool ContainsEStat(this Player player, string key, Item item) => player.GetWEPlayer().eStats.ContainsKey(key) || item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.eStats.ContainsKey(key);
-        public static string RemoveInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" ? s.Substring(2) : s : s;
-        public static string RemovePrevent(this string s) => s.Length > 2 ? s.Substring(0, 2) == "P_" ? s.Substring(2) : s : s;
-        public static bool ContainsInvert(this string s) => s.Length > 2 ? s.Substring(0, 2) == "I_" : false;
-        public static Item CSI(this int type) => ContentSamples.ItemsByType[type];
-        public static NPC CSNPC(this int netID) => ContentSamples.NpcsByNetId[netID];
-
-        #endregion
-
-        #region General
-
-        public static void ReplaceItemWithCoins(ref Item item, int coins) {
+		public static Item CSI(this int type) => ContentSamples.ItemsByType[type];
+		public static NPC CSNPC(this int netID) => ContentSamples.NpcsByNetId[netID];
+		public static void ReplaceItemWithCoins(ref Item item, int coins) {
             int coinType = ItemID.PlatinumCoin;
             int coinValue = 1000000;
             while (coins > 0) {

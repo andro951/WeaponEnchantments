@@ -87,25 +87,6 @@ namespace WeaponEnchantments.Items.Enchantments.Utility
 			inverted = Effects.Select(e => e.EffectStrength < 1f).ToList();
 			return Effects.OfType<StatEffect>().Select(e => e.statName.ToString()).ToList();
 		}
-		public override bool CanStack(Item item2) {
-			ModItem otherModItem = item2.ModItem;
-			if (otherModItem == null)
-				return false;
-
-			if (otherModItem is not TimeEnchantment otherTimeEnchantment)
-				return false;
-
-			if (otherTimeEnchantment.Effects.Count != Effects.Count)
-				return false;
-
-			IEnumerable<EnchantmentStat> otherStatEffects = otherTimeEnchantment.Effects.OfType<StatEffect>().Select(statEffect => statEffect.statName);
-			foreach (StatEffect statEffect in Effects) {
-				if (!otherStatEffects.Contains(statEffect.statName))
-					return false;
-			}
-
-			return true;
-		}
 		public override void OnCreated(ItemCreationContext context) {
 			if (context is RecipeItemCreationContext recipeCreationContext) {
 				IEnumerable<TimeEnchantment> consumedTimeEnchantments = recipeCreationContext.ConsumedItems.Select(i => i.ModItem).OfType<TimeEnchantment>();

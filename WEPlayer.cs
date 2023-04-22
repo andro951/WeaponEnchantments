@@ -84,19 +84,11 @@ namespace WeaponEnchantments
         public bool vacuumItemsIntoEnchantmentStorage;
         public SortedSet<int> trashEnchantments;
         public Item enchantingTableItem;
-        public Item[] enchantingTableEnchantments = Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEnchantmentSlots).ToArray();
+        public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
+		public EnchantmentsArray enchantingTableEnchantments;
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
 
 		#endregion
-
-		#region Old Enchantment Effects
-
-		public Dictionary<int, int> buffs = new Dictionary<int, int>();
-        public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
-
-        #endregion
 
         #region Enchantment Effects
 	
@@ -319,7 +311,9 @@ namespace WeaponEnchantments
             for (int i = 0; i < equipArmor.Length; i++) {
                 equipArmor[i] = new Item();
             }
-        }
+
+            enchantingTableEnchantments = emptyEnchantments;
+		}
         public override void SaveData(TagCompound tag) {
             tag["enchantingTableItem0"] = enchantingTableItem;
             for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
@@ -734,8 +728,6 @@ namespace WeaponEnchantments
                 if (armorStatsNeedUpdate) {
                     Item armor = currentArmor[j];
                     armor.CheckRemoveEnchantments(Player);
-                    //UpdatePotionBuffs(ref armor, ref equipArmor[j]);
-                    UpdatePlayerStats(ref armor, ref equipArmor[j]);
                     if (equipArmor[j].TryGetEnchantedEquipItem(out EnchantedEquipItem eaGlobal)) {
                         eaGlobal.equippedInArmorSlot = false;
                     }
@@ -889,25 +881,8 @@ namespace WeaponEnchantments
                     trackedHoverItem = null;
                 }
             }
-
-            foreach (int key in buffs.Keys) {
-                Player.AddBuff(key, 60);
-            }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
-            if (Player.difficulty == 1 || Player.difficulty == 2) {
-                for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (Player.inventory[i].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                        enchantedItem.appliedStatModifiers.Clear();
-                    }
-                }
-                for (int i = 0; i < Player.armor.Length; i++) {
-                    if (Player.armor[i].TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                        enchantedItem.appliedStatModifiers.Clear();
-                    }
-                }
-            }
-
             if (WEMod.calamityEnabled) {
                 CalamityRespawnMinionSourceItems.Clear();
                 for (int i = 0; i < 200; i++) {
@@ -949,17 +924,6 @@ namespace WeaponEnchantments
             return items.Count > 0 ? items : null;
 		}
 		public override void ResetEffects() {
-            bool updatePlayerStat = false;
-            foreach (string key in statModifiers.Keys) {
-                string name = key.RemoveInvert().RemovePrevent();
-                if (Player.GetType().GetField(name) != null) {
-                    appliedStatModifiers.Remove(key);
-                    updatePlayerStat = true;
-                }
-            }
-            if (updatePlayerStat)
-                UpdatePlayerStat();
-		
 			cursedEssenceCount = 0;
         }
         public void OnSwapEquipmentLoadout(int loadoutIndex) {
@@ -1138,8 +1102,6 @@ namespace WeaponEnchantments
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
             bool dummyTarget = target.IsDummy();
 
-            Dictionary<string, StatModifier> ItemEStats = enchantedItem.eStats;
-
             //Enemy debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
@@ -1191,12 +1153,6 @@ namespace WeaponEnchantments
                     //On Hit Player buffs
                     Player.ApplyBuffs(CombinedOnHitBuffs);
                 }
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"item: {item.S()} {ItemEStats.S("OneForAll")}").Log();
-
-                #endregion
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
@@ -1640,30 +1596,15 @@ namespace WeaponEnchantments
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
                 UpdateEnchantmentEffects();
-                /*
-                PassiveEffects = new List<IPassiveEffect>();
-                StatEffects = new List<StatEffect>();
-
-                // Divide effects based on what is needed.
-                foreach (EnchantmentEffect effect in EnchantmentEffects) {
-                    if (effect is IPassiveEffect passiveEffect)
-                        PassiveEffects.Add(passiveEffect);
-
-                    if (effect is StatEffect statEffect)
-                        StatEffects.Add(statEffect);
-                }
-                */
             }
 
             LastPlayerEquipment.CombineDictionaries();
             LastPlayerEquipment.CombineOnHitDictionaries();
 
-            // Apply all PostUpdateMiscEffects
             foreach (IPassiveEffect effect in CombinedPassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
-
-            // Apply them if there's any.
+            
             ApplyStatEffects();
 
             ApplyPlayerSetEffects();
@@ -1797,11 +1738,6 @@ namespace WeaponEnchantments
                 effect.OnHitNPC(target, this, item, damage, knockback, crit, proj);
             }
         }
-
-		#endregion
-
-		#region Old Enchantment Stat System
-
 		public bool ItemChanged(Item current, Item previous, bool weapon = false) {
             if (current != null && !current.IsAir) {
                 if (previous == null)
@@ -1827,301 +1763,6 @@ namespace WeaponEnchantments
 
             return false;
         }
-        /*public void UpdatePotionBuffs(ref Item newItem, ref Item oldItem) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-
-            UpdatePotionBuff(ref newItem);
-            UpdatePotionBuff(ref oldItem, true);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-        }
-        private void UpdatePotionBuff(ref Item item, bool remove = false) {
-
-            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-                return;
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-
-            WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"potionBuffs.Count: {buffs.Count}, enchantedItem.potionBuffs.Count: {enchantedItem.buffs.Count}").Log();
-
-            #endregion
-
-            foreach (int key in enchantedItem.buffs.Keys) {
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"player: {buffs.S(key)}, item: {enchantedItem.buffs.S(key)}").Log();
-
-                #endregion
-
-                if (wePlayer.buffs.ContainsKey(key)) {
-                    wePlayer.buffs[key] += enchantedItem.buffs[key] * (remove ? -1 : 1);
-                }
-                else {
-                    wePlayer.buffs.Add(key, enchantedItem.buffs[key]);
-                }
-
-                if (remove && wePlayer.buffs[key] < 1)
-                    wePlayer.buffs.Remove(key);
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"player: {buffs.S(key)}, item: {enchantedItem.buffs.S(key)}").Log();
-
-                #endregion
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-        }*/
-        public static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove) {
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"\\/CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
-
-            #endregion
-
-            StatModifier finalModifier;
-            if (remove) {
-                finalModifier = new StatModifier(baseStatModifier.Additive / newStatModifier.Additive, baseStatModifier.Multiplicative / newStatModifier.Multiplicative, baseStatModifier.Flat - newStatModifier.Flat, baseStatModifier.Base - newStatModifier.Base);
-            }
-            else {
-                finalModifier = new StatModifier(baseStatModifier.Additive * newStatModifier.Additive, baseStatModifier.Multiplicative * newStatModifier.Multiplicative, baseStatModifier.Flat + newStatModifier.Flat, baseStatModifier.Base + newStatModifier.Base);
-            }
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
-
-            #endregion
-
-            return finalModifier;
-        }
-        public static StatModifier InverseCombineWith(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
-
-            #endregion
-
-            StatModifier newInvertedStatModifier;
-            if (remove) {
-                newInvertedStatModifier = new StatModifier(2f - newStatModifier.Additive, 1f / newStatModifier.Multiplicative, -newStatModifier.Flat, -newStatModifier.Base);
-            }
-            else {
-                newInvertedStatModifier = newStatModifier;
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"newInvertedStatModifier: " + newInvertedStatModifier.S()).Log();
-
-            #endregion
-
-            StatModifier finalModifier = baseStatModifier.CombineWith(newInvertedStatModifier);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
-
-            #endregion
-
-            return finalModifier;
-        }
-        public static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
-
-            #endregion
-
-            if (dictionary.ContainsKey(key)) {
-                if ((float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Additive, 4)) - 1f) < 1E-4 && (float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Multiplicative, 4)) - 1f) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Flat, 4)) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Base, 4)) < 1E-4) {
-                    dictionary.Remove(key);
-                }
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
-
-            #endregion
-        }
-        public void UpdatePlayerStats(ref Item newItem, ref Item oldItem) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-
-            if (IsEnchantable(newItem))
-                UpdatePlayerDictionaries(newItem);
-
-            if (IsEnchantable(oldItem))
-                UpdatePlayerDictionaries(oldItem, true);
-
-            if (IsEnchantable(newItem))
-                UpdateItemStats(ref newItem);
-
-            if (!IsWeaponItem(newItem)) {
-                Item weapon = null;
-                if (Player.HeldItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) && enchantedWeapon.trackedWeapon) {
-                    weapon = Player.HeldItem;
-                }
-                else if (Main.mouseItem.TryGetEnchantedWeapon(out EnchantedWeapon miEnchantedWeapon) && miEnchantedWeapon.trackedWeapon) {
-                    weapon = Main.mouseItem;
-                }
-
-                if (weapon != null)
-                    UpdateItemStats(ref weapon);
-            }
-
-            UpdatePlayerStat();
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-        }
-        private void UpdatePlayerStat() {
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"\\/UpdatePlayerStat()").Log();
-
-            #endregion
-
-            foreach (string key in statModifiers.Keys) {
-                string statName = key.RemoveInvert();
-                bool statsNeedUpdate = true;
-                if (appliedStatModifiers.ContainsKey(key))
-                    statsNeedUpdate = statModifiers[key] != appliedStatModifiers[key];
-
-                if (statsNeedUpdate) {
-                    Type playerType = Player.GetType();
-                    FieldInfo field = playerType.GetField(statName);
-                    PropertyInfo property = playerType.GetProperty(statName);
-                    if (field != null || property != null) {
-                        if (!appliedStatModifiers.ContainsKey(key))
-                            appliedStatModifiers.Add(key, StatModifier.Default);
-
-                        StatModifier lastAppliedStatModifier = appliedStatModifiers[key];
-                        appliedStatModifiers[key] = statModifiers[key];
-                        StatModifier staticStat = CombineStatModifier(statModifiers[key], lastAppliedStatModifier, true);
-                        if (field != null) {
-                            Type fieldType = field.FieldType;
-                            //float (field)
-                            if (fieldType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)field.GetValue(Player));
-                                field.SetValue(Player, finalValue);
-                            }
-
-                            //int (field)
-                            if (fieldType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(Player));
-                                field.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (field)
-                            if (fieldType == typeof(bool)) {
-                                bool baseValue = (bool)field.GetValue(new Player());
-                                bool finalValue = statModifiers[key].Additive != 1f;
-                                field.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                        else if (property != null) {
-                            Type propertyType = property.PropertyType;
-                            //float (property)
-                            if (propertyType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)property.GetValue(Player));
-                                property.SetValue(Player, finalValue);
-                            }
-
-                            //int (property)
-                            if (propertyType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)property.GetValue(Player));
-                                property.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (property)
-                            if (propertyType == typeof(bool)) {
-                                bool baseValue = (bool)property.GetValue(new Player());
-                                bool finalValue = statModifiers[key].Additive != 1f;
-                                property.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                    }
-                }
-            }
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"/\\UpdatePlayerStat()").Log();
-
-            #endregion
-        }
-        private void UpdatePlayerDictionaries(Item item, bool remove = false) {
-            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-                return;
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + enchantedItem.statModifiers.Count).Log();
-
-            #endregion
-
-            foreach (string key in enchantedItem.statModifiers.Keys) {
-                string statName = key.RemoveInvert();
-                if (!IsWeaponItem(item) || item.GetType().GetField(statName) == null && item.GetType().GetProperty(statName) == null) {
-                    if (!statModifiers.ContainsKey(key))
-                        statModifiers.Add(key, StatModifier.Default);
-
-                    statModifiers[key] = InverseCombineWith(statModifiers[key], enchantedItem.statModifiers[key], remove);
-                    TryRemoveStat(ref statModifiers, key);
-                }
-            }
-
-            if (!IsWeaponItem(item)) {
-                foreach (string key in enchantedItem.eStats.Keys) {
-                    if (!eStats.ContainsKey(key))
-                        eStats.Add(key, StatModifier.Default);
-
-                    eStats[key] = InverseCombineWith(eStats[key], enchantedItem.eStats[key], remove);
-                    TryRemoveStat(ref eStats, key);
-                }
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-        }
         public void UpdateItemStats(ref Item item) {
             if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
@@ -2135,8 +1776,6 @@ namespace WeaponEnchantments
             //Prefix
             int trackedPrefix = enchantedItem.prefix;
             if (trackedPrefix != item.prefix) {
-                enchantedItem.appliedStatModifiers.Clear();
-                enchantedItem.appliedEStats.Clear();
                 enchantedItem.prefix = item.prefix;
                 if (enchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.damageType != DamageClass.Default)
                     item.DamageType = enchantedWeapon.damageType;
@@ -2147,205 +1786,6 @@ namespace WeaponEnchantments
                 int armorSlot = item.GetInfusionArmorSlot(false, true);
                 if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
                     item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
-            }
-
-            //Populate itemStatModifiers
-            Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
-            foreach (string itemKey in enchantedItem.statModifiers.Keys) {
-                string riItemKey = itemKey.RemoveInvert().RemovePrevent();
-                if (item.GetType().GetField(riItemKey) != null || item.GetType().GetProperty(riItemKey) != null) {
-                    StatModifier riStatModifier = itemKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, enchantedItem.statModifiers[itemKey], true) : enchantedItem.statModifiers[itemKey];
-                    if (combinedStatModifiers.ContainsKey(riItemKey))
-                        combinedStatModifiers[riItemKey] = combinedStatModifiers[riItemKey].CombineWith(riStatModifier);
-                    else
-                        combinedStatModifiers.Add(riItemKey, riStatModifier);
-
-                    #region Debug
-
-                    if (LogMethods.debugging) ($"combinedStatModifiers.Add(itemKey: " + itemKey + ", " + enchantedItem.statModifiers.S(itemKey) + ")").Log();
-
-                    #endregion
-                }
-            }
-
-            //Populate playerStatModifiers if item is a weapon
-            if (IsWeaponItem(item)) {
-                foreach (string playerKey in statModifiers.Keys) {
-                    string riPlayerKey = playerKey.RemoveInvert().RemovePrevent();
-                    if (item.GetType().GetField(riPlayerKey) != null || item.GetType().GetProperty(riPlayerKey) != null) {
-                        StatModifier riStatModifier = playerKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
-                        if (combinedStatModifiers.ContainsKey(riPlayerKey)) {
-                            combinedStatModifiers[riPlayerKey] = combinedStatModifiers[riPlayerKey].CombineWith(riStatModifier);
-                        }
-                        else {
-                            combinedStatModifiers.Add(riPlayerKey, riStatModifier);
-                        }
-
-                        #region Debug
-
-                        if (LogMethods.debugging) ($"combinedStatModifiers.Add(playerKey: " + playerKey + ", " + enchantedItem.statModifiers.S(playerKey) + ")").Log();
-
-                        #endregion
-                    }
-                }
-            }
-
-            foreach (string key in enchantedItem.appliedStatModifiers.Keys) {
-                if (!combinedStatModifiers.ContainsKey(key))
-                    combinedStatModifiers.Add(key, StatModifier.Default);
-            }
-
-            bool statsUpdated = false;
-            foreach (string key in combinedStatModifiers.Keys) {
-                bool statsNeedUpdate = true;
-                if (enchantedItem.appliedStatModifiers.ContainsKey(key))
-                    statsNeedUpdate = combinedStatModifiers[key] != enchantedItem.appliedStatModifiers[key];
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + enchantedItem.appliedStatModifiers.S(key)).Log();
-
-                #endregion
-
-                if (statsNeedUpdate) {
-                    FieldInfo field = item.GetType().GetField(key);
-                    PropertyInfo property = item.GetType().GetProperty(key);
-                    if (field != null || property != null) {
-                        if (!enchantedItem.appliedStatModifiers.ContainsKey(key))
-                            enchantedItem.appliedStatModifiers.Add(key, StatModifier.Default);
-
-                        StatModifier lastAppliedStatModifier = enchantedItem.appliedStatModifiers[key];
-                        enchantedItem.appliedStatModifiers[key] = combinedStatModifiers[key];
-                        StatModifier staticStat = CombineStatModifier(combinedStatModifiers[key], lastAppliedStatModifier, true);
-                        if (field != null) {
-                            Type fieldType = field.FieldType;
-                            //float (field)
-                            if (fieldType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)field.GetValue(item));
-                                field.SetValue(item, finalValue);
-                            }
-
-                            //int (field)
-                            if (fieldType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
-                                staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), enchantedItem.appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
-                                field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
-                                //$"{key}: {(int)Math.Round(finalValue + 5E-6)}".Log();
-                            }
-
-                            //bool (field)
-                            if (fieldType == typeof(bool)) {
-                                bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
-                                bool finalValue = combinedStatModifiers[key].Additive > 1.001f;
-                                bool containtPrevent = enchantedItem.statModifiers.ContainsKey("P_" + key) && enchantedItem.statModifiers["P_" + key].Additive > 1.001f || statModifiers.ContainsKey("P_" + key) && statModifiers["P_" + key].Additive > 1.001f;
-                                bool setValue = !containtPrevent && (baseValue || finalValue);
-                                field.SetValue(item, setValue);
-                            }
-                        }
-                        else if (property != null) {
-                            Type propertyType = property.PropertyType;
-                            //float (property)
-                            if (propertyType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)property.GetValue(item));
-                                property.SetValue(item, finalValue);
-                            }
-
-                            //int (property)
-                            if (propertyType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)property.GetValue(item));
-                                staticStat.RoundCheck(ref finalValue, (int)property.GetValue(item), enchantedItem.appliedStatModifiers[key], (int)property.GetValue(ContentSamples.ItemsByType[item.type]));
-                                property.SetValue(item, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (property)
-                            if (propertyType == typeof(bool)) {
-                                bool baseValue = (bool)property.GetValue(ContentSamples.ItemsByType[item.type]);
-                                bool finalValue = combinedStatModifiers[key].Additive != 1f;
-                                property.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                    }
-
-                    statsUpdated = true;
-                }
-            }
-
-            //Populate itemeStats
-            Dictionary<string, StatModifier> combinedEStats = new Dictionary<string, StatModifier>();
-            foreach (string itemKey in enchantedItem.eStats.Keys) {
-                string riItemKey = itemKey.RemoveInvert();
-                StatModifier riEStat = itemKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, enchantedItem.eStats[itemKey], true) : enchantedItem.eStats[itemKey];
-                if (combinedEStats.ContainsKey(riItemKey)) {
-                    combinedEStats[riItemKey] = combinedEStats[riItemKey].CombineWith(riEStat);
-                }
-                else {
-                    combinedEStats.Add(riItemKey, riEStat);
-                }
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"combinedEStats.Add(itemKey: " + itemKey + ", " + enchantedItem.eStats.S(itemKey) + ")").Log();
-
-                #endregion
-            }
-
-            //Populate playereStats if item is a weapon
-            if (IsWeaponItem(item)) {
-                foreach (string playerKey in eStats.Keys) {
-                    string riPlayerKey = playerKey.RemoveInvert();
-                    StatModifier riEStat = playerKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, eStats[playerKey], true) : eStats[playerKey];
-                    if (combinedEStats.ContainsKey(riPlayerKey)) {
-                        combinedEStats[riPlayerKey] = combinedEStats[riPlayerKey].CombineWith(riEStat);
-                    }
-                    else {
-                        combinedEStats.Add(riPlayerKey, riEStat);
-                    }
-
-                    #region Debug
-
-                    if (LogMethods.debugging) ($"combinedEStats.Add(riPlayerKey: " + riPlayerKey + ", " + enchantedItem.eStats.S(playerKey) + ")").Log();
-
-                    #endregion
-                }
-            }
-
-            foreach (string key in enchantedItem.appliedEStats.Keys) {
-                if (!combinedEStats.ContainsKey(key))
-                    combinedEStats.Add(key, StatModifier.Default);
-            }
-
-            bool eStatsUpdated = false;
-            foreach (string key in combinedEStats.Keys) {
-                bool statsNeedUpdate = true;
-                if (enchantedItem.appliedEStats.ContainsKey(key))
-                    statsNeedUpdate = combinedEStats[key] != enchantedItem.appliedEStats[key];
-
-                if (statsNeedUpdate) {
-                    if (!enchantedItem.appliedEStats.ContainsKey(key)) {
-                        enchantedItem.appliedEStats.Add(key, combinedEStats[key]);
-                    }
-                    else {
-                        enchantedItem.appliedEStats[key] = combinedEStats[key];
-                    }
-
-                    eStatsUpdated = true;
-                }
-            }
-
-			if (statsUpdated) {
-                foreach (string key in enchantedItem.statModifiers.Keys)
-                    TryRemoveStat(ref enchantedItem.statModifiers, key);
-
-                foreach (string key in enchantedItem.appliedStatModifiers.Keys)
-                    TryRemoveStat(ref enchantedItem.appliedStatModifiers, key);
-            }
-            
-            if (eStatsUpdated) {
-                foreach (string key in enchantedItem.eStats.Keys)
-                    TryRemoveStat(ref enchantedItem.eStats, key);
-
-                foreach (string key in enchantedItem.appliedEStats.Keys)
-                    TryRemoveStat(ref enchantedItem.appliedEStats, key);
             }
 
             #region Debug
@@ -2643,11 +2083,6 @@ namespace WeaponEnchantments
 
                 if (!oldItem.IsAir && oldItem.TryGetEnchantedWeapon(out EnchantedWeapon oldGlobal))
                     oldGlobal.trackedWeapon = false;
-
-                Item newCheckItem = IsWeaponItem(newItem) ? newItem : new Item();
-                Item oldCheckItem = IsWeaponItem(oldItem) ? oldItem : new Item();
-                //wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
-                wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
 
                 oldItem = newItem;
 

@@ -16,6 +16,7 @@ using Terraria.Localization;
 using System.Linq;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Items.Enchantments.Utility;
 
 namespace WeaponEnchantments.Items
 {
@@ -350,11 +351,6 @@ namespace WeaponEnchantments.Items
 
 		private bool finishedOneTimeSetup = false;
 		public uint BuffDuration => GetBuffDuration();
-		public List<int> Buff { private set; get; } = new List<int>();
-		public Dictionary<int, int> OnHitBuff { private set; get; } = new Dictionary<int, int>();
-		public Dictionary<short, int> Debuff { private set; get; } = new Dictionary<short, int>();
-		public List<EnchantmentStaticStat> StaticStats { private set; get; } = new List<EnchantmentStaticStat>();
-		public List<EStat> EStats { private set; get; } = new List<EStat>();
 		public List<EnchantmentEffect> Effects { protected set; get; } = new List<EnchantmentEffect>() { };
 
 		#endregion
@@ -531,11 +527,6 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
-			//Default Stat
-			//if (StaticStats.Count < 1 && EStats.Count < 1 && Buff.Count < 1 && Debuff.Count < 1 && OnHitBuff.Count < 1) {
-			//	AddEStat(EnchantmentTypeName, 0f, 1f, 0f, EnchantmentStrength);
-			//}
-
 			finishedOneTimeSetup = true;
 		}
 		public override void SetDefaults() {
@@ -606,114 +597,6 @@ namespace WeaponEnchantments.Items
 			}
 
 			return strength;
-		}
-		protected bool CheckStaticStatByName(string checkName = "", bool checkBoolOnly = false) {
-			if (checkName == "")
-				checkName = EnchantmentTypeName;
-
-			foreach (FieldInfo field in Item.GetType().GetFields()) {
-				string fieldName = field.Name;
-				if (fieldName.Length <= checkName.Length) {
-					if (fieldName.Length < checkName.Length) {
-						switch (checkName) {
-							case "CriticalStrikeChance":
-								//Do nothing.  Allow only a segment of the name to be matched (such as crit to criticalStrikeChance)
-								break;
-							default:
-								//Prevent name checking if not correct length.
-								continue;
-						}
-					}
-
-					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
-					if (fieldName == name) {
-						if (checkBoolOnly) {
-							return field.FieldType == typeof(bool);
-						}
-						else {
-							switch (name) {
-								case "crit":
-									AddStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength * 100);
-									break;
-								default:
-									AddStaticStat(fieldName, EnchantmentStrength);
-									break;
-							}
-						}
-						return true;
-					}
-				}
-			}
-			foreach (PropertyInfo property in Item.GetType().GetProperties()) {
-				string name = property.Name;
-				if (name.Length <= checkName.Length) {
-					if (name == checkName.Substring(0, name.Length)) {
-						if (checkBoolOnly) {
-							return property.PropertyType == typeof(bool);
-						}
-						else {
-							switch (name) {
-								case "ArmorPenetration":
-									AddStaticStat(name, 0f, 1f, 0f, EnchantmentStrength);
-									break;
-								default:
-									AddStaticStat(name, EnchantmentStrength);
-									break;
-							}
-						}
-						return true;
-					}
-				}
-			}
-			Player player = new();
-			foreach (FieldInfo field in player.GetType().GetFields()) {
-				string fieldName = field.Name;
-				if (fieldName.Length <= checkName.Length) {
-					string name = StringManipulation.ToFieldName(checkName.Substring(0, fieldName.Length));
-					if (fieldName == name) {
-						if (checkBoolOnly) {
-							return field.FieldType == typeof(bool);
-						}
-						else {
-							switch (name) {
-								case "Defense":
-								case "maxMinions":
-									AddStaticStat(fieldName, 0f, 1f, 0f, EnchantmentStrength);
-									break;
-								default:
-									AddStaticStat(fieldName, EnchantmentStrength);
-									break;
-							}
-						}
-						return true;
-					}
-				}
-			}
-			foreach (PropertyInfo property in player.GetType().GetProperties()) {
-				string name = property.Name;
-				if (name.Length <= checkName.Length) {
-					if (name == checkName.Substring(0, name.Length)) {
-						if (checkBoolOnly) {
-							return property.PropertyType == typeof(bool);
-						}
-						else {
-							AddStaticStat(name, EnchantmentStrength);
-						}
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-		protected bool AddStaticStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
-			StaticStats.Add(new EnchantmentStaticStat(name, additive, multiplicative, flat, @base));
-
-			return true;
-		}
-		protected bool AddEStat(string name, float additive = 0f, float multiplicative = 1f, float flat = 0f, float @base = 0f) {
-			EStats.Add(new EStat(name, additive, multiplicative, flat, @base));
-
-			return true;
 		}
 		protected string GetShortTooltip(bool showValue = true, bool percent = true, bool sign = false, bool multiply100 = true, bool multiplicative = false, string text = null) {
 			string s = "";
@@ -1013,6 +896,38 @@ namespace WeaponEnchantments.Items
 			}
 
 			return (int)Math.Round((1f + EnchantmentTier) * multiplier * ConfigCapacityCostMultiplier);
+		}
+		public bool SameAs(Item other) {
+			if (Item.stack != other.stack)
+				return false;
+
+			return CanStack(other);
+		}
+		public override bool CanStack(Item item2) {
+			if (Item.type != item2.type)
+				return false;
+
+			ModItem otherModItem = item2.ModItem;
+			if (otherModItem == null)
+				return false;
+
+			if (otherModItem is not Enchantment otherEnchantment)
+				return false;
+
+			if (otherEnchantment.Effects.Count != Effects.Count)
+				return false;
+
+			EnchantmentStat[] statEffects = Effects.OfType<StatEffect>().Select(statEffect => statEffect.statName).ToArray();
+			EnchantmentStat[] otherStatEffects = otherEnchantment.Effects.OfType<StatEffect>().Select(statEffect => statEffect.statName).ToArray();
+			if (statEffects.Length != otherStatEffects.Length)
+				return false;
+
+			foreach (EnchantmentStat statName in statEffects) {
+				if (!otherStatEffects.Contains(statName))
+					return false;
+			}
+
+			return true;
 		}
 	}
 }

@@ -133,7 +133,7 @@ namespace WeaponEnchantments.Common {
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
-            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.All.Select(e => e.ModItem).OfType<Enchantment>();
             // For each enchantment get its effects
             foreach (Enchantment enchantment in enchantments) {
                 foreach (EnchantmentEffect enchantmentEffect in enchantment.Effects) {

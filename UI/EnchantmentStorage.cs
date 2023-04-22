@@ -130,7 +130,7 @@ namespace WeaponEnchantments.UI
 					for (int column = 0; column < itemSlotColumns; column++) {
 						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
 						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex, itemSlotX, itemSlotY);
-						if (slotData.MouseHoveringItemSlot()) {
+						if (slotData.MouseHovering()) {
 							if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
 								if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
 									if (UIManager.LeftMouseClicked) {
@@ -149,10 +149,10 @@ namespace WeaponEnchantments.UI
 						}
 
 						if (wePlayer.trashEnchantments.Contains(item.type) && !item.favorited) {
-							slotData.Draw(spriteBatch, ref item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 						}
 						else {
-							slotData.Draw(spriteBatch, ref item, ItemSlotContextID.Normal, glowHue, glowTime);
+							slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
 						}
 
 						itemSlotX += itemSlotSpaceWidth;
@@ -313,9 +313,11 @@ namespace WeaponEnchantments.UI
 			IEnumerable<Item> containments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is ContainmentItem).OrderBy(i => i.type);
 			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
 			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is Enchantment)
-				.GroupBy(i => ((Enchantment)i.ModItem).EnchantmentTypeName).Select(l => l.ToList().OrderBy(i => ((Enchantment)i.ModItem).EnchantmentTier)).SelectMany(l => l);
+				.GroupBy(i => ((Enchantment)i.ModItem).EnchantmentTypeName).OrderBy(g => g.Key).Select(l => l.ToList().OrderBy(i => ((Enchantment)i.ModItem).EnchantmentTier)).SelectMany(l => l);
+			IEnumerable<Item> goodEnchantments = enchantments.Where(i => !WEPlayer.LocalWEPlayer.trashEnchantments.Contains(i.type));
+			IEnumerable<Item> trashEnchantments = enchantments.Where(i => WEPlayer.LocalWEPlayer.trashEnchantments.Contains(i.type));
 			IEnumerable<Item> otherItems = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem == null || i.ModItem is not (Enchantment or ContainmentItem or PowerBooster or UltraPowerBooster));
-			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(enchantments).Concat(otherItems).ToArray();
+			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(goodEnchantments).Concat(trashEnchantments).Concat(otherItems).ToArray();
 			glowTime = 300;
 			glowHue = 0.5f;
 		}

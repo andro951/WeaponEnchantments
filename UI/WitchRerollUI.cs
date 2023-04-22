@@ -150,7 +150,7 @@ namespace WeaponEnchantments.UI
 						}
 					}
 
-					UIManager.DrawItemSlot(spriteBatch, ref Witch.rerollItem, num56, num57);
+					UIManager.DrawItemSlot(spriteBatch, Witch.rerollItem, num56, num57);
 				}
 			}
 		}

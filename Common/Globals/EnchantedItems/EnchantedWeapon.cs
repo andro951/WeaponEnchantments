@@ -371,10 +371,6 @@ namespace WeaponEnchantments.Common.Globals
 
             bool? returnValue = base.UseItem(item, player);
 
-            if (eStats.ContainsKey("CatastrophicRelease")) {
-                player.statMana = 0;
-            }
-
             //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
             if (item.consumable && Modified && item.placeStyle == 0) {//Restock and Stack0
                 if (item.stack < 2) {
@@ -406,15 +402,6 @@ namespace WeaponEnchantments.Common.Globals
             foreach (ICanUseItem effect in EnchantmentEffects.OfType<ICanUseItem>()) {
                 if (!effect.CanUseItem(item, player))
                     return false;
-            }
-
-            //CatastrophicRelease
-            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
-                return false;
-
-            //AllForOne
-            if (eStats.ContainsKey("AllForOne")) {
-                return wePlayer.allForOneTimer <= 0;
             }
 
             return true;

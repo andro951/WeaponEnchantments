@@ -817,7 +817,7 @@ namespace WeaponEnchantments
                 //If player has a fishing pole in inventory with NpcContactAnglerEnchantment, tell them the new fishing quest.
                 foreach (Item item in Main.LocalPlayer.inventory.Where(i => i.fishingPole > 0)) {
                     if (item.TryGetEnchantedItem(out EnchantedFishingPole enchantedFishingPole)) {
-                        foreach(Enchantment enchantment in enchantedFishingPole.enchantments.Select(e => e.ModItem).OfType<Enchantment>()) {
+                        foreach(Enchantment enchantment in enchantedFishingPole.enchantments.All.Select(e => e.ModItem).OfType<Enchantment>()) {
                             if (enchantment is NpcContactAnglerEnchantment anglerEnchantment) {
                                 int newQuestFish = Main.anglerQuestItemNetIDs[Main.anglerQuest];
                                 Main.NewText($"The daily fishing quest has reset.  Your next quest is {ContentSamples.ItemsByType[newQuestFish].Name}.\n" +

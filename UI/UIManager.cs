@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
+using WeaponEnchantments.Common.Globals;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.UI
@@ -153,10 +154,10 @@ namespace WeaponEnchantments.UI
 				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Top + cornerSize, width, height), new Rectangle(cornerSize, cornerSize, _barSize, _barSize), color);
 			}
 		}
-		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, UIItemSlotData slot, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
-			DrawItemSlot(spriteBatch, ref item, slot.TopLeft.X, slot.TopLeft.Y, context, hue, glowTime);
+		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, UIItemSlotData slot, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+			DrawItemSlot(spriteBatch, item, slot.TopLeft.X, slot.TopLeft.Y, context, hue, glowTime);
 		}
-		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
 			//ItemSlot.Draw(spriteBatch, ref item, context, new Vector2(itemSlotX, itemSlotY));
 			Player player = Main.LocalPlayer;
 			float inventoryScale = Main.inventoryScale;
@@ -272,6 +273,12 @@ namespace WeaponEnchantments.UI
 
 			ItemSlot.RightClick(ref item, ItemSlotInteractContext);
 			ItemSlot.MouseHover(ref item, ItemSlotInteractContext);
+		}
+		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index) {
+			Item enchantmentItem = enchantmentsArray[index];
+			ItemSlotClickInteractions(ref enchantmentItem);
+			if (!enchantmentItem.IsSameEnchantment(enchantmentsArray[index]))
+				enchantmentsArray[index] = enchantmentItem;
 		}
 	}
 	public struct UIPanelData {
@@ -410,6 +417,8 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		private bool? isMouseHovering;
+		public bool MouseHovering() => UIManager.MouseHovering(IsMouseHovering, ID, true);
+
 		public void Draw(SpriteBatch spriteBatch) {
 			UIManager.DrawUIPanel(spriteBatch, TopLeft, BottomRight, IsMouseHovering ? HoverColor : PanelColor);
 			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, TopLeft + Borders, Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
@@ -431,11 +440,12 @@ namespace WeaponEnchantments.UI
 		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y && Main.mouseY <= BottomRight.Y && !PlayerInput.IgnoreMouseInterface;
 		public Point Center => new((TopLeft.X + BottomRight.X) / 2, (TopLeft.Y + BottomRight.Y) / 2);
-		public void Draw(SpriteBatch spriteBatch, ref Item item, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
-			UIManager.DrawItemSlot(spriteBatch, ref item, this, context, hue, glowTime);
+		public void Draw(SpriteBatch spriteBatch, Item item, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+			UIManager.DrawItemSlot(spriteBatch, item, this, context, hue, glowTime);
 		}
-		public bool MouseHoveringItemSlot() => UIManager.MouseHoveringItemSlot(TopLeft.X, TopLeft.Y, ID);
+		public bool MouseHovering() => UIManager.MouseHoveringItemSlot(TopLeft.X, TopLeft.Y, ID);
 		public void ClickInteractions(ref Item item) => UIManager.ItemSlotClickInteractions(ref item);
+		public void ClickInteractions(EnchantmentsArray enchantmentsArray, int index) => UIManager.ItemSlotClickInteractions(enchantmentsArray, index);
 	}
 	public static class UI_ID {
 		public const int None = 0;
