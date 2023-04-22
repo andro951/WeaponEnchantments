@@ -121,10 +121,10 @@ namespace WeaponEnchantments.UI
 		}
 		private void UpdateUISizeAndLocations() {
 			if (UIManager.ShouldDragUI(ID))
-				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILocationX, out WEPlayer.LocalWEPlayer.enchantingTableUILocationY);
+				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILeft, out WEPlayer.LocalWEPlayer.enchantingTableUITop);
 
-			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationX;
-			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationY;
+			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILeft;
+			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUITop;
 		}
 		private static void DeclineOffer() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

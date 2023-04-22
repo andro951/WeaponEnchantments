@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.UI
 {
@@ -27,9 +28,15 @@ namespace WeaponEnchantments.UI
 		private static int mouseOffsetY = 0;
 		public static bool lastMouseLeft = false;
 		public static bool LeftMouseClicked => Main.mouseLeft && !lastMouseLeft;
+		public static Color MouseColor {
+			get {
+				Color mouseColor = Color.White * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
+				mouseColor.A = byte.MaxValue;
+				return mouseColor;
+			}
+		}
 		public static readonly Asset<Texture2D>[] uiTextures = { Main.Assets.Request<Texture2D>("Images/UI/PanelBackground"), Main.Assets.Request<Texture2D>("Images/UI/PanelBorder") };
 		public static readonly int ItemSlotSize = 44;
-		public const int ItemSlotDrawContext = 5;
 		public static readonly int ItemSlotInteractContext = 30;
 		private static int PanelBeingDragged = UI_ID.None;
 		private static int UIBeingHovered = UI_ID.None;
@@ -40,6 +47,7 @@ namespace WeaponEnchantments.UI
 			float savedInventoryScale = Main.inventoryScale;
 			Main.inventoryScale = 0.86f;
 
+			EnchantingTableUI.PostDrawInterface(spriteBatch);
 			EnchantmentStorage.PostDrawInterface(spriteBatch);
 			WitchRerollUI.PoseDrawInterface(spriteBatch);
 
@@ -114,39 +122,101 @@ namespace WeaponEnchantments.UI
 				uiY = defaultY;
 			}
 		}
+
 		public static void DrawUIPanel(SpriteBatch spriteBatch, UIPanelData panel, Color panelColor) {
-			Point panelTopLeft = panel.TopLeft;
-			Point panelBottomRight = panel.BottomRight;
+			DrawUIPanel(spriteBatch, panel.TopLeft.X, panel.TopLeft.Y, panel.BottomRight.X, panel.BottomRight.Y, panelColor);
+		}
+		public static void DrawUIPanel(SpriteBatch spriteBatch, Point panelTopLeft, Point panelBottomRight, Color panelColor) {
+			DrawUIPanel(spriteBatch, panelTopLeft.X, panelTopLeft.Y, panelBottomRight.X, panelBottomRight.Y, panelColor);
+		}
+		public static void DrawUIPanel(SpriteBatch spriteBatch, Vector2 panelTopLeft, Vector2 panelBottomRight, Color panelColor) {
+			DrawUIPanel(spriteBatch, (int)panelTopLeft.X, (int)panelTopLeft.Y, (int)panelBottomRight.X, (int)panelBottomRight.Y, panelColor);
+		}
+		public static void DrawUIPanel(SpriteBatch spriteBatch, int Left, int Top, int Right, int Bottom, Color panelColor) {
 			int _barSize = 4;
 			int cornerSize = 12;
-			panelBottomRight = new(panelBottomRight.X - cornerSize, panelBottomRight.Y - cornerSize);
-			int width = panelBottomRight.X - panelTopLeft.X - cornerSize;
-			int height = panelBottomRight.Y - panelTopLeft.Y - cornerSize;
+			Right -= cornerSize;
+			Bottom -= cornerSize;
+			int width = Right - Left - cornerSize;
+			int height = Bottom - Top - cornerSize;
 			Color[] colors = { panelColor, Color.Black };
 			for (int i = 0; i < uiTextures.Length; i++) {
 				Texture2D texture = uiTextures[i].Value;
 				Color color = colors[i];
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X, panelTopLeft.Y, cornerSize, cornerSize), new Rectangle(0, 0, cornerSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelBottomRight.X, panelTopLeft.Y, cornerSize, cornerSize), new Rectangle(cornerSize + _barSize, 0, cornerSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X, panelBottomRight.Y, cornerSize, cornerSize), new Rectangle(0, cornerSize + _barSize, cornerSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelBottomRight.X, panelBottomRight.Y, cornerSize, cornerSize), new Rectangle(cornerSize + _barSize, cornerSize + _barSize, cornerSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X + cornerSize, panelTopLeft.Y, width, cornerSize), new Rectangle(cornerSize, 0, _barSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X + cornerSize, panelBottomRight.Y, width, cornerSize), new Rectangle(cornerSize, cornerSize + _barSize, _barSize, cornerSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X, panelTopLeft.Y + cornerSize, cornerSize, height), new Rectangle(0, cornerSize, cornerSize, _barSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelBottomRight.X, panelTopLeft.Y + cornerSize, cornerSize, height), new Rectangle(cornerSize + _barSize, cornerSize, cornerSize, _barSize), color);
-				spriteBatch.Draw(texture, new Rectangle(panelTopLeft.X + cornerSize, panelTopLeft.Y + cornerSize, width, height), new Rectangle(cornerSize, cornerSize, _barSize, _barSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left, Top, cornerSize, cornerSize), new Rectangle(0, 0, cornerSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Right, Top, cornerSize, cornerSize), new Rectangle(cornerSize + _barSize, 0, cornerSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left, Bottom, cornerSize, cornerSize), new Rectangle(0, cornerSize + _barSize, cornerSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Right, Bottom, cornerSize, cornerSize), new Rectangle(cornerSize + _barSize, cornerSize + _barSize, cornerSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Top, width, cornerSize), new Rectangle(cornerSize, 0, _barSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Bottom, width, cornerSize), new Rectangle(cornerSize, cornerSize + _barSize, _barSize, cornerSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left, Top + cornerSize, cornerSize, height), new Rectangle(0, cornerSize, cornerSize, _barSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Right, Top + cornerSize, cornerSize, height), new Rectangle(cornerSize + _barSize, cornerSize, cornerSize, _barSize), color);
+				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Top + cornerSize, width, height), new Rectangle(cornerSize, cornerSize, _barSize, _barSize), color);
 			}
 		}
-		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, int itemSlotX, int itemSlotY, int context = ItemSlotDrawContext, float hue = 0f, int glowTime = 0) {
+		public static void DrawItemSlot(SpriteBatch spriteBatch, ref Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
 			//ItemSlot.Draw(spriteBatch, ref item, context, new Vector2(itemSlotX, itemSlotY));
 			Player player = Main.LocalPlayer;
 			float inventoryScale = Main.inventoryScale;
 			Color color = Color.White;
 			Vector2 position = new(itemSlotX, itemSlotY);
 
-			Texture2D value = TextureAssets.InventoryBack.Value;
+			Texture2D texture;
 			Color color2 = Main.inventoryBack;
-			bool flag2 = false;
+
+			switch (context) {
+				case ItemSlotContextID.Purple when !item.favorited:
+					texture = TextureAssets.InventoryBack4.Value;//Purple
+					break;
+				case ItemSlotContextID.Purple when item.favorited:
+					texture = (Texture2D)ModContent.Request<Texture2D>("WeaponEnchantments/UI/Sprites/Inventory_Back4(Favorited)");
+					break;
+				case ItemSlotContextID.Favorited:
+					texture = TextureAssets.InventoryBack5.Value;
+					break;
+				case 6:
+					texture = TextureAssets.InventoryBack6.Value;
+					break;
+				case 7:
+					texture = TextureAssets.InventoryBack7.Value;
+					break;
+				case 8:
+					texture = TextureAssets.InventoryBack8.Value;
+					break;
+				case 9:
+					texture = TextureAssets.InventoryBack9.Value;
+					break;
+				case ItemSlotContextID.Ten:
+					texture = TextureAssets.InventoryBack10.Value;
+					break;
+				case 11:
+					texture = TextureAssets.InventoryBack11.Value;
+					break;
+				case 12:
+					texture = TextureAssets.InventoryBack12.Value;
+					break;
+				case 13:
+					texture = TextureAssets.InventoryBack13.Value;
+					break;
+				case 14:
+					texture = TextureAssets.InventoryBack14.Value;
+					break;
+				case 15:
+					texture = TextureAssets.InventoryBack15.Value;
+					break;
+				case 16:
+					texture = TextureAssets.InventoryBack16.Value;
+					break;
+				case ItemSlotContextID.Gold:
+					texture = TextureAssets.InventoryBack17.Value;
+					break;
+				case 18:
+					texture = TextureAssets.InventoryBack18.Value;
+					break;
+				default:
+					texture = item.favorited ? TextureAssets.InventoryBack5.Value : TextureAssets.InventoryBack.Value;
+					break;
+			}
 
 			//Glow
 			if (hue != 0f && !item.favorited && !item.IsAir) {
@@ -156,29 +226,28 @@ namespace WeaponEnchantments.UI
 				float num6 = (float)glowTime / 300f;
 				num6 *= num6;
 				color2 = Color.Lerp(value2, value3, num6 / 2f);
-				value = TextureAssets.InventoryBack13.Value;
+				texture = TextureAssets.InventoryBack13.Value;
 			}
 
 			//Favorited
-			if (item.favorited) {
-				value = TextureAssets.InventoryBack10.Value;
+			if (item.favorited || context == ItemSlotContextID.Favorited) {
+				texture = TextureAssets.InventoryBack10.Value;
 			}
 
 			//Draw ItemSlot
-			if (!flag2)
-				spriteBatch.Draw(value, position, null, color2, 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(texture, position, null, color2, 0f, default(Vector2), inventoryScale, SpriteEffects.None, 0f);
 
-			Vector2 vector = value.Size() * inventoryScale;
-			if (item.type > 0 && item.stack > 0) {
+			Vector2 vector = texture.Size() * inventoryScale;
+			if (item.type > ItemID.None && item.stack > 0) {
 				//Trash Can
-				if (context == 6) {
+				if (context == ItemSlotContextID.MarkedTrash) {
 					Texture2D value11 = TextureAssets.Trash.Value;
-					Vector2 position4 = position + value.Size() * inventoryScale / 2f - value11.Size() * inventoryScale / 2f * 1.5f;
+					Vector2 position4 = position + texture.Size() * inventoryScale / 2f - value11.Size() * inventoryScale / 2f * 1.5f;
 					spriteBatch.Draw(value11, position4, null, new Color(100, 100, 100, 100), 0f, default(Vector2), inventoryScale * 1.5f, SpriteEffects.None, 0f);
 				}
 
 				//Draw Item
-				ItemSlot.DrawItemIcon(item, context, spriteBatch, position + vector / 2f, inventoryScale, 32f, color);
+				ItemSlot.DrawItemIcon(item, 5, spriteBatch, position + vector / 2f, inventoryScale, 32f, color);
 
 				//Draw Stack
 				if (item.stack > 1)
@@ -212,6 +281,11 @@ namespace WeaponEnchantments.UI
 			TopLeft = new Point(left, top);
 			BottomRight = new Point(left + width, top + height);
 		}
+		public UIPanelData(int id, Point topLeft, Point bottomRight) {
+			ID = id;
+			TopLeft = topLeft;
+			BottomRight = bottomRight;
+		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y && Main.mouseY <= BottomRight.Y && !PlayerInput.IgnoreMouseInterface;
 		public Point Center => new((TopLeft.X + BottomRight.X) / 2, (TopLeft.Y + BottomRight.Y) / 2);
 	}
@@ -239,7 +313,20 @@ namespace WeaponEnchantments.UI
 			Color = color;
 			AncorBotomLeft = ancorBotomLeft;
 			BaseTextSize = FontAssets.MouseText.Value.MeasureString(text);
-			TextSize = BaseTextSize * scale;
+			TextSize = BaseTextSize * Scale;
+			int heightOffset = AncorBotomLeft ? (int)BaseTextSize.Y / 2 : 0;
+			TopLeft = new Point(left, top + heightOffset);
+			BottomRight = new Point(left + Width, top + Height + heightOffset);
+		}
+		public UITextData(int id, int left, int top, TextData textData, Color color, bool center = false, bool ancorBotomLeft = false) {
+			ID = id;
+			Text = textData.Text;
+			Scale = textData.Scale;
+			Center = center;
+			Color = color;
+			AncorBotomLeft = ancorBotomLeft;
+			BaseTextSize = FontAssets.MouseText.Value.MeasureString(Text);
+			TextSize = BaseTextSize * Scale;
 			int heightOffset = AncorBotomLeft ? (int)BaseTextSize.Y / 2 : 0;
 			TopLeft = new Point(left, top + heightOffset);
 			BottomRight = new Point(left + Width, top + Height + heightOffset);
@@ -248,6 +335,75 @@ namespace WeaponEnchantments.UI
 		public void Draw(SpriteBatch spriteBatch) {
 			int left = Center ? TopLeft.X - Width / 2: TopLeft.X;
 			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, new Vector2(left, TopLeft.Y), Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
+		}
+	}
+	public struct TextData {
+		public string Text;
+		public float Scale;
+		public int Width => (int)TextSize.X;
+		public int Height => (int)TextSize.Y;
+		public Vector2 TextSize;
+		public TextData(string text, float scale = 1f) {
+			Text = text;
+			Scale = scale;
+			TextSize = FontAssets.MouseText.Value.MeasureString(text) * scale;
+		}
+	}
+	public struct UIButtonData
+	{
+		public int ID;
+		public string Text;
+		public float Scale;
+		public Color Color;
+		Vector2 TextSize;
+		Vector2 Borders;
+		Vector2 Position => Vector2.Zero;// TextSize / 2;
+		public int Width;
+		public int Height;
+		public Vector2 TopLeft;
+		public Vector2 BottomRight;
+		public Color PanelColor;
+		public Color HoverColor;
+		public UIButtonData(int id, int X, int top, string text, float scale, Color color, int borderWidth, int borderHeight, Color panelColor, Color hoverColor, bool fromRight = false) {
+			ID = id;
+			Text = text;
+			Scale = scale;
+			Color = color;
+			TextSize = FontAssets.MouseText.Value.MeasureString(text) * scale;
+			Borders = new Vector2(borderWidth, borderHeight);
+			Width = (int)TextSize.X + borderWidth * 2;
+			Height = (int)TextSize.Y + borderHeight * 2;
+			TopLeft = new Vector2(X - (fromRight ? Width : 0), top);
+			BottomRight = new Vector2(X + (fromRight ? 0 : Width), top + Height);
+			PanelColor = panelColor;
+			HoverColor = hoverColor;
+		}
+		public UIButtonData(int id, int X, int top, TextData textData, Color color, int borderWidth, int borderHeight, Color panelColor, Color hoverColor, bool fromRight = false) {
+			ID = id;
+			Text = textData.Text;
+			Scale = textData.Scale;
+			Color = color;
+			TextSize = textData.TextSize;
+			Borders = new Vector2(borderWidth, borderHeight * 2);
+			Width = (int)TextSize.X + borderWidth * 2;
+			Height = (int)TextSize.Y + borderHeight * 2;
+			TopLeft = new Vector2(X - (fromRight ? Width : 0), top);
+			BottomRight = new Vector2(X + (fromRight ? 0 : Width), top + Height);
+			PanelColor = panelColor;
+			HoverColor = hoverColor;
+		}
+		public bool IsMouseHovering {
+			get {
+				if (isMouseHovering == null)
+					isMouseHovering = Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y - Position.Y && Main.mouseY <= BottomRight.Y - Position.Y && !PlayerInput.IgnoreMouseInterface;
+
+				return (bool)isMouseHovering;
+			}
+		}
+		private bool? isMouseHovering;
+		public void Draw(SpriteBatch spriteBatch) {
+			UIManager.DrawUIPanel(spriteBatch, TopLeft, BottomRight, IsMouseHovering ? HoverColor : PanelColor);
+			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, TopLeft + Borders, Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
 		}
 	}
 	public static class UI_ID {
@@ -261,8 +417,28 @@ namespace WeaponEnchantments.UI
 		public const int EnchantmentStorageQuickStack = 7;
 		public const int EnchantmentStorageSort = 8;
 		public const int EnchantmentStorageToggleVacuum = 9;
+		public const int EnchantingTableLootAll = 10;
+		public const int EnchantingTableOfferButton = 11;
+		public const int EnchantingTableSyphon = 12;
+		public const int EnchantingTableInfusion = 13;
+		public const int EnchantingTableLevelUp = 14;
+
+		public const int EnchantingTableLevelsPerLevelUp0 = 800;
+		public const int EnchantingTableLevelsPerLevelUpLast = 803;
+
+		public const int EnchantingTableXPButton0 = 900;
+		public const int EnchantingTableXPButtonLast = 904;
 
 		public const int EnchantmentStorageItemSlot1 = 1000;
 		public const int EnchantmentStorageItemSlotLast = EnchantmentStorageItemSlot1 + 99;
+	}
+	public static class ItemSlotContextID
+	{
+		public const int MarkedTrash = -1;
+		public const int Normal = 0;
+		public const int Purple = 4;
+		public const int Favorited = 5;
+		public const int Ten = 10;
+		public const int Gold = 17;
 	}
 }

@@ -52,17 +52,16 @@ namespace WeaponEnchantments.UI
 		public static bool uncrafting = false;
 		public static SortedDictionary<int, int> uncraftedItems = new();
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
-			WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
+			//WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.displayEnchantmentStorage || true) {
+				Color mouseColor = UIManager.MouseColor;
 				if (glowTime > 0) {
 					glowTime--;
 					if (glowTime <= 0)
 						glowHue = 0f;
 				}
 
-				Color mouseColor = Color.White * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
-				mouseColor.A = byte.MaxValue;
 				//ItemSlots Data 1/2
 				int itemSlotColumns = 10;
 				int itemSlotRows = 4;//wePlayer.enchantmentStorageItems.Length / columns
@@ -148,7 +147,7 @@ namespace WeaponEnchantments.UI
 						}
 
 						if (wePlayer.trashEnchantments.Contains(item.type) && !item.favorited) {
-							UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY, 6, glowHue, glowTime);
+							UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 						}
 						else {
 							UIManager.DrawItemSlot(spriteBatch, ref item, itemSlotX, itemSlotY, hue: glowHue, glowTime: glowTime);

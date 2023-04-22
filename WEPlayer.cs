@@ -79,10 +79,13 @@ namespace WeaponEnchantments
         public int enchantmentStorageUILeft;
 		public int enchantmentStorageUITop;
         public bool displayEnchantmentStorage;
-        public int enchantingTableUILocationX;
-		public int enchantingTableUILocationY;
+        public int enchantingTableUILeft;
+		public int enchantingTableUITop;
         public bool vacuumItemsIntoEnchantmentStorage;
         public SortedSet<int> trashEnchantments;
+        public Item enchantingTableItem;
+        public Item[] enchantingTableEnchantments = Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEnchantmentSlots).ToArray();
+        public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
 
 		#endregion
 
@@ -318,13 +321,9 @@ namespace WeaponEnchantments
             }
         }
         public override void SaveData(TagCompound tag) {
-
-            for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                tag["enchantingTableItem" + i.ToString()] = enchantingTable.item[i];
-            }
-
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-                tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
+            tag["enchantingTableItem0"] = enchantingTableItem;
+            for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+                tag[$"enchantingTableEssenceItem{i}"] = enchantingTableEssence[i];
             }
 
             tag["infusionConsumeItem"] = infusionConsumeItem;
@@ -334,29 +333,21 @@ namespace WeaponEnchantments
             tag["enchantmentStorageItems"] = enchantmentStorageItems;
             tag["enchantmentStorageUILocationX"] = enchantmentStorageUILeft;
 			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
-            tag["enchantingTableUILocationX"] = enchantingTableUILocationX;
-            tag["enchantingTableUILocationY"] = enchantingTableUILocationY;
+            tag["enchantingTableUILocationX"] = enchantingTableUILeft;
+            tag["enchantingTableUILocationY"] = enchantingTableUITop;
             tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
             tag["trashEnchantments"] = trashEnchantments.ToArray();
 		}
 		public override void LoadData(TagCompound tag) {
-            for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir) {
-                    enchantingTable.item[i] = new Item();
-                }
-                else {
-                    enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
-                }
-            }
+            enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
+            if (enchantingTableItem == null)
+                enchantingTableItem = new();
 
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-                if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir) {
-                    enchantingTable.essenceItem[i] = new Item();
-                }
-                else {
-                    enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
-                }
-            }
+			for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+                enchantingTableEssence[i] = tag.Get<Item>($"enchantingTableEssenceItem{i}");
+                if (enchantingTableEssence[i] == null)
+                    enchantingTableEssence[i] = new();
+			}
 
             infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
             if (infusionConsumeItem.IsAir)
@@ -381,9 +372,9 @@ namespace WeaponEnchantments
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.enchantmentStorageUIDefaultX, EnchantmentStorage.enchantmentStorageUIDefaultY);
 
-            enchantingTableUILocationX = tag.Get<int>("enchantingTableUILocationX");
-            enchantingTableUILocationY = tag.Get<int>("enchantingTableUILocationY");
-			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILocationX, ref enchantingTableUILocationY, WeaponEnchantmentUI.RelativeLeft, WeaponEnchantmentUI.RelativeTop);
+            enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
+            enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
+			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, WeaponEnchantmentUI.RelativeLeft, WeaponEnchantmentUI.RelativeTop);
 
             vacuumItemsIntoEnchantmentStorage = tag.Get<bool>("vacuumItemsIntoEnchantmentStorage");
             trashEnchantments = new(tag.Get<int[]>("trashEnchantments"));

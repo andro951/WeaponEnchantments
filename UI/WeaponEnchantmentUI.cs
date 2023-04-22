@@ -80,8 +80,8 @@ namespace WeaponEnchantments.UI
             WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			Width.Pixels = width;
 			Height.Pixels = height;
-			Left.Pixels = wePlayer.enchantingTableUILocationX;
-			Top.Pixels = wePlayer.enchantingTableUILocationY;
+			Left.Pixels = wePlayer.enchantingTableUILeft;
+			Top.Pixels = wePlayer.enchantingTableUITop;
 			OnLeftMouseDown += (evt, element) => {
                 if (UIManager.MouseHovering(IsMouseHovering, ID) && hoveringOverBorder) {
                     UIManager.StartDraggingUI(this, ID);
@@ -460,10 +460,10 @@ namespace WeaponEnchantments.UI
 		}
 		public void UpdateUISizeAndLocations() {
 			if (UIManager.ShouldDragUI(ID))
-				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILocationX, out WEPlayer.LocalWEPlayer.enchantingTableUILocationY);
+				UIManager.DragUI(out WEPlayer.LocalWEPlayer.enchantingTableUILeft, out WEPlayer.LocalWEPlayer.enchantingTableUITop);
 
-			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationX;
-			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILocationY;
+			Left.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUILeft;
+			Top.Pixels = WEPlayer.LocalWEPlayer.enchantingTableUITop;
 		}
 		public override void OnActivate() {
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
