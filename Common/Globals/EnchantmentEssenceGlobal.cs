@@ -26,7 +26,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (item.ModItem is not EnchantmentEssence essence)
                     return false;
 
-                List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
+                Item[] essenceSlots = wePlayer.enchantingTableEssence;
                 int tier = essence.EssenceTier;
                 int tableStack = essenceSlots[tier].stack;
                 int toStore = Math.Min(item.maxStack - tableStack, item.stack);
@@ -65,7 +65,7 @@ namespace WeaponEnchantments.Common.Globals
             WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
                 EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
-                List<Item> essenceSlots = wePlayer.enchantingTable.essenceItem;
+                Item[] essenceSlots = wePlayer.enchantingTableEssence;
                 int tier = essence.EssenceTier;
                 int tableStack = essenceSlots[tier].stack;
                 if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)

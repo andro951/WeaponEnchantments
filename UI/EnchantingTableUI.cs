@@ -17,6 +17,7 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Common.Utility.LogSystem;
+using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.Tiles;
@@ -25,6 +26,8 @@ namespace WeaponEnchantments.UI
 {
 	public static class EnchantingTableUI
 	{
+		public static int DefaultLeft => (Main.screenWidth - 530) / 2;
+		public static int DefaultTop => Main.screenHeight / 2 + 42;
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		private static int ButtonBorderY => 0;
@@ -102,7 +105,7 @@ namespace WeaponEnchantments.UI
 
 				//If player is too far away, close the enchantment table
 				if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
-					CloseWeaponEnchantmentUI();
+					CloseEnchantingTableUI();
 
 				#endregion
 
@@ -675,7 +678,12 @@ namespace WeaponEnchantments.UI
 			wePlayer.itemBeingEnchanted.favorited = itemBeingEnchantedIsFavorited;
 			wePlayer.itemBeingEnchanted = wePlayer.enchantingTableItem;//Stop tracking the item that just left the itemSlot
 		}
-		public static void CloseWeaponEnchantmentUI(bool noSound = false) {
+		public static void OpenEnchantingTableUI(bool noSound = false) {
+			WEPlayer.LocalWEPlayer.usingEnchantingTable = true;
+			if (!noSound)
+				SoundEngine.PlaySound(SoundID.MenuOpen);
+		}
+		public static void CloseEnchantingTableUI(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			wePlayer.displayEnchantmentStorage = false;
 			if (!wePlayer.usingEnchantingTable)
@@ -981,7 +989,7 @@ namespace WeaponEnchantments.UI
 			int xpInitial = xpCounter;
 			int xpNotConsumed = 0;
 			int numberEssenceRecieved;
-			for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--) {
+			for (int tier = EnchantingTableUI.MaxEssenceSlots - 1; tier >= 0; tier--) {
 				if (wePlayer.highestTableTierUsed < tier)
 					continue;
 
@@ -1081,7 +1089,7 @@ namespace WeaponEnchantments.UI
 						wePlayer.infusionConsumeItem = new Item(tableItem.type);
 					}
 					else {
-						if (wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
+						if (wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.favorited) {
 							Main.NewText("Favorited items cannot be consumed for infusion.");
 							return;
 						}
@@ -1133,7 +1141,7 @@ namespace WeaponEnchantments.UI
 			}
 
 			//xpAvailable
-			for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--) {
+			for (int i = EnchantingTableUI.MaxEnchantmentSlots - 1; i >= 0; i--) {
 				int xpToAdd = WEMath.MultiplyCheckOverflow((int)EnchantmentEssence.xpPerEssence[i], wePlayer.enchantingTableEssence[i].stack);
 				xpAvailable.AddCheckOverflow(xpToAdd);
 				if (!wePlayer.enchantingTableEssence[i].favorited)
@@ -1152,7 +1160,7 @@ namespace WeaponEnchantments.UI
 
 			//Consume xp and convert to essence
 			int totalXPToGain = 0;
-			for (int i = EnchantingTable.maxEnchantments - 1; i >= 0; i--) {
+			for (int i = EnchantingTableUI.MaxEnchantmentSlots - 1; i >= 0; i--) {
 				Item essenceItem = wePlayer.enchantingTableEssence[i];
 				bool allowUsingThisEssence = !essenceItem.favorited || !enoughWithoutFavorite;
 				int stack = essenceItem.stack;

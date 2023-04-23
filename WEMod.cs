@@ -272,8 +272,8 @@ namespace WeaponEnchantments
 			c.EmitDelegate((Item item, int num) => {
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 				if (wePlayer.usingEnchantingTable) {
-					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+					for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+						Item slotItem = wePlayer.enchantingTableEssence[i];
 						if (item.type == slotItem.type) {
 							slotItem.stack -= num;
 						}
@@ -369,8 +369,8 @@ namespace WeaponEnchantments
 						counter++;
 						ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
 					}
-					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-						Item item = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
+					for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+						Item item = wePlayer.enchantingTableEssence[i];
 						if (item != null && item.stack > 0) {
 							if (dictionary.ContainsKey(item.netID)) {
 								dictionary[item.netID] += item.stack;

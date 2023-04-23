@@ -61,7 +61,7 @@ namespace WeaponEnchantments.ModIntegration
                 if (Main.netMode < NetmodeID.Server) {
                     WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
                     if (wePlayer.usingEnchantingTable)
-						EnchantingTableUI.CloseWeaponEnchantmentUI(true);
+						EnchantingTableUI.CloseEnchantingTableUI(true);
                 }
 
                 Item mouseItem = Main.mouseItem;

@@ -10,6 +10,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.Items.Enchantments;
+using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 
@@ -234,7 +235,7 @@ namespace WeaponEnchantments.Common
                 }
 
                 if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-                    for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                    for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                         Item enchantmentItem = enchantedItem.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
                             ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);

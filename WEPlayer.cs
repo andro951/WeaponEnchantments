@@ -55,11 +55,7 @@ namespace WeaponEnchantments
         public int enchantingTableTier;
         public int highestTableTierUsed;
         public bool itemInEnchantingTable;
-        public bool[] enchantmentInEnchantingTable = new bool[EnchantingTable.maxEnchantments];
         public Item itemBeingEnchanted;
-        public EnchantingTable enchantingTable;
-        public WeaponEnchantmentUI enchantingTableUI;
-        public ConfirmationUI confirmationUI;
         static float baseOneForAllRange = 240f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
@@ -301,14 +297,11 @@ namespace WeaponEnchantments
             #endregion
         }
         public override void Initialize() {
-            enchantingTable = new EnchantingTable();
-            enchantingTableUI = new WeaponEnchantmentUI();
             int modSlotCount = Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
             int armorCount = Player.armor.Length / 2 + modSlotCount;
             equipArmor = new Item[armorCount];
             equipArmorStatsNeedUpdate = new bool[armorCount];
             trackedWeapon = new Item();
-            confirmationUI = new ConfirmationUI();
             for (int i = 0; i < equipArmor.Length; i++) {
                 equipArmor[i] = new Item();
             }
@@ -370,7 +363,7 @@ namespace WeaponEnchantments
 
             enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
-			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, WeaponEnchantmentUI.RelativeLeft, WeaponEnchantmentUI.RelativeTop);
+			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
 
             vacuumItemsIntoEnchantmentStorage = tag.Get<bool>("vacuumItemsIntoEnchantmentStorage");
             trashEnchantmentsFullNames = new(tag.Get<string[]>("trashEnchantmentsFullNames"));
@@ -520,10 +513,10 @@ namespace WeaponEnchantments
 						if (!valid) {
                             //Check/Move Enchantment
                             if (item.ModItem is Enchantment enchantment) {
-                                int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableItem);
+                                int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, enchantingTableItem);
                                 bool uniqueSlotNotFound = uniqueItemSlot == -1;
 								int utilitySlotIndex = EnchantingTableUI.MaxEnchantmentSlots - 1;
-                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+                                for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                                     if (!EnchantingTableUI.ValidItemForEnchantmentSlot(item, i, i == utilitySlotIndex))
                                         continue;
 
@@ -904,7 +897,7 @@ namespace WeaponEnchantments
 			itemConsumedCallback = null;
 			List<Item> items = new();
 			if (usingEnchantingTable) {
-				for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
+				for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
 					ref Item item = ref enchantingTableEssence[i];
 					if (!item.NullOrAir() && item.stack > 0)
 						items.Add(item);

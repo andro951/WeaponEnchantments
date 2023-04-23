@@ -19,7 +19,7 @@ namespace WeaponEnchantments.ModIntegration
     {
         public override string Name => "Enchanting Table Essence";
 		public override IEnumerable<Item> GetAdditionalItems(EnvironmentSandbox sandbox) {
-            return Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem;
+            return Main.LocalPlayer.GetWEPlayer().enchantingTableEssence;
         }
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information) {
             int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;

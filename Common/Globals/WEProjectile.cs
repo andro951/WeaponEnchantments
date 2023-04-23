@@ -308,7 +308,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             default://enchantingTable itemSlot
                                 inventory = new Item[1];
-                                inventory[0] = wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item;
+                                inventory[0] = wePlayer.enchantingTableItem;
                                 inventoryLocation = 0;
                                 break;
                         }
@@ -348,8 +348,8 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null) {
-                                            inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
+                                        if (wePlayer.enchantingTableItem != null) {
+                                            inventory = new Item[] { wePlayer.enchantingTableItem };
                                         }
                                         else {
                                             inventory = null;

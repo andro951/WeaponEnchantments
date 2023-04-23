@@ -269,7 +269,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Enchantment
 
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 if (tag.Get<Item>("enchantments" + i.ToString()) != null) {
                     Item enchantmentItem = tag.Get<Item>($"enchantments{i}");
 					OldItemManager.ReplaceOldItem(ref enchantmentItem);
@@ -306,7 +306,7 @@ namespace WeaponEnchantments.Common.Globals
 
             #region Enchantment
 
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 if (!enchantments[i].IsAir) {
                     tag[$"enchantments{i}"] = enchantments[i];
                 }
@@ -345,7 +345,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Enchantment
 
-			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+			for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 writer.Write((short)enchantments[i].type);
 
                 #region Debug
@@ -397,7 +397,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			#region Enchantment
 
-			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+			for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 enchantments[i] = new Item(reader.ReadUInt16());
 
                 #region Debug
@@ -463,7 +463,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             int enchantmentsValue = 0;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 enchantmentsValue += enchantments[i].value;
             }
 
@@ -820,7 +820,7 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
             //Enchanting table loot all
-            if (i2Global.inEnchantingTable && !Main.mouseLeft && !Main.mouseRight && !WeaponEnchantmentUI.pressedLootAll)
+            if (i2Global.inEnchantingTable && !Main.mouseLeft && !Main.mouseRight)// && !EnchantingTableUI.pressedLootAll)
                 return true;
 
             int maxStack = item1.maxStack;
@@ -874,9 +874,8 @@ namespace WeaponEnchantments.Common.Globals
                 //Clear enchantments in enchanting table if item2 is in it (Will only have cleared off of the player tracked enchantments from combining)
                 if (i2Global.inEnchantingTable) {
                     for (int i = 0; i < enchantments.Length; i++) {
-                        Main.LocalPlayer.GetWEPlayer().enchantingTableUI.enchantmentSlotUI[i].Item = new Item();
+                        Main.LocalPlayer.GetWEPlayer().enchantingTableEnchantments[i] = new Item();
                     }
-
                 }
 
                 //Reset item2 globals
@@ -953,7 +952,7 @@ namespace WeaponEnchantments.Common.Globals
 				storeAppliedItem.EnchantedItem = enchantedItem;
 		}
         public void ApplyAll() {
-			for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+			for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 if (_enchantments[i].ModItem is Enchantment enchantment) {
                     ApplyEnchantment(i);
                 }
@@ -1140,10 +1139,6 @@ namespace WeaponEnchantments.Common.Globals
             //Update Stats
             Main.LocalPlayer?.GetWEPlayer().UpdateItemStats(ref item);
         }
-        public static void ApplyEnchantment(int i) {
-            Item item = WEPlayer.LocalWEPlayer.enchantingTableUI.itemSlotUI[0].Item;
-            item.ApplyEnchantment(i);
-        }
         public static void ApplyEnchantment(this Item item, int i) {
 
 			#region Debug
@@ -1163,11 +1158,6 @@ namespace WeaponEnchantments.Common.Globals
 			if (LogMethods.debugging) ($"/\\ApplyEnchantment(i: " + i + ")").Log();
 
 			#endregion
-		}
-		public static void RemoveEnchantment(int i) {
-			Item item = WEPlayer.LocalWEPlayer.enchantingTableUI.itemSlotUI[0].Item;
-            item.RemoveEnchantment(i);
-            //WEPlayer.LocalWEPlayer.enchantingTableEnchantments[i] = new();
 		}
         public static void RemoveEnchantment(this Item item, int i) {
 
@@ -1440,27 +1430,27 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     int j;
-                    for (j = 0; j <= EnchantingTable.maxEnchantments; j++) {
+                    for (j = 0; j <= EnchantingTableUI.MaxEnchantmentSlots; j++) {
                         if (j > 4)
                             break;
                         if (enchantedItem.enchantments[j].IsAir)
                             break;
                     }
-                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
+                    for (int k = 0; k < EnchantingTableUI.MaxEnchantmentSlots; k++) {
                         if (!consumedEnchantedItem.enchantments[k].IsAir) {
                             Enchantment enchantment = ((Enchantment)consumedEnchantedItem.enchantments[k].ModItem);
-                            int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, item);
+                            int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
                             //int slotToUse = enchantment.Utility && enchantedItem.enchantments[j].IsAir ? 4 : j;
-                            if (!WEUIItemSlot.UseEnchantmentSlot(item, j, j == 1, true))
+                            if (!EnchantingTableUI.UseEnchantmentSlot(item, j, j == 1, true))
                                 cantFit = true;
 
-                            if (!cantFit && !WEUIItemSlot.EnchantmentAllowedOnItem(item, enchantment))
+                            if (!cantFit && !EnchantingTableUI.EnchantmentAllowedOnItem(item, enchantment))
                                 cantFit = true;
 
                             if (!cantFit && enchantment.GetCapacityCost() <= enchantedItem.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && WEUIItemSlot.SlotAllowedByConfig(item, 4)) {
+                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && EnchantingTableUI.SlotAllowedByConfig(item, 4)) {
 										enchantedItem.enchantments[4] = consumedEnchantedItem.enchantments[k].Clone();
                                         item.ApplyEnchantment(4);
                                     }
@@ -1492,7 +1482,7 @@ namespace WeaponEnchantments.Common.Globals
                     item.CheckConvertExcessExperience(consumedItem);
                     int numberEssenceRecieved;
                     int xpCounter = enchantedItem.Experience;
-                    for (int tier = EnchantingTable.maxEssenceItems - 1; tier >= 0; tier--) {
+                    for (int tier = EnchantingTableUI.MaxEssenceSlots - 1; tier >= 0; tier--) {
                         numberEssenceRecieved = xpCounter / (int)EnchantmentEssenceBasic.xpPerEssence[tier] * 4 / 5;
                         xpCounter -= (int)EnchantmentEssenceBasic.xpPerEssence[tier] * numberEssenceRecieved;
                         if (xpCounter < (int)EnchantmentEssenceBasic.xpPerEssence[0] && xpCounter > 0 && tier == 0) {
@@ -1509,7 +1499,7 @@ namespace WeaponEnchantments.Common.Globals
                     if (consumedEnchantedItem.UltraPowerBoosterInstalled)
                         Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>(), 1);
 
-                    for (int k = 0; k < EnchantingTable.maxEnchantments; k++) {
+                    for (int k = 0; k < EnchantingTableUI.MaxEnchantmentSlots; k++) {
                         if (!consumedEnchantedItem.enchantments[k].IsAir) {
                             Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), consumedEnchantedItem.enchantments[k].type, 1);
                         }
@@ -1522,12 +1512,12 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Check config
-            for (int i = EnchantingTable.maxEnchantments - 1; i >= 0 ; i--) {
+            for (int i = EnchantingTableUI.MaxEnchantmentSlots - 1; i >= 0 ; i--) {
                 Item enchantment = enchantedItem.enchantments[i];
                 if (enchantment.IsAir)
                     continue;
 
-                bool slotAllowedByConfig = WEUIItemSlot.SlotAllowedByConfig(item, i);
+                bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(item, i);
                 if (!slotAllowedByConfig)
                     RemoveEnchantmentNoUpdate(enchantedItem, i, player, $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.");
             }
@@ -1535,7 +1525,7 @@ namespace WeaponEnchantments.Common.Globals
             //Check enchantment limitations
             List<string> enchantmentTypeNames = new List<string>();
             bool unique = false;
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 Item enchantmentItem = enchantedItem.enchantments[i];
 
                 if (enchantmentItem != null && !enchantmentItem.IsAir && player != null) {
@@ -1560,7 +1550,7 @@ namespace WeaponEnchantments.Common.Globals
                         RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer allowed on acessories and has been removed from your " + item.Name + ".");
                     }
 
-                    if (i == EnchantingTable.maxEnchantments - 1 && !enchantment.Utility)
+                    if (i == EnchantingTableUI.MaxEnchantmentSlots - 1 && !enchantment.Utility)
                         RemoveEnchantmentNoUpdate(enchantedItem, i, player, enchantmentItem.Name + " is no longer a utility enchantment and has been removed from your " + item.Name + ".");
 
                     if (enchantment.RestrictedClass.Count > 0 && enchantment.RestrictedClass.Contains(ContentSamples.ItemsByType[item.type].DamageType.Type))
@@ -1584,7 +1574,7 @@ namespace WeaponEnchantments.Common.Globals
 
             //Check too many enchantments on item
             if (enchantedItem.GetLevelsAvailable() < 0) {
-                for (int k = EnchantingTable.maxEnchantments - 1; k >= 0 && enchantedItem.GetLevelsAvailable() < 0; k--) {
+                for (int k = EnchantingTableUI.MaxEnchantmentSlots - 1; k >= 0 && enchantedItem.GetLevelsAvailable() < 0; k--) {
                     if (!enchantedItem.enchantments[k].IsAir)
                         enchantedItem.enchantments[k] = player.GetItem(player.whoAmI, enchantedItem.enchantments[k], GetItemSettings.LootAllSettings);
 
@@ -1618,7 +1608,7 @@ namespace WeaponEnchantments.Common.Globals
             if (global1.PowerBoosterInstalled != global2.PowerBoosterInstalled || global1.UltraPowerBoosterInstalled != global2.UltraPowerBoosterInstalled || global1.infusedItemName != global2.infusedItemName)
                 return false;
 
-            for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                 if (global1.enchantments[i].type != global2.enchantments[i].type)
                     return false;
             }

@@ -64,7 +64,7 @@ namespace WeaponEnchantments.Common.Globals
 			base.UpdateEquip(item, player);
 
 			//Fix for swapping an equipped armor/accessory with one in the enchanting table.
-			if (player.GetWEPlayer().ItemInUI().TryGetEnchantedItem()) {
+			if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {
 				if (item.GetInfusionArmorSlot() != infusedArmorSlot) {
 					infusedArmorSlot = -1;
 					item.TryInfuseItem(new Item(), true);

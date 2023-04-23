@@ -90,7 +90,7 @@ namespace WeaponEnchantments.Tiles
 		}
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
 			if (enchantingTableTier > -1)
-				EnchantingTableUI.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseEnchantingTableUI();
 		}
 		public override bool RightClick(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -107,7 +107,7 @@ namespace WeaponEnchantments.Tiles
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
-				EnchantingTableUI.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseEnchantingTableUI();
 			}
 			else {
 				if (MagicStorageIntegration.MagicStorageIsOpen())
@@ -125,7 +125,7 @@ namespace WeaponEnchantments.Tiles
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 
 				SoundEngine.PlaySound(SoundID.MenuTick);
-				WEModSystem.OpenWeaponEnchantmentUI();
+				EnchantingTableUI.OpenEnchantingTableUI();
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();

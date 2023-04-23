@@ -207,12 +207,6 @@ namespace WeaponEnchantments.Common.Utility
 
             return null;
         }
-        public static Item ItemInUI(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i]?.Item;
-        public static WEUIItemSlot ItemUISlot(this WEPlayer wePlayer, int i = 0) => wePlayer.enchantingTableUI.itemSlotUI[i];
-        public static WEUIItemSlot EnchantmentUISlot(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i];
-        public static Item EnchantmentInUI(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item;
-        public static Enchantment EnchantmentsModItem(this WEPlayer wePlayer, int i) => (Enchantment)wePlayer.enchantingTableUI.enchantmentSlotUI[i].Item.ModItem;
-        public static Item EssenceInTable(this WEPlayer wePlayer, int i) => wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
         public static bool TryGetEnchantmentEssence(this Item item, out EnchantmentEssence enchantmentEssence) {
             ModItem modItem = item.ModItem;
 
@@ -266,7 +260,7 @@ namespace WeaponEnchantments.Common.Utility
                 else {
                     enchantedItem.Experience = int.MaxValue;
                     if (WEMod.magicStorageEnabled) $"CheckConvertExcessExperience. item: {item.S()}, consumedItem: {consumedItem.S()}".Log();
-                    WeaponEnchantmentUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true, item);
+                    EnchantingTableUI.ConvertXPToEssence((int)(xp - (long)int.MaxValue), true, item);
                 }
             }
             else {
