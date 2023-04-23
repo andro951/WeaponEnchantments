@@ -83,7 +83,7 @@ namespace WeaponEnchantments.UI
 			Left.Pixels = wePlayer.enchantingTableUILeft;
 			Top.Pixels = wePlayer.enchantingTableUITop;
 			OnLeftMouseDown += (evt, element) => {
-                if (UIManager.MouseHovering(IsMouseHovering, ID) && hoveringOverBorder) {
+                if (UIManager.MouseHovering(this, ID) && hoveringOverBorder) {
                     UIManager.StartDraggingUI(this, ID);
 				}
 			};
@@ -391,8 +391,8 @@ namespace WeaponEnchantments.UI
 
             button[ButtonID.Infusion].OnLeftClick += (evt, element) => Infusion();
             string infusionText;
-            if (wePlayer.infusionConsumeItem != null) {
-                if (wePlayer.enchantingTable.item[0] == null || wePlayer.enchantingTable.item[0].IsAir) {
+            if (!wePlayer.infusionConsumeItem.IsAir) {
+                if (wePlayer.enchantingTable.item[0].IsAir) {
 					infusionText = TableTextID.Cancel.ToString().Lang(L_ID1.TableText);
 				}
                 else {
@@ -647,7 +647,7 @@ namespace WeaponEnchantments.UI
 				if (!infusionAllowed)
                     return;
 
-                if (wePlayer.infusionConsumeItem == null) {
+                if (wePlayer.infusionConsumeItem.IsAir) {
 
                     bool canConsume = false;
 
@@ -700,15 +700,15 @@ namespace WeaponEnchantments.UI
                     //Infuse (Finalize)
                     if (wePlayer.enchantingTableUI.itemSlotUI[0].Item.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
                         ConfirmationUI.OfferItem(ref wePlayer.infusionConsumeItem, true, true);
-                        wePlayer.infusionConsumeItem = null;
+                        wePlayer.infusionConsumeItem = new();
                         infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
                     }
                 }
             }
-            else if(wePlayer.infusionConsumeItem != null) {
+            else if(!wePlayer.infusionConsumeItem.IsAir) {
                 //Return infusion item to table
                 wePlayer.enchantingTableUI.itemSlotUI[0].Item = wePlayer.infusionConsumeItem.Clone();
-                wePlayer.infusionConsumeItem = null;
+                wePlayer.infusionConsumeItem = new();
                 infusionButonText.SetText(TableTextID.Infusion.ToString().Lang(L_ID1.TableText));
             }
         }

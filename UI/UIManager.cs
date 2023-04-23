@@ -18,6 +18,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using WeaponEnchantments.Common.Globals;
+using WeaponEnchantments.Common.Utility;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.UI
@@ -25,10 +26,12 @@ namespace WeaponEnchantments.UI
 	public static class UIManager
 	{
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
+		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
 		private static int mouseOffsetX = 0;
 		private static int mouseOffsetY = 0;
 		public static bool lastMouseLeft = false;
 		public static bool LeftMouseClicked => Main.mouseLeft && !lastMouseLeft;
+		public static bool LeftMouseDown = false;
 		public static Color MouseColor {
 			get {
 				Color mouseColor = Color.White * (1f - (255f - (float)(int)Main.mouseTextColor) / 255f * 0.5f);
@@ -38,13 +41,17 @@ namespace WeaponEnchantments.UI
 		}
 		public static readonly Asset<Texture2D>[] uiTextures = { Main.Assets.Request<Texture2D>("Images/UI/PanelBackground"), Main.Assets.Request<Texture2D>("Images/UI/PanelBorder") };
 		public static readonly int ItemSlotSize = 44;
-		public static readonly int ItemSlotInteractContext = 30;
+		public const int ItemSlotInteractContext = ItemSlot.Context.BankItem;
 		private static int PanelBeingDragged = UI_ID.None;
-		private static int UIBeingHovered = UI_ID.None;
+		public static int UIBeingHovered = UI_ID.None;
 		public static int LastUIBeingHovered { get; private set; } = UI_ID.None;
+		public static List<(Item, int)> popupTextItems = new();
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
-			LastUIBeingHovered = UIBeingHovered;
-			UIBeingHovered = UI_ID.None;
+			if (NoPanelBeingDragged) {
+				LastUIBeingHovered = UIBeingHovered;
+				UIBeingHovered = UI_ID.None;
+			}
+
 			float savedInventoryScale = Main.inventoryScale;
 			Main.inventoryScale = 0.86f;
 
@@ -55,24 +62,46 @@ namespace WeaponEnchantments.UI
 			Main.inventoryScale = savedInventoryScale;
 			lastMouseLeft = Main.mouseLeft;
 		}
-		/// <summary>
-		/// Only returns true for the first panel reached to prevent clicking multiple panels.
-		/// </summary>
-		/// <param name="panel"></param>
-		/// <returns></returns>
-		public static bool MouseHovering(UIPanelData panel, bool playSound = false) => MouseHovering(panel.IsMouseHovering, panel.ID, playSound);
-		public static bool MouseHovering(UITextData text, bool playSound = false) => MouseHovering(text.IsMouseHovering, text.ID, playSound);
-		public static bool MouseHovering(bool hovering, int ID, bool playSound = false) {
-			if (UIBeingHovered == UI_ID.None && hovering) {
-				UIBeingHovered = ID;
-				Main.LocalPlayer.mouseInterface = true;
-				if (playSound && LastUIBeingHovered != ID)
-					SoundEngine.PlaySound(SoundID.MenuTick);
+		public static void PostUpdateEverything() {
 
+		}
+		public static bool MouseHovering(UIPanel panel, int ID, bool playSound = false) {
+			if (NoUIBeingHovered && panel.IsMouseHovering) {
+				SetMouseHovering(ID, playSound);
 				return true;
 			}
 
 			return false;
+		}
+		public static bool MouseHovering(UIPanelData panel, bool playSound = false) {
+			if (NoUIBeingHovered && panel.IsMouseHovering) {
+				SetMouseHovering(panel.ID, playSound);
+				return true;
+			}
+
+			return false;
+		}
+		public static bool MouseHovering(UITextData text, bool playSound = false) {
+			if (NoUIBeingHovered && text.IsMouseHovering) {
+				SetMouseHovering(text.ID, playSound);
+				return true;
+			}
+
+			return false;
+		}
+		public static bool MouseHovering(UIButtonData button, bool playSound = false) {
+			if (NoUIBeingHovered && button.IsMouseHovering) {
+				SetMouseHovering(button.ID, playSound);
+				return true;
+			}
+
+			return false;
+		}
+		private static void SetMouseHovering(int ID, bool playSound = false) {
+			UIBeingHovered = ID;
+			Main.LocalPlayer.mouseInterface = true;
+			if (playSound && LastUIBeingHovered != ID)
+				SoundEngine.PlaySound(SoundID.MenuTick);
 		}
 		public static void TryStartDraggingUI(UIPanelData panel) {
 			if (PanelBeingDragged == UI_ID.None) {
@@ -89,7 +118,6 @@ namespace WeaponEnchantments.UI
 			mouseOffsetY = panelY - Main.mouseY;
 		}
 		public static void StartDraggingUI(UIPanelData panel) {
-			//Main.NewText($"{DateTime.Now}");
 			PanelBeingDragged = panel.ID;
 			Point topLeft = panel.TopLeft;
 			mouseOffsetX = topLeft.X - Main.mouseX;
@@ -258,7 +286,7 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public static bool MouseHoveringItemSlot(int itemSlotX, int itemSlotY, int ID) {
-			if (UIBeingHovered == UI_ID.None && Main.mouseX >= itemSlotX && Main.mouseX <= itemSlotX + ItemSlotSize && Main.mouseY >= itemSlotY && Main.mouseY <= itemSlotY + ItemSlotSize && !PlayerInput.IgnoreMouseInterface) {
+			if (NoUIBeingHovered && Main.mouseX >= itemSlotX && Main.mouseX <= itemSlotX + ItemSlotSize && Main.mouseY >= itemSlotY && Main.mouseY <= itemSlotY + ItemSlotSize && !PlayerInput.IgnoreMouseInterface) {
 				Main.LocalPlayer.mouseInterface = true;
 				UIBeingHovered = ID;
 				return true;
@@ -266,17 +294,20 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static void ItemSlotClickInteractions(ref Item item) {
-			ItemSlot.LeftClick(ref item, ItemSlotInteractContext);
+		public static void ItemSlotClickInteractions(ref Item item, int context = ItemSlotInteractContext) {
+			ItemSlot.Handle(ref item, context);
+			/*
+			ItemSlot.LeftClick(ref item, context);
 			if (Main.mouseLeftRelease && Main.mouseLeft)
 				Recipe.FindRecipes();
 
-			ItemSlot.RightClick(ref item, ItemSlotInteractContext);
-			ItemSlot.MouseHover(ref item, ItemSlotInteractContext);
+			ItemSlot.RightClick(ref item, context);
+			ItemSlot.MouseHover(ref item, context);
+			*/
 		}
-		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index) {
+		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context) {
 			Item enchantmentItem = enchantmentsArray[index];
-			ItemSlotClickInteractions(ref enchantmentItem);
+			ItemSlotClickInteractions(ref enchantmentItem, context);
 			if (!enchantmentItem.IsSameEnchantment(enchantmentsArray[index]))
 				enchantmentsArray[index] = enchantmentItem;
 		}
@@ -284,6 +315,8 @@ namespace WeaponEnchantments.UI
 	public struct UIPanelData {
 		public Point TopLeft;
 		public Point BottomRight;
+		public int Width => BottomRight.X - TopLeft.X;
+		public int Height => BottomRight.Y - TopLeft.Y;
 		public int ID;
 		public Color Color;
 		public UIPanelData(int id, int left, int top, int width, int height, Color color) {
@@ -348,6 +381,7 @@ namespace WeaponEnchantments.UI
 			BottomRight = new Point(left + Width, top + Height + heightOffset);
 		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y - Position.Y && Main.mouseY <= BottomRight.Y - Position.Y && !PlayerInput.IgnoreMouseInterface;
+		public bool MouseHovering() => UIManager.MouseHovering(this, true);
 		public void Draw(SpriteBatch spriteBatch) {
 			int left = Center ? TopLeft.X - Width / 2: TopLeft.X;
 			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, new Vector2(left, TopLeft.Y), Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
@@ -358,11 +392,15 @@ namespace WeaponEnchantments.UI
 		public float Scale;
 		public int Width => (int)TextSize.X;
 		public int Height => (int)TextSize.Y;
+		public int BaseWidth => (int)BaseTextSize.X;
+		public int BaseHeight => (int)BaseTextSize.Y;
+		public Vector2 BaseTextSize;
 		public Vector2 TextSize;
 		public TextData(string text, float scale = 1f) {
 			Text = text;
 			Scale = scale;
-			TextSize = FontAssets.MouseText.Value.MeasureString(text) * scale;
+			BaseTextSize = FontAssets.MouseText.Value.MeasureString(text);
+			TextSize = BaseTextSize * Scale;
 		}
 	}
 	public struct UIButtonData
@@ -373,7 +411,7 @@ namespace WeaponEnchantments.UI
 		public Color Color;
 		Vector2 TextSize;
 		Vector2 Borders;
-		Vector2 Position => Vector2.Zero;// TextSize / 2;
+		Vector2 Position => new(0, -2);// TextSize / 2;
 		public int Width;
 		public int Height;
 		public Vector2 TopLeft;
@@ -417,8 +455,7 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		private bool? isMouseHovering;
-		public bool MouseHovering() => UIManager.MouseHovering(IsMouseHovering, ID, true);
-
+		public bool MouseHovering() => UIManager.MouseHovering(this, true);
 		public void Draw(SpriteBatch spriteBatch) {
 			UIManager.DrawUIPanel(spriteBatch, TopLeft, BottomRight, IsMouseHovering ? HoverColor : PanelColor);
 			ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, Text, TopLeft + Borders, Color, 0f, Position, new Vector2(Scale), -1f, 1.5f);
@@ -444,8 +481,8 @@ namespace WeaponEnchantments.UI
 			UIManager.DrawItemSlot(spriteBatch, item, this, context, hue, glowTime);
 		}
 		public bool MouseHovering() => UIManager.MouseHoveringItemSlot(TopLeft.X, TopLeft.Y, ID);
-		public void ClickInteractions(ref Item item) => UIManager.ItemSlotClickInteractions(ref item);
-		public void ClickInteractions(EnchantmentsArray enchantmentsArray, int index) => UIManager.ItemSlotClickInteractions(enchantmentsArray, index);
+		public void ClickInteractions(ref Item item, int context = UIManager.ItemSlotInteractContext) => UIManager.ItemSlotClickInteractions(ref item, context);
+		public void ClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context = UIManager.ItemSlotInteractContext) => UIManager.ItemSlotClickInteractions(enchantmentsArray, index, context);
 	}
 	public static class UI_ID {
 		public const int None = 0;
@@ -464,6 +501,9 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTableInfusion = 13;
 		public const int EnchantingTableLevelUp = 14;
 		public const int EnchantingTableItemSlot = 15;
+		public const int OfferYes = 16;
+		public const int OfferNo = 17;
+		public const int EnchantingTableStorageButton = 18;
 
 		public const int EnchantingTableEnchantment0 = 780;
 		public const int EnchantingTableEnchantmentLast = 789;

@@ -15,6 +15,7 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Tiles
 {
@@ -89,7 +90,7 @@ namespace WeaponEnchantments.Tiles
 		}
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
 			if (enchantingTableTier > -1)
-				WEModSystem.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseWeaponEnchantmentUI();
 		}
 		public override bool RightClick(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
@@ -106,7 +107,7 @@ namespace WeaponEnchantments.Tiles
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
-				WEModSystem.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseWeaponEnchantmentUI();
 			}
 			else {
 				if (MagicStorageIntegration.MagicStorageIsOpen())

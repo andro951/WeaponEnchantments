@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -60,7 +61,7 @@ namespace WeaponEnchantments.ModIntegration
                 if (Main.netMode < NetmodeID.Server) {
                     WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
                     if (wePlayer.usingEnchantingTable)
-                        WEModSystem.CloseWeaponEnchantmentUI(true);
+						EnchantingTableUI.CloseWeaponEnchantmentUI(true);
                 }
 
                 Item mouseItem = Main.mouseItem;

@@ -478,6 +478,7 @@ namespace WeaponEnchantments.Common.Utility
 		ExchangeEssenceAndOres,
 		Item,
 		Enchantments,
+		Storage,
 		weapon0,
 		general1,
 		general2,

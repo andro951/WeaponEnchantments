@@ -543,7 +543,7 @@ namespace WeaponEnchantments.Common.Globals
             }
 
             //newInfusionTooltip
-            if (inEnchantingTable && wePlayer.infusionConsumeItem != null) {
+            if (inEnchantingTable && !wePlayer.infusionConsumeItem.IsAir) {
                 if (this.IsSameEnchantedType(wePlayer.infusionConsumeItem)) {
                     string tooltip = GetNewInfusedItemTooltip(item, wePlayer);
 

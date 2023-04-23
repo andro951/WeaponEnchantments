@@ -88,7 +88,10 @@ namespace WeaponEnchantments
                 promptInterface = null;
             }
         }
-        public override void PostDrawInterface(SpriteBatch spriteBatch) {
+		public override void PostUpdateEverything() {
+            UIManager.PostUpdateEverything();
+		}
+		public override void PostDrawInterface(SpriteBatch spriteBatch) {
             UIManager.PostDrawInterface(spriteBatch);
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
@@ -99,6 +102,7 @@ namespace WeaponEnchantments
 				}
 			}
 
+            /*
             if (wePlayer.usingEnchantingTable) {
                 //Disable Left Shift to Quick trash
                 if (ItemSlot.Options.DisableLeftShiftTrashCan) {
@@ -141,10 +145,10 @@ namespace WeaponEnchantments
                             enchantedEquipItem.equippedInArmorSlot = false;
                     }
 
-                    if (wePlayer.infusionConsumeItem != null && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
+                    if (!wePlayer.infusionConsumeItem.IsAir && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
                         wePlayer.enchantingTableUI.infusionButonText.SetText(TableTextID.Finalize.ToString().Lang(L_ID1.TableText));
                         if (infusionAllowed)
-							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);
+							wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.infusionConsumeItem);//Come Back Here
 					}
 
                     if (wePlayer.ItemInUI().TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal)) {
@@ -230,6 +234,7 @@ namespace WeaponEnchantments
                     }
                 }
             }
+            */
 
             //Fix for splitting stack of enchanted items in a chest
             if (wePlayer.Player.chest != -1 && Main.mouseRight) {
@@ -321,7 +326,7 @@ namespace WeaponEnchantments
                 wePlayer.enchantmentInEnchantingTable[i] = false;//The enchantmentSlot's PREVIOUS state is now empty(false)
             }
 
-            if (wePlayer.infusionConsumeItem != null) {
+            if (!wePlayer.infusionConsumeItem.IsAir) {
                 if (!wePlayer.infusionConsumeItem.IsSameEnchantedItem(wePlayer.itemBeingEnchanted))
                     wePlayer.itemBeingEnchanted.TryInfuseItem(wePlayer.previousInfusedItemName, true);
 
@@ -381,9 +386,9 @@ namespace WeaponEnchantments
             if (!noSound)
                 SoundEngine.PlaySound(SoundID.MenuOpen);
 
-            UIState state = new UIState();
-            state.Append(wePlayer.enchantingTableUI);
-            weModSystemUI.SetState(state);
+            //UIState state = new UIState();
+            //state.Append(wePlayer.enchantingTableUI);
+            //weModSystemUI.SetState(state);
         }
         public static void QuickStackEssence() {
             bool transfered = false;
@@ -475,7 +480,7 @@ namespace WeaponEnchantments
             weModSystemUI.SetState(null);
             promptInterface.SetState(null);
             if (wePlayer.usingEnchantingTable) {
-                CloseWeaponEnchantmentUI();
+                EnchantingTableUI.CloseWeaponEnchantmentUI();
                 wePlayer.enchantingTableUI.OnDeactivate();
             }
         }

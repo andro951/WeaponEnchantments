@@ -55,7 +55,7 @@ namespace WeaponEnchantments.UI
 			BackgroundColor = red;
 
 			OnLeftMouseDown += (evt, element) => {
-				if (UIManager.MouseHovering(IsMouseHovering, ID) && hoveringOverBorder) {
+				if (UIManager.MouseHovering(this, ID) && hoveringOverBorder) {
 					UIManager.StartDraggingUI(this, ID);
 				}
 			};

@@ -75,7 +75,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems) {
 			if (Main.netMode == NetmodeID.Server)
-				ConfirmationUI.OfferChestItems(chestItems);
+				EnchantingTableUI.OfferChestItems(chestItems);
 		}
 
 		public void NetResetEnchantedItemInChest(int chestNum, short index) {

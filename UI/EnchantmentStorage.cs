@@ -22,6 +22,7 @@ using WeaponEnchantments.Common;
 using System.Reflection;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Configs;
+using WeaponEnchantments.Common.Globals;
 
 namespace WeaponEnchantments.UI
 {
@@ -55,7 +56,7 @@ namespace WeaponEnchantments.UI
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			//WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			if (wePlayer.displayEnchantmentStorage || true) {
+			if (wePlayer.displayEnchantmentStorage) {
 				Color mouseColor = UIManager.MouseColor;
 				if (glowTime > 0) {
 					glowTime--;
@@ -129,17 +130,23 @@ namespace WeaponEnchantments.UI
 					int itemSlotX = itemSlotsLeft;
 					for (int column = 0; column < itemSlotColumns; column++) {
 						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
+						string modFullName = item.ModFullName();
 						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex, itemSlotX, itemSlotY);
 						if (slotData.MouseHovering()) {
 							if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
 								if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
 									if (UIManager.LeftMouseClicked) {
-										if (wePlayer.trashEnchantments.Contains(item.type)) {
-											wePlayer.trashEnchantments.Remove(item.type);
+										if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+											wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
 										}
 										else {
-											wePlayer.trashEnchantments.Add(item.type);
+											wePlayer.trashEnchantmentsFullNames.Add(modFullName);
 										}
+
+										SoundEngine.PlaySound(SoundID.MenuTick);
+									}
+									else {
+										slotData.ClickInteractions(ref item);
 									}
 								}
 								else {
@@ -148,7 +155,7 @@ namespace WeaponEnchantments.UI
 							}
 						}
 
-						if (wePlayer.trashEnchantments.Contains(item.type) && !item.favorited) {
+						if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName) && !item.favorited) {
 							slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 						}
 						else {
@@ -201,7 +208,11 @@ namespace WeaponEnchantments.UI
 								case EnchantmentStorageButtonID.RevertAllToBasic:
 									RevertAllToBasic();
 									break;
+								//DODO: Add Select button like Mark Trash
+								//DODO: Add Quick craft all to tier.  Needs tier buttons, Basic, Common....
 							}
+
+							SoundEngine.PlaySound(SoundID.MenuTick);
 						}
 					}
 					else {
@@ -314,8 +325,8 @@ namespace WeaponEnchantments.UI
 			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
 			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is Enchantment)
 				.GroupBy(i => ((Enchantment)i.ModItem).EnchantmentTypeName).OrderBy(g => g.Key).Select(l => l.ToList().OrderBy(i => ((Enchantment)i.ModItem).EnchantmentTier)).SelectMany(l => l);
-			IEnumerable<Item> goodEnchantments = enchantments.Where(i => !WEPlayer.LocalWEPlayer.trashEnchantments.Contains(i.type));
-			IEnumerable<Item> trashEnchantments = enchantments.Where(i => WEPlayer.LocalWEPlayer.trashEnchantments.Contains(i.type));
+			IEnumerable<Item> goodEnchantments = enchantments.Where(i => !WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.ModFullName()));
+			IEnumerable<Item> trashEnchantments = enchantments.Where(i => WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.ModFullName()));
 			IEnumerable<Item> otherItems = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem == null || i.ModItem is not (Enchantment or ContainmentItem or PowerBooster or UltraPowerBooster));
 			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(goodEnchantments).Concat(trashEnchantments).Concat(otherItems).ToArray();
 			glowTime = 300;
@@ -329,11 +340,12 @@ namespace WeaponEnchantments.UI
 		}
 		private static void UncraftAllTrash() {
 			uncrafting = true;
+			Recipe.FindRecipes();
 			uncraftedItems.Clear();
 			Dictionary<int, HashSet<int>> storageIndexes = new();
 			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
 				ref Item item = ref WEPlayer.LocalWEPlayer.enchantmentStorageItems[i];
-				if (WEPlayer.LocalWEPlayer.trashEnchantments.Contains(item.type))
+				if (WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.ModFullName()))
 					storageIndexes.AddOrCombine(item.type, i);
 			}
 
@@ -369,20 +381,14 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (uncraftedItems.Count > 0) {
-				SoundEngine.PlaySound(SoundID.Grab);
-				foreach (KeyValuePair<int, int> item in uncraftedItems) {
-					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item.Key, item.Value);
-				}
-				
-				uncraftedItems.Clear();
-			}
+			QuickSpawnAllUncraftedItems();
 
 			uncrafting = false;
 			Recipe.FindRecipes();
 		}
 		private static void RevertAllToBasic() {
 			uncrafting = true;
+			Recipe.FindRecipes();
 			uncraftedItems.Clear();
 			Dictionary<int, HashSet<int>> storageIndexes = new();
 			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
@@ -422,18 +428,27 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (uncraftedItems.Count > 0) {
-				SoundEngine.PlaySound(SoundID.Grab);
-				foreach (KeyValuePair<int, int> item in uncraftedItems) {
-					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item.Key, item.Value);
-				}
-
-				uncraftedItems.Clear();
-			}
+			QuickSpawnAllUncraftedItems();
 
 			uncrafting = false;
 			Recipe.FindRecipes();
 		}//TODO: Issue with Time Enchantment.  Causes reroll
+		private static void QuickSpawnAllUncraftedItems() {
+			if (uncraftedItems.Count > 0) {
+				SoundEngine.PlaySound(SoundID.Grab);
+				foreach (KeyValuePair<int, int> item in uncraftedItems) {
+					Item sample = ContentSamples.ItemsByType[item.Key];
+					int stack = item.Value;
+					while (stack > 0) {
+						int amountToSpawn = Math.Min(sample.maxStack, stack);
+						Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item.Key, amountToSpawn);
+						stack -= amountToSpawn;
+					}
+				}
+
+				uncraftedItems.Clear();
+			}
+		}
 		public static bool ItemSpace(Item item) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
