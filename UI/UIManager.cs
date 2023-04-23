@@ -45,9 +45,16 @@ namespace WeaponEnchantments.UI
 		private static int PanelBeingDragged = UI_ID.None;
 		public static int UIBeingHovered = UI_ID.None;
 		public static int LastUIBeingHovered { get; private set; } = UI_ID.None;
-		public static List<(Item, int)> popupTextItems = new();
+		public static int HoverTime = 0;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (NoPanelBeingDragged) {
+				if (!NoUIBeingHovered && UIBeingHovered == LastUIBeingHovered) {
+					HoverTime++;
+				}
+				else {
+					HoverTime = 0;
+				}
+
 				LastUIBeingHovered = UIBeingHovered;
 				UIBeingHovered = UI_ID.None;
 			}
@@ -374,7 +381,7 @@ namespace WeaponEnchantments.UI
 			Center = center;
 			Color = color;
 			AncorBotomLeft = ancorBotomLeft;
-			BaseTextSize = FontAssets.MouseText.Value.MeasureString(Text);
+			BaseTextSize = Text != null ? FontAssets.MouseText.Value.MeasureString(Text) : Vector2.Zero;
 			TextSize = BaseTextSize * Scale;
 			int heightOffset = AncorBotomLeft ? (int)BaseTextSize.Y / 2 : 0;
 			TopLeft = new Point(left, top + heightOffset);
@@ -399,7 +406,7 @@ namespace WeaponEnchantments.UI
 		public TextData(string text, float scale = 1f) {
 			Text = text;
 			Scale = scale;
-			BaseTextSize = FontAssets.MouseText.Value.MeasureString(text);
+			BaseTextSize = text != null ? FontAssets.MouseText.Value.MeasureString(text) : Vector2.Zero;
 			TextSize = BaseTextSize * Scale;
 		}
 	}

@@ -650,7 +650,7 @@ namespace WeaponEnchantments
 					SoundEngine.PlaySound(SoundID.Grab);
 				}
                 else if (valid && !moveItem && !hoveringOverTrash) {
-                    Main.cursorOverride = 9;
+                    Main.cursorOverride = CursorOverrideID.InventoryToChest;
                 }
             }
             else if (moveItem) {

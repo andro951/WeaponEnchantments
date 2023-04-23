@@ -149,6 +149,23 @@ namespace WeaponEnchantments.UI
 										slotData.ClickInteractions(ref item);
 									}
 								}
+								else if (wePlayer.usingEnchantingTable && ItemSlot.ShiftInUse) {
+									if (wePlayer.CheckShiftClickValid(ref item)) {
+										if (UIManager.LeftMouseClicked)
+											wePlayer.CheckShiftClickValid(ref item, true);
+									}
+									else {
+										if (UIManager.LeftMouseClicked && Main.mouseItem.IsAir) {
+											Main.mouseItem = item.Clone();
+											item = new();
+										}
+										else {
+											slotData.ClickInteractions(ref item);
+										}
+
+										Main.cursorOverride = -1;
+									}
+								}
 								else {
 									slotData.ClickInteractions(ref item);
 								}
@@ -235,6 +252,23 @@ namespace WeaponEnchantments.UI
 		public static bool CanBeStored(Item item) {
 			if (item?.ModItem is WEModItem weModItem)
 				return weModItem.CanBeStoredInEnchantmentStroage;
+
+			return false;
+		}
+		public static bool RoomInStorage(Item item) {
+			Item[] inv = WEPlayer.LocalWEPlayer.enchantmentStorageItems;
+			int stack = item.stack;
+			for (int i = 0; i < inv.Length; i++) {
+				Item invItem = inv[i];
+				if (invItem.IsAir) {
+					return true;
+				}
+				else if (invItem.type == item.type) {
+					stack -= invItem.maxStack - invItem.stack;
+					if (stack <= 0)
+						return true;
+				}
+			}
 
 			return false;
 		}
