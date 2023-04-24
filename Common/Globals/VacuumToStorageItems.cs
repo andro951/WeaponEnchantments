@@ -50,12 +50,12 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override bool OnPickup(Item item, Player player) {
 			if (item.NullOrAir() || item.ModItem == null)
-				return false;
+				return true;
 
 			WEPlayer wePlayer = player.GetWEPlayer();
 			if (CanVacuum) {
 				if (!EnchantmentStorage.CanBeStored(item))
-					return false;
+					return true;
 
 				Item cloneForInfo = item.Clone();
 				if (EnchantmentStorage.DepositAll(ref item)) {
@@ -74,7 +74,7 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum && EnchantmentStorage.ItemSpace(item);
+			return CanVacuum && EnchantmentStorage.RoomInStorage(item);
 		}
 	}
 }

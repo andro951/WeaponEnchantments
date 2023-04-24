@@ -484,7 +484,7 @@ namespace WeaponEnchantments.Common
 		public static void ClearSetupData() {
 			addedItems.Clear();
 		}
-		public ProgressionGroup Parent => parentID > ProgressionGroupID.None ? progressionGroups[parentID] : null;
+		public ProgressionGroup Parent => parentID > ProgressionGroupID.None ? ProgressionGroups[parentID] : null;
 		private ProgressionGroupID parentID;
 		public ProgressionGroupID ID { get; private set; }
 		int infusionPower;
@@ -959,9 +959,8 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, int> OreInfusionPowers {
 			get {
 				if (oreInfusionPowers == null) {
-					IEnumerable<ProgressionGroup> oreGroups = progressionGroups.Where(g => g.Key <= ProgressionGroupID.MoonLord && $"{g.Key}".EndsWith("Ore")).Select(g => g.Value);
+					IEnumerable<ProgressionGroup> oreGroups = ProgressionGroups.Where(g => g.Key <= ProgressionGroupID.MoonLord && $"{g.Key}".EndsWith("Ore")).Select(g => g.Value);
 					oreInfusionPowers = new(oreGroups.ToDictionary(g => g.ItemTypes.First(), g => g.InfusionPower));
-					OreBagUI.VanillaOreTypes = new(oreInfusionPowers.Select(p => p.Key));
 				}
 
 				return oreInfusionPowers;
@@ -973,7 +972,15 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, SortedSet<int>> WeaponsFromLootItems { get; private set; } = new();
 		public static SortedDictionary<int, SortedSet<int>> IngredientsFromLootItems { get; private set; } = new();
 		public static SortedSet<int> LootItemTypes { get; private set; } = new();
-		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = new();
+		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> ProgressionGroups {
+			get {
+				if (progressionGroups == null)
+					SetupProgressionGroups();
+
+				return progressionGroups;
+			}
+		}
+		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = null;
 		private static SortedDictionary<int, (int pickPower, float value)> infusionPowerTiles = null;
 		public static SortedDictionary<int, (int pickPower, float value)> InfusionPowerTiles {
 			get {
@@ -1010,7 +1017,6 @@ namespace WeaponEnchantments.Common
 			GetAllCraftingResources();
 			SetupItemsFromNPCs();
 			SetupItemsFromLootItems();
-			SetupProgressionGroups();
 			PopulateItemInfusionPowers();
 			GuessMinedOreInfusionPowers();
 		}
@@ -1242,6 +1248,7 @@ namespace WeaponEnchantments.Common
 			//if (Debugger.IsAttached) $"\nIngredientsFromLootItems:\n{IngredientsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
 		}
 		private static void SetupProgressionGroups() {
+			progressionGroups = new();
 
 			#region Vanilla Groups
 
@@ -3272,7 +3279,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 		private static void PopulateItemInfusionPowers() {
-			IEnumerable<ProgressionGroup> progressionGroupsEnum = progressionGroups.Values.OrderBy(g => g.InfusionPower);
+			IEnumerable<ProgressionGroup> progressionGroupsEnum = ProgressionGroups.Values.OrderBy(g => g.InfusionPower);
 			foreach (ProgressionGroup progressionGroup in progressionGroupsEnum) {
 				int infusionPower = progressionGroup.InfusionPower;
 				foreach (int itemType in progressionGroup.ItemTypes) {
@@ -3561,8 +3568,8 @@ namespace WeaponEnchantments.Common
 		}
 		public static void ResetAndSetupProgressionGroups() {
 			progressionGroups.Clear();
+			progressionGroups = null;
 			ItemInfusionPowers.Clear();
-			SetupProgressionGroups();
 			PopulateItemInfusionPowers();
 		}
 
@@ -3572,9 +3579,9 @@ namespace WeaponEnchantments.Common
 
 		private static void PopulateInfusionPowerSources() {
 			int mechBossHighestSoul = Math.Max(Math.Max(
-				progressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 
-				progressionGroups[ProgressionGroupID.Destroyer].InfusionPower), 
-				progressionGroups[ProgressionGroupID.Twins].InfusionPower
+				ProgressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 
+				ProgressionGroups[ProgressionGroupID.Destroyer].InfusionPower), 
+				ProgressionGroups[ProgressionGroupID.Twins].InfusionPower
 			) + 20;
 			SortedDictionary<int, SortedSet<int>> OverridenInfusionPowerList = new() {
 				{ mechBossHighestSoul, new SortedSet<int>() { ItemID.SoulofFright, ItemID.SoulofMight, ItemID.SoulofSight } }
@@ -3695,6 +3702,7 @@ namespace WeaponEnchantments.Common
 		}
 		private static void ClearSetupData() {
 			progressionGroups.Clear();
+			progressionGroups = null;
 			WeaponsList.Clear();
 			WeaponCraftingIngredients.Clear();
 			allWeaponRecipies.Clear();

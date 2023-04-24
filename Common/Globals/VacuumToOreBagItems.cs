@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Common.Globals
 		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return OreBagUI.CanBeStored(entity);
+			return lateInstantiation && OreBagUI.CanBeStored(entity);
 		}
 		public override void LoadData(Item item, TagCompound tag) {
 			favorited = item.favorited;
@@ -47,35 +47,28 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			}
 		}
-		/*
 		public override bool OnPickup(Item item, Player player) {
-			if (item.NullOrAir() || item.ModItem == null)
-				return false;
+			if (item.NullOrAir())
+				return true;
 
 			WEPlayer wePlayer = player.GetWEPlayer();
 			if (CanVacuum) {
-				if (!EnchantmentStorage.CanBeStored(item))
-					return false;
+				if (!OreBagUI.CanBeStored(item))
+					return true;
 
 				Item cloneForInfo = item.Clone();
-				if (EnchantmentStorage.DepositAll(ref item)) {
+				if (OreBagUI.DepositAll(ref item)) {
 					PopupText.NewText(PopupTextContext.RegularItemPickup, cloneForInfo, cloneForInfo.stack - item.stack);
 					SoundEngine.PlaySound(SoundID.Grab);
-					if (item.NullOrAir() || item.stack < 1) {
-						if (wePlayer.trashEnchantmentsFullNames.Contains(cloneForInfo.type.GetItemIDOrName())) {
-							EnchantmentStorage.UncraftTrash(cloneForInfo);
-						}
-
+					if (item.NullOrAir() || item.stack < 1)
 						return false;
-					}
 				}
 			}
 
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum && EnchantmentStorage.ItemSpace(item);
+			return CanVacuum && OreBagUI.RoomInStorage(item);
 		}
-		*/
 	}
 }

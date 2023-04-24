@@ -714,15 +714,5 @@ namespace WeaponEnchantments.UI
 				uncraftedItems.Clear();
 			}
 		}
-		public static bool ItemSpace(Item item) {
-			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
-				Item storageItem = wePlayer.enchantmentStorageItems[i];
-				if (item.IsAir || item.type == storageItem.type && storageItem.stack < item.maxStack)
-					return true;
-			}
-
-			return false;
-		}
 	}
 }

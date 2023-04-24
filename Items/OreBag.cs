@@ -18,7 +18,10 @@ namespace WeaponEnchantments.Items
         public virtual float SellPriceModifier => 1f;
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
         public override int CreativeItemSacrifice => 1;
-		public override string LocalizationTooltip => $"Automatically stores ores and gems.";
+		public override string LocalizationTooltip => 
+            $"Automatically stores ores, gems, and glass.\n" +
+            $"When in your inventory, the contents of the bag are available for crafting.\n" +
+            $"Right click to open the bag.";
 
 		public override string Artist => "andro951";
         public override string Designer => "andro951";

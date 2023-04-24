@@ -21,7 +21,15 @@ namespace WeaponEnchantments.UI
 {
 	public static class OreBagUI
 	{
-		public static SortedSet<int> VanillaOreTypes = new();
+		public static SortedSet<int> VanillaOreTypes {
+			get {
+				if (vanillaOreTypes == null)
+					vanillaOreTypes  = new(InfusionProgression.OreInfusionPowers.Select(p => p.Key));
+
+				return vanillaOreTypes;
+			}
+		}
+		public static SortedSet<int> vanillaOreTypes = null;
 		public static SortedSet<int> ModOreTypes {
 			get {
 				if (modOreTypes == null)
@@ -40,7 +48,17 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		private static SortedSet<int> modOreTileTypes = null;
-		//private static SortedSet<int> gemTypes = new();//TODO
+		public static SortedSet<int> CommonGems = new() {
+			ItemID.Topaz,
+			ItemID.Sapphire,
+			ItemID.Ruby,
+			ItemID.Emerald,
+			ItemID.Amethyst
+		};
+		public static SortedSet<int> RareGems = new() {
+			ItemID.Amber,
+			ItemID.Diamond
+		};
 		public class OreBagButtonID
 		{
 			public const int LootAll = 0;
@@ -51,8 +69,8 @@ namespace WeaponEnchantments.UI
 			public const int Count = 5;
 		}
 		public static int ID => UI_ID.OreBag;
-		public static int OreBagUIDefaultLeft => 680;
-		public static int OreBagUIDefaultTop => 90;
+		public static int OreBagUIDefaultLeft => 100;
+		public static int OreBagUIDefaultTop => 650;
 		public static Color PanelColor => new Color(25, 10, 3, 100);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
@@ -115,7 +133,7 @@ namespace WeaponEnchantments.UI
 			//Search Bar Data
 			int searchBarMinWidth = 100;
 			TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(UI_ID.OreBagSearch));
-			UIButtonData searchBarData = new(UI_ID.OreBagSearch, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, 100));
+			UIButtonData searchBarData = new(UI_ID.OreBagSearch, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, 100));
 
 			//ItemSlots Data 2/2
 			int itemSlotsTop = wePlayer.oreBagUITop + panelBorderTop;
@@ -366,7 +384,7 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static bool CanBeStored(Item item) => VanillaOreTypes.Contains(item.type) || ModOreTypes.Contains(item.type);// || gemTypes.Contains(item.type);
+		public static bool CanBeStored(Item item) => VanillaOreTypes.Contains(item.type) || ModOreTypes.Contains(item.type) || CommonGems.Contains(item.type) || RareGems.Contains(item.type) || item.type == ItemID.Glass;
 		public static bool RoomInStorage(Item item) {
 			Item[] inv = WEPlayer.LocalWEPlayer.oreBagItems;
 			int stack = item.stack;

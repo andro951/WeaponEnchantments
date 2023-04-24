@@ -333,19 +333,10 @@ namespace WeaponEnchantments
             }
         }
         public override void AddRecipeGroups() {
-            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", new int[] {
-                ItemID.Topaz,
-                ItemID.Sapphire,
-                ItemID.Ruby,
-                ItemID.Emerald,
-                ItemID.Amethyst
-            });
+            RecipeGroup group = new RecipeGroup(() => "Any Common Gem", OreBagUI.CommonGems.ToArray());
             RecipeGroup.RegisterGroup("WeaponEnchantments:CommonGems", group);
 
-            group = new RecipeGroup(() => "Any Rare Gem", new int[] {
-                ItemID.Amber,
-                ItemID.Diamond
-            });
+            group = new RecipeGroup(() => "Any Rare Gem", OreBagUI.RareGems.ToArray());
             RecipeGroup.RegisterGroup("WeaponEnchantments:RareGems", group);
 
             group = new RecipeGroup(() => "Workbenches", new int[] {

@@ -389,8 +389,10 @@ namespace WeaponEnchantments
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
 			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
 
-            vacuumItemsIntoEnchantmentStorage = tag.Get<bool>("vacuumItemsIntoEnchantmentStorage");
-            trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
+            if (tag.TryGet("vacuumItemsIntoEnchantmentStorage", out bool vacuumItemsIntoEnchantmentStorageLoadedValue))
+                vacuumItemsIntoEnchantmentStorage = vacuumItemsIntoEnchantmentStorageLoadedValue;
+
+			trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
             openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
             allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
             if (!tag.TryGet("oreBagItems", out oreBagItems))
@@ -402,7 +404,8 @@ namespace WeaponEnchantments
             oreBagUILeft = tag.Get<int>("oreBagUILeft");
             oreBagUITop = tag.Get<int>("oreBagUITop");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);
-            vacuumItemsIntoOreBag = tag.Get<bool>("vacuumItemsIntoOreBag");
+            if (tag.TryGet<bool>("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
+                vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
 			ref Item item = ref inventory[slot];
