@@ -897,7 +897,12 @@ Mods: {
 
 			OreBag: {
 				DisplayName: Ore Bag
-				Tooltip: Automatically stores ores and gems.
+				Tooltip:
+					'''
+					Automatically stores ores, gems, and glass.
+					When in your inventory, the contents of the bag are available for crafting.
+					Right click to open the bag.
+					'''
 			}
 
 			PeaceEnchantmentBasic.DisplayName: 和平附魔基元
@@ -1281,7 +1286,7 @@ Mods: {
 					（没有人能在天照大火无法阻挡的火焰中幸存）
 					（对敌人造成独特的火焰减益，永不停息）
 					（该减益造成的伤害会随着时间的推移而增长，并对目标造成更多伤害）
-					（扩散到附近的敌人，并防止敌人对其他的 \\\\\\"世界之火 \\\\\\"的减益免疫。）
+					（扩散到附近的敌人，并防止敌人对其他的 \\\\\\\"世界之火 \\\\\\\"的减益免疫。）
 					'''
 			}
 

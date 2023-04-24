@@ -915,7 +915,12 @@ Mods: {
 
 			OreBag: {
 				DisplayName: Ore Bag
-				Tooltip: Automatically stores ores and gems.
+				Tooltip:
+					'''
+					Automatically stores ores, gems, and glass.
+					When in your inventory, the contents of the bag are available for crafting.
+					Right click to open the bag.
+					'''
 			}
 
 			PeaceEnchantmentBasic.DisplayName: Encantamento Paz Básico
@@ -1309,8 +1314,8 @@ Mods: {
 				AutoReuse: Auto Reuse
 				BonusCoins:
 					'''
-					\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\"
+					\\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\\"
 					'''
 				BuffDuration:
 					'''

@@ -915,7 +915,12 @@ Mods: {
 
 			OreBag: {
 				DisplayName: Ore Bag
-				Tooltip: Automatically stores ores and gems.
+				Tooltip:
+					'''
+					Automatically stores ores, gems, and glass.
+					When in your inventory, the contents of the bag are available for crafting.
+					Right click to open the bag.
+					'''
 			}
 
 			PeaceEnchantmentBasic.DisplayName: Frieden Verzauberung Basic
