@@ -23,6 +23,7 @@ using System.Diagnostics;
 using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
 using Ionic.Zlib;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common
 {
@@ -960,6 +961,7 @@ namespace WeaponEnchantments.Common
 				if (oreInfusionPowers == null) {
 					IEnumerable<ProgressionGroup> oreGroups = progressionGroups.Where(g => g.Key <= ProgressionGroupID.MoonLord && $"{g.Key}".EndsWith("Ore")).Select(g => g.Value);
 					oreInfusionPowers = new(oreGroups.ToDictionary(g => g.ItemTypes.First(), g => g.InfusionPower));
+					OreBagUI.VanillaOreTypes = new(oreInfusionPowers.Select(p => p.Key));
 				}
 
 				return oreInfusionPowers;
@@ -3342,8 +3344,7 @@ namespace WeaponEnchantments.Common
 				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S("Ingredient infusion powers not setup")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 		}
 		private static void GuessMinedOreInfusionPowers() {
-			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();
-			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
+			foreach (int tileType in OreBagUI.ModOreTileTypes) {
 				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
 				if (itemType <= 0)
 					continue;
@@ -3351,22 +3352,15 @@ namespace WeaponEnchantments.Common
 				if (ItemInfusionPowers.ContainsKey(itemType))
 					continue;
 
-				Item item = itemType.CSI();
-				ModTile modTile = TileLoader.GetTile(tileType);
-				if (itemType > 0 && modTile != null) {
-					bool ore = TileID.Sets.Ore[tileType];
-					int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
-					float mineResist = modTile.MineResist;
-					float value = item.value;
-					if (ore || ((requiredPickaxePower > 0 || mineResist > 1) && value > 0)) {
-						if (!WeaponCraftingIngredients.Contains(itemType))
-							continue;
+				if (!WeaponCraftingIngredients.Contains(itemType))
+					continue;
 
-						int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
-						ItemInfusionPowers.Add(itemType, infusionPower);
-						$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
-					}
-				}
+				Item item = itemType.CSI();
+				int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
+				float value = item.value;
+				int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
+				ItemInfusionPowers.Add(itemType, infusionPower);
+				$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
 			}
 
 			//if (Debugger.IsAttached) $"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();

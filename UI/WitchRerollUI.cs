@@ -22,7 +22,7 @@ namespace WeaponEnchantments.UI
 {
 	public class WitchRerollUI
 	{
-		public static void PoseDrawInterface(SpriteBatch spriteBatch) {
+		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			//Witch Re-roll ItemSlot
 			if (Witch.rerollUI) {
 				int talkNPC = Main.LocalPlayer.talkNPC;

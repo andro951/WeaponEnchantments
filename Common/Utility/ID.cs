@@ -502,7 +502,8 @@ namespace WeaponEnchantments.Common.Utility
 		ManageOfferedItems,
 		//Do not place anything besides buttons before this
 		EnchantmentStorage,
-		Search
+		Search,
+		OreBag
 	}
 	public enum DialogueID {
         StandardDialogue,

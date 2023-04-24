@@ -56,12 +56,6 @@ namespace WeaponEnchantments.UI
 				
 				wePlayer.enchantingTableEnchantments = wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) ? enchantedItem.enchantments : wePlayer.emptyEnchantments;
 				
-				//Disable Left Shift to Quick trash
-				if (ItemSlot.Options.DisableLeftShiftTrashCan) {
-					wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
-					ItemSlot.Options.DisableLeftShiftTrashCan = false;
-				}
-
 				Item itemInUI = wePlayer.enchantingTableItem;
 				bool removedItem = false;
 				bool addedItem = false;
@@ -106,6 +100,12 @@ namespace WeaponEnchantments.UI
 				//If player is too far away, close the enchantment table
 				if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
 					CloseEnchantingTableUI();
+
+				//Prevent Trash can and other mouse overides when using enchanting table
+				if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
+					if (!wePlayer.CheckShiftClickValid(ref Main.HoverItem) || Main.cursorOverride == CursorOverrideID.TrashCan)
+						Main.cursorOverride = -1;
+				}
 
 				#endregion
 
@@ -661,12 +661,6 @@ namespace WeaponEnchantments.UI
 
 					if (panel.ShouldDragUI())
 						UIManager.DragUI(out wePlayer.enchantingTableUILeft, out wePlayer.enchantingTableUITop);
-
-					//Prevent Trash can and other mouse overides when using enchanting table
-					if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
-						if (!wePlayer.CheckShiftClickValid(ref Main.HoverItem) || Main.cursorOverride == CursorOverrideID.TrashCan)
-							Main.cursorOverride = -1;
-					}
 				}
 
 				#endregion
@@ -722,7 +716,6 @@ namespace WeaponEnchantments.UI
 					SoundEngine.PlaySound(SoundID.MenuClose);
 			}
 
-			ItemSlot.Options.DisableLeftShiftTrashCan = wePlayer.disableLeftShiftTrashCan;
 			Recipe.FindRecipes();
 		}
 		public static bool ValidItemForEnchantingSlot(Item item) {

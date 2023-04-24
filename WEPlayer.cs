@@ -76,6 +76,7 @@ namespace WeaponEnchantments
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
         public Item[] enchantmentStorageItems;
+        public const int EnchantmentStorageSize = 300;
         public int enchantmentStorageUILeft;
 		public int enchantmentStorageUITop;
         public bool displayEnchantmentStorage;
@@ -89,6 +90,11 @@ namespace WeaponEnchantments
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
 		public bool openStorageWhenOpeningTable = false;
         public SortedSet<string> allOfferedItems = new();
+        public Item[] oreBagItems;
+		public int oreBagUILeft;
+		public int oreBagUITop;
+        public const int OreBagSize = 100;
+		public bool vacuumItemsIntoOreBag = true;
 
 		#endregion
 
@@ -336,6 +342,11 @@ namespace WeaponEnchantments
             string temp = allOfferedItems.StringList((s) => s);
             if (allOfferedItems.Count > 0)
                 tag["allOfferedItems"] = allOfferedItems.ToList();
+
+            tag["oreBagItems"] = oreBagItems;
+            tag["oreBagUILeft"] = oreBagUILeft;
+            tag["oreBagUITop"] = oreBagUITop;
+            tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
@@ -358,11 +369,11 @@ namespace WeaponEnchantments
 			if (levelsPerLevelUp < 1)
 				levelsPerLevelUp = 1;
 
-            if (!tag.TryGet<Item[]>("enchantmentStorageItems", out enchantmentStorageItems))
-                enchantmentStorageItems = Enumerable.Repeat(new Item(), 250).ToArray();
+            if (!tag.TryGet("enchantmentStorageItems", out enchantmentStorageItems))
+                enchantmentStorageItems = Enumerable.Repeat(new Item(), EnchantmentStorageSize).ToArray();
 
-            if (enchantmentStorageItems.Length < 250)
-                enchantmentStorageItems = enchantmentStorageItems.Concat(Enumerable.Repeat(new Item(), 250 - enchantmentStorageItems.Length)).ToArray();
+            if (enchantmentStorageItems.Length < EnchantmentStorageSize)
+                enchantmentStorageItems = enchantmentStorageItems.Concat(Enumerable.Repeat(new Item(), EnchantmentStorageSize - enchantmentStorageItems.Length)).ToArray();
 
 			for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                 if (enchantmentStorageItems[i] == null || enchantmentStorageItems[i].stack < 1 || enchantmentStorageItems[i].IsAir) {
@@ -372,7 +383,7 @@ namespace WeaponEnchantments
 
             enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
-            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.enchantmentStorageUIDefaultX, EnchantmentStorage.enchantmentStorageUIDefaultTop);
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
 
             enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
@@ -382,64 +393,81 @@ namespace WeaponEnchantments
             trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
             openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
             allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
+            if (!tag.TryGet("oreBagItems", out oreBagItems))
+                oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();
+
+            if (oreBagItems.Length < OreBagSize)
+                oreBagItems = oreBagItems.Concat(Enumerable.Repeat(new Item(), OreBagSize - oreBagItems.Length)).ToArray();
+
+            oreBagUILeft = tag.Get<int>("oreBagUILeft");
+            oreBagUITop = tag.Get<int>("oreBagUITop");
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);
+            vacuumItemsIntoOreBag = tag.Get<bool>("vacuumItemsIntoOreBag");
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
-            if (!usingEnchantingTable)
-                return false;
-
-			bool stop = false;
-            if (!UIManager.NoUIBeingHovered) {
-				Item enchantingTableSlotItem = null;
-				//Check Enchanting Item Slot
-				if (UIManager.UIBeingHovered == UI_ID.EnchantingTableItemSlot) {
-                    stop = true;
-                    enchantingTableSlotItem = enchantingTableItem;
-				}
-
-                if (!stop) {
-					//Check Enchantment Slots
-					int enchantmentIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEnchantment0;
-                    if (0 <= enchantmentIndex && enchantmentIndex < EnchantingTableUI.MaxEnchantmentSlots) {
-                        stop = true;
-                        enchantingTableSlotItem = enchantingTableEnchantments[enchantmentIndex];
-					}
-				}
-
-				if (!stop) {
-					//Check Essence Slots
-					int essenceIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEssence0;
-					if (0 <= essenceIndex && essenceIndex < EnchantingTableUI.MaxEssenceSlots) {
+			ref Item item = ref inventory[slot];
+			if (usingEnchantingTable) {
+				bool stop = false;
+				if (!UIManager.NoUIBeingHovered) {
+					Item enchantingTableSlotItem = null;
+					//Check Enchanting Item Slot
+					if (UIManager.UIBeingHovered == UI_ID.EnchantingTableItemSlot) {
 						stop = true;
-						enchantingTableSlotItem = enchantingTableEssence[essenceIndex];
-					}
-				}
-
-				//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
-				if (stop) {
-					//Prevent trashing an item from the enchanting table.
-					bool itemWillBeTrashed = true;
-					for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
-						//Any open invenotry space or a stack of the same item in the inventory can hold the 
-						if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack + enchantingTableSlotItem.stack <= Player.inventory[i].maxStack))
-							itemWillBeTrashed = false;
+						enchantingTableSlotItem = enchantingTableItem;
 					}
 
-					if (itemWillBeTrashed) {
-                        if (Main.mouseItem.IsAir) {
-							Main.mouseItem = enchantingTableSlotItem.Clone();
-							enchantingTableSlotItem.TurnToAir();
-							SoundEngine.PlaySound(SoundID.Grab);
+					if (!stop) {
+						//Check Enchantment Slots
+						int enchantmentIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEnchantment0;
+						if (0 <= enchantmentIndex && enchantmentIndex < EnchantingTableUI.MaxEnchantmentSlots) {
+							stop = true;
+							enchantingTableSlotItem = enchantingTableEnchantments[enchantmentIndex];
+						}
+					}
+
+					if (!stop) {
+						//Check Essence Slots
+						int essenceIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEssence0;
+						if (0 <= essenceIndex && essenceIndex < EnchantingTableUI.MaxEssenceSlots) {
+							stop = true;
+							enchantingTableSlotItem = enchantingTableEssence[essenceIndex];
+						}
+					}
+
+					//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
+					if (stop) {
+						//Prevent trashing an item from the enchanting table.
+						bool itemWillBeTrashed = true;
+						for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
+							//Any open invenotry space or a stack of the same item in the inventory can hold the 
+							if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack + enchantingTableSlotItem.stack <= Player.inventory[i].maxStack))
+								itemWillBeTrashed = false;
 						}
 
-						return true;
+						if (itemWillBeTrashed) {
+							if (Main.mouseItem.IsAir) {
+								Main.mouseItem = enchantingTableSlotItem.Clone();
+								enchantingTableSlotItem.TurnToAir();
+								SoundEngine.PlaySound(SoundID.Grab);
+							}
+
+							return true;
+						}
 					}
+				}
+
+				//Move Item
+				if (!stop) {
+					CheckShiftClickValid(ref inventory[slot], true);
+
+					return true;
 				}
 			}
 
-            //Move Item
-            if (!stop) {
-                CheckShiftClickValid(ref inventory[slot], true);
-
+			if (OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(item)) {
+                if (OreBagUI.RoomInStorage(item))
+					OreBagUI.DepositAll(ref inventory[slot]);
+                
                 return true;
             }
 
@@ -900,7 +928,10 @@ namespace WeaponEnchantments
 			}
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-            List<Item> items = new List<Item>();
+            List<Item> items = new List<Item>() {
+                new(ModContent.ItemType<OreBag>())
+            };
+
             if (WEMod.serverConfig.DCUStart) {
                 Item item = new Item(ItemID.DrillContainmentUnit);
                 items.Add(item);
@@ -923,6 +954,14 @@ namespace WeaponEnchantments
                 for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                     ref Item item = ref enchantmentStorageItems[i];
                     if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
+                        items.Add(item);
+                }
+            }
+
+            if (Player.HasItem(ModContent.ItemType<OreBag>())) {
+                for (int i = 0; i < oreBagItems.Length; i++) {
+                    ref Item item = ref oreBagItems[i];
+                    if (!item.NullOrAir() && item.stack > 0)
                         items.Add(item);
                 }
             }

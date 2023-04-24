@@ -47,8 +47,8 @@ namespace WeaponEnchantments.UI
 			public const int Count = 10;
 		}
 		public static int ID => UI_ID.EnchantmentStorage;
-		public static int enchantmentStorageUIDefaultX => 680;
-		public static int enchantmentStorageUIDefaultTop => 90;
+		public static int EnchantmentStorageUIDefaultLeft => 680;
+		public static int EnchantmentStorageUIDefaultTop => 90;
 		public static Color PanelColor => new Color(26, 2, 56, 100);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
@@ -130,7 +130,7 @@ namespace WeaponEnchantments.UI
 
 				//Search Bar Data
 				int searchBarMinWidth = 100;
-				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString);
+				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(UI_ID.EnchantmentStorageSearch));
 				UIButtonData searchBarData = new(UI_ID.EnchantmentStorageSearch, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, 100));
 
 				//ItemSlots Data 2/2
@@ -260,7 +260,7 @@ namespace WeaponEnchantments.UI
 									if (UIManager.LeftMouseClicked) {
 										item.favorited = !item.favorited;
 										SoundEngine.PlaySound(SoundID.MenuTick);
-										if (item.TryGetGlobalItem(out VacuumableItemsGlobal vacummItem2))
+										if (item.TryGetGlobalItem(out VacuumToStorageItems vacummItem2))
 											vacummItem2.favorited = item.favorited;
 									}
 								}
@@ -304,7 +304,7 @@ namespace WeaponEnchantments.UI
 								}
 							}
 
-							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumableItemsGlobal vacummItem) && vacummItem.favorited)
+							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumToStorageItems vacummItem) && vacummItem.favorited)
 								item.favorited = true;
 
 							if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName) && !item.favorited) {
@@ -341,6 +341,7 @@ namespace WeaponEnchantments.UI
 				if (UIManager.UsingSearchBar) {
 					if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
 						UIManager.UsingSearchBar = false;
+						UIManager.SearchBarInUse = UI_ID.None;
 					}
 					else {
 						PlayerInput.WritingText = true;

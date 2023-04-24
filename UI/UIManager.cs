@@ -28,11 +28,12 @@ namespace WeaponEnchantments.UI
 {
 	public static class UIManager
 	{
-		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI;
+		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || OreBagUI.displayOreBagUI;
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
 		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
 		public static bool HoveringWitchReroll => UI_ID.WitchReroll <= UIBeingHovered && UIBeingHovered < UI_ID.WitchRerollEnd;
 		public static bool HoveringEnchantmentStorage => UI_ID.EnchantmentStorage <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantmentStorageEnd;
+		public static bool HoveringOreBag => UI_ID.OreBag <= UIBeingHovered && UIBeingHovered < UI_ID.OreBagEnd;
 		public static bool HoveringEnchantingTable => UI_ID.EnchantingTable <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantingTableEnd;
 		private static int mouseOffsetX = 0;
 		private static int mouseOffsetY = 0;
@@ -62,8 +63,14 @@ namespace WeaponEnchantments.UI
 		public static int SearchBarTimer = 0;
 		public static bool ShouldShowSearchBarHeartbeat => SearchBarTimer % 60 >= 30;
 		public static string SearchBarString = "";
-		public static string DisplayedSearchBarString => UsingSearchBar || SearchBarString != "" ? $"{(SearchBarString.Length > 15 ? SearchBarString.Substring(SearchBarString.Length - 15) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}" : EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText);
+		public static int SearchBarInUse = UI_ID.None;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			if (wePlayer.disableLeftShiftTrashCan) {
+				ItemSlot.Options.DisableLeftShiftTrashCan = true;
+				wePlayer.disableLeftShiftTrashCan = false;
+			}
+
 			if (!DisplayingAnyUI)
 				return;
 
@@ -92,17 +99,37 @@ namespace WeaponEnchantments.UI
 			FocusRecipe = Main.focusRecipe;
 			float savedInventoryScale = Main.inventoryScale;
 			Main.inventoryScale = 0.86f;
+			bool preventTrashingItem = wePlayer.usingEnchantingTable || OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(Main.HoverItem);
+			if (preventTrashingItem) {
+				//Disable Left Shift to Quick trash
+				if (ItemSlot.Options.DisableLeftShiftTrashCan) {
+					wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
+					ItemSlot.Options.DisableLeftShiftTrashCan = false;
+				}
+			}
 
 			EnchantingTableUI.PostDrawInterface(spriteBatch);
 			EnchantmentStorage.PostDrawInterface(spriteBatch);
-			WitchRerollUI.PoseDrawInterface(spriteBatch);
+			WitchRerollUI.PostDrawInterface(spriteBatch);
+			OreBagUI.PostDrawInterface(spriteBatch);
 
 			Main.inventoryScale = savedInventoryScale;
 			lastMouseLeft = Main.mouseLeft;
 		}
 		public static void PostUpdateEverything() {
-			if (HoveringEnchantmentStorage && Main.focusRecipe != FocusRecipe)
+			if (Main.focusRecipe != FocusRecipe && (HoveringEnchantmentStorage || HoveringOreBag))
 				Main.focusRecipe = FocusRecipe;
+		}
+		public static string DisplayedSearchBarString(int SearchBarID) {
+			bool defaultText = SearchBarID != SearchBarInUse;
+			if (!defaultText && !UsingSearchBar && SearchBarString == "") {
+				defaultText = true;
+			}
+
+			if (defaultText)
+				return EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText);
+
+			return $"{(SearchBarString.Length > 15 ? SearchBarString.Substring(SearchBarString.Length - 15) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}";
 		}
 		public static bool MouseHovering(UIPanel panel, int ID, bool playSound = false) {
 			if (NoUIBeingHovered && panel.IsMouseHovering) {
@@ -571,7 +598,19 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTableLevelsPerLevelUpLast = 2407;
 		public const int EnchantingTableXPButton0 = 2500;
 		public const int EnchantingTableXPButtonLast = EnchantingTableXPButton0 + EnchantingTableUI.MaxEssenceSlots - 1;
-		public const int EnchantingTableEnd = 3000;
+		public const int EnchantingTableEnd = OreBag;
+
+		public const int OreBag = 3000;
+		public const int OreBagScrollBar = 3001;
+		public const int OreBagScrollPanel = 3002;
+		public const int OreBagSearch = 3003;
+		public const int OreBagLootAll = 3100;
+		public const int OreBagDepositAll = 3101;
+		public const int OreBagQuickStack = 3102;
+		public const int OreBagSort = 3103;
+		public const int OreBagToggleVacuum = 3104;
+		public const int OreBagItemSlot = 3200;
+		public const int OreBagEnd = 4000;
 	}
 	public static class ItemSlotContextID
 	{

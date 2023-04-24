@@ -15,19 +15,19 @@ using Steamworks;
 
 namespace WeaponEnchantments.Common.Globals
 {
-	public class VacuumableItemsGlobal : GlobalItem
+	public class VacuumToOreBagItems : GlobalItem
 	{
 		public bool favorited;
-		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage;
+		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return EnchantmentStorage.CanBeStored(entity);
+			return OreBagUI.CanBeStored(entity);
 		}
 		public override void LoadData(Item item, TagCompound tag) {
 			favorited = item.favorited;
 		}
 		public override void SaveData(Item item, TagCompound tag) {
-			
+
 		}
 		public override void UpdateInventory(Item item, Player player) {
 			//Track favorited
@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Common.Globals
 				}
 			}
 		}
-
+		/*
 		public override bool OnPickup(Item item, Player player) {
 			if (item.NullOrAir() || item.ModItem == null)
 				return false;
@@ -76,5 +76,6 @@ namespace WeaponEnchantments.Common.Globals
 		public override bool ItemSpace(Item item, Player player) {
 			return CanVacuum && EnchantmentStorage.ItemSpace(item);
 		}
+		*/
 	}
 }
