@@ -62,7 +62,7 @@ namespace WeaponEnchantments.UI
 		public static int SearchBarTimer = 0;
 		public static bool ShouldShowSearchBarHeartbeat => SearchBarTimer % 60 >= 30;
 		public static string SearchBarString = "";
-		public static string DisplayedSearchBarString => UsingSearchBar || SearchBarString != "" ? $"{(SearchBarString.Length > 20 ? SearchBarString.Substring(SearchBarString.Length - 20) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}" : EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText) + " test";
+		public static string DisplayedSearchBarString => UsingSearchBar || SearchBarString != "" ? $"{(SearchBarString.Length > 15 ? SearchBarString.Substring(SearchBarString.Length - 15) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}" : EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText);
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			if (!DisplayingAnyUI)
 				return;
@@ -400,11 +400,13 @@ namespace WeaponEnchantments.UI
 			Center = center;
 			Color = color;
 			AncorBotomLeft = ancorBotomLeft;
-			BaseTextSize = FontAssets.MouseText.Value.MeasureString(text);
-			TextSize = BaseTextSize * Scale;
-			int heightOffset = AncorBotomLeft ? (int)BaseTextSize.Y / 2 : 0;
+			Vector2 baseSize = text != null ? FontAssets.MouseText.Value.MeasureString(Text) : Vector2.Zero;
+			BaseTextSize = baseSize;
+			Vector2 size = baseSize * scale;
+			TextSize = size;
+			int heightOffset = ancorBotomLeft ? (int)baseSize.Y / 2 : 0;
 			TopLeft = new Point(left, top + heightOffset);
-			BottomRight = new Point(left + Width, top + Height + heightOffset);
+			BottomRight = new Point(left + (int)size.X, top + (int)size.Y + heightOffset);
 		}
 		public UITextData(int id, int left, int top, TextData textData, Color color, bool center = false, bool ancorBotomLeft = false) {
 			ID = id;
@@ -413,11 +415,13 @@ namespace WeaponEnchantments.UI
 			Center = center;
 			Color = color;
 			AncorBotomLeft = ancorBotomLeft;
-			BaseTextSize = Text != null ? FontAssets.MouseText.Value.MeasureString(Text) : Vector2.Zero;
-			TextSize = BaseTextSize * Scale;
-			int heightOffset = AncorBotomLeft ? (int)BaseTextSize.Y / 2 : 0;
+			Vector2 baseSize = textData.Text != null ? FontAssets.MouseText.Value.MeasureString(Text) : Vector2.Zero;
+			BaseTextSize = baseSize;
+			Vector2 size = baseSize * textData.Scale;
+			TextSize = size;
+			int heightOffset = ancorBotomLeft ? (int)baseSize.Y / 2 : 0;
 			TopLeft = new Point(left, top + heightOffset);
-			BottomRight = new Point(left + Width, top + Height + heightOffset);
+			BottomRight = new Point(left + (int)size.X, top + (int)size.Y + heightOffset);
 		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y - Position.Y && Main.mouseY <= BottomRight.Y - Position.Y && !PlayerInput.IgnoreMouseInterface;
 		public bool MouseHovering() => UIManager.MouseHovering(this, true);
@@ -493,7 +497,7 @@ namespace WeaponEnchantments.UI
 				return (bool)isMouseHovering;
 			}
 		}
-		private bool? isMouseHovering;
+		private bool? isMouseHovering = null;
 		public bool MouseHovering() => UIManager.MouseHovering(this, true);
 		public void Draw(SpriteBatch spriteBatch) {
 			UIManager.DrawUIPanel(spriteBatch, TopLeft, BottomRight, IsMouseHovering ? HoverColor : PanelColor);

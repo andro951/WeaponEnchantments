@@ -123,7 +123,6 @@ namespace WeaponEnchantments.UI
 				int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
 				int nameTop = wePlayer.enchantmentStorageUITop + PanelBorder;
 				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang(L_ID1.EnchantmentStorageText);
-				name = "Enchantment Storage Name Test";
 				UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 				//Panel Data 1/2
@@ -148,7 +147,6 @@ namespace WeaponEnchantments.UI
 				int longestButtonNameWidth = 0;
 				for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
 					string text = ((EnchantmentStorageTextID)buttonIndex).ToString().Lang(L_ID1.EnchantmentStorageText);
-					text = $"{(EnchantmentStorageTextID)buttonIndex} test";
 					float scale = ButtonScale[buttonIndex];
 					Color color;
 					if (buttonIndex == EnchantmentStorageButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoEnchantmentStorage) {
