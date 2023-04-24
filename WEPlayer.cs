@@ -47,6 +47,9 @@ namespace WeaponEnchantments
 
 				return localWEPlayer;
 			}
+            set {
+                localWEPlayer = null;
+            }
 		}
 		private static WEPlayer localWEPlayer = null;
 		public int levelsPerLevelUp;
@@ -84,12 +87,14 @@ namespace WeaponEnchantments
         public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
 		public EnchantmentsArray enchantingTableEnchantments;
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
+		public bool openStorageWhenOpeningTable = false;
+        public SortedSet<string> allOfferedItems = new();
 
 		#endregion
 
-        #region Enchantment Effects
-	
-        public PlayerEquipment LastPlayerEquipment;
+		#region Enchantment Effects
+
+		public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
         public SortedDictionary<short, uint> OnTickBuffTimers = new();
@@ -325,7 +330,12 @@ namespace WeaponEnchantments
             tag["enchantingTableUILocationY"] = enchantingTableUITop;
             tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
             if (trashEnchantmentsFullNames.Count > 0)
-                tag["trashEnchantmentsFullNames"] = trashEnchantmentsFullNames.ToArray();
+                tag["trashEnchantmentsFullNames"] = trashEnchantmentsFullNames.ToList();
+
+            tag["openStorageWhenOpeningTable"] = openStorageWhenOpeningTable;
+            string temp = allOfferedItems.StringList((s) => s);
+            if (allOfferedItems.Count > 0)
+                tag["allOfferedItems"] = allOfferedItems.ToList();
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
@@ -349,7 +359,10 @@ namespace WeaponEnchantments
 				levelsPerLevelUp = 1;
 
             if (!tag.TryGet<Item[]>("enchantmentStorageItems", out enchantmentStorageItems))
-                enchantmentStorageItems = Enumerable.Repeat(new Item(), 100).ToArray();
+                enchantmentStorageItems = Enumerable.Repeat(new Item(), 250).ToArray();
+
+            if (enchantmentStorageItems.Length < 250)
+                enchantmentStorageItems = enchantmentStorageItems.Concat(Enumerable.Repeat(new Item(), 250 - enchantmentStorageItems.Length)).ToArray();
 
 			for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                 if (enchantmentStorageItems[i] == null || enchantmentStorageItems[i].stack < 1 || enchantmentStorageItems[i].IsAir) {
@@ -359,14 +372,16 @@ namespace WeaponEnchantments
 
             enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
-            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.enchantmentStorageUIDefaultX, EnchantmentStorage.enchantmentStorageUIDefaultY);
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.enchantmentStorageUIDefaultX, EnchantmentStorage.enchantmentStorageUIDefaultTop);
 
             enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
 			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
 
             vacuumItemsIntoEnchantmentStorage = tag.Get<bool>("vacuumItemsIntoEnchantmentStorage");
-            trashEnchantmentsFullNames = new(tag.Get<string[]>("trashEnchantmentsFullNames"));
+            trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
+            openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
+            allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
             if (!usingEnchantingTable)
@@ -907,7 +922,7 @@ namespace WeaponEnchantments
             if (displayEnchantmentStorage || EnchantmentStorage.uncrafting) {
                 for (int i = 0; i < enchantmentStorageItems.Length; i++) {
                     ref Item item = ref enchantmentStorageItems[i];
-                    if (!item.NullOrAir() && item.stack > 0)
+                    if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
                         items.Add(item);
                 }
             }

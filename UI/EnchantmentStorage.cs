@@ -23,6 +23,10 @@ using System.Reflection;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
+using Microsoft.Xna.Framework.Input;
+using Terraria.GameContent.Animations;
+using Terraria.GameContent.UI.States;
+using Terraria.Localization;
 
 namespace WeaponEnchantments.UI
 {
@@ -38,13 +42,16 @@ namespace WeaponEnchantments.UI
 			public const int ToggleMarkTrash = 5;
 			public const int UncraftAllTrash = 6;
 			public const int RevertAllToBasic = 7;
-			public const int Count = 8;
+			public const int ManageTrash = 8;
+			public const int ManageOfferedItems = 9;
+			public const int Count = 10;
 		}
 		public static int ID => UI_ID.EnchantmentStorage;
-		public static int enchantmentStorageUIDefaultX => Main.screenWidth / 2;
-		public static int enchantmentStorageUIDefaultY => 300;
-		private static int spacing => 4;
-		private static int panelBorder => 10;
+		public static int enchantmentStorageUIDefaultX => 680;
+		public static int enchantmentStorageUIDefaultTop => 90;
+		public static Color PanelColor => new Color(26, 2, 56, 100);
+		private static int Spacing => 4;
+		private static int PanelBorder => 10;
 		public const float buttonScaleMinimum = 0.75f;
 		public const float buttonScaleMaximum = 1f;
 		public static float[] ButtonScale = Enumerable.Repeat(buttonScaleMinimum, EnchantmentStorageButtonID.Count).ToArray();
@@ -52,11 +59,38 @@ namespace WeaponEnchantments.UI
 		private static int glowTime = 0;
 		private static float glowHue = 0f;
 		public static bool uncrafting = false;
-		public static SortedDictionary<int, int> uncraftedItems = new();
+		public static SortedDictionary<int, int> uncraftedExtraItems = new();
+		public static List<Item> uncraftedItems = new();
+		private static int scrollPanelY = int.MinValue;
+		private static int scrollPanelPosition = 0;
+		public static bool managingTrash = false;
+		public static bool managingOfferdItems = false;
+		private static Item[] allEnchantments = null;
+		private static Item[] AllEnchantments {
+			get {
+				if (allEnchantments == null) {
+					allEnchantments = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => i.ModItem is Enchantment).Select(i => new Item(i.type)).ToArray();
+				}
+
+				return allEnchantments;
+			}
+		}
+		private static Item[] allOfferableItems = null;
+		private static Item[] AllOfferableItems {
+			get {
+				if (allOfferableItems == null) {
+					allOfferableItems = ContentSamples.ItemsByType.Select(p => p.Value).Where(i => EnchantedItemStaticMethods.IsEnchantable(i)).Select(i => new Item(i.type)).ToArray();
+				}
+
+				return allOfferableItems;
+			}
+		}
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
-			//WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.displayEnchantmentStorage) {
+
+				#region Data
+
 				Color mouseColor = UIManager.MouseColor;
 				if (glowTime > 0) {
 					glowTime--;
@@ -65,30 +99,51 @@ namespace WeaponEnchantments.UI
 				}
 
 				//ItemSlots Data 1/2
+				Item[] inventory;
+				if (managingTrash) {
+					inventory = AllEnchantments;
+				}
+				else if (managingOfferdItems) {
+					inventory = AllOfferableItems;
+				}
+				else {
+					inventory = wePlayer.enchantmentStorageItems;
+				}
+
 				int itemSlotColumns = 10;
-				int itemSlotRows = 4;//wePlayer.enchantmentStorageItems.Length / columns
-				int itemSlotSpaceWidth = UIManager.ItemSlotSize + spacing;
-				int itemSlotSpaceHeight = UIManager.ItemSlotSize + spacing;
+				int itemSlotRowsDisplayed = 5;
+				int itemSlotTotalRows = inventory.Length.CeilingDivide(itemSlotColumns);
+				int itemSlotSpaceWidth = UIManager.ItemSlotSize + Spacing;
+				int itemSlotSpaceHeight = UIManager.ItemSlotSize + Spacing;
 				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + UIManager.ItemSlotSize;
-				int itemSlotsHeight = (itemSlotRows - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
-				int itemSlotsLeft = wePlayer.enchantmentStorageUILeft + panelBorder;
+				int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
+				int itemSlotsLeft = wePlayer.enchantmentStorageUILeft + PanelBorder;
 
 				//Name Data
-				int nameLeft = itemSlotsLeft + itemSlotsWidth / 2;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
-				int nameTop = wePlayer.enchantmentStorageUITop + panelBorder;
+				int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
+				int nameTop = wePlayer.enchantmentStorageUITop + PanelBorder;
 				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang(L_ID1.EnchantmentStorageText);
 				name = "Enchantment Storage Name Test";
-				UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor, true);
+				UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 				//Panel Data 1/2
-				int panelBorderTop = nameData.Height + spacing + 2;
+				int panelBorderTop = nameData.Height + Spacing + 2;
+
+				//Search Bar Data
+				int searchBarMinWidth = 100;
+				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString);
+				UIButtonData searchBarData = new(UI_ID.EnchantmentStorageSearch, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, 100));
 
 				//ItemSlots Data 2/2
 				int itemSlotsTop = wePlayer.enchantmentStorageUITop + panelBorderTop;
 
+				//Scroll Bar Data 1/2
+				int scrollBarLeft = itemSlotsLeft + itemSlotsWidth + Spacing;
+				int scrollBarWidth = 30;
+
 				//Text buttons Data
-				int buttonsLeft = itemSlotsLeft + itemSlotsWidth + spacing;
-				int currentButtonTop = itemSlotsTop;
+				int buttonsLeft = scrollBarLeft + scrollBarWidth + Spacing;
+				int currentButtonTop = nameTop;
 				UITextData[] textButtons = new UITextData[EnchantmentStorageButtonID.Count];
 				int longestButtonNameWidth = 0;
 				for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
@@ -99,7 +154,7 @@ namespace WeaponEnchantments.UI
 					if (buttonIndex == EnchantmentStorageButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoEnchantmentStorage) {
 						color = new(162, 22, 255);
 					}
-					else if (buttonIndex == EnchantmentStorageButtonID.ToggleMarkTrash && markingTrash) {
+					else if (buttonIndex == EnchantmentStorageButtonID.ToggleMarkTrash && markingTrash || buttonIndex == EnchantmentStorageButtonID.ManageTrash && managingTrash || buttonIndex == EnchantmentStorageButtonID.ManageOfferedItems && managingOfferdItems) {
 						color = new(100, 100, 100);
 					}
 					else {
@@ -109,85 +164,192 @@ namespace WeaponEnchantments.UI
 					UITextData thisButton = new(UI_ID.EnchantmentStorageLootAll + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
 					textButtons[buttonIndex] = thisButton;
 					longestButtonNameWidth = Math.Max(longestButtonNameWidth, thisButton.Width);
-					currentButtonTop += (int)(thisButton.BaseHeight * 0.87f);
+					currentButtonTop += (int)(thisButton.BaseHeight * 0.95f);
 				}
 
 				//Panel Data 2/2
-				int panelBorderRight = spacing + longestButtonNameWidth + panelBorder;
-				int panelWidth = itemSlotsWidth + panelBorder + panelBorderRight;
-				int panelHeight = itemSlotsHeight + panelBorder + panelBorderTop;
-				UIPanelData panel = new(ID, wePlayer.enchantmentStorageUILeft, wePlayer.enchantmentStorageUITop, panelWidth, panelHeight, new Color(26, 2, 56, 100));
+				int panelBorderRightOffset = Spacing + longestButtonNameWidth + PanelBorder;
+				int panelWidth = itemSlotsWidth + Spacing + scrollBarWidth + PanelBorder + panelBorderRightOffset;
+				int panelHeight = itemSlotsHeight + PanelBorder + panelBorderTop;
+				UIPanelData panel = new(ID, wePlayer.enchantmentStorageUILeft, wePlayer.enchantmentStorageUITop, panelWidth, panelHeight, PanelColor);
+
+				//Scroll Bar Data 2/2
+				int scrollBarTop = wePlayer.enchantmentStorageUITop + PanelBorder;
+				UIPanelData scrollBarData = new(UI_ID.EnchantmentStorageScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, 100));
+
+				//Scroll Panel Data 1/2
+				int scrollPanelXOffset = 1;
+				int scrollPanelSize = scrollBarWidth - scrollPanelXOffset * 2;
+				int scrollPanelMinY = scrollBarData.TopLeft.Y + scrollPanelXOffset;
+				int scrollPanelMaxY = scrollBarData.BottomRight.Y - scrollPanelSize - scrollPanelXOffset;
+				int possiblePanelPositions = itemSlotTotalRows - itemSlotRowsDisplayed;
+				scrollPanelPosition.Clamp(0, possiblePanelPositions);
+
+				#endregion
 
 				//Panel Draw
 				panel.Draw(spriteBatch);
 
+				//Scroll Bar Draw
+				scrollBarData.Draw(spriteBatch);
+
 				//ItemSlots Draw
+				int startRow = scrollPanelPosition;
+				int endRow = startRow + itemSlotRowsDisplayed;
+				int inventoryIndexStart = UIManager.SearchBarString == "" ? startRow * itemSlotColumns : 0;
+				int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
+				int slotNum = 0;
+				int itemSlotX = itemSlotsLeft;
 				int itemSlotY = itemSlotsTop;
-				int itemSlotIndex = 0;
-				int startRow = 0;
-				int endRow = startRow + 4;
-				for (int row = startRow; row < endRow; row++) {
-					int itemSlotX = itemSlotsLeft;
-					for (int column = 0; column < itemSlotColumns; column++) {
-						ref Item item = ref wePlayer.enchantmentStorageItems[itemSlotIndex];
-						string modFullName = item.ModFullName();
-						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot1 + itemSlotIndex, itemSlotX, itemSlotY);
-						if (slotData.MouseHovering()) {
-							if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
-								if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
+				for (int inventoryIndex = 0; inventoryIndex < inventory.Length && slotNum < slotsToDisplay; inventoryIndex++) {
+					if (inventoryIndex >= inventory.Length)
+						break;
+
+					ref Item item = ref inventory[inventoryIndex];
+					if (UIManager.SearchBarString == "" || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
+						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot, itemSlotX, itemSlotY);
+						string modFullName = item.type.GetItemIDOrName();
+						if (managingTrash) {
+							if (slotData.MouseHovering()) {
+								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
+								Main.cursorOverride = CursorOverrideID.TrashCan;
+								if (UIManager.LeftMouseClicked) {
+									if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+										wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
+									}
+									else {
+										wePlayer.trashEnchantmentsFullNames.Add(modFullName);
+									}
+
+									SoundEngine.PlaySound(SoundID.MenuTick);
+								}
+							}
+
+							if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							}
+							else {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							}
+						}
+						else if (managingOfferdItems) {
+							if (slotData.MouseHovering()) {
+								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
+								Main.cursorOverride = CursorOverrideID.TrashCan;
+								if (UIManager.LeftMouseClicked) {
+									if (wePlayer.allOfferedItems.Contains(modFullName)) {
+										wePlayer.allOfferedItems.Remove(modFullName);
+									}
+									else {
+										wePlayer.allOfferedItems.Add(modFullName);
+									}
+
+									SoundEngine.PlaySound(SoundID.MenuTick);
+								}
+							}
+
+							if (wePlayer.allOfferedItems.Contains(modFullName)) {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							}
+							else {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							}
+						}
+						else {
+							if (slotData.MouseHovering()) {
+								if (WEModSystem.FavoriteKeyDown) {
+									Main.cursorOverride = CursorOverrideID.FavoriteStar;
 									if (UIManager.LeftMouseClicked) {
-										if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
-											wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
+										item.favorited = !item.favorited;
+										SoundEngine.PlaySound(SoundID.MenuTick);
+										if (item.TryGetGlobalItem(out VacuumableItemsGlobal vacummItem2))
+											vacummItem2.favorited = item.favorited;
+									}
+								}
+								else if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
+									if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
+										Main.cursorOverride = CursorOverrideID.TrashCan;
+										if (UIManager.LeftMouseClicked) {
+											if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+												wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
+											}
+											else {
+												wePlayer.trashEnchantmentsFullNames.Add(modFullName);
+											}
+
+											SoundEngine.PlaySound(SoundID.MenuTick);
 										}
 										else {
-											wePlayer.trashEnchantmentsFullNames.Add(modFullName);
+											slotData.ClickInteractions(ref item);
 										}
+									}
+									else if (wePlayer.usingEnchantingTable && ItemSlot.ShiftInUse) {
+										if (wePlayer.CheckShiftClickValid(ref item)) {
+											if (UIManager.LeftMouseClicked)
+												wePlayer.CheckShiftClickValid(ref item, true);
+										}
+										else {
+											if (UIManager.LeftMouseClicked && Main.mouseItem.IsAir) {
+												Main.mouseItem = item.Clone();
+												item = new();
+											}
+											else {
+												slotData.ClickInteractions(ref item);
+											}
 
-										SoundEngine.PlaySound(SoundID.MenuTick);
+											Main.cursorOverride = -1;
+										}
 									}
 									else {
 										slotData.ClickInteractions(ref item);
 									}
 								}
-								else if (wePlayer.usingEnchantingTable && ItemSlot.ShiftInUse) {
-									if (wePlayer.CheckShiftClickValid(ref item)) {
-										if (UIManager.LeftMouseClicked)
-											wePlayer.CheckShiftClickValid(ref item, true);
-									}
-									else {
-										if (UIManager.LeftMouseClicked && Main.mouseItem.IsAir) {
-											Main.mouseItem = item.Clone();
-											item = new();
-										}
-										else {
-											slotData.ClickInteractions(ref item);
-										}
+							}
 
-										Main.cursorOverride = -1;
-									}
-								}
-								else {
-									slotData.ClickInteractions(ref item);
-								}
+							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumableItemsGlobal vacummItem) && vacummItem.favorited)
+								item.favorited = true;
+
+							if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName) && !item.favorited) {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+							}
+							else {
+								slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
 							}
 						}
 
-						if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName) && !item.favorited) {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
+						slotNum++;
+						if (slotNum % itemSlotColumns == 0) {
+							itemSlotX = itemSlotsLeft;
+							itemSlotY += itemSlotSpaceHeight;
 						}
 						else {
-							slotData.Draw(spriteBatch, item, ItemSlotContextID.Normal, glowHue, glowTime);
+							itemSlotX += itemSlotSpaceWidth;
 						}
-
-						itemSlotX += itemSlotSpaceWidth;
-						itemSlotIndex++;
 					}
-
-					itemSlotY += itemSlotSpaceHeight;
 				}
 
 				//Name Draw
 				nameData.Draw(spriteBatch);
+
+				//Search Bar Draw
+				searchBarData.Draw(spriteBatch);
+
+				bool mouseHoveringSearchBar = searchBarData.MouseHovering();
+				if (mouseHoveringSearchBar) {
+					if (UIManager.LeftMouseClicked)
+						UIManager.UsingSearchBar = !UIManager.UsingSearchBar;
+				}
+
+				if (UIManager.UsingSearchBar) {
+					if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
+						UIManager.UsingSearchBar = false;
+					}
+					else {
+						PlayerInput.WritingText = true;
+						Main.instance.HandleIME();
+						UIManager.SearchBarString = Main.GetInputText(UIManager.SearchBarString);
+					}
+				}
 
 				//Text Buttons Draw
 				for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
@@ -200,7 +362,13 @@ namespace WeaponEnchantments.UI
 							ButtonScale[buttonIndex] = buttonScaleMaximum;
 
 						if (UIManager.LeftMouseClicked) {
-							switch(buttonIndex) {
+							if (managingTrash && buttonIndex != EnchantmentStorageButtonID.ManageTrash)
+								managingTrash = false;
+
+							if (managingOfferdItems && buttonIndex != EnchantmentStorageButtonID.ManageOfferedItems)
+								managingOfferdItems = false;
+
+							switch (buttonIndex) {
 								case EnchantmentStorageButtonID.LootAll:
 									LootAll();
 									break;
@@ -220,10 +388,16 @@ namespace WeaponEnchantments.UI
 									ToggleMarkTrash();
 									break;
 								case EnchantmentStorageButtonID.UncraftAllTrash:
-									UncraftAllTrash();
+									UncraftTrash(wePlayer.enchantmentStorageItems);
 									break;
 								case EnchantmentStorageButtonID.RevertAllToBasic:
 									RevertAllToBasic();
+									break;
+								case EnchantmentStorageButtonID.ManageTrash:
+									managingTrash = !managingTrash;
+									break;
+								case EnchantmentStorageButtonID.ManageOfferedItems:
+									managingOfferdItems = !managingOfferdItems;
 									break;
 								//DODO: Add Select button like Mark Trash
 								//DODO: Add Quick craft all to tier.  Needs tier buttons, Basic, Common....
@@ -240,6 +414,42 @@ namespace WeaponEnchantments.UI
 					}
 				}
 
+				//Scroll Panel Data 2/2
+				bool draggingScrollPanel = UIManager.PanelBeingDragged == UI_ID.EnchantmentStorageScrollPanel;
+				if (UIManager.PanelBeingDragged == UI_ID.EnchantmentStorageScrollPanel) {
+					scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
+				}
+				else {
+					int scrollPanelRange = scrollPanelMaxY - scrollPanelMinY;
+					int offset = scrollPanelPosition * scrollPanelRange / possiblePanelPositions;
+					scrollPanelY = offset + scrollPanelMinY;
+				}
+
+				//Scroll Bar Hover
+				if (scrollBarData.MouseHovering()) {
+					if (UIManager.LeftMouseClicked) {
+						UIManager.UIBeingHovered = UI_ID.None;
+						scrollPanelY = Main.mouseY - scrollPanelSize / 2;
+						scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
+					}
+				}
+
+				//Scroll Panel Hover and Drag
+				UIPanelData scrollPanelData = new(UI_ID.EnchantmentStorageScrollPanel, scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
+				if (scrollPanelData.MouseHovering()) {
+					scrollPanelData.TryStartDraggingUI();
+				}
+
+				if (scrollPanelData.ShouldDragUI()) {
+					UIManager.DragUI(out _, out scrollPanelY);
+				}
+				else if (draggingScrollPanel) {
+					int scrollPanelRange = scrollPanelMaxY - scrollPanelMinY;
+					scrollPanelPosition = ((scrollPanelY - scrollPanelMinY) * possiblePanelPositions).RoundDivide(scrollPanelRange);
+				}
+
+				scrollPanelData.Draw(spriteBatch);
+
 				//Panel Hover and Drag
 				if (panel.MouseHovering()) {
 					panel.TryStartDraggingUI();
@@ -247,6 +457,14 @@ namespace WeaponEnchantments.UI
 
 				if (panel.ShouldDragUI())
 					UIManager.DragUI(out wePlayer.enchantmentStorageUILeft, out wePlayer.enchantmentStorageUITop);
+
+				int scrollWheelTicks = UIManager.ScrollWheelTicks;
+				if (scrollWheelTicks != 0 && UIManager.HoveringEnchantmentStorage && UIManager.NoPanelBeingDragged) {
+					if (scrollPanelPosition > 0 && scrollWheelTicks < 0 || scrollPanelPosition < possiblePanelPositions && scrollWheelTicks > 0) {
+						SoundEngine.PlaySound(SoundID.MenuTick);
+						scrollPanelPosition += scrollWheelTicks;
+					}
+				}
 			}
 		}
 		public static bool CanBeStored(Item item) {
@@ -359,8 +577,8 @@ namespace WeaponEnchantments.UI
 			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
 			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is Enchantment)
 				.GroupBy(i => ((Enchantment)i.ModItem).EnchantmentTypeName).OrderBy(g => g.Key).Select(l => l.ToList().OrderBy(i => ((Enchantment)i.ModItem).EnchantmentTier)).SelectMany(l => l);
-			IEnumerable<Item> goodEnchantments = enchantments.Where(i => !WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.ModFullName()));
-			IEnumerable<Item> trashEnchantments = enchantments.Where(i => WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.ModFullName()));
+			IEnumerable<Item> goodEnchantments = enchantments.Where(i => i.favorited || !WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
+			IEnumerable<Item> trashEnchantments = enchantments.Where(i => !i.favorited && WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
 			IEnumerable<Item> otherItems = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem == null || i.ModItem is not (Enchantment or ContainmentItem or PowerBooster or UltraPowerBooster));
 			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(goodEnchantments).Concat(trashEnchantments).Concat(otherItems).ToArray();
 			glowTime = 300;
@@ -372,14 +590,15 @@ namespace WeaponEnchantments.UI
 		private static void ToggleMarkTrash() {
 			markingTrash = !markingTrash;
 		}
-		private static void UncraftAllTrash() {
+		public static void UncraftTrash(Item item, bool force = true) => UncraftTrash(new Item[] { item }, force);
+		private static void UncraftTrash(Item[] inv, bool force = false) {
 			uncrafting = true;
 			Recipe.FindRecipes();
-			uncraftedItems.Clear();
+			uncraftedExtraItems.Clear();
 			Dictionary<int, HashSet<int>> storageIndexes = new();
-			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
-				ref Item item = ref WEPlayer.LocalWEPlayer.enchantmentStorageItems[i];
-				if (WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.ModFullName()))
+			for (int i = 0; i < inv.Length; i++) {
+				ref Item item = ref inv[i];
+				if (!item.favorited && WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(item.type.GetItemIDOrName()))
 					storageIndexes.AddOrCombine(item.type, i);
 			}
 
@@ -396,19 +615,26 @@ namespace WeaponEnchantments.UI
 				if (recipeNumbers.TryGetValue(type, out int recipeNum)) {
 					Recipe r = Main.recipe[recipeNum];
 					foreach (int slot in itemType.Value) {
-						int stack = WEPlayer.LocalWEPlayer.enchantmentStorageItems[slot].stack;
+						int stack = inv[slot].stack;
 						for (int i = 0; i < stack; i++) {
 							Recipe.FindRecipes();
-							for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
-								int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
-								if (recipeNum == availableRecipeNum) {
-									Item crafted = r.createItem.Clone();
-									crafted.Prefix(-1);
-									r.Create();
-									RecipeLoader.OnCraft(crafted, r, new Item());
-									uncraftedItems.AddOrCombine(crafted.type, crafted.stack);
-									break;
+							bool shouldCraft = force;
+							if (!shouldCraft) {
+								for (int availableRecipeIndex = 0; availableRecipeIndex < Main.numAvailableRecipes; availableRecipeIndex++) {
+									int availableRecipeNum = Main.availableRecipe[availableRecipeIndex];
+									if (recipeNum == availableRecipeNum) {
+										shouldCraft = true;
+										break;
+									}
 								}
+							}
+							
+							if (shouldCraft) {
+								Item crafted = r.createItem.Clone();
+								crafted.Prefix(-1);
+								r.Create();
+								RecipeLoader.OnCraft(crafted, r, new Item());
+								uncraftedExtraItems.AddOrCombine(crafted.type, crafted.stack);
 							}
 						}
 					}
@@ -423,6 +649,7 @@ namespace WeaponEnchantments.UI
 		private static void RevertAllToBasic() {
 			uncrafting = true;
 			Recipe.FindRecipes();
+			uncraftedExtraItems.Clear();
 			uncraftedItems.Clear();
 			Dictionary<int, HashSet<int>> storageIndexes = new();
 			for (int i = 0; i < WEPlayer.LocalWEPlayer.enchantmentStorageItems.Length; i++) {
@@ -453,7 +680,7 @@ namespace WeaponEnchantments.UI
 									crafted.Prefix(-1);
 									r.Create();
 									RecipeLoader.OnCraft(crafted, r, new Item());
-									uncraftedItems.AddOrCombine(crafted.type, crafted.stack);
+									uncraftedItems.Add(crafted);
 									break;
 								}
 							}
@@ -468,9 +695,9 @@ namespace WeaponEnchantments.UI
 			Recipe.FindRecipes();
 		}//TODO: Issue with Time Enchantment.  Causes reroll
 		private static void QuickSpawnAllUncraftedItems() {
-			if (uncraftedItems.Count > 0) {
+			if (uncraftedExtraItems.Count > 0) {
 				SoundEngine.PlaySound(SoundID.Grab);
-				foreach (KeyValuePair<int, int> item in uncraftedItems) {
+				foreach (KeyValuePair<int, int> item in uncraftedExtraItems) {
 					Item sample = ContentSamples.ItemsByType[item.Key];
 					int stack = item.Value;
 					while (stack > 0) {
@@ -480,6 +707,11 @@ namespace WeaponEnchantments.UI
 					}
 				}
 
+				foreach (Item item in uncraftedItems) {
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), item, item.stack);
+				}
+
+				uncraftedExtraItems.Clear();
 				uncraftedItems.Clear();
 			}
 		}

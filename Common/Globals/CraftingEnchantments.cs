@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (recipeCreationContext.ConsumedItems == null)
                     return;
 
-                SortedDictionary<int, int> otherCraftedItems = EnchantmentStorage.uncrafting ? EnchantmentStorage.uncraftedItems : new();
+                SortedDictionary<int, int> otherCraftedItems = EnchantmentStorage.uncrafting ? EnchantmentStorage.uncraftedExtraItems : new();
                 foreach (Item consumedItem in recipeCreationContext.ConsumedItems) {
                     otherCraftedItems.AddOrCombine(GetOtherCraftedItems(item, consumedItem));
                 }

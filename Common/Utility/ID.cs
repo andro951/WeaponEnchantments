@@ -498,8 +498,11 @@ namespace WeaponEnchantments.Common.Utility
 		ToggleMarkTrash,
 		UncraftAllTrash,
 		RevertAllToBasic,
+		ManageTrash,
+		ManageOfferedItems,
 		//Do not place anything besides buttons before this
-		EnchantmentStorage
+		EnchantmentStorage,
+		Search
 	}
 	public enum DialogueID {
         StandardDialogue,

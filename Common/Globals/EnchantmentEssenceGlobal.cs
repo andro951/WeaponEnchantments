@@ -22,7 +22,7 @@ namespace WeaponEnchantments.Common.Globals
                 return false;
 
             WEPlayer wePlayer = player.GetWEPlayer();
-            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
+            if (WEMod.clientConfig.teleportEssence) {
                 if (item.ModItem is not EnchantmentEssence essence)
                     return false;
 
@@ -63,7 +63,7 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override bool ItemSpace(Item item, Player player) {
             WEPlayer wePlayer = player.GetWEPlayer();
-            if (WEMod.clientConfig.teleportEssence && !wePlayer.usingEnchantingTable) {
+            if (WEMod.clientConfig.teleportEssence) {
                 EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
                 Item[] essenceSlots = wePlayer.enchantingTableEssence;
                 int tier = essence.EssenceTier;

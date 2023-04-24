@@ -1,10 +1,12 @@
 ﻿using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -19,14 +21,19 @@ using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.Content.NPCs;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.UI
 {
 	public static class UIManager
 	{
+		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI;
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
 		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
+		public static bool HoveringWitchReroll => UI_ID.WitchReroll <= UIBeingHovered && UIBeingHovered < UI_ID.WitchRerollEnd;
+		public static bool HoveringEnchantmentStorage => UI_ID.EnchantmentStorage <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantmentStorageEnd;
+		public static bool HoveringEnchantingTable => UI_ID.EnchantingTable <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantingTableEnd;
 		private static int mouseOffsetX = 0;
 		private static int mouseOffsetY = 0;
 		public static bool lastMouseLeft = false;
@@ -42,11 +49,24 @@ namespace WeaponEnchantments.UI
 		public static readonly Asset<Texture2D>[] uiTextures = { Main.Assets.Request<Texture2D>("Images/UI/PanelBackground"), Main.Assets.Request<Texture2D>("Images/UI/PanelBorder") };
 		public static readonly int ItemSlotSize = 44;
 		public const int ItemSlotInteractContext = ItemSlot.Context.BankItem;
-		private static int PanelBeingDragged = UI_ID.None;
+		public static int PanelBeingDragged { get; private set; } = UI_ID.None;
 		public static int UIBeingHovered = UI_ID.None;
 		public static int LastUIBeingHovered { get; private set; } = UI_ID.None;
 		public static int HoverTime = 0;
+		public static int ScrollWheel = 0;
+		public static int LastScrollWheel = 0;
+		public static int ScrollWheelTicks => (LastScrollWheel - ScrollWheel) / 120;
+		public static int FocusRecipe = Main.focusRecipe;
+		public static int LastFocusRecipe = Main.focusRecipe;
+		public static bool UsingSearchBar = false;
+		public static int SearchBarTimer = 0;
+		public static bool ShouldShowSearchBarHeartbeat => SearchBarTimer % 60 >= 30;
+		public static string SearchBarString = "";
+		public static string DisplayedSearchBarString => UsingSearchBar || SearchBarString != "" ? $"{(SearchBarString.Length > 20 ? SearchBarString.Substring(SearchBarString.Length - 20) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}" : EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText) + " test";
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
+			if (!DisplayingAnyUI)
+				return;
+
 			if (NoPanelBeingDragged) {
 				if (!NoUIBeingHovered && UIBeingHovered == LastUIBeingHovered) {
 					HoverTime++;
@@ -59,6 +79,17 @@ namespace WeaponEnchantments.UI
 				UIBeingHovered = UI_ID.None;
 			}
 
+			if (UsingSearchBar) {
+				SearchBarTimer++;
+			}
+			else {
+				SearchBarTimer = 0;
+			}
+
+			LastScrollWheel = ScrollWheel;
+			ScrollWheel = (int)typeof(Mouse).GetField("INTERNAL_MouseWheel", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+			LastFocusRecipe = FocusRecipe;
+			FocusRecipe = Main.focusRecipe;
 			float savedInventoryScale = Main.inventoryScale;
 			Main.inventoryScale = 0.86f;
 
@@ -70,7 +101,8 @@ namespace WeaponEnchantments.UI
 			lastMouseLeft = Main.mouseLeft;
 		}
 		public static void PostUpdateEverything() {
-
+			if (HoveringEnchantmentStorage && Main.focusRecipe != FocusRecipe)
+				Main.focusRecipe = FocusRecipe;
 		}
 		public static bool MouseHovering(UIPanel panel, int ID, bool playSound = false) {
 			if (NoUIBeingHovered && panel.IsMouseHovering) {
@@ -492,38 +524,50 @@ namespace WeaponEnchantments.UI
 		public void ClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context = UIManager.ItemSlotInteractContext) => UIManager.ItemSlotClickInteractions(enchantmentsArray, index, context);
 	}
 	public static class UI_ID {
-		public const int None = 0;
-		public const int EnchantingTable = 1;
-		public const int Offer = 2;
-		public const int WitchReroll = 3;
-		public const int EnchantmentStorage = 4;
-		public const int EnchantmentStorageLootAll = 5;
-		public const int EnchantmentStorageDepositAll = 6;
-		public const int EnchantmentStorageQuickStack = 7;
-		public const int EnchantmentStorageSort = 8;
-		public const int EnchantmentStorageToggleVacuum = 9;
-		public const int EnchantingTableLootAll = 10;
-		public const int EnchantingTableOfferButton = 11;
-		public const int EnchantingTableSyphon = 12;
-		public const int EnchantingTableInfusion = 13;
-		public const int EnchantingTableLevelUp = 14;
-		public const int EnchantingTableItemSlot = 15;
-		public const int OfferYes = 16;
-		public const int OfferNo = 17;
-		public const int EnchantingTableStorageButton = 18;
+		public const int None = -1;
 
-		public const int EnchantingTableEnchantment0 = 780;
-		public const int EnchantingTableEnchantmentLast = 789;
-		public const int EnchantingTableEssence0 = 790;
-		public const int EnchantingTableEssenceLast = 799;
-		public const int EnchantingTableLevelsPerLevelUp0 = 800;
-		public const int EnchantingTableLevelsPerLevelUpLast = 803;
+		public const int WitchReroll = 0;
+		public const int WitchRerollEnd = Offer;
 
-		public const int EnchantingTableXPButton0 = 900;
-		public const int EnchantingTableXPButtonLast = 904;
+		public const int Offer = 100;
+		public const int OfferYes = 101;
+		public const int OfferNo = 102;
+		public const int OfferEnd = EnchantmentStorage;
 
-		public const int EnchantmentStorageItemSlot1 = 1000;
-		public const int EnchantmentStorageItemSlotLast = EnchantmentStorageItemSlot1 + 99;
+		public const int EnchantmentStorage = 1000;
+		public const int EnchantmentStorageScrollBar = 1001;
+		public const int EnchantmentStorageScrollPanel = 1002;
+		public const int EnchantmentStorageSearch = 1003;
+		public const int EnchantmentStorageLootAll = 1100;
+		public const int EnchantmentStorageDepositAll = 1101;
+		public const int EnchantmentStorageQuickStack = 1102;
+		public const int EnchantmentStorageSort = 1103;
+		public const int EnchantmentStorageToggleVacuum = 1104;
+		public const int EnchantmentStorageToggleMarkTrash = 1105;
+		public const int EnchantmentStorageUncraftAllTrash = 1106;
+		public const int EnchantmentStorageRevertAllToBasic = 1107;
+		public const int EnchantmentStorageManageTrash = 1108;
+		public const int EnchantmentStorageManageOfferedItems = 1109;
+		public const int EnchantmentStorageItemSlot = 1200;
+		public const int EnchantmentStorageEnd = EnchantingTable;
+
+		public const int EnchantingTable = 2000;
+		public const int EnchantingTableLootAll = 2001;
+		public const int EnchantingTableOfferButton = 2002;
+		public const int EnchantingTableSyphon = 2003;
+		public const int EnchantingTableInfusion = 2004;
+		public const int EnchantingTableLevelUp = 2005;
+		public const int EnchantingTableItemSlot = 2006;
+		public const int EnchantingTableStorageButton = 2007;
+		public const int EnchantingTableEnchantment0 = 2200;
+		public const int EnchantingTableEnchantmentLast = EnchantingTableEnchantment0 + EnchantingTableUI.MaxEnchantmentSlots - 1;
+		public const int EnchantingTableEssence0 = 2300;
+		public const int EnchantingTableEssenceLast = EnchantingTableEssence0 + EnchantingTableUI.MaxEssenceSlots - 1;
+		public const int EnchantingTableLevelsPerLevelUp0 = 2404;
+		public const int EnchantingTableLevelsPerLevelUpLast = 2407;
+		public const int EnchantingTableXPButton0 = 2500;
+		public const int EnchantingTableXPButtonLast = EnchantingTableXPButton0 + EnchantingTableUI.MaxEssenceSlots - 1;
+		public const int EnchantingTableEnd = 3000;
 	}
 	public static class ItemSlotContextID
 	{

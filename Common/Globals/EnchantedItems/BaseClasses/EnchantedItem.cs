@@ -287,9 +287,15 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
 
-            #region Infusion
+            #region Tracking (instance)
 
-            infusedItemName = tag.Get<string>("infusedItemName");
+            favorited = item.favorited;
+
+			#endregion
+
+			#region Infusion
+
+			infusedItemName = tag.Get<string>("infusedItemName");
 
             #endregion
 
@@ -442,13 +448,13 @@ namespace WeaponEnchantments.Common.Globals
 
             //Track favorited
             if (item.favorited) {
-                if (!favorited && WEModSystem.AltDown) {
+                if (!favorited && WEModSystem.FavoriteKeyDown) {
                     favorited = true;
                 }
             }
             else {
                 if (favorited) {
-                    if (!WEModSystem.AltDown) {
+                    if (!WEModSystem.FavoriteKeyDown) {
                         item.favorited = true;
                     }
                     else {
@@ -900,6 +906,22 @@ namespace WeaponEnchantments.Common.Globals
 			}
 
 			resetGlobals = false;
+		}
+		public override bool OnPickup(Item item, Player player) {
+            string fullName = item.ModFullName();
+			if (player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName())) {
+				PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
+				SoundEngine.PlaySound(SoundID.Grab);
+                EnchantingTableUI.OfferItem(ref item);
+
+				return false;
+            }
+
+            return true;
+		}
+		public override bool ItemSpace(Item item, Player player) {
+            return true;
+            return player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
 		}
 	}
 	public class EnchantmentsArray
@@ -1603,6 +1625,9 @@ namespace WeaponEnchantments.Common.Globals
                 return !isEnchantedItem2;
 
             if (item1.type != item2.type || item1.prefix != item2.prefix)
+                return false;
+
+            if (Math.Abs(global1.levelBeforeBooster - global2.levelBeforeBooster) > 1)
                 return false;
 
             if (global1.PowerBoosterInstalled != global2.PowerBoosterInstalled || global1.UltraPowerBoosterInstalled != global2.UltraPowerBoosterInstalled || global1.infusedItemName != global2.infusedItemName)

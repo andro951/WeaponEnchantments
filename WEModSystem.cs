@@ -34,8 +34,8 @@ namespace WeaponEnchantments
 {
     public class WEModSystem : ModSystem
     {
-        public static bool AltDown => Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt);
-        public static bool ShiftDown => Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) || Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightShift);
+        public static bool FavoriteKeyDown => Main.keyState.IsKeyDown(Main.FavoriteKey);
+        public static bool ShiftDown => ItemSlot.ShiftInUse;
         internal static UserInterface weModSystemUI;
         internal static UserInterface mouseoverUIInterface;
         internal static UserInterface promptInterface;
@@ -88,6 +88,9 @@ namespace WeaponEnchantments
                 promptInterface = null;
             }
         }
+		public override void PostUpdateEverything() {
+            UIManager.PostUpdateEverything();
+		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
             UIManager.PostDrawInterface(spriteBatch);
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
@@ -268,6 +271,8 @@ namespace WeaponEnchantments
             if (wePlayer.usingEnchantingTable) {
                 EnchantingTableUI.CloseEnchantingTableUI();
             }
+
+            WEPlayer.LocalWEPlayer = null;
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;

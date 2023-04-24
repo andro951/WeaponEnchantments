@@ -244,11 +244,6 @@ namespace WeaponEnchantments.Common.Globals
 
             base.UpdateInventory(item, player);
         }
-        public override bool OnPickup(Item item, Player player) {
-            //player.GetWEPlayer().UpdateItemStats(ref item);
-
-            return true;
-        }
         protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 

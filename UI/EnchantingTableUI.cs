@@ -27,7 +27,7 @@ namespace WeaponEnchantments.UI
 	public static class EnchantingTableUI
 	{
 		public static int DefaultLeft => (Main.screenWidth - 530) / 2;
-		public static int DefaultTop => Main.screenHeight / 2 + 42;
+		public static int DefaultTop => Main.screenHeight / 2 + 100;
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		private static int ButtonBorderY => 0;
@@ -578,12 +578,19 @@ namespace WeaponEnchantments.UI
 					for (int i = 0; i < MaxEssenceSlots; i++) {
 						UIItemSlotData essenceSlot = essenceSlotsData[i];
 						if (essenceSlot.MouseHovering()) {
-							if (ValidItemForEssenceSlot(Main.mouseItem, i))
+							if (WEModSystem.FavoriteKeyDown) {
+								Main.cursorOverride = CursorOverrideID.FavoriteStar;
+								if (UIManager.LeftMouseClicked) {
+									wePlayer.enchantingTableEssence[i].favorited = !wePlayer.enchantingTableEssence[i].favorited;
+									SoundEngine.PlaySound(SoundID.MenuTick);
+								}
+							}
+							else if (ValidItemForEssenceSlot(Main.mouseItem, i)) {
 								essenceSlot.ClickInteractions(ref wePlayer.enchantingTableEssence[i]);
+							}
 
 							if (DisplayDescriptionBlock)
 								SetDescriptionBlock(TableTextID.essence0.ToString().Lang(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
-
 						}
 					}
 
@@ -591,6 +598,9 @@ namespace WeaponEnchantments.UI
 					if (storageData.MouseHovering()) {
 						if (UIManager.LeftMouseClicked) {
 							wePlayer.displayEnchantmentStorage = !wePlayer.displayEnchantmentStorage;
+							if (!wePlayer.displayEnchantmentStorage)
+								UIManager.SearchBarString = "";
+
 							SoundEngine.PlaySound(SoundID.MenuTick);
 							if (wePlayer.displayEnchantmentStorage) {
 								SoundEngine.PlaySound(SoundID.MenuOpen);
@@ -682,9 +692,14 @@ namespace WeaponEnchantments.UI
 			WEPlayer.LocalWEPlayer.usingEnchantingTable = true;
 			if (!noSound)
 				SoundEngine.PlaySound(SoundID.MenuOpen);
+
+			if (WEPlayer.LocalWEPlayer.openStorageWhenOpeningTable)
+				WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 		}
 		public static void CloseEnchantingTableUI(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			UIManager.SearchBarString = "";
+			wePlayer.openStorageWhenOpeningTable = wePlayer.displayEnchantmentStorage;
 			wePlayer.displayEnchantmentStorage = false;
 			if (!wePlayer.usingEnchantingTable)
 				return;
@@ -1001,7 +1016,6 @@ namespace WeaponEnchantments.UI
 					numberEssenceRecieved = xpCounter / xpPerEssence;
 				}
 
-
 				xpCounter -= (int)EnchantmentEssence.xpPerEssence[tier] * numberEssenceRecieved;
 				if (tier == 0 && xpCounter > 0) {
 					if (consumeAll) {
@@ -1014,24 +1028,11 @@ namespace WeaponEnchantments.UI
 				}
 
 				//Get or spawn essence
-				if (wePlayer.enchantingTableEssence[tier].IsAir) {
-					wePlayer.enchantingTableEssence[tier] = new Item(EnchantmentEssence.IDs[tier], numberEssenceRecieved);
-				}
-				else {
-					int maxStack = ModContent.GetModItem(ModContent.ItemType<EnchantmentEssenceBasic>()).Item.maxStack;
-					if (wePlayer.enchantingTableEssence[tier].stack + numberEssenceRecieved > maxStack) {
-						int ammountToTransfer = maxStack - wePlayer.enchantingTableEssence[tier].stack;
-						numberEssenceRecieved -= ammountToTransfer;
-						wePlayer.enchantingTableEssence[tier].stack += ammountToTransfer;
-						while (numberEssenceRecieved > 0) {
-							int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
-							numberEssenceRecieved -= stack;
-							Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stack);
-						}
-					}
-					else {
-						wePlayer.enchantingTableEssence[tier].stack += numberEssenceRecieved;
-					}
+				int maxStack = EnchantmentEssence.IDs[tier].CSI().maxStack;
+				while (numberEssenceRecieved > 0) {
+					int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
+					numberEssenceRecieved -= stack;
+					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stack);
 				}
 			}
 
@@ -1236,15 +1237,11 @@ namespace WeaponEnchantments.UI
 			return warning;
 		}
 		private static void Offer() {
-			//Ore bag
-			//Store offered items.  Automatically offer stored items
-			//UI to manage offered items.
 			int type = OfferItem(ref WEPlayer.LocalWEPlayer.enchantingTableItem, nonTableItem: false);
 			if (type == 0)
 				return;
 
-			//TODO: Add to wePLayer tracked offered items
-
+			WEPlayer.LocalWEPlayer.allOfferedItems.Add(type.GetItemIDOrName());
 
 			if (!WEMod.clientConfig.OfferAll)
 				return;
