@@ -1258,7 +1258,7 @@ namespace WeaponEnchantments.UI
 
 				//Offer the inventory item
 				if (player.inventory[i].type == type && !enchantedItem.Modified)
-					OfferItem(ref player.inventory[i], false, true);
+					OfferItem(ref player.inventory[i]);
 			}
 
 			if (FindEnchantingTable(player, out Point tablePoint)) {
@@ -1277,7 +1277,8 @@ namespace WeaponEnchantments.UI
 							if (enchantedItem.Modified)
 								continue;
 
-							if (OfferItem(ref Main.chest[chestNum].item[i], false, true) > -1 && Main.netMode == NetmodeID.MultiplayerClient)
+							WEPlayer.LocalWEPlayer.allOfferedItems.Add(item.type.GetItemIDOrName());
+							if (OfferItem(ref Main.chest[chestNum].item[i]) > -1 && Main.netMode == NetmodeID.MultiplayerClient)
 								offeredChestItemSlots.AddOrCombine(chestNum, (short)i);
 						}
 					}
