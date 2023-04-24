@@ -599,6 +599,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -908,6 +909,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: Зачарование "В огне" (Эпическое)
 			OnFireEnchantmentLegendary.DisplayName: Зачарование "В огне" (Легендарное)
 			OnFireEnchantmentRare.DisplayName: Зачарование "В огне" (Редкое)
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Зачарование "Мир" (Базовое)
 			PeaceEnchantmentCommon.DisplayName: Зачарование "Мир" (Обычное)
 			PeaceEnchantmentEpic.DisplayName: Зачарование "Мир" (Эпическое)
@@ -1289,7 +1296,7 @@ Mods: {
 					(Никому не пережить неотвратимое пламя Аматерасу)
 					(Наносит противникам уникальный огненный эффект, который никогда не прекращается)
 					(Урон от эффекта возрастает со временем и при нанесении противникам урона)
-					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\\"Мир в огне\\\\\".)
+					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\\\"Мир в огне\\\\\\".)
 					'''
 			}
 
@@ -1299,8 +1306,8 @@ Mods: {
 				AutoReuse: Auto Reuse
 				BonusCoins:
 					'''
-					\\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
-					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\\"
+					\\\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
+					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\\\"
 					'''
 				BuffDuration:
 					'''

@@ -602,6 +602,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -911,6 +912,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: Encantamento Em Chamas Épico
 			OnFireEnchantmentLegendary.DisplayName: Encantamento Em Chamas Lendário
 			OnFireEnchantmentRare.DisplayName: Encantamento Em Chamas Raro
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Encantamento Paz Básico
 			PeaceEnchantmentCommon.DisplayName: Encantamento Paz Comum
 			PeaceEnchantmentEpic.DisplayName: Encantamento Paz Épico
@@ -1302,8 +1309,8 @@ Mods: {
 				AutoReuse: Auto Reuse
 				BonusCoins:
 					'''
-					\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\"
+					\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\"
 					'''
 				BuffDuration:
 					'''

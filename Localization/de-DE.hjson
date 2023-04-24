@@ -602,6 +602,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -911,6 +912,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: On Fire Enchantment Epos
 			OnFireEnchantmentLegendary.DisplayName: On Fire Verzauberung Legendär
 			OnFireEnchantmentRare.DisplayName: On Fire Enchantment Selten
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Frieden Verzauberung Basic
 			PeaceEnchantmentCommon.DisplayName: Frieden Verzauberung Gewöhnlich
 			PeaceEnchantmentEpic.DisplayName: Friedenszauber-Epos

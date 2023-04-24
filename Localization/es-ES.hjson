@@ -602,6 +602,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -911,6 +912,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: Encantamiento En llamas Épico
 			OnFireEnchantmentLegendary.DisplayName: Encantamiento En llamas Legendario
 			OnFireEnchantmentRare.DisplayName: Encantamiento En llamas Raro
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Encantamiento de paz Básico
 			PeaceEnchantmentCommon.DisplayName: Encantamiento de paz Común
 			PeaceEnchantmentEpic.DisplayName: Encantamiento de paz Épico

@@ -602,6 +602,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -911,6 +912,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: Epickie zaklęcie w ogniu
 			OnFireEnchantmentLegendary.DisplayName: Legendarne zaklęcie w ogniu
 			OnFireEnchantmentRare.DisplayName: Zaklęcie w ogniu Rzadkie
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Podstawowe zaklęcie pokoju
 			PeaceEnchantmentCommon.DisplayName: Zaklęcie pokoju Powszechne
 			PeaceEnchantmentEpic.DisplayName: Epickie zaklęcie pokoju

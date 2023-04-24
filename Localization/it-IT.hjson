@@ -602,6 +602,7 @@ Mods: {
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
+			OreBag: Ore Bag
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -911,6 +912,12 @@ Mods: {
 			OnFireEnchantmentEpic.DisplayName: L'epopea dell'incantesimo di fuoco
 			OnFireEnchantmentLegendary.DisplayName: Incantesimo di fuoco leggendario
 			OnFireEnchantmentRare.DisplayName: Incantesimo di fuoco raro
+
+			OreBag: {
+				DisplayName: Ore Bag
+				Tooltip: Automatically stores ores and gems.
+			}
+
 			PeaceEnchantmentBasic.DisplayName: Incantesimo di pace di base
 			PeaceEnchantmentCommon.DisplayName: Incantesimo di pace comune
 			PeaceEnchantmentEpic.DisplayName: Epopea dell'incantesimo della pace
