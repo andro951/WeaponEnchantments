@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Эпическая эссенция зачарования
 			EnchantmentEssenceLegendary: Легендарная эссенция зачарования
 			EnchantmentEssenceRare: Редкая эссенция зачарования
+			OreBag: Ore Bag
 			PowerBooster: Усилитель мощности
 			UltraPowerBooster: Ультрамощный усилитель
 		}
@@ -558,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Отключить сообщения в чате, которые просят:
-					\\\\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\\\\"
+					\\\\\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -886,6 +887,21 @@ Mods: {
 				Zoologist: "{0} везде свои волосы роняет, кроме войны мне выбора не оставляет!"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Используется чтобы содержать базовые зачарования
 			DustyEnchantingTable: Используется чтобы зачаровывать предметы (Уровень 1)
@@ -916,6 +932,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Используется чтобы зачаровывать предметы (Уровень 2)
 			MediumContainment: Используется чтобы содержать обычные зачарования
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Используйте, пока предмет, который вы хотите усилить, находится в столе зачарования, чтобы увеличить его базовый уровень на 10.
@@ -986,6 +1008,7 @@ Mods: {
 			LootAll: Взять
 			No: Нет
 			Offer: Пожертвовать
+			Storage: Storage
 			Syphon: Сифон
 			xp: XP
 			Yes: Да
@@ -1165,7 +1188,7 @@ Mods: {
 					(Никому не пережить неотвратимое пламя Аматерасу)
 					(Наносит противникам уникальный огненный эффект, который никогда не прекращается)
 					(Урон от эффекта возрастает со временем и при нанесении противникам урона)
-					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\"Мир в огне\\\\".)
+					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\\"Мир в огне\\\\\".)
 					'''
 			}
 			EnchantmentEffects: {
@@ -1173,8 +1196,8 @@ Mods: {
 				AttackSpeed: "{0} (Влияет на скорость стрельбы прислужников, если они стреляют. Влияет на скорость поклёва.)"
 				BonusCoins: 
 					'''
-					\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
-					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\"
+					\\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
+					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\\"
 					'''
 				BuffDuration: 
 					'''

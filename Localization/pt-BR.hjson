@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Essência de Encantamento Épico
 			EnchantmentEssenceLegendary: Essência de Encantamento Lendário
 			EnchantmentEssenceRare: Essência de Encantamento Raro
+			OreBag: Ore Bag
 			PowerBooster: Impulsionador de potência
 			UltraPowerBooster: Impulsionador de Ultra Potência
 		}
@@ -558,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
-					\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\"
+					\\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "{0} é uma meretriz tirânica que continua deixando cabelo em todos os lugares, vou fazê-la pagar na guerra!"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Usado para armazenar encantamentos básicos
 			DustyEnchantingTable: Usado para aplicar encantamentos a itens. (tier 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Usado para aplicar encantamentos a itens. (tier 2)
 			MediumContainment: Usado para armazenar encantamentos comuns
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Use isso enquanto o item que você deseja fortalecer estiver em uma Mesa de Encantamento para aumentar seu nível base em 10.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Saquear tudo
 			No: Não
 			Offer: Oferta
+			Storage: Storage
 			Syphon: Sifão
 			xp: exp
 			Yes: Sim
@@ -1176,8 +1199,8 @@ Mods: {
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
 					'''
-					\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\"
+					\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\"
 					'''
 				BuffDuration: 
 					'''

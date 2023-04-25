@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Essence d'enchantement épique
 			EnchantmentEssenceLegendary: Enchantement Essence Légendaire
 			EnchantmentEssenceRare: Essence d'enchantement rare
+			OreBag: Ore Bag
 			PowerBooster: Amplificateur de puissance
 			UltraPowerBooster: Amplificateur de puissance ultra
 		}
@@ -558,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Empêche l'affichage de messages dans votre chat qui vous demandent de
-					\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\"
+					\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "{0} est une fille tyrannique qui n'arrête pas de laisser des cheveux partout, je vais lui faire payer la guerre !"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Utilisé pour stocker les enchantements de base
 			DustyEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Utilisé pour appliquer des enchantements aux objets. (niveau 2)
 			MediumContainment: Utilisé pour stocker des enchantements communs
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Utilisez-le pendant que l'objet que vous souhaitez booster se trouve dans une table d'enchantement pour augmenter son niveau de base de 10.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Tout piller
 			No: Non
 			Offer: Offrir
+			Storage: Storage
 			Syphon: Siphon
 			xp: XP
 			Yes: Oui

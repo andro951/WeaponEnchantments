@@ -58,8 +58,6 @@ namespace WeaponEnchantments.Content.NPCs
 		public string SpawnCondition => "Have an enchantment in your inventory or on your equipment.";
 
 		public override void SetStaticDefaults() {
-			// DisplayName automatically assigned from localization files, but the commented line below is the normal approach.
-			DisplayName.SetDefault("Witch");
 			Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
 			
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs.
@@ -122,8 +120,8 @@ namespace WeaponEnchantments.Content.NPCs
 					return true;
 
 				foreach (Item item in player.inventory) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-						foreach (Item enchantment in enchantedItem.enchantments) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+						foreach (Item enchantment in enchantedItem.enchantments.All) {
 							if (!enchantment.NullOrAir())
 								return true;
 						}
@@ -131,8 +129,8 @@ namespace WeaponEnchantments.Content.NPCs
 				}
 
 				foreach (Item item in player.GetWEPlayer().Equipment.GetAllArmor()) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-						foreach (Item enchantment in enchantedItem.enchantments) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+						foreach (Item enchantment in enchantedItem.enchantments.All) {
 							if (!enchantment.NullOrAir())
 								return true;
 						}
@@ -212,8 +210,8 @@ namespace WeaponEnchantments.Content.NPCs
 		public override void SetupShop(Chest shop, ref int nextSlot) {
 			if (resetShop || shopEnchantments.Count == 0) {
 				GetItemsForShop();
-				resetShop = false;
-			}
+					resetShop = false;
+				}
 
 			foreach (KeyValuePair<int, float> pair in shopEnchantments) {
 				Item item = shop.item[nextSlot];
@@ -264,11 +262,11 @@ namespace WeaponEnchantments.Content.NPCs
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopEnchantments.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
-					i--;
-					list.Remove(type);
-					continue;
-				}
+						$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+						i--;
+						list.Remove(type);
+						continue;
+					}
 
 				shopEnchantments.Add(type, sellPriceModifier);
 				list.Remove(type);

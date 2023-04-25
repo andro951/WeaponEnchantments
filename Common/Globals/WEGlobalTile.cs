@@ -82,7 +82,7 @@ namespace WeaponEnchantments.Common.Globals
 				}
 				else {
 					//Wood and other axable things
-					TileLoader.MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
+					MineDamage(wePlayer.Player.HeldItem.axe, ref damageAmount);
 				}
 			}
             else {
@@ -99,13 +99,18 @@ namespace WeaponEnchantments.Common.Globals
 
 			return true;
         }
+		private static void MineDamage(int minePower, ref int damage) {
+			Tile target = Main.tile[Player.tileTargetX, Player.tileTargetY];
+			ModTile modTile = TileLoader.GetTile(target.TileType);
+			damage += modTile != null ? (int)(1.2f * minePower / modTile.MineResist) : (int)(1.2f * minePower);
+		}
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem) {
 			if (!Main.LocalPlayer.TryGetModPlayer(out WEPlayer wePlayer))
 				return;
 
 			Item heldItem = wePlayer.Player.HeldItem;
 
-			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
+			if (!heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem hGlobal))
 				return;
 
 			if (heldItem.pick <= 0 && heldItem.axe <= 0 && heldItem.hammer <= 0)
@@ -522,7 +527,7 @@ namespace WeaponEnchantments.Common.Globals
 			else if (tileTarget.TileType == Chlorophyte)
 				num += pickPower / 5;
 			else
-				TileLoader.MineDamage(pickPower, ref num);
+				MineDamage(pickPower, ref num);
 			if (tileTarget.TileType == Chlorophyte && pickPower < 200)
 				num = 0;
 			

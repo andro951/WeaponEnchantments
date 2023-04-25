@@ -48,5 +48,12 @@ namespace WeaponEnchantments.Common.Configs
 		public static float ConfigCapacityCostMultiplier = serverConfig.ConfigCapacityCostMultiplier / 100f;
 		public static float ArmorDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].ArmorDamageReductionPerLevel / 10000000f;
 		public static float AccessoryDamageReductionPerLevel => serverConfig.ArmorDamageReductions[Main.GameMode].AccessoryDamageReductionPerLevel / 10000000f;
+		public static int[] EnchantmentSlotsOnItems = new int[] {
+			serverConfig.EnchantmentSlotsOnWeapons,
+			serverConfig.EnchantmentSlotsOnArmor,
+			serverConfig.EnchantmentSlotsOnAccessories,
+			serverConfig.EnchantmentSlotsOnFishingPoles,
+			serverConfig.EnchantmentSlotsOnTools
+		};
 	}
 }

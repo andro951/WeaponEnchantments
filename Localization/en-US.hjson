@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Enchantment Essence Epic
 			EnchantmentEssenceLegendary: Enchantment Essence Legendary
 			EnchantmentEssenceRare: Enchantment Essence Rare
+			OreBag: Ore Bag
 			PowerBooster: Power Booster
 			UltraPowerBooster: Ultra Power Booster
 		}
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "{0} is a tyrannous wench that keeps leaving hair everywhere, I will make her pay in warfare!"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Used to store Basic enchantments
 			DustyEnchantingTable: Used to apply enchantments to items. (tier 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Used to apply enchantments to items. (tier 2)
 			MediumContainment: Used to store Common enchantments
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Use this while the item you want to boost is in an Enchantment Table to raise its base level by 10.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Loot All
 			No: No
 			Offer: Offer
+			Storage: Storage
 			Syphon: Syphon
 			xp: xp
 			Yes: Yes

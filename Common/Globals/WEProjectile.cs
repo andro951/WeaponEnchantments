@@ -75,7 +75,7 @@ namespace WeaponEnchantments.Common.Globals
                 bool projectileFromWeaponProjectile = projectileFromVortexBeater || projectileFromCeleb2 || prjectileFromPhantasm || projectileFromLaserMachinegun || projectileFromChargedBlasterCannon;
 				if (!weaponProjectile && projectileFromWeaponProjectile) {
                     //Try get source projectile from the weapon.
-                    if(vbSource.Item.TryGetEnchantedItem(out EnchantedItem vbSourceGlobal)) {
+                    if(vbSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem vbSourceGlobal)) {
                         if (vbSourceGlobal.masterProjectile != null)
                             source = vbSourceGlobal.masterProjectile.GetSource_FromThis();
                     }
@@ -85,7 +85,7 @@ namespace WeaponEnchantments.Common.Globals
             base.OnSpawn(projectile, source);
 
             if (source is EntitySource_ItemUse uSource) {
-                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem uSourceGlobal)) {
 					//Set Master projectile for VortexBeater, Celeb2, Phantasm, Laser Machinegun, Charged Blaster Cannon fix (Speed Enchantments)
 					if (weaponProjectile)
                         uSourceGlobal.masterProjectile = projectile;
@@ -267,7 +267,7 @@ namespace WeaponEnchantments.Common.Globals
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
             projectile.GetGlobalProjectile<WEProjectile>().UpdateProjectile(projectile);
-            if (sourceItem.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+            if (sourceItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
                 bool summonDamage = sourceItem.DamageType == DamageClass.Summon || sourceItem.DamageType == DamageClass.MagicSummonHybrid;
 
                 //Since summoner weapons create long lasting projectiles, it can be easy to loose tracking of the item it came from.
@@ -308,7 +308,7 @@ namespace WeaponEnchantments.Common.Globals
                                 break;
                             default://enchantingTable itemSlot
                                 inventory = new Item[1];
-                                inventory[0] = wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item;
+                                inventory[0] = wePlayer.enchantingTableItem;
                                 inventoryLocation = 0;
                                 break;
                         }
@@ -348,8 +348,8 @@ namespace WeaponEnchantments.Common.Globals
                                         inventoryLocation = i - 170;
                                         break;
                                     case 210:
-                                        if (wePlayer.enchantingTableUI?.itemSlotUI[0]?.Item != null) {
-                                            inventory = new Item[] { wePlayer.enchantingTableUI.itemSlotUI[0].Item };
+                                        if (wePlayer.enchantingTableItem != null) {
+                                            inventory = new Item[] { wePlayer.enchantingTableItem };
                                         }
                                         else {
                                             inventory = null;

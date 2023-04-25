@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: 史诗附魔精华
 			EnchantmentEssenceLegendary: 传奇附魔精华
 			EnchantmentEssenceRare: 稀有附魔精华
+			OreBag: Ore Bag
 			PowerBooster: 能量强化器
 			UltraPowerBooster: 终极能量强化器
 		}
@@ -871,6 +872,21 @@ Mods: {
 				Zoologist: “{0}是一个暴虐的女人，总是把头发留在各处，我将让她在战争中付出代价！”
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: 用于存放附魔基元
 			DustyEnchantingTable: 用于对物品附魔。 （第1阶）
@@ -901,6 +917,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: 用于对物品附魔。 （第2阶）
 			MediumContainment: 用于合成附魔普通
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				当您想要提升的物品在附魔台中时使用它可以将其基础等级提高 10。
@@ -971,6 +993,7 @@ Mods: {
 			LootAll: 一键收取
 			No: 否
 			Offer: 熔炼回收
+			Storage: Storage
 			Syphon: 吸取经验
 			xp: 给
 			Yes: 是
@@ -1150,7 +1173,7 @@ Mods: {
 					（没有人能在天照大火无法阻挡的火焰中幸存）
 					（对敌人造成独特的火焰减益，永不停息）
 					（该减益造成的伤害会随着时间的推移而增长，并对目标造成更多伤害）
-					（扩散到附近的敌人，并防止敌人对其他的 \\\\"世界之火 \\\\"的减益免疫。）
+					（扩散到附近的敌人，并防止敌人对其他的 \\\\\"世界之火 \\\\\"的减益免疫。）
 					'''
 			}
 			EnchantmentEffects: {

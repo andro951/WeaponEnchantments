@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Esencja zaklęcia Epic
 			EnchantmentEssenceLegendary: Legendarna esencja zaklęcia
 			EnchantmentEssenceRare: Zaklinająca Esencja Rzadka
+			OreBag: Ore Bag
 			PowerBooster: Wzmacniacz mocy
 			UltraPowerBooster: Ultrawzmacniacz mocy
 		}
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "„{0} to tyraniczna dziewka, która wszędzie zostawia włosy, zmuszę ją do zapłaty na wojnie!”"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Służy do przechowywania podstawowych zaklęć
 			DustyEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Służy do nakładania zaklęć na przedmioty. (poziom 2)
 			MediumContainment: Służy do przechowywania zwykłych zaklęć
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Użyj tego, gdy przedmiot, który chcesz wzmocnić, znajduje się w tabeli zaklęć, aby podnieść jego podstawowy poziom o 10.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Łup wszystko
 			No: Nie
 			Offer: Oferta
+			Storage: Storage
 			Syphon: Syfon
 			xp: xp
 			Yes: TAk

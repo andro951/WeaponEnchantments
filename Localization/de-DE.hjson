@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Verzauberungsessenz Epic
 			EnchantmentEssenceLegendary: Verzauberungsessenz Legendär
 			EnchantmentEssenceRare: Verzauberungsessenz Selten
+			OreBag: Ore Bag
 			PowerBooster: Leistungsverstärker
 			UltraPowerBooster: Ultra-Power-Booster
 		}
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "{0} ist eine tyrannische Dirne, die überall Haare hinterlässt, ich werde sie im Krieg bezahlen lassen!"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Wird verwendet, um einfache Verzauberungen aufzubewahren
 			DustyEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Stufe 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Wird verwendet, um Gegenstände zu verzaubern. (Rang 2)
 			MediumContainment: Wird verwendet, um gewöhnliche Verzauberungen aufzubewahren
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Verwenden Sie dies, während sich der Gegenstand, den Sie verstärken möchten, in einer Verzauberungstabelle befindet, um seine Basisstufe um 10 zu erhöhen.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Alles plündern
 			No: Nein
 			Offer: Angebot
+			Storage: Storage
 			Syphon: Siphon
 			xp: XP
 			Yes: Ja

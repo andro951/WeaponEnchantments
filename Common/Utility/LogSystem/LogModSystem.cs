@@ -117,7 +117,7 @@ namespace WeaponEnchantments.Common.Utility
 					Item lastHeldItem = Main.LocalPlayer.HeldItem;
 					//Only allow unmodified weapons to be replaced
 					int i;
-					if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItem(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
+					if (lastHeldItem.NullOrAir() || lastHeldItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && !enchantedItem.Modified) {
 						i = Main.LocalPlayer.selectedItem;
 					}
 					else {
@@ -255,17 +255,17 @@ namespace WeaponEnchantments.Common.Utility
             if (!printLocalization && !printLocalizationKeysAndValues)
                 return;
 
-            LocalizationData.ChangedData = new();
+			LocalizationData.ChangedData = new();
             LocalizationData.RenamedFullKeys = new();
             Mod mod = ModContent.GetInstance<WEMod>();
             TmodFile file = (TmodFile)typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(mod);
             translations = new();
             Autoload(file);
-            
+
             foreach (int i in Enum.GetValues(typeof(CultureName)).Cast<CultureName>().Where(n => n != CultureName.Unknown).Select(n => (int)n)) {
                 PrintLocalization((CultureName)i);
+			}
             }
-        }
         private static void Autoload(TmodFile file) {
             var modTranslationDictionary = new Dictionary<string, ModTranslation>();
 
@@ -336,7 +336,7 @@ namespace WeaponEnchantments.Common.Utility
 	        List<string> enchantmentNames = new();
 	        foreach (Enchantment enchantment in modItems.OfType<Enchantment>()) {
 	    	    enchantmentNames.Add(enchantment.Name);
-	        }
+			}
             
             enchantmentNames.Sort();
 	        GetLocalizationFromList(null, enchantmentNames);
@@ -348,7 +348,7 @@ namespace WeaponEnchantments.Common.Utility
             
             foreach (KeyValuePair<string, List<ModItem>> pair in modItemLists) {
                 GetLocalizationFromList(null, pair.Value);
-            }
+			}
 
             Close();
 
@@ -357,7 +357,7 @@ namespace WeaponEnchantments.Common.Utility
             FromLocalizationData();
 	    
 	        End();
-        }
+			}
 	    private static void FromLocalizationData() => GetFromSDataDict(LocalizationData.All);
 	    private static void GetFromSDataDict(SortedDictionary<string, SData> dict) {
             foreach (KeyValuePair<string, SData> pair in dict) {
@@ -372,13 +372,13 @@ namespace WeaponEnchantments.Common.Utility
 	    private static void GetFromSData(SData d) {
 		    if (d.Values != null)
 			    GetLocalizationFromList(null, d.Values);
-		
+				
 		    if (d.Dict != null)
 			    GetLocalizationFromDict(null, d.Dict);
 		
 		    if (d.Children != null)
 			    GetFromSDataDict(d.Children);
-	    }
+			}
 	    private static void AutoFill(KeyValuePair<string, SData> pair) {
             IEnumerable<Type> types = AssemblyManager.GetLoadableTypes(Assembly.GetExecutingAssembly());
 
@@ -406,48 +406,48 @@ namespace WeaponEnchantments.Common.Utility
 	    }
 	    private static void Start(CultureName cultureName) {
             culture = (int)cultureName;
-            if (printLocalization) {
-                string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}";
-                localization += label;
-            }
-            
-            if (printLocalizationKeysAndValues) {
-                localizationValuesCharacterCount = 0;
-                string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}";
-                localizationKeys += keyLabel;
+				if (printLocalization) {
+					string label = $"\n\n{cultureName}\n#{LocalizationData.LocalizationComments[cultureName]}";
+					localization += label;
+				}
 
-                string valueLabel = "";
-                localizationValues += valueLabel;
-            }
-            
-		    labels = new();
+				if (printLocalizationKeysAndValues) {
+					localizationValuesCharacterCount = 0;
+					string keyLabel = $"#{LocalizationData.LocalizationComments[cultureName]}";
+					localizationKeys += keyLabel;
+
+					string valueLabel = "";
+					localizationValues += valueLabel;
+				}
+
+				labels = new();
 		    AddLabel("Mods");
 		    AddLabel("WeaponEnchantments");
-	    }
+			}
 	    private static void Close() {
 		    tabs--;
             if (tabs < 0)
                 return;
 
             string tabsString = $"\n{Tabs(tabs)}{"}"}";
-            if (printLocalization)
-                localization += tabsString;
-            
-            if (printLocalizationKeysAndValues)
-                localizationKeys += tabsString;
+				if (printLocalization)
+					localization += tabsString;
+
+				if (printLocalizationKeysAndValues)
+					localizationKeys += tabsString;
 
             labels.RemoveAt(labels.Count - 1);
-	    }
+			}
 	    private static void End() {
 		    while(tabs >= 0) {
 			    Close();
-		    }
+				}
 		
 		    tabs = 0;
             if (printLocalization) {
                 localization.LogSimple();
                 localization = "";
-            }
+			}
 		    
             if (printLocalizationKeysAndValues) {
                 string cultureName = ((CultureName)culture).ToLanguageName();
@@ -479,89 +479,89 @@ namespace WeaponEnchantments.Common.Utility
 	        if (!ignoreLabel)
 	    	    AddLabel(label);
 
-            string tabString = Tabs(tabs);
-		    string allLabels = string.Join(".", labels.ToArray());
-            foreach (KeyValuePair<string, string> p in dict) {
-                string key = $"{allLabels}.{p.Key}";
-                string s = null;
+				string tabString = Tabs(tabs);
+				string allLabels = string.Join(".", labels.ToArray());
+				foreach (KeyValuePair<string, string> p in dict) {
+					string key = $"{allLabels}.{p.Key}";
+					string s = null;
                 if (translations.ContainsKey(key)) {
                     s = translations[key].GetTranslation(culture);
-					if (culture == (int)CultureName.English) {
-                        if (s != p.Value) {
-							LocalizationData.ChangedData.Add(key);
+						if (culture == (int)CultureName.English) {
+							if (s != p.Value) {
+								LocalizationData.ChangedData.Add(key);
+							}
 						}
-                    }
-                    
-                    if (LocalizationData.ChangedData.Contains(key))
-                        s = p.Value;
-                }
-                else {
-                    if (culture == (int)CultureName.English) {
-                        if (LocalizationData.RenamedKeys.ContainsKey(p.Key)) {
-                            string renamedKey = LocalizationData.RenamedKeys[p.Key];
-                            string newKey = $"{allLabels}.{renamedKey}";
+
+						if (LocalizationData.ChangedData.Contains(key))
+							s = p.Value;
+					}
+					else {
+						if (culture == (int)CultureName.English) {
+							if (LocalizationData.RenamedKeys.ContainsKey(p.Key)) {
+								string renamedKey = LocalizationData.RenamedKeys[p.Key];
+								string newKey = $"{allLabels}.{renamedKey}";
                             string newS = translations[newKey].GetTranslation(culture);
-                            if (newS != renamedKey.AddSpaces())
-                                LocalizationData.RenamedFullKeys.Add(key, newKey);
-                        }
-                    }
-
-                    if (LocalizationData.RenamedFullKeys.ContainsKey(key)) {
-                        string newKey = LocalizationData.RenamedFullKeys[key];
-                        string newS = translations[newKey].GetTranslation(culture);
-                        if (newS != newKey) {
-                            key = newKey;
-                            s = translations[key].GetTranslation(culture);
-                        }
-                    }
-                }
-
-                s ??= key;
-
-                //$"{key}: {s}".Log();
-
-                if (s == key)
-                    s = p.Value;
-
-                bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || !LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
-
-				s = s.Replace("\"", "\\\"");
-				if ((s.Contains("{") || s.Contains("\"")) && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n'))
-                    s = $"\"{s}\"";
-
-                if (zzzLocalizationForTesting) {
-                    if (s[s.Length - 1] == '"') {
-                        s = $"{s.Substring(0, s.Length - 1)}zzz\"";
-                    }
-                    else {
-                        s += "zzz";
-                    }
-                }
-
-                s = CheckTabOutLocalization(s);
-                if (printLocalization)
-                    localization += $"\n{tabString}{p.Key}: {s}";
-                
-                if (printLocalizationKeysAndValues) {
-                    localizationKeys += $"\n{tabString}{p.Key}: {(!noLocalizationFound ? s : "")}";
-
-                    if (noLocalizationFound) {
-                        string valueString = s.Replace("\t", "");
-                        int length = valueString.Length;
-                        if (localizationValuesCharacterCount + length > 5000) {
-                            localizationValues += $"\n{'_'.FillString(4999 - localizationValuesCharacterCount)}";
-                            localizationValuesCharacterCount = 0;
-                            int newLineIndex = valueString.IndexOf("\n");
-                            string checkString = newLineIndex > -1 ? valueString.Substring(0, newLineIndex) : valueString;
-                            if (checkString.Contains("'''"))
-                                localizationValues += "\n";
+								if (newS != renamedKey.AddSpaces())
+									LocalizationData.RenamedFullKeys.Add(key, newKey);
+							}
 						}
 
-                        localizationValuesCharacterCount += length + 1;
+						if (LocalizationData.RenamedFullKeys.ContainsKey(key)) {
+							string newKey = LocalizationData.RenamedFullKeys[key];
+                        string newS = translations[newKey].GetTranslation(culture);
+							if (newS != newKey) {
+								key = newKey;
+                            s = translations[key].GetTranslation(culture);
+							}
+						}
+					}
 
-                        localizationValues += $"{(localizationValues != "" ? "\n" : "")}{valueString}";
-                    }
-                }
+					s ??= key;
+
+					//$"{key}: {s}".Log();
+
+					if (s == key)
+						s = p.Value;
+
+					bool noLocalizationFound = s == p.Value && (culture == (int)CultureName.English || !LocalizationData.SameAsEnglish[(CultureName)culture].Contains(s));
+
+					s = s.Replace("\"", "\\\"");
+					if ((s.Contains("{") || s.Contains("\"")) && s[0] != '"' && s[0] != '“' && s[0] != '”' && !s.Contains('\n'))
+						s = $"\"{s}\"";
+
+					if (zzzLocalizationForTesting) {
+						if (s[s.Length - 1] == '"') {
+							s = $"{s.Substring(0, s.Length - 1)}zzz\"";
+						}
+						else {
+							s += "zzz";
+						}
+					}
+
+					s = CheckTabOutLocalization(s);
+					if (printLocalization)
+						localization += $"\n{tabString}{p.Key}: {s}";
+
+					if (printLocalizationKeysAndValues) {
+						localizationKeys += $"\n{tabString}{p.Key}: {(!noLocalizationFound ? s : "")}";
+
+						if (noLocalizationFound) {
+							string valueString = s.Replace("\t", "");
+							int length = valueString.Length;
+							if (localizationValuesCharacterCount + length > 5000) {
+								localizationValues += $"\n{'_'.FillString(4999 - localizationValuesCharacterCount)}";
+								localizationValuesCharacterCount = 0;
+								int newLineIndex = valueString.IndexOf("\n");
+								string checkString = newLineIndex > -1 ? valueString.Substring(0, newLineIndex) : valueString;
+								if (checkString.Contains("'''"))
+									localizationValues += "\n";
+							}
+
+							localizationValuesCharacterCount += length + 1;
+
+							localizationValues += $"{(localizationValues != "" ? "\n" : "")}{valueString}";
+						}
+			}
             }
 
             if (!ignoreLabel)

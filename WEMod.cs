@@ -1,5 +1,4 @@
-﻿using IL.Terraria.Localization;
-using MonoMod.RuntimeDetour.HookGen;
+﻿using MonoMod.RuntimeDetour.HookGen;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -22,9 +21,17 @@ using WeaponEnchantments.Common.Utility;
 using KokoLib;
 using OnProjectile = On.Terraria.Projectile;
 using OnPlayer = On.Terraria.Player;
+using OnChestUI = On.Terraria.UI.ChestUI;
 using WeaponEnchantments.Content.NPCs;
 using System.Linq;
 using WeaponEnchantments.ModIntegration;
+using MonoMod.RuntimeDetour;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Microsoft.Xna.Framework;
+using Terraria.GameInput;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace WeaponEnchantments
 {
@@ -60,6 +67,8 @@ namespace WeaponEnchantments
 			//OnPlayer.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL.Terraria.Recipe.FindRecipes += HookFindRecipes;
 			IL.Terraria.Recipe.Create += HookCreate;
+			OnChestUI.LootAll += OnChestUI_LootAll;
+			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL.Terraria.Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL.Terraria.Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL.Terraria.Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
@@ -96,7 +105,7 @@ namespace WeaponEnchantments
 			if (!orig(item1, item2))
 				return false;
 
-			if (!item1.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+			if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return true;
 
 			if (magicStorageEnabled) {
@@ -158,6 +167,37 @@ namespace WeaponEnchantments
 			}
 
 			orig(self, thePlayer, itemType);
+		}
+		private void OnChestUI_LootAll(OnChestUI.orig_LootAll orig) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			int chest = wePlayer.Player.chest;
+			if (chest != -1) {
+				Item[] chestItmes = Main.chest[chest].item;
+				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
+				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
+					for (int i = 0; i < chestItmes.Length; i++) {
+						ref Item item = ref chestItmes[i];
+						if (EnchantmentStorage.CanBeStored(item) && EnchantmentStorage.RoomInStorage(item)) {
+							EnchantmentStorage.DepositAll(ref item);
+							if (synchChest)
+								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
+						}
+					}
+				}
+
+				if (wePlayer.vacuumItemsIntoOreBag) {
+					for (int i = 0; i < chestItmes.Length; i++) {
+						ref Item item = ref chestItmes[i];
+						if (OreBagUI.CanBeStored(item) && OreBagUI.RoomInStorage(item)) {
+							OreBagUI.DepositAll(ref item);
+							if (synchChest)
+								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
+						}
+					}
+				}
+			}
+
+			orig();
 		}
 		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
 			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
@@ -244,15 +284,33 @@ namespace WeaponEnchantments
 			//Consume essence from enchanting table when crafting.
 			c.EmitDelegate((Item item, int num) => {
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				if (wePlayer.usingEnchantingTable) {
-					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-						Item slotItem = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-						if (item.type == slotItem.type) {
-							slotItem.stack -= num;
-						}
-					}
+				if (item.ModItem is EnchantmentEssence) {
+					ConsumeFromCraft(item, num, wePlayer.enchantingTableEssence);
+				}
+				else if (EnchantmentStorage.CanBeStored(item)) {
+					ConsumeFromCraft(item, num, wePlayer.enchantmentStorageItems, true);
+				}
+				else if (OreBagUI.CanBeStored(item)) {
+					ConsumeFromCraft(item, num, wePlayer.oreBagItems);
 				}
 			});
+		}
+		public static void ConsumeFromCraft(Item item, int stack, Item[] inventory, bool ignoreFavorited = false) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			for (int i = 0; i < inventory.Length; i++) {
+				ref Item storageItem = ref inventory[i];
+				if (item.type == storageItem.type) {
+					int ammountToTransfer = Math.Min(item.stack, storageItem.stack);
+					storageItem.stack -= ammountToTransfer;
+					if (storageItem.stack < 1) {
+						storageItem.TurnToAir();
+					}
+
+					stack -= ammountToTransfer;
+					if (stack < 1)
+						break;
+				}
+			}
 		}
 		private static void HookFindRecipes(ILContext il)
 		{
@@ -334,21 +392,45 @@ namespace WeaponEnchantments
 			c.Emit(OpCodes.Ldloc, 6);
 			c.EmitDelegate((Dictionary<int, int> dictionary) => {
 				//Add essence in enchanting table to recipe ingredients dictionary
-				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+				WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+				if (debuggingHookFindRecipes) {
+					counter++;
+					ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
+				}
+
+				List<Item> items = new();
 				if (wePlayer.usingEnchantingTable) {
-					if (debuggingHookFindRecipes) {
-						counter++;
-						ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
+					for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+						ref Item item = ref wePlayer.enchantingTableEssence[i];
+						if (!item.NullOrAir() && item.stack > 0)
+							items.Add(item);
 					}
-					for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-						Item item = wePlayer.enchantingTableUI.essenceSlotUI[i].Item;
-						if (item != null && item.stack > 0) {
-							if (dictionary.ContainsKey(item.netID)) {
-								dictionary[item.netID] += item.stack;
-							}
-							else {
-								dictionary[item.netID] = item.stack;
-							}
+				}
+
+				if (wePlayer.displayEnchantmentStorage || EnchantmentStorage.uncrafting) {
+					for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
+						ref Item item = ref wePlayer.enchantmentStorageItems[i];
+						if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
+							items.Add(item);
+					}
+				}
+
+				if (wePlayer.Player.HasItem(ModContent.ItemType<OreBag>())) {
+					for (int i = 0; i < wePlayer.oreBagItems.Length; i++) {
+						ref Item item = ref wePlayer.oreBagItems[i];
+						if (!item.NullOrAir() && item.stack > 0)
+							items.Add(item);
+					}
+				}
+
+				for (int i = 0; i < items.Count; i++) {
+					Item item = items[i];
+					if (item != null && item.stack > 0) {
+						if (dictionary.ContainsKey(item.netID)) {
+							dictionary[item.netID] += item.stack;
+						}
+						else {
+							dictionary[item.netID] = item.stack;
 						}
 					}
 				}
