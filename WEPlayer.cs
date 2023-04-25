@@ -762,7 +762,6 @@ namespace WeaponEnchantments
 		public override void UpdateAutopause() {
 			ApplyPostMiscEnchants();
 		}
-        }
         public void OnSwapEquipmentLoadout(int loadoutIndex) {
             //Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
 
