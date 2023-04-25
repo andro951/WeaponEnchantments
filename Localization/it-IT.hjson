@@ -917,7 +917,7 @@ Mods: {
 				DisplayName: Ore Bag
 				Tooltip:
 					'''
-					Automatically stores ores, gems, and glass.
+					Automatically stores ores, bars, gems, and glass.
 					When in your inventory, the contents of the bag are available for crafting.
 					Right click to open the bag.
 					'''
