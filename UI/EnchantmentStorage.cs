@@ -472,8 +472,14 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static bool RoomInStorage(Item item) {
-			Item[] inv = WEPlayer.LocalWEPlayer.enchantmentStorageItems;
+		public static bool RoomInStorage(Item item, Player player = null) {
+			if (Main.netMode == NetmodeID.Server || player.whoAmI != Main.myPlayer)
+				return false;
+
+			if (player == null)
+				player = Main.LocalPlayer;
+
+			Item[] inv = player.GetWEPlayer().enchantmentStorageItems;
 			int stack = item.stack;
 			for (int i = 0; i < inv.Length; i++) {
 				Item invItem = inv[i];

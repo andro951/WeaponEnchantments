@@ -425,8 +425,14 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public static bool CanBeStored(Item item) => OreTypes.Contains(item.type) || barTypes.Contains(item.type) || CommonGems.Contains(item.type) || RareGems.Contains(item.type) || item.type == ItemID.Glass || item.type == ItemID.SandBlock;
-		public static bool RoomInStorage(Item item) {
-			Item[] inv = WEPlayer.LocalWEPlayer.oreBagItems;
+		public static bool RoomInStorage(Item item, Player player = null) {
+			if (Main.netMode == NetmodeID.Server || player.whoAmI != Main.myPlayer)
+				return false;
+
+			if (player == null)
+				player = Main.LocalPlayer;
+
+			Item[] inv = player.GetWEPlayer().oreBagItems;
 			int stack = item.stack;
 			for (int i = 0; i < inv.Length; i++) {
 				Item invItem = inv[i];

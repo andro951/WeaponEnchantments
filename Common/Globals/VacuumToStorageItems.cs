@@ -18,7 +18,7 @@ namespace WeaponEnchantments.Common.Globals
 	public class VacuumToStorageItems : GlobalItem
 	{
 		public bool favorited;
-		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage;
+		public static bool CanVacuum(Player player) => player.GetWEPlayer().vacuumItemsIntoEnchantmentStorage;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return EnchantmentStorage.CanBeStored(entity);
@@ -53,7 +53,7 @@ namespace WeaponEnchantments.Common.Globals
 				return true;
 
 			WEPlayer wePlayer = player.GetWEPlayer();
-			if (CanVacuum) {
+			if (CanVacuum(player)) {
 				if (!EnchantmentStorage.CanBeStored(item))
 					return true;
 
@@ -74,7 +74,7 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum && EnchantmentStorage.RoomInStorage(item);
+			return CanVacuum(player) && EnchantmentStorage.RoomInStorage(item, player);
 		}
 	}
 }
