@@ -24,7 +24,6 @@ using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using Microsoft.Xna.Framework.Input;
-using Terraria.GameContent.Animations;
 using Terraria.GameContent.UI.States;
 using Terraria.Localization;
 
@@ -473,8 +472,17 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static bool RoomInStorage(Item item) {
-			Item[] inv = WEPlayer.LocalWEPlayer.enchantmentStorageItems;
+		public static bool RoomInStorage(Item item, Player player = null) {
+			if (Main.netMode == NetmodeID.Server)
+				return false;
+
+			if (player == null)
+				player = Main.LocalPlayer;
+
+			if (player.whoAmI != Main.myPlayer)
+				return false;
+
+			Item[] inv = player.GetWEPlayer().enchantmentStorageItems;
 			int stack = item.stack;
 			for (int i = 0; i < inv.Length; i++) {
 				Item invItem = inv[i];

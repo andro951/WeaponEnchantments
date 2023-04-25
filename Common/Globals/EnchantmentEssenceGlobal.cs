@@ -18,13 +18,16 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool OnPickup(Item item, Player player) {
-            if (item == null || item.ModItem == null)
-                return false;
+			if (player.whoAmI != Main.myPlayer)
+				return true;
+
+			if (item == null || item.ModItem == null)
+                return true;
 
             WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence) {
                 if (item.ModItem is not EnchantmentEssence essence)
-                    return false;
+                    return true;
 
                 Item[] essenceSlots = wePlayer.enchantingTableEssence;
                 int tier = essence.EssenceTier;
@@ -62,7 +65,10 @@ namespace WeaponEnchantments.Common.Globals
 		}
 
 		public override bool ItemSpace(Item item, Player player) {
-            WEPlayer wePlayer = player.GetWEPlayer();
+			if (player.whoAmI != Main.myPlayer)
+				return true;
+
+			WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence) {
                 EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
                 Item[] essenceSlots = wePlayer.enchantingTableEssence;

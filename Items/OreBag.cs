@@ -54,17 +54,17 @@ namespace WeaponEnchantments.Items
 		public override bool CanRightClick() => true;
         public override void RightClick(Player player) {
             Item.stack = 2;
-			UseBag();
+			UseBag(player);
 		}
 
 		public override bool? UseItem(Player player) {
             if (Main.myPlayer == player.whoAmI && Main.netMode != NetmodeID.Server)
-                UseBag();
+                UseBag(player);
 
             return null;
 		}
-        private void UseBag() {
-            if (OreBagUI.displayOreBagUI && Main.LocalPlayer.chest == -1) {
+        private void UseBag(Player player) {
+            if (player.GetWEPlayer().displayOreBagUI && Main.LocalPlayer.chest == -1) {
                 OreBagUI.CloseOreBag(true);
 			}
             else {

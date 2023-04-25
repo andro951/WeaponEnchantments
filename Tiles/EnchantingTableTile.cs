@@ -91,7 +91,7 @@ namespace WeaponEnchantments.Tiles
 		public override void KillMultiTile(int x, int y, int frameX, int frameY) {
 			if (enchantingTableTier > -1)
 				EnchantingTableUI.CloseEnchantingTableUI();
-		}
+			}
 		public override bool RightClick(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			wePlayer.Player.CloseSign();

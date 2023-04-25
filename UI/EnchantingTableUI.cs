@@ -221,7 +221,6 @@ namespace WeaponEnchantments.UI
 				//Storage Button Data 1/2
 				int storageButtonTop = itemLabelTop + 4;
 				string storage = TableTextID.Storage.ToString().Lang(L_ID1.TableText);
-				storage = "Storage test";
 				TextData storageTextData = new(storage);
 				int largestWidthOfRightSideButtons = storageTextData.Width;
 

@@ -908,7 +908,9 @@ namespace WeaponEnchantments.Common.Globals
 			resetGlobals = false;
 		}
 		public override bool OnPickup(Item item, Player player) {
-            string fullName = item.ModFullName();
+            if (player.whoAmI != Main.myPlayer)
+                return true;
+
 			if (player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName())) {
 				PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
 				SoundEngine.PlaySound(SoundID.Grab);
@@ -920,7 +922,6 @@ namespace WeaponEnchantments.Common.Globals
             return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-            return true;
             return player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
 		}
 	}
@@ -1296,7 +1297,7 @@ namespace WeaponEnchantments.Common.Globals
 					//Apply affective crit multiplier
 					float critMultiplier = 1f + (player.GetWeaponCrit(item) % 100) / 100f;
 					lowDamagePerHitXPBoost *= critMultiplier;
-				}
+                }
             }
             else {
                 lowDamagePerHitXPBoost = 1f;

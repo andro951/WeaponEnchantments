@@ -74,12 +74,11 @@ namespace WeaponEnchantments
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
 
 		}
-
 		public override void Unload() {
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
 			foreach (Hook hook in hooks) {
 				hook?.Undo();
-			}
+		}
 
 			hooks.Clear();
 			hooks = null;
@@ -193,7 +192,7 @@ namespace WeaponEnchantments
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			int chest = wePlayer.Player.chest;
 			if (chest != -1) {
-				Item[] chestItmes = Main.chest[chest].item;
+				Item[] chestItmes = wePlayer.Player.GetChestItems();
 				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
 				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
 					for (int i = 0; i < chestItmes.Length; i++) {
@@ -220,7 +219,8 @@ namespace WeaponEnchantments
 
 			orig();
 		}
-		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
+		/*
+		private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
 			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {
 				spawnChance /= 10f;
 				float rand = Main.rand.NextFloat();
@@ -305,18 +305,34 @@ namespace WeaponEnchantments
 			//Consume essence from enchanting table when crafting.
 			c.EmitDelegate((Item item, int num) => {
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
-				if (wePlayer.usingEnchantingTable) {
-					for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
-						Item slotItem = wePlayer.enchantingTableEssence[i];
-						if (item.type == slotItem.type) {
-							slotItem.stack -= num;
-						}
-					}
+				if (item.ModItem is EnchantmentEssence) {
+					ConsumeFromCraft(item, num, wePlayer.enchantingTableEssence);
+				}
+				else if (EnchantmentStorage.CanBeStored(item)) {
+					ConsumeFromCraft(item, num, wePlayer.enchantmentStorageItems, true);
+				}
+				else if (OreBagUI.CanBeStored(item)) {
+					ConsumeFromCraft(item, num, wePlayer.oreBagItems);
 				}
 			});
 		}
-		*/
-		/*
+		public static void ConsumeFromCraft(Item item, int stack, Item[] inventory, bool ignoreFavorited = false) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			for (int i = 0; i < inventory.Length; i++) {
+				ref Item storageItem = ref inventory[i];
+				if (item.type == storageItem.type) {
+					int ammountToTransfer = Math.Min(item.stack, storageItem.stack);
+					storageItem.stack -= ammountToTransfer;
+					if (storageItem.stack < 1) {
+						storageItem.TurnToAir();
+					}
+
+					stack -= ammountToTransfer;
+					if (stack < 1)
+						break;
+				}
+			}
+		}
 		private static void HookFindRecipes(ILContext il)
 		{
 			var c = new ILCursor(il);
@@ -397,21 +413,45 @@ namespace WeaponEnchantments
 			c.Emit(OpCodes.Ldloc, 6);
 			c.EmitDelegate((Dictionary<int, int> dictionary) => {
 				//Add essence in enchanting table to recipe ingredients dictionary
-				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
+				WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+				if (debuggingHookFindRecipes) {
+					counter++;
+					ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
+				}
+
+				List<Item> items = new();
 				if (wePlayer.usingEnchantingTable) {
-					if (debuggingHookFindRecipes) {
-						counter++;
-						ModContent.GetInstance<WEMod>().Logger.Info("counter: " + counter.ToString());
-					}
 					for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
-						Item item = wePlayer.enchantingTableEssence[i];
-						if (item != null && item.stack > 0) {
-							if (dictionary.ContainsKey(item.netID)) {
-								dictionary[item.netID] += item.stack;
-							}
-							else {
-								dictionary[item.netID] = item.stack;
-							}
+						ref Item item = ref wePlayer.enchantingTableEssence[i];
+						if (!item.NullOrAir() && item.stack > 0)
+							items.Add(item);
+					}
+				}
+
+				if (wePlayer.displayEnchantmentStorage || EnchantmentStorage.uncrafting) {
+					for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
+						ref Item item = ref wePlayer.enchantmentStorageItems[i];
+						if (!item.NullOrAir() && item.stack > 0 && !item.favorited)
+							items.Add(item);
+					}
+				}
+
+				if (wePlayer.Player.HasItem(ModContent.ItemType<OreBag>())) {
+					for (int i = 0; i < wePlayer.oreBagItems.Length; i++) {
+						ref Item item = ref wePlayer.oreBagItems[i];
+						if (!item.NullOrAir() && item.stack > 0)
+							items.Add(item);
+					}
+				}
+
+				for (int i = 0; i < items.Count; i++) {
+					Item item = items[i];
+					if (item != null && item.stack > 0) {
+						if (dictionary.ContainsKey(item.netID)) {
+							dictionary[item.netID] += item.stack;
+						}
+						else {
+							dictionary[item.netID] = item.stack;
 						}
 					}
 				}

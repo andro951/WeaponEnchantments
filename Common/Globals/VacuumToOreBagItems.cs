@@ -18,7 +18,6 @@ namespace WeaponEnchantments.Common.Globals
 	public class VacuumToOreBagItems : GlobalItem
 	{
 		public bool favorited;
-		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return true;
@@ -29,6 +28,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override void SaveData(Item item, TagCompound tag) {
 
 		}
+		public static bool CanVacuum(Player player) => player.GetWEPlayer().vacuumItemsIntoOreBag && player.HasItem(ModContent.ItemType<OreBag>());
 		public override void UpdateInventory(Item item, Player player) {
 			//Track favorited
 			if (item.favorited) {
@@ -48,11 +48,13 @@ namespace WeaponEnchantments.Common.Globals
 			}
 		}
 		public override bool OnPickup(Item item, Player player) {
+			if (player.whoAmI != Main.myPlayer)
+				return true;
+
 			if (item.NullOrAir())
 				return true;
 
-			WEPlayer wePlayer = player.GetWEPlayer();
-			if (CanVacuum) {
+			if (CanVacuum(player)) {
 				if (!OreBagUI.CanBeStored(item))
 					return true;
 
@@ -68,7 +70,7 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum && OreBagUI.RoomInStorage(item);
+			return CanVacuum(player) && OreBagUI.RoomInStorage(item, player);
 		}
 	}
 }

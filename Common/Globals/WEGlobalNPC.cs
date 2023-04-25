@@ -194,7 +194,7 @@ namespace WeaponEnchantments.Common.Globals
                 i => i.MatchLdarg(0),
                 i => i.MatchCall(out _),
                 i => i.MatchCallvirt(out _),
-				i => i.MatchBrfalse(out _),
+                i => i.MatchBrfalse(out _),
 				i => i.MatchCall(out _),
                 i => i.MatchLdcI4(100),
                 i => i.MatchCallvirt(out _),
