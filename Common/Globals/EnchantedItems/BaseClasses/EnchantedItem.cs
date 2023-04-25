@@ -1368,45 +1368,6 @@ namespace WeaponEnchantments.Common.Globals
 
             #endregion
         }
-        public static void AllArmorGainXp(this Player player, int xp) {
-            int vanillaArmorLength = player.armor.Length / 2;
-            var loader = LoaderManager.Get<AccessorySlotLoader>();
-            for (int j = 0; j < player.GetWEPlayer().equipArmor.Length; j++) {
-                Item armor;
-
-                //Check if armorslot is functional
-                if(j < vanillaArmorLength) {
-                    armor = player.armor[j];
-				}
-				else {
-                    int num = j - vanillaArmorLength;
-                    if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
-                        armor = loader.Get(num).FunctionalItem;
-                    }
-					else {
-                        armor = new Item();
-                    }
-                }
-
-                //Gain xp on each armor
-                if (!armor.vanity && armor.TryGetEnchantedItemSearchAll(out EnchantedItem aGlobal)) {
-                    float reductionFactor;
-                    if (IsArmorItem(armor)) {
-                        reductionFactor = 2f;
-                    }
-                    else {
-                        reductionFactor = 4f;
-                    }
-
-                    int xpInt = (int)Math.Round(xp / reductionFactor);
-
-                    if (xpInt <= 0)
-                        xpInt = 1;
-
-                    aGlobal.GainXP(armor, xpInt);
-                }
-            }
-        }
         public static void CombineEnchantedItems(this Item item, List<Item> consumedItems, bool fromCraft = false) {
             if (consumedItems.Count <= 0)
                 return;

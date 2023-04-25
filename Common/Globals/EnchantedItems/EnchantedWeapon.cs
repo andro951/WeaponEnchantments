@@ -76,8 +76,6 @@ namespace WeaponEnchantments.Common.Globals
 
         #region Tracking (instance)
 
-        public bool trackedWeapon = false;
-        public bool hoverItem = false;
         private bool _stack0 = false;
         public bool Stack0 {
             get {
@@ -148,9 +146,6 @@ namespace WeaponEnchantments.Common.Globals
 
                 #endregion
             }
-
-            if (!Main.mouseItem.IsSameEnchantedItem(itemClone))
-                clone.trackedWeapon = false;
 
             return clone;
         }
