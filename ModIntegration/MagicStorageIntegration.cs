@@ -63,7 +63,7 @@ namespace WeaponEnchantments.ModIntegration
                     if (wePlayer.usingEnchantingTable)
 						EnchantingTableUI.CloseEnchantingTableUI(true);
 
-                    if (OreBagUI.displayOreBagUI)
+                    if (wePlayer.displayOreBagUI)
                         OreBagUI.CloseOreBag();
                 }
 
