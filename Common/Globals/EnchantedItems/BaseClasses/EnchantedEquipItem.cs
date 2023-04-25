@@ -39,7 +39,7 @@ namespace WeaponEnchantments.Common.Globals
                 return;
 
             //Fix for swapping an equipped armor/accessory with one in the enchanting table.
-            if (player.GetWEPlayer().ItemInUI().TryGetEnchantedItem()) {
+            if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {
                 inEnchantingTable = false;
             }
         }

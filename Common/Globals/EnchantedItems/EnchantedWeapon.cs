@@ -108,7 +108,7 @@ namespace WeaponEnchantments.Common.Globals
         }
 
         public override bool InstancePerEntity => true;
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => IsWeaponItem(entity);
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => lateInstantiation && IsWeaponItem(entity);
         public override EItemType ItemType => EItemType.Weapons;
         public override void HoldItem(Item item, Player player) {
 
@@ -244,11 +244,6 @@ namespace WeaponEnchantments.Common.Globals
 
             base.UpdateInventory(item, player);
         }
-        public override bool OnPickup(Item item, Player player) {
-            //player.GetWEPlayer().UpdateItemStats(ref item);
-
-            return true;
-        }
         protected override void GetTopTooltips(Item item, List<TooltipLine> tooltips) {
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
@@ -371,10 +366,6 @@ namespace WeaponEnchantments.Common.Globals
 
             bool? returnValue = base.UseItem(item, player);
 
-            if (eStats.ContainsKey("CatastrophicRelease")) {
-                player.statMana = 0;
-            }
-
             //Consumable weapons  (item.placeStyle fix for a placable enchantable item)
             if (item.consumable && Modified && item.placeStyle == 0) {//Restock and Stack0
                 if (item.stack < 2) {
@@ -406,15 +397,6 @@ namespace WeaponEnchantments.Common.Globals
             foreach (ICanUseItem effect in EnchantmentEffects.OfType<ICanUseItem>()) {
                 if (!effect.CanUseItem(item, player))
                     return false;
-            }
-
-            //CatastrophicRelease
-            if (eStats.ContainsKey("CatastrophicRelease") && player.statManaMax != player.statMana)
-                return false;
-
-            //AllForOne
-            if (eStats.ContainsKey("AllForOne")) {
-                return wePlayer.allForOneTimer <= 0;
             }
 
             return true;

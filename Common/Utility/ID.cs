@@ -417,6 +417,7 @@ namespace WeaponEnchantments.Common.Utility
         TownNPCMood,
 		Ores,
 		TableText,
+		EnchantmentStorageText,
 		Config
 	}
     public enum L_ID2 {
@@ -477,6 +478,7 @@ namespace WeaponEnchantments.Common.Utility
 		ExchangeEssenceAndOres,
 		Item,
 		Enchantments,
+		Storage,
 		weapon0,
 		general1,
 		general2,
@@ -485,6 +487,23 @@ namespace WeaponEnchantments.Common.Utility
 		enchantment4,
 		utility0,
 		essence0,
+	}
+	public enum EnchantmentStorageTextID
+	{
+		LootAll,
+		DepositAll,
+		QuickStack,
+		Sort,
+		ToggleVacuum,
+		ToggleMarkTrash,
+		UncraftAllTrash,
+		RevertAllToBasic,
+		ManageTrash,
+		ManageOfferedItems,
+		//Do not place anything besides buttons before this
+		EnchantmentStorage,
+		Search,
+		OreBag
 	}
 	public enum DialogueID {
         StandardDialogue,
@@ -2151,8 +2170,6 @@ namespace WeaponEnchantments.Common.Utility
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/f/f9/Golden_Slime.png/revision/latest?cb=20210516134412&format=original";
 				case NPCID.Deerclops://668 Deerclops
 					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/8/85/Deerclops.png/revision/latest?cb=20211118192944&format=original";
-				case NPCID.DeerclopsLeg://669 Deerclops Leg
-					return "https://static.wikia.nocookie.net/terraria_gamepedia/images/6/63/Deerclops_Leg.png/revision/latest?cb=20211120050422&format=original";
 				default:
 					return "";
 			}

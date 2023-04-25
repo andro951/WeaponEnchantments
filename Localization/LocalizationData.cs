@@ -16,6 +16,7 @@ using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Items.Enchantments.Utility;
 using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.ModIntegration;
+using WeaponEnchantments.UI;
 using static Terraria.Localization.GameCulture;
 
 namespace WeaponEnchantments.Localization
@@ -285,6 +286,13 @@ namespace WeaponEnchantments.Localization
 								{ $"{TableTextID.enchantment4}", "Requires {0} or Better to use this slot." },
 								{ $"{TableTextID.utility0}", "Only utility Enchantments can go here." },
 								{ $"{TableTextID.essence0}", "Place {0} here." },
+						}) },
+						{ L_ID1.EnchantmentStorageText.ToString(), new(
+							values: new() {
+								//Filled Automatically
+							},
+							dict: new() {
+								//Ready for values to be added if needed
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {
@@ -700,6 +708,19 @@ namespace WeaponEnchantments.Localization
 						types = e.Types.Where(t => t != null);
 					}
 
+					/*
+					List<string> list = types.Where(t => t.GetType() == Type.GetType("EnchantmentEffects"))
+						.Where(t => !t.IsAbstract)
+						.Select(t => t.Name)
+						.ToList();
+
+					SortedDictionary<string, string> dict = pair.Value.Dict;
+					foreach (string s in list) {
+						if (!dict.ContainsKey(s))
+							dict.Add(s, s.AddSpaces());
+					}
+					*/
+
 					Type enchantmentEffectType = typeof(EnchantmentEffect);
 					IEnumerable<Type> effectTypes = types.Where(t => !t.IsAbstract && t.IsAssignableTo(enchantmentEffectType) && t != enchantmentEffectType);
 
@@ -737,6 +758,12 @@ namespace WeaponEnchantments.Localization
 					foreach (string tableText in Enum.GetNames(typeof(TableTextID))) {
 						if (!allData[tableTextKey].Dict.ContainsKey(tableText))
 							allData[tableTextKey].Values.Add(tableText);
+					}
+
+					string EnchantmentStorageTextKey = L_ID1.EnchantmentStorageText.ToString();
+					foreach (string enchantmentStroageText in Enum.GetNames(typeof(EnchantmentStorageTextID))) {
+						if (!allData[EnchantmentStorageTextKey].Dict.ContainsKey(enchantmentStroageText))
+							allData[EnchantmentStorageTextKey].Values.Add(enchantmentStroageText);
 					}
 
 					/*
@@ -815,9 +842,6 @@ namespace WeaponEnchantments.Localization
 
 		public static Dictionary<CultureName, List<string>> SameAsEnglish = new() {
 			{ CultureName.German, new() {
-					"Mobility Control Enchantment Epic",
-					"Penny Pinching Enchantment Basic",
-					"Rogue Class Swap Enchantment Epic",
 					"Amaterasu",
 					"Agatha",
 					"Akko",

@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.UI.Gamepad;
@@ -14,6 +15,7 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Tiles
 {
@@ -69,7 +71,7 @@ namespace WeaponEnchantments.Tiles
 			AddMapEntry(new Color(200, 200, 200), name);
 
 			List<int> adjTiles = new() { TileID.WorkBenches };
-			if (!ConfigValues.useAllRecipes && enchantingTableTier > 0)
+			if (enchantingTableTier > 0)
 				adjTiles.AddRange(TableTypes.GetRange(0, enchantingTableTier));
 
 			AdjTiles = adjTiles.ToArray();
@@ -110,7 +112,7 @@ namespace WeaponEnchantments.Tiles
 
 				Item.NewItem(new EntitySource_TileBreak(x, y), x * 16, y * 16, 32, 16, tableType);
 
-				WEModSystem.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseEnchantingTableUI();
 			}
 		}
 		public override bool RightClick(int x, int y) {
@@ -128,7 +130,7 @@ namespace WeaponEnchantments.Tiles
 			Main.stackSplit = 600;
 			if (wePlayer.usingEnchantingTable) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
-				WEModSystem.CloseWeaponEnchantmentUI();
+				EnchantingTableUI.CloseEnchantingTableUI();
 			}
 			else {
 				if (MagicStorageIntegration.MagicStorageIsOpen())
@@ -146,7 +148,7 @@ namespace WeaponEnchantments.Tiles
 					PlayerInput.Triggers.JustPressed.Grapple = false;
 
 				SoundEngine.PlaySound(SoundID.MenuTick);
-				WEModSystem.OpenWeaponEnchantmentUI();
+				EnchantingTableUI.OpenEnchantingTableUI();
 				wePlayer.Player.chestX = x;
 				wePlayer.Player.chestY = y;
 				Recipe.FindRecipes();

@@ -203,7 +203,7 @@ namespace WeaponEnchantments.Common.Globals
             //Set crit roll to zero.
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_0);
-        }
+		}
         public static float GetMultiSegmentBossMultiplier(int npcType) {
             if (multipleSegmentBossTypes.ContainsKey(npcType))
                 return multipleSegmentBossTypes[npcType];

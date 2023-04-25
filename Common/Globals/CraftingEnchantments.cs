@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -36,19 +39,21 @@ namespace WeaponEnchantments.Common.Globals
                 if (recipeCreationContext.ConsumedItems == null)
                     return;
 
-                Dictionary<int, int> otherCraftedItems = new();
+                SortedDictionary<int, int> otherCraftedItems = EnchantmentStorage.uncrafting ? EnchantmentStorage.uncraftedExtraItems : new();
                 foreach (Item consumedItem in recipeCreationContext.ConsumedItems) {
                     otherCraftedItems.AddOrCombine(GetOtherCraftedItems(item, consumedItem));
                 }
-
-                foreach(KeyValuePair<int, int> pair in otherCraftedItems) {
-                    Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), pair.Key, pair.Value);
-                }
+                
+                if (!EnchantmentStorage.uncrafting) {
+					foreach (KeyValuePair<int, int> pair in otherCraftedItems) {
+						Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), pair.Key, pair.Value);
+					}
+				}
             }
         }
 
-        public static Dictionary<int, int> GetOtherCraftedItems(Item item,  Item consumedItem) {
-            Dictionary<int, int> dict = new();
+        public static SortedDictionary<int, int> GetOtherCraftedItems(Item item,  Item consumedItem) {
+            SortedDictionary<int, int> dict = new();
             if (consumedItem.ModItem is Enchantment consumedEnchantment) {
                 int newSize;
                 if (item.ModItem is Enchantment enchantment) {

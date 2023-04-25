@@ -103,7 +103,7 @@ namespace WeaponEnchantments.ModIntegration
 						Item clone = mouseItemClones[i];
 						if (mouseItem.IsSameEnchantedItem(clone) && mouseItem.HoverName != clone.HoverName) {
 							//Force recalculate UpdateItemStats()
-							if(mouseItem.TryGetEnchantedItem(out EnchantedItem menchantedItem))
+							if(mouseItem.TryGetEnchantedItemSearchAll(out EnchantedItem menchantedItem))
 								menchantedItem.prefix = -1;
 
 							//Remove from list
@@ -154,7 +154,7 @@ namespace WeaponEnchantments.ModIntegration
 		private bool CheckItem(Item item, Item clone) {
 			if (item.IsSameEnchantedItem(clone) && item.HoverName != clone.HoverName) {
 				//Force recalculate UpdateItemStats()
-				if(item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
+				if(item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 					enchantedItem.prefix = -1;
 					return true;
 				}

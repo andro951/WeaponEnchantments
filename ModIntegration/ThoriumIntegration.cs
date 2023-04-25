@@ -14,7 +14,7 @@ namespace WeaponEnchantments.ModIntegration
 		public static bool Enabled { get; private set; }
 		public override void Load() {
 			Enabled = ModLoader.TryGetMod(THORIUM_NAME, out Mod thoriumMod);
-			WEMod.thoriumEnabled = true;
+			WEMod.thoriumEnabled = Enabled;
 			if (Enabled) {
 				bool h = thoriumMod.TryFind("HealerDamage", out ThoriumValues.healerRadiation);
 				bool b = thoriumMod.TryFind("BardDamage", out ThoriumValues.bard);
