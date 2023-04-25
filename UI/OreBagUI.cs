@@ -413,6 +413,8 @@ namespace WeaponEnchantments.UI
 			Main.playerInventory = true;
 			displayOreBagUI = true;
 			Main.LocalPlayer.chest = -1;
+			if (MagicStorageIntegration.MagicStorageIsOpen())
+				MagicStorageIntegration.TryClosingMagicStorage();
 		}
 		public static void CloseOreBag(bool noSound = false) {
 			displayOreBagUI = false;
