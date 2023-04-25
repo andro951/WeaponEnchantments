@@ -28,7 +28,7 @@ namespace WeaponEnchantments.UI
 {
 	public static class UIManager
 	{
-		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || OreBagUI.displayOreBagUI;
+		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || WEPlayer.LocalWEPlayer.displayOreBagUI;
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
 		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
 		public static bool HoveringWitchReroll => UI_ID.WitchReroll <= UIBeingHovered && UIBeingHovered < UI_ID.WitchRerollEnd;
@@ -99,7 +99,7 @@ namespace WeaponEnchantments.UI
 			FocusRecipe = Main.focusRecipe;
 			float savedInventoryScale = Main.inventoryScale;
 			Main.inventoryScale = 0.86f;
-			bool preventTrashingItem = wePlayer.usingEnchantingTable || OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(Main.HoverItem);
+			bool preventTrashingItem = wePlayer.usingEnchantingTable || wePlayer.displayOreBagUI && OreBagUI.CanBeStored(Main.HoverItem);
 			if (preventTrashingItem) {
 				//Disable Left Shift to Quick trash
 				if (ItemSlot.Options.DisableLeftShiftTrashCan) {

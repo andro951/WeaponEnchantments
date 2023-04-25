@@ -172,7 +172,7 @@ namespace WeaponEnchantments
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			int chest = wePlayer.Player.chest;
 			if (chest != -1) {
-				Item[] chestItmes = Main.chest[chest].item;
+				Item[] chestItmes = wePlayer.Player.GetChestItems();
 				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
 				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
 					for (int i = 0; i < chestItmes.Length; i++) {

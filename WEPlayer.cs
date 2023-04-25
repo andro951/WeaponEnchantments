@@ -95,6 +95,7 @@ namespace WeaponEnchantments
 		public int oreBagUITop;
         public const int OreBagSize = 100;
 		public bool vacuumItemsIntoOreBag = true;
+		public bool displayOreBagUI = false;
 
 		#endregion
 
@@ -254,8 +255,9 @@ namespace WeaponEnchantments
 
             if (LogMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
 
-			#endregion
+            #endregion
 
+            localWEPlayer = null;
 			if (!WorldOldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
                 if (WEModSystem.versionUpdate < 1)
@@ -435,7 +437,7 @@ namespace WeaponEnchantments
 				}
 			}
 
-			if (UIManager.NoUIBeingHovered && OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(item)) {
+			if (UIManager.NoUIBeingHovered && WEPlayer.localWEPlayer.displayOreBagUI && OreBagUI.CanBeStored(item)) {
                 if (OreBagUI.RoomInStorage(item))
 					OreBagUI.DepositAll(ref inventory[slot]);
                 
@@ -769,24 +771,7 @@ namespace WeaponEnchantments
                     newItem = Player.inventory[hoverItemIndex];
 
                 if (newItem != null && Player.chest != -1) {
-                    Item[] inventory = null;
-                    switch (hoverItemChest) {
-                        case > -1:
-                            inventory = Main.chest[hoverItemChest].item;
-                            break;
-                        case -2:
-                            inventory = Player.bank.item;
-                            break;
-                        case -3:
-                            inventory = Player.bank2.item;
-                            break;
-                        case -4:
-                            inventory = Player.bank3.item;
-                            break;
-                        case -5:
-                            inventory = Player.bank4.item;
-                            break;
-                    }
+                    Item[] inventory = Player.GetChestItems(hoverItemChest);
 
                     if (EnchantedItemStaticMethods.IsSameEnchantedItem(inventory[hoverItemIndex], Main.HoverItem))
                         newItem = inventory[hoverItemIndex];
@@ -806,24 +791,7 @@ namespace WeaponEnchantments
                 }
 
                 if (Player.chest != -1 && newItem == null) {
-                    Item[] inventory = null;
-                    switch (Player.chest) {
-                        case > -1:
-                            inventory = Main.chest[Player.chest].item;
-                            break;
-                        case -2:
-                            inventory = Player.bank.item;
-                            break;
-                        case -3:
-                            inventory = Player.bank2.item;
-                            break;
-                        case -4:
-                            inventory = Player.bank3.item;
-                            break;
-                        case -5:
-                            inventory = Player.bank4.item;
-                            break;
-                    }
+                    Item[] inventory = Player.GetChestItems();
 
                     for (int i = 0; i < inventory.Length; i++) {
                         Item chestItem = inventory[i];
@@ -888,6 +856,7 @@ namespace WeaponEnchantments
                 }
             }
         }
+
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (WEMod.calamityEnabled) {
                 CalamityRespawnMinionSourceItems.Clear();
@@ -2124,6 +2093,25 @@ namespace WeaponEnchantments
             damageReduction = target.defense / 2 - target.checkArmorPenetration(armorPenetration);
 
             return armorPenetration;
-        }
+		}
+		public static Item[] GetChestItems(this Player player, int chest = int.MinValue) {
+            if (chest == int.MinValue)
+                chest = player.chest;
+
+			switch (chest) {
+				case > -1:
+					return Main.chest[chest].item;
+				case -2:
+					return player.bank.item;
+				case -3:
+					return player.bank2.item;
+				case -4:
+					return player.bank3.item;
+				case -5:
+					return player.bank4.item;
+				default:
+					return new Item[0];
+			}
+		}
 	}
 }

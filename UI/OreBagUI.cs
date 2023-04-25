@@ -73,14 +73,13 @@ namespace WeaponEnchantments.UI
 		public const float buttonScaleMinimum = 0.75f;
 		public const float buttonScaleMaximum = 1f;
 		public static float[] ButtonScale = Enumerable.Repeat(buttonScaleMinimum, OreBagButtonID.Count).ToArray();
-		public static bool displayOreBagUI = false;
 		private static int glowTime = 0;
 		private static float glowHue = 0f;
 		private static int scrollPanelY = int.MinValue;
 		private static int scrollPanelPosition = 0;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			if (!displayOreBagUI || !Main.playerInventory)
+			if (!wePlayer.displayOreBagUI || !Main.playerInventory)
 				return;
 
 			#region Pre UI
@@ -387,9 +386,9 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			oreTypes.StringList(t => t.GetItemIDOrName(), "oreTypes").LogSimple();
-			modOreTileTypes.StringList(t => t.GetItemIDOrName(), "OreTileTypes").LogSimple();
-			barTypes.StringList(t => t.GetItemIDOrName(), "barTypes").LogSimple();
+			//oreTypes.StringList(t => t.GetItemIDOrName(), "oreTypes").LogSimple();
+			//modOreTileTypes.StringList(t => t.GetItemIDOrName(), "OreTileTypes").LogSimple();
+			//barTypes.StringList(t => t.GetItemIDOrName(), "barTypes").LogSimple();
 		}
 		public static bool IsOre(int tileType, out int itemType) {
 			itemType = WEGlobalTile.GetDroppedItem(tileType, forMining: true, ignoreError: true);
@@ -410,14 +409,16 @@ namespace WeaponEnchantments.UI
 			return false;
 		}
 		public static void OpenOreBag() {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			Main.playerInventory = true;
-			displayOreBagUI = true;
+			wePlayer.displayOreBagUI = true;
 			Main.LocalPlayer.chest = -1;
 			if (MagicStorageIntegration.MagicStorageIsOpen())
 				MagicStorageIntegration.TryClosingMagicStorage();
 		}
 		public static void CloseOreBag(bool noSound = false) {
-			displayOreBagUI = false;
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			wePlayer.displayOreBagUI = false;
 			UIManager.TryResetSearch(SearchID);
 			if (Main.LocalPlayer.chest == -1) {
 				if (!noSound)
@@ -426,11 +427,14 @@ namespace WeaponEnchantments.UI
 		}
 		public static bool CanBeStored(Item item) => OreTypes.Contains(item.type) || barTypes.Contains(item.type) || CommonGems.Contains(item.type) || RareGems.Contains(item.type) || item.type == ItemID.Glass || item.type == ItemID.SandBlock;
 		public static bool RoomInStorage(Item item, Player player = null) {
-			if (Main.netMode == NetmodeID.Server || player.whoAmI != Main.myPlayer)
+			if (Main.netMode == NetmodeID.Server)
 				return false;
 
 			if (player == null)
 				player = Main.LocalPlayer;
+
+			if (player.whoAmI != Main.myPlayer)
+				return false;
 
 			Item[] inv = player.GetWEPlayer().oreBagItems;
 			int stack = item.stack;

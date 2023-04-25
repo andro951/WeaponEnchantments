@@ -911,7 +911,9 @@ namespace WeaponEnchantments.Common.Globals
 			resetGlobals = false;
 		}
 		public override bool OnPickup(Item item, Player player) {
-            string fullName = item.ModFullName();
+            if (player.whoAmI != Main.myPlayer)
+                return true;
+
 			if (player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName())) {
 				PopupText.NewText(PopupTextContext.RegularItemPickup, item, item.stack);
 				SoundEngine.PlaySound(SoundID.Grab);
