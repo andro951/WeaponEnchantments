@@ -333,4 +333,29 @@ namespace WeaponEnchantments.Common {
             return true;
         }
     }
+
+    public static class PlayerEquipmentStaticMethods {
+		public static void AllArmorGainXp(this Player player, int xp) {
+			IEnumerable<Item> allArmor = player.GetWEPlayer().Equipment.GetAllArmor();
+			foreach (Item armor in allArmor) {
+				//Gain xp on each armor
+				if (!armor.vanity && armor.TryGetEnchantedItemSearchAll(out EnchantedItem aGlobal)) {
+					float reductionFactor;
+					if (EnchantedItemStaticMethods.IsArmorItem(armor)) {
+						reductionFactor = 2f;
+					}
+					else {
+						reductionFactor = 4f;
+					}
+
+					int xpInt = (int)Math.Round(xp / reductionFactor);
+
+					if (xpInt <= 0)
+						xpInt = 1;
+
+					aGlobal.GainXP(armor, xpInt);
+				}
+			}
+		}
+	}
 }

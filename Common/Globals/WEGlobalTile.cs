@@ -153,7 +153,7 @@ namespace WeaponEnchantments.Common.Globals
 			
 			//Gain xp
 			hGlobal.GainXP(wePlayer.Player.HeldItem, xp);
-			EnchantedItemStaticMethods.AllArmorGainXp(wePlayer.Player, xp);
+			wePlayer.Player.AllArmorGainXp(xp);
 			
 			//Reset static tile info
 			tileType = -1;
