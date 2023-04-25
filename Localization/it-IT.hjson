@@ -340,6 +340,7 @@ Mods: {
 			EnchantmentEssenceEpic: Incantesimo Essenza Epica
 			EnchantmentEssenceLegendary: Essenza incantesimo Leggendaria
 			EnchantmentEssenceRare: Essenza incantesimo Raro
+			OreBag: Ore Bag
 			PowerBooster: Potenziatore
 			UltraPowerBooster: Potenziatore ultra potente
 		}
@@ -558,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impedisce la visualizzazione di messaggi nella tua chat che ti chiedono di farlo
-					\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\"
+					\\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -889,6 +890,21 @@ Mods: {
 				Zoologist: "{0} è una fanciulla tirannica che continua a lasciare capelli dappertutto, le farò pagare in guerra!"
 			}
 		}
+		EnchantmentStorageText: {
+			DepositAll: Deposit All
+			EnchantmentStorage: Enchantment Storage
+			LootAll: Loot All
+			ManageOfferedItems: Manage Offered Items
+			ManageTrash: Manage Trash
+			OreBag: Ore Bag
+			QuickStack: Quick Stack
+			RevertAllToBasic: Revert All To Basic
+			Search: Search
+			Sort: Sort
+			ToggleMarkTrash: Toggle Mark Trash
+			ToggleVacuum: Toggle Vacuum
+			UncraftAllTrash: Uncraft All Trash
+		}
 		ItemTooltip: {
 			Containment: Usato per immagazzinare incantesimi di base
 			DustyEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 1)
@@ -919,6 +935,12 @@ Mods: {
 				'''
 			HellishEnchantingTable: Usato per applicare incantesimi agli oggetti. (livello 2)
 			MediumContainment: Usato per immagazzinare incantesimi comuni
+			OreBag: 
+				'''
+				Automatically stores ores, bars, gems, and glass.
+				When in your inventory, the contents of the bag are available for crafting.
+				Right click to open the bag.
+				'''
 			PowerBooster: 
 				'''
 				Usalo mentre l'oggetto che vuoi potenziare si trova in una tabella degli incantesimi per aumentare il suo livello base di 10.
@@ -989,6 +1011,7 @@ Mods: {
 			LootAll: Saccheggia tutto
 			No: No
 			Offer: Offerta
+			Storage: Storage
 			Syphon: Sifone
 			xp: xp
 			Yes: sì
