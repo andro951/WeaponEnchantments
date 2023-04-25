@@ -19,7 +19,8 @@ namespace WeaponEnchantments.ModIntegration
     {
         public override string Name => "Enchanting Table Essence";
 		public override IEnumerable<Item> GetAdditionalItems(EnvironmentSandbox sandbox) {
-            return Main.LocalPlayer.GetWEPlayer().enchantingTable.essenceItem;
+            WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+            return wePlayer.enchantingTableEssence.Concat(wePlayer.enchantmentStorageItems).Concat(wePlayer.oreBagItems);
         }
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information) {
             int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;
@@ -36,7 +37,7 @@ namespace WeaponEnchantments.ModIntegration
                 information.adjTiles[tableTier] = true;
 		}
 		public override void OnConsumeItemForRecipe(EnvironmentSandbox sandbox, Item item, int stack) {
-            if (item.maxStack > 1 && item.TryGetEnchantedItem(out EnchantedItem enchantmentedItem) && enchantmentedItem.Modified) {
+            if (item.maxStack > 1 && item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantmentedItem) && enchantmentedItem.Modified) {
 				TEStorageHeart tEStorageHeart = MagicStorage.StoragePlayer.LocalPlayer.GetStorageHeart();
 				IEnumerable<Item> storageItems = tEStorageHeart.GetStoredItems();
                 MagicStorageIntegration.JustCraftedStackableItem = item.TryResetSameEnchantedItem(storageItems, out _);
@@ -46,13 +47,13 @@ namespace WeaponEnchantments.ModIntegration
                     for (int o = i + 1; o < storageItemsList.Count; o++) {
                         Item item1 = storageItemsList[i];
                         Item item2 = storageItemsList[o];
-                        if (item1.type != item2.type || item1.maxStack <= 1 || !item1.TryGetEnchantedItem(out EnchantedItem enchantedItem1) || !enchantedItem1.Modified)
+                        if (item1.type != item2.type || item1.maxStack <= 1 || !item1.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1) || !enchantedItem1.Modified)
                             continue;
 
                         if (!item1.IsSameEnchantedItem(item2))
                             continue;
 
-                        if (!item2.TryGetEnchantedItem(out EnchantedItem enchantedItem2))
+                        if (!item2.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem2))
                             continue;
 
                         if (item1.stack == 1) {

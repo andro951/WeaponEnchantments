@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.Creative;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
@@ -23,7 +24,7 @@ namespace WeaponEnchantments.Items
 		public virtual string LocalizationTooltip { protected set; get; }
 		protected string localizationTooltip;
 		public abstract int CreativeItemSacrifice { get; }
-
+		public virtual bool CanBeStoredInEnchantmentStroage => false;
 		public override void SetStaticDefaults() {
 			if (!WEMod.serverConfig.DisableResearch && CreativeItemSacrifice > -1)
 				CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = CreativeItemSacrifice;

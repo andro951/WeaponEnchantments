@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (heldItem.hammer <= 0)
 				return;
 
-			if (!heldItem.TryGetEnchantedItem(out EnchantedItem hGlobal))
+			if (!heldItem.TryGetEnchantedItemSearchAll(out EnchantedItem hGlobal))
 				return;
 
 			int xp = 10;

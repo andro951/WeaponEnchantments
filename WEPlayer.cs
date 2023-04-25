@@ -27,6 +27,8 @@ using static WeaponEnchantments.Common.Globals.NPCStaticMethods;
 using WeaponEnchantments.Debuffs;
 using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
+using Terraria.WorldBuilding;
+using rail;
 
 namespace WeaponEnchantments
 {
@@ -37,16 +39,26 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
+		public static WEPlayer LocalWEPlayer {
+			get {
+				if (localWEPlayer == null) {
+					localWEPlayer = Main.LocalPlayer.GetWEPlayer();
+				}
+
+				return localWEPlayer;
+			}
+            set {
+                localWEPlayer = null;
+            }
+		}
+		private static WEPlayer localWEPlayer = null;
+		public int levelsPerLevelUp;
         internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
         public int highestTableTierUsed;
         public bool itemInEnchantingTable;
-        public bool[] enchantmentInEnchantingTable = new bool[EnchantingTable.maxEnchantments];
         public Item itemBeingEnchanted;
-        public EnchantingTable enchantingTable;
-        public WeaponEnchantmentUI enchantingTableUI;
-        public ConfirmationUI confirmationUI;
         static float baseOneForAllRange = 240f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
@@ -63,21 +75,32 @@ namespace WeaponEnchantments
         public Point enchantingTableLocation = new Point(-1, -1);
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
+        public Item[] enchantmentStorageItems;
+        public const int EnchantmentStorageSize = 300;
+        public int enchantmentStorageUILeft;
+		public int enchantmentStorageUITop;
+        public bool displayEnchantmentStorage;
+        public int enchantingTableUILeft;
+		public int enchantingTableUITop;
+        public bool vacuumItemsIntoEnchantmentStorage = true;
+        public SortedSet<string> trashEnchantmentsFullNames = new();
+        public Item enchantingTableItem;
+        public EnchantmentsArray emptyEnchantments = new EnchantmentsArray(null);
+		public EnchantmentsArray enchantingTableEnchantments;
+        public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
+		public bool openStorageWhenOpeningTable = false;
+        public SortedSet<string> allOfferedItems = new();
+        public Item[] oreBagItems;
+		public int oreBagUILeft;
+		public int oreBagUITop;
+        public const int OreBagSize = 100;
+		public bool vacuumItemsIntoOreBag = true;
 
 		#endregion
 
-		#region Old Enchantment Effects
+		#region Enchantment Effects
 
-		public Dictionary<int, int> buffs = new Dictionary<int, int>();
-        public Dictionary<string, StatModifier> statModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
-        public Dictionary<string, StatModifier> eStats = new Dictionary<string, StatModifier>();
-
-        #endregion
-
-        #region Enchantment Effects
-	
-        public PlayerEquipment LastPlayerEquipment;
+		public PlayerEquipment LastPlayerEquipment;
         public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
         public SortedDictionary<short, uint> OnTickBuffTimers = new();
@@ -116,21 +139,21 @@ namespace WeaponEnchantments
 		#region IL
 
 		public static void HookItemCheck_MeleeHitNPCs(ILContext il) {
-            //Make vanilla crit roll 0
-            var c = new ILCursor(il);
+			//Make vanilla crit roll 0
+			var c = new ILCursor(il);
 
-            if (!c.TryGotoNext(MoveType.After,
+			if (!c.TryGotoNext(MoveType.After,
                 i => i.MatchCall(out _),
                 i => i.MatchLdcI4(1),
-                i => i.MatchLdcI4(101),
-                i => i.MatchCallvirt(out _),
+				i => i.MatchLdcI4(101),
+				i => i.MatchCallvirt(out _),
                 i => i.MatchLdloc(7),
-                i => i.MatchBgt(out _),
-                i => i.MatchLdcI4(1)
+				i => i.MatchBgt(out _),
+				i => i.MatchLdcI4(1)
             )) { throw new Exception("Failed to find instructions HookItemCheck_MeleeHitNPCs"); }
-            c.Emit(OpCodes.Pop);
-            c.Emit(OpCodes.Ldc_I4_0);
-        }
+			c.Emit(OpCodes.Pop);
+			c.Emit(OpCodes.Ldc_I4_0);
+				}
         public static void HookFishingCheck_RollDropLevels(ILContext il) {
             var c = new ILCursor(il);
 
@@ -217,11 +240,11 @@ namespace WeaponEnchantments
             c.EmitDelegate((float stringLength, Projectile projectile) => ModifyYoyoStringLength(stringLength, projectile));
         }
 
-        #endregion
+		#endregion
 
-        #region General Override Hooks
+		#region General Override Hooks
 
-        public override void Load() {
+		public override void Load() {
             IL.Terraria.Player.ItemCheck_MeleeHitNPCs += HookItemCheck_MeleeHitNPCs;
             IL.Terraria.Projectile.FishingCheck_RollDropLevels += HookFishingCheck_RollDropLevels;
 		}
@@ -253,132 +276,196 @@ namespace WeaponEnchantments
             #endregion
         }
         public override void Initialize() {
-            enchantingTable = new EnchantingTable();
-            enchantingTableUI = new WeaponEnchantmentUI();
             int modSlotCount = Player.GetModPlayer<ModAccessorySlotPlayer>().SlotCount;
             int armorCount = Player.armor.Length / 2 + modSlotCount;
             equipArmor = new Item[armorCount];
             equipArmorStatsNeedUpdate = new bool[armorCount];
             trackedWeapon = new Item();
-            confirmationUI = new ConfirmationUI();
             for (int i = 0; i < equipArmor.Length; i++) {
                 equipArmor[i] = new Item();
             }
-        }
+
+            enchantingTableEnchantments = emptyEnchantments;
+		}
         public override void SaveData(TagCompound tag) {
-
-            for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                tag["enchantingTableItem" + i.ToString()] = enchantingTable.item[i];
-            }
-
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-                tag["enchantingTableEssenceItem" + i.ToString()] = enchantingTable.essenceItem[i];
+            tag["enchantingTableItem0"] = enchantingTableItem;
+            for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+                tag[$"enchantingTableEssenceItem{i}"] = enchantingTableEssence[i];
             }
 
             tag["infusionConsumeItem"] = infusionConsumeItem;
             tag["highestTableTierUsed"] = highestTableTierUsed;
             tag["versionUpdate"] = versionUpdate;
-        }
-		public override void LoadData(TagCompound tag) {
-            for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                if (tag.Get<Item>("enchantingTableItem" + i.ToString()).IsAir) {
-                    enchantingTable.item[i] = new Item();
-                }
-                else {
-                    enchantingTable.item[i] = tag.Get<Item>("enchantingTableItem" + i.ToString());
-                }
-            }
+            tag["levelsPerLevelUp"] = levelsPerLevelUp;
+            tag["enchantmentStorageItems"] = enchantmentStorageItems;
+            tag["enchantmentStorageUILocationX"] = enchantmentStorageUILeft;
+			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
+            tag["enchantingTableUILocationX"] = enchantingTableUILeft;
+            tag["enchantingTableUILocationY"] = enchantingTableUITop;
+            tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
+            if (trashEnchantmentsFullNames.Count > 0)
+                tag["trashEnchantmentsFullNames"] = trashEnchantmentsFullNames.ToList();
 
-            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-                if (tag.Get<Item>("enchantingTableEssenceItem" + i.ToString()).IsAir) {
-                    enchantingTable.essenceItem[i] = new Item();
-                }
-                else {
-                    enchantingTable.essenceItem[i] = tag.Get<Item>("enchantingTableEssenceItem" + i.ToString());
-                }
-            }
+            tag["openStorageWhenOpeningTable"] = openStorageWhenOpeningTable;
+            string temp = allOfferedItems.StringList((s) => s);
+            if (allOfferedItems.Count > 0)
+                tag["allOfferedItems"] = allOfferedItems.ToList();
+
+            tag["oreBagItems"] = oreBagItems;
+            tag["oreBagUILeft"] = oreBagUILeft;
+            tag["oreBagUITop"] = oreBagUITop;
+            tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
+		}
+		public override void LoadData(TagCompound tag) {
+            enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
+            if (enchantingTableItem == null)
+                enchantingTableItem = new();
+
+			for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+                enchantingTableEssence[i] = tag.Get<Item>($"enchantingTableEssenceItem{i}");
+                if (enchantingTableEssence[i] == null)
+                    enchantingTableEssence[i] = new();
+			}
 
             infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
-            if (infusionConsumeItem.IsAir)
-                infusionConsumeItem = null;
+            if (infusionConsumeItem == null)
+                infusionConsumeItem = new();
 
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
             versionUpdate = tag.Get<byte>("versionUpdate");
-        }
+			levelsPerLevelUp = tag.Get<int>("levelsPerLevelUp");
+			if (levelsPerLevelUp < 1)
+				levelsPerLevelUp = 1;
+
+            if (!tag.TryGet("enchantmentStorageItems", out enchantmentStorageItems))
+                enchantmentStorageItems = Enumerable.Repeat(new Item(), EnchantmentStorageSize).ToArray();
+
+            if (enchantmentStorageItems.Length < EnchantmentStorageSize)
+                enchantmentStorageItems = enchantmentStorageItems.Concat(Enumerable.Repeat(new Item(), EnchantmentStorageSize - enchantmentStorageItems.Length)).ToArray();
+
+			for (int i = 0; i < enchantmentStorageItems.Length; i++) {
+                if (enchantmentStorageItems[i] == null || enchantmentStorageItems[i].stack < 1 || enchantmentStorageItems[i].IsAir) {
+					enchantmentStorageItems[i] = new();
+				}
+			}
+
+            enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
+			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
+
+            enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
+            enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
+			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
+
+            if (tag.TryGet("vacuumItemsIntoEnchantmentStorage", out bool vacuumItemsIntoEnchantmentStorageLoadedValue))
+                vacuumItemsIntoEnchantmentStorage = vacuumItemsIntoEnchantmentStorageLoadedValue;
+
+			trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
+            openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
+            allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
+            if (!tag.TryGet("oreBagItems", out oreBagItems))
+                oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();
+
+            if (oreBagItems.Length < OreBagSize)
+                oreBagItems = oreBagItems.Concat(Enumerable.Repeat(new Item(), OreBagSize - oreBagItems.Length)).ToArray();
+
+            oreBagUILeft = tag.Get<int>("oreBagUILeft");
+            oreBagUITop = tag.Get<int>("oreBagUITop");
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);
+            if (tag.TryGet<bool>("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
+                vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
+		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
-            if (!usingEnchantingTable)
-                return false;
+			ref Item item = ref inventory[slot];
+			if (usingEnchantingTable) {
+				bool stop = false;
+				if (!UIManager.NoUIBeingHovered) {
+					Item enchantingTableSlotItem = null;
+					//Check Enchanting Item Slot
+					if (UIManager.UIBeingHovered == UI_ID.EnchantingTableItemSlot) {
+						stop = true;
+						enchantingTableSlotItem = enchantingTableItem;
+					}
 
-            bool stop = false;
-            Item enchantingTableSlotItem = null;
+					if (!stop) {
+						//Check Enchantment Slots
+						int enchantmentIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEnchantment0;
+						if (0 <= enchantmentIndex && enchantmentIndex < EnchantingTableUI.MaxEnchantmentSlots) {
+							stop = true;
+							enchantingTableSlotItem = enchantingTableEnchantments[enchantmentIndex];
+						}
+					}
 
-            //Check itemSlot(s)
-            for (int j = 0; j < EnchantingTable.maxItems; j++) {
-                if (enchantingTableUI.itemSlotUI[j].contains) {
-                    stop = true;
-                    enchantingTableSlotItem = enchantingTableUI.itemSlotUI[j].Item;
-                }
-            }
+					if (!stop) {
+						//Check Essence Slots
+						int essenceIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEssence0;
+						if (0 <= essenceIndex && essenceIndex < EnchantingTableUI.MaxEssenceSlots) {
+							stop = true;
+							enchantingTableSlotItem = enchantingTableEssence[essenceIndex];
+						}
+					}
 
-            //Check enchantmentSlots
-            for (int j = 0; j < EnchantingTable.maxEnchantments && !stop; j++) {
-                if (enchantingTableUI.enchantmentSlotUI[j].contains) {
-                    stop = true;
-                    enchantingTableSlotItem = enchantingTableUI.enchantmentSlotUI[j].Item;
-                }
-            }
+					//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
+					if (stop) {
+						//Prevent trashing an item from the enchanting table.
+						bool itemWillBeTrashed = true;
+						for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
+							//Any open invenotry space or a stack of the same item in the inventory can hold the 
+							if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack + enchantingTableSlotItem.stack <= Player.inventory[i].maxStack))
+								itemWillBeTrashed = false;
+						}
 
-            //Check essenceSlots
-            for (int j = 0; j < EnchantingTable.maxEssenceItems && !stop; j++) {
-                if (enchantingTableUI.essenceSlotUI[j].contains) {
-                    stop = true;
-                    enchantingTableSlotItem = enchantingTableUI.essenceSlotUI[j].Item;
-                }
-            }
+						if (itemWillBeTrashed) {
+							if (Main.mouseItem.IsAir) {
+								Main.mouseItem = enchantingTableSlotItem.Clone();
+								enchantingTableSlotItem.TurnToAir();
+								SoundEngine.PlaySound(SoundID.Grab);
+							}
 
-            //Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
-            if (stop) {
-                bool itemWillBeTrashed = true;
-                for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
-                    if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack < Player.inventory[i].maxStack))
-                        itemWillBeTrashed = false;
-                }
+							return true;
+						}
+					}
+				}
 
-                if (itemWillBeTrashed)
-                    return true;
-            }
+				//Move Item
+				if (!stop) {
+					CheckShiftClickValid(ref inventory[slot], true);
 
-            //Move Item
-            if (!stop) {
-                CheckShiftClickValid(ref inventory[slot], true);
+					return true;
+				}
+			}
 
+			if (UIManager.NoUIBeingHovered && OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(item)) {
+                if (OreBagUI.RoomInStorage(item))
+					OreBagUI.DepositAll(ref inventory[slot]);
+                
                 return true;
             }
 
             return false;
         }
         public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
-            if (WEModSystem.PromptInterfaceActive)
+            if (EnchantingTableUI.DisplayOfferUI)
                 return false;
 
             bool valid = false;
-            if (Main.mouseItem.IsAir) {
+            if (!item.IsAir) {
                 //Trash Item
                 if (!Player.trashItem.IsAir) {
-                    if (Player.trashItem.TryGetEnchantedItem(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
-                        if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal))
+                    if (Player.trashItem.TryGetEnchantedItemSearchAll(out EnchantedItem tGlobal) && !tGlobal.trashItem) {
+                        if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal))
                             trackedTrashGlobal.trashItem = false;
 
                         tGlobal.trashItem = true;
                     }
                 }
-                else if (trackedTrashItem.TryGetEnchantedItem(out EnchantedItem trackedTrashGlobal)) {
+                else if (trackedTrashItem.TryGetEnchantedItemSearchAll(out EnchantedItem trackedTrashGlobal)) {
                     trackedTrashGlobal.trashItem = false;
                 }
 
                 bool hoveringOverTrash = false;
                 if (!item.IsAir) {
-                    if(item.TryGetEnchantedItem(out EnchantedItem enchantedItem) && enchantedItem.trashItem)
+                    if(item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && enchantedItem.trashItem)
                         hoveringOverTrash = true;
                 }
 
@@ -386,9 +473,9 @@ namespace WeaponEnchantments
                 bool canMoveItem = !item.favorited || allowShiftClick;
 
                 if (!hoveringOverTrash && canMoveItem) {
-                    Item tableItem = enchantingTableUI.itemSlotUI[0].Item;
+                    Item tableItem = enchantingTableItem;
 
-                    if (item.type == PowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
+                    if (item.type == PowerBooster.ID && enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
                         //Power Booster
                         if (moveItem) {
                             tableItemGlobal.PowerBoosterInstalled = true;
@@ -404,7 +491,7 @@ namespace WeaponEnchantments
 
                         valid = true;
                     }
-                    else if (item.type == UltraPowerBooster.ID && enchantingTableUI.itemSlotUI[0].Item.TryGetEnchantedItem(out tableItemGlobal) && !tableItemGlobal.UltraPowerBoosterInstalled) {
+                    else if (item.type == UltraPowerBooster.ID && enchantingTableItem.TryGetEnchantedItem(out tableItemGlobal) && !tableItemGlobal.UltraPowerBoosterInstalled) {
                         //Ultra Power Booster
                         if (moveItem) {
                             tableItemGlobal.UltraPowerBoosterInstalled = true;
@@ -421,63 +508,48 @@ namespace WeaponEnchantments
                         valid = true;
                     }
                     else {
-                        //Check/Move item
-                        for (int i = 0; i < EnchantingTable.maxItems; i++) {
-                            if (enchantingTableUI.itemSlotUI[i].Valid(item)) {
-                                if (!item.IsAir) {
-                                    //bool canSwap =  !;
-                                    /*
-                                    if (item.TryGetEnchantedEquipItem(out EnchantedEquipItem enchantedItem)) {
-                                        if (enchantedItem.equippedInArmorSlot && !tableItem.IsAir) {
-                                            doNotSwap = CanSwapArmor(tableItem, item);
-                                            bool tryingToSwapArmor = IsAccessoryItem(item) && !IsArmorItem(item) && (IsAccessoryItem(tableItem) || IsArmorItem(tableItem));
-                                            bool armorTypeDoesntMatch = item.headSlot > -1 && tableItem.headSlot == -1 || item.bodySlot > -1 && tableItem.bodySlot == -1 || item.legSlot > -1 && tableItem.legSlot == -1;
-                                            if (tryingToSwapArmor || armorTypeDoesntMatch)
-                                                doNotSwap = true;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
-                                        }
-                                    }
-                                    */
-                                    
-                                    if (CanSwapArmor(tableItem, item)) {
-                                        if (moveItem) {
-                                            enchantingTableUI.itemSlotUI[i].Item = item.Clone();
-                                            item = itemInEnchantingTable ? itemBeingEnchanted : new Item();
-                                            SoundEngine.PlaySound(SoundID.Grab);
-                                        }
+						//Check/Move item
+						if (EnchantingTableUI.ValidItemForEnchantingSlot(item)) {
+							if (!item.IsAir) {
+								if (CanSwapArmor(tableItem, item)) {
+									if (moveItem) {
+                                        Item swapItem = item.Clone();
+                                        item = enchantingTableItem.IsAir ? new() : enchantingTableItem.Clone();
+                                        enchantingTableItem = swapItem;
+										SoundEngine.PlaySound(SoundID.Grab);
+									}
 
-                                        valid = true;
+									valid = true;
+								}
+							}
+						}
 
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (!valid) {
+						if (!valid) {
                             //Check/Move Enchantment
                             if (item.ModItem is Enchantment enchantment) {
-                                int uniqueItemSlot = WEUIItemSlot.FindSwapEnchantmentSlot(enchantment, enchantingTableUI.itemSlotUI[0].Item);
-                                for (int i = 0; i < EnchantingTable.maxEnchantments; i++) {
-                                    if (!enchantingTableUI.enchantmentSlotUI[i].Valid(item))
+                                int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, enchantingTableItem);
+                                bool uniqueSlotNotFound = uniqueItemSlot == -1;
+								int utilitySlotIndex = EnchantingTableUI.MaxEnchantmentSlots - 1;
+                                for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
+                                    if (!EnchantingTableUI.ValidItemForEnchantmentSlot(item, i, i == utilitySlotIndex))
                                         continue;
 
                                     if (item.IsAir)
                                         continue;
 
-                                    if (enchantingTableUI.enchantmentSlotUI[i].Item.IsAir && uniqueItemSlot == -1) {
+                                    if (enchantingTableEnchantments[i].IsAir && uniqueSlotNotFound) {
                                         //Empty slot or not a unique enchantment
                                         if (moveItem) {
-                                            int s = i;
+                                            int slotIndex = i;
                                             //Utility
-                                            int maxIndex = EnchantingTable.maxEnchantments - 1;
-                                            if ((enchantment.Utility || RemoveEnchantmentRestrictions) && enchantingTableUI.enchantmentSlotUI[maxIndex].Item.IsAir) {
-                                                bool utilitySlotAllowedOnItem = WEUIItemSlot.SlotAllowedByConfig(tableItem, 1);
+                                            if ((enchantment.Utility || RemoveEnchantmentRestrictions) && enchantingTableEnchantments[utilitySlotIndex].IsAir) {
+                                                bool utilitySlotAllowedOnItem = EnchantingTableUI.SlotAllowedByConfig(tableItem, 1);
                                                 if (utilitySlotAllowedOnItem)
-                                                    s = maxIndex;
+                                                    slotIndex = utilitySlotIndex;
                                             }
 
-                                            enchantingTableUI.enchantmentSlotUI[s].Item = item.Clone();
-                                            enchantingTableUI.enchantmentSlotUI[s].Item.stack = 1;
+											enchantingTableEnchantments[slotIndex] = item.Clone();
+											enchantingTableEnchantments[slotIndex].stack = 1;
                                             if (item.stack > 1) {
                                                 item.stack--;
                                             }
@@ -493,13 +565,13 @@ namespace WeaponEnchantments
                                         break;
                                     }
                                     else {
-                                        bool uniqueEnchantmentOnItem = enchantingTableUI.enchantmentSlotUI[i].CheckUniqueSlot(enchantment, uniqueItemSlot);
-                                        if (uniqueItemSlot != -1 && uniqueEnchantmentOnItem && item.type != enchantingTableUI.enchantmentSlotUI[i].Item.type) {
+                                        bool uniqueEnchantmentOnItem = EnchantingTableUI.CheckUniqueSlot(enchantment, uniqueItemSlot, i);
+                                        if (!uniqueSlotNotFound && uniqueEnchantmentOnItem && item.type != enchantingTableEnchantments[i].type) {
                                             //Check unique can swap
                                             if (moveItem) {
-                                                Item returnItem = enchantingTableUI.enchantmentSlotUI[i].Item.Clone();
-                                                enchantingTableUI.enchantmentSlotUI[i].Item = item.Clone();
-                                                enchantingTableUI.enchantmentSlotUI[i].Item.stack = 1;
+                                                Item returnItem = enchantingTableEnchantments[i].Clone();
+                                                enchantingTableEnchantments[i] = item.Clone();
+                                                enchantingTableEnchantments[i].stack = 1;
                                                 if (!returnItem.IsAir) {
                                                     if (item.stack > 1) {
                                                         Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), returnItem);
@@ -527,14 +599,14 @@ namespace WeaponEnchantments
 
                         //Check/Move Essence
                         if (!valid) {
-                            for (int i = 0; i < EnchantingTable.maxEssenceItems; i++) {
-                                if (enchantingTableUI.essenceSlotUI[i].Valid(item)) {
+                            for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
+                                if (EnchantingTableUI.ValidItemForEssenceSlot(item, i)) {
                                     if (!item.IsAir) {
                                         bool canTransfer = false;
-                                        if (enchantingTableUI.essenceSlotUI[i].Item.IsAir) {
+                                        if (enchantingTableEssence[i].IsAir) {
                                             //essence slot empty
                                             if (moveItem) {
-                                                enchantingTableUI.essenceSlotUI[i].Item = item.Clone();
+												enchantingTableEssence[i] = item.Clone();
                                                 item = new Item();
                                             }
 
@@ -542,12 +614,12 @@ namespace WeaponEnchantments
                                         }
                                         else {
                                             //Essence slot not empty
-                                            int maxStack = enchantingTableUI.essenceSlotUI[i].Item.maxStack;
-                                            if (enchantingTableUI.essenceSlotUI[i].Item.stack < maxStack) {
+                                            int maxStack = enchantingTableEssence[i].maxStack;
+                                            if (enchantingTableEssence[i].stack < maxStack) {
                                                 if (moveItem) {
                                                     int ammountToTransfer;
-                                                    if (item.stack + enchantingTableUI.essenceSlotUI[i].Item.stack > maxStack) {
-                                                        ammountToTransfer = maxStack - enchantingTableUI.essenceSlotUI[i].Item.stack;
+                                                    if (item.stack + enchantingTableEssence[i].stack > maxStack) {
+                                                        ammountToTransfer = maxStack - enchantingTableEssence[i].stack;
                                                         item.stack -= ammountToTransfer;
                                                     }
                                                     else {
@@ -555,7 +627,7 @@ namespace WeaponEnchantments
                                                         item.stack = 0;
                                                     }
 
-                                                    enchantingTableUI.essenceSlotUI[i].Item.stack += ammountToTransfer;
+													enchantingTableEssence[i].stack += ammountToTransfer;
                                                 }
 
                                                 canTransfer = true;
@@ -582,16 +654,18 @@ namespace WeaponEnchantments
                     //Pick up item
                     Main.mouseItem = item.Clone();
                     item = new Item();
-                }
+					SoundEngine.PlaySound(SoundID.Grab);
+				}
                 else if (valid && !moveItem && !hoveringOverTrash) {
-                    Main.cursorOverride = 9;
+                    Main.cursorOverride = CursorOverrideID.InventoryToChest;
                 }
             }
-            else if(item.IsAir && moveItem) {
+            else if (moveItem) {
                 //Put item down
                 item = Main.mouseItem.Clone();
                 Main.mouseItem = new Item();
-            }
+				SoundEngine.PlaySound(SoundID.Grab);
+			}
 
             return valid;
         }
@@ -660,8 +734,6 @@ namespace WeaponEnchantments
                 if (armorStatsNeedUpdate) {
                     Item armor = currentArmor[j];
                     armor.CheckRemoveEnchantments(Player);
-                    //UpdatePotionBuffs(ref armor, ref equipArmor[j]);
-                    UpdatePlayerStats(ref armor, ref equipArmor[j]);
                     if (equipArmor[j].TryGetEnchantedEquipItem(out EnchantedEquipItem eaGlobal)) {
                         eaGlobal.equippedInArmorSlot = false;
                     }
@@ -690,8 +762,8 @@ namespace WeaponEnchantments
                 #endregion
 
                 Item newItem = null;
-                if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableUI.itemSlotUI[0].Item, Main.HoverItem))
-                    newItem = enchantingTableUI.itemSlotUI[0].Item;
+                if (usingEnchantingTable && EnchantedItemStaticMethods.IsSameEnchantedItem(enchantingTableItem, Main.HoverItem))
+                    newItem = enchantingTableItem;
 
                 if (newItem != null && EnchantedItemStaticMethods.IsSameEnchantedItem(Player.inventory[hoverItemIndex], Main.HoverItem))
                     newItem = Player.inventory[hoverItemIndex];
@@ -815,25 +887,8 @@ namespace WeaponEnchantments
                     trackedHoverItem = null;
                 }
             }
-
-            foreach (int key in buffs.Keys) {
-                Player.AddBuff(key, 60);
-            }
         }
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
-            if (Player.difficulty == 1 || Player.difficulty == 2) {
-                for (int i = 0; i < Player.inventory.Length; i++) {
-                    if (Player.inventory[i].TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-                        enchantedItem.appliedStatModifiers.Clear();
-                    }
-                }
-                for (int i = 0; i < Player.armor.Length; i++) {
-                    if (Player.armor[i].TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-                        enchantedItem.appliedStatModifiers.Clear();
-                    }
-                }
-            }
-
             if (WEMod.calamityEnabled) {
                 CalamityRespawnMinionSourceItems.Clear();
                 for (int i = 0; i < 200; i++) {
@@ -844,7 +899,10 @@ namespace WeaponEnchantments
 			}
         }
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath) {
-            List<Item> items = new List<Item>();
+            List<Item> items = new List<Item>() {
+                new(ModContent.ItemType<OreBag>())
+            };
+
             if (WEMod.serverConfig.DCUStart) {
                 Item item = new Item(ItemID.DrillContainmentUnit);
                 items.Add(item);
@@ -852,24 +910,14 @@ namespace WeaponEnchantments
 
             return items;
         }
-        public override void ResetEffects() {
-            bool updatePlayerStat = false;
-            foreach (string key in statModifiers.Keys) {
-                string name = key.RemoveInvert().RemovePrevent();
-                if (Player.GetType().GetField(name) != null) {
-                    appliedStatModifiers.Remove(key);
-                    updatePlayerStat = true;
-                }
-            }
-            if (updatePlayerStat)
-                UpdatePlayerStat();
-		
+		public override void ResetEffects() {
 			cursedEssenceCount = 0;
         }
 
-        #endregion
 
-        #region Modify Hit
+		#endregion
+
+		#region Modify Hit
 
         //public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit) {
         //    ModifyHitNPCWithAny(item, target, ref damage, ref knockback, ref crit, ref Player.direction);
@@ -972,9 +1020,9 @@ namespace WeaponEnchantments
                         float combinedMultiplier = correctedMultiplier / vanillaMultiplier;
                         damage = (int)Math.Round((float)damage * combinedMultiplier);
                     }
+                    }
                 }
             }
-        }
         private void ApplyExcessArmorPenetrationBonusDamage(NPC target, Item item, ref int damage, int armorPenetration) {
             //Armor penetration bonus damage
             int defenseNoNegative = target.defense > 0 ? target.defense : 0;
@@ -1055,8 +1103,6 @@ namespace WeaponEnchantments
             bool skipOnHitEffects = fromProjectile ? ((WEProjectile)projectile.GetMyGlobalProjectile()).skipOnHitEffects : false;
             bool dummyTarget = target.IsDummy();
 
-            Dictionary<string, StatModifier> ItemEStats = enchantedItem.eStats;
-
             //Enemy debuffs
             if (!skipOnHitEffects) {
                 //Debuffs
@@ -1108,12 +1154,6 @@ namespace WeaponEnchantments
                     //On Hit Player buffs
                     Player.ApplyBuffs(CombinedOnHitBuffs);
                 }
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"item: {item.S()} {ItemEStats.S("OneForAll")}").Log();
-
-                #endregion
 
                 ApplyLifeSteal(item, target, damage, oneForAllDamageDealt);
             }
@@ -1167,7 +1207,7 @@ namespace WeaponEnchantments
             int wormCounter = 0;
             Dictionary<NPC, (int, bool)> oneForAllNPCDictionary = new Dictionary<NPC, (int, bool)>();
 
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return 0;
 
 			//Range
@@ -1407,7 +1447,7 @@ namespace WeaponEnchantments
 			if (VanillaStats.ContainsKey(enchantmentStat))
 				VanillaStats[enchantmentStat].ApplyTo(ref strength);
 
-			if (item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem)) {
+			if (item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
 				if (enchantedHeldItem.VanillaStats.ContainsKey(enchantmentStat))
 					enchantedHeldItem.VanillaStats[enchantmentStat].ApplyTo(ref strength);
 			}
@@ -1508,7 +1548,7 @@ namespace WeaponEnchantments
                     int damagePlayerTakes = (int)Main.CalculateDamagePlayersTake(damage, Player.statDefense);
                     int damageReductionFromDefense = damage - damagePlayerTakes;
                     damage = (int)(damagePlayerTakes * damageMultiplier + damageReductionFromDefense);
-                }
+				}
 			}
 
             return true;
@@ -1551,30 +1591,15 @@ namespace WeaponEnchantments
             if (newEquipment != LastPlayerEquipment) {
                 LastPlayerEquipment = newEquipment;
                 UpdateEnchantmentEffects();
-                /*
-                PassiveEffects = new List<IPassiveEffect>();
-                StatEffects = new List<StatEffect>();
-
-                // Divide effects based on what is needed.
-                foreach (EnchantmentEffect effect in EnchantmentEffects) {
-                    if (effect is IPassiveEffect passiveEffect)
-                        PassiveEffects.Add(passiveEffect);
-
-                    if (effect is StatEffect statEffect)
-                        StatEffects.Add(statEffect);
-                }
-                */
             }
 
             LastPlayerEquipment.CombineDictionaries();
             LastPlayerEquipment.CombineOnHitDictionaries();
 
-            // Apply all PostUpdateMiscEffects
             foreach (IPassiveEffect effect in CombinedPassiveEffects) {
                 effect.PostUpdateMiscEffects(this);
             }
-
-            // Apply them if there's any.
+            
             ApplyStatEffects();
 
             ApplyPlayerSetEffects();
@@ -1711,11 +1736,6 @@ namespace WeaponEnchantments
                 effect.OnHitNPC(target, this, item, damage, knockback, crit, proj);
             }
         }
-
-		#endregion
-
-		#region Old Enchantment Stat System
-
 		public bool ItemChanged(Item current, Item previous, bool weapon = false) {
             if (current != null && !current.IsAir) {
                 if (previous == null)
@@ -1724,7 +1744,7 @@ namespace WeaponEnchantments
                 if (previous.IsAir) {
                     return true;
                 }
-                else if (current.TryGetEnchantedItem(out EnchantedItem cGlobal)) {
+                else if (current.TryGetEnchantedItemSearchAll(out EnchantedItem cGlobal)) {
                     if (weapon) {
                         if (cGlobal is EnchantedWeapon enchantedWeapon && !enchantedWeapon.trackedWeapon)
                             return true;
@@ -1741,303 +1761,8 @@ namespace WeaponEnchantments
 
             return false;
         }
-        /*public void UpdatePotionBuffs(ref Item newItem, ref Item oldItem) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-
-            UpdatePotionBuff(ref newItem);
-            UpdatePotionBuff(ref oldItem, true);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePotionBuffs(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-        }
-        private void UpdatePotionBuff(ref Item item, bool remove = false) {
-
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
-                return;
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-
-            WEPlayer wePlayer = Player.GetModPlayer<WEPlayer>();
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"potionBuffs.Count: {buffs.Count}, enchantedItem.potionBuffs.Count: {enchantedItem.buffs.Count}").Log();
-
-            #endregion
-
-            foreach (int key in enchantedItem.buffs.Keys) {
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"player: {buffs.S(key)}, item: {enchantedItem.buffs.S(key)}").Log();
-
-                #endregion
-
-                if (wePlayer.buffs.ContainsKey(key)) {
-                    wePlayer.buffs[key] += enchantedItem.buffs[key] * (remove ? -1 : 1);
-                }
-                else {
-                    wePlayer.buffs.Add(key, enchantedItem.buffs[key]);
-                }
-
-                if (remove && wePlayer.buffs[key] < 1)
-                    wePlayer.buffs.Remove(key);
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"player: {buffs.S(key)}, item: {enchantedItem.buffs.S(key)}").Log();
-
-                #endregion
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePotionBuff(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-        }*/
-        public static StatModifier CombineStatModifier(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove) {
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"\\/CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
-
-            #endregion
-
-            StatModifier finalModifier;
-            if (remove) {
-                finalModifier = new StatModifier(baseStatModifier.Additive / newStatModifier.Additive, baseStatModifier.Multiplicative / newStatModifier.Multiplicative, baseStatModifier.Flat - newStatModifier.Flat, baseStatModifier.Base - newStatModifier.Base);
-            }
-            else {
-                finalModifier = new StatModifier(baseStatModifier.Additive * newStatModifier.Additive, baseStatModifier.Multiplicative * newStatModifier.Multiplicative, baseStatModifier.Flat + newStatModifier.Flat, baseStatModifier.Base + newStatModifier.Base);
-            }
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"/\\CombineStatModifier(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
-
-            #endregion
-
-            return finalModifier;
-        }
-        public static StatModifier InverseCombineWith(StatModifier baseStatModifier, StatModifier newStatModifier, bool remove) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") StatModifier").Log();
-
-            #endregion
-
-            StatModifier newInvertedStatModifier;
-            if (remove) {
-                newInvertedStatModifier = new StatModifier(2f - newStatModifier.Additive, 1f / newStatModifier.Multiplicative, -newStatModifier.Flat, -newStatModifier.Base);
-            }
-            else {
-                newInvertedStatModifier = newStatModifier;
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"newInvertedStatModifier: " + newInvertedStatModifier.S()).Log();
-
-            #endregion
-
-            StatModifier finalModifier = baseStatModifier.CombineWith(newInvertedStatModifier);
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\InverseCombineWith(baseStatModifier: " + baseStatModifier.S() + ", newStatModifier: " + newStatModifier.S() + ", remove: " + remove + ") return " + finalModifier.S()).Log();
-
-            #endregion
-
-            return finalModifier;
-        }
-        public static void TryRemoveStat(ref Dictionary<string, StatModifier> dictionary, string key) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
-
-            #endregion
-
-            if (dictionary.ContainsKey(key)) {
-                if ((float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Additive, 4)) - 1f) < 1E-4 && (float)Math.Abs(Math.Abs(Math.Round(dictionary[key].Multiplicative, 4)) - 1f) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Flat, 4)) < 1E-4 && Math.Abs(Math.Round(dictionary[key].Base, 4)) < 1E-4) {
-                    dictionary.Remove(key);
-                }
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\TryRemoveStat( dictionary, key: " + key + ") dictionary: " + dictionary.S(key)).Log();
-
-            #endregion
-        }
-        public void UpdatePlayerStats(ref Item newItem, ref Item oldItem) {
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-
-            if (IsEnchantable(newItem))
-                UpdatePlayerDictionaries(newItem);
-
-            if (IsEnchantable(oldItem))
-                UpdatePlayerDictionaries(oldItem, true);
-
-            if (IsEnchantable(newItem))
-                UpdateItemStats(ref newItem);
-
-            if (!IsWeaponItem(newItem)) {
-                Item weapon = null;
-                if (Player.HeldItem.TryGetEnchantedWeapon(out EnchantedWeapon enchantedWeapon) && enchantedWeapon.trackedWeapon) {
-                    weapon = Player.HeldItem;
-                }
-                else if (Main.mouseItem.TryGetEnchantedWeapon(out EnchantedWeapon miEnchantedWeapon) && miEnchantedWeapon.trackedWeapon) {
-                    weapon = Main.mouseItem;
-                }
-
-                if (weapon != null)
-                    UpdateItemStats(ref weapon);
-            }
-
-            UpdatePlayerStat();
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePlayerStats(" + newItem.S() + ", " + oldItem.S() + ")").Log();
-
-            #endregion
-        }
-        private void UpdatePlayerStat() {
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"\\/UpdatePlayerStat()").Log();
-
-            #endregion
-
-            foreach (string key in statModifiers.Keys) {
-                string statName = key.RemoveInvert();
-                bool statsNeedUpdate = true;
-                if (appliedStatModifiers.ContainsKey(key))
-                    statsNeedUpdate = statModifiers[key] != appliedStatModifiers[key];
-
-                if (statsNeedUpdate) {
-                    Type playerType = Player.GetType();
-                    FieldInfo field = playerType.GetField(statName);
-                    PropertyInfo property = playerType.GetProperty(statName);
-                    if (field != null || property != null) {
-                        if (!appliedStatModifiers.ContainsKey(key))
-                            appliedStatModifiers.Add(key, StatModifier.Default);
-
-                        StatModifier lastAppliedStatModifier = appliedStatModifiers[key];
-                        appliedStatModifiers[key] = statModifiers[key];
-                        StatModifier staticStat = CombineStatModifier(statModifiers[key], lastAppliedStatModifier, true);
-                        if (field != null) {
-                            Type fieldType = field.FieldType;
-                            //float (field)
-                            if (fieldType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)field.GetValue(Player));
-                                field.SetValue(Player, finalValue);
-                            }
-
-                            //int (field)
-                            if (fieldType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(Player));
-                                field.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (field)
-                            if (fieldType == typeof(bool)) {
-                                bool baseValue = (bool)field.GetValue(new Player());
-                                bool finalValue = statModifiers[key].Additive != 1f;
-                                field.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                        else if (property != null) {
-                            Type propertyType = property.PropertyType;
-                            //float (property)
-                            if (propertyType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)property.GetValue(Player));
-                                property.SetValue(Player, finalValue);
-                            }
-
-                            //int (property)
-                            if (propertyType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)property.GetValue(Player));
-                                property.SetValue(Player, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (property)
-                            if (propertyType == typeof(bool)) {
-                                bool baseValue = (bool)property.GetValue(new Player());
-                                bool finalValue = statModifiers[key].Additive != 1f;
-                                property.SetValue(Player, !statModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                    }
-                }
-            }
-
-            #region Debug
-
-			if (LogMethods.debuggingOnTick) ($"/\\UpdatePlayerStat()").Log();
-
-            #endregion
-        }
-        private void UpdatePlayerDictionaries(Item item, bool remove = false) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
-                return;
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"\\/UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ") statModifiers.Count: " + enchantedItem.statModifiers.Count).Log();
-
-            #endregion
-
-            foreach (string key in enchantedItem.statModifiers.Keys) {
-                string statName = key.RemoveInvert();
-                if (!IsWeaponItem(item) || item.GetType().GetField(statName) == null && item.GetType().GetProperty(statName) == null) {
-                    if (!statModifiers.ContainsKey(key))
-                        statModifiers.Add(key, StatModifier.Default);
-
-                    statModifiers[key] = InverseCombineWith(statModifiers[key], enchantedItem.statModifiers[key], remove);
-                    TryRemoveStat(ref statModifiers, key);
-                }
-            }
-
-            if (!IsWeaponItem(item)) {
-                foreach (string key in enchantedItem.eStats.Keys) {
-                    if (!eStats.ContainsKey(key))
-                        eStats.Add(key, StatModifier.Default);
-
-                    eStats[key] = InverseCombineWith(eStats[key], enchantedItem.eStats[key], remove);
-                    TryRemoveStat(ref eStats, key);
-                }
-            }
-
-            #region Debug
-
-            if (LogMethods.debugging) ($"/\\UpdatePlayerDictionaries(" + item.S() + ", remove: " + remove + ")").Log();
-
-            #endregion
-        }
         public void UpdateItemStats(ref Item item) {
-            if (!item.TryGetEnchantedItem(out EnchantedItem enchantedItem))
+            if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 
             #region Debug
@@ -2049,8 +1774,6 @@ namespace WeaponEnchantments
             //Prefix
             int trackedPrefix = enchantedItem.prefix;
             if (trackedPrefix != item.prefix) {
-                enchantedItem.appliedStatModifiers.Clear();
-                enchantedItem.appliedEStats.Clear();
                 enchantedItem.prefix = item.prefix;
                 if (enchantedItem is EnchantedWeapon enchantedWeapon && enchantedWeapon.damageType != DamageClass.Default)
                     item.DamageType = enchantedWeapon.damageType;
@@ -2061,205 +1784,6 @@ namespace WeaponEnchantments
                 int armorSlot = item.GetInfusionArmorSlot(false, true);
                 if (infusedArmorSlot != -1 && armorSlot != infusedArmorSlot)
                     item.UpdateArmorSlot(enchantedArmor.infusedArmorSlot);
-            }
-
-            //Populate itemStatModifiers
-            Dictionary<string, StatModifier> combinedStatModifiers = new Dictionary<string, StatModifier>();
-            foreach (string itemKey in enchantedItem.statModifiers.Keys) {
-                string riItemKey = itemKey.RemoveInvert().RemovePrevent();
-                if (item.GetType().GetField(riItemKey) != null || item.GetType().GetProperty(riItemKey) != null) {
-                    StatModifier riStatModifier = itemKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, enchantedItem.statModifiers[itemKey], true) : enchantedItem.statModifiers[itemKey];
-                    if (combinedStatModifiers.ContainsKey(riItemKey))
-                        combinedStatModifiers[riItemKey] = combinedStatModifiers[riItemKey].CombineWith(riStatModifier);
-                    else
-                        combinedStatModifiers.Add(riItemKey, riStatModifier);
-
-                    #region Debug
-
-                    if (LogMethods.debugging) ($"combinedStatModifiers.Add(itemKey: " + itemKey + ", " + enchantedItem.statModifiers.S(itemKey) + ")").Log();
-
-                    #endregion
-                }
-            }
-
-            //Populate playerStatModifiers if item is a weapon
-            if (IsWeaponItem(item)) {
-                foreach (string playerKey in statModifiers.Keys) {
-                    string riPlayerKey = playerKey.RemoveInvert().RemovePrevent();
-                    if (item.GetType().GetField(riPlayerKey) != null || item.GetType().GetProperty(riPlayerKey) != null) {
-                        StatModifier riStatModifier = playerKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, statModifiers[playerKey], true) : statModifiers[playerKey];
-                        if (combinedStatModifiers.ContainsKey(riPlayerKey)) {
-                            combinedStatModifiers[riPlayerKey] = combinedStatModifiers[riPlayerKey].CombineWith(riStatModifier);
-                        }
-                        else {
-                            combinedStatModifiers.Add(riPlayerKey, riStatModifier);
-                        }
-
-                        #region Debug
-
-                        if (LogMethods.debugging) ($"combinedStatModifiers.Add(playerKey: " + playerKey + ", " + enchantedItem.statModifiers.S(playerKey) + ")").Log();
-
-                        #endregion
-                    }
-                }
-            }
-
-            foreach (string key in enchantedItem.appliedStatModifiers.Keys) {
-                if (!combinedStatModifiers.ContainsKey(key))
-                    combinedStatModifiers.Add(key, StatModifier.Default);
-            }
-
-            bool statsUpdated = false;
-            foreach (string key in combinedStatModifiers.Keys) {
-                bool statsNeedUpdate = true;
-                if (enchantedItem.appliedStatModifiers.ContainsKey(key))
-                    statsNeedUpdate = combinedStatModifiers[key] != enchantedItem.appliedStatModifiers[key];
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"statsNeedUpdate: " + statsNeedUpdate + " combinedStatModifiers[" + key + "]: " + combinedStatModifiers.S(key) + " != item.G().appliedStatModifiers[" + key + "]: " + enchantedItem.appliedStatModifiers.S(key)).Log();
-
-                #endregion
-
-                if (statsNeedUpdate) {
-                    FieldInfo field = item.GetType().GetField(key);
-                    PropertyInfo property = item.GetType().GetProperty(key);
-                    if (field != null || property != null) {
-                        if (!enchantedItem.appliedStatModifiers.ContainsKey(key))
-                            enchantedItem.appliedStatModifiers.Add(key, StatModifier.Default);
-
-                        StatModifier lastAppliedStatModifier = enchantedItem.appliedStatModifiers[key];
-                        enchantedItem.appliedStatModifiers[key] = combinedStatModifiers[key];
-                        StatModifier staticStat = CombineStatModifier(combinedStatModifiers[key], lastAppliedStatModifier, true);
-                        if (field != null) {
-                            Type fieldType = field.FieldType;
-                            //float (field)
-                            if (fieldType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)field.GetValue(item));
-                                field.SetValue(item, finalValue);
-                            }
-
-                            //int (field)
-                            if (fieldType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)field.GetValue(item));
-                                staticStat.RoundCheck(ref finalValue, (int)field.GetValue(item), enchantedItem.appliedStatModifiers[key], (int)field.GetValue(ContentSamples.ItemsByType[item.type]));
-                                field.SetValue(item, (int)Math.Round(finalValue + 5E-6));
-                                //$"{key}: {(int)Math.Round(finalValue + 5E-6)}".Log();
-                            }
-
-                            //bool (field)
-                            if (fieldType == typeof(bool)) {
-                                bool baseValue = (bool)field.GetValue(ContentSamples.ItemsByType[item.type]);
-                                bool finalValue = combinedStatModifiers[key].Additive > 1.001f;
-                                bool containtPrevent = enchantedItem.statModifiers.ContainsKey("P_" + key) && enchantedItem.statModifiers["P_" + key].Additive > 1.001f || statModifiers.ContainsKey("P_" + key) && statModifiers["P_" + key].Additive > 1.001f;
-                                bool setValue = !containtPrevent && (baseValue || finalValue);
-                                field.SetValue(item, setValue);
-                            }
-                        }
-                        else if (property != null) {
-                            Type propertyType = property.PropertyType;
-                            //float (property)
-                            if (propertyType == typeof(float)) {
-                                float finalValue = staticStat.ApplyTo((float)property.GetValue(item));
-                                property.SetValue(item, finalValue);
-                            }
-
-                            //int (property)
-                            if (propertyType == typeof(int)) {
-                                float finalValue = staticStat.ApplyTo((float)(int)property.GetValue(item));
-                                staticStat.RoundCheck(ref finalValue, (int)property.GetValue(item), enchantedItem.appliedStatModifiers[key], (int)property.GetValue(ContentSamples.ItemsByType[item.type]));
-                                property.SetValue(item, (int)Math.Round(finalValue + 5E-6));
-                            }
-
-                            //bool (property)
-                            if (propertyType == typeof(bool)) {
-                                bool baseValue = (bool)property.GetValue(ContentSamples.ItemsByType[item.type]);
-                                bool finalValue = combinedStatModifiers[key].Additive != 1f;
-                                property.SetValue(item, !combinedStatModifiers.ContainsKey("P_" + key) && (baseValue || finalValue));
-                            }
-                        }
-                    }
-
-                    statsUpdated = true;
-                }
-            }
-
-            //Populate itemeStats
-            Dictionary<string, StatModifier> combinedEStats = new Dictionary<string, StatModifier>();
-            foreach (string itemKey in enchantedItem.eStats.Keys) {
-                string riItemKey = itemKey.RemoveInvert();
-                StatModifier riEStat = itemKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, enchantedItem.eStats[itemKey], true) : enchantedItem.eStats[itemKey];
-                if (combinedEStats.ContainsKey(riItemKey)) {
-                    combinedEStats[riItemKey] = combinedEStats[riItemKey].CombineWith(riEStat);
-                }
-                else {
-                    combinedEStats.Add(riItemKey, riEStat);
-                }
-
-                #region Debug
-
-                if (LogMethods.debugging) ($"combinedEStats.Add(itemKey: " + itemKey + ", " + enchantedItem.eStats.S(itemKey) + ")").Log();
-
-                #endregion
-            }
-
-            //Populate playereStats if item is a weapon
-            if (IsWeaponItem(item)) {
-                foreach (string playerKey in eStats.Keys) {
-                    string riPlayerKey = playerKey.RemoveInvert();
-                    StatModifier riEStat = playerKey.ContainsInvert() ? CombineStatModifier(StatModifier.Default, eStats[playerKey], true) : eStats[playerKey];
-                    if (combinedEStats.ContainsKey(riPlayerKey)) {
-                        combinedEStats[riPlayerKey] = combinedEStats[riPlayerKey].CombineWith(riEStat);
-                    }
-                    else {
-                        combinedEStats.Add(riPlayerKey, riEStat);
-                    }
-
-                    #region Debug
-
-                    if (LogMethods.debugging) ($"combinedEStats.Add(riPlayerKey: " + riPlayerKey + ", " + enchantedItem.eStats.S(playerKey) + ")").Log();
-
-                    #endregion
-                }
-            }
-
-            foreach (string key in enchantedItem.appliedEStats.Keys) {
-                if (!combinedEStats.ContainsKey(key))
-                    combinedEStats.Add(key, StatModifier.Default);
-            }
-
-            bool eStatsUpdated = false;
-            foreach (string key in combinedEStats.Keys) {
-                bool statsNeedUpdate = true;
-                if (enchantedItem.appliedEStats.ContainsKey(key))
-                    statsNeedUpdate = combinedEStats[key] != enchantedItem.appliedEStats[key];
-
-                if (statsNeedUpdate) {
-                    if (!enchantedItem.appliedEStats.ContainsKey(key)) {
-                        enchantedItem.appliedEStats.Add(key, combinedEStats[key]);
-                    }
-                    else {
-                        enchantedItem.appliedEStats[key] = combinedEStats[key];
-                    }
-
-                    eStatsUpdated = true;
-                }
-            }
-
-			if (statsUpdated) {
-                foreach (string key in enchantedItem.statModifiers.Keys)
-                    TryRemoveStat(ref enchantedItem.statModifiers, key);
-
-                foreach (string key in enchantedItem.appliedStatModifiers.Keys)
-                    TryRemoveStat(ref enchantedItem.appliedStatModifiers, key);
-            }
-            
-            if (eStatsUpdated) {
-                foreach (string key in enchantedItem.eStats.Keys)
-                    TryRemoveStat(ref enchantedItem.eStats, key);
-
-                foreach (string key in enchantedItem.appliedEStats.Keys)
-                    TryRemoveStat(ref enchantedItem.appliedEStats, key);
             }
 
             #region Debug
@@ -2558,11 +2082,6 @@ namespace WeaponEnchantments
                 if (!oldItem.IsAir && oldItem.TryGetEnchantedWeapon(out EnchantedWeapon oldGlobal))
                     oldGlobal.trackedWeapon = false;
 
-                Item newCheckItem = IsWeaponItem(newItem) ? newItem : new Item();
-                Item oldCheckItem = IsWeaponItem(oldItem) ? oldItem : new Item();
-                //wePlayer.UpdatePotionBuffs(ref newCheckItem, ref oldCheckItem);
-                wePlayer.UpdatePlayerStats(ref newCheckItem, ref oldCheckItem);
-
                 oldItem = newItem;
 
                 #region Debug
@@ -2600,11 +2119,11 @@ namespace WeaponEnchantments
             }
 			else {
                 armorPenetration = (int)player.GetTotalArmorPenetration(DamageClass.Generic);
-			}
+            }
 
             damageReduction = target.defense / 2 - target.checkArmorPenetration(armorPenetration);
 
             return armorPenetration;
         }
-    }
+	}
 }

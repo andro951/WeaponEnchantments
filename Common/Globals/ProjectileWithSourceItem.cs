@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Common.Globals
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             //All other sources
             if (source is EntitySource_ItemUse uSource) {
-                if (uSource.Item != null && uSource.Item.TryGetEnchantedItem(out EnchantedItem uSourceGlobal)) {
+                if (uSource.Item != null && uSource.Item.TryGetEnchantedItemSearchAll(out EnchantedItem uSourceGlobal)) {
                     sourceItem = uSource.Item;
                     ItemSourceSet = true;
                 }
@@ -246,7 +246,7 @@ namespace WeaponEnchantments.Common.Globals
             if (wePlayer.VanillaStats.ContainsKey(enchantmentStat))
                 wePlayer.VanillaStats[enchantmentStat].ApplyTo(ref strength);
 
-            if (sourceItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem)) {
+            if (sourceItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
                 if (enchantedHeldItem.VanillaStats.ContainsKey(enchantmentStat))
                     enchantedHeldItem.VanillaStats[enchantmentStat].ApplyTo(ref strength);
             }
@@ -256,7 +256,7 @@ namespace WeaponEnchantments.Common.Globals
         protected bool GetEnchantmentModifierStrength(EnchantmentStat enchantmentStat, out float strength, float baseStrength = 1f) {
             strength = baseStrength;
 
-            if (!sourceItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (!sourceItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return false;
 
             if (enchantedHeldItem.EnchantmentStats.ContainsKey(enchantmentStat))

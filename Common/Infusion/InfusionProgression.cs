@@ -1,4 +1,6 @@
-﻿using Terraria.ID;
+﻿using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,7 @@ using System.Diagnostics;
 using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
 using Ionic.Zlib;
-using IL.Terraria.GameContent.Bestiary;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.Common
 {
@@ -483,7 +485,7 @@ namespace WeaponEnchantments.Common
 		public static void ClearSetupData() {
 			addedItems.Clear();
 		}
-		public ProgressionGroup Parent => parentID > ProgressionGroupID.None ? progressionGroups[parentID] : null;
+		public ProgressionGroup Parent => parentID > ProgressionGroupID.None ? ProgressionGroups[parentID] : null;
 		private ProgressionGroupID parentID;
 		public ProgressionGroupID ID { get; private set; }
 		int infusionPower;
@@ -958,7 +960,7 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, int> OreInfusionPowers {
 			get {
 				if (oreInfusionPowers == null) {
-					IEnumerable<ProgressionGroup> oreGroups = progressionGroups.Where(g => g.Key <= ProgressionGroupID.MoonLord && $"{g.Key}".EndsWith("Ore")).Select(g => g.Value);
+					IEnumerable<ProgressionGroup> oreGroups = ProgressionGroups.Where(g => g.Key <= ProgressionGroupID.MoonLord && $"{g.Key}".EndsWith("Ore")).Select(g => g.Value);
 					oreInfusionPowers = new(oreGroups.ToDictionary(g => g.ItemTypes.First(), g => g.InfusionPower));
 				}
 
@@ -971,7 +973,15 @@ namespace WeaponEnchantments.Common
 		public static SortedDictionary<int, SortedSet<int>> WeaponsFromLootItems { get; private set; } = new();
 		public static SortedDictionary<int, SortedSet<int>> IngredientsFromLootItems { get; private set; } = new();
 		public static SortedSet<int> LootItemTypes { get; private set; } = new();
-		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = new();
+		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> ProgressionGroups {
+			get {
+				if (progressionGroups == null)
+					SetupProgressionGroups();
+
+				return progressionGroups;
+			}
+		}
+		public static SortedDictionary<ProgressionGroupID, ProgressionGroup> progressionGroups = null;
 		private static SortedDictionary<int, (int pickPower, float value)> infusionPowerTiles = null;
 		public static SortedDictionary<int, (int pickPower, float value)> InfusionPowerTiles {
 			get {
@@ -1008,7 +1018,6 @@ namespace WeaponEnchantments.Common
 			GetAllCraftingResources();
 			SetupItemsFromNPCs();
 			SetupItemsFromLootItems();
-			SetupProgressionGroups();
 			PopulateItemInfusionPowers();
 			GuessMinedOreInfusionPowers();
 		}
@@ -1240,6 +1249,7 @@ namespace WeaponEnchantments.Common
 			//if (Debugger.IsAttached) $"\nIngredientsFromLootItems:\n{IngredientsFromLootItems.OrderBy(p => p.Key.CSI().GetWeaponInfusionPower()).Select(p => $"{p.Key.CSI().S()} from {p.Value.Select(i => i.CSI().S()).JoinList(", ")}").S()}".LogSimple();
 		}
 		private static void SetupProgressionGroups() {
+			progressionGroups = new();
 
 			#region Vanilla Groups
 
@@ -2448,6 +2458,10 @@ namespace WeaponEnchantments.Common
 						"StarsAbove/EssenceOfOuterGods",
 						"StarsAbove/EssenceOfTheAnomaly"
 					});//190
+				progressionGroups[ProgressionGroupID.Hell].AddItems(
+					new SortedSet<string>() {
+						"StarsAbove/EssenceOfDespair"
+					});//190
 				progressionGroups[ProgressionGroupID.PostBeeEasy].AddItems(
 					new SortedSet<string>() {
 						"StarsAbove/EssenceOfBitterfrost",
@@ -3065,7 +3079,8 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.TrojanSquirrel, 70));
 				AddProgressionGroup(new(ProgressionGroupID.FargosUnobtainableItems, 200,
 					itemNames: new SortedSet<string>() {
-						"FargowiltasSouls/SpiritLongbow"
+						"FargowiltasSouls/SpiritLongbow",
+						"FargowiltasSouls/PrismaRegalia"
 					}));
 				AddProgressionGroup(new(ProgressionGroupID.DeviBoss, 395));
 				AddProgressionGroup(new(ProgressionGroupID.LieFlight, 650));
@@ -3265,7 +3280,7 @@ namespace WeaponEnchantments.Common
 			}
 		}
 		private static void PopulateItemInfusionPowers() {
-			IEnumerable<ProgressionGroup> progressionGroupsEnum = progressionGroups.Values.OrderBy(g => g.InfusionPower);
+			IEnumerable<ProgressionGroup> progressionGroupsEnum = ProgressionGroups.Values.OrderBy(g => g.InfusionPower);
 			foreach (ProgressionGroup progressionGroup in progressionGroupsEnum) {
 				int infusionPower = progressionGroup.InfusionPower;
 				foreach (int itemType in progressionGroup.ItemTypes) {
@@ -3337,8 +3352,7 @@ namespace WeaponEnchantments.Common
 				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S("Ingredient infusion powers not setup")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
 		}
 		private static void GuessMinedOreInfusionPowers() {
-			SortedDictionary<int, (int tile, Item item)> infusionPowerTiles = new();
-			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
+			foreach (int tileType in OreBagUI.ModOreTileTypes) {
 				int itemType = WEGlobalTile.GetDroppedItem(tileType, ignoreError: true);
 				if (itemType <= 0)
 					continue;
@@ -3346,22 +3360,15 @@ namespace WeaponEnchantments.Common
 				if (ItemInfusionPowers.ContainsKey(itemType))
 					continue;
 
-				Item item = itemType.CSI();
-				ModTile modTile = TileLoader.GetTile(tileType);
-				if (itemType > 0 && modTile != null) {
-					bool ore = TileID.Sets.Ore[tileType];
-					int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
-					float mineResist = modTile.MineResist;
-					float value = item.value;
-					if (ore || ((requiredPickaxePower > 0 || mineResist > 1) && value > 0)) {
-						if (!WeaponCraftingIngredients.Contains(itemType))
-							continue;
+				if (!WeaponCraftingIngredients.Contains(itemType))
+					continue;
 
-						int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
-						ItemInfusionPowers.Add(itemType, infusionPower);
-						$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
-					}
-				}
+				Item item = itemType.CSI();
+				int requiredPickaxePower = WEGlobalTile.GetRequiredPickaxePower(tileType, true);
+				float value = item.value;
+				int infusionPower = GuessOreInfusionPower(requiredPickaxePower, value);
+				ItemInfusionPowers.Add(itemType, infusionPower);
+				$"Ore {item.S()} infusion power not set up. Guessed infusion power: {infusionPower}".LogNT(ChatMessagesIDs.OreInfusionPowerNotSetup);
 			}
 
 			//if (Debugger.IsAttached) $"\nOreInfusionPowers\n{OreInfusionPowers.Select(i => $"{i.Key.CSI().S()}: {i.Value}").JoinList("\n")}".LogSimple();
@@ -3369,6 +3376,7 @@ namespace WeaponEnchantments.Common
 
 		#region Supporting Functions
 		private static int recursionCounter = 0;
+		private static SortedSet<int> createItemTypesAlreadyBeingProcessed = new();
 		private static bool TryGetAllCraftingIngredientTypes(int createItemType, out HashSet<HashSet<int>> ingredients) {
 			//if (Debugger.IsAttached) $"\\/TryGetAllCraftingIngredientTypes({createItemType.CSI().S()})".LogSimple();
 			bool first = recursionCounter == 0;
@@ -3379,7 +3387,8 @@ namespace WeaponEnchantments.Common
 			}
 
 			HashSet<HashSet<int>> resultIngredients = new();
-			if (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType)) {
+			if (!createItemTypesAlreadyBeingProcessed.Contains(createItemType) && (finishedRecipeSetup || !allExpandedRecepies.ContainsKey(createItemType))) {
+				createItemTypesAlreadyBeingProcessed.Add(createItemType);
 				//IEnumerable<Recipe> recipies = Main.recipe.Where((r, index) => r.createItem.type == createItemType);//TODO: troubleshoot, Goes infinite with Calamity.  
 				IEnumerable<int> recipeNumbers = Main.recipe.Select((r, index) => index).Where(index => Main.recipe[index].createItem.type == createItemType && (Main.recipe[index].createItem.type > ItemID.Count || index <= VANILLA_RECIPE_COUNT));
 				HashSet<HashSet<HashSet<int>>> requiredItemTypeLists = new();
@@ -3421,6 +3430,7 @@ namespace WeaponEnchantments.Common
 					requiredItemTypeLists.Add(requiredItemTypes);
 				}
 
+				createItemTypesAlreadyBeingProcessed.Remove(createItemType);
 				resultIngredients = resultIngredients.CombineIngredientLists(requiredItemTypeLists);
 				if (!finishedRecipeSetup)
 					allExpandedRecepies.Add(createItemType, resultIngredients);
@@ -3430,7 +3440,7 @@ namespace WeaponEnchantments.Common
 				ingredients = resultIngredients;
 			}
 			else {
-				ingredients = allExpandedRecepies[createItemType];
+				ingredients = allExpandedRecepies.TryGetValue(createItemType, out HashSet<HashSet<int>> value) ? value : new();
 			}
 
 			//if (Debugger.IsAttached) $"/\\{createItemType.CSI().S()}: {ingredients.Select(set => set.Select(t => t.CSI().S()).JoinList(" or ")).JoinList(", ")}".LogSimple();
@@ -3559,8 +3569,8 @@ namespace WeaponEnchantments.Common
 		}
 		public static void ResetAndSetupProgressionGroups() {
 			progressionGroups.Clear();
+			progressionGroups = null;
 			ItemInfusionPowers.Clear();
-			SetupProgressionGroups();
 			PopulateItemInfusionPowers();
 		}
 
@@ -3570,9 +3580,9 @@ namespace WeaponEnchantments.Common
 
 		private static void PopulateInfusionPowerSources() {
 			int mechBossHighestSoul = Math.Max(Math.Max(
-				progressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 
-				progressionGroups[ProgressionGroupID.Destroyer].InfusionPower), 
-				progressionGroups[ProgressionGroupID.Twins].InfusionPower
+				ProgressionGroups[ProgressionGroupID.SkeletronPrime].InfusionPower, 
+				ProgressionGroups[ProgressionGroupID.Destroyer].InfusionPower), 
+				ProgressionGroups[ProgressionGroupID.Twins].InfusionPower
 			) + 20;
 			SortedDictionary<int, SortedSet<int>> OverridenInfusionPowerList = new() {
 				{ mechBossHighestSoul, new SortedSet<int>() { ItemID.SoulofFright, ItemID.SoulofMight, ItemID.SoulofSight } }
@@ -3693,6 +3703,7 @@ namespace WeaponEnchantments.Common
 		}
 		private static void ClearSetupData() {
 			progressionGroups.Clear();
+			progressionGroups = null;
 			WeaponsList.Clear();
 			WeaponCraftingIngredients.Clear();
 			allWeaponRecipies.Clear();

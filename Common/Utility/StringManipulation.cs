@@ -29,16 +29,6 @@ namespace WeaponEnchantments.Common.Utility
         /// <summary>
         /// Convert to a string
         /// </summary>
-        public static string S(this EStat eStat) => "<N: " + eStat.StatName + " A: " + eStat.Additive + ", M: " + eStat.Multiplicative + ", B: " + eStat.Base + ", F: " + eStat.Flat + ">";
-
-        /// <summary>
-        /// Convert to a string
-        /// </summary>
-        public static string S(this EnchantmentStaticStat staticStat) => "<N: " + staticStat.Name + " A: " + staticStat.Additive + ", M: " + staticStat.Multiplicative + ", B: " + staticStat.Base + ", F: " + staticStat.Flat + ">";
-
-        /// <summary>
-        /// Convert to a string
-        /// </summary>
         public static string S(this Item item) => item != null ? !item.IsAir ? $"{item.Name}, ID: {item.type.GetItemIDOrName()}, type: {item.type}{(item.ModItem != null ? $", {item.ModItem?.Mod?.Name}" : "")}" : "<Air>" : "null";
 
         /// <summary>
@@ -75,11 +65,6 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this Dictionary<string, StatModifier> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
-
-        /// <summary>
-        /// Convert to a string
-        /// </summary>
-        public static string S(this Dictionary<string, EStat> dictionary, string key) => "contains " + key + ": " + dictionary.ContainsKey(key) + " count: " + dictionary.Count + (dictionary.ContainsKey(key) ? " value: " + dictionary[key].S() : "");
 
         /// <summary>
         /// Convert to a string

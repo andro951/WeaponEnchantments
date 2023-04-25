@@ -113,7 +113,13 @@ namespace WeaponEnchantments.Common {
             if (!WEMod.serverConfig.CritPerLevelDisabled && enchantedHeldItem is EnchantedWeapon enchantedWeapon) {
                 float bonus = enchantedWeapon.GetPerLevelBonus();
                 if (bonus > 0f) {
-					if (WEMod.serverConfig.DamagePerLevelInstead) {
+					if (enchantedHeldItem.Item.pick > 0 || enchantedHeldItem.Item.hammer > 0 || enchantedHeldItem.Item.axe > 0) {
+						enchantmentEffects.Add(new MiningSpeed(@base: new DifficultyStrength(bonus)));
+					}
+                    else if (EnchantedItemStaticMethods.IsFishingRod(enchantedHeldItem.Item)) {
+						enchantmentEffects.Add(new FishingPower(@base: new DifficultyStrength(bonus * 100)));
+					}
+					else if (WEMod.serverConfig.DamagePerLevelInstead) {
                         enchantmentEffects.Add(new DamageAfterDefenses(multiplicative: new DifficultyStrength(1f + bonus)));
 				    }
 					else {
@@ -133,7 +139,7 @@ namespace WeaponEnchantments.Common {
         }
 
         public void GetEnchantmentEffects(EnchantedItem enchantedItem, List<EnchantmentEffect> effects) {
-            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.Select(e => e.ModItem).OfType<Enchantment>();
+            IEnumerable<Enchantment> enchantments = enchantedItem.enchantments.All.Select(e => e.ModItem).OfType<Enchantment>();
             // For each enchantment get its effects
             foreach (Enchantment enchantment in enchantments) {
                 foreach (EnchantmentEffect enchantmentEffect in enchantment.Effects) {
@@ -188,7 +194,7 @@ namespace WeaponEnchantments.Common {
 		    return result;
 	    }
         public void CombineDictionaries() {
-			if (!HeldItem.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+			if (!HeldItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
 				enchantedHeldItem = new EnchantedWeapon();
 
 			wePlayer.CombinedVanillaStats = CombineStatEffectDictionaries(wePlayer.VanillaStats, enchantedHeldItem.VanillaStats, true);
@@ -198,7 +204,7 @@ namespace WeaponEnchantments.Common {
         }
         public void CombineOnHitDictionaries(Item item = null) {
             item ??= heldItem[0];
-            if (!item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (!item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 enchantedHeldItem = new EnchantedWeapon();
 
             wePlayer.CombinedModifyShootStatEffects = wePlayer.ModifyShootStatEffects.Concat(enchantedHeldItem.ModifyShootStatEffects).ToList();
@@ -272,10 +278,13 @@ namespace WeaponEnchantments.Common {
         }
 
         private EnchantedHeldItem GetEnchantedHeldItem(Item item) {
-            if (item != null && item.TryGetEnchantedItem(out EnchantedHeldItem enchantedHeldItem))
+            if (item != null && item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem))
                 return enchantedHeldItem;
 
-            if (HeldItem.TryGetEnchantedItem(out enchantedHeldItem))
+            if (Main.mouseItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
+                return enchantedHeldItem;
+
+			if (HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem))
                 return enchantedHeldItem;
 
             return null;
@@ -312,7 +321,7 @@ namespace WeaponEnchantments.Common {
                 return false;
 
             for (int i = 0; i < count; i++) {
-                    Item ci = myItems.ElementAt(i);
+                Item ci = myItems.ElementAt(i);
                 Item ci2 = otherItems.ElementAt(i);
                 if (ci.NullOrAir() && ci2.NullOrAir())
                     continue;

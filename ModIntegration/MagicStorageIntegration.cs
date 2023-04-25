@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using WeaponEnchantments.UI;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -60,14 +61,17 @@ namespace WeaponEnchantments.ModIntegration
                 if (Main.netMode < NetmodeID.Server) {
                     WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
                     if (wePlayer.usingEnchantingTable)
-                        WEModSystem.CloseWeaponEnchantmentUI(true);
+						EnchantingTableUI.CloseEnchantingTableUI(true);
+
+                    if (OreBagUI.displayOreBagUI)
+                        OreBagUI.CloseOreBag();
                 }
 
                 Item mouseItem = Main.mouseItem;
                 Item hoverItem = Main.HoverItem;
                 if (Main.mouseRight) {
                     if (lastHoverItem.type == mouseItem.type && (lastHoverItem.stack > 1 && lastHoverItem.type == hoverItem.type || !lastMouseItem.IsAir && mouseItem.stack == lastMouseItemStack + 1)) {
-                        if (lastHoverItem.TryGetEnchantedItem(out EnchantedItem henchantedItem) && henchantedItem.Enchanted) {
+                        if (lastHoverItem.TryGetEnchantedItemSearchAll(out EnchantedItem henchantedItem) && henchantedItem.Enchanted) {
                             if (mouseItem.stack == 1) {
                                 Main.mouseItem = new Item(mouseItem.type);
 			                }

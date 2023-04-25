@@ -22,6 +22,7 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Common;
 using System.Reflection;
+using WeaponEnchantments.Items.Enchantments.Utility;
 
 namespace WeaponEnchantments.Content.NPCs
 {
@@ -30,6 +31,10 @@ namespace WeaponEnchantments.Content.NPCs
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
 		private Dictionary<int, float> shopEnchantments = new();
+		public static bool rerollUI = false;
+		public static Item rerollItem = new();
+		public static bool mouseRerollEnchantment = false;
+		public static float rerollScale = 1f;
 
 		public List<WikiTypeID> WikiNPCTypes => new() { WikiTypeID.NPC };
 
@@ -53,8 +58,6 @@ namespace WeaponEnchantments.Content.NPCs
 		public string SpawnCondition => "Have an enchantment in your inventory or on your equipment.";
 
 		public override void SetStaticDefaults() {
-			// DisplayName automatically assigned from localization files, but the commented line below is the normal approach.
-			DisplayName.SetDefault("Witch");
 			Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
 			
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs.
@@ -117,8 +120,8 @@ namespace WeaponEnchantments.Content.NPCs
 					return true;
 
 				foreach (Item item in player.inventory) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-						foreach (Item enchantment in enchantedItem.enchantments) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+						foreach (Item enchantment in enchantedItem.enchantments.All) {
 							if (!enchantment.NullOrAir())
 								return true;
 						}
@@ -126,8 +129,8 @@ namespace WeaponEnchantments.Content.NPCs
 				}
 
 				foreach (Item item in player.GetWEPlayer().Equipment.GetAllArmor()) {
-					if (item.TryGetEnchantedItem(out EnchantedItem enchantedItem)) {
-						foreach (Item enchantment in enchantedItem.enchantments) {
+					if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+						foreach (Item enchantment in enchantedItem.enchantments.All) {
 							if (!enchantment.NullOrAir())
 								return true;
 						}
@@ -168,15 +171,47 @@ namespace WeaponEnchantments.Content.NPCs
 			};
 		}
 		public override void SetChatButtons(ref string button, ref string button2) {
-			button = Language.GetTextValue("LegacyInterface.28");
-			//button2 = "Help";
+			if (rerollUI) {
+				button = "Back";
+			}
+			else {
+				button = Language.GetTextValue("LegacyInterface.28");
+				button2 = "Re-roll Enchantment";
+			}
+		}
+		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+			if (firstButton) {
+				if (rerollUI) {
+					rerollUI = false;
+					Main.npcChatText = "What more do you want?  I'm busy.";
+				}
+				else {
+					shop = true;
+				}
+			}
+			else {
+				if (rerollUI) {
+					if (rerollItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
+						if (true) {//Change to enough money for reroll
+							SoundEngine.PlaySound(SoundID.Tink);
+							rerollableEnchantment.Reroll();
+						}
+					}
+				}
+				else {
+					rerollUI = true;
+					Main.playerInventory = true;
+					Main.npcChatText = "I guess I could try to improve your enchantments, but no refunds or complaints.";
+					SoundEngine.PlaySound(SoundID.MenuOpen);
+				}
+			}
 		}
 		public override bool CanGoToStatue(bool toKingStatue) => true;
 		public override void SetupShop(Chest shop, ref int nextSlot) {
 			if (resetShop || shopEnchantments.Count == 0) {
 				GetItemsForShop();
-				resetShop = false;
-			}
+					resetShop = false;
+				}
 
 			foreach (KeyValuePair<int, float> pair in shopEnchantments) {
 				Item item = shop.item[nextSlot];
@@ -227,11 +262,11 @@ namespace WeaponEnchantments.Content.NPCs
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
 				if (shopEnchantments.ContainsKey(type)) {
-					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
-					i--;
-					list.Remove(type);
-					continue;
-				}
+						$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+						i--;
+						list.Remove(type);
+						continue;
+					}
 
 				shopEnchantments.Add(type, sellPriceModifier);
 				list.Remove(type);
@@ -275,32 +310,6 @@ namespace WeaponEnchantments.Content.NPCs
 
 			foreach (int id in loot) {
 				npcLoot.Add(ItemDropRule.Common(id));
-			}
-		}
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
-			if (firstButton) {
-
-				// We want 3 different functionalities for chat buttons, so we use HasItem to change button 1 between a shop and upgrade action.
-				/*
-				if (Main.LocalPlayer.HasItem(ItemID.HiveBackpack)) {
-					SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-					Main.npcChatText = $"I upgraded your {Lang.GetItemNameValue(ItemID.HiveBackpack)} to a {Lang.GetItemNameValue(ModContent.ItemType<WaspNest>())}";
-
-					int hiveBackpackItemIndex = Main.LocalPlayer.FindItem(ItemID.HiveBackpack);
-					var entitySource = NPC.GetSource_GiftOrReward();
-
-					Main.LocalPlayer.inventory[hiveBackpackItemIndex].TurnToAir();
-					Main.LocalPlayer.QuickSpawnItem(entitySource, ModContent.ItemType<WaspNest>());
-
-					return;
-				}
-				*/
-				shop = true;
-			}
-
-			if (!firstButton) {
-				Main.npcChatText = "Help not yet implemented";//Language.GetTextValue("Mods.WeaponEnchantments.Dialogue.Witch.BigAsMine", Main.LocalPlayer.HeldItem.type.Lang(L_ID_V.Item));
 			}
 		}
 		public override string GetChat() {
