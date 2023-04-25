@@ -39,7 +39,21 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
-        internal byte versionUpdate;
+		public static WEPlayer LocalWEPlayer {
+			get {
+				if (localWEPlayer == null) {
+					localWEPlayer = Main.LocalPlayer.GetWEPlayer();
+				}
+
+				return localWEPlayer;
+			}
+			set {
+				localWEPlayer = null;
+			}
+		}
+		private static WEPlayer localWEPlayer = null;
+		public int levelsPerLevelUp;
+		internal byte versionUpdate;
         public bool usingEnchantingTable;
         public int enchantingTableTier;
         public int highestTableTierUsed;
@@ -284,7 +298,26 @@ namespace WeaponEnchantments
             tag["infusionConsumeItem"] = infusionConsumeItem;
             tag["highestTableTierUsed"] = highestTableTierUsed;
             tag["versionUpdate"] = versionUpdate;
-        }
+			tag["levelsPerLevelUp"] = levelsPerLevelUp;
+			tag["enchantmentStorageItems"] = enchantmentStorageItems;
+			tag["enchantmentStorageUILocationX"] = enchantmentStorageUILeft;
+			tag["enchantmentStorageUILocationY"] = enchantmentStorageUITop;
+			tag["enchantingTableUILocationX"] = enchantingTableUILeft;
+			tag["enchantingTableUILocationY"] = enchantingTableUITop;
+			tag["vacuumItemsIntoEnchantmentStorage"] = vacuumItemsIntoEnchantmentStorage;
+			if (trashEnchantmentsFullNames.Count > 0)
+				tag["trashEnchantmentsFullNames"] = trashEnchantmentsFullNames.ToList();
+
+			tag["openStorageWhenOpeningTable"] = openStorageWhenOpeningTable;
+			string temp = allOfferedItems.StringList((s) => s);
+			if (allOfferedItems.Count > 0)
+				tag["allOfferedItems"] = allOfferedItems.ToList();
+
+			tag["oreBagItems"] = oreBagItems;
+			tag["oreBagUILeft"] = oreBagUILeft;
+			tag["oreBagUITop"] = oreBagUITop;
+			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
+		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
             if (enchantingTableItem == null)
@@ -302,12 +335,23 @@ namespace WeaponEnchantments
 
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
             versionUpdate = tag.Get<byte>("versionUpdate");
-        }
-        public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
-            if (!usingEnchantingTable)
-                return false;
+			levelsPerLevelUp = tag.Get<int>("levelsPerLevelUp");
+			if (levelsPerLevelUp < 1)
+				levelsPerLevelUp = 1;
 
-            enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
+			if (!tag.TryGet("enchantmentStorageItems", out enchantmentStorageItems))
+				enchantmentStorageItems = Enumerable.Repeat(new Item(), EnchantmentStorageSize).ToArray();
+
+			if (enchantmentStorageItems.Length < EnchantmentStorageSize)
+				enchantmentStorageItems = enchantmentStorageItems.Concat(Enumerable.Repeat(new Item(), EnchantmentStorageSize - enchantmentStorageItems.Length)).ToArray();
+
+            for (int i = 0; i < enchantmentStorageItems.Length; i++) {
+                if (enchantmentStorageItems[i] == null || enchantmentStorageItems[i].stack < 1 || enchantmentStorageItems[i].IsAir) {
+                    enchantmentStorageItems[i] = new();
+                }
+            }
+
+			enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
 
