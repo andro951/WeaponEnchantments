@@ -19,7 +19,7 @@ namespace WeaponEnchantments.Items
         public override List<WikiTypeID> WikiItemTypes => new() { WikiTypeID.Storage };
         public override int CreativeItemSacrifice => 1;
 		public override string LocalizationTooltip => 
-            $"Automatically stores ores, gems, and glass.\n" +
+            $"Automatically stores ores, bars, gems, and glass.\n" +
             $"When in your inventory, the contents of the bag are available for crafting.\n" +
             $"Right click to open the bag.";
 
@@ -47,7 +47,7 @@ namespace WeaponEnchantments.Items
         public override void AddRecipes() {
             Recipe recipie = CreateRecipe();
 			recipie.AddTile(TileID.WorkBenches);
-			recipie.AddIngredient(ItemID.Leather);
+			recipie.AddIngredient(ItemID.TatteredCloth);
 			recipie.AddIngredient(ItemID.WhiteString);
 			recipie.Register();
         }
@@ -64,9 +64,12 @@ namespace WeaponEnchantments.Items
             return null;
 		}
         private void UseBag() {
-			OreBagUI.displayOreBagUI = !OreBagUI.displayOreBagUI;
-			if (OreBagUI.displayOreBagUI)
-				Main.playerInventory = true;
+            if (OreBagUI.displayOreBagUI && Main.LocalPlayer.chest == -1) {
+                OreBagUI.CloseOreBag(true);
+			}
+            else {
+				OreBagUI.OpenOreBag();
+			}
 		}
 	}
 }

@@ -47,6 +47,7 @@ namespace WeaponEnchantments.UI
 			public const int Count = 10;
 		}
 		public static int ID => UI_ID.EnchantmentStorage;
+		public static int SearchID => UI_ID.EnchantmentStorageSearch;
 		public static int EnchantmentStorageUIDefaultLeft => 680;
 		public static int EnchantmentStorageUIDefaultTop => 90;
 		public static Color PanelColor => new Color(26, 2, 56, 100);
@@ -130,8 +131,8 @@ namespace WeaponEnchantments.UI
 
 				//Search Bar Data
 				int searchBarMinWidth = 100;
-				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(UI_ID.EnchantmentStorageSearch));
-				UIButtonData searchBarData = new(UI_ID.EnchantmentStorageSearch, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, 100));
+				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
+				UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, 100));
 
 				//ItemSlots Data 2/2
 				int itemSlotsTop = wePlayer.enchantmentStorageUITop + panelBorderTop;
@@ -194,17 +195,18 @@ namespace WeaponEnchantments.UI
 				//ItemSlots Draw
 				int startRow = scrollPanelPosition;
 				int endRow = startRow + itemSlotRowsDisplayed;
-				int inventoryIndexStart = UIManager.SearchBarString == "" ? startRow * itemSlotColumns : 0;
+				bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
+				int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 				int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
 				int slotNum = 0;
 				int itemSlotX = itemSlotsLeft;
 				int itemSlotY = itemSlotsTop;
-				for (int inventoryIndex = 0; inventoryIndex < inventory.Length && slotNum < slotsToDisplay; inventoryIndex++) {
+				for (int inventoryIndex = inventoryIndexStart; inventoryIndex < inventory.Length && slotNum < slotsToDisplay; inventoryIndex++) {
 					if (inventoryIndex >= inventory.Length)
 						break;
 
 					ref Item item = ref inventory[inventoryIndex];
-					if (UIManager.SearchBarString == "" || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
+					if (!UsingSearchBar || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
 						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot, itemSlotX, itemSlotY);
 						string modFullName = item.type.GetItemIDOrName();
 						if (managingTrash) {
@@ -335,13 +337,12 @@ namespace WeaponEnchantments.UI
 				bool mouseHoveringSearchBar = searchBarData.MouseHovering();
 				if (mouseHoveringSearchBar) {
 					if (UIManager.LeftMouseClicked)
-						UIManager.UsingSearchBar = !UIManager.UsingSearchBar;
+						UIManager.ClickSearchBar(SearchID);
 				}
 
-				if (UIManager.UsingSearchBar) {
+				if (UIManager.TypingOnSearchBar(SearchID)) {
 					if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
-						UIManager.UsingSearchBar = false;
-						UIManager.SearchBarInUse = UI_ID.None;
+						UIManager.StopTypingOnSearchBar();
 					}
 					else {
 						PlayerInput.WritingText = true;

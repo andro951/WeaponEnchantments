@@ -62,6 +62,9 @@ namespace WeaponEnchantments.ModIntegration
                     WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
                     if (wePlayer.usingEnchantingTable)
 						EnchantingTableUI.CloseEnchantingTableUI(true);
+
+                    if (OreBagUI.displayOreBagUI)
+                        OreBagUI.CloseOreBag();
                 }
 
                 Item mouseItem = Main.mouseItem;

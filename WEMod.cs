@@ -67,11 +67,14 @@ namespace WeaponEnchantments
 			}
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
+			On_ChestUI.LootAll += OnChestUI_LootAll;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
+
 		}
+
 		public override void Unload() {
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
 			foreach (Hook hook in hooks) {
@@ -185,6 +188,37 @@ namespace WeaponEnchantments
 			}
 
 			orig(self, thePlayer, itemType);
+		}
+		private void OnChestUI_LootAll(On_ChestUI.orig_LootAll orig) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			int chest = wePlayer.Player.chest;
+			if (chest != -1) {
+				Item[] chestItmes = Main.chest[chest].item;
+				bool synchChest = chest > -1 && Main.netMode == NetmodeID.MultiplayerClient;
+				if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
+					for (int i = 0; i < chestItmes.Length; i++) {
+						ref Item item = ref chestItmes[i];
+						if (EnchantmentStorage.CanBeStored(item) && EnchantmentStorage.RoomInStorage(item)) {
+							EnchantmentStorage.DepositAll(ref item);
+							if (synchChest)
+								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
+						}
+					}
+				}
+
+				if (wePlayer.vacuumItemsIntoOreBag) {
+					for (int i = 0; i < chestItmes.Length; i++) {
+						ref Item item = ref chestItmes[i];
+						if (OreBagUI.CanBeStored(item) && OreBagUI.RoomInStorage(item)) {
+							OreBagUI.DepositAll(ref item);
+							if (synchChest)
+								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
+						}
+					}
+				}
+			}
+
+			orig();
 		}
 		/*private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {
 			if (Main.hardMode && self.GetWEPlayer().CheckEnchantmentStats(EnchantmentStat.FishingEnemySpawnChance, out float spawnChance)) {

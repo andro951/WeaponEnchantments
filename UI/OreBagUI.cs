@@ -12,6 +12,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.WorldBuilding;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
@@ -21,24 +22,16 @@ namespace WeaponEnchantments.UI
 {
 	public static class OreBagUI
 	{
-		public static SortedSet<int> VanillaOreTypes {
+		public static SortedSet<int> OreTypes {
 			get {
-				if (vanillaOreTypes == null)
-					vanillaOreTypes  = new(InfusionProgression.OreInfusionPowers.Select(p => p.Key));
-
-				return vanillaOreTypes;
-			}
-		}
-		public static SortedSet<int> vanillaOreTypes = null;
-		public static SortedSet<int> ModOreTypes {
-			get {
-				if (modOreTypes == null)
+				if (oreTypes == null)
 					GetOreTypes();
+					
 
-				return modOreTypes;
+				return oreTypes;
 			}
 		}
-		private static SortedSet<int> modOreTypes = null;
+		public static SortedSet<int> oreTypes = null;
 		public static SortedSet<int> ModOreTileTypes {
 			get {
 				if (modOreTileTypes == null)
@@ -59,6 +52,7 @@ namespace WeaponEnchantments.UI
 			ItemID.Amber,
 			ItemID.Diamond
 		};
+		private static SortedSet<int> barTypes = new();
 		public class OreBagButtonID
 		{
 			public const int LootAll = 0;
@@ -69,6 +63,7 @@ namespace WeaponEnchantments.UI
 			public const int Count = 5;
 		}
 		public static int ID => UI_ID.OreBag;
+		public static int SearchID => UI_ID.OreBagSearch;
 		public static int OreBagUIDefaultLeft => 100;
 		public static int OreBagUIDefaultTop => 650;
 		public static Color PanelColor => new Color(25, 10, 3, 100);
@@ -88,6 +83,9 @@ namespace WeaponEnchantments.UI
 				return;
 
 			#region Pre UI
+
+			if (wePlayer.Player.chest != -1)
+				return;
 
 			if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && CanBeStored(Main.HoverItem)) {
 				if (!Main.mouseItem.IsAir || !RoomInStorage(Main.HoverItem)) {
@@ -132,8 +130,8 @@ namespace WeaponEnchantments.UI
 
 			//Search Bar Data
 			int searchBarMinWidth = 100;
-			TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(UI_ID.OreBagSearch));
-			UIButtonData searchBarData = new(UI_ID.OreBagSearch, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, 100));
+			TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
+			UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, 100));
 
 			//ItemSlots Data 2/2
 			int itemSlotsTop = wePlayer.oreBagUITop + panelBorderTop;
@@ -193,17 +191,18 @@ namespace WeaponEnchantments.UI
 			//ItemSlots Draw
 			int startRow = scrollPanelPosition;
 			int endRow = startRow + itemSlotRowsDisplayed;
-			int inventoryIndexStart = UIManager.SearchBarString == "" ? startRow * itemSlotColumns : 0;
+			bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
+			int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 			int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
 			int slotNum = 0;
 			int itemSlotX = itemSlotsLeft;
 			int itemSlotY = itemSlotsTop;
-			for (int inventoryIndex = 0; inventoryIndex < inventory.Length && slotNum < slotsToDisplay; inventoryIndex++) {
+			for (int inventoryIndex = inventoryIndexStart; inventoryIndex < inventory.Length && slotNum < slotsToDisplay; inventoryIndex++) {
 				if (inventoryIndex >= inventory.Length)
 					break;
 
 				ref Item item = ref inventory[inventoryIndex];
-				if (UIManager.SearchBarString == "" || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
+				if (!UsingSearchBar || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
 					UIItemSlotData slotData = new(UI_ID.OreBagItemSlot, itemSlotX, itemSlotY);
 					string modFullName = item.type.GetItemIDOrName();
 					if (slotData.MouseHovering()) {
@@ -246,13 +245,12 @@ namespace WeaponEnchantments.UI
 			bool mouseHoveringSearchBar = searchBarData.MouseHovering();
 			if (mouseHoveringSearchBar) {
 				if (UIManager.LeftMouseClicked)
-					UIManager.UsingSearchBar = !UIManager.UsingSearchBar;
+					UIManager.ClickSearchBar(SearchID);
 			}
 
-			if (UIManager.UsingSearchBar) {
+			if (UIManager.TypingOnSearchBar(SearchID)) {
 				if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
-					UIManager.UsingSearchBar = false;
-					UIManager.SearchBarInUse = UI_ID.None;
+					UIManager.StopTypingOnSearchBar();
 				}
 				else {
 					PlayerInput.WritingText = true;
@@ -354,23 +352,49 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		private static void GetOreTypes() {
-			modOreTypes = new();
+			oreTypes = new(InfusionProgression.OreInfusionPowers.Select(p => p.Key));
 			modOreTileTypes = new();
+			barTypes = new();
 			for (int tileType = TileID.Count; tileType < TileLoader.TileCount; tileType++) {
 				if (IsOre(tileType, out int itemType)) {
-					modOreTypes.Add(itemType);
+					oreTypes.Add(itemType);
 					modOreTileTypes.Add(tileType);
 				}
 			}
 
-			modOreTypes.StringList(t => t.GetItemIDOrName(), "OreTypes").LogSimple();
+			SortedSet<int> potentialBars = new();
+			for (int i = 0; i < ItemLoader.ItemCount; i++) {
+				string name = i.GetItemIDOrName();
+				if (name.Contains("Bar"))
+					potentialBars.Add(i);
+			}
+
+			for (int i = 0; i < Recipe.numRecipes; i++) {
+				Recipe r = Main.recipe[i];
+				if (r.createItem.IsAir)
+					continue;
+
+				int createItemType = r.createItem.type;
+				if (potentialBars.Contains(createItemType)) {
+					for (int k = 0; k < r.requiredItem.Count; k++) {
+						int type = r.requiredItem[k].type;
+						if (oreTypes.Contains(type)) {
+							barTypes.Add(createItemType);
+							break;
+						}
+					}
+				}
+			}
+
+			oreTypes.StringList(t => t.GetItemIDOrName(), "oreTypes").LogSimple();
 			modOreTileTypes.StringList(t => t.GetItemIDOrName(), "OreTileTypes").LogSimple();
+			barTypes.StringList(t => t.GetItemIDOrName(), "barTypes").LogSimple();
 		}
 		public static bool IsOre(int tileType, out int itemType) {
 			itemType = WEGlobalTile.GetDroppedItem(tileType, forMining: true, ignoreError: true);
 			if (itemType <= 0)
 				return false;
-
+			
 			Item item = itemType.CSI();
 			ModTile modTile = TileLoader.GetTile(tileType);
 			if (itemType > 0 && modTile != null) {
@@ -384,7 +408,20 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static bool CanBeStored(Item item) => VanillaOreTypes.Contains(item.type) || ModOreTypes.Contains(item.type) || CommonGems.Contains(item.type) || RareGems.Contains(item.type) || item.type == ItemID.Glass;
+		public static void OpenOreBag() {
+			Main.playerInventory = true;
+			displayOreBagUI = true;
+			Main.LocalPlayer.chest = -1;
+		}
+		public static void CloseOreBag(bool noSound = false) {
+			displayOreBagUI = false;
+			UIManager.TryResetSearch(SearchID);
+			if (Main.LocalPlayer.chest == -1) {
+				if (!noSound)
+					SoundEngine.PlaySound(SoundID.Grab);
+			}
+		}
+		public static bool CanBeStored(Item item) => OreTypes.Contains(item.type) || barTypes.Contains(item.type) || CommonGems.Contains(item.type) || RareGems.Contains(item.type) || item.type == ItemID.Glass || item.type == ItemID.SandBlock;
 		public static bool RoomInStorage(Item item) {
 			Item[] inv = WEPlayer.LocalWEPlayer.oreBagItems;
 			int stack = item.stack;

@@ -59,11 +59,11 @@ namespace WeaponEnchantments.UI
 		public static int ScrollWheelTicks => (LastScrollWheel - ScrollWheel) / 120;
 		public static int FocusRecipe = Main.focusRecipe;
 		public static int LastFocusRecipe = Main.focusRecipe;
-		public static bool UsingSearchBar = false;
 		public static int SearchBarTimer = 0;
 		public static bool ShouldShowSearchBarHeartbeat => SearchBarTimer % 60 >= 30;
 		public static string SearchBarString = "";
 		public static int SearchBarInUse = UI_ID.None;
+		public static bool TypingOnAnySearchBar = false;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.disableLeftShiftTrashCan) {
@@ -86,7 +86,7 @@ namespace WeaponEnchantments.UI
 				UIBeingHovered = UI_ID.None;
 			}
 
-			if (UsingSearchBar) {
+			if (TypingOnAnySearchBar) {
 				SearchBarTimer++;
 			}
 			else {
@@ -121,15 +121,46 @@ namespace WeaponEnchantments.UI
 				Main.focusRecipe = FocusRecipe;
 		}
 		public static string DisplayedSearchBarString(int SearchBarID) {
-			bool defaultText = SearchBarID != SearchBarInUse;
-			if (!defaultText && !UsingSearchBar && SearchBarString == "") {
-				defaultText = true;
-			}
-
-			if (defaultText)
+			if (!UsingSearchBar(SearchBarID))
 				return EnchantmentStorageTextID.Search.ToString().Lang(L_ID1.EnchantmentStorageText);
 
 			return $"{(SearchBarString.Length > 15 ? SearchBarString.Substring(SearchBarString.Length - 15) : SearchBarString)}{Main.chatText}{(ShouldShowSearchBarHeartbeat ? "|" : SearchBarString != "" ? "" : " ")}";
+		}
+		public static bool UsingSearchBar(int ID) => SearchBarInUse == ID;
+		public static bool TypingOnSearchBar(int ID) => UsingSearchBar(ID) && TypingOnAnySearchBar;
+		public static void TryResetSearch(int ID) {
+			if (SearchBarInUse == ID)
+				ResetSearch();
+		}
+		public static void ResetSearch() {
+			SearchBarString = "";
+			SearchBarInUse = UI_ID.None;
+			TypingOnAnySearchBar = false;
+		}
+		public static void StopTypingOnSearchBar() {
+			TypingOnAnySearchBar = false;
+			if (SearchBarString == "")
+				SearchBarInUse = UI_ID.None;
+		}
+		public static void ClickSearchBar(int ID) {
+			if (UsingSearchBar(ID)) {
+				if (TypingOnAnySearchBar) {
+					StopTypingOnSearchBar();
+				}
+				else {
+					TypingOnAnySearchBar = true;
+				}
+			}
+			else {
+				if (SearchBarInUse != UI_ID.None)
+					TryResetSearch(SearchBarInUse);
+
+				StartTypingOnSearchBar(ID);
+			}
+		}
+		public static void StartTypingOnSearchBar(int ID) {
+			TypingOnAnySearchBar = true;
+			SearchBarInUse = ID;
 		}
 		public static bool MouseHovering(UIPanel panel, int ID, bool playSound = false) {
 			if (NoUIBeingHovered && panel.IsMouseHovering) {

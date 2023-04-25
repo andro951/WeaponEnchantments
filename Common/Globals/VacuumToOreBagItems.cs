@@ -21,7 +21,7 @@ namespace WeaponEnchantments.Common.Globals
 		public static bool CanVacuum => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag;
 		public override bool InstancePerEntity => true;
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
-			return lateInstantiation && OreBagUI.CanBeStored(entity);
+			return true;
 		}
 		public override void LoadData(Item item, TagCompound tag) {
 			favorited = item.favorited;

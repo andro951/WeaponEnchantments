@@ -684,6 +684,7 @@ namespace WeaponEnchantments.UI
 		}
 		public static void OpenEnchantingTableUI(bool noSound = false) {
 			WEPlayer.LocalWEPlayer.usingEnchantingTable = true;
+			Main.playerInventory = true;
 			if (!noSound)
 				SoundEngine.PlaySound(SoundID.MenuOpen);
 
@@ -692,12 +693,9 @@ namespace WeaponEnchantments.UI
 		}
 		public static void CloseEnchantingTableUI(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			UIManager.SearchBarString = "";
+			UIManager.TryResetSearch(UI_ID.EnchantmentStorageSearch);
 			wePlayer.openStorageWhenOpeningTable = wePlayer.displayEnchantmentStorage;
 			wePlayer.displayEnchantmentStorage = false;
-			if (!wePlayer.usingEnchantingTable)
-				return;
-
 			Item itemInUI = wePlayer.enchantingTableItem;
 			if (!itemInUI.IsAir) {
 				//Give item in table back to player
@@ -716,7 +714,7 @@ namespace WeaponEnchantments.UI
 					SoundEngine.PlaySound(SoundID.MenuClose);
 			}
 
-			Recipe.FindRecipes();
+			Recipe.FindRecipes(true);
 		}
 		public static bool ValidItemForEnchantingSlot(Item item) {
 			if (item.IsAir)

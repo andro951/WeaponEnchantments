@@ -467,7 +467,7 @@ namespace WeaponEnchantments
 				}
 			}
 
-			if (OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(item)) {
+			if (UIManager.NoUIBeingHovered && OreBagUI.displayOreBagUI && OreBagUI.CanBeStored(item)) {
                 if (OreBagUI.RoomInStorage(item))
 					OreBagUI.DepositAll(ref inventory[slot]);
                 
