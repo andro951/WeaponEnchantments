@@ -96,8 +96,7 @@ namespace WeaponEnchantments
 
 		#region Enchantment Effects
 
-		public PlayerEquipment LastPlayerEquipment;
-        public PlayerEquipment Equipment => new PlayerEquipment(this.Player);
+		public PlayerEquipment Equipment;
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
         public SortedDictionary<short, uint> OnTickBuffTimers = new();
 	
@@ -305,6 +304,7 @@ namespace WeaponEnchantments
         }
         public override void Initialize() {
             enchantingTableEnchantments = emptyEnchantments;
+            Equipment = new(Player);
 		}
         public override void SaveData(TagCompound tag) {
             tag["enchantingTableItem0"] = enchantingTableItem;
@@ -797,7 +797,7 @@ namespace WeaponEnchantments
 
             #endregion
 
-            LastPlayerEquipment.CombineOnHitDictionaries(item);
+            Equipment.CombineOnHitDictionaries(item);
 
             ApplyWarDamageRediction(projectile, target, ref modifiers, out bool multiShotConvertedToDamage);
 
@@ -1429,14 +1429,14 @@ namespace WeaponEnchantments
 	        CheckClearTimers();
             CheckClearOnTickBuffTimers();
 
-            PlayerEquipment newEquipment = Equipment;
-            if (newEquipment != LastPlayerEquipment) {
-                LastPlayerEquipment = newEquipment;
+            PlayerEquipment newEquipment = new PlayerEquipment(Player);
+            bool needsUpdateEquipment = newEquipment != Equipment;
+			Equipment = newEquipment;
+			if (needsUpdateEquipment)
                 UpdateEnchantmentEffects();
-            }
 
-            LastPlayerEquipment.CombineDictionaries();
-            LastPlayerEquipment.CombineOnHitDictionaries();
+            Equipment.CombineDictionaries();
+            Equipment.CombineOnHitDictionaries();
 
             foreach (IPassiveEffect effect in CombinedPassiveEffects) {
                 effect.PostUpdateMiscEffects(this);

@@ -29,7 +29,7 @@ namespace WeaponEnchantments.Common {
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
-            heldItem[0] = player.HeldItem;
+            heldItem[0] = player.HeldItem ?? new();
 
             wePlayer = player.GetWEPlayer();
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
@@ -40,7 +40,7 @@ namespace WeaponEnchantments.Common {
             Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
 
             for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
-                Armor[i] = player.armor[i];
+                Armor[i] = player.armor[i] ?? new();
 
                 if (Armor[i].TryGetEnchantedItem(out EnchantedArmor enchantedArmor)) {
                     if (enchantedArmor.infusedItem == null)
@@ -61,13 +61,17 @@ namespace WeaponEnchantments.Common {
             }
 
             for (int i = 0; i < vanillaAccesorySlots; i++) {    // Set all vanilla accesory slots
-                Accesories[i] = player.armor[i + 3];
+                Accesories[i] = player.armor[i + 3] ?? new();
             }
 
             for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
                 var slot = loader.Get(i, player);
-                if (slot.IsEnabled() && !slot.IsEmpty)
-                    Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
+                if (slot.IsEnabled() && !slot.IsEmpty) {
+					Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem ?? new();
+				}
+                else {
+					Accesories[vanillaAccesorySlots + i] = new();
+				}
             }
         }
 
@@ -252,13 +256,7 @@ namespace WeaponEnchantments.Common {
             return result;
 		}
 
-		public IEnumerable<Item> GetAllArmor() {
-            Item[] items = new Item[Armor.Length + Accesories.Length];
-            Armor.CopyTo(items, 0);
-            Accesories.CopyTo(items, Armor.Length);
-
-            return items;
-        }
+		public IEnumerable<Item> GetAllArmor() => Armor.Concat(Accesories);
 
         private IEnumerable<Item> GetAllItems() {
             Item[] items = new Item[1 + Armor.Length + Accesories.Length];
