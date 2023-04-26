@@ -66,12 +66,15 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override bool ItemSpace(Item item, Player player) {
 			if (player.whoAmI != Main.myPlayer)
-				return true;
+				return false;
 
 			WEPlayer wePlayer = player.GetWEPlayer();
             if (WEMod.clientConfig.teleportEssence) {
                 EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
                 Item[] essenceSlots = wePlayer.enchantingTableEssence;
+                if (essenceSlots == null)
+                    return false;
+
                 int tier = essence.EssenceTier;
                 int tableStack = essenceSlots[tier].stack;
                 if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)

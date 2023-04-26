@@ -96,7 +96,16 @@ namespace WeaponEnchantments
 
 		#region Enchantment Effects
 
-		public PlayerEquipment Equipment;
+		public PlayerEquipment Equipment {
+            get {
+                if (equipment is null)
+                    equipment = new(Player);
+
+                return equipment;
+            }
+            set => equipment = value;
+        }
+        private PlayerEquipment equipment = null;
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
         public SortedDictionary<short, uint> OnTickBuffTimers = new();
 	
@@ -250,7 +259,6 @@ namespace WeaponEnchantments
 
 			#endregion
 
-			Equipment = new(Player);
 			localWEPlayer = null;
 			if (!WorldOldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
