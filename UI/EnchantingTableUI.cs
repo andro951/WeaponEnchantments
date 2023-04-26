@@ -711,7 +711,7 @@ namespace WeaponEnchantments.UI
 					RemoveTableItem();
 			}
 
-			wePlayer.itemBeingEnchanted = null;
+			wePlayer.itemBeingEnchanted = wePlayer.enchantingTableItem;
 			wePlayer.itemInEnchantingTable = false;
 			wePlayer.usingEnchantingTable = false;
 			if (wePlayer.Player.chest == -1) {

@@ -58,7 +58,7 @@ namespace WeaponEnchantments
         public int enchantingTableTier;
         public int highestTableTierUsed;
         public bool itemInEnchantingTable;
-        public Item itemBeingEnchanted;
+        public Item itemBeingEnchanted = new();
         static float baseOneForAllRange = 240f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
