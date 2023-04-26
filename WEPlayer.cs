@@ -248,9 +248,10 @@ namespace WeaponEnchantments
 
             if (LogMethods.debugging) ($"\\/OnEnterWorld({player.S()})").Log();
 
-            #endregion
+			#endregion
 
-            localWEPlayer = null;
+			Equipment = new(Player);
+			localWEPlayer = null;
 			if (!WorldOldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
                 if (WEModSystem.versionUpdate < 1)
@@ -272,7 +273,6 @@ namespace WeaponEnchantments
         }
         public override void Initialize() {
             enchantingTableEnchantments = emptyEnchantments;
-            Equipment = new(Player);
 		}
         public override void SaveData(TagCompound tag) {
             tag["enchantingTableItem0"] = enchantingTableItem;
