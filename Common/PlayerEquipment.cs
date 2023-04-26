@@ -66,8 +66,12 @@ namespace WeaponEnchantments.Common {
 
             for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
                 var slot = loader.Get(i, player);
-                if (slot.IsEnabled() && !slot.IsEmpty)
-                    Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
+                if (slot.IsEnabled() && !slot.IsEmpty) {
+					Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem;
+				}
+                else {
+					Accesories[vanillaAccesorySlots + i] = new();
+				}
             }
         }
 
@@ -252,13 +256,7 @@ namespace WeaponEnchantments.Common {
             return result;
 		}
 
-		public IEnumerable<Item> GetAllArmor() {
-            Item[] items = new Item[Armor.Length + Accesories.Length];
-            Armor.CopyTo(items, 0);
-            Accesories.CopyTo(items, Armor.Length);
-
-            return items;
-        }
+		public IEnumerable<Item> GetAllArmor() => Armor.Concat(Accesories);
 
         private IEnumerable<Item> GetAllItems() {
             Item[] items = new Item[1 + Armor.Length + Accesories.Length];
