@@ -603,6 +603,7 @@ Mods: {
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
 			OreBag: Ore Bag
+			QuickCraft: Quick Craft
 			QuickStack: Quick Stack
 			RevertAllToBasic: Revert All To Basic
 			Search: Search
@@ -1314,8 +1315,8 @@ Mods: {
 				AutoReuse: Auto Reuse
 				BonusCoins:
 					'''
-					\\\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\\\"
+					"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)"
 					'''
 				BuffDuration:
 					'''

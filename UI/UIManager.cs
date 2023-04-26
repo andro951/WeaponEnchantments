@@ -279,12 +279,14 @@ namespace WeaponEnchantments.UI
 				spriteBatch.Draw(texture, new Rectangle(Left + cornerSize, Top + cornerSize, width, height), new Rectangle(cornerSize, cornerSize, _barSize, _barSize), color);
 			}
 		}
-		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, UIItemSlotData slot, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
-			DrawItemSlot(spriteBatch, item, slot.TopLeft.X, slot.TopLeft.Y, context, hue, glowTime);
+		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, UIItemSlotData slot, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0, int stack = int.MinValue) {
+			DrawItemSlot(spriteBatch, item, slot.TopLeft.X, slot.TopLeft.Y, context, hue, glowTime, stack);
 		}
-		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
+		public static void DrawItemSlot(SpriteBatch spriteBatch, Item item, int itemSlotX, int itemSlotY, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0, int stack = int.MinValue) {
 			//ItemSlot.Draw(spriteBatch, ref item, context, new Vector2(itemSlotX, itemSlotY));
-			Player player = Main.LocalPlayer;
+			if (stack == int.MinValue)
+				stack = item.stack;
+
 			float inventoryScale = Main.inventoryScale;
 			Color color = Color.White;
 			Vector2 position = new(itemSlotX, itemSlotY);
@@ -378,8 +380,8 @@ namespace WeaponEnchantments.UI
 				ItemSlot.DrawItemIcon(item, 5, spriteBatch, position + vector / 2f, inventoryScale, 32f, color);
 
 				//Draw Stack
-				if (item.stack > 1)
-					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, item.stack.ToString(), position + new Vector2(10f, 26f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
+				if (item.stack > 1 || stack != item.stack)
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.ItemStack.Value, stack.ToString(), position + new Vector2(10f, 26f) * inventoryScale, color, 0f, Vector2.Zero, new Vector2(inventoryScale), -1f, inventoryScale);
 			}
 		}
 		public static bool MouseHoveringItemSlot(int itemSlotX, int itemSlotY, int ID) {
@@ -578,8 +580,8 @@ namespace WeaponEnchantments.UI
 		}
 		public bool IsMouseHovering => Main.mouseX >= TopLeft.X && Main.mouseX <= BottomRight.X && Main.mouseY >= TopLeft.Y && Main.mouseY <= BottomRight.Y && !PlayerInput.IgnoreMouseInterface;
 		public Point Center => new((TopLeft.X + BottomRight.X) / 2, (TopLeft.Y + BottomRight.Y) / 2);
-		public void Draw(SpriteBatch spriteBatch, Item item, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0) {
-			UIManager.DrawItemSlot(spriteBatch, item, this, context, hue, glowTime);
+		public void Draw(SpriteBatch spriteBatch, Item item, int context = ItemSlotContextID.Normal, float hue = 0f, int glowTime = 0, int stack = int.MinValue) {
+			UIManager.DrawItemSlot(spriteBatch, item, this, context, hue, glowTime, stack);
 		}
 		public bool MouseHovering() => UIManager.MouseHoveringItemSlot(TopLeft.X, TopLeft.Y, ID);
 		public void ClickInteractions(ref Item item, int context = UIManager.ItemSlotInteractContext) => UIManager.ItemSlotClickInteractions(ref item, context);
@@ -610,6 +612,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantmentStorageRevertAllToBasic = 1107;
 		public const int EnchantmentStorageManageTrash = 1108;
 		public const int EnchantmentStorageManageOfferedItems = 1109;
+		public const int EnchantmentstorageQuickCrafting = 1110;
 		public const int EnchantmentStorageItemSlot = 1200;
 		public const int EnchantmentStorageEnd = EnchantingTable;
 

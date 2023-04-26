@@ -304,6 +304,9 @@ namespace WeaponEnchantments
 
 			//Consume essence from enchanting table when crafting.
 			c.EmitDelegate((Item item, int num) => {
+				if (num < 1)
+					return;
+
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 				if (item.ModItem is EnchantmentEssence) {
 					ConsumeFromCraft(item, num, wePlayer.enchantingTableEssence);
@@ -317,11 +320,17 @@ namespace WeaponEnchantments
 			});
 		}
 		public static void ConsumeFromCraft(Item item, int stack, Item[] inventory, bool ignoreFavorited = false) {
-			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			if (stack < 1)
+				return;
+
 			for (int i = 0; i < inventory.Length; i++) {
 				ref Item storageItem = ref inventory[i];
-				if (item.type == storageItem.type) {
-					int ammountToTransfer = Math.Min(item.stack, storageItem.stack);
+				if (item.type == storageItem.type && (!item.favorited || !ignoreFavorited)) {
+					int ammountToTransfer = Math.Min(stack, storageItem.stack);
+					Item consumedItem = storageItem.Clone();
+					consumedItem.stack = ammountToTransfer;
+					List<Item> ConsumedItems = (List<Item>)typeof(RecipeLoader).GetField("ConsumedItems", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+					ConsumedItems.Add(consumedItem);
 					storageItem.stack -= ammountToTransfer;
 					if (storageItem.stack < 1) {
 						storageItem.TurnToAir();
@@ -428,7 +437,7 @@ namespace WeaponEnchantments
 					}
 				}
 
-				if (wePlayer.displayEnchantmentStorage || EnchantmentStorage.uncrafting) {
+				if (wePlayer.displayEnchantmentStorage || EnchantmentStorage.crafting) {
 					for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
 						ref Item item = ref wePlayer.enchantmentStorageItems[i];
 						if (!item.NullOrAir() && item.stack > 0 && !item.favorited)

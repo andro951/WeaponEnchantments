@@ -36,15 +36,15 @@ namespace WeaponEnchantments.Common.Globals
 
 		public override void OnCreated(Item item, ItemCreationContext context) {
             if (context is RecipeItemCreationContext recipeCreationContext) {
-                if (recipeCreationContext.ConsumedItems == null)
+                if (recipeCreationContext.ConsumedItems == null || recipeCreationContext.ConsumedItems.Count < 1)
                     return;
-
-                SortedDictionary<int, int> otherCraftedItems = EnchantmentStorage.uncrafting ? EnchantmentStorage.uncraftedExtraItems : new();
+                 
+                SortedDictionary<int, int> otherCraftedItems = EnchantmentStorage.crafting ? EnchantmentStorage.uncraftedExtraItems : new();
                 foreach (Item consumedItem in recipeCreationContext.ConsumedItems) {
                     otherCraftedItems.AddOrCombine(GetOtherCraftedItems(item, consumedItem));
                 }
                 
-                if (!EnchantmentStorage.uncrafting) {
+                if (!EnchantmentStorage.crafting) {
 					foreach (KeyValuePair<int, int> pair in otherCraftedItems) {
 						Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Crafting"), pair.Key, pair.Value);
 					}

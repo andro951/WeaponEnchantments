@@ -178,6 +178,9 @@ namespace WeaponEnchantments.UI
 			int scrollPanelMinY = scrollBarData.TopLeft.Y + scrollPanelXOffset;
 			int scrollPanelMaxY = scrollBarData.BottomRight.Y - scrollPanelSize - scrollPanelXOffset;
 			int possiblePanelPositions = itemSlotTotalRows - itemSlotRowsDisplayed;
+			if (possiblePanelPositions < 1)
+				possiblePanelPositions = 1;
+
 			scrollPanelPosition.Clamp(0, possiblePanelPositions);
 
 			#endregion
