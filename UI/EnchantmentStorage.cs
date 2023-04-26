@@ -305,7 +305,7 @@ namespace WeaponEnchantments.UI
 									}
 								}
 							}
-
+							
 							int stack = quickCraftItemCounts[item.type];
 							if (recipeNum != -1) {
 								slotData.Draw(spriteBatch, item, ItemSlotContextID.Gold, glowHue, glowTime, stack);
@@ -591,8 +591,10 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (transferedAnyItem)
+			if (transferedAnyItem) {
 				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
 
 			return transferedAnyItem;
 		}
@@ -624,8 +626,10 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (playSound && transferedAnyItem)
+			if (playSound && transferedAnyItem) {
 				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
 
 			return transferedAnyItem;
 		}
@@ -747,6 +751,8 @@ namespace WeaponEnchantments.UI
 						for (int i = 0; i < stack; i++) {
 							if (recipeNum.TryCraftItem(out Item crafted)) {
 								uncraftedItems.Add(crafted);
+							}
+							else {
 								break;
 							}
 						}

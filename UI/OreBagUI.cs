@@ -485,8 +485,10 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (transferedAnyItem)
+			if (transferedAnyItem) {
 				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
 
 			return transferedAnyItem;
 		}
@@ -518,8 +520,10 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (playSound && transferedAnyItem)
+			if (playSound && transferedAnyItem) {
 				SoundEngine.PlaySound(SoundID.Grab);
+				Recipe.FindRecipes(true);
+			}
 
 			return transferedAnyItem;
 		}
