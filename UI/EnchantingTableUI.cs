@@ -1,4 +1,5 @@
 ﻿using KokoLib;
+using MagicStorage;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -335,9 +336,10 @@ namespace WeaponEnchantments.UI
 				//Enchantment Slots Draw
 				UIItemSlotData[] enchantmentSlotsData = new UIItemSlotData[MaxEnchantmentSlots];
 				for (int i = 0; i < enchantmentSlotsCount; i++) {
+					bool canUseSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, i/*.GetSlotTier()*/);
 					UIItemSlotData enchantmentSlot = new(UI_ID.EnchantingTableEnchantment0 + i, middleSlotsLefts[i], enchantingItemSlotTop);
 					enchantmentSlotsData[i] = enchantmentSlot;
-					enchantmentSlot.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[i]);
+					enchantmentSlot.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[i], canUseSlot ? ItemSlotContextID.Normal : ItemSlotContextID.Red);
 				}
 
 				//Essence Slots Draw
@@ -352,8 +354,9 @@ namespace WeaponEnchantments.UI
 				utilityLabelData.Draw(spriteBatch);
 
 				//Utility Slot Draw
+				bool canUseUtilitySlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, 1, true);
 				UIItemSlotData utilitySlotData = new(UI_ID.EnchantingTableEssence0 + enchantmentSlotsCount, utilityCenterX - UIManager.ItemSlotSize / 2, enchantingItemSlotTop);
-				utilitySlotData.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], ItemSlotContextID.Favorited);
+				utilitySlotData.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], canUseUtilitySlot ? ItemSlotContextID.Normal : ItemSlotContextID.Red);
 				enchantmentSlotsData[enchantmentSlotsCount] = utilitySlotData;
 
 				//Storage Button Draw
@@ -742,7 +745,7 @@ namespace WeaponEnchantments.UI
 			if (enchantedItem == null)
 				return false;
 
-			bool useEnchantmentSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, slot, utility);
+			bool useEnchantmentSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, slot/*.GetSlotTier()*/, utility);
 			if (!useEnchantmentSlot)
 				return false;
 
@@ -763,19 +766,20 @@ namespace WeaponEnchantments.UI
 
 			return levelsAvailable >= newEnchantmentCost - currentEnchantmentLevelCost;
 		}
+		public static int GetSlotTier(this int slot) => slot < 1 ? slot : slot == MaxEnchantmentSlots - 1 ? 1 : slot - 1;
 		public static bool ValidItemForEssenceSlot(Item item, int slot) {
 			if (item.IsAir)
 				return true;
 			
 			return item.ModItem is EnchantmentEssence essence && essence.EssenceTier == slot;
 		}
-		public static bool UseEnchantmentSlot(Item item, int slot, bool utilitySlot = false, bool useHighestTableTier = false) {
+		public static bool UseEnchantmentSlot(Item item, int slotTier, bool utilitySlot = false, bool useHighestTableTier = false) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
-			if (slot > (useHighestTableTier ? wePlayer.highestTableTierUsed : wePlayer.enchantingTableTier) && !utilitySlot)
+			if (slotTier > (useHighestTableTier ? wePlayer.highestTableTierUsed : wePlayer.enchantingTableTier) && !utilitySlot)
 				return false;
 
-			return SlotAllowedByConfig(item, slot);
+			return SlotAllowedByConfig(item, slotTier);
 		}
 		public static bool SlotAllowedByConfig(Item item, int slot) {
 			int configSlots;
@@ -1146,12 +1150,12 @@ namespace WeaponEnchantments.UI
 			}
 
 			//xpNeeded
-			int targetLevel = enchantedItem.levelBeforeBooster + wePlayer.levelsPerLevelUp - 1;
-			targetLevel.Clamp(max: EnchantedItem.MAX_Level - 1);
-			int xpNeeded = WEModSystem.levelXps[targetLevel] - enchantedItem.Experience;
+			int targetLevelXPIndex = enchantedItem.levelBeforeBooster + wePlayer.levelsPerLevelUp - 1;
+			targetLevelXPIndex.Clamp(max: EnchantedItem.MAX_Level - 1);
+			int xpNeeded = WEModSystem.levelXps[targetLevelXPIndex] - enchantedItem.Experience;
 			bool enoughWithoutFavorite = nonFavoriteXpAvailable >= xpNeeded;
 			if (xpAvailable < xpNeeded) {
-				Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevel + 1).ToString() + " you only have " + xpAvailable + " available.");
+				Main.NewText("Not Enough Essence. You need " + xpNeeded + " experience for level " + (targetLevelXPIndex + 1).ToString() + " you only have " + xpAvailable + " available.");
 				return;
 			}
 
@@ -1170,20 +1174,19 @@ namespace WeaponEnchantments.UI
 					}
 					else {
 						numberEssenceTransfered = numberEssenceNeeded;
+						//Check essence available below me
+						int xpAvailableBelowThis = 0;
+						for (int j = i - 1; j >= 0; j--) {
+							if (!wePlayer.enchantingTableEssence[j].favorited || !enoughWithoutFavorite) {
+								int xpPerEssenceLowerTier = (int)EnchantmentEssence.xpPerEssence[j];
+								xpAvailableBelowThis.AddCheckOverflow(xpPerEssenceLowerTier * wePlayer.enchantingTableEssence[j].stack);
+							}
+						}
+
+						if (xpAvailableBelowThis < xpNeeded - xpPerEssence * numberEssenceTransfered)
+							numberEssenceTransfered++;
 					}
 				}
-
-				//Check essence available below me
-				int xpAvailableBelowThis = 0;
-				for (int j = i - 1; j >= 0; j--) {
-					if (!wePlayer.enchantingTableEssence[j].favorited || !enoughWithoutFavorite) {
-						int xpPerEssenceLowerTier = (int)EnchantmentEssence.xpPerEssence[j];
-						xpAvailableBelowThis += xpPerEssenceLowerTier * wePlayer.enchantingTableEssence[j].stack;
-					}
-				}
-
-				if (allowUsingThisEssence && xpAvailableBelowThis < xpNeeded - xpPerEssence * numberEssenceTransfered)
-					numberEssenceTransfered++;
 
 				if (numberEssenceTransfered > 0) {
 					int xpTransfered = xpPerEssence * numberEssenceTransfered;
