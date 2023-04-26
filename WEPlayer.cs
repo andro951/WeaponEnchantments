@@ -58,7 +58,7 @@ namespace WeaponEnchantments
         public int enchantingTableTier;
         public int highestTableTierUsed;
         public bool itemInEnchantingTable;
-        public Item itemBeingEnchanted;
+        public Item itemBeingEnchanted = new();
         static float baseOneForAllRange = 240f;
         public float lifeStealRollover = 0f;
         public int allForOneTimer = 0;
@@ -96,7 +96,16 @@ namespace WeaponEnchantments
 
 		#region Enchantment Effects
 
-		public PlayerEquipment Equipment;
+		public PlayerEquipment Equipment {
+            get {
+                if (equipment is null)
+                    equipment = new(Player);
+
+                return equipment;
+            }
+            set => equipment = value;
+        }
+        private PlayerEquipment equipment = null;
         public SortedDictionary<uint, IUseTimer> EffectTimers = new SortedDictionary<uint, IUseTimer>();
         public SortedDictionary<short, uint> OnTickBuffTimers = new();
 	
@@ -280,9 +289,9 @@ namespace WeaponEnchantments
 
             if (LogMethods.debugging) ($"\\/OnEnterWorld({Player.S()})").Log();
 
-            #endregion
+			#endregion
 
-            localWEPlayer = null;
+			localWEPlayer = null;
 			if (!WorldOldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
                 if (WEModSystem.versionUpdate < 1)
@@ -304,7 +313,6 @@ namespace WeaponEnchantments
         }
         public override void Initialize() {
             enchantingTableEnchantments = emptyEnchantments;
-            Equipment = new(Player);
 		}
         public override void SaveData(TagCompound tag) {
             tag["enchantingTableItem0"] = enchantingTableItem;

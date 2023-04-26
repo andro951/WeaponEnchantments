@@ -301,7 +301,7 @@ namespace WeaponEnchantments.UI
 				case ItemSlotContextID.Purple when item.favorited:
 					texture = (Texture2D)ModContent.Request<Texture2D>("WeaponEnchantments/UI/Sprites/Inventory_Back4(Favorited)");
 					break;
-				case ItemSlotContextID.Favorited:
+				case ItemSlotContextID.Red:
 					texture = TextureAssets.InventoryBack5.Value;
 					break;
 				case 6:
@@ -316,7 +316,7 @@ namespace WeaponEnchantments.UI
 				case 9:
 					texture = TextureAssets.InventoryBack9.Value;
 					break;
-				case ItemSlotContextID.Ten:
+				case ItemSlotContextID.Favorited:
 					texture = TextureAssets.InventoryBack10.Value;
 					break;
 				case 11:
@@ -344,7 +344,7 @@ namespace WeaponEnchantments.UI
 					texture = TextureAssets.InventoryBack18.Value;
 					break;
 				default:
-					texture = item.favorited ? TextureAssets.InventoryBack5.Value : TextureAssets.InventoryBack.Value;
+					texture = item.favorited ? TextureAssets.InventoryBack10.Value : TextureAssets.InventoryBack.Value;
 					break;
 			}
 
@@ -357,11 +357,6 @@ namespace WeaponEnchantments.UI
 				num6 *= num6;
 				color2 = Color.Lerp(value2, value3, num6 / 2f);
 				texture = TextureAssets.InventoryBack13.Value;
-			}
-
-			//Favorited
-			if (item.favorited || context == ItemSlotContextID.Favorited) {
-				texture = TextureAssets.InventoryBack10.Value;
 			}
 
 			//Draw ItemSlot
@@ -651,8 +646,8 @@ namespace WeaponEnchantments.UI
 		public const int MarkedTrash = -1;
 		public const int Normal = 0;
 		public const int Purple = 4;
-		public const int Favorited = 5;
-		public const int Ten = 10;
+		public const int Red = 5;
+		public const int Favorited = 10;
 		public const int Gold = 17;
 	}
 }
