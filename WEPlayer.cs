@@ -90,6 +90,7 @@ namespace WeaponEnchantments
         public const int OreBagSize = 100;
 		public bool vacuumItemsIntoOreBag = true;
 		public bool displayOreBagUI = false;
+        public List<List<Item>> enchantmentLoadouts = new();
 
 		#endregion
 
@@ -127,7 +128,6 @@ namespace WeaponEnchantments
         public List<IOnHitEffect> CombinedOnHitEffects { set; get; } = new List<IOnHitEffect>();
         public List<IModifyShootStats> CombinedModifyShootStatEffects { set; get; } = new List<IModifyShootStats>();
 		public List<IPassiveEffect> CombinedPassiveEffects { set; get; } = new List<IPassiveEffect>();
-
 
 		#endregion
 
@@ -302,6 +302,7 @@ namespace WeaponEnchantments
 			tag["oreBagUILeft"] = oreBagUILeft;
 			tag["oreBagUITop"] = oreBagUITop;
 			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
+            tag["enchantmentLoadouts"] = enchantmentLoadouts;
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
@@ -359,8 +360,11 @@ namespace WeaponEnchantments
             oreBagUILeft = tag.Get<int>("oreBagUILeft");
             oreBagUITop = tag.Get<int>("oreBagUITop");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);
-            if (tag.TryGet<bool>("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
+            if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
                 vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
+
+            if (!tag.TryGet("enchantmentLoadouts", out enchantmentLoadouts))
+                enchantmentLoadouts = new();
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
 			ref Item item = ref inventory[slot];
@@ -701,7 +705,6 @@ namespace WeaponEnchantments
 		public override void UpdateAutopause() {
 			ApplyPostMiscEnchants();
 		}
-
 
 		#endregion
 

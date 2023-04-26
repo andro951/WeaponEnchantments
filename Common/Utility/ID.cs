@@ -500,6 +500,7 @@ namespace WeaponEnchantments.Common.Utility
 		RevertAllToBasic,
 		ManageTrash,
 		ManageOfferedItems,
+		QuickCraft,
 		//Do not place anything besides buttons before this
 		EnchantmentStorage,
 		Search,
