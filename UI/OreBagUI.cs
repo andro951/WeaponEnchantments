@@ -463,6 +463,13 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
+		public static bool CanVauumItem(Item item) => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag && CanBeStored(item) && RoomInStorage(item);
+		public static bool TryVacuumItem(ref Item item) {
+			if (CanVauumItem(item))
+				return DepositAll(ref item);
+
+			return false;
+		}
 		public static bool DepositAll(ref Item item) => DepositAll(new Item[] { item });
 		public static bool DepositAll(Item[] inv) {
 			bool transferedAnyItem = QuickStack(inv, false);
