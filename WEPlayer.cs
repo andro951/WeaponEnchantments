@@ -704,6 +704,9 @@ namespace WeaponEnchantments
 		}
         public bool CanVacuumItem(Item item) => EnchantmentStorage.CanVauumItem(item) || OreBagUI.CanVauumItem(item);
         public void TryUpdateMouseOverrideForDeposit(Item item) {
+            if (item.IsAir)
+                return;
+
             if (CanVacuumItem(item))
                 Main.cursorOverride = CursorOverrideID.InventoryToChest;
         }
