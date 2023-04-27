@@ -28,12 +28,13 @@ namespace WeaponEnchantments.UI
 {
 	public static class UIManager
 	{
-		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || WEPlayer.LocalWEPlayer.displayOreBagUI;
+		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || WEPlayer.LocalWEPlayer.displayOreBagUI || WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI;
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
 		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
 		public static bool HoveringWitchReroll => UI_ID.WitchReroll <= UIBeingHovered && UIBeingHovered < UI_ID.WitchRerollEnd;
 		public static bool HoveringEnchantmentStorage => UI_ID.EnchantmentStorage <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantmentStorageEnd;
 		public static bool HoveringOreBag => UI_ID.OreBag <= UIBeingHovered && UIBeingHovered < UI_ID.OreBagEnd;
+		public static bool HoveringEnchantmentLoadoutUI => UI_ID.EnchantmentLoadoutUI <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantmentLoadoutUIEnd;
 		public static bool HoveringEnchantingTable => UI_ID.EnchantingTable <= UIBeingHovered && UIBeingHovered < UI_ID.EnchantingTableEnd;
 		private static int mouseOffsetX = 0;
 		private static int mouseOffsetY = 0;
@@ -405,6 +406,17 @@ namespace WeaponEnchantments.UI
 			if (!enchantmentItem.IsSameEnchantment(enchantmentsArray[index]))
 				enchantmentsArray[index] = enchantmentItem;
 		}
+		public static void SwapMouseItem(ref Item item1) {
+			Item stored = item1.Clone();
+			item1 = Main.mouseItem;
+			Main.mouseItem = stored;
+			SoundEngine.PlaySound(SoundID.Grab);
+		}
+		public static void SwapMouseItem(EnchantmentsArray enchantmentsArray, int index) {
+			Item enchantmentItem = enchantmentsArray[index];
+			SwapMouseItem(ref enchantmentItem);
+			enchantmentsArray[index] = enchantmentItem;
+		}
 	}
 	public struct UIPanelData {
 		public Point TopLeft;
@@ -639,7 +651,14 @@ namespace WeaponEnchantments.UI
 		public const int OreBagSort = 3103;
 		public const int OreBagToggleVacuum = 3104;
 		public const int OreBagItemSlot = 3200;
-		public const int OreBagEnd = 4000;
+		public const int OreBagEnd = EnchantmentLoadoutUI;
+
+		public const int EnchantmentLoadoutUI = 4000;
+		public const int EnchantmentLoadoutUIScrollBar = 4001;
+		public const int EnchantmentLoadoutUIScrollPanel = 4002;
+		public const int EnchantmentLoadoutUITextButton = 4003;
+		public const int EnchantmentLoadoutUIItemSlot = 4200;
+		public const int EnchantmentLoadoutUIEnd = 5000;
 	}
 	public static class ItemSlotContextID
 	{
