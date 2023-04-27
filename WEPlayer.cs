@@ -710,8 +710,36 @@ namespace WeaponEnchantments
 			}
 
             return valid;
+		}
+        public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, bool allowQuickSpawn = false) {
+            Item item = enchantingTableEnchantments[enchantmentIndex];
+            bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
+            enchantingTableEnchantments[enchantmentIndex] = item;
+            return result;
+		}
+		public bool TryReturnItemToPlayer(ref Item item, bool allowQuickSpawn = false) {
+            if (EnchantmentStorage.TryVacuumItem(ref item))
+                return true;
+
+            if (OreBagUI.TryVacuumItem(ref item))
+                return true;
+
+            item = Player.GetItem(Player.whoAmI, item, GetItemSettings.InventoryEntityToPlayerInventorySettings);
+            if (item.IsAir)
+                return true;
+
+            if (!allowQuickSpawn)
+                return false;
+
+            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
+            return true;
+		}
+        public bool CanVacuumItem(Item item) => EnchantmentStorage.CanVauumItem(item) || OreBagUI.CanVauumItem(item);
+        public void TryUpdateMouseOverrideForDeposit(Item item) {
+            if (CanVacuumItem(item))
+                Main.cursorOverride = CursorOverrideID.InventoryToChest;
         }
-        public bool CanSwapArmor(Item newItem, Item currentItem) {
+		public bool CanSwapArmor(Item newItem, Item currentItem) {
             if (newItem.NullOrAir())
                 return true;
 

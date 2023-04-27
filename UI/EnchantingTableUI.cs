@@ -566,8 +566,11 @@ namespace WeaponEnchantments.UI
 									if (ItemSlot.ShiftInUse) {
 										if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
 											normalClickInteractions = false;
-											if (UIManager.LeftMouseClicked)
-												UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
+											wePlayer.TryUpdateMouseOverrideForDeposit(item);
+											if (UIManager.LeftMouseClicked) {
+												if (!wePlayer.TryReturnEnchantmentToPlayer(i))
+													UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
+											}
 										}
 									}
 								}
@@ -577,12 +580,13 @@ namespace WeaponEnchantments.UI
 									if (ItemSlot.ShiftInUse) {
 										if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
 											normalClickInteractions = false;
+											wePlayer.TryUpdateMouseOverrideForDeposit(item);
 											if (UIManager.LeftMouseClicked) {
 												if (item.IsAir) {
 													UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
 												}
 												else {
-													EnchantmentStorage.TryVacuumItem(wePlayer.enchantingTableEnchantments, i);
+													wePlayer.TryReturnEnchantmentToPlayer(i);
 												}
 											}
 										}
@@ -594,7 +598,7 @@ namespace WeaponEnchantments.UI
 												if (Main.mouseItem.stack > 1) {
 													normalClickInteractions = false;
 													if (!item.IsAir)
-														Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
+														wePlayer.TryReturnEnchantmentToPlayer(i, true);
 
 													Main.mouseItem.stack--;
 													Item mouseItemClone = Main.mouseItem.Clone();

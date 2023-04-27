@@ -569,17 +569,9 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool TryVacuumItem(EnchantmentsArray enchantmentsArray, int index) {
-			Item enchanmtentItem = enchantmentsArray[index];
-			if (TryVacuumItem(ref enchanmtentItem)) {
-				enchantmentsArray[index] = enchanmtentItem;
-				return true;
-			}
-
-			return false;
-		}
+		public static bool CanVauumItem(Item item) => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
 		public static bool TryVacuumItem(ref Item item) {
-			if (WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item))
+			if (CanVauumItem(item))
 				return DepositAll(ref item);
 
 			return false;
