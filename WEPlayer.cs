@@ -90,7 +90,10 @@ namespace WeaponEnchantments
         public const int OreBagSize = 100;
 		public bool vacuumItemsIntoOreBag = true;
 		public bool displayOreBagUI = false;
-        public List<List<Item>> enchantmentLoadouts = new();
+        public List<List<Item[]>> enchantmentLoadouts = new();
+        public bool displayEnchantmentLoadoutUI = false;
+        public int EnchantmentLoadoutUILeft;
+        public int EnchantmentLoadoutUITop;
 
 		#endregion
 
@@ -311,6 +314,8 @@ namespace WeaponEnchantments
 			tag["oreBagUITop"] = oreBagUITop;
 			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
             tag["enchantmentLoadouts"] = enchantmentLoadouts;
+            tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
+            tag["EnchantmentLoadoutUITop"] = EnchantmentLoadoutUITop;
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
@@ -373,12 +378,15 @@ namespace WeaponEnchantments
 
             if (!tag.TryGet("enchantmentLoadouts", out enchantmentLoadouts))
                 enchantmentLoadouts = new();
+
+            EnchantmentLoadoutUILeft = tag.Get<int>("EnchantmentLoadoutUILeft");
+            EnchantmentLoadoutUITop = tag.Get<int>("EnchantmentLoadoutUITop");
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
 			ref Item item = ref inventory[slot];
 			if (usingEnchantingTable) {
 				bool stop = false;
-				if (!UIManager.NoUIBeingHovered) {
+				if (false && !UIManager.NoUIBeingHovered) {
 					Item enchantingTableSlotItem = null;
 					//Check Enchanting Item Slot
 					if (UIManager.UIBeingHovered == UI_ID.EnchantingTableItemSlot) {
@@ -427,23 +435,26 @@ namespace WeaponEnchantments
 				}
 
 				//Move Item
-				if (!stop) {
+				if (!stop && !UIManager.HoveringEnchantingTable) {
 					CheckShiftClickValid(ref inventory[slot], true);
 
 					return true;
 				}
 			}
 
-			if (UIManager.NoUIBeingHovered && WEPlayer.localWEPlayer.displayOreBagUI && OreBagUI.CanBeStored(item)) {
-                if (OreBagUI.RoomInStorage(item))
-					OreBagUI.DepositAll(ref inventory[slot]);
+			if (UIManager.NoUIBeingHovered) {
+                if (displayOreBagUI && OreBagUI.CanBeStored(item)) {
+					if (OreBagUI.RoomInStorage(item))
+						OreBagUI.DepositAll(ref inventory[slot]);
+
+					return true;
+				}
                 
-                return true;
             }
 
             return false;
-        }
-        public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
+		}
+		public bool CheckShiftClickValid(ref Item item, bool moveItem = false) {
             if (EnchantingTableUI.DisplayOfferUI)
                 return false;
 
@@ -1887,6 +1898,25 @@ namespace WeaponEnchantments
 				default:
 					return new Item[0];
 			}
+		}
+        public static bool ItemWillBeTrashedFromShiftClick(this WEPlayer wePlayer, Item item) {
+            Player player = wePlayer.Player;
+            int stack = item.stack;
+			for (int i = 49; i >= 0; i--) {
+                //Any open invenotry space or a stack of the same item in the inventory can hold the 
+                Item inventoryItem = player.inventory[i];
+				if (inventoryItem.IsAir) {
+                    return false;
+                }
+                else if (inventoryItem.type == item.type) {
+                    int availableStack = Math.Max(inventoryItem.maxStack - inventoryItem.stack, 0);
+					stack -= availableStack;
+					if (stack < 1)
+						return false;
+				}
+			}
+
+            return true;
 		}
 	}
 }

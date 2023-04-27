@@ -504,7 +504,10 @@ namespace WeaponEnchantments.Common.Utility
 		//Do not place anything besides buttons before this
 		EnchantmentStorage,
 		Search,
-		OreBag
+		OreBag,
+		EnchantmentLoadouts,
+		Edit,
+		Weapon
 	}
 	public enum DialogueID {
         StandardDialogue,

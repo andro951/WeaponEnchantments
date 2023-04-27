@@ -20,6 +20,7 @@ using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Common.Utility.LogSystem;
 using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.ModLib.KokoLib;
 using WeaponEnchantments.Tiles;
 
@@ -111,7 +112,7 @@ namespace WeaponEnchantments.UI
 
 				#endregion
 
-				#region UI
+				#region Data and Draw
 
 				//Start of UI
 				Color mouseColor = UIManager.MouseColor;
@@ -376,6 +377,8 @@ namespace WeaponEnchantments.UI
 					levelsPerData[i].Draw(spriteBatch);
 				}
 
+				#endregion
+
 				if (DisplayOfferUI) {
 					//Yes Data 1/2
 					string yes = TableTextID.Yes.ToString().Lang(L_ID1.TableText);
@@ -450,50 +453,77 @@ namespace WeaponEnchantments.UI
 				}
 				else {
 					//Enchanting Item Slot Hover
+					bool display = Main.mouseItem.IsAir && wePlayer.enchantingTableItem.IsAir;
 					if (enchantingItemSlotData.MouseHovering()) {
-						bool display = false;
-						if (ValidItemForEnchantingSlot(Main.mouseItem)) {
-							if (Main.mouseItem.type == PowerBooster.ID) {
-								if (UIManager.LeftMouseClicked) {
-									if (!wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.PowerBoosterInstalled) {
-										if (Main.mouseItem.stack > 1) {
-											Main.mouseItem.stack--;
-										}
-										else {
-											Main.mouseItem = new();
-										}
-
-										SoundEngine.PlaySound(SoundID.Grab);
-										enchantedItem.PowerBoosterInstalled = true;
+						ref Item item = ref wePlayer.enchantingTableItem;
+						bool normalClickInteractions = true;
+						if (Main.mouseItem.IsAir) {
+							if (!item.IsAir) {
+								if (ItemSlot.ShiftInUse) {
+									if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+										normalClickInteractions = false;
+										if (UIManager.LeftMouseClicked)
+											UIManager.SwapMouseItem(ref item);
 									}
 								}
 							}
-							else if (Main.mouseItem.type == UltraPowerBooster.ID) {
-								if (UIManager.LeftMouseClicked) {
-									if (!wePlayer.enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.UltraPowerBoosterInstalled) {
-										if (Main.mouseItem.stack > 1) {
-											Main.mouseItem.stack--;
+						}
+						else {
+							if (ValidItemForEnchantingSlot(Main.mouseItem)) {
+								if (ItemSlot.ShiftInUse) {
+									if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+										normalClickInteractions = false;
+										if (UIManager.LeftMouseClicked) {
+											if (item.IsAir)
+												UIManager.SwapMouseItem(ref item);
 										}
-										else {
-											Main.mouseItem = new();
-										}
+									}
+								}
+								else {
+									if (Main.mouseItem.type == PowerBooster.ID) {
+										normalClickInteractions = false;
+										if (UIManager.LeftMouseClicked) {
+											if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.PowerBoosterInstalled) {
+												if (Main.mouseItem.stack > 1) {
+													Main.mouseItem.stack--;
+												}
+												else {
+													Main.mouseItem = new();
+												}
 
-										SoundEngine.PlaySound(SoundID.Grab);
-										enchantedItem.UltraPowerBoosterInstalled = true;
+												SoundEngine.PlaySound(SoundID.Grab);
+												enchantedItem.PowerBoosterInstalled = true;
+											}
+										}
+									}
+									else if (Main.mouseItem.type == UltraPowerBooster.ID) {
+										normalClickInteractions = false;
+										if (UIManager.LeftMouseClicked) {
+											if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.UltraPowerBoosterInstalled) {
+												if (Main.mouseItem.stack > 1) {
+													Main.mouseItem.stack--;
+												}
+												else {
+													Main.mouseItem = new();
+												}
+
+												SoundEngine.PlaySound(SoundID.Grab);
+												enchantedItem.UltraPowerBoosterInstalled = true;
+											}
+										}
 									}
 								}
 							}
 							else {
-								display = true;
-								enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
+								normalClickInteractions = false;
 							}
-						}
-						else {
-							display = true;
 						}
 
 						if (display && DisplayDescriptionBlock)
 							SetDescriptionBlock(TableTextID.weapon0.ToString().Lang(L_ID1.TableText));
+
+						if (normalClickInteractions)
+							enchantingItemSlotData.ClickInteractions(ref wePlayer.enchantingTableItem);
 					}
 
 					//Loot All Hover
@@ -529,41 +559,60 @@ namespace WeaponEnchantments.UI
 					for (int i = 0; i < MaxEnchantmentSlots; i++) {
 						UIItemSlotData enchantmentSlot = enchantmentSlotsData[i];
 						if (enchantmentSlot.MouseHovering()) {
-							Item enchantmentItem = wePlayer.enchantingTableEnchantments[i];
+							Item item = wePlayer.enchantingTableEnchantments[i];
 							bool isUtilitySlot = i == enchantmentSlotsCount;
-							bool display = false;
-							if (ValidItemForEnchantmentSlot(Main.mouseItem, i, i == enchantmentSlotsCount)) {
-								if (wePlayer.displayEnchantmentStorage && ItemSlot.ShiftInUse && UIManager.LeftMouseClicked && EnchantmentStorage.CanBeStored(enchantmentItem) && EnchantmentStorage.RoomInStorage(enchantmentItem)) {
-									EnchantmentStorage.DepositAll(ref enchantmentItem);
+							bool normalClickInteractions = true;
+							if (Main.mouseItem.IsAir) {
+								if (!item.IsAir) {
+									if (ItemSlot.ShiftInUse) {
+										if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+											normalClickInteractions = false;
+											if (UIManager.LeftMouseClicked)
+												UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
+										}
+									}
 								}
-								else if (Main.mouseItem.ModItem is Enchantment enchantment) {
-									if (CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableItem), i)) {
-										if (Main.mouseItem.type != wePlayer.enchantingTableEnchantments[i].type) {
-											if (Main.mouseItem.stack > 1) {
-												if (Main.mouseLeft && Main.mouseLeftRelease) {
-													enchantmentItem = wePlayer.Player.GetItem(Main.myPlayer, enchantmentItem, GetItemSettings.LootAllSettings);
-													if (enchantmentItem.IsAir) {
-														Main.mouseItem.stack--;
-														wePlayer.enchantingTableEnchantments[i] = Main.mouseItem.Clone();
-														wePlayer.enchantingTableEnchantments[i].stack = 1;
-														SoundEngine.PlaySound(SoundID.Grab);
-													}
+							}
+							else {
+								if (ValidItemForEnchantmentSlot(Main.mouseItem, i, i == enchantmentSlotsCount)) {
+									if (ItemSlot.ShiftInUse) {
+										if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+											normalClickInteractions = false;
+											if (UIManager.LeftMouseClicked) {
+												if (item.IsAir) {
+													UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
+												}
+												else {
+													EnchantmentStorage.TryVacuumItem(wePlayer.enchantingTableEnchantments, i);
+												}
+											}
+										}
+									}
+									else {
+										if (UIManager.LeftMouseClicked) {
+											bool canSwap = Main.mouseItem.ModItem is Enchantment enchantment && CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableItem), i) && Main.mouseItem.type != wePlayer.enchantingTableEnchantments[i].type;
+											if (canSwap) {
+												if (Main.mouseItem.stack > 1) {
+													normalClickInteractions = false;
+													if (!item.IsAir)
+														Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
+
+													Main.mouseItem.stack--;
+													Item mouseItemClone = Main.mouseItem.Clone();
+													mouseItemClone.stack = 1;
+													wePlayer.enchantingTableEnchantments[i] = mouseItemClone;
+													SoundEngine.PlaySound(SoundID.Grab);
 												}
 											}
 											else {
-												display = true;
-												enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, i);
+												normalClickInteractions = false;
 											}
 										}
 									}
 								}
 								else {
-									display = true;
-									enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, i);
+									normalClickInteractions = false;
 								}
-							}
-							else {
-								display = true;
 							}
 
 							if (display && DisplayDescriptionBlock) {
@@ -574,6 +623,9 @@ namespace WeaponEnchantments.UI
 									SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[i].CSI().Name }));
 								}
 							}
+
+							if (normalClickInteractions)
+								enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, i);
 						}
 					}
 
@@ -581,19 +633,49 @@ namespace WeaponEnchantments.UI
 					for (int i = 0; i < MaxEssenceSlots; i++) {
 						UIItemSlotData essenceSlot = essenceSlotsData[i];
 						if (essenceSlot.MouseHovering()) {
+							ref Item item = ref wePlayer.enchantingTableEssence[i];
+							bool normalClickInteractions = true;
 							if (WEModSystem.FavoriteKeyDown) {
+								normalClickInteractions = false;
 								Main.cursorOverride = CursorOverrideID.FavoriteStar;
 								if (UIManager.LeftMouseClicked) {
-									wePlayer.enchantingTableEssence[i].favorited = !wePlayer.enchantingTableEssence[i].favorited;
+									item.favorited = !item.favorited;
 									SoundEngine.PlaySound(SoundID.MenuTick);
 								}
 							}
-							else if (ValidItemForEssenceSlot(Main.mouseItem, i)) {
-								essenceSlot.ClickInteractions(ref wePlayer.enchantingTableEssence[i]);
+							else if (Main.mouseItem.IsAir) {
+								if (!item.IsAir) {
+									if (ItemSlot.ShiftInUse) {
+										if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+											normalClickInteractions = false;
+											if (UIManager.LeftMouseClicked)
+												UIManager.SwapMouseItem(ref item);
+										}
+									}
+								}
+							}
+							else {
+								if (ValidItemForEssenceSlot(Main.mouseItem, i)) {
+									if (ItemSlot.ShiftInUse) {
+										if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+											normalClickInteractions = false;
+											if (UIManager.LeftMouseClicked) {
+												if (item.IsAir)
+													UIManager.SwapMouseItem(ref item);
+											}
+										}
+									}
+								}
+								else {
+									normalClickInteractions = false;
+								}
 							}
 
-							if (DisplayDescriptionBlock)
+							if (display && DisplayDescriptionBlock)
 								SetDescriptionBlock(TableTextID.essence0.ToString().Lang(L_ID1.TableText, new object[] { EnchantmentEssence.IDs[i].CSI().Name }));
+
+							if (normalClickInteractions)
+								essenceSlot.ClickInteractions(ref item);
 						}
 					}
 
@@ -665,8 +747,6 @@ namespace WeaponEnchantments.UI
 					if (panel.ShouldDragUI())
 						UIManager.DragUI(out wePlayer.enchantingTableUILeft, out wePlayer.enchantingTableUITop);
 				}
-
-				#endregion
 			}
 		}
 
@@ -875,8 +955,8 @@ namespace WeaponEnchantments.UI
 			if (ConfigValues.RemoveEnchantmentRestrictions)
 				return -1;
 
-			for (int i = 0; i < MaxEnchantmentSlots; i++) {
-				if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+			if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
+				for (int i = 0; i < MaxEnchantmentSlots; i++) {
 					if (enchantedItem.enchantments[i].ModItem is Enchantment appliedEnchantment && (enchantement.Unique && appliedEnchantment.Unique || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName))
 						return i;
 				}
