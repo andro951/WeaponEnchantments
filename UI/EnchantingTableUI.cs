@@ -105,7 +105,7 @@ namespace WeaponEnchantments.UI
 					CloseEnchantingTableUI();
 
 				//Prevent Trash can and other mouse overides when using enchanting table
-				if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
+				if (!wePlayer.displayEnchantmentLoadoutUI && ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
 					if (!wePlayer.CheckShiftClickValid(ref Main.HoverItem) || Main.cursorOverride == CursorOverrideID.TrashCan)
 						Main.cursorOverride = -1;
 				}
@@ -473,9 +473,9 @@ namespace WeaponEnchantments.UI
 				}
 				else {
 					//Enchanting Item Slot Hover
-					bool display = Main.mouseItem.IsAir && Main.HoverItem.IsAir;
 					if (enchantingItemSlotData.MouseHovering()) {
 						ref Item item = ref wePlayer.enchantingTableItem;
+						bool display = Main.mouseItem.IsAir && item.IsAir;
 						bool normalClickInteractions = true;
 						if (Main.mouseItem.IsAir) {
 							if (!item.IsAir) {
@@ -580,7 +580,7 @@ namespace WeaponEnchantments.UI
 					for (int i = 0; i < MaxEnchantmentSlots; i++) {
 						UIItemSlotData enchantmentSlot = enchantmentSlotsData[i];
 						if (enchantmentSlot.MouseHovering()) {
-							HandleEnchantmentSlot(enchantmentSlot, wePlayer, i, display);
+							HandleEnchantmentSlot(enchantmentSlot, wePlayer, i);
 						}
 					}
 
@@ -589,6 +589,7 @@ namespace WeaponEnchantments.UI
 						UIItemSlotData essenceSlot = essenceSlotsData[i];
 						if (essenceSlot.MouseHovering()) {
 							ref Item item = ref wePlayer.enchantingTableEssence[i];
+							bool display = Main.mouseItem.IsAir && item.IsAir;
 							bool normalClickInteractions = true;
 							if (WEModSystem.FavoriteKeyDown) {
 								normalClickInteractions = false;
@@ -979,8 +980,9 @@ namespace WeaponEnchantments.UI
 			lines.PadStrings();
 			descriptionBlock = lines.JoinList("\n");
 		}
-		public static void HandleEnchantmentSlot(UIItemSlotData enchantmentSlot, WEPlayer wePlayer, int slotNum, bool display) {
+		public static void HandleEnchantmentSlot(UIItemSlotData enchantmentSlot, WEPlayer wePlayer, int slotNum) {
 			Item item = wePlayer.enchantingTableEnchantments[slotNum];
+			bool display = Main.mouseItem.IsAir && item.IsAir;
 			bool isUtilitySlot = slotNum == MaxEnchantmentSlots - 1;
 			bool normalClickInteractions = true;
 			if (Main.mouseItem.IsAir) {

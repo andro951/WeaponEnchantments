@@ -27,26 +27,12 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.GameContent.UI.States;
 using Terraria.Localization;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments.UI
 {
 	public static class EnchantmentLoadoutUI
 	{
-		public class EnchantmentLoadoutUIButtonID
-		{
-			public const int LootAll = 0;
-			public const int DepositAll = 1;
-			public const int QuickStack = 2;
-			public const int Sort = 3;
-			public const int ToggleVacuum = 4;
-			public const int ToggleMarkTrash = 5;
-			public const int UncraftAllTrash = 6;
-			public const int RevertAllToBasic = 7;
-			public const int ManageTrash = 8;
-			public const int ManageOfferedItems = 9;
-			public const int QuickCrafting = 10;
-			public const int Count = 11;
-		}
 		public static int ID => UI_ID.EnchantmentLoadoutUI;
 		public static int EnchantmentLoadoutUIDefaultLeft => 1070;
 		public static int EnchantmentLoadoutUIDefaultTop => 290;
@@ -80,9 +66,23 @@ namespace WeaponEnchantments.UI
 		public const int MaxLoadouts = 20;
 		public static string[] buttonNames = { EnchantmentStorageTextID.All.ToString().Lang(L_ID1.EnchantmentStorageText), EnchantmentStorageTextID.HeldItem.ToString().Lang(L_ID1.EnchantmentStorageText), EItemType.Armor.ToString().Lang(L_ID1.Tooltip, L_ID2.ItemType), EItemType.Accessories.ToString().Lang(L_ID1.Tooltip, L_ID2.ItemType) };
 		public static bool useingScrollBar = false;
+		public static int availableSlotRow = -1;
+		public static int availableSlotIndex = -1;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.displayEnchantmentLoadoutUI) {
+
+				#region Pre UI
+
+				//Prevent Trash can and other mouse overides when using enchanting table
+				if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
+					//if (!wePlayer.CheckShiftClickValid(ref Main.HoverItem) || Main.cursorOverride == CursorOverrideID.TrashCan)
+					//	Main.cursorOverride = -1;
+
+					Main.cursorOverride = AvailableSlot(Main.HoverItem) ? CursorOverrideID.InventoryToChest : -1;
+				}
+
+				#endregion
 
 				#region Data
 
@@ -173,9 +173,8 @@ namespace WeaponEnchantments.UI
 
 						int armorSlotSpecificID = isArmor ? rowNum - 1 : -1;
 
-						bool canUseSlot =  EnchantingTableUI.UseEnchantmentSlot(itemType, enchantmentSlotIndex);//Change to item type
+						bool canUseSlot =  EnchantingTableUI.UseEnchantmentSlot(itemType, enchantmentSlotIndex);
 						if (enchantmentSlot.MouseHovering()) {
-							bool clear = false;
 							if (ItemSlot.ShiftInUse) {
 								Main.cursorOverride = CursorOverrideID.TrashCan;
 								if (UIManager.LeftMouseClicked) {
@@ -208,7 +207,8 @@ namespace WeaponEnchantments.UI
 							}
 						}
 
-						enchantmentSlot.Draw(spriteBatch, item, canUseSlot ? isUtilitySlot ? ItemSlotContextID.Favorited : ItemSlotContextID.Normal : ItemSlotContextID.Red);
+						bool isAvailableSlot = availableSlotRow == rowNum && availableSlotIndex == enchantmentSlotIndex;
+						enchantmentSlot.Draw(spriteBatch, item, canUseSlot ? isAvailableSlot ? ItemSlotContextID.Gold : isUtilitySlot ? ItemSlotContextID.Favorited : ItemSlotContextID.Normal : ItemSlotContextID.Red);
 						itemSlotX += itemSlotSpaceWidth;
 					}
 
@@ -407,6 +407,54 @@ namespace WeaponEnchantments.UI
 			}
 
 			return true;
+		}
+		public static bool AvailableSlot(Item newItem) {
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			List<Item[]> inventory = wePlayer.enchantmentLoadouts[displayedLoadout];
+			for (int rowNum = 0; rowNum < inventory.Count; rowNum++) {
+				Item[] enchantmentSlots = inventory[rowNum];
+				for (int enchantmentSlotIndex = 0; enchantmentSlotIndex < EnchantingTableUI.MaxEnchantmentSlots; enchantmentSlotIndex++) {
+					ref Item item = ref enchantmentSlots[enchantmentSlotIndex];
+
+					bool isArmor = rowNum >= 1 && rowNum <= 3;
+					EItemType itemType = rowNum switch {
+						0 => EItemType.Weapons,
+						_ when (isArmor) => EItemType.Armor,
+						_ => EItemType.Accessories,
+					};
+
+					bool canUseSlot = EnchantingTableUI.UseEnchantmentSlot(itemType, enchantmentSlotIndex);
+					if (canUseSlot) {
+						bool isUtilitySlot = enchantmentSlotIndex == EnchantingTableUI.MaxEnchantmentSlots - 1;
+						int armorSlotSpecificID = isArmor ? rowNum - 1 : -1;
+						if (EnchantingTableUI.ValidItemForLoadoutEnchantmentSlot(newItem, itemType, enchantmentSlotIndex, isUtilitySlot, armorSlotSpecificID) && newItem.ModItem is Enchantment enchantment) {
+							int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, enchantmentSlots);
+							bool uniqueSlotNotFound = uniqueItemSlot == -1;
+							bool uniqueEnchantmentOnItem = EnchantingTableUI.CheckUniqueSlot(enchantment, uniqueItemSlot, enchantmentSlotIndex);
+							bool canAcceptEnchantment = !uniqueSlotNotFound && uniqueEnchantmentOnItem && newItem.type != item.type;
+							if (canAcceptEnchantment) {
+								availableSlotRow = rowNum;
+								availableSlotIndex = enchantmentSlotIndex;
+
+								return true;
+							}
+						}
+					}
+				}
+			}
+
+			availableSlotRow = -1;
+			availableSlotIndex = -1;
+			return false;
+		}
+		public static void UpdateAvailableEnchantmentSlot(WEPlayer wePlayer, Item enchantmentItem) {
+			Item clone = enchantmentItem.Clone();
+			clone.stack = 1;
+			wePlayer.enchantmentLoadouts[displayedLoadout][availableSlotRow][availableSlotIndex] = clone;
+		}
+		public static void ResetAvailableSlot() {
+			availableSlotRow = -1;
+			availableSlotIndex = -1;
 		}
 	}
 }
