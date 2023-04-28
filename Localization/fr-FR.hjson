@@ -597,8 +597,11 @@ Mods: {
 		}
 
 		EnchantmentStorageText: {
+			All: All
 			DepositAll: Deposit All
+			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
+			HeldItem: Held Item
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -611,6 +614,8 @@ Mods: {
 			ToggleMarkTrash: Toggle Mark Trash
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
+			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
 		}
 
 		Items: {
@@ -1114,7 +1119,19 @@ Mods: {
 		}
 
 		TableText: {
-			AreYouSure:
+			Cancel: Annuler
+			Finalize: Finaliser
+			Infusion: Infusion
+			LevelUp: Niveau supérieur
+			Loadouts: Loadouts
+			LootAll: Tout piller
+			No: Non
+			Offer: Offrir
+			Storage: Storage
+			Syphon: Siphon
+			xp: XP
+			Yes: Oui
+			AreYouSure: 
 				'''
 				Êtes-vous sûr de vouloir DÉTRUIRE DE FAÇON PERMANENTE votre niveau {0}
 				{1} {2}

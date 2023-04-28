@@ -48,8 +48,8 @@ namespace WeaponEnchantments.UI
 		}
 		public static int ID => UI_ID.EnchantmentStorage;
 		public static int SearchID => UI_ID.EnchantmentStorageSearch;
-		public static int EnchantmentStorageUIDefaultLeft => 680;
-		public static int EnchantmentStorageUIDefaultTop => 90;
+		public static int EnchantmentStorageUIDefaultLeft => 600;
+		public static int EnchantmentStorageUIDefaultTop => 5;
 		public static Color PanelColor => new Color(26, 2, 56, 100);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
@@ -238,11 +238,12 @@ namespace WeaponEnchantments.UI
 						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot, itemSlotX, itemSlotY);
 						string modFullName = item.type.GetItemIDOrName();
 						if (managingTrash) {
+							bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
 							if (slotData.MouseHovering()) {
 								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
-								Main.cursorOverride = CursorOverrideID.TrashCan;
+								Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
 								if (UIManager.LeftMouseClicked) {
-									if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+									if (isTrash) {
 										wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
 									}
 									else {
@@ -253,7 +254,7 @@ namespace WeaponEnchantments.UI
 								}
 							}
 
-							if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
+							if (isTrash) {
 								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 							}
 							else {
@@ -261,11 +262,12 @@ namespace WeaponEnchantments.UI
 							}
 						}
 						else if (managingOfferdItems) {
+							bool isOffered = wePlayer.allOfferedItems.Contains(modFullName);
 							if (slotData.MouseHovering()) {
 								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
-								Main.cursorOverride = CursorOverrideID.TrashCan;
+								Main.cursorOverride = isOffered ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
 								if (UIManager.LeftMouseClicked) {
-									if (wePlayer.allOfferedItems.Contains(modFullName)) {
+									if (isOffered) {
 										wePlayer.allOfferedItems.Remove(modFullName);
 									}
 									else {
@@ -276,7 +278,7 @@ namespace WeaponEnchantments.UI
 								}
 							}
 
-							if (wePlayer.allOfferedItems.Contains(modFullName)) {
+							if (isOffered) {
 								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 							}
 							else {
@@ -315,8 +317,11 @@ namespace WeaponEnchantments.UI
 							}
 						}
 						else {
+							bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
 							if (slotData.MouseHovering()) {
+								bool normalClickInteractions = true;
 								if (WEModSystem.FavoriteKeyDown) {
+									normalClickInteractions = false;
 									Main.cursorOverride = CursorOverrideID.FavoriteStar;
 									if (UIManager.LeftMouseClicked) {
 										item.favorited = !item.favorited;
@@ -325,50 +330,58 @@ namespace WeaponEnchantments.UI
 											vacummItem2.favorited = item.favorited;
 									}
 								}
-								else if (Main.mouseItem.NullOrAir() || CanBeStored(Main.mouseItem)) {
-									if (markingTrash && Main.mouseItem.NullOrAir() && item.ModItem is Enchantment) {
-										Main.cursorOverride = CursorOverrideID.TrashCan;
-										if (UIManager.LeftMouseClicked) {
-											if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName)) {
-												wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
-											}
-											else {
-												wePlayer.trashEnchantmentsFullNames.Add(modFullName);
-											}
+								else {
+									if (markingTrash) {
+										if (!item.IsAir) {
+											normalClickInteractions = false;
+											if (item.ModItem is Enchantment) {
+												Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
+												if (UIManager.LeftMouseClicked) {
+													if (isTrash) {
+														wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
+													}
+													else {
+														wePlayer.trashEnchantmentsFullNames.Add(modFullName);
+													}
 
-											SoundEngine.PlaySound(SoundID.MenuTick);
-										}
-										else {
-											slotData.ClickInteractions(ref item);
+													SoundEngine.PlaySound(SoundID.MenuTick);
+												}
+											}
 										}
 									}
-									else if (wePlayer.usingEnchantingTable && ItemSlot.ShiftInUse) {
+									if (ItemSlot.ShiftInUse) {
+										normalClickInteractions = false;
 										if (wePlayer.CheckShiftClickValid(ref item)) {
 											if (UIManager.LeftMouseClicked)
 												wePlayer.CheckShiftClickValid(ref item, true);
 										}
 										else {
-											if (UIManager.LeftMouseClicked && Main.mouseItem.IsAir) {
-												Main.mouseItem = item.Clone();
-												item = new();
+											if (Main.mouseItem.IsAir) {
+												if (!item.IsAir) {
+													if (UIManager.LeftMouseClicked) {
+														UIManager.SwapMouseItem(ref item);
+													}
+												}
 											}
 											else {
-												slotData.ClickInteractions(ref item);
+												if (CanBeStored(Main.mouseItem)) {
+													if (UIManager.LeftMouseClicked) {
+														UIManager.SwapMouseItem(ref item);
+													}
+												}
 											}
-
-											Main.cursorOverride = -1;
 										}
 									}
-									else {
-										slotData.ClickInteractions(ref item);
-									}
 								}
+
+								if (normalClickInteractions)
+									slotData.ClickInteractions(ref item);
 							}
 
 							if (!item.IsAir && !item.favorited && item.TryGetGlobalItem(out VacuumToStorageItems vacummItem) && vacummItem.favorited)
 								item.favorited = true;
 
-							if (wePlayer.trashEnchantmentsFullNames.Contains(modFullName) && !item.favorited) {
+							if (isTrash && !item.favorited) {
 								slotData.Draw(spriteBatch, item, ItemSlotContextID.MarkedTrash, glowHue, glowTime);
 							}
 							else {

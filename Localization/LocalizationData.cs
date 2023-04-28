@@ -294,7 +294,8 @@ namespace WeaponEnchantments.Localization
 								//Filled Automatically
 							},
 							dict: new() {
-								//Ready for values to be added if needed
+								{ EnchantmentStorageTextID.NoHeldItem.ToString(), "You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item." },
+								{ EnchantmentStorageTextID.LoadoutSizeChanged.ToString(), "Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned." }
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {

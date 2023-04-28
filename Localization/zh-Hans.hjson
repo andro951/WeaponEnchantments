@@ -579,8 +579,11 @@ Mods: {
 		}
 
 		EnchantmentStorageText: {
+			All: All
 			DepositAll: Deposit All
+			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
+			HeldItem: Held Item
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -593,6 +596,8 @@ Mods: {
 			ToggleMarkTrash: Toggle Mark Trash
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
+			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
 		}
 
 		Items: {
@@ -1096,7 +1101,19 @@ Mods: {
 		}
 
 		TableText: {
-			AreYouSure:
+			Cancel: 取消
+			Finalize: 确定
+			Infusion: 武器融合
+			LevelUp: 提升等级
+			Loadouts: Loadouts
+			LootAll: 一键收取
+			No: 否
+			Offer: 熔炼回收
+			Storage: Storage
+			Syphon: 吸取经验
+			xp: 给
+			Yes: 是
+			AreYouSure: 
 				'''
 				您确定要永久销毁您的等级 {0}
 				{1} {2}

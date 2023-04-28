@@ -193,7 +193,6 @@ namespace WeaponEnchantments.UI
 
 			//ItemSlots Draw
 			int startRow = scrollPanelPosition;
-			int endRow = startRow + itemSlotRowsDisplayed;
 			bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
 			int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 			int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
@@ -207,7 +206,6 @@ namespace WeaponEnchantments.UI
 				ref Item item = ref inventory[inventoryIndex];
 				if (!UsingSearchBar || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
 					UIItemSlotData slotData = new(UI_ID.OreBagItemSlot, itemSlotX, itemSlotY);
-					string modFullName = item.type.GetItemIDOrName();
 					if (slotData.MouseHovering()) {
 						if (WEModSystem.FavoriteKeyDown) {
 							Main.cursorOverride = CursorOverrideID.FavoriteStar;

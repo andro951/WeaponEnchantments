@@ -65,7 +65,10 @@ namespace WeaponEnchantments.ModIntegration
 
                     if (wePlayer.displayOreBagUI)
                         OreBagUI.CloseOreBag();
-                }
+
+                    if (wePlayer.displayEnchantmentLoadoutUI)
+						EnchantmentLoadoutUI.Close(true);
+				}
 
                 Item mouseItem = Main.mouseItem;
                 Item hoverItem = Main.HoverItem;

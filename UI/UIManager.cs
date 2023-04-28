@@ -26,9 +26,8 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace WeaponEnchantments.UI
 {
-	public static class UIManager
-	{
-		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || WEPlayer.LocalWEPlayer.displayOreBagUI || WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI;
+	public static class UIManager {
+		public static bool DisplayingAnyUI => WEPlayer.LocalWEPlayer.displayEnchantmentStorage || WEPlayer.LocalWEPlayer.usingEnchantingTable || Witch.rerollUI || WEPlayer.LocalWEPlayer.displayOreBagUI || WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI || WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI;
 		public static bool NoPanelBeingDragged => PanelBeingDragged == UI_ID.None;
 		public static bool NoUIBeingHovered => UIBeingHovered == UI_ID.None;
 		public static bool HoveringWitchReroll => UI_ID.WitchReroll <= UIBeingHovered && UIBeingHovered < UI_ID.WitchRerollEnd;
@@ -39,7 +38,9 @@ namespace WeaponEnchantments.UI
 		private static int mouseOffsetX = 0;
 		private static int mouseOffsetY = 0;
 		public static bool lastMouseLeft = false;
+		public static bool lastMouseRight = false;
 		public static bool LeftMouseClicked => Main.mouseLeft && !lastMouseLeft;
+		public static bool RightMouseClicked => Main.mouseRight && !lastMouseRight;
 		public static bool LeftMouseDown = false;
 		public static Color MouseColor {
 			get {
@@ -72,53 +73,55 @@ namespace WeaponEnchantments.UI
 				wePlayer.disableLeftShiftTrashCan = false;
 			}
 
-			if (!DisplayingAnyUI)
-				return;
+			if (DisplayingAnyUI) {
+				if (NoPanelBeingDragged) {
+					if (!NoUIBeingHovered && UIBeingHovered == LastUIBeingHovered) {
+						HoverTime++;
+					}
+					else {
+						HoverTime = 0;
+					}
 
-			if (NoPanelBeingDragged) {
-				if (!NoUIBeingHovered && UIBeingHovered == LastUIBeingHovered) {
-					HoverTime++;
+					LastUIBeingHovered = UIBeingHovered;
+					UIBeingHovered = UI_ID.None;
+				}
+
+				if (TypingOnAnySearchBar) {
+					SearchBarTimer++;
 				}
 				else {
-					HoverTime = 0;
+					SearchBarTimer = 0;
 				}
 
-				LastUIBeingHovered = UIBeingHovered;
-				UIBeingHovered = UI_ID.None;
-			}
-
-			if (TypingOnAnySearchBar) {
-				SearchBarTimer++;
-			}
-			else {
-				SearchBarTimer = 0;
-			}
-
-			LastScrollWheel = ScrollWheel;
-			ScrollWheel = (int)typeof(Mouse).GetField("INTERNAL_MouseWheel", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-			LastFocusRecipe = FocusRecipe;
-			FocusRecipe = Main.focusRecipe;
-			float savedInventoryScale = Main.inventoryScale;
-			Main.inventoryScale = 0.86f;
-			bool preventTrashingItem = wePlayer.usingEnchantingTable || wePlayer.displayOreBagUI && OreBagUI.CanBeStored(Main.HoverItem);
-			if (preventTrashingItem) {
-				//Disable Left Shift to Quick trash
-				if (ItemSlot.Options.DisableLeftShiftTrashCan) {
-					wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
-					ItemSlot.Options.DisableLeftShiftTrashCan = false;
+				LastScrollWheel = ScrollWheel;
+				ScrollWheel = (int)typeof(Mouse).GetField("INTERNAL_MouseWheel", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+				LastFocusRecipe = FocusRecipe;
+				FocusRecipe = Main.focusRecipe;
+				float savedInventoryScale = Main.inventoryScale;
+				Main.inventoryScale = 0.86f;
+				bool preventTrashingItem = wePlayer.usingEnchantingTable || wePlayer.displayOreBagUI && OreBagUI.CanBeStored(Main.HoverItem);
+				if (preventTrashingItem) {
+					//Disable Left Shift to Quick trash
+					if (ItemSlot.Options.DisableLeftShiftTrashCan) {
+						wePlayer.disableLeftShiftTrashCan = ItemSlot.Options.DisableLeftShiftTrashCan;
+						ItemSlot.Options.DisableLeftShiftTrashCan = false;
+					}
 				}
+
+				EnchantingTableUI.PostDrawInterface(spriteBatch);
+				EnchantmentStorage.PostDrawInterface(spriteBatch);
+				WitchRerollUI.PostDrawInterface(spriteBatch);
+				OreBagUI.PostDrawInterface(spriteBatch);
+				EnchantmentLoadoutUI.PostDrawInterface(spriteBatch);
+
+				Main.inventoryScale = savedInventoryScale;
 			}
 
-			EnchantingTableUI.PostDrawInterface(spriteBatch);
-			EnchantmentStorage.PostDrawInterface(spriteBatch);
-			WitchRerollUI.PostDrawInterface(spriteBatch);
-			OreBagUI.PostDrawInterface(spriteBatch);
-
-			Main.inventoryScale = savedInventoryScale;
 			lastMouseLeft = Main.mouseLeft;
+			lastMouseRight = Main.mouseRight;
 		}
 		public static void PostUpdateEverything() {
-			if (Main.focusRecipe != FocusRecipe && (HoveringEnchantmentStorage || HoveringOreBag))
+			if (Main.focusRecipe != FocusRecipe && (HoveringEnchantmentStorage || HoveringOreBag || HoveringEnchantmentLoadoutUI && EnchantmentLoadoutUI.useingScrollBar))
 				Main.focusRecipe = FocusRecipe;
 		}
 		public static string DisplayedSearchBarString(int SearchBarID) {
@@ -391,14 +394,6 @@ namespace WeaponEnchantments.UI
 		}
 		public static void ItemSlotClickInteractions(ref Item item, int context = ItemSlotInteractContext) {
 			ItemSlot.Handle(ref item, context);
-			/*
-			ItemSlot.LeftClick(ref item, context);
-			if (Main.mouseLeftRelease && Main.mouseLeft)
-				Recipe.FindRecipes();
-
-			ItemSlot.RightClick(ref item, context);
-			ItemSlot.MouseHover(ref item, context);
-			*/
 		}
 		public static void ItemSlotClickInteractions(EnchantmentsArray enchantmentsArray, int index, int context) {
 			Item enchantmentItem = enchantmentsArray[index];
@@ -408,7 +403,7 @@ namespace WeaponEnchantments.UI
 		}
 		public static void SwapMouseItem(ref Item item1) {
 			Item stored = item1.Clone();
-			item1 = Main.mouseItem;
+			item1 = Main.mouseItem.Clone();
 			Main.mouseItem = stored;
 			SoundEngine.PlaySound(SoundID.Grab);
 		}
@@ -631,6 +626,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantingTableLevelUp = 2005;
 		public const int EnchantingTableItemSlot = 2006;
 		public const int EnchantingTableStorageButton = 2007;
+		public const int EnchantingTableLoadoutsButton = 2008;
 		public const int EnchantingTableEnchantment0 = 2200;
 		public const int EnchantingTableEnchantmentLast = EnchantingTableEnchantment0 + EnchantingTableUI.MaxEnchantmentSlots - 1;
 		public const int EnchantingTableEssence0 = 2300;

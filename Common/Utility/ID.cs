@@ -487,6 +487,7 @@ namespace WeaponEnchantments.Common.Utility
 		enchantment4,
 		utility0,
 		essence0,
+		Loadouts
 	}
 	public enum EnchantmentStorageTextID
 	{
@@ -506,8 +507,10 @@ namespace WeaponEnchantments.Common.Utility
 		Search,
 		OreBag,
 		EnchantmentLoadouts,
-		Edit,
-		Weapon
+		All,
+		HeldItem,
+		NoHeldItem,
+		LoadoutSizeChanged
 	}
 	public enum DialogueID {
         StandardDialogue,
