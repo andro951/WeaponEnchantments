@@ -268,9 +268,8 @@ namespace WeaponEnchantments
             WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
             weModSystemUI.SetState(null);
             promptInterface.SetState(null);
-            if (wePlayer.usingEnchantingTable) {
+            if (wePlayer.usingEnchantingTable)
                 EnchantingTableUI.CloseEnchantingTableUI();
-            }
 
             WEPlayer.LocalWEPlayer = null;
         }

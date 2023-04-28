@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Empêche l'affichage de messages dans votre chat qui vous demandent de
-					\\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\\"
+					\\\\\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -891,8 +891,11 @@ Mods: {
 			}
 		}
 		EnchantmentStorageText: {
+			All: All
 			DepositAll: Deposit All
+			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
+			HeldItem: Held Item
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -905,6 +908,8 @@ Mods: {
 			ToggleMarkTrash: Toggle Mark Trash
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
+			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
 		}
 		ItemTooltip: {
 			Containment: Utilisé pour stocker les enchantements de base
@@ -1009,6 +1014,7 @@ Mods: {
 			Finalize: Finaliser
 			Infusion: Infusion
 			LevelUp: Niveau supérieur
+			Loadouts: Loadouts
 			LootAll: Tout piller
 			No: Non
 			Offer: Offrir

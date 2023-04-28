@@ -241,6 +241,7 @@ namespace WeaponEnchantments.Common.Utility
 
 			return result;
 		}
+		public static int Abs(this int v) => v < 0 ? -v : v;
 
 		#endregion
 	}

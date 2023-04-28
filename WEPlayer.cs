@@ -94,6 +94,7 @@ namespace WeaponEnchantments
         public bool displayEnchantmentLoadoutUI = false;
         public int EnchantmentLoadoutUILeft;
         public int EnchantmentLoadoutUITop;
+        public bool openLoadoutsWhenOpeningTable;
 
 		#endregion
 
@@ -316,6 +317,7 @@ namespace WeaponEnchantments
             tag["enchantmentLoadouts"] = enchantmentLoadouts;
             tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
             tag["EnchantmentLoadoutUITop"] = EnchantmentLoadoutUITop;
+            tag["openLoadoutsWhenOpeningTable"] = openLoadoutsWhenOpeningTable;
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
@@ -379,67 +381,28 @@ namespace WeaponEnchantments
             if (!tag.TryGet("enchantmentLoadouts", out enchantmentLoadouts))
                 enchantmentLoadouts = new();
 
-            EnchantmentLoadoutUILeft = tag.Get<int>("EnchantmentLoadoutUILeft");
+            if (enchantmentLoadouts.Count < 1)
+                EnchantmentLoadoutUI.AddNewBlankLoadout(this);
+
+			EnchantmentLoadoutUILeft = tag.Get<int>("EnchantmentLoadoutUILeft");
             EnchantmentLoadoutUITop = tag.Get<int>("EnchantmentLoadoutUITop");
+            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref EnchantmentLoadoutUILeft, ref EnchantmentLoadoutUITop, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultLeft, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultTop);
+            openLoadoutsWhenOpeningTable = tag.Get<bool>("openLoadoutsWhenOpeningTable");
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
 			ref Item item = ref inventory[slot];
 			if (usingEnchantingTable) {
-				bool stop = false;
-				if (false && !UIManager.NoUIBeingHovered) {
-					Item enchantingTableSlotItem = null;
-					//Check Enchanting Item Slot
-					if (UIManager.UIBeingHovered == UI_ID.EnchantingTableItemSlot) {
-						stop = true;
-						enchantingTableSlotItem = enchantingTableItem;
-					}
-
-					if (!stop) {
-						//Check Enchantment Slots
-						int enchantmentIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEnchantment0;
-						if (0 <= enchantmentIndex && enchantmentIndex < EnchantingTableUI.MaxEnchantmentSlots) {
-							stop = true;
-							enchantingTableSlotItem = enchantingTableEnchantments[enchantmentIndex];
-						}
-					}
-
-					if (!stop) {
-						//Check Essence Slots
-						int essenceIndex = UIManager.UIBeingHovered - UI_ID.EnchantingTableEssence0;
-						if (0 <= essenceIndex && essenceIndex < EnchantingTableUI.MaxEssenceSlots) {
-							stop = true;
-							enchantingTableSlotItem = enchantingTableEssence[essenceIndex];
-						}
-					}
-
-					//Prevent Trashing item TODO: Edit this if you ever make ammo bags enchantable
-					if (stop) {
-						//Prevent trashing an item from the enchanting table.
-						bool itemWillBeTrashed = true;
-						for (int i = 49; i >= 0 && itemWillBeTrashed; i--) {
-							//Any open invenotry space or a stack of the same item in the inventory can hold the 
-							if (Player.inventory[i].IsAir || (Player.inventory[i].type == enchantingTableSlotItem.type && Player.inventory[i].stack + enchantingTableSlotItem.stack <= Player.inventory[i].maxStack))
-								itemWillBeTrashed = false;
-						}
-
-						if (itemWillBeTrashed) {
-							if (Main.mouseItem.IsAir) {
-								Main.mouseItem = enchantingTableSlotItem.Clone();
-								enchantingTableSlotItem.TurnToAir();
-								SoundEngine.PlaySound(SoundID.Grab);
-							}
-
-							return true;
-						}
+				if (!displayEnchantmentLoadoutUI) {
+					//Move to Enchanting table
+					if (!UIManager.HoveringEnchantingTable) {
+						if (CheckShiftClickValid(ref inventory[slot], true))
+						    return true;
 					}
 				}
+                else {
+                    //Move to Enchantment loadout
 
-				//Move Item
-				if (!stop && !UIManager.HoveringEnchantingTable) {
-					CheckShiftClickValid(ref inventory[slot], true);
-
-					return true;
-				}
+                }
 			}
 
 			if (UIManager.NoUIBeingHovered) {
@@ -449,7 +412,6 @@ namespace WeaponEnchantments
 
 					return true;
 				}
-                
             }
 
             return false;
@@ -484,8 +446,8 @@ namespace WeaponEnchantments
 
                 if (!hoveringOverTrash && canMoveItem) {
                     Item tableItem = enchantingTableItem;
-
-                    if (item.type == PowerBooster.ID && enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem tableItemGlobal) && !tableItemGlobal.PowerBoosterInstalled) {
+                    bool tableItemIsEnchaned = enchantingTableItem.TryGetEnchantedItemSearchAll(out EnchantedItem tableItemGlobal);
+					if (item.type == PowerBooster.ID && tableItemIsEnchaned && !tableItemGlobal.PowerBoosterInstalled) {
                         //Power Booster
                         if (moveItem) {
                             tableItemGlobal.PowerBoosterInstalled = true;
@@ -501,7 +463,7 @@ namespace WeaponEnchantments
 
                         valid = true;
                     }
-                    else if (item.type == UltraPowerBooster.ID && enchantingTableItem.TryGetEnchantedItem(out tableItemGlobal) && !tableItemGlobal.UltraPowerBoosterInstalled) {
+                    else if (item.type == UltraPowerBooster.ID && tableItemIsEnchaned && !tableItemGlobal.UltraPowerBoosterInstalled) {
                         //Ultra Power Booster
                         if (moveItem) {
                             tableItemGlobal.UltraPowerBoosterInstalled = true;
@@ -541,7 +503,7 @@ namespace WeaponEnchantments
                                 bool uniqueSlotNotFound = uniqueItemSlot == -1;
 								int utilitySlotIndex = EnchantingTableUI.MaxEnchantmentSlots - 1;
                                 for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
-                                    if (!EnchantingTableUI.ValidItemForEnchantmentSlot(item, i, i == utilitySlotIndex))
+                                    if (!EnchantingTableUI.ValidItemForEnchantingTableEnchantmentSlot(item, i, i == utilitySlotIndex))
                                         continue;
 
                                     if (item.IsAir)
@@ -553,7 +515,7 @@ namespace WeaponEnchantments
                                             int slotIndex = i;
                                             //Utility
                                             if ((enchantment.Utility || RemoveEnchantmentRestrictions) && enchantingTableEnchantments[utilitySlotIndex].IsAir) {
-                                                bool utilitySlotAllowedOnItem = EnchantingTableUI.SlotAllowedByConfig(tableItem, 1);
+                                                bool utilitySlotAllowedOnItem = tableItemIsEnchaned && EnchantingTableUI.SlotAllowedByConfig(tableItemGlobal.ItemType, 1);
                                                 if (utilitySlotAllowedOnItem)
                                                     slotIndex = utilitySlotIndex;
                                             }
@@ -579,21 +541,17 @@ namespace WeaponEnchantments
                                         if (!uniqueSlotNotFound && uniqueEnchantmentOnItem && item.type != enchantingTableEnchantments[i].type) {
                                             //Check unique can swap
                                             if (moveItem) {
-                                                Item returnItem = enchantingTableEnchantments[i].Clone();
-                                                enchantingTableEnchantments[i] = item.Clone();
-                                                enchantingTableEnchantments[i].stack = 1;
-                                                if (!returnItem.IsAir) {
-                                                    if (item.stack > 1) {
-                                                        Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), returnItem);
-                                                        item.stack--;
-                                                    }
-                                                    else {
-                                                        item = returnItem;
-                                                    }
-                                                }
+												TryReturnEnchantmentToPlayer(i, true);
+                                                Item newEnchantmentItem = item.Clone();
+                                                newEnchantmentItem.stack = 1;
+												if (item.stack > 1) {
+													item.stack--;
+												}
                                                 else {
-                                                    item = new Item();
-                                                }
+													item = new Item();
+												}
+												
+                                                enchantingTableEnchantments[i] = newEnchantmentItem;
 
                                                 SoundEngine.PlaySound(SoundID.Grab);
                                             }
@@ -662,19 +620,17 @@ namespace WeaponEnchantments
 
                 if (!valid && moveItem) {
                     //Pick up item
-                    Main.mouseItem = item.Clone();
-                    item = new Item();
-					SoundEngine.PlaySound(SoundID.Grab);
+                    UIManager.SwapMouseItem(ref item);
 				}
                 else if (valid && !moveItem && !hoveringOverTrash) {
                     Main.cursorOverride = CursorOverrideID.InventoryToChest;
                 }
             }
             else if (moveItem) {
-                //Put item down
-                item = Main.mouseItem.Clone();
-                Main.mouseItem = new Item();
-				SoundEngine.PlaySound(SoundID.Grab);
+				//Put item down
+				UIManager.SwapMouseItem(ref item);
+
+                return true;//Return true to prevent trashing the item after it's put down
 			}
 
             return valid;

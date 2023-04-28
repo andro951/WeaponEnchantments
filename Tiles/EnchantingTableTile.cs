@@ -128,7 +128,7 @@ namespace WeaponEnchantments.Tiles
 			}
 
 			Main.stackSplit = 600;
-			if (wePlayer.usingEnchantingTable && wePlayer.Player.chestX == x && wePlayer.Player.chestY == y) {
+			if (wePlayer.usingEnchantingTable && (wePlayer.Player.chestX - x).Abs() <= 1 && wePlayer.Player.chestY == y) {
 				wePlayer.enchantingTableLocation = new(-1, -1);
 				EnchantingTableUI.CloseEnchantingTableUI();
 			}

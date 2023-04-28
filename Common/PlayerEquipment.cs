@@ -25,7 +25,7 @@ namespace WeaponEnchantments.Common {
         public Item InfusedHead;
         public Item InfusedBody;
         public Item InfusedLegs;
-        private Item[] Accesories;
+        private Item[] Accessories;
         WEPlayer wePlayer;
 
         public PlayerEquipment(Player player) {
@@ -35,11 +35,16 @@ namespace WeaponEnchantments.Common {
             ModAccessorySlotPlayer alp = player.GetModPlayer<ModAccessorySlotPlayer>();
             AccessorySlotLoader loader = LoaderManager.Get<AccessorySlotLoader>();
 
-            int moddedSlotCount = alp.SlotCount;
+            List<Item> modAccessories = new();
+            for (int i = 0; i < alp.SlotCount; i++) {
+				var slot = loader.Get(i, player);
+				if (loader.ModdedIsAValidEquipmentSlotForIteration(i, player) /*&& slot.IsEnabled()*/)
+                    modAccessories.Add(slot.FunctionalItem ?? new());
+            }
 
-            Accesories = new Item[vanillaAccesorySlots + moddedSlotCount]; 
+            Accessories = new Item[vanillaAccesorySlots + modAccessories.Count];
 
-            for(int i = 0; i < vanillaArmorSlots; i++) {        // Set all (vanilla) armor slots
+            for(int i = 0; i < vanillaArmorSlots; i++) {
                 Armor[i] = player.armor[i] ?? new();
 
                 if (Armor[i].TryGetEnchantedItem(out EnchantedArmor enchantedArmor)) {
@@ -60,19 +65,13 @@ namespace WeaponEnchantments.Common {
 				}
             }
 
-            for (int i = 0; i < vanillaAccesorySlots; i++) {    // Set all vanilla accesory slots
-                Accesories[i] = player.armor[i + 3] ?? new();
+            for (int i = 0; i < vanillaAccesorySlots; i++) {
+                Accessories[i] = player.armor[i + 3] ?? new();
             }
 
-            for (int i = 0; i < moddedSlotCount; i++) {         // Set all modded accesory slots (cheatsheet does what it wants)
-                var slot = loader.Get(i, player);
-                if (slot.IsEnabled() && !slot.IsEmpty) {
-					Accesories[vanillaAccesorySlots + i] = slot.FunctionalItem ?? new();
-				}
-                else {
-					Accesories[vanillaAccesorySlots + i] = new();
-				}
-            }
+            for (int i = 0; i < modAccessories.Count; i++) {
+                Accessories[i] = modAccessories[i];
+			}
         }
 
         public static bool operator ==(PlayerEquipment pe, PlayerEquipment other) {
@@ -256,13 +255,13 @@ namespace WeaponEnchantments.Common {
             return result;
 		}
 
-		public IEnumerable<Item> GetAllArmor() => Armor.Concat(Accesories);
+		public IEnumerable<Item> GetAllArmor() => Armor.Concat(Accessories);
 
         private IEnumerable<Item> GetAllItems() {
-            Item[] items = new Item[1 + Armor.Length + Accesories.Length];
+            Item[] items = new Item[1 + Armor.Length + Accessories.Length];
             items[0] = heldItem[0];
             Armor.CopyTo(items, 1);
-            Accesories.CopyTo(items, 1 + Armor.Length);
+            Accessories.CopyTo(items, 1 + Armor.Length);
 
             return items;
         }

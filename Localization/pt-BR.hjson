@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
-					\\\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\\\"
+					\\\\\\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -891,8 +891,11 @@ Mods: {
 			}
 		}
 		EnchantmentStorageText: {
+			All: All
 			DepositAll: Deposit All
+			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
+			HeldItem: Held Item
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -905,6 +908,8 @@ Mods: {
 			ToggleMarkTrash: Toggle Mark Trash
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
+			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
 		}
 		ItemTooltip: {
 			Containment: Usado para armazenar encantamentos básicos
@@ -1009,6 +1014,7 @@ Mods: {
 			Finalize: Finalizar
 			Infusion: Infusão
 			LevelUp: Subir de nível
+			Loadouts: Loadouts
 			LootAll: Saquear tudo
 			No: Não
 			Offer: Oferta
@@ -1200,8 +1206,8 @@ Mods: {
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
 					'''
-					\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\"
+					\\\\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\\\\"
 					'''
 				BuffDuration: 
 					'''

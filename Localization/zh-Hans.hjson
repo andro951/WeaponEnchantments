@@ -873,8 +873,11 @@ Mods: {
 			}
 		}
 		EnchantmentStorageText: {
+			All: All
 			DepositAll: Deposit All
+			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
+			HeldItem: Held Item
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -887,6 +890,8 @@ Mods: {
 			ToggleMarkTrash: Toggle Mark Trash
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
+			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
 		}
 		ItemTooltip: {
 			Containment: 用于存放附魔基元
@@ -991,6 +996,7 @@ Mods: {
 			Finalize: 确定
 			Infusion: 武器融合
 			LevelUp: 提升等级
+			Loadouts: Loadouts
 			LootAll: 一键收取
 			No: 否
 			Offer: 熔炼回收
@@ -1174,7 +1180,7 @@ Mods: {
 					（没有人能在天照大火无法阻挡的火焰中幸存）
 					（对敌人造成独特的火焰减益，永不停息）
 					（该减益造成的伤害会随着时间的推移而增长，并对目标造成更多伤害）
-					（扩散到附近的敌人，并防止敌人对其他的 \\\\\\"世界之火 \\\\\\"的减益免疫。）
+					（扩散到附近的敌人，并防止敌人对其他的 \\\\\\\\\"世界之火 \\\\\\\\\"的减益免疫。）
 					'''
 			}
 			EnchantmentEffects: {

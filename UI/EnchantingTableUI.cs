@@ -28,8 +28,8 @@ namespace WeaponEnchantments.UI
 {
 	public static class EnchantingTableUI
 	{
-		public static int DefaultLeft => (Main.screenWidth - 530) / 2;
-		public static int DefaultTop => Main.screenHeight / 2 + 100;
+		public static int DefaultLeft => 560;
+		public static int DefaultTop => 550;
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		private static int ButtonBorderY => 0;
@@ -49,7 +49,7 @@ namespace WeaponEnchantments.UI
 		public static float[] LevelsPerButtonScale = Enumerable.Repeat(buttonScaleMinimum, LevelsPerLevelUp.Length).ToArray();
 		private static bool itemBeingEnchantedIsFavorited = false;
 		private static string descriptionBlock = null;
-		private static bool DisplayDescriptionBlock => UIManager.HoverTime >= 60;
+		public static bool DisplayDescriptionBlock => UIManager.HoverTime >= 60;
 		public static bool pressedLootAll = false;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
@@ -192,9 +192,9 @@ namespace WeaponEnchantments.UI
 				UIButtonData[] xpData = new UIButtonData[MaxEnchantmentSlots];
 				int[] middleSlotsLefts = new int[MaxEnchantmentSlots];
 				int middleSlotsCurrentLeft = panelMiddleCenterX - enchantmentSlotsWidth / 2;
-				int xpButtonTop = enchantingItemSlotTop + (UIManager.ItemSlotSize + Spacing) * 2;
+				int levelUpButtonTop = enchantingItemSlotTop + (UIManager.ItemSlotSize + Spacing) * 2;
 				for (int i = 0; i < MaxEnchantmentSlots; i++) {
-					UIButtonData thisXpData = new(UI_ID.EnchantingTableXPButton0 + i, middleSlotsCurrentLeft - diff / 2, xpButtonTop, xpTextData, mouseColor, ButtonBorderX, ButtonBorderY, BackGroundColor, HoverColor);
+					UIButtonData thisXpData = new(UI_ID.EnchantingTableXPButton0 + i, middleSlotsCurrentLeft - diff / 2, levelUpButtonTop, xpTextData, mouseColor, ButtonBorderX, ButtonBorderY, BackGroundColor, HoverColor);
 					xpData[i] = thisXpData;
 					middleSlotsLefts[i] = middleSlotsCurrentLeft;
 					middleSlotsCurrentLeft += widthOfSlotButtonPair + Spacing;
@@ -276,6 +276,20 @@ namespace WeaponEnchantments.UI
 				int rightPanelButtonsCenterX = rightButtonsLeft + rightPanelButtonsWidth / 2;
 				int rightPanelButtonsRightEdge = rightButtonsLeft + rightPanelButtonsWidth;
 
+				//Loadouts Button Data 1/2
+				int loadoutsTop = storageButtonTop;
+				string loadouts = TableTextID.Loadouts.ToString().Lang(L_ID1.TableText);
+				TextData loadoutsTextData = new(loadouts);
+				int largestWidthOfRightSideButtonsCol2 = loadoutsTextData.Width;
+
+				//Right Panel Buttons Col 2 Data 1/2
+				int rightButtonsLeftCol2 = rightPanelButtonsRightEdge + Spacing;
+
+				//Right Panel Buttons Col 2 Data 2/2
+				int rightPanelButtonsWidthCol2 = largestWidthOfRightSideButtonsCol2 + ButtonBorderX * 2;
+				int rightPanelButtonsCenterXCol2 = rightButtonsLeftCol2 + rightPanelButtonsWidthCol2 / 2;
+				int rightPanelButtonsRightEdgeCol2 = rightButtonsLeftCol2 + rightPanelButtonsWidthCol2;
+
 				//Storage Button Data 2/2
 				UIButtonData storageData = new(UI_ID.EnchantingTableStorageButton, rightButtonsLeft, storageButtonTop, storageTextData, mouseColor, (rightPanelButtonsWidth - storageTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
 
@@ -286,10 +300,10 @@ namespace WeaponEnchantments.UI
 				UIButtonData infusionData = new(UI_ID.EnchantingTableInfusion, rightButtonsLeft, infusionButtonTop, infusionTextData, mouseColor, (rightPanelButtonsWidth - infusionTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
 
 				//Level Up Button Data 2/2
-				UIButtonData levelUpData = new(UI_ID.EnchantingTableLevelUp, rightButtonsLeft, xpButtonTop, levelUpTextData, mouseColor, (rightPanelButtonsWidth - levelUpTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
+				UIButtonData levelUpData = new(UI_ID.EnchantingTableLevelUp, rightButtonsLeft, levelUpButtonTop, levelUpTextData, mouseColor, (rightPanelButtonsWidth - levelUpTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
 
 				//Level Per Level Up Buttons Data 2/2
-				int levelsPerTop = xpButtonTop - levelsPerTextData[0].BaseHeight + Spacing;
+				int levelsPerTop = levelUpButtonTop - levelsPerTextData[0].BaseHeight + Spacing;
 				UITextData[] levelsPerData = new UITextData[LevelsPerLevelUp.Length];
 				int currentLevelsPerLeft = rightPanelButtonsCenterX - levelsPerWidth / 2;
 				for (int i = 0; i < LevelsPerLevelUp.Length; i++) {
@@ -299,9 +313,12 @@ namespace WeaponEnchantments.UI
 					levelsPerData[i] = thisLevelsPer;
 				}
 
+				//Loadouts Button Data 2/2
+				UIButtonData loadoutsData = new(UI_ID.EnchantingTableLoadoutsButton, rightButtonsLeftCol2, loadoutsTop, loadoutsTextData, mouseColor, (rightPanelButtonsWidthCol2 - loadoutsTextData.Width) / 2, ButtonBorderY, BackGroundColor, HoverColor);
+
 				//Panel Data
 				Point panelTopLeft = new(wePlayer.enchantingTableUILeft, wePlayer.enchantingTableUITop - (descriptionBlock != null ? descriptionBlockTextData.Height + Spacing : 0));
-				Point panelBottomRight = new((descriptionBlock != null ? Math.Max(rightPanelButtonsRightEdge, leftPanelButtonsRightEdge - leftPanelButtonsWidth + descriptionBlockTextData.Width) : rightPanelButtonsRightEdge) + PanelBorder, xpButtonTop + xpData[0].Height + PanelBorder);
+				Point panelBottomRight = new((descriptionBlock != null ? Math.Max(rightPanelButtonsRightEdgeCol2, leftPanelButtonsRightEdge - leftPanelButtonsWidth + descriptionBlockTextData.Width) : rightPanelButtonsRightEdgeCol2) + PanelBorder, levelUpButtonTop + xpData[0].Height + PanelBorder);
 				UIPanelData panel = new(UI_ID.EnchantingTable, panelTopLeft, panelBottomRight, BackGroundColor);
 
 				//Panel Draw
@@ -337,7 +354,7 @@ namespace WeaponEnchantments.UI
 				//Enchantment Slots Draw
 				UIItemSlotData[] enchantmentSlotsData = new UIItemSlotData[MaxEnchantmentSlots];
 				for (int i = 0; i < enchantmentSlotsCount; i++) {
-					bool canUseSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, i/*.GetSlotTier()*/);
+					bool canUseSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, i);
 					UIItemSlotData enchantmentSlot = new(UI_ID.EnchantingTableEnchantment0 + i, middleSlotsLefts[i], enchantingItemSlotTop);
 					enchantmentSlotsData[i] = enchantmentSlot;
 					enchantmentSlot.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[i], canUseSlot ? ItemSlotContextID.Normal : ItemSlotContextID.Red);
@@ -376,6 +393,9 @@ namespace WeaponEnchantments.UI
 				for (int i = 0; i < LevelsPerLevelUp.Length; i++) {
 					levelsPerData[i].Draw(spriteBatch);
 				}
+
+				//Loadouts Button Draw
+				loadoutsData.Draw(spriteBatch);
 
 				#endregion
 
@@ -453,7 +473,7 @@ namespace WeaponEnchantments.UI
 				}
 				else {
 					//Enchanting Item Slot Hover
-					bool display = Main.mouseItem.IsAir && wePlayer.enchantingTableItem.IsAir;
+					bool display = Main.mouseItem.IsAir && Main.HoverItem.IsAir;
 					if (enchantingItemSlotData.MouseHovering()) {
 						ref Item item = ref wePlayer.enchantingTableItem;
 						bool normalClickInteractions = true;
@@ -480,6 +500,7 @@ namespace WeaponEnchantments.UI
 									}
 								}
 								else {
+									Main.cursorOverride = CursorOverrideID.CameraDark;
 									if (Main.mouseItem.type == PowerBooster.ID) {
 										normalClickInteractions = false;
 										if (UIManager.LeftMouseClicked) {
@@ -559,77 +580,7 @@ namespace WeaponEnchantments.UI
 					for (int i = 0; i < MaxEnchantmentSlots; i++) {
 						UIItemSlotData enchantmentSlot = enchantmentSlotsData[i];
 						if (enchantmentSlot.MouseHovering()) {
-							Item item = wePlayer.enchantingTableEnchantments[i];
-							bool isUtilitySlot = i == enchantmentSlotsCount;
-							bool normalClickInteractions = true;
-							if (Main.mouseItem.IsAir) {
-								if (!item.IsAir) {
-									if (ItemSlot.ShiftInUse) {
-										if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
-											normalClickInteractions = false;
-											wePlayer.TryUpdateMouseOverrideForDeposit(item);
-											if (UIManager.LeftMouseClicked) {
-												if (!wePlayer.TryReturnEnchantmentToPlayer(i))
-													UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
-											}
-										}
-									}
-								}
-							}
-							else {
-								if (ValidItemForEnchantmentSlot(Main.mouseItem, i, i == enchantmentSlotsCount)) {
-									if (ItemSlot.ShiftInUse) {
-										if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
-											normalClickInteractions = false;
-											wePlayer.TryUpdateMouseOverrideForDeposit(item);
-											if (UIManager.LeftMouseClicked) {
-												if (item.IsAir) {
-													UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, i);
-												}
-												else {
-													wePlayer.TryReturnEnchantmentToPlayer(i);
-												}
-											}
-										}
-									}
-									else {
-										if (UIManager.LeftMouseClicked) {
-											bool canSwap = Main.mouseItem.ModItem is Enchantment enchantment && CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableItem), i) && Main.mouseItem.type != wePlayer.enchantingTableEnchantments[i].type;
-											if (canSwap) {
-												if (Main.mouseItem.stack > 1) {
-													normalClickInteractions = false;
-													if (!item.IsAir)
-														wePlayer.TryReturnEnchantmentToPlayer(i, true);
-
-													Main.mouseItem.stack--;
-													Item mouseItemClone = Main.mouseItem.Clone();
-													mouseItemClone.stack = 1;
-													wePlayer.enchantingTableEnchantments[i] = mouseItemClone;
-													SoundEngine.PlaySound(SoundID.Grab);
-												}
-											}
-											else {
-												normalClickInteractions = false;
-											}
-										}
-									}
-								}
-								else {
-									normalClickInteractions = false;
-								}
-							}
-
-							if (display && DisplayDescriptionBlock) {
-								if (isUtilitySlot) {
-									SetDescriptionBlock(TableTextID.utility0.ToString().Lang(L_ID1.TableText));
-								}
-								else {
-									SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[i].CSI().Name }));
-								}
-							}
-
-							if (normalClickInteractions)
-								enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, i);
+							HandleEnchantmentSlot(enchantmentSlot, wePlayer, i, display);
 						}
 					}
 
@@ -668,6 +619,9 @@ namespace WeaponEnchantments.UI
 													UIManager.SwapMouseItem(ref item);
 											}
 										}
+									}
+									else {
+										Main.cursorOverride = CursorOverrideID.CameraDark;
 									}
 								}
 								else {
@@ -743,6 +697,20 @@ namespace WeaponEnchantments.UI
 						}
 					}
 
+					//Loadouts Button Hover
+					if (loadoutsData.MouseHovering()) {
+						if (UIManager.LeftMouseClicked) {
+							if (wePlayer.displayEnchantmentLoadoutUI) {
+								EnchantmentLoadoutUI.Close();
+							}
+							else {
+								EnchantmentLoadoutUI.Open();
+							}
+
+							SoundEngine.PlaySound(SoundID.MenuTick);
+						}
+					}
+
 					//Panel Drag
 					if (panel.MouseHovering()) {
 						panel.TryStartDraggingUI();
@@ -778,13 +746,16 @@ namespace WeaponEnchantments.UI
 			if (WEPlayer.LocalWEPlayer.openStorageWhenOpeningTable)
 				WEPlayer.LocalWEPlayer.displayEnchantmentStorage = true;
 
-
+			if (WEPlayer.LocalWEPlayer.openLoadoutsWhenOpeningTable)
+				EnchantmentLoadoutUI.Open(true);
 		}
 		public static void CloseEnchantingTableUI(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			UIManager.TryResetSearch(UI_ID.EnchantmentStorageSearch);
 			wePlayer.openStorageWhenOpeningTable = wePlayer.displayEnchantmentStorage;
+			wePlayer.openLoadoutsWhenOpeningTable = wePlayer.displayEnchantmentLoadoutUI;
 			wePlayer.displayEnchantmentStorage = false;
+			EnchantmentLoadoutUI.Close(true);
 			Item itemInUI = wePlayer.enchantingTableItem;
 			if (!itemInUI.IsAir) {
 				//Give item in table back to player
@@ -820,7 +791,7 @@ namespace WeaponEnchantments.UI
 
 			return EnchantedItemStaticMethods.IsEnchantable(item);
 		}
-		public static bool ValidItemForEnchantmentSlot(Item item, int slot, bool utility) {
+		public static bool ValidItemForEnchantingTableEnchantmentSlot(Item item, int slot, bool utility) {
 			if (item.IsAir)
 				return true;
 			
@@ -829,7 +800,23 @@ namespace WeaponEnchantments.UI
 			if (enchantedItem == null)
 				return false;
 
-			bool useEnchantmentSlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, slot/*.GetSlotTier()*/, utility);
+			if (!ValidItemForEnchantmentSlot(item, enchantedItem.ItemType, slot, utility))
+				return false;
+
+			if (item.ModItem is not Enchantment newEnchantment || !EnchantmentAllowedOnItem(wePlayer.enchantingTableItem, newEnchantment))
+				return false;
+
+			int currentEnchantmentLevelCost = 0;
+			if (wePlayer.enchantingTableEnchantments[slot].ModItem is Enchantment enchantment)
+				currentEnchantmentLevelCost = enchantment.GetCapacityCost();
+			
+			int levelsAvailable = enchantedItem.GetLevelsAvailable();
+			int newEnchantmentCost = newEnchantment.GetCapacityCost();
+
+			return levelsAvailable >= newEnchantmentCost - currentEnchantmentLevelCost;
+		}
+		private static bool ValidItemForEnchantmentSlot(Item item, EItemType itemType, int slot, bool utility) {
+			bool useEnchantmentSlot = UseEnchantmentSlot(itemType, slot, utility);
 			if (!useEnchantmentSlot)
 				return false;
 
@@ -837,18 +824,25 @@ namespace WeaponEnchantments.UI
 			if (!isEnchantmentItem)
 				return false;
 
-			Enchantment newEnchantment = ((Enchantment)item.ModItem);
-			if (!EnchantmentAllowedOnItem(wePlayer.enchantingTableItem, newEnchantment))
+			return true;
+		}
+		public static bool ValidItemForLoadoutEnchantmentSlot(Item item, EItemType itemType, int slot, bool utility, int armorSlotSpecificID = -1) {
+			if (!ValidItemForEnchantmentSlot(item, itemType, slot, utility))
 				return false;
 
-			int currentEnchantmentLevelCost = 0;
-			if (wePlayer.enchantingTableEnchantments[slot].ModItem is Enchantment enchantment)
-				currentEnchantmentLevelCost = enchantment.GetCapacityCost();
+			if (item.ModItem is not Enchantment newEnchantment || !CheckArmorSlotSpecific(newEnchantment, armorSlotSpecificID))
+				return false;
 
-			int levelsAvailable = enchantedItem.GetLevelsAvailable();
-			int newEnchantmentCost = newEnchantment.GetCapacityCost();
+			if (!ConfigValues.RemoveEnchantmentRestrictions) {
+				bool allowed = newEnchantment.AllowedList.ContainsKey(itemType);
+				if (!allowed && itemType == EItemType.Weapons)
+					allowed = newEnchantment.AllowedList.ContainsKey(EItemType.Tools) || newEnchantment.AllowedList.ContainsKey(EItemType.FishingPoles);
 
-			return levelsAvailable >= newEnchantmentCost - currentEnchantmentLevelCost;
+				if (!allowed)
+					return false;
+			}
+
+			return true;
 		}
 		public static int GetSlotTier(this int slot) => slot < 1 ? slot : slot == MaxEnchantmentSlots - 1 ? 1 : slot - 1;
 		public static bool ValidItemForEssenceSlot(Item item, int slot) {
@@ -858,24 +852,25 @@ namespace WeaponEnchantments.UI
 			return item.ModItem is EnchantmentEssence essence && essence.EssenceTier == slot;
 		}
 		public static bool UseEnchantmentSlot(Item item, int slotTier, bool utilitySlot = false, bool useHighestTableTier = false) {
+			EItemType itemType = item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) ? enchantedItem.ItemType : EItemType.None;
+			return UseEnchantmentSlot(itemType, slotTier, utilitySlot, useHighestTableTier);
+		}
+		public static bool UseEnchantmentSlot(EItemType itemType, int slotTier, bool utilitySlot = false, bool useHighestTableTier = false) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
 			if (slotTier > (useHighestTableTier ? wePlayer.highestTableTierUsed : wePlayer.enchantingTableTier) && !utilitySlot)
 				return false;
 
-			return SlotAllowedByConfig(item, slotTier);
+			return SlotAllowedByConfig(itemType, slotTier);
 		}
-		public static bool SlotAllowedByConfig(Item item, int slot) {
+		public static bool SlotAllowedByConfig(EItemType itemType, int slot) {
 			int configSlots;
 
-			if (item.NullOrAir()) {
+			if (itemType == EItemType.None) {
 				configSlots = ConfigValues.EnchantmentSlotsOnItems.Max();
 			}
-			else if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
-				configSlots = ConfigValues.EnchantmentSlotsOnItems[(int)enchantedItem.ItemType - 1];
-			}
 			else {
-				configSlots = 0;
+				configSlots = ConfigValues.EnchantmentSlotsOnItems[(int)itemType - 1];
 			}
 
 			if (configSlots <= 0)
@@ -920,25 +915,14 @@ namespace WeaponEnchantments.UI
 			if (!CheckAllowedList(item, newEnchantment))
 				return false;
 
-			if (newEnchantment.ArmorSlotSpecific > -1) {
-				int slot = -1;
-				switch (newEnchantment.ArmorSlotSpecific) {
-					case (int)ArmorSlotSpecificID.Head:
-						slot = item.headSlot;
-						break;
-					case (int)ArmorSlotSpecificID.Body:
-						slot = item.bodySlot;
-						break;
-					case (int)ArmorSlotSpecificID.Legs:
-						slot = item.legSlot;
-						break;
-				}
-
-				if (slot == -1)
-					return false;
-			}
+			int slotArmorID = item.headSlot != -1 ? (int)ArmorSlotSpecificID.Head : item.bodySlot != -1 ? (int)ArmorSlotSpecificID.Body : item.legSlot != -1 ? (int)ArmorSlotSpecificID.Legs : -1;
+			if (!CheckArmorSlotSpecific(newEnchantment, slotArmorID))
+				return false;
 
 			return true;
+		}
+		public static bool CheckArmorSlotSpecific(Enchantment newEnchantment, int slotArmorID) {
+			return newEnchantment.ArmorSlotSpecific == -1 || newEnchantment.ArmorSlotSpecific == slotArmorID;
 		}
 		public static bool CheckAllowedList(Item item, Enchantment enchantment) {
 			if (ConfigValues.RemoveEnchantmentRestrictions)
@@ -961,13 +945,23 @@ namespace WeaponEnchantments.UI
 
 			if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem)) {
 				for (int i = 0; i < MaxEnchantmentSlots; i++) {
-					if (enchantedItem.enchantments[i].ModItem is Enchantment appliedEnchantment && (enchantement.Unique && appliedEnchantment.Unique || enchantement.Max1 && enchantement.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName))
+					if (IsSwapEnchantmentSlot(enchantement, enchantedItem.enchantments[i]))
 						return i;
 				}
 			}
 
 			return -1;
 		}
+		public static int FindSwapEnchantmentSlot(Enchantment enchantement, Item[] equippedEnchantments) {
+			for (int i = 0; i < MaxEnchantmentSlots; i++) {
+				if (IsSwapEnchantmentSlot(enchantement, equippedEnchantments[i]))
+					return i;
+			}
+
+			return -1;
+		}
+		private static bool IsSwapEnchantmentSlot(Enchantment enchantment, Item other) =>
+			other.ModItem is Enchantment appliedEnchantment && (enchantment.Unique && appliedEnchantment.Unique || enchantment.Max1 && enchantment.EnchantmentTypeName == appliedEnchantment.EnchantmentTypeName);
 
 		#endregion
 
@@ -984,6 +978,82 @@ namespace WeaponEnchantments.UI
 
 			lines.PadStrings();
 			descriptionBlock = lines.JoinList("\n");
+		}
+		public static void HandleEnchantmentSlot(UIItemSlotData enchantmentSlot, WEPlayer wePlayer, int slotNum, bool display) {
+			Item item = wePlayer.enchantingTableEnchantments[slotNum];
+			bool isUtilitySlot = slotNum == MaxEnchantmentSlots - 1;
+			bool normalClickInteractions = true;
+			if (Main.mouseItem.IsAir) {
+				if (!item.IsAir) {
+					if (ItemSlot.ShiftInUse) {
+						if (wePlayer.ItemWillBeTrashedFromShiftClick(item)) {
+							normalClickInteractions = false;
+							wePlayer.TryUpdateMouseOverrideForDeposit(item);
+							if (UIManager.LeftMouseClicked) {
+								if (!wePlayer.TryReturnEnchantmentToPlayer(slotNum))
+									UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, slotNum);
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (ValidItemForEnchantingTableEnchantmentSlot(Main.mouseItem, slotNum, isUtilitySlot)) {
+					if (ItemSlot.ShiftInUse) {
+						if (wePlayer.ItemWillBeTrashedFromShiftClick(item) || item.IsAir) {
+							normalClickInteractions = false;
+							wePlayer.TryUpdateMouseOverrideForDeposit(item);
+							if (UIManager.LeftMouseClicked) {
+								if (item.IsAir) {
+									UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, slotNum);
+								}
+								else {
+									wePlayer.TryReturnEnchantmentToPlayer(slotNum);
+								}
+							}
+						}
+					}
+					else {
+						bool canSwap = Main.mouseItem.ModItem is Enchantment enchantment && CheckUniqueSlot(enchantment, FindSwapEnchantmentSlot(enchantment, wePlayer.enchantingTableItem), slotNum) && Main.mouseItem.type != wePlayer.enchantingTableEnchantments[slotNum].type;
+						if (canSwap)
+							Main.cursorOverride = CursorOverrideID.CameraDark;
+						
+						if (UIManager.LeftMouseClicked) {
+							if (canSwap) {
+								if (Main.mouseItem.stack > 1) {
+									normalClickInteractions = false;
+									if (!item.IsAir)
+										wePlayer.TryReturnEnchantmentToPlayer(slotNum, true);
+
+									Main.mouseItem.stack--;
+									Item mouseItemClone = Main.mouseItem.Clone();
+									mouseItemClone.stack = 1;
+									wePlayer.enchantingTableEnchantments[slotNum] = mouseItemClone;
+									SoundEngine.PlaySound(SoundID.Grab);
+								}
+							}
+							else {
+								normalClickInteractions = false;
+							}
+						}
+					}
+				}
+				else {
+					normalClickInteractions = false;
+				}
+			}
+
+			if (display && DisplayDescriptionBlock) {
+				if (isUtilitySlot) {
+					SetDescriptionBlock(TableTextID.utility0.ToString().Lang(L_ID1.TableText));
+				}
+				else {
+					SetDescriptionBlock(TableTextID.enchantment0.ToString().Lang(L_ID1.TableText), TableTextID.enchantment4.ToString().Lang(L_ID1.TableText, new object[] { EnchantingTableItem.IDs[slotNum].CSI().Name }));
+				}
+			}
+
+			if (normalClickInteractions)
+				enchantmentSlot.ClickInteractions(wePlayer.enchantingTableEnchantments, slotNum);
 		}
 
 		#endregion

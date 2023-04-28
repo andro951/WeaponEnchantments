@@ -1456,7 +1456,7 @@ namespace WeaponEnchantments.Common.Globals
 
                             if (!cantFit && enchantment.GetCapacityCost() <= enchantedItem.GetLevelsAvailable()) {
                                 if (uniqueItemSlot == -1) {
-                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && EnchantingTableUI.SlotAllowedByConfig(item, 4)) {
+                                    if ((RemoveEnchantmentRestrictions || enchantment.Utility) && enchantedItem.enchantments[4].IsAir && EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, 4)) {
 										enchantedItem.enchantments[4] = consumedEnchantedItem.enchantments[k].Clone();
                                         item.ApplyEnchantment(4);
                                     }
@@ -1523,7 +1523,7 @@ namespace WeaponEnchantments.Common.Globals
                 if (enchantment.IsAir)
                     continue;
 
-                bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(item, i);
+                bool slotAllowedByConfig = EnchantingTableUI.SlotAllowedByConfig(enchantedItem.ItemType, i);
                 if (!slotAllowedByConfig)
                     RemoveEnchantmentNoUpdate(enchantedItem, i, player, $"Slot {i} disabled by config.  Removed {enchantment.Name} from your {item.Name}.");
             }
