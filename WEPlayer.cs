@@ -433,7 +433,21 @@ namespace WeaponEnchantments
 				}
                 else {
                     //Move to Enchantment loadout
+                    if (!UIManager.HoveringEnchantmentLoadoutUI) {
+						if (item.ModItem is Enchantment) {
+							if (EnchantmentLoadoutUI.availableSlotRow > -1 && EnchantmentLoadoutUI.availableSlotIndex > -1) {
+								EnchantmentLoadoutUI.UpdateAvailableEnchantmentSlot(this, item);
+								SoundEngine.PlaySound(SoundID.MenuTick);
 
+								return true;
+							}
+						}
+
+						if (!item.IsAir || !Main.mouseItem.IsAir)
+							UIManager.SwapMouseItem(ref item);
+
+						return true;
+					}
                 }
 			}
 

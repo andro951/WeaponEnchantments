@@ -351,22 +351,33 @@ namespace WeaponEnchantments.UI
 									}
 									if (ItemSlot.ShiftInUse) {
 										normalClickInteractions = false;
-										if (wePlayer.CheckShiftClickValid(ref item)) {
-											if (UIManager.LeftMouseClicked)
-												wePlayer.CheckShiftClickValid(ref item, true);
-										}
-										else {
-											if (Main.mouseItem.IsAir) {
-												if (!item.IsAir) {
-													if (UIManager.LeftMouseClicked) {
-														UIManager.SwapMouseItem(ref item);
-													}
+										if (wePlayer.displayEnchantmentLoadoutUI) {
+											if (item.ModItem is Enchantment) {
+												if (EnchantmentLoadoutUI.AvailableSlot(item)) {
+													Main.cursorOverride = CursorOverrideID.InventoryToChest;
+													if (UIManager.LeftMouseClicked)
+														EnchantmentLoadoutUI.UpdateAvailableEnchantmentSlot(wePlayer, item);
 												}
 											}
+										}
+										else {
+											if (wePlayer.CheckShiftClickValid(ref item)) {
+												if (UIManager.LeftMouseClicked)
+													wePlayer.CheckShiftClickValid(ref item, true);
+											}
 											else {
-												if (CanBeStored(Main.mouseItem)) {
-													if (UIManager.LeftMouseClicked) {
-														UIManager.SwapMouseItem(ref item);
+												if (Main.mouseItem.IsAir) {
+													if (!item.IsAir) {
+														if (UIManager.LeftMouseClicked) {
+															UIManager.SwapMouseItem(ref item);
+														}
+													}
+												}
+												else {
+													if (CanBeStored(Main.mouseItem)) {
+														if (UIManager.LeftMouseClicked) {
+															UIManager.SwapMouseItem(ref item);
+														}
 													}
 												}
 											}

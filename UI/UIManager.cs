@@ -108,6 +108,9 @@ namespace WeaponEnchantments.UI
 					}
 				}
 
+				if (wePlayer.displayEnchantmentLoadoutUI)
+					EnchantmentLoadoutUI.ResetAvailableSlot();
+
 				EnchantingTableUI.PostDrawInterface(spriteBatch);
 				EnchantmentStorage.PostDrawInterface(spriteBatch);
 				WitchRerollUI.PostDrawInterface(spriteBatch);
