@@ -38,7 +38,7 @@ namespace WeaponEnchantments.Common {
             List<Item> modAccessories = new();
             for (int i = 0; i < alp.SlotCount; i++) {
 				var slot = loader.Get(i, player);
-				if (loader.ModdedIsAValidEquipmentSlotForIteration(i, player) /*&& slot.IsEnabled()*/)
+				if (loader.ModdedIsItemSlotUnlockedAndUsable(i, player) /*&& slot.IsEnabled()*/)
                     modAccessories.Add(slot.FunctionalItem ?? new());
             }
 
