@@ -12,6 +12,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Default;
 using Terraria.UI;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
@@ -1267,8 +1268,11 @@ namespace WeaponEnchantments.UI
 				if (!infusionAllowed)
 					return;
 
-				if (wePlayer.infusionConsumeItem.IsAir) {
+				if (wePlayer.infusionConsumeItem == null) {
+					$"wePlayer.infusionConsumeItem was null, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
+				}
 
+				if (wePlayer.infusionConsumeItem.IsAir) {
 					bool canConsume = false;
 
 					//Prevent specific items from being consumed for infusion.
@@ -1317,8 +1321,11 @@ namespace WeaponEnchantments.UI
 
 					//Infuse (Finalize)
 					if (wePlayer.enchantingTableItem.TryInfuseItem(wePlayer.infusionConsumeItem, false, true)) {
-						OfferItem(ref wePlayer.infusionConsumeItem, true, true);//Come Back to here
+						OfferItem(ref wePlayer.infusionConsumeItem, true, true);
 						wePlayer.infusionConsumeItem = new();
+					}
+					else {
+						$"TryInfuseItem failed, tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")}, infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")}".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
 					}
 				}
 			}
@@ -1326,6 +1333,9 @@ namespace WeaponEnchantments.UI
 				//Return infusion item to table
 				wePlayer.enchantingTableItem = wePlayer.infusionConsumeItem.Clone();
 				wePlayer.infusionConsumeItem = new();
+			}
+			else if (!tableItem.IsAir) {
+				$"tableItem: {tableItem.S()}{(tableItem?.ModItem is UnloadedItem unloadedTableItem ? $", {unloadedTableItem.ItemName}" : "")} is not enchantable, and infusionConsumeItem: {wePlayer.infusionConsumeItem.S()}{(wePlayer.infusionConsumeItem?.ModItem is UnloadedItem unloadedConsumeItem ? $", {unloadedConsumeItem.ItemName}" : "")} is not air".LogNT(ChatMessagesIDs.AlwaysShowInfusionError);
 			}
 		}
 		private static void LevelUp() {

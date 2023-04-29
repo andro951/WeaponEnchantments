@@ -7,6 +7,7 @@ namespace WeaponEnchantments.Common.Utility
 {
     public static class ChatMessagesIDs
     {
+        public const int AlwaysShowInfusionError = -6;
         public const int AlwaysShowItemInfusionPowersNotSetup = -5;
         public const int AlwaysShowDuplicateItemInWitchsShop = -4;
         public const int AlwaysShowFailedToReplaceOldItem = -3;
