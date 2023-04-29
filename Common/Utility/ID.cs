@@ -510,7 +510,14 @@ namespace WeaponEnchantments.Common.Utility
 		All,
 		HeldItem,
 		NoHeldItem,
-		LoadoutSizeChanged
+		LoadoutSizeChanged,
+		NotHighEnoughLevel,
+		NoArmor,
+		NoAccessories,
+		NoItems,
+		NotEnoughEnchantments,
+		Add,
+		Loadout
 	}
 	public enum DialogueID {
         StandardDialogue,

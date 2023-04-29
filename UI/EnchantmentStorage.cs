@@ -26,6 +26,7 @@ using WeaponEnchantments.Common.Globals;
 using Microsoft.Xna.Framework.Input;
 using Terraria.GameContent.UI.States;
 using Terraria.Localization;
+using System.Collections;
 
 namespace WeaponEnchantments.UI
 {
@@ -51,6 +52,7 @@ namespace WeaponEnchantments.UI
 		public static int EnchantmentStorageUIDefaultLeft => 600;
 		public static int EnchantmentStorageUIDefaultTop => 5;
 		public static Color PanelColor => new Color(26, 2, 56, 100);
+		public static Color SelectedTextGray => new(100, 100, 100);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		public const float buttonScaleMinimum = 0.75f;
@@ -179,7 +181,7 @@ namespace WeaponEnchantments.UI
 						color = new(162, 22, 255);
 					}
 					else if (buttonIndex == EnchantmentStorageButtonID.ToggleMarkTrash && markingTrash || buttonIndex == EnchantmentStorageButtonID.ManageTrash && managingTrash || buttonIndex == EnchantmentStorageButtonID.ManageOfferedItems && managingOfferdItems || buttonIndex == EnchantmentStorageButtonID.QuickCrafting && quickCrafting) {
-						color = new(100, 100, 100);
+						color = SelectedTextGray;
 					}
 					else {
 						color = mouseColor;
@@ -839,6 +841,41 @@ namespace WeaponEnchantments.UI
 
 				uncraftedExtraItems.Clear();
 				uncraftedItems.Clear();
+			}
+		}
+		public static bool HasEnchantments(WEPlayer wePlayer, IDictionary<int, int> items, out SortedDictionary<int, int> storageLocations) {
+			storageLocations = new();
+			if (items.Count < 1)
+				return true;
+
+			for (int i = 0; i < wePlayer.enchantmentStorageItems.Length; i++) {
+				Item item = wePlayer.enchantmentStorageItems[i];
+				if (item.ModItem is not Enchantment)
+					continue;
+
+				if (items.TryGetValue(item.type, out int stack)) {
+					int transferAmmount = Math.Min(stack, item.stack);
+					storageLocations.Add(i, transferAmmount);
+					stack -= transferAmmount;
+					if (stack <= 0) {
+						items.Remove(item.type);
+						if (items.Count < 1)
+							return true;
+					}
+					else {
+						items[item.type] = stack;
+					}
+				}
+			}
+
+			return false;
+		}
+		public static void ConsumeEnchantments(WEPlayer wePlayer, SortedDictionary<int, int> storageLocations) {
+			foreach (KeyValuePair<int, int> itemInfo in storageLocations) {
+				ref Item item = ref wePlayer.enchantmentStorageItems[itemInfo.Key];
+				item.stack -= storageLocations[itemInfo.Key];
+				if (item.stack < 1)
+					item.TurnToAir();
 			}
 		}
 	}

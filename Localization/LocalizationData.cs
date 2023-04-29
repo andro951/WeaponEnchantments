@@ -294,8 +294,13 @@ namespace WeaponEnchantments.Localization
 								//Filled Automatically
 							},
 							dict: new() {
-								{ EnchantmentStorageTextID.NoHeldItem.ToString(), "You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item." },
-								{ EnchantmentStorageTextID.LoadoutSizeChanged.ToString(), "Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned." }
+								{ EnchantmentStorageTextID.NoHeldItem.ToString(), "You must be holding an enchantable item to swap enchantment loadouts." },
+								{ EnchantmentStorageTextID.LoadoutSizeChanged.ToString(), "Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned." },
+								{ EnchantmentStorageTextID.NotHighEnoughLevel.ToString(), "Your {0} is not high enough level to apply the enchantments from this loadout." },
+								{ EnchantmentStorageTextID.NoArmor.ToString(), "You must be wearing a helmet, chest or legs to swap enchantment loadouts." },
+								{ EnchantmentStorageTextID.NoAccessories.ToString(), "You must be wearing at least one accessory to swap enchantment loadouts." },
+								{ EnchantmentStorageTextID.NoItems.ToString(), "You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts." },
+								{ EnchantmentStorageTextID.NotEnoughEnchantments.ToString(), "You are missing enchantments for this loadout.  {0}" }
 						}) },
 						{ L_ID1.Config.ToString(), new(children: new() {
 							{ nameof(ServerConfig), new(dict: new() {

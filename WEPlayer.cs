@@ -90,11 +90,12 @@ namespace WeaponEnchantments
         public const int OreBagSize = 100;
 		public bool vacuumItemsIntoOreBag = true;
 		public bool displayOreBagUI = false;
-        public List<List<Item[]>> enchantmentLoadouts = new();
+        public Dictionary<string, List<Item[]>> enchantmentLoadouts = new();
         public bool displayEnchantmentLoadoutUI = false;
         public int EnchantmentLoadoutUILeft;
         public int EnchantmentLoadoutUITop;
         public bool openLoadoutsWhenOpeningTable;
+		public string displayedLoadout = null;
 
 		#endregion
 
@@ -346,8 +347,9 @@ namespace WeaponEnchantments
 			tag["oreBagUILeft"] = oreBagUILeft;
 			tag["oreBagUITop"] = oreBagUITop;
 			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
-            tag["enchantmentLoadouts"] = enchantmentLoadouts;
-            tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
+            tag["enchantmentLoadouts"] = enchantmentLoadouts.Select(p => p.Value).ToList();
+            tag["loadoutKeys"] = enchantmentLoadouts.Select(p => p.Key).ToList();
+			tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
             tag["EnchantmentLoadoutUITop"] = EnchantmentLoadoutUITop;
             tag["openLoadoutsWhenOpeningTable"] = openLoadoutsWhenOpeningTable;
 		}
@@ -410,8 +412,19 @@ namespace WeaponEnchantments
             if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
                 vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
 
-            if (!tag.TryGet("enchantmentLoadouts", out enchantmentLoadouts))
-                enchantmentLoadouts = new();
+            if (!tag.TryGet("enchantmentLoadouts", out List<List<Item[]>> justLoadouts)) {
+				enchantmentLoadouts = new();
+			}
+            else {
+                List<string> loadoutKeys = tag.Get<List<string>>("loadoutKeys") ?? new();
+                if (loadoutKeys.Count < justLoadouts.Count) {
+                    for (int i = loadoutKeys.Count; i < justLoadouts.Count; i++) {
+                        loadoutKeys.Add($"{EnchantmentStorageTextID.Loadout.ToString().Lang(L_ID1.EnchantmentStorageText)} {i + 1}");
+                    }
+                }
+
+                enchantmentLoadouts = justLoadouts.Select((l, i) => new { Loadout = l, Key = loadoutKeys[i] }).ToDictionary(x => x.Key, x => x.Loadout);
+			}
 
             if (enchantmentLoadouts.Count < 1)
                 EnchantmentLoadoutUI.AddNewBlankLoadout(this);
@@ -587,7 +600,7 @@ namespace WeaponEnchantments
                                         if (!uniqueSlotNotFound && uniqueEnchantmentOnItem && item.type != enchantingTableEnchantments[i].type) {
                                             //Check unique can swap
                                             if (moveItem) {
-												TryReturnEnchantmentToPlayer(i, true);
+												TryReturnEnchantmentFromTableToPlayer(i, true);
                                                 Item newEnchantmentItem = item.Clone();
                                                 newEnchantmentItem.stack = 1;
 												if (item.stack > 1) {
@@ -681,11 +694,14 @@ namespace WeaponEnchantments
 
             return valid;
 		}
-        public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, bool allowQuickSpawn = false) {
-            Item item = enchantingTableEnchantments[enchantmentIndex];
-            bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
-            enchantingTableEnchantments[enchantmentIndex] = item;
-            return result;
+        public bool TryReturnEnchantmentFromTableToPlayer(int enchantmentIndex, bool allowQuickSpawn = false) {
+            return TryReturnEnchantmentToPlayer(enchantmentIndex, enchantingTableEnchantments, allowQuickSpawn);
+		}
+		public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, EnchantmentsArray enchantmentsArray, bool allowQuickSpawn = false) {
+			Item item = enchantmentsArray[enchantmentIndex];
+			bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
+			enchantmentsArray[enchantmentIndex] = item;
+			return result;
 		}
 		public bool TryReturnItemToPlayer(ref Item item, bool allowQuickSpawn = false) {
             if (EnchantmentStorage.TryVacuumItem(ref item))
@@ -726,7 +742,20 @@ namespace WeaponEnchantments
 
             return true;
         }
-        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
+        public bool InEnchantingTableInteractionRange() {
+            int chestPointX = Player.chestX;
+            int chestPointY = Player.chestY;
+			int num = (int)(((double)Player.position.X + (double)Player.width * 0.5) / 16.0);
+			int num2 = (int)(((double)Player.position.Y + (double)Player.height * 0.5) / 16.0);
+            Rectangle r = new Rectangle(chestPointX * 16, chestPointY * 16, 32, 32);
+			r.Inflate(-1, -1);
+			Point point = r.ClosestPointInRect(Player.Center).ToTileCoordinates();
+			chestPointX = point.X;
+			chestPointY = point.Y;
+
+			return num >= chestPointX - Player.tileRangeX && num <= chestPointX + Player.tileRangeX + 1 && num2 >= chestPointY - Player.tileRangeY && num2 <= chestPointY + Player.tileRangeY + 1;
+        }
+		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {
             if (WEMod.calamityEnabled) {
                 CalamityRespawnMinionSourceItems.Clear();
                 for (int i = 0; i < 200; i++) {

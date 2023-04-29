@@ -93,6 +93,11 @@ namespace WeaponEnchantments.Tiles
 				EnchantingTableUI.CloseEnchantingTableUI();
 			}
 		public override bool RightClick(int x, int y) {
+			RightClickEnchantingTable(x, y, enchantingTableTier);
+
+			return true;
+		}
+		public static void RightClickEnchantingTable(int x, int y, int tier) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 			wePlayer.Player.CloseSign();
 			wePlayer.Player.SetTalkNPC(-1);
@@ -114,9 +119,9 @@ namespace WeaponEnchantments.Tiles
 					MagicStorageIntegration.TryClosingMagicStorage();
 
 				wePlayer.enchantingTableLocation = new(x, y);
-				wePlayer.enchantingTableTier = enchantingTableTier;
-				if (wePlayer.highestTableTierUsed < enchantingTableTier)
-					wePlayer.highestTableTierUsed = enchantingTableTier;
+				wePlayer.enchantingTableTier = tier;
+				if (wePlayer.highestTableTierUsed < tier)
+					wePlayer.highestTableTierUsed = tier;
 
 				wePlayer.Player.chest = -1;
 				Main.playerInventory = true;
@@ -132,8 +137,6 @@ namespace WeaponEnchantments.Tiles
 			}
 
 			Main.mouseRightRelease = false;
-
-			return true;
 		}
         public override void MouseOver(int x, int y) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();

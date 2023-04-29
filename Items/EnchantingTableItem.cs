@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Terraria.UI;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -7,6 +8,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.Items
 {
@@ -93,11 +95,9 @@ namespace WeaponEnchantments.Items
 			Item.rare = EnchantingRarity.GetRarityFromTier(enchantingTableTier);
 			Item.value = Values[enchantingTableTier];
 		}
-
 		private string GetTableName(int tier) {
 			return enchantingTableNames[tier] + "EnchantingTable";
 		}
-
 		public override void AddRecipes() {
 			for (int i = -1; i < enchantingTableTier; i++) {
 				if (!ConfigValues.useAllRecipes && i < enchantingTableTier - 1)
@@ -141,7 +141,6 @@ namespace WeaponEnchantments.Items
 				}
 			}
 		}
-
 		public static int GetTableTier(string s) {
 			for(int i = 0; i < enchantingTableNames.Length; i++) {
 				if (s.Contains(enchantingTableNames[i]))
@@ -149,6 +148,23 @@ namespace WeaponEnchantments.Items
 			}
 
 			return enchantingTableNames.Length;
+		}
+		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
+		public override void RightClick(Player player) {
+			Item.stack++;
+			WEPlayer wePlayer = player.GetWEPlayer();
+			int x;
+			int y;
+			if (wePlayer.usingEnchantingTable) {
+				x = player.chestX;
+				y = player.chestY;
+			}
+			else {
+				x = (int)(player.position.X / 16f);
+				y = (int)(player.position.Y / 16f);
+			}
+
+			EnchantingTableTile.RightClickEnchantingTable(x, y, enchantingTableTier);
 		}
 	}
 	public class WoodEnchantingTable : EnchantingTableItem { }
