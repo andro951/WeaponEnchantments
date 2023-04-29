@@ -1547,8 +1547,6 @@ namespace WeaponEnchantments.UI
 			}
 		}
 		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
-			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-
 			int type = item.type;
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return -1;
@@ -1557,7 +1555,6 @@ namespace WeaponEnchantments.UI
 			if (!nonTableItem && !LootAllEnchantments(ref item))
 				return -1;
 
-			bool quickSpawn = false;
 			LootAllEnchantments(ref item, true);
 
 			//Power Booster
