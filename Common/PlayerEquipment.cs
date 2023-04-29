@@ -66,11 +66,13 @@ namespace WeaponEnchantments.Common {
             }
 
             for (int i = 0; i < vanillaAccesorySlots; i++) {
+                Item item = player.armor[i + 3];
                 Accessories[i] = player.armor[i + 3] ?? new();
             }
 
             for (int i = 0; i < modAccessories.Count; i++) {
-                Accessories[i] = modAccessories[i];
+                Item item = modAccessories[i];
+                Accessories[i + vanillaAccesorySlots] = modAccessories[i];
 			}
         }
 
