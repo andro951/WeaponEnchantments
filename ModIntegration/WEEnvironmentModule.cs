@@ -11,6 +11,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.Tiles;
 
 namespace WeaponEnchantments.ModIntegration
 {
@@ -24,17 +25,12 @@ namespace WeaponEnchantments.ModIntegration
         }
 		public override void ModifyCraftingZones(EnvironmentSandbox sandbox, ref CraftingInformation information) {
             int highestTableTierUsed = Main.LocalPlayer.GetWEPlayer().highestTableTierUsed;
-            int baseTableTier = ModContent.TileType<Tiles.WoodEnchantingTable>();
-            int tableTier;
-            if (highestTableTierUsed == 0) {
-                tableTier = baseTableTier;
-	        }
-            else {
-                tableTier = baseTableTier - 5 + highestTableTierUsed;
-            }
 
-            if (tableTier > -1)
-                information.adjTiles[tableTier] = true;
+            int baseTableType = ModContent.TileType<Tiles.WoodEnchantingTable>();
+            for (int tier = highestTableTierUsed; tier >= 0; tier--) {
+				int tableTier = EnchantingTableTile.GetTableTypeByTier(tier);
+				information.adjTiles[tableTier] = true;
+			}
 		}
 		public override void OnConsumeItemForRecipe(EnvironmentSandbox sandbox, Item item, int stack) {
             if (item.maxStack > 1 && item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantmentedItem) && enchantmentedItem.Modified) {

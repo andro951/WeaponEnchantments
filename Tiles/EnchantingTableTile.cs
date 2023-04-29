@@ -38,6 +38,43 @@ namespace WeaponEnchantments.Tiles
 			} 
 		}
 		private static List<int> tableTypes;
+
+		public static int GetTableTypeByTier(int tier) {
+			switch (tier) {
+				case 0:
+					return ModContent.TileType<Tiles.WoodEnchantingTable>();
+				case 1:
+					return ModContent.TileType<Tiles.DustyEnchantingTable>();
+				case 2:
+					return ModContent.TileType<Tiles.HellishEnchantingTable>();
+				case 3:
+					return ModContent.TileType<Tiles.SoulEnchantingTable>();
+				case 4:
+					return ModContent.TileType<Tiles.UltimateEnchantingTable>();
+			}
+
+			return 0;
+		}
+
+		public static int GetTableTierFromType(int type) {
+			if (type == ModContent.TileType<Tiles.WoodEnchantingTable>()) {
+				return 0;
+			}
+			else if (type == ModContent.TileType<DustyEnchantingTable>()) {
+				return 1;
+			}
+			else if (type == ModContent.TileType<HellishEnchantingTable>()) {
+				return 2;
+			}
+			else if (type == ModContent.TileType<SoulEnchantingTable>()) {
+				return 3;
+			}
+			else if (type == ModContent.TileType<UltimateEnchantingTable>()) {
+				return 4;
+			}
+
+			return -1;
+		}
 		public override string Texture => (GetType().Namespace + ".Sprites." + Name).Replace('.', '/');
 
 		public virtual string Artist { private set; get; } = "Zorutan";
