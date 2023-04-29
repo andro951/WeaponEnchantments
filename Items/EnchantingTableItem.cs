@@ -65,23 +65,7 @@ namespace WeaponEnchantments.Items
 		{
 			GetDefaults();
 
-			switch (enchantingTableTier) {
-				case 0:
-					Item.createTile = ModContent.TileType<Tiles.WoodEnchantingTable>();
-					break;
-				case 1:
-					Item.createTile = ModContent.TileType<Tiles.DustyEnchantingTable>();
-					break;
-				case 2:
-					Item.createTile = ModContent.TileType<Tiles.HellishEnchantingTable>();
-					break;
-				case 3:
-					Item.createTile = ModContent.TileType<Tiles.SoulEnchantingTable>();
-					break;
-				case 4:
-					Item.createTile = ModContent.TileType<Tiles.UltimateEnchantingTable>();
-					break;
-			}
+			Item.createTile = EnchantingTableTile.GetTableTypeByTier(enchantingTableTier);
 
 			Item.maxStack = 99;
 			Item.width = 28;
