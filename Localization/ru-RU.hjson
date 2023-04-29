@@ -618,8 +618,8 @@ Mods: {
 			NoArmor: You must be wearing a helmet, chest or legs to swap enchantment loadouts.
 			NoHeldItem: You must be holding an enchantable item to swap enchantment loadouts.
 			NoItems: You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts.
-			NotEnoughEnchantments: "You are missing enchantments for this loadout.  {0}"
-			NotHighEnoughLevel: "Your {0} is not high enough level to apply the enchantments from this loadout."
+			NotEnoughEnchantments: You are missing enchantments for this loadout.  {0}
+			NotHighEnoughLevel: Your {0} is not high enough level to apply the enchantments from this loadout.
 		}
 
 		Items: {
@@ -1123,19 +1123,7 @@ Mods: {
 		}
 
 		TableText: {
-			Cancel: Отменить
-			Finalize: Завершить
-			Infusion: Наполнить
-			LevelUp: Поднять уровень
-			Loadouts: Loadouts
-			LootAll: Взять
-			No: Нет
-			Offer: Пожертвовать
-			Storage: Storage
-			Syphon: Сифон
-			xp: XP
-			Yes: Да
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Вы уверены что хотите НАВСЕГДА УНИЧТОЖИТЬ {1}
 				{0}-го уровня {2}
@@ -1156,6 +1144,7 @@ Mods: {
 			Infusion: Наполнить
 			Item: Предмет
 			LevelUp: Поднять уровень
+			Loadouts: Loadouts
 			LootAll: Взять
 			No: Нет
 			Offer: Пожертвовать

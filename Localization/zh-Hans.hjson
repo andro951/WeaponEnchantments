@@ -603,8 +603,8 @@ Mods: {
 			NoArmor: You must be wearing a helmet, chest or legs to swap enchantment loadouts.
 			NoHeldItem: You must be holding an enchantable item to swap enchantment loadouts.
 			NoItems: You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts.
-			NotEnoughEnchantments: "You are missing enchantments for this loadout.  {0}"
-			NotHighEnoughLevel: "Your {0} is not high enough level to apply the enchantments from this loadout."
+			NotEnoughEnchantments: You are missing enchantments for this loadout.  {0}
+			NotHighEnoughLevel: Your {0} is not high enough level to apply the enchantments from this loadout.
 		}
 
 		Items: {
@@ -1108,19 +1108,7 @@ Mods: {
 		}
 
 		TableText: {
-			Cancel: 取消
-			Finalize: 确定
-			Infusion: 武器融合
-			LevelUp: 提升等级
-			Loadouts: Loadouts
-			LootAll: 一键收取
-			No: 否
-			Offer: 熔炼回收
-			Storage: Storage
-			Syphon: 吸取经验
-			xp: 给
-			Yes: 是
-			AreYouSure: 
+			AreYouSure:
 				'''
 				您确定要永久销毁您的等级 {0}
 				{1} {2}
@@ -1141,6 +1129,7 @@ Mods: {
 			Infusion: 武器融合
 			Item: 物品
 			LevelUp: 提升等级
+			Loadouts: Loadouts
 			LootAll: 一键收取
 			No: 否
 			Offer: 熔炼回收

@@ -597,11 +597,13 @@ Mods: {
 		}
 
 		EnchantmentStorageText: {
+			// Add: Add
 			All: All
 			DepositAll: Deposit All
 			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
 			HeldItem: Held Item
+			// Loadout: Loadout
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -615,7 +617,12 @@ Mods: {
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
 			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
+			// NoAccessories: You must be wearing at least one accessory to swap enchantment loadouts.
+			// NoArmor: You must be wearing a helmet, chest or legs to swap enchantment loadouts.
 			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
+			// NoItems: You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts.
+			// NotEnoughEnchantments: You are missing enchantments for this loadout.  {0}
+			// NotHighEnoughLevel: Your {0} is not high enough level to apply the enchantments from this loadout.
 		}
 
 		Items: {
@@ -1119,19 +1126,7 @@ Mods: {
 		}
 
 		TableText: {
-			Cancel: Cancelar
-			Finalize: Finalizar
-			Infusion: Infusão
-			LevelUp: Subir de nível
-			Loadouts: Loadouts
-			LootAll: Saquear tudo
-			No: Não
-			Offer: Oferta
-			Storage: Storage
-			Syphon: Sifão
-			xp: exp
-			Yes: Sim
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Tem certeza de que deseja DESTRUIR PERMANENTEMENTE seu nível {0}
 				{1} {2}
@@ -1152,6 +1147,7 @@ Mods: {
 			Infusion: Infusão
 			Item: Item
 			LevelUp: Subir de nível
+			Loadouts: Loadouts
 			LootAll: Saquear tudo
 			No: Não
 			Offer: Oferta
