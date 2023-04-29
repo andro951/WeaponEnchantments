@@ -997,6 +997,20 @@ namespace WeaponEnchantments.Common.Globals
         public void RemoveNoUpdate(int index) {
 			_enchantments[index] = new Item();
 		}
+        public bool TryReturnAllEnchantments(WEPlayer wePlayer, bool allowQuickspawn = false) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
+                if (!wePlayer.TryReturnEnchantmentToPlayer(i, this, allowQuickspawn))
+                    return false; 
+            }
+
+            return true;
+        }
+        public void ApplyLoadout(Item[] enchantments) {
+            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
+                Item clone = enchantments[i].Clone();
+				this[i] = clone;
+            }
+        }
 	}
 	public static class EnchantedItemStaticMethods {
         public static bool IsEnchantable(Item item) {

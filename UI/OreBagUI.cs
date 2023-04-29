@@ -65,8 +65,8 @@ namespace WeaponEnchantments.UI
 		}
 		public static int ID => UI_ID.OreBag;
 		public static int SearchID => UI_ID.OreBagSearch;
-		public static int OreBagUIDefaultLeft => 100;
-		public static int OreBagUIDefaultTop => 650;
+		public static int OreBagUIDefaultLeft => 80;
+		public static int OreBagUIDefaultTop => 675;
 		public static Color PanelColor => new Color(25, 10, 3, 100);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;

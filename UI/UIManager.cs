@@ -108,14 +108,11 @@ namespace WeaponEnchantments.UI
 					}
 				}
 
-				if (wePlayer.displayEnchantmentLoadoutUI)
-					EnchantmentLoadoutUI.ResetAvailableSlot();
-
+				EnchantmentLoadoutUI.PostDrawInterface(spriteBatch);
 				EnchantingTableUI.PostDrawInterface(spriteBatch);
 				EnchantmentStorage.PostDrawInterface(spriteBatch);
-				WitchRerollUI.PostDrawInterface(spriteBatch);
 				OreBagUI.PostDrawInterface(spriteBatch);
-				EnchantmentLoadoutUI.PostDrawInterface(spriteBatch);
+				WitchRerollUI.PostDrawInterface(spriteBatch);
 
 				Main.inventoryScale = savedInventoryScale;
 			}
@@ -685,6 +682,7 @@ namespace WeaponEnchantments.UI
 		public const int EnchantmentLoadoutUIScrollBar = 4001;
 		public const int EnchantmentLoadoutUIScrollPanel = 4002;
 		public const int EnchantmentLoadoutUITextButton = 4003;
+		public const int EnchantmentLoadoutAddTextButton = 4004;
 		public const int EnchantmentLoadoutUIItemSlot = 4200;
 		public const int EnchantmentLoadoutUIEnd = 5000;
 	}

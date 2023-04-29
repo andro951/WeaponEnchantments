@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 using WeaponEnchantments.UI;
@@ -35,7 +36,7 @@ namespace WeaponEnchantments.Items
         }
         public override void SetDefaults() {
             GetDefaults();
-            Item.maxStack = 1;
+            Item.maxStack = 99;
             Item.value = 100000;
             Item.width = 24;
             Item.height = 24;
@@ -51,12 +52,11 @@ namespace WeaponEnchantments.Items
 			recipie.AddIngredient(ItemID.WhiteString);
 			recipie.Register();
         }
-		public override bool CanRightClick() => true;
+		public override bool CanRightClick() => !ItemSlot.ShiftInUse;
         public override void RightClick(Player player) {
-            Item.stack = 2;
+            Item.stack++;
 			UseBag(player);
 		}
-
 		public override bool? UseItem(Player player) {
             if (Main.myPlayer == player.whoAmI && Main.netMode != NetmodeID.Server)
                 UseBag(player);

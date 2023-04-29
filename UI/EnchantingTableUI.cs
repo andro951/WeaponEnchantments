@@ -101,7 +101,7 @@ namespace WeaponEnchantments.UI
 				}
 
 				//If player is too far away, close the enchantment table
-				if (!wePlayer.Player.IsInInteractionRangeToMultiTileHitbox(wePlayer.Player.chestX, wePlayer.Player.chestY) || wePlayer.Player.chest != -1 || !Main.playerInventory)
+				if (!wePlayer.InEnchantingTableInteractionRange() || wePlayer.Player.chest != -1 || !Main.playerInventory)
 					CloseEnchantingTableUI();
 
 				//Prevent Trash can and other mouse overides when using enchanting table
@@ -116,6 +116,50 @@ namespace WeaponEnchantments.UI
 
 				//Start of UI
 				Color mouseColor = UIManager.MouseColor;
+
+				if (wePlayer.displayEnchantmentLoadoutUI) {
+					//Loadouts Button Data 1/2
+					string loadouts2 = TableTextID.Loadouts.ToString().Lang(L_ID1.TableText);
+					TextData loadoutsTextData2 = new(loadouts2);
+
+					//Loadouts Button Data 2/2
+					UIButtonData loadoutsData2 = new(UI_ID.EnchantingTableLoadoutsButton, wePlayer.enchantingTableUILeft + PanelBorder, wePlayer.enchantingTableUITop + PanelBorder, loadoutsTextData2, mouseColor, ButtonBorderX, ButtonBorderY, BackGroundColor, HoverColor);
+
+					//Panel Data
+					Point panelTopLeft2 = new(wePlayer.enchantingTableUILeft, wePlayer.enchantingTableUITop);
+					Point panelBottomRight2 = new((int)loadoutsData2.BottomRight.X + PanelBorder, (int)loadoutsData2.BottomRight.Y + PanelBorder);
+					UIPanelData panel2 = new(UI_ID.EnchantingTable, panelTopLeft2, panelBottomRight2, BackGroundColor);
+
+					//Panel Draw
+					panel2.Draw(spriteBatch);
+
+					//Loadouts Button Draw
+					loadoutsData2.Draw(spriteBatch);
+
+					//Loadouts Button Hover
+					if (loadoutsData2.MouseHovering()) {
+						if (UIManager.LeftMouseClicked) {
+							if (wePlayer.displayEnchantmentLoadoutUI) {
+								EnchantmentLoadoutUI.Close();
+							}
+							else {
+								EnchantmentLoadoutUI.Open();
+							}
+
+							SoundEngine.PlaySound(SoundID.MenuTick);
+						}
+					}
+
+					//Panel Drag
+					if (panel2.MouseHovering()) {
+						panel2.TryStartDraggingUI();
+					}
+
+					if (panel2.ShouldDragUI())
+						UIManager.DragUI(out wePlayer.enchantingTableUILeft, out wePlayer.enchantingTableUITop);
+
+					return;
+				}
 
 				//Item Label Data 1/2
 				int itemLabelTop = wePlayer.enchantingTableUITop + Spacing;
@@ -992,7 +1036,7 @@ namespace WeaponEnchantments.UI
 							normalClickInteractions = false;
 							wePlayer.TryUpdateMouseOverrideForDeposit(item);
 							if (UIManager.LeftMouseClicked) {
-								if (!wePlayer.TryReturnEnchantmentToPlayer(slotNum))
+								if (!wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum))
 									UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, slotNum);
 							}
 						}
@@ -1010,7 +1054,7 @@ namespace WeaponEnchantments.UI
 									UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, slotNum);
 								}
 								else {
-									wePlayer.TryReturnEnchantmentToPlayer(slotNum);
+									wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum);
 								}
 							}
 						}
@@ -1025,7 +1069,7 @@ namespace WeaponEnchantments.UI
 								if (Main.mouseItem.stack > 1) {
 									normalClickInteractions = false;
 									if (!item.IsAir)
-										wePlayer.TryReturnEnchantmentToPlayer(slotNum, true);
+										wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum, true);
 
 									Main.mouseItem.stack--;
 									Item mouseItemClone = Main.mouseItem.Clone();

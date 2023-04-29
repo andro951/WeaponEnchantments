@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Отключить сообщения в чате, которые просят:
-					\\\\\\\\\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\\\\\\\\\"
+					\\\\\\\\\\\\\"Please report this to andro951(Weapon Enchantments) along with a description of what you were doing at the time.\\\\\\\\\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -888,11 +888,13 @@ Mods: {
 			}
 		}
 		EnchantmentStorageText: {
+			Add: Add
 			All: All
 			DepositAll: Deposit All
 			EnchantmentLoadouts: Enchantment Loadouts
 			EnchantmentStorage: Enchantment Storage
 			HeldItem: Held Item
+			Loadout: Loadout
 			LootAll: Loot All
 			ManageOfferedItems: Manage Offered Items
 			ManageTrash: Manage Trash
@@ -906,7 +908,12 @@ Mods: {
 			ToggleVacuum: Toggle Vacuum
 			UncraftAllTrash: Uncraft All Trash
 			LoadoutSizeChanged: Detected less accessory slots than previously available.  Enchantments in the excess slots have been returned.
-			NoHeldItem: You must be holding an item such as a weapon or pickaxe as your equipped item or in the mouse to swap the enchantments loadout on that item.
+			NoAccessories: You must be wearing at least one accessory to swap enchantment loadouts.
+			NoArmor: You must be wearing a helmet, chest or legs to swap enchantment loadouts.
+			NoHeldItem: You must be holding an enchantable item to swap enchantment loadouts.
+			NoItems: You must be holding an enchantable item or wearing a piece of armor or an accessory to swap enchantment loadouts.
+			NotEnoughEnchantments: "You are missing enchantments for this loadout.  {0}"
+			NotHighEnoughLevel: "Your {0} is not high enough level to apply the enchantments from this loadout."
 		}
 		ItemTooltip: {
 			Containment: Используется чтобы содержать базовые зачарования
@@ -1195,7 +1202,7 @@ Mods: {
 					(Никому не пережить неотвратимое пламя Аматерасу)
 					(Наносит противникам уникальный огненный эффект, который никогда не прекращается)
 					(Урон от эффекта возрастает со временем и при нанесении противникам урона)
-					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\\\\\\"Мир в огне\\\\\\\\\".)
+					(Распространяется на ближайших противников и предотвращает их иммунитет против других эффектов зачарования \\\\\\\\\\\\\"Мир в огне\\\\\\\\\\\\\".)
 					'''
 			}
 			EnchantmentEffects: {
@@ -1203,8 +1210,8 @@ Mods: {
 				AttackSpeed: "{0} (Влияет на скорость стрельбы прислужников, если они стреляют. Влияет на скорость поклёва.)"
 				BonusCoins: 
 					'''
-					\\\\\\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
-					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\\\\\\"
+					\\\\\\\\\\\\\"{0} (Удар по противнику увеличит количество монет, которое с него выпадет,
+					на основе нанесённого урона, максимального здоровья противника, базового количества монет и удачи.)\\\\\\\\\\\\\"
 					'''
 				BuffDuration: 
 					'''
