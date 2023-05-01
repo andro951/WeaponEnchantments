@@ -72,6 +72,7 @@ namespace WeaponEnchantments.UI
 		public static bool useingScrollBar = false;
 		public static int availableSlotRow = -1;
 		public static int availableSlotIndex = -1;
+		public static bool skipAvailableSlotReset = false;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.displayEnchantmentLoadoutUI) {
@@ -84,6 +85,15 @@ namespace WeaponEnchantments.UI
 					//	Main.cursorOverride = -1;
 
 					Main.cursorOverride = AvailableSlot(Main.HoverItem) ? CursorOverrideID.InventoryToChest : -1;
+				}
+				else {
+					if (skipAvailableSlotReset) {
+						skipAvailableSlotReset = false;
+					}
+					else {
+						availableSlotRow = -1;
+						availableSlotIndex = -1;
+					}
 				}
 
 				#endregion
@@ -213,6 +223,7 @@ namespace WeaponEnchantments.UI
 										Main.cursorOverride = CursorOverrideID.CameraDark;
 										if (UIManager.LeftMouseClicked) {
 											item = Main.mouseItem.Clone();
+											item.stack = 1;
 											SoundEngine.PlaySound(SoundID.MenuTick);
 										}
 									}
@@ -612,6 +623,7 @@ namespace WeaponEnchantments.UI
 							if (canAcceptEnchantment) {
 								availableSlotRow = rowNum;
 								availableSlotIndex = enchantmentSlotIndex;
+								skipAvailableSlotReset = true;
 
 								return true;
 							}
@@ -622,6 +634,7 @@ namespace WeaponEnchantments.UI
 
 			availableSlotRow = -1;
 			availableSlotIndex = -1;
+
 			return false;
 		}
 		public static void UpdateAvailableEnchantmentSlot(WEPlayer wePlayer, Item enchantmentItem) {

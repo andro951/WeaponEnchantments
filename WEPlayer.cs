@@ -290,7 +290,7 @@ namespace WeaponEnchantments
         public override void SaveData(TagCompound tag) {
             tag["enchantingTableItem0"] = enchantingTableItem;
             for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
-                tag[$"enchantingTableEssenceItem{i}"] = enchantingTableEssence[i];
+                tag[$"enchantingTableEssenceItem{i}"] = enchantingTableEssence[i] ?? new();
             }
 
             tag["infusionConsumeItem"] = infusionConsumeItem;
@@ -322,19 +322,13 @@ namespace WeaponEnchantments
             tag["openLoadoutsWhenOpeningTable"] = openLoadoutsWhenOpeningTable;
 		}
 		public override void LoadData(TagCompound tag) {
-            enchantingTableItem = tag.Get<Item>("enchantingTableItem0");
-            if (enchantingTableItem == null)
-                enchantingTableItem = new();
+            enchantingTableItem = tag.Get<Item>("enchantingTableItem0") ?? new();
 
 			for (int i = 0; i < EnchantingTableUI.MaxEssenceSlots; i++) {
-                enchantingTableEssence[i] = tag.Get<Item>($"enchantingTableEssenceItem{i}");
-                if (enchantingTableEssence[i] == null)
-                    enchantingTableEssence[i] = new();
+                enchantingTableEssence[i] = tag.Get<Item>($"enchantingTableEssenceItem{i}") ?? new();
 			}
 
-            infusionConsumeItem = tag.Get<Item>("infusionConsumeItem");
-            if (infusionConsumeItem == null)
-                infusionConsumeItem = new();
+            infusionConsumeItem = tag.Get<Item>("infusionConsumeItem") ?? new();
 
             highestTableTierUsed = tag.Get<int>("highestTableTierUsed");
             versionUpdate = tag.Get<byte>("versionUpdate");
@@ -392,6 +386,17 @@ namespace WeaponEnchantments
                 }
 
                 enchantmentLoadouts = justLoadouts.Select((l, i) => new { Loadout = l, Key = loadoutKeys[i] }).ToDictionary(x => x.Key, x => x.Loadout);
+                foreach (string key in enchantmentLoadouts.Keys) {
+                    List<Item[]> loadout = enchantmentLoadouts[key];
+					for (int i = 0; i < loadout.Count; i++) {
+                        Item[] row = loadout[i];
+                        for (int k = 0; k < row.Length; k++) {
+                            ref Item item = ref row[k];
+                            if (!item.IsAir)
+                                item.stack = 1;
+                        }
+                    }
+				}
 			}
 
             if (enchantmentLoadouts.Count < 1)

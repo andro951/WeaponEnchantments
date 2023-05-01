@@ -76,6 +76,9 @@ namespace WeaponEnchantments.Common.Globals
                     return false;
 
                 int tier = essence.EssenceTier;
+                if (essenceSlots[tier] == null)
+                    return false;
+
                 int tableStack = essenceSlots[tier].stack;
                 if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)
                     return true;
