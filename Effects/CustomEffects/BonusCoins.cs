@@ -29,33 +29,34 @@ namespace WeaponEnchantments.Effects
 			if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue || npc.type == NPCID.TargetDummy)
 				return;
 
+			NPC realNPC = npc.RealNPC();
 			int damageInt = damage;
 			if (crit)
 				damageInt *= 2;
 
-			int life = npc.RealLife();
+			int life = realNPC.life;
 			if (life < 0)
 				damageInt += life;
 
-			int lifeMax = npc.RealLifeMax();
+			int lifeMax = realNPC.lifeMax;
 			if (damageInt > lifeMax)
 				damageInt = lifeMax;
 
 			if (damageInt <= 0)
 				return;
 
-			float npcValue = npc.RealValue();
+			float npcValue = realNPC.type.CSNPC().value;
 			float value = (float)damageInt / (float)life * npcValue;
 			if (value < damageInt)
 				value = (float)damageInt;
 
-			value *= 1f + wePlayer.Player.luck;
+			value *= 1f + Math.Min(wePlayer.Player.luck, 2f);
 
 			int coins = (int)Math.Round(EStatModifier.ApplyTo(0f) * value);
 			if (coins <= 0)
 				coins = 1;
 
-			Net<INetMethods>.Proxy.NetAddNPCValue(npc, coins);
+			Net<INetMethods>.Proxy.NetAddNPCValue(realNPC, coins);
 		}
 
 		public override IEnumerable<object> TooltipArgs => new object[] { base.Tooltip };

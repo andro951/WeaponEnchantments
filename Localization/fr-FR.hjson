@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Empêche l'affichage de messages dans votre chat qui vous demandent de
-					\\\\\\\\\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\\\\\\\\\"
+					\\\\\\\\\\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\\\\\\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -1027,6 +1027,7 @@ Mods: {
 			Offer: Offrir
 			Storage: Storage
 			Syphon: Siphon
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Oui
 			AreYouSure: 

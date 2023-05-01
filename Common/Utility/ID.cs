@@ -487,7 +487,8 @@ namespace WeaponEnchantments.Common.Utility
 		enchantment4,
 		utility0,
 		essence0,
-		Loadouts
+		Loadouts,
+		ToggleAutoTrashOfferedItems
 	}
 	public enum EnchantmentStorageTextID
 	{

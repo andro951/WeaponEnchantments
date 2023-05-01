@@ -627,6 +627,7 @@ namespace WeaponEnchantments.UI
 		public const int Offer = 100;
 		public const int OfferYes = 101;
 		public const int OfferNo = 102;
+		public const int ToggleAutoTrashOfferedItems = 103;
 		public const int OfferEnd = EnchantmentStorage;
 
 		public const int EnchantmentStorage = 1000;

@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impedisce la visualizzazione di messaggi nella tua chat che ti chiedono di farlo
-					\\\\\\\\\\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\\\\\\\\\\"
+					\\\\\\\\\\\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\\\\\\\\\\\"
 					'''
 			}
 			DisableArmorInfusion: {
@@ -1027,6 +1027,7 @@ Mods: {
 			Offer: Offerta
 			Storage: Storage
 			Syphon: Sifone
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: xp
 			Yes: sì
 			AreYouSure: 

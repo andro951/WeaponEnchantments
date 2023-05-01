@@ -53,6 +53,7 @@ namespace WeaponEnchantments.UI
 		public static int EnchantmentStorageUIDefaultTop => 5;
 		public static Color PanelColor => new Color(26, 2, 56, 100);
 		public static Color SelectedTextGray => new(100, 100, 100);
+		public static Color VacuumPurple => new(162, 22, 255);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		public const float buttonScaleMinimum = 0.75f;
@@ -178,7 +179,7 @@ namespace WeaponEnchantments.UI
 					float scale = ButtonScale[buttonIndex];
 					Color color;
 					if (buttonIndex == EnchantmentStorageButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoEnchantmentStorage) {
-						color = new(162, 22, 255);
+						color = VacuumPurple;
 					}
 					else if (buttonIndex == EnchantmentStorageButtonID.ToggleMarkTrash && markingTrash || buttonIndex == EnchantmentStorageButtonID.ManageTrash && managingTrash || buttonIndex == EnchantmentStorageButtonID.ManageOfferedItems && managingOfferdItems || buttonIndex == EnchantmentStorageButtonID.QuickCrafting && quickCrafting) {
 						color = SelectedTextGray;
@@ -386,6 +387,10 @@ namespace WeaponEnchantments.UI
 											}
 										}
 									}
+									else {
+										if (!CanBeStored(Main.mouseItem))
+											normalClickInteractions = false;
+									}
 								}
 
 								if (normalClickInteractions)
@@ -448,6 +453,7 @@ namespace WeaponEnchantments.UI
 							ButtonScale[buttonIndex] = buttonScaleMaximum;
 
 						if (UIManager.LeftMouseClicked) {
+							UIManager.TryResetSearch(UI_ID.EnchantmentStorageSearch);
 							if (managingTrash && buttonIndex != EnchantmentStorageButtonID.ManageTrash)
 								managingTrash = false;
 
@@ -672,7 +678,18 @@ namespace WeaponEnchantments.UI
 		}
 		private static void Sort() {
 			MethodInfo sort = typeof(ItemSorting).GetMethod("Sort", BindingFlags.NonPublic | BindingFlags.Static);
-			sort.Invoke(null, new object[] { WEPlayer.LocalWEPlayer.enchantmentStorageItems, new int[0] });
+			sort.Invoke(null, new object[] { WEPlayer.LocalWEPlayer.enchantmentStorageItems, new int[] { } });
+
+			IEnumerable<Item> containments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is ContainmentItem).OrderBy(i => i.type);
+			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
+			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.GetSortedEnchantments();
+			IEnumerable<Item> goodEnchantments = enchantments.Where(i => i.favorited || !WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
+			IEnumerable<Item> trashEnchantments = enchantments.Where(i => !i.favorited && WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
+			IEnumerable<Item> otherItems = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem == null || i.ModItem is not (Enchantment or ContainmentItem or PowerBooster or UltraPowerBooster));
+			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(goodEnchantments).Concat(trashEnchantments).Concat(otherItems).ToArray();
+			glowTime = 300;
+			glowHue = 0.5f;
+
 			Type itemSlotType = typeof(ItemSlot);
 			int[] inventoryGlowTime = (int[])itemSlotType.GetField("inventoryGlowTime", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 			for (int i = 0; i < inventoryGlowTime.Length; i++) {
@@ -685,16 +702,6 @@ namespace WeaponEnchantments.UI
 					inventoryGlowTimeChest[i] = 0;
 				}
 			}
-
-			IEnumerable<Item> containments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is ContainmentItem).OrderBy(i => i.type);
-			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
-			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.GetSortedEnchantments();
-			IEnumerable<Item> goodEnchantments = enchantments.Where(i => i.favorited || !WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
-			IEnumerable<Item> trashEnchantments = enchantments.Where(i => !i.favorited && WEPlayer.LocalWEPlayer.trashEnchantmentsFullNames.Contains(i.type.GetItemIDOrName()));
-			IEnumerable<Item> otherItems = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem == null || i.ModItem is not (Enchantment or ContainmentItem or PowerBooster or UltraPowerBooster));
-			WEPlayer.LocalWEPlayer.enchantmentStorageItems = containments.Concat(powerBoosters).Concat(goodEnchantments).Concat(trashEnchantments).Concat(otherItems).ToArray();
-			glowTime = 300;
-			glowHue = 0.5f;
 		}
 		public static IEnumerable<Item> GetSortedEnchantments(this IEnumerable<Item> items) {
 			return items

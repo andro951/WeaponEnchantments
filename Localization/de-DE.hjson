@@ -1027,6 +1027,7 @@ Mods: {
 			Offer: Angebot
 			Storage: Storage
 			Syphon: Siphon
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Ja
 			AreYouSure: 
