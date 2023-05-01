@@ -498,7 +498,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (!canSwapHeldItem && !canSwapAnyArmor && canSwapAnyAccessory) {
+			if (!canSwapHeldItem && !canSwapAnyArmor && !canSwapAnyAccessory) {
 				Main.NewText(EnchantmentStorageTextID.NoItems.ToString().Lang(L_ID1.EnchantmentStorageText));
 
 				return false;

@@ -461,20 +461,18 @@ namespace WeaponEnchantments.UI
 					//Offer Warning Data
 					string offerWarning = GetOfferWarning();
 					TextData offerWarningTextData = new(offerWarning);
-					int yOffset = Math.Max(panel.Height - offerWarningTextData.Height, 0) / 2;
-					UITextData offerWarningData = new(UI_ID.None, leftPanelButtonsRightEdge + Spacing, itemLabelTop + yOffset, offerWarningTextData, mouseColor);
-					/*
-					Utils.WordwrapString(text, FontAssets.MouseText.Value, 200, 1, out var lineAmount);
-					lineAmount++;
-					for (int i = 0; i < lineAmount; i++) {
-						ChatManager.DrawColorCodedStringWithShadow(spritebatch, FontAssets.MouseText.Value, text, new Vector2(504f, Main.instance.invBottom + i * 26), color, 0f, Vector2.Zero, Vector2.One, -1f, 1.5f);
-					}
-					 */
+					UITextData offerWarningData = new(UI_ID.None, leftPanelButtonsRightEdge + Spacing, itemLabelTop + Spacing, offerWarningTextData, mouseColor);
+
+					//Auto Trash Offered Data
+					string autoTrashOffered = TableTextID.ToggleAutoTrashOfferedItems.ToString().Lang(L_ID1.TableText);
+					TextData autoTrashOfferedTextData = new(autoTrashOffered);
+					Color autoTrashOfferedColor = wePlayer.autoTrashOfferedItems ? EnchantmentStorage.VacuumPurple : mouseColor;
+					UIButtonData autoTrashOfferedData = new(UI_ID.ToggleAutoTrashOfferedItems, offerWarningData.TopLeft.X, offerWarningData.BottomRight.Y + Spacing, autoTrashOfferedTextData, autoTrashOfferedColor, ButtonBorderX, ButtonBorderY, RedButtonColor, RedHoverColor);
 
 					//Offer Panel Data
 					Color offerRed = RedButtonColor;
 					offerRed.A = 224;
-					Point offerPanelBottomRight = new(Math.Max(panelBottomRight.X, offerWarningData.BottomRight.X + PanelBorder), Math.Max(panelBottomRight.Y, offerWarningData.BottomRight.Y + PanelBorder));
+					Point offerPanelBottomRight = new(Math.Max(panelBottomRight.X, offerWarningData.BottomRight.X + PanelBorder), Math.Max(panelBottomRight.Y, (int)autoTrashOfferedData.BottomRight.Y + PanelBorder));
 					UIPanelData offerPanel = new(UI_ID.Offer, panelTopLeft, offerPanelBottomRight, offerRed);
 
 					//Offer Panel Draw
@@ -488,6 +486,9 @@ namespace WeaponEnchantments.UI
 
 					//Offer Warning Draw
 					offerWarningData.Draw(spriteBatch);
+
+					//Offer Panel Draw
+					autoTrashOfferedData.Draw(spriteBatch);
 
 					//Yes Hover
 					if (yesData.MouseHovering()) {
@@ -504,6 +505,14 @@ namespace WeaponEnchantments.UI
 							DisplayOfferUI = false;
 							SoundEngine.PlaySound(SoundID.MenuTick);
 							SoundEngine.PlaySound(SoundID.MenuClose);
+						}
+					}
+
+					//Offer Panel Hover
+					if (autoTrashOfferedData.MouseHovering()) {
+						if (UIManager.LeftMouseClicked) {
+							wePlayer.autoTrashOfferedItems = !wePlayer.autoTrashOfferedItems;
+							SoundEngine.PlaySound(SoundID.MenuTick);
 						}
 					}
 
@@ -1446,7 +1455,9 @@ namespace WeaponEnchantments.UI
 			if (type == 0)
 				return;
 
-			WEPlayer.LocalWEPlayer.allOfferedItems.Add(type.GetItemIDOrName());
+			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
+			if (wePlayer.autoTrashOfferedItems)
+				WEPlayer.LocalWEPlayer.allOfferedItems.Add(type.GetItemIDOrName());
 
 			if (!WEMod.clientConfig.OfferAll)
 				return;
@@ -1482,7 +1493,9 @@ namespace WeaponEnchantments.UI
 							if (enchantedItem.Modified)
 								continue;
 
-							WEPlayer.LocalWEPlayer.allOfferedItems.Add(item.type.GetItemIDOrName());
+							if (wePlayer.autoTrashOfferedItems)
+								WEPlayer.LocalWEPlayer.allOfferedItems.Add(item.type.GetItemIDOrName());
+
 							if (OfferItem(ref Main.chest[chestNum].item[i]) > -1 && Main.netMode == NetmodeID.MultiplayerClient)
 								offeredChestItemSlots.AddOrCombine(chestNum, (short)i);
 						}

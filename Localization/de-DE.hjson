@@ -1126,7 +1126,20 @@ Mods: {
 		}
 
 		TableText: {
-			AreYouSure:
+			Cancel: Absagen
+			Finalize: Abschließen
+			Infusion: Infusion
+			LevelUp: Aufleveln
+			Loadouts: Loadouts
+			LootAll: Alles plündern
+			No: Nein
+			Offer: Angebot
+			Storage: Storage
+			Syphon: Siphon
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
+			xp: XP
+			Yes: Ja
+			AreYouSure: 
 				'''
 				Bist du sicher, dass du dein Level {0} DAUERHAFT ZERSTÖREN willst?
 				{1} {2}

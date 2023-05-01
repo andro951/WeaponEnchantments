@@ -96,6 +96,7 @@ namespace WeaponEnchantments
         public int EnchantmentLoadoutUITop;
         public bool openLoadoutsWhenOpeningTable;
 		public string displayedLoadout = null;
+        public bool autoTrashOfferedItems = true;
 
 		#endregion
 
@@ -352,6 +353,7 @@ namespace WeaponEnchantments
 			tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
             tag["EnchantmentLoadoutUITop"] = EnchantmentLoadoutUITop;
             tag["openLoadoutsWhenOpeningTable"] = openLoadoutsWhenOpeningTable;
+            tag["autoTrashOfferedItems"] = autoTrashOfferedItems;
 		}
 		public override void LoadData(TagCompound tag) {
             enchantingTableItem = tag.Get<Item>("enchantingTableItem0") ?? new();
@@ -438,6 +440,8 @@ namespace WeaponEnchantments
             EnchantmentLoadoutUITop = tag.Get<int>("EnchantmentLoadoutUITop");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref EnchantmentLoadoutUILeft, ref EnchantmentLoadoutUITop, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultLeft, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultTop);
             openLoadoutsWhenOpeningTable = tag.Get<bool>("openLoadoutsWhenOpeningTable");
+            if (tag.TryGet("autoTrashOfferedItems", out bool val))
+                autoTrashOfferedItems = val;
 		}
         public override bool ShiftClickSlot(Item[] inventory, int context, int slot) {
 			ref Item item = ref inventory[slot];

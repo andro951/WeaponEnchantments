@@ -1126,7 +1126,20 @@ Mods: {
 		}
 
 		TableText: {
-			AreYouSure:
+			Cancel: Cancelar
+			Finalize: Finalizar
+			Infusion: Infusión
+			LevelUp: Subir nivel
+			Loadouts: Loadouts
+			LootAll: Saquear todos
+			No: No
+			Offer: Ofrecer
+			Storage: Storage
+			Syphon: Drenar
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
+			xp: XP
+			Yes: Sí
+			AreYouSure: 
 				'''
 				¿Estás seguro de que quieres DESTRUIR PERMANENTEMENTE tu nivel {0}?
 				{1} {2}

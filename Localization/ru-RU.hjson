@@ -1123,7 +1123,20 @@ Mods: {
 		}
 
 		TableText: {
-			AreYouSure:
+			Cancel: Отменить
+			Finalize: Завершить
+			Infusion: Наполнить
+			LevelUp: Поднять уровень
+			Loadouts: Loadouts
+			LootAll: Взять
+			No: Нет
+			Offer: Пожертвовать
+			Storage: Storage
+			Syphon: Сифон
+			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
+			xp: XP
+			Yes: Да
+			AreYouSure: 
 				'''
 				Вы уверены что хотите НАВСЕГДА УНИЧТОЖИТЬ {1}
 				{0}-го уровня {2}

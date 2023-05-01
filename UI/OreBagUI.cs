@@ -150,7 +150,7 @@ namespace WeaponEnchantments.UI
 				float scale = ButtonScale[buttonIndex];
 				Color color;
 				if (buttonIndex == OreBagButtonID.ToggleVacuum && wePlayer.vacuumItemsIntoOreBag) {
-					color = new(162, 22, 255);
+					color = EnchantmentStorage.VacuumPurple;
 				}
 				else {
 					color = mouseColor;

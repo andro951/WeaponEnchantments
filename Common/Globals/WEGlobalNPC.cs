@@ -979,17 +979,13 @@ namespace WeaponEnchantments.Common.Globals
             }
         }
         public static int RealNetID(this NPC npc) => npc.realLife == -1 ? npc.netID : Main.npc[npc.realLife].netID;
+        public static NPC RealNPC(this NPC npc) => npc.realLife == -1 ? npc : Main.npc[npc.realLife];
         public static int RealLife(this NPC npc) => npc.realLife == -1 ? npc.life : Main.npc[npc.realLife].life;
 		public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
         public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
         public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
         public static void AddValue(this NPC npc, float value) {
-            if (npc.realLife == -1) {
-                npc.value += value;
-			}
-            else {
-				Main.npc[npc.realLife].value += value;
-			}
+            npc.value += value;
         }
 
 		//Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
