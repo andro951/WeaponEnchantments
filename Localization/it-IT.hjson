@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: xp
 			Yes: sì
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Sei sicuro di voler DISTRUGGERE PERMANENTEMENTE il tuo livello {0}
 				{1} {2}
 				{3}(In base al valore/esperienza dell'oggetto. Gli incantesimi verranno restituiti.)
 				'''
-			Cancel: Annulla
 			enchantment0: Posiziona qui gli incantesimi.
 			enchantment4: Richiede {0} o migliore per utilizzare questo slot.
 			Enchantments: Incantesimi
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: In cambio dell'essenza?
 			ExchangeEssenceAndOres: In cambio di minerali({0}) ed essenza({1})?
 			ExchangeOres: In cambio di minerali?
-			Finalize: Finalizzare
 			general1: L'aggiornamento del livello del tavolo incantato sblocca più slot incantesimo.
 			general2: Usare incantesimi per armi su armature o accessori
 			general3: fornisce bonus ridotti e viceversa.
-			Infusion: Infusione
 			Item: Elemento
-			LevelUp: Sali di livello
-			Loadouts: Loadouts
-			LootAll: Saccheggia tutto
-			No: No
-			Offer: Offerta
-			Storage: Storage
-			Syphon: Sifone
 			utility0: Solo gli incantesimi di utilità possono andare qui.
 			weapon0: Metti qui un'arma, un pezzo di armatura o un accessorio.
-			xp: xp
-			Yes: sì
 		}
 
 		Tooltip: {

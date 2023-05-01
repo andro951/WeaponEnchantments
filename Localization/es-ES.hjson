@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Sí
-			AreYouSure: 
+			AreYouSure:
 				'''
 				¿Estás seguro de que quieres DESTRUIR PERMANENTEMENTE tu nivel {0}?
 				{1} {2}
 				{3}(Basado en el valor del artículo/experiencia. Se devolverán los encantamientos).
 				'''
-			Cancel: Cancelar
 			enchantment0: Coloque los encantamientos aquí.
 			enchantment4: Requiere {0} o mejor para usar esta ranura.
 			Enchantments: Encantamientos
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: ¿A cambio de esencia?
 			ExchangeEssenceAndOres: ¿A cambio de minerales ({0}) y esencia ({1})?
 			ExchangeOres: ¿A cambio de minerales?
-			Finalize: Finalizar
 			general1: Actualizar el nivel de la mesa de encantamiento desbloquea más ranuras de encantamiento.
 			general2: Usar encantamientos de armas en armaduras o accesorios
 			general3: Proporciona bonos disminuidos y viceversa.
-			Infusion: Infusión
 			Item: Artículo
-			LevelUp: Subir nivel
-			Loadouts: Loadouts
-			LootAll: Saquear todos
-			No: No
-			Offer: Ofrecer
-			Storage: Storage
-			Syphon: Drenar
 			utility0: Solo los encantamientos de utilidad pueden ir aquí.
 			weapon0: Coloca aquí un arma, pieza de armadura o accesorio.
-			xp: XP
-			Yes: Sí
 		}
 
 		Tooltip: {

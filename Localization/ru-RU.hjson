@@ -1136,13 +1136,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Да
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Вы уверены что хотите НАВСЕГДА УНИЧТОЖИТЬ {1}
 				{0}-го уровня {2}
 				{3}(В зависимости от стоимости/опыта предмета. Зачарования буду возвращены.)
 				'''
-			Cancel: Отменить
 			enchantment0: Место для зачарований.
 			enchantment4: Для использования этого слота нужен {0} или лучше.
 			Enchantments: Зачарования
@@ -1150,23 +1149,12 @@ Mods: {
 			ExchangeEssence: в обмен на эссенцию?
 			ExchangeEssenceAndOres: в обмен на руду({0}) и эссенцию({1})?
 			ExchangeOres: в обмен на руду?
-			Finalize: Завершить
 			general1: Улучшение стола зачарования открывает больше слотов для зачарований.
 			general2: Использование зачарований для оружия на броне или аксессуарах
 			general3: и наоборот даёт уменьшенные бонусы.
-			Infusion: Наполнить
 			Item: Предмет
-			LevelUp: Поднять уровень
-			Loadouts: Loadouts
-			LootAll: Взять
-			No: Нет
-			Offer: Пожертвовать
-			Storage: Storage
-			Syphon: Сифон
 			utility0: Сюда можно положить только вспомогательные зачарования.
 			weapon0: Место для оружия, брони или аксессуара.
-			xp: XP
-			Yes: Да
 		}
 
 		Tooltip: {

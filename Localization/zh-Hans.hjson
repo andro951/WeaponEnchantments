@@ -1121,13 +1121,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: 给
 			Yes: 是
-			AreYouSure: 
+			AreYouSure:
 				'''
 				您确定要永久销毁您的等级 {0}
 				{1} {2}
 				{3}（基于物品价值/经验。附魔将被退还。）
 				'''
-			Cancel: 取消
 			enchantment0: 在这里放置附魔。
 			enchantment4: “需要 {0} 或更高经验才能使用此插槽。”
 			Enchantments: 附魔
@@ -1135,23 +1134,12 @@ Mods: {
 			ExchangeEssence: 换取精华吗？
 			ExchangeEssenceAndOres: “换取矿石（{0}）和精华（{1}）？”
 			ExchangeOres: 换取矿石吗？
-			Finalize: 确定
 			general1: 提升附魔台阶段可解锁更多附魔插槽。
 			general2: 在装备或饰品上使用附魔
 			general3: 提供钱币越少，反之亦然。
-			Infusion: 武器融合
 			Item: 物品
-			LevelUp: 提升等级
-			Loadouts: Loadouts
-			LootAll: 一键收取
-			No: 否
-			Offer: 熔炼回收
-			Storage: Storage
-			Syphon: 吸取经验
 			utility0: 只有效用附魔可以放到这里。
 			weapon0: 在此处放置武器、盔甲或饰品。
-			xp: 给
-			Yes: 是
 		}
 
 		Tooltip: {

@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Oui
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Êtes-vous sûr de vouloir DÉTRUIRE DE FAÇON PERMANENTE votre niveau {0}
 				{1} {2}
 				{3}(Basé sur la valeur de l'objet/l'expérience. Les enchantements seront retournés.)
 				'''
-			Cancel: Annuler
 			enchantment0: Placez les enchantements ici.
 			enchantment4: Nécessite {0} ou mieux pour utiliser cet emplacement.
 			Enchantments: Enchantements
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: En échange de l'essentiel ?
 			ExchangeEssenceAndOres: En échange de minerais ({0}) et d'essence ({1}) ?
 			ExchangeOres: En échange de minerais ?
-			Finalize: Finaliser
 			general1: La mise à niveau du niveau de la table d'enchantement débloque plus d'emplacements d'enchantement.
 			general2: Utiliser des enchantements d'armes sur des armures ou des accessoires
 			general3: offre des bonus diminués et vice versa.
-			Infusion: Infusion
 			Item: Article
-			LevelUp: Niveau supérieur
-			Loadouts: Loadouts
-			LootAll: Tout piller
-			No: Non
-			Offer: Offrir
-			Storage: Storage
-			Syphon: Siphon
 			utility0: Seuls les enchantements utilitaires peuvent aller ici.
 			weapon0: Placez une arme, une pièce d'armure ou un accessoire ici.
-			xp: XP
-			Yes: Oui
 		}
 
 		Tooltip: {

@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: XP
 			Yes: Ja
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Bist du sicher, dass du dein Level {0} DAUERHAFT ZERSTÖREN willst?
 				{1} {2}
 				{3}(Basierend auf Artikelwert/Erfahrung. Verzauberungen werden zurückgegeben.)
 				'''
-			Cancel: Absagen
 			enchantment0: Platziere hier Verzauberungen.
 			enchantment4: Erfordert {0} oder besser, um diesen Slot zu verwenden.
 			Enchantments: Verzauberungen
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: Im Austausch gegen Essenz?
 			ExchangeEssenceAndOres: Im Austausch gegen Erze({0}) und Essenz({1})?
 			ExchangeOres: Im Austausch für Erze?
-			Finalize: Abschließen
 			general1: Durch das Upgraden der Verzauberungstabellenstufe werden mehr Verzauberungsplätze freigeschaltet.
 			general2: Verwenden von Waffenverzauberungen auf Rüstungen oder Zubehör
 			general3: bietet verminderte Boni und umgekehrt.
-			Infusion: Infusion
 			Item: Artikel
-			LevelUp: Aufleveln
-			Loadouts: Loadouts
-			LootAll: Alles plündern
-			No: Nein
-			Offer: Angebot
-			Storage: Storage
-			Syphon: Siphon
 			utility0: Hier können nur nützliche Verzauberungen verwendet werden.
 			weapon0: Platziere hier eine Waffe, ein Rüstungsteil oder ein Accessoire.
-			xp: XP
-			Yes: Ja
 		}
 
 		Tooltip: {

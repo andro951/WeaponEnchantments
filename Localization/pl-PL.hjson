@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: xp
 			Yes: TAk
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Czy na pewno chcesz NA STAŁE ZNISZCZYĆ swój poziom {0}
 				{1} {2}
 				{3}(Na podstawie wartości przedmiotu/doświadczenia. Zaklęcia zostaną zwrócone).
 				'''
-			Cancel: Anulować
 			enchantment0: Umieść tutaj zaklęcia.
 			enchantment4: „Wymaga {0} lub Lepiej, aby korzystać z tego gniazda”.
 			Enchantments: Zaklęcia
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: W zamian za esencję?
 			ExchangeEssenceAndOres: „W zamian za rudy({0}) i esencję({1})?”
 			ExchangeOres: W zamian za rudy?
-			Finalize: Sfinalizować
 			general1: Ulepszenie poziomu stołu zaklinającego odblokowuje więcej miejsc na zaklęcia.
 			general2: Używanie zaklęć broni na zbroi lub akcesoriach
 			general3: zapewnia zmniejszone premie i odwrotnie.
-			Infusion: Napar
 			Item: Przedmiot
-			LevelUp: Podnieść do właściwego poziomu
-			Loadouts: Loadouts
-			LootAll: Łup wszystko
-			No: Nie
-			Offer: Oferta
-			Storage: Storage
-			Syphon: Syfon
 			utility0: Tylko zaklęcia użytkowe mogą tu trafić.
 			weapon0: Umieść tutaj broń, element zbroi lub akcesorium.
-			xp: xp
-			Yes: TAk
 		}
 
 		Tooltip: {

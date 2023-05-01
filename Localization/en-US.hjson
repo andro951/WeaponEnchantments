@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: xp
 			Yes: Yes
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Are you sure you want to PERMENANTLY DESTROY your level {0}
 				{1} {2}
 				{3}(Based on item value/experience.  Enchantments will be returned.)
 				'''
-			Cancel: Cancel
 			enchantment0: Place Enchantments here.
 			enchantment4: Requires {0} or Better to use this slot.
 			Enchantments: Enchantments
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: In exchange for essence?
 			ExchangeEssenceAndOres: In exchange for ores({0}) and essence({1})?
 			ExchangeOres: In exchange for ores?
-			Finalize: Finalize
 			general1: Upgrading Enchanting Table Tier unlocks more Enchantment slots.
 			general2: Using weapon Enchantments on armor or accessories
 			general3: provides diminished bonuses and vice versa.
-			Infusion: Infusion
 			Item: Item
-			LevelUp: Level Up
-			Loadouts: Loadouts
-			LootAll: Loot All
-			No: No
-			Offer: Offer
-			Storage: Storage
-			Syphon: Syphon
 			utility0: Only utility Enchantments can go here.
 			weapon0: Place a weapon, piece of armor or accessory here.
-			xp: xp
-			Yes: Yes
 		}
 
 		Tooltip: {

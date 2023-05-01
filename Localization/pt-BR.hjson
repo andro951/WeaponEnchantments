@@ -1139,13 +1139,12 @@ Mods: {
 			ToggleAutoTrashOfferedItems: Toggle Auto Trash Offered Items
 			xp: exp
 			Yes: Sim
-			AreYouSure: 
+			AreYouSure:
 				'''
 				Tem certeza de que deseja DESTRUIR PERMANENTEMENTE seu nível {0}
 				{1} {2}
 				{3}(Com base no valor/experiência do item.  Os encantamentos serão devolvidos.)
 				'''
-			Cancel: Cancelar
 			enchantment0: Coloque Encantamentos aqui.
 			enchantment4: Requer {0} ou melhor para usar este slot.
 			Enchantments: Encantamentos
@@ -1153,23 +1152,12 @@ Mods: {
 			ExchangeEssence: Em troca da essência?
 			ExchangeEssenceAndOres: Em troca de minérios({0}) e essência({1})?
 			ExchangeOres: Em troca de minérios?
-			Finalize: Finalizar
 			general1: Atualizar o nível da mesa de encantamento desbloqueia mais slots de encantamento.
 			general2: Usando encantamentos de armas em armaduras ou acessórios
 			general3: fornece bônus reduzidos e vice-versa.
-			Infusion: Infusão
 			Item: Item
-			LevelUp: Subir de nível
-			Loadouts: Loadouts
-			LootAll: Saquear tudo
-			No: Não
-			Offer: Oferta
-			Storage: Storage
-			Syphon: Sifão
 			utility0: Apenas encantamentos utilitários podem ir aqui.
 			weapon0: Coloque uma arma, peça de armadura ou acessório aqui.
-			xp: exp
-			Yes: Sim
 		}
 
 		Tooltip: {
