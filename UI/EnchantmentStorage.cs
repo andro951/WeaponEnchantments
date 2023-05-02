@@ -388,8 +388,10 @@ namespace WeaponEnchantments.UI
 										}
 									}
 									else {
-										if (!CanBeStored(Main.mouseItem))
-											normalClickInteractions = false;
+										if (!Main.mouseItem.IsAir) {
+											if (!CanBeStored(Main.mouseItem))
+												normalClickInteractions = false;
+										}
 									}
 								}
 
