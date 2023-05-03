@@ -301,31 +301,32 @@ namespace WeaponEnchantments
 
 			c.Emit(OpCodes.Ldloc, 3);
 			c.Emit(OpCodes.Ldloc, 4);
+			c.Emit(OpCodes.Ldarg_0);
 
 			//Consume essence from enchanting table when crafting.
-			c.EmitDelegate((Item item, int num) => {
+			c.EmitDelegate((Item item, int num, Recipe recipe) => {
 				if (num < 1)
 					return;
 
 				WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 				if (item.ModItem is EnchantmentEssence) {
-					ConsumeFromCraft(item, num, wePlayer.enchantingTableEssence);
+					ConsumeFromCraft(item, num, wePlayer.enchantingTableEssence, recipe);
 				}
 				else if (EnchantmentStorage.CanBeStored(item)) {
-					ConsumeFromCraft(item, num, wePlayer.enchantmentStorageItems, true);
+					ConsumeFromCraft(item, num, wePlayer.enchantmentStorageItems, recipe, true);
 				}
 				else if (OreBagUI.CanBeStored(item)) {
-					ConsumeFromCraft(item, num, wePlayer.oreBagItems);
+					ConsumeFromCraft(item, num, wePlayer.oreBagItems, recipe);
 				}
 			});
 		}
-		public static void ConsumeFromCraft(Item item, int stack, Item[] inventory, bool ignoreFavorited = false) {
+		public static void ConsumeFromCraft(Item item, int stack, Item[] inventory, Recipe recipe, bool ignoreFavorited = false) {
 			if (stack < 1)
 				return;
 
 			for (int i = 0; i < inventory.Length; i++) {
 				ref Item storageItem = ref inventory[i];
-				if (item.type == storageItem.type && (!item.favorited || !ignoreFavorited)) {
+				if ((!item.favorited || !ignoreFavorited) && item.type == storageItem.type || recipe.AcceptedByItemGroups(item.type, storageItem.type)) {
 					int ammountToTransfer = Math.Min(stack, storageItem.stack);
 					Item consumedItem = storageItem.Clone();
 					consumedItem.stack = ammountToTransfer;
@@ -341,6 +342,9 @@ namespace WeaponEnchantments
 						break;
 				}
 			}
+		}
+		private static bool IsSameCraftingItem() {
+			return false;
 		}
 		private static void HookFindRecipes(ILContext il)
 		{
