@@ -77,7 +77,8 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum(player) && EnchantmentStorage.RoomInStorage(item, player);
+			bool result = CanVacuum(player) && EnchantmentStorage.RoomInStorage(item, player);
+			return result;
 		}
 	}
 }

@@ -19,6 +19,14 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		public bool favorited;
 		public override bool InstancePerEntity => true;
+		bool? canBeStored = null;
+		bool CanBeStored(Item item) {
+			if (canBeStored == null) {
+				canBeStored = OreBagUI.CanBeStored(item);
+			}
+
+			return (bool)canBeStored;
+		}
 		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
 			return true;
 		}
@@ -28,7 +36,7 @@ namespace WeaponEnchantments.Common.Globals
 		public override void SaveData(Item item, TagCompound tag) {
 
 		}
-		public static bool CanVacuum(Player player) => player.GetWEPlayer().vacuumItemsIntoOreBag && player.HasItem(ModContent.ItemType<OreBag>());
+		public bool CanVacuum(Player player, Item item) => CanBeStored(item) && player.GetWEPlayer().vacuumItemsIntoOreBag && player.HasItem(ModContent.ItemType<OreBag>());
 		public override void UpdateInventory(Item item, Player player) {
 			//Track favorited
 			if (item.favorited) {
@@ -54,7 +62,7 @@ namespace WeaponEnchantments.Common.Globals
 			if (item.NullOrAir())
 				return true;
 
-			if (CanVacuum(player)) {
+			if (CanVacuum(player, item)) {
 				if (!OreBagUI.CanBeStored(item))
 					return true;
 
@@ -70,7 +78,8 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			return CanVacuum(player) && OreBagUI.RoomInStorage(item, player);
+			bool result = CanVacuum(player, item) && OreBagUI.RoomInStorage(item, player);
+			return result;
 		}
 	}
 }

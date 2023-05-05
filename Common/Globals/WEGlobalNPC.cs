@@ -210,141 +210,10 @@ namespace WeaponEnchantments.Common.Globals
 
             return 1f;
         }
-        public static List<int> GetEnchantmentDropList(int arg, bool bossBag = false) {
-            List<int> itemTypes = new List<int>();
-            switch (arg) {
-                case NPCID.KingSlime when !bossBag:
-                case ItemID.KingSlimeBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<DamageEnchantmentBasic>());
-                    break;
-                case NPCID.EyeofCthulhu when !bossBag:
-                case ItemID.EyeOfCthulhuBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<MovementSpeedEnchantmentBasic>());
-                    break;
-                case NPCID.EaterofWorldsHead when !bossBag:
-                case NPCID.EaterofWorldsBody when !bossBag:
-                case NPCID.EaterofWorldsTail when !bossBag:
-                case ItemID.EaterOfWorldsBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<AttackSpeedEnchantmentBasic>());
-                    break;
-                case NPCID.BrainofCthulhu when !bossBag:
-                case ItemID.BrainOfCthulhuBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<ReducedManaUsageEnchantmentBasic>());
-                    break;
-                case NPCID.QueenBee when !bossBag:
-                case ItemID.QueenBeeBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<MaxMinionsEnchantmentBasic>());
-                    break;
-                case NPCID.SkeletronHead when !bossBag:
-                case ItemID.SkeletronBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<CriticalStrikeChanceEnchantmentBasic>());
-                    break;
-                case NPCID.Deerclops when !bossBag:
-                case ItemID.DeerclopsBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<SolarDashEnchantmentBasic>());
-                    break;
-                case NPCID.WallofFlesh when !bossBag:
-                case ItemID.WallOfFleshBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<LifeStealEnchantmentBasic>());
-                    //itemTypes.Add(ModContent.ItemType<ArmorPenetrationEnchantmentBasic>());
-                    break;
-                case NPCID.QueenSlimeBoss when !bossBag:
-                case ItemID.QueenSlimeBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<HellsWrathEnchantmentBasic>());
-                    break;
-                case NPCID.Retinazer when !bossBag:
-                case ItemID.TwinsBossBag when bossBag:
-                case NPCID.Spazmatism when !bossBag:
-                    //itemTypes.Add(ModContent.ItemType<WorldAblazeEnchantmentBasic>());
-                    break;
-                case NPCID.TheDestroyer when !bossBag:
-                case ItemID.DestroyerBossBag when bossBag:
-
-                    break;
-                case NPCID.SkeletronPrime when !bossBag:
-                case ItemID.SkeletronPrimeBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<ColdSteelEnchantmentBasic>());
-                    break;
-                case NPCID.Plantera when !bossBag:
-                case ItemID.PlanteraBossBag when bossBag:
-                    //itemTypes.Add(ModContent.ItemType<JunglesFuryEnchantmentBasic>());
-                    break;
-                case NPCID.Golem when !bossBag:
-                case ItemID.GolemBossBag when bossBag:
-
-                    break;
-                case NPCID.DukeFishron when !bossBag:
-                case ItemID.FishronBossBag when bossBag:
-
-                    break;
-                case NPCID.HallowBoss when !bossBag:
-                case ItemID.FairyQueenBossBag when bossBag:
-
-                    break;
-                case NPCID.CultistBoss when !bossBag:
-                case ItemID.CultistBossBag when bossBag://Unobtainable
-                    //itemTypes.Add(ModContent.ItemType<MoonlightEnchantmentBasic>());
-                    break;
-                case NPCID.MoonLordCore when !bossBag:
-                case ItemID.MoonLordBossBag when bossBag:
-
-                    break;
-                case NPCID.DD2DarkMageT1 when !bossBag:
-                case ItemID.BossBagDarkMage when bossBag://Unobtainable
-
-                    break;
-                case NPCID.DD2DarkMageT3 when !bossBag:
-
-                    break;
-                case NPCID.DD2OgreT2 when !bossBag:
-                case ItemID.BossBagOgre when bossBag://Unobtainable
-
-                    break;
-                case NPCID.DD2OgreT3 when !bossBag:
-
-                    break;
-                case NPCID.DD2Betsy when !bossBag:
-                case ItemID.BossBagBetsy when bossBag:
-
-                    break;
-                case NPCID.PirateShip when !bossBag:
-
-                    break;
-                case NPCID.MourningWood when !bossBag:
-
-                    break;
-                case NPCID.Pumpking when !bossBag:
-
-                    break;
-                case NPCID.Everscream when !bossBag:
-
-                    break;
-                case NPCID.SantaNK1 when !bossBag:
-
-                    break;
-                case NPCID.IceQueen when !bossBag:
-
-                    break;
-                case NPCID.MartianSaucer when !bossBag:
-
-                    break;
-                case NPCID.LunarTowerSolar when !bossBag:
-
-                    break;
-                case NPCID.LunarTowerNebula when !bossBag:
-
-                    break;
-                case NPCID.LunarTowerVortex when !bossBag:
-
-                    break;
-                case NPCID.LunarTowerStardust when !bossBag:
-
-                    break;
-            }
-
-            return itemTypes;
-        }
-        public static float GetEnchantmentDropChance(int arg, bool bossBag = false) {
+		public override bool CheckDead(NPC npc) {
+			return base.CheckDead(npc);
+		}
+		public static float GetEnchantmentDropChance(int arg, bool bossBag = false) {
             float chance = BossEnchantmentDropChance;
 
             //Apply boss specific multiplier.
@@ -956,8 +825,8 @@ namespace WeaponEnchantments.Common.Globals
 		public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
         public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
         public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
-        public static void AddValue(this NPC npc, float value) {
-            npc.value += value;
+        public static void AddValue(this NPC npc, int value) {
+            npc.extraValue += value;
         }
 
 		//Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())

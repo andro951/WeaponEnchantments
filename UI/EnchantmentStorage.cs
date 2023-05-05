@@ -28,6 +28,7 @@ using Terraria.GameContent.UI.States;
 using Terraria.Localization;
 using System.Collections;
 using Humanizer;
+using WeaponEnchantments.Common.Utility.LogSystem;
 
 namespace WeaponEnchantments.UI
 {
@@ -853,8 +854,7 @@ namespace WeaponEnchantments.UI
 				uncraftedItems.Clear();
 			}
 		}
-		public static bool HasEnchantments(WEPlayer wePlayer, IDictionary<int, int> items, out SortedDictionary<int, int> storageLocations) {
-			storageLocations = new();
+		public static bool HasEnchantments(WEPlayer wePlayer, IDictionary<int, int> items) {
 			if (items.Count < 1)
 				return true;
 
@@ -865,7 +865,6 @@ namespace WeaponEnchantments.UI
 
 				if (items.TryGetValue(item.type, out int stack)) {
 					int transferAmmount = Math.Min(stack, item.stack);
-					storageLocations.Add(i, transferAmmount);
 					stack -= transferAmmount;
 					if (stack <= 0) {
 						items.Remove(item.type);
@@ -880,12 +879,32 @@ namespace WeaponEnchantments.UI
 
 			return false;
 		}
-		public static void ConsumeEnchantments(WEPlayer wePlayer, SortedDictionary<int, int> storageLocations) {
-			foreach (KeyValuePair<int, int> itemInfo in storageLocations) {
-				ref Item item = ref wePlayer.enchantmentStorageItems[itemInfo.Key];
-				item.stack -= storageLocations[itemInfo.Key];
-				if (item.stack < 1)
-					item.TurnToAir();
+		public static void ConsumeEnchantments(WEPlayer wePlayer, IDictionary<int, int> items) {
+			if (items.Count < 1)
+				return;
+
+			for (int i = wePlayer.enchantmentStorageItems.Length - 1; i >= 0; i--) {
+				ref Item item = ref wePlayer.enchantmentStorageItems[i];
+				if (item.ModItem is not Enchantment)
+					continue;
+
+				int type = item.type;
+				if (items.TryGetValue(type, out int stack)) {
+					int transferAmmount = Math.Min(stack, item.stack);
+					//ref Item item = ref wePlayer.enchantmentStorageItems[itemInfo.Key];
+
+					stack -= transferAmmount;
+					items[item.type] = stack;
+					item.stack -= transferAmmount;
+					if (item.stack < 1)
+						item.TurnToAir();
+
+					if (stack <= 0) {
+						items.Remove(type);
+						if (items.Count < 1)
+							return;
+					}
+				}
 			}
 		}
 	}
