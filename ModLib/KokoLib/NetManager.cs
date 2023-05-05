@@ -21,7 +21,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 		public void NetStrikeNPC(NPC npc, int damage, bool crit);
 		public void NetDebuffs(NPC npc, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy);
 		public void NetActivateOneForAll(Dictionary<NPC, (int, bool)> oneForAllNPCDictionary);
-		public void NetAddNPCValue(NPC npc, float value);
+		public void NetAddNPCValue(NPC npc, int value);
 		public void NetResetWarReduction(NPC npc);
 		public void NetOfferChestItems(SortedDictionary<int, SortedSet<short>> chestItems);
 		public void NetResetEnchantedItemInChest(int chestNum, short index);
@@ -54,7 +54,7 @@ namespace WeaponEnchantments.ModLib.KokoLib
 				Net<INetMethods>.Proxy.NetActivateOneForAll(oneForAllNPCDictionary);
 			}
 		}
-		public void NetAddNPCValue(NPC npc, float value) {
+		public void NetAddNPCValue(NPC npc, int value) {
 			npc.AddValue(value);
 
 			if (Main.netMode == NetmodeID.Server) {

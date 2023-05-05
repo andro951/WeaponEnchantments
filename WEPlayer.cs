@@ -29,6 +29,7 @@ using KokoLib;
 using WeaponEnchantments.ModLib.KokoLib;
 using Terraria.WorldBuilding;
 using rail;
+using WeaponEnchantments.Effects.CustomEffects;
 
 namespace WeaponEnchantments
 {
@@ -311,7 +312,9 @@ namespace WeaponEnchantments
             if (versionUpdate < 1)
                 versionUpdate = 1;
 
-            #region Debug
+			UpdateEnchantmentEffects();
+
+			#region Debug
 
             if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
 
@@ -1519,15 +1522,33 @@ namespace WeaponEnchantments
                 effect.Value.SetEffect(Player);
             }
 		}
-        private void UpdateEnchantmentEffects() {
+        public void UpdateEnchantmentEffects() {
             Equipment.UpdateArmorEnchantmentEffects();
             Equipment.UpdateHeldItemEnchantmentEffects();
         }
         private void ApplyStatEffects() {
             foreach (EnchantmentStat key in CombinedVanillaStats.Keys) {
                 ModifyStat(CombinedVanillaStats[key]);
-            }
-        }
+			}
+
+			if (WEMod.dbtEnabled) {
+                if (CheckEnchantmentStats(EnchantmentStat.MaxKi, out float maxKeyBonus)) {
+					var dbzmod = ModLoader.GetMod("DBZMODPORT");
+					var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
+					var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
+					var MaxKi = (int)DbtPlayerClass.GetField("kiMax2").GetValue(DbtPlayer);
+					DbtPlayerClass.GetField("kiMax2").SetValue(DbtPlayer,  (int)(MaxKi + maxKeyBonus));
+				}
+				
+                if (CheckEnchantmentStats(EnchantmentStat.KiRegen, out float kiRegenBonus)) {
+					var dbzmod = ModLoader.GetMod("DBZMODPORT");
+					var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
+					var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
+					var KiRegen = (int)DbtPlayerClass.GetField("kiRegen").GetValue(DbtPlayer);
+					DbtPlayerClass.GetField("kiRegen").SetValue(DbtPlayer, (int)(KiRegen + kiRegenBonus));
+				}
+			}
+		}
         private void ModifyStat(EStatModifier sm) {
             //TODO: Find a way to change the if (dc == null) return; to just 1 check.
             EnchantmentStat es = sm.StatType;
@@ -1599,26 +1620,6 @@ namespace WeaponEnchantments
                 case EnchantmentStat.WhipRange:
                     Player.whipRangeMultiplier = sm.ApplyTo(Player.whipRangeMultiplier);
                     break;
-                case EnchantmentStat.MaxKi:
-                    if (WEMod.dbtEnabled)
-                    {
-                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
-                        var MaxKi = (int)DbtPlayerClass.GetField("kiMax2").GetValue(DbtPlayer);
-                        DbtPlayerClass.GetField("kiMax2").SetValue(DbtPlayer, (int)sm.ApplyTo(MaxKi));
-                    }
-                    break;
-                case EnchantmentStat.KiRegen:
-                    if (WEMod.dbtEnabled)
-                    {
-                        var dbzmod = ModLoader.GetMod("DBZMODPORT");
-                        var DbtPlayerClass = dbzmod.Code.DefinedTypes.First(a => a.Name.Equals("MyPlayer"));
-                        var DbtPlayer = DbtPlayerClass.GetMethod("ModPlayer").Invoke(null, new object[] { Player });
-                        var KiRegen = (int)DbtPlayerClass.GetField("kiRegen").GetValue(DbtPlayer);
-                        DbtPlayerClass.GetField("kiRegen").SetValue(DbtPlayer, (int)sm.ApplyTo(KiRegen));
-                    }
-                    break;
             }
         }
         public void ApplyModifyHitEnchants(Item item, NPC target, ref NPC.HitModifiers modifiers, Projectile proj = null) {
@@ -1632,8 +1633,46 @@ namespace WeaponEnchantments
             foreach (IOnHitEffect effect in CombinedOnHitEffects) {
                 effect.OnHitNPC(target, this, item, damage, knockback, crit, proj);
             }
-        }
-        public void UpdateItemStats(ref Item item) {
+
+            ActivateBonusCoins(target, this, item, damage, knockback, crit, proj);
+		}
+        private void ActivateBonusCoins(NPC npc, WEPlayer wePlayer, Item item, int damage, float knockback, bool crit, Projectile projectile = null) {
+            if (!CheckEnchantmentStats(EnchantmentStat.BonusCoins, out float bonusCoinsMultiplier))
+                return;
+
+			if (npc.friendly || npc.townNPC || npc.SpawnedFromStatue || npc.type == NPCID.TargetDummy)
+				return;
+
+			NPC realNPC = npc.RealNPC();
+			int damageInt = damage;
+			if (crit)
+				damageInt *= 2;
+
+			int life = realNPC.life;
+			if (life < 0)
+				damageInt += life;
+
+			int lifeMax = realNPC.lifeMax;
+			if (damageInt > lifeMax)
+				damageInt = lifeMax;
+
+			if (damageInt <= 0)
+				return;
+
+			float npcValue = realNPC.value;
+			float value = (float)damageInt / (float)lifeMax * npcValue;
+			if (value < damageInt)
+				value = (float)damageInt;
+
+			value *= 1f + Math.Min(wePlayer.Player.luck, 2f);
+
+			int coins = (int)Math.Round(bonusCoinsMultiplier * value);
+			if (coins <= 0)
+				coins = 1;
+
+			Net<INetMethods>.Proxy.NetAddNPCValue(realNPC, coins);
+		}
+		public void UpdateItemStats(ref Item item) {
             if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
                 return;
 

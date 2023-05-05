@@ -658,6 +658,13 @@ namespace WeaponEnchantments.Common.Utility
                 dict.Add(key, value);
             }
         }
+        public static void TrySubtractRemove<T>(this IDictionary<T, int> dict, T key, int value) {
+            if (dict.ContainsKey(key)) {
+                dict[key] -= value;
+                if (dict[key] <= 0)
+                    dict.Remove(key);
+            }
+        }
         public static void AddOrCombine<T>(this IDictionary<T, List<int>> dict, T key, int value) {
 			if (dict.ContainsKey(key)) {
 				dict[key].Add(value);

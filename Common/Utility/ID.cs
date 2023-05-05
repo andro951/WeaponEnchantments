@@ -45,6 +45,7 @@ namespace WeaponEnchantments.Common.Utility
         AttackSpeed,
         PercentArmorPenetration,
         AutoReuse,
+		BonusCoins,
 		BonusManaRegen,
 		BuffDuration,
 		CatastrophicRelease,

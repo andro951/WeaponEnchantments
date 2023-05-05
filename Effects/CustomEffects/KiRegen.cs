@@ -11,7 +11,7 @@ using static WeaponEnchantments.WEPlayer;
 
 namespace WeaponEnchantments.Effects.CustomEffects
 {
-    public class KiRegen : StatEffect, IVanillaStat
+    public class KiRegen : StatEffect, INonVanillaStat
     {
         public KiRegen(DifficultyStrength additive = null, DifficultyStrength multiplicative = null, DifficultyStrength flat = null, DifficultyStrength @base = null) : base(additive, multiplicative, flat, @base)
         {

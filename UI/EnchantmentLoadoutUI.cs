@@ -426,6 +426,7 @@ namespace WeaponEnchantments.UI
 
 			//Cost check
 			bool canSwapHeldItem = false;
+			EnchantedHeldItem enchantedHeldItem = null;
 			if (swapWeapon) {
 				if (wePlayer.Player.HeldItem.IsAir) {
 					if (swapID == LoadoutSwapID.HeldItem) {
@@ -435,7 +436,7 @@ namespace WeaponEnchantments.UI
 					}
 				}
 				else {
-					if (wePlayer.Player.HeldItem.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
+					if (wePlayer.Player.HeldItem.TryGetEnchantedHeldItem(out enchantedHeldItem)) {
 						int cost = GetEnchantentsCost(loadout[0]);
 						if (enchantedHeldItem.level < cost) {
 							Main.NewText(EnchantmentStorageTextID.NotHighEnoughLevel.ToString().Lang(L_ID1.EnchantmentStorageText, new string[] { wePlayer.Player.HeldItem.Name }));
@@ -543,8 +544,42 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			if (!EnchantmentStorage.HasEnchantments(wePlayer, neededEnchantments, out SortedDictionary<int, int> storageLocations)) {
-				string missingEnchantments = neededEnchantments.Select(p => $"{p.Key.CSI().Name} x{p.Value}").JoinList(", ");
+			SortedDictionary<int, int> neededFromStorage = new(neededEnchantments);
+			if (wePlayer.vacuumItemsIntoEnchantmentStorage) {
+				if (swapWeapon) {
+					if (enchantedHeldItem != null) {
+						foreach (Item enchantment in enchantedHeldItem.enchantments.All) {
+							if (!enchantment.IsAir)
+								neededFromStorage.TrySubtractRemove(enchantment.type, 1);
+						}
+					}
+				}
+
+				if (swapArmmor) {
+					for (int k = 0; k < 3; k++) {
+						if (!allArmor[k].IsAir && allArmor[k].TryGetEnchantedEquipItem(out EnchantedEquipItem enchantedEquipItem)) {
+							foreach (Item enchantment in enchantedEquipItem.enchantments.All) {
+								if (!enchantment.IsAir)
+									neededFromStorage.TrySubtractRemove(enchantment.type, 1);
+							}
+						}
+					}
+				}
+
+				if (swapAccessories) {
+					for (int k = 3; k < allArmor.Length; k++) {
+						if (!allArmor[k].IsAir && allArmor[k].TryGetEnchantedEquipItem(out EnchantedEquipItem enchantedEquipItem)) {
+							foreach (Item enchantment in enchantedEquipItem.enchantments.All) {
+								if (!enchantment.IsAir)
+									neededFromStorage.TrySubtractRemove(enchantment.type, 1);
+							}
+						}
+					}
+				}
+			}
+
+			if (!EnchantmentStorage.HasEnchantments(wePlayer, neededFromStorage)) {
+				string missingEnchantments = neededFromStorage.Select(p => $"{p.Key.CSI().Name} x{p.Value}").JoinList(", ");
 				Main.NewText(EnchantmentStorageTextID.NotEnoughEnchantments.ToString().Lang(L_ID1.EnchantmentStorageText, new string[] { missingEnchantments }));
 
 				return false;
@@ -553,7 +588,7 @@ namespace WeaponEnchantments.UI
 			//Swap
 			if (swapWeapon) {
 				Item item = wePlayer.Player.HeldItem;
-				if (item.TryGetEnchantedHeldItem(out EnchantedHeldItem enchantedHeldItem)) {
+				if (enchantedHeldItem != null) {
 					if (enchantedHeldItem.enchantments.TryReturnAllEnchantments(wePlayer, true)) {
 						enchantedHeldItem.enchantments.ApplyLoadout(loadout[0]);
 					}
@@ -582,7 +617,8 @@ namespace WeaponEnchantments.UI
 				}
 			}
 
-			EnchantmentStorage.ConsumeEnchantments(wePlayer, storageLocations);
+			EnchantmentStorage.ConsumeEnchantments(wePlayer, neededEnchantments);
+			wePlayer.UpdateEnchantmentEffects();
 
 			return true;
 		}

@@ -15,7 +15,7 @@ namespace WeaponEnchantments.Items.Enchantments
     public abstract class KiEnchantment : Enchantment
     {
 
-        public override int StrengthGroup => 19;
+        public override int StrengthGroup => 24;
         public override bool Max1 => true;
         public override void GetMyStats()
         {
@@ -26,8 +26,8 @@ namespace WeaponEnchantments.Items.Enchantments
 
             Effects = new()
             {
-                new MaxKi(@base: (EnchantmentStrengthData + 1) * 50f),
-                new KiRegen(@base: EnchantmentStrengthData / 2)
+                new MaxKi(@base: EnchantmentStrengthData),
+                new KiRegen(@base: EnchantmentStrengthData / 100 - 1)
             };
         }
         public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
