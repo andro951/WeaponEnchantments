@@ -55,6 +55,7 @@ namespace WeaponEnchantments.Common.Globals
         #endregion
 
         public Dictionary<string, StatModifier> appliedStatModifiers = new Dictionary<string, StatModifier>();
+
         #region Enchantment
 
         public EnchantmentsArray enchantments;

@@ -558,7 +558,7 @@ namespace WeaponEnchantments.UI
 									if (Main.mouseItem.type == PowerBooster.ID) {
 										normalClickInteractions = false;
 										if (UIManager.LeftMouseClicked) {
-											if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.PowerBoosterInstalled) {
+											if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.PowerBoosterInstalled) {
 												if (Main.mouseItem.stack > 1) {
 													Main.mouseItem.stack--;
 												}
@@ -574,7 +574,7 @@ namespace WeaponEnchantments.UI
 									else if (Main.mouseItem.type == UltraPowerBooster.ID) {
 										normalClickInteractions = false;
 										if (UIManager.LeftMouseClicked) {
-											if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.UltraPowerBoosterInstalled) {
+											if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedTableItem) && !enchantedTableItem.UltraPowerBoosterInstalled) {
 												if (Main.mouseItem.stack > 1) {
 													Main.mouseItem.stack--;
 												}
@@ -1050,6 +1050,12 @@ namespace WeaponEnchantments.UI
 									UIManager.SwapMouseItem(wePlayer.enchantingTableEnchantments, slotNum);
 							}
 						}
+						else {
+							if (UIManager.LeftMouseClicked) {
+								normalClickInteractions = false;
+								wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum);
+							}
+						}
 					}
 				}
 			}
@@ -1066,6 +1072,12 @@ namespace WeaponEnchantments.UI
 								else {
 									wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum);
 								}
+							}
+						}
+						else {
+							if (UIManager.LeftMouseClicked) {
+								normalClickInteractions = false;
+								wePlayer.TryReturnEnchantmentFromTableToPlayer(slotNum);
 							}
 						}
 					}
