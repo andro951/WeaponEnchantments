@@ -206,6 +206,7 @@ namespace WeaponEnchantments.Common.Globals
 			base.NetSend(item, writer);
 		}
         public override void NetReceive(Item item, BinaryReader reader) {
+            Item = item;
 
 			#region Infusion
 
