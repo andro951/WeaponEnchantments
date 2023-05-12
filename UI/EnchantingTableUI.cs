@@ -35,11 +35,11 @@ namespace WeaponEnchantments.UI
 		private static int PanelBorder => 10;
 		private static int ButtonBorderY => 0;
 		private static int ButtonBorderX => 6;
-		public static Color RedButtonColor => new Color(255, 30, 30, 100);
-		public static Color RedHoverColor => new Color(255, 70, 70, 120);
-		public static Color BackGroundColor => new Color(50, 70, 171, 100);
-		public static Color HoverColor => new Color(100, 118, 184, 120);
-		public static Color LevelSetColor => new Color(73, 170, 118, 120);
+		public static Color RedButtonColor => new Color(255, 30, 30, UIManager.UIAlpha);
+		public static Color RedHoverColor => new Color(255, 70, 70, UIManager.UIAlphaHovered);
+		public static Color BackGroundColor => new Color(50, 70, 171, UIManager.UIAlpha);
+		public static Color HoverColor => new Color(100, 118, 184, UIManager.UIAlphaHovered);
+		public static Color LevelSetColor => new Color(73, 170, 118, UIManager.UIAlphaHovered);
 		//public const int MaxEnchantingItemSlots = 1;
 		public const int MaxEnchantmentSlots = 5;
 		public const int MaxEssenceSlots = 5;

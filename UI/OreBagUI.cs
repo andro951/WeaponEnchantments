@@ -67,7 +67,7 @@ namespace WeaponEnchantments.UI
 		public static int SearchID => UI_ID.OreBagSearch;
 		public static int OreBagUIDefaultLeft => 80;
 		public static int OreBagUIDefaultTop => 675;
-		public static Color PanelColor => new Color(25, 10, 3, 100);
+		public static Color PanelColor => new Color(25, 10, 3, UIManager.UIAlpha);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		public const float buttonScaleMinimum = 0.75f;
@@ -131,7 +131,7 @@ namespace WeaponEnchantments.UI
 			//Search Bar Data
 			int searchBarMinWidth = 100;
 			TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
-			UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, 100));
+			UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, UIManager.UIAlpha));
 
 			//ItemSlots Data 2/2
 			int itemSlotsTop = wePlayer.oreBagUITop + panelBorderTop;
@@ -170,7 +170,7 @@ namespace WeaponEnchantments.UI
 
 			//Scroll Bar Data 2/2
 			int scrollBarTop = wePlayer.oreBagUITop + PanelBorder;
-			UIPanelData scrollBarData = new(UI_ID.OreBagScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(30, 10, 1, 100));
+			UIPanelData scrollBarData = new(UI_ID.OreBagScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(30, 10, 1, UIManager.UIAlpha));
 
 			//Scroll Panel Data 1/2
 			int scrollPanelXOffset = 1;

@@ -407,6 +407,11 @@ namespace WeaponEnchantments.Common.Configs
 		[DefaultValue(false)]
 		public bool AlwaysDisplayToolLevelUpMessages;
 
+		[Label("$Mods.WeaponEnchantments.Config.UITransparency.Label")]
+		[DefaultValue(100)]
+		[Range(0, (int)byte.MaxValue)]
+		public int UITransparency;
+
 		//Error messages
 		[Header("$Mods.WeaponEnchantments.Config.ErrorMessages")]
 		[Label("$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label")]

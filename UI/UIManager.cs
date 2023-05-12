@@ -19,6 +19,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
+using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Content.NPCs;
@@ -66,6 +67,8 @@ namespace WeaponEnchantments.UI
 		public static string SearchBarString = "";
 		public static int SearchBarInUse = UI_ID.None;
 		public static bool TypingOnAnySearchBar = false;
+		public static byte UIAlpha = byte.MaxValue;
+		public static byte UIAlphaHovered = byte.MaxValue;
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (wePlayer.disableLeftShiftTrashCan) {
@@ -74,6 +77,8 @@ namespace WeaponEnchantments.UI
 			}
 
 			if (DisplayingAnyUI) {
+				UIAlpha = ConfigValues.UIAlpha;
+				UIAlphaHovered = (byte)Math.Min(UIAlpha + 20, byte.MaxValue);
 				if (NoPanelBeingDragged) {
 					if (!NoUIBeingHovered && UIBeingHovered == LastUIBeingHovered) {
 						HoverTime++;

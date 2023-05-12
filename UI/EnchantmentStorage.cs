@@ -53,7 +53,7 @@ namespace WeaponEnchantments.UI
 		public static int SearchID => UI_ID.EnchantmentStorageSearch;
 		public static int EnchantmentStorageUIDefaultLeft => 600;
 		public static int EnchantmentStorageUIDefaultTop => 5;
-		public static Color PanelColor => new Color(26, 2, 56, 100);
+		public static Color PanelColor => new Color(26, 2, 56, UIManager.UIAlpha);
 		public static Color SelectedTextGray => new(100, 100, 100);
 		public static Color VacuumPurple => new(162, 22, 255);
 		private static int Spacing => 4;
@@ -162,7 +162,7 @@ namespace WeaponEnchantments.UI
 				//Search Bar Data
 				int searchBarMinWidth = 100;
 				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
-				UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, 100));
+				UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, UIManager.UIAlpha));
 
 				//ItemSlots Data 2/2
 				int itemSlotsTop = wePlayer.enchantmentStorageUITop + panelBorderTop;
@@ -204,7 +204,7 @@ namespace WeaponEnchantments.UI
 
 				//Scroll Bar Data 2/2
 				int scrollBarTop = wePlayer.enchantmentStorageUITop + PanelBorder;
-				UIPanelData scrollBarData = new(UI_ID.EnchantmentStorageScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, 100));
+				UIPanelData scrollBarData = new(UI_ID.EnchantmentStorageScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
 
 				//Scroll Panel Data 1/2
 				int scrollPanelXOffset = 1;
