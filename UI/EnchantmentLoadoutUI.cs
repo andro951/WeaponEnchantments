@@ -36,7 +36,7 @@ namespace WeaponEnchantments.UI
 		public static int ID => UI_ID.EnchantmentLoadoutUI;
 		public static int EnchantmentLoadoutUIDefaultLeft => 745;
 		public static int EnchantmentLoadoutUIDefaultTop => 290;
-		public static Color PanelColor => new Color(26, 2, 56, 100);
+		public static Color PanelColor => new Color(26, 2, 56, UIManager.UIAlpha);
 		private static int Spacing => 4;
 		private static int PanelBorder => 10;
 		private static int ButtonBorderY => 0;
@@ -287,7 +287,7 @@ namespace WeaponEnchantments.UI
 				if (useingScrollBar) {
 					//Scroll Bar Data 2/2
 					int scrollBarTop = wePlayer.EnchantmentLoadoutUITop + PanelBorder;
-					UIPanelData scrollBarData = new(UI_ID.EnchantmentLoadoutUIScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, 100));
+					UIPanelData scrollBarData = new(UI_ID.EnchantmentLoadoutUIScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
 
 					//Scroll Panel Data 1/2
 					int scrollPanelXOffset = 1;

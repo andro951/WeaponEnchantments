@@ -577,6 +577,9 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), nameof(ClientConfig.AlwaysDisplayToolLevelUpMessages).AddSpaces() },
 								{ L_ID3.Tooltip.ToString(), "Only displays tool level up messages when using the enchanting table if this option is off." }
 							}) },
+							{ nameof(ClientConfig.UITransparency), new(dict: new() {
+								{ L_ID3.Label.ToString(), nameof(ClientConfig.UITransparency).AddSpaces() }
+							}) },
 							{ nameof(ClientConfig.DisableAllErrorMessagesInChat), new(dict: new() {
 								{ L_ID3.Label.ToString(), "Disable All Error Messages In Chat" },
 								{ L_ID3.Tooltip.ToString(), "Prevents messages showing up in your chat that ask you to \n" +

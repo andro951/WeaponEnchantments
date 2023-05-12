@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Terraria;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEMod;
@@ -55,5 +56,6 @@ namespace WeaponEnchantments.Common.Configs
 			serverConfig.EnchantmentSlotsOnFishingPoles,
 			serverConfig.EnchantmentSlotsOnTools
 		};
+		public static byte UIAlpha => (byte)(byte.MaxValue - clientConfig.UITransparency);
 	}
 }
