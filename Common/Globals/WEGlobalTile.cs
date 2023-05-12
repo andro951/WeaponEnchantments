@@ -435,8 +435,9 @@ namespace WeaponEnchantments.Common.Globals
 					//Get item dropped by the tile
 					if ((!forMining || TileID.Sets.Ore[type])) {
 						if (modTile != null) {
-							if (modTile.ItemDrop > 0) {
-								dropItem = modTile.ItemDrop;
+							int itemDrop = TileLoader.GetItemDropFromTypeAndStyle(tileType);
+							if (itemDrop > 0) {
+								dropItem = itemDrop;
 							}
 							else if (TileTypeToItemType.Keys.Contains(type)) {
 								dropItem = TileTypeToItemType[type];
@@ -446,7 +447,7 @@ namespace WeaponEnchantments.Common.Globals
 									case "SCalAltar":
 										break;//No dropped item, don't log.
 									default:
-										$"Failed to determine the dropItem of tile: {type.GetTileIDOrName()}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {modTile.ItemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
+										$"Failed to determine the dropItem of tile: {type.GetTileIDOrName()}, modTile.Name: {modTile.Name}, modTile.ItemDrop: {itemDrop}.".LogNT(ChatMessagesIDs.FailedDetermineDropItem);
 										break;
 								}
 							}
