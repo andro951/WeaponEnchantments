@@ -563,7 +563,9 @@ Mods: {
 					(Desativa enquanto a IU está aberta.)
 					'''
 			}
-
+			UITransparency: {
+				Label: UI Transparency
+			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Use texturas de essência de encantamento alternativas
 				Tooltip: As cores padrão são compatíveis com daltônicos. As texturas alternativas têm pequenas diferenças, mas foram votadas para serem mantidas.
@@ -1329,8 +1331,8 @@ Mods: {
 				AutoReuse: Auto Reuse
 				BonusCoins:
 					'''
-					"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)"
+					{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)
 					'''
 				BuffDuration:
 					'''

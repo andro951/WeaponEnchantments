@@ -331,8 +331,25 @@ namespace WeaponEnchantments.Common
 		Death,
 		BrokenOkiku,
 		WaterFiendKraken,
-		AbysmalOolacileSorcerer
+		AbysmalOolacileSorcerer,
 		//Red Cloud
+
+		//Aquees
+		Crabson,
+		CrabsonEasyAfter,
+		Glimmer,
+		UltraStarite,
+		DemonSiege,
+		DemonSiegeEasyAfter,
+		OmegaStarite,
+		GaleStreams,
+		RedSprite,
+		SpaceSquid,
+		DustDevil,
+		AequusUnobtainable,
+		AequusUndergroundOcean,
+		RockMan
+		//Aquees
 	}
 	public struct ItemSource {
 		public ItemSource(int resultItem, ItemSourceType itemSourceType, int sourceItem) {
@@ -446,7 +463,7 @@ namespace WeaponEnchantments.Common
 		public ProgressionGroup(ProgressionGroupID id, int InfusionPower, ProgressionGroupID parent = ProgressionGroupID.None, 
 				IEnumerable<int> itemTypes = null, IEnumerable<string> itemNames = null, IEnumerable<int> npcTypes = null, 
 				IEnumerable<string> npcNames = null, IEnumerable<ChestID> chests = null, IEnumerable<CrateID> crates = null, IEnumerable<int> lootItemTypes = null,
-				IEnumerable<int> ignoredItemTypes = null) {
+				IEnumerable<string> lootItemNames = null, IEnumerable<int> ignoredItemTypes = null) {
 			parentID = parent;
 			ID = id;
 			infusionPower = InfusionPower;
@@ -478,6 +495,9 @@ namespace WeaponEnchantments.Common
 
 			if (lootItemTypes != null)
 				AddLootItems(lootItemTypes);
+
+			if (lootItemNames != null)
+				AddLootItems(lootItemNames);
 		}
 
 		private static SortedSet<int> addedItems = new();
@@ -534,10 +554,32 @@ namespace WeaponEnchantments.Common
 
 			if (newItemsSet.Count > 0) {
 				for (int itemType = 0; itemType < ItemLoader.ItemCount; itemType++) {
-					string itemName = itemType.CSI().Name;
+					string itemName = itemType.CSI().ModFullName();
 					if (newItemsSet.Contains(itemName)) {
 						if (!addedItems.Contains(itemType)) {
 							ItemTypes.Add(itemType);
+							addedItems.Add(itemType);
+						}
+
+						newItemsSet.Remove(itemName);
+					}
+
+					if (newItemsSet.Count < 1)
+						break;
+				}
+			}
+
+			if (newItemsSet.Count > 0)
+				$"Couldn't find Items in WeaponsList or WeaponCraftingIngredients with the names: {newItemsSet.JoinList(", ")}".LogSimple();
+		}
+		public void AddLootItems(IEnumerable<string> newItems) {
+			SortedSet<string> newItemsSet = new SortedSet<string>(newItems);
+			if (newItemsSet.Count > 0) {
+				for (int itemType = 0; itemType < ItemLoader.ItemCount; itemType++) {
+					string itemName = itemType.CSI().ModFullName();
+					if (newItemsSet.Contains(itemName)) {
+						if (!addedItems.Contains(itemType)) {
+							LootItemTypes.Add(itemType);
 							addedItems.Add(itemType);
 						}
 
@@ -865,6 +907,17 @@ namespace WeaponEnchantments.Common
 							break;
 						case ProgressionGroupID.Gwyn:
 							bossName = "tsorcRevamp/Gwyn";
+							break;
+
+						//Aequus
+						case ProgressionGroupID.Crabson:
+							bossName = "Aequus/Crabson";
+							break;
+						case ProgressionGroupID.DustDevil:
+							bossName = "Aequus/DustDevil";
+							break;
+						case ProgressionGroupID.OmegaStarite:
+							bossName = "Aequus/OmegaStarite";
 							break;
 
 							/*
@@ -1547,10 +1600,23 @@ namespace WeaponEnchantments.Common
 					ItemID.ReaverShark,
 					ItemID.SawtoothShark,
 					ItemID.ZephyrFish,
-					ItemID.GoldenFishingRod
+					ItemID.GoldenFishingRod,
+					ItemID.Shrimp
 				},
 				lootItemTypes: new SortedSet<int>() {
+					ItemID.WoodenCrate,
 					ItemID.IronCrate,
+					ItemID.CorruptFishingCrate,
+					ItemID.CrimsonFishingCrate,
+					ItemID.DungeonFishingCrate,
+					ItemID.GoldenCrate,
+					ItemID.FrozenCrate,
+					ItemID.OceanCrate,
+					ItemID.OasisCrate,
+					ItemID.JungleFishingCrate,
+					ItemID.DungeonFishingCrate,
+					ItemID.FloatingIslandFishingCrate,
+					ItemID.HallowedFishingCrate,
 					ItemID.Oyster
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.UndergroundJungle, 100,
@@ -1663,6 +1729,9 @@ namespace WeaponEnchantments.Common
 					NPCID.VoodooDemon,
 					NPCID.FireImp,
 					NPCID.BoneSerpentHead
+				},
+				lootItemTypes: new SortedSet<int>() {
+					ItemID.LavaCrate
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.OldOneArmyT1, -10, ProgressionGroupID.EaterBrain,
 				itemTypes: new SortedSet<int>() {
@@ -1748,7 +1817,22 @@ namespace WeaponEnchantments.Common
 				},
 				npcTypes: new SortedSet<int>() {
 					NPCID.AngryNimbus,
-					NPCID.TaxCollector
+					NPCID.TaxCollector,
+					NPCID.PossessedArmor
+				},
+				lootItemTypes: new SortedSet<int>() {
+					ItemID.WoodenCrateHard,
+					ItemID.IronCrateHard,
+					ItemID.GoldenCrateHard,
+					ItemID.CorruptFishingCrateHard,
+					ItemID.CrimsonFishingCrateHard,
+					ItemID.DungeonFishingCrateHard,
+					ItemID.FloatingIslandFishingCrateHard,
+					ItemID.FrozenCrateHard,
+					ItemID.HallowedFishingCrateHard,
+					ItemID.JungleFishingCrateHard,
+					ItemID.OasisCrateHard,
+					ItemID.OceanCrateHard
 				}));
 			AddProgressionGroup(new(ProgressionGroupID.HardmodeShopItems, 400,
 				itemTypes: new SortedSet<int>() {
@@ -1784,7 +1868,11 @@ namespace WeaponEnchantments.Common
 					NPCID.MossHornet,
 					NPCID.DesertScorpionWalk,
 					NPCID.GiantTortoise,
-					NPCID.Derpling
+					NPCID.Derpling,
+					NPCID.ToxicSludge
+				},
+				lootItemTypes: new SortedSet<int>() {
+					ItemID.LavaCrateHard
 				}));//410
 			AddProgressionGroup(new(ProgressionGroupID.Wall, 420));
 			AddProgressionGroup(new(ProgressionGroupID.Hallow, 420,
@@ -2864,7 +2952,7 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/FrostBurntFlayer",
 						"ThoriumMod/ChilledSpitter",
 						"ThoriumMod/Coldling",
-						"ThoriumMod/Invader"
+						"ThoriumMod/MartianScout"
 					});//400
 				progressionGroups[ProgressionGroupID.HardmodeShopItems].AddItems(
 					new SortedSet<string>() {
@@ -2891,8 +2979,7 @@ namespace WeaponEnchantments.Common
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddItems(
 					new SortedSet<string>() {
 						"ThoriumMod/SoulofPlight",
-						"ThoriumMod/PharaohsBreath",
-						""
+						"ThoriumMod/PharaohsBreath"
 					});//410
 				progressionGroups[ProgressionGroupID.HardModeUnderground].AddNPCs(
 					new SortedSet<string>() {
@@ -2950,7 +3037,7 @@ namespace WeaponEnchantments.Common
 					});//490
 				progressionGroups[ProgressionGroupID.BigMimics].AddNPCs(
 					new SortedSet<string>() {
-						"ThoriumMod/DepthMimic",
+						"ThoriumMod/SubmergedMimic",
 						"ThoriumMod/MyceliumMimic",
 						"ThoriumMod/HellBringerMimic"
 					});//500
@@ -2994,7 +3081,8 @@ namespace WeaponEnchantments.Common
 						"ThoriumMod/LifePulseStaff",
 						"ThoriumMod/AeonStaff",
 						"ThoriumMod/Teslanator",
-						"ThoriumMod/SteamgunnerController"
+						"ThoriumMod/SteamgunnerController",
+						"ThoriumMod/SteamFlail"
 					});//595
 				progressionGroups[ProgressionGroupID.PostAllMechanicalBosses].AddNPCs(
 					new SortedSet<string>() {
@@ -3276,6 +3364,100 @@ namespace WeaponEnchantments.Common
 				AddProgressionGroup(new(ProgressionGroupID.DarkCloud, 1480));
 				AddProgressionGroup(new(ProgressionGroupID.Blight, 1490));
 				AddProgressionGroup(new(ProgressionGroupID.Gwyn, 1500));
+			}
+
+			if (WEMod.aequusEnabled) {
+				progressionGroups[ProgressionGroupID.ForestPreHardModeNight].AddNPCs(
+					new SortedSet<string>() {
+						"Aequus/Starite"
+					});//20
+				progressionGroups[ProgressionGroupID.TownNPCDrops].AddNPCs(
+					new SortedSet<string>() {
+						"Aequus/Carpenter"
+					});//80
+				progressionGroups[ProgressionGroupID.Sky].AddNPCs(
+					new SortedSet<string>() {
+						"Aequus/Meteor"
+					});//85
+				AddProgressionGroup(new(ProgressionGroupID.RockMan, 90,
+					itemNames: new SortedSet<string>() {
+						"Aequus/RockMan"
+					}));
+				progressionGroups[ProgressionGroupID.Fishing].AddItems(
+					new SortedSet<string>() {
+						"Aequus/PearlShardWhite"
+					});//95
+				AddProgressionGroup(new(ProgressionGroupID.AequusUndergroundOcean, 110,
+					itemNames: new SortedSet<string>() {
+						"Aequus/LiquidGun"
+					},
+					lootItemNames: new SortedSet<string>() {
+						"Aequus/EnvelopeUndergroundOcean"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.AequusUnobtainable, 110,
+					itemNames: new SortedSet<string>() {
+						"Aequus/EnthrallingScepter",
+						"Aequus/SilkHammer",
+						"Aequus/SilkPickaxe",
+						"Aequus/Narrizuul"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.CrabsonEasyAfter, -10, ProgressionGroupID.Crabson,
+					itemNames: new SortedSet<string>() {
+						"Aequus/Mallet"
+					}));//120
+				AddProgressionGroup(new(ProgressionGroupID.Crabson, 130,
+					itemNames: new SortedSet<string>() {
+						"Aequus/Crabax"
+					}));
+				progressionGroups[ProgressionGroupID.BloodMoon].AddNPCs(
+					new SortedSet<string>() {
+						"Aequus/BloodMimic"
+					});//150
+				progressionGroups[ProgressionGroupID.BloodMoon].AddItems(
+					new SortedSet<string>() {
+						"Aequus/Meathook",
+						"Aequus/Wabbajack"
+					});//150
+				progressionGroups[ProgressionGroupID.Dungeon].AddItems(
+					new SortedSet<string>() {
+						"Aequus/Valari",
+						"Aequus/DungeonCandle",
+						"Aequus/Revenant"
+					});//320
+				AddProgressionGroup(new(ProgressionGroupID.DemonSiegeEasyAfter, 370,
+					itemNames: new SortedSet<string>() {
+						"Aequus/OccultistCandle"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.DemonSiege, 380,
+					npcNames: new SortedSet<string>() {
+						"Aequus/Cindera",
+						"Aequus/Magmabubble",
+						"Aequus/TrapperImp"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.OmegaStarite, 395));
+				progressionGroups[ProgressionGroupID.HardMode].AddItems(
+					new SortedSet<string>() {
+						"Aequus/Umystick",
+						"Aequus/PixieCandle"
+					});//400
+				AddProgressionGroup(new(ProgressionGroupID.GaleStreams, 570,
+					npcNames: new SortedSet<string>() {
+						"Aequus/StreamingBalloon",
+						"Aequus/Vraine"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.RedSprite, 580,
+					npcNames: new SortedSet<string>() {
+						"Aequus/RedSprite"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.SpaceSquid, 580,
+					npcNames: new SortedSet<string>() {
+						"Aequus/SpaceSquid"
+					}));
+				AddProgressionGroup(new(ProgressionGroupID.DustDevil, 590));
+				progressionGroups[ProgressionGroupID.DungeonPostPlantera].AddNPCs(
+					new SortedSet<string>() {
+						"Aequus/Heckto"
+					});//750
 			}
 		}
 		private static void PopulateItemInfusionPowers() {

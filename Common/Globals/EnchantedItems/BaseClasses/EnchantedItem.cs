@@ -528,6 +528,9 @@ namespace WeaponEnchantments.Common.Globals
             return level - totalEnchantmentLevelCost;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+            if (Item == null)
+                Item = item;
+
             WEPlayer wePlayer = Main.LocalPlayer.GetWEPlayer();
 
             GetTopTooltips(item, tooltips);

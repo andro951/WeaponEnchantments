@@ -563,7 +563,9 @@ Mods: {
 					(Se desactiva mientras la interfaz de usuario está abierta).
 					'''
 			}
-
+			UITransparency: {
+				Label: UI Transparency
+			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Usar texturas de esencia de encantamiento alternativas
 				Tooltip: Los colores predeterminados son aptos para daltónicos. Las texturas alternativas tienen pequeñas diferencias, pero se votó para mantenerlas.
