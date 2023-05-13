@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impede que mensagens apareçam em seu chat pedindo para você
-					\\\\\\\\\\\\\\"Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.\\\\\\\\\\\\\\"
+					Por favor, reporte isso para andro951 (Weapon Enchantments) juntamente com uma descrição do que você estava fazendo no momento.
 					'''
 			}
 			DisableArmorInfusion: {
@@ -860,6 +860,9 @@ Mods: {
 					Envie automaticamente a essência do seu inventário para os slots de essência da interface do usuário.
 					(Desativa enquanto a IU está aberta.)
 					'''
+			}
+			UITransparency: {
+				Label: UI Transparency
 			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Use texturas de essência de encantamento alternativas
@@ -1214,8 +1217,8 @@ Mods: {
 				AttackSpeed: "{0} (Afeta a taxa de tiro dos lacaios se eles atirarem projéteis. Afeta a rapidez com que os peixes mordem a linha de pesca.)"
 				BonusCoins: 
 					'''
-					\\\\\\\\\\\\\\"{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
-					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)\\\\\\\\\\\\\\"
+					{0} (Atingir um inimigo aumentará o número de moedas que ele deixará cair na morte
+					com base no dano causado, na saúde máxima do inimigo, no valor base do inimigo e na sorte.)
 					'''
 				BuffDuration: 
 					'''

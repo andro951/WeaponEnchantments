@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Empêche l'affichage de messages dans votre chat qui vous demandent de
-					\\\\\\\\\\\\\\"Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.\\\\\\\\\\\\\\"
+					Veuillez le signaler à andro951 (Enchantements d'armes) avec une description de ce que vous faisiez à l'époque.
 					'''
 			}
 			DisableArmorInfusion: {
@@ -860,6 +860,9 @@ Mods: {
 					Envoyez automatiquement l'essence de votre inventaire vers les emplacements d'essence de l'interface utilisateur.
 					(Désactive lorsque l'interface utilisateur est ouverte.)
 					'''
+			}
+			UITransparency: {
+				Label: UI Transparency
 			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Utiliser des textures d'essence d'enchantement alternatives

@@ -54,6 +54,7 @@ namespace WeaponEnchantments
 		public static bool bountifulGoodieBagsEnabled = ModLoader.TryGetMod("BountifulGoodieBags", out Mod _);
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
+		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
 
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;

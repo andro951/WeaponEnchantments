@@ -861,6 +861,9 @@ Mods: {
 					(Deaktiviert, während die Benutzeroberfläche geöffnet ist.)
 					'''
 			}
+			UITransparency: {
+				Label: UI Transparency
+			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Verwenden Sie alternative Verzauberungsessenztexturen
 				Tooltip: Die Standardfarben sind für Farbenblinde geeignet. Die alternativen Texturen weisen geringfügige Unterschiede auf, wurden aber zum Beibehalten gewählt.

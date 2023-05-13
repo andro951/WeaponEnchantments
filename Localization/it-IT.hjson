@@ -559,7 +559,7 @@ Mods: {
 				Tooltip: 
 					'''
 					Impedisce la visualizzazione di messaggi nella tua chat che ti chiedono di farlo
-					\\\\\\\\\\\\\\"Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.\\\\\\\\\\\\\\"
+					Per favore riferiscilo ad andro951(Weapon Enchantments) insieme a una descrizione di ciò che stavi facendo in quel momento.
 					'''
 			}
 			DisableArmorInfusion: {
@@ -860,6 +860,9 @@ Mods: {
 					Invia automaticamente l'essenza dal tuo inventario agli slot dell'essenza dell'interfaccia utente.
 					(Disattiva mentre l'interfaccia utente è aperta.)
 					'''
+			}
+			UITransparency: {
+				Label: UI Transparency
 			}
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Usa trame di essenza di incantesimo alternative
