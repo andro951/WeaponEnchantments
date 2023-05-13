@@ -563,9 +563,9 @@ Mods: {
 					(Disattiva mentre l'interfaccia utente è aperta.)
 					'''
 			}
-			UITransparency: {
-				Label: UI Transparency
-			}
+
+			UITransparency.Label: UI Transparency
+
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Usa trame di essenza di incantesimo alternative
 				Tooltip: I colori predefiniti sono compatibili con i daltonici. Le trame alternative hanno piccole differenze, ma sono state votate per essere mantenute.

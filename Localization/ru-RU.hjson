@@ -560,9 +560,9 @@ Mods: {
 					(Отключено когда открыт интерфейс).
 					'''
 			}
-			UITransparency: {
-				Label: UI Transparency
-			}
+
+			UITransparency.Label: UI Transparency
+
 			UseAlternateEnchantmentEssenceTextures: {
 				Label: Использовать альтернативные текстуры эссенций.
 				Tooltip: Стандартные текстуры подходят для дальтоников. Альтернативные текстуры имеют незначительные изменения и были оставлены по результатам голосования.
