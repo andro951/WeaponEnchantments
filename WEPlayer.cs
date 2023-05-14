@@ -436,9 +436,6 @@ namespace WeaponEnchantments
 				}
 			}
 
-            if (enchantmentLoadouts.Count < 1)
-                EnchantmentLoadoutUI.AddNewBlankLoadout(this);
-
 			EnchantmentLoadoutUILeft = tag.Get<int>("EnchantmentLoadoutUILeft");
             EnchantmentLoadoutUITop = tag.Get<int>("EnchantmentLoadoutUITop");
             UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref EnchantmentLoadoutUILeft, ref EnchantmentLoadoutUITop, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultLeft, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultTop);

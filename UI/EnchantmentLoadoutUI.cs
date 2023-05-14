@@ -393,6 +393,9 @@ namespace WeaponEnchantments.UI
 		}
 		private static Item[] GetEnchantmentRow() => Enumerable.Repeat(new Item(), EnchantingTableUI.MaxEnchantmentSlots).ToArray();
 		public static void Open(bool noSound = false) {
+			if (WEPlayer.LocalWEPlayer.enchantmentLoadouts.Count < 1)
+				AddNewBlankLoadout(WEPlayer.LocalWEPlayer);
+
 			WEPlayer.LocalWEPlayer.displayEnchantmentLoadoutUI = true;
 			Main.playerInventory = true;
 			if (!noSound)
