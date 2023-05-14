@@ -80,7 +80,8 @@ namespace WeaponEnchantments
 		public override void PostSetupContent() {
 			if (ModLoader.TryGetMod("Census", out Mod Census)) {
 				foreach(ModNPC modNPC in ModContent.GetContent<ModNPC>().Where(m => m is INPCWikiInfo wikiInfo && wikiInfo.TownNPC)) {
-					Census.Call("TownNPCCondition", modNPC.NPC.netID, ((INPCWikiInfo)modNPC).SpawnCondition);
+					string spawnCondition = ((INPCWikiInfo)modNPC).SpawnCondition;
+					Census.Call("TownNPCCondition", modNPC.Type, spawnCondition);
 				}
 			}
 			
