@@ -190,8 +190,7 @@ namespace WeaponEnchantments
 				if (wePlayer.vacuumItemsIntoOreBag) {
 					for (int i = 0; i < chestItmes.Length; i++) {
 						ref Item item = ref chestItmes[i];
-						if (OreBagUI.CanBeStored(item) && OreBagUI.RoomInStorage(item)) {
-							OreBagUI.DepositAll(ref item);
+						if (OreBagUI.TryVacuumItem(wePlayer.Player, ref item)) {
 							if (synchChest)
 								NetMessage.SendData(MessageID.SyncChestItem, -1, -1, null, chest, i);
 						}

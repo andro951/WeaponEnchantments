@@ -461,9 +461,9 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool CanVauumItem(Item item) => WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag && CanBeStored(item) && RoomInStorage(item);
-		public static bool TryVacuumItem(ref Item item) {
-			if (CanVauumItem(item))
+		public static bool CanVacuumItem(Player player, Item item) => player.GetWEPlayer().vacuumItemsIntoOreBag && CanBeStored(item) && player.HasItem(ModContent.ItemType<OreBag>()) && RoomInStorage(item);
+		public static bool TryVacuumItem(Player player, ref Item item) {
+			if (CanVacuumItem(player, item))
 				return DepositAll(ref item);
 
 			return false;
