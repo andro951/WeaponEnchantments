@@ -36,7 +36,6 @@ namespace WeaponEnchantments.Common.Globals
 		public override void SaveData(Item item, TagCompound tag) {
 
 		}
-		public bool CanVacuum(Player player, Item item) => CanBeStored(item) && player.GetWEPlayer().vacuumItemsIntoOreBag && player.HasItem(ModContent.ItemType<OreBag>());
 		public override void UpdateInventory(Item item, Player player) {
 			//Track favorited
 			if (item.favorited) {
@@ -62,23 +61,17 @@ namespace WeaponEnchantments.Common.Globals
 			if (item.NullOrAir())
 				return true;
 
-			if (CanVacuum(player, item)) {
-				if (!OreBagUI.CanBeStored(item))
-					return true;
-
-				Item cloneForInfo = item.Clone();
-				if (OreBagUI.DepositAll(ref item)) {
-					PopupText.NewText(PopupTextContext.RegularItemPickup, cloneForInfo, cloneForInfo.stack - item.stack);
-					SoundEngine.PlaySound(SoundID.Grab);
-					if (item.NullOrAir() || item.stack < 1)
-						return false;
-				}
+			Item cloneForInfo = item.Clone();
+			if (OreBagUI.TryVacuumItem(player, ref item)) {
+				PopupText.NewText(PopupTextContext.RegularItemPickup, cloneForInfo, cloneForInfo.stack - item.stack);
+				SoundEngine.PlaySound(SoundID.Grab);
+				return false;
 			}
 
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			bool result = CanVacuum(player, item) && OreBagUI.RoomInStorage(item, player);
+			bool result = OreBagUI.CanVacuumItem(player, item);
 			return result;
 		}
 	}

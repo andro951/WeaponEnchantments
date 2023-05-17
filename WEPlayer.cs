@@ -474,9 +474,9 @@ namespace WeaponEnchantments
 			}
 
 			if (UIManager.NoUIBeingHovered) {
-                if (displayOreBagUI && OreBagUI.CanBeStored(item)) {
-					if (OreBagUI.RoomInStorage(item))
-						OreBagUI.DepositAll(ref inventory[slot]);
+                if (displayOreBagUI && (OreBagUI.CanBeStored(item))) {
+					if (!OreBagUI.TryVacuumItem(Main.LocalPlayer, ref item))
+                        UIManager.SwapMouseItem(ref item);
 
 					return true;
 				}
@@ -716,7 +716,7 @@ namespace WeaponEnchantments
             if (EnchantmentStorage.TryVacuumItem(ref item))
                 return true;
 
-            if (OreBagUI.TryVacuumItem(ref item))
+            if (OreBagUI.TryVacuumItem(Player, ref item))
                 return true;
 
             item = Player.GetItem(Player.whoAmI, item, GetItemSettings.InventoryEntityToPlayerInventorySettings);
@@ -729,7 +729,7 @@ namespace WeaponEnchantments
             Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
             return true;
 		}
-        public bool CanVacuumItem(Item item) => EnchantmentStorage.CanVauumItem(item) || OreBagUI.CanVauumItem(item);
+        public bool CanVacuumItem(Item item) => EnchantmentStorage.CanVauumItem(item) || OreBagUI.CanVacuumItem(Player, item);
         public void TryUpdateMouseOverrideForDeposit(Item item) {
             if (item.IsAir)
                 return;
