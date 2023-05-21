@@ -817,6 +817,8 @@ namespace WeaponEnchantments
 		}
 		public override void ResetEffects() {
 			cursedEssenceCount = 0;
+            if (enchantingTableItem == null)
+                enchantingTableItem = new();
 		}
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();
