@@ -911,6 +911,9 @@ namespace WeaponEnchantments.Common.Globals
 			resetGlobals = false;
 		}
 		public override bool OnPickup(Item item, Player player) {
+            if (Modified)
+                return true;
+
             if (player.whoAmI != Main.myPlayer)
                 return true;
 
@@ -925,7 +928,7 @@ namespace WeaponEnchantments.Common.Globals
             return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-            return player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
+            return !Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
 		}
 	}
 	public class EnchantmentsArray
