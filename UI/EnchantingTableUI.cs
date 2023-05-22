@@ -1146,40 +1146,10 @@ namespace WeaponEnchantments.UI
 		}
 		private static bool LootAllEnchantments(ref Item item, bool quickSpawnIfNeeded = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
-			Player player = wePlayer.Player;
-			GetItemSettings lootSettings = GetItemSettings.LootAllSettings;
-			bool quickSpawn = false;
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
 				return false;
 
-			for (int i = 0; i < MaxEnchantmentSlots; i++) {
-				Item enchantmentItem = enchantedItem.enchantments[i];
-				if (!enchantmentItem.IsAir) {
-					if (wePlayer.displayEnchantmentStorage && EnchantmentStorage.CanBeStored(enchantmentItem) && EnchantmentStorage.RoomInStorage(enchantmentItem)) {
-						EnchantmentStorage.DepositAll(ref enchantmentItem);
-					}
-					else if (!quickSpawn) {
-						enchantmentItem.position = player.Center;
-						enchantmentItem = player.GetItem(Main.myPlayer, enchantmentItem, lootSettings);
-						enchantedItem.enchantments[i] = enchantmentItem;
-						if (!enchantmentItem.IsAir) {
-							if (quickSpawnIfNeeded) {
-								quickSpawn = true;
-							}
-							else {
-								return false;
-							}
-						}
-					}
-
-					if (quickSpawn) {
-						Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), enchantmentItem, enchantmentItem.stack);
-						enchantedItem.enchantments[i] = new();
-					}
-				}
-			}
-
-			return true;
+			return enchantedItem.enchantments.TryReturnAllEnchantments(wePlayer, quickSpawnIfNeeded);
 		}
 		private static void ConvertEssenceToXP(int tier) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
