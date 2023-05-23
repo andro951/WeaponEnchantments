@@ -928,7 +928,10 @@ namespace WeaponEnchantments.Common.Globals
             return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-            return !Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
+			if (Main.netMode == NetmodeID.Server)
+				return true;
+
+			return !Modified && player.GetWEPlayer().allOfferedItems.Contains(item.type.GetItemIDOrName());
 		}
 	}
 	public class EnchantmentsArray

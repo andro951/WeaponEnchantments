@@ -771,7 +771,16 @@ namespace WeaponEnchantments.Common.Globals
 				if (modItem == null)
 					continue;
 
-				bool match = modTileName.Contains(modItem.Name);
+				int slashIndex = modTileName.IndexOf("/");
+				string searchString;
+				if (slashIndex >= 0) {
+					searchString = modTileName.Substring(slashIndex + 1);
+				}
+				else {
+					searchString = modTileName;
+				}
+
+				bool match = searchString.Contains(modItem.Name) ||modItem.Name.Contains(searchString);
 				if (match) {
 					modTileItemType = modItem.Type;
 					return true;
