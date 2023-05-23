@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IL.Terraria.Net;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -7,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -65,26 +67,26 @@ namespace WeaponEnchantments.Common.Globals
 		}
 
 		public override bool ItemSpace(Item item, Player player) {
-			if (player.whoAmI != Main.myPlayer)
-				return false;
+            if (Main.netMode == NetmodeID.Server)
+                return true;
 
 			WEPlayer wePlayer = player.GetWEPlayer();
-            if (WEMod.clientConfig.teleportEssence) {
-                EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
-                Item[] essenceSlots = wePlayer.enchantingTableEssence;
-                if (essenceSlots == null)
-                    return false;
+			if (WEMod.clientConfig.teleportEssence) {
+				EnchantmentEssence essence = (EnchantmentEssence)item.ModItem;
+				Item[] essenceSlots = wePlayer.enchantingTableEssence;
+				if (essenceSlots == null)
+					return false;
 
-                int tier = essence.EssenceTier;
-                if (essenceSlots[tier] == null)
-                    return false;
+				int tier = essence.EssenceTier;
+				if (essenceSlots[tier] == null)
+					return false;
 
-                int tableStack = essenceSlots[tier].stack;
-                if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)
-                    return true;
-            }
+				int tableStack = essenceSlots[tier].stack;
+				if (tableStack == 0 || tableStack < essenceSlots[tier].maxStack)
+					return true;
+			}
 
-            return false;
-        }
+			return false;
+		}
 	}
 }

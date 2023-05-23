@@ -3532,6 +3532,8 @@ namespace WeaponEnchantments.Common
 			IEnumerable<int> ingredientsNotSetup = WeaponCraftingIngredients.Where(t => !ItemInfusionPowers.ContainsKey(t) && !ignoredList.Contains(t.CSI().Name));
 			if (ingredientsNotSetup.Any())
 				$"{ingredientsNotSetup.OrderBy(t => t.CSI().GetWeaponInfusionPower()).Select(t => $"{t.CSI().S()}").S("Ingredient infusion powers not setup")}".LogNT(ChatMessagesIDs.AlwaysShowItemInfusionPowersNotSetup);
+
+			//if (Debugger.IsAttached) $"{ItemInfusionPowers.OrderBy(p => p.Value).StringList((p) => $"{p.Key.CSI().S()}: {p.Value}", "ItemInfusionPowers")}".LogSimple();
 		}
 		private static void GuessMinedOreInfusionPowers() {
 			foreach (int tileType in OreBagUI.ModOreTileTypes) {
@@ -3779,7 +3781,7 @@ namespace WeaponEnchantments.Common
 
 				if (TryGetAllCraftingIngredientTypes(itemType, out HashSet<HashSet<int>> ingredients)) {
 					SortedSet<int> ingredientTypes = new(ingredients.Select(i => i.First()));
-					string temp = ingredientTypes.Select(t => t.CSI().S()).JoinList(", ");
+					//string temp = ingredientTypes.Select(t => t.CSI().S()).JoinList(", ");
 					if (ingredientTypes.Count > 1) {
 						int overridenItem = ItemInfusionPowers[itemType];
 						if (!OverridenInfusionPowerList.ContainsKey(overridenItem))

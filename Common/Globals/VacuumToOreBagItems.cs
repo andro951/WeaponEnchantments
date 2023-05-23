@@ -12,6 +12,7 @@ using WeaponEnchantments.UI;
 using WeaponEnchantments.Common.Utility;
 using Terraria.ModLoader.IO;
 using Steamworks;
+using WeaponEnchantments.ModLib.KokoLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -71,8 +72,10 @@ namespace WeaponEnchantments.Common.Globals
 			return true;
 		}
 		public override bool ItemSpace(Item item, Player player) {
-			bool result = OreBagUI.CanVacuumItem(player, item);
-			return result;
+			if (Main.netMode == NetmodeID.Server)
+				return true;
+
+			return OreBagUI.CanVacuumItem(player, item);
 		}
 	}
 }
