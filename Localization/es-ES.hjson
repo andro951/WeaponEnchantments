@@ -542,7 +542,10 @@ Mods: {
 				Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
 			}
 
-			ServerConfig.Label: Configuración del servidor
+			ServerConfig: {
+				Label: Configuración del servidor
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Fuerza (1000 = 1, 10 = 1%)
@@ -1503,6 +1506,428 @@ Mods: {
 					// HateNPC: I hate {NPCName}.
 					// LikeNPC_Princess: I like {NPCName}.
 					// Princess_LovesNPC: I like {NPCName}.
+				}
+			}
+		}
+
+		Configs: {
+			ClientConfig: {
+				// DisplayName: "{$Mods.WeaponEnchantments.Config.ClientConfig.Label}"
+
+				teleportEssence: {
+					// Label: "{$Mods.WeaponEnchantments.Config.teleportEssence.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.teleportEssence.Tooltip}"
+				}
+
+				OfferAll: {
+					// Label: "{$Mods.WeaponEnchantments.Config.OfferAll.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.OfferAll.Tooltip}"
+				}
+
+				AllowShiftClickMoveFavoritedItems: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowShiftClickMoveFavoritedItems.Label}"
+					// Tooltip: ""
+				}
+
+				AlwaysDisplayInfusionPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayInfusionPower.Tooltip}"
+				}
+
+				AllowCraftingIntoLowerTier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowCraftingIntoLowerTier.Label}"
+					// Tooltip: ""
+				}
+
+				AllowInfusingToLowerPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowInfusingToLowerPower.Tooltip}"
+				}
+
+				UsePointsAsTooltip: {
+					// Label: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.UsePointsAsTooltip.Tooltip}"
+				}
+
+				UseAlternateEnchantmentEssenceTextures: {
+					// Label: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.UseAlternateEnchantmentEssenceTextures.Tooltip}"
+				}
+
+				DisplayApproximateWeaponDamageTooltip: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisplayApproximateWeaponDamageTooltip.Tooltip}"
+				}
+
+				AlwaysDisplayWeaponLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayWeaponLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayArmorLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayArmorLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayAccessoryLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayAccessoryLevelUpMessages.Tooltip}"
+				}
+
+				AlwaysDisplayToolLevelUpMessages: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysDisplayToolLevelUpMessages.Tooltip}"
+				}
+
+				UITransparency: {
+					// Label: "{$Mods.WeaponEnchantments.Config.UITransparency.Label}"
+					// Tooltip: ""
+				}
+
+				PrintEnchantmentTooltips: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentTooltips.Tooltip}"
+				}
+
+				PrintEnchantmentDrops: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintEnchantmentDrops.Tooltip}"
+				}
+
+				PrintLocalizationLists: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintLocalizationLists.Tooltip}"
+				}
+
+				PrintWeaponInfusionPowers: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWeaponInfusionPowers.Tooltip}"
+				}
+
+				EnableSwappingWeapons: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnableSwappingWeapons.Tooltip}"
+				}
+
+				LogDummyDPS: {
+					// Label: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.LogDummyDPS.Tooltip}"
+				}
+
+				DisableAllErrorMessagesInChat: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableAllErrorMessagesInChat.Tooltip}"
+				}
+
+				OnlyShowErrorMessagesInChatOnce: {
+					// Label: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.OnlyShowErrorMessagesInChatOnce.Tooltip}"
+				}
+			}
+
+			ServerConfig: {
+				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
+
+				presetData: {
+					// Label: "{$Mods.WeaponEnchantments.Config.presetData.Label}"
+					// Tooltip: ""
+				}
+
+				individualStrengthsEnabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengthsEnabled.Tooltip}"
+				}
+
+				individualStrengths: {
+					// Label: "{$Mods.WeaponEnchantments.Config.individualStrengths.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.individualStrengths.Tooltip}"
+				}
+
+				AlwaysOverrideDamageType: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AlwaysOverrideDamageType.Tooltip}"
+				}
+
+				AffectOnVanillaLifeStealLimmit: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AffectOnVanillaLifeStealLimmit.Tooltip}"
+				}
+
+				AttackSpeedEnchantmentAutoReuseSetpoint: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AttackSpeedEnchantmentAutoReuseSetpoint.Tooltip}"
+				}
+
+				AutoReuseDisabledOnMagicMissile: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AutoReuseDisabledOnMagicMissile.Tooltip}"
+				}
+
+				BuffDuration: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BuffDuration.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BuffDuration.Tooltip}"
+				}
+
+				AmaterasuSelfGrowthPerTick: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AmaterasuSelfGrowthPerTick.Tooltip}"
+				}
+
+				ReduceRecipesToMinimum: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceRecipesToMinimum.Tooltip}"
+				}
+
+				ConfigCapacityCostMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ConfigCapacityCostMultiplier.Tooltip}"
+				}
+
+				RemoveEnchantmentRestrictions: {
+					// Label: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.RemoveEnchantmentRestrictions.Tooltip}"
+				}
+
+				BossEssenceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEssenceMultiplier.Tooltip}"
+				}
+
+				EssenceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceMultiplier.Tooltip}"
+				}
+
+				BossExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossExperienceMultiplier.Tooltip}"
+				}
+
+				ExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ExperienceMultiplier.Tooltip}"
+				}
+
+				GatheringExperienceMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.GatheringExperienceMultiplier.Tooltip}"
+				}
+
+				EssenceGrabRange: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EssenceGrabRange.Tooltip}"
+				}
+
+				BossEnchantmentDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BossEnchantmentDropChance.Tooltip}"
+				}
+
+				EnchantmentDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentDropChance.Tooltip}"
+				}
+
+				ChestSpawnChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ChestSpawnChance.Tooltip}"
+				}
+
+				CrateDropChance: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CrateDropChance.Tooltip}"
+				}
+
+				PreventPowerBoosterFromPreHardMode: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PreventPowerBoosterFromPreHardMode.Tooltip}"
+				}
+
+				AllowHighTierOres: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowHighTierOres.Tooltip}"
+				}
+
+				EnchantmentSlotsOnWeapons: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnWeapons.Tooltip}"
+				}
+
+				EnchantmentSlotsOnArmor: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnArmor.Tooltip}"
+				}
+
+				EnchantmentSlotsOnAccessories: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnAccessories.Tooltip}"
+				}
+
+				EnchantmentSlotsOnFishingPoles: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnFishingPoles.Tooltip}"
+				}
+
+				EnchantmentSlotsOnTools: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EnchantmentSlotsOnTools.Tooltip}"
+				}
+
+				PercentOfferEssence: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PercentOfferEssence.Label}"
+					// Tooltip: ""
+				}
+
+				ReduceOfferEfficiencyByTableTier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByTableTier.Tooltip}"
+				}
+
+				ReduceOfferEfficiencyByBaseInfusionPower: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ReduceOfferEfficiencyByBaseInfusionPower.Tooltip}"
+				}
+
+				DisableMinionCrits: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableMinionCrits.Tooltip}"
+				}
+
+				CritPerLevelDisabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CritPerLevelDisabled.Tooltip}"
+				}
+
+				DamagePerLevelInstead: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamagePerLevelInstead.Tooltip}"
+				}
+
+				DamageReductionPerLevelDisabled: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DamageReductionPerLevelDisabled.Tooltip}"
+				}
+
+				CalculateDamageReductionBeforeDefense: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CalculateDamageReductionBeforeDefense.Tooltip}"
+				}
+
+				ArmorDamageReductions: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductions.Label}"
+					// Tooltip: ""
+				}
+
+				AllowCriticalChancePast100: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AllowCriticalChancePast100.Tooltip}"
+				}
+
+				MultiplicativeCriticalHits: {
+					// Label: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.MultiplicativeCriticalHits.Tooltip}"
+				}
+
+				InfusionDamageMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.InfusionDamageMultiplier.Tooltip}"
+				}
+
+				DisableArmorInfusion: {
+					// Label: Disable Armor Infusion
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DisableArmorInfusion.Tooltip}"
+				}
+
+				MinionLifeStealMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.MinionLifeStealMultiplier.Tooltip}"
+				}
+
+				DCUStart: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+					// Tooltip: ""
+				}
+
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+			}
+
+			PresetData: {
+				// Tooltip: ""
+
+				AutomaticallyMatchPreseTtoWorldDifficulty: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AutomaticallyMatchPreseTtoWorldDifficulty.Label}"
+					// Tooltip: ""
+				}
+
+				Preset: {
+					// Label: Preset
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.Preset.Tooltip}"
+				}
+
+				GlobalEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.GlobalEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				BasicEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.BasicEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				CommonEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.CommonEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				RareEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.RareEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				EpicEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.EpicEnchantmentStrengthMultiplier.Tooltip}"
+				}
+
+				LegendaryEnchantmentStrengthMultiplier: {
+					// Label: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.LegendaryEnchantmentStrengthMultiplier.Tooltip}"
+				}
+			}
+
+			Pair: {
+				// Tooltip: ""
+
+				itemDefinition: {
+					// Label: "{$Mods.WeaponEnchantments.Config.itemDefinition.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.itemDefinition.Tooltip}"
+				}
+
+				Strength: {
+					// Label: "{$Mods.WeaponEnchantments.Config.Strength.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.Strength.Tooltip}"
+				}
+			}
+
+			ArmorDamageReduction: {
+				// Tooltip: ""
+
+				ArmorDamageReductionPerLevel: {
+					// Label: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.ArmorDamageReductionPerLevel.Tooltip}"
+				}
+
+				AccessoryDamageReductionPerLevel: {
+					// Label: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.AccessoryDamageReductionPerLevel.Tooltip}"
 				}
 			}
 		}
