@@ -536,8 +536,7 @@ namespace WeaponEnchantments.UI
 			return transferedAnyItem;
 		}
 		private static void Sort() {
-			MethodInfo sort = typeof(ItemSorting).GetMethod("Sort", BindingFlags.NonPublic | BindingFlags.Static);
-			sort.Invoke(null, new object[] { WEPlayer.LocalWEPlayer.oreBagItems, new int[0] });
+			WEPlayer.LocalWEPlayer.oreBagItems = WEPlayer.LocalWEPlayer.oreBagItems.OrderByDescending(i => i.type).ToArray();
 			Type itemSlotType = typeof(ItemSlot);
 			int[] inventoryGlowTime = (int[])itemSlotType.GetField("inventoryGlowTime", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 			for (int i = 0; i < inventoryGlowTime.Length; i++) {
