@@ -327,7 +327,7 @@ namespace WeaponEnchantments
 
 			for (int i = 0; i < inventory.Length; i++) {
 				ref Item storageItem = ref inventory[i];
-				if ((!item.favorited || !ignoreFavorited) && item.type == storageItem.type || recipe.AcceptedByItemGroups(item.type, storageItem.type)) {
+				if ((!storageItem.favorited || !ignoreFavorited) && item.type == storageItem.type || recipe.AcceptedByItemGroups(item.type, storageItem.type)) {
 					int ammountToTransfer = Math.Min(stack, storageItem.stack);
 					Item consumedItem = storageItem.Clone();
 					consumedItem.stack = ammountToTransfer;
