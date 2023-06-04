@@ -1219,7 +1219,7 @@ namespace WeaponEnchantments
                     int vanillaLifeStealValue = (int)Math.Round(heal * ConfigValues.AffectOnVanillaLifeStealLimit);
                     player.lifeSteal -= vanillaLifeStealValue;
 
-                    Projectile.NewProjectile(item.GetSource_ItemUse(item), npc.Center, new Vector2(0, 0), ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(item), npc.Center, new Vector2(0, 0), ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
                 }
 
                 //Life Steal Rollover
