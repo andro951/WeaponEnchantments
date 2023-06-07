@@ -58,10 +58,9 @@ namespace WeaponEnchantments.Common.Globals
 			infusedItem = infusedItemType > 0 ? new Item(infusedItemType) : null;
 		}
 		public override void UpdateEquip(Item item, Player player) {
+			base.UpdateEquip(item, player);
 			if (!inEnchantingTable)
 				return;
-
-			base.UpdateEquip(item, player);
 
 			//Fix for swapping an equipped armor/accessory with one in the enchanting table.
 			if (player.GetWEPlayer().enchantingTableItem.TryGetEnchantedItem()) {

@@ -24,18 +24,10 @@ namespace WeaponEnchantments.Common.Globals
 	{
 		#region Tracking (instance)
 
-		public bool equippedInArmorSlot = false;
-
 		#endregion
 
-		public override void UpdateInventory(Item item, Player player) {
-
-			equippedInArmorSlot = false;
-
-			base.UpdateInventory(item, player);
-        }
         public override void UpdateEquip(Item item, Player player) {
-            if (!inEnchantingTable)
+			if (!inEnchantingTable)
                 return;
 
             //Fix for swapping an equipped armor/accessory with one in the enchanting table.

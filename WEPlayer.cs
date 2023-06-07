@@ -741,13 +741,13 @@ namespace WeaponEnchantments
             if (newItem.NullOrAir())
                 return true;
 
-            if (currentItem.TryGetEnchantedEquipItem(out EnchantedEquipItem outOfGlobal) && !outOfGlobal.equippedInArmorSlot)
-                return true;
-
             bool tryingToSwapArmor = IsAccessoryItem(currentItem) && !IsArmorItem(currentItem) && (IsAccessoryItem(newItem) || IsArmorItem(newItem));
             bool armorTypeDoesntMatch = currentItem.headSlot > -1 && newItem.headSlot == -1 || currentItem.bodySlot > -1 && newItem.bodySlot == -1 || currentItem.legSlot > -1 && newItem.legSlot == -1;
             if (tryingToSwapArmor || armorTypeDoesntMatch)
                 return false;//Fix for Armor Modifiers & Reforging setting item.accessory to true to allow reforging armor
+
+            if (!(newItem.accessory == currentItem.accessory))
+                return false;
 
             return true;
         }
@@ -819,6 +819,8 @@ namespace WeaponEnchantments
 			cursedEssenceCount = 0;
             if (enchantingTableItem == null)
                 enchantingTableItem = new();
+
+            localWEPlayer = null;
 		}
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();
