@@ -91,8 +91,6 @@ namespace WeaponEnchantments.UI
 					if (itemBeingEnchanted.TryGetEnchantedItemSearchAll(out EnchantedItem iBEGlobal)) {
 						iBEGlobal.inEnchantingTable = true;
 						wePlayer.previousInfusedItemName = iBEGlobal.infusedItemName;
-						if (iBEGlobal is EnchantedEquipItem enchantedEquipItem)
-							enchantedEquipItem.equippedInArmorSlot = false;
 					}
 
 					if (!wePlayer.infusionConsumeItem.IsAir && itemBeingEnchanted.InfusionAllowed(out bool infusionAllowed)) {
