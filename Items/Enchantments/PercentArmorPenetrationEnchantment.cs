@@ -13,10 +13,6 @@ namespace WeaponEnchantments.Items.Enchantments
 			Effects = new() {
 				new PercentArmorPenetration(@base: EnchantmentStrengthData),
 			};
-
-			AllowedList = new Dictionary<EItemType, float>() {
-				{ EItemType.Weapons, 1f }
-			};
 		}
 
 		public override string ShortTooltip => GetShortTooltip(sign: true, percent: false, multiply100: false);
