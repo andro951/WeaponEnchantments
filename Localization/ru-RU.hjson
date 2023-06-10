@@ -1260,6 +1260,7 @@ Mods: {
 				MaxFallSpeed: Максимальная скорость падения
 				MaxKi: Макс Ки
 				MaxLife: Максимум жизни
+				MaxLifeSteal: Max Life Steal
 				MaxMinions: Максимум прислужников
 				MaxMP: Максимум маны
 				MeleeClassSwap: Замена класса - Воин
@@ -1383,6 +1384,7 @@ Mods: {
 				LavaFishing: "{0} (Позволяет рыбачить в лаве и даёт шанс увеличить скорость поклёва в лаве. Складывается с другими источниками.)"
 				LifeRegeneration: Life Regeneration
 				LifeSteal: "{0} (Остаток сохраняется чтобы предотвратить округление до 0 у оружия с маленьким уроном)"
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed

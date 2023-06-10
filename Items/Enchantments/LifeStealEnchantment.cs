@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 
@@ -9,10 +10,11 @@ namespace WeaponEnchantments.Items.Enchantments {
         public override float ScalePercent => 0.8f;
         public override bool Max1 => true;
         public override float CapacityCostMultiplier => 2f;
-		public override int StrengthGroup => 5;
+		public override int StrengthGroup => 25;
         public override void GetMyStats() {
             Effects = new() {
-                new LifeSteal(@base: EnchantmentStrengthData)
+                new LifeSteal(@base: EnchantmentStrengthData),
+                new MaxLifeSteal(@base: EnchantmentStrengthData.Invert() / 100f)
             };
 
             AllowedList = new Dictionary<EItemType, float>() {

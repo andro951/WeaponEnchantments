@@ -1197,20 +1197,18 @@ namespace WeaponEnchantments
 
             Player player = Player;
 
-            // TODO: Make stack with one for all
             float healTotal = (damage + oneForAllDamage) * lifeSteal * (player.moonLeech ? 0.5f : 1f);
 
             //Temporary until system for damage type checking is implemented
             bool summonDamage = item.DamageType == DamageClass.Summon || item.DamageType == DamageClass.MagicSummonHybrid;
             if (summonDamage)
-                healTotal *= 0.5f;
+                healTotal *= MinionLifeStealMultiplier;
 
             healTotal += lifeStealRollover;
 
             int heal = (int)healTotal;
 
             if (player.statLife < player.statLifeMax2) {
-
                 //Player hp less than max
                 if (heal > 0 && player.lifeSteal > 0f) {
                     int excess = player.statLife + heal - player.statLifeMax2;
@@ -1218,8 +1216,17 @@ namespace WeaponEnchantments
                         heal -= excess;
 
                     //Vanilla lifesteal mitigation
-                    int vanillaLifeStealValue = (int)Math.Round(heal * ConfigValues.AffectOnVanillaLifeStealLimit);
-                    player.lifeSteal -= vanillaLifeStealValue;
+                    float maxLifeStealMultiplier = ConfigValues.AffectOnVanillaLifeStealLimit;//1.5f;
+                    CheckEnchantmentStats(EnchantmentStat.MaxLifeSteal, out float maxLifeStealEnchantmentMultiplier);
+                        maxLifeStealMultiplier /= maxLifeStealEnchantmentMultiplier;//0.05
+
+					float vanillaLifeStealValue = heal * maxLifeStealMultiplier;
+                    if (player.lifeSteal < vanillaLifeStealValue) {
+                        heal = (int)(player.lifeSteal / maxLifeStealMultiplier) + 1;
+						vanillaLifeStealValue = heal * maxLifeStealMultiplier;
+					}
+
+					player.lifeSteal -= vanillaLifeStealValue;
 
                     Projectile.NewProjectile(player.GetSource_ItemUse(item), npc.Center, new Vector2(0, 0), ProjectileID.VampireHeal, 0, 0f, player.whoAmI, player.whoAmI, heal);
                 }

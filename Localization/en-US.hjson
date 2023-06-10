@@ -42,7 +42,7 @@ Mods: {
 					'''
 					Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.
 					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
-					It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.
+					It has a pool of 80(70) that is saved for you to gain lifesteal from.  Gaining life through lifesteal reduces this pool.
 					The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.
 					This config value changes how much the life you heal from lifesteal enchantments affects this limit.
 					Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.
@@ -1263,6 +1263,7 @@ Mods: {
 				MaxFallSpeed: Max Fall Speed
 				MaxKi: Max Ki
 				MaxLife: Max Life
+				MaxLifeSteal: Max Life Steal
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MeleeClassSwap: Melee Class Swap
@@ -1394,6 +1395,7 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Enemies hit become the minion attack target.  Same effect as whips.
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown

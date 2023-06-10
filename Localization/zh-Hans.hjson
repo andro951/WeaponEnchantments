@@ -1245,6 +1245,7 @@ Mods: {
 				MaxFallSpeed: 最大降速
 				MaxKi: Ki上限
 				MaxLife: 生命上限
+				MaxLifeSteal: Max Life Steal
 				MaxMinions: 仆从上限
 				MaxMP: 魔力上限
 				MeleeClassSwap: 近战类型伤害转换
@@ -1368,6 +1369,7 @@ Mods: {
 				LavaFishing: “{0}（允许在熔岩中钓鱼并有机会提高在熔岩中的捕获率。可与其他增益叠加。）”
 				LifeRegeneration: Life Regeneration
 				LifeSteal: “{0}（保留余数以防止对于低伤害武器总是因为精度原因变为 0）”
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
