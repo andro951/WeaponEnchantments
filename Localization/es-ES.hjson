@@ -384,9 +384,9 @@ Mods: {
 				Label: Limitación de encantamiento de robo de vida (afecta al límite de robo de vida de vainilla) (%)
 				Tooltip: 
 					'''
-					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
+					Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.
 					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
-					It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.
+					It has a pool of 80(70) that is saved for you to gain lifesteal from.  Gaining life through lifesteal reduces this pool.
 					The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.
 					This config value changes how much the life you heal from lifesteal enchantments affects this limit.
 					Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.
@@ -1150,6 +1150,7 @@ Mods: {
 				MaxFallSpeed: Velocidad máxima de caída
 				MaxKi: max ki
 				MaxLife: Vida máxima
+				MaxLifeSteal: Max Life Steal
 				MaxMinions: Secuaces máximos
 				MaxMP: MP máx.
 				MeleeClassSwap: Cambio de clase cuerpo a cuerpo
@@ -1243,6 +1244,7 @@ Mods: {
 				ItemCooldown: "(Ítem CD igual a {0} velocidad de uso)"
 				LavaFishing: "{0} (Permite pescar en lava y tiene la posibilidad de mejorar las tasas de captura en lava. Se acumula con otras fuentes)."
 				LifeSteal: "{0} (el resto se guarda para evitar redondear siempre a 0 para armas de bajo daño)"
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Los enemigos golpeados se convierten en el objetivo del ataque de los súbditos. Mismo efecto que los látigos.
 				Multishot: "{0} (Oportunidad de producir un proyectil extra. Se aplica a cada proyectil creado.)"
 				OneForAll: 

@@ -384,9 +384,9 @@ Mods: {
 				Label: Limitação de Encantamento de Roubo de Vida (Afeta no Limite de Roubo de Vida de Vanilla) (%)
 				Tooltip: 
 					'''
-					Use a value above 100% to limmt lifesteal more, less than 100% to limit less.  0 to have not limit.
+					Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.
 					Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)
-					It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.
+					It has a pool of 80(70) that is saved for you to gain lifesteal from.  Gaining life through lifesteal reduces this pool.
 					The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.
 					This config value changes how much the life you heal from lifesteal enchantments affects this limit.
 					Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.
@@ -1150,6 +1150,7 @@ Mods: {
 				MaxFallSpeed: Velocidade máxima de queda
 				MaxKi: Max Ki
 				MaxLife: Vida máxima
+				MaxLifeSteal: Max Life Steal
 				MaxMinions: Invocações Máximas
 				MaxMP: Mana Máximo
 				MeleeClassSwap: Troca de Classe Corpo a Corpo
@@ -1243,6 +1244,7 @@ Mods: {
 				ItemCooldown: "(Tempo de recarga do item igual a {0} velocidade de uso)"
 				LavaFishing: "{0} (Permite pescar na lava e tem a chance de melhorar as taxas de captura na lava. Pilha com outras fontes.)"
 				LifeSteal: "{0} (o restante é salvo para evitar sempre o arredondamento para 0 para armas de baixo dano)"
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Os inimigos atingidos tornam-se o alvo do ataque dos lacaios. Mesmo efeito dos chicotes.
 				Multishot: "{0} (Chance de produzir um projétil extra. Aplica-se a cada projétil criado.)"
 				OneForAll: 

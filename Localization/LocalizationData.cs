@@ -132,6 +132,7 @@ namespace WeaponEnchantments.Localization
 									{ typeof(GodSlayer).Name, "{0}\n(Bonus true damage based on enemy max hp)\n(Bonus damage not affected by LifeSteal)" },
 									{ typeof(LavaFishing).Name, "{0} (Allows fishing in lava and has a chance to improve catch rates in lava.  Stacks with other sources.)"},
 									{ typeof(LifeSteal).Name, "{0} (remainder is saved to prevent always rounding to 0 for low damage weapons)" },
+									{ typeof(MaxLifeSteal).Name, "{0} (The percentage of the vanilla lifesteal pool that can be used.)" },
 									{ typeof(MinionAttackTarget).Name, "Enemies hit become the minion attack target.  Same effect as whips."},
 									{ typeof(Multishot).Name, "{0} (Chance to produce an extra projectile.  Applies to each projectile created.)" },
 									{ typeof(OneForAll).Name, "{0}\n(Hitting an enemy will damage all nearby enemies)\n(Only activates on the first hit from a projectile.)" },
@@ -324,7 +325,7 @@ namespace WeaponEnchantments.Localization
 								{ L_ID3.Label.ToString(), "Life Steal Enchantment limiting (Affect on Vanilla Life Steal Limit) (%)" },
 								{ L_ID3.Tooltip.ToString(), "Use a value above 100% to limit lifesteal more, less than 100% to limit less.  0 to have not limit.\n" +
 													"Vanilla Terraria uses a lifesteal limiting system: In the below example, the values used are in normal mode(Expert/Master mode values in parenthesis)\n" +
-													"It has a pool of 80(70) that is saved for you to gain lifestea from.  Gaining life through lifesteal reduces this pool.\n" +
+													"It has a pool of 80(70) that is saved for you to gain lifesteal from.  Gaining life through lifesteal reduces this pool.\n" +
 													"The pool is restored by 36(30) points per second.  If the pool value is negative, you cannot gain life from lifesteal.\n" +
 													"This config value changes how much the life you heal from lifesteal enchantments affects this limit.\n" +
 													"Example: 200%  You gain 200 life from lifesteal.  200 * 200% = 400.  80(70) pool - 400 healed = -320(-330) pool.\n" +
