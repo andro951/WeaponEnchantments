@@ -1387,7 +1387,6 @@ Mods: {
 				LavaFishing: "{0} (Consente di pescare nella lava e ha la possibilità di migliorare i tassi di cattura nella lava. Si accumula con altre fonti.)"
 				LifeRegeneration: Life Regeneration
 				LifeSteal: "{0} (il resto viene salvato per evitare di arrotondare sempre a 0 per armi a basso danno)"
-				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1396,6 +1395,7 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: I nemici colpiti diventano il bersaglio dell'attacco dei minion. Stesso effetto delle fruste.
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown

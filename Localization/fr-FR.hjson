@@ -1387,7 +1387,6 @@ Mods: {
 				LavaFishing: "{0} (Permet de pêcher dans la lave et a une chance d'améliorer les taux de capture dans la lave. Se cumule avec d'autres sources.)"
 				LifeRegeneration: Life Regeneration
 				LifeSteal: "{0} (le reste est enregistré pour éviter de toujours arrondir à 0 pour les armes à faibles dégâts)"
-				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1396,6 +1395,7 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Les ennemis touchés deviennent la cible de l'attaque des sbires. Même effet que les fouets.
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown

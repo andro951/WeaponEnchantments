@@ -1384,7 +1384,6 @@ Mods: {
 				LavaFishing: "{0} (Позволяет рыбачить в лаве и даёт шанс увеличить скорость поклёва в лаве. Складывается с другими источниками.)"
 				LifeRegeneration: Life Regeneration
 				LifeSteal: "{0} (Остаток сохраняется чтобы предотвратить округление до 0 у оружия с маленьким уроном)"
-				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1393,6 +1392,7 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Ударенные противники становятся целью прислужников (как при ударе кнутом).
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown

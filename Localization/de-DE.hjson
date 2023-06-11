@@ -1387,7 +1387,6 @@ Mods: {
 				LavaFishing: "{0} (Ermöglicht das Fischen in Lava und hat eine Chance, die Fangraten in Lava zu verbessern. Kann mit anderen Quellen gestapelt werden.)"
 				LifeRegeneration: Life Regeneration
 				LifeSteal: "{0} (Rest wird gespeichert, um zu verhindern, dass bei Waffen mit geringem Schaden immer auf 0 gerundet wird)"
-				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1396,6 +1395,7 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
+				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Getroffene Feinde werden zum Vasallenangriffsziel. Gleiche Wirkung wie Peitschen.
 				MovementAcceleration: Movement Acceleration
 				MovementSlowdown: Movement Slowdown

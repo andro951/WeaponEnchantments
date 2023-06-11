@@ -1380,13 +1380,13 @@ Mods: {
 					(Dodatkowe obrażenia, na które nie ma wpływu LifeSteal)
 					'''
 				InfinitePenetration: Infinite Penetration
-				ItemCooldown: „(Pozycja na płycie CD równa {0} prędkości użytkowania)”
+				ItemCooldown: (Pozycja na płycie CD równa {0} prędkości użytkowania)
 				JumpSpeed: Jump Speed
 				KiDamage: Ki Damage
 				KiRegen: Ki Regen
-				LavaFishing: „{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)”
+				LavaFishing: "{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)"
 				LifeRegeneration: Life Regeneration
-				LifeSteal: „{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)”
+				LifeSteal: "{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)"
 				Luck: Luck
 				ManaUsage: Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1395,9 +1395,6 @@ Mods: {
 				MaxMinions: Max Minions
 				MaxMP: Max MP
 				MiningSpeed: Mining Speed
-				ItemCooldown: "(Pozycja na płycie CD równa {0} prędkości użytkowania)"
-				LavaFishing: "{0} (Umożliwia łowienie w lawie i ma szansę na poprawę wskaźników połowów w lawie. Można łączyć z innymi źródłami.)"
-				LifeSteal: "{0} (reszta jest zapisana, aby zapobiec zawsze zaokrąglaniu do 0 w przypadku broni o niskich obrażeniach)"
 				MaxLifeSteal: "{0} (The percentage of the vanilla lifesteal pool that can be used.)"
 				MinionAttackTarget: Trafieni wrogowie stają się celem ataku stworów. Taki sam efekt jak bicze.
 				MovementAcceleration: Movement Acceleration
