@@ -30,14 +30,13 @@ namespace WeaponEnchantments.Content.NPCs
 	public class Witch : ModNPC, INPCWikiInfo {
 		public int NumberOfTimesTalkedTo = 0;
 		public static bool resetShop = true;
-		private Dictionary<int, float> shopEnchantments = new();
+		private Dictionary<int, float> shopItems = new();
 		public static bool rerollUI = false;
 		public static Item rerollItem = new();
 		public static bool mouseRerollEnchantment = false;
 		public static float rerollScale = 1f;
 		public static string EnchantmentShopName = "EnchantmentsShop";
 		public static string FullEnchantmentShopName = $"WeaponEnchantments/Witch/{EnchantmentShopName}";
-		private int firstNullOrAirItemIndex = 0;
 
 		public List<WikiTypeID> WikiNPCTypes => new() { WikiTypeID.NPC };
 
@@ -213,18 +212,30 @@ namespace WeaponEnchantments.Content.NPCs
 		public override void AddShops() {
 			NPCShop witchShop = new NPCShop(Type, EnchantmentShopName);
 			witchShop.Register();
-			//resetShop = true;
 		}
 		public override void ModifyActiveShop(string shopName, Item[] items) {
 			if (shopName == FullEnchantmentShopName) {
-				if (resetShop || firstNullOrAirItemIndex == 0) {
-					GetItemsForShop(ref items);
+				if (resetShop || shopItems.Count == 0) {
+					GetItemsForShop();
 					resetShop = false;
+				}
+
+				int nextSlot = 0;
+				foreach (KeyValuePair<int, float> pair in shopItems) {
+					while (!items[nextSlot].NullOrAir()) {
+						nextSlot++;
+					}
+
+					items[nextSlot] = new(pair.Key);
+					Item item = items[nextSlot];
+					float multiplier = pair.Value;
+					item.value = (int)((float)item.value * multiplier);
+					nextSlot++;
 				}
 			}
 		}
-		private void GetItemsForShop(ref Item[] items) {
-			firstNullOrAirItemIndex = 0;
+		private void GetItemsForShop() {
+			shopItems = new();
 			List<ISoldByWitch> allItems = ModContent.GetContent<ModItem>().OfType<ISoldByWitch>().Where(i => i.SellCondition.CanSell()).ToList();
 			List<ISoldByWitch> enchanmtnets = allItems.OfType<Enchantment>().Select(e => (ISoldByWitch)e).Where(e => e.SellCondition > SellCondition.Always).ToList();
 			List<ISoldByWitch> otherItems = allItems
@@ -235,17 +246,17 @@ namespace WeaponEnchantments.Content.NPCs
 				.ToList();
 
 			//Always
-			AddItemsToShop(otherItems, ref items);
+			AddItemsToShop(otherItems);
 
 			//Any Time
-			AddEnchantmentsToShop(enchanmtnets, ref items, SellCondition.AnyTime, 4);
+			AddEnchantmentsToShop(enchanmtnets, SellCondition.AnyTime, 4);
 
-			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), ref items, SellCondition.IgnoreCondition, 2);
+			AddEnchantmentsToShop(enchanmtnets.Where(e => e.SellCondition != SellCondition.AnyTime).ToList(), SellCondition.IgnoreCondition, 2);
 
 			if (Main.rand.Next(100) == 0)
-				AddEnchantmentsToShop(enchanmtnets, ref items, SellCondition.Luck, 1);
+				AddEnchantmentsToShop(enchanmtnets, SellCondition.Luck, 1);
 		}
-		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, ref Item[] items, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
+		private void AddEnchantmentsToShop(List<ISoldByWitch> soldByWitch, SellCondition condition = SellCondition.IgnoreCondition, int num = 0) {
 			List<int> list;
 			List<ISoldByWitch> filteredList;
 			if (condition == SellCondition.IgnoreCondition) {
@@ -263,30 +274,22 @@ namespace WeaponEnchantments.Content.NPCs
 			for (int i = 0; i < num; i++) {
 				int type = list.GetOneFromList();
 				float sellPriceModifier = filteredList[list.IndexOf(type)].SellPriceModifier;
-				for (int j = 0; j < firstNullOrAirItemIndex; j++) {
-					if (type == items[j].type) {
-						$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
-						i--;
-						list.Remove(type);
-						continue;
-					}
+				if (shopItems.ContainsKey(type)) {
+					$"Prevented an issue that would add a duplicate item to the Wich's shop item: {ContentSamples.ItemsByType[type].S()}".LogNT(ChatMessagesIDs.AlwaysShowDuplicateItemInWitchsShop);
+					i--;
+					list.Remove(type);
+					continue;
 				}
 
-				Item item = new(type);
-				item.value = (int)Math.Round(item.value * sellPriceModifier);
-				items[firstNullOrAirItemIndex] = item;
-				firstNullOrAirItemIndex++;
+				shopItems.Add(type, sellPriceModifier);
 				list.Remove(type);
 			}
 		}
-		private void AddItemsToShop(List<ISoldByWitch> modItems, ref Item[] items) {
-			foreach(ISoldByWitch soldByWitch in modItems) {
+		private void AddItemsToShop(List<ISoldByWitch> modItems) {
+			foreach (ISoldByWitch soldByWitch in modItems) {
 				ModItem modItem = (ModItem)soldByWitch;
 				float sellPriceModifier = soldByWitch.SellPriceModifier;
-				Item item = new(modItem.Type);
-				item.value = (int)Math.Round(item.value * sellPriceModifier);
-				items[firstNullOrAirItemIndex] = item;
-				firstNullOrAirItemIndex++;
+				shopItems.Add(modItem.Type, sellPriceModifier);
 			}
 		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
