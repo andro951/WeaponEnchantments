@@ -1210,19 +1210,59 @@ namespace WeaponEnchantments.UI
 					else {
 						xpNotConsumed = xpCounter;
 					}
+
 					xpCounter = 0;
 				}
 
-				//Get or spawn essence
-				int maxStack = EnchantmentEssence.IDs[tier].CSI().maxStack;
-				while (numberEssenceRecieved > 0) {
-					int stack = numberEssenceRecieved > maxStack ? maxStack : numberEssenceRecieved;
-					numberEssenceRecieved -= stack;
-					Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stack);
-				}
+				GetEssence(tier, numberEssenceRecieved);
 			}
 
 			return xpInitial - xpNotConsumed;
+		}
+		public static int GetEssence(int tier, int stack, bool canQuckSpawn = true, WEPlayer wePlayer = null) {
+			if (Main.netMode == NetmodeID.Server)
+				return stack;
+
+			if (stack < 1 || tier < 0 || tier >= MaxEssenceSlots)
+				return stack;
+
+			if (wePlayer == null)
+				wePlayer = WEPlayer.LocalWEPlayer;
+			
+			int maxStack = EnchantmentEssence.IDs[tier].CSI().maxStack;
+			int remainingStack;
+			if (wePlayer.enchantingTableEssence[tier].NullOrAir()) {
+				int numberTransfered = stack;
+				if (stack > maxStack)
+					numberTransfered = maxStack;
+
+				wePlayer.enchantingTableEssence[tier] = new(EnchantmentEssence.IDs[tier], numberTransfered);
+
+				remainingStack = stack - numberTransfered;
+			}
+			else {
+				Item essence = wePlayer.enchantingTableEssence[tier];
+				int currentStack = essence.stack;
+				int totalStack = WEMath.AddCheckOverflow(stack, currentStack, out long remainder);
+				if (totalStack > maxStack)
+					totalStack = maxStack;
+
+				essence.stack = totalStack;
+				int numberTransfered = totalStack - currentStack;
+
+				remainingStack = stack - numberTransfered + (int)remainder;
+			}
+
+			if (!canQuckSpawn)
+				return remainingStack;
+
+			while (remainingStack > 0) {
+				int stackToQuickSpawn = remainingStack > maxStack ? maxStack : remainingStack;
+				remainingStack -= stackToQuickSpawn;
+				Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), EnchantmentEssence.IDs[tier], stackToQuickSpawn);
+			}
+
+			return remainingStack;
 		}
 		private static void Syphon() {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;

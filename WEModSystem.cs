@@ -455,8 +455,8 @@ namespace WeaponEnchantments
                     itemsPlaced++;
                 }
             }
-        }
-        public static ChestID GetChestIDFromChest(Chest chest) {
+		}
+		public static ChestID GetChestIDFromChest(Chest chest) {
             Tile tile = Main.tile[chest.x, chest.y];
             ushort tileType = tile.TileType;
             short tileFrameX = tile.TileFrameX;

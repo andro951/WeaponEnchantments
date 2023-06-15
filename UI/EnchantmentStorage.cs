@@ -605,7 +605,7 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool CanVauumItem(Item item) => WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
+		public static bool CanVauumItem(Item item) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
 		public static bool TryVacuumItem(ref Item item) {
 			if (CanVauumItem(item))
 				return DepositAll(ref item);
