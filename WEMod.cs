@@ -123,7 +123,7 @@ namespace WeaponEnchantments
 		private delegate void hook_UpdateArmorSet(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs);
 		private static readonly MethodInfo ModLoaderUpdateArmorSetMethodInfo = typeof(ItemLoader).GetMethod("UpdateArmorSet");
 		private void UpdateArmorSetDetour(orig_UpdateArmorSet orig, Player player, Item head, Item body, Item legs) {
-			WEPlayer wePlyaer = player.GetWEPlayer(); 
+			WEPlayer wePlyaer = player.GetWEPlayer();
 			if (wePlyaer.Equipment.InfusedHead != null)
 				head = wePlyaer.Equipment.InfusedHead;
 
