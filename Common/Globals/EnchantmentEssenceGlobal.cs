@@ -31,27 +31,12 @@ namespace WeaponEnchantments.Common.Globals
                 if (item.ModItem is not EnchantmentEssence essence)
                     return true;
 
-                int toStore = item.stack - EnchantingTableUI.GetEssence(essence.EssenceTier, item.stack, true, wePlayer);
-                //TODO: Create function in enchantment storage for gain essence
-                //Item[] essenceSlots = wePlayer.enchantingTableEssence;
-                //int tier = essence.EssenceTier;
-                //int tableStack = essenceSlots[tier].stack;
-                //int toStore = Math.Min(item.maxStack - tableStack, item.stack);
+                int toStore = item.stack - EnchantingTableUI.GetEssence(essence.EssenceTier, item.stack, false, wePlayer);
 
                 if (toStore <= 0)
                     return true;
 
                 item.stack -= toStore;
-                //Less than max stack when combined
-
-                //if (essenceSlots[tier].stack < 1) {
-                    //Table is empty
-                //    essenceSlots[tier] = new Item(item.type, toStore);
-                //}
-				//else {
-                    //Table not empty
-                //    essenceSlots[tier].stack += toStore;
-                //}
 
                 PopupText.NewText(PopupTextContext.RegularItemPickup, item, toStore);
                 SoundEngine.PlaySound(SoundID.Grab);
