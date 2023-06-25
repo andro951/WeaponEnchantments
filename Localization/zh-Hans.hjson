@@ -524,7 +524,10 @@ Mods: {
 				Tooltip: 移除 Unique、Max 1 和武器或物品类型特定的附魔。
 			}
 
-			ServerConfig.Label: 服务器配置
+			ServerConfig: {
+				Label: 服务器配置
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: 力量 (1000 = 1, 10 = 1%)

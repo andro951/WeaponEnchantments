@@ -542,7 +542,10 @@ Mods: {
 				Tooltip: Elimina cosas como Unique, Max 1 y encantamientos específicos de tipo de arma o elemento.
 			}
 
-			ServerConfig.Label: Configuración del servidor
+			ServerConfig: {
+				Label: Configuración del servidor
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Fuerza (1000 = 1, 10 = 1%)

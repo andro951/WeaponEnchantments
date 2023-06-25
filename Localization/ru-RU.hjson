@@ -539,7 +539,10 @@ Mods: {
 				Tooltip: Убирает ограничения типа Уникальный, Не более одного и Только для определённых предметов.
 			}
 
-			ServerConfig.Label: Настройки сервера
+			ServerConfig: {
+				Label: Настройки сервера
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Сила (1000 = 1, 10 = 1%).

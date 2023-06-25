@@ -542,7 +542,10 @@ Mods: {
 				Tooltip: Usuwa rzeczy takie jak Unique, Max 1 i zaklęcia specyficzne dla broni lub przedmiotu.
 			}
 
-			ServerConfig.Label: Konfiguracja serwera
+			ServerConfig: {
+				Label: Konfiguracja serwera
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Siła (1000 = 1, 10 = 1%)

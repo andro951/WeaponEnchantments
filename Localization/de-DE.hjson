@@ -542,7 +542,10 @@ Mods: {
 				Tooltip: Entfernt Dinge wie Unique, Max 1 und waffen- oder gegenstandstypspezifische Verzauberungen.
 			}
 
-			ServerConfig.Label: Server-Konfig
+			ServerConfig: {
+				Label: Server-Konfig
+				// $parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Stärke (1000 = 1, 10 = 1 %)

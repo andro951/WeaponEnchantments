@@ -542,7 +542,10 @@ Mods: {
 				Tooltip: Removes things like Unique, Max 1 and weapon or item type specific enchantments.
 			}
 
-			ServerConfig.Label: Server Config
+			ServerConfig: {
+				Label: Server Config
+				$parentVal: preset Data Header
+			}
 
 			Strength: {
 				Label: Strength (1000 = 1, 10 = 1%)
