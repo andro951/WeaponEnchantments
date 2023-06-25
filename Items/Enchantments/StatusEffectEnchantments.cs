@@ -50,7 +50,24 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class OnFireEnchantmentCommon : OnFireEnchantment { }
 	public class OnFireEnchantmentRare : OnFireEnchantment { }
 	public class OnFireEnchantmentEpic : OnFireEnchantment { }
-	public class OnFireEnchantmentLegendary : OnFireEnchantment { }	
+	public class OnFireEnchantmentLegendary : OnFireEnchantment { }
+
+	public abstract class PoisonEnchantment : StatusEffectEnchantment
+	{
+		public override short StatusEffect => BuffID.Poisoned;
+		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.DartTrap, 1);
+		public override string Artist => "Princess of Evil";
+		public override string ArtModifiedBy => "andro951";
+		public override string Designer => "andro951";
+	}
+	public class PoisonEnchantmentBasic : PoisonEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.AnyTime;
+	}
+	public class PoisonEnchantmentCommon : PoisonEnchantment { }
+	public class PoisonEnchantmentRare : PoisonEnchantment { }
+	public class PoisonEnchantmentEpic : PoisonEnchantment { }
+	public class PoisonEnchantmentLegendary : PoisonEnchantment { }
 
 	public abstract class FrostburnEnchantment : StatusEffectEnchantment
 	{

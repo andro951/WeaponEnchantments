@@ -20,6 +20,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using WeaponEnchantments.Common.Configs;
+using System.Collections;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {
@@ -109,6 +110,7 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             IEnumerable<Enchantment> enchantments = modItems.OfType<Enchantment>().OrderBy(e => e.Name);
             PowerBooster powerBooster = modItems.OfType<PowerBooster>().First();
             UltraPowerBooster ultraPowerBooster = modItems.OfType<UltraPowerBooster>().First();
+            OreBag oreBag = modItems.OfType<OreBag>().First();
 
 			List<WebPage> webPages = new();
 
@@ -120,7 +122,8 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             AddEnchantments(webPages, enchantments);
             AddPowerBooster(webPages, powerBooster);
             AddUltraPowerBooster(webPages, ultraPowerBooster);
-            AddWitch(webPages, modItems.Where(m => m is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never));
+            AddOreBag(webPages, oreBag);
+			AddWitch(webPages, modItems.Where(m => m is ISoldByWitch soldByWitch && soldByWitch.SellCondition != SellCondition.Never));
 
             string wiki = "\n\n";
 
@@ -158,20 +161,22 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 "Terraria has you frequently swapping old gear for new. The enchanting system allows you to customize your weapons and armor, and keep your progress as you change or upgrade your gear.\r\n" +
                 "\r\n" +
                 "===Items===\r\n" +
-                "[[Containments]]\r\n" +
+                $"{typeof(Containment).Name.AddSpaces().ToItemPNG(displayName: false)} {"Containments".ToLink()}\r\n" +
                 "\r\n" +
-                "[[Enchanting Tables]]\r\n" +
+				$"{typeof(WoodEnchantingTable).Name.AddSpaces().ToItemPNG(displayName: false)} {"Enchanting Tables".ToLink()}\r\n" +
                 "\r\n" +
-                "[[Enchantment Essence]]\r\n" +
+				$"{typeof(EnchantmentEssenceBasic).Name.AddSpaces().ToItemPNG(displayName: false)} {"Enchantment Essence".ToLink()}\r\n" +
                 "\r\n" +
-                "[[Enchantments]]\r\n" +
+				$"{"Enchantment Basic".ToPNG()} {"Enchantments".ToLink()}\r\n" +
                 "\r\n" +
-                "[[Power Booster]]\r\n" +
+				$"{typeof(PowerBooster).Name.AddSpaces().ToItemPNG(true)}\r\n" +
                 "\r\n" +
-                "[[Ultra Power Booster]]\r\n" +
-                "\r\n" +
+				$"{typeof(UltraPowerBooster).Name.AddSpaces().ToItemPNG(true)}\r\n" +
+				"\r\n" +
+				$"{typeof(OreBag).Name.AddSpaces().ToItemPNG(true)}\r\n" +
+				"\r\n" +
                 "=== NPCs ===\r\n" +
-                "[[Witch]]\r\n" +
+				$"{typeof(Witch).Name.AddSpaces().ToPNGLink()}\r\n" +
                 "\r\n" +
                 "=== Config ===\r\n" +
                 "Many players will find Enchantments to be too powerful. For players who enjoy a high difficulty experience, it is recommended to change the Enchantment Strength Preset to Expert (50%) or Master (25%). (2nd page of the config)<blockquote>You have an extreme amount of control over the power level of this mod via the config.</blockquote>\r\n" +
@@ -286,13 +291,17 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             }
 
             EnchantingTable.AddParagraph($"All of the essence you pick up are stored in the enchanting table interface. " +
-				$"Right clicking the enchanting table opens the interface. In an enchanting table you can {"Crafting and Upgrading Enchantments".ToSectionLink("create and upgrade", "Enchantments")} enchantments via crafting, " +
+				$"Right clicking the enchanting table while it's placed in the world opens the interface. You can also right click the enchanting table item in your " +
+                $"inventory, but it won't count for crafting enchantments.<br/>\n" +
+                $"In an enchanting table you can {"Crafting and Upgrading Enchantments".ToSectionLink("create and upgrade", "Enchantments")} enchantments via crafting, " +
 				$"{"Enchanting items".ToSectionLink("apply and remove")} enchantments, {"Leveling items up".ToSectionLink("convert essence to item experience")}, " +
-				$"{"Offer".ToSectionLink("offer")} items, {"Syphon".ToSectionLink("syphon")} items and {"Infusion".ToSectionLink("infuse")} items." +
+				$"{"Offer".ToSectionLink("offer")} items, {"Syphon".ToSectionLink("syphon")} items, {"Infusion".ToSectionLink("infuse")} items, " +
+                $"{"Enchantment Storage".ToSectionLink("store items")}, and {"Enchantment Loadouts".ToSectionLink("manage/apply enchantment loadouts")}." +
 				$"");
             EnchantingTable.AddSubHeading("Leveling items up");
             EnchantingTable.AddParagraph($"Item experienced can be gained by {"".ToSectionLink("using the item", "")} or consuming essence in the enchanting table interface.\n" +
-				$"* Level Up button { "LevelUpButton".ToPNG()} (Will do nothing if you do not have enough essence for 1 level)\n" +
+				$"* Level Up button { "LevelUpButton".ToPNG()} (The numbers above the level up button determine how many levels will be added per click of the level up button.  " +
+                $"Will do nothing if you do not have enough essence for the selected number of levels.)\n" +
 				$"# Place your item in the Item slot\n" +
 				$"# Click the Level Up button\n" +
 				$"# Enough essence is used to level your item up once.\n" +
@@ -315,11 +324,15 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
             EnchantingTable.AddSubHeading("Offer " + "OfferButton".ToPNG());
             EnchantingTable.AddParagraph($"If you have an enchantable item you would like to throw away, instead, you can offer it.  \n" +
                 $"Offering items gives you ores and essence equal to the item's value (rounds up), so you end up with slightly higher coins if you offer then sell something.  \n" +
-                $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.  \n" +
-                $"# Place the item you want to offer in the item slot.\n" +
-                $"# press the offer button.\n" +
-                $"# Press confirm.\n" +
-                $"# You receive the offer rewards items.\n");
+                $"It gives half ore and half essence by default (configurable).  It also returns all experience as essence and returns all enchantments and an installed power booster.<br/>\n" +
+                $"1. Place the item you want to offer in the item slot.<br/>\n" +
+                $"2. press the offer button. " +
+                $"(The offer UI will display.  If the Toggle Auto Trash Offered Items option is on, purple, the item you offer will be saved in the list of your offered " +
+                $"items.  Any time you pick up an item marked as trash, it will automatically be offered.  You remove items from being marked for automatic offering with " +
+                $"{"Manage Offered Items".ToSectionLink("Manage Offered Items")} in the Enchantment Storage.)<br/>\n" +
+                $"{"OfferUI".ToPNG()}<br/>\n" +
+                $"3. Press confirm.<br/>\n" +
+                $"4. You receive the offer rewards items.\n");
             EnchantingTable.AddSubHeading($"Mass offer config option");
             EnchantingTable.AddParagraph($"\"Offer all of the same item.\" under Client Config, Enchanting Table Options.\n" +
                 $"This option enables to methods of mass offering items.  (This will not offer any item that has experience/enchantments/power boosters/etc)\n" +
@@ -362,7 +375,57 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
 				$"# Click Infusion (If you change your mind, you can get the item back by pressing Cancel - Same button as Infusion)\n" +
 				$"# Place the armor you want to keep into the enchanting table (It will have it's set bonus replaced with the previous item's) Click Finalize (Same button as Infusion/Cancel)");
 
-            webPages.Add(EnchantingTable);
+			EnchantingTable.AddSubHeading("Enchantment Storage", 2);
+            EnchantingTable.AddParagraph($"The Enchantment Storage is similar to a piggy bank.<br/>\n" +
+                $"It can store most of the items from Weapon Enchantments.<br/>\n" +
+                $"There are a lot of mouse interactions between the Enchantment Storage and Enchanting Table.  " +
+                $"Shift left clicking is the easiest way to transfer enchantments between the two.");
+            EnchantingTable.AddPNG("EnchantmentStorageUI");
+            EnchantingTable.AddParagraph($"The Loot All, Deposit All, Quick Stack and Sort buttons work the same or very similar to the vanilla chest/piggy bank buttons.<br/>\n" +
+                $"Toggle Vacuum - Toggles items automatically being sent to the Enchantment Storage instead of your inventory.  Purple means on.<br/>\n" +
+                $"Toggle Mark Trash - Replaces your cursor with a trash can, and disables normal mouse actions.  Left click any enchantment in the storage to mark it as " +
+                $"trash.  Be very careful when marking enchantments as trash.  Whenever you pick up an enchantment that is marked as trash, it will be uncrafted into essence.<br/>\n" +
+                $"Uncraft All Trash - Uncrafts every enchantment marked as trash into essence, containments and gems.  This is the same as crafting them into essence " +
+                $"manually.<br/>\n" +
+                $"Revert All To Basic - Crafts every enchantment in the storage into basic versions, returning essence, gems and higher tier containments.  " +
+                $"(Keep in mind you have to have basic containments to do this.)" +
+                $"Manage Trash - Shows you every enchantment, allowing you to mark or unmark enchantments as trash even if you don't have them.<br/>\n" +
+                $"Manage Offered Items - Shows you every item that can be offered regardless of you having one or not.  Items with a trash can background will be " +
+                $"automatically offered when picked up.");
+            EnchantingTable.AddPNG("EnchantmentStorageUIManageOfferedItems");
+			EnchantingTable.AddParagraph($"Quick Craft - Allows you to quickly craft any enchantment that you have the ability to craft.  Unlike normal crafting, the item " +
+                $"crafted is sent to the enchantment storage instead of being picked up by your mouse.  This is meant to help with changing a lot of enchantments all at once.  " +
+                $"Keep in mind, you have to be near an appropriate level enchanting table to craft enchantments, so using the enchanting table from your inventory will not " +
+                $"work.");
+            EnchantingTable.AddPNG("EnchantmentStorageUIQuickCraft");
+            EnchantingTable.AddParagraph(
+                $"Items with a gold background can be crafted.If you already have some of an item that you can craft, the stack number will show on the gold " +
+				$"background item.  If you don't already have any, the stack will be 0.  It also shows the rest of the enchantments that you can't craft, but that you have in " +
+				$"storage at the end of the list with normal blue backgrounds.");
+            EnchantingTable.AddParagraph($"Favoriting Enchantments - You can favorite enchantments by pressing the favorite key (alt by default) and clicking on an enchantment.  " +
+                $"Favorited enchantments are ignored when uncrafting trash or reverting all to basic.");
+
+			EnchantingTable.AddSubHeading("Enchantment Loadouts", 2);
+
+            EnchantingTable.AddParagraph($"Enchantment loadouts don't store items.");
+			EnchantingTable.AddPNG("EnchantmentLoadoutUI");
+			EnchantingTable.AddParagraph($"They just save the type and tier of enchantment.  When creating an Enchantment Loadout, you can " +
+                $"quickly fill the slots by shift lift clicking enchantments from your storage to fill the next slot (The next slot to fill has a gold background when shift is held).  " +
+                $"You can also hold an enchantment in your mouse and click it on a slot instead.  Clicking on a slot with no enchantment in your mouse will clear the slot.<br/>\n" +
+                $"Loadout # - Clicking the Loadout button selects that loadout so you can see or edit it.<br/>\n" +
+                $"All - All replaces all enchantments on your held item, armor and accessories with the enchantments from the loadout.  If any item isn't high enough level " +
+                $"to support the enchantments for it's slot, the loadout will fail to load.<br/>\n" +
+                $"Held Item/Armor/Accessories - These buttons to the same thing as the All button, but only load the specific enchantments for the selected category.<br/>\n" +
+                $"Add - Adds a new loadout (Max of 15).");
+
+			EnchantingTable.AddSubHeading("Efficiently Upgrading your enchantment loadout", 2);
+            EnchantingTable.AddParagraph($"* Load a blank loadout to return all enchantments to the storage.\n" +
+                $"* Favorite any enchantments you want to keep.\n" +
+                $"* Revert All to Basic.\n" +
+                $"* Quick Craft all desired enchantments.\n" +
+                $"* Update and load your original loadout.");
+
+			webPages.Add(EnchantingTable);
         }
         private static void AddEssence(List<WebPage> webPages, IEnumerable<EnchantmentEssence> enchantmentEssence) {
             WebPage Essence = new("Enchantment Essence", webPages.Where(wp => wp.HeaderName == "Main Page").First());
@@ -506,6 +569,28 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 $"Expert/Master mode at the same rates from the table.");
 
             webPages.Add(PowerBooster);
+        }
+        private static void AddOreBag(List<WebPage> webPages, OreBag oreBag) {
+            WebPage OreBag = new("Ore Bag", webPages.Where(wp => wp.HeaderName == "Main Page").First());
+            ItemInfo itemInfo = new(oreBag);
+            itemInfo.AddStatistics(OreBag);
+            itemInfo.AddDrops(OreBag);
+            itemInfo.AddInfo(OreBag);
+            itemInfo.AddRecipes(OreBag);
+            OreBag.AddParagraph($"The Ore Bag is a storage item similar to a piggy bank.  It is given to every player when starting the game.<br/>\n" +
+                $"By default, the ore bag automatically stores all items you pick up (that are allowed in the Ore Bag) such as ore, bars, gems, sand, and glass.<br/>\n" +
+                $"This bag is mainly for making inventory management with Weapon Enchantments easier, and is heavily integrated with Magic Storage so that you " +
+                $"don't have to dump the ore bag into magic storage.<br/>\n<br/>\n");
+            OreBag.AddParagraph($"To open the bag, right click it from your inventory.  This will display the Ore Bag UI.");
+			OreBag.AddPNG("OreBagUI");
+            OreBag.AddParagraph($"The Loot All, Deposit All, Quick Stack and Sort buttons work the same or very similar to the vanilla chest/piggy bank buttons.<br/>\n" +
+                $"The Toggle Vacuum button toggles items automatically being sent to the Ore Bag instead of your inventory.  Purple means on.<br/>\n" +
+                $"The Ore Bag holds up to {WEPlayer.OreBagSize} items.<br/>\n" +
+                $"The bag has a search bar and scroll bar to help find your items.<br/>\n" +
+                $"The Ore Bag UI can be moved by dragging anywhere on the UI that isn't a button or item slot.<br/>\n" +
+                $"The location of the ore bag UI is saved so you don't have to constantly reposition it.");
+
+            webPages.Add(OreBag);
         }
         private static void AddWitch(List<WebPage> webPages, IEnumerable<ModItem> modItems) {
             WebPage WitchPage = new("Witch", webPages.Where(wp => wp.HeaderName == "Main Page").First());
@@ -868,11 +953,13 @@ namespace WeaponEnchantments.Common.Utility.LogSystem
                 string modNpcFullName = modNPC.FullName;
 				name = npc.FullName();
 
-                if (displayPNG && modNPC.Mod.Name == "WeaponEnchantments")
+                bool weaponEnchantmentsNpc = modNPC.Mod.Name == "WeaponEnchantments";
+
+                if (displayPNG && weaponEnchantmentsNpc)
                     file = name.ToPNG();
 
                 if (link)
-                    pngLinkString = modNpcFullName.GetModNpcLink().ToExternalLink(name);
+                    pngLinkString = weaponEnchantmentsNpc ? name.ToLink() : modNpcFullName.GetModNpcLink().ToExternalLink(name);
             }
 
             return $"{file}{(file != null && link ? " " : "")}{(link ? pngLinkString : displayName ? " " + name : "")}";
