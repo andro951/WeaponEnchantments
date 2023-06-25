@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -536,7 +537,7 @@ namespace WeaponEnchantments.UI
 			return transferedAnyItem;
 		}
 		private static void Sort() {
-			WEPlayer.LocalWEPlayer.oreBagItems = WEPlayer.LocalWEPlayer.oreBagItems.OrderByDescending(i => i.type).ToArray();
+			UIManager.SortItems(ref WEPlayer.LocalWEPlayer.oreBagItems);
 			Type itemSlotType = typeof(ItemSlot);
 			int[] inventoryGlowTime = (int[])itemSlotType.GetField("inventoryGlowTime", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 			for (int i = 0; i < inventoryGlowTime.Length; i++) {
