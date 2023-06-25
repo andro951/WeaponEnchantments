@@ -417,9 +417,6 @@ namespace WeaponEnchantments.UI
 			SwapMouseItem(ref enchantmentItem);
 			enchantmentsArray[index] = enchantmentItem;
 		}
-		/// <summary>
-		/// Duplicate of Vanilla's ItemSorting.Sort() method, but allows larger array sizes.
-		/// </summary>
 		public static void SortItems(ref Item[] inv, bool updateOrder = true) {
 			for (int i = 0; i < inv.Length; i++) {
 				ref Item item = ref inv[i];
@@ -443,11 +440,13 @@ namespace WeaponEnchantments.UI
 						continue;
 
 					if (item.type == item2.type && item2.stack < item2.maxStack) {
-						/*
-						if (!ItemLoader.TryStackItems(item, item2, out_))
+						
+						if (!ItemLoader.TryStackItems(item, item2, out int numTransfered))
 							continue;
-						*/
-						///*
+						
+						num -= numTransfered;
+
+						/*
 						if (!ItemLoader.CanStack(item, item2))
 							continue;
 
@@ -458,7 +457,7 @@ namespace WeaponEnchantments.UI
 						item.stack += num2;
 						item2.stack -= num2;
 						num -= num2;
-						//*/
+						*/
 
 						if (item2.stack <= 0) {
 							item2 = new();

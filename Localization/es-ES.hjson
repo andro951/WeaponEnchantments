@@ -1081,6 +1081,16 @@ Mods: {
 			WorldAblazeEnchantmentEpic.DisplayName: Encantamiento de Mundo en llamas Épico
 			WorldAblazeEnchantmentLegendary.DisplayName: Encantamiento de Mundo en llamas Legendario
 			WorldAblazeEnchantmentRare.DisplayName: Encantamiento de Mundo En Llamas Raro
+			// PoisonEnchantmentBasic.DisplayName: Poison Enchantment Basic
+			// PoisonEnchantmentCommon.DisplayName: Poison Enchantment Common
+			// PoisonEnchantmentEpic.DisplayName: Poison Enchantment Epic
+			// PoisonEnchantmentLegendary.DisplayName: Poison Enchantment Legendary
+			// PoisonEnchantmentRare.DisplayName: Poison Enchantment Rare
+			// MagneticEnchantmentBasic.DisplayName: Magnetic Enchantment Basic
+			// MagneticEnchantmentCommon.DisplayName: Magnetic Enchantment Common
+			// MagneticEnchantmentEpic.DisplayName: Magnetic Enchantment Epic
+			// MagneticEnchantmentLegendary.DisplayName: Magnetic Enchantment Legendary
+			// MagneticEnchantmentRare.DisplayName: Magnetic Enchantment Rare
 		}
 
 		NPCNames: {

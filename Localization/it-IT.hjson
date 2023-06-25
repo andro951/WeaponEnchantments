@@ -1081,6 +1081,16 @@ Mods: {
 			WorldAblazeEnchantmentEpic.DisplayName: Epopea dell'incantesimo World Ablaze
 			WorldAblazeEnchantmentLegendary.DisplayName: Incantesimo World Ablaze Leggendario
 			WorldAblazeEnchantmentRare.DisplayName: Incantesimo World Ablaze Raro
+			// PoisonEnchantmentBasic.DisplayName: Poison Enchantment Basic
+			// PoisonEnchantmentCommon.DisplayName: Poison Enchantment Common
+			// PoisonEnchantmentEpic.DisplayName: Poison Enchantment Epic
+			// PoisonEnchantmentLegendary.DisplayName: Poison Enchantment Legendary
+			// PoisonEnchantmentRare.DisplayName: Poison Enchantment Rare
+			// MagneticEnchantmentBasic.DisplayName: Magnetic Enchantment Basic
+			// MagneticEnchantmentCommon.DisplayName: Magnetic Enchantment Common
+			// MagneticEnchantmentEpic.DisplayName: Magnetic Enchantment Epic
+			// MagneticEnchantmentLegendary.DisplayName: Magnetic Enchantment Legendary
+			// MagneticEnchantmentRare.DisplayName: Magnetic Enchantment Rare
 		}
 
 		NPCNames: {
