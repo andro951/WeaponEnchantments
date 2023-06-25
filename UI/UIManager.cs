@@ -417,6 +417,64 @@ namespace WeaponEnchantments.UI
 			SwapMouseItem(ref enchantmentItem);
 			enchantmentsArray[index] = enchantmentItem;
 		}
+		/// <summary>
+		/// Duplicate of Vanilla's ItemSorting.Sort() method, but allows larger array sizes.
+		/// </summary>
+		public static void SortItems(ref Item[] inv, bool updateOrder = true) {
+			for (int i = 0; i < inv.Length; i++) {
+				ref Item item = ref inv[i];
+				if (item == null) {
+					item = new();
+					continue;
+				}
+
+				if (item.IsAir || item.favorited || item.stack < 1 || item.maxStack <= item.stack)
+					continue;
+
+				int num = item.maxStack - item.stack;
+				for (int j = i + 1; j < inv.Length; j++) {
+					ref Item item2 = ref inv[j];
+					if (item2 == null) {
+						item2 = new();
+						continue;
+					}
+
+					if (item2.stack < 1 || item2.IsAir || item2.favorited)
+						continue;
+
+					if (item.type == item2.type && item2.stack < item2.maxStack) {
+						/*
+						if (!ItemLoader.TryStackItems(item, item2, out_))
+							continue;
+						*/
+						///*
+						if (!ItemLoader.CanStack(item, item2))
+							continue;
+
+						int num2 = item2.stack;
+						if (num < num2)
+							num2 = num;
+
+						item.stack += num2;
+						item2.stack -= num2;
+						num -= num2;
+						//*/
+
+						if (item2.stack <= 0) {
+							item2 = new();
+							Item temp = inv[j];
+							continue;
+						}
+
+						if (num <= 0)
+							break;
+					}
+				}
+			}
+
+			if (updateOrder)
+				inv = inv.OrderByDescending(i => i.type).ToArray();
+		}
 	}
 	public struct UIPanelData {
 		public Point TopLeft;

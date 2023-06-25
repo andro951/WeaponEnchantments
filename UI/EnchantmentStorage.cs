@@ -677,6 +677,7 @@ namespace WeaponEnchantments.UI
 			return transferedAnyItem;
 		}
 		private static void Sort() {
+			UIManager.SortItems(ref WEPlayer.LocalWEPlayer.enchantmentStorageItems, false);
 			IEnumerable<Item> containments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is ContainmentItem).OrderBy(i => i.type);
 			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
 			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.GetSortedEnchantments();
