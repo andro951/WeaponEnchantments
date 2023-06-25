@@ -112,9 +112,8 @@ namespace WeaponEnchantments.Content.NPCs
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
 			for (int k = 0; k < 255; k++) {
 				Player player = Main.player[k];
-				if (!player.active) {
+				if (!player.active)
 					continue;
-				}
 
 				if (player.inventory.Any(item => item.ModItem is Enchantment))
 					return true;

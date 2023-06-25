@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Encantamiento de cambio a clase mágica Épico
 			MagicClassSwapEnchantmentLegendary: Encantamiento de cambio a clase mágica Legendario
 			MagicClassSwapEnchantmentRare: Encantamiento de cambio a clase mágica Raro
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Encantamiento de Subditos Máximos Básico
 			MaxMinionsEnchantmentCommon: Encantamiento de Subditos Máximos Común
 			MaxMinionsEnchantmentEpic: Encantamiento de Subditos Máximos Épico
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Encantamiento de Ladrón de monedas Épico
 			PennyPinchingEnchantmentLegendary: Encantamiento de Ladrón de monedas Legendario
 			PennyPinchingEnchantmentRare: Encantamiento de Ladrón de monedas Raro
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Orgullo de los débiles Encantamiento básico
 			PrideOfTheWeakEnchantmentCommon: Orgullo de los débiles Encantamiento Común
 			PrideOfTheWeakEnchantmentEpic: Orgullo de los débiles Encantamiento épico
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Robo de vida
 				Luck: Suerte
 				MagicClassSwap: Cambio de clase mágica
+				Magnetic: Magnetic
 				ManaUsage1: Uso de maná reducido
 				ManaUsage2: Mayor uso de maná
 				MaxFallSpeed: Velocidad máxima de caída
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Proyectil de engendro al golpear
 				Peace: Paz
 				PennyPinching: Ladrón de Monedas
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: Orgullo de los débiles
 				ProjectileVelocity: Velocidad del proyectil
 				QuestFishChance: Probabilidad de Pescado de Misión

@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Magic Class Swap Incantesimo Epico
 			MagicClassSwapEnchantmentLegendary: Incantesimo di scambio di classe magica Leggendario
 			MagicClassSwapEnchantmentRare: Incantesimo di scambio di classe magica Raro
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Max Minion Incantesimo di base
 			MaxMinionsEnchantmentCommon: Max Minion Incantesimo Comune
 			MaxMinionsEnchantmentEpic: Max Minion Incantesimo Epico
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pizzicando Incantesimo Epico
 			PennyPinchingEnchantmentLegendary: Penny Pizzicando Incantesimo Leggendario
 			PennyPinchingEnchantmentRare: Penny Pizzica Incantesimo Raro
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: L'orgoglio dei deboli Incantesimo di base
 			PrideOfTheWeakEnchantmentCommon: Orgoglio dei deboli Incantesimo comune
 			PrideOfTheWeakEnchantmentEpic: L'epopea dell'incanto dell'orgoglio dei deboli
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Ruba la vita
 				Luck: Fortuna
 				MagicClassSwap: Scambio di classe magica
+				Magnetic: Magnetic
 				ManaUsage1: Consumo di mana ridotto
 				ManaUsage2: Aumento del consumo di mana
 				MaxFallSpeed: Velocità massima di caduta
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Sul proiettile di spawn colpito
 				Peace: Pace
 				PennyPinching: Penny che pizzica
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: L'orgoglio dei deboli
 				ProjectileVelocity: Velocità del proiettile
 				QuestFishChance: Probabilità Pesce Missione

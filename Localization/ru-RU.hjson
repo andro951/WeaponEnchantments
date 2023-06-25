@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: "Зачарование \"Замена класса - Маг\" (Эпическое)"
 			MagicClassSwapEnchantmentLegendary: "Зачарование \"Замена класса - Маг\" (Легендарное)"
 			MagicClassSwapEnchantmentRare: "Зачарование \"Замена класса - Маг\" (Редкое)"
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: "Зачарование \"Максимум прислужников\" (Базовое)"
 			MaxMinionsEnchantmentCommon: "Зачарование \"Максимум прислужников\" (Обычное)"
 			MaxMinionsEnchantmentEpic: "Зачарование \"Максимум прислужников\" (Эпическое)"
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: "Зачарование \"Скупость\" (Эпическое)"
 			PennyPinchingEnchantmentLegendary: "Зачарование \"Скупость\" (Легендарное)"
 			PennyPinchingEnchantmentRare: "Зачарование \"Скупость\" (Редкое)"
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: "Зачарование \"Гордость слабых\" (Базовое)"
 			PrideOfTheWeakEnchantmentCommon: "Зачарование \"Гордость слабых\" (Обычное)"
 			PrideOfTheWeakEnchantmentEpic: "Зачарование \"Гордость слабых\" (Эпическое)"
@@ -1142,6 +1152,7 @@ Mods: {
 				LifeSteal: Похищение жизни
 				Luck: Удача
 				MagicClassSwap: Замена класса - Маг
+				Magnetic: Magnetic
 				ManaUsage1: Уменьшение затрат маны
 				ManaUsage2: Увеличение затрат маны
 				MaxFallSpeed: Максимальная скорость падения
@@ -1171,6 +1182,8 @@ Mods: {
 				OnHitSpawnProjectile: Создает снаряды при ударе
 				Peace: Мир
 				PennyPinching: Скупость
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: Гордость слабых
 				ProjectileVelocity: Скорость снарядов
 				QuestFishChance: Шанс квестовой рыбы

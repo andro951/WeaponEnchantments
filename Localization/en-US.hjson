@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Magic Class Swap Enchantment Epic
 			MagicClassSwapEnchantmentLegendary: Magic Class Swap Enchantment Legendary
 			MagicClassSwapEnchantmentRare: Magic Class Swap Enchantment Rare
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Max Minions Enchantment Basic
 			MaxMinionsEnchantmentCommon: Max Minions Enchantment Common
 			MaxMinionsEnchantmentEpic: Max Minions Enchantment Epic
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantment Epic
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantment Legendary
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantment Rare
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Pride Of The Weak Enchantment Basic
 			PrideOfTheWeakEnchantmentCommon: Pride Of The Weak Enchantment Common
 			PrideOfTheWeakEnchantmentEpic: Pride Of The Weak Enchantment Epic
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Life Steal
 				Luck: Luck
 				MagicClassSwap: Magic Class Swap
+				Magnetic: Magnetic
 				ManaUsage1: Reduced Mana Usage
 				ManaUsage2: Increased Mana Usage
 				MaxFallSpeed: Max Fall Speed
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: On Hit Spawn Projectile
 				Peace: Peace
 				PennyPinching: Penny Pinching
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: Pride Of The Weak
 				ProjectileVelocity: Projectile Velocity
 				QuestFishChance: Quest Fish Chance

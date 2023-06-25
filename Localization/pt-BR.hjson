@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Encantamento Troca de Classe Mágica Épico
 			MagicClassSwapEnchantmentLegendary: Encantamento Troca de Classe Mágica Lendário
 			MagicClassSwapEnchantmentRare: Encantamento Troca de Classe Mágica Raro
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Encantamento Máximo de Minions Básico
 			MaxMinionsEnchantmentCommon: Encantamento Máximo de Minions Comum
 			MaxMinionsEnchantmentEpic: Encantamento Máximo de Minions Épico
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Encatamento Mão de vaca Épico
 			PennyPinchingEnchantmentLegendary: Encatamento Mão de vaca Lendário
 			PennyPinchingEnchantmentRare: Encatamento Mão de vaca Raro
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Orgulho do Fraco Encantamento Básico
 			PrideOfTheWeakEnchantmentCommon: Orgulho do Fraco Encantamento Comum
 			PrideOfTheWeakEnchantmentEpic: Orgulho do Fraco Encantamento Épico
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Roubo de Vida
 				Luck: Sorte
 				MagicClassSwap: Troca de classe mágica
+				Magnetic: Magnetic
 				ManaUsage1: Uso de Mana Reduzido
 				ManaUsage2: Aumento do uso de mana
 				MaxFallSpeed: Velocidade máxima de queda
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Geração de Projétil ao Acertar
 				Peace: Paz
 				PennyPinching: Mão de Vaca
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: orgulho dos fracos
 				ProjectileVelocity: Velocidade do projétil
 				QuestFishChance: Chance de Peixe de Missão

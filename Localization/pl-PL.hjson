@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Epicka zamiana klas magicznych
 			MagicClassSwapEnchantmentLegendary: Legendarna zamiana klasy magii Legendarne zaklęcie
 			MagicClassSwapEnchantmentRare: Zaklęcie zamiany klasy magii Rzadkie
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Podstawowe zaklinanie maks. stworów
 			MaxMinionsEnchantmentCommon: Maksimum stworów Zaklęcie Zwykłe
 			MaxMinionsEnchantmentEpic: Epickie zaklęcie Max Minions
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Epickie zaklęcie szczypiące grosz
 			PennyPinchingEnchantmentLegendary: Penny Szczypanie Zaklęcie Legendarne
 			PennyPinchingEnchantmentRare: Zaklęcie Szczypiące Penny Rzadkie
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Podstawowe zaklęcie Duma słabych
 			PrideOfTheWeakEnchantmentCommon: Duma Słabego Zaklęcia Wspólne
 			PrideOfTheWeakEnchantmentEpic: Epicka duma słabych zaklęć
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Kradzież życia
 				Luck: Szczęście
 				MagicClassSwap: Zamiana klasy magii
+				Magnetic: Magnetic
 				ManaUsage1: Zmniejszone zużycie many
 				ManaUsage2: Zwiększone zużycie many
 				MaxFallSpeed: Maksymalna prędkość upadku
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Po trafieniu pocisk odradza się
 				Peace: Pokój
 				PennyPinching: szczypta grosza
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: Duma słabych
 				ProjectileVelocity: Prędkość pocisku
 				QuestFishChance: Szansa na ryby

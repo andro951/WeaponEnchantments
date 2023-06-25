@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe magique
 			MagicClassSwapEnchantmentLegendary: Échange de classe magique Enchantement Légendaire
 			MagicClassSwapEnchantmentRare: Enchantement d'échange de classe magique rare
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Enchantement de Sbires max de base
 			MaxMinionsEnchantmentCommon: Enchantement de Sbires max Commun
 			MaxMinionsEnchantmentEpic: Épique d'enchantement Max Minions
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantement épique
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantement Légendaire
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantement Rare
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Fierté de l'enchantement faible de base
 			PrideOfTheWeakEnchantmentCommon: Fierté de l'enchantement faible commun
 			PrideOfTheWeakEnchantmentEpic: Fierté de l'épopée d'enchantement faible
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Vol de vie
 				Luck: Chance
 				MagicClassSwap: Échange de classe magique
+				Magnetic: Magnetic
 				ManaUsage1: Utilisation de mana réduite
 				ManaUsage2: Augmentation de l'utilisation du mana
 				MaxFallSpeed: Vitesse de chute maximale
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Projectile d'apparition sur coup
 				Peace: Paix
 				PennyPinching: Penny pincement
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: La fierté des faibles
 				ProjectileVelocity: Vitesse du projectile
 				QuestFishChance: Chance de poisson de quête

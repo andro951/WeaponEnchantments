@@ -31,6 +31,7 @@ namespace WeaponEnchantments.Items
 		public static float[] values = new float[tierNames.Length];
 		public static float[] xpPerEssence = new float[tierNames.Length];
 		public static float valuePerXP;
+		public const int MAX_STACK = 999999;
 
 		private int entitySize = 20;
 		int glowBrightness;
@@ -120,7 +121,7 @@ namespace WeaponEnchantments.Items
 		public override void SetDefaults() {
 			SetupStaticValues();
 			Item.value = (int)values[EssenceTier];
-			Item.maxStack = 999999;
+			Item.maxStack = MAX_STACK;
 			Item.width = entitySize;
 			Item.height = entitySize;
 			Item.rare = GetRarityFromTier(EssenceTier);

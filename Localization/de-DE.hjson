@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: Magische Klassentausch-Verzauberung Epic
 			MagicClassSwapEnchantmentLegendary: Magische Klassentausch-Verzauberung Legendär
 			MagicClassSwapEnchantmentRare: Magische Klassentausch-Verzauberung Selten
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: Max Günstlinge Verzauberung Basic
 			MaxMinionsEnchantmentCommon: Max Günstlinge Verzauberung Gewöhnlich
 			MaxMinionsEnchantmentEpic: Max Minions Verzauberung Epic
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: Penny Pinching Enchantment Epos
 			PennyPinchingEnchantmentLegendary: Penny Pinching Enchantment Legendär
 			PennyPinchingEnchantmentRare: Penny Pinching Enchantment Selten
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: Stolz der schwachen Verzauberung Basic
 			PrideOfTheWeakEnchantmentCommon: Stolz der schwachen Verzauberung
 			PrideOfTheWeakEnchantmentEpic: Stolz der schwachen Verzauberung Epos
@@ -1145,6 +1155,7 @@ Mods: {
 				LifeSteal: Lebensraub
 				Luck: Glück
 				MagicClassSwap: Zauberklassentausch
+				Magnetic: Magnetic
 				ManaUsage1: Reduzierter Manaverbrauch
 				ManaUsage2: Erhöhter Manaverbrauch
 				MaxFallSpeed: Maximale Fallgeschwindigkeit
@@ -1174,6 +1185,8 @@ Mods: {
 				OnHitSpawnProjectile: Spawn-Projektil bei Treffer
 				Peace: Frieden
 				PennyPinching: Pfennigkneifen
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: Stolz der Schwachen
 				ProjectileVelocity: Projektilgeschwindigkeit
 				QuestFishChance: Quest-Fisch-Chance

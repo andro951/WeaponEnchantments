@@ -187,6 +187,11 @@ Mods: {
 			MagicClassSwapEnchantmentEpic: 魔法类型伤害转换附魔史诗
 			MagicClassSwapEnchantmentLegendary: 魔法类型伤害转换附魔传奇
 			MagicClassSwapEnchantmentRare: 魔法类型伤害转换附魔稀有
+			MagneticEnchantmentBasic: Magnetic Enchantment Basic
+			MagneticEnchantmentCommon: Magnetic Enchantment Common
+			MagneticEnchantmentEpic: Magnetic Enchantment Epic
+			MagneticEnchantmentLegendary: Magnetic Enchantment Legendary
+			MagneticEnchantmentRare: Magnetic Enchantment Rare
 			MaxMinionsEnchantmentBasic: 最大仆从附魔基元
 			MaxMinionsEnchantmentCommon: 最大仆从附魔普通
 			MaxMinionsEnchantmentEpic: 最大仆从附魔史诗
@@ -247,6 +252,11 @@ Mods: {
 			PennyPinchingEnchantmentEpic: 锱铢必较附魔史诗
 			PennyPinchingEnchantmentLegendary: 锱铢必较附魔传奇
 			PennyPinchingEnchantmentRare: 锱铢必较附魔稀有
+			PoisonEnchantmentBasic: Poison Enchantment Basic
+			PoisonEnchantmentCommon: Poison Enchantment Common
+			PoisonEnchantmentEpic: Poison Enchantment Epic
+			PoisonEnchantmentLegendary: Poison Enchantment Legendary
+			PoisonEnchantmentRare: Poison Enchantment Rare
 			PrideOfTheWeakEnchantmentBasic: 弱者的意志基元
 			PrideOfTheWeakEnchantmentCommon: 弱者的意志普通
 			PrideOfTheWeakEnchantmentEpic: 弱者的意志史诗
@@ -1127,6 +1137,7 @@ Mods: {
 				LifeSteal: 生命窃取
 				Luck: 运气
 				MagicClassSwap: 魔法类型伤害转换
+				Magnetic: Magnetic
 				ManaUsage1: 减少魔力消耗
 				ManaUsage2: 增加魔力消耗
 				MaxFallSpeed: 最大降速
@@ -1156,6 +1167,8 @@ Mods: {
 				OnHitSpawnProjectile: 命中时生成弹幕
 				Peace: 和平
 				PennyPinching: 锱铢必较
+				PickupRange: Pickup Range
+				Poison: Poison
 				PrideOfTheWeak: 弱者的意志
 				ProjectileVelocity: 子弹速度
 				QuestFishChance: 任务鱼几率
