@@ -36,7 +36,8 @@ namespace WeaponEnchantments.Common
             { "Speed", "AttackSpeed" },
             { "Control", "MobilityControl" },
             { "MoveSpeed", "MovementSpeed" },
-	        { "PhaseJump", "SolarDash" }
+	        { "PhaseJump", "SolarDash" },
+            { "ShadowFlame", "Shadowflame" }
         };
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> {
             { "SuperRare", 3 },
@@ -97,13 +98,13 @@ namespace WeaponEnchantments.Common
                 if (loader.ModdedIsAValidEquipmentSlotForIteration(num, player)) {
                     Item accessoryClone = loader.Get(num).FunctionalItem.Clone();
                     if (!accessoryClone.NullOrAir()) {
-                        ReplaceOldItem(ref accessoryClone, player, 91);
+                        ReplaceOldItem(ref accessoryClone, player);
                         loader.Get(num).FunctionalItem = accessoryClone;
 				    }
 
                     Item vanityClone = loader.Get(num).VanityItem.Clone();
                     if (!vanityClone.NullOrAir()) {
-                        ReplaceOldItem(ref vanityClone, player, 91);
+                        ReplaceOldItem(ref vanityClone, player);
                         loader.Get(num).VanityItem = vanityClone;
 				    }
                 }
@@ -113,16 +114,22 @@ namespace WeaponEnchantments.Common
             ReplaceOldItems(player.inventory, player);
 
             //"bank1".Log();
-            ReplaceOldItems(player.bank.item, player, 50, -2);
+            ReplaceOldItems(player.bank.item, player);
 
             //"bank2".Log();
-            ReplaceOldItems(player.bank2.item, player, 50, -3);
+            ReplaceOldItems(player.bank2.item, player);
 
             //"bank3".Log();
-            ReplaceOldItems(player.bank3.item, player, 50, -4);
+            ReplaceOldItems(player.bank3.item, player);
 
             //"bank4".Log();
-            ReplaceOldItems(player.bank4.item, player, 50, -5);
+            ReplaceOldItems(player.bank4.item, player);
+
+            if (player.TryGetWEPlayer(out WEPlayer wePlayer)) {
+				ReplaceOldItems(wePlayer.oreBagItems, player);
+				ReplaceOldItems(wePlayer.enchantingTableEssence, player);
+				ReplaceOldItems(wePlayer.enchantmentStorageItems, player);
+			}
 
 			#region Debug
 
@@ -130,30 +137,30 @@ namespace WeaponEnchantments.Common
 
 			#endregion
 		}
-		private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0, int bank = -1) {
+		private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0) {
 
             #region Debug
 
-            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if (LogMethods.debugging) ($"\\/ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 
 			for (int i = 0; i < inventory.Length; i++) {
-                 ReplaceOldItem(ref inventory[i], player, itemSlotNumber + i, bank);
+                 ReplaceOldItem(ref inventory[i], player);
             }
 
             #region Debug
 
-            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+            if (LogMethods.debugging) ($"/\\ReplaceOldItems(inventory, player: {player.S()}, itemSlotNumber: {itemSlotNumber})").Log();
 
 			#endregion
 		}
-		public static void ReplaceOldItem(ref Item item, Player player = null, int itemSlotNumber = 0, int bank = -1, bool removeToInventory = false) {
-            if(item != null && !item.IsAir) {
+		public static void ReplaceOldItem(ref Item item, Player player = null) {
+            if (item != null && !item.IsAir) {
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if (LogMethods.debugging) ($"\\/ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 
@@ -237,7 +244,7 @@ namespace WeaponEnchantments.Common
                     for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
                         Item enchantmentItem = enchantedItem.enchantments[i];
                         if (enchantmentItem.ModItem is UnloadedItem) {
-                            ReplaceOldItem(ref enchantmentItem, player, removeToInventory: true);
+                            ReplaceOldItem(ref enchantmentItem, player);
                         }
                     }
 
@@ -249,7 +256,7 @@ namespace WeaponEnchantments.Common
 
                 #region Debug
 
-                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()}, itemSlotNumber: {itemSlotNumber}, bank: {bank})").Log();
+                if (LogMethods.debugging) ($"/\\ReplaceOldItem(item: {item.S()}, player: {player.S()})").Log();
 
 				#endregion
 			}

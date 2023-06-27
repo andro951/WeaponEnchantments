@@ -282,11 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Rogue Class Swap Incantesimo Epico
 			RogueClassSwapEnchantmentLegendary: Incantesimo di scambio di classe ladro Leggendario
 			RogueClassSwapEnchantmentRare: Incantesimo di scambio di classe ladro Raro
-			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
-			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
-			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
-			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
-			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
+			ShadowflameEnchantmentBasic: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic: Shine Incantesimo Base
 			ShineEnchantmentCommon: Brillare Incantesimo Comune
 			ShineEnchantmentEpic: Brillare Incantesimo epico
@@ -1198,7 +1198,7 @@ Mods: {
 				RangedClassSwap: Scambio di classe a distanza
 				ReducedManaUsage: Consumo di mana ridotto
 				RogueClassSwap: Scambio di classe canaglia
-				ShadowFlame: Shadow Flame
+				Shadowflame: Shadowflame
 				Shine: Splendere
 				Size: Dimensione
 				SolarDash: Scatto solare
