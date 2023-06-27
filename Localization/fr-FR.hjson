@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Épopée d'enchantement d'échange de classe Rogue
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap Enchantement Légendaire
 			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantement Rare
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: Shine Enchantement Basique
 			ShineEnchantmentCommon: Enchantement de brillance commun
 			ShineEnchantmentEpic: Épopée d'enchantement brillant
@@ -1193,6 +1198,7 @@ Mods: {
 				RangedClassSwap: Échange de classe à distance
 				ReducedManaUsage: Utilisation de mana réduite
 				RogueClassSwap: Échange de classe Rogue
+				ShadowFlame: Shadow Flame
 				Shine: Briller
 				Size: Taille
 				SolarDash: Tiret solaire

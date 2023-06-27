@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Encantamento Troca de Classe Ladino Épico
 			RogueClassSwapEnchantmentLegendary: Encantamento Troca de Classe Ladino Lendário
 			RogueClassSwapEnchantmentRare: Encantamento Troca de Classe Ladino Raro
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: Encantamento Brilhante Básico
 			ShineEnchantmentCommon: Encantamento Brilho Comum
 			ShineEnchantmentEpic: Épico de Encantamento Brilhante
@@ -1193,6 +1198,7 @@ Mods: {
 				RangedClassSwap: Troca de classe de atirador
 				ReducedManaUsage: Uso de Mana Reduzido
 				RogueClassSwap: Troca de classe de ladino
+				ShadowFlame: Shadow Flame
 				Shine: Brilhar
 				Size: Tamanho
 				SolarDash: Investida Solar

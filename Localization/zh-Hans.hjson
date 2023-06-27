@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: 盗贼类型伤害转换附魔史诗
 			RogueClassSwapEnchantmentLegendary: 盗贼类型伤害转换附魔传奇
 			RogueClassSwapEnchantmentRare: 盗贼类型伤害转换附魔稀有
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: 闪耀魔法基础
 			ShineEnchantmentCommon: 闪耀附魔常见
 			ShineEnchantmentEpic: 闪耀魔法史诗
@@ -1175,6 +1180,7 @@ Mods: {
 				RangedClassSwap: 远程类型伤害转换
 				ReducedManaUsage: 减少魔力消耗
 				RogueClassSwap: 盗贼类型伤害转换
+				ShadowFlame: Shadow Flame
 				Shine: 闪耀
 				Size: 大小
 				SolarDash: 太阳能短跑

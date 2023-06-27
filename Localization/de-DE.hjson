@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Rogue Class Swap Enchantment Epic
 			RogueClassSwapEnchantmentLegendary: Rogue Class Swap-Verzauberung Legendär
 			RogueClassSwapEnchantmentRare: Rogue Class Swap Enchantment Selten
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: Glänzen Sie Verzauberung Basic
 			ShineEnchantmentCommon: Glänzende Verzauberung
 			ShineEnchantmentEpic: Shine Enchantment Episch
@@ -1193,6 +1198,7 @@ Mods: {
 				RangedClassSwap: Fernkampf-Klassentausch
 				ReducedManaUsage: Reduzierter Manaverbrauch
 				RogueClassSwap: Rogue-Klassentausch
+				ShadowFlame: Shadow Flame
 				Shine: Scheinen
 				Size: Größe
 				SolarDash: Solar Dash

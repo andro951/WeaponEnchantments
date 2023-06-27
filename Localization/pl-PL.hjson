@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Epic zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentLegendary: Legendarne zaklęcie zaklęcia łotrzyka
 			RogueClassSwapEnchantmentRare: Rzadkie zaklęcie zmiany klasy Rzadkie
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: Podstawowe zaklęcie blasku
 			ShineEnchantmentCommon: Pospolity zaklęcie blasku
 			ShineEnchantmentEpic: Epickie zaklęcie blasku
@@ -1193,6 +1198,7 @@ Mods: {
 				RangedClassSwap: Zamiana klas dystansowych
 				ReducedManaUsage: Zmniejszone zużycie many
 				RogueClassSwap: Zmiana klasy łotrzyka
+				ShadowFlame: Shadow Flame
 				Shine: Świecić
 				Size: Rozmiar
 				SolarDash: Słoneczna kreska

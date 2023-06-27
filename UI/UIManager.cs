@@ -446,9 +446,6 @@ namespace WeaponEnchantments.UI
 			SwapMouseItem(ref enchantmentItem);
 			enchantmentsArray[index] = enchantmentItem;
 		}
-		/// <summary>
-		/// Duplicate of Vanilla's ItemSorting.Sort() method, but allows larger array sizes.
-		/// </summary>
 		public static void SortItems(ref Item[] inv, bool updateOrder = true) {
 			for (int i = 0; i < inv.Length; i++) {
 				ref Item item = ref inv[i];

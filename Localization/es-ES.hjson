@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: Encantamiento de cambio a clase pícaro Épico
 			RogueClassSwapEnchantmentLegendary: Encantamiento de cambio a clase pícaro Legendario
 			RogueClassSwapEnchantmentRare: Encantamiento de cambio a clase de pícaro Raro
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: Brillo Encantamiento Básico
 			ShineEnchantmentCommon: Shine Encantamiento Común
 			ShineEnchantmentEpic: Epopeya de encantamiento brillante
@@ -1193,6 +1198,7 @@ Mods: {
 				RangedClassSwap: Intercambio de clase a distancia
 				ReducedManaUsage: Uso de maná reducido
 				RogueClassSwap: Cambio de clase a pícaro
+				ShadowFlame: Shadow Flame
 				Shine: Brillar
 				Size: Tamaño
 				SolarDash: Embestida solar

@@ -282,6 +282,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic: "Зачарование \"Замена класса - Разбойник\" (Эпическое)"
 			RogueClassSwapEnchantmentLegendary: "Зачарование \"Замена класса - Разбойник\" (Легендарное)"
 			RogueClassSwapEnchantmentRare: "Зачарование \"Замена класса - Разбойник\" (Редкое)"
+			ShadowFlameEnchantmentBasic: Shadow Flame Enchantment Basic
+			ShadowFlameEnchantmentCommon: Shadow Flame Enchantment Common
+			ShadowFlameEnchantmentEpic: Shadow Flame Enchantment Epic
+			ShadowFlameEnchantmentLegendary: Shadow Flame Enchantment Legendary
+			ShadowFlameEnchantmentRare: Shadow Flame Enchantment Rare
 			ShineEnchantmentBasic: "Зачарование \"Сияние\" (Базовое)"
 			ShineEnchantmentCommon: "Зачарование \"Сияние\" (Обычное)"
 			ShineEnchantmentEpic: "Зачарование \"Сияние\" (Эпическое)"
@@ -1190,6 +1195,7 @@ Mods: {
 				RangedClassSwap: Замена класса - Стрелок
 				ReducedManaUsage: Сниженный расход маны
 				RogueClassSwap: Замена класса - Разбойник
+				ShadowFlame: Shadow Flame
 				Shine: Сияние
 				Size: Размер
 				SolarDash: Солнечный рывок
