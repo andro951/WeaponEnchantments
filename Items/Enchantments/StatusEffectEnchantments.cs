@@ -41,7 +41,6 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string Designer => "Princess of Evil";
 	}
 
-	//DODO: Split into seperate files
 	public abstract class OnFireEnchantment : StatusEffectEnchantment {
 		public override short StatusEffect => BuffID.OnFire;
 		public override Tuple<int, int> CraftingIngredient => new Tuple<int, int>(ItemID.Gel, 33);
@@ -139,4 +138,25 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class DaybreakEnchantmentRare : DaybreakEnchantment { }
 	public class DaybreakEnchantmentEpic : DaybreakEnchantment { }
 	public class DaybreakEnchantmentLegendary : DaybreakEnchantment { }
+
+	public abstract class ShadowFlameEnchantment : StatusEffectEnchantment
+	{
+		public override short StatusEffect => BuffID.ShadowFlame;
+		public override int LowestCraftableTier => 1;
+		public override string Artist => "Princess of Evil";
+		public override string ArtModifiedBy => "andro951";
+		public override string Designer => "andro951";
+	}
+	public class ShadowFlameEnchantmentBasic : ShadowFlameEnchantment
+	{
+		public override SellCondition SellCondition => SellCondition.HardMode;
+		public override List<DropData> NpcDropTypes => new() {
+			new(NPCID.GoblinSummoner, chance: 0.5f)
+		};
+
+	}
+	public class ShadowFlameEnchantmentCommon : ShadowFlameEnchantment { }
+	public class ShadowFlameEnchantmentRare : ShadowFlameEnchantment { }
+	public class ShadowFlameEnchantmentEpic : ShadowFlameEnchantment { }
+	public class ShadowFlameEnchantmentLegendary : ShadowFlameEnchantment { }
 }
