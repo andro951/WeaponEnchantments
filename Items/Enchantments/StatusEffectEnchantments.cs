@@ -139,7 +139,7 @@ namespace WeaponEnchantments.Items.Enchantments
 	public class DaybreakEnchantmentEpic : DaybreakEnchantment { }
 	public class DaybreakEnchantmentLegendary : DaybreakEnchantment { }
 
-	public abstract class ShadowFlameEnchantment : StatusEffectEnchantment
+	public abstract class ShadowflameEnchantment : StatusEffectEnchantment
 	{
 		public override short StatusEffect => BuffID.ShadowFlame;
 		public override int LowestCraftableTier => 1;
@@ -147,7 +147,7 @@ namespace WeaponEnchantments.Items.Enchantments
 		public override string ArtModifiedBy => "andro951";
 		public override string Designer => "andro951";
 	}
-	public class ShadowFlameEnchantmentBasic : ShadowFlameEnchantment
+	public class ShadowflameEnchantmentBasic : ShadowflameEnchantment
 	{
 		public override SellCondition SellCondition => SellCondition.HardMode;
 		public override List<DropData> NpcDropTypes => new() {
@@ -155,8 +155,8 @@ namespace WeaponEnchantments.Items.Enchantments
 		};
 
 	}
-	public class ShadowFlameEnchantmentCommon : ShadowFlameEnchantment { }
-	public class ShadowFlameEnchantmentRare : ShadowFlameEnchantment { }
-	public class ShadowFlameEnchantmentEpic : ShadowFlameEnchantment { }
-	public class ShadowFlameEnchantmentLegendary : ShadowFlameEnchantment { }
+	public class ShadowflameEnchantmentCommon : ShadowflameEnchantment { }
+	public class ShadowflameEnchantmentRare : ShadowflameEnchantment { }
+	public class ShadowflameEnchantmentEpic : ShadowflameEnchantment { }
+	public class ShadowflameEnchantmentLegendary : ShadowflameEnchantment { }
 }
