@@ -1002,6 +1002,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: Rogue Class Swap Enchantment Epic
 			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap-Verzauberung Legendär
 			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Selten
+			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic.DisplayName: Glänzen Sie Verzauberung Basic
 			ShineEnchantmentCommon.DisplayName: Glänzende Verzauberung
 			ShineEnchantmentEpic.DisplayName: Shine Enchantment Episch
@@ -1307,6 +1312,7 @@ Mods: {
 				RangedClassSwap: Fernkampf-Klassentausch
 				ReducedManaUsage: Reduzierter Manaverbrauch
 				RogueClassSwap: Rogue-Klassentausch
+				Shadowflame: Shadowflame
 				Shine: Scheinen
 				Size: Größe
 				SolarDash: Solar Dash
@@ -1495,6 +1501,16 @@ Mods: {
 
 		Configs: {
 			ServerConfig: {
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Tooltip: ""
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+				}
+
 				DCUStart: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
 					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
@@ -1716,16 +1732,6 @@ Mods: {
 				}
 
 				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
 			}
 
 			ArmorDamageReduction: {

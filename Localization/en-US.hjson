@@ -1002,6 +1002,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: Rogue Class Swap Enchantment Epic
 			RogueClassSwapEnchantmentLegendary.DisplayName: Rogue Class Swap Enchantment Legendary
 			RogueClassSwapEnchantmentRare.DisplayName: Rogue Class Swap Enchantment Rare
+			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic.DisplayName: Shine Enchantment Basic
 			ShineEnchantmentCommon.DisplayName: Shine Enchantment Common
 			ShineEnchantmentEpic.DisplayName: Shine Enchantment Epic
@@ -1307,6 +1312,7 @@ Mods: {
 				RangedClassSwap: Ranged Class Swap
 				ReducedManaUsage: Reduced Mana Usage
 				RogueClassSwap: Rogue Class Swap
+				Shadowflame: Shadowflame
 				Shine: Shine
 				Size: Size
 				SolarDash: Solar Dash
@@ -1495,6 +1501,16 @@ Mods: {
 
 		Configs: {
 			ServerConfig: {
+				PrintWikiInfo: {
+					Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+
+				DisableResearch: {
+					Tooltip: ""
+					Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+				}
+
 				DCUStart: {
 					Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
 					Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
@@ -1716,16 +1732,6 @@ Mods: {
 				}
 
 				DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				DisableResearch: {
-					Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
 			}
 
 			ArmorDamageReduction: {

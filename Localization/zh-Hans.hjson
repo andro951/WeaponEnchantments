@@ -984,6 +984,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: 盗贼类型伤害转换附魔史诗
 			RogueClassSwapEnchantmentLegendary.DisplayName: 盗贼类型伤害转换附魔传奇
 			RogueClassSwapEnchantmentRare.DisplayName: 盗贼类型伤害转换附魔稀有
+			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic.DisplayName: 闪耀魔法基础
 			ShineEnchantmentCommon.DisplayName: 闪耀附魔常见
 			ShineEnchantmentEpic.DisplayName: 闪耀魔法史诗
@@ -1289,6 +1294,7 @@ Mods: {
 				RangedClassSwap: 远程类型伤害转换
 				ReducedManaUsage: 减少魔力消耗
 				RogueClassSwap: 盗贼类型伤害转换
+				Shadowflame: Shadowflame
 				Shine: 闪耀
 				Size: 大小
 				SolarDash: 太阳能短跑
@@ -1477,6 +1483,16 @@ Mods: {
 
 		Configs: {
 			ServerConfig: {
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Tooltip: ""
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+				}
+
 				DCUStart: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
 					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
@@ -1698,16 +1714,6 @@ Mods: {
 				}
 
 				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
 			}
 
 			ArmorDamageReduction: {

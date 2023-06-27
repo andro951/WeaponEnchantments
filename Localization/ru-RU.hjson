@@ -999,6 +999,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: Зачарование "Замена класса - Разбойник" (Эпическое)
 			RogueClassSwapEnchantmentLegendary.DisplayName: Зачарование "Замена класса - Разбойник" (Легендарное)
 			RogueClassSwapEnchantmentRare.DisplayName: Зачарование "Замена класса - Разбойник" (Редкое)
+			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic.DisplayName: Зачарование "Сияние" (Базовое)
 			ShineEnchantmentCommon.DisplayName: Зачарование "Сияние" (Обычное)
 			ShineEnchantmentEpic.DisplayName: Зачарование "Сияние" (Эпическое)
@@ -1304,6 +1309,7 @@ Mods: {
 				RangedClassSwap: Замена класса - Стрелок
 				ReducedManaUsage: Сниженный расход маны
 				RogueClassSwap: Замена класса - Разбойник
+				Shadowflame: Shadowflame
 				Shine: Сияние
 				Size: Размер
 				SolarDash: Солнечный рывок
@@ -1492,6 +1498,16 @@ Mods: {
 
 		Configs: {
 			ServerConfig: {
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Tooltip: ""
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+				}
+
 				DCUStart: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
 					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
@@ -1713,16 +1729,6 @@ Mods: {
 				}
 
 				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
 			}
 
 			ArmorDamageReduction: {

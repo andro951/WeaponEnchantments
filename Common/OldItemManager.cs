@@ -37,10 +37,9 @@ namespace WeaponEnchantments.Common
             { "Control", "MobilityControl" },
             { "MoveSpeed", "MovementSpeed" },
 	        { "PhaseJump", "SolarDash" },
-            { "ShadowFlame", "Shadowflame" }
-	        { "PhaseJump", "SolarDash" },
-            { "ArmorPenetration", "PercentArmorPenetration" }
-        };
+            { "ArmorPenetration", "PercentArmorPenetration" },
+			{ "ShadowFlame", "Shadowflame" }
+		};
         private static Dictionary<string, int> searchWordNames = new Dictionary<string, int> {
             { "SuperRare", 3 },
             { "UltraRare", 4 }

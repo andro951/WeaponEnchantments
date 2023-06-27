@@ -1002,6 +1002,11 @@ Mods: {
 			RogueClassSwapEnchantmentEpic.DisplayName: Encantamento Troca de Classe Ladino Épico
 			RogueClassSwapEnchantmentLegendary.DisplayName: Encantamento Troca de Classe Ladino Lendário
 			RogueClassSwapEnchantmentRare.DisplayName: Encantamento Troca de Classe Ladino Raro
+			ShadowflameEnchantmentBasic.DisplayName: Shadowflame Enchantment Basic
+			ShadowflameEnchantmentCommon.DisplayName: Shadowflame Enchantment Common
+			ShadowflameEnchantmentEpic.DisplayName: Shadowflame Enchantment Epic
+			ShadowflameEnchantmentLegendary.DisplayName: Shadowflame Enchantment Legendary
+			ShadowflameEnchantmentRare.DisplayName: Shadowflame Enchantment Rare
 			ShineEnchantmentBasic.DisplayName: Encantamento Brilhante Básico
 			ShineEnchantmentCommon.DisplayName: Encantamento Brilho Comum
 			ShineEnchantmentEpic.DisplayName: Épico de Encantamento Brilhante
@@ -1307,6 +1312,7 @@ Mods: {
 				RangedClassSwap: Troca de classe de atirador
 				ReducedManaUsage: Uso de Mana Reduzido
 				RogueClassSwap: Troca de classe de ladino
+				Shadowflame: Shadowflame
 				Shine: Brilhar
 				Size: Tamanho
 				SolarDash: Investida Solar
@@ -1495,6 +1501,16 @@ Mods: {
 
 		Configs: {
 			ServerConfig: {
+				PrintWikiInfo: {
+					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
+					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
+				}
+
+				DisableResearch: {
+					// Tooltip: ""
+					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
+				}
+
 				DCUStart: {
 					// Tooltip: "{$Mods.WeaponEnchantments.Config.DCUStart.Tooltip}"
 					// Label: "{$Mods.WeaponEnchantments.Config.DCUStart.Label}"
@@ -1716,16 +1732,6 @@ Mods: {
 				}
 
 				// DisplayName: "{$Mods.WeaponEnchantments.Config.ServerConfig.Label}"
-
-				DisableResearch: {
-					// Label: "{$Mods.WeaponEnchantments.Config.DisableResearch.Label}"
-					// Tooltip: ""
-				}
-
-				PrintWikiInfo: {
-					// Label: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Label}"
-					// Tooltip: "{$Mods.WeaponEnchantments.Config.PrintWikiInfo.Tooltip}"
-				}
 			}
 
 			ArmorDamageReduction: {
