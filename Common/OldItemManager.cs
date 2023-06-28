@@ -139,6 +139,8 @@ namespace WeaponEnchantments.Common
 			#endregion
 		}
 		private static void ReplaceOldItems(Item[] inventory, Player player = null, int itemSlotNumber = 0) {
+            if (inventory == null)
+                return;
 
             #region Debug
 
