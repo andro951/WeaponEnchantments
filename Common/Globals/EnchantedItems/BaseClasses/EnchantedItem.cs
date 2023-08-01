@@ -1472,7 +1472,7 @@ namespace WeaponEnchantments.Common.Globals
                             int uniqueItemSlot = EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, item);
                             bool cantFit = false;
                             //int slotToUse = enchantment.Utility && enchantedItem.enchantments[j].IsAir ? 4 : j;
-                            if (!EnchantingTableUI.UseEnchantmentSlot(item, j, j == EnchantingTableUI.MaxEnchantmentSlots - 1, true))
+                            if (!EnchantingTableUI.UseEnchantmentSlot(item, j, true))
                                 cantFit = true;
 
                             if (!cantFit && !EnchantingTableUI.EnchantmentAllowedOnItem(item, enchantment))

@@ -292,7 +292,23 @@ namespace WeaponEnchantments.Common {
         //public IEnumerable<EnchantmentEffect> GetAllEnchantmentEffects() {
         //    return ExtractEnchantmentEffects(GetEnchantedItems());
         //}
+        public void CheckRemoveEnchantments() {
+            Player player = wePlayer.Player;
+			if (!HeldItem.NullOrAir())
+				HeldItem.CheckRemoveEnchantments(player);
 
+			for (int i = 0; i < Armor.Length; i++) {
+				ref Item item = ref Armor[i];
+				if (!item.NullOrAir())
+					item.CheckRemoveEnchantments(player);
+			}
+
+			for (int i = 0; i < Accessories.Length; i++) {
+				ref Item item = ref Accessories[i];
+				if (!item.NullOrAir())
+					item.CheckRemoveEnchantments(player);
+			}
+		}
         public void UpdateArmorEnchantmentEffects() {
             UpdateEnchantedEquipItemEffects(GetEnchantedEquipItems());
         }

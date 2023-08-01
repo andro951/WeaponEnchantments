@@ -195,7 +195,8 @@ namespace WeaponEnchantments.UI
 			//ItemSlots Draw
 			int startRow = scrollPanelPosition;
 			bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
-			int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
+			//int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
+			int inventoryIndexStart = startRow * itemSlotColumns;
 			int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
 			int slotNum = 0;
 			int itemSlotX = itemSlotsLeft;

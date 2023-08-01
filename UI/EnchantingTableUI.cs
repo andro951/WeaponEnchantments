@@ -420,7 +420,7 @@ namespace WeaponEnchantments.UI
 			utilityLabelData.Draw(spriteBatch);
 
 			//Utility Slot Draw
-			bool canUseUtilitySlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, 1, true);
+			bool canUseUtilitySlot = UseEnchantmentSlot(WEPlayer.LocalWEPlayer.enchantingTableItem, MaxEnchantmentSlots - 1);
 			UIItemSlotData utilitySlotData = new(UI_ID.EnchantingTableEssence0 + enchantmentSlotsCount, utilityCenterX - UIManager.ItemSlotSize / 2, enchantingItemSlotTop);
 			utilitySlotData.Draw(spriteBatch, wePlayer.enchantingTableEnchantments[enchantmentSlotsCount], canUseUtilitySlot ? ItemSlotContextID.Normal : ItemSlotContextID.Red);
 			enchantmentSlotsData[enchantmentSlotsCount] = utilitySlotData;
@@ -908,13 +908,14 @@ namespace WeaponEnchantments.UI
 			
 			return item.ModItem is EnchantmentEssence essence && essence.EssenceTier == slot;
 		}
-		public static bool UseEnchantmentSlot(Item item, int slotTier, bool utilitySlot = false, bool useHighestTableTier = false) {
+		public static bool UseEnchantmentSlot(Item item, int slotTier, bool useHighestTableTier = false) {
 			EItemType itemType = item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) ? enchantedItem.ItemType : EItemType.None;
-			return UseEnchantmentSlot(itemType, slotTier, utilitySlot, useHighestTableTier);
+			return UseEnchantmentSlot(itemType, slotTier, useHighestTableTier);
 		}
-		public static bool UseEnchantmentSlot(EItemType itemType, int slotTier, bool utilitySlot = false, bool useHighestTableTier = false) {
+		public static bool UseEnchantmentSlot(EItemType itemType, int slotTier, bool useHighestTableTier = false) {
 			WEPlayer wePlayer = Main.LocalPlayer.GetModPlayer<WEPlayer>();
 
+			bool utilitySlot = slotTier == MaxEnchantmentSlots - 1;
 			if (slotTier > (useHighestTableTier ? wePlayer.highestTableTierUsed : wePlayer.enchantingTableTier) && !utilitySlot)
 				return false;
 
@@ -936,9 +937,9 @@ namespace WeaponEnchantments.UI
 			if (configSlots == 1)
 				return slot == 0;
 
-			int maxIndex = MaxEnchantmentSlots - 1;
+			bool utilitySlot = slot == MaxEnchantmentSlots - 1;
 
-			return slot == maxIndex || slot <= configSlots - 2;
+			return utilitySlot || slot <= configSlots - 2;
 		}
 		public static bool IsValidEnchantmentForSlot(Item item, bool utility) {
 			if (item.ModItem is Enchantment enchantment) {

@@ -1480,6 +1480,7 @@ namespace WeaponEnchantments
             }
 		}
         public void UpdateEnchantmentEffects() {
+            Equipment.CheckRemoveEnchantments();
             Equipment.UpdateArmorEnchantmentEffects();
             Equipment.UpdateHeldItemEnchantmentEffects();
         }
