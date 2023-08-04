@@ -1925,6 +1925,7 @@ Mods: {
 				}
 
 				// DisplayName: Witch
+				// Census.SpawnCondition: Have an enchantment in your inventory or on your equipment.
 			}
 		}
 

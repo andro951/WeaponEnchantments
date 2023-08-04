@@ -574,6 +574,9 @@ namespace WeaponEnchantments.UI
 			return false;
 		}
 		public static bool RoomInStorage(Item item, Player player = null) {
+			if (item.NullOrAir())
+				return false;
+
 			if (Main.netMode == NetmodeID.Server)
 				return false;
 
