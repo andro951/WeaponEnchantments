@@ -797,7 +797,8 @@ namespace WeaponEnchantments.Common.Globals
             calamityAndAutoReforgePostReforgeItem = null;
         }
 		public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount) {
-            float priceMultiplier = ((float)item.value - (float)lastValueBonus) / (float)item.value;
+            UpdateItemValue();
+			float priceMultiplier = ((float)item.value - (float)lastValueBonus) / (float)item.value;
             float reforgePriceFloat = reforgePrice * priceMultiplier;
             reforgePrice = (int)reforgePriceFloat;
 
