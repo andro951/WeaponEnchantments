@@ -52,6 +52,9 @@ namespace WeaponEnchantments
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
+		public static Mod wikiThis = ModLoader.GetMod("Wikithis");
+
+		public const string WIKI_URL = "https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/";
 
 		List<Hook> hooks = new();
 		public override void Load() {
@@ -79,7 +82,7 @@ namespace WeaponEnchantments
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
 			foreach (Hook hook in hooks) {
 				hook?.Undo();
-		}
+			}
 
 			hooks.Clear();
 			hooks = null;
@@ -91,9 +94,9 @@ namespace WeaponEnchantments
 					Census.Call("TownNPCCondition", modNPC.Type, spawnCondition);
 				}
 			}
-			
-			if (ModLoader.TryGetMod("Wikithis", out Mod wikiThis))
-				wikiThis.Call("AddModURL", this, "weapon-enchantments-mod-tmodloader.fandom.com");
+
+			if (wikiThis != null)
+				wikiThis.Call("url", this, WIKI_URL + "{}");
 		}
 
 		private delegate Item orig_ItemIOLoad(TagCompound tag);

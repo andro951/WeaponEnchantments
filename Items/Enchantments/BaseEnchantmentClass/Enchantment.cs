@@ -453,6 +453,9 @@ namespace WeaponEnchantments.Items
 				}
 			}
 
+			if (WEMod.wikiThis != null)
+				WEMod.wikiThis.Call(1, Type, GetWikiURL());
+
 			base.SetStaticDefaults();
 		}
 		private void GetDefaults() {
@@ -932,6 +935,18 @@ namespace WeaponEnchantments.Items
 			}
 
 			return true;
+		}
+		public string GetWikiURL() {
+			string underscoreName = Name.AddSpaces(space: "_");
+			for (int i = Name.Length - 1; i >= 0; i--) {
+				if (underscoreName[i] == '_') {
+					//Replace the last underscore with a #
+					underscoreName = underscoreName.Remove(i, 1).Insert(i, "#");
+					break;
+				}
+			}
+
+			return WEMod.WIKI_URL + underscoreName;
 		}
 	}
 }

@@ -278,7 +278,7 @@ namespace WeaponEnchantments.Common.Utility
         /// </summary>
         /// <param name="s"></param>
         /// <returns>String with spaces added.</returns>
-        public static string AddSpaces(this string s, bool checkLowerCaseWords = false) {
+        public static string AddSpaces(this string s, bool checkLowerCaseWords = false, string space = " ") {
             if (s == null)
                 return s;
 
@@ -303,7 +303,7 @@ namespace WeaponEnchantments.Common.Utility
                         continue;
 
                     end = i - 1;
-                    finalString += s.Substring(start, end - start + 1) + " ";
+                    finalString += s.Substring(start, end - start + 1) + space;
                     start = i;
                 }
                 else if (previousUpperOrNumber && previous2.IsUpperOrNumber() && !currentUppderOrNumber) {
@@ -311,7 +311,7 @@ namespace WeaponEnchantments.Common.Utility
                         continue;
 
                     end = i - 2;
-                    finalString += s.Substring(start, end - start + 1) + " ";
+                    finalString += s.Substring(start, end - start + 1) + space;
                     start = i - 1;
                 }
             }
@@ -324,7 +324,7 @@ namespace WeaponEnchantments.Common.Utility
                     int index = finalString.IndexOf($"{word} ");
                     if (index > 0) {
                         if (finalString[index - 1] != ' ')
-                            finalString = finalString.Substring(0, index - 1) + " " + finalString.Substring(index);
+                            finalString = finalString.Substring(0, index - 1) + space + finalString.Substring(index);
                     }
                 }
             }
