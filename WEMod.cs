@@ -60,7 +60,6 @@ namespace WeaponEnchantments
 		public override void Load() {
 			//int numVanillaRecipies = Recipe.numRecipes;
 			hooks.Add(new(ModLoaderIOItemIOLoadMethodInfo, ItemIOLoadDetour));
-			hooks.Add(new(ModLoaderCanStackMethodInfo, CanStackDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCMethodInfo, ModifyHitNPCDetour));
 			//hooks.Add(new(ModLoaderModifyHitNPCWithProjMethodInfo, ModifyHitNPCWithProjDetour));
 			hooks.Add(new(ModLoaderUpdateArmorSetMethodInfo, UpdateArmorSetDetour));
@@ -108,25 +107,6 @@ namespace WeaponEnchantments
 				OldItemManager.ReplaceOldItem(ref item);
 
 			return item;
-		}
-
-		private delegate bool orig_CanStack(Item item1, Item item2);
-		private delegate bool hook_CanStack(orig_CanStack orig, Item item1, Item item2);
-		private static readonly MethodInfo ModLoaderCanStackMethodInfo = typeof(ItemLoader).GetMethod("CanStack");
-		private bool CanStackDetour(orig_CanStack orig, Item item1, Item item2) {
-			if (!orig(item1, item2))
-				return false;
-
-			if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return true;
-
-			if (magicStorageEnabled) {
-				string name = (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name;
-				if ("CanCombineItems" == name)
-					return true;
-			}
-
-			return enchantedItem.OnStack(item1, item2);
 		}
 
 		private delegate void orig_UpdateArmorSet(Player player, Item head, Item body, Item legs);

@@ -1,4 +1,5 @@
 ﻿using KokoLib;
+using KokoLib.Nets;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -175,6 +176,9 @@ namespace WeaponEnchantments.Common.Globals
         public EnchantedItem() {
             enchantments = new EnchantmentsArray(this);
         }
+		public override bool AppliesToEntity(Item entity, bool lateInstantiation) {
+            return IsEnchantable(entity);
+		}
 		public override GlobalItem Clone(Item item, Item itemClone) {
             EnchantedItem clone;
 
@@ -808,98 +812,58 @@ namespace WeaponEnchantments.Common.Globals
 			if(context is RecipeItemCreationContext recipeCreationContext)
 				item.CombineEnchantedItems(recipeCreationContext.ConsumedItems, true);
 		}
-		public bool OnStack(Item item1, Item item2) {
-            //Check max stack and always allow combining in the 
-            if (!item1.TryGetEnchantedItemSearchAll(out EnchantedItem i1Global) || item1.maxStack < 2)
-                return true;
+		public override bool CanStackInWorld(Item destination, Item source) {
+			if (destination.maxStack < 2 || !destination.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1) || !source.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem2))
+				return true;
 
-            //item1 already tested for try.
-            if (!item2.TryGetEnchantedItemSearchAll(out EnchantedItem i2Global))
-                return true;
+			bool modified1 = enchantedItem1.Modified;
+			bool modified2 = enchantedItem2.Modified;
 
-            bool modified1 = i1Global.Modified;
-            bool modified2 = i2Global.Modified;
+			//Prevent stacking in the world if both modified.
+			if (modified1 && modified2 && (destination.whoAmI > 0 || source.whoAmI > 0))
+				return false;
 
-            if (!modified1 && !modified2) {
-                //Not Modified
-                return true;
-            }
-            else if (modified1 && modified2 && (item1.whoAmI > 0 || item2.whoAmI > 0)) {
-                //Prevent stacking in the world if both modified.
-                return false;
+			//Prevent stackable armor from merging (such as buckets)
+			if (enchantedItem1 is EnchantedArmor enchantedArmor1 && enchantedItem2 is EnchantedArmor enchantedArmor2 && enchantedArmor1.infusedArmorSlot != enchantedArmor2.infusedArmorSlot)
+				return false;
+
+			return base.CanStackInWorld(destination, source);
+		}
+		public override void OnStack(Item destination, Item source, int numToTransfer) {
+            if (destination.maxStack < 2 || !destination.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem1) || !source.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem2))
+                return;
+
+            //Only combine if the destination item already exists to prevent duplicating enchantments and xp.
+            if (destination.stack > 0) {
+				List<Item> list = new List<Item>() { source };
+				//list.Add(source);
+				skipUpdateValue = true;
+				destination.CombineEnchantedItems(list);
+				skipUpdateValue = false;
 			}
 
-            //Enchanting table loot all
-            if (i2Global.inEnchantingTable && !Main.mouseLeft && !Main.mouseRight)// && !EnchantingTableUI.pressedLootAll)
-                return true;
+			//Clear source if source stack will be > 0 after the transfer
+			if (numToTransfer < source.stack) {
+				//Clear enchantments in enchanting table if source is in it (Will only have cleared off of the player tracked enchantments from combining)
+				if (enchantedItem2.inEnchantingTable) {
+					for (int i = 0; i < enchantments.Length; i++) {
+						Main.LocalPlayer.GetWEPlayer().enchantingTableEnchantments[i] = new Item();
+					}
+				}
 
-            int maxStack = item1.maxStack;
+				//Reset source globals
+				Item tempItem = new Item(destination.type);
+				resetGlobals = true;
+				if (tempItem.TryGetEnchantedItemSearchAll(out EnchantedItem tempGlobal))
+					tempGlobal.Clone(tempItem, source);
 
-            //Both at max stack
-            if (item1.stack >= maxStack && item2.stack >= maxStack)
-                return false;
-
-            //Prevent stackable armor from merging (such as buckets)
-            if (i1Global is EnchantedArmor enchantedArmor1 && i2Global is EnchantedArmor enchantedArmor2 && enchantedArmor1.infusedArmorSlot != enchantedArmor2.infusedArmorSlot)
-                return false;
-
-            //Splitting stack with right click
-            if (item1.type == Main.mouseItem.type && item1.stack == Main.mouseItem.stack && Main.mouseRight && item2.stack > 1)
-                return true;
-
-            //Combine item2 into item1
-            List<Item> list = new List<Item>();
-            list.Add(item2);
-            skipUpdateValue = true;
-            item1.CombineEnchantedItems(list);
-            skipUpdateValue = false;
-
-            /*
-            if (i1Global is EnchantedWeapon enchantedWeapon1 && i2Global is EnchantedWeapon enchantedWeapon2) {
-                //Stack0
-                if (enchantedWeapon1.Stack0) {
-                    item1.stack--;
-                }
-                else if (enchantedWeapon2.Stack0) {
-                    if (!WEModSystem.ShiftDown) {
-                        item2.stack--;
-                    }
-                    else if (Main.mouseLeft) {
-                        //Bug fix for both item1 and item2 having Stack0
-                        if (skipFirstLeftCanStackStack0Check) {
-                            skipFirstLeftCanStackStack0Check = false;
-                        }
-                        else {
-                            item1.stack--;
-                            skipFirstLeftCanStackStack0Check = true;
-                        }
-                    }
-                }
-            }
-            */
-
-            //Clear item2 if stackTotal > max stack
-            int stackTotal = item1.stack + item2.stack;
-            if (stackTotal > maxStack) {
-                //Clear enchantments in enchanting table if item2 is in it (Will only have cleared off of the player tracked enchantments from combining)
-                if (i2Global.inEnchantingTable) {
-                    for (int i = 0; i < enchantments.Length; i++) {
-                        Main.LocalPlayer.GetWEPlayer().enchantingTableEnchantments[i] = new Item();
-                    }
-                }
-
-                //Reset item2 globals
-                Item tempItem = new Item(item1.type);
-                resetGlobals = true;
-                if (tempItem.TryGetEnchantedItemSearchAll(out EnchantedItem tempGlobal))
-                    tempGlobal.Clone(tempItem, item2);
-
-                resetGlobals = false;
-            }
-
-            return true;
-        }
-        public void ResetGlobals(Item item) {
+				resetGlobals = false;
+			}
+		}
+		public override void SplitStack(Item destination, Item source, int numToTransfer) {
+            OnStack(destination, source, numToTransfer);
+		}
+		public void ResetGlobals(Item item) {
 			Item tempItem = new Item(item.type);
 			resetGlobals = true;
 			if (tempItem.TryGetEnchantedItem(out EnchantedWeapon tempEnchantedWeapon)) {
@@ -1438,7 +1402,7 @@ namespace WeaponEnchantments.Common.Globals
                     }
 
                     int j;
-                    for (j = 0; j <= EnchantingTableUI.MaxEnchantmentSlots; j++) {
+                    for (j = 0; j < EnchantingTableUI.MaxEnchantmentSlots; j++) {
                         if (enchantedItem.enchantments[j].IsAir)
                             break;
                     }

@@ -42,7 +42,6 @@ namespace WeaponEnchantments
         internal static byte versionUpdate = 0;
         public static bool PromptInterfaceActive => promptInterface?.CurrentState != null;
         public static int[] levelXps = new int[EnchantedItem.MAX_Level];
-        private static bool favorited;
         public static int stolenItemToBeCleared = -1;
         public static List<string> updatedPlayerNames;
         public static SortedDictionary<ChestID, List<DropData>> chestDrops = new();
@@ -50,7 +49,6 @@ namespace WeaponEnchantments
         private GameTime _lastUpdateUiGameTime;
         private bool dayTime = Main.dayTime;
 		public static bool StartedPostAddRecipes { get; private set; } = false;
-        private double lastTimeCheck = Main.time;
 
 		public override void OnModLoad() {
 			if (!Main.dedServ) {
@@ -102,6 +100,7 @@ namespace WeaponEnchantments
 				}
 			}
 
+            /*
             //Fix for splitting stack of enchanted items in a chest
             if (wePlayer.Player.chest != -1 && Main.mouseRight) {
                 int chest = wePlayer.Player.chest;
@@ -146,6 +145,7 @@ namespace WeaponEnchantments
 					}
                 }
             }
+            */
 
 			//Calamity Reforge
 			if (EnchantedItem.calamityReforged) {
