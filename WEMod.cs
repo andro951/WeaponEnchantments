@@ -52,7 +52,8 @@ namespace WeaponEnchantments
 		public static bool amuletOfManyMinionsEnabled = ModLoader.TryGetMod("AmuletOfManyMinions", out Mod _);
 		public static bool redCloudEnabled = ModLoader.TryGetMod("tsorcRevamp", out Mod _);
 		public static bool aequusEnabled = ModLoader.TryGetMod("aequus", out Mod _);
-		public static Mod wikiThis = ModLoader.GetMod("Wikithis");
+		public static Mod wikiThis;
+		public static bool wikiThisEnabled = ModLoader.TryGetMod("Wikithis", out wikiThis);
 
 		public const string WIKI_URL = "https://weapon-enchantments-mod-tmodloader.fandom.com/wiki/";
 
