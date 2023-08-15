@@ -1062,6 +1062,9 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.WorldGlobe:
                     isWeapon = false;
                     break;
+                case ItemID.LawnMower:
+                    isWeapon = true;
+                    break;
                 default:
                     isWeapon = (item.DamageType != DamageClass.Default || item.damage > 0 || item.crit > 0) && item.ammo == 0;
                     break;
@@ -1101,7 +1104,8 @@ namespace WeaponEnchantments.Common.Globals
                 case ItemID.BottomlessLavaBucket:
                 case ItemID.SuperAbsorbantSponge:
                 case ItemID.LavaAbsorbantSponge:
-                    return true;
+                case ItemID.Clentaminator2:
+					return true;
                 default:
                     return item.mana > 0 && !IsWeaponItem(item);
 			}

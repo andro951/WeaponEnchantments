@@ -72,12 +72,13 @@ namespace WeaponEnchantments
 
 			On_Projectile.AI_061_FishingBobber_GiveItemToPlayer += OnProjectile_AI_061_FishingBobber_GiveItemToPlayer;
 			On_ChestUI.LootAll += OnChestUI_LootAll;
+			On_Item.GetShimmered += On_Item_GetShimmered;
 			//On_Player.ItemCheck_CheckFishingBobber_PullBobber += OnPlayer_ItemCheck_CheckFishingBobber_PullBobber;
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
-
 		}
+
 		public override void Unload() {
 			BossChecklistIntegration.UnloadBossChecklistIntegration();
 			foreach (Hook hook in hooks) {
@@ -203,6 +204,11 @@ namespace WeaponEnchantments
 			}
 
 			orig();
+		}
+		private void On_Item_GetShimmered(On_Item.orig_GetShimmered orig, Item self) {
+			EnchantingTableUI.ReturnAllModifications(ref self);
+
+			orig(self);
 		}
 		/*
 		private void OnPlayer_ItemCheck_CheckFishingBobber_PullBobber(OnPlayer.orig_ItemCheck_CheckFishingBobber_PullBobber orig, Player self, Projectile bobber, int baitTypeUsed) {

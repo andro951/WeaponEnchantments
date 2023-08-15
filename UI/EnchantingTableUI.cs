@@ -1585,14 +1585,9 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
-			int type = item.type;
+		public static void ReturnAllModifications(ref Item item) {
 			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
-				return -1;
-
-			//Enchantments
-			if (!nonTableItem && !LootAllEnchantments(ref item))
-				return -1;
+				return;
 
 			LootAllEnchantments(ref item, true);
 
@@ -1605,11 +1600,25 @@ namespace WeaponEnchantments.UI
 				Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("PlayerDropItemCheck"), ModContent.ItemType<UltraPowerBooster>());
 
 			int xp = enchantedItem.Experience;
-			float value = (item.value - enchantedItem.lastValueBonus) * item.stack;
 
 			//Xp -> Essence
-			if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
 			ConvertXPToEssence(xp, true, item);
+		}
+		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
+			int type = item.type;
+			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+				return -1;
+
+			//Enchantments
+			if (!nonTableItem && !LootAllEnchantments(ref item))
+				return -1;
+
+
+			if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
+
+			float value = (item.value - enchantedItem.lastValueBonus) * item.stack;
+
+			ReturnAllModifications(ref item);
 
 			//Item value -> ores/essence
 			if (!noOre) {

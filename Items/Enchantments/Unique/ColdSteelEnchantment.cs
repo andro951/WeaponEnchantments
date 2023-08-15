@@ -17,7 +17,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
 				new DamageClassSwap(DamageClass.SummonMeleeSpeed),
 				new MinionAttackTarget(),
-				new BuffEffect(BuffID.Frostburn, BuffStyle.OnHitEnemyDebuff, BuffDuration)
+				new BuffEffect(EnchantmentTier >= 2 ? BuffID.Frostburn2 : BuffID.Frostburn, BuffStyle.OnHitEnemyDebuff, BuffDuration)
 			};
 
 			if (EnchantmentTier >= 3) {
