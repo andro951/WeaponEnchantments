@@ -475,6 +475,9 @@ namespace WeaponEnchantments.UI
 			bool transferedAnyItem = QuickStack(inv, false);
 			int storageIndex = 0;
 			for (int i = 0; i < inv.Length; i++) {
+				if (i == 58)//Skip Mouse Item
+					continue;
+
 				ref Item item = ref inv[i];
 				if (!item.favorited && CanBeStored(item)) {
 					while (storageIndex < WEPlayer.LocalWEPlayer.oreBagItems.Length && WEPlayer.LocalWEPlayer.oreBagItems[storageIndex].type > ItemID.None) {
