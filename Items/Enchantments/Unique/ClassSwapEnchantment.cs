@@ -8,6 +8,7 @@ using WeaponEnchantments.ModIntegration;
 using System.Linq;
 using static WeaponEnchantments.WEPlayer;
 using WeaponEnchantments.Effects.CustomEffects;
+using WeaponEnchantments.Common.Configs;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {
@@ -18,7 +19,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		protected virtual DamageClassID DamageClassNameOveride => DamageClassID.Default;
-		protected virtual float DropChance => 0.02f * WEMod.serverConfig.EnchantmentDropChance;
+		protected virtual float DropChance => 0.05f * ConfigValues.EnchantmentDropChance;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
