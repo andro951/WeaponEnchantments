@@ -18,6 +18,7 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 		protected abstract DamageClass MyDamageClass { get; }
 		protected virtual string ModdedDamageClass { get; } = "";
 		protected virtual DamageClassID DamageClassNameOveride => DamageClassID.Default;
+		protected virtual float DropChance => 0.02f * WEMod.serverConfig.EnchantmentDropChance;
 		public override void GetMyStats() {
 			Effects = new() {
 				new DamageAfterDefenses(multiplicative: EnchantmentStrengthData),
@@ -44,10 +45,10 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.CorruptSlime),
-			new(NPCID.EaterofSouls),
-			new(NPCID.Crimera),
-			new(NPCID.FaceMonster)
+			new(NPCID.CorruptSlime, chance: DropChance),
+			new(NPCID.EaterofSouls, chance: DropChance),
+			new(NPCID.Crimera, chance: DropChance),
+			new(NPCID.FaceMonster, chance: DropChance)
 		};
 	}
 	public class MeleeClassSwapEnchantmentCommon : MeleeClassSwapEnchantment { }
@@ -67,8 +68,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.JungleBat),
-			new(NPCID.JungleSlime)
+			new(NPCID.JungleBat, chance: DropChance),
+			new(NPCID.JungleSlime, chance: DropChance)
 		};
 	}
 	public class WhipClassSwapEnchantmentCommon : WhipClassSwapEnchantment { }
@@ -85,8 +86,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.IceSlime),
-			new(NPCID.ZombieEskimo)
+			new(NPCID.IceSlime, chance: DropChance),
+			new(NPCID.ZombieEskimo, chance: DropChance)
 		};
 	}
 	public class MagicClassSwapEnchantmentCommon : MagicClassSwapEnchantment { }
@@ -103,8 +104,8 @@ namespace WeaponEnchantments.Items.Enchantments.Unique
 	{
 		public override SellCondition SellCondition => SellCondition.AnyTimeRare;
 		public override List<DropData> NpcDropTypes => new() {
-			new(NPCID.Antlion),
-			new(NPCID.Vulture)
+			new(NPCID.Antlion, chance: DropChance),
+			new(NPCID.Vulture, chance: DropChance)
 		};
 	}
 	public class RangedClassSwapEnchantmentCommon : RangedClassSwapEnchantment { }

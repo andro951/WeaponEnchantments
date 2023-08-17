@@ -1603,6 +1603,11 @@ namespace WeaponEnchantments.UI
 
 			//Xp -> Essence
 			ConvertXPToEssence(xp, true, item);
+
+			if (enchantedItem.infusedItemName != "") {
+				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem))
+					WEPlayer.LocalWEPlayer.TryReturnItemToPlayer(ref foundItem, true);
+			}
 		}
 		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
 			int type = item.type;
@@ -1616,7 +1621,7 @@ namespace WeaponEnchantments.UI
 
 			if (WEMod.magicStorageEnabled) $"OfferItem(item: {item}, noOre: {noOre.S()}, nonTableItem: {nonTableItem.S()})".Log();
 
-			float value = (item.value - enchantedItem.lastValueBonus) * item.stack;
+			float value = item.value;
 
 			ReturnAllModifications(ref item);
 
