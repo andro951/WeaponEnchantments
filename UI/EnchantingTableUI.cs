@@ -1605,8 +1605,12 @@ namespace WeaponEnchantments.UI
 			ConvertXPToEssence(xp, true, item);
 
 			if (enchantedItem.infusedItemName != "") {
-				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem))
+				if (InfusionManager.TryFindItem(enchantedItem.infusedItemName, out Item foundItem)) {
 					WEPlayer.LocalWEPlayer.TryReturnItemToPlayer(ref foundItem, true);
+				}
+				else {
+					Main.LocalPlayer.SpawnCoins(enchantedItem.InfusionValueAdded / 5);
+				}
 			}
 		}
 		public static int OfferItem(ref Item item, bool noOre = false, bool nonTableItem = true) {
