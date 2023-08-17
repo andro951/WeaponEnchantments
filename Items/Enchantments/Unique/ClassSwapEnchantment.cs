@@ -8,6 +8,7 @@ using WeaponEnchantments.ModIntegration;
 using System.Linq;
 using static WeaponEnchantments.WEPlayer;
 using WeaponEnchantments.Effects.CustomEffects;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {

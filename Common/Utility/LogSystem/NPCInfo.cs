@@ -17,6 +17,8 @@ using Terraria.ID;
 using static WeaponEnchantments.Common.Utility.LogModSystem;
 using WeaponEnchantments.Content.NPCs;
 using Terraria.GameContent.Personalities;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem
 {

@@ -13,6 +13,7 @@ using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common
 {
@@ -444,8 +445,8 @@ namespace WeaponEnchantments.Common
                 if (sellPrice)
                     total /= 5;
 
-                //type is coins when replaceWithCoins is true
-                UtilityMethods.ReplaceItemWithCoins(ref item, total);
+				//type is coins when replaceWithCoins is true
+				androLib.Common.Utility.UtilityMethods.ReplaceItemWithCoins(ref item, total);
 
                 ($"{unloadedItemName} has been removed from Weapon Enchantments.  You have recieved Coins equal to its sell price.").Log();
             }

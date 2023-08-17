@@ -29,11 +29,14 @@ using Terraria.Localization;
 using System.Collections;
 using Humanizer;
 using WeaponEnchantments.Common.Utility.LogSystem;
+using androLib.Common.Utility;
+using androLib.UI;
 
 namespace WeaponEnchantments.UI
 {
 	public static class EnchantmentStorage
 	{
+		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.EnchantmentStorage_UITypeID);
 		public class EnchantmentStorageButtonID
 		{
 			public const int LootAll = 0;
@@ -49,8 +52,8 @@ namespace WeaponEnchantments.UI
 			public const int QuickCrafting = 10;
 			public const int Count = 11;
 		}
-		public static int ID => UI_ID.EnchantmentStorage;
-		public static int SearchID => UI_ID.EnchantmentStorageSearch;
+		public static int ID => GetUI_ID(WE_UI_ID.EnchantmentStorage);
+		public static int SearchID => GetUI_ID(WE_UI_ID.EnchantmentStorageSearch);
 		public static int EnchantmentStorageUIDefaultLeft => 600;
 		public static int EnchantmentStorageUIDefaultTop => 5;
 		public static Color PanelColor => new Color(26, 2, 56, UIManager.UIAlpha);
@@ -97,7 +100,7 @@ namespace WeaponEnchantments.UI
 
 				#region Data
 
-				Color mouseColor = UIManager.MouseColor;
+				Color mouseColor = MasterUIManager.MouseColor;
 				if (glowTime > 0) {
 					glowTime--;
 					if (glowTime <= 0)
@@ -144,24 +147,24 @@ namespace WeaponEnchantments.UI
 				int itemSlotColumns = 10;
 				int itemSlotRowsDisplayed = 5;
 				int itemSlotTotalRows = inventory.Length.CeilingDivide(itemSlotColumns);
-				int itemSlotSpaceWidth = UIManager.ItemSlotSize + Spacing;
-				int itemSlotSpaceHeight = UIManager.ItemSlotSize + Spacing;
-				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + UIManager.ItemSlotSize;
-				int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
+				int itemSlotSpaceWidth = MasterUIManager.ItemSlotSize + Spacing;
+				int itemSlotSpaceHeight = MasterUIManager.ItemSlotSize + Spacing;
+				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + MasterUIManager.ItemSlotSize;
+				int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + MasterUIManager.ItemSlotSize;
 				int itemSlotsLeft = wePlayer.enchantmentStorageUILeft + PanelBorder;
 
 				//Name Data
 				int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
 				int nameTop = wePlayer.enchantmentStorageUITop + PanelBorder;
 				string name = EnchantmentStorageTextID.EnchantmentStorage.ToString().Lang(L_ID1.EnchantmentStorageText);
-				UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
+				UITextData nameData = new(WE_UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 				//Panel Data 1/2
 				int panelBorderTop = nameData.Height + Spacing + 2;
 
 				//Search Bar Data
 				int searchBarMinWidth = 100;
-				TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
+				TextData searchBarTextData = new(MasterUIManager.DisplayedSearchBarString(SearchID));
 				UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 2, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 4, 110, UIManager.UIAlpha));
 
 				//ItemSlots Data 2/2
@@ -190,7 +193,7 @@ namespace WeaponEnchantments.UI
 						color = mouseColor;
 					}
 
-					UITextData thisButton = new(UI_ID.EnchantmentStorageLootAll + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
+					UITextData thisButton = new(GetUI_ID(WE_UI_ID.EnchantmentStorageLootAll) + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
 					textButtons[buttonIndex] = thisButton;
 					longestButtonNameWidth = Math.Max(longestButtonNameWidth, thisButton.Width);
 					currentButtonTop += (int)(thisButton.BaseHeight * 0.88f);
@@ -204,7 +207,7 @@ namespace WeaponEnchantments.UI
 
 				//Scroll Bar Data 2/2
 				int scrollBarTop = wePlayer.enchantmentStorageUITop + PanelBorder;
-				UIPanelData scrollBarData = new(UI_ID.EnchantmentStorageScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
+				UIPanelData scrollBarData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageScrollBar), scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
 
 				//Scroll Panel Data 1/2
 				int scrollPanelXOffset = 1;
@@ -227,7 +230,7 @@ namespace WeaponEnchantments.UI
 
 				//ItemSlots Draw
 				int startRow = scrollPanelPosition;
-				bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
+				bool UsingSearchBar = MasterUIManager.UsingSearchBar(SearchID);
 				//int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 				int inventoryIndexStart = startRow * itemSlotColumns;
 				int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
@@ -240,15 +243,15 @@ namespace WeaponEnchantments.UI
 						break;
 
 					ref Item item = ref inventory[inventoryIndex];
-					if (!UsingSearchBar || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
-						UIItemSlotData slotData = new(UI_ID.EnchantmentStorageItemSlot, itemSlotX, itemSlotY);
+					if (!UsingSearchBar || item.Name.ToLower().Contains(MasterUIManager.SearchBarString.ToLower())) {
+						UIItemSlotData slotData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageItemSlot), itemSlotX, itemSlotY);
 						string modFullName = item.type.GetItemIDOrName();
 						if (managingTrash) {
 							bool isTrash = wePlayer.trashEnchantmentsFullNames.Contains(modFullName);
 							if (slotData.MouseHovering()) {
 								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
 								Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
-								if (UIManager.LeftMouseClicked) {
+								if (MasterUIManager.LeftMouseClicked) {
 									if (isTrash) {
 										wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
 									}
@@ -272,7 +275,7 @@ namespace WeaponEnchantments.UI
 							if (slotData.MouseHovering()) {
 								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
 								Main.cursorOverride = isOffered ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
-								if (UIManager.LeftMouseClicked) {
+								if (MasterUIManager.LeftMouseClicked) {
 									if (isOffered) {
 										wePlayer.allOfferedItems.Remove(modFullName);
 									}
@@ -303,7 +306,7 @@ namespace WeaponEnchantments.UI
 							if (slotData.MouseHovering()) {
 								ItemSlot.MouseHover(inventory, 0, slot: inventoryIndex);
 								Main.cursorOverride = CursorOverrideID.BackInventory;
-								if (UIManager.LeftMouseClicked) {
+								if (MasterUIManager.LeftMouseClicked) {
 									if (recipeNum != -1 && recipeNum.TryCraftItem(out Item crafted)) {
 										DepositAll(ref crafted);
 										SoundEngine.PlaySound(SoundID.Tink);
@@ -329,7 +332,7 @@ namespace WeaponEnchantments.UI
 								if (WEModSystem.FavoriteKeyDown) {
 									normalClickInteractions = false;
 									Main.cursorOverride = CursorOverrideID.FavoriteStar;
-									if (UIManager.LeftMouseClicked) {
+									if (MasterUIManager.LeftMouseClicked) {
 										item.favorited = !item.favorited;
 										SoundEngine.PlaySound(SoundID.MenuTick);
 										if (item.TryGetGlobalItem(out VacuumToStorageItems vacummItem2))
@@ -342,7 +345,7 @@ namespace WeaponEnchantments.UI
 											normalClickInteractions = false;
 											if (item.ModItem is Enchantment) {
 												Main.cursorOverride = isTrash ? CursorOverrideID.CameraLight : CursorOverrideID.TrashCan;
-												if (UIManager.LeftMouseClicked) {
+												if (MasterUIManager.LeftMouseClicked) {
 													if (isTrash) {
 														wePlayer.trashEnchantmentsFullNames.Remove(modFullName);
 													}
@@ -361,28 +364,28 @@ namespace WeaponEnchantments.UI
 											if (item.ModItem is Enchantment) {
 												if (EnchantmentLoadoutUI.AvailableSlot(item)) {
 													Main.cursorOverride = CursorOverrideID.InventoryToChest;
-													if (UIManager.LeftMouseClicked)
+													if (MasterUIManager.LeftMouseClicked)
 														EnchantmentLoadoutUI.UpdateAvailableEnchantmentSlot(wePlayer, item);
 												}
 											}
 										}
 										else {
 											if (wePlayer.CheckShiftClickValid(ref item)) {
-												if (UIManager.LeftMouseClicked)
+												if (MasterUIManager.LeftMouseClicked)
 													wePlayer.CheckShiftClickValid(ref item, true);
 											}
 											else {
 												if (Main.mouseItem.IsAir) {
 													if (!item.IsAir) {
-														if (UIManager.LeftMouseClicked) {
-															UIManager.SwapMouseItem(ref item);
+														if (MasterUIManager.LeftMouseClicked) {
+															MasterUIManager.SwapMouseItem(ref item);
 														}
 													}
 												}
 												else {
 													if (CanBeStored(Main.mouseItem)) {
-														if (UIManager.LeftMouseClicked) {
-															UIManager.SwapMouseItem(ref item);
+														if (MasterUIManager.LeftMouseClicked) {
+															MasterUIManager.SwapMouseItem(ref item);
 														}
 													}
 												}
@@ -431,18 +434,18 @@ namespace WeaponEnchantments.UI
 
 				bool mouseHoveringSearchBar = searchBarData.MouseHovering();
 				if (mouseHoveringSearchBar) {
-					if (UIManager.LeftMouseClicked)
-						UIManager.ClickSearchBar(SearchID);
+					if (MasterUIManager.LeftMouseClicked)
+						MasterUIManager.ClickSearchBar(SearchID);
 				}
 
-				if (UIManager.TypingOnSearchBar(SearchID)) {
-					if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
-						UIManager.StopTypingOnSearchBar();
+				if (MasterUIManager.TypingOnSearchBar(SearchID)) {
+					if (MasterUIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
+						MasterUIManager.StopTypingOnSearchBar();
 					}
 					else {
 						PlayerInput.WritingText = true;
 						Main.instance.HandleIME();
-						UIManager.SearchBarString = Main.GetInputText(UIManager.SearchBarString);
+						MasterUIManager.SearchBarString = Main.GetInputText(MasterUIManager.SearchBarString);
 					}
 				}
 
@@ -450,14 +453,14 @@ namespace WeaponEnchantments.UI
 				for (int buttonIndex = 0; buttonIndex < EnchantmentStorageButtonID.Count; buttonIndex++) {
 					UITextData textButton = textButtons[buttonIndex];
 					textButton.Draw(spriteBatch);
-					if (UIManager.MouseHovering(textButton, true)) {
+					if (MasterUIManager.MouseHovering(textButton, true)) {
 						ButtonScale[buttonIndex] += 0.05f;
 
 						if (ButtonScale[buttonIndex] > buttonScaleMaximum)
 							ButtonScale[buttonIndex] = buttonScaleMaximum;
 
-						if (UIManager.LeftMouseClicked) {
-							UIManager.TryResetSearch(UI_ID.EnchantmentStorageSearch);
+						if (MasterUIManager.LeftMouseClicked) {
+							MasterUIManager.TryResetSearch(GetUI_ID(WE_UI_ID.EnchantmentStorageSearch));
 							if (managingTrash && buttonIndex != EnchantmentStorageButtonID.ManageTrash)
 								managingTrash = false;
 
@@ -515,8 +518,8 @@ namespace WeaponEnchantments.UI
 				}
 
 				//Scroll Panel Data 2/2
-				bool draggingScrollPanel = UIManager.PanelBeingDragged == UI_ID.EnchantmentStorageScrollPanel;
-				if (UIManager.PanelBeingDragged == UI_ID.EnchantmentStorageScrollPanel) {
+				bool draggingScrollPanel = MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.EnchantmentStorageScrollPanel);
+				if (MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.EnchantmentStorageScrollPanel)) {
 					scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 				}
 				else {
@@ -527,21 +530,21 @@ namespace WeaponEnchantments.UI
 
 				//Scroll Bar Hover
 				if (scrollBarData.MouseHovering()) {
-					if (UIManager.LeftMouseClicked) {
-						UIManager.UIBeingHovered = UI_ID.None;
+					if (MasterUIManager.LeftMouseClicked) {
+						MasterUIManager.UIBeingHovered = UI_ID.None;
 						scrollPanelY = Main.mouseY - scrollPanelSize / 2;
 						scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 					}
 				}
 
 				//Scroll Panel Hover and Drag
-				UIPanelData scrollPanelData = new(UI_ID.EnchantmentStorageScrollPanel, scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
+				UIPanelData scrollPanelData = new(GetUI_ID(WE_UI_ID.EnchantmentStorageScrollPanel), scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
 				if (scrollPanelData.MouseHovering()) {
 					scrollPanelData.TryStartDraggingUI();
 				}
 
 				if (scrollPanelData.ShouldDragUI()) {
-					UIManager.DragUI(out _, out scrollPanelY);
+					MasterUIManager.DragUI(out _, out scrollPanelY);
 				}
 				else if (draggingScrollPanel) {
 					int scrollPanelRange = scrollPanelMaxY - scrollPanelMinY;
@@ -556,10 +559,10 @@ namespace WeaponEnchantments.UI
 				}
 
 				if (panel.ShouldDragUI())
-					UIManager.DragUI(out wePlayer.enchantmentStorageUILeft, out wePlayer.enchantmentStorageUITop);
+					MasterUIManager.DragUI(out wePlayer.enchantmentStorageUILeft, out wePlayer.enchantmentStorageUITop);
 
-				int scrollWheelTicks = UIManager.ScrollWheelTicks;
-				if (scrollWheelTicks != 0 && UIManager.HoveringEnchantmentStorage && UIManager.NoPanelBeingDragged) {
+				int scrollWheelTicks = MasterUIManager.ScrollWheelTicks;
+				if (scrollWheelTicks != 0 && UIManager.HoveringEnchantmentStorage && MasterUIManager.NoPanelBeingDragged) {
 					if (scrollPanelPosition > 0 && scrollWheelTicks < 0 || scrollPanelPosition < possiblePanelPositions && scrollWheelTicks > 0) {
 						SoundEngine.PlaySound(SoundID.MenuTick);
 						scrollPanelPosition += scrollWheelTicks;
@@ -609,9 +612,9 @@ namespace WeaponEnchantments.UI
 				}
 			}
 		}
-		public static bool CanVauumItem(Item item) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
-		public static bool TryVacuumItem(ref Item item) {
-			if (CanVauumItem(item))
+		public static bool CanVauumItem(Item item, Player player) => !item.NullOrAir() && WEPlayer.LocalWEPlayer.vacuumItemsIntoEnchantmentStorage && CanBeStored(item) && RoomInStorage(item);
+		public static bool TryVacuumItem(ref Item item, Player player) {
+			if (CanVauumItem(item, player))
 				return DepositAll(ref item);
 
 			return false;
@@ -681,7 +684,7 @@ namespace WeaponEnchantments.UI
 			return transferedAnyItem;
 		}
 		private static void Sort() {
-			UIManager.SortItems(ref WEPlayer.LocalWEPlayer.enchantmentStorageItems, false);
+			MasterUIManager.SortItems(ref WEPlayer.LocalWEPlayer.enchantmentStorageItems, false);
 			IEnumerable<Item> containments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is ContainmentItem).OrderBy(i => i.type);
 			IEnumerable<Item> powerBoosters = WEPlayer.LocalWEPlayer.enchantmentStorageItems.Where(i => i.ModItem is PowerBooster or UltraPowerBooster).OrderBy(i => i.type);
 			IEnumerable<Item> enchantments = WEPlayer.LocalWEPlayer.enchantmentStorageItems.GetSortedEnchantments();

@@ -9,6 +9,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common
 {

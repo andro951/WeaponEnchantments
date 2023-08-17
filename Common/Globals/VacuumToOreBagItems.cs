@@ -13,6 +13,8 @@ using WeaponEnchantments.Common.Utility;
 using Terraria.ModLoader.IO;
 using Steamworks;
 using WeaponEnchantments.ModLib.KokoLib;
+using androLib.Common.Utility;
+using androLib;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -23,7 +25,8 @@ namespace WeaponEnchantments.Common.Globals
 		bool? canBeStored = null;
 		bool CanBeStored(Item item) {
 			if (canBeStored == null) {
-				canBeStored = OreBagUI.CanBeStored(item);
+				//canBeStored = OreBagUI.CanBeStored(item);
+				canBeStored = StorageManager.CanBeStored(item);
 			}
 
 			return (bool)canBeStored;
@@ -75,7 +78,8 @@ namespace WeaponEnchantments.Common.Globals
 			if (Main.netMode == NetmodeID.Server)
 				return true;
 
-			return OreBagUI.CanVacuumItem(player, item);
+			//return OreBagUI.CanVacuumItem(player, item);
+			return StorageManager.CanVacuumItem(item, player);
 		}
 	}
 }

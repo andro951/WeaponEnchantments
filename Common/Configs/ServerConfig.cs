@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using WeaponEnchantments.Common.Utility;
 using Terraria.ID;
 using WeaponEnchantments.Common.Globals;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Configs
 {
@@ -309,14 +310,21 @@ namespace WeaponEnchantments.Common.Configs
 				}
 
 				printWikiInfo = value;
+
 			}
 
 			get => printWikiInfo;
 		}
+
 		private bool printWikiInfo;
+
+		//private void OnPrintWikiInfoChanged(bool newValue) {
+		//	PrintWikiInfo = newValue;
+		//}
 
 		public ServerConfig() {
 			presetData = new PresetData();
+			//PrintWikiInfoChanged += OnPrintWikiInfoChanged;
 		}
 
 		[OnDeserialized]

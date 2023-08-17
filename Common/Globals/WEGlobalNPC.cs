@@ -25,10 +25,12 @@ using WeaponEnchantments.Common.Configs;
 using System.Diagnostics;
 using WeaponEnchantments.ModIntegration;
 using static WeaponEnchantments.ModIntegration.BossChecklistIntegration;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public class WEGlobalNPC : GlobalNPC {
+	using androLib.Common.Globals;
+	public class WEGlobalNPC : GlobalNPC {
         #region Static
 
         private static SortedSet<int> preHardModeBossTypes = null;
@@ -807,9 +809,9 @@ namespace WeaponEnchantments.Common.Globals
 
     public static class NPCStaticMethods
     {
-        public static bool IsWorm(this NPC npc) {
-            return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
-        }
+        //public static bool IsWorm(this NPC npc) {
+        //    return npc.aiStyle == NPCAIStyleID.Worm || npc.aiStyle == NPCAIStyleID.TheDestroyer;
+        //}
         public static bool IsDummy(this NPC npc) => npc.netID < NPCID.Count ? npc.netID == NPCID.TargetDummy : npc.ModFullName() is string modFullName && (WEMod.calamityEnabled && modFullName == "CalamityMod/SuperDummyNPC" || WEMod.fargosEnabled && modFullName == "Fargowiltas/SuperDummy");
         public static bool IsBoss(this NPC npc) => npc.boss || WEGlobalNPC.multipleSegmentBossTypes.ContainsKey(npc.netID) || WEGlobalNPC.normalNpcsThatDropsBags.Contains(npc.netID);
 		public static void HandleOnHitNPCBuffs(this NPC target, int damage, float amaterasuStrength, Dictionary<short, int> debuffs, HashSet<short> dontDissableImmunitiy) {
@@ -847,18 +849,18 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public static int RealNetID(this NPC npc) => npc.realLife == -1 ? npc.netID : Main.npc[npc.realLife].netID;
-        public static NPC RealNPC(this NPC npc) => npc.realLife == -1 ? npc : Main.npc[npc.realLife];
-        public static int RealLife(this NPC npc) => npc.realLife == -1 ? npc.life : Main.npc[npc.realLife].life;
-		public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
-        public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
-        public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
-        public static void AddValue(this NPC npc, int value) {
-            npc.extraValue += value;
-        }
+        //public static int RealNetID(this NPC npc) => npc.realLife == -1 ? npc.netID : Main.npc[npc.realLife].netID;
+        //public static NPC RealNPC(this NPC npc) => npc.realLife == -1 ? npc : Main.npc[npc.realLife];
+        //public static int RealLife(this NPC npc) => npc.realLife == -1 ? npc.life : Main.npc[npc.realLife].life;
+        //public static int RealLifeMax(this NPC npc) => npc.realLife == -1 ? npc.lifeMax : Main.npc[npc.realLife].lifeMax;
+        //public static int RealLifeRegen(this NPC npc) => npc.realLife == -1 ? npc.lifeRegen : Main.npc[npc.realLife].lifeRegen;
+        //public static float RealValue(this NPC npc) => npc.realLife == -1 ? npc.value : Main.npc[npc.realLife].value;
+        //public static void AddValue(this NPC npc, int value) {
+        //    npc.extraValue += value;
+        //}
 
-		//Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
-		public static string FullName(this NPC npc) {
+        //Fix for Draedon boss having a null reference error in Calamity code when sampleNPC.FullName is called.  (Error in NPC.ToString())
+        public static string FullName(this NPC npc) {
 			if (WEMod.calamityEnabled) {
 				string sampleModNPCFullName = npc.ModNPC?.FullName;
 				switch (sampleModNPCFullName) {
@@ -875,6 +877,7 @@ namespace WeaponEnchantments.Common.Globals
 				return npc.FullName;
 			}
 		}
-        public static string ModFullName(this NPC npc) => npc.ModNPC?.FullName ?? npc.type.GetNPCIDOrName();
+        
+        //public static string ModFullName(this NPC npc) => npc.ModNPC?.FullName ?? npc.type.GetNPCIDOrName();
 	}
 }

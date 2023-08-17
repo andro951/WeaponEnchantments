@@ -24,6 +24,8 @@ using Terraria.GameContent.ItemDropRules;
 using static Humanizer.On;
 using Ionic.Zlib;
 using WeaponEnchantments.UI;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common
 {

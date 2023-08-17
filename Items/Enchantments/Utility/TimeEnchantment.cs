@@ -9,6 +9,7 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using System.Linq;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items.Enchantments.Utility
 {

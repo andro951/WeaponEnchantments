@@ -22,6 +22,7 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
 using static WeaponEnchantments.WEPlayer;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {

@@ -27,10 +27,12 @@ using static WeaponEnchantments.Common.EnchantingRarity;
 using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using static WeaponEnchantments.Common.Globals.EnchantedWeaponStaticMethods;
 using static WeaponEnchantments.Items.Enchantment;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Globals
 {
-    public abstract class EnchantedItem : GlobalItem {
+	using androLib.Common.Globals;
+	public abstract class EnchantedItem : GlobalItem {
 
         #region Constants
 
@@ -1645,7 +1647,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }//d
-        public static string ModFullName(this Item item) => item.ModItem?.FullName ?? item.Name;
+        //public static string ModFullName(this Item item) => item.ModItem?.FullName ?? item.Name;
         public static bool TryResetSameEnchantedItem(this Item item, IEnumerable<Item> storageItems, out int index) {
             bool found = false;
             index = -1;

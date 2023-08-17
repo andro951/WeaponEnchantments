@@ -7,6 +7,8 @@ using WeaponEnchantments.Common.Utility;
 using System.Diagnostics;
 using System.Linq;
 using Terraria.GameContent.ItemDropRules;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {

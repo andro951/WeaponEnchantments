@@ -6,7 +6,7 @@ using static WeaponEnchantments.WEMod;
 
 namespace WeaponEnchantments.Common.Configs
 {
-	internal class ConfigValues {
+	public class ConfigValues {
 		public static readonly float[] PresetMultipliers = { 1f, 0.5f, 0.25f, 2.5f };
 
 		private static float _globalStrengthMultiplier = serverConfig.presetData.GlobalEnchantmentStrengthMultiplier / 100f;

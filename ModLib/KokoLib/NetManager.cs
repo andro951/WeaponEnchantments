@@ -13,6 +13,8 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Debuffs;
 using Terraria.ModLoader;
 using WeaponEnchantments.UI;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.ModLib.KokoLib
 {

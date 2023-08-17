@@ -12,6 +12,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public class BuffEffect : EnchantmentEffect {

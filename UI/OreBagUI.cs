@@ -19,11 +19,15 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Items;
 using WeaponEnchantments.ModIntegration;
+using androLib.Common.Utility;
+using androLib.UI;
 
 namespace WeaponEnchantments.UI
 {
 	public static class OreBagUI
 	{
+		
+		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.OreBag_UITypeID);
 		public static SortedSet<int> OreTypes {
 			get {
 				if (oreTypes == null)
@@ -64,8 +68,8 @@ namespace WeaponEnchantments.UI
 			public const int ToggleVacuum = 4;
 			public const int Count = 5;
 		}
-		public static int ID => UI_ID.OreBag;
-		public static int SearchID => UI_ID.OreBagSearch;
+		public static int ID => GetUI_ID(WE_UI_ID.OreBag);
+		public static int SearchID => GetUI_ID(WE_UI_ID.OreBagSearch);
 		public static int OreBagUIDefaultLeft => 80;
 		public static int OreBagUIDefaultTop => 675;
 		public static Color PanelColor => new Color(25, 10, 3, UIManager.UIAlpha);
@@ -88,7 +92,7 @@ namespace WeaponEnchantments.UI
 			if (wePlayer.Player.chest != -1)
 				return;
 
-			if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && CanBeStored(Main.HoverItem)) {
+			if (ItemSlot.ShiftInUse && MasterUIManager.NoUIBeingHovered && CanBeStored(Main.HoverItem)) {
 				if (!Main.mouseItem.IsAir || !RoomInStorage(Main.HoverItem)) {
 					Main.cursorOverride = -1;
 				}
@@ -101,7 +105,7 @@ namespace WeaponEnchantments.UI
 
 			#region Data
 
-			Color mouseColor = UIManager.MouseColor;
+			Color mouseColor = MasterUIManager.MouseColor;
 			if (glowTime > 0) {
 				glowTime--;
 				if (glowTime <= 0)
@@ -114,24 +118,24 @@ namespace WeaponEnchantments.UI
 			int itemSlotColumns = 10;
 			int itemSlotRowsDisplayed = 3;
 			int itemSlotTotalRows = inventory.Length.CeilingDivide(itemSlotColumns);
-			int itemSlotSpaceWidth = UIManager.ItemSlotSize + Spacing;
-			int itemSlotSpaceHeight = UIManager.ItemSlotSize + Spacing;
-			int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + UIManager.ItemSlotSize;
-			int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
+			int itemSlotSpaceWidth = MasterUIManager.ItemSlotSize + Spacing;
+			int itemSlotSpaceHeight = MasterUIManager.ItemSlotSize + Spacing;
+			int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + MasterUIManager.ItemSlotSize;
+			int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + MasterUIManager.ItemSlotSize;
 			int itemSlotsLeft = wePlayer.oreBagUILeft + PanelBorder;
 
 			//Name Data
 			int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
 			int nameTop = wePlayer.oreBagUITop + PanelBorder;
 			string name = EnchantmentStorageTextID.OreBag.ToString().Lang(L_ID1.EnchantmentStorageText);
-			UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
+			UITextData nameData = new(WE_UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 			//Panel Data 1/2
 			int panelBorderTop = nameData.Height + Spacing + 2;
 
 			//Search Bar Data
 			int searchBarMinWidth = 100;
-			TextData searchBarTextData = new(UIManager.DisplayedSearchBarString(SearchID));
+			TextData searchBarTextData = new(MasterUIManager.DisplayedSearchBarString(SearchID));
 			UIButtonData searchBarData = new(SearchID, nameData.BottomRight.X + Spacing * 10, nameTop - 6, searchBarTextData, mouseColor, Math.Max(6, (searchBarMinWidth - searchBarTextData.Width) / 2), 0, PanelColor, new Color(50, 20, 6, UIManager.UIAlpha));
 
 			//ItemSlots Data 2/2
@@ -157,7 +161,7 @@ namespace WeaponEnchantments.UI
 					color = mouseColor;
 				}
 
-				UITextData thisButton = new(UI_ID.OreBagLootAll + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
+				UITextData thisButton = new(GetUI_ID(WE_UI_ID.OreBagLootAll) + buttonIndex, buttonsLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
 				textButtons[buttonIndex] = thisButton;
 				longestButtonNameWidth = Math.Max(longestButtonNameWidth, thisButton.Width);
 				currentButtonTop += (int)(thisButton.BaseHeight * 0.95f);
@@ -171,7 +175,7 @@ namespace WeaponEnchantments.UI
 
 			//Scroll Bar Data 2/2
 			int scrollBarTop = wePlayer.oreBagUITop + PanelBorder;
-			UIPanelData scrollBarData = new(UI_ID.OreBagScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(30, 10, 1, UIManager.UIAlpha));
+			UIPanelData scrollBarData = new(GetUI_ID(WE_UI_ID.OreBagScrollBar), scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(30, 10, 1, UIManager.UIAlpha));
 
 			//Scroll Panel Data 1/2
 			int scrollPanelXOffset = 1;
@@ -194,7 +198,7 @@ namespace WeaponEnchantments.UI
 
 			//ItemSlots Draw
 			int startRow = scrollPanelPosition;
-			bool UsingSearchBar = UIManager.UsingSearchBar(SearchID);
+			bool UsingSearchBar = MasterUIManager.UsingSearchBar(SearchID);
 			//int inventoryIndexStart = !UsingSearchBar ? startRow * itemSlotColumns : 0;
 			int inventoryIndexStart = startRow * itemSlotColumns;
 			int slotsToDisplay = itemSlotRowsDisplayed * itemSlotColumns;
@@ -206,12 +210,12 @@ namespace WeaponEnchantments.UI
 					break;
 
 				ref Item item = ref inventory[inventoryIndex];
-				if (!UsingSearchBar || item.Name.ToLower().Contains(UIManager.SearchBarString.ToLower())) {
-					UIItemSlotData slotData = new(UI_ID.OreBagItemSlot, itemSlotX, itemSlotY);
+				if (!UsingSearchBar || item.Name.ToLower().Contains(MasterUIManager.SearchBarString.ToLower())) {
+					UIItemSlotData slotData = new(GetUI_ID(WE_UI_ID.OreBagItemSlot), itemSlotX, itemSlotY);
 					if (slotData.MouseHovering()) {
 						if (WEModSystem.FavoriteKeyDown) {
 							Main.cursorOverride = CursorOverrideID.FavoriteStar;
-							if (UIManager.LeftMouseClicked) {
+							if (MasterUIManager.LeftMouseClicked) {
 								item.favorited = !item.favorited;
 								SoundEngine.PlaySound(SoundID.MenuTick);
 								if (item.TryGetGlobalItem(out VacuumToOreBagItems vacummItem2))
@@ -247,18 +251,18 @@ namespace WeaponEnchantments.UI
 
 			bool mouseHoveringSearchBar = searchBarData.MouseHovering();
 			if (mouseHoveringSearchBar) {
-				if (UIManager.LeftMouseClicked)
-					UIManager.ClickSearchBar(SearchID);
+				if (MasterUIManager.LeftMouseClicked)
+					MasterUIManager.ClickSearchBar(SearchID);
 			}
 
-			if (UIManager.TypingOnSearchBar(SearchID)) {
-				if (UIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
-					UIManager.StopTypingOnSearchBar();
+			if (MasterUIManager.TypingOnSearchBar(SearchID)) {
+				if (MasterUIManager.LeftMouseClicked && !mouseHoveringSearchBar || Main.mouseRight || !Main.playerInventory) {
+					MasterUIManager.StopTypingOnSearchBar();
 				}
 				else {
 					PlayerInput.WritingText = true;
 					Main.instance.HandleIME();
-					UIManager.SearchBarString = Main.GetInputText(UIManager.SearchBarString);
+					MasterUIManager.SearchBarString = Main.GetInputText(MasterUIManager.SearchBarString);
 				}
 			}
 
@@ -266,13 +270,13 @@ namespace WeaponEnchantments.UI
 			for (int buttonIndex = 0; buttonIndex < OreBagButtonID.Count; buttonIndex++) {
 				UITextData textButton = textButtons[buttonIndex];
 				textButton.Draw(spriteBatch);
-				if (UIManager.MouseHovering(textButton, true)) {
+				if (MasterUIManager.MouseHovering(textButton, true)) {
 					ButtonScale[buttonIndex] += 0.05f;
 
 					if (ButtonScale[buttonIndex] > buttonScaleMaximum)
 						ButtonScale[buttonIndex] = buttonScaleMaximum;
 
-					if (UIManager.LeftMouseClicked) {
+					if (MasterUIManager.LeftMouseClicked) {
 						switch (buttonIndex) {
 							case OreBagButtonID.LootAll:
 								LootAll();
@@ -303,8 +307,8 @@ namespace WeaponEnchantments.UI
 			}
 
 			//Scroll Panel Data 2/2
-			bool draggingScrollPanel = UIManager.PanelBeingDragged == UI_ID.OreBagScrollPanel;
-			if (UIManager.PanelBeingDragged == UI_ID.OreBagScrollPanel) {
+			bool draggingScrollPanel = MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.OreBagScrollPanel);
+			if (MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.OreBagScrollPanel)) {
 				scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 			}
 			else {
@@ -315,21 +319,21 @@ namespace WeaponEnchantments.UI
 
 			//Scroll Bar Hover
 			if (scrollBarData.MouseHovering()) {
-				if (UIManager.LeftMouseClicked) {
-					UIManager.UIBeingHovered = UI_ID.None;
+				if (MasterUIManager.LeftMouseClicked) {
+					MasterUIManager.UIBeingHovered = UI_ID.None;
 					scrollPanelY = Main.mouseY - scrollPanelSize / 2;
 					scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 				}
 			}
 
 			//Scroll Panel Hover and Drag
-			UIPanelData scrollPanelData = new(UI_ID.OreBagScrollPanel, scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
+			UIPanelData scrollPanelData = new(GetUI_ID(WE_UI_ID.OreBagScrollPanel), scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
 			if (scrollPanelData.MouseHovering()) {
 				scrollPanelData.TryStartDraggingUI();
 			}
 
 			if (scrollPanelData.ShouldDragUI()) {
-				UIManager.DragUI(out _, out scrollPanelY);
+				MasterUIManager.DragUI(out _, out scrollPanelY);
 			}
 			else if (draggingScrollPanel) {
 				int scrollPanelRange = scrollPanelMaxY - scrollPanelMinY;
@@ -344,10 +348,10 @@ namespace WeaponEnchantments.UI
 			}
 
 			if (panel.ShouldDragUI())
-				UIManager.DragUI(out wePlayer.oreBagUILeft, out wePlayer.oreBagUITop);
+				MasterUIManager.DragUI(out wePlayer.oreBagUILeft, out wePlayer.oreBagUITop);
 
-			int scrollWheelTicks = UIManager.ScrollWheelTicks;
-			if (scrollWheelTicks != 0 && UIManager.HoveringOreBag && UIManager.NoPanelBeingDragged) {
+			int scrollWheelTicks = MasterUIManager.ScrollWheelTicks;
+			if (scrollWheelTicks != 0 && UIManager.HoveringOreBag && MasterUIManager.NoPanelBeingDragged) {
 				if (scrollPanelPosition > 0 && scrollWheelTicks < 0 || scrollPanelPosition < possiblePanelPositions && scrollWheelTicks > 0) {
 					SoundEngine.PlaySound(SoundID.MenuTick);
 					scrollPanelPosition += scrollWheelTicks;
@@ -422,7 +426,7 @@ namespace WeaponEnchantments.UI
 		public static void CloseOreBag(bool noSound = false) {
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			wePlayer.displayOreBagUI = false;
-			UIManager.TryResetSearch(SearchID);
+			MasterUIManager.TryResetSearch(SearchID);
 			if (Main.LocalPlayer.chest == -1) {
 				if (!noSound)
 					SoundEngine.PlaySound(SoundID.Grab);
@@ -538,7 +542,7 @@ namespace WeaponEnchantments.UI
 			return transferedAnyItem;
 		}
 		private static void Sort() {
-			UIManager.SortItems(ref WEPlayer.LocalWEPlayer.oreBagItems);
+			MasterUIManager.SortItems(ref WEPlayer.LocalWEPlayer.oreBagItems);
 			Type itemSlotType = typeof(ItemSlot);
 			int[] inventoryGlowTime = (int[])itemSlotType.GetField("inventoryGlowTime", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 			for (int i = 0; i < inventoryGlowTime.Length; i++) {
@@ -558,5 +562,6 @@ namespace WeaponEnchantments.UI
 		private static void ToggleVacuum() {
 			WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag = !WEPlayer.LocalWEPlayer.vacuumItemsIntoOreBag;
 		}
+		
 	}
 }

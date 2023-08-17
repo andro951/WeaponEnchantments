@@ -16,6 +16,7 @@ using WeaponEnchantments.Effects;
 using Terraria.Localization;
 using WeaponEnchantments.Tiles;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility
 {
@@ -218,12 +219,19 @@ namespace WeaponEnchantments.Common.Utility
             enchantmentEssence = null;
 
             return false;
-        }
+		}
+		public static string GetEffectTooltip(this EnchantmentEffect enchantmentEffect, IEnumerable<object> args, string key = null) {
+			string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.TooltipName;
+			if (fullKey.Lang(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
+				return result;
+
+			return "";
+		}
 
 		#endregion
 
 		#region General
-
+        /*
 		public static Item CSI(this int type) => ContentSamples.ItemsByType[type];
 		public static NPC CSNPC(this int netID) => ContentSamples.NpcsByNetId[netID];
 		public static void ReplaceItemWithCoins(ref Item item, int coins) {
@@ -251,6 +259,7 @@ namespace WeaponEnchantments.Common.Utility
                     player.QuickSpawnItem(player.GetSource_GiftOrReward(), ItemID.CopperCoin + i, coins);
             }
         }
+        */
         public static void CheckConvertExcessExperience(this Item item, Item consumedItem) {
             if (item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem) && consumedItem.TryGetEnchantedItemSearchAll(out EnchantedItem cGlobal)) {
                 long xp = (long)enchantedItem.Experience + (long)cGlobal.Experience;
@@ -270,7 +279,7 @@ namespace WeaponEnchantments.Common.Utility
 				$"Failed to CheckConvertExcessExperience(item: {item.S()}, consumedItem: {consumedItem.S()})".LogNT(ChatMessagesIDs.FailedCheckConvertExcessExperience);
             }
         }
-
+        /*
         /// <summary>
 		/// Randomly selects an item from the list if the chance is higher than the randomly generated float.<br/>
         /// <c>This can be done with var rand = new WeightedRandom<Item>(Main.rand)<br/>
@@ -340,6 +349,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return newList.GetOneFromWeightedList(chance);
         }
+        */
         public static int GetOneFromWeightedList(this IEnumerable<WeightedPair> options, float chance) {
             if (options.Count() == 0)
                 return 0;
@@ -396,6 +406,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return 0;
         }
+        /*
         public static float Percent(this float value) => value * 100f;
         public static string PercentString(this float value) => $"{(value * 100).S()}%";
         public static string Lang(this string s, string m) => s.Lang(out string result, m) ? result : "";
@@ -501,39 +512,10 @@ namespace WeaponEnchantments.Common.Utility
 
             return true;
         }
-        /*
-        public static bool Lang(this string s, out string result, L_ID1 id, L_ID2 id2, IEnumerable<object> args) {
-            string key = $"Mods.WeaponEnchantments.{id}.{id2}.{s}";
-            string temp = args?.Select(a => a.ToString()).JoinList();
-            List<string> argList = new();
-            int i = 0;
-            if (args != null) {
-                foreach (object arg in args) {
-                    string argString = arg.ToString() + i.ToString();
-                    argList.Add(argString);
-                    i++;
-                }
-            }
-            
-            //result = args != null ? Language.GetTextValue(key, args) : Language.GetTextValue(key);
-            result = argList.Count > 0 ? Language.GetTextValue(key, argList) : Language.GetTextValue(key);
-            if (result == key) {
-                return false;
-            }
-            
-            return true;
-        }
-        */
-        public static string GetEffectTooltip(this EnchantmentEffect enchantmentEffect, IEnumerable<object> args, string key = null) {
-            string fullKey = key != null ? $"{enchantmentEffect.TooltipName}.{key}" : enchantmentEffect.TooltipName;
-            if (fullKey.Lang(out string result, L_ID1.Tooltip, L_ID2.EnchantmentEffects, args))
-                return result;
-
-            return "";
-        }
         public static string GetTextValue(this string key, IEnumerable<object> args) {
             return Language.GetTextValue(key, args);
         }
+        */
 
         #region AddOrCombine
 
@@ -634,6 +616,7 @@ namespace WeaponEnchantments.Common.Utility
                 dictionary.Add(key, new List<(T, List<DropData>)>() { newValue });
             }
         }
+        /*
         public static void AddOrCombine(this IDictionary<int, int> dict1, IDictionary<int, int> dict2) {
             foreach (var pair in dict2) {
                 dict1.AddOrCombine(pair);
@@ -798,7 +781,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return result;
         }
-
+        */
 		#endregion
 
 		/*
@@ -809,9 +792,7 @@ namespace WeaponEnchantments.Common.Utility
 		}
         */
 
-		//public static void ApplyTo(this StatModifier statModifier, ref float value) {
-		//    value = (value + statModifier.Base) * statModifier.Additive * statModifier.Multiplicative + statModifier.Flat;
-		//}
+		/*
 		public static bool NullOrAir(this Item item) => item?.IsAir ?? true;
         public static SortedList<TKey, TValue> CombineSortedLists<TKey, TValue>(this SortedList<TKey, TValue> list1, SortedList<TKey, TValue> list2) {
             SortedList <TKey, TValue> newList = new SortedList <TKey, TValue>();
@@ -825,6 +806,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return newList;
         }
+        */
         public static SortedList<EnchantmentStat, T> ToSortedList<T>(this IEnumerable<T> list) where T : class, IEnchantmentStat {
             SortedList<EnchantmentStat, T> newList = new SortedList<EnchantmentStat, T>();
             foreach (T i in list) {
@@ -833,6 +815,7 @@ namespace WeaponEnchantments.Common.Utility
             
             return newList;
 		}
+		/*
         public static void Clamp(this ref int value, int min = 0, int max = 100) {
             value = value < min ? min : value > max ? max : value;
 		}
@@ -847,17 +830,18 @@ namespace WeaponEnchantments.Common.Utility
                     list1.Add(item2);
 			}
 		}
-        public static Type TypeAboveModItem(this Item item) {
-            if (item == null)
-                return null;
+        */
+		public static Type TypeAboveModItem(this Item item) {
+			if (item == null)
+				return null;
 
-            ModItem modItem = item.ModItem;
-            if (modItem == null)
-                return null;
+			ModItem modItem = item.ModItem;
+			if (modItem == null)
+				return null;
 
-            return modItem.TypeBeforeModItem();
-        }
-        public static Type TypeBeforeModItem(this ModItem modItem) {
+			return modItem.TypeBeforeModItem();
+		}
+		public static Type TypeBeforeModItem(this ModItem modItem) {
             Type type = modItem.GetType();
             bool foundListUniqueType = false;
             while (!foundListUniqueType) {
@@ -871,6 +855,7 @@ namespace WeaponEnchantments.Common.Utility
 
             return type;
         }
+        /*
         public static Type TypeAboveGrandParent(this object child, Type parent) => child.GetType().TypeAboveGrandParent(parent);
         public static Type TypeAboveGrandParent(this Type child, Type parent) {
             Type type = child;
@@ -912,6 +897,7 @@ namespace WeaponEnchantments.Common.Utility
             
             return false;
         }
+        */
 
         #endregion
     }

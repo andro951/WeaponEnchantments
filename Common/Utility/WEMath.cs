@@ -10,7 +10,7 @@ namespace WeaponEnchantments.Common.Utility
 	public static class WEMath
 	{
 		#region bools
-
+		/*
 		/// <summary>
 		/// Adds n2 to n1 and caps n1 at int.MaxValue.
 		/// </summary>
@@ -242,7 +242,7 @@ namespace WeaponEnchantments.Common.Utility
 			return result;
 		}
 		public static int Abs(this int v) => v < 0 ? -v : v;
-
+		*/
 		#endregion
 	}
 }

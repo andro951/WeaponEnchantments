@@ -9,6 +9,8 @@ using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Effects {
     public class VanillaDash : PlayerSetEffect {

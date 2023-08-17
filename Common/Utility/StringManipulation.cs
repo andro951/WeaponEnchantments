@@ -9,18 +9,21 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items;
+using androLib.Common.Globals;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility
 {
 	public static class StringManipulation
     {
+        /*
         private static readonly char[] upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         private static readonly char[] lowerCase = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         private static readonly char[] numbers = "0123456789".ToCharArray();
         private static readonly string[] apla = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWKYZ" };
-
+        */
         #region S() Methods
-
+        /*
         /// <summary>
         /// Convert to a string
         /// </summary>
@@ -45,12 +48,12 @@ namespace WeaponEnchantments.Common.Utility
         /// Convert to a string
         /// </summary>
         public static string S(this NPC npc, bool stats = false) => npc != null ? $"id: {npc.type.GetNPCIDOrName()}, netID: {npc.netID}{(npc.type >= NPCID.Count ? $" name: {npc.ModFullName()}" : "")} whoAmI: {npc.whoAmI}{(stats ? $"defense: {npc.defense}, defDefense: {npc.defDefense}, lifeMax: {npc.lifeRegen}, life: {npc.RealLife()}" : "")}" : "null";
-
+        */
         /// <summary>
         /// Convert to a string
         /// </summary>
         public static string S(this Enchantment enchantment) => enchantment != null ? enchantment.Name : "null";
-
+        /*
         /// <summary>
         /// Convert to a string
         /// </summary>
@@ -151,9 +154,9 @@ namespace WeaponEnchantments.Common.Utility
         public static string GetTileNameString(this int tileType) => TileLoader.GetTile(tileType) is ModTile modTile && modTile != null ? modTile.FullName : $"NullModTile{tileType}";
 		public static string GetTileIDOrName(this int tileType) => tileType < TileID.Count ? tileType.GetTilIDName() : tileType.GetTileNameString();
 		public static string StringList<T>(this IEnumerable<T> enumerable, ToStringDelegate<T> toString, string name = null) => $"{(name != null ? $"{name} " : "")}{enumerable.Select(v => toString(v)).JoinList(", ").Brackets()}";
-
+        */
 		#endregion
-
+        /*
 		public static bool IsUpper(this char c) {
             foreach (char upper in upperCase) {
                 if (upper == c)
@@ -457,32 +460,6 @@ namespace WeaponEnchantments.Common.Utility
                     matchString = "";
                 }
             }
-            /*
-            for(int i = 0; i < rS.Length; i++) {
-                for(int j = i; j < rS.Length; j++) {
-                    char c = rS[j];
-                    bool match = true;
-                    for (int k = 0; k < listCount; k++) {
-                        string orig = original[k];
-                        if (!orig.Contains(matchString + c)) {
-                            match = false;
-                            break;
-                        }
-                    }
-
-                    if (match) {
-                        //if (c != ' ' || matchString != " ")
-                            matchString += c;
-                    }
-                    else if (matchString != "") {
-                        //j--;
-                        matches.Add(matchString);
-                        matchString = "";
-                        break;
-                    }
-                }
-            }
-            */
             if (matchString != "") {
                 matches.Add(matchString);
             }
@@ -580,5 +557,6 @@ namespace WeaponEnchantments.Common.Utility
         public static bool StartsWith(this string original, string startString) => original.Length >= startString.Length && original.Substring(0, startString.Length) == startString;
 		public static string Tabs(this int num) => num > 0 ? new string('\t', num) : "";
 		public static string Tabs(this int num, int numAdd) => num + numAdd > 0 ? new string('\t', num + numAdd) : "";
+        */
 	}
 }

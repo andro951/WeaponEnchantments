@@ -23,6 +23,8 @@ using WeaponEnchantments.Items.Enchantments;
 using WeaponEnchantments.Common;
 using System.Reflection;
 using WeaponEnchantments.Items.Enchantments.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Content.NPCs
 {

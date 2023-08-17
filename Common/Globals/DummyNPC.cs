@@ -8,6 +8,8 @@ using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Globals
 {
@@ -65,7 +67,7 @@ namespace WeaponEnchantments.Common.Globals
 
 			if (StopDPSCheck) {
 				if (totalItemDamages.Count > 1)
-					totalItemDamages.Add("Total", WEMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
+					totalItemDamages.Add("Total", ModMath.SumCheckOverFlow(totalItemDamages.Select(d => d.Value).ToArray()));
 
 				string msg = "\n" + totalItemDamages.Select(pair => $"{npc.ModFullName()} ({npc.whoAmI}), {pair.Key}, {(pair.Value / (ticks / 60d)).ToString("F5")}").JoinList("\n");
 				msg.LogSimple();

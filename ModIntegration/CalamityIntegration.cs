@@ -11,6 +11,8 @@ using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using Terraria.ID;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.ModIntegration
 {

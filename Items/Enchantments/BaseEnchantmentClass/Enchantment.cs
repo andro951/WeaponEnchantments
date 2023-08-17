@@ -17,6 +17,8 @@ using System.Linq;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Items.Enchantments.Utility;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items
 {

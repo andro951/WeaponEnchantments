@@ -30,6 +30,11 @@ using WeaponEnchantments.ModLib.KokoLib;
 using Terraria.WorldBuilding;
 using rail;
 using WeaponEnchantments.Effects.CustomEffects;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using androLib.UI;
+using androLib;
+using WeaponEnchantments.Items.Enchantments;
 
 namespace WeaponEnchantments
 {
@@ -40,19 +45,7 @@ namespace WeaponEnchantments
 		public static bool WorldOldItemsReplaced = false;
         public static bool WorldEnchantedItemConverted = false;
         public static bool PlayerEnchantedItemConverted = false;
-		public static WEPlayer LocalWEPlayer {
-			get {
-				if (localWEPlayer == null) {
-					localWEPlayer = Main.LocalPlayer.GetWEPlayer();
-				}
-
-				return localWEPlayer;
-			}
-			set {
-				localWEPlayer = null;
-			}
-		}
-		private static WEPlayer localWEPlayer = null;
+        public static WEPlayer LocalWEPlayer => Main.LocalPlayer.GetWEPlayer();
 		public int levelsPerLevelUp;
 		internal byte versionUpdate;
         public bool usingEnchantingTable;
@@ -85,13 +78,13 @@ namespace WeaponEnchantments
         public Item[] enchantingTableEssence = new Item[EnchantingTableUI.MaxEssenceSlots];
 		public bool openStorageWhenOpeningTable = false;
         public SortedSet<string> allOfferedItems = new();
-        public Item[] oreBagItems;
-		public int oreBagUILeft;
-		public int oreBagUITop;
-        public const int OreBagSize = 100;
-		public bool vacuumItemsIntoOreBag = true;
-		public bool displayOreBagUI = false;
-        public Dictionary<string, List<Item[]>> enchantmentLoadouts = new();
+        public Item[] oreBagItems;//OreBag-Delete
+        public int oreBagUILeft;//OreBag-Delete
+		public int oreBagUITop;//OreBag-Delete
+		public const int OreBagSize = 100;//OreBag-Delete
+		public bool vacuumItemsIntoOreBag = true;//OreBag-Delete
+		public bool displayOreBagUI = false;//OreBag-Delete
+		public Dictionary<string, List<Item[]>> enchantmentLoadouts = new();
         public bool displayEnchantmentLoadoutUI = false;
         public int EnchantmentLoadoutUILeft;
         public int EnchantmentLoadoutUITop;
@@ -298,7 +291,6 @@ namespace WeaponEnchantments
 
 			#endregion
 
-			localWEPlayer = null;
 			if (!WorldOldItemsReplaced) {
                 OldItemManager.ReplaceAllOldItems();
                 if (WEModSystem.versionUpdate < 1)
@@ -314,13 +306,16 @@ namespace WeaponEnchantments
 
 			UpdateEnchantmentEffects();
 
+			StorageManager.CanVacuumItemHandler.Add(EnchantmentStorage.CanVauumItem);
+            StoragePlayer.LocalStoragePlayer.TryReturnItemToPlayer.Add((Item item, Player player) => EnchantmentStorage.TryVacuumItem(ref item, player));
+
 			#region Debug
 
-            if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
+			if (LogMethods.debugging) ($"/\\OnEnterWorld({Player.S()})").Log();
 
             #endregion
         }
-        public override void Initialize() {
+		public override void Initialize() {
             enchantingTableEnchantments = emptyEnchantments;
 		}
         public override void SaveData(TagCompound tag) {
@@ -347,11 +342,11 @@ namespace WeaponEnchantments
 			if (allOfferedItems.Count > 0)
 				tag["allOfferedItems"] = allOfferedItems.ToList();
 
-			tag["oreBagItems"] = oreBagItems;
-			tag["oreBagUILeft"] = oreBagUILeft;
-			tag["oreBagUITop"] = oreBagUITop;
-			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;
-            tag["enchantmentLoadouts"] = enchantmentLoadouts.Select(p => p.Value).ToList();
+            tag["oreBagItems"] = oreBagItems;//OreBag-Delete
+			tag["oreBagUILeft"] = oreBagUILeft;//OreBag-Delete
+			tag["oreBagUITop"] = oreBagUITop;//OreBag-Delete
+			tag["vacuumItemsIntoOreBag"] = vacuumItemsIntoOreBag;//OreBag-Delete
+			tag["enchantmentLoadouts"] = enchantmentLoadouts.Select(p => p.Value).ToList();
             tag["loadoutKeys"] = enchantmentLoadouts.Select(p => p.Key).ToList();
 			tag["EnchantmentLoadoutUILeft"] = EnchantmentLoadoutUILeft;
             tag["EnchantmentLoadoutUITop"] = EnchantmentLoadoutUITop;
@@ -387,31 +382,31 @@ namespace WeaponEnchantments
 
 			enchantmentStorageUILeft = tag.Get<int>("enchantmentStorageUILocationX");
 			enchantmentStorageUITop = tag.Get<int>("enchantmentStorageUILocationY");
-            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
+            MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantmentStorageUILeft, ref enchantmentStorageUITop, EnchantmentStorage.EnchantmentStorageUIDefaultLeft, EnchantmentStorage.EnchantmentStorageUIDefaultTop);
 
             enchantingTableUILeft = tag.Get<int>("enchantingTableUILocationX");
             enchantingTableUITop = tag.Get<int>("enchantingTableUILocationY");
-			UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
+			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref enchantingTableUILeft, ref enchantingTableUITop, EnchantingTableUI.DefaultLeft, EnchantingTableUI.DefaultTop);
 
             if (tag.TryGet("vacuumItemsIntoEnchantmentStorage", out bool vacuumItemsIntoEnchantmentStorageLoadedValue))
                 vacuumItemsIntoEnchantmentStorage = vacuumItemsIntoEnchantmentStorageLoadedValue;
 
 			trashEnchantmentsFullNames = new(tag.Get<List<string>>("trashEnchantmentsFullNames"));
-            openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
-            allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));
-            if (!tag.TryGet("oreBagItems", out oreBagItems))
-                oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();
+			openStorageWhenOpeningTable = tag.Get<bool>("openStorageWhenOpeningTable");
+			allOfferedItems = new(tag.Get<List<string>>("allOfferedItems"));//OreBag-Delete
+			if (!tag.TryGet("oreBagItems", out oreBagItems))//OreBag-Delete
+				oreBagItems = Enumerable.Repeat(new Item(), OreBagSize).ToArray();//OreBag-Delete
 
-            if (oreBagItems.Length < OreBagSize)
-                oreBagItems = oreBagItems.Concat(Enumerable.Repeat(new Item(), OreBagSize - oreBagItems.Length)).ToArray();
+			if (oreBagItems.Length < OreBagSize)//OreBag-Delete
+				oreBagItems = oreBagItems.Concat(Enumerable.Repeat(new Item(), OreBagSize - oreBagItems.Length)).ToArray();//OreBag-Delete
 
-            oreBagUILeft = tag.Get<int>("oreBagUILeft");
-            oreBagUITop = tag.Get<int>("oreBagUITop");
-            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);
-            if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))
-                vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;
+			oreBagUILeft = tag.Get<int>("oreBagUILeft");//OreBag-Delete
+			oreBagUITop = tag.Get<int>("oreBagUITop");//OreBag-Delete
+			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref oreBagUILeft, ref oreBagUITop, OreBagUI.OreBagUIDefaultLeft, OreBagUI.OreBagUIDefaultTop);//OreBag-Delete
+			if (tag.TryGet("vacuumItemsIntoOreBag", out bool vacuumItemsIntoOreBagLoadedValue))//OreBag-Delete
+				vacuumItemsIntoOreBag = vacuumItemsIntoOreBagLoadedValue;//OreBag-Delete
 
-            if (!tag.TryGet("enchantmentLoadouts", out List<List<Item[]>> justLoadouts)) {
+			if (!tag.TryGet("enchantmentLoadouts", out List<List<Item[]>> justLoadouts)) {
 				enchantmentLoadouts = new();
 			}
             else {
@@ -438,7 +433,7 @@ namespace WeaponEnchantments
 
 			EnchantmentLoadoutUILeft = tag.Get<int>("EnchantmentLoadoutUILeft");
             EnchantmentLoadoutUITop = tag.Get<int>("EnchantmentLoadoutUITop");
-            UIManager.CheckOutOfBoundsRestoreDefaultPosition(ref EnchantmentLoadoutUILeft, ref EnchantmentLoadoutUITop, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultLeft, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultTop);
+			MasterUIManager.CheckOutOfBoundsRestoreDefaultPosition(ref EnchantmentLoadoutUILeft, ref EnchantmentLoadoutUITop, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultLeft, EnchantmentLoadoutUI.EnchantmentLoadoutUIDefaultTop);
             openLoadoutsWhenOpeningTable = tag.Get<bool>("openLoadoutsWhenOpeningTable");
             if (tag.TryGet("autoTrashOfferedItems", out bool val))
                 autoTrashOfferedItems = val;
@@ -466,21 +461,21 @@ namespace WeaponEnchantments
 						}
 
 						if (!item.IsAir || !Main.mouseItem.IsAir)
-							UIManager.SwapMouseItem(ref item);
+							MasterUIManager.SwapMouseItem(ref item);
 
 						return true;
 					}
                 }
 			}
 
-			if (UIManager.NoUIBeingHovered) {
-                if (displayOreBagUI && (OreBagUI.CanBeStored(item))) {
-					if (!OreBagUI.TryVacuumItem(Main.LocalPlayer, ref item))
-                        UIManager.SwapMouseItem(ref item);
+			//if (MasterUIManager.NoUIBeingHovered) {
+   //             if (displayOreBagUI && (OreBagUI.CanBeStored(item))) {
+			//		if (!OreBagUI.TryVacuumItem(Main.LocalPlayer, ref item))
+			//			MasterUIManager.SwapMouseItem(ref item);
 
-					return true;
-				}
-            }
+			//		return true;
+			//	}
+   //         }
 
             return false;
 		}
@@ -687,8 +682,8 @@ namespace WeaponEnchantments
                 }
 
                 if (!valid && moveItem) {
-                    //Pick up item
-                    UIManager.SwapMouseItem(ref item);
+					//Pick up item
+					MasterUIManager.SwapMouseItem(ref item);
 				}
                 else if (valid && !moveItem && !hoveringOverTrash) {
                     Main.cursorOverride = CursorOverrideID.InventoryToChest;
@@ -696,7 +691,7 @@ namespace WeaponEnchantments
             }
             else if (moveItem) {
 				//Put item down
-				UIManager.SwapMouseItem(ref item);
+				MasterUIManager.SwapMouseItem(ref item);
 
                 return true;//Return true to prevent trashing the item after it's put down
 			}
@@ -708,35 +703,16 @@ namespace WeaponEnchantments
 		}
 		public bool TryReturnEnchantmentToPlayer(int enchantmentIndex, EnchantmentsArray enchantmentsArray, bool allowQuickSpawn = false) {
 			Item item = enchantmentsArray[enchantmentIndex];
-			bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
+            bool result = TryReturnItemToPlayer(ref item, allowQuickSpawn);
 			enchantmentsArray[enchantmentIndex] = item;
 			return result;
 		}
-		public bool TryReturnItemToPlayer(ref Item item, bool allowQuickSpawn = false) {
-            if (EnchantmentStorage.TryVacuumItem(ref item))
-                return true;
-
-            if (OreBagUI.TryVacuumItem(Player, ref item))
-                return true;
-
-            item = Player.GetItem(Player.whoAmI, item, GetItemSettings.InventoryEntityToPlayerInventorySettings);
-            if (item.IsAir)
-                return true;
-
-            if (!allowQuickSpawn)
-                return false;
-
-            Player.QuickSpawnItem(Player.GetSource_Misc("PlayerDropItemCheck"), item, item.stack);
-            return true;
+        public bool TryReturnItemToPlayer(ref Item item, bool allowQuickSpawn = false) =>
+			Player.GetStoragePlayer().TryReturnItemToPlayer.Invoke(ref item, Player, allowQuickSpawn);
+        public bool TryGiveNewItemToPlayer(int itemType) {
+            Item item = new Item(itemType);
+			return TryReturnItemToPlayer(ref item, true);
 		}
-        public bool CanVacuumItem(Item item) => EnchantmentStorage.CanVauumItem(item) || OreBagUI.CanVacuumItem(Player, item);
-        public void TryUpdateMouseOverrideForDeposit(Item item) {
-            if (item.IsAir)
-                return;
-
-            if (CanVacuumItem(item))
-                Main.cursorOverride = CursorOverrideID.InventoryToChest;
-        }
 		public bool CanSwapArmor(Item newItem, Item currentItem) {
             if (newItem.NullOrAir())
                 return true;
@@ -819,8 +795,6 @@ namespace WeaponEnchantments
 			cursedEssenceCount = 0;
             if (enchantingTableItem == null)
                 enchantingTableItem = new();
-
-            localWEPlayer = null;
 		}
 		public override void PostUpdateMiscEffects() {
 			ApplyPostMiscEnchants();

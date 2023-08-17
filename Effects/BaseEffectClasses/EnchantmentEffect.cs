@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Effects {
     public abstract class EnchantmentEffect {

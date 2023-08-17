@@ -26,6 +26,7 @@ using static WeaponEnchantments.Common.Globals.EnchantedItemStaticMethods;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.RegularExpressions;
 using System.Reflection.Emit;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility
 {

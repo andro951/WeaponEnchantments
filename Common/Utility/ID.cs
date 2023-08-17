@@ -5,9 +5,11 @@ using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using WeaponEnchantments.Content.NPCs;
 using static Terraria.Localization.GameCulture;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Common.Utility
 {
+	/*
     public enum DamageClassID {
 		Default,
 		Generic,
@@ -22,6 +24,7 @@ namespace WeaponEnchantments.Common.Utility
 		Rogue,
 		Ki
 	} //Located in DamageClassLoader.cs
+	*/
     public enum EItemType
     {
         None,
@@ -409,7 +412,8 @@ namespace WeaponEnchantments.Common.Utility
         SkeletonMerchant = 453,
         OldMan = 37
     }
-    public enum L_ID1 {
+    /*
+	public enum L_ID1 {
 		Items,
 		Tooltip,
 		Buffs,
@@ -449,6 +453,7 @@ namespace WeaponEnchantments.Common.Utility
         Buff,
 		BuffDescription
 	}
+	*/
 	public enum EnchantmentGeneralTooltipsID
 	{
 		LevelCost,

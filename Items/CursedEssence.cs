@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments.Items
 {

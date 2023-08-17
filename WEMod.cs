@@ -28,6 +28,7 @@ using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Terraria.GameInput;
 using Microsoft.Xna.Framework.Input;
+using androLib.UI;
 
 
 namespace WeaponEnchantments
@@ -77,6 +78,8 @@ namespace WeaponEnchantments
 			IL_Projectile.FishingCheck += WEPlayer.HookFishingCheck;
 			IL_Projectile.AI_099_1 += WEPlayer.HookAI_099_1;
 			IL_Projectile.AI_099_2 += WEPlayer.HookAI_099_2;
+
+			UIManager.RegisterWithMaster();
 		}
 
 		public override void Unload() {

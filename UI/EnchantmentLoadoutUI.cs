@@ -28,12 +28,16 @@ using Terraria.GameContent.UI.States;
 using Terraria.Localization;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WeaponEnchantments.Items.Enchantments;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using androLib.UI;
 
 namespace WeaponEnchantments.UI
 {
 	public static class EnchantmentLoadoutUI
 	{
-		public static int ID => UI_ID.EnchantmentLoadoutUI;
+		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.EnchantmentLoadout_UITypeID);
+		public static int ID => GetUI_ID(WE_UI_ID.EnchantmentLoadoutUI);
 		public static int EnchantmentLoadoutUIDefaultLeft => 745;
 		public static int EnchantmentLoadoutUIDefaultTop => 290;
 		public static Color PanelColor => new Color(26, 2, 56, UIManager.UIAlpha);
@@ -80,7 +84,7 @@ namespace WeaponEnchantments.UI
 				#region Pre UI
 
 				//Prevent Trash can and other mouse overides when using enchanting table
-				if (ItemSlot.ShiftInUse && UIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
+				if (ItemSlot.ShiftInUse && MasterUIManager.NoUIBeingHovered && (Main.mouseItem.IsAir && !Main.HoverItem.IsAir || Main.cursorOverride == CursorOverrideID.TrashCan)) {
 					//if (!wePlayer.CheckShiftClickValid(ref Main.HoverItem) || Main.cursorOverride == CursorOverrideID.TrashCan)
 					//	Main.cursorOverride = -1;
 
@@ -100,7 +104,7 @@ namespace WeaponEnchantments.UI
 
 				#region Data
 
-				Color mouseColor = UIManager.MouseColor;
+				Color mouseColor = MasterUIManager.MouseColor;
 
 				//ItemSlots Data 1/2
 				List<Item[]> inventory = GetFixLoadout(wePlayer);
@@ -108,17 +112,17 @@ namespace WeaponEnchantments.UI
 				int itemSlotColumns = EnchantingTableUI.MaxEnchantmentSlots;
 				int itemSlotRowsDisplayed = 11;//TODO: Calculate 9-11 based on vanilla slot unlocks
 				int itemSlotTotalRows = inventory.Count;
-				int itemSlotSpaceWidth = UIManager.ItemSlotSize + Spacing;
-				int itemSlotSpaceHeight = UIManager.ItemSlotSize + Spacing;
-				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + UIManager.ItemSlotSize;
-				int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + UIManager.ItemSlotSize;
+				int itemSlotSpaceWidth = MasterUIManager.ItemSlotSize + Spacing;
+				int itemSlotSpaceHeight = MasterUIManager.ItemSlotSize + Spacing;
+				int itemSlotsWidth = (itemSlotColumns - 1) * itemSlotSpaceWidth + MasterUIManager.ItemSlotSize;
+				int itemSlotsHeight = (itemSlotRowsDisplayed - 1) * itemSlotSpaceHeight + MasterUIManager.ItemSlotSize;
 				int itemSlotsLeft = wePlayer.EnchantmentLoadoutUILeft + PanelBorder;
 
 				//Name Data
 				int nameLeft = itemSlotsLeft;//itemSlotsLeft + (itemSlotsWidth - nameWidth) / 2;
 				int nameTop = wePlayer.EnchantmentLoadoutUITop + PanelBorder;
 				string name = EnchantmentStorageTextID.EnchantmentLoadouts.ToString().Lang(L_ID1.EnchantmentStorageText);
-				UITextData nameData = new(UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
+				UITextData nameData = new(WE_UI_ID.None, nameLeft, nameTop, name, 1f, mouseColor);
 
 				//Panel Data 1/2
 				int panelBorderTop = nameData.Height + Spacing + 2;
@@ -141,7 +145,7 @@ namespace WeaponEnchantments.UI
 				int currentButtonTop = nameTop;
 				string addButton = EnchantmentStorageTextID.Add.ToString().Lang(L_ID1.EnchantmentStorageText);
 				TextData addButtonTextData = new(addButton);
-				UIButtonData addButtonData = new(UI_ID.EnchantmentLoadoutAddTextButton, buttonsLeft, currentButtonTop, addButtonTextData, mouseColor, ButtonBorderX, ButtonBorderY, EnchantingTableUI.BackGroundColor, EnchantingTableUI.HoverColor);
+				UIButtonData addButtonData = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutAddTextButton), buttonsLeft, currentButtonTop, addButtonTextData, mouseColor, ButtonBorderX, ButtonBorderY, EnchantingTableUI.BackGroundColor, EnchantingTableUI.HoverColor);
 				currentButtonTop += addButtonData.Height + Spacing;
 
 				//Text buttons Data
@@ -154,7 +158,7 @@ namespace WeaponEnchantments.UI
 						string text = buttonNames[buttonIndex] ?? wePlayer.enchantmentLoadouts.ElementAt(buttonRow).Key;
 						float scale = ButtonScale[buttonRow][buttonIndex];
 						Color color = buttonIndex == 0 && text == wePlayer.displayedLoadout ? EnchantmentStorage.SelectedTextGray : mouseColor;
-						UITextData thisButton = new(UI_ID.EnchantmentLoadoutUITextButton, currentButtonLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
+						UITextData thisButton = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutUITextButton), currentButtonLeft, currentButtonTop, text, scale, color, ancorBotomLeft: true);
 						textButtons[buttonRow, buttonIndex] = thisButton;
 						int xOffset = buttonIndex < buttonNames.Length - 1 ? thisButton.BaseWidth + Spacing : thisButton.Width;
 						buttonsWidth += xOffset;
@@ -184,7 +188,7 @@ namespace WeaponEnchantments.UI
 					Item[] enchantmentSlots = inventory[rowNum];
 					int itemSlotX = itemSlotsLeft;
 					for (int enchantmentSlotIndex = 0; enchantmentSlotIndex < EnchantingTableUI.MaxEnchantmentSlots; enchantmentSlotIndex++) {
-						UIItemSlotData enchantmentSlot = new(UI_ID.EnchantmentLoadoutUIItemSlot, itemSlotX, itemSlotY);
+						UIItemSlotData enchantmentSlot = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutUIItemSlot), itemSlotX, itemSlotY);
 						ref Item item = ref enchantmentSlots[enchantmentSlotIndex];
 						bool isUtilitySlot = enchantmentSlotIndex == EnchantingTableUI.MaxEnchantmentSlots - 1;
 						bool isArmor = rowNum >= 1 && rowNum <= 3;
@@ -200,18 +204,18 @@ namespace WeaponEnchantments.UI
 						if (enchantmentSlot.MouseHovering()) {
 							if (ItemSlot.ShiftInUse && !item.IsAir) {
 								Main.cursorOverride = CursorOverrideID.TrashCan;
-								if (UIManager.LeftMouseClicked) {
+								if (MasterUIManager.LeftMouseClicked) {
 									item = new();
 									SoundEngine.PlaySound(SoundID.MenuTick);
 								}
 							}
-							else if (UIManager.RightMouseClicked && !item.IsAir) {
+							else if (MasterUIManager.RightMouseClicked && !item.IsAir) {
 								item = new();
 								SoundEngine.PlaySound(SoundID.MenuTick);
 							}
 							else if (Main.mouseItem.IsAir && !item.IsAir) {
 								Main.cursorOverride = CursorOverrideID.TrashCan;
-								if (UIManager.LeftMouseClicked) {
+								if (MasterUIManager.LeftMouseClicked) {
 									item = new();
 									SoundEngine.PlaySound(SoundID.MenuTick);
 								}
@@ -221,7 +225,7 @@ namespace WeaponEnchantments.UI
 									bool canAcceptEnchantment = Main.mouseItem.ModItem is Enchantment enchantment && EnchantingTableUI.CheckUniqueSlot(enchantment, EnchantingTableUI.FindSwapEnchantmentSlot(enchantment, enchantmentSlots), enchantmentSlotIndex) && Main.mouseItem.type != item.type;
 									if (canAcceptEnchantment) {
 										Main.cursorOverride = CursorOverrideID.CameraDark;
-										if (UIManager.LeftMouseClicked) {
+										if (MasterUIManager.LeftMouseClicked) {
 											item = Main.mouseItem.Clone();
 											item.stack = 1;
 											SoundEngine.PlaySound(SoundID.MenuTick);
@@ -249,14 +253,14 @@ namespace WeaponEnchantments.UI
 					for (int buttonIndex = 0; buttonIndex < buttonNames.Length; buttonIndex++) {
 						UITextData textButton = textButtons[buttonRow, buttonIndex];
 						textButton.Draw(spriteBatch);
-						if (UIManager.MouseHovering(textButton, true)) {
+						if (MasterUIManager.MouseHovering(textButton, true)) {
 							float temp = buttonScale[buttonRow][buttonIndex];
 							buttonScale[buttonRow][buttonIndex] += 0.05f;
 
 							if (buttonScale[buttonRow][buttonIndex] > buttonScaleMaximum)
 								buttonScale[buttonRow][buttonIndex] = buttonScaleMaximum;
 
-							if (UIManager.LeftMouseClicked) {
+							if (MasterUIManager.LeftMouseClicked) {
 								if (buttonIndex == 0) {
 									wePlayer.displayedLoadout = textButton.Text;
 								}
@@ -279,7 +283,7 @@ namespace WeaponEnchantments.UI
 
 				//Add button Data
 				if (addButtonData.MouseHovering()) {
-					if (UIManager.LeftMouseClicked)
+					if (MasterUIManager.LeftMouseClicked)
 						AddNewBlankLoadout(wePlayer);
 				}
 
@@ -287,7 +291,7 @@ namespace WeaponEnchantments.UI
 				if (useingScrollBar) {
 					//Scroll Bar Data 2/2
 					int scrollBarTop = wePlayer.EnchantmentLoadoutUITop + PanelBorder;
-					UIPanelData scrollBarData = new(UI_ID.EnchantmentLoadoutUIScrollBar, scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
+					UIPanelData scrollBarData = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutUIScrollBar), scrollBarLeft, scrollBarTop, scrollBarWidth, panelHeight - PanelBorder * 2, new Color(10, 1, 30, UIManager.UIAlpha));
 
 					//Scroll Panel Data 1/2
 					int scrollPanelXOffset = 1;
@@ -299,8 +303,8 @@ namespace WeaponEnchantments.UI
 					scrollBarData.Draw(spriteBatch);
 
 					//Scroll Panel Data 2/2
-					bool draggingScrollPanel = UIManager.PanelBeingDragged == UI_ID.EnchantmentLoadoutUIScrollPanel;
-					if (UIManager.PanelBeingDragged == UI_ID.EnchantmentLoadoutUIScrollPanel) {
+					bool draggingScrollPanel = MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.EnchantmentLoadoutUIScrollPanel);
+					if (MasterUIManager.PanelBeingDragged == GetUI_ID(WE_UI_ID.EnchantmentLoadoutUIScrollPanel)) {
 						scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 					}
 					else {
@@ -311,21 +315,21 @@ namespace WeaponEnchantments.UI
 
 					//Scroll Bar Hover
 					if (scrollBarData.MouseHovering()) {
-						if (UIManager.LeftMouseClicked) {
-							UIManager.UIBeingHovered = UI_ID.None;
+						if (MasterUIManager.LeftMouseClicked) {
+							MasterUIManager.UIBeingHovered = UI_ID.None;
 							scrollPanelY = Main.mouseY - scrollPanelSize / 2;
 							scrollPanelY.Clamp(scrollPanelMinY, scrollPanelMaxY);
 						}
 					}
 
 					//Scroll Panel Hover and Drag
-					UIPanelData scrollPanelData = new(UI_ID.EnchantmentLoadoutUIScrollPanel, scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
+					UIPanelData scrollPanelData = new(GetUI_ID(WE_UI_ID.EnchantmentLoadoutUIScrollPanel), scrollBarLeft + scrollPanelXOffset, scrollPanelY, scrollPanelSize, scrollPanelSize, mouseColor);
 					if (scrollPanelData.MouseHovering()) {
 						scrollPanelData.TryStartDraggingUI();
 					}
 
 					if (scrollPanelData.ShouldDragUI()) {
-						UIManager.DragUI(out _, out scrollPanelY);
+						MasterUIManager.DragUI(out _, out scrollPanelY);
 					}
 					else if (draggingScrollPanel) {
 						int scrollPanelRange = scrollPanelMaxY - scrollPanelMinY;
@@ -341,11 +345,11 @@ namespace WeaponEnchantments.UI
 				}
 
 				if (panel.ShouldDragUI())
-					UIManager.DragUI(out wePlayer.EnchantmentLoadoutUILeft, out wePlayer.EnchantmentLoadoutUITop);
+					MasterUIManager.DragUI(out wePlayer.EnchantmentLoadoutUILeft, out wePlayer.EnchantmentLoadoutUITop);
 
 				if (useingScrollBar) {
-					int scrollWheelTicks = UIManager.ScrollWheelTicks;
-					if (scrollWheelTicks != 0 && UIManager.HoveringEnchantmentLoadoutUI && UIManager.NoPanelBeingDragged) {
+					int scrollWheelTicks = MasterUIManager.ScrollWheelTicks;
+					if (scrollWheelTicks != 0 && UIManager.HoveringEnchantmentLoadoutUI && MasterUIManager.NoPanelBeingDragged) {
 						if (scrollPanelPosition > 0 && scrollWheelTicks < 0 || scrollPanelPosition < possiblePanelPositions && scrollWheelTicks > 0) {
 							SoundEngine.PlaySound(SoundID.MenuTick);
 							scrollPanelPosition += scrollWheelTicks;

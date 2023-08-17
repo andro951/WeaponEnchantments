@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Effects;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items.Enchantments.Unique
 {

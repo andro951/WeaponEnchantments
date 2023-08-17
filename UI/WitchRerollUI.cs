@@ -17,11 +17,15 @@ using WeaponEnchantments.Common.Globals;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Content.NPCs;
 using WeaponEnchantments.Items;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
+using androLib.UI;
 
 namespace WeaponEnchantments.UI
 {
 	public class WitchRerollUI
 	{
+		private static int GetUI_ID(int id) => MasterUIManager.GetUI_ID(id, WE_UI_ID.Witch_UITypeID);
 		public static void PostDrawInterface(SpriteBatch spriteBatch) {
 			//Witch Re-roll ItemSlot
 			if (Witch.rerollUI) {
@@ -144,13 +148,13 @@ namespace WeaponEnchantments.UI
 					}
 
 					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, text, new Vector2(num56 + 50, num57), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One);
-					if (UIManager.MouseHoveringItemSlot(num56, num57, UI_ID.WitchReroll)) {
+					if (MasterUIManager.MouseHoveringItemSlot(num56, num57, GetUI_ID(WE_UI_ID.WitchReroll))) {
 						if (Main.mouseItem.NullOrAir() || Main.mouseItem?.ModItem is IRerollableEnchantment rerollableEnchantment) {
-							UIManager.ItemSlotClickInteractions(ref Witch.rerollItem);
+							MasterUIManager.ItemSlotClickInteractions(ref Witch.rerollItem);
 						}
 					}
 
-					UIManager.DrawItemSlot(spriteBatch, Witch.rerollItem, num56, num57);
+					MasterUIManager.DrawItemSlot(spriteBatch, Witch.rerollItem, num56, num57);
 				}
 			}
 		}

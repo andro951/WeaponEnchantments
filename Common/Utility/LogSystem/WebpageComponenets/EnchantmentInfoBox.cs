@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WeaponEnchantments.Effects;
 using WeaponEnchantments.Items;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Common.Utility.LogSystem.WebpageComponenets
 {

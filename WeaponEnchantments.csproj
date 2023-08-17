@@ -28,6 +28,9 @@
     <Reference Include="MagicStorage">
       <HintPath>..\Mods\lib\MagicStorage.dll</HintPath>
     </Reference>
+	  <Reference Include="androLib">
+		  <HintPath>..\androLib\bin\Debug\net6.0\androLib.dll</HintPath>
+	  </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\CustomBoolEffects\" />

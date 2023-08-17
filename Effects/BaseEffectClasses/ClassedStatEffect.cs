@@ -2,6 +2,8 @@ using Terraria.ModLoader;
 using WeaponEnchantments.Common;
 using WeaponEnchantments.Common.Utility;
 using static WeaponEnchantments.WEPlayer;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Effects {
     public abstract class ClassedStatEffect : StatEffect {

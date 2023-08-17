@@ -29,11 +29,14 @@ using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.Tiles;
 using WeaponEnchantments.UI;
 using static WeaponEnchantments.Common.Configs.ConfigValues;
+using androLib.Common.Utility;
 
 namespace WeaponEnchantments
 {
-    public class WEModSystem : ModSystem
-    {
+	using androLib.Common.Globals;
+	using androLib.UI;
+
+	public class WEModSystem : ModSystem {
         public static bool FavoriteKeyDown => Main.keyState.IsKeyDown(Main.FavoriteKey);
         public static bool ShiftDown => ItemSlot.ShiftInUse;
         internal static UserInterface weModSystemUI;
@@ -87,10 +90,10 @@ namespace WeaponEnchantments
             }
         }
 		public override void PostUpdateEverything() {
-            UIManager.PostUpdateEverything();
+			MasterUIManager.PostUpdateEverything();
 		}
 		public override void PostDrawInterface(SpriteBatch spriteBatch) {
-            UIManager.PostDrawInterface(spriteBatch);
+            //UIManager.PostDrawInterface(spriteBatch);
 			WEPlayer wePlayer = WEPlayer.LocalWEPlayer;
 			if (Debugger.IsAttached && !wePlayer.Player.HeldItem.NullOrAir()) {//temp
                 Item item = wePlayer.Player.HeldItem;
@@ -270,8 +273,6 @@ namespace WeaponEnchantments
             promptInterface.SetState(null);
             if (wePlayer.usingEnchantingTable)
                 EnchantingTableUI.CloseEnchantingTableUI();
-
-            WEPlayer.LocalWEPlayer = null;
         }
         public override void UpdateUI(GameTime gameTime) {
             _lastUpdateUiGameTime = gameTime;

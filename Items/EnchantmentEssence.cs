@@ -12,6 +12,8 @@ using WeaponEnchantments.Common.Configs;
 using WeaponEnchantments.Common.Utility;
 using WeaponEnchantments.Localization;
 using static WeaponEnchantments.Common.EnchantingRarity;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Items
 {

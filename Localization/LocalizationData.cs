@@ -18,6 +18,8 @@ using WeaponEnchantments.Items.Utility;
 using WeaponEnchantments.ModIntegration;
 using WeaponEnchantments.UI;
 using static Terraria.Localization.GameCulture;
+using androLib.Common.Utility;
+using androLib.Common.Globals;
 
 namespace WeaponEnchantments.Localization
 {
