@@ -46,14 +46,12 @@ namespace WeaponEnchantments.Common.Globals
         public static Item calamityAndAutoReforgePostReforgeItem = null;
         public static bool calamityReforged = false;
         public static bool cloneReforgedItem = false;
-        public static bool resetLastValueBonus = false;
 
         #endregion
 
         #region Tracking (static)
 
         public static bool resetGlobals = false;
-        public static bool skipUpdateValue = false;
 
         #endregion
 
@@ -70,12 +68,7 @@ namespace WeaponEnchantments.Common.Globals
         public int InfusionValueAdded {
             get { return _infusionValueAdded; }
             set {
-                int lastValue = _infusionValueAdded;
                 _infusionValueAdded = value;
-
-                //If value changed, upted Item Value
-                if (lastValue != _infusionValueAdded)
-                    UpdateItemValue();
             }
         }
 
@@ -92,7 +85,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 //If changed, update Level/Value
                 if (lastValue != _experience)
-                    UpdateLevelAndValue();
+                    UpdateLevel();
             }
         }
         public int levelBeforeBooster = 0;
@@ -105,7 +98,7 @@ namespace WeaponEnchantments.Common.Globals
 
                 //If changed, update Level/Value
                 if (lastValue != _powerBoosterInstalled)
-                    UpdateLevelAndValue();
+                    UpdateLevel();
             }
         }
 
@@ -118,11 +111,10 @@ namespace WeaponEnchantments.Common.Globals
 
                 //If changed, update Level/Value
                 if (lastValue != _ultraPowerBoosterInstalled)
-                    UpdateLevelAndValue();
+                    UpdateLevel();
             }
         }
         public int level = 0;
-        public int lastValueBonus = 0;
 
         #endregion
 
@@ -153,12 +145,6 @@ namespace WeaponEnchantments.Common.Globals
                 return _stack;
             }
             set {
-                int lastValue = _stack;
-
-                //If changed, update Value
-                if (lastValue != value && (lastValue > 1 || value > 1))
-                    UpdateItemValue();
-
                 _stack = value;
             }
         }
@@ -215,9 +201,6 @@ namespace WeaponEnchantments.Common.Globals
                 clone.PowerBoosterInstalled = PowerBoosterInstalled;
                 clone.UltraPowerBoosterInstalled = UltraPowerBoosterInstalled;
                 clone.level = level;
-                if (resetGlobals) {
-                    clone.lastValueBonus = lastValueBonus;
-                }
 
                 #endregion
 
@@ -469,34 +452,7 @@ namespace WeaponEnchantments.Common.Globals
                 }
             }
         }
-        public void UpdateItemValue() {
-            //Fix for stack sizes not being updated until after CanStack
-            if (skipUpdateValue)
-                return;
-
-            int enchantmentsValue = 0;
-            for (int i = 0; i < EnchantingTableUI.MaxEnchantmentSlots; i++) {
-                enchantmentsValue += enchantments[i].value;
-            }
-
-            int powerBoosterValue = PowerBoosterInstalled ? ContentSamples.ItemsByType[ModContent.ItemType<PowerBooster>()].value : 0;
-            int ultraPowerBoosterValue = UltraPowerBoosterInstalled ? ContentSamples.ItemsByType[ModContent.ItemType<UltraPowerBooster>()].value : 0;
-            int valueToAdd = enchantmentsValue + (int)(EnchantmentEssence.valuePerXP * Experience) + powerBoosterValue + ultraPowerBoosterValue + InfusionValueAdded;
-            valueToAdd /= Item.stack;
-
-            if (this is EnchantedWeapon enchantedWeapon && enchantedWeapon.Stack0)
-                valueToAdd -= ContentSamples.ItemsByType[Item.type].value;
-
-            //Item.value can be reset by reforging
-            if (resetLastValueBonus) {
-                lastValueBonus = 0;
-                resetLastValueBonus = false;
-            }
-
-            Item.value += valueToAdd - lastValueBonus / Stack;
-            lastValueBonus = valueToAdd * Item.stack;
-        }
-        public void UpdateLevelAndValue() {
+        public void UpdateLevel() {
             int l;
             for (l = 0; l < MAX_Level; l++) {
                 if (_experience < WEModSystem.levelXps[l]) {
@@ -519,8 +475,6 @@ namespace WeaponEnchantments.Common.Globals
 
             if (UltraPowerBoosterInstalled)
                 level += 20;
-
-            UpdateItemValue();
         }
         public int GetLevelsAvailable() {
             int totalEnchantmentLevelCost = 0;
@@ -751,10 +705,7 @@ namespace WeaponEnchantments.Common.Globals
             if (!Modified)
                 return;
 
-            Item = item;
-
-            //Vanilla
-            resetLastValueBonus = true;
+			Item = item;
 
             //Calamity
             if (WEMod.calamityEnabled)
@@ -786,9 +737,8 @@ namespace WeaponEnchantments.Common.Globals
                 }
 
                 //Vanilla
-                enchantedItem.UpdateItemValue();
                 enchantedItem.prefix = -1;
-            }
+			}
 
             //Calamity
             reforgeItem = null;
@@ -801,14 +751,6 @@ namespace WeaponEnchantments.Common.Globals
 
             //Calamity and AutoReforge
             calamityAndAutoReforgePostReforgeItem = null;
-        }
-		public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount) {
-            UpdateItemValue();
-			float priceMultiplier = ((float)item.value - (float)lastValueBonus) / (float)item.value;
-            float reforgePriceFloat = reforgePrice * priceMultiplier;
-            reforgePrice = (int)reforgePriceFloat;
-
-            return true;
         }
 		public override void OnCreated(Item item, ItemCreationContext context) {
 			if(context is RecipeItemCreationContext recipeCreationContext)
@@ -838,10 +780,7 @@ namespace WeaponEnchantments.Common.Globals
             //Only combine if the destination item already exists to prevent duplicating enchantments and xp.
             if (destination.stack > 0) {
 				List<Item> list = new List<Item>() { source };
-				//list.Add(source);
-				skipUpdateValue = true;
 				destination.CombineEnchantedItems(list);
-				skipUpdateValue = false;
 			}
 
 			//Clear source if source stack will be > 0 after the transfer
@@ -1215,9 +1154,6 @@ namespace WeaponEnchantments.Common.Globals
 
 				enchantment.ItemTypeAppliedOn = remove ? EItemType.None : enchantedItem.ItemType;
 			}
-
-            //Update item Value
-            enchantedItem.UpdateItemValue();
 
             if (enchantedItem is EnchantedHeldItem)
                 Main.LocalPlayer.GetWEPlayer().Equipment.UpdateHeldItemEnchantmentEffects(item);

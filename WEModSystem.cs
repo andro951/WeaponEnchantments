@@ -166,7 +166,6 @@ namespace WeaponEnchantments
             if (stolenItemToBeCleared != -1 && Main.netMode != NetmodeID.MultiplayerClient) {
                 Item itemToClear = Main.item[stolenItemToBeCleared];
                 if (itemToClear != null && itemToClear.TryGetEnchantedItemSearchAll(out EnchantedItem iGlobal)) {
-                    iGlobal.lastValueBonus = 0;
                     iGlobal.prefix = -1;
                 }
 

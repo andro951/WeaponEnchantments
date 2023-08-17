@@ -460,14 +460,23 @@ namespace WeaponEnchantments.Common
             return false;
         }
         public static bool TryInfuseItem(this Item item, string infusedItemName, bool reset = false, bool finalize = false) {
-            for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
-                Item foundItem = new Item(itemType);
-                if(foundItem.Name == infusedItemName)
-                    return TryInfuseItem(item, foundItem, reset, finalize);
-            }
+            if (TryFindItem(infusedItemName, out Item foundItem))
+                return TryInfuseItem(item, foundItem, reset, finalize);
 
             return TryInfuseItem(item, new Item(), reset, finalize);
         }
+        public static bool TryFindItem(this string itemName, out Item item) {
+			for (int itemType = 1; itemType < ItemLoader.ItemCount; itemType++) {
+				Item foundItem = new Item(itemType);
+				if (foundItem.Name == itemName) {
+                    item = foundItem;
+					return true;
+				}
+			}
+
+            item = null;
+            return false;
+		}
         public static void GetGlotalItemStats(this Item item, Item infusedItem, out int infusedPower, out float damageMultiplier, out int infusedArmorSlot) {
 			if (EnchantedItemStaticMethods.IsWeaponItem(item)) {
                 damageMultiplier = GetWeaponMultiplier(item, infusedItem, out infusedPower);

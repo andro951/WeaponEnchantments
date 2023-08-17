@@ -91,12 +91,7 @@ namespace WeaponEnchantments.Common.Globals
                 return _stack0;
             }
             set {
-                bool lastValue = _stack0;
                 _stack0 = value;
-
-                //If changed, update Value
-                if (lastValue != _stack0)
-                    UpdateItemValue();
             }
         }
 

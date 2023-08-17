@@ -803,9 +803,15 @@ namespace WeaponEnchantments
 			ApplyPostMiscEnchants();
 		}
         public void OnSwapEquipmentLoadout(int loadoutIndex) {
-            //Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
+			//Main.NewText($"new Loadout Number: {loadoutIndex}, old: {Player.CurrentLoadoutIndex}");
 
-        }
+		}
+		public override void PostSellItem(NPC vendor, Item[] shopInventory, Item item) {
+			if (!item.TryGetEnchantedItemSearchAll(out EnchantedItem enchantedItem))
+				return;
+
+			EnchantingTableUI.ReturnAllModifications(ref item);
+		}
 
 		#endregion
 
@@ -1955,8 +1961,8 @@ namespace WeaponEnchantments
                 attempt.CanFishInLava = true;
         }
 
-        #endregion
-    }
+		#endregion
+	}
 	public static class PlayerFunctions {
         public static void ApplyBuffs(this Player player, SortedDictionary<short, BuffStats> buffs, bool addToExisting = false) {
             foreach (KeyValuePair<short, BuffStats> buff in buffs) {
