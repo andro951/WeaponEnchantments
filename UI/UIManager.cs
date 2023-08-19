@@ -41,8 +41,6 @@ namespace WeaponEnchantments.UI
 		public static bool HoveringEnchantingTable => MasterUIManager.HoveringMyUIType(WE_UI_ID.EnchantingTable_UITypeID);
 
 		public static void RegisterWithMaster() {
-			MasterUIManager.UpdateUIAlpha += OnUpdateUIAlpha;
-
 			WE_UI_ID.Witch_UITypeID = MasterUIManager.RegisterUI_ID();
 			//WE_UI_ID.OfferUI_ID = MasterUIManager.RegisterUI_ID(true);//Is this one needed?
 			WE_UI_ID.EnchantingTable_UITypeID = MasterUIManager.RegisterUI_ID();

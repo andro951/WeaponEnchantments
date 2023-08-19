@@ -64,7 +64,7 @@ namespace WeaponEnchantments
         public Point enchantingTableLocation = new Point(-1, -1);
 		public int cursedEssenceCount;
         public DuplicateDictionary<int, Item> CalamityRespawnMinionSourceItems = new();
-        public Item[] enchantmentStorageItems;
+        public Item[] enchantmentStorageItems = new Item[] { new() };
         public const int EnchantmentStorageSize = 300;
         public int enchantmentStorageUILeft;
 		public int enchantmentStorageUITop;
@@ -80,12 +80,12 @@ namespace WeaponEnchantments
 		public bool openStorageWhenOpeningTable = false;
         public SortedSet<string> allOfferedItems = new();
         public bool transferedToAndroLib = false;
-        public Item[] oreBagItems;//OreBag-Delete
-        public int oreBagUILeft;//OreBag-Delete
-		public int oreBagUITop;//OreBag-Delete
-		public const int OreBagSize = 100;//OreBag-Delete
-		public bool vacuumItemsIntoOreBag = true;//OreBag-Delete
-		public bool displayOreBagUI = false;//OreBag-Delete
+        public Item[] oreBagItems = new Item[] { new() };
+        public int oreBagUILeft;
+		public int oreBagUITop;
+		public const int OreBagSize = 100;
+		public bool vacuumItemsIntoOreBag = true;
+		public bool displayOreBagUI = false;
 		public Dictionary<string, List<Item[]>> enchantmentLoadouts = new();
         public bool displayEnchantmentLoadoutUI = false;
         public int EnchantmentLoadoutUILeft;
